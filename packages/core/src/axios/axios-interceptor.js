@@ -9,8 +9,8 @@ Axios.defaults.proxy={
     host:'http://localhost',
     port:APP_PORT
 };
-Axios.defaults.crossDomain=true
-Axios.default.crossOrigin=true
+Axios.defaults.crossDomain=true;
+Axios.default.crossOrigin=true;
 
 Axios.interceptors.request.use(
   requestConfig => {

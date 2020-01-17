@@ -47,7 +47,7 @@ const LoginHoc = (ComposedComponent, rolesPath, logoutPath, dashboardPath, userM
                 )
         };
         componentDidMount() {
-                this.cookieHandler();
+               // this.cookieHandler();
         }
 
         render() {

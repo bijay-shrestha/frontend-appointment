@@ -6,10 +6,11 @@ import {ConnectHoc} from '@frontend-appointment/commons';
 class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         try {
-            await this.props.signinUser('/auth', user);
-            await this.props.fetchUserMenus('/admin/api/v1/sidebar',
-                {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
-            await this.props.history.push('/admin/dashboard');
+            await this.props.signinUser('/auth/login', user);
+            
+            // await this.props.fetchUserMenus('/admin/api/v1/sidebar',
+            //     {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
+            // await this.props.history.push('/admin/dashboard');
             return null;
         } catch (e) {
             console.log(e)
