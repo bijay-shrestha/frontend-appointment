@@ -1,29 +1,39 @@
-import axios from 'axios';
+import axios from 'axios'
 
-axios.defaults.baseURL = "";
+const Axios = axios;
+ 
+const SERVER_DOMAIN =  process.env.REACT_APP_SERVER_DOMAIN ||'',
+const APP_PORT= process.env.PORT || '',
+Axios.defaults.baseURL = SERVER_DOMAIN
+Axios.defaults.proxy={
+    host:'http://localhost',
+    port:APP_PORT
+};
+Axios.defaults.crossDomain=true
+Axios.default.crossOrigin=true
 
-axios.interceptors.request.use(
-    requestConfig => {
-          let token = localStorage.getItem('auth-token');
-           requestConfig.headers.Authorization = token?token.toString():'';
-        // requestConfig.headers.Origin = "url Of Other Domain";
-          console.log(requestConfig)
-        console.log("Request Interceptor", requestConfig);
-        return requestConfig;
-    }, error => {
-        // return ApiError.errorHandler(error);
-        throw error;
-    }
-);
+Axios.interceptors.request.use(
+  requestConfig => {
+    let token = localStorage.getItem('auth-token')||''
+    requestConfig.headers.Authorization = token.toString()
+    return requestConfig;
+  },
+  error => {
+    // return ApiError.errorHandler(error);
+    throw error
+  }
+)
 
 axios.interceptors.response.use(
-    response => {
-        // TO STORE THE JWT TOKEN FROM RESPONSE
-        // let jwtToken = response.headers.Authorization;
-        console.log("Response Interceptor", response);
-        return response;
-    }, error => {
-        // return ApiError.errorHandler(error);
-        throw error;
-    }
-);
+  response => {
+    // TO STORE THE JWT TOKEN FROM RESPONSE
+    let jwtToken = response.headers.Authorization;
+    localStorage.setItem('auth-token',jwtToken);
+    return response;
+  },
+  error => {
+    // return ApiError.errorHandler(error);
+    throw error
+  }
+)
+export const Axios;

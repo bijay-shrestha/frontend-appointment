@@ -4,9 +4,7 @@ export default {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-            },
-            crossOrigin: true,
-            withCredentials: true
+            }
         }
     },
     FILE_HEADER: () => {
@@ -15,9 +13,7 @@ export default {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            },
-            crossOrigin: true,
-            withCredentials: true,
+            }
         };
     },
     DELETE_API_HEADER: () => {
@@ -31,9 +27,7 @@ export default {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'multipart/form-data',
-            },
-            crossOrigin: true,
-            withCredentials: true,
+            }
         }
     }
 }
