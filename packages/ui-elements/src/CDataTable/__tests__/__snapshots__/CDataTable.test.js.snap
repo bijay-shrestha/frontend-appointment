@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CDataTable Component Test Snapshot Testing should match snapshot 1`] = `
+<Fragment>
+  <div
+    id="agGridTableWrapper"
+    style={
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
+    }
+  >
+    <AgGridReact
+      columnDefs={
+        Array [
+          Object {
+            "field": "make",
+            "headerName": "Make",
+          },
+          Object {
+            "field": "model",
+            "headerName": "Model",
+          },
+          Object {
+            "field": "price",
+            "headerName": "Price",
+          },
+        ]
+      }
+      id="agGridTable"
+      onCellValueChanged={[Function]}
+      onGridReady={[Function]}
+      onSelectionChanged={[Function]}
+      rowData={
+        Array [
+          Object {
+            "make": "Toyota",
+            "model": "Celica",
+            "price": 35000,
+          },
+          Object {
+            "make": "Ford",
+            "model": "Mondeo",
+            "price": 32000,
+          },
+          Object {
+            "make": "Porsche",
+            "model": "Boxter",
+            "price": 72000,
+          },
+        ]
+      }
+      rowSelection="single"
+    />
+  </div>
+</Fragment>
+`;

@@ -1,0 +1,133 @@
+#wrapper {
+  display: flex;
+  padding: 1rem;
+ height : auto;
+ min-height:100vh;
+ flex-shrink: 0;
+ background-color: $cogent-bg;
+
+
+  #sidebar-wrapper {
+    // width           :16rem;
+    // background-color:$primary;
+    height             : calc(100vh - 2rem);
+    display            : block;
+    position           : fixed;
+    @include border-radius($cogent-radius);
+    // margin:1rem;
+  }
+
+  #content-wrapper {
+    width           : 100%;
+    //background-color: $cogent-bg;
+    min-height      : calc(100vh - 2rem);
+
+
+
+    #topbar-wrapper {
+      height             : 4.2rem;
+      display            : flex;
+      flex-direction     : row;
+      align-items        : center;
+      // border-bottom   :1px solid $gray-200;
+      // background-color:$white;
+      margin             : 0rem -15px;
+      @include border-radius($cogent-radius);
+    }
+
+    #breadcrumb {
+      display         : flex;
+      flex-direction  : row;
+      align-items     : center;
+      background-color: transparent;
+      margin-bottom   : 0px;
+      
+
+      // box-shadow   : 0 10px 10px 0 rgba(82,63,105,.08);
+      // margin-bottom:5px;
+      // border-bottom:1px solid $gray-200;
+
+
+
+    }
+
+    #main-content {
+      flex               : 1 0 auto;
+      // background-color:purple;
+      // padding         :10px 20px;
+      // background-color:rgba(82,63,105,.08);
+      // background-color:$white;
+    //   @include border-radius($cogent-radius);
+    //   border-radius: 1rem;
+    // background-color: white;
+    // margin-bottom: 1rem;
+
+
+
+     
+
+      
+
+
+    }
+
+    .page-tabs {
+      margin-bottom: 1rem;
+      // margin-top:-15px;
+
+      // &.nav{
+      //   background-color:transparent;
+      // }
+
+      &.nav {
+        //padding-left:20px;
+        padding-top:0px;
+        
+        // margin             : 0rem -15px;
+        @include border-radius($cogent-radius);
+        background-color:transparent;
+        
+      }
+
+      .nav-item{
+        font-size:0.9rem;
+        line-height: 1.2rem;
+        
+      }
+
+      .nav-link{
+        color:$gray-600;
+        border-bottom:2px solid $gray-500;
+
+        &:hover{
+          color:$gray-900;
+          border-bottom:2px solid $gray-900;
+        }
+
+        &.active{
+          color:$cogent;
+          border-bottom:2px solid $cogent;
+        }
+      }
+      
+      .nav-item,.nav-link{
+        margin-right:4px;
+
+        // &:first-child{
+        //   margin-left:0;
+        // }
+      }
+
+
+    }
+
+    #footer-wrapper {
+      padding         : 1rem 0;
+      flex-shrink     : 0;
+      background-color: $white;
+      @include border-radius($cogent-radius);
+      // margin:0 1rem 1rem ;
+    }
+  }
+
+}

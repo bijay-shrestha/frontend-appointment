@@ -1,0 +1,8 @@
+{
+    "name": "@frontend-appointment/loader",
+    "main": "CLoading.jsx",
+    "version": "1.0.0",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true 
+}

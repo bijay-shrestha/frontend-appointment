@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CFeedback Component Tests Snapshot Testing should match snapshot 1`] = `
+<Feedback
+  id="feedback_test"
+  type="valid"
+>
+  You're doing good!
+</Feedback>
+`;

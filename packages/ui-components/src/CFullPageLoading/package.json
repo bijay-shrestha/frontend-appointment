@@ -1,0 +1,8 @@
+{
+    "name": "@frontend-appointment/c-full-page-loading",
+    "main": "CFullPageLoading",
+    "version": "1.0.0",
+    "author": "Sudin Shakya",
+    "license": "MIT",
+    "private": true
+}

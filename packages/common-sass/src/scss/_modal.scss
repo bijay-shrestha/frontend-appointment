@@ -1,0 +1,32 @@
+.cogent-modal{
+    .modal-content{
+        border:none;
+        padding-bottom:10px;
+         .modal-header{
+             
+             background: darken($cogent, 5%);
+           // background: linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
+            // background-image: url("../images/clinic5.png");
+            justify-content: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            position        : relative;
+            padding-top     : 20px;
+            margin-bottom   : 20px;
+            text-align      : center;
+             color:$white;
+             border: none;
+             opacity: 0.9;
+     
+         }
+     }
+
+    #label_status{
+        display: block;
+    }
+     .form-check{
+         display: inline-block;
+         padding-right:10px;
+     }
+}

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CModal Tests Snapshot Testing should match snapshot 1`] = `
+<Bootstrap(Modal)
+  centered={true}
+  id="modal"
+  onHide={[Function]}
+>
+  <ModalHeader
+    closeButton={true}
+    closeLabel="Close"
+    id="modal-header"
+  >
+    <ModalTitle
+      id="title"
+    >
+      Modal Heading Test
+    </ModalTitle>
+  </ModalHeader>
+  <ModalBody
+    id="modal-body"
+  />
+  <ModalFooter
+    id="modal-footer"
+  />
+</Bootstrap(Modal)>
+`;

@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-hybrid-select",
+  "version": "0.0.0",
+  "main": "CHybridSelect.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

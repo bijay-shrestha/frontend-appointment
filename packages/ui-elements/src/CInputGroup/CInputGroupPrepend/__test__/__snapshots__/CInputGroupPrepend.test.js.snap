@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CInputGroup Prepend Snapshot testing should match the previous snapshot 1`] = `
+<Memo(CInputGroupPrepend)
+  append=""
+  classes="hello"
+  id="prependInputGroup"
+>
+  <InputGroupPrepend
+    className="hello"
+    id="prependInputGroup"
+  >
+    <div
+      className="hello input-group-prepend"
+      id="prependInputGroup"
+    />
+  </InputGroupPrepend>
+</Memo(CInputGroupPrepend)>
+`;

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CFControl Component Tests Snapshot Testing should match snapshot 1`] = `
+<FormControl
+  id="fControl_test"
+  onChange={[MockFunction]}
+/>
+`;

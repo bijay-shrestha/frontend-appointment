@@ -1,0 +1,44 @@
+
+.select-wrapper{
+  .select-label {
+    color: $body-color;
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    z-index: 2;
+    background-color: white;
+   font-size:0.65rem;
+    padding:0 5px;
+  }
+  
+  .select-label.active {
+    color:$cogent;
+  }
+
+  .css-yk16xz-control{
+    border-color:$cogent-border;
+    &:hover{
+      border:1px solid $gray-500;
+    }
+  }
+
+  .css-1pahdxg-control{
+    border-color:$gray-100;
+  }
+
+    //for disabled select
+  .css-1fhf3k1-control{
+    background-color:$gray-100 !important;
+
+      // cursor: not-allowed; 
+   
+  }
+
+  .css-1n7v3ny-option{
+    //background-color:#DEEBFF;
+    background-color: lighten($cogent,45%);
+  }
+
+  
+}
+  

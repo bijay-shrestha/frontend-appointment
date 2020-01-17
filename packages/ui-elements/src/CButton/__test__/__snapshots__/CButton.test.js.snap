@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CButton Component Snapshot Testing should match snapshot 1`] = `
+<CButton
+  id="c-button"
+>
+  <Button
+    active={false}
+    disabled={false}
+    id="c-button"
+    onClick={[Function]}
+    type="button"
+    variant="primary"
+  >
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      id="c-button"
+      onClick={[Function]}
+      type="button"
+    >
+      Save
+    </button>
+  </Button>
+</CButton>
+`;

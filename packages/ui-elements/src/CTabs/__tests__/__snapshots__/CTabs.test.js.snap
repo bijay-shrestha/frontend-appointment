@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CTabs Tests Snapshot Test if renders CTab correctly 1`] = `
+<ForwardRef
+  activeKey="/"
+  onSelect={[Function]}
+>
+  <Tab
+    eventKey="/generalSetup/adminSetup/add"
+    id="tab_1"
+    key="tab_1"
+    title={
+      <React.Fragment>
+         
+        <i
+          aria-hidden="true"
+          className="fa fa-plus-circle"
+        />
+         
+        Add
+      </React.Fragment>
+    }
+  />
+  <Tab
+    eventKey="/generalSetup/adminSetup/manage"
+    id="tab_2"
+    key="tab_2"
+    title={
+      <React.Fragment>
+         
+        <i
+          aria-hidden="true"
+          className="fa fa-clipboard"
+        />
+         
+        Manage
+      </React.Fragment>
+    }
+  />
+</ForwardRef>
+`;

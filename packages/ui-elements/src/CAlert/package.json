@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-alert",
+  "main": "CAlert.js",
+  "version": "0.0.0",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

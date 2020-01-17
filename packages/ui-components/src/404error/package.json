@@ -1,0 +1,8 @@
+{
+    "name": "@frontend-appointment/404eror",
+    "main": "CPageNotFound",
+    "version": "1.0.0",
+    "author": "Sudin Shakya",
+    "license": "MIT",
+    "private": true
+}

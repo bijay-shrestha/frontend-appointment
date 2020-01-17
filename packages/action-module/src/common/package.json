@@ -1,0 +1,7 @@
+{
+    "name": "@frontend-appointment/common-action",
+    "version": "0.0.0",
+    "main": "common.js",
+    "license": "MIT",
+    "private": true
+}

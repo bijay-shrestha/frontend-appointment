@@ -1,0 +1,32 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.btn {
+  border-radius: 2px;
+  font-size    : 0.85rem;
+
+  &:focus {
+    box-shadow:none;
+    outline      : 1px;
+  }
+
+
+}
+
+button:disabled {
+  cursor        : not-allowed;
+  pointer-events: all !important;
+
+  &:hover {
+    cursor        : not-allowed;
+    pointer-events: all !important;
+
+  }
+}
+
+.btn-action{
+  padding:0.75rem 2rem;
+}

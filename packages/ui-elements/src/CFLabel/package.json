@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-f-label",
+  "version": "0.0.0",
+  "main": "CFLabel.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

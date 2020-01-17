@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-pagination",
+  "version": "0.0.0",
+  "main": "CPagination.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

@@ -1,0 +1,8 @@
+{
+    "name": "@frontend-appointment/c-datatable",
+    "main": "CDataTable.js",
+    "version": "0.0.0",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+}

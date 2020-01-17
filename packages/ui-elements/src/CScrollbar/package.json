@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-scrollbar",
+  "version": "0.0.0",
+  "main": "CScrollbar.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

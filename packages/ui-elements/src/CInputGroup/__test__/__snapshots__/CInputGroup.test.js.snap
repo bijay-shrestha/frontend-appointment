@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputGroup Test Snapshot testing should match the previous snapshot 1`] = `
+<Memo(CInputGroup)
+  id="inputGroup"
+>
+  <Bootstrap(InputGroup)
+    id="inputGroup"
+  >
+    <InputGroup
+      bsPrefix="input-group"
+      id="inputGroup"
+    >
+      <div
+        className="input-group"
+        id="inputGroup"
+      />
+    </InputGroup>
+  </Bootstrap(InputGroup)>
+</Memo(CInputGroup)>
+`;

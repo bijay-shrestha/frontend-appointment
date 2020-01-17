@@ -1,0 +1,7 @@
+{
+    "name": "@frontend-appointment/c-button",
+    "version": "0.0.0",
+    "main": "CButton.js",
+    "license": "MIT",
+    "private": true
+}

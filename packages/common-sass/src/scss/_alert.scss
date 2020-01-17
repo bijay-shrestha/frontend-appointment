@@ -1,0 +1,70 @@
+//
+// Base styles
+//
+
+.alert {
+    position: fixed;
+    padding:10px 0 10px 20px;
+    top:0;
+
+    left:50%;
+    transform:translateX(-50%);
+    width:60%;
+    min-width:100px;
+    z-index: 999;
+    // height: 166px;
+    display:flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    align-items: center;
+    -webkit-box-shadow: 0 6px 3px -6px #777;
+    -moz-box-shadow: 0 6px 3px -6px #777;
+         box-shadow: 0 6px 3px -6px #777;
+        // box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
+
+         @include border-radius(2px);
+
+         .alert-heading{
+        
+            // display:flex;
+            // flex-direction: column;
+            // justify-content: space-around;
+            align-items: center;
+            color:$white;
+         
+            i,svg{
+                
+                font-size:30px;
+                display:block;
+                color:$white;
+            }
+         }
+
+         p{
+            align-self: center;
+            color:$white;
+            text-align: center;
+            margin-bottom:0;
+            padding-left:20px;
+         }
+
+  }
+
+  .alert-success{
+     background-color:$success;
+    //  border-color:$success;
+  }
+
+  .alert-danger{
+    background-color:$danger;
+  }
+
+  .alert-heading{
+      margin-bottom:0;
+  }
+  
+
+  .alert-dismissible .close{
+    color:$white;
+  }
+  

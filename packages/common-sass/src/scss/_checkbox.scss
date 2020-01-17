@@ -1,0 +1,127 @@
+
+.form-check{
+
+
+    input[type=checkbox] {
+        display:none;
+   
+
+        &:checked+label::before{
+            content:"\e876";
+            background-color:$white;
+            color:$cogent;
+            border-color:$gray-600;
+           
+        }
+        
+    }
+
+    .form-check-label{
+        &:before{
+      
+            content: "";
+            font-family: 'Material Icons';
+            font-size: 14px;
+            font-weight: 900;
+            line-height: 14px;
+            -webkit-font-smoothing: antialiased;
+            display: inline-block;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 0;
+            padding:0px;
+            margin-left: -10px;
+          
+            border: 1px solid $gray-600;
+            border-radius: 2px;
+            background-color: $white;
+            -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+            -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+            transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+        }
+    }
+
+   &.check-all {
+
+        .form-check-label{
+            margin-bottom:10px;
+            &:before{
+                content: "";
+                // font: normal normal normal 14px/1 FontAwesome;
+                color: $cogent;
+                font-size: 14px;
+                margin-right: 1px;
+                top: 1px;
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                left: 0;
+                 background-color: $gray-200;
+              
+                // padding:1px;
+                //border: 1px solid $gray-500;
+            }
+
+            // &:after{
+      
+            //     content: "\e3e0";
+            //     font-family: 'Material Icons';
+            //     font-size: 20px;
+            //     line-height: 14px;
+            //     -webkit-font-smoothing: antialiased;
+            //     display: inline-block;
+            //     position: absolute;
+            //     width: 22px;
+            //     height: 22px;
+            //     left: 0;
+            //     padding:0px;
+            //     margin-left: -10px;
+            //     color:white;
+              
+            //     border: 1px solid $gray-400;
+            //     border-radius: 2px;
+            //     // background-color: $gray-400;
+            //     -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+            //     -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+            //     transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+            // }
+
+        
+        }
+
+        input[type=checkbox] {
+            display:none;
+       
+    
+            &:checked+label::before{
+                content:"\e876";
+                font-family: 'Material Icons';
+                background-color:$cogent;
+                color:$white;
+                border-color:$cogent;
+             
+               
+            }
+                
+        }
+
+
+    }
+
+
+}
+
+input[type="radio"], input[type="checkbox"] {
+
+    &:disabled{
+        cursor:not-allowed;
+        pointer-events: all !important;
+
+        &:hover{
+            cursor:not-allowed;
+            pointer-events: all !important;
+        }
+    }
+   
+}

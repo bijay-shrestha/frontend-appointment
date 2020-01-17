@@ -1,0 +1,7 @@
+{
+  "name": "@frontend-appointment/c-toggle",
+  "version": "0.0.0",
+  "main": "CToggle.js",
+  "license": "MIT",
+  "private": true
+}

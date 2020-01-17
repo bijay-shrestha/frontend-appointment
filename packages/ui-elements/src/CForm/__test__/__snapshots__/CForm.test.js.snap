@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CForm Component Tests Snapshot Testing if matches snapshot 1`] = `
+<Form
+  id="form_test"
+  inline={false}
+  onSubmit={[MockFunction]}
+/>
+`;
+
+exports[`CForm Component Tests if matches snapshot 1`] = `
+<Form
+  id="form_test"
+  inline={false}
+  onSubmit={[MockFunction]}
+/>
+`;

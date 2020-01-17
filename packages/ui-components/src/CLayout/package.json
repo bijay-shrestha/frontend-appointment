@@ -1,0 +1,9 @@
+{
+  "name": "@frontend-appointment/c-layout",
+  "version": "0.0.0",
+  "main": "CLayout.js",
+  "author": "Sabu Shakya,Sudin Shakya",
+  "license": "MIT",
+  "private": true
+}
+

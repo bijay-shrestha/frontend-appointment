@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CFLabel Component Tests Snapshot Testing if matches snapshot 1`] = `
+<FormLabel
+  column={false}
+  id="label_test"
+  srOnly={false}
+>
+  test
+</FormLabel>
+`;
+
+exports[`CFLabel Component Tests Snapshot Testing should match snapshot 1`] = `
+<FormLabel
+  column={false}
+  id="label_test"
+  srOnly={false}
+>
+  test
+</FormLabel>
+`;

@@ -1,0 +1,7 @@
+{
+"name": "@frontend-appointment/store",
+"version": "0.0.0",
+"main": "store.js",
+"license": "MIT",
+"private": true
+}   

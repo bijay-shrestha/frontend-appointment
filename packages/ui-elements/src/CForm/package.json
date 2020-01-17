@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-form",
+  "version": "0.0.0",
+  "main": "CForm.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-select",
+  "version": "0.0.0",
+  "main": "CSelect.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

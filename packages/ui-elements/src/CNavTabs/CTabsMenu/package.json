@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointment/c-tabs-menu",
+    "version": "0.0.0",
+    "main": "CTabsMenu.js",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+}
+      

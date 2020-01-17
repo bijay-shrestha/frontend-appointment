@@ -1,0 +1,7 @@
+{
+    "name": "@frontend-appointment/c-inputgroup",
+    "version": "0.0.0",
+    "main": "CInputGroup.js",
+    "license": "MIT",
+    "private": true
+}

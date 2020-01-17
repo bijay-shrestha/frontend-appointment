@@ -1,0 +1,179 @@
+// a,
+// a:hover,
+// a:focus {
+//   color: inherit;
+//   text-decoration: none;
+//   transition: all 0.2s;
+// }
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+#sidebar-wrapper{
+
+
+.sidebar {
+  background: #354052;
+  color: #adb5bd;
+  width: 255px;
+  transition: all 0.5s;
+  position: absolute;
+   min-height: 100vh;
+  display: block;
+}
+
+.sidebar.is-open {
+  width: 255px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  z-index: 999;
+}
+
+.sidebar.is-close {
+  width: 65px;
+  z-index: 2;
+  transition: all 0.5s ease;
+}
+
+.text {
+  display: inline;
+  margin: 0;
+}
+
+.closemenutext{
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+/*.noClose{
+ 
+}*/
+
+.sidebar.is-sidehover{
+  width: 255px;
+  position: absolute;
+  z-index:999;
+  /*transition: all 0.5s ease;*/
+}
+
+
+.sidebar-header {
+  background: #313b4c;
+  color: #adb5bd;
+}
+
+.sidebar-header h3{
+  color: #fff;
+  padding: 0.5em;
+}
+
+
+
+.sidebar-header h3{
+  color: #fff;
+  padding: 1em;
+}
+
+
+.sidebar ul p {
+  color: #fff;
+  padding: 10px;
+
+}
+
+.nav-item {
+
+  color: #adb5bd;
+  font-weight: 300;
+}
+
+.nav-item.open {
+  color: #e9ecef;
+  background: #313b4c;
+}
+
+.nav-item.active {
+  color: #e9ecef;
+  background: #2d3646 !important;
+}
+
+.nav-item:hover {
+  background: #313b4c;
+  color: #fff;
+  transition: .2s;
+}
+
+.nav-item .svg-inline--fa {
+  color: inherit;
+}
+
+
+
+.sidebar-header > button {
+  position: relative;
+  float: right;
+  margin: .5em;
+  font-size: 2rem;
+  cursor: pointer;
+  display: none;
+}
+
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+.content {
+  // padding: 20px;
+  padding-left: 255px;
+  height: 100vh;
+  min-height: 100vh;
+   display: block;
+}
+
+.content.is-close{
+  padding-left:65px;
+}
+.content.is-open{
+ padding-left:255px;
+}
+
+@media only screen and (max-width: 575.98px) {
+  body {
+    overflow:  hidden;
+  }
+  .text {
+    display: none;
+  }
+  .content.is-open {
+    margin-left: 100%;
+    display: none;
+    transition: all 0.5s;
+  }
+
+  #sidebar-wrapper{
+  
+  .sidebar.is-open {
+    min-width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    transition: all 0.5s, height 0s;
+    height: 100vh !important;
+  }
+  
+  .sidebar.is-open > .sidebar-header button {
+    display: block;
+  }
+  
+  li a.dropdown-toggle::after {
+    display: inline-block;
+    position: relative;
+    left: 68%;
+  }
+
+}
+  
+}

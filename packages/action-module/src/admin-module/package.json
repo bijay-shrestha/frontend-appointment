@@ -1,0 +1,7 @@
+{
+  "name": "@frontend-appointment/admin-action",
+  "version": "0.0.0",
+  "main": "admin.js",
+  "license": "MIT",
+  "private": true
+}

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CCheckbox Tests Snapshot Testing should match snapshot 1`] = `
+<FormCheck
+  disabled={false}
+  id="checkItBaby_checkbox_1"
+  inline={false}
+  isInvalid={false}
+  isValid={false}
+  label="checkItBaby"
+  onChange={[MockFunction]}
+  test-id="c-checkbox"
+  title=""
+  type="checkbox"
+/>
+`;

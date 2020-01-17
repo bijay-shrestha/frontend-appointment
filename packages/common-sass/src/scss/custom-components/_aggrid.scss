@@ -1,0 +1,126 @@
+  // Customize the look and feel of the grid with Sass variables
+  // Up-to-date list of variables is available here: http://www.ag-grid.com/javascript-grid-styling/#customizing-sass-variables
+
+
+  $font-family:$font-family-sans-serif;
+
+
+
+  // changes the default icon color
+  $icon-color: $cogent;
+
+  // changes the selected checkbox check mark color
+  $accent-color            : $cogent;
+  $foreground-color        :$body-color;
+  $header-height           : 50px;
+  $row-height              : 40px;
+  $row-border-width        : 1px;
+  $hover-color             : lighten($cogent, 45%);
+  $border-color            :$cogent-border;
+  $header-background-color :$white;
+  $header-foreground-color :darken($body-color, 10%);
+  $odd-row-background-color:$white;
+  $selected-color          : lighten($cogent, 40%);
+
+
+  $ag-range-selected-color-1: $cogent;
+  $ag-range-selected-color-2: darken($ag-range-selected-color-1, 10%);
+  $ag-range-selected-color-3: darken($ag-range-selected-color-1, 20%);
+  $ag-range-selected-color-4: darken($ag-range-selected-color-1, 30%);
+  // changes the default icon color
+
+
+
+
+  @import '@ag-grid-community/all-modules/dist/styles/ag-grid.scss';
+  @import '@ag-grid-community/all-modules/dist/styles/ag-theme-balham/sass/ag-theme-balham.scss';
+
+
+
+  .ag-theme-balham {
+      .ag-icon {
+          // font-awesome Free has font-weight bold
+          font-weight: bold;
+
+          &.ag-icon-checkbox-checked,
+          &.ag-icon-checkbox-indeterminate,
+          &.ag-icon-checkbox-unchecked {
+              background-color: transparent;
+              border-radius   : 0;
+              color           : $icon-color;
+          }
+      }
+  }
+
+  // for example purposes, remove margin and padding of the grid and also removing the outline from focused items.
+  html,
+  body {
+      margin : 0;
+      padding: 0;
+      height : 100%;
+
+      *:focus {
+          outline: none;
+      }
+  }
+
+  .ag-theme-balham .ag-root {
+      border-top   : 0px solid $border-color;
+      border-left  : 0px solid $border-color;
+      border-right : 0px solid $border-color;
+      border-bottom: 1px solid $border-color;
+
+  }
+
+  .ag-header-container .header-first-class {
+      padding-left: 30px;
+  }
+
+
+
+  .ag-row {
+      .first-class {
+          padding-left: 30px;
+      }
+  }
+
+  //custom
+
+  // .ag-theme-balham .ag-row-odd{
+  //     background-color:$white;
+  // }
+
+  .ag-theme-balham .ag-header {
+      font-weight   : 600;
+      text-transform: uppercase;
+      font-size     : 12px;
+      border        : none;
+      border-bottom : 1px solid $gray-200;
+      // color      :$gray-800;
+
+  }
+
+  .ag-cell-focus,
+  .ag-cell-no-focus {
+      border: none !important;
+  }
+
+  .ag-cell:focus {
+      border : none !important;
+      outline: none;
+  }
+
+//   .ag-header-row> {
+//       & :last-child {
+//           border: none;
+//          // background:green;
+//           //resize for action button
+//           .ag-header-cell {
+//               &:after {
+//                   display: none;
+//               }
+//           }
+//       }
+
+
+//   }

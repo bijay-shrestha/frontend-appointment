@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CBreadcrumb component tests Snapshot Testing if renders CBreadcrumb component correctly 1`] = `
+<Breadcrumb
+  label="breadcrumb"
+  listProps={Object {}}
+>
+  <BreadcrumbItem
+    active={false}
+    href="#/home"
+    id="breadcrumbItem1"
+    key="breadcrumb1"
+  >
+    Home
+  </BreadcrumbItem>
+  <BreadcrumbItem
+    active={true}
+    id="breadcrumbItem2"
+    key="breadcrumb2"
+  >
+    General Setup
+  </BreadcrumbItem>
+  <BreadcrumbItem
+    active={true}
+    id="breadcrumbItem3"
+    key="breadcrumb3"
+  >
+    Admin Setup
+  </BreadcrumbItem>
+</Breadcrumb>
+`;

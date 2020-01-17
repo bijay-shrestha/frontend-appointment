@@ -1,0 +1,11 @@
+.form-check{
+    &:hover{
+        cursor: pointer;
+    }
+
+    .form-check-label,.form-check-input{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+}

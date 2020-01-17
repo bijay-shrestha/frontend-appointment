@@ -1,0 +1,7 @@
+{
+    "name": "@frontend-appointment/root-reducers",
+    "version": "0.0.0",
+    "main": "rootreducers.js",
+    "license": "MIT",
+    "private": true
+}

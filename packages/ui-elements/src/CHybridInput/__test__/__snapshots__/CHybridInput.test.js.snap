@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CFControl Component Tests Snapshot Testing should match snapshot 1`] = `
+<Fragment>
+  <div
+    className="field-wrapper"
+    id="fieldWrappertest"
+  >
+    <FormControl
+      id="fControl_test"
+      isInvalid={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+    />
+    <div
+      className="field-placeholder"
+      onClick={[Function]}
+    >
+      <span>
+        Enter
+      </span>
+    </div>
+  </div>
+  <Feedback
+    className="err-message"
+    type="invalid"
+  />
+</Fragment>
+`;

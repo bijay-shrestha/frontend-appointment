@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CScrollbar Tests Snapshot Testing should match snapshot 1`] = `
+<Scrollbars
+  autoHeight={false}
+  autoHeightMax={200}
+  autoHeightMin={0}
+  autoHide={false}
+  autoHideDuration={200}
+  autoHideTimeout={1000}
+  hideTracksWhenNotNeeded={false}
+  id="scrollbar_test"
+  onScroll={[MockFunction]}
+  onScrollFrame={[MockFunction]}
+  onScrollStart={[MockFunction]}
+  onScrollStop={[MockFunction]}
+  onUpdate={[MockFunction]}
+  renderThumbHorizontal={[Function]}
+  renderThumbVertical={[Function]}
+  renderTrackHorizontal={[Function]}
+  renderTrackVertical={[Function]}
+  renderView={[Function]}
+  tagName="div"
+  thumbMinSize={30}
+  thumbSize={25}
+  universal={false}
+/>
+`;

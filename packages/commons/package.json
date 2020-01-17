@@ -1,0 +1,12 @@
+{
+  "name": "@frontend-appointment/commons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "main:src": "index.js",
+  "private": true,
+  "dependencies": {
+    "@frontend-appointment/ui-components":"1.0.0",
+    "@frontend-appointment/helpers":"1.0.0",
+    "@frontend-appointment/ui-elements":"1.0.0"
+  }
+}

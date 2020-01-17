@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CToggle Component Snapshot Testing should match previous snapshot 1`] = `
+<Fragment>
+  <n
+    checked={false}
+    id="c-toggle"
+    name="c-toggle"
+    onChange={[MockFunction]}
+  />
+</Fragment>
+`;

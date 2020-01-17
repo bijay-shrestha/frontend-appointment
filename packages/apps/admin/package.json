@@ -1,0 +1,59 @@
+{
+  "name": "@frontend-appointment/admin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "main:src": "index.js",
+  "private": true,
+  "dependencies": {
+    "cross-env": "5.0.5",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "@react-workspaces/react-scripts": "3.0.1-alpha-07",
+    "@frontend-appointment/ui-components": "1.0.0",
+    "@frontend-appointment/authentication-module": "1.0.0",
+    "@frontend-appointment/ui-elements": "1.0.0",
+    "@frontend-appointment/common-sass": "1.0.0",
+    "@frontend-appointment/redux-module": "1.0.0",
+    "@frontend-appointment/commons": "1.0.0",
+    "@frontend-appointment/thunk-middleware": "1.0.0",
+    "@frontend-appointment/helpers": "1.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "predeploy": "yarn run build",
+    "lint": "eslint ./src/**/*.js --max-warnings=0 --format=codeframe"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/setupTests.{js,jsx}",
+      "!src/index.{js,jsx}",
+      "!src/serviceWorker.{js,jsx}",
+      "!src/**/*.(spec|test|stories).{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 98,
+        "branches": 98,
+        "functions": 98,
+        "lines": 98
+      }
+    }
+  }
+}

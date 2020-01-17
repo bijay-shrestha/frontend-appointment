@@ -1,0 +1,8 @@
+{   
+"name": "@frontend-appointment/c-sidebar",
+"version": "0.0.0",
+"main": "CSideBar.js",
+"author": "Kaushal Regmi",
+"license": "MIT",
+"private": true
+}

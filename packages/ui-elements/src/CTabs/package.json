@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-tabs",
+  "main": "CTabs.js",
+  "version": "0.0.0",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

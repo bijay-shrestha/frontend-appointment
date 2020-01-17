@@ -1,0 +1,62 @@
+/*!
+ * @version 1
+ * Copyright (c) 2019 cogent healht emr
+ * Author Sudin Shakya
+ */
+
+@import './variables';
+
+// Layout Options
+@import "./pages/login";
+@import "./pages/profile-setup";
+@import "./pages/filter";
+@import "./pages/dashboard";
+
+
+// Custom Mixins
+@import "custom-mixins";
+
+// Custom Utility classes
+@import "custom-utilities";
+
+
+@import "./alert";
+@import "./breadcrumb";
+@import "./button";
+@import "./checkbox";
+@import "./close";
+@import "./dropdown";
+@import "./error";
+@import "./input-group";
+@import "./messages";
+@import "./modal";
+@import "./navs";
+@import "./pagination";
+@import "./tooltip";
+
+
+
+
+
+
+// @import "./aside";
+@import "./common-fixes";
+@import "./layout";
+@import "./topbar";
+@import "./sidebar";
+
+
+@import "utilities/titles";
+
+@import "custom-components";
+
+
+// Custom Properties support for Internet Explorer
+@import "ie-fix";
+
+// temp fixes
+@import "fixes";
+
+//zindex information
+// hybrid-select : 3
+// hybrid-select-label : 2

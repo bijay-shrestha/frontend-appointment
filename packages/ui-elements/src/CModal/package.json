@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-modal",
+  "version": "0.0.0",
+  "main": "CModal.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

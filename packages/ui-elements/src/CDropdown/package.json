@@ -1,0 +1,7 @@
+{
+  "name": "@frontend-appointment/c-dropdown",
+  "version": "0.0.0",
+  "main": "CDropdown.js",
+  "license": "MIT",
+  "private": true
+}
