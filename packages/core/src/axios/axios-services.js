@@ -1,11 +1,11 @@
-import {Axios} from './Axios-interceptor'
-import {TryCatchHandler} from './Axios-helper'
+import Axios from './axios-interceptor'
+import {TryCatchHandler} from './axios-helper'
 import {
   addObjectAsRequestParam,
   convertObjectToRequestParam,
   createPathWithPathVariable,
   Headers
-} from './Axios-helper'
+} from './axios-helper'
 
 // ********************************* START GENERIC REQUESTS ********************************//
 
@@ -35,7 +35,7 @@ const MULTIPART_HEADER = Headers.MULTIPART_HEADER()
 export default {
   // ********************************* GET REQUESTS **********************************//
 
-  getRaw: path => API_WRAPPER(Axios.get(`${SERVER_DOMAIN}${path}`)),
+  getRaw: path => API_WRAPPER(Axios.get(`${path}`)),
 
   get: path => API_WRAPPER(GET(path, DEFAULT_HEADER)),
 
@@ -60,7 +60,7 @@ export default {
   // ********************************* POST REQUESTS **********************************//
 
   postRaw: (path, data) =>
-    API_WRAPPER(Axios.post(`${SERVER_DOMAIN}${path}`, data, DEFAULT_HEADER)),
+    API_WRAPPER(Axios.post(`${path}`, data, DEFAULT_HEADER)),
 
   post: (path, data) => API_WRAPPER(POST(path, data)),
 
@@ -100,7 +100,7 @@ export default {
   patch: (path, id, data) =>
     API_WRAPPER(
       Axios.patch(
-        `${SERVER_DOMAIN}${createPathWithPathVariable(path, id)}`,
+        `${createPathWithPathVariable(path, id)}`,
         data,
         DEFAULT_HEADER
       )

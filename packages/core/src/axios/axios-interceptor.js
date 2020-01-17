@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const Axios = axios;
+let Axios = axios;
  
-const SERVER_DOMAIN =  process.env.REACT_APP_SERVER_DOMAIN ||'',
-const APP_PORT= process.env.PORT || '',
+const SERVER_DOMAIN =  process.env.REACT_APP_SERVER_DOMAIN ||'';
+const APP_PORT= process.env.PORT || '';
 Axios.defaults.baseURL = SERVER_DOMAIN
 Axios.defaults.proxy={
     host:'http://localhost',
@@ -36,4 +36,4 @@ axios.interceptors.response.use(
     throw error
   }
 )
-export const Axios;
+export default Axios;
