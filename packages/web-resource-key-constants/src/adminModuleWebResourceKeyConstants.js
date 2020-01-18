@@ -1,6 +1,7 @@
 const BASE = "/admin/api/v1";
 const SP_BASE="/specialization";
 const HP_BASE="/hospital";
+const CS_BASE="/consultant";
 // export const profileSetupAPIConstants = {
 //     CREATE_PROFILE: BASE.concat("/profiles"),
 //     FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat("/departments/dropdown/active"),
@@ -42,4 +43,16 @@ export const hostpitalSetupApiConstants = {
     DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown"),
     ACTIVE_DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown/active"),
     SPECIFIC_DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown/active")
+}
+
+export const consultantSetupApiConstants = {
+    CREATE_CONSULTANT: BASE.concat(HP_BASE),
+    SEARCH_CONSULTANT: BASE.concat(HP_BASE+"/search"),
+    FETCH_CONSULTANT: BASE.concat(HP_BASE+"/details"),
+    EDIT_CONSULTANT: BASE.concat(HP_BASE),
+    EXPORT_CONSULTANT : BASE.concat(HP_BASE+"/excel"),
+    DELETE_CONSULTANT:BASE.concat(HP_BASE),
+    DROPDOWN_CONSULTANT:BASE.concat(HP_BASE+"/dropdown"),
+    ACTIVE_DROPDOWN_CONSULTANT:BASE.concat(HP_BASE+"/dropdown/active"),
+    SPECIFIC_DROPDOWN_CONSULTANT:BASE.concat(HP_BASE+"/dropdown/active")
 }
