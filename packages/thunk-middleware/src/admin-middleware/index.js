@@ -11,7 +11,7 @@ import {
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
 import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
-import * as ConsultantMiddleware from  './consultant-setup-middleware/consultantMiddleware';
+import * as ConsultantMiddleware from  './consultant-setup-middleware/consultantSetupMiddleware';
 export {
     fetchDepartments,
     fetchSubDepartmentsByDepartmentId,
