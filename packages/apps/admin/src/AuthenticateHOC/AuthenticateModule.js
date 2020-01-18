@@ -1,7 +1,11 @@
-import React,{memo} from 'react'
+import React, {memo} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import {AuthenticateHOC} from '@frontend-appointment/authentication-module'
-import {CFullPageLoading, CLayout, CPageNotFound} from '@frontend-appointment/ui-components'
+import {
+  CFullPageLoading,
+  CLayout,
+  CPageNotFound
+} from '@frontend-appointment/ui-components'
 import {routes} from '../routes'
 import Cookies from 'js-cookie'
 import LoginPage from '../container/Login'
@@ -10,7 +14,11 @@ import {LoginHoc, ComponentHoc} from '@frontend-appointment/commons'
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
     let cookie = Cookies.get('XSRF-TOKEN')
-    return Cookies.get('XSRF-TOKEN',{domain:process.env.REACT_APP_DOMAIN_NAME}) ? true : false
+    return Cookies.get('XSRF-TOKEN', {
+      domain: process.env.REACT_APP_DOMAIN_NAME
+    })
+      ? true
+      : false
     // return true;
   }
 
@@ -35,14 +43,14 @@ const AuthenticateModule = () => {
                   userMenus={getUserMenusFromLocalStorage()}
                   hasTab={route.hasTab}
                   mainViewComponent={
-                    route.hasTab ? 
+                    route.hasTab ? (
                       ComponentHoc(
                         route.component,
                         getUserMenusFromLocalStorage(),
                         route.path,
                         props
                       )
-                     : (
+                    ) : (
                       <route.component
                         userMenus={getUserMenusFromLocalStorage()}
                         path={route.path}
@@ -58,15 +66,7 @@ const AuthenticateModule = () => {
         <Route
           path="/"
           exact
-          component={LoginHoc(
-            props => (
-              <LoginPage {...props} id="login-form" />
-            ),
-            '/',
-            '/cogent/logout',
-            '/admin/dashboard',
-            '/admin/sidebar/api/v1'
-          )}
+          component={props => <LoginPage {...props} id="login-form" />}
         />
         <Route path="/loading" component={CFullPageLoading} />
         <Route key="pageNotFound" exact path="" component={CPageNotFound} />

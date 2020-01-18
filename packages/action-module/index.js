@@ -1,5 +1,5 @@
 import {loginActionConstant, LoginActions,userMenusActionConstant,MenuActions} from './src/common';
-import {profileSetupConstants, ProfileSetupActions} from './src/admin-module';
+import {profileSetupConstants, ProfileSetupActions,SpecializationSetupActions,specializationSetupConstants} from './src/admin-module';
 
 export {
     loginActionConstant,
@@ -7,5 +7,7 @@ export {
     profileSetupConstants,
     ProfileSetupActions,
     userMenusActionConstant,
-    MenuActions
+    MenuActions,
+    specializationSetupConstants,
+    SpecializationSetupActions
 }
