@@ -9,6 +9,7 @@ import {
     previewProfile
 } from "./profile-setup-middleware/profileSetupMiddleware";
 
+import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
 export {
     fetchDepartments,
     fetchSubDepartmentsByDepartmentId,
@@ -17,5 +18,6 @@ export {
     deleteProfile,
     editProfile,
     previewProfile,
-    clearSuccessErrorMessagesFromStore
+    clearSuccessErrorMessagesFromStore,
+    SpecializationSetupMiddleware
 }
