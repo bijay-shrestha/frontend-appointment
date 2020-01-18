@@ -36,7 +36,7 @@ const initialState = {
   isConsultantEditLoading: true,
   consultantEditErrorMessage: '', //department edit error message
   consultantEditSuccessMessage: '',
-  ConsultantPreviewData: null,
+  consultantPreviewData: null,
   isPreviewLoading: true,
   consultantPreviewErrorMessage: ''
 }
