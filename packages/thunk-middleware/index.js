@@ -7,9 +7,11 @@ import {
     fetchDepartments,
     fetchProfileList,
     fetchSubDepartmentsByDepartmentId,
-    previewProfile
+    previewProfile,
+    SpecializationSetupMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
+
 
 export {
     signinUser,
@@ -21,5 +23,6 @@ export {
     editProfile,
     previewProfile,
     fetchUserMenus,
-    clearSuccessErrorMessagesFromStore
+    clearSuccessErrorMessagesFromStore,
+    SpecializationSetupMiddleware
 }
