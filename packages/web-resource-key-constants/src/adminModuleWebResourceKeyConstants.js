@@ -1,5 +1,6 @@
 const BASE = "/admin/api/v1";
-const SD_BASE="/specialization";
+const SP_BASE="/specialization";
+const HP_BASE="/hospital";
 // export const profileSetupAPIConstants = {
 //     CREATE_PROFILE: BASE.concat("/profiles"),
 //     FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat("/departments/dropdown/active"),
@@ -8,7 +9,7 @@ const SD_BASE="/specialization";
 //     DELETE_PROFILE: BASE.concat("/profiles"),
 //     FETCH_PROFILE_DETAILS: BASE.concat("/profiles/details"),
 //     EDIT_PROFILE: BASE.concat("/profiles")
-// };
+//};
 
 // export const departmentSetupAPIConstants = {
 //     CREATE_DEPARTMENT: BASE.concat("/departments"),
@@ -17,16 +18,28 @@ const SD_BASE="/specialization";
 //     EDIT_DEPARTMENT: BASE.concat("/departments"),
 //     EXPORT_DEPARTMENT_EXCEL : BASE.concat("/departments/excel"),
 //     ACTIVE_DROPDOWN_DEPARTMENT : BASE.concat("/departments/dropdown/active")
-// }    
+//}    
 
 export const specializationSetupAPIConstants = {
-    CREATE_SPECIALIZATION: BASE.concat(SD_BASE),
-    SEARCH_SPECIALIZATION: BASE.concat(SD_BASE+"/search"),
-    FETCH_SPECIALIZATION_DETAILS: BASE.concat(SD_BASE+"/details"),
-    EDIT_SPECIALIZATION: BASE.concat(SD_BASE),
-    EXPORT_SPECIALIZATION_EXCEL : BASE.concat(SD_BASE+"/excel"),
-    DELETE_SPECIALIZATION:BASE.concat(SD_BASE),
-    DROPDOWN_SPECIALIZATION:BASE.concat(SD_BASE+"/dropdown"),
-    ACTIVE_DROPDOWN_SPECIALIZATION:BASE.concat(SD_BASE+"/dropdown/active"),
-    SPECIFIC_DROPDOWN_SPECIALIZATION:BASE.concat(SD_BASE+"/dropdown/active")
+    CREATE_SPECIALIZATION: BASE.concat(SP_BASE),
+    SEARCH_SPECIALIZATION: BASE.concat(SP_BASE+"/search"),
+    FETCH_SPECIALIZATION_DETAILS: BASE.concat(SP_BASE+"/details"),
+    EDIT_SPECIALIZATION: BASE.concat(SP_BASE),
+    EXPORT_SPECIALIZATION_EXCEL : BASE.concat(SP_BASE+"/excel"),
+    DELETE_SPECIALIZATION:BASE.concat(SP_BASE),
+    DROPDOWN_SPECIALIZATION:BASE.concat(SP_BASE+"/dropdown"),
+    ACTIVE_DROPDOWN_SPECIALIZATION:BASE.concat(SP_BASE+"/dropdown/active"),
+    SPECIFIC_DROPDOWN_SPECIALIZATION:BASE.concat(SP_BASE+"/dropdown/active")
 };
+
+export const hostpitalSetupApiConstants = {
+    CREATE_HOSPITAL: BASE.concat(HP_BASE),
+    SEARCH_HOSPITAL: BASE.concat(HP_BASE+"/search"),
+    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE+"/details"),
+    EDIT_HOSPITAL: BASE.concat(HP_BASE),
+    EXPORT_HOSPITAL_EXCEL : BASE.concat(HP_BASE+"/excel"),
+    DELETE_HOSPITAL:BASE.concat(HP_BASE),
+    DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown"),
+    ACTIVE_DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown/active"),
+    SPECIFIC_DROPDOWN_HOSPITAL:BASE.concat(HP_BASE+"/dropdown/active")
+}
