@@ -15,7 +15,12 @@ import {
   HospitalEditReducer,
   HospitalPreviewReducer,
   HospitalSaveReducer,
-  HospitalSearchReducer
+  HospitalSearchReducer,
+  ConsultantDeleteReducer,
+  ConsultantEditReducer,
+  ConsultantPreviewReducer,
+  ConsultantSaveReducer,
+  ConsultantSearchReducer
 } from '../reducers'
 
 export const rootReducers = combineReducers({
@@ -34,5 +39,10 @@ export const rootReducers = combineReducers({
   HospitalEditReducer,
   HospitalPreviewReducer,
   HospitalSaveReducer,
-  HospitalSearchReducer
+  HospitalSearchReducer,
+  ConsultantDeleteReducer,
+  ConsultantEditReducer,
+  ConsultantPreviewReducer,
+  ConsultantSaveReducer,
+  ConsultantSearchReducer
 })

@@ -20,6 +20,13 @@ import {
   HospitalSaveReducer,
   HospitalSearchReducer
 } from './admin-module/hospitalSetupReducer'
+import {
+  ConsultantDeleteReducer,
+  ConsultantEditReducer,
+  ConsultantPreviewReducer,
+  ConsultantSaveReducer,
+  ConsultantSearchReducer
+} from './admin-module/consultantSetupReducer'
 export {
   loginReducers,
   ProfileSetupReducer,
@@ -36,5 +43,10 @@ export {
   HospitalEditReducer,
   HospitalPreviewReducer,
   HospitalSaveReducer,
-  HospitalSearchReducer
+  HospitalSearchReducer,
+  ConsultantDeleteReducer,
+  ConsultantEditReducer,
+  ConsultantPreviewReducer,
+  ConsultantSaveReducer,
+  ConsultantSearchReducer
 }
