@@ -1,4 +1,4 @@
-export const hospitSetupConstants = {
+export const hospitalSetupConstants = {
     CREATE_HP_PENDING: 'CREATE-HOSPITAL-PENDING',
     CREATE_HP_SUCCESS: 'CREATE-HOSPITAL-SUCCESS',
     CREATE_HP_ERROR: 'CREATE-HOSPITAL-ERROR',

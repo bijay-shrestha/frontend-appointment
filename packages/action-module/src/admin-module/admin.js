@@ -4,12 +4,15 @@ import {specializationSetupConstants} from "./specialization-setup/specializatio
 import * as SpecializationSetupActions from './specialization-setup/specializationSetupConstant';
 import {hospitalSetupConstants} from "./hospital-setup/hospitalSetupConstant";
 import * as HospitalSetupActions from './hospital-setup/hospitalSetupActions';
-
+import {consultantSetupConstants} from './consultant-setup/consultantSetupConstant';
+import * as ConsultantSetupActions from './consultant-setup/consultantSetupActions';
 export {
     profileSetupConstants,
     ProfileSetupActions,
     specializationSetupConstants,
     SpecializationSetupActions,
     hospitalSetupConstants,
-    HospitalSetupActions
+    HospitalSetupActions,
+    consultantSetupConstants,
+    ConsultantSetupActions
 }

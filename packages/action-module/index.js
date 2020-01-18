@@ -10,7 +10,9 @@ import {
   SpecializationSetupActions,
   specializationSetupConstants,
   HospitalSetupActions,
-  hospitalSetupConstants
+  hospitalSetupConstants,
+  ConsultantSetupActions,
+  consultantSetupConstants
 } from './src/admin-module'
 
 export {
@@ -23,5 +25,7 @@ export {
   specializationSetupConstants,
   SpecializationSetupActions,
   hospitalSetupConstants,
-  HospitalSetupActions
+  HospitalSetupActions,
+  ConsultantSetupActions,
+  consultantSetupConstants
 }
