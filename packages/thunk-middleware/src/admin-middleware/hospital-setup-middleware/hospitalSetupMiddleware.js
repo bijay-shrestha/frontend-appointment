@@ -1,5 +1,5 @@
-import {HospitalSetupActions} from '@cogent/action-module';
-import {Axios} from '@cogent/core';
+import {HospitalSetupActions} from '@cogent/action-module'
+import {Axios} from '@cogent/core'
 
 export const createHospital = (path, profileData) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalPending())
@@ -25,14 +25,10 @@ export const editHospital = (path, data) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalEditPending())
   try {
     const response = await Axios.put(path, data)
-    dispatch(
-      HospitalSetupActions.createHospitalEditSuccess(response.data)
-    )
+    dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(
-      HospitalSetupActions.createHospitalEditError(e.errorMessage)
-    )
+    dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage))
     throw e
   }
 }
@@ -40,35 +36,23 @@ export const editHospital = (path, data) => async dispatch => {
 export const previewHospital = (path, id) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalPreviewPending())
   try {
-    const response = await Axios.getWithPathVariables(path, id);
-    dispatch(
-      HospitalSetupActions.createHospitalPreviewSuccess(response.data)
-    )
+    const response = await Axios.getWithPathVariables(path, id)
+    dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(
-      HospitalSetupActions.createHospitalPreviewError(e.errorMessage)
-    )
+    dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage))
     throw e
   }
 }
 
-export const searchHospital = (
-  path,
-  queryParams,
-  data
-) => async dispatch => {
+export const searchHospital = (path, queryParams, data) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalSearchPending())
   try {
     const response = await Axios.putWithRequestParam(path, queryParams, data)
-    dispatch(
-      HospitalSetupActions.createHospitalSearchSuccess(response.data)
-    )
+    dispatch(HospitalSetupActions.createHospitalSearchSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(
-      HospitalSetupActions.createHospitalListError(e.errorMessage)
-    )
+    dispatch(HospitalSetupActions.createHospitalListError(e.errorMessage))
     throw e
   }
 }
@@ -80,16 +64,14 @@ export const deleteHospital = (path, id) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalDeleteSucess())
     return response
   } catch (e) {
-    dispatch(
-      HospitalSetupActions.createHospitalDeleteError(e.errorMessage)
-    )
+    dispatch(HospitalSetupActions.createHospitalDeleteError(e.errorMessage))
     throw e
   }
 }
-export const downloadExcelForHospitals = (path) => async () => {
+export const downloadExcelForHospitals = path => async () => {
   try {
-      return await Axios.getFile(path);
+    return await Axios.getFile(path)
   } catch (e) {
-      throw e;
+    throw e
   }
-};
+}

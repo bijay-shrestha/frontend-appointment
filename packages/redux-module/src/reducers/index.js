@@ -13,6 +13,13 @@ import {
   SpecializationSaveReducer,
   SpecializationSearchReducer
 } from './admin-module/specializationSetupReducer'
+import {
+  HospitalDeleteReducer,
+  HospitalEditReducer,
+  HospitalPreviewReducer,
+  HospitalSaveReducer,
+  HospitalSearchReducer
+} from './admin-module/hospitalSetupReducer'
 export {
   loginReducers,
   ProfileSetupReducer,
@@ -24,5 +31,10 @@ export {
   SpecializationEditReducer,
   SpecializationPreviewReducer,
   SpecializationSaveReducer,
-  SpecializationSearchReducer
+  SpecializationSearchReducer,
+  HospitalDeleteReducer,
+  HospitalEditReducer,
+  HospitalPreviewReducer,
+  HospitalSaveReducer,
+  HospitalSearchReducer
 }
