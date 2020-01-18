@@ -1,4 +1,4 @@
-import {SpecializationSetupConstants} from '@cogent/action-module'
+import {specializationSetupConstants} from '@cogent/action-module'
 
 const {
   CREATE_SP_ERROR,
@@ -21,7 +21,7 @@ const {
   SP_LIST_PENDING,
   SP_LIST_SUCCESS,
   CLEAR_SP_LIST_MESSAGE
-} = SpecializationSetupConstants
+} = specializationSetupConstants
 
 const initialState = {
   createSpecializationLoading: true,
