@@ -10,6 +10,7 @@ import {
 } from "./profile-setup-middleware/profileSetupMiddleware";
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
+import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
 export {
     fetchDepartments,
     fetchSubDepartmentsByDepartmentId,
@@ -19,5 +20,6 @@ export {
     editProfile,
     previewProfile,
     clearSuccessErrorMessagesFromStore,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    HospitalSetupMiddleware
 }

@@ -1,92 +1,92 @@
-import {SpecializationSetupActions} from '@cogent/action-module';
+import {HospitalSetupActions} from '@cogent/action-module';
 import {Axios} from '@cogent/core';
 
-export const createSpecialization = (path, profileData) => async dispatch => {
-  dispatch(SpecializationSetupActions.createSpecializationPending())
+export const createHospital = (path, profileData) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalPending())
   try {
     let response = await Axios.postRaw(path, profileData)
-    dispatch(SpecializationSetupActions.createSpecializationSuccess())
+    dispatch(HospitalSetupActions.createHospitalSuccess())
     return response
   } catch (e) {
-    dispatch(SpecializationSetupActions.createSpecializationError(e.errorMessage))
+    dispatch(HospitalSetupActions.createHospitalError(e.errorMessage))
     throw e
   }
 }
 
-export const clearSpecializationCreateMessage = () => dispatch => {
-  dispatch(SpecializationSetupActions.clearSpecializationCreateMessage())
-  dispatch(SpecializationSetupActions.clearSpecializationDeleteMessage())
-  dispatch(SpecializationSetupActions.clearSpecializationEditMessage())
-  dispatch(SpecializationSetupActions.clearSpecializationListMessage())
-  dispatch(SpecializationSetupActions.clearSpecializationPreviewMessage())
+export const clearHospitalCreateMessage = () => dispatch => {
+  dispatch(HospitalSetupActions.clearHospitalCreateMessage())
+  dispatch(HospitalSetupActions.clearHospitalDeleteMessage())
+  dispatch(HospitalSetupActions.clearHospitalEditMessage())
+  dispatch(HospitalSetupActions.clearHospitalListMessage())
+  dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
 }
 
-export const editSpecialization = (path, data) => async dispatch => {
-  dispatch(SpecializationSetupActions.createSpecializationEditPending())
+export const editHospital = (path, data) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalEditPending())
   try {
     const response = await Axios.put(path, data)
     dispatch(
-      SpecializationSetupActions.createSpecializationEditSuccess(response.data)
+      HospitalSetupActions.createHospitalEditSuccess(response.data)
     )
     return response
   } catch (e) {
     dispatch(
-      SpecializationSetupActions.createSpecializationEditError(e.errorMessage)
+      HospitalSetupActions.createHospitalEditError(e.errorMessage)
     )
     throw e
   }
 }
 
-export const previewSpecialization = (path, id) => async dispatch => {
-  dispatch(SpecializationSetupActions.createSpecializationPreviewPending())
+export const previewHospital = (path, id) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalPreviewPending())
   try {
     const response = await Axios.getWithPathVariables(path, id);
     dispatch(
-      SpecializationSetupActions.createSpecializationPreviewSuccess(response.data)
+      HospitalSetupActions.createHospitalPreviewSuccess(response.data)
     )
     return response
   } catch (e) {
     dispatch(
-      SpecializationSetupActions.createSpecializationPreviewError(e.errorMessage)
+      HospitalSetupActions.createHospitalPreviewError(e.errorMessage)
     )
     throw e
   }
 }
 
-export const searchSpecialization = (
+export const searchHospital = (
   path,
   queryParams,
   data
 ) => async dispatch => {
-  dispatch(SpecializationSetupActions.createSpecializationSearchPending())
+  dispatch(HospitalSetupActions.createHospitalSearchPending())
   try {
     const response = await Axios.putWithRequestParam(path, queryParams, data)
     dispatch(
-      SpecializationSetupActions.createSpecializationSearchSuccess(response.data)
+      HospitalSetupActions.createHospitalSearchSuccess(response.data)
     )
     return response
   } catch (e) {
     dispatch(
-      SpecializationSetupActions.createSpecializationListError(e.errorMessage)
+      HospitalSetupActions.createHospitalListError(e.errorMessage)
     )
     throw e
   }
 }
 
-export const deleteSpecialization = (path, id) => async dispatch => {
-  dispatch(SpecializationSetupActions.createSpecializationDeletePending())
+export const deleteHospital = (path, id) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalDeletePending())
   try {
     const response = await Axios.del(path, id)
-    dispatch(SpecializationSetupActions.createSpecializationDeleteSucess())
+    dispatch(HospitalSetupActions.createHospitalDeleteSucess())
     return response
   } catch (e) {
     dispatch(
-      SpecializationSetupActions.createSpecializationDeleteError(e.errorMessage)
+      HospitalSetupActions.createHospitalDeleteError(e.errorMessage)
     )
     throw e
   }
 }
-export const downloadExcelForSpecializations = (path) => async () => {
+export const downloadExcelForHospitals = (path) => async () => {
   try {
       return await Axios.getFile(path);
   } catch (e) {
