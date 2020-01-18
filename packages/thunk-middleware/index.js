@@ -9,7 +9,8 @@ import {
     fetchSubDepartmentsByDepartmentId,
     previewProfile,
     SpecializationSetupMiddleware,
-    HospitalSetupMiddleware
+    HospitalSetupMiddleware,
+    ConsultantMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
 
@@ -26,5 +27,6 @@ export {
     fetchUserMenus,
     clearSuccessErrorMessagesFromStore,
     SpecializationSetupMiddleware,
-    HospitalSetupMiddleware
+    HospitalSetupMiddleware,
+    ConsultantMiddleware
 }
