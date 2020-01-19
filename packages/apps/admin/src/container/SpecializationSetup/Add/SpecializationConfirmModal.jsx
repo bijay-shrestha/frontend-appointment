@@ -1,14 +1,15 @@
 import React from 'react'
 import DetailsModal from '../commons/DetailsModal'
-import {CButton, CModal} from '@cogent/ui-elements'
+import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
-const DepartmentConfirmationModal = props => {
+const SpecializationConfirmationModal = props => {
   const {showModal, setShowModal, specializationData, onConfirmClick} = props
+  console.log('onConfirmClick',onConfirmClick);
   return (
     <>
       <CModal
         show={showModal}
-        modalHeading="Department Details"
+        modalHeading="Specialization Details"
         size="lg"
         bodyChildren={
           <DetailsModal
@@ -20,7 +21,7 @@ const DepartmentConfirmationModal = props => {
         dialogClassName="preview-roles-modal"
         footerChildren={
           <CButton
-            id="departmentConfirm"
+            id="specializationConfirm"
             variant="primary"
             size="lg"
             className="float-right btn-action"
@@ -33,4 +34,4 @@ const DepartmentConfirmationModal = props => {
   )
 }
 
-export default DepartmentConfirmationModal
+export default SpecializationConfirmationModal

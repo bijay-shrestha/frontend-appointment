@@ -97,8 +97,8 @@ class CLayout extends PureComponent {
 
                         {/* Main Content  */}
                         <div id="main-content">
-                            {hasTab?<MainViewComponent/>:MainViewComponent}
-                            {/*{clonedContentView}*/}
+                            {/* {hasTab?<MainViewComponent/>:MainViewComponent} */}
+                            {MainViewComponent}
                         </div>
 
                         {/*End Main Content  */}

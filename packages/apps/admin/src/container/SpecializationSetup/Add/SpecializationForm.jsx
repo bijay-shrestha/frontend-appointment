@@ -5,7 +5,7 @@ import {
   CForm,
   CHybridInput,
   CRadioButton
-} from '@cogent/ui-elements'
+} from '@frontend-appointment/ui-elements'
 
 const SpecializationForm = ({
   specializationInfoObj,
@@ -62,14 +62,14 @@ const SpecializationForm = ({
                 type="radio"
                 readOnly
               />
-                <CRadioButton
+                {/* <CRadioButton
                   checked={!Boolean(specializationInfoObj.status)}
                   disabled={true}
                   readOnly={true}
                   id="radio2"
                   label="Inactive"
                   type="radio"
-                />
+                /> */}
               </Col>
           </Row>
           </Container-fluid>

@@ -14,7 +14,7 @@ import {LoginHoc, ComponentHoc} from '@frontend-appointment/commons'
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
     let storage = localStorage.getItem('x-auth-token')
-    return storage||false;
+    return true
   }
 
   const getUserMenusFromLocalStorage = () => {
@@ -37,20 +37,26 @@ const AuthenticateModule = () => {
                   dataForBreadCrumb={routes}
                   userMenus={getUserMenusFromLocalStorage()}
                   hasTab={route.hasTab}
+                  // mainViewComponent={
+                  //   route.hasTab ? (
+                  //     ComponentHoc(
+                  //       route.component,
+                  //       getUserMenusFromLocalStorage(),
+                  //       route.path,
+                  //       props
+                  //     )
+                  //   ) : (
+                  //     <route.component
+                  //       userMenus={getUserMenusFromLocalStorage()}
+                  //       path={route.path}
+                  //     />
+                  //   )
+                  // }
                   mainViewComponent={
-                    route.hasTab ? (
-                      ComponentHoc(
-                        route.component,
-                        getUserMenusFromLocalStorage(),
-                        route.path,
-                        props
-                      )
-                    ) : (
-                      <route.component
-                        userMenus={getUserMenusFromLocalStorage()}
-                        path={route.path}
-                      />
-                    )
+                    <route.component
+                      userMenus={getUserMenusFromLocalStorage()}
+                      path={route.path}
+                    />
                   }
                 />
               ),

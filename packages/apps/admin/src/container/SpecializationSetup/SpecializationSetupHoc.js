@@ -2,14 +2,12 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {SpecializationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {CAlert, CButton} from '@frontend-aappointment/ui-elements';
-import {Col, Container, Row} from 'react-bootstrap';
 import {
   EnterKeyPressUtils,
   FileExportUtils,
   AdminInfoUtils
-} from '@frontend-appointment/helpers';
-import './specialization.css';
+} from '@frontend-appointment/helpers'
+import './specialization.scss'
 const {
   clearSpecializationCreateMessage,
   createSpecialization,
@@ -22,7 +20,7 @@ const {
 const SpecializationHOC = ComposedComponent => {
   const {specializationSetupAPIConstants} = AdminModuleAPIConstants
 
-  return class SpecializationSetup extends React.PureComponent {
+  return ConnectHoc(class SpecializationSetup extends React.PureComponent {
     state = {
       specializationData: {
         name: '',
@@ -85,8 +83,9 @@ const SpecializationHOC = ComposedComponent => {
         nameValid &&
         specializationData.name &&
         specializationData.code &&
-        specializationData.status &&
-        specializationData.remarks
+        specializationData.status 
+        //&&
+        // specializationData.remarks
       this.setState({
         formValid: formValidity
       })
@@ -115,14 +114,17 @@ const SpecializationHOC = ComposedComponent => {
     }
 
     handleConfirmClick = async () => {
-      const {name, code, departmentId, status} = this.state.subDepartment
+      const {name, code, status} = this.state.specializationData
       try {
-        await this.props.createSubDepartMent(CREATE_SUB_DEPARTMENT, {
-          name,
-          code,
-          departmentId: departmentId.value,
-          status
-        })
+        console.log('createSpecialization',this.props.createSpecialization)
+        await this.props.createSpecialization(
+          specializationSetupAPIConstants.CREATE_SPECIALIZATION,
+          {
+            name,
+            code,
+            status
+          }
+        )
         this.resetSpecializationStateValues()
         this.setState({
           showAlert: true,
@@ -133,7 +135,7 @@ const SpecializationHOC = ComposedComponent => {
           }
         })
       } catch (e) {
-        await this.setShowConfirmModal();
+        await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -180,21 +182,22 @@ const SpecializationHOC = ComposedComponent => {
         ></ComposedComponent>
       )
     }
-  }
+  },[
+    'SpecializationSaveReducer',
+    'SpecializationDeleteReducer',
+    'SpecializationEditReducer',
+    'SpecializationPreviewReducer',
+    'SpecializationSearchReducer',
+  ],
+    {
+      clearSpecializationCreateMessage,
+      createSpecialization,
+      deleteSpecialization,
+      downloadExcelForSpecializations,
+      editSpecialization,
+      previewSpecialization,
+      searchSpecialization
+    }
+  )
 }
-export default ConnectHoc(SpecializationHOC, [
-  'SpecializationSaveReducer',
-  'SpecializationDeleteReducer',
-  'SpecializationEditReducer',
-  'SpecializationPreviewReducer',
-  'SpecializationSearchReducer',
-  {
-    clearSpecializationCreateMessage,
-    createSpecialization,
-    deleteSpecialization,
-    downloadExcelForSpecializations,
-    editSpecialization,
-    previewSpecialization,
-    searchSpecialization
-  }
-])
+export default SpecializationHOC

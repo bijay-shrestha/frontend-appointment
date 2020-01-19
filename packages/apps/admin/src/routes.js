@@ -21,7 +21,7 @@ const ManageProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/Manage/Manage'),
     loading: () => getLoader()
 });
-const ManageProfileComponent = Loadable({
+const AddSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
     loading: () => getLoader()
 });
@@ -62,8 +62,8 @@ export const routes = [
     },
 
     {
-        "path": "/admin/subdepartment/manage",
-        "component": SpecializationAdd,
+        "path": "/admin/specialization/add",
+        "component": AddSpecializationComponent,
         "icon": "",
         "hasTab":true,
         "isLink": true,

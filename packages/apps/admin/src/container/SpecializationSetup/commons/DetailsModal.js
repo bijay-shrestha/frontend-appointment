@@ -4,7 +4,7 @@ import {
   CForm,
   CHybridInput,
   CRadioButton
-} from '@cogent/ui-elements'
+} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const DetailsModal = ({specializationData}) => {
