@@ -62,7 +62,7 @@ function SpecializationAdd () {
             />
           </Col>
         </Row>
-        {/* <CAlert
+        <CAlert
             id="profile-manage"
             variant={alertMessageInfo.variant}
             show={showAlert}
@@ -79,7 +79,7 @@ function SpecializationAdd () {
               )
             }
             message={alertMessageInfo.message}
-          /> */}
+          />
       </Container>
     </div>
   )

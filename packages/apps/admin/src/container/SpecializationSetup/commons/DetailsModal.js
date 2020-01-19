@@ -48,14 +48,14 @@ const DetailsModal = ({specializationData}) => {
                   type="radio"
                 />
 
-                <CRadioButton
+                {/* <CRadioButton
                   checked={specializationData.status === 'N'}
                   disabled={true}
                   readOnly={true}
                   id="radio2"
                   label="Inactive"
                   type="radio"
-                />
+                /> */}
               </Col>
             </Row>
           </Container-fluid>
