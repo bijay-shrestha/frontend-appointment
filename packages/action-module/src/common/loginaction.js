@@ -4,7 +4,7 @@ const {PENDING,SUCESS,ERROR} = loginActionConstant
 export const isLoginSuccess = (data) => ({
     type : SUCESS,
     payload:{
-        data:data.headers.authorization,
+        data:data,
         status:'SUCCESS'
     }
 });

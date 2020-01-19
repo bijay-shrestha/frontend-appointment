@@ -17,7 +17,7 @@ let Axios = axios.create({
 Axios.interceptors.request.use(
   requestConfig => {
     let token = localStorage.getItem('auth-token') || ''
-    requestConfig.headers.Authorization = token.toString()
+    requestConfig.headers.Authorization = token?"Bearer "+token:'';
     return requestConfig
   },
   error => {
@@ -26,12 +26,10 @@ Axios.interceptors.request.use(
   }
 )
 
-axios.interceptors.response.use(
+Axios.interceptors.response.use(
   response => {
     // TO STORE THE JWT TOKEN FROM RESPONSE
-    let jwtToken = response.headers.Authorization
-    localStorage.setItem('auth-token', jwtToken)
-    return response
+  return response;
   },
   error => {
     // return ApiError.errorHandler(error);
