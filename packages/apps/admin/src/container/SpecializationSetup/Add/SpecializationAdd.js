@@ -5,7 +5,7 @@ import SpecializationConfirmationModal from './SpecializationConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import SpecializationHoc from '../SpecializationSetupHoc'
-function SpecializationAdd () {
+function SpecializationAdd (props) {
   const SpecializationAdd = SpecializationHoc(({
     specializationData,
     handleEnter,
@@ -20,7 +20,7 @@ function SpecializationAdd () {
     alertMessageInfo,
     showAlert,
     closeAlert
-  })=>
+  },props)=>
     <div className="">
       <Container className="bg-white add-profile " fluid>
         <CButton

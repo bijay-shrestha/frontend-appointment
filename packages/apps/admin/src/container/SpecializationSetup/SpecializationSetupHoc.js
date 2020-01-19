@@ -17,7 +17,7 @@ const {
   previewSpecialization,
   searchSpecialization
 } = SpecializationSetupMiddleware
-const SpecializationHOC = ComposedComponent => {
+const SpecializationHOC = (ComposedComponent,props) => {
   const {specializationSetupAPIConstants} = AdminModuleAPIConstants
 
   return ConnectHoc(class SpecializationSetup extends React.PureComponent {
@@ -77,21 +77,22 @@ const SpecializationHOC = ComposedComponent => {
       })
     }
 
-    checkFormValidity = () => {
+    checkFormValidity = (eventType) => {
       const {specializationData, nameValid} = this.state
       let formValidity =
         nameValid &&
         specializationData.name &&
         specializationData.code &&
         specializationData.status 
-        //&&
-        // specializationData.remarks
+      
+        if(eventType === 'E')
+          formValidity = formValidity && specializationData.remarks
       this.setState({
         formValid: formValidity
       })
     }
 
-    handleOnChange = async (event, fieldValid) => {
+    handleOnChange = async (event, fieldValid,eventType) => {
       let specialization = {...this.state.specializationData}
       let {name, value, label} = event.target
       value = name === 'code' ? value.toUpperCase() : value
@@ -106,7 +107,7 @@ const SpecializationHOC = ComposedComponent => {
         fieldValid,
         name
       )
-      this.checkFormValidity()
+      this.checkFormValidity(eventType)
     }
 
     setShowConfirmModal = () => {
@@ -161,6 +162,7 @@ const SpecializationHOC = ComposedComponent => {
       return (
         <ComposedComponent
           {...this.props}
+          {...props}
           handleEnter={this.handleEnterPress}
           fileExportUtils={FileExportUtils}
           adminInfoUtils={AdminInfoUtils}
