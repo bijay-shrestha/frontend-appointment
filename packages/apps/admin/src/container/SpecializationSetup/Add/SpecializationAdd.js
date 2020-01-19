@@ -38,8 +38,8 @@ function SpecializationAdd (props) {
         </CButton>
         <SubDepartMentForm
           specializationInfoObj={specializationData}
-          errorMessageForDepartmentName={errorMessageForSpecializationName}
-          errorMessageForDepartmentCode={errorMessageForSpecializationCode}
+          errorMessageForSpecializationName={errorMessageForSpecializationName}
+          errorMessageForSpecializationCode={errorMessageForSpecializationCode}
           onEnterKeyPress={handleEnter}
           onInputChange={handleInputChange}
         />
