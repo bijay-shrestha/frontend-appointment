@@ -7,19 +7,14 @@ import {
   CPageNotFound
 } from '@frontend-appointment/ui-components'
 import {routes} from '../routes'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import LoginPage from '../container/Login'
 import {LoginHoc, ComponentHoc} from '@frontend-appointment/commons'
 
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
-    let cookie = Cookies.get('XSRF-TOKEN')
-    return Cookies.get('XSRF-TOKEN', {
-      domain: process.env.REACT_APP_DOMAIN_NAME
-    })
-      ? true
-      : false
-    // return true;
+    let storage = localStorage.getItem('x-auth-token')
+    return storage||false;
   }
 
   const getUserMenusFromLocalStorage = () => {

@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
 import {
   loginReducers as login,
   ProfileSetupReducer,

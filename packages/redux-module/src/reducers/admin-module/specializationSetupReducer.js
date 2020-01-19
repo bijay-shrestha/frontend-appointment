@@ -1,4 +1,4 @@
-import {specializationSetupConstants} from '@cogent/action-module'
+import {specializationSetupConstants} from '@frontend-appointment/action-module'
 
 const {
   CREATE_SP_ERROR,

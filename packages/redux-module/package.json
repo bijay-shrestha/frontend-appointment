@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "main:src": "index.js",
-  "private": true
+  "private": true,
+  "dependencies": {
+     "@frontend-appointment/action-module":"1.0.0"
+  }
 }
 
 

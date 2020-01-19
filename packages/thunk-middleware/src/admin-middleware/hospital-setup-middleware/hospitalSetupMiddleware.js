@@ -1,5 +1,5 @@
-import {HospitalSetupActions} from '@cogent/action-module'
-import {Axios} from '@cogent/core'
+import {HospitalSetupActions} from '@frontend-appointment/action-module'
+import {Axios} from '@frontend-appointment/core'
 
 export const createHospital = (path, profileData) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalPending())

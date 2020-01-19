@@ -2,12 +2,13 @@ import {fetchUserMenus, signinUser} from '@frontend-appointment/thunk-middleware
 import {Login} from '@frontend-appointment/ui-components'
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons';
+import axios from 'axios';
 
 class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         try {
             await this.props.signinUser('/auth/login', user);
-            
+            axios.get("http://10.13.184.16/api/test/helloworld");
             // await this.props.fetchUserMenus('/admin/api/v1/sidebar',
             //     {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
             // await this.props.history.push('/admin/dashboard');

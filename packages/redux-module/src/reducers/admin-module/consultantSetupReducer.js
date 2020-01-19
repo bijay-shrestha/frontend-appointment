@@ -1,4 +1,4 @@
-import {consultantSetupConstants} from '@cogent/action-module'
+import {consultantSetupConstants} from '@frontend-appointment/action-module'
 
 const {
   CREATE_CN_ERROR,

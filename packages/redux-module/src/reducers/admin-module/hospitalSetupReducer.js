@@ -1,4 +1,4 @@
-import {hospitalSetupConstants} from '@cogent/action-module'
+import {hospitalSetupConstants} from '@frontend-appointment/action-module'
 
 const {
   CREATE_HP_ERROR,

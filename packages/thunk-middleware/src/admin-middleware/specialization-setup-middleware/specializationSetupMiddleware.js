@@ -1,5 +1,5 @@
-import {SpecializationSetupActions} from '@cogent/action-module';
-import {Axios} from '@cogent/core';
+import {SpecializationSetupActions} from '@frontend-appointment/action-module';
+import {Axios} from '@frontend-appointment/core';
 
 export const createSpecialization = (path, profileData) => async dispatch => {
   dispatch(SpecializationSetupActions.createSpecializationPending())

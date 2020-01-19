@@ -24,7 +24,8 @@
       "packages/core",
       "packages/redux-module",
       "packages/thunk-middleware",
-      "packages/helpers"
+      "packages/helpers",
+      "packages/web-resource-key-constants"
     ],
     "nohoist": [
       "**/webpack-dev-server",

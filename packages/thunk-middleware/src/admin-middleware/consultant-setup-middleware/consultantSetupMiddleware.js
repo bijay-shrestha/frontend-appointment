@@ -1,5 +1,5 @@
-import {ConsultantSetupActions} from '@cogent/action-module';
-import {Axios} from '@cogent/core';
+import {ConsultantSetupActions} from '@frontend-appointment/action-module';
+import {Axios} from '@frontend-appointment/core';
 
 export const createConsultant = (path, profileData) => async dispatch => {
   dispatch(ConsultantSetupActions.createConsultantPending())
