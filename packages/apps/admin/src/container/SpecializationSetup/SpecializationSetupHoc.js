@@ -133,7 +133,7 @@ const SpecializationHOC = ComposedComponent => {
           }
         })
       } catch (e) {
-        await this.setShowConfirmModal()
+        await this.setShowConfirmModal();
         this.setState({
           showAlert: true,
           alertMessageInfo: {
