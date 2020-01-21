@@ -3,14 +3,14 @@ import {CModal} from "@cogent/ui-elements";
 import DetailsModal from "./DetailsModal";
 
 const PreviewDetails = props => {
-    const {showModal, setShowModal, subDepartmentData} = props;
-    console.log('preveuw subdepartment',subDepartmentData);
+    const {showModal, setShowModal, specializationData} = props;
+    console.log('',specializationData);
     return <>
         <CModal show={showModal}
-                modalHeading="Department Details"
+                modalHeading="Specialization Details"
                 size="lg"
                 bodyChildren={<DetailsModal
-                subDepartmentData={subDepartmentData}/>}
+                specializationData={specializationData}/>}
                 onHide={setShowModal}
                 centered={false}
                 dialogClassName="preview-roles-modal"

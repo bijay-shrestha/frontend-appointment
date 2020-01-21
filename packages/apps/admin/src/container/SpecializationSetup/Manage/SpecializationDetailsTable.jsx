@@ -41,7 +41,7 @@ const SubDepartmentDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Sub Department Name',
+                            headerName: 'Specialization Name',
                             field: 'name',
                             // headerClass: "fi",
                             resizable: true,
@@ -49,7 +49,7 @@ const SubDepartmentDetailsDataTable = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Sub Department code',
+                            headerName: 'Specialization Code',
                             field: 'code',
                             resizable: true,
                             sortable: true,
@@ -112,20 +112,20 @@ const SubDepartmentDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showDepartmentModal && !props.isPreviewLoading ? (
+        {props.showSpecializationModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showDepartmentModal}
+                showModal={props.showSpecializationModal}
                 setShowModal={props.setShowModal}
-                subDepartmentData={props.subDepartmentPreviewData}
-                subDepartmentPreviewErrorMessage={props.subDepartmentPreviewErrorMessage}
+                specializatin={props.subDepartmentPreviewData}
+                specializationPreviewErrorMessage={props.specializationPreviewErrorMessage}
             />
         ) : (
             ''
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Department?If yes please provide remarks."
-                modalHeader="Delete Department"
+                confirmationMessage="Are you sure you want to delete the Specialization?If yes please provide remarks."
+                modalHeader="Delete Specialization"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}

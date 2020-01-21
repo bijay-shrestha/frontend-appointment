@@ -1,15 +1,10 @@
 import React, {PureComponent} from 'react'
-import {CButton, CForm, CHybridInput, CHybridSelect} from '@cogent/ui-elements'
+import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
-import {EnterKeyPressUtils} from '@cogent/helpers'
 
-class DepartmentSetupSearchFilter extends PureComponent {
+class SpecializationSetupSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
-  }
-
-  handleEnter = event => {
-    EnterKeyPressUtils.handleEnter(event)
   }
 
   toggleSearchForm = async () => {
@@ -30,7 +25,8 @@ class DepartmentSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      departmentList
+      departmentList,
+      handleEnter
     } = this.props
     return (
       <>
@@ -38,7 +34,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
           // TODO: TO BE MADE DYNAMIC
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Sub Departments</h5>
+              <h5 className="title">Search Specialization</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -52,27 +48,27 @@ class DepartmentSetupSearchFilter extends PureComponent {
                 </CButton>
               </div>
             </div>
-            <CForm id="department-info" className="profile-info mt-4">
+            <CForm id="specialization-info" className="profile-info mt-4">
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
                     <CHybridInput
-                      id="department-name"
-                      name="departmentName"
+                      id="specialization-name"
+                      name="name"
                       onKeyDown={event => this.handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Sub Department Name"
-                      value={searchParameters.departmentName}
+                      placeholder="Specialization Name"
+                      value={searchParameters.name}
                     />
                   </Col>
                   <Col sm={12} md={4} xl={4}>
                     <CHybridInput
-                      id="department-code"
+                      id="specialization-code"
                       name="code"
                       onKeyDown={event => this.handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Sub Department Code"
-                      value={searchParameters.departmentCode}
+                      placeholder="Specialization Code"
+                      value={searchParameters.code}
                     />
                   </Col>
                   <Col sm={12} md={4} xl={4}>
@@ -90,19 +86,6 @@ class DepartmentSetupSearchFilter extends PureComponent {
                       label="Status"
                     />
                   </Col>
-                  <Col sm={12} md={4} lg={4}>
-                    <CHybridSelect
-                      id="department"
-                      label="Department"
-                      name="departmentId"
-                      onChange={event => onInputChange(event)}
-                      options={departmentList}
-                      value={searchParameters.departmentId}
-                      required={true}
-                      placeholder={'Select Department'}
-                    />
-                  </Col>
-
                   <Col
                     sm={12}
                     md={{span: 6, offset: 6}}
@@ -148,33 +131,33 @@ class DepartmentSetupSearchFilter extends PureComponent {
                   </>
                 </CButton>
               </li>
-              {searchParameters.departmentName && (
+              {searchParameters.name && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Department Name</Tooltip>
+                      <Tooltip {...props}>Specialization Name</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.departmentName}
+                      {searchParameters.name}
                     </Button>
                   </OverlayTrigger>
                 </li>
               )}
 
-              {searchParameters.departmentCode && (
+              {searchParameters.code && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Department Code</Tooltip>
+                      <Tooltip {...props}>Specialization Code</Tooltip>
                     )}
                   >
                     <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.departmentCode}
+                      {searchParameters.code}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -207,4 +190,4 @@ class DepartmentSetupSearchFilter extends PureComponent {
   }
 }
 
-export default DepartmentSetupSearchFilter
+export default SpecializationSetupSearchFilter

@@ -20,7 +20,7 @@ function SpecializationAdd (props) {
     alertMessageInfo,
     showAlert,
     closeAlert
-  },props)=>
+  })=>
     <div className="">
       <Container className="bg-white add-profile " fluid>
         <CButton
@@ -82,7 +82,7 @@ function SpecializationAdd (props) {
           />
       </Container>
     </div>
-  )
+  ,props)
   console.log('specializationAdd',SpecializationAdd)
   return <SpecializationAdd/>
    

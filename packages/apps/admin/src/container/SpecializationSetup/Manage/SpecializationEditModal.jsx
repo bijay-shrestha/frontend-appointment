@@ -16,25 +16,25 @@ const DepartmentEditModal = ({
   setShowModal,
   onEnterKeyPress,
   onInputChange,
-  departmentData,
-  errorMessageForDepartmentName,
-  errorMessageForDepartmentCode,
+  specializationData,
+  errorMessageForSpecializationName,
+  errorMessageForSpecializationCode,
   errorMessage,
   editApiCall,
   departmentList
 }) => {
   const bodyContent = (
     <>
-      <CForm id="department-info" className="mt-2">
+      <CForm id="specialization-info" className="mt-2">
         <Row>
           <Col sm={12} md={12} lg={4}>
             <CHybridInput
-              id="department-name"
+              id="specialization-name"
               name="name"
               onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event, validity) => onInputChange(event, validity)}
-              placeholder="Department Name"
-              value={departmentData.name}
+              placeholder="Specialization Name"
+              value={specializationData.name}
               required={true}
               hasValidation={true}
               fieldValuePattern={/^[A-Za-z0-9 ]+$/}
@@ -43,12 +43,12 @@ const DepartmentEditModal = ({
           </Col>
           <Col sm={12} md={12} lg={4}>
             <CHybridInput
-              id="department-code"
+              id="Specialization Code"
               name="code"
               onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event, validity) => onInputChange(event, validity)}
-              placeholder="Department Code"
-              value={departmentData.code}
+              placeholder="Specialization Code"
+              value={specializationData.code}
               required={true}
               // hasValidation={true}
               // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
@@ -68,15 +68,7 @@ const DepartmentEditModal = ({
               placeholder={'Select Department'}
             />
           </Col>
-          <Col sm={12} md={4} lg={4}>
-          <CHybridTextArea
-           name="remarks"
-           value={departmentData.remarks}
-           placeholder="Enter Remarks"
-           onKeyDown={event => onEnterKeyPress(event)}
-           onChange={event => onInputChange(event)}
-          />
-          </Col>
+      
           <Col sm={12} md={12} lg={4}>
             <CFLabel labelName="Status" id="status"></CFLabel>
             <CRadioButton
