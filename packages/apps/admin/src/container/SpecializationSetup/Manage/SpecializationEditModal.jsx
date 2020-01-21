@@ -21,7 +21,8 @@ const DepartmentEditModal = ({
   errorMessageForSpecializationCode,
   errorMessage,
   editApiCall,
-  departmentList
+  formValid
+ 
 }) => {
   const bodyContent = (
     <>
@@ -38,7 +39,7 @@ const DepartmentEditModal = ({
               required={true}
               hasValidation={true}
               fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForDepartmentName}
+              errorMessagePassed={errorMessageForSpecializationName}
             />
           </Col>
           <Col sm={12} md={12} lg={4}>
@@ -52,27 +53,14 @@ const DepartmentEditModal = ({
               required={true}
               // hasValidation={true}
               // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForDepartmentCode}
+              errorMessagePassed={errorMessageForSpecializationCode}
             />
           </Col>
-          <Col sm={12} md={4} lg={4}>
-            <CHybridSelect
-              id="department"
-              label="Department"
-              name="departmentId"
-              onChange={event => onInputChange(event)}
-              onKeyDown={event => onEnterKeyPress(event)}
-              options={departmentList}
-              value={departmentData.departmentId}
-              required={true}
-              placeholder={'Select Department'}
-            />
-          </Col>
-      
+
           <Col sm={12} md={12} lg={4}>
             <CFLabel labelName="Status" id="status"></CFLabel>
             <CRadioButton
-              checked={departmentData.status === 'Y'}
+              checked={specializationData.status === 'Y'}
               name="status"
               id="radio1"
               label="Active"
@@ -81,7 +69,7 @@ const DepartmentEditModal = ({
               onChange={event => onInputChange(event)}
             />
             <CRadioButton
-              checked={departmentData.status === 'N'}
+              checked={specializationData.status === 'N'}
               id="radio2"
               name="status"
               label="Inactive"
@@ -91,7 +79,6 @@ const DepartmentEditModal = ({
               onChange={event => onInputChange(event)}
             />
           </Col>
-          
         </Row>
       </CForm>
     </>
@@ -112,7 +99,7 @@ const DepartmentEditModal = ({
           <div className="col-md-6">
             <CButton
               id="submit-update-button"
-              disabled={!departmentData.formValid}
+              disabled={!formValid}
               name="Update Department"
               size="lg"
               className="btn-action  float-right"

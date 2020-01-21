@@ -388,7 +388,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
       }
     }
     componentDidMount(){
-      this.props.searchSpecialization()
+      this.searchSpecialization()
     }
     render () {
       const {
@@ -432,7 +432,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
           {...this.props}
           {...props}
           handleEnter={this.handleEnterPress}
-          specializationData={specializationPreviewData}
+          specializationData={specializationData}
           resetStateAddValues={this.resetSpecializationStateValues}
           closeAlert={this.closeAlert}
           showConfirmModal={showConfirmModal}
@@ -474,6 +474,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
           deleteErrorMessage={deleteErrorMessage}
           specializationEditErrorMessage={specializationEditErrorMessage}
           isPreviewLoading={isPreviewLoading}
+          specializationPreviewData={specializationPreviewData}
         ></ComposedComponent>
       )
     }

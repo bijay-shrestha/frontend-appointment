@@ -1,8 +1,8 @@
 import React, {memo} from 'react'
 import SpecializationSetupSearchFilter from './SpecializationSetupSearchFilter'
 import SubDepartmentDetailsDataTable from './SpecializationDetailsTable'
-import SubDepartmentEditForm from './SubDepartmentEditModal'
-import {CAlert, CButton} from '@cogent/ui-elements'
+import SubDepartmentEditForm from './SpecializationEditModal'
+import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import SpecializationSetupHoc from '../SpecializationSetupHoc'
 const SpecializationManage = props => {
   const SPManage = SpecializationSetupHoc(
@@ -21,7 +21,6 @@ const SpecializationManage = props => {
       setShowModal,
       onDeleteHandler,
       handlePageChange,
-      handleSearchFormChange,
       onSubmitDeleteHandler,
       queryParams,
       totalRecords,
@@ -36,10 +35,12 @@ const SpecializationManage = props => {
       deleteErrorMessage,
       specializationEditErrorMessage,
       isPreviewLoading,
-      specializationData,
+      specializationPreviewData,
       onPreviewHandler,
       showEditModal,
-      formValid
+      formValid,
+      deleteRequestDTO,
+      showAlert
     }) => (
       <>
         <div className="">
@@ -63,7 +64,7 @@ const SpecializationManage = props => {
             onEditHandler={onEditHandler}
             isPreviewLoading={isPreviewLoading}
             onPreviewHandler={onPreviewHandler}
-            specializationData={specializationData}
+            specializationData={specializationPreviewData}
             specializationPreviewErrorMessage={specializationPreviewErrorMessage}
             totalItems={totalRecords}
             maxSize={queryParams.size}
@@ -83,7 +84,7 @@ const SpecializationManage = props => {
             showModal={showEditModal}
             setShowModal={setShowModal}
             onEnterKeyPress={handleEnter}
-            specializationData={specializationData}
+            specializationData={specializationPreviewData}
             onInputChange={handleInputChange}
             editApiCall={editSpecialization}
             formValid={formValid}

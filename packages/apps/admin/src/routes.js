@@ -26,7 +26,7 @@ const AddSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 const ManageSpecializationComponent = Loadable({
-    loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
+    loader: () => import('./container/SpecializationSetup/Manage/SpecializationManage'),
     loading: () => getLoader()
 });
 export const routes = [
@@ -79,7 +79,7 @@ export const routes = [
         "icon": "",
         "hasTab":true,
         "isLink": true,
-        "name": "Add",
+        "name": "Manage",
     }
     
 ];
