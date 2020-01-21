@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import SpecializationSetupSearchFilter from './SpecializationSetupSearchFilter'
-import SubDepartmentDetailsDataTable from './SpecializationDetailsTable'
+import SpecializationDetailsTable from './SpecializationDetailsTable'
 import SubDepartmentEditForm from './SpecializationEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import SpecializationSetupHoc from '../SpecializationSetupHoc'
@@ -10,7 +10,7 @@ const SpecializationManage = props => {
       searchParameters,
       handleSearchFormChange,
       searchSpecialization,
-      handleSearchFormReset,
+      resetSearch,
       handleEnter,
       showSpecializationModal,
       isSearchLoading,
@@ -40,20 +40,22 @@ const SpecializationManage = props => {
       showEditModal,
       formValid,
       deleteRequestDTO,
-      showAlert
+      showAlert,
+      closeAlert,
+      specializationData
     }) => (
       <>
         <div className="">
           <SpecializationSetupSearchFilter
             searchParameters={searchParameters}
             onInputChange={handleSearchFormChange}
-            onSearchClick={searchSpecialization(1)}
-            resetSearchForm={handleSearchFormReset}
+            onSearchClick={()=>searchSpecialization(1)}
+            resetSearchForm={resetSearch}
             handleEnter={handleEnter}
           />
         </div>
         <div className=" mb-2">
-          <SubDepartmentDetailsDataTable
+          <SpecializationDetailsTable
             //filteredActions={props.filteredAction}
             showSpecializationModal={showSpecializationModal}
             isSearchLoading={isSearchLoading}
@@ -84,7 +86,7 @@ const SpecializationManage = props => {
             showModal={showEditModal}
             setShowModal={setShowModal}
             onEnterKeyPress={handleEnter}
-            specializationData={specializationPreviewData}
+            specializationData={specializationData}
             onInputChange={handleInputChange}
             editApiCall={editSpecialization}
             formValid={formValid}
@@ -101,7 +103,7 @@ const SpecializationManage = props => {
           id="profile-add"
           variant={alertMessageInfo.variant}
           show={showAlert}
-          onClose={this.closeAlert}
+          onClose={closeAlert}
           alertType={
             alertMessageInfo.variant === 'success' ? (
               <>
@@ -121,7 +123,7 @@ const SpecializationManage = props => {
         />
       </>
     ),
-    props
+    props,"M"
   )
   return <SPManage />
 }

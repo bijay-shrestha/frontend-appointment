@@ -64,8 +64,9 @@ export const searchSpecialization = (
     dispatch(
       SpecializationSetupActions.createSpecializationSearchSuccess(response.data)
     )
-    return response
+    return response;
   } catch (e) {
+    console.log('errorMessage',e);
     dispatch(
       SpecializationSetupActions.createSpecializationListError(e.errorMessage)
     )

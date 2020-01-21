@@ -1,0 +1,7 @@
+{
+  "name": "@cogent/delete-remarks-modal",
+  "version": "1.0.0",
+  "main": "ConfirmDelete.js",
+  "license": "MIT",
+  "private": true
+}

@@ -5,10 +5,8 @@ import {
   CForm,
   CHybridInput,
   CModal,
-  CRadioButton,
-  CHybridSelect,
-  CHybridTextArea
-} from '@cogent/ui-elements'
+  CRadioButton
+} from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
 const DepartmentEditModal = ({
@@ -24,8 +22,10 @@ const DepartmentEditModal = ({
   formValid
  
 }) => {
+
   const bodyContent = (
     <>
+    {console.log('Edit',specializationData)}
       <CForm id="specialization-info" className="mt-2">
         <Row>
           <Col sm={12} md={12} lg={4}>
@@ -56,7 +56,19 @@ const DepartmentEditModal = ({
               errorMessagePassed={errorMessageForSpecializationCode}
             />
           </Col>
-
+          <Col sm={12} md={12} lg={4}>
+            <CHybridInput
+              id="Specialization Remarks"
+              name="remarks"
+              onKeyDown={event => onEnterKeyPress(event)}
+              onChange={(event, validity) => onInputChange(event, validity)}
+              placeholder="Specialization Remarks"
+              value={specializationData.remarks}
+              required={true}
+              // hasValidation={true}
+              // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+            />
+          </Col>
           <Col sm={12} md={12} lg={4}>
             <CFLabel labelName="Status" id="status"></CFLabel>
             <CRadioButton
@@ -100,7 +112,7 @@ const DepartmentEditModal = ({
             <CButton
               id="submit-update-button"
               disabled={!formValid}
-              name="Update Department"
+              name="Update Specialization"
               size="lg"
               className="btn-action  float-right"
               onClickHandler={editApiCall}
@@ -122,7 +134,7 @@ const DepartmentEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Department Details"
+        modalHeading="Specialization Details"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}

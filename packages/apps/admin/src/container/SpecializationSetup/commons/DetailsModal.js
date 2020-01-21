@@ -38,6 +38,15 @@ const DetailsModal = ({specializationData}) => {
                 />
               </Col>
               <Col sm={4} md={4} lg={4}>
+                <CHybridInput
+                  id="specialization-remarks"
+                  name="name"
+                  placeholder="Specialization Remarks"
+                  value={specializationData.remarks}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={4} md={4} lg={4}>
                 <CFLabel labelName="Specialization Status" id="status" />
                 <CRadioButton
                   checked={specializationData.status === 'Y'}

@@ -1,5 +1,10 @@
 import React, {PureComponent} from 'react'
-import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
+import {
+  CButton,
+  CForm,
+  CHybridInput,
+  CHybridSelect
+} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
 class SpecializationSetupSearchFilter extends PureComponent {
@@ -25,9 +30,9 @@ class SpecializationSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      departmentList,
       handleEnter
     } = this.props
+    console.log('Search Parameters', searchParameters)
     return (
       <>
         {this.state.isSearchFormExpanded ? (
@@ -55,7 +60,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     <CHybridInput
                       id="specialization-name"
                       name="name"
-                      onKeyDown={event => this.handleEnter(event)}
+                      onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       placeholder="Specialization Name"
                       value={searchParameters.name}
@@ -65,7 +70,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     <CHybridInput
                       id="specialization-code"
                       name="code"
-                      onKeyDown={event => this.handleEnter(event)}
+                      onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       placeholder="Specialization Code"
                       value={searchParameters.code}
@@ -75,7 +80,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     <CHybridSelect
                       id="status"
                       name="status"
-                      onKeyDown={event => this.handleEnter(event)}
+                      onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       value={searchParameters.status}
                       options={[
@@ -124,7 +129,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
           >
             <ul id="" className="search-filter-item">
               <li>
-                <CButton variant="primary" name="">
+                <CButton id="spec-filter" variant="primary" name="">
                   <>
                     <i className="fa fa-filter"></i>
                     &nbsp; Filter
@@ -175,9 +180,9 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     >
                       {searchParameters.status.value === 'Y'
                         ? 'Active'
-                        : searchParameters.status.value === 'A'
-                        ? 'All'
-                        : 'Inactive'}
+                        : searchParameters.status.value === 'N'
+                        ? 'Inactive'
+                        : 'All'}
                     </Button>
                   </OverlayTrigger>
                 </li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {CModal} from "@cogent/ui-elements";
+import {CModal} from "@frontend-appointment/ui-elements";
 import DetailsModal from "./DetailsModal";
 
 const PreviewDetails = props => {

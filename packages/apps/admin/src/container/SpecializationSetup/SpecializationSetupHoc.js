@@ -17,7 +17,7 @@ const {
   previewSpecialization,
   searchSpecialization
 } = SpecializationSetupMiddleware
-const SpecializationHOC = (ComposedComponent, props) => {
+const SpecializationHOC = (ComposedComponent, props,type) => {
   const {specializationSetupAPIConstants} = AdminModuleAPIConstants
   class SpecializationSetup extends React.PureComponent {
     state = {
@@ -47,7 +47,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
         code: '',
         id: null,
         name: '',
-        status: {value: null, label: 'All'}
+        status: {value: '', label: 'All'}
       },
       queryParams: {
         page: 0,
@@ -214,6 +214,9 @@ const SpecializationHOC = (ComposedComponent, props) => {
           status,
           remarks
         } = this.props.SpecializationPreviewReducer.specializationPreviewData
+       let formValid = this.state.formValid
+        if(remarks)
+          formValid=true;
         this.setState({
           showEditModal: true,
           specializationData: {
@@ -222,7 +225,8 @@ const SpecializationHOC = (ComposedComponent, props) => {
             code: code,
             status: status,
             remarks: remarks
-          }
+          },
+          formValid:formValid
         })
       } catch (e) {
         console.log(e)
@@ -254,9 +258,9 @@ const SpecializationHOC = (ComposedComponent, props) => {
       )
 
       await this.setState({
-        totalRecords: this.props.SubDepartmentSearchReducer.subDepartmentList
+        totalRecords: this.props.SpecializationSearchReducer.specializationList
           .length
-          ? this.props.SubDepartmentSearchReducer.subDepartmentList[0]
+          ? this.props.SpecializationSearchReducer.specializationList[0]
               .totalItems
           : 0,
         queryParams: {
@@ -266,14 +270,16 @@ const SpecializationHOC = (ComposedComponent, props) => {
       })
     }
 
-    appendSNToTable = specializationList =>
-      specializationList.length &&
+    appendSNToTable = specializationList =>{
+     console.log('Specialization',specializationList)
+      const newSpecializationList = specializationList.length &&
       specializationList.map((spec, index) => ({
         ...spec,
         sN: index + 1,
         name: spec.name.toUpperCase()
       }))
-
+      return newSpecializationList; 
+    }
     handlePageChange = async newPage => {
       await this.setState({
         queryParams: {
@@ -296,7 +302,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
           alertMessageInfo: {
             variant: 'success',
             message: this.props.SpecializationEditReducer
-              .SpecializationEditSuccessMessage
+              .specializationEditSuccessMessage
           }
         })
         await this.searchSpecialization()
@@ -304,7 +310,7 @@ const SpecializationHOC = (ComposedComponent, props) => {
     }
 
     onDeleteHandler = async id => {
-      this.props.clearSubDepartMentCreateMessage()
+      this.props.clearSpecializationCreateMessage()
       let deleteRequestDTO = {...this.state.deleteRequestDTO}
       deleteRequestDTO['id'] = id
       await this.setState({
@@ -330,7 +336,14 @@ const SpecializationHOC = (ComposedComponent, props) => {
         )
         await this.setState({
           deleteModalShow: false,
-          deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
+          deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.SpecializationDeleteReducer
+              .deleteSuccessMessage
+          },
+          showAlert:true
+          
         })
         await this.searchSpecialization()
       } catch (e) {
@@ -363,12 +376,12 @@ const SpecializationHOC = (ComposedComponent, props) => {
       await this.setState({
         searchParameters: {
           code: '',
-          status: {value: null, label: 'All'},
+          status: {value: '', label: 'All'},
           name: '',
           id: null
         }
       })
-      this.searchSpecialization()
+      this.searchSpecialization();
     }
 
     setStateValuesForSearch = searchParams => {
@@ -387,8 +400,16 @@ const SpecializationHOC = (ComposedComponent, props) => {
         await this.setStateValuesForSearch(searchParams)
       }
     }
-    componentDidMount(){
-      this.searchSpecialization()
+    setFormValidManage = () => {
+      this.setState({
+        formValid:true
+      })
+    }
+    async componentDidMount(){
+     if(type === "M"){
+        await this.searchSpecialization();
+        //this.setFormValidManage();
+     }
     }
     render () {
       const {
@@ -424,9 +445,11 @@ const SpecializationHOC = (ComposedComponent, props) => {
 
       const {
         specializationEditErrorMessage
+  
       } = this.props.SpecializationEditReducer
 
       const {deleteErrorMessage} = this.props.SpecializationDeleteReducer
+      console.log('Delete Modal Show',this.state.deleteModalShow)
       return (
         <ComposedComponent
           {...this.props}
