@@ -4,7 +4,6 @@ import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
 const SpecializationConfirmationModal = props => {
   const {showModal, setShowModal, specializationData, onConfirmClick} = props
-  console.log('onConfirmClick',onConfirmClick);
   return (
     <>
       <CModal

@@ -21,26 +21,30 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
   const {specializationSetupAPIConstants} = AdminModuleAPIConstants
   class SpecializationSetup extends React.PureComponent {
     state = {
-      specializationData: {
-        id: '',
-        name: '',
-        code: '',
-        status: 'Y',
-        remarks: ''
+      hospitalData: {
+        code: "",
+        hospitalAddress:"",
+        hospitalLogo:"",
+        hospitalPanNumber:"",
+        hospitalPhone:"",
+        name: "",
+        remarks: "",
+        status:""
       },
       formValid: false,
       nameValid: false,
       codeValid: false,
+      logoValid: false,
       showConfirmModal: false,
-      errorMessageForSpecializationName:
+      errorMessageForHospitalName:
         'Specialization Name should not contain special characters',
-      errorMessageForSpecializationCode: '',
+      errorMessageForHospitalCode: 'Specialization Code should not contain special characters',
       showAlert: false,
       alertMessageInfo: {
         variant: '',
         message: ''
       },
-      showSpecializationModal: false,
+      showHospitalModal: false,
       showEditModal: false,
       deleteModalShow: false,
       searchParameters: {
@@ -67,7 +71,7 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
 
     setShowModal = () => {
       this.setState({
-        showSpecializationModal: false,
+        showHospitalModal: false,
         deleteModalShow: false,
         showEditModal: false
       })
