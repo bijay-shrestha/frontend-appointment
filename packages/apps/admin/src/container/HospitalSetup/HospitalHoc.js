@@ -17,26 +17,29 @@ const {
   searchHospital,
   downloadExcelForHospitals
 } = HospitalSetupMiddleware
-const SpecializationHOC = (ComposedComponent, props,type) => {
+const HospitalHOC = (ComposedComponent, props, type) => {
   const {hostpitalSetupApiConstants} = AdminModuleAPIConstants
   class SpecializationSetup extends React.PureComponent {
     state = {
       hospitalData: {
-        "name":"",
-        "address":"",
-        "panNumber":"",
-        "status":"",
-        "hospitalCode":"",
-        "contactNumber":[],
-        "contactNumberUpdateRequestDTOS":[]
+        name: '',
+        address: '',
+        panNumber: '',
+        status: '',
+        hospitalCode: '',
+        contactNumber: [],
+        contactNumberUpdateRequestDTOS: []
       },
+      hospitalLogo: '',
       formValid: false,
       nameValid: false,
       codeValid: false,
       logoValid: false,
       showConfirmModal: false,
-      errorMessageForHospitalName:'Specialization Name should not contain special characters',
-      errorMessageForHospitalCode:'Specialization Code should not contain special characters',
+      errorMessageForHospitalName:
+        'Specialization Name should not contain special characters',
+      errorMessageForHospitalCode:
+        'Specialization Code should not contain special characters',
       showAlert: false,
       alertMessageInfo: {
         variant: '',
@@ -78,15 +81,15 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     resetSpecializationStateValues = () => {
       this.setState({
         hospitalData: {
-          code: "",
-          hospitalAddress:"",
-          hospitalLogo:"",
-          hospitalPanNumber:"",
-          hospitalPhone:"",
-          name: "",
-          remarks: "",
-          status:""
+          name: '',
+          address: '',
+          panNumber: '',
+          status: '',
+          hospitalCode: '',
+          contactNumber: [],
+          contactNumberUpdateRequestDTOS: []
         },
+        hospitalLogo: '',
         formValid: false,
         nameValid: false,
         codeValid: false,
@@ -124,10 +127,35 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
         hospitalData.status
 
       if (eventType === 'E')
-        formValidity = formValidity && specializationData.remarks
+        formValidity =
+          formValidity &&
+          hospitalData.remarks &&
+          hospitalData.contactNumberUpdateRequestDTOS.length
+      else formValidity = formValidity && hospitalData.contactNumber
       this.setState({
         formValid: formValidity
       })
+    }
+
+    addContactNumber = (eventType, fieldName, value) => {
+      let hospitalData = {...this.state.hospitalData}
+      hospitalData[fieldName].push(value);
+      this.setTheState('hospitalData', hospitalData)
+      this.checkFormValidity(eventType)
+    }
+
+    removeContactNumber = (eventType, fieldName, idx) => {
+     let hospitalData = {...this.state.hospitalData};
+     const filteredHospitalData = hospitalData[fieldName].splice(idx,1);
+     this.setTheState('hospitalData', filteredHospitalData);
+     this.checkFormValidity(eventType);
+    }
+    
+    editContactNumber = (eventType,fieldName,value,idx) => {
+      let hospitalData = {...this.state.hospitalData};
+      hospitalData[fieldName][idx]=value
+      this.setTheState('hospitalData', filteredHospitalData);
+      this.checkFormValidity(eventType);
     }
 
     handleOnChange = async (event, fieldValid, eventType) => {
@@ -139,12 +167,7 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
         : value
         ? {value: value, label: label}
         : {value: null}
-      await this.setTheState(
-        'hospitalData',
-        hospital,
-        fieldValid,
-        name
-      )
+      await this.setTheState('hospitalData', hospital, fieldValid, name)
       this.checkFormValidity(eventType)
     }
 
@@ -219,9 +242,8 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
           status,
           remarks
         } = this.props.SpecializationPreviewReducer.specializationPreviewData
-       let formValid = this.state.formValid
-        if(remarks)
-          formValid=true;
+        let formValid = this.state.formValid
+        if (remarks) formValid = true
         this.setState({
           showEditModal: true,
           specializationData: {
@@ -231,7 +253,7 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
             status: status,
             remarks: remarks
           },
-          formValid:formValid
+          formValid: formValid
         })
       } catch (e) {
         console.log(e)
@@ -275,15 +297,16 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
       })
     }
 
-    appendSNToTable = specializationList =>{
-     console.log('Specialization',specializationList)
-      const newSpecializationList = specializationList.length &&
-      specializationList.map((spec, index) => ({
-        ...spec,
-        sN: index + 1,
-        name: spec.name.toUpperCase()
-      }))
-      return newSpecializationList; 
+    appendSNToTable = specializationList => {
+      console.log('Specialization', specializationList)
+      const newSpecializationList =
+        specializationList.length &&
+        specializationList.map((spec, index) => ({
+          ...spec,
+          sN: index + 1,
+          name: spec.name.toUpperCase()
+        }))
+      return newSpecializationList
     }
     handlePageChange = async newPage => {
       await this.setState({
@@ -344,11 +367,9 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
           deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.SpecializationDeleteReducer
-              .deleteSuccessMessage
+            message: this.props.SpecializationDeleteReducer.deleteSuccessMessage
           },
-          showAlert:true
-          
+          showAlert: true
         })
         await this.searchSpecialization()
       } catch (e) {
@@ -386,7 +407,7 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
           id: null
         }
       })
-      this.searchSpecialization();
+      this.searchSpecialization()
     }
 
     setStateValuesForSearch = searchParams => {
@@ -407,14 +428,14 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     }
     setFormValidManage = () => {
       this.setState({
-        formValid:true
+        formValid: true
       })
     }
-    async componentDidMount(){
-     if(type === "M"){
-        await this.searchSpecialization();
+    async componentDidMount () {
+      if (type === 'M') {
+        await this.searchSpecialization()
         //this.setFormValidManage();
-     }
+      }
     }
     render () {
       const {
@@ -450,11 +471,10 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
 
       const {
         specializationEditErrorMessage
-  
       } = this.props.SpecializationEditReducer
 
       const {deleteErrorMessage} = this.props.SpecializationDeleteReducer
-      console.log('Delete Modal Show',this.state.deleteModalShow)
+      console.log('Delete Modal Show', this.state.deleteModalShow)
       return (
         <ComposedComponent
           {...this.props}
@@ -527,4 +547,4 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     }
   )
 }
-export default SpecializationHOC
+export default HospitalHOC
