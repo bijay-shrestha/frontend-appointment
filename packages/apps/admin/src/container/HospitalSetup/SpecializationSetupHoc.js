@@ -1,6 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {SpecializationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
@@ -9,36 +9,34 @@ import {
 } from '@frontend-appointment/helpers'
 import './specialization.scss'
 const {
-  clearSpecializationCreateMessage,
-  createSpecialization,
-  deleteSpecialization,
-  downloadExcelForSpecializations,
-  editSpecialization,
-  previewSpecialization,
-  searchSpecialization
-} = SpecializationSetupMiddleware
+  clearHospitalCreateMessage,
+  createHospital,
+  deleteHospital,
+  editHospital,
+  previewHospital,
+  searchHospital,
+  downloadExcelForHospitals
+} = HospitalSetupMiddleware
 const SpecializationHOC = (ComposedComponent, props,type) => {
-  const {specializationSetupAPIConstants} = AdminModuleAPIConstants
+  const {hostpitalSetupApiConstants} = AdminModuleAPIConstants
   class SpecializationSetup extends React.PureComponent {
     state = {
       hospitalData: {
-        code: "",
-        hospitalAddress:"",
-        hospitalLogo:"",
-        hospitalPanNumber:"",
-        hospitalPhone:"",
-        name: "",
-        remarks: "",
-        status:""
+        "name":"",
+        "address":"",
+        "panNumber":"",
+        "status":"",
+        "hospitalCode":"",
+        "contactNumber":[],
+        "contactNumberUpdateRequestDTOS":[]
       },
       formValid: false,
       nameValid: false,
       codeValid: false,
       logoValid: false,
       showConfirmModal: false,
-      errorMessageForHospitalName:
-        'Specialization Name should not contain special characters',
-      errorMessageForHospitalCode: 'Specialization Code should not contain special characters',
+      errorMessageForHospitalName:'Specialization Name should not contain special characters',
+      errorMessageForHospitalCode:'Specialization Code should not contain special characters',
       showAlert: false,
       alertMessageInfo: {
         variant: '',
@@ -79,12 +77,15 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
 
     resetSpecializationStateValues = () => {
       this.setState({
-        specializationData: {
-          id: '',
-          name: '',
-          code: '',
-          status: 'Y',
-          remarks: ''
+        hospitalData: {
+          code: "",
+          hospitalAddress:"",
+          hospitalLogo:"",
+          hospitalPanNumber:"",
+          hospitalPhone:"",
+          name: "",
+          remarks: "",
+          status:""
         },
         formValid: false,
         nameValid: false,
@@ -107,7 +108,7 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     }
 
     closeAlert = () => {
-      this.props.clearSpecializationCreateMessage()
+      this.props.clearHospitalCreateMessage()
       this.setState({
         showAlert: !this.state.showAlert,
         alertMessageInfo: ''
@@ -115,12 +116,12 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     }
 
     checkFormValidity = eventType => {
-      const {specializationData, nameValid} = this.state
+      const {hospitalData, nameValid} = this.state
       let formValidity =
         nameValid &&
-        specializationData.name &&
-        specializationData.code &&
-        specializationData.status
+        hospitalData.name &&
+        hospitalData.code &&
+        hospitalData.status
 
       if (eventType === 'E')
         formValidity = formValidity && specializationData.remarks
@@ -130,17 +131,17 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
     }
 
     handleOnChange = async (event, fieldValid, eventType) => {
-      let specialization = {...this.state.specializationData}
+      let hospital = {...this.state.hospitalData}
       let {name, value, label} = event.target
       value = name === 'code' ? value.toUpperCase() : value
-      specialization[name] = !label
+      hospital[name] = !label
         ? value
         : value
         ? {value: value, label: label}
         : {value: null}
       await this.setTheState(
-        'specializationData',
-        specialization,
+        'hospitalData',
+        hospital,
         fieldValid,
         name
       )
