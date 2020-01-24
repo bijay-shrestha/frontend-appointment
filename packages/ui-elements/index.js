@@ -29,3 +29,7 @@ export {default as CNavTabs} from './src/CNavTabs';
 export {default as CImageCrop} from './src/CImageCrop';
 export {default as CImageDisplayAndView} from './src/CImageDisplayAndView';
 export {default as CHybridPassword} from './src/CHybridPassword';
+export {default as CPageNotFound} from './src/404error';
+export {default as CFullPageLoading} from './src/CFullPageLoading';
+export {default as CLoading} from './src/CLoading';
+export {default as CUnauthorized} from './src/Unauthorized';

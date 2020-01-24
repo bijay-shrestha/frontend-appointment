@@ -1,17 +1,15 @@
-import { rolesFromJson } from '@frontend-appointment/commons'
-import { CDataTable, CPagination } from '@frontend-appointment/ui-elements'
-import React, { memo } from 'react'
-import { Image } from 'react-bootstrap'
+import {rolesFromJson} from '@frontend-appointment/commons'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import React, {memo} from 'react'
 import PreviewRoles from '../commons/PreviewRoles'
 import ConfirmDelete from './comp/ConfirmDelete'
 import Statuslabel from './comp/StatusLabel'
 import TableAction from './comp/TableAction'
-import { CLoading } from '@frontend-appointment/ui-components'
 
 const ProfileDetails = props => (
     <div className="profile-details">
         <h5 className="title">Profile Details</h5>
-        {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length  ? (
+        {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
                 <CDataTable
                     classes="ag-theme-balham"
