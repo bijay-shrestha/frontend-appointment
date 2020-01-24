@@ -15,11 +15,11 @@ const {
   editHospital,
   previewHospital,
   searchHospital,
-  downloadExcelForHospitals
+  //downloadExcelForHospitals
 } = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
   const {hostpitalSetupApiConstants} = AdminModuleAPIConstants
-  class SpecializationSetup extends React.PureComponent {
+  class HospitalSetup extends React.PureComponent {
     state = {
       hospitalData: {
         name: '',
@@ -78,7 +78,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    resetSpecializationStateValues = () => {
+    resetHospitalStateValues = () => {
       this.setState({
         hospitalData: {
           name: '',
@@ -158,6 +158,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       this.checkFormValidity(eventType);
     }
 
+    
     handleOnChange = async (event, fieldValid, eventType) => {
       let hospital = {...this.state.hospitalData}
       let {name, value, label} = event.target
@@ -178,21 +179,21 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     handleConfirmClick = async () => {
       const {name, code, status} = this.state.specializationData
       try {
-        await this.props.createSpecialization(
-          specializationSetupAPIConstants.CREATE_SPECIALIZATION,
+        await this.props.createHospital(
+          hostpitalSetupApiConstants.CREATE_HOSPITAL,
           {
             name,
             code,
             status
           }
         )
-        this.resetSpecializationStateValues()
+        this.resetHospitalStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.SpecializationSaveReducer
-              .createSpecializationsuccessMessage
+            message: this.props.HospitalSaveReducer
+                    .createHospitalsuccessMessage
           }
         })
       } catch (e) {
@@ -208,8 +209,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async id => {
-      await this.props.previewSpecialization(
-        specializationSetupAPIConstants.FETCH_SPECIALIZATION_DETAILS,
+      await this.props.previewHospital(
+        hostpitalSetupApiConstants.FETCH_HOSPITAL_DETAILS,
         id
       )
     }
@@ -218,22 +219,22 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(id)
         this.setState({
-          showSpecializationModal: true
+          showHospitalModal: true
         })
       } catch (e) {
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.SpecializationPreviewReducer
-              .specializationPreviewErrorMessage
+            message: this.props.HospitalPreviewReducer
+              .hospitalPreviewErrorMessage
           }
         })
       }
     }
 
     onEditHandler = async id => {
-      this.props.clearSpecializationCreateMessage()
+      this.props.clearHospitalCreateMessage()
       try {
         await this.previewApiCall(id)
         const {
@@ -241,7 +242,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           code,
           status,
           remarks
-        } = this.props.SpecializationPreviewReducer.specializationPreviewData
+        } = this.props.HospitalPreviewReducer.hospitalPreviewData
         let formValid = this.state.formValid
         if (remarks) formValid = true
         this.setState({
@@ -260,7 +261,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    searchSpecialization = async page => {
+    searchHospital = async page => {
       const {code, name, status, id} = this.state.searchParameters
       let searchData = {
         name: name,
@@ -275,8 +276,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.searchSpecialization(
-        specializationSetupAPIConstants.SEARCH_SPECIALIZATION,
+      await this.props.searchHospital(
+        hostpitalSetupApiConstants.SEARCH_HOSPITAL,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -285,9 +286,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       )
 
       await this.setState({
-        totalRecords: this.props.SpecializationSearchReducer.specializationList
+        totalRecords: this.props.HospitalSearchReducer.hospitalList
           .length
-          ? this.props.SpecializationSearchReducer.specializationList[0]
+          ? this.props.HospitalSearchReducer.hospitalList[0]
               .totalItems
           : 0,
         queryParams: {
@@ -297,17 +298,17 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    appendSNToTable = specializationList => {
-      console.log('Specialization', specializationList)
-      const newSpecializationList =
-        specializationList.length &&
-        specializationList.map((spec, index) => ({
+    appendSNToTable = hospitalList => {
+      const newHospitalList =
+        hospitalList.length &&
+        hospitalList.map((spec, index) => ({
           ...spec,
           sN: index + 1,
           name: spec.name.toUpperCase()
         }))
-      return newSpecializationList
+      return newHospitalList;
     }
+    
     handlePageChange = async newPage => {
       await this.setState({
         queryParams: {
@@ -318,19 +319,19 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       this.searchSpecialization()
     }
 
-    editSpeclization = async () => {
+    editHospital = async () => {
       try {
-        await this.props.editSpecialization(
-          specializationSetupAPIConstants.EDIT_SPECIALIZATION,
+        await this.props.editHospital(
+          hostpitalSetupApiConstants.EDIT_HOSPITAL,
           this.state.specializationData
         )
-        this.resetSpecializationStateValues()
+        this.resetHospitalStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.SpecializationEditReducer
-              .specializationEditSuccessMessage
+            message: this.props.HospitalEditReducer
+              .hospitalEditSuccessMessage
           }
         })
         await this.searchSpecialization()
@@ -338,7 +339,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     }
 
     onDeleteHandler = async id => {
-      this.props.clearSpecializationCreateMessage()
+      this.props.clearHospitalCreateMessage()
       let deleteRequestDTO = {...this.state.deleteRequestDTO}
       deleteRequestDTO['id'] = id
       await this.setState({
@@ -358,8 +359,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     onSubmitDeleteHandler = async () => {
       try {
-        await this.props.deleteSpecialization(
-          specializationSetupAPIConstants.DELETE_SPECIALIZATION,
+        await this.props.deleteHospital(
+          hostpitalSetupApiConstants.DELETE_HOSPITAL,
           this.state.deleteRequestDTO
         )
         await this.setState({
@@ -367,7 +368,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.SpecializationDeleteReducer.deleteSuccessMessage
+            message: this.props.HospitalDeleteReducer.deleteSuccessMessage
           },
           showAlert: true
         })
@@ -378,26 +379,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         })
       }
     }
-
-    downloadEXCEL = async () => {
-      try {
-        let response = await this.props.downloadExcelForSpecializations(
-          specializationSetupAPIConstants.EXPORT_SPECIALIZATION_EXCEL
-        )
-        FileExportUtils.exportEXCEL(response.data, 'specializations')
-      } catch (e) {
-        this.setState({
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'danger',
-            message: e.errorMessage
-              ? e.errorMessage
-              : 'Sorry File Couldnot Be Downloaded Due To Server Problem!!'
-          }
-        })
-      }
-    }
-
+    
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
@@ -439,16 +421,16 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     }
     render () {
       const {
-        specializationData,
+        hospitalData,
         showAlert,
         showConfirmModal,
         formValid,
         codeValid,
         nameValid,
-        errorMessageForSpecializationCode,
-        errorMessageForSpecializationName,
+        errorMessageForHospitalCode,
+        errorMessageForHospitalName,
         alertMessageInfo,
-        showSpecializationModal,
+        showHospitalModal,
         showEditModal,
         deleteModalShow,
         searchParameters,
@@ -459,56 +441,54 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
       const {
         isSearchLoading,
-        specializationList,
+        hospitalList,
         searchErrorMessage
-      } = this.props.SpecializationSearchReducer
+      } = this.props.HospitalSearchReducer
 
       const {
-        specializationPreviewData,
+        hospitalPreviewData,
         isPreviewLoading,
-        specializationPreviewErrorMessage
-      } = this.props.SpecializationPreviewReducer
+        hospitalPreviewErrorMessage
+      } = this.props.HospitalPreviewReducer
 
       const {
-        specializationEditErrorMessage
-      } = this.props.SpecializationEditReducer
+        hospitalEditErrorMessage
+      } = this.props.HospitalEditReducer
 
-      const {deleteErrorMessage} = this.props.SpecializationDeleteReducer
-      console.log('Delete Modal Show', this.state.deleteModalShow)
+      const {deleteErrorMessage} = this.props.HospitalDeleteReducer
       return (
         <ComposedComponent
           {...this.props}
           {...props}
           handleEnter={this.handleEnterPress}
-          specializationData={specializationData}
-          resetStateAddValues={this.resetSpecializationStateValues}
+          hospitalData={hospitalData}
+          resetStateAddValues={this.resetHospitalStateValues}
           closeAlert={this.closeAlert}
           showConfirmModal={showConfirmModal}
           formValid={formValid}
           showAlert={showAlert}
           codeValid={codeValid}
           nameValid={nameValid}
-          errorMessageForSpecializationCode={errorMessageForSpecializationCode}
-          errorMessageForSpecializationName={errorMessageForSpecializationName}
+          errorMessageForHospitalCode={errorMessageForHospitalCode}
+          errorMessageForHospitalName={errorMessageForHospitalName}
           alertMessageInfo={alertMessageInfo}
           handleInputChange={this.handleOnChange}
           submitAddChanges={this.handleConfirmClick}
           setShowConfirmModal={this.setShowConfirmModal}
           handleSearchFormChange={this.handleSearchFormChange}
-          downloadEXCEL={this.downloadEXCEL}
           deleteRemarksHandler={this.deleteRemarksHandler}
           resetSearch={this.handleSearchFormReset}
-          searchSpecialization={this.searchSpecialization}
+          searchHospital={this.searchHospital}
           handlePageChange={this.handlePageChange}
           handleSearchFormChange={this.handleSearchFormChange}
           onSubmitDeleteHandler={this.onSubmitDeleteHandler}
-          editSpecialization={this.editSpeclization}
+          editHospital={this.editSpeclization}
           onEditHandler={this.onEditHandler}
           onDeleteHandler={this.onDeleteHandler}
           onPreviewHandler={this.onPreviewHandler}
           // appendSNToTable={this.appendSNToTable}
           setShowModal={this.setShowModal}
-          showSpecializationModal={showSpecializationModal}
+          showHospitalModal={showHospitalModal}
           showEditModal={showEditModal}
           deleteModalShow={deleteModalShow}
           searchParameters={searchParameters}
@@ -516,34 +496,36 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO={deleteRequestDTO}
           totalRecords={totalRecords}
           isSearchLoading={isSearchLoading}
-          specializationList={this.appendSNToTable(specializationList)}
+          specializationList={this.appendSNToTable(hospitalList)}
           searchErrorMessage={searchErrorMessage}
-          specializationPreviewErrorMessage={specializationPreviewErrorMessage}
+          specializationPreviewErrorMessage={hospitalPreviewErrorMessage}
           deleteErrorMessage={deleteErrorMessage}
-          specializationEditErrorMessage={specializationEditErrorMessage}
+          specializationEditErrorMessage={hospitalEditErrorMessage}
           isPreviewLoading={isPreviewLoading}
-          specializationPreviewData={specializationPreviewData}
+          specializationPreviewData={hospitalPreviewData}
+          addContactNumber={this.addContactNumber}
+          removeContactNumber={this.removeContactNumber}
+          editContactNumber={this.editContactNumber}
         ></ComposedComponent>
       )
     }
   }
   return ConnectHoc(
-    SpecializationSetup,
+    HospitalSetup,
     [
-      'SpecializationSaveReducer',
-      'SpecializationDeleteReducer',
-      'SpecializationEditReducer',
-      'SpecializationPreviewReducer',
-      'SpecializationSearchReducer'
+      'HospitalSaveReducer',
+      'HospitalDeleteReducer',
+      'HospitalEditReducer',
+      'HospitalPreviewReducer',
+      'HospitalSearchReducer'
     ],
     {
-      clearSpecializationCreateMessage,
-      createSpecialization,
-      deleteSpecialization,
-      downloadExcelForSpecializations,
-      editSpecialization,
-      previewSpecialization,
-      searchSpecialization
+      clearHospitalCreateMessage,
+      createHospital,
+      deleteHospital,
+      editHospital,
+      previewHospital,
+      searchHospital,
     }
   )
 }
