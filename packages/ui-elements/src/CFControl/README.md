@@ -71,9 +71,9 @@ defaultValue: string - Default value for Form Control.
 
 id: string - Uses controlId from <FormGroup> if not explicitly specified.
 
-isInvalid: boolean - Add "invalid" validation styles to the control and accompanying label
+isInvalid: boolean - ProfileAdd "invalid" validation styles to the control and accompanying label
 
-isValid: boolean - Add "valid" validation styles to the control.
+isValid: boolean - ProfileAdd "valid" validation styles to the control.
 
 max: number - Max number allowed when using CFormControl as number input.
 

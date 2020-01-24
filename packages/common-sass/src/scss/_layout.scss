@@ -97,16 +97,50 @@
 
       .nav-link{
         color:$gray-600;
-        border-bottom:2px solid $gray-500;
+        position: relative;
+        border:0;
+        &::before{
+          content:'';
+          position: absolute;
+          height:2px;
+          width:100%;
+          top:32px;
+          left:0;
+          background-color:$gray-500;
+          @include border-radius(6px 6px 0 0);
+        }
+       
 
         &:hover{
           color:$gray-900;
-          border-bottom:2px solid $gray-900;
+          border:0;
+          &::before{
+            content:'';
+            position: absolute;
+            height:2px;
+            width:100%;
+            top:32px;
+            left:0;
+            background-color:$gray-500;
+            @include border-radius(6px 6px 0 0);
+          }
+         
         }
 
         &.active{
-          color:$cogent;
-          border-bottom:2px solid $cogent;
+           color:$cogent;
+           border:0;
+          &::before{
+            content:'';
+            position: absolute;
+            height:2px;
+            width:100%;
+            top:32px;
+            left:0;
+            background-color:$cogent;
+            @include border-radius(6px 6px 0 0);
+          }
+         
         }
       }
       

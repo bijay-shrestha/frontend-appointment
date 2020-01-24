@@ -21,7 +21,7 @@
   font-size: 0.8rem;
   line-height:1rem;
   position: absolute;
-  top: 12px !important;
+  top: 11px !important;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: $gray-600;
@@ -98,6 +98,15 @@
   // &:hover{
   //   cursor: not-allowed; 
   // }
+}
+
+.field-wrapper .show-btn-pwd{
+  border-color:$gray-300;
+   border:none;
+  //  &:hover{
+  //    background-color:none;
+  //    color:inherit;
+  //  }
 }
 
 

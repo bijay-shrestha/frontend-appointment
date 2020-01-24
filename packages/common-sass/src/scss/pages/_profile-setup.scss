@@ -1,11 +1,11 @@
-.add-profile {
+.add-container {
     padding: 40px 24px;
     margin : 1rem 0;
 
     @include border-radius($cogent-radius);
 }
 
-.profile-info {
+.add-info {
     .form-check-input[type="radio"] {
         margin-top: 0.1rem;
     }
@@ -18,6 +18,7 @@
     padding      : 5px 0 0;
     border-radius: 5px;
     height       : 360px;
+    //background-color:$white;
 
     .am-header {
         border-bottom : 1px solid $gray-200;
@@ -60,45 +61,49 @@
     .card {
         border-radius: 0;
         border       : none;
-
+        // background-color:$white;
         &>:not(:first-child) {
             div{
-                padding-left: 44px;
+            padding-left: 44px;
             font-size   : 0.75rem;
-            background-color:$gray-100;
             }
-            
+
 
         }
 
-        // .card {
-        //     padding-left : 30px;
-        //     border-bottom: 1px solid $gray-200;
-        // }
+        & .collapse{
+            background-color: lighten($cogent,48%);
 
-        .collapse.show {
-            background-color: $white;
-            &:hover {
-                //background-color:$gray-300;
-                cursor            : pointer;
+            .card-header{
+                background-color:rgba($cogent,0.01);
+                transition: 0.3s;
+                &:hover {
+                    background-color: lighten($cogent, 45%);
+                      cursor            : pointer;
 
+                  }
             }
-        }
+
+       }
+
+
     }
+
+
 
     .card-header:first-child {
         border-radius: 0;
     }
 
     .card-header {
-        background-color: $white;
-        border-bottom   : 1px solid lighten($cogent-border, 5%);
+         background-color: $white;
+        border-bottom   : 0px solid lighten($cogent-border, 5%);
         display         : flex;
         flex-direction  : row;
         justify-content : flex-start;
         align-items     : center;
         padding         : 0.75rem 0.6rem 0.75rem 0.9rem;
-        transition: 0.3s;
+        // transition: 0.3s;
 
         & :nth-child(1) {
             flex: 0 0 30px;
@@ -110,47 +115,41 @@
 
         & :nth-child(3) {
             flex: 0 0 20px;
+            margin-top:-5px;
         }
 
         &.activeParent {
-            background-color: $gray-200;
-            color           : $cogent;
+            background-color: lighten($cogent,10%) !important;
+            color           : $white !important;
 
         }
 
         &:hover {
             //background-color:lighten($cogent, 20%);
-            color             : lighten($cogent, 10%);
+            //color             : lighten($gray-900, 0%);
             cursor            : pointer;
-            background-color: $gray-100;
+            background-color: lighten($cogent, 45%);
 
         }
 
-        .card-header {
 
-            padding-left: 44px;
-            font-size   : 0.75rem;
 
-        }
 
-        // i {
-        //     float: right;
 
-        // }
     }
 
 
 
-    .card .show {
-        border-left: 10px;
+    // .card .show {
+    //     border-left: 10px;
 
-    }
+    // }
 
     .card .activeChild .card-header {
         // background-color: lighten($cogent, 10%);
         // color           : $white;
         position           : relative;
-        background-color   : $gray-100;
+        background-color   :lighten($cogent, 42%);
         color:$cogent;
 
         &:before {
@@ -159,7 +158,23 @@
             top        : 0;
             bottom     : 0;
             left       : 0;
-            border-left: 4px solid $cogent;
+            border-left: 3px solid lighten($cogent,10%);
+
+        }
+    }
+
+    .card-header.activeChild{
+        position           : relative;
+        background-color   :lighten($cogent, 45%);
+        color:$cogent;
+
+        &:before {
+            content    : "";
+            position   : absolute;
+            top        : 0;
+            bottom     : 0;
+            left       : 0;
+            border-left: 3px solid lighten($cogent,10%);
 
         }
     }
@@ -271,14 +286,28 @@
     }
 }
 
-.preview-roles-modal {
+
+
+.manage-details {
+    background-color: $white;
+    padding: 40px 24px;
+    margin          : 1rem 0;
+    @include border-radius($cogent-radius);
+
+    h2 {
+        padding-left: 10px;
+    }
+}
+
+
+.preview-modal {
     .modal-content {
         border        : none;
         padding-bottom: 30px;
 
         .modal-header {
 
-            background         : darken($cogent, 5%);
+            background-color         : darken($cogent, 5%);
             // background      : linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
             //background-image : url("../images/clinic5.png");
             justify-content    : center;
@@ -305,70 +334,47 @@
         padding-right: 10px;
     }
 
-    .assign-menu .card-header{
-      
+    .assign-item{
+        .assign-header{
+            i{
+                font-weight: 700;
+                color:$gray-700;
+            }
+        }
+        i{
+            font-weight: 400;
+            color:$gray-600;
+            font-size: 12px;
+        }
     }
+
+    // .assign-menu,.assign-previledge  {
+    //     height: 370px;
+    //     .am-header {
+    //         padding:8px ;
+    //     }
+
+    //     .am-title{
+    //         font-weight: 500;
+    //     }
+
+
+
+    // }
 }
-
-// .manage-profile{
-
-//     .tab-content > .active{
-//         padding:0 !important;
-//        }
-// }
-
-// .tabpanel-manage{
-//     padding:20px 0px !important;
-// }
-
-.profile-details {
-    background-color: $white;
-    padding: 40px 24px;
-    margin          : 1rem 0;
-    @include border-radius($cogent-radius);
-
-    h2 {
-        padding-left: 10px;
-    }
-}
-
-
-
-
-// .search-toggle-btn{
-
-//     position: absolute;
-//     display : inline-block;
-//     bottom  : 100px;
-//     right   : 32px;
-
-//     button{
-//        padding:12px;
-//         @include border-radius(50%);
-//         &:hover{
-//             cursor: pointer;
-//         }
-//     }
-// }
-
-
 
 
 
 @include media-breakpoint-down(md) {
-    .profile-info {
+    .add-info {
         margin-bottom: 30px;
     }
-
-    // .assign-previledge{
-    //  margin-top:16px;
-    // }
 
 }
 
 @include media-breakpoint-down(sm) {
 
-    .profile-info,
+    .add-info,
     .menu-list-wrapper,
     .roles-wrapper {
         margin-bottom: 30px;

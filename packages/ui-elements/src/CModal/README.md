@@ -10,7 +10,7 @@ animation	        boolean	                true	    Open and close the Modal with
 autoFocus	        boolean	                true	    When true The modal will automatically shift focus to itself when it opens, and replace it to the last focused element when it closes. Generally this should never be set to false as it makes the Modal less accessible to assistive technologies, like screen-readers.
 backdrop	        'static' | true         true	    Include a backdrop component. Specify 'static' for a backdrop that doesn't trigger an "onHide" when clicked.
                     | false	
-backdropClassName	string		                        Add an optional extra class name to .modal-backdrop It could end up looking like class="modal-backdrop foo-modal-backdrop in".
+backdropClassName	string		                        ProfileAdd an optional extra class name to .modal-backdrop It could end up looking like class="modal-backdrop foo-modal-backdrop in".
 centered	        boolean		                        vertically center the Dialog in the window
 container	        any		
 dialogAs	        elementType	           <ModalDialog> A Component type that provides the modal content Markup. This is a useful prop when you want to use your own styles and markup to create a custom modal component.

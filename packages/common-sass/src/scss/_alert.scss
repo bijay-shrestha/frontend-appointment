@@ -3,10 +3,11 @@
 //
 
 .alert {
+  margin-top:4px;
     position: fixed;
-    padding:10px 0 10px 20px;
+    padding:16px 0 16px 20px;
     top:0;
-
+    border:none;
     left:50%;
     transform:translateX(-50%);
     width:60%;
@@ -17,12 +18,12 @@
     flex-direction: row;
     justify-content:flex-start;
     align-items: center;
-    -webkit-box-shadow: 0 6px 3px -6px #777;
-    -moz-box-shadow: 0 6px 3px -6px #777;
-         box-shadow: 0 6px 3px -6px #777;
-        // box-shadow: 0 0.25rem 0.75rem rgba(0,0,0,.1);
+    // -webkit-box-shadow: 0 1px 3px -6px #777;
+    // -moz-box-shadow: 0 1px 3px -6px #777;
+    //      box-shadow: 0 1px 3px -6px #777;
+        box-shadow: 0 0.25rem 0.15rem rgba(0,0,0,.1);
 
-         @include border-radius(2px);
+         @include border-radius(6px);
 
          .alert-heading{
         
@@ -34,7 +35,7 @@
          
             i,svg{
                 
-                font-size:30px;
+                font-size:24px;
                 display:block;
                 color:$white;
             }
@@ -46,6 +47,10 @@
             text-align: center;
             margin-bottom:0;
             padding-left:20px;
+            padding-right:60px;
+            line-break: auto;
+            font-size: 14px;
+            font-weight: 500;
          }
 
   }
@@ -58,6 +63,10 @@
   .alert-danger{
     background-color:$danger;
   }
+  .alert-warning{
+    background-color:$warning;
+  }
+
 
   .alert-heading{
       margin-bottom:0;
@@ -66,5 +75,6 @@
 
   .alert-dismissible .close{
     color:$white;
+    padding:1.25rem
   }
   

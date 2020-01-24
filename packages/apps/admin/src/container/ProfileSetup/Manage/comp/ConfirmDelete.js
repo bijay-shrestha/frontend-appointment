@@ -1,7 +1,7 @@
 import React from 'react'
 import {Row, Col, FormCheck, Alert} from 'react-bootstrap'
 import {CModal, CButton, CHybridTextArea} from '@frontend-appointment/ui-elements'
-import UpdateProfile from '../../Add/Add'
+import UpdateProfile from '../../Add/ProfileAdd'
 
 const ConfirmDelete = props => {
   // let footerChildren = <CButton id="testModule-button" name="Footer Test button"/>;
@@ -16,7 +16,7 @@ const ConfirmDelete = props => {
           placeholder="Remarks"
           value={props.remarks}
         />
-       
+
         <CButton
         variant='danger '
         size='lg'
@@ -24,7 +24,7 @@ const ConfirmDelete = props => {
         name='Delete'
         onClickHandler={props.onSubmitDelete}
         ></CButton>
-         
+
          <CButton
         variant='default '
         size='lg'

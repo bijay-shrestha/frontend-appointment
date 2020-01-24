@@ -65,7 +65,7 @@
 
       .sidebar-item{
         width:30px;
-        margin-left:8px;
+        //margin-left:8px;
         // & :first-child{
         //   flex:0 1 30px;
         // }
@@ -126,7 +126,7 @@
   .nav-item {
     color      : $white;
     // color   : rgba($cogent,0.8);
-    font-weight: 500;
+    font-weight: 400;
     width      : 100%;
   }
 
@@ -140,10 +140,10 @@
 
   .nav-item.open {
     color           : rgba($white, 0.8);
-    background-color: darken($cogent, 5%);
+    background-color: darken($blue, 10%);
 
     .level-one .nav-item {
-      background-color: darken($cogent, 5%);
+      background-color: darken($blue, 10%);
       color           : rgba($white, 0.8);
       &.active{
        // background-color:transparent;
@@ -152,8 +152,8 @@
 
     .level-one{
       &>.nav-link{
-         background-color: darken($cogent, 10%);
-       
+        //background-color: lighten($cogent-accent, 10%);
+         background-color: darken($cogent, 16%);
          .svg-inline--fa,
          .fa,
          .text{
@@ -210,6 +210,18 @@
 
     a {
       padding-left: 55px;
+      position: relative;
+      // &::before{
+      //   position: absolute;
+      //   content:'';
+      //   height: 6px;
+      //   width: 6px;
+      //   background-color: #bbb;
+      //   border-radius: 50%;
+      //   display: none;
+      //   left:35px;
+      //   top:23px;
+      // }
     }
   }
 
@@ -225,12 +237,25 @@
     //@include border-radius(1rem);
     a{
       position:relative;
-      
+      color:$cogent; 
+      //background-color: lighten($blue, 10%);
+     
     }
     a::before{
+      // position: absolute;
+      // content:'';
+      // height: 6px;
+      // width: 6px;
+      // background-color: $gray-900;
+      // border-radius: 50%;
+      // display: inline-block;
+      // left:35px;
+      // top:23px;
+
+
       content:"";
-      
-      border-left:6px solid darken($cogent, 10%);
+     border-left:4px solid  darken($cogent, 20%);
+      //border-left:4px solid  darken($cogent, 16%);
       position: absolute;
       top:0;
       bottom:0;
@@ -244,7 +269,7 @@
       
       .svg-inline--fa,
       .text {
-        color: rgba($white, 0.8);
+        color: rgba($white, 1);
       }
 
       
@@ -257,6 +282,7 @@
 
   .nav-item a:hover {
     transition: .2s;
+    background-color:darken($blue,0%);
     // @include border-radius(1rem);
 
     .fa,

@@ -26,7 +26,7 @@ export default {
 
 ```
 
-__Step 2:__ Let's say now we want to add another header for file requests. Add another method that returns the required headers. Assign the function a name following the convention (ALL_CAPITAL_LETTERS).
+__Step 2:__ Let's say now we want to add another header for file requests. ProfileAdd another method that returns the required headers. Assign the function a name following the convention (ALL_CAPITAL_LETTERS).
 
 We are adding a method 'FILE_HEADER' that returns headers for file requests(PDF/EXCEL requests).
 

@@ -2,9 +2,8 @@ import React, {PureComponent} from 'react'
 import {Col, Container, Row} from 'react-bootstrap'
 import ProfileInfoForm from './ProfileInfoForm'
 import ProfileMenuAssignment from './ProfileMenuAssignment'
-import {CAlert, CButton, CNavTabs} from '@frontend-appointment/ui-elements'
-import {menus, rolesFromJson, TabsHOC, TryCatchHandler} from '@frontend-appointment/commons'
-import {ConnectHoc} from '@frontend-appointment/commons'
+import {CAlert, CButton} from '@frontend-appointment/ui-elements'
+import {ConnectHoc, menus, rolesFromJson, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
@@ -22,7 +21,7 @@ const {
     CREATE_PROFILE
 } = profileSetupAPIConstants;
 
-class Add extends PureComponent {
+class ProfileAdd extends PureComponent {
 
     state = {
         isSubDepartmentDisabled: true,
@@ -448,7 +447,7 @@ class Add extends PureComponent {
     }
 }
 
-export default ConnectHoc(Add, ['ProfileSetupReducer'], {
+export default ConnectHoc(ProfileAdd, ['ProfileSetupReducer'], {
   fetchDepartments,
   fetchSubDepartmentsByDepartmentId,
   createProfile,

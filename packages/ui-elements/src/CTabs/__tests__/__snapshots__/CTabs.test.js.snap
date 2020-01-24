@@ -11,13 +11,13 @@ exports[`CTabs Tests Snapshot Test if renders CTab correctly 1`] = `
     key="tab_1"
     title={
       <React.Fragment>
-         
+
         <i
           aria-hidden="true"
           className="fa fa-plus-circle"
         />
-         
-        Add
+
+        ProfileAdd
       </React.Fragment>
     }
   />
@@ -27,13 +27,13 @@ exports[`CTabs Tests Snapshot Test if renders CTab correctly 1`] = `
     key="tab_2"
     title={
       <React.Fragment>
-         
+
         <i
           aria-hidden="true"
           className="fa fa-clipboard"
         />
-         
-        Manage
+
+        ProfileManage
       </React.Fragment>
     }
   />

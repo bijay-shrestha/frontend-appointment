@@ -4,5 +4,9 @@ border-color:$cogent;
 }
 
 .form-control{
-    border-color:$cogent;
+    // border-color:$cogent;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid{
+    background-image: none;
 }

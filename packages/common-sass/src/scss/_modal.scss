@@ -3,8 +3,7 @@
         border:none;
         padding-bottom:10px;
          .modal-header{
-             
-             background: darken($cogent, 5%);
+             background-color: darken($cogent, 5%);
            // background: linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
             // background-image: url("../images/clinic5.png");
             justify-content: center;
@@ -20,7 +19,11 @@
              opacity: 0.9;
      
          }
+
+        
      }
+
+
 
     #label_status{
         display: block;
@@ -30,3 +33,32 @@
          padding-right:10px;
      }
 }
+
+// Modal background
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: $zindex-modal-backdrop;
+    width: 100vw;
+    height: 100vh;
+    background-color: $modal-backdrop-bg;
+  
+    // Fade for backdrop
+    &.fade { opacity: 1; }
+    &.show { opacity: $modal-backdrop-opacity; }
+  }
+
+.modal-footer{
+    border-top:0px !important;
+}
+
+.modal-backdrop {
+    z-index: $zindex-modal-backdrop;
+    background-color:#000;
+  
+    // Fade for backdrop
+    &.fade { opacity: 0; }
+    &.show { opacity: 0.7; }
+  }
+  

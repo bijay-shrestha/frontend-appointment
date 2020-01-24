@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import ProfileDetails from './ProfileDetails'
-import {ConnectHoc} from '@frontend-appointment/commons'
+import {ConnectHoc, menus, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
@@ -10,9 +10,8 @@ import {
     previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
-import {menus, TabsHOC, TryCatchHandler} from '@frontend-appointment/commons'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
-import {CAlert, CNavTabs} from "@frontend-appointment/ui-elements";
+import {CAlert} from "@frontend-appointment/ui-elements";
 import {profileSetupAPIConstants} from '../ProfileSetupAPIConstants';
 import {UserMenuUtils} from "@frontend-appointment/helpers";
 
@@ -25,7 +24,7 @@ const {
 } = profileSetupAPIConstants;
 
 
-class Manage extends PureComponent {
+class ProfileManage extends PureComponent {
     state = {
         showProfileModal: false,
         showEditModal: false,
@@ -894,7 +893,7 @@ class Manage extends PureComponent {
 }
 
 export default ConnectHoc(
-    Manage,
+    ProfileManage,
     [
         'ProfileListReducer',
         'ProfilePreviewReducer',
