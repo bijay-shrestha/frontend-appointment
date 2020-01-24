@@ -37,9 +37,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       logoValid: false,
       showConfirmModal: false,
       errorMessageForHospitalName:
-        'Specialization Name should not contain special characters',
+        'Hospital Name should not contain special characters',
       errorMessageForHospitalCode:
-        'Specialization Code should not contain special characters',
+        'Hospital Code should not contain special characters',
       showAlert: false,
       alertMessageInfo: {
         variant: '',
