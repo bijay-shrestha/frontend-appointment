@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-hybrid-password",
+  "version": "1.0.0",
+  "main": "CHybridPassword.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

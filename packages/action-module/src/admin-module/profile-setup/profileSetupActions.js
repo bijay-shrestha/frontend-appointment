@@ -26,7 +26,14 @@ const {
     CLEAR_PROFILE_EDIT_ERROR_MESSAGE,
     CLEAR_PROFILE_PREVIEW_ERROR_MESSAGE,
     CLEAR_PROFILE_DELETE_ERROR_MESSAGE,
-    CLEAR_PROFILE_DELETE_SUCCESS_MESSAGE
+    CLEAR_PROFILE_DELETE_SUCCESS_MESSAGE,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_PENDING,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_SUCCESS,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_ERROR,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_PENDING,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_SUCCESS,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_ERROR,
+    CLEAR_ERROR_MESSAGE_FOR_DROPDOWN
 } = profileSetupConstants;
 
 export const departmentFetchingStart = () => {
@@ -43,7 +50,6 @@ export const departmentFetchingError = message => {
         }
     }
 };
-
 
 
 export const saveDepartments = data => {
@@ -246,5 +252,60 @@ export const clearProfileDeleteErrorMessage = () => {
 export const clearProfileDeleteSuccessMessage = () => {
     return {
         type: CLEAR_PROFILE_DELETE_SUCCESS_MESSAGE
+    }
+};
+
+export const fetchProfileListBySubDepartmentIdPending = () => {
+    return {
+        type: FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_PENDING
+    }
+};
+
+export const fetchProfileListBySubDepartmentIdSuccess = data => {
+    return {
+        type: FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+
+export const fetchProfileListBySubDepartmentIdError = errorMsg => {
+    return {
+        type: FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
+    }
+};
+
+export const fetchProfileListForDropDownActivePending = () => {
+    return {
+        type: FETCH_PROFILE_LIST_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchProfileListForDropDownActiveSuccess = data => {
+    return {
+        type: FETCH_PROFILE_LIST_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchProfileListForDropDownActiveError = errorMsg => {
+    return {
+        type: FETCH_PROFILE_LIST_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
+    }
+};
+
+export const clearDropdownErrorMessage = () => {
+    return {
+        type: CLEAR_ERROR_MESSAGE_FOR_DROPDOWN
     }
 };

@@ -26,3 +26,6 @@ export {default as CSideBar} from './src/CSideBar';
 export {default as CPagination} from './src/CPagination';
 export {default as CAlert} from './src/CAlert';
 export {default as CNavTabs} from './src/CNavTabs';
+export {default as CImageCrop} from './src/CImageCrop';
+export {default as CImageDisplayAndView} from './src/CImageDisplayAndView';
+export {default as CHybridPassword} from './src/CHybridPassword';

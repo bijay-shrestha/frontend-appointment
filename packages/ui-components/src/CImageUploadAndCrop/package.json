@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-image-upload-and-crop",
+  "version": "1.0.0",
+  "main": "CImageUploadAndCropModal.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

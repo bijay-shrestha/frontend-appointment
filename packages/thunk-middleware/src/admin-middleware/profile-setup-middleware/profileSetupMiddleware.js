@@ -93,3 +93,31 @@ export const clearSuccessErrorMessagesFromStore = () => async dispatch => {
     dispatch(ProfileSetupActions.clearProfileDeleteSuccessMessage());
 };
 
+export const clearErrorMessageForDropdown = ()=> async dispatch=>{
+    dispatch(ProfileSetupActions.clearDropdownErrorMessage())
+};
+
+export const fetchProfileListBySubDepartmentId = (path,id) => async dispatch =>{
+    dispatch(ProfileSetupActions.fetchProfileListBySubDepartmentIdPending());
+    try {
+        let response = await Axios.getWithPathVariables(path, id);
+        dispatch(ProfileSetupActions.fetchProfileListBySubDepartmentIdSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(ProfileSetupActions.fetchProfileListBySubDepartmentIdError(e.errorMessage));
+    }
+};
+
+export const fetchActiveProfileListForDropdown = (path) => async dispatch =>{
+    dispatch(ProfileSetupActions.fetchProfileListForDropDownActivePending());
+    try {
+        let response = await Axios.get(path);
+        dispatch(ProfileSetupActions.fetchProfileListForDropDownActiveSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(ProfileSetupActions.fetchProfileListForDropDownActiveError(e.errorMessage));
+    }
+};
+
+
+

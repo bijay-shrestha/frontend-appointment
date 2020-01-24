@@ -1,0 +1,8 @@
+{
+  "name": "logged-in-admin-info-middleware",
+  "main": "loggedInAdminInfoMiddleware.js",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true
+}
+

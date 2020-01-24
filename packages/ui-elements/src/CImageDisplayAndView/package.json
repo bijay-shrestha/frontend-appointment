@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-image-display-and-view",
+  "version": "0.0.0",
+  "main": "CImageDisplayAndView.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
