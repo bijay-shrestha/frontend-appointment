@@ -1,0 +1,8 @@
+{
+  "name": "logout-middleware",
+  "main": "logoutMiddleware.js",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true
+}
+

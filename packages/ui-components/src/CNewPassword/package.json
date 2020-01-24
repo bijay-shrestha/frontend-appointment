@@ -1,0 +1,8 @@
+{
+    "name": "@cogent/c-new-password",
+    "main": "NewPassword.js",
+    "version": "0.0.0",
+    "author": "Sudin Shakya",
+    "license": "MIT",
+    "private": true
+}

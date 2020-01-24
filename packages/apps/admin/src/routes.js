@@ -1,8 +1,8 @@
 import Loadable from 'react-loadable';
 import React from 'react';
-import { CUnauthorized, CLoading } from '@frontend-appointment/ui-components';
+import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements';
 
-const getLoader = () => <CLoading />;
+const getLoader = () => <CLoading/>;
 
 const DashboardComponent = Loadable({
     loader: () => import('./container/AdminDashboard/AdminDashboard'),
@@ -35,7 +35,7 @@ export const routes = [
         "component": DashboardComponent,
         "isLink": true,
         "icon": "",
-        "hasTab":false,
+        "hasTab": false,
         "name": "Dashboard"
     },
     {
@@ -43,8 +43,8 @@ export const routes = [
         "component": ProfileComponent,
         "isLink": false,
         "icon": "",
-        "hasTab":true,
-        "isTab":false,
+        "hasTab": true,
+        "isTab": false,
         "name": "Profile Setup"
     },
     {
@@ -52,7 +52,7 @@ export const routes = [
         "name": "Add",
         "component": AddProfileComponent,
         "icon": "",
-        "hasTab":true,
+        "hasTab": true,
         "isLink": true
     },
 
@@ -60,7 +60,7 @@ export const routes = [
         "path": "/admin/profile/manage",
         "component": ManageProfileComponent,
         "icon": "",
-        "hasTab":true,
+        "hasTab": true,
         "isLink": true,
         "name": "Manage",
     },
@@ -69,7 +69,7 @@ export const routes = [
         "path": "/admin/specialization/add",
         "component": AddSpecializationComponent,
         "icon": "",
-        "hasTab":true,
+        "hasTab": true,
         "isLink": true,
         "name": "Add",
     },
@@ -77,9 +77,9 @@ export const routes = [
         "path": "/admin/specialization/Manage",
         "component": ManageSpecializationComponent,
         "icon": "",
-        "hasTab":true,
+        "hasTab": true,
         "isLink": true,
         "name": "Manage",
     }
-    
+
 ];

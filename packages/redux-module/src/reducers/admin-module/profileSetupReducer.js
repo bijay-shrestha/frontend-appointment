@@ -25,7 +25,14 @@ const {
     CLEAR_PROFILE_EDIT_ERROR_MESSAGE,
     CLEAR_PROFILE_PREVIEW_ERROR_MESSAGE,
     CLEAR_PROFILE_DELETE_ERROR_MESSAGE,
-    CLEAR_PROFILE_DELETE_SUCCESS_MESSAGE
+    CLEAR_PROFILE_DELETE_SUCCESS_MESSAGE,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_PENDING,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_SUCCESS,
+    FETCH_PROFILE_LIST_FOR_DROPDOWN_ERROR,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_PENDING,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_SUCCESS,
+    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_ERROR,
+    CLEAR_ERROR_MESSAGE_FOR_DROPDOWN
 } = profileSetupConstants;
 
 const initialState = {
@@ -45,7 +52,10 @@ const initialState = {
     profileSuccessMessage: '',
     profilePreviewData: {},
     profilePreviewErrorMessage: '',
-    profilePreviewOpen: false
+    profilePreviewOpen: false,
+    activeProfilesForDropdown: [],
+    profilesBySubDepartmentId: [],
+    dropdownErrorMessage: ''
 };
 
 export const ProfileSetupReducer = (state = {...initialState}, action) => {
@@ -86,6 +96,35 @@ export const ProfileSetupReducer = (state = {...initialState}, action) => {
                 ...state,
                 isCreateProfileLoading: false,
                 errorMessage: ''
+            };
+        case FETCH_PROFILE_LIST_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                activeProfilesForDropdown: [...action.payload.data],
+                dropdownErrorMessage: ""
+            };
+        case FETCH_PROFILE_LIST_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                activeProfilesForDropdown: [],
+                dropdownErrorMessage: action.payload.errorMessage
+            };
+        case FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_SUCCESS:
+            return {
+                ...state,
+                profilesBySubDepartmentId: [...action.payload.data],
+                dropdownErrorMessage: ""
+            };
+        case FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_ERROR:
+            return {
+                ...state,
+                profilesBySubDepartmentId: [],
+                dropdownErrorMessage: action.payload.errorMessage
+            };
+        case CLEAR_ERROR_MESSAGE_FOR_DROPDOWN:
+            return {
+                ...state,
+                dropdownErrorMessage: ''
             };
         default:
             return state

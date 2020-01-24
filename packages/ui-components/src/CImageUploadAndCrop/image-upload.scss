@@ -1,0 +1,89 @@
+@import '~bootstrap/scss/mixins';
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.ReactCrop{
+
+//    min-height:300px;
+   &:first-child{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+   }
+}
+
+.image-container{
+    min-width:400px;
+    min-height: 400px;
+    background-color:#f0f2fc;
+    display:block;
+    margin-bottom:10px;
+    position: relative;
+    border-radius:5px;
+
+   .default-image{
+        content: "";
+        position: absolute;
+        width:140px;
+        height: 140px;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        z-index: 1;
+        background-image: url(./picture.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size:cover;
+
+    }
+
+}
+
+.ReactCrop__image{
+    // max-width: inherit;
+    // max-height: inherit;
+}
+
+.ReactCrop__crop-selection{
+    // position: absolute;
+    // top: 50%;
+    // left: 50%;
+    // width: 114px;
+    // height: 114px;
+    // transform: translate(-50%, -50%);
+
+}
+
+// .cropped-image-container{
+// align-self:center;
+
+// }
+
+.cropped-image{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    border:1px solid darken(#f0f2fc,10%);
+    img{
+        width:140px !important;
+        border-radius: 50%;
+    }
+    background-color:#f0f2fc;
+    width:140px;
+    height: 140px;
+   border-radius:50%;
+
+    p{
+        position: absolute;
+        font-size:0.7rem;
+        left:50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+        z-index: -1;
+
+    }
+}

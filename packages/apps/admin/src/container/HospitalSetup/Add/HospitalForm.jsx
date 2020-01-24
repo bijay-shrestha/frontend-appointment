@@ -7,10 +7,10 @@ import {
   CRadioButton
 } from '@frontend-appointment/ui-elements'
 
-const SpecializationForm = ({
-  specializationInfoObj,
-  errorMessageForSpecializationName,
-  errorMessageForSpecializationCode,
+const HospitalForm = ({
+  hospitalInfoObj,
+  errorMessageForHospitalName,
+  errorMessageForHospitalCode,
   onEnterKeyPress,
   onInputChange
 }) => {
@@ -18,39 +18,50 @@ const SpecializationForm = ({
     <>
      <Container-fluid>
       <Row sm="12 p-0">
-        <h5 className="title">Specialization Info</h5>
+        <h5 className="title">Hospital Info</h5>
       </Row>
         <CForm id="profile-info" className="mt-2 profile-info">
         <Container-fluid>
           <Row>
             <Col sm={12} md={4} lg={4}>
               <CHybridInput
-                id="sub-department-name"
+                id="hospital-name"
                 name="name"
                 onKeyDown={event => onEnterKeyPress(event)}
                 onChange={(event, validity) => onInputChange(event, validity)}
                 placeholder="Sub Department Name"
-                value={specializationInfoObj.name}
+                value={hospitalInfoObj.name}
                 required={true}
                 hasValidation={true}
                 fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                errorMessagePassed={errorMessageForSpecializationName}
+                errorMessagePassed={errorMessageForHospitalName}
               />
             </Col>
 
             <Col sm={12} md={4} lg={4}>
               <CHybridInput
-                id="sub-department-code"
+                id="hospital-code"
                 name="code"
                 onKeyDown={event => onEnterKeyPress(event)}
                 onChange={(event, validity) => onInputChange(event, validity)}
-                placeholder="Sub Department Code"
-                value={specializationInfoObj.code}
+                placeholder="Hospital Code"
+                value={hospitalInfoObj.code}
                 required={true}
-                errorMessagePassed={errorMessageForSpecializationCode}
+                errorMessagePassed={errorMessageForHospitalCode}
               />
             </Col>
-           
+            <Col sm={12} md={4} lg={4}>
+              <CHybridInput
+                id="hospital-code"
+                name="code"
+                onKeyDown={event => onEnterKeyPress(event)}
+                onChange={(event, validity) => onInputChange(event, validity)}
+                placeholder="Hospital Code"
+                value={hospitalInfoObj.code}
+                required={true}
+                errorMessagePassed={errorMessageForHospitalCode}
+              />
+            </Col>
             <Col sm={12} md={4} lg={4}>
               <CFLabel labelName="Status" id="status"></CFLabel>
             
@@ -79,4 +90,4 @@ const SpecializationForm = ({
   )
 }
 
-export default memo(SpecializationForm);
+export default memo(HospitalForm);

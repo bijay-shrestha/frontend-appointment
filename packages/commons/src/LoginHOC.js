@@ -3,21 +3,22 @@ import {Axios} from '@frontend-appointment/core'
 import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom';
 import {CLoading} from '@frontend-appointment/ui-components';
-import {CFullPageLoading} from '@frontend-appointment/ui-components';
+import {CFullPageLoading} from '@frontend-appointment/ui-elements';
 import {UserMenusFilter} from '@frontend-appointment/helpers';
 
 const LoginHoc = (ComposedComponent, rolesPath, logoutPath, dashboardPath, userMenusPath) => {
     return class SingleSignOn extends React.PureComponent {
         state = {isLoading: true, isOk: false};
-        hitUserMenusApi= async hitUserMenus => {
-            if(hitUserMenus){
-                const response = await Axios.put(userMenusPath,{
-                    username:'admin',
-                    subDepartmentCode:process.env.REACT_APP_SUB_DEPARTMENT_CODE
-                })
+        hitUserMenusApi = async hitUserMenus => {
+            if (hitUserMenus) {
+                const response = await Axios.put(userMenusPath, {
+                    username: 'admin',
+                    subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE
+                });
                 UserMenusFilter(response.data)
             }
-        }
+        };
+
         genericApi = async (path, success, error, hitUserMenus) => {
             try {
                 await Axios.get(path);
@@ -30,7 +31,7 @@ const LoginHoc = (ComposedComponent, rolesPath, logoutPath, dashboardPath, userM
                 this.setState({isLoading: error.isLoading, isOk: error.isOk})
             }
         };
-         
+
         cookieHandler = async () => {
             Cookies.get('XSRF-TOKEN')
                 ? await this.genericApi(
@@ -46,8 +47,9 @@ const LoginHoc = (ComposedComponent, rolesPath, logoutPath, dashboardPath, userM
                 false
                 )
         };
+
         componentDidMount() {
-               // this.cookieHandler();
+            // this.cookieHandler();
         }
 
         render() {

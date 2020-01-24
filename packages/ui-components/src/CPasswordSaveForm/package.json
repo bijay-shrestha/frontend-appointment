@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-password-save-form",
+  "version": "1.0.0",
+  "main": "CPasswordSaveForm.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
