@@ -15,6 +15,16 @@ const DetailsModal = ({departmentData}) => {
                         <Row>
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridInput
+                                    id="hospital"
+                                    name="hospital"
+                                    placeholder="Hospital"
+                                    value={departmentData.hospitalName}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={4} md={4} lg={4}>
+                                <CHybridInput
                                     id="department-name"
                                     name="name"
                                     placeholder="Department Name"

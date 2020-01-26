@@ -33,7 +33,8 @@ class DepartmentSetupSearchFilter extends PureComponent {
         const {
             onInputChange,
             searchParameters,
-            resetSearchForm
+            resetSearchForm,
+            hospitalList
         } = this.props;
         return (
             <>
@@ -76,6 +77,17 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             placeholder="Department Code"
                                             value={searchParameters.departmentCode}
+                                        />
+                                    </Col>
+                                    <Col sm={12} md={4} xl={4}>
+                                        <CHybridSelect
+                                            id="hospital"
+                                            name="hospital"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            value={searchParameters.hospital}
+                                            options={hospitalList}
+                                            label='Hospital'
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
@@ -161,6 +173,21 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                 >
                                     <Button id="button-search-filters" variant="secondary">
                                         {searchParameters.departmentCode}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
+
+                            {searchParameters.hospital &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                >
+                                    <Button id="button-search-filters" variant="secondary">
+                                        {searchParameters.hospital.label}
                                     </Button>
                                 </OverlayTrigger>
 

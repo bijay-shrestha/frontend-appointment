@@ -16,11 +16,11 @@ export const profileSetupAPIConstants = {
     FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/dropdown/active"))
 };
 
-const DEPARTMENT_BASE = "/departments";
+const DEPARTMENT_BASE = "/department";
 export const departmentSetupAPIConstants = {
     CREATE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     SEARCH_DEPARTMENT: BASE.concat(DEPARTMENT_BASE.concat("/search")),
-    FETCH_DEPARTMENT_DETAILS: BASE.concat(DEPARTMENT_BASE.concat("/details")),
+    FETCH_DEPARTMENT_DETAILS: BASE.concat(DEPARTMENT_BASE.concat("/detail")),
     EDIT_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     DELETE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     EXPORT_DEPARTMENT_EXCEL: BASE.concat(DEPARTMENT_BASE.concat("/excel")),
@@ -73,7 +73,7 @@ export const hostpitalSetupApiConstants = {
     EXPORT_HOSPITAL_EXCEL: BASE.concat(HP_BASE + "/excel"),
     DELETE_HOSPITAL: BASE.concat(HP_BASE),
     DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + "/dropdown"),
-    FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat("/dropdown/active")),
+    FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat("/active/min")),
     SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + "/dropdown/active")
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import {CFLabel, CForm, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CFLabel, CForm, CHybridInput, CHybridSelect, CRadioButton} from "@frontend-appointment/ui-elements";
 
 const DepartmentInfoForm = ({
                                 departmentInfoObj,
@@ -8,10 +8,10 @@ const DepartmentInfoForm = ({
                                 errorMessageForDepartmentCode,
                                 onEnterKeyPress,
                                 onInputChange,
+                                hospitalList
                             }) => {
     return (
         <>
-
             <Col sm="12 p-0"><h5 className="title">Department Info</h5></Col>
             <Col sm="12" className="p-0">
 
@@ -19,6 +19,18 @@ const DepartmentInfoForm = ({
                     id="profile-info"
                     className="mt-2 add-info">
                     <Row>
+                        <Col sm={12} md={4} lg={4}>
+                            <CHybridSelect
+                                id="hospital"
+                                label="Hospital"
+                                name="hospital"
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event)}
+                                options={hospitalList}
+                                value={departmentInfoObj.hospital}
+                                placeholder="Select hospital."
+                            />
+                        </Col>
                         <Col sm={12} md={4} lg={4}>
                             <CHybridInput
                                 id="department-name"
@@ -51,7 +63,7 @@ const DepartmentInfoForm = ({
                         </Col>
 
                         <Col sm={12} md={4} lg={4}>
-                            <CFLabel labelName="Status" id="status"></CFLabel>
+                            <CFLabel labelName="Status" id="status"/>
                             <CRadioButton
                                 checked={Boolean(departmentInfoObj.status)}
                                 disabled={true}

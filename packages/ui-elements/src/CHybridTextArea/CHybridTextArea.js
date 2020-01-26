@@ -122,8 +122,10 @@ class CHybridTextArea extends React.PureComponent {
             className,
             defaultValue,
             disabled,
+            errorMsg,
             id,
             isValid,
+            isInvalid,
             max,
             min,
             multiple,
@@ -155,7 +157,7 @@ class CHybridTextArea extends React.PureComponent {
                         defaultValue={defaultValue}
                         disabled={disabled}
                         id={"fControl_".concat(id)}
-                        isInvalid={!this.state.valid}
+                        isInvalid={isInvalid ? isInvalid : !this.state.valid}
                         isValid={isValid}
                         max={max}
                         min={min}
@@ -180,7 +182,7 @@ class CHybridTextArea extends React.PureComponent {
                         <span>{placeholder ? placeholder : 'Enter'}</span>
                     </div>
                     <Form.Control.Feedback type="invalid" className="err-message">
-                    {this.state.errorMessage}
+                        {errorMsg ? errorMsg : this.state.errorMessage}
                 </Form.Control.Feedback>
                 </div>
 

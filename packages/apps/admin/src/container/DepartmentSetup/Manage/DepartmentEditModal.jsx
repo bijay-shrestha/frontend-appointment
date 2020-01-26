@@ -1,5 +1,13 @@
 import React, {memo} from 'react';
-import {CButton, CFLabel, CForm, CHybridInput, CModal, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CButton,
+    CFLabel,
+    CForm,
+    CHybridInput,
+    CHybridSelect, CHybridTextArea,
+    CModal,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {Col, Container, Row} from "react-bootstrap";
 
 const DepartmentEditModal = ({
@@ -11,70 +19,94 @@ const DepartmentEditModal = ({
                                  errorMessageForDepartmentName,
                                  errorMessageForDepartmentCode,
                                  errorMessage,
-                                 editApiCall
+                                 editApiCall,
+                                 hospitalList
                              }) => {
 
     const bodyContent = <>
-
-
-            <CForm
-                id="department-info"
-                className="mt-2">
-                     <Row>
+        <CForm
+            id="department-info"
+            className="mt-2">
+            <Row>
+                <Col sm={12} md={4} lg={4}>
+                    <CHybridSelect
+                        id="hospital"
+                        label="Hospital"
+                        name="hospital"
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event) => onInputChange(event)}
+                        options={hospitalList}
+                        value={departmentData.hospital}
+                        placeholder="Select hospital."
+                    />
+                </Col>
                 <Col sm={12} md={12} lg={4}>
-                <CHybridInput
-                    id="department-name"
-                    name="name"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    onChange={(event, validity) => onInputChange(event, validity)}
-                    placeholder="Department Name"
-                    value={departmentData.name}
-                    required={true}
-                    hasValidation={true}
-                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                    errorMessagePassed={errorMessageForDepartmentName}
-                />
+                    <CHybridInput
+                        id="department-name"
+                        name="name"
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event, validity) => onInputChange(event, validity)}
+                        placeholder="Department Name"
+                        value={departmentData.name}
+                        required={true}
+                        hasValidation={true}
+                        fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                        errorMessagePassed={errorMessageForDepartmentName}
+                    />
                 </Col>
-                 <Col sm={12} md={12} lg={4}>
-                <CHybridInput
-                    id="department-code"
-                    name="code"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    onChange={(event, validity) => onInputChange(event, validity)}
-                    placeholder="Department Code"
-                    value={departmentData.code}
-                    required={true}
-                    // hasValidation={true}
-                    // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                    errorMessagePassed={errorMessageForDepartmentCode}
-                />
+                <Col sm={12} md={12} lg={4}>
+                    <CHybridInput
+                        id="department-code"
+                        name="code"
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event, validity) => onInputChange(event, validity)}
+                        placeholder="Department Code"
+                        value={departmentData.code}
+                        required={true}
+                        // hasValidation={true}
+                        // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                        errorMessagePassed={errorMessageForDepartmentCode}
+                    />
                 </Col>
-                 <Col sm={12} md={12} lg={4}>
+                <Col sm={12} md={12} lg={4}>
 
-                <CFLabel labelName="Status" id="status"></CFLabel>
-                <CRadioButton
-                    checked={departmentData.status === "Y"}
-                    name="status"
-                    disabled={true}
-                    id="radio1"
-                    label="Active"
-                    type="radio"
-                    value="Y"
-                    onChange={(event) => onInputChange(event)}
-                />
-                <CRadioButton
-                    checked={departmentData.status === "N"}
-                    disabled={true}
-                    id="radio2"
-                    name="status"
-                    label="Inactive"
-                    type="radio"
-                    value="N"
-                    onChange={(event) => onInputChange(event)}
-                />
+                    <CFLabel labelName="Status" id="status"/>
+                    <CRadioButton
+                        checked={departmentData.status === "Y"}
+                        name="status"
+                        disabled={true}
+                        id="radio1"
+                        label="Active"
+                        type="radio"
+                        value="Y"
+                        onChange={(event) => onInputChange(event)}
+                    />
+                    <CRadioButton
+                        checked={departmentData.status === "N"}
+                        disabled={true}
+                        id="radio2"
+                        name="status"
+                        label="Inactive"
+                        type="radio"
+                        value="N"
+                        onChange={(event) => onInputChange(event)}
+                    />
                 </Col>
-                </Row>
-            </CForm>
+
+                <Col sm={12} md={12} lg={6}>
+                    <CHybridTextArea
+                        id="department-remarks"
+                        name="remarks"
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event, validity) => onInputChange(event, validity)}
+                        placeholder="Remarks"
+                        value={departmentData.remarks}
+                        max={200}
+                        required={true}
+                    />
+                </Col>
+            </Row>
+        </CForm>
 
 
     </>;

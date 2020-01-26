@@ -1,4 +1,3 @@
-export const saveLoggedInAdminInfo = (adminInfo, assignedMenus) => {
+export const saveLoggedInAdminInfo = (adminInfo) => {
     localStorage.setItem("adminInfo", JSON.stringify(adminInfo));
-    localStorage.setItem("assignedModules", JSON.stringify(assignedMenus));
 };

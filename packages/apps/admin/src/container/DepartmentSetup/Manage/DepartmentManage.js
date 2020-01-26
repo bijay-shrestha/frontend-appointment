@@ -1,7 +1,11 @@
 import React, {PureComponent} from 'react';
 import DepartmentSetupSearchFilter from "./DepartmentSetupSearchFilter";
 import {ConnectHoc} from "@frontend-appointment/commons";
-import {departmentSetupMiddleware, logoutUser} from "@frontend-appointment/thunk-middleware";
+import {
+    departmentSetupMiddleware,
+    logoutUser,
+    HospitalSetupMiddleware
+} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import DepartmentDetailsDataTable from "./DepartmentDetailsDataTable";
 import DepartmentEditForm from "./DepartmentEditModal";
@@ -17,6 +21,7 @@ const {
     downloadExcelForDepartments,
     clearDepartmentSuccessErrorMessagesFromStore
 } = departmentSetupMiddleware;
+
 const {
     SEARCH_DEPARTMENT,
     FETCH_DEPARTMENT_DETAILS,
@@ -24,6 +29,10 @@ const {
     DELETE_DEPARTMENT,
     EXPORT_DEPARTMENT_EXCEL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants;
+
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 
 class DepartmentManage extends PureComponent {
     state = {
@@ -33,6 +42,7 @@ class DepartmentManage extends PureComponent {
         searchParameters: {
             departmentName: '',
             departmentCode: '',
+            hospital: '',
             status: {value: 'A', label: 'All'}
         },
         queryParams: {
@@ -55,6 +65,8 @@ class DepartmentManage extends PureComponent {
             name: '',
             code: '',
             status: 'Y',
+            hospital: '',
+            remarks: '',
             formValid: false,
             nameValid: false,
             codeValid: false,
@@ -86,6 +98,7 @@ class DepartmentManage extends PureComponent {
                 name: '',
                 code: '',
                 status: '',
+                remarks: '',
                 formValid: true,
                 nameValid: true,
                 codeValid: true,
@@ -124,6 +137,7 @@ class DepartmentManage extends PureComponent {
                 ...this.state.searchParameters,
                 departmentName: '',
                 departmentCode: '',
+                hospital: '',
                 status: {value: 'A', label: 'All'}
             },
         });
@@ -131,10 +145,11 @@ class DepartmentManage extends PureComponent {
     };
 
     searchDepartments = async (page) => {
-        const {departmentName, departmentCode, status} = this.state.searchParameters;
+        const {departmentName, departmentCode, status, hospital} = this.state.searchParameters;
         let searchData = {
             name: departmentName,
-            code: departmentCode,
+            departmentCode: departmentCode,
+            hospitalId: hospital ? hospital.value : '',
             status: status && status.value !== 'A'
                 ? status.value
                 : ''
@@ -202,14 +217,15 @@ class DepartmentManage extends PureComponent {
     onEditHandler = async id => {
         try {
             await this.previewApiCall(id);
-            const {name, code, status} = this.props.DepartmentPreviewReducer.departmentPreviewData;
+            const {name, departmentCode, status, hospitalId, hospitalName} = this.props.DepartmentPreviewReducer.departmentPreviewData;
             this.setState({
                 showEditModal: true,
                 departmentUpdateData: {
                     ...this.state.departmentUpdateData,
                     name: name,
-                    code: code,
+                    code: departmentCode,
                     status: status,
+                    hospital: {label: hospitalName, value: hospitalId},
                     id: id,
                     formValid: true,
                     nameValid: true,
@@ -222,13 +238,14 @@ class DepartmentManage extends PureComponent {
     };
 
     editDepartment = async () => {
-        const {id, name, code, status} = this.state.departmentUpdateData;
+        const {id, name, code, status, hospital, remarks} = this.state.departmentUpdateData;
 
         let departmentUpdateRequestDTO = {
             id: id,
             name: name,
-            code: code,
-            remarks: "",
+            departmentCode: code,
+            hospitalId: Number(hospital.value),
+            remarks: remarks,
             status: status,
         };
         try {
@@ -237,7 +254,14 @@ class DepartmentManage extends PureComponent {
             this.checkIfEditedOwnDepartmentAndShowMessage(departmentUpdateRequestDTO.id);
             await this.searchDepartments();
         } catch (e) {
-
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: "danger",
+                    message: this.props.DepartmentEditReducer.departmentErrorMessage
+                    // e.errorMessage ? e.errorMessage: e.message
+                }
+            });
         }
     };
 
@@ -259,7 +283,14 @@ class DepartmentManage extends PureComponent {
             );
             await this.setState({
                 deleteModalShow: false,
-                deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
+                deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: "success",
+                    message: this.props.DepartmentDeleteReducer.deleteSuccessMessage ? this.props.DepartmentDeleteReducer.deleteSuccessMessage
+                        : 'Deleted department successfully.'
+
+                }
             });
             await this.searchDepartments();
 
@@ -297,7 +328,7 @@ class DepartmentManage extends PureComponent {
     checkIfEditedOwnDepartmentAndShowMessage = editedDepartmentId => {
         let variantType = '', message = '';
         let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
-        if (editedDepartmentId === loggedInAdminInfo.departmentId) {
+        if (loggedInAdminInfo && editedDepartmentId === loggedInAdminInfo.departmentId) {
             variantType = "warning";
             message = "You seem to have edited your own department. Please Logout and Login to see the changes or " +
                 "you'll be automatically logged out in 10s";
@@ -377,8 +408,13 @@ class DepartmentManage extends PureComponent {
         }
     };
 
+    fetchHospitals = async () => {
+        await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
+    };
+
     componentDidMount() {
         this.searchDepartments();
+        this.fetchHospitals();
     }
 
     render() {
@@ -396,10 +432,13 @@ class DepartmentManage extends PureComponent {
 
         const {deleteErrorMessage} = this.props.DepartmentDeleteReducer;
 
+        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+
         return <>
             <div className="">
                 <DepartmentSetupSearchFilter
                     searchParameters={this.state.searchParameters}
+                    hospitalList={hospitalsForDropdown}
                     onInputChange={this.handleSearchFormChange}
                     onSearchClick={() => this.searchDepartments(1)}
                     resetSearchForm={this.handleSearchFormReset}
@@ -436,6 +475,7 @@ class DepartmentManage extends PureComponent {
                     setShowModal={this.setShowModal}
                     onEnterKeyPress={this.handleEnter}
                     departmentData={this.state.departmentUpdateData}
+                    hospitalList={hospitalsForDropdown}
                     onInputChange={this.handleUpdateFormChange}
                     editApiCall={this.editDepartment}
                     formValid={departmentUpdateData.formValid}
@@ -465,7 +505,8 @@ export default ConnectHoc(
         'DepartmentPreviewReducer',
         'DepartmentSetupReducer',
         'DepartmentDeleteReducer',
-        'DepartmentEditReducer'
+        'DepartmentEditReducer',
+        'HospitalSetupReducer'
     ],
     {
         fetchDepartmentList,
@@ -475,4 +516,6 @@ export default ConnectHoc(
         downloadExcelForDepartments,
         clearDepartmentSuccessErrorMessagesFromStore,
         logoutUser,
+        fetchActiveHospitalsForDropdown
+
     });

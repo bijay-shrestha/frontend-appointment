@@ -1,5 +1,5 @@
 {
-  "name": "@frontend-appointment/c-hybrid-select",
+  "name": "@cogent/c-hybrid-select",
   "version": "0.0.0",
   "main": "CHybridSelect.js",
   "author": "Sabu Shakya",

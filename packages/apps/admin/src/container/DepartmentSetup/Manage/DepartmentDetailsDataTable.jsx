@@ -11,17 +11,16 @@ const {checkIfRoleExists} = ActionFilterUtils;
 const DepartmentDetailsDataTable = props => (
     <div className="manage-details">
         <h5 className="title">Department Details</h5>
-        <CButton
-            id="downloadExcel"
-            name="DownloadExcel"
-            onClickHandler={props.exportExcel}
-            className="float-right"
-            variant='outline-info'
-        > <i className='fa fa-download'/>
-        </CButton>
-
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
+                <CButton
+                    id="downloadExcel"
+                    name="DownloadExcel"
+                    onClickHandler={props.exportExcel}
+                    className="float-right"
+                    variant='outline-info'
+                > <i className='fa fa-download'/>
+                </CButton>
                 <CDataTable
                     classes="ag-theme-balham"
                     id="roles-table"
@@ -42,6 +41,14 @@ const DepartmentDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
+                            headerName: 'Hospital Name',
+                            field: 'hospitalName',
+                            // headerClass: "fi",
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
                             headerName: 'Department Name',
                             field: 'name',
                             // headerClass: "fi",
@@ -51,7 +58,7 @@ const DepartmentDetailsDataTable = props => (
                         },
                         {
                             headerName: 'Department code',
-                            field: 'code',
+                            field: 'departmentCode',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -75,7 +82,8 @@ const DepartmentDetailsDataTable = props => (
                             cellRendererParams: {
                                 onClick: function (e, id, type) {
                                     type === 'D'
-                                        ? props.filteredActions.find(action => action.id === 5) && props.onDeleteHandler(id)
+                                        // ? props.filteredActions.find(action => action.id === 5) &&
+                                        ? props.onDeleteHandler(id)
                                         : type === 'E'
                                         ? props.onEditHandler(id)
                                         : props.onPreviewHandler(id)
@@ -90,7 +98,7 @@ const DepartmentDetailsDataTable = props => (
                         childLabelRenderer: StatusLabel
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) && props.onPreviewHandler}
+                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) ? props.onPreviewHandler : () => {}}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}
@@ -105,7 +113,7 @@ const DepartmentDetailsDataTable = props => (
         ) : !props.isSearchLoading && props.searchErrorMessage ? (
             <div className="filter-message">
                 <div className="no-data">
-                    <i class="fa fa-file-text-o"></i>
+                    <i className="fa fa-file-text-o"/>
                 </div>
                 <div className="message"> {props.searchErrorMessage}</div>
             </div>
@@ -116,7 +124,7 @@ const DepartmentDetailsDataTable = props => (
             <PreviewDetails
                 showModal={props.showDepartmentModal}
                 setShowModal={props.setShowModal}
-                departmentData={props.departmentPreviewData}
+                departmentData={{...props.departmentPreviewData, code: props.departmentPreviewData.departmentCode}}
                 profilePreviewErrorMessage={props.profilePreviewErrorMessage}
             />
         ) : (

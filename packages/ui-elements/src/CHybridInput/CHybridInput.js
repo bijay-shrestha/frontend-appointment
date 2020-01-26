@@ -54,15 +54,18 @@ class CHybridInput extends React.PureComponent {
             if (!value.match(emailPattern)) {
                 errValue = 'Email Not Valid';
                 fieldWrapper.add('errorInput');
-                this.setStateValues(errValue, false)
+                this.setStateValues(errValue, false);
+                return false;
             } else {
                 errValue = '';
                 fieldWrapper.remove('errorInput');
-                this.setStateValues(errValue, true)
+                this.setStateValues(errValue, true);
+                return true;
             }
         } else {
             fieldWrapper.remove('errorInput');
-            this.setStateValues(errValue, true)
+            this.setStateValues(errValue, true);
+            return true;
         }
     };
 
@@ -89,8 +92,8 @@ class CHybridInput extends React.PureComponent {
     handleOnChange = e => {
         let validity = '';
         this.classAdditionWhenValueIsChanged(e.target.value);
-        if (this.props.type === 'email' && this.state.errorMessage !== '') {
-            this.checkValidityOfEmail(e.target.value)
+        if (this.props.type === 'email') {
+            validity = this.checkValidityOfEmail(e.target.value)
         } else if (this.props.hasValidation) {
             validity = this.validateFieldAndToggleErrorClass(
                 this.props.fieldValuePattern,
@@ -155,8 +158,10 @@ class CHybridInput extends React.PureComponent {
             className,
             defaultValue,
             disabled,
+            errorMsg,
             id,
             isValid,
+            isInvalid,
             max,
             min,
             multiple,
@@ -191,7 +196,7 @@ class CHybridInput extends React.PureComponent {
                         defaultValue={defaultValue}
                         disabled={disabled}
                         id={'fControl_'.concat(id)}
-                        isInvalid={!this.state.valid}
+                        isInvalid={isInvalid ? isInvalid : !this.state.valid}
                         isValid={isValid}
                         max={max}
                         min={min}
@@ -218,7 +223,7 @@ class CHybridInput extends React.PureComponent {
                         <span>{placeholder ? placeholder : 'Enter'}</span>
                     </div>
                     <Form.Control.Feedback type="invalid" className="err-message">
-                        {this.state.errorMessage}
+                        {errorMsg ? errorMsg : this.state.errorMessage}
                     </Form.Control.Feedback>
                 </div>
 

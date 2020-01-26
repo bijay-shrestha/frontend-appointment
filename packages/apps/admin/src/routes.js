@@ -177,13 +177,13 @@ export const routes = [
         "hasTab": true,
         "isLink": true
     },
-    {
-        "path": "",
-        "component": CUnauthorized,
-        "icon": "",
-        "hasTab": false,
-        "isLink": false,
-        "name": "Unauthorized"
-    }
+    // {
+    //     "path": "",
+    //     "component": CUnauthorized,
+    //     "icon": "",
+    //     "hasTab": false,
+    //     "isLink": false,
+    //     "name": "Unauthorized"
+    // }
 
 ];
