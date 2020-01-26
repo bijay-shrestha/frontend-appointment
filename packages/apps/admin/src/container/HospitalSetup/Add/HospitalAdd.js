@@ -1,12 +1,12 @@
 import React, {memo} from 'react'
 import * as Material from 'react-icons/md'
 import HospitalForm from './HospitalForm'
-import SpecializationConfirmationModal from './HospitalConfirmModal'
+import HospitalConfirmationModal from './HospitalConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import SpecializationHoc from '../SpecializationSetupHoc'
+import HospitalHoc from '../HospitalHoc'
 function SpecializationAdd (props) {
-  const SpecializationAdd = SpecializationHoc(
+  const SpecializationAdd = HospitalHoc(
     ({
       hospitalData,
       handleEnter,
@@ -23,7 +23,8 @@ function SpecializationAdd (props) {
       closeAlert,
       addContactNumber,
       removeContactNumber,
-      editContactNumber
+      editContactNumber,
+      contactLength
     }) => (
       <div className="">
         <Container className="bg-white add-profile " fluid>
@@ -41,7 +42,7 @@ function SpecializationAdd (props) {
             </>
           </CButton>
           <HospitalForm
-            specializationInfoObj={hospitalData}
+            hospitalInfoObj={hospitalData}
             errorMessageForHospitalName={errorMessageForHospitalName}
             errorMessageForHospitalCode={errorMessageForHospitalCode}
             onEnterKeyPress={handleEnter}
@@ -49,6 +50,7 @@ function SpecializationAdd (props) {
             addContactNumber={addContactNumber}
             removeContactNumber={removeContactNumber}
             editContactNumber={editContactNumber}
+            contactLength={contactLength}
           />
 
           <Row className="mt-4">
@@ -61,11 +63,12 @@ function SpecializationAdd (props) {
                 disabled={!formValid}
                 onClickHandler={setShowConfirmModal}
               ></CButton>
-              <SpecializationConfirmationModal
+              <HospitalConfirmationModal
                 showModal={showConfirmModal}
                 setShowModal={setShowConfirmModal}
                 onConfirmClick={submitAddChanges}
-                specializationData={hospitalData}
+                hospitalData={hospitalData}
+                type="A"
               />
             </Col>
           </Row>

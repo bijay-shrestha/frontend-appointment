@@ -2,17 +2,18 @@ import React from 'react'
 import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
-const SpecializationConfirmationModal = props => {
-  const {showModal, setShowModal, specializationData, onConfirmClick} = props
+const HospitalConfirmationModal = props => {
+  const {showModal, setShowModal, hospitalData, onConfirmClick,type} = props
   return (
     <>
       <CModal
         show={showModal}
-        modalHeading="Specialization Details"
+        modalHeading="Hospital Details"
         size="lg"
         bodyChildren={
           <DetailsModal
-            specializationData={specializationData}
+            hospitalData={hospitalData}
+            type={type}
           />
         }
         onHide={setShowModal}
@@ -20,7 +21,7 @@ const SpecializationConfirmationModal = props => {
         dialogClassName="preview-roles-modal"
         footerChildren={
           <CButton
-            id="specializationConfirm"
+            id="hospitalConfirm"
             variant="primary"
             size="lg"
             className="float-right btn-action"
@@ -33,4 +34,4 @@ const SpecializationConfirmationModal = props => {
   )
 }
 
-export default SpecializationConfirmationModal
+export default HospitalConfirmationModal

@@ -1,13 +1,13 @@
-import React from 'react';
-import {ConnectHoc} from '@frontend-appointment/commons';
-import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware';
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
+import React from 'react'
+import {ConnectHoc} from '@frontend-appointment/commons'
+import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
   FileExportUtils,
   AdminInfoUtils
-} from '@frontend-appointment/helpers';
-import './specialization.scss';
+} from '@frontend-appointment/helpers'
+import './hospitalHoc.scss'
 
 const {
   clearHospitalCreateMessage,
@@ -17,9 +17,9 @@ const {
   previewHospital,
   searchHospital
   //downloadExcelForHospitals
-} = HospitalSetupMiddleware;
+} = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
-  const {hostpitalSetupApiConstants} = AdminModuleAPIConstants;
+  const {hostpitalSetupApiConstants} = AdminModuleAPIConstants
 
   class HospitalSetup extends React.PureComponent {
     state = {
@@ -27,16 +27,18 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         name: '',
         address: '',
         panNumber: '',
-        status: '',
+        status: 'Y',
         hospitalCode: '',
+        hospitalLogo:null,
+        hospitalLogoUrl:'',
         contactNumber: [],
         contactNumberUpdateRequestDTOS: []
       },
-      hospitalLogo: '',
       formValid: false,
       nameValid: false,
       codeValid: false,
       logoValid: false,
+      contactLength: 5,
       showConfirmModal: false,
       errorMessageForHospitalName:
         'Hospital Name should not contain special characters',
@@ -65,20 +67,24 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         remarks: '',
         status: 'D'
       },
-      totalRecords: 0
-    };
+      totalRecords: 0,
+      hospitalImage: '',
+      hospitalImageCroppedUrl: '',
+      hospitalFileCropped: '',
+      showImageUploadModal: false,
+    }
 
     handleEnterPress = event => {
-      EnterKeyPressUtils.handleEnter(event);
-    };
+      EnterKeyPressUtils.handleEnter(event)
+    }
 
     setShowModal = () => {
       this.setState({
         showHospitalModal: false,
         deleteModalShow: false,
         showEditModal: false
-      });
-    };
+      })
+    }
 
     resetHospitalStateValues = () => {
       this.setState({
@@ -86,7 +92,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           name: '',
           address: '',
           panNumber: '',
-          status: '',
+          status: 'Y',
           hospitalCode: '',
           contactNumber: [],
           contactNumberUpdateRequestDTOS: []
@@ -96,133 +102,131 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         nameValid: false,
         codeValid: false,
         showEditModal: false
-      });
-    };
+      })
+    }
 
     checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
-      let stateObj = {[fieldName]: valueToChange};
+      let stateObj = {[fieldName]: valueToChange}
       if (eventName)
-        if (eventName === 'name') stateObj = {...stateObj, nameValid: valid};
-      return {...stateObj};
-    };
+        if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+      return {...stateObj}
+    }
 
     setTheState = async (fieldName, valueToChange, valid, eventName) => {
       await this.setState(
         this.checkInputValidity(fieldName, valueToChange, valid, eventName)
-      );
-    };
+      )
+    }
 
     closeAlert = () => {
-      this.props.clearHospitalCreateMessage();
+      this.props.clearHospitalCreateMessage()
       this.setState({
         showAlert: !this.state.showAlert,
         alertMessageInfo: ''
-      });
-    };
+      })
+    }
 
     checkFormValidity = eventType => {
-      const {hospitalData, nameValid} = this.state;
+      const {hospitalData, nameValid} = this.state
       let formValidity =
         nameValid &&
         hospitalData.name &&
-        hospitalData.code &&
-        hospitalData.status;
+        hospitalData.hospitalCode &&
+        hospitalData.status
 
       if (eventType === 'E')
         formValidity =
           formValidity &&
           hospitalData.remarks &&
-          hospitalData.contactNumberUpdateRequestDTOS.length;
-      else formValidity = formValidity && hospitalData.contactNumber;
+          hospitalData.contactNumberUpdateRequestDTOS.length
+      else formValidity = formValidity && hospitalData.contactNumber.length
       this.setState({
         formValid: formValidity
-      });
-    };
+      })
+    }
 
-    addContactNumber = (eventType, fieldName, value) => {
-      let hospitalData = {...this.state.hospitalData};
-      hospitalData[fieldName].push(value);
-      this.setTheState('hospitalData', hospitalData);
-      this.checkFormValidity(eventType);
-    };
+    addContactNumber = (fieldName, value, eventType) => {
+      let hospitalData = {...this.state.hospitalData}
+      hospitalData[fieldName].push(value)
+      this.setTheState('hospitalData', hospitalData)
+      this.checkFormValidity(eventType)
+    }
 
-    removeContactNumber = (eventType, fieldName, idx) => {
-      let hospitalData = {...this.state.hospitalData};
-      const filteredHospitalData = hospitalData[fieldName].splice(idx, 1);
-      this.setTheState('hospitalData', filteredHospitalData);
-      this.checkFormValidity(eventType);
-    };
+    removeContactNumber = (fieldName, idx, eventType) => {
+      let hospitalData = {...this.state.hospitalData}
+      hospitalData[fieldName].splice(idx, 1)
+      this.setTheState('hospitalData', hospitalData)
+      this.checkFormValidity(eventType)
+    }
 
-    editContactNumber = (eventType, fieldName, value, idx) => {
-      let hospitalData = {...this.state.hospitalData};
-      hospitalData[fieldName][idx] = value;
-      this.setTheState('hospitalData', filteredHospitalData);
-      this.checkFormValidity(eventType);
-    };
-
+    editContactNumber = (fieldName, value, idx, eventType) => {
+      let hospitalData = {...this.state.hospitalData}
+      hospitalData[fieldName][idx] = value
+      this.setTheState('hospitalData', hospitalData)
+      this.checkFormValidity(eventType)
+    }
 
     handleOnChange = async (event, fieldValid, eventType) => {
-      let hospital = {...this.state.hospitalData};
-      let {name, value, label} = event.target;
-      value = name === 'code' ? value.toUpperCase() : value;
+      let hospital = {...this.state.hospitalData}
+      let {name, value, label} = event.target
+      value = name === 'hospitalCode' ? value.toUpperCase() : value
       hospital[name] = !label
         ? value
         : value
-          ? {value: value, label: label}
-          : {value: null};
-      await this.setTheState('hospitalData', hospital, fieldValid, name);
-      this.checkFormValidity(eventType);
-    };
+        ? {value: value, label: label}
+        : {value: null}
+      await this.setTheState('hospitalData', hospital, fieldValid, name)
+      this.checkFormValidity(eventType)
+    }
 
     setShowConfirmModal = () => {
-      this.setState({showConfirmModal: !this.state.showConfirmModal});
-    };
+      this.setState({showConfirmModal: !this.state.showConfirmModal})
+    }
 
     handleConfirmClick = async () => {
-      const {name, code, status} = this.state.specializationData;
+      const {name, hospitalCode, status} = this.state.hospitalData
       try {
         await this.props.createHospital(
           hostpitalSetupApiConstants.CREATE_HOSPITAL,
           {
             name,
-            code,
+            hospitalCode,
             status
           }
-        );
-        this.resetHospitalStateValues();
+        )
+        this.resetHospitalStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalSaveReducer
-              .createHospitalsuccessMessage
+            message: this.props.HospitalSaveReducer.createHospitalsuccessMessage
           }
-        });
+        })
       } catch (e) {
-        await this.setShowConfirmModal();
+        await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
             message: e.errorMessage ? e.errorMessage : e.message
           }
-        });
+        })
       }
-    };
+    }
 
     previewApiCall = async id => {
       await this.props.previewHospital(
         hostpitalSetupApiConstants.FETCH_HOSPITAL_DETAILS,
         id
-      );
-    };
+      )
+    }
 
     onPreviewHandler = async id => {
       try {
-        await this.previewApiCall(id);
+        await this.previewApiCall(id)
         this.setState({
           showHospitalModal: true
-        });
+        })
       } catch (e) {
         this.setState({
           showAlert: true,
@@ -231,22 +235,22 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             message: this.props.HospitalPreviewReducer
               .hospitalPreviewErrorMessage
           }
-        });
+        })
       }
-    };
+    }
 
     onEditHandler = async id => {
-      this.props.clearHospitalCreateMessage();
+      this.props.clearHospitalCreateMessage()
       try {
-        await this.previewApiCall(id);
+        await this.previewApiCall(id)
         const {
           name,
           code,
           status,
           remarks
-        } = this.props.HospitalPreviewReducer.hospitalPreviewData;
-        let formValid = this.state.formValid;
-        if (remarks) formValid = true;
+        } = this.props.HospitalPreviewReducer.hospitalPreviewData
+        let formValid = this.state.formValid
+        if (remarks) formValid = true
         this.setState({
           showEditModal: true,
           specializationData: {
@@ -257,27 +261,27 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             remarks: remarks
           },
           formValid: formValid
-        });
+        })
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
-    };
+    }
 
     searchHospital = async page => {
-      const {code, name, status, id} = this.state.searchParameters;
+      const {code, name, status, id} = this.state.searchParameters
       let searchData = {
         name: name,
         code: code,
         status: status.value,
         id: id
-      };
+      }
 
       let updatedPage =
         this.state.queryParams.page === 0
           ? 1
           : page
           ? page
-          : this.state.queryParams.page;
+          : this.state.queryParams.page
       await this.props.searchHospital(
         hostpitalSetupApiConstants.SEARCH_HOSPITAL,
         {
@@ -285,20 +289,38 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           size: this.state.queryParams.size
         },
         searchData
-      );
+      )
 
       await this.setState({
-        totalRecords: this.props.HospitalSearchReducer.hospitalList
-          .length
-          ? this.props.HospitalSearchReducer.hospitalList[0]
-            .totalItems
+        totalRecords: this.props.HospitalSearchReducer.hospitalList.length
+          ? this.props.HospitalSearchReducer.hospitalList[0].totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
         }
-      });
-    };
+      })
+    }
+
+    handleImageSelect = imageUrl => {
+      imageUrl && this.setState({hospitalImage: imageUrl})
+    }
+
+    handleCropImage = croppedImageUrl => {
+      croppedImageUrl &&
+        this.setState({
+          hospitalImageCroppedUrl: croppedImageUrl
+        })
+    }
+
+    handleImageUpload = async croppedImageFile => {
+      let croppedImage = this.state.hospitalImageCroppedUrl
+      await this.setState({
+        adminAvatar: new File([croppedImageFile], 'hospitalAvatar.jpeg'),
+        adminAvatarUrl: croppedImage,
+        showImageUploadModal: false
+      })
+    }
 
     appendSNToTable = hospitalList => {
       const newHospitalList =
@@ -307,9 +329,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           ...spec,
           sN: index + 1,
           name: spec.name.toUpperCase()
-        }));
-      return newHospitalList;
-    };
+        }))
+      return newHospitalList
+    }
 
     handlePageChange = async newPage => {
       await this.setState({
@@ -317,55 +339,53 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           ...this.state.queryParams,
           page: newPage
         }
-      });
-      this.searchSpecialization();
-    };
+      })
+      this.searchSpecialization()
+    }
 
     editHospital = async () => {
       try {
         await this.props.editHospital(
           hostpitalSetupApiConstants.EDIT_HOSPITAL,
-          this.state.specializationData
-        );
-        this.resetHospitalStateValues();
+          this.state.hospitalData
+        )
+        this.resetHospitalStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalEditReducer
-              .hospitalEditSuccessMessage
+            message: this.props.HospitalEditReducer.hospitalEditSuccessMessage
           }
-        });
-        await this.searchSpecialization();
-      } catch (e) {
-      }
-    };
+        })
+        await this.searchHospital()
+      } catch (e) {}
+    }
 
     onDeleteHandler = async id => {
-      this.props.clearHospitalCreateMessage();
-      let deleteRequestDTO = {...this.state.deleteRequestDTO};
-      deleteRequestDTO['id'] = id;
+      this.props.clearHospitalCreateMessage()
+      let deleteRequestDTO = {...this.state.deleteRequestDTO}
+      deleteRequestDTO['id'] = id
       await this.setState({
         deleteRequestDTO: deleteRequestDTO,
         deleteModalShow: true
-      });
-    };
+      })
+    }
 
     deleteRemarksHandler = event => {
-      const {name, value} = event.target;
-      let deleteRequest = {...this.state.deleteRequestDTO};
-      deleteRequest[name] = value;
+      const {name, value} = event.target
+      let deleteRequest = {...this.state.deleteRequestDTO}
+      deleteRequest[name] = value
       this.setState({
         deleteRequestDTO: deleteRequest
-      });
-    };
+      })
+    }
 
     onSubmitDeleteHandler = async () => {
       try {
         await this.props.deleteHospital(
           hostpitalSetupApiConstants.DELETE_HOSPITAL,
           this.state.deleteRequestDTO
-        );
+        )
         await this.setState({
           deleteModalShow: false,
           deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
@@ -374,14 +394,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             message: this.props.HospitalDeleteReducer.deleteSuccessMessage
           },
           showAlert: true
-        });
-        await this.searchSpecialization();
+        })
+        await this.searchSpecialization()
       } catch (e) {
         this.setState({
           deleteModalShow: true
-        });
+        })
       }
-    };
+    }
 
     handleSearchFormReset = async () => {
       await this.setState({
@@ -391,40 +411,40 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           name: '',
           id: null
         }
-      });
-      this.searchSpecialization();
-    };
+      })
+      this.searchHospital()
+    }
 
     setStateValuesForSearch = searchParams => {
       this.setState({
         searchParameters: searchParams
-      });
-    };
+      })
+    }
 
     handleSearchFormChange = async event => {
       if (event) {
-        let fieldName = event.target.name;
-        let value = event.target.value;
-        let label = event.target.label;
-        let searchParams = {...this.state.searchParameters};
-        searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
-        await this.setStateValuesForSearch(searchParams);
+        let fieldName = event.target.name
+        let value = event.target.value
+        let label = event.target.label
+        let searchParams = {...this.state.searchParameters}
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        await this.setStateValuesForSearch(searchParams)
       }
-    };
+    }
     setFormValidManage = () => {
       this.setState({
         formValid: true
-      });
-    };
+      })
+    }
 
-    async componentDidMount() {
+    async componentDidMount () {
       if (type === 'M') {
-        await this.searchSpecialization();
+        await this.searchSpecialization()
         //this.setFormValidManage();
       }
     }
 
-    render() {
+    render () {
       const {
         hospitalData,
         showAlert,
@@ -441,26 +461,29 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         searchParameters,
         queryParams,
         deleteRequestDTO,
-        totalRecords
-      } = this.state;
+        totalRecords,
+        contactLength,
+        hospitalImage,
+        hospitalImageCroppedUrl,
+        hospitalFileCropped,
+        showImageUploadModal
+      } = this.state
 
       const {
         isSearchLoading,
         hospitalList,
         searchErrorMessage
-      } = this.props.HospitalSearchReducer;
+      } = this.props.HospitalSearchReducer
 
       const {
         hospitalPreviewData,
         isPreviewLoading,
         hospitalPreviewErrorMessage
-      } = this.props.HospitalPreviewReducer;
+      } = this.props.HospitalPreviewReducer
 
-      const {
-        hospitalEditErrorMessage
-      } = this.props.HospitalEditReducer;
+      const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
 
-      const {deleteErrorMessage} = this.props.HospitalDeleteReducer;
+      const {deleteErrorMessage} = this.props.HospitalDeleteReducer
       return (
         <ComposedComponent
           {...this.props}
@@ -511,8 +534,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           addContactNumber={this.addContactNumber}
           removeContactNumber={this.removeContactNumber}
           editContactNumber={this.editContactNumber}
+          contactLength={contactLength}
+          hospitalImage={hospitalImage}
+          hospitalImageCroppedUrl={hospitalImageCroppedUrl}
+          hospitalFileCropped={hospitalFileCropped}
+          showImageUploadModal={showImageUploadModal}
         ></ComposedComponent>
-      );
+      )
     }
   }
 
@@ -533,6 +561,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       previewHospital,
       searchHospital
     }
-  );
-};
-export default HospitalHOC;
+  )
+}
+export default HospitalHOC
