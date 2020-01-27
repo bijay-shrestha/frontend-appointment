@@ -14,6 +14,13 @@ const AddDepartmentComponent = Loadable({
     loading: () => getLoader()
 });
 
+
+
+const AddDoctorDutyRosterComponent = Loadable({
+    loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
+    loading: () => getLoader(),
+});
+
 // const AddAdminComponent = Loadable({
 //     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
 //     loading: () => getLoader()
@@ -33,6 +40,8 @@ const DashboardComponent = Loadable({
     loader: () => import('./container/AdminDashboard/AdminDashboard'),
     loading: () => getLoader(),
 });
+
+
 
 /* ****** E ***** */
 
@@ -67,6 +76,11 @@ const ManageSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageDoctorDutyRosterComponent = Loadable({
+    loader: () => import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
+    loading: () => getLoader()
+});
+
 // const ManageAdminComponent = Loadable({
 //     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
 //     loading: () => getLoader()
@@ -77,7 +91,7 @@ const ManageSpecializationComponent = Loadable({
 /* ****** O ***** */
 
 /* ****** P ***** */
-
+ 
 const ProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/ProfileSetup'),
     loading: () => getLoader(),
@@ -173,6 +187,24 @@ export const routes = [
         "path": "/admin/department/manage",
         "name": "Add",
         "component": ManageDepartmentComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+
+    {
+        "path": "/admin/doctordutyroster/add",
+        "name": "Add",
+        "component": AddDoctorDutyRosterComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+
+    {
+        "path": "/admin/doctordutyroster/manage",
+        "name": "Manage",
+        "component": ManageDoctorDutyRosterComponent,
         "icon": "",
         "hasTab": true,
         "isLink": true

@@ -1,0 +1,37 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+
+ .doctor-info{
+     min-height: 510px;
+
+ @include border-radius($cogent-radius);
+ }
+
+ .doctor-avaibility{
+    min-height: 510px;
+    @include border-radius($cogent-radius);
+
+    .header{
+        font-weight: 600;
+        
+    }
+
+    .main-content{
+       margin-top:24px;
+       margin-bottom:24px;
+    }
+ }
+
+ .doctor-override {
+     padding:30px 40px;
+    @include border-radius($cogent-radius);
+ }
+

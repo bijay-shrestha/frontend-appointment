@@ -339,7 +339,7 @@ class ProfileAdd extends PureComponent {
                 {/* <Tabs/> */}
 
                 <div className=" ">
-                    <Container className="bg-white add-profile " fluid>
+                    <Container className="bg-white add-container " fluid>
 
                         <Row>
                             <ProfileInfoForm
