@@ -24,7 +24,15 @@ function SpecializationAdd (props) {
       addContactNumber,
       removeContactNumber,
       editContactNumber,
-      contactLength
+      contactLength,
+      hospitalImage,
+      hospitalImageCroppedUrl,
+      hospitalFileCropped,
+      showImageUploadModal,
+      onImageSelect,
+      handleCropImage,
+      handleImageUpload,
+      setImageShow
     }) => (
       <div className="">
         <Container className="bg-white add-profile " fluid>
@@ -51,6 +59,14 @@ function SpecializationAdd (props) {
             removeContactNumber={removeContactNumber}
             editContactNumber={editContactNumber}
             contactLength={contactLength}
+            hospitalImage={hospitalImage}
+            hospitalImageCroppedUrl={hospitalImageCroppedUrl}
+            hospitalFileCropped={hospitalFileCropped}
+            showImageUploadModal={showImageUploadModal}
+            onImageSelect={onImageSelect}
+            handleCropImage={handleCropImage}
+            handleImageUpload={handleImageUpload}
+            setImageShow={setImageShow}   
           />
 
           <Row className="mt-4">

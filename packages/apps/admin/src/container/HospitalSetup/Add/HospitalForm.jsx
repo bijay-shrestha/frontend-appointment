@@ -7,7 +7,8 @@ import {
   CRadioButton,
   CButton
 } from '@frontend-appointment/ui-elements'
-
+import * as DefaultProfileImage from './picture.png';
+import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
 const HospitalForm = ({
   hospitalInfoObj,
   errorMessageForHospitalName,
@@ -17,9 +18,17 @@ const HospitalForm = ({
   addContactNumber,
   removeContactNumber,
   editContactNumber,
-  contactLength
+  contactLength,
+  hospitalImage,
+  hospitalImageCroppedUrl,
+  hospitalFileCropped,
+  showImageUploadModal,
+  onImageSelect,
+  handleCropImage,
+  handleImageUpload,
+  setImageShow
 }) => {
- 
+  console.log('hospital Info',hospitalInfoObj)
   return (
     <>
       <Container-fluid>
@@ -29,6 +38,44 @@ const HospitalForm = ({
         <CForm id="profile-info" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
+              <Col
+                sm={12}
+                md={12}
+                lg={3}
+                className="order-lg-last order-md-first"
+              >
+                <div className="image-upload-container">
+                  <div className="image-box">
+                    <img
+                      alt="HOSPITAL IMAGE"
+                      src={
+                        hospitalInfoObj.hospitalLogo
+                          ? hospitalInfoObj.hospitalLogoUrl
+                          : DefaultProfileImage
+                      }
+                    />
+                    <CButton
+                      id="uploadAdminImage"
+                      name="Upload"
+                      size="lg"
+                      variant="primary"
+                      className=" mt-1 mb-4  upload-button"
+                      onClickHandler={setImageShow}
+                    />
+                    <CImageUploadAndCropModal
+                      showModal={showImageUploadModal}
+                      setShowModal={setImageShow}
+                      ruleOfThirds={true}
+                      handleImageUpload={handleImageUpload}
+                      imageSrc={hospitalImage}
+                      croppedImageSrc={hospitalImageCroppedUrl}
+                      onImageSelect={onImageSelect}
+                      onImageCrop={data => handleCropImage(data)}
+                    />
+                  </div>
+                </div>
+              </Col>
+
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-name"
@@ -69,37 +116,36 @@ const HospitalForm = ({
                 {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
                   return (
                     <Container-fluid key={'contactForm' + idx}>
-                    <Row>
-                    
-                      <CHybridInput
-                        key={'contactInput' + idx}
-                        id={'contactInput' + idx}
-                        id="contactNumber"
-                        name="contactNumber"
-                        onKeyDown={event => onEnterKeyPress(event)}
-                        onChange={e =>
-                          editContactNumber(
-                            'contactNumber',
-                            e.target.value,
-                            idx
-                          )
-                        }
-                        placeholder="Contact Number"
-                        value={contNumber}
-                        required={true}
-                        errorMessagePassed={errorMessageForHospitalCode}
-                      />
-                      <CButton
-                        key={'removecontact' + idx}
-                        id={'removecontact' + idx}
-                        variant="outline-danger"
-                        onClickHandler={() =>
-                          removeContactNumber('contactNumber', idx)
-                        }
-                        name="Remove"
-                        size="sm"
-                      ></CButton>
-                    </Row>
+                      <Row>
+                        <CHybridInput
+                          key={'contactInput' + idx}
+                          id={'contactInput' + idx}
+                          id="contactNumber"
+                          name="contactNumber"
+                          onKeyDown={event => onEnterKeyPress(event)}
+                          onChange={e =>
+                            editContactNumber(
+                              'contactNumber',
+                              e.target.value,
+                              idx
+                            )
+                          }
+                          placeholder="Contact Number"
+                          value={contNumber}
+                          required={true}
+                          errorMessagePassed={errorMessageForHospitalCode}
+                        />
+                        <CButton
+                          key={'removecontact' + idx}
+                          id={'removecontact' + idx}
+                          variant="outline-danger"
+                          onClickHandler={() =>
+                            removeContactNumber('contactNumber', idx)
+                          }
+                          name="Remove"
+                          size="sm"
+                        ></CButton>
+                      </Row>
                     </Container-fluid>
                   )
                 })}

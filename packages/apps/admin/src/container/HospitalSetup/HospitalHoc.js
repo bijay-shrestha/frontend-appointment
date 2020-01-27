@@ -315,9 +315,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     handleImageUpload = async croppedImageFile => {
       let croppedImage = this.state.hospitalImageCroppedUrl
+      let hospitalImage={...this.state.hospitalData}
+      hospitalImage.hospitalLogo=new File([croppedImageFile], 'hospitalAvatar.jpeg')
+      hospitalImage.hospitalLogoUrl=croppedImage;
       await this.setState({
-        adminAvatar: new File([croppedImageFile], 'hospitalAvatar.jpeg'),
-        adminAvatarUrl: croppedImage,
+        hospitalData:{...hospitalImage},
         showImageUploadModal: false
       })
     }
@@ -395,7 +397,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           },
           showAlert: true
         })
-        await this.searchSpecialization()
+        await this.searchHospital()
       } catch (e) {
         this.setState({
           deleteModalShow: true
@@ -443,6 +445,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         //this.setFormValidManage();
       }
     }
+    setImageShowModal = () => this.setState({showImageUploadModal: !this.state.showImageUploadModal});
 
     render () {
       const {
@@ -484,6 +487,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
 
       const {deleteErrorMessage} = this.props.HospitalDeleteReducer
+      
       return (
         <ComposedComponent
           {...this.props}
@@ -536,9 +540,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           editContactNumber={this.editContactNumber}
           contactLength={contactLength}
           hospitalImage={hospitalImage}
+          onImageSelect={this.handleImageSelect}
           hospitalImageCroppedUrl={hospitalImageCroppedUrl}
           hospitalFileCropped={hospitalFileCropped}
           showImageUploadModal={showImageUploadModal}
+          handleCropImage={this.handleCropImage}
+          handleImageUpload={this.handleImageUpload}
+          setImageShow={this.setImageShowModal}
         ></ComposedComponent>
       )
     }
