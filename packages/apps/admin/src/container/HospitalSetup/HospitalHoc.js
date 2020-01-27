@@ -29,8 +29,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         panNumber: '',
         status: 'Y',
         hospitalCode: '',
-        hospitalLogo:null,
-        hospitalLogoUrl:'',
+        hospitalLogo: null,
+        hospitalLogoUrl: '',
         contactNumber: [],
         contactNumberUpdateRequestDTOS: []
       },
@@ -71,7 +71,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       hospitalImage: '',
       hospitalImageCroppedUrl: '',
       hospitalFileCropped: '',
-      showImageUploadModal: false,
+      showImageUploadModal: false
     }
 
     handleEnterPress = event => {
@@ -184,15 +184,23 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     }
 
     handleConfirmClick = async () => {
-      const {name, hospitalCode, status} = this.state.hospitalData
+      const {
+        name,
+        hospitalCode,
+        status,
+        contactNumber,
+        hospitalLogo
+      } = this.state.hospitalData
+      let formData = new FormData()
+      formData.append(
+        'file',
+        new File([hospitalLogo], name.concat('-picture.jpeg'))
+      )
       try {
         await this.props.createHospital(
           hostpitalSetupApiConstants.CREATE_HOSPITAL,
-          {
-            name,
-            hospitalCode,
-            status
-          }
+          {name, hospitalCode, status, contactNumber},
+          formData
         )
         this.resetHospitalStateValues()
         this.setState({
@@ -315,11 +323,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     handleImageUpload = async croppedImageFile => {
       let croppedImage = this.state.hospitalImageCroppedUrl
-      let hospitalImage={...this.state.hospitalData}
-      hospitalImage.hospitalLogo=new File([croppedImageFile], 'hospitalAvatar.jpeg')
-      hospitalImage.hospitalLogoUrl=croppedImage;
+      let hospitalImage = {...this.state.hospitalData}
+      hospitalImage.hospitalLogo = new File(
+        [croppedImageFile],
+        'hospitalAvatar.jpeg'
+      )
+      hospitalImage.hospitalLogoUrl = croppedImage
       await this.setState({
-        hospitalData:{...hospitalImage},
+        hospitalData: {...hospitalImage},
         showImageUploadModal: false
       })
     }
@@ -445,7 +456,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         //this.setFormValidManage();
       }
     }
-    setImageShowModal = () => this.setState({showImageUploadModal: !this.state.showImageUploadModal});
+    setImageShowModal = () =>
+      this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
     render () {
       const {
@@ -487,7 +499,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
 
       const {deleteErrorMessage} = this.props.HospitalDeleteReducer
-      
+
       return (
         <ComposedComponent
           {...this.props}

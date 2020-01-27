@@ -1,10 +1,19 @@
 import {HospitalSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 
-export const createHospital = (path, profileData) => async dispatch => {
+export const createHospital = (
+  path,
+  hospitalData,
+  formData
+) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalPending())
   try {
-    let response = await Axios.postRaw(path, profileData)
+    const response = await Axios.postForMultipart(
+      path,
+      'request',
+      hospitalData,
+      formData
+    )
     dispatch(HospitalSetupActions.createHospitalSuccess())
     return response
   } catch (e) {

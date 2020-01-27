@@ -85,6 +85,7 @@ function SpecializationAdd (props) {
                 onConfirmClick={submitAddChanges}
                 hospitalData={hospitalData}
                 type="A"
+                hospitalImageCroppedUrl={hospitalImageCroppedUrl}
               />
             </Col>
           </Row>
