@@ -5,6 +5,7 @@ import {
   CForm,
   CHybridInput,
   CRadioButton,
+  CHybridTextArea,
   CButton
 } from '@frontend-appointment/ui-elements'
 import * as DefaultProfileImage from './picture.png';
@@ -101,6 +102,28 @@ const HospitalForm = ({
                   value={hospitalInfoObj.hospitalCode}
                   required={true}
                   errorMessagePassed={errorMessageForHospitalCode}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridTextArea
+                  id="hospital-address"
+                  name="address"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) => onInputChange(event, validity)}
+                  placeholder="Hospital Address"
+                  value={hospitalInfoObj.address}
+                  required={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="hospital-panNumber"
+                  name="panNumber"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) => onInputChange(event, validity)}
+                  placeholder="Hospital PanNumber"
+                  value={hospitalInfoObj.panNumber}
+                  required={true}
                 />
               </Col>
 

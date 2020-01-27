@@ -132,7 +132,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         nameValid &&
         hospitalData.name &&
         hospitalData.hospitalCode &&
-        hospitalData.status
+        hospitalData.status &&
+        hospitalData.address &&
+        hospitalData.panNumber
 
       if (eventType === 'E')
         formValidity =
@@ -189,7 +191,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         hospitalCode,
         status,
         contactNumber,
-        hospitalLogo
+        hospitalLogo,
+        address,
+        panNumber
       } = this.state.hospitalData
       let formData = new FormData()
       formData.append(
@@ -199,7 +203,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       try {
         await this.props.createHospital(
           hostpitalSetupApiConstants.CREATE_HOSPITAL,
-          {name, hospitalCode, status, contactNumber},
+          {name, hospitalCode, status, contactNumber, address, panNumber},
           formData
         )
         this.resetHospitalStateValues()
