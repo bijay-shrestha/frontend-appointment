@@ -11,23 +11,37 @@
 
  .doctor-info{
   height: 100%;
-
  @include border-radius($cogent-radius);
  }
 
+ .info-container{
+   
+    padding-right:0
+}
+
  .doctor-availability{
-    height: 100%;;
+    height: 100%;
     @include border-radius($cogent-radius);
+
+   
 
     .header{
         font-weight: 600;
+        text-transform: uppercase;
         
     }
 
     .main-content{
        margin-top:24px;
        margin-bottom:24px;
+
+       & :first-child{
+           text-transform: uppercase;
+           font-weight:500;
+       }
     }
+
+
  }
 
  .doctor-override {
@@ -35,11 +49,20 @@
     @include border-radius($cogent-radius);
  }
 
+ .preview-modal{
+     .doctor-availability{
+         border:1px solid $cogent-border;
+     }
+ }
+
+
+
 
  @media (max-width:992px) { 
 
-    .mb-20{
+    .info-container{
         margin-bottom:20px;
+        padding-right:15px;
     }
 
 

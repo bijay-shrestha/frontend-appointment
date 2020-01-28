@@ -6,20 +6,18 @@ import {CFLabel, CForm, CHybridInput,
      CDataTable,
     CButton, CCheckbox} 
     from "@frontend-appointment/ui-elements";
+import DoctorDutyRosterSearchFilter   from "./DoctorDutyRosterSearchFilter";
+import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
 
-
-class DoctorDutyRoosterManage extends PureComponent {
+class DoctorDutyRosterManage extends PureComponent {
 
     render() {
         return <>
-        <Container className="" fluid>
-            <Row>
-                hi
-            </Row>
-        </Container>
+         <DoctorDutyRosterSearchFilter/>
+         <DoctorDutyRosterDataTable/>
         </>
 
         }
     }
 
-    export default DoctorDutyRoosterManage         
+    export default DoctorDutyRosterManage         

@@ -4,18 +4,26 @@ import "./../doctor-duty-roster.scss";
 import {CFLabel, CForm, CHybridInput,
      CHybridSelect, CRadioButton, CInputGroup, 
      CDataTable,
-    CButton, CCheckbox} 
+    CButton, CCheckbox,CModal} 
     from "@frontend-appointment/ui-elements";
+    import "./ExistingRoster";
+import ExistingRooster from './ExistingRoster';
 
 
 class DoctorDutyRoosterAdd extends PureComponent {
-
+    state={show:false}
+    handleShow=()=>{
+        this.setState(prevState =>({
+            show:!prevState.show
+        }))
+    }
     render() {
-        return <>
+        const modalBody=(<ExistingRooster/>)
+        return ( <>
             <Container className="p-0" fluid>
 
                 <Row className="mb-2">
-                <Col md={12} lg={5} className="mb-20">
+                <Col md={12} lg={5} className="info-container">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title">Doctor Info</h5>
                         <Form>
@@ -57,7 +65,7 @@ class DoctorDutyRoosterAdd extends PureComponent {
                             />                
                         </Form>
 
-                        <CButton href="" variant="link" size="lg" name="">*Existing Availability</CButton>
+                        <CButton href="" variant="link" size="lg"  onClickHandler={this.handleShow} name="">*Existing Availability</CButton>
                     </div>
                 </Col>
 
@@ -73,7 +81,7 @@ class DoctorDutyRoosterAdd extends PureComponent {
                                        className="select-all check-all"/>
                                        </Col>
                         </Row>
-                        <Row className="main-content">
+                        <Row className="main-content mt-3">
                             <Col> Sunday</Col>
                             <Col> Start Time</Col>
                             <Col> End Time</Col>
@@ -170,19 +178,7 @@ class DoctorDutyRoosterAdd extends PureComponent {
                              </Col>
                         </Row>
 
-                        <Row>
-                        <Col>
-                             <CButton
-                             id="add-override"
-                             variant='primary'
-                             size='lg'
-                             name='Save'
-                             className="pull-right">
-                             
-                             </CButton>
-                             </Col>
-                        </Row>
-                      
+                       
 
                                        
                     </div>
@@ -191,7 +187,28 @@ class DoctorDutyRoosterAdd extends PureComponent {
                     </Col>
                 </Row>
             </Container>
-        </>
+
+       
+
+ 
+  
+
+    <CModal 
+        show={this.state.show}
+                modalHeading="Existing Doctor Roster"
+                size="lg"
+                bodyChildren={modalBody}
+                onHide={this.handleShow}
+                centered={false}
+                dialogClassName="preview-modal"
+                // footerChildren={<CButton
+                //     id="departmentConfirm"
+                //     variant="primary"
+                //     size="lg"
+                //     className="float-right btn-action"
+                //     onClickHandler={onConfirmClick}/>}
+                closeButton={true}></CModal>
+        </>)
     }
 
 }

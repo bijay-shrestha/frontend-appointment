@@ -18,7 +18,7 @@ const DepartmentDetailsDataTable = props => (
                     name="DownloadExcel"
                     onClickHandler={props.exportExcel}
                     className="float-right"
-                    variant='outline-info'
+                    variant='outline-success'
                 > <i className='fa fa-download'/>
                 </CButton>
                 <CDataTable
