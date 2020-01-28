@@ -17,7 +17,7 @@ let Axios = axios.create({
 Axios.interceptors.request.use(
   requestConfig => {
     let token = localStorage.getItem('auth-token') || ''
-    requestConfig.headers.Authorization = token?"Bearer "+token:'';
+    requestConfig.headers.Authorization =token
     return requestConfig
   },
   error => {

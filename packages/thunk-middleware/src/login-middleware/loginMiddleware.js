@@ -6,7 +6,7 @@ export const signinUser = (path, data) => async dispatch => {
     try {
         const response = await Axios.postRaw(path, data);
         dispatch(LoginActions.isLoginSuccess(response.data));
-        let jwtToken = response.data;
+        let jwtToken = response.headers.authorization;
         localStorage.setItem('auth-token', jwtToken)
         return response;
     } catch (error){

@@ -347,6 +347,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           sN: index + 1,
           name: spec.name.toUpperCase()
         }))
+        console.log('New HospitalList',newHospitalList)
       return newHospitalList
     }
 
@@ -464,6 +465,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
     render () {
+      console.log(this.props.HospitalSearchReducer);
+      console.log('Preview Data',this.props.HospitalSearchReducer)
       const {
         hospitalData,
         showAlert,
@@ -544,7 +547,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO={deleteRequestDTO}
           totalRecords={totalRecords}
           isSearchLoading={isSearchLoading}
-          specializationList={this.appendSNToTable(hospitalList)}
+          hospitalList={this.appendSNToTable(hospitalList)}
           searchErrorMessage={searchErrorMessage}
           specializationPreviewErrorMessage={hospitalPreviewErrorMessage}
           deleteErrorMessage={deleteErrorMessage}

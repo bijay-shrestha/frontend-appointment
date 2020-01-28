@@ -10,6 +10,7 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'
 const DetailsModal = ({type, hospitalData}) => {
+  console.log('previewHsoptial',hospitalData)
   let images, contactNumber
   if (type !== 'A') {
     images = [
