@@ -33,6 +33,10 @@ const AddHospitalComponent = Loadable({
     loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
     loading: () => getLoader()
 });
+const ManageHospitalComponent = Loadable({
+    loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
+    loading: () => getLoader()
+});
 export const routes = [
     {
         "path": "/admin/dashboard",
@@ -92,6 +96,13 @@ export const routes = [
         "hasTab":true,
         "isLink":true,
         "name":"Add"
+    },
+    {
+        "path":"/admin/hospital/manage",
+        "component":ManageHospitalComponent,
+        "icon":"",
+        "hasTab":true,
+        "isLink":true,
+        "name":"Add"
     }
-
 ];

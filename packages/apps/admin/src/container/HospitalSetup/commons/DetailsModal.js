@@ -32,7 +32,7 @@ const DetailsModal = ({type, hospitalData}) => {
         height: 3
       }
     ]
-    contactNumber = contactNumber
+    contactNumber = hospitalData.contactNumber
   }
 
   return (

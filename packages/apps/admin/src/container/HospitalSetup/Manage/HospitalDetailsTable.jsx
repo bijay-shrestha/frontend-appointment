@@ -49,8 +49,8 @@ const HospitalDetailsDataTable = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Code',
-                            field: 'code',
+                            headerName: 'Hospital Address',
+                            field: 'address',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -116,13 +116,13 @@ const HospitalDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showSpecializationModal && !props.isPreviewLoading ? (
+        {props.showHospitalModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showSpecializationModal}
+                showModal={props.showHospitalModal}
                 setShowModal={props.setShowModal}
-                specializationData={props.specializationData}
-                specializationPreviewErrorMessage={
-                    props.specializationPreviewErrorMessage
+                hospitalData={props.hospitalData}
+                hospitalPreviewErrorMessage={
+                    props.hospitalPreviewErrorMessage
                 }
             />
         ) : (
@@ -130,7 +130,7 @@ const HospitalDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Specialization?If yes please provide remarks."
+                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
                 modalHeader="Delete Specialization"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}

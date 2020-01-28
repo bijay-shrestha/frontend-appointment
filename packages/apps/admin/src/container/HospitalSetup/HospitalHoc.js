@@ -53,8 +53,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       showEditModal: false,
       deleteModalShow: false,
       searchParameters: {
-        code: '',
-        id: null,
+        // code: '',
+        // id: null,
         name: '',
         status: {value: '', label: 'All'}
       },
@@ -150,7 +150,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     addContactNumber = (fieldName, value, eventType) => {
       let hospitalData = {...this.state.hospitalData}
       hospitalData[fieldName].push(value)
-      this.setTheState('hospitalData', hospitalData)
+        this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
 
@@ -423,10 +423,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
-          code: '',
+          // code: '',
           status: {value: '', label: 'All'},
-          name: '',
-          id: null
+          name: ''
+          //id: null
         }
       })
       this.searchHospital()
@@ -456,7 +456,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     async componentDidMount () {
       if (type === 'M') {
-        await this.searchSpecialization()
+        await this.searchHospital()
         //this.setFormValidManage();
       }
     }

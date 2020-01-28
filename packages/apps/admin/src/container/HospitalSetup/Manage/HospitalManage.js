@@ -1,7 +1,7 @@
 import React, {memo} from 'react'
 import HospitalSetupSearchFilter from './HospitalSetupSearchFilter'
-import SpecializationDetailsTable from './HospitalDetailsTable'
-import SubDepartmentEditForm from './SpecializationEditModal'
+import HospitalDetailsTable from './HospitalDetailsTable'
+import HospitalEditForm from './HospitalEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc'
 const SpecializationManage = props => {
@@ -49,25 +49,25 @@ const SpecializationManage = props => {
           <HospitalSetupSearchFilter
             searchParameters={searchParameters}
             onInputChange={handleSearchFormChange}
-            onSearchClick={()=>searcHospital(1)}
+            onSearchClick={()=>searchHospital(1)}
             resetSearchForm={resetSearch}
             handleEnter={handleEnter}
           />
         </div>
         <div className=" mb-2">
-          <SpecializationDetailsTable
+          <HospitalDetailsTable
             //filteredActions={props.filteredAction}
-            showSpecializationModal={showSpecializationModal}
+            showHospitalModal={showHospitalModal}
             isSearchLoading={isSearchLoading}
-            searchData={specializationList}
+            searchData={hospitalList}
             searchErrorMessage={searchErrorMessage}
             setShowModal={setShowModal}
             onDeleteHandler={onDeleteHandler}
             onEditHandler={onEditHandler}
             isPreviewLoading={isPreviewLoading}
             onPreviewHandler={onPreviewHandler}
-            specializationData={specializationPreviewData}
-            specializationPreviewErrorMessage={specializationPreviewErrorMessage}
+            hospitalData={hospitalPreviewData}
+            hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
             totalItems={totalRecords}
             maxSize={queryParams.size}
             currentPage={queryParams.page}
@@ -77,26 +77,26 @@ const SpecializationManage = props => {
             remarksHandler={deleteRemarksHandler}
             remarks={deleteRequestDTO.remarks}
             deleteErrorMsg={deleteErrorMessage}
-            exportExcel={downloadEXCEL}
+            // exportExcel={downloadEXCEL}
           
           />
         </div>
         {showEditModal && (
-          <SubDepartmentEditForm
+          <HospitalEditForm
             showModal={showEditModal}
             setShowModal={setShowModal}
             onEnterKeyPress={handleEnter}
-            specializationData={specializationData}
+            hospitalData={hospitalData}
             onInputChange={handleInputChange}
-            editApiCall={editSpecialization}
+            editApiCall={editHospital}
             formValid={formValid}
-            errorMessageForSpecializationCode={
-              errorMessageForSpecializationCode
+            errorMessageForHospitalCode={
+              errorMessageForHospitalCode
             }
             errorMessageForSpecializationName={
-              errorMessageForSpecializationName
+              errorMessageForHospitalName
             }
-            errorMessage={specializationEditErrorMessage}
+            errorMessage={hospitalEditErrorMessage}
           />
         )}
         <CAlert
