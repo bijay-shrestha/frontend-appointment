@@ -12,10 +12,10 @@ class DoctorDutyRoosterAdd extends PureComponent {
 
     render() {
         return <>
-            <Container className="" fluid>
+            <Container className="p-0" fluid>
 
-                <Row>
-                <Col md={12} lg={5} className="">
+                <Row className="mb-2">
+                <Col md={12} lg={5} className="mb-20">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title">Doctor Info</h5>
                         <Form>
@@ -62,7 +62,7 @@ class DoctorDutyRoosterAdd extends PureComponent {
                 </Col>
 
                 <Col md={12} lg={7} className="">
-                    <div className="doctor-avaibility bg-white p-4">
+                    <div className="doctor-availability bg-white p-4">
                     <h5 className="title">Doctor Availability</h5>
                         <Row className="header">
                             <Col> Days</Col>

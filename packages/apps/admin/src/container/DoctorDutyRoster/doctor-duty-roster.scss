@@ -10,13 +10,13 @@
 
 
  .doctor-info{
-     min-height: 510px;
+  height: 100%;
 
  @include border-radius($cogent-radius);
  }
 
- .doctor-avaibility{
-    min-height: 510px;
+ .doctor-availability{
+    height: 100%;;
     @include border-radius($cogent-radius);
 
     .header{
@@ -34,4 +34,14 @@
      padding:30px 40px;
     @include border-radius($cogent-radius);
  }
+
+
+ @media (max-width:992px) { 
+
+    .mb-20{
+        margin-bottom:20px;
+    }
+
+
+  }
 
