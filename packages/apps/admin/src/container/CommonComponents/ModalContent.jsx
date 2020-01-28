@@ -26,6 +26,7 @@ class ModalContent extends React.PureComponent {
         let tabsWithRoles = this.getTabsAndRolesForSelectedMenu(menuToGetRolesOf);
         this.setState({
             activeKey: menuToGetRolesOf.parentId !== null ? menuToGetRolesOf.parentId : menuToGetRolesOf.id,
+            activeKeyChild: menuToGetRolesOf.parentId !== null ? menuToGetRolesOf.id : '',
             childMenusOfSelectedParent: Array.isArray(childMenusOfParent) ? childMenusOfParent : [],
             tabsWithRolesForSelectedMenu: [...tabsWithRoles],
             selectedChildMenu: menuToGetRolesOf
@@ -35,6 +36,7 @@ class ModalContent extends React.PureComponent {
     handleChildMenuClick = childMenu => {
         let tabsWithRoles = this.getTabsAndRolesForSelectedMenu(childMenu);
         this.setState({
+            activeKeyChild: childMenu.id,
             tabsWithRolesForSelectedMenu: [...tabsWithRoles],
             selectedChildMenu: childMenu
         });
@@ -89,7 +91,7 @@ class ModalContent extends React.PureComponent {
 
                 <CForm
                     id="profile-info"
-                    className="mt-2 profile-info">
+                    className="mt-2 add-info">
                     <Container-fluid>
                         <Row>
                             <Col sm={4} md={4} lg={4}>
@@ -101,7 +103,16 @@ class ModalContent extends React.PureComponent {
                                     disabled={true}
                                 />
                             </Col>
-
+                            <Col sm={4} md={4} lg={4}>
+                                <CHybridSelect
+                                    id="hospital"
+                                    isDisabled={true}
+                                    label="Hospital"
+                                    name="selectedHospital"
+                                    // options={subDepartmentList}
+                                    value={profileData.hospitalValue}
+                                />
+                            </Col>
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridSelect
                                     id="department"
@@ -110,16 +121,6 @@ class ModalContent extends React.PureComponent {
                                     // options={departmentList}
                                     value={profileData.departmentValue}
                                     isDisabled={true}
-                                />
-                            </Col>
-                            <Col sm={4} md={4} lg={4}>
-                                <CHybridSelect
-                                    id="sub-department"
-                                    isDisabled={true}
-                                    label="Sub Department"
-                                    name="selectedSubDepartment"
-                                    // options={subDepartmentList}
-                                    value={profileData.subDepartmentValue}
                                 />
                             </Col>
                             <Col sm={4} md={4} lg={4}>
@@ -215,8 +216,8 @@ class ModalContent extends React.PureComponent {
                                                         eventKey={childMenu.id}
                                                         key={childMenu.id}
                                                         as={Card.Header}
-                                                        className={this.state.activeKey === childMenu.id ?
-                                                            'activeParent' : ''}
+                                                        className={this.state.activeKeyChild === childMenu.id ?
+                                                            'activeChild' : ''}
                                                         onClick={() => this.handleChildMenuClick(childMenu)}>
                                                         {childMenu.icon}{childMenu.name}
                                                     </Accordion.Toggle>
@@ -230,7 +231,7 @@ class ModalContent extends React.PureComponent {
                                 <div className="assign-previledge">
                                     <div className="am-header">
                                     <span className="am-title">
-                                        {this.state.selectedChildMenu.name}
+                                       Assigned Roles : {this.state.selectedChildMenu.name}
                                     </span>
                                     </div>
                                     <CScrollbar
@@ -270,7 +271,7 @@ class ModalContent extends React.PureComponent {
                             <div className="assign-menu">
                                 <div className="filter-message">
                                     <div className="no-data">
-                                        <i class="fa fa-file-text-o"></i>
+                                        <i className="fa fa-file-text-o"></i>
                                     </div>
                                     <div
                                         className="message text-center">No Menus Selected

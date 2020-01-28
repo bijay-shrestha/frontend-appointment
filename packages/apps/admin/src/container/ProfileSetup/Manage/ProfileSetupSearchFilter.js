@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
-import {CButton, CForm, CHybridInput, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
 import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 
 class ProfileSetupSearchFilter extends PureComponent {
 
@@ -9,21 +10,13 @@ class ProfileSetupSearchFilter extends PureComponent {
     };
 
     handleEnter = (event) => {
-        let increment = 1;
-        if (event.keyCode === 13) {
-            const form = event.target.form;
-            const index = Array.prototype.indexOf.call(form, event.target);
-            increment = event.currentTarget.children.length ? 2 : 1;
-            form.elements[index + increment].focus();
-            if (increment !== 2)
-                event.preventDefault();
-        }
+        EnterKeyPressUtils.handleEnter(event);
     };
 
     toggleSearchForm = async () => {
 
         const searchFilter = document.getElementById('advanced-search');
-        if (searchFilter) searchFilter.classList.toggle('collapsed')
+        if (searchFilter) searchFilter.classList.toggle('collapsed');
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
         });
@@ -35,13 +28,13 @@ class ProfileSetupSearchFilter extends PureComponent {
         this.toggleSearchForm();
     };
 
-
     render() {
         const {
             onInputChange,
             searchParameters,
+            profileList,
+            hospitalList,
             departmentList,
-            subDepartmentList,
             resetSearchForm
         } = this.props;
         return (
@@ -68,13 +61,39 @@ class ProfileSetupSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     <Col sm={6} md={3} xl={3}>
-                                        <CHybridInput
+                                        <CHybridSelect
                                             id="profile-name"
-                                            name="profileName"
+                                            label="Profile"
+                                            name="profile"
+                                            options={profileList}
+                                            value={searchParameters.profile}
+                                            placeholder="Select profile."
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            placeholder="Profile Name"
-                                            value={searchParameters.profileName}
+                                        />
+                                    </Col>
+                                    <Col sm={6} md={3} xl={3}>
+                                        <CHybridSelect
+                                            id="hospital"
+                                            label="Hospital"
+                                            name="hospital"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            options={hospitalList}
+                                            value={searchParameters.hospital}
+                                            placeholder={'Select Hospital.'}
+                                        />
+                                    </Col>
+                                    <Col sm={6} md={3} xl={3}>
+                                        <CHybridSelect
+                                            id="department"
+                                            label="Department"
+                                            name="department"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            options={departmentList}
+                                            value={searchParameters.department}
+                                            placeholder="Select department."
                                         />
                                     </Col>
                                     <Col sm={6} md={3} xl={3}>
@@ -89,33 +108,6 @@ class ProfileSetupSearchFilter extends PureComponent {
                                                 {value: 'Y', label: 'Active'},
                                                 {value: 'N', label: 'Inactive'}]}
                                             label='Status'
-                                        />
-                                    </Col>
-
-                                    <Col sm={6} md={3} xl={3}>
-                                        <CHybridSelect
-                                            id="department"
-                                            label="Department"
-                                            name="selectedDepartment"
-                                            onKeyDown={(event) => this.handleEnter(event)}
-                                            onChange={(event) => onInputChange(event)}
-                                            options={departmentList}
-                                            value={searchParameters.selectedDepartment}
-                                            placeholder="Select department"
-                                        />
-                                    </Col>
-
-                                    <Col sm={6} md={3} xl={3}>
-                                        <CHybridSelect
-                                            id="sub-department"
-                                            isDisabled={!searchParameters.selectedDepartment}
-                                            onKeyDown={(event) => this.handleEnter(event)}
-                                            label="Sub Department"
-                                            name="selectedSubDepartment"
-                                            onChange={(event) => onInputChange(event)}
-                                            options={subDepartmentList}
-                                            value={searchParameters.selectedSubDepartment}
-                                            placeholder={!searchParameters.selectedDepartment ? 'Select department first.' : 'Select Sub Department'}
                                         />
                                     </Col>
 
@@ -163,25 +155,52 @@ class ProfileSetupSearchFilter extends PureComponent {
                                 </CButton>
 
                             </li>
-                            {searchParameters.profileName &&
+                            {searchParameters.profile &&
                             <li>
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Profile Name</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Profile</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.profileName}
+                                        {searchParameters.profile}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
+                            {searchParameters.hospital &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                >
+                                    <Button id="button-searchs-filters" variant="secondary">
+                                        {searchParameters.hospital && searchParameters.hospital.label}
                                     </Button>
                                 </OverlayTrigger>
 
                             </li>
                             }
 
+                            {searchParameters.department &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => <Tooltip {...props}>Department</Tooltip>}
+                                >
+                                    <Button id="button-search-filters" variant="secondary">
+                                        {searchParameters.department && searchParameters.department.label}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
 
                             {searchParameters.status &&
                             <li>
-
                                 <OverlayTrigger
                                     placement="top"
                                     overlay={
@@ -195,37 +214,6 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             : searchParameters.status.value === 'A' ? "All" : "Inactive"}
                                     </Button>
                                 </OverlayTrigger>
-
-                            </li>
-                            }
-
-                            {searchParameters.selectedDepartment &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Department</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {searchParameters.selectedDepartment && searchParameters.selectedDepartment.label}
-                                    </Button>
-                                </OverlayTrigger>
-
-                            </li>
-                            }
-
-                            {searchParameters.selectedSubDepartment &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Sub Department</Tooltip>}
-                                >
-                                    <Button id="button-searchs-filters" variant="secondary">
-                                        {searchParameters.selectedSubDepartment && searchParameters.selectedSubDepartment.label}
-                                    </Button>
-                                </OverlayTrigger>
-
                             </li>
                             }
                         </ul>

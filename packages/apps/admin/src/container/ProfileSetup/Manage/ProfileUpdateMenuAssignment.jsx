@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import {rolesFromJson, TryCatchHandler} from "@frontend-appointment/commons";
+import {TryCatchHandler} from "@frontend-appointment/commons";
+import { menuRoles} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 
@@ -16,7 +17,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
         checkedAllRolesAndTabs: false,
         checkedAllUserMenus: false,
         totalNoOfMenusAndRoles: 0,
-        userMenusBySubDepartment: []// For displaying user menus ,value will be changing when searched.
+        userMenus: []// For displaying user menus ,value will be changing when searched.
     };
 
     setShowModal = () => {
@@ -54,7 +55,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     };
 
     setCurrentChildMenuAndTabsWithRoles = async (childMenu) => {
-        const rolesJson = JSON.stringify([...rolesFromJson]);
+        const rolesJson = JSON.stringify([...menuRoles]);
         const allRolesFromJson = JSON.parse(rolesJson);
 
         let rolesForSelectedMenu = [];
@@ -100,7 +101,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
             }
         });
         await this.setState({
-            userMenusBySubDepartment: [...this.props.userMenus],
+            userMenus: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
             checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length
         });
@@ -262,7 +263,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
 
         // if (menusMatchingKeyWord.length > 0) {
         await this.setState({
-            userMenusBySubDepartment: [...menusMatchingKeyWord]
+            userMenus: [...menusMatchingKeyWord]
         });
         // }
     };
@@ -359,8 +360,8 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                        label="All"
                                        className="select-all"
                                        checked={this.state.checkedAllUserMenus}
-                                       disabled={this.state.userMenusBySubDepartment.length === 0}
-                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenusBySubDepartment)}/>
+                                       disabled={this.state.userMenus.length === 0}
+                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
                         </div>
                         <CScrollbar
                             id="menus"
@@ -387,7 +388,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                             first.
                                         </div>
                                     </div>) :
-                                    this.state.userMenusBySubDepartment.length === 0 ?
+                                    this.state.userMenus.length === 0 ?
                                         <div className="filter-message">
                                             <div className="no-data primary">
                                                 <i className="fa fa-file-text-o"></i>
@@ -396,7 +397,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                         </div> :
                                         <Accordion className="menu-accordion"
                                                    activeKey={this.state.activeKey ? this.state.activeKey : this.props.defaultSelectedMenu.id}>
-                                            {this.state.userMenusBySubDepartment.map(userMenu =>
+                                            {this.state.userMenus.map(userMenu =>
                                                 <Card
                                                     key={userMenu.id}>
                                                     <Accordion.Toggle
@@ -408,7 +409,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                             'activeParent' : ''}
                                                         onClick={() => this.handleAccordionSelect(userMenu)}>
                                                         <i className={userMenu.icon}> </i>
-                                                       <span>{userMenu.name}</span> 
+                                                       <span>{userMenu.name}</span>
                                                         {userMenu.childMenus.length > 0 ?
                                                             <i className='fa fa-sort-down'> </i> : ''}
                                                     </Accordion.Toggle>
@@ -439,24 +440,8 @@ class ProfileUpdateMenuAssignment extends PureComponent {
 
                         <div>
                             &nbsp;
-                            {/*    <CButton*/}
-                            {/*        name="Preview"*/}
-                            {/*        variant="outline-info"*/}
-                            {/*        className="mb-1  ml-2 float-right"*/}
-                            {/*        size="sm"*/}
-                            {/*        id="modal"*/}
-                            {/*        onClickHandler={this.setShowModal}>*/}
-                            {/*        <>&nbsp;<i className="fa fa-eye"></i></>*/}
-                            {/*    </CButton>*/}
                         </div>
                         <h5>Assign Roles</h5>
-
-                        {/*<PreviewRoles*/}
-                        {/*    showModal={this.state.showModal}*/}
-                        {/*    setShowModal={this.setShowModal}*/}
-                        {/*    profileData={this.props.profileData}*/}
-                        {/*    rolesJson={rolesFromJson}*/}
-                        {/*/>*/}
                     </div>
                     <div className="assign-previledge">
                         <div className="am-header">

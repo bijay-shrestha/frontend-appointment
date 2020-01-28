@@ -1,10 +1,18 @@
 import React from 'react';
 import {Col} from "react-bootstrap";
-import {CFLabel, CForm, CHybridInput, CHybridSelect, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CFLabel,
+    CForm,
+    CHybridInput,
+    CHybridSelect,
+    CHybridTextArea,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 
 const ProfileInfoForm = ({
                              onEnterKeyPress,
                              departmentList,
+                             hospitalList,
                              onInputChange,
                              profileInfoObj,
                              errorMessageForProfileName,
@@ -43,6 +51,17 @@ const ProfileInfoForm = ({
                 />
 
                 <CHybridSelect
+                    id="hospital"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    label="Hospital"
+                    name="selectedHospital"
+                    onChange={(event) => onInputChange(event)}
+                    options={hospitalList}
+                    value={profileInfoObj.hospitalValue}
+                    placeholder={'Select Hospital.'}
+                />
+
+                <CHybridSelect
                     id="department"
                     label="Department"
                     name="selectedDepartment"
@@ -51,18 +70,7 @@ const ProfileInfoForm = ({
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
                     placeholder="Select department"
-                />
-
-                <CHybridSelect
-                    id="sub-department"
-                    isDisabled={profileInfoObj.isSubDepartmentDisabled}
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Sub Department"
-                    name="selectedSubDepartment"
-                    onChange={(event) => onInputChange(event)}
-                    options={profileInfoObj.subDepartmentList}
-                    value={profileInfoObj.subDepartmentValue}
-                    placeholder={profileInfoObj.isSubDepartmentDisabled ? 'Select department first.' : 'Select Sub Department'}
+                    isDisabled={!profileInfoObj.hospitalValue}
                 />
 
                 <CFLabel labelName="Status" id="status"></CFLabel>

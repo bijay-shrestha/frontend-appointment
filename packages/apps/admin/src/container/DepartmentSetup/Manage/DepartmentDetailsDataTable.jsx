@@ -2,8 +2,8 @@ import {CButton, CDataTable, CLoading, CPagination} from '@frontend-appointment/
 import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import TableAction from "./tableComponents/TableAction";
-import StatusLabel from "./tableComponents/StatusLabel";
+import TableAction from "../../CommonComponents/table-components/TableAction";
+import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from "../commons/PreviewDetails";
 
 const {checkIfRoleExists} = ActionFilterUtils;

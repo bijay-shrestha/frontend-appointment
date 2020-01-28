@@ -27,7 +27,9 @@ const {
     CLEAR_DEPARTMENT_EDIT_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_PREVIEW_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_DELETE_ERROR_MESSAGE,
-    CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE
+    CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE,
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS,
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR
 } = departmentSetupConstants;
 
 const initialState = {
@@ -46,7 +48,9 @@ const initialState = {
     departmentSuccessMessage: '',
     departmentPreviewData: {},
     departmentPreviewErrorMessage: '',
-    departmentPreviewOpen: false
+    departmentPreviewOpen: false,
+    departmentsByHospital: [],
+    errorMessageForDropdown: ''
 };
 
 export const DepartmentSetupReducer = (state = {...initialState}, action) => {
@@ -87,6 +91,16 @@ export const DepartmentSetupReducer = (state = {...initialState}, action) => {
                 ...state,
                 isCreateDepartmentLoading: false,
                 errorMessage: ''
+            };
+        case FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS:
+            return {
+                ...state,
+                departmentsByHospital: [...action.payload.data]
+            };
+        case FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR:
+            return {
+                ...state,
+                errorMessageForDropdown: action.payload.errorMessage
             };
         default:
             return state

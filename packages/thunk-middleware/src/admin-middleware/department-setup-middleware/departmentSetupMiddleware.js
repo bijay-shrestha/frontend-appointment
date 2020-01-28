@@ -91,3 +91,13 @@ export const clearDepartmentSuccessErrorMessagesFromStore = () => async dispatch
     dispatch(DepartmentSetupActions.clearDepartmentDeleteSuccessMessage());
 };
 
+export const fetchActiveDepartmentsByHospitalId = (path, hospitalId) => async dispatch => {
+    try {
+        const response = await Axios.getWithPathVariables(path, hospitalId);
+        dispatch(DepartmentSetupActions.fetchDepartmentByHospitalIdSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(DepartmentSetupActions.fetchDepartmentByHospitalIdError("Error fetching department"));
+    }
+};
+
