@@ -32,7 +32,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         hospitalLogo: null,
         hospitalLogoUrl: '',
         contactNumber: [],
-        contactNumberUpdateRequestDTOS: []
+        contactNumberUpdateRequestDTOS: [],
+        editContactNumberRequestDTOS:[]
       },
       formValid: false,
       nameValid: false,
@@ -95,7 +96,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           status: 'Y',
           hospitalCode: '',
           contactNumber: [],
-          contactNumberUpdateRequestDTOS: []
+          contactNumberUpdateRequestDTOS: [],
+          editContactNumberRequestDTOS:[]
         },
         hospitalLogo: '',
         formValid: false,
@@ -131,8 +133,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       let formValidity =
         nameValid &&
         hospitalData.name &&
-        hospitalData.hospitalCode &&
         hospitalData.status &&
+        hospitalData.hospitalCode &&
         hospitalData.address &&
         hospitalData.panNumber
 
@@ -142,6 +144,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           hospitalData.remarks &&
           hospitalData.contactNumberUpdateRequestDTOS.length
       else formValidity = formValidity && hospitalData.contactNumber.length
+
+      console.log('Form Valid',formValidity);
       this.setState({
         formValid: formValidity
       })
@@ -150,13 +154,16 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     addContactNumber = (fieldName, value, eventType) => {
       let hospitalData = {...this.state.hospitalData}
       hospitalData[fieldName].push(value)
+      hospitalData['editContactNumberRequestDTOS'].push(value)
         this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
 
     removeContactNumber = (fieldName, idx, eventType) => {
       let hospitalData = {...this.state.hospitalData}
-      hospitalData[fieldName].splice(idx, 1)
+         hospitalData[fieldName].splice(idx, 1)
+      if(eventType === 'E')
+        hospitalData['editContactNumberRequestDTOS'][idx]['status']='N';
       this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
@@ -164,7 +171,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     editContactNumber = (fieldName, value, idx, eventType) => {
       let hospitalData = {...this.state.hospitalData}
       hospitalData[fieldName][idx] = value
-      this.setTheState('hospitalData', hospitalData)
+      hospitalData['editContactNumberRequestDTOS'][idx]=value
+      this.setTheState('hospitalData', hospitalData,)
       this.checkFormValidity(eventType)
     }
 
@@ -188,12 +196,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     handleConfirmClick = async () => {
       const {
         name,
-        hospitalCode,
         status,
         contactNumber,
         hospitalLogo,
         address,
-        panNumber
+        panNumber,
+        hospitalCode
       } = this.state.hospitalData
       let formData = new FormData()
       formData.append(
@@ -206,6 +214,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           {name, hospitalCode, status, contactNumber, address, panNumber},
           formData
         )
+
+        await this.setShowConfirmModal()
         this.resetHospitalStateValues()
         this.setState({
           showAlert: true,
@@ -215,7 +225,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           }
         })
       } catch (e) {
-        await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -257,22 +266,36 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         await this.previewApiCall(id)
         const {
           name,
-          code,
           status,
-          remarks
+          remarks,
+          panNumber,
+          address,
+          contactNumberResponseDTOS,
+          hospitalCode,
+          fileUri
+
         } = this.props.HospitalPreviewReducer.hospitalPreviewData
-        let formValid = this.state.formValid
+        let formValid = this.state.formValid;
         if (remarks) formValid = true
         this.setState({
           showEditModal: true,
-          specializationData: {
+          hospitalData: {
             id: id,
             name: name,
-            code: code,
             status: status,
-            remarks: remarks
+            panNumber:panNumber,
+            address: address,
+            hospitalCode:hospitalCode,
+            contactNumberUpdateRequestDTOS:[...contactNumberResponseDTOS],
+            editContactNumberRequestDTOS:[...contactNumberResponseDTOS],
+            hospitalLogoUrl:fileUri,
+            hospitalLogo:new File([5120],fileUri),
+            hospitalImage:new File([5120],fileUri),
+            hospitalImageCroppedUrl: fileUri,
+
           },
-          formValid: formValid
+          formValid: formValid,
+          nameValid:true
         })
       } catch (e) {
         console.log(e)
@@ -362,10 +385,33 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     }
 
     editHospital = async () => {
+      const {
+        name,
+        status,
+        hospitalLogo,
+        address,
+        panNumber,
+        hospitalCode,
+        contactNumberUpdateRequestDTOS,
+
+      } = this.state.hospitalData
+      let formData = new FormData()
+      formData.append(
+        'file',
+        new File([hospitalLogo], name.concat('-picture.jpeg'))
+      )
       try {
         await this.props.editHospital(
           hostpitalSetupApiConstants.EDIT_HOSPITAL,
-          this.state.hospitalData
+          {
+            name,
+            status,
+            address,
+            panNumber,
+            hospitalCode,
+            contactNumberUpdateRequestDTOS,
+          },
+          formData
         )
         this.resetHospitalStateValues()
         this.setState({
@@ -533,7 +579,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           handlePageChange={this.handlePageChange}
           handleSearchFormChange={this.handleSearchFormChange}
           onSubmitDeleteHandler={this.onSubmitDeleteHandler}
-          editHospital={this.editSpeclization}
+          editHospital={this.editHospital}
           onEditHandler={this.onEditHandler}
           onDeleteHandler={this.onDeleteHandler}
           onPreviewHandler={this.onPreviewHandler}

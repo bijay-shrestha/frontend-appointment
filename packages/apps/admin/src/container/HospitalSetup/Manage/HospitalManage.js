@@ -42,7 +42,18 @@ const SpecializationManage = props => {
       deleteRequestDTO,
       showAlert,
       closeAlert,
-      hospitalData
+      hospitalData,
+      addContactNumber,
+      removeContactNumber,
+      editContactNumber,
+      hospitalImage,
+      hospitalImageCroppedUrl,
+      hospitalFileCropped,
+      showImageUploadModal,
+      onImageSelect,
+      handleCropImage,
+      handleImageUpload,
+      setImageShow
     }) => (
       <>
         <div className="">
@@ -97,6 +108,17 @@ const SpecializationManage = props => {
               errorMessageForHospitalName
             }
             errorMessage={hospitalEditErrorMessage}
+            addContactNumber={addContactNumber}
+            removeContactNumber={removeContactNumber}
+            editContactNumber={editContactNumber}
+            hospitalImage={hospitalImage}
+            hospitalImageCroppedUrl={hospitalImageCroppedUrl}
+            hospitalFileCropped={hospitalFileCropped}
+            showImageUploadModal={showImageUploadModal}
+            onImageSelect={onImageSelect}
+            handleCropImage={handleCropImage}
+            handleImageUpload={handleImageUpload}
+            setImageShow={setImageShow}   
           />
         )}
         <CAlert
@@ -127,26 +149,4 @@ const SpecializationManage = props => {
   )
   return <SPManage />
 }
-
-// const {
-//   isSearchLoading,
-//   specializationList,
-//   searchErrorMessage
-// } = this.props.SpecializationSearchReducer
-
-// const {
-//   specializationPreviewData,
-//   isPreviewLoading,
-//   specializationPreviewErrorMessage
-// } = this.props.SpecializationPreviewReducer
-
-// const {
-//   specializationEditErrorMessage
-// } = this.props.SpecializationEditReducer
-
-// const {deleteErrorMessage} = this.props.Specialization.Reducer
-
-//   }
-// }
-
 export default memo(SpecializationManage)

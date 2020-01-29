@@ -102,6 +102,9 @@ const HospitalForm = ({
                   value={hospitalInfoObj.hospitalCode}
                   required={true}
                   errorMessagePassed={errorMessageForHospitalCode}
+                  max={4}
+                  min={2}
+                
                 />
               </Col>
               <Col sm={12} md={6} lg={6}>

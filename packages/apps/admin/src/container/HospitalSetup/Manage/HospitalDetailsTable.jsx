@@ -42,7 +42,7 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: '',
+                            headerName: 'Hospital Logo',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,

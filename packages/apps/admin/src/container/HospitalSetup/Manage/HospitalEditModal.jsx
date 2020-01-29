@@ -6,95 +6,260 @@ import {
   CHybridInput,
   CModal,
   CRadioButton,
-  CHybridTextArea
+  CHybridTextArea,
+  CFControl
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
+import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import DefaulHospitalImage from '../Add/picture.png'
 
-const DepartmentEditModal = ({
+const HospitalEditModal = ({
   showModal,
   setShowModal,
   onEnterKeyPress,
   onInputChange,
-  specializationData,
-  errorMessageForSpecializationName,
-  errorMessageForSpecializationCode,
+  hospitalData,
+  errorMessageForHospitalName,
+  errorMessageForHospitalCode,
   errorMessage,
   editApiCall,
-  formValid
+  formValid,
+  addContactNumber,
+  removeContactNumber,
+  editContactNumber,
+  hospitalImage,
+  hospitalImageCroppedUrl,
+  showImageUploadModal,
+  onImageSelect,
+  handleCropImage,
+  handleImageUpload,
+  setImageShow
 }) => {
   const bodyContent = (
     <>
-      {console.log('Edit', specializationData)}
-      <CForm id="specialization-info" className="mt-2">
+      <h5 className="title">Edit Hospital Setup</h5>
+      <CForm id="admin-info" className="mt-2 add-info">
         <Row>
-          <Col sm={12} md={12} lg={4}>
-            <CHybridInput
-              id="specialization-name"
-              name="name"
-              onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) =>
-                onInputChange(event, validity, 'E')
-              }
-              placeholder="Specialization Name"
-              value={specializationData.name}
-              required={true}
-              hasValidation={true}
-              fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForSpecializationName}
-            />
+          <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
+            <div className="image-upload-container">
+              <div className="image-box">
+                <img
+                  alt="HOSPITAL IMAGE"
+                  src={
+                    hospitalData.fileUri
+                      ? hospitalData.fileUri
+                      : DefaulHospitalImage
+                  }
+                />
+                <CButton
+                  id="uploadAdminImage"
+                  name="Upload"
+                  size="lg"
+                  className="upload-button my-1"
+                  onClickHandler={setImageShow}
+                />
+                <CImageUploadAndCropModal
+                  showModal={showImageUploadModal}
+                  ruleOfThirds={true}
+                  setShowModal={setImageShow}
+                  handleImageUpload={data => handleImageUpload(data)}
+                  imageSrc={hospitalImage}
+                  croppedImageSrc={hospitalImageCroppedUrl}
+                  onImageSelect={e => onImageSelect(e)}
+                  onImageCrop={data => handleCropImage(data)}
+                />
+              </div>
+            </div>
           </Col>
-          <Col sm={12} md={12} lg={4}>
-            <CHybridInput
-              id="Specialization Code"
-              name="code"
-              onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) =>
-                onInputChange(event, validity, 'E')
-              }
-              placeholder="Specialization Code"
-              value={specializationData.code}
-              required={true}
-              // hasValidation={true}
-              // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForSpecializationCode}
-            />
-          </Col>
+          <Col sm={12} md={12} lg={9}>
+            <Row>
+              <Col sm={12} md={12} lg={6}>
+                <CHybridInput
+                  id="hospital-name"
+                  name="name"
+                  type="text"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Hospital Name"
+                  value={hospitalData.name}
+                  required={true}
+                  hasValidation={true}
+                  fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                  errorMessagePassed={errorMessageForHospitalName}
+                />
+              </Col>
 
-          <Col sm={12} md={12} lg={4}>
-            <CFLabel labelName="Status" id="status"></CFLabel>
-            <CRadioButton
-              checked={specializationData.status === 'Y'}
-              name="status"
-              id="radio1"
-              label="Active"
-              type="radio"
-              value="Y"
-              onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event, 'E')}
-            />
-            <CRadioButton
-              checked={specializationData.status === 'N'}
-              id="radio2"
-              name="status"
-              label="Inactive"
-              type="radio"
-              value="N"
-              onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event, 'E')}
-            />
-          </Col>
-          <Col sm={12} md={12} lg={4}>
-            <CHybridTextArea
-              id="Specialization Remarks"
-              name="remarks"
-              //onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) => onInputChange(event, validity)}
-              placeholder="Specialization Remarks"
-              value={specializationData.remarks}
-              required={true}
-              // hasValidation={true}
-              // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-            />
+              <Col sm={12} md={12} lg={6}>
+                <CHybridInput
+                  id="hospital-code"
+                  name="hospitalCode"
+                  type="email"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Hospital Code"
+                  value={hospitalData.hospitalCode}
+                  required={true}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={6}>
+                <CHybridInput
+                  id="hospital-panNumber"
+                  name="panNumber"
+                  type="text"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Pan Number"
+                  value={hospitalData.panNumber}
+                  required={true}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={6}>
+                <CHybridTextArea
+                  id="address"
+                  name="address"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Hospital Address"
+                  value={hospitalData.address}
+                  max={200}
+                  required={true}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={6}>
+                <CHybridTextArea
+                  id="remarks"
+                  name="remarks"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Remarks"
+                  value={hospitalData.remarks}
+                  max={200}
+                  required={true}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={6}>
+                <CFLabel labelName="Status" id="status"></CFLabel>
+                <CRadioButton
+                  checked={hospitalData.status === 'Y'}
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  id="radio1"
+                  label="Active"
+                  type="radio"
+                  name="status"
+                  value="Y"
+                  onChange={event => onInputChange(event, '', 'E')}
+                />
+                <CRadioButton
+                  checked={hospitalData.status === 'N'}
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  id="radio2"
+                  label="Inactive"
+                  type="radio"
+                  name="status"
+                  value="N"
+                  onChange={event => onInputChange(event, '', 'E')}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={12} className="py-4">
+                <Row>
+                  <Col lg={12} className="px-4">
+                    <Row>
+                      <Col>
+                        <CButton
+                          id="macBinding"
+                          name=""
+                          size="lg"
+                          variant="success"
+                          className="float-right mb-2"
+                          onClickHandler={(event) =>
+                            addContactNumber(
+                              'contactNumberUpdateRequestDTOS',
+                              {
+                                hospitalContactNumberId: null,
+                                contactNumber: '',
+                                status: 'Y'
+                              },
+                              'E'
+                            )
+                          }
+                        >
+                          <i className="fa fa-plus"></i>
+                        </CButton>
+                      </Col>
+
+                      <Col lg={{span: 6, offset: 6}}>
+                        <>
+                          {hospitalData.contactNumberUpdateRequestDTOS.map(
+                            (phone, index) => (
+                              <>
+                                <div className="mac-box mb-2">
+                                  <CFControl
+                                    id="hospitalContactNumber"
+                                    key={'phone' + index}
+                                    value={phone.contactNumber}
+                                    placeholder="Enter Contact Number"
+                                    // isInvalid={Boolean(macId.errorMessage)}
+                                    onChange={event =>
+                                      editContactNumber(
+                                        'contactNumberUpdateRequestDTOS',
+                                        {
+                                          hospitalContactNumberId: phone.id,
+                                          contactNumber: event.target.value,
+                                          status: phone.status
+                                        },
+                                        index
+                                      )
+                                    }
+                                  />
+                                  {/* {macId.errorMessage && (
+                                    <CFeedback
+                                      id={macId.id}
+                                      key={'msg' + macId.id}
+                                      type="invalid"
+                                      message={macId.errorMessage}
+                                    />
+                                  )} */}
+                                  {hospitalData.contactNumberUpdateRequestDTOS
+                                    .length >= 1 && (
+                                    <CButton
+                                      id="hospital-contact"
+                                      key={'hospRemove' + index}
+                                      name=""
+                                      variant="danger"
+                                      className="float-right remove-mac "
+                                      onClickHandler={e =>
+                                        removeContactNumber('contactNumberUpdateRequestDTOS', index,'E')
+                                      }
+                                    >
+                                      <i className="fa fa-close"></i>
+                                    </CButton>
+                                  )}
+                                </div>
+                              </>
+                            )
+                          )}
+                        </>
+                      </Col>
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </CForm>
@@ -117,7 +282,7 @@ const DepartmentEditModal = ({
             <CButton
               id="submit-update-button"
               disabled={!formValid}
-              name="Update Specialization"
+              name="Update Hospital"
               size="lg"
               className="btn-action  float-right"
               onClickHandler={editApiCall}
@@ -139,7 +304,7 @@ const DepartmentEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Specialization Details"
+        modalHeading="Hospital Details"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}
@@ -152,4 +317,4 @@ const DepartmentEditModal = ({
   )
 }
 
-export default memo(DepartmentEditModal)
+export default memo(HospitalEditModal)
