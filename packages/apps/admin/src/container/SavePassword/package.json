@@ -1,0 +1,5 @@
+{
+  "name": "@frontend-appointment/save-password",
+  "version": "1.0.0",
+  "main": "SavePassword.jsx"
+}
