@@ -8,10 +8,12 @@ import {CFLabel, CForm, CHybridInput,
     from "@frontend-appointment/ui-elements";
 import DoctorDutyRosterSearchFilter   from "./DoctorDutyRosterSearchFilter";
 import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
+import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
 
 class DoctorDutyRosterManage extends PureComponent {
-
+   
     render() {
+       
         return <>
          <DoctorDutyRosterSearchFilter/>
          <DoctorDutyRosterDataTable/>
