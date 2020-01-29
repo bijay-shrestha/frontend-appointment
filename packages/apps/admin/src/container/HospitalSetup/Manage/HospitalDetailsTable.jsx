@@ -10,6 +10,7 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from './tableComponents/TableAction'
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
+import HospitalPicture from '../commons/HospitalPicture'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -41,12 +42,13 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Logo',
+                            headerName: '',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'imageRenderer'
                         },
                         {
                             headerName: 'Hospital Address',
@@ -87,7 +89,8 @@ const HospitalDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: StatusLabel
+                        childLabelRenderer: StatusLabel,
+                        imageRenderer:HospitalPicture
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

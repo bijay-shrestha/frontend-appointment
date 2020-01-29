@@ -358,7 +358,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchSpecialization()
+      this.searchHospital()
     }
 
     editHospital = async () => {
@@ -549,11 +549,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           isSearchLoading={isSearchLoading}
           hospitalList={this.appendSNToTable(hospitalList)}
           searchErrorMessage={searchErrorMessage}
-          specializationPreviewErrorMessage={hospitalPreviewErrorMessage}
+          hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
           deleteErrorMessage={deleteErrorMessage}
-          specializationEditErrorMessage={hospitalEditErrorMessage}
+          hospitalEditErrorMessage={hospitalEditErrorMessage}
           isPreviewLoading={isPreviewLoading}
-          specializationPreviewData={hospitalPreviewData}
+          hospitalPreviewData={hospitalPreviewData}
           addContactNumber={this.addContactNumber}
           removeContactNumber={this.removeContactNumber}
           editContactNumber={this.editContactNumber}

@@ -10,8 +10,12 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'
 const DetailsModal = ({type, hospitalData}) => {
-  console.log('previewHsoptial',hospitalData)
-  let images, contactNumber
+  const getOnlyContactNumber =(contactsResponse) =>{
+    let contacts =[];
+    contactsResponse.map(contactNumber=>{contacts.push(contactNumber.contactNumber)})
+    return contacts
+  }
+  let images, contactNumber;
   if (type !== 'A') {
     images = [
       {
@@ -21,7 +25,7 @@ const DetailsModal = ({type, hospitalData}) => {
         height: 3
       }
     ]
-    contactNumber = hospitalData.contactNumberResponseDTOS
+    contactNumber =getOnlyContactNumber(hospitalData.contactNumberResponseDTOS)
   } else {
     images = [
       {
