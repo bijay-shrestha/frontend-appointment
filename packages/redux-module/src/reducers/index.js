@@ -18,7 +18,8 @@ import {
     HospitalEditReducer,
     HospitalPreviewReducer,
     HospitalSaveReducer,
-    HospitalSearchReducer
+    HospitalSearchReducer,
+    HospitalDropdownReducer
 } from './admin-module/hospitalSetupReducer'
 import {
     ConsultantDeleteReducer,
@@ -80,4 +81,5 @@ export {
     AdminSetupReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
+    HospitalDropdownReducer
 }

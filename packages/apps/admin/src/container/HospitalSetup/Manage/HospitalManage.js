@@ -4,7 +4,7 @@ import HospitalDetailsTable from './HospitalDetailsTable'
 import HospitalEditForm from './HospitalEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc'
-const SpecializationManage = props => {
+const HospitalManage = props => {
   const SPManage = HospitalHoc(
     ({
       searchParameters,
@@ -53,7 +53,8 @@ const SpecializationManage = props => {
       onImageSelect,
       handleCropImage,
       handleImageUpload,
-      setImageShow
+      setImageShow,
+      hospitalDropdown
     }) => (
       <>
         <div className="">
@@ -63,6 +64,7 @@ const SpecializationManage = props => {
             onSearchClick={()=>searchHospital(1)}
             resetSearchForm={resetSearch}
             handleEnter={handleEnter}
+            hospitalDropdown={hospitalDropdown}
           />
         </div>
         <div className=" mb-2">
@@ -149,4 +151,4 @@ const SpecializationManage = props => {
   )
   return <SPManage />
 }
-export default memo(SpecializationManage)
+export default memo(HospitalManage)

@@ -30,7 +30,8 @@ class HospitalSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      handleEnter
+      handleEnter,
+      hospitalDropdown
     } = this.props
     return (
       <>
@@ -56,13 +57,14 @@ class HospitalSetupSearchFilter extends PureComponent {
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="hospital-name"
+                  <CHybridSelect
+                      id="name"
                       name="name"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Hospital Name"
                       value={searchParameters.name}
+                      options={hospitalDropdown}
+                      label="Status"
                     />
                   </Col>
 

@@ -15,7 +15,8 @@ const {
   deleteHospital,
   editHospital,
   previewHospital,
-  searchHospital
+  searchHospital,
+  fetchActiveHospitalsForDropdown
   //downloadExcelForHospitals
 } = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
@@ -303,6 +304,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    searchHospitalForDropDown = () => {
+    try{
+     await this.props.fetchActiveHospitalsForDropdown(hostpitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
+    }catch(e){
+      console.log(e);
+    }
+    }
+
     searchHospital = async page => {
       const {code, name, status, id} = this.state.searchParameters
       let searchData = {
@@ -310,7 +319,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         code: code,
         status: status.value,
         id: id
-      }
+      }  
 
       let updatedPage =
         this.state.queryParams.page === 0
@@ -558,6 +567,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
       const {deleteErrorMessage} = this.props.HospitalDeleteReducer
 
+      const {hospitalsForDropdown}=this.props.HospitalDropdownReducer
+
       return (
         <ComposedComponent
           {...this.props}
@@ -617,6 +628,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           handleCropImage={this.handleCropImage}
           handleImageUpload={this.handleImageUpload}
           setImageShow={this.setImageShowModal}
+          hospitalDropdown={hospitalsForDropdown}
         ></ComposedComponent>
       )
     }
@@ -629,7 +641,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       'HospitalDeleteReducer',
       'HospitalEditReducer',
       'HospitalPreviewReducer',
-      'HospitalSearchReducer'
+      'HospitalSearchReducer',
+      'HospitalDropdownReducer'
     ],
     {
       clearHospitalCreateMessage,
@@ -637,7 +650,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       deleteHospital,
       editHospital,
       previewHospital,
-      searchHospital
+      searchHospital,
+      fetchActiveHospitalsForDropdown
     }
   )
 }

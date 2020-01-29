@@ -77,6 +77,7 @@ export const deleteHospital = (path, id) => async dispatch => {
     throw e
   }
 }
+
 export const downloadExcelForHospitals = path => async () => {
   try {
     return await Axios.getFile(path)
@@ -84,3 +85,13 @@ export const downloadExcelForHospitals = path => async () => {
     throw e
   }
 }
+
+export const fetchActiveHospitalsForDropdown = (path) => async dispatch => {
+  try {
+  const response = await Axios.get(path);
+  dispatch(HospitalSetupActions.hospitalsFetchForDropdownSuccess(response.data));
+  return response.data;
+  } catch (e) {
+  dispatch(HospitalSetupActions.hospitalsFetchForDropdownError("Error fetching department"));
+  }
+  };
