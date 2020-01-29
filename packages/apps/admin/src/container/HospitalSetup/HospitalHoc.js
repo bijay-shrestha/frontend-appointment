@@ -15,7 +15,8 @@ const {
   deleteHospital,
   editHospital,
   previewHospital,
-  searchHospital
+  searchHospital,
+  fetchActiveHospitalsForDropdown
   //downloadExcelForHospitals
 } = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
@@ -57,7 +58,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       searchParameters: {
         // code: '',
         // id: null,
-        name: '',
+        name:'',
         status: {value: '', label: 'All'}
       },
       queryParams: {
@@ -303,14 +304,22 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    searchHospitalForDropDown = async() => {
+    try{
+     await this.props.fetchActiveHospitalsForDropdown(hostpitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
+    }catch(e){
+      console.log(e);
+    }
+    }
+
     searchHospital = async page => {
       const {code, name, status, id} = this.state.searchParameters
       let searchData = {
-        name: name,
+        name: name.value?name.label:name,
         code: code,
         status: status.value,
         id: id
-      }
+      }  
 
       let updatedPage =
         this.state.queryParams.page === 0
@@ -509,15 +518,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     async componentDidMount () {
       if (type === 'M') {
         await this.searchHospital()
-        //this.setFormValidManage();
+        await this.searchHospitalForDropDown()
       }
     }
     setImageShowModal = () =>
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
     render () {
-      console.log(this.props.HospitalSearchReducer)
-      console.log('Preview Data', this.props.HospitalSearchReducer)
       const {
         hospitalData,
         showAlert,
@@ -557,6 +564,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
 
       const {deleteErrorMessage} = this.props.HospitalDeleteReducer
+
+      const {hospitalsForDropdown}=this.props.HospitalDropdownReducer
 
       return (
         <ComposedComponent
@@ -617,6 +626,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           handleCropImage={this.handleCropImage}
           handleImageUpload={this.handleImageUpload}
           setImageShow={this.setImageShowModal}
+          hospitalDropdown={hospitalsForDropdown}
         ></ComposedComponent>
       )
     }
@@ -629,7 +639,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       'HospitalDeleteReducer',
       'HospitalEditReducer',
       'HospitalPreviewReducer',
-      'HospitalSearchReducer'
+      'HospitalSearchReducer',
+      'HospitalDropdownReducer'
     ],
     {
       clearHospitalCreateMessage,
@@ -637,7 +648,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       deleteHospital,
       editHospital,
       previewHospital,
-      searchHospital
+      searchHospital,
+      fetchActiveHospitalsForDropdown
     }
   )
 }

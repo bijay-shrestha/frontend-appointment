@@ -28,7 +28,7 @@ export const clearHospitalCreateMessage = () => dispatch => {
   dispatch(HospitalSetupActions.clearHospitalEditMessage());
   dispatch(HospitalSetupActions.clearHospitalListMessage());
   dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
-};
+}
 
 export const editHospital = (path, data,formData) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalEditPending())

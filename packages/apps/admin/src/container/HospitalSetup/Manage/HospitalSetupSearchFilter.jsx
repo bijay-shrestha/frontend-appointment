@@ -21,8 +21,8 @@ class HospitalSetupSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.onSearchClick()
-    this.toggleSearchForm()
+    this.props.onSearchClick();
+    this.toggleSearchForm();
   }
 
   render () {
@@ -30,7 +30,8 @@ class HospitalSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      handleEnter
+      handleEnter,
+      hospitalDropdown
     } = this.props
     return (
       <>
@@ -47,7 +48,6 @@ class HospitalSetupSearchFilter extends PureComponent {
                   name="Reset"
                   onClickHandler={resetSearchForm}
                 >
-                  {' '}
                   <i className="fa fa-refresh" />
                 </CButton>
               </div>
@@ -56,13 +56,14 @@ class HospitalSetupSearchFilter extends PureComponent {
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="hospital-name"
+                  <CHybridSelect
+                      id="name"
                       name="name"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Hospital Name"
                       value={searchParameters.name}
+                      options={hospitalDropdown}
+                      label="Status"
                     />
                   </Col>
 
@@ -136,7 +137,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.name}
+                      {searchParameters.name.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

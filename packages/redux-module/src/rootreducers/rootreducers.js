@@ -20,7 +20,6 @@ import {
     HospitalPreviewReducer,
     HospitalSaveReducer,
     HospitalSearchReducer,
-    HospitalSetupReducer,
     loggedInAdminInfoReducer,
     loginReducers as login,
     logoutReducer,
@@ -33,7 +32,8 @@ import {
     SpecializationEditReducer,
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
-    SpecializationSearchReducer
+    SpecializationSearchReducer,
+    HospitalDropdownReducer
 } from '../reducers'
 
 export const rootReducers = combineReducers({
@@ -53,7 +53,7 @@ export const rootReducers = combineReducers({
     HospitalPreviewReducer,
     HospitalSaveReducer,
     HospitalSearchReducer,
-    HospitalSetupReducer,
+    HospitalDropdownReducer,
     ConsultantDeleteReducer,
     ConsultantEditReducer,
     ConsultantPreviewReducer,
