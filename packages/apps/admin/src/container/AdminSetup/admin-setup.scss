@@ -2,14 +2,14 @@
  @import '~bootstrap/scss/functions';
 
  //custom colors
- @import "~@cogent/common-sass/src/scss/variables/custom-variables";
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
- @import "~@cogent/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
  @import '~bootstrap/scss/mixins';
 
  .module{
-     
+
     &.form-check{
         margin-left:15px;
         display: inline-block;
@@ -34,7 +34,7 @@
             @include border-radius(50%);
         }
 
-   
+
 
      }
  }
@@ -77,9 +77,9 @@
         //   box-shadow: 0px 14px 14px 2px #ced4da;
         //   border:1px solid #ccc !important;
        }
-      
+
    }
-   
+
    .fade{
       // background-color:rgba(#000,0.6);
    }
@@ -100,7 +100,7 @@
            align-self: flex-start;
        }
 
-       
+
    }
 
 

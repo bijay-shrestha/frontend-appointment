@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
-import {CLoading, ConfirmDelete} from '@cogent/ui-components';
-import {CDataTable, CPagination} from '@cogent/ui-elements';
-import {ActionFilterUtils} from "@cogent/helpers";
+import {ConfirmDelete} from '@frontend-appointment/ui-components';
+import {CDataTable, CPagination,CLoading} from '@frontend-appointment/ui-elements';
+import {ActionFilterUtils} from "@frontend-appointment/helpers";
 import TableAction from "./tableComponents/TableAction";
 import StatusLabel from "./tableComponents/StatusLabel";
 import PreviewAdminDetails from "./PreviewAdminDetails";
@@ -51,15 +51,6 @@ const AdminDetailsDataTable = ({
                     editType
                     columnDefs={[
                         {
-                            headerName: '',
-                            field: 'fileUri',
-                            // headerClass: "fi",
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
-                        },
-                        {
                             headerName: 'SN',
                             field: 'sN',
                             headerClass: 'resizable-header header-first-class',
@@ -69,6 +60,14 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true,
                             cellClass: 'first-class'
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
+                        },
+                        {
+                            headerName: 'Admin Avatar',
+                            field: 'fileUri',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'imageRenderer'
                         },
                         {
                             headerName: 'Name',
@@ -86,6 +85,13 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true
                         },
                         {
+                            headerName: 'Email',
+                            field: 'email',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true,
+                        },
+                        {
                             headerName: 'Mobile Number',
                             field: 'mobileNumber',
                             // headerClass: "fi",
@@ -94,22 +100,23 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Email',
-                            field: 'email',
+                            headerName: 'Gender',
+                            field: 'gender',
+                            // headerClass: "fi",
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
+                            headerName: 'Hospital',
+                            field: 'hospitalName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
                         },
                         {
-                            headerName: 'Profiles',
+                            headerName: 'Profile',
                             field: 'profileName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                        },
-                        {
-                            headerName: 'Admin Category',
-                            field: 'adminCategoryName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
@@ -133,7 +140,9 @@ const AdminDetailsDataTable = ({
                             cellRendererParams: {
                                 onClick: function (e, id, type, username) {
                                     type === 'D'
-                                        ? filteredActions.find(action => action.id === 5) && onDeleteHandler(id)
+                                        ?
+                                        // filteredActions.find(action => action.id === 5) &&
+                                        onDeleteHandler(id)
                                         : type === 'E'
                                         ? onEditHandler(id)
                                         : type === 'R' ? onPasswordReset(id, username)

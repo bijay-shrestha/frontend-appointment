@@ -8,7 +8,8 @@ import {
     fetchProfileList,
     fetchProfileListBySubDepartmentId,
     previewProfile,
-    fetchAllProfileListForSearchDropdown
+    fetchAllProfileListForSearchDropdown,
+    fetchActiveProfilesByDepartmentId
 } from "./profile-setup-middleware/profileSetupMiddleware";
 
 import {
@@ -44,6 +45,7 @@ export {
     fetchAdminList,
     previewAdmin,
     fetchAdminMetaInfo,
+    fetchActiveProfilesByDepartmentId,
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
     ConsultantMiddleware,

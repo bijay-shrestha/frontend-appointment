@@ -17,6 +17,7 @@ const CCheckbox = props => {
         inline,
         isInvalid,
         isValid,
+        name,
         title,
         bsPrefix,
         onChange,
@@ -39,6 +40,7 @@ const CCheckbox = props => {
             inline={inline}
             isInvalid={isInvalid}
             isValid={isValid}
+            name={name}
             title={title}
             bsPrefix={bsPrefix}
             onChange={onChange}
@@ -72,6 +74,7 @@ CCheckbox.propTypes = {
     inline: PropTypes.bool,
     isInvalid: PropTypes.bool,
     isValid: PropTypes.bool,
+    name:PropTypes.string,
     title: PropTypes.string,
     bsPrefix: PropTypes.string,
     onChange: PropTypes.func,

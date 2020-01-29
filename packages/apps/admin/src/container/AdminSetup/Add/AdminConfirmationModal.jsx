@@ -1,8 +1,8 @@
 import React from 'react';
-import {CButton, CModal} from "@cogent/ui-elements";
+import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
 
-const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick,adminImage}) => {
+const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading}) => {
     return <>
         <CModal
             show={showModal}
@@ -16,6 +16,8 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                 id="adminConfirm"
                 variant="primary"
                 size="xl"
+                name="Confirm"
+                isLoading={isCreateAdminLoading}
                 className="float-right btn-action"
                 onClickHandler={onConfirmClick}/>}
             closeButton={true}

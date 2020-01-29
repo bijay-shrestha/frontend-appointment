@@ -1,5 +1,5 @@
 import React from 'react';
-import {CButton, CModal} from "@cogent/ui-elements";
+import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import {Container, Row} from "react-bootstrap";
 import AdminEditForm from "./AdminEditForm";
 
@@ -10,8 +10,6 @@ const AdminEditModal = ({
                             onMacIdChange,
                             onAddMoreMacId,
                             onRemoveMacId,
-                            onModuleChange,
-                            onProfileChange,
                             errorMessageForAdminName,
                             errorMessageForAdminMobileNumber,
                             onImageUpload,
@@ -25,7 +23,8 @@ const AdminEditModal = ({
                             setShowModal,
                             errorMessage,
                             editApiCall,
-                            viewProfileDetails
+                            viewProfileDetails,
+                            isAdminEditLoading
                         }) => {
 
     let footerChildren = <>
@@ -69,11 +68,9 @@ const AdminEditModal = ({
                                        onMacIdChange={onMacIdChange}
                                        onAddMoreMacId={onAddMoreMacId}
                                        onRemoveMacId={onRemoveMacId}
-                                       onModuleChange={onModuleChange}
-                                       onProfileChange={onProfileChange}
-                                       adminCategoryList={adminUpdateData.adminCategoryList}
                                        hospitalList={adminUpdateData.hospitalList}
-                                       moduleList={adminUpdateData.moduleList}
+                                       departmentList={adminUpdateData.departmentList}
+                                       profileList={adminUpdateData.profileList}
                                        errorMessageForAdminName={errorMessageForAdminName}
                                        errorMessageForAdminMobileNumber={errorMessageForAdminMobileNumber}
                                        showModal={showModal}
@@ -86,11 +83,12 @@ const AdminEditModal = ({
                                        onImageSelect={onImageSelect}
                                        onImageCrop={onImageCrop}
                                        viewProfileDetails={viewProfileDetails}
+                                       isAdminEditLoading={isAdminEditLoading}
                         />}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
-                    footerChildren={footerChildren}
+                    footerChildren={isAdminEditLoading ? '' : footerChildren}
                     closeButton={true}
             />
         </>

@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import ProfileDetails from './ProfileDetails'
-import {ConnectHoc, menus, TryCatchHandler} from '@frontend-appointment/commons'
+import {ConnectHoc, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
@@ -24,7 +24,7 @@ const {
     EDIT_PROFILE,
     FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN
 } = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 

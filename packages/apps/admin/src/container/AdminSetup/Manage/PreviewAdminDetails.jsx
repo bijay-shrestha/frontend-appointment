@@ -1,5 +1,5 @@
 import React from 'react';
-import {CButton, CModal} from "@cogent/ui-elements";
+import {CModal} from "@frontend-appointment/ui-elements";
 import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
 
 const PreviewAdminDetails = ({showModal, setShowModal, adminInfoObj,adminImage}) => {

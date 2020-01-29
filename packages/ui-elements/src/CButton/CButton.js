@@ -1,6 +1,7 @@
-import React, { memo } from 'react'
-import { Button } from 'react-bootstrap'
+import React, {memo} from 'react'
+import {Button} from 'react-bootstrap'
 import PropTypes from 'prop-types'
+
 const CButton = props => {
     const {
         id,
@@ -16,7 +17,8 @@ const CButton = props => {
         size,
         type,
         block,
-        bsPrefix
+        bsPrefix,
+        isLoading
     } = props;
     return (
         <>
@@ -25,7 +27,7 @@ const CButton = props => {
                 variant={variant}
                 active={active}
                 className={className}
-                disabled={disabled}
+                disabled={disabled || isLoading}
                 as={as}
                 onClick={onClickHandler}
                 href={href}
@@ -34,7 +36,7 @@ const CButton = props => {
                 block={block}
                 bsPrefix={bsPrefix}
             >
-                {name}
+                {isLoading ? name.concat('ing') : name}
                 {children}
             </Button>
         </>
@@ -45,7 +47,8 @@ const CButton = props => {
 CButton.defaultProps = {
     name: 'Save',
     type: 'button',
-    onClickHandler: () => {}
+    onClickHandler: () => {
+    }
 };
 
 CButton.propTypes = {

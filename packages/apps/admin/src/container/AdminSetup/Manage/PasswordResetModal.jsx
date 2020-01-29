@@ -1,7 +1,7 @@
 import React from 'react';
-import {CButton, CForm, CHybridInput, CModal} from "@cogent/ui-elements";
+import {CForm, CHybridInput, CModal} from "@frontend-appointment/ui-elements";
 import {Container, Row} from "react-bootstrap";
-import {CPasswordSaveForm} from "@cogent/ui-components";
+import {CPasswordSaveForm} from "@frontend-appointment/ui-components";
 
 const PasswordResetModal = ({
                                 showPasswordResetModal,

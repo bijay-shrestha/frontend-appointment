@@ -15,19 +15,19 @@ export const addRemoveMacAddressObject = (hasMacBinding, macIdList) => {
     return tempArray;
 };
 
-export const getModuleAndProfileData = adminProfileResponseDTOS => {
-    return adminProfileResponseDTOS.map(module => {
-        return {
-            adminProfileId: module.adminProfileId,
-            id: module.applicationModuleId,
-            name: module.applicationModuleName,
-            isChecked: true,
-            isNew: false,
-            profileSelected: {label: module.profileName, value: module.profileId},
-            profileList: []
-        }
-    });
-};
+// export const getModuleAndProfileData = adminProfileResponseDTOS => {
+//     return adminProfileResponseDTOS.map(module => {
+//         return {
+//             adminProfileId: module.adminProfileId,
+//             id: module.applicationModuleId,
+//             name: module.applicationModuleName,
+//             isChecked: true,
+//             isNew: false,
+//             profileSelected: {label: module.profileName, value: module.profileId},
+//             profileList: []
+//         }
+//     });
+// };
 
 export const getMacAddresses = (macAddressInfoResponseDTOS) => {
     return macAddressInfoResponseDTOS.map(macAdd => ({

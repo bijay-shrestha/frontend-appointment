@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
-import {CButton, CForm, CHybridInput, CHybridSelect} from "@cogent/ui-elements";
+import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
 import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {EnterKeyPressUtils} from "@cogent/helpers";
+import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 
 class AdminSetupSearchFilter extends PureComponent {
 
@@ -34,7 +34,8 @@ class AdminSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             resetSearchForm,
-            adminCategoryList,
+            hospitalList,
+            departmentList,
             profileList,
             adminMetaInfos
         } = this.props;
@@ -81,27 +82,55 @@ class AdminSetupSearchFilter extends PureComponent {
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
-                                            id="adminCategory"
-                                            label="Admin Category"
-                                            name="adminCategory"
+                                            id="hospital"
+                                            label="Hospital"
+                                            name="hospital"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            options={adminCategoryList}
-                                            value={searchParameters.adminCategory}
-                                            placeholder="Select admin category."
+                                            options={hospitalList}
+                                            value={searchParameters.hospital}
+                                            placeholder="Select hospital."
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={4} xl={4}>
+                                        <CHybridSelect
+                                            id="department"
+                                            label="Department"
+                                            name="department"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            options={departmentList}
+                                            value={searchParameters.department}
+                                            placeholder="Select department."
                                         />
                                     </Col>
 
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="adminProfile"
-                                            label="Admin Profile"
+                                            label="Profile"
                                             name="profile"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                             options={profileList}
                                             value={searchParameters.profile}
                                             placeholder="Select admin category."
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={4} xl={4}>
+                                        <CHybridSelect
+                                            id="gender"
+                                            name="genderCode"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            value={searchParameters.genderCode}
+                                            options={[
+                                                {value: 'F', label: 'Female'},
+                                                {value: 'M', label: 'Male'},
+                                                {value: 'O', label: 'Other'}]}
+                                            label='Gender'
                                         />
                                     </Col>
 
@@ -158,7 +187,7 @@ class AdminSetupSearchFilter extends PureComponent {
                         <ul id="" className="search-filter-item">
                             <li>
                                 <CButton id="filter" variant="primary" name="">
-                                    <><i className="fa fa-filter"></i>
+                                    <><i className="fa fa-filter"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
@@ -179,15 +208,31 @@ class AdminSetupSearchFilter extends PureComponent {
 
                             </li>
                             }
-                            {searchParameters.adminCategory &&
+
+                            {searchParameters.hospital &&
                             <li>
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Admin Category</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.adminCategory.label}
+                                        {searchParameters.hospital.label}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
+
+                            {searchParameters.department &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => <Tooltip {...props}>Department</Tooltip>}
+                                >
+                                    <Button id="light-search-filters" variant="secondary">
+                                        {searchParameters.department.label}
                                     </Button>
                                 </OverlayTrigger>
 
@@ -209,10 +254,28 @@ class AdminSetupSearchFilter extends PureComponent {
                             </li>
                             }
 
+                            {searchParameters.genderCode &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    overlay={
+                                        <Tooltip id="name">
+                                            Status
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Button id="search-param-button-filters" variant="secondary">
+                                        {searchParameters.genderCode.value === 'F' ? "Female"
+                                            : searchParameters.genderCode.value === 'M' ? "Male" : "Other"}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
+
 
                             {searchParameters.status &&
                             <li>
-
                                 <OverlayTrigger
                                     placement="top"
                                     overlay={

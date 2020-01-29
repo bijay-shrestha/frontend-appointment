@@ -13,11 +13,10 @@ const AddDepartmentComponent = Loadable({
     loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
     loading: () => getLoader()
 });
-
-// const AddAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
-//     loading: () => getLoader()
-// });
+const AddAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Add/AdminAdd'),
+    loading: () => getLoader()
+});
 
 const AddSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
@@ -67,10 +66,10 @@ const ManageSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
-// const ManageAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
-//     loading: () => getLoader()
-// });
+const ManageAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Manage/AdminManage'),
+    loading: () => getLoader()
+});
 
 /* ****** N ***** */
 
@@ -177,6 +176,30 @@ export const routes = [
         "hasTab": true,
         "isLink": true
     },
+    {
+        "path": "/admin/admin-setup",
+        "name": "Admin Setup",
+        "component": <></>,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+    {
+        "path": "/admin/admin-setup/add",
+        "name": "Add",
+        "component": AddAdminComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+    {
+        "path": "/admin/admin-setup/manage",
+        "name": "Manage",
+        "component": ManageAdminComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    }
     // {
     //     "path": "",
     //     "component": CUnauthorized,

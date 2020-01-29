@@ -30,7 +30,7 @@ const {
 } = adminSetupActionConstants;
 
 const initialState = {
-    isCreateAdminLoading: true,
+    isCreateAdminLoading: false,
     errorMessage: '',//profileCreate error message
     successMessage: '',
     isSearchLoading: true,
@@ -39,7 +39,7 @@ const initialState = {
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
     isDeleteLoading: true,
-    isAdminEditLoading: true,
+    isAdminEditLoading: false,
     adminErrorMessage: '',//profile edit error message
     adminSuccessMessage: '',
     adminPreviewData: {},

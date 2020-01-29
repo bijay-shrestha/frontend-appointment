@@ -1,42 +1,44 @@
 import React, {PureComponent} from 'react';
 import AdminSetupSearchFilter from "./AdminSetupSearchFilter";
-import {ConnectHoc} from "@cogent/commons";
+import {ConnectHoc, TryCatchHandler} from "@frontend-appointment/commons";
 import {
-    adminCategoryMiddleware,
-    applicationModuleMiddleware,
     clearAdminSuccessErrorMessagesFromStore,
     deleteAdmin,
+    departmentSetupMiddleware,
     editAdmin,
     fetchActiveProfileListForDropdown,
+    fetchActiveProfilesByDepartmentId,
     fetchAdminList,
     fetchAdminMetaInfo,
-    fetchProfileListBySubDepartmentId,
-    hospitalSetupMiddleware,
+    HospitalSetupMiddleware,
     logoutUser,
     previewAdmin,
     previewProfile,
     resetPassword,
-} from "@cogent/thunk-middleware";
-import {AdminModuleAPIConstants} from '@cogent/web-resource-key-constants';
+} from "@frontend-appointment/thunk-middleware";
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import AdminDetailsDataTable from "./AdminDetailsDataTable";
-import {CAlert} from "@cogent/ui-elements";
+import {CAlert, CLoading} from "@frontend-appointment/ui-elements";
 import AdminEditModal from "./AdminEditModal";
-import {AdminSetupUtils, EnterKeyPressUtils, ProfileSetupUtils, rolesFromJson} from "@cogent/helpers";
+import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from "@frontend-appointment/helpers";
 import PasswordResetModal from "./PasswordResetModal";
 import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
 const {SEARCH_ADMIN, FETCH_ADMIN_DETAILS, EDIT_ADMIN, DELETE_ADMIN, FETCH_ADMIN_META_INFO, RESET_PASSWORD} =
     AdminModuleAPIConstants.adminSetupAPIConstants;
-const {FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN} = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_MODULES_FOR_DROPDOWN} = AdminModuleAPIConstants.applicationModuleSetupApiConstants;
-const {FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID, FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_ADMIN_CATEGORY_FOR_DROPDOWN} = AdminModuleAPIConstants.adminCategoryApiConstants;
+
+const {FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, FETCH_PROFILE_DETAILS} =
+    AdminModuleAPIConstants.profileSetupAPIConstants;
+
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
+    AdminModuleAPIConstants.departmentSetupAPIConstants;
+
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
-const {fetchActiveModulesForDropdown} = applicationModuleMiddleware;
-const {fetchActiveAdminCategoriesForDropdown} = adminCategoryMiddleware;
-const {fetchActiveHospitalsForDropdown} = hospitalSetupMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+
+const {fetchActiveDepartmentsByHospitalId, fetchActiveDepartmentsForDropdown} = departmentSetupMiddleware;
 
 class AdminManage extends PureComponent {
     state = {
@@ -52,8 +54,10 @@ class AdminManage extends PureComponent {
         passwordResetError: '',
         searchParameters: {
             metaInfo: '',
-            adminCategory: '',
+            hospital: '',
+            department: '',
             profile: '',
+            genderCode: '',
             status: {value: 'A', label: 'All'}
         },
         queryParams: {
@@ -74,16 +78,17 @@ class AdminManage extends PureComponent {
         adminUpdateData: {
             id: '',
             hospital: null,
+            department: null,
+            profile: null,
             fullName: '',
             username: '',
             email: '',
             password: '',
             mobileNumber: '',
-            adminCategory: null,
+            genderCode: '',
             status: 'Y',
             hasMacBinding: '',
             macIdList: [],
-            moduleList: [],
             adminAvatar: null,
             adminAvatarUrl: '',
             adminAvatarUrlNew: '',
@@ -93,18 +98,17 @@ class AdminManage extends PureComponent {
             emailValid: true,
             mobileNumberValid: true
         },
-        modules: [],// all modules
         errorMessageForAdminName: 'Admin Name should not contain special characters.',
         errorMessageForAdminMobileNumber: 'Mobile number should be of 10 digits.',
         showImageUploadModal: false,
         updatedMacIdList: [],
-        updatedModulesAndProfiles: [],
         adminImage: '',
         adminImageCroppedUrl: '',
         adminFileCropped: '',
         adminMetaInfos: [],
         profileData: {},
-        showProfileDetailModal: false
+        showProfileDetailModal: false,
+        errorMessage: ''
     };
 
     resetAdminUpdateDataFromState = () => {
@@ -212,8 +216,8 @@ class AdminManage extends PureComponent {
 
     setDataForPreview = async (adminData) => {
         const {
-            id, hospital, fullName, username, email, mobileNumber, adminCategory, status,
-            hasMacBinding, macIdList, moduleList, adminAvatar, remarks, adminAvatarUrl
+            id, hospital, department, profile, fullName, username, email, mobileNumber, adminCategory, genderCode, status,
+            hasMacBinding, macIdList, adminAvatar, remarks, adminAvatarUrl
         } = adminData;
 
         console.log("Admin url", adminData);
@@ -224,16 +228,18 @@ class AdminManage extends PureComponent {
                 ...this.state.adminUpdateData,
                 id: id,
                 hospital: {...hospital},
+                department: {...department},
+                profile: {...profile},
                 fullName: fullName,
                 username: username,
                 email: email,
                 mobileNumber: mobileNumber,
                 adminCategory: {...adminCategory},
+                genderCode: genderCode,
                 status: status,
                 hasMacBinding: hasMacBinding,
                 macIdList: [...macIdList],
                 adminAvatar: adminAvatar,
-                moduleList: [...moduleList],
                 remarks: remarks,
                 adminAvatarUrl: adminAvatarUrl,
                 adminAvatarUrlNew: ''
@@ -255,17 +261,12 @@ class AdminManage extends PureComponent {
 
     checkFormValidity = () => {
         const {
-            hospital, fullName, username, email, mobileNumber, adminCategory, moduleList, fullNameValid,
-            emailValid, mobileNumberValid
+            hospital, department, profile, fullName, username, email, mobileNumber, genderCode, fullNameValid,
+            emailValid, mobileNumberValid, remarks
         } = this.state.adminUpdateData;
 
-        let moduleSelected = moduleList.filter(module => module.isChecked);
-        let formValidity = hospital && fullNameValid && fullName && username && emailValid && email && mobileNumberValid
-            && mobileNumber && adminCategory && moduleSelected.length;
-
-        moduleSelected.map(mod => {
-            formValidity = formValidity && mod.profileSelected
-        });
+        let formValidity = hospital && department && profile && fullNameValid && fullName && username && emailValid
+            && email && mobileNumberValid && mobileNumber && remarks && genderCode;
 
         this.setState({
             formValid: Boolean(formValidity)
@@ -274,13 +275,47 @@ class AdminManage extends PureComponent {
 
     checkIfDeletingOwnProfile = async deletedAdminId => {
         let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
-        if (deletedAdminId === loggedInAdminInfo.adminId) {
+        if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
+            await this.logoutUser();
+        }
+        return false;
+    };
+
+    checkIfSelfEditAndShowMessage = async editedAdminId => {
+        let variantType = '', message = '';
+        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
+            variantType = "warning";
+            message = "You seem to have edited yourself. Please Logout and Login to see the changes or " +
+                "you'll be automatically logged out in 10s";
+            this.automaticLogoutUser();
+        } else {
+            variantType = "success";
+            message = this.props.AdminEditReducer.adminSuccessMessage;
+        }
+        this.setState({
+            showAlert: true,
+            alertMessageInfo: {
+                variant: variantType,
+                message: message
+            }
+        });
+
+    };
+
+    automaticLogoutUser = () => {
+        setTimeout(() => this.logoutUser(), 10000)
+    };
+
+    logoutUser = async () => {
+        try {
             let logoutResponse = await this.props.logoutUser('/cogent/logout');
             if (logoutResponse) {
                 this.props.history.push('/');
             }
+        } catch (e) {
+
         }
-        return false;
     };
 
     handleSearchFormChange = async (event) => {
@@ -297,8 +332,10 @@ class AdminManage extends PureComponent {
             searchParameters: {
                 ...this.state.searchParameters,
                 metaInfo: null,
-                adminCategory: '',
-                profile: '',
+                hospital: null,
+                department: null,
+                profile: null,
+                genderCode: null,
                 status: {value: 'A', label: 'All'}
             },
         });
@@ -442,11 +479,7 @@ class AdminManage extends PureComponent {
             });
         } catch (e) {
             this.setState({
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: "danger",
-                    message: this.props.ProfilePreviewReducer.profilePreviewErrorMessage,
-                }
+                errorMessage: e.errorMessage ? e.errorMessage : 'Error viewing profile details.'
             })
         }
     };
@@ -497,12 +530,11 @@ class AdminManage extends PureComponent {
                 DELETE_ADMIN,
                 this.state.deleteRequestDTO
             );
-            if (!this.checkIfDeletingOwnProfile(this.state.deleteRequestDTO.id)) {
+            let selfDelete = await this.checkIfDeletingOwnProfile(this.state.deleteRequestDTO.id);
+            if (!selfDelete) {
                 await this.setState({
                     deleteModalShow: false,
-                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
-                });
-                this.setState({
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "success",
@@ -563,40 +595,24 @@ class AdminManage extends PureComponent {
         })
     };
 
-    fetchActiveProfileLists = async () => {
-        await this.props.fetchActiveProfileListForDropdown(FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN);
-    };
-
-    fetchProfileListByModule = async (moduleId) => {
-        return await this.props.fetchProfileListBySubDepartmentId(FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID, moduleId);
-    };
-
-    fetchAdminCategories = async () => {
-        await this.props.fetchActiveAdminCategoriesForDropdown(FETCH_ADMIN_CATEGORY_FOR_DROPDOWN);
-    };
-
     fetchHospitals = async () => {
         await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
     };
 
-    fetchModules = async () => {
-        await this.props.fetchActiveModulesForDropdown(FETCH_MODULES_FOR_DROPDOWN);
-        const {modulesForDropdown} = this.props.ApplicationModuleSetupReducer;
-        let modules = [...modulesForDropdown];
-        let modifiedModules = modules.map(moduleObj => (
-            {
-                ...moduleObj,
-                isChecked: false,
-                profileList: [],
-                profileSelected: null,
-                adminProfileId: '',
-                isNew: true,
-                status: 'Y'
-            }
-        ));
-        this.setState({
-            modules: [...modifiedModules]
-        });
+    fetchDepartments = async () => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+    };
+
+    fetchDepartmentsByHospitalId = async value => {
+        value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
+    };
+
+    fetchProfilesByDepartmentId = async value => {
+        value && await this.props.fetchActiveProfilesByDepartmentId(FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, value);
+    };
+
+    fetchActiveProfileLists = async () => {
+        await this.props.fetchActiveProfileListForDropdown(FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN);
     };
 
     fetchAdminMetaInfosForDropdown = async () => {
@@ -608,11 +624,13 @@ class AdminManage extends PureComponent {
     };
 
     searchAdmins = async (page) => {
-        const {adminCategory, profile, status, metaInfo} = this.state.searchParameters;
+        const {metaInfo, hospital, department, profile, genderCode, status,} = this.state.searchParameters;
         let searchData = {
             adminMetaInfoId: metaInfo && metaInfo.value,
-            adminCategoryId: adminCategory && adminCategory.value,
+            hospitalId: hospital && hospital.value,
+            departmentId: department && department.value,
             profileId: profile && profile.value,
+            genderCode: genderCode && genderCode.value,
             status: status && status.value !== 'A'
                 ? status.value
                 : ''
@@ -642,28 +660,17 @@ class AdminManage extends PureComponent {
 
     editApiCall = async () => {
         const {
-            id, hospital, fullName, email, mobileNumber, adminCategory, status, hasMacBinding,
-            adminAvatar, remarks, adminAvatarUrlNew
+            id, hospital, profile, fullName, email, mobileNumber, adminCategory, status, hasMacBinding,
+            adminAvatar, remarks, adminAvatarUrlNew, genderCode
         } = this.state.adminUpdateData;
-        const {updatedMacIdList, updatedModulesAndProfiles} = this.state;
+        const {updatedMacIdList} = this.state;
 
-        let macAddressList = [], moduleProfileList = [];
+        let macAddressList = [];
         if (updatedMacIdList.length) {
             macAddressList = updatedMacIdList.map(value => {
                 return {
                     id: value.id,
                     macAddress: value.macId,
-                    status: value.status
-                }
-            })
-        }
-
-        if (updatedModulesAndProfiles.length) {
-            moduleProfileList = updatedModulesAndProfiles.filter(module => module.isChecked).map(value => {
-                return {
-                    adminProfileId: value.adminProfileId,
-                    profileId: value.profileSelected.value,
-                    applicationModuleId: value.id,
                     status: value.status
                 }
             })
@@ -674,12 +681,12 @@ class AdminManage extends PureComponent {
             email,
             mobileNumber,
             status,
+            genderCode,
             hasMacBinding: hasMacBinding ? 'Y' : 'N',
-            adminCategoryId: adminCategory.value,
             hospitalId: hospital.value,
+            profileId: profile.value,
             remarks: remarks,
-            macAddressInfoUpdateRequestDTOS: [...macAddressList],
-            adminProfileUpdateRequestDTOS: [...moduleProfileList],
+            macAddressUpdateInfo: [...macAddressList],
             isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N'
         };
 
@@ -688,7 +695,7 @@ class AdminManage extends PureComponent {
         try {
             await this.props.editAdmin(EDIT_ADMIN, adminUpdateRequestDTO, formData);
             this.resetAdminUpdateDataFromState();
-            // this.checkIfEditedSelfAndShowMessage(adminUpdateRequestDTO.id);
+            this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id);
             await this.searchAdmins();
         } catch (e) {
 
@@ -712,33 +719,30 @@ class AdminManage extends PureComponent {
     };
 
     prepareDataForPreview = adminData => {
-        let moduleAndProfileData = [], macIDs = [];
+        let macIDs = [];
         if (adminData) {
             const {
-                id, hospitalName, hospitalId, fullName, username, email, mobileNumber, adminCategoryName,
-                adminCategoryId, status, hasMacBinding, fileUri, adminProfileResponseDTOS,
-                macAddressInfoResponseDTOS, remarks
+                id, hospitalName, hospitalId, departmentId, departmentName, profileId, profileName, fullName, username,
+                email, mobileNumber, gender, status, hasMacBinding, fileUri, adminMacAddressInfo, remarks
             } = adminData;
 
-            if (adminProfileResponseDTOS && adminProfileResponseDTOS.length) {
-                moduleAndProfileData = AdminSetupUtils.getModuleAndProfileData(adminProfileResponseDTOS);
-            }
-            if (macAddressInfoResponseDTOS && macAddressInfoResponseDTOS.length) {
-                macIDs = AdminSetupUtils.getMacAddresses(macAddressInfoResponseDTOS);
+            if (adminMacAddressInfo && adminMacAddressInfo.length) {
+                macIDs = AdminSetupUtils.getMacAddresses(adminMacAddressInfo);
             }
             return {
                 id: id,
                 hospital: {label: hospitalName, value: hospitalId},
+                department: {label: departmentName, value: departmentId},
+                profile: {label: profileName, value: profileId},
                 fullName: fullName,
                 username: username,
                 email: email,
                 mobileNumber: mobileNumber,
-                adminCategory: {label: adminCategoryName, value: adminCategoryId},
+                genderCode: gender === "FEMALE" ? "F" : gender === "MALE" ? "M" : "O",
                 status: status,
                 hasMacBinding: hasMacBinding,
                 macIdList: [...macIDs],
                 adminAvatar: '',
-                moduleList: [...moduleAndProfileData],
                 remarks: remarks,
                 adminAvatarUrl: fileUri,
                 adminAvatarUrlNew: ''
@@ -751,12 +755,12 @@ class AdminManage extends PureComponent {
         let adminInfoObj = this.prepareDataForPreview(adminData);
 
         const {
-            id, hospital, fullName, username, email, mobileNumber, adminCategory, status,
-            hasMacBinding, macIdList, moduleList, adminAvatar, remarks, adminAvatarUrl
+            id, hospital, department, profile, fullName, username, email, mobileNumber, genderCode, status,
+            hasMacBinding, macIdList, adminAvatar, remarks, adminAvatarUrl
         } = adminInfoObj;
 
-        const modulesWithProfileListAdded = JSON.stringify(
-            [...await this.addProfileListToModuleList([...moduleList])]);
+        await this.fetchDepartmentsByHospitalId(hospital.value);
+        await this.fetchProfilesByDepartmentId(department.value);
 
         this.setState({
             showEditModal: true,
@@ -764,62 +768,32 @@ class AdminManage extends PureComponent {
                 ...this.state.adminUpdateData,
                 id: id,
                 hospital: hospital,
+                department: department,
+                profile: profile,
                 fullName: fullName,
                 username: username,
                 email: email,
                 mobileNumber: mobileNumber,
-                adminCategory: adminCategory,
                 status: status,
+                genderCode: genderCode,
                 hasMacBinding: hasMacBinding === 'Y',
                 macIdList: [...macIdList],
-                moduleList: JSON.parse(modulesWithProfileListAdded),
                 adminAvatar: adminAvatar,
                 adminAvatarUrl: adminAvatarUrl,
-                adminCategoryList: [...this.props.AdminCategoryReducer.adminCategoriesForDropdown],
                 hospitalList: [...this.props.HospitalSetupReducer.hospitalsForDropdown],
+                departmentList: [...this.props.DepartmentSetupReducer.departmentsByHospital],
+                profileList: [...this.props.ProfileSetupReducer.activeProfilesByDepartmentId],
                 remarks: remarks
             },
             updatedMacIdList: [...macIdList],
-            updatedModulesAndProfiles: JSON.parse(modulesWithProfileListAdded),
         });
-    };
-
-    addProfileListToModuleList = async moduleList => {
-        let selectedModules = [...moduleList];
-
-        let modulesToAdd = this.state.modules.map(module => {
-            let moduleToAdd = {...module};
-            let moduleSelected = selectedModules.find(selectedMod => selectedMod.id === module.id);
-            if (moduleSelected) {
-                moduleToAdd.isChecked = moduleSelected.isChecked;
-                moduleToAdd.profileList = moduleSelected.profileList;
-                moduleToAdd.profileSelected = moduleSelected.profileSelected;
-                moduleToAdd.adminProfileId = moduleSelected.adminProfileId;
-                moduleToAdd.status = moduleSelected.isChecked ? 'Y' : 'N';
-                moduleToAdd.isNew = false;
-            }
-            return moduleToAdd;
-        });
-
-        let modulesData = modulesToAdd.map(async module => {
-            let profileList = [];
-            if (module.isChecked) {
-                profileList = await this.fetchProfileListByModule(module.id);
-            }
-            return {
-                ...module,
-                profileList: [...profileList]
-            }
-        });
-        return Promise.all(modulesData);
     };
 
     initialAPICalls = () => {
         this.fetchAdminMetaInfosForDropdown();
         this.fetchActiveProfileLists();
-        this.fetchAdminCategories();
         this.fetchHospitals();
-        this.fetchModules();
+        this.fetchDepartments();
         this.searchAdmins();
     };
 
@@ -827,16 +801,19 @@ class AdminManage extends PureComponent {
         this.initialAPICalls()
     }
 
+
+    componentWillUnmount() {
+        clearTimeout(this.automaticLogoutUser);
+    }
+
     render() {
         const {
             adminUpdateData, searchParameters, deleteRequestDTO, showAdminModal, deleteModalShow,
             totalRecords, queryParams, showEditModal, errorMessageForAdminName,
             errorMessageForAdminMobileNumber, showImageUploadModal, adminImage, adminImageCroppedUrl,
-            showPasswordResetModal, passwordResetDTO, passwordResetError, adminMetaInfos, showProfileDetailModal,
-            profileData
+            showPasswordResetModal, passwordResetDTO, passwordResetError, showProfileDetailModal,
+            profileData, errorMessage
         } = this.state;
-
-        const {adminCategoriesForDropdown} = this.props.AdminCategoryReducer;
 
         const {activeProfilesForDropdown} = this.props.ProfileSetupReducer;
 
@@ -846,18 +823,24 @@ class AdminManage extends PureComponent {
             searchErrorMessage
         } = this.props.AdminListReducer;
 
-        const {adminErrorMessage} = this.props.AdminEditReducer;
+        const {adminErrorMessage, isAdminEditLoading} = this.props.AdminEditReducer;
 
         const {deleteErrorMessage} = this.props.AdminDeleteReducer;
 
         const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer;
+
+        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+
+        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+
         return <>
             <div className="">
                 <AdminSetupSearchFilter
                     onInputChange={this.handleSearchFormChange}
                     searchParameters={searchParameters}
                     resetSearchForm={this.handleSearchFormReset}
-                    adminCategoryList={adminCategoriesForDropdown}
+                    hospitalList={hospitalsForDropdown}
+                    departmentList={departments}
                     profileList={activeProfilesForDropdown}
                     adminMetaInfos={adminMetaInfoForDropdown}
                     onSearchClick={() => this.searchAdmins(1)}
@@ -910,8 +893,9 @@ class AdminManage extends PureComponent {
                 onImageSelect={this.handleImageSelect}
                 onImageCrop={this.handleCropImage}
                 editApiCall={this.editApiCall}
-                errorMessage={adminErrorMessage}
+                errorMessage={adminErrorMessage || errorMessage}
                 viewProfileDetails={this.handleViewProfileDetails}
+                isAdminEditLoading={isAdminEditLoading}
             />
             }
             {showPasswordResetModal &&
@@ -929,7 +913,7 @@ class AdminManage extends PureComponent {
                     showModal={showProfileDetailModal}
                     setShowModal={this.closeProfileDetailsViewModal}
                     profileData={profileData}
-                    rolesJson={rolesFromJson}/>
+                    rolesJson={menuRoles}/>
             }
             <CAlert id="admin-manage"
                     variant={this.state.alertMessageInfo.variant}
@@ -953,26 +937,25 @@ export default ConnectHoc(AdminManage,
         'AdminDeleteReducer',
         'AdminEditReducer',
         'AdminPreviewReducer',
-        'AdminCategoryReducer',
-        'ProfileSetupReducer',
         'HospitalSetupReducer',
-        'ApplicationModuleSetupReducer',
+        'DepartmentSetupReducer',
+        'ProfileSetupReducer',
+        'ProfilePreviewReducer',
         'logoutReducer',
-        'ProfilePreviewReducer'
     ],
     {
         clearAdminSuccessErrorMessagesFromStore,
         fetchAdminList,
-        fetchActiveProfileListForDropdown,
-        fetchActiveModulesForDropdown,
         previewAdmin,
         deleteAdmin,
         editAdmin,
-        fetchProfileListBySubDepartmentId,
-        fetchActiveAdminCategoriesForDropdown,
         fetchActiveHospitalsForDropdown,
-        resetPassword,
+        fetchActiveDepartmentsByHospitalId,
+        fetchActiveDepartmentsForDropdown,
+        fetchActiveProfilesByDepartmentId,
+        fetchActiveProfileListForDropdown,
         fetchAdminMetaInfo,
+        resetPassword,
         logoutUser,
         previewProfile
     });

@@ -1,47 +1,47 @@
 import React, {PureComponent} from 'react';
 import AdminInfoForm from "./AdminInfoForm";
-import {AdminSetupUtils, EnterKeyPressUtils, ProfileSetupUtils, rolesFromJson} from "@cogent/helpers";
-import {ConnectHoc} from "@cogent/commons";
+import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from "@frontend-appointment/helpers";
+import {ConnectHoc} from "@frontend-appointment/commons";
 import {
-    adminCategoryMiddleware,
-    applicationModuleMiddleware,
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
-    fetchProfileListBySubDepartmentId,
-    hospitalSetupMiddleware,
+    departmentSetupMiddleware,
+    fetchActiveProfilesByDepartmentId,
+    HospitalSetupMiddleware,
     previewProfile
-} from "@cogent/thunk-middleware";
-import {AdminModuleAPIConstants} from "@cogent/web-resource-key-constants";
+} from "@frontend-appointment/thunk-middleware";
+import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {Col, Container, Row} from "react-bootstrap";
-import {CAlert, CButton} from "@cogent/ui-elements";
+import {CAlert, CButton, CLoading} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import AdminConfirmationModal from "./AdminConfirmationModal";
 import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
-const {fetchActiveAdminCategoriesForDropdown} = adminCategoryMiddleware;
-const {fetchActiveHospitalsForDropdown} = hospitalSetupMiddleware;
-const {fetchActiveModulesForDropdown} = applicationModuleMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
 
-const {FETCH_ADMIN_CATEGORY_FOR_DROPDOWN} = AdminModuleAPIConstants.adminCategoryApiConstants;
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
-const {FETCH_MODULES_FOR_DROPDOWN} = AdminModuleAPIConstants.applicationModuleSetupApiConstants;
-const {FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID, FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants;
+const {FETCH_PROFILE_DETAILS, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID} = AdminModuleAPIConstants.profileSetupAPIConstants;
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
 const {CREATE_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants;
 
 class AdminAdd extends PureComponent {
 
     state = {
         hospital: null,
+        department: null,
+        profile: null,
         fullName: '',
         username: '',
         email: '',
         mobileNumber: '',
-        adminCategory: null,
         status: 'Y',
-        hasMacBinding: '',
+        hasMacBinding: false,
+        genderCode: '',
         macIdList: [],
-        moduleList: [],
+        departmentList: [],
+        profileList: [],
         errorMessageForAdminName: 'Admin Name should not contain special characters.',
         errorMessageForAdminMobileNumber: 'Mobile number should be of 10 digits.',
         showImageUploadModal: false,
@@ -64,15 +64,10 @@ class AdminAdd extends PureComponent {
     };
 
     resetStateValues = () => {
-        let modules = [...this.state.moduleList];
-        let modulesReset = modules.map(module => {
-            module.isChecked = false;
-            module.profileList = [];
-            module.profileSelected = null;
-            return module
-        });
         this.setState({
             hospital: null,
+            department: null,
+            profile: null,
             fullName: '',
             username: '',
             email: '',
@@ -82,7 +77,8 @@ class AdminAdd extends PureComponent {
             status: 'Y',
             hasMacBinding: '',
             macIdList: [],
-            moduleList: [...modulesReset],
+            departmentList: [],
+            profileList: [],
             showImageUploadModal: false,
             showConfirmModal: false,
             adminAvatar: null,
@@ -121,17 +117,12 @@ class AdminAdd extends PureComponent {
 
     checkFormValidity = () => {
         const {
-            hospital, fullName, username, email, mobileNumber, adminCategory, moduleList, fullNameValid,
+            hospital, department, profile, fullName, username, email, mobileNumber, genderCode, fullNameValid,
             emailValid, mobileNumberValid
         } = this.state;
 
-        let moduleSelected = moduleList.filter(module => module.isChecked);
-        let formValidity = hospital && fullNameValid && fullName && username && emailValid && email && mobileNumberValid
-            && mobileNumber && adminCategory && moduleSelected.length;
-
-        moduleSelected.map(mod => {
-            formValidity = formValidity && mod.profileSelected
-        });
+        let formValidity = hospital && department && profile && fullNameValid && fullName && username && emailValid
+            && email && mobileNumberValid && mobileNumber && genderCode;
 
         this.setState({
             formValid: Boolean(formValidity)
@@ -150,6 +141,42 @@ class AdminAdd extends PureComponent {
         return macIdPattern.test(macId);
     };
 
+    actionsOnHospitalChange = async value => {
+        if (value) {
+            await this.fetchDepartmentsByHospitalId(value);
+            const {departmentsByHospital} = this.props.DepartmentSetupReducer;
+            this.setState({
+                department: null,
+                profile: null,
+                departmentList: departmentsByHospital ? departmentsByHospital : [],
+                profileList: []
+            })
+        } else {
+            this.setState({
+                department: null,
+                profile: null,
+                departmentList: [],
+                profileList: []
+            })
+        }
+    };
+
+    actionsOnDepartmentChange = async value => {
+        if (value) {
+            await this.fetchProfilesByDepartmentId(value);
+            const {activeProfilesByDepartmentId} = this.props.ProfileSetupReducer;
+            this.setState({
+                profile: null,
+                profileList: activeProfilesByDepartmentId ? activeProfilesByDepartmentId : [],
+            })
+        } else {
+            this.setState({
+                profile: null,
+                profileList: []
+            })
+        }
+    };
+
     handleEnter = (event) => {
         EnterKeyPressUtils.handleEnter(event);
     };
@@ -160,8 +187,16 @@ class AdminAdd extends PureComponent {
             let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
             let label = event.target.label;
             await this.setStateValues(fieldName, value, label, fieldValid);
-            if (fieldName === "hasMacBinding") {
-                this.addMacIdObjectToMacIdList(value);
+            switch (fieldName) {
+                case "hospital":
+                    this.actionsOnHospitalChange(value);
+                    break;
+                case "department":
+                    this.actionsOnDepartmentChange(value);
+                    break;
+                case "hasMacBinding":
+                    this.addMacIdObjectToMacIdList(value);
+                    break;
             }
             this.checkFormValidity();
         }
@@ -187,34 +222,6 @@ class AdminAdd extends PureComponent {
         this.setMacIdListInState(macIds);
     };
 
-    handleModuleChange = async (subDepartmentId, index) => {
-        let modules = [...this.state.moduleList];
-        modules[index].isChecked = !modules[index].isChecked;
-        if (modules[index].isChecked) {
-            let profileList = await this.fetchProfileListByModule(subDepartmentId);
-            modules[index].profileList = profileList ? profileList : [];
-        } else {
-            modules[index].profileList = [];
-            modules[index].profileSelected = null;
-        }
-        await this.setState({
-            moduleList: [...modules]
-        });
-        this.checkFormValidity();
-    };
-
-    handleProfileChange = (event, index) => {
-        let modules = [...this.state.moduleList];
-        modules[index].profileSelected = event.target.value ? {
-            label: event.target.label,
-            value: event.target.value
-        } : null;
-        this.setState({
-            moduleList: [...modules]
-        });
-        this.checkFormValidity();
-    };
-
     handleImageSelect = imageUrl => {
         imageUrl && this.setState({adminImage: imageUrl})
     };
@@ -236,29 +243,24 @@ class AdminAdd extends PureComponent {
 
     handleConfirmClick = async () => {
         const {
-            hospital, fullName, username, email, mobileNumber, adminCategory,
-            status, hasMacBinding, macIdList, adminAvatar, moduleList,
+            hospital, profile, fullName, username, email, mobileNumber, genderCode,
+            status, hasMacBinding, macIdList, adminAvatar,
         } = this.state;
 
         let adminRequestDTO = {
-            adminCategoryId: adminCategory.value,
-            adminProfileRequestDTO: moduleList.length ? moduleList.filter(
-                module => module.isChecked).map(module => {
-                return {
-                    applicationModuleId: module.id,
-                    profileId: module.profileSelected.value
-                }
-            }) : [],
             email,
             fullName,
+            username,
             hasMacBinding: hasMacBinding ? 'Y' : 'N',
             hospitalId: hospital.value,
-            macAddressInfoRequestDTOS: macIdList.length ? macIdList.map(macId => {
-                return macId.macId
-            }) : [],
             mobileNumber,
             status,
-            username
+            genderCode: genderCode,
+            profileId: profile.value,
+            macAddressInfo: macIdList.length ? macIdList.map(macId => {
+                return macId.macId
+            }) : [],
+
         };
 
         let formData = new FormData();
@@ -313,39 +315,20 @@ class AdminAdd extends PureComponent {
         await this.props.previewProfile(FETCH_PROFILE_DETAILS, profileId);
     };
 
-    fetchProfileListByModule = async (moduleId) => {
-        return await this.props.fetchProfileListBySubDepartmentId(FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID, moduleId);
-    };
-
-    fetchAdminCategories = async () => {
-        await this.props.fetchActiveAdminCategoriesForDropdown(FETCH_ADMIN_CATEGORY_FOR_DROPDOWN);
-    };
-
     fetchHospitals = async () => {
         await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
     };
 
-    fetchModules = async () => {
-        await this.props.fetchActiveModulesForDropdown(FETCH_MODULES_FOR_DROPDOWN);
-        const {modulesForDropdown} = this.props.ApplicationModuleSetupReducer;
-        let modules = [...modulesForDropdown];
-        let modifiedModules = modules.map(moduleObj => (
-            {
-                ...moduleObj,
-                isChecked: false,
-                profileList: [],
-                profileSelected: null
-            }
-        ));
-        this.setState({
-            moduleList: [...modifiedModules]
-        });
+    fetchDepartmentsByHospitalId = async value => {
+        value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
+    };
+
+    fetchProfilesByDepartmentId = async value => {
+        value && await this.props.fetchActiveProfilesByDepartmentId(FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, value);
     };
 
     initialAPICalls = () => {
-        this.fetchAdminCategories();
         this.fetchHospitals();
-        this.fetchModules();
     };
 
     componentDidMount() {
@@ -354,107 +337,111 @@ class AdminAdd extends PureComponent {
 
     render() {
         const {
-            hospital, fullName, username, email, password, mobileNumber, adminCategory,
-            status, hasMacBinding, macIdList, adminAvatar, adminAvatarUrl, moduleList, errorMessageForAdminMobileNumber,
+            hospital, department, profile, fullName, username, email, genderCode, mobileNumber,
+            status, hasMacBinding, macIdList, departmentList, profileList, adminAvatar, adminAvatarUrl, errorMessageForAdminMobileNumber,
             errorMessageForAdminName, showImageUploadModal, adminImage, adminImageCroppedUrl, showProfileDetailModal,
             profileData
         } = this.state;
 
-        const {adminCategoriesForDropdown} = this.props.AdminCategoryReducer;
         const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
         const {dropdownErrorMessage} = this.props.ProfileSetupReducer;
+        const {isCreateAdminLoading} = this.props.AdminSetupReducer;
 
         return <>
             <div className=" ">
                 <Container className="bg-white add-container" fluid>
+                    <>
+                        <CButton
+                            id="resetAdminForm"
+                            variant='outline-secondary'
+                            size='sm'
+                            name='Reset'
+                            className="mb-2  float-right"
+                            onClickHandler={this.resetStateValues}>
+                            <>&nbsp;<i className='fa fa-refresh'/></>
+                        </CButton>
+                        <AdminInfoForm
+                            adminInfoObj={{
+                                hospital: hospital,
+                                department: department,
+                                profile: profile,
+                                fullName: fullName,
+                                username: username,
+                                email: email,
+                                genderCode: genderCode,
+                                mobileNumber: mobileNumber,
+                                status: status,
+                                hasMacBinding: hasMacBinding,
+                                macIdList: macIdList,
+                                adminAvatar: adminAvatar,
+                                adminAvatarUrl: adminAvatarUrl
+                            }}
+                            onEnterKeyPress={this.handleEnter}
+                            onInputChange={this.handleOnChange}
+                            onMacIdChange={this.handleMacIdChange}
+                            onAddMoreMacId={this.handleAddMoreMacId}
+                            onRemoveMacId={this.handleRemoveMacId}
+                            hospitalList={hospitalsForDropdown}
+                            departmentList={departmentList}
+                            profileList={profileList}
+                            errorMessageForAdminName={errorMessageForAdminName}
+                            errorMessageForAdminMobileNumber={errorMessageForAdminMobileNumber}
+                            errorMessageForProfileDropdown={dropdownErrorMessage}
+                            showModal={showImageUploadModal}
+                            setShowModal={this.setShowModal}
+                            onImageUpload={this.handleImageUpload}
+                            adminImage={adminImage}
+                            adminCroppedImage={adminImageCroppedUrl}
+                            onImageSelect={this.handleImageSelect}
+                            onImageCrop={this.handleCropImage}
+                            viewProfileDetails={this.handleViewProfileDetails}
+                            isCreateAdminLoading={isCreateAdminLoading}
+                        />
+                        <Row className="mt-4">
+                            <Col
+                                sm={12} md={{span: 3, offset: 9}}>
+                                <CButton
+                                    id="save-admin"
+                                    variant="primary "
+                                    className="float-right btn-action"
+                                    name="Save"
+                                    disabled={!this.state.formValid}
+                                    isLoading={isCreateAdminLoading}
+                                    onClickHandler={this.setShowConfirmModal}>
+                                </CButton>
+                                <AdminConfirmationModal
+                                    showModal={this.state.showConfirmModal}
+                                    setShowModal={this.setShowConfirmModal}
+                                    onConfirmClick={this.handleConfirmClick}
+                                    adminInfoObj={{
+                                        hospital: hospital,
+                                        department: department,
+                                        profile: profile,
+                                        fullName: fullName,
+                                        username: username,
+                                        email: email,
+                                        genderCode: genderCode,
+                                        mobileNumber: mobileNumber,
+                                        status: status,
+                                        hasMacBinding: hasMacBinding,
+                                        macIdList: macIdList,
+                                        adminAvatar: adminAvatar,
+                                        adminAvatarUrl: adminAvatarUrl
+                                    }}
+                                    adminImage={adminImageCroppedUrl}
+                                    isCreateAdminLoading={isCreateAdminLoading}
+                                />
+                            </Col>
+                        </Row>
+                    </>
 
-                    <CButton
-                        id="resetAdminForm"
-                        variant='outline-secondary'
-                        size='sm'
-                        name='Reset'
-                        className="mb-2  float-right"
-                        onClickHandler={this.resetStateValues}>
-                        <>&nbsp;<i className='fa fa-refresh'/></>
-                    </CButton>
-                    <AdminInfoForm
-                        adminInfoObj={{
-                            hospital: hospital,
-                            fullName: fullName,
-                            username: username,
-                            email: email,
-                            password: password,
-                            mobileNumber: mobileNumber,
-                            adminCategory: adminCategory,
-                            status: status,
-                            hasMacBinding: hasMacBinding,
-                            macIdList: macIdList,
-                            adminAvatar: adminAvatar,
-                            adminAvatarUrl: adminAvatarUrl
-                        }}
-                        onEnterKeyPress={this.handleEnter}
-                        onInputChange={this.handleOnChange}
-                        onMacIdChange={this.handleMacIdChange}
-                        onAddMoreMacId={this.handleAddMoreMacId}
-                        onRemoveMacId={this.handleRemoveMacId}
-                        onModuleChange={this.handleModuleChange}
-                        onProfileChange={this.handleProfileChange}
-                        adminCategoryList={adminCategoriesForDropdown}
-                        hospitalList={hospitalsForDropdown}
-                        moduleList={moduleList}
-                        errorMessageForAdminName={errorMessageForAdminName}
-                        errorMessageForAdminMobileNumber={errorMessageForAdminMobileNumber}
-                        errorMessageForProfileDropdown={dropdownErrorMessage}
-                        showModal={showImageUploadModal}
-                        setShowModal={this.setShowModal}
-                        onImageUpload={this.handleImageUpload}
-                        adminImage={adminImage}
-                        adminCroppedImage={adminImageCroppedUrl}
-                        onImageSelect={this.handleImageSelect}
-                        onImageCrop={this.handleCropImage}
-                        viewProfileDetails={this.handleViewProfileDetails}
-                    />
-                    <Row className="mt-4">
-                        <Col
-                            sm={12} md={{span: 3, offset: 9}}>
-                            <CButton
-                                id="save-admin"
-                                variant="primary "
-                                className="float-right btn-action"
-                                name="Save"
-                                disabled={!this.state.formValid}
-                                onClickHandler={this.setShowConfirmModal}>
-                            </CButton>
-                            <AdminConfirmationModal
-                                showModal={this.state.showConfirmModal}
-                                setShowModal={this.setShowConfirmModal}
-                                onConfirmClick={this.handleConfirmClick}
-                                adminInfoObj={{
-                                    hospital: hospital,
-                                    fullName: fullName,
-                                    username: username,
-                                    email: email,
-                                    password: password,
-                                    mobileNumber: mobileNumber,
-                                    adminCategory: adminCategory,
-                                    status: status,
-                                    hasMacBinding: hasMacBinding,
-                                    macIdList: macIdList,
-                                    adminAvatar: adminAvatar,
-                                    adminAvatarUrl: adminAvatarUrl,
-                                    moduleList: moduleList
-                                }}
-                                adminImage={adminImageCroppedUrl}
-                            />
-                        </Col>
-                    </Row>
                     {
                         showProfileDetailModal &&
                         <PreviewRoles
                             showModal={showProfileDetailModal}
                             setShowModal={this.closeProfileDetailsViewModal}
                             profileData={profileData}
-                            rolesJson={rolesFromJson}/>
+                            rolesJson={menuRoles}/>
                     }
                     <CAlert
                         id="profile-manage"
@@ -474,19 +461,17 @@ class AdminAdd extends PureComponent {
 
 export default ConnectHoc(AdminAdd,
     [
-        'AdminCategoryReducer',
-        'ApplicationModuleSetupReducer',
         'HospitalSetupReducer',
         'ProfileSetupReducer',
         'AdminSetupReducer',
-        'ProfilePreviewReducer'
+        'ProfilePreviewReducer',
+        'DepartmentSetupReducer'
     ],
     {
-        fetchActiveAdminCategoriesForDropdown,
         fetchActiveHospitalsForDropdown,
-        fetchActiveModulesForDropdown,
-        fetchProfileListBySubDepartmentId,
         createAdmin,
         clearAdminSuccessErrorMessagesFromStore,
-        previewProfile
+        previewProfile,
+        fetchActiveDepartmentsByHospitalId,
+        fetchActiveProfilesByDepartmentId
     });

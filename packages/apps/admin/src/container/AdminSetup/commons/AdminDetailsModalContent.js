@@ -1,5 +1,12 @@
-import React, {PureComponent} from 'react';
-import {CFControl, CFLabel, CForm, CHybridInput, CImageDisplayAndView, CRadioButton} from "@cogent/ui-elements";
+import React from 'react';
+import {
+    CFControl,
+    CFLabel,
+    CForm,
+    CHybridInput,
+    CImageDisplayAndView,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 import * as DefaultProfileImage from "../Add/Picture.jpg";
 
@@ -42,10 +49,40 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridInput
+                                            id="department"
+                                            placeholder="Department"
+                                            name="department"
+                                            value={adminInfoObj.department && adminInfoObj.department.label}
+                                            disabled={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={12} lg={6}>
+                                        <CHybridInput
+                                            id="profile"
+                                            placeholder="Profile"
+                                            name="profile"
+                                            value={adminInfoObj.profile && adminInfoObj.profile.label}
+                                            disabled={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={12} lg={6}>
+                                        <CHybridInput
                                             id="admin-name"
                                             name="fullName"
                                             placeholder="Name"
                                             value={adminInfoObj.fullName}
+                                            disabled={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={12} lg={6}>
+                                        <CHybridInput
+                                            id="admin-username"
+                                            name="username"
+                                            placeholder="Username"
+                                            value={adminInfoObj.username}
                                             disabled={true}
                                         />
                                     </Col>
@@ -63,16 +100,6 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridInput
-                                            id="admin-username"
-                                            name="username"
-                                            placeholder="Username"
-                                            value={adminInfoObj.username}
-                                            disabled={true}
-                                        />
-                                    </Col>
-
-                                    <Col sm={12} md={12} lg={6}>
-                                        <CHybridInput
                                             id="admin-mobileNumber"
                                             name="mobileNumber"
                                             type="number"
@@ -83,17 +110,43 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                     </Col>
 
                                     <Col sm={12} md={12} lg={6}>
-                                        <CHybridInput
-                                            id="adminCategory"
-                                            placeholder="Admin Category"
-                                            name="adminCategory"
-                                            value={adminInfoObj.adminCategory && adminInfoObj.adminCategory.label}
+                                        <CFLabel labelName="Gender" id="gender"/>
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "F"}
+                                            id="female"
+                                            label="Female"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="F"
                                             disabled={true}
+                                            readOnly={true}
                                         />
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "M"}
+                                            id="male"
+                                            label="Male"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="M"
+                                            disabled={true}
+                                            readOnly={true}
+                                        />
+
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "O"}
+                                            id="other"
+                                            label="Other"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="O"
+                                            disabled={true}
+                                            readOnly={true}
+                                        />
+
                                     </Col>
 
                                     <Col sm={12} md={12} lg={6}>
-                                        <CFLabel labelName="Status" id="status"></CFLabel>
+                                        <CFLabel labelName="Status" id="status"/>
                                         <CRadioButton
                                             checked={Boolean(adminInfoObj.status)}
                                             disabled={true}
@@ -139,34 +192,6 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                                 : ''
                                             }
                                         </>
-                                    </Col>
-
-                                    <Col sm={12} md={12} lg={12}>
-
-                                        <CFLabel labelName="Modules" id="modules" className="mt-4"/>
-                                        {adminInfoObj.moduleList && adminInfoObj.moduleList.map(module => (
-                                            <>
-                                                {module.isChecked &&
-                                                <Row key={module.id}>
-                                                    <Col sm={6}>
-                                                        <i className=" fa fa-check"> </i> {module.name}
-                                                    </Col>
-                                                    {
-                                                        module.isChecked &&
-                                                        <Col>
-                                                            <CHybridInput
-                                                                id={"profiles" + module.id}
-                                                                placeholder={"Profile"}
-                                                                name={module.name + "Profiles"}
-                                                                disabled={true}
-                                                                value={module.profileSelected.label}
-                                                            />
-                                                        </Col>
-                                                    }
-                                                </Row>
-                                                }
-                                            </>
-                                        ))}
                                     </Col>
                                 </Row>
                             </Col>

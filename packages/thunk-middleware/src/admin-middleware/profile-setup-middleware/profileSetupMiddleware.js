@@ -83,11 +83,11 @@ export const clearSuccessErrorMessagesFromStore = () => async dispatch => {
     dispatch(ProfileSetupActions.clearProfileDeleteSuccessMessage());
 };
 
-export const clearErrorMessageForDropdown = ()=> async dispatch=>{
+export const clearErrorMessageForDropdown = () => async dispatch => {
     dispatch(ProfileSetupActions.clearDropdownErrorMessage())
 };
 
-export const fetchProfileListBySubDepartmentId = (path,id) => async dispatch =>{
+export const fetchProfileListBySubDepartmentId = (path, id) => async dispatch => {
     dispatch(ProfileSetupActions.fetchProfileListBySubDepartmentIdPending());
     try {
         let response = await Axios.getWithPathVariables(path, id);
@@ -98,7 +98,7 @@ export const fetchProfileListBySubDepartmentId = (path,id) => async dispatch =>{
     }
 };
 
-export const fetchActiveProfileListForDropdown = (path) => async dispatch =>{
+export const fetchActiveProfileListForDropdown = (path) => async dispatch => {
     dispatch(ProfileSetupActions.fetchProfileListForDropDownActivePending());
     try {
         let response = await Axios.get(path);
@@ -109,7 +109,7 @@ export const fetchActiveProfileListForDropdown = (path) => async dispatch =>{
     }
 };
 
-export const fetchAllProfileListForSearchDropdown = (path) => async dispatch =>{
+export const fetchAllProfileListForSearchDropdown = (path) => async dispatch => {
     try {
         let response = await Axios.get(path);
         dispatch(ProfileSetupActions.fetchProfileListForSearchDropDownSuccess(response.data));
@@ -119,5 +119,14 @@ export const fetchAllProfileListForSearchDropdown = (path) => async dispatch =>{
     }
 };
 
+export const fetchActiveProfilesByDepartmentId = (path, departmentId) => async dispatch => {
+    try {
+        let response = await Axios.getWithPathVariables(path, departmentId);
+        dispatch(ProfileSetupActions.fetchProfilesByDepartmentIdSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(ProfileSetupActions.fetchProfilesByDepartmentIdError(e.errorMessage));
+    }
+};
 
 

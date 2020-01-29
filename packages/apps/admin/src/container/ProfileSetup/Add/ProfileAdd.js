@@ -16,7 +16,7 @@ import {EnterKeyPressUtils, menuRoles, userMenusJson, UserMenuUtils} from "@fron
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;

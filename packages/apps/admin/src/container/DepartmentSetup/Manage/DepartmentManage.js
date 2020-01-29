@@ -30,7 +30,7 @@ const {
     EXPORT_DEPARTMENT_EXCEL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants;
 
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 

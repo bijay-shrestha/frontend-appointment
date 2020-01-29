@@ -10,9 +10,9 @@ import {
     CHybridInput,
     CHybridSelect,
     CRadioButton
-} from "@cogent/ui-elements";
+} from "@frontend-appointment/ui-elements";
 import * as DefaultProfileImage from './picture.png';
-import {CImageUploadAndCropModal} from "@cogent/ui-components";
+import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
 
 const AdminInfoForm = ({
                            adminInfoObj,
@@ -21,11 +21,9 @@ const AdminInfoForm = ({
                            onMacIdChange,
                            onAddMoreMacId,
                            onRemoveMacId,
-                           onModuleChange,
-                           onProfileChange,
-                           adminCategoryList,
                            hospitalList,
-                           moduleList,
+                           departmentList,
+                           profileList,
                            errorMessageForAdminName,
                            errorMessageForAdminMobileNumber,
                            onImageUpload,
@@ -35,7 +33,8 @@ const AdminInfoForm = ({
                            adminCroppedImage,
                            onImageSelect,
                            onImageCrop,
-                           viewProfileDetails
+                           viewProfileDetails,
+                           isCreateAdminLoading
                        }) => {
     return (
         <>
@@ -73,7 +72,7 @@ const AdminInfoForm = ({
                         <Row className="p-0">
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridSelect
-                                    id="hospital"
+                                    id="admin-hospital"
                                     label="Hospital"
                                     name="hospital"
                                     onKeyDown={(event) => onEnterKeyPress(event)}
@@ -85,18 +84,68 @@ const AdminInfoForm = ({
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
+                                <CHybridSelect
+                                    id="admin-department"
+                                    label="Department"
+                                    name="department"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                    options={departmentList}
+                                    value={adminInfoObj.department}
+                                    isDisabled={!adminInfoObj.hospital}
+                                    placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={12} lg={6}>
+                                <CHybridSelect
+                                    id="admin-profile"
+                                    label="Profile"
+                                    name="profile"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                    options={profileList}
+                                    value={adminInfoObj.profile}
+                                    isDisabled={!adminInfoObj.department}
+                                    placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                />
+                                {adminInfoObj.profile &&
+                                <CButton
+                                    id={"profile-details".concat(adminInfoObj.profile.value)}
+                                    variant=""
+                                    name=""
+                                    className="profile-info"
+                                    onClickHandler={() => viewProfileDetails(adminInfoObj.profile.value)}>
+                                    <i className="fa fa-info-circle"/>
+                                </CButton>
+                                }
+                            </Col>
+
+                            <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
                                     id="admin-name"
                                     name="fullName"
                                     type="text"
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event, validity) => onInputChange(event, validity)}
-                                    placeholder="Admin Name"
+                                    placeholder="Name"
                                     value={adminInfoObj.fullName}
                                     required={true}
                                     hasValidation={true}
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     errorMessagePassed={errorMessageForAdminName}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={12} lg={6}>
+                                <CHybridInput
+                                    id="admin-username"
+                                    name="username"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    placeholder="Username"
+                                    value={adminInfoObj.username}
+                                    required={true}
                                 />
                             </Col>
 
@@ -109,18 +158,6 @@ const AdminInfoForm = ({
                                     onChange={(event, validity) => onInputChange(event, validity)}
                                     placeholder="Email"
                                     value={adminInfoObj.email}
-                                    required={true}
-                                />
-                            </Col>
-
-                            <Col sm={12} md={12} lg={6}>
-                                <CHybridInput
-                                    id="admin-username"
-                                    name="username"
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
-                                    placeholder="Username"
-                                    value={adminInfoObj.username}
                                     required={true}
                                 />
                             </Col>
@@ -142,40 +179,63 @@ const AdminInfoForm = ({
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
-                                <CHybridSelect
-                                    id="adminCategory"
-                                    label="Admin Category"
-                                    name="adminCategory"
+                                <CFLabel labelName="Gender" id="gender"/>
+                                <CRadioButton
+                                    checked={adminInfoObj.genderCode === "F"}
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event) => onInputChange(event)}
-                                    options={adminCategoryList}
-                                    value={adminInfoObj.adminCategory}
-                                    placeholder="Select admin category."
+                                    id="female"
+                                    label="Female"
+                                    type="radio"
+                                    name="genderCode"
+                                    value="F"
                                 />
+                                <CRadioButton
+                                    checked={adminInfoObj.genderCode === "M"}
+                                    id="male"
+                                    label="Male"
+                                    type="radio"
+                                    name="genderCode"
+                                    value="M"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                />
+
+                                <CRadioButton
+                                    checked={adminInfoObj.genderCode === "O"}
+                                    id="other"
+                                    label="Other"
+                                    type="radio"
+                                    name="genderCode"
+                                    value="O"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                />
+
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
-                                <CFLabel labelName="Status" id="status"></CFLabel>
+                                <CFLabel labelName="Status" id="status"/>
                                 <CRadioButton
                                     checked={adminInfoObj.status === "Y"}
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
                                     id="radio1"
                                     label="Active"
                                     type="radio"
                                     name="status"
                                     value="Y"
                                     disabled={true}
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event) => onInputChange(event)}
                                     readOnly={true}
                                 />
                                 <CRadioButton
                                     checked={adminInfoObj.status === "N"}
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
                                     id="radio2"
                                     label="Inactive"
                                     type="radio"
                                     name="status"
                                     value="N"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event) => onInputChange(event)}
                                     className="sr-only"
                                     disabled={true}
@@ -190,10 +250,10 @@ const AdminInfoForm = ({
                                     <Col lg={12}>
                                         <Row>
                                             <Col>
-                                            {/* <label>Device Filter</label> */}
-                                                <CCheckbox id="hasMacBinding"
-                                                           label="Device Filter"
+                                                {/* <label>Device Filter</label> */}
+                                                <CCheckbox id="admin-add-hasMacBinding"
                                                            name="hasMacBinding"
+                                                           label="Device Filter"
                                                            className="module"
                                                            checked={adminInfoObj.hasMacBinding}
                                                            onChange={(event) => onInputChange(event)}
@@ -209,7 +269,7 @@ const AdminInfoForm = ({
                                                         variant="outline-secondary"
                                                         className="float-right mb-2"
                                                         onClickHandler={onAddMoreMacId}>
-                                                        <i className="fa fa-plus"></i>&nbsp;Add
+                                                        <i className="fa fa-plus"/>&nbsp;Add
                                                     </CButton>
                                                 </Col> : ''
                                             }
@@ -256,53 +316,6 @@ const AdminInfoForm = ({
                                         }
                                     </Col>
                                 </Row>
-                            </Col>
-
-                            {/* Select modules    */}
-                            <Col sm={12} md={12} lg={12}>
-                                <CFLabel labelName="Modules" id="modules" className=""/>
-                                {moduleList.map((module, index) => (
-                                    <Row key={module.id}>
-                                        <Col>
-                                            <CCheckbox id={"modules" + module.id}
-                                                       label={module.name}
-                                                       name={module.name}
-                                                       className="module"
-                                                       checked={module.isChecked}
-                                                       onChange={() => onModuleChange(module.subDepartmentId, index)}
-                                                       onKeyDown={(event) => onEnterKeyPress(event)}
-                                            />
-                                        </Col>
-                                        {/*{*/}
-                                        {/*    module.isChecked && module.profileList &&*/}
-                                        <Col>
-                                            <div className="module-profile">
-                                                <CHybridSelect
-                                                    id={"profiles" + module.id}
-                                                    label={"Profiles"}
-                                                    name={module.name + "Profiles"}
-                                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                                    onChange={(event) => onProfileChange(event, index)}
-                                                    options={module.profileList}
-                                                    value={module.profileSelected}
-                                                    isDisabled={!module.isChecked}
-                                                    placeholder={module.isChecked ? "Select Profile." : "Select module."}
-                                                />
-                                                {module.profileSelected ?
-                                                    <CButton
-                                                        id={"profile-details".concat(module.profileSelected.value)}
-                                                        variant=""
-                                                        name=""
-                                                        className="profile-info"
-                                                        onClickHandler={() => viewProfileDetails(module.profileSelected.value)}>
-                                                        <i className="fa fa-info-circle"/>
-                                                    </CButton>
-                                                    : ''}
-                                            </div>
-                                        </Col>
-                                        {/*}*/}
-                                    </Row>
-                                ))}
                             </Col>
                         </Row>
                     </Col>
