@@ -35,6 +35,7 @@ const HospitalEditModal = ({
   handleImageUpload,
   setImageShow
 }) => {
+  console.log('file', hospitalData)
   const bodyContent = (
     <>
       <h5 className="title">Edit Hospital Setup</h5>
@@ -46,8 +47,8 @@ const HospitalEditModal = ({
                 <img
                   alt="HOSPITAL IMAGE"
                   src={
-                    hospitalData.fileUri
-                      ? hospitalData.fileUri
+                    hospitalData.hospitalLogoUrl
+                      ? hospitalData.hospitalLogoUrl
                       : DefaulHospitalImage
                   }
                 />
@@ -186,7 +187,7 @@ const HospitalEditModal = ({
                           size="lg"
                           variant="success"
                           className="float-right mb-2"
-                          onClickHandler={(event) =>
+                          onClickHandler={event =>
                             addContactNumber(
                               'contactNumberUpdateRequestDTOS',
                               {
@@ -220,7 +221,7 @@ const HospitalEditModal = ({
                                         {
                                           hospitalContactNumberId: phone.id,
                                           contactNumber: event.target.value,
-                                          status: phone.status
+                                          status:'Y'
                                         },
                                         index
                                       )
@@ -243,7 +244,11 @@ const HospitalEditModal = ({
                                       variant="danger"
                                       className="float-right remove-mac "
                                       onClickHandler={e =>
-                                        removeContactNumber('contactNumberUpdateRequestDTOS', index,'E')
+                                        removeContactNumber(
+                                          'contactNumberUpdateRequestDTOS',
+                                          index,
+                                          'E'
+                                        )
                                       }
                                     >
                                       <i className="fa fa-close"></i>

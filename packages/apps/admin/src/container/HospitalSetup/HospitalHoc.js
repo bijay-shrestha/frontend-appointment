@@ -392,7 +392,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         address,
         panNumber,
         hospitalCode,
-        contactNumberUpdateRequestDTOS,
+        editContactNumberRequestDTOS,
+        remarks
 
       } = this.state.hospitalData
       let formData = new FormData()
@@ -401,6 +402,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         new File([hospitalLogo], name.concat('-picture.jpeg'))
       )
       try {
+        console.log(this.state.editContactNumberRequestDTOS)
         await this.props.editHospital(
           hostpitalSetupApiConstants.EDIT_HOSPITAL,
           {
@@ -409,7 +411,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             address,
             panNumber,
             hospitalCode,
-            contactNumberUpdateRequestDTOS,
+            remarks,
+            contactNumberUpdateRequestDTOS:[...editContactNumberRequestDTOS],
           },
           formData
         )
@@ -476,7 +479,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           //id: null
         }
       })
-      this.searchHospital()
+      this.searchHospital();
     }
 
     setStateValuesForSearch = searchParams => {
