@@ -88,7 +88,9 @@ const ProfileDetails = props => (
                         childLabelRenderer: Statuslabel
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) && props.onPreviewHandler}
+                    getSelectedRows={
+                        // checkIfRoleExists(props.filteredActions, 4) &&
+                         props.onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}

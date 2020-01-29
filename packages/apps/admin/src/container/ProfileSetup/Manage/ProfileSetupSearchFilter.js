@@ -61,7 +61,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     <Col sm={6} md={6} xl={3}>
-                                        <CHybridInput
+                                        <CHybridSelect
                                             id="profile-name"
                                             label="Profile"
                                             name="profile"

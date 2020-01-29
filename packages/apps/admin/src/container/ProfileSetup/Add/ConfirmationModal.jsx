@@ -20,7 +20,7 @@ const ConfirmationModal = props => {
                 }
                 onHide={setShowConfirmModal}
                 centered={false}
-                dialogClassName="preview-roles-modal "
+                dialogClassName="preview-modal "
                 closeButton={true}
         />
     </>;
