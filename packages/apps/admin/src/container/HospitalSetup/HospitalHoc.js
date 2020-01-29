@@ -58,7 +58,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       searchParameters: {
         // code: '',
         // id: null,
-        name: '',
+        name:'',
         status: {value: '', label: 'All'}
       },
       queryParams: {
@@ -304,7 +304,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    searchHospitalForDropDown = () => {
+    searchHospitalForDropDown = async() => {
     try{
      await this.props.fetchActiveHospitalsForDropdown(hostpitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
     }catch(e){
@@ -315,7 +315,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     searchHospital = async page => {
       const {code, name, status, id} = this.state.searchParameters
       let searchData = {
-        name: name,
+        name: name.value?name.label:name,
         code: code,
         status: status.value,
         id: id

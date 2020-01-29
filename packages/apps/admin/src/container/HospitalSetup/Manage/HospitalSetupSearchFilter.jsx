@@ -48,7 +48,6 @@ class HospitalSetupSearchFilter extends PureComponent {
                   name="Reset"
                   onClickHandler={resetSearchForm}
                 >
-                  {' '}
                   <i className="fa fa-refresh" />
                 </CButton>
               </div>
@@ -138,7 +137,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.name}
+                      {searchParameters.name.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
