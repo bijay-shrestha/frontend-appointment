@@ -7,7 +7,7 @@ import Statuslabel from './comp/StatusLabel'
 import TableAction from './comp/TableAction'
 
 const ProfileDetails = props => (
-    <div className="profile-details">
+    <div className="manage-details">
         <h5 className="title">Profile Details</h5>
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>

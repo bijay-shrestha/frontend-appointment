@@ -14,12 +14,12 @@ import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
 import {profileSetupAPIConstants} from '../ProfileSetupAPIConstants';
 import {UserMenuUtils} from "@frontend-appointment/helpers";
-
+import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 const {
     FETCH_DEPARTMENTS_FOR_DROPDOWN,
     FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID,
     CREATE_PROFILE
-} = profileSetupAPIConstants;
+} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 class ProfileAdd extends PureComponent {
 
@@ -339,7 +339,7 @@ class ProfileAdd extends PureComponent {
                 {/* <Tabs/> */}
 
                 <div className=" ">
-                    <Container className="bg-white add-profile " fluid>
+                    <Container className="bg-white add-container " fluid>
 
                         <Row>
                             <ProfileInfoForm
