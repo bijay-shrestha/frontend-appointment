@@ -223,7 +223,8 @@ const HospitalEditModal = ({
                                           contactNumber: event.target.value,
                                           status:'Y'
                                         },
-                                        index
+                                        index,
+                                        'E'
                                       )
                                     }
                                   />

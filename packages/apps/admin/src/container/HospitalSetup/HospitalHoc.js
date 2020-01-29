@@ -24,6 +24,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
   class HospitalSetup extends React.PureComponent {
     state = {
       hospitalData: {
+        id:'',
         name: '',
         address: '',
         panNumber: '',
@@ -33,7 +34,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         hospitalLogoUrl: '',
         contactNumber: [],
         contactNumberUpdateRequestDTOS: [],
-        editContactNumberRequestDTOS:[]
+        editContactNumberRequestDTOS: []
       },
       formValid: false,
       nameValid: false,
@@ -90,6 +91,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     resetHospitalStateValues = () => {
       this.setState({
         hospitalData: {
+          id:'',
           name: '',
           address: '',
           panNumber: '',
@@ -97,7 +99,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           hospitalCode: '',
           contactNumber: [],
           contactNumberUpdateRequestDTOS: [],
-          editContactNumberRequestDTOS:[]
+          editContactNumberRequestDTOS: []
         },
         hospitalLogo: '',
         formValid: false,
@@ -145,7 +147,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           hospitalData.contactNumberUpdateRequestDTOS.length
       else formValidity = formValidity && hospitalData.contactNumber.length
 
-      console.log('Form Valid',formValidity);
+      console.log('Form Valid', formValidity)
       this.setState({
         formValid: formValidity
       })
@@ -155,15 +157,15 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       let hospitalData = {...this.state.hospitalData}
       hospitalData[fieldName].push(value)
       hospitalData['editContactNumberRequestDTOS'].push(value)
-        this.setTheState('hospitalData', hospitalData)
+      this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
 
     removeContactNumber = (fieldName, idx, eventType) => {
       let hospitalData = {...this.state.hospitalData}
-         hospitalData[fieldName].splice(idx, 1)
-      if(eventType === 'E')
-        hospitalData['editContactNumberRequestDTOS'][idx]['status']='N';
+      hospitalData[fieldName].splice(idx, 1)
+      if (eventType === 'E')
+        hospitalData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
       this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
@@ -171,8 +173,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     editContactNumber = (fieldName, value, idx, eventType) => {
       let hospitalData = {...this.state.hospitalData}
       hospitalData[fieldName][idx] = value
-      hospitalData['editContactNumberRequestDTOS'][idx]=value
-      this.setTheState('hospitalData', hospitalData,)
+      hospitalData['editContactNumberRequestDTOS'][idx] = value
+      this.setTheState('hospitalData', hospitalData)
       this.checkFormValidity(eventType)
     }
 
@@ -273,9 +275,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           contactNumberResponseDTOS,
           hospitalCode,
           fileUri
-
         } = this.props.HospitalPreviewReducer.hospitalPreviewData
-        let formValid = this.state.formValid;
+        let formValid = this.state.formValid
         if (remarks) formValid = true
         this.setState({
           showEditModal: true,
@@ -283,19 +284,19 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             id: id,
             name: name,
             status: status,
-            panNumber:panNumber,
+            panNumber: panNumber,
             address: address,
-            hospitalCode:hospitalCode,
-            contactNumberUpdateRequestDTOS:[...contactNumberResponseDTOS],
-            editContactNumberRequestDTOS:[...contactNumberResponseDTOS],
-            hospitalLogoUrl:fileUri,
-            hospitalLogo:new File([5120],fileUri),
-            hospitalImage:new File([5120],fileUri),
-            hospitalImageCroppedUrl: fileUri,
-
+            hospitalCode: hospitalCode,
+            remarks:remarks,
+            contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
+            editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
+            hospitalLogoUrl: fileUri,
+            hospitalLogo: new File([5120], fileUri),
+            hospitalImage: new File([5120], fileUri),
+            hospitalImageCroppedUrl: fileUri
           },
           formValid: formValid,
-          nameValid:true
+          nameValid: true
         })
       } catch (e) {
         console.log(e)
@@ -370,7 +371,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           sN: index + 1,
           name: spec.name.toUpperCase()
         }))
-        console.log('New HospitalList',newHospitalList)
+      console.log('New HospitalList', newHospitalList)
       return newHospitalList
     }
 
@@ -393,8 +394,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         panNumber,
         hospitalCode,
         editContactNumberRequestDTOS,
-        remarks
-
+        remarks,
+        id
       } = this.state.hospitalData
       let formData = new FormData()
       formData.append(
@@ -412,7 +413,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             panNumber,
             hospitalCode,
             remarks,
-            contactNumberUpdateRequestDTOS:[...editContactNumberRequestDTOS],
+            id,
+            contactNumberUpdateRequestDTOS: [...editContactNumberRequestDTOS]
           },
           formData
         )
@@ -479,7 +481,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           //id: null
         }
       })
-      this.searchHospital();
+      this.searchHospital()
     }
 
     setStateValuesForSearch = searchParams => {
@@ -514,8 +516,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
     render () {
-      console.log(this.props.HospitalSearchReducer);
-      console.log('Preview Data',this.props.HospitalSearchReducer)
+      console.log(this.props.HospitalSearchReducer)
+      console.log('Preview Data', this.props.HospitalSearchReducer)
       const {
         hospitalData,
         showAlert,

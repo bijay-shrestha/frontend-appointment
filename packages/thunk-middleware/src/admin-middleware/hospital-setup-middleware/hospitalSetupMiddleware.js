@@ -37,7 +37,7 @@ export const editHospital = (path, data,formData) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage))
+    dispatch(HospitalSetupActions.createHospitalEditError(e.message))
     throw e
   }
 }
@@ -47,7 +47,7 @@ export const previewHospital = (path, id) => async dispatch => {
   try {
     const response = await Axios.getWithPathVariables(path, id)
     dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
-    return response
+    return response;
   } catch (e) {
     dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage))
     throw e
