@@ -518,15 +518,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     async componentDidMount () {
       if (type === 'M') {
         await this.searchHospital()
-        //this.setFormValidManage();
+        await this.searchHospitalForDropDown()
       }
     }
     setImageShowModal = () =>
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
     render () {
-      console.log(this.props.HospitalSearchReducer)
-      console.log('Preview Data', this.props.HospitalSearchReducer)
       const {
         hospitalData,
         showAlert,

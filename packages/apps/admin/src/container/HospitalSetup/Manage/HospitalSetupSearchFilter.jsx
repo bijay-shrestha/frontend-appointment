@@ -21,8 +21,8 @@ class HospitalSetupSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.onSearchClick()
-    this.toggleSearchForm()
+    this.props.onSearchClick();
+    this.toggleSearchForm();
   }
 
   render () {

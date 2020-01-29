@@ -74,7 +74,7 @@ export const hostpitalSetupApiConstants = {
     DELETE_HOSPITAL: BASE.concat(HP_BASE),
     DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + "/dropdown"),
     FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat("/dropdown/active")),
-    SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + "/dropdown/active")
+    SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + "/active/min")
 };
 
 export const consultantSetupApiConstants = {
