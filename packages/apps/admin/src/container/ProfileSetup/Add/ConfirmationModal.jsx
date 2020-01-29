@@ -1,5 +1,5 @@
 import React from 'react';
-import ModalContent from "../commons/ModalContent";
+import ModalContent from "../../CommonComponents/ModalContent";
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 const ConfirmationModal = props => {
@@ -16,7 +16,8 @@ const ConfirmationModal = props => {
                     variant="primary"
                     size="lg"
                     className="float-right"
-                    onClickHandler={onConfirmClick}/>}
+                    onClickHandler={onConfirmClick}/>
+                }
                 onHide={setShowConfirmModal}
                 centered={false}
                 dialogClassName="preview-roles-modal "

@@ -8,7 +8,7 @@ const UpdateProfileModal = ({
                                 showEditModal,
                                 setShowEditModal,
                                 onEnterKeyPress,
-                                departments,
+                                hospitalList,
                                 onInputChange,
                                 profileInfoObj,
                                 errorMessageForProfileName,
@@ -53,7 +53,7 @@ const UpdateProfileModal = ({
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}
-                    departmentList={departments}
+                    hospitalList={hospitalList}
                     onInputChange={onInputChange}
                     profileInfoObj={profileInfoObj}
                     errorMessageForProfileName={errorMessageForProfileName}

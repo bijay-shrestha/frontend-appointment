@@ -27,7 +27,9 @@ const {
     CLEAR_DEPARTMENT_EDIT_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_PREVIEW_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_DELETE_ERROR_MESSAGE,
-    CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE
+    CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE,
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR,
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS
 } = departmentSetupConstants;
 
 export const departmentFetchingStart = () => {
@@ -236,5 +238,23 @@ export const clearDepartmentDeleteErrorMessage = () => {
 export const clearDepartmentDeleteSuccessMessage = () => {
     return {
         type: CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE
+    }
+};
+
+export const fetchDepartmentByHospitalIdSuccess = data => {
+    return {
+        type: FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchDepartmentByHospitalIdError = errorMsg => {
+    return {
+        type: FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
     }
 };

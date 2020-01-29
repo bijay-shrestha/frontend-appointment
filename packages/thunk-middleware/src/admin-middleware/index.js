@@ -5,11 +5,10 @@ import {
     deleteProfile,
     editProfile,
     fetchActiveProfileListForDropdown,
-    fetchDepartments,
     fetchProfileList,
     fetchProfileListBySubDepartmentId,
-    fetchSubDepartmentsByDepartmentId,
-    previewProfile
+    previewProfile,
+    fetchAllProfileListForSearchDropdown
 } from "./profile-setup-middleware/profileSetupMiddleware";
 
 import {
@@ -28,13 +27,12 @@ import * as ConsultantMiddleware from './consultant-setup-middleware/consultantS
 import * as departmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
 
 export {
-    fetchDepartments,
-    fetchSubDepartmentsByDepartmentId,
     createProfile,
     fetchProfileList,
     deleteProfile,
     editProfile,
     previewProfile,
+    fetchAllProfileListForSearchDropdown,
     clearSuccessErrorMessagesFromStore,
     fetchActiveProfileListForDropdown,
     fetchProfileListBySubDepartmentId,

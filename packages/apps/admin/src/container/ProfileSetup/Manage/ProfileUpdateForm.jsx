@@ -4,7 +4,7 @@ import {Col} from "react-bootstrap";
 
 const ProfileUpdateForm = ({
                                onEnterKeyPress,
-                               departmentList,
+                               hospitalList,
                                onInputChange,
                                profileInfoObj,
                                errorMessageForProfileName,
@@ -43,26 +43,25 @@ const ProfileUpdateForm = ({
                 />
 
                 <CHybridSelect
+                    id="hospital"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    label="Hospital"
+                    name="selectedHospital"
+                    onChange={(event) => onInputChange(event)}
+                    options={hospitalList}
+                    value={profileInfoObj.hospitalValue}
+                    placeholder={!profileInfoObj.departmentValue ? 'Select department first.' : 'Select Sub Department'}
+                />
+
+                <CHybridSelect
                     id="department"
                     label="Department"
                     name="selectedDepartment"
                     onKeyDown={(event) => onEnterKeyPress(event)}
                     onChange={(event) => onInputChange(event)}
-                    options={departmentList}
+                    options={profileInfoObj.departmentList}
                     value={profileInfoObj.departmentValue}
                     placeholder="Select department"
-                />
-
-                <CHybridSelect
-                    id="sub-department"
-                    isDisabled={!profileInfoObj.departmentValue}
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Sub Department"
-                    name="selectedSubDepartment"
-                    onChange={(event) => onInputChange(event)}
-                    options={profileInfoObj.subDepartmentList}
-                    value={profileInfoObj.subDepartmentValue}
-                    placeholder={!profileInfoObj.departmentValue ? 'Select department first.' : 'Select Sub Department'}
                 />
 
                 <CFLabel labelName="Status" id="status"></CFLabel>
@@ -74,6 +73,7 @@ const ProfileUpdateForm = ({
                     name="status"
                     value="Y"
                     onChange={(event) => onInputChange(event)}
+                    onKeyDown={(event) => onEnterKeyPress(event)}
                     // bsPrefix="form-radio"
                 />
                 <CRadioButton
@@ -84,6 +84,18 @@ const ProfileUpdateForm = ({
                     name="status"
                     value="N"
                     onChange={(event) => onInputChange(event)}
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                />
+
+                <CHybridTextArea
+                    id="remarks"
+                    name="remarks"
+                    onChange={onInputChange}
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    placeholder="Remarks"
+                    value={profileInfoObj.remarks}
+                    max={200}
+                    required={true}
                 />
             </CForm>
         </Col>

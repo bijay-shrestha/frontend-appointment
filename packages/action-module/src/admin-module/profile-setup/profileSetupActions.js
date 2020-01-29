@@ -33,7 +33,9 @@ const {
     FETCH_PROFILE_LIST_FOR_DROPDOWN_PENDING,
     FETCH_PROFILE_LIST_FOR_DROPDOWN_SUCCESS,
     FETCH_PROFILE_LIST_FOR_DROPDOWN_ERROR,
-    CLEAR_ERROR_MESSAGE_FOR_DROPDOWN
+    CLEAR_ERROR_MESSAGE_FOR_DROPDOWN,
+    FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_SUCCESS,
+    FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_ERROR
 } = profileSetupConstants;
 
 export const departmentFetchingStart = () => {
@@ -307,5 +309,23 @@ export const fetchProfileListForDropDownActiveError = errorMsg => {
 export const clearDropdownErrorMessage = () => {
     return {
         type: CLEAR_ERROR_MESSAGE_FOR_DROPDOWN
+    }
+};
+
+export const fetchProfileListForSearchDropDownSuccess = data => {
+    return {
+        type: FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchProfileListForSearchDropDownError = errorMsg => {
+    return {
+        type: FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
     }
 };
