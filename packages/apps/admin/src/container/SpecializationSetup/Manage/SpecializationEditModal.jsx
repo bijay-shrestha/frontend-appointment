@@ -32,7 +32,9 @@ const DepartmentEditModal = ({
               id="specialization-name"
               name="name"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) => onInputChange(event, validity)}
+              onChange={(event, validity) =>
+                onInputChange(event, validity, 'E')
+              }
               placeholder="Specialization Name"
               value={specializationData.name}
               required={true}
@@ -46,7 +48,9 @@ const DepartmentEditModal = ({
               id="Specialization Code"
               name="code"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) => onInputChange(event, validity)}
+              onChange={(event, validity) =>
+                onInputChange(event, validity, 'E')
+              }
               placeholder="Specialization Code"
               value={specializationData.code}
               required={true}
@@ -66,7 +70,7 @@ const DepartmentEditModal = ({
               type="radio"
               value="Y"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event)}
+              onChange={event => onInputChange(event, 'E')}
             />
             <CRadioButton
               checked={specializationData.status === 'N'}
@@ -76,7 +80,7 @@ const DepartmentEditModal = ({
               type="radio"
               value="N"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event)}
+              onChange={event => onInputChange(event, 'E')}
             />
           </Col>
           <Col sm={12} md={12} lg={4}>

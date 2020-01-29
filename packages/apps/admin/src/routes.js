@@ -9,8 +9,14 @@ const AddProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
     loading: () => getLoader()
 });
+
 const AddDepartmentComponent = Loadable({
     loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
+    loading: () => getLoader()
+});
+
+const AddHospitalComponent = Loadable({
+    loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
     loading: () => getLoader()
 });
 
@@ -64,6 +70,11 @@ const ManageDepartmentComponent = Loadable({
 
 const ManageSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Manage/SpecializationManage'),
+    loading: () => getLoader()
+});
+
+const ManageHospitalComponent = Loadable({
+    loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
     loading: () => getLoader()
 });
 
@@ -184,6 +195,21 @@ export const routes = [
     //     "hasTab": false,
     //     "isLink": false,
     //     "name": "Unauthorized"
-    // }
-
+    // },
+    {
+        "path":"/admin/hospital/add",
+        "component":AddHospitalComponent,
+        "icon":"",
+        "hasTab":true,
+        "isLink":true,
+        "name":"Add"
+    },
+    {
+        "path":"/admin/hospital/manage",
+        "component":ManageHospitalComponent,
+        "icon":"",
+        "hasTab":true,
+        "isLink":true,
+        "name":"Add"
+    }
 ];

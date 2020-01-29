@@ -68,7 +68,7 @@ export const specializationSetupAPIConstants = {
 export const hostpitalSetupApiConstants = {
     CREATE_HOSPITAL: BASE.concat(HP_BASE),
     SEARCH_HOSPITAL: BASE.concat(HP_BASE + "/search"),
-    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/details"),
+    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/detail"),
     EDIT_HOSPITAL: BASE.concat(HP_BASE),
     EXPORT_HOSPITAL_EXCEL: BASE.concat(HP_BASE + "/excel"),
     DELETE_HOSPITAL: BASE.concat(HP_BASE),
@@ -80,7 +80,7 @@ export const hostpitalSetupApiConstants = {
 export const consultantSetupApiConstants = {
     CREATE_CONSULTANT: BASE.concat(CN_BASE),
     SEARCH_CONSULTANT: BASE.concat(CN_BASE + "/search"),
-    FETCH_CONSULTANT: BASE.concat(CN_BASE + "/details"),
+    FETCH_CONSULTANT: BASE.concat(CN_BASE + "/detail"),
     EDIT_CONSULTANT: BASE.concat(CN_BASE),
     EXPORT_CONSULTANT: BASE.concat(CN_BASE + "/excel"),
     DELETE_CONSULTANT: BASE.concat(CN_BASE),

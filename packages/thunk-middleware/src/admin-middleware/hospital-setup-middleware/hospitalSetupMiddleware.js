@@ -1,11 +1,20 @@
 import {HospitalSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 
-export const createHospital = (path, profileData) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalPending());
+export const createHospital = (
+  path,
+  hospitalData,
+  formData
+) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalPending())
   try {
-    let response = await Axios.postRaw(path, profileData);
-    dispatch(HospitalSetupActions.createHospitalSuccess());
+    const response = await Axios.postForMultipart(
+      path,
+      'request',
+      hospitalData,
+      formData
+    )
+    dispatch(HospitalSetupActions.createHospitalSuccess())
     return response
   } catch (e) {
     dispatch(HospitalSetupActions.createHospitalError(e.errorMessage))
@@ -21,14 +30,14 @@ export const clearHospitalCreateMessage = () => dispatch => {
   dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
 };
 
-export const editHospital = (path, data) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalEditPending());
+export const editHospital = (path, data,formData) => async dispatch => {
+  dispatch(HospitalSetupActions.createHospitalEditPending())
   try {
-    const response = await Axios.put(path, data);
-    dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
+    const response = await Axios.putWithMultiPart(path, 'request', data, formData)
+    dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage));
+    dispatch(HospitalSetupActions.createHospitalEditError(e.message))
     throw e
   }
 };
@@ -36,9 +45,9 @@ export const editHospital = (path, data) => async dispatch => {
 export const previewHospital = (path, id) => async dispatch => {
   dispatch(HospitalSetupActions.createHospitalPreviewPending());
   try {
-    const response = await Axios.getWithPathVariables(path, id);
-    dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data));
-    return response
+    const response = await Axios.getWithPathVariables(path, id)
+    dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
+    return response;
   } catch (e) {
     dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage));
     throw e

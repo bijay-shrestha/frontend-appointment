@@ -16,7 +16,8 @@ const CButton = props => {
         size,
         type,
         block,
-        bsPrefix
+        bsPrefix,
+        value
     } = props;
     return (
         <>
@@ -33,6 +34,7 @@ const CButton = props => {
                 type={type}
                 block={block}
                 bsPrefix={bsPrefix}
+                value={value}
             >
                 {name}
                 {children}
