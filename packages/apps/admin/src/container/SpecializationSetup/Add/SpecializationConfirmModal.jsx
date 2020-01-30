@@ -18,8 +18,18 @@ const SpecializationConfirmationModal = props => {
         }
         onHide={setShowModal}
         centered={false}
-        dialogClassName="preview-roles-modal"
+        dialogClassName="preview-modal"
         footerChildren={
+          <>
+          <CButton
+          name="Cancel"
+          id=""
+          variant="outline-secondary"
+          size="lg"
+          className="float-right btn-action"
+          onClickHandler={setShowModal}
+      
+        />
           <CButton
             id="specializationConfirm"
             variant="primary"
@@ -27,6 +37,7 @@ const SpecializationConfirmationModal = props => {
             className="float-right btn-action"
             onClickHandler={onConfirmClick}
           />
+          </>
         }
         closeButton={true}
       />

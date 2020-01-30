@@ -432,7 +432,7 @@ class DepartmentManage extends PureComponent {
 
         const {deleteErrorMessage} = this.props.DepartmentDeleteReducer;
 
-        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         return <>
             <div className="">
@@ -506,7 +506,7 @@ export default ConnectHoc(
         'DepartmentSetupReducer',
         'DepartmentDeleteReducer',
         'DepartmentEditReducer',
-        'HospitalSetupReducer'
+        'HospitalDropdownReducer'
     ],
     {
         fetchDepartmentList,

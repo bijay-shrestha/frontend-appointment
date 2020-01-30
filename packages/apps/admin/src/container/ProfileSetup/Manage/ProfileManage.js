@@ -690,7 +690,7 @@ class ProfileManage extends PureComponent {
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 
-        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         const {
             selectedDepartment,
@@ -817,7 +817,7 @@ export default ConnectHoc(
         'ProfileDeleteReducer',
         'ProfileEditReducer',
         'DepartmentSetupReducer',
-        'HospitalSetupReducer'
+        'HospitalDropdownReducer'
     ],
     {
         fetchProfileList,

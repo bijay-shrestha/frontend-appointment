@@ -31,12 +31,12 @@ const UpdateProfileModal = ({
                     <CButton
                         id="submit-update-button"
                         disabled={!formValid}
-                        name="Update Profile"
+                        name="Update"
                         size="lg"
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
-                             variant="light"
+                             variant="outline-secondary"
                              size="lg"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
@@ -76,7 +76,7 @@ const UpdateProfileModal = ({
                     size="xl"
                     bodyChildren={body}
                     onHide={setShowEditModal}
-                    dialogClassName="preview-roles-modal"
+                    dialogClassName="preview-modal"
                     footerChildren={footerChildren}
             />
         </>

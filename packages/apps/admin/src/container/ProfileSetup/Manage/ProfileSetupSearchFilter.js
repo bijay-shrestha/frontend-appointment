@@ -60,7 +60,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                         <CForm id='profile-info' className='profile-info mt-4'>
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={6} md={3} xl={3}>
+                                    <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="profile-name"
                                             label="Profile"
@@ -72,7 +72,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                         />
                                     </Col>
-                                    <Col sm={6} md={3} xl={3}>
+                                    <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="hospital"
                                             label="Hospital"
@@ -84,7 +84,8 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             placeholder={'Select Hospital.'}
                                         />
                                     </Col>
-                                    <Col sm={6} md={3} xl={3}>
+
+                                    <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="department"
                                             label="Department"
@@ -96,7 +97,8 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             placeholder="Select department."
                                         />
                                     </Col>
-                                    <Col sm={6} md={3} xl={3}>
+
+                                    <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="status"
                                             name="status"
@@ -113,13 +115,13 @@ class ProfileSetupSearchFilter extends PureComponent {
 
                                     <Col
                                         sm={12}
-                                        md={{span: 6, offset: 6}}
-                                        xl={{span: 6, offset: 6}}
+                                        // md={{span: 8, offset: 4}}
+                                        // xl={{span: 6, offset: 6}}
                                     >
                                         <div className="pull-right">
                                             <CButton
                                                 id="search-profiles"
-                                                variant='light'
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 className=' btn-action mr-2'
                                                 // children={<i className='fa fa-chevron-up fa-lg'/>}

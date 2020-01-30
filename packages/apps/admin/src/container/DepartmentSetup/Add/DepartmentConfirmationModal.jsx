@@ -12,12 +12,23 @@ const DepartmentConfirmationModal = ({showModal, setShowModal, departmentData, o
                 onHide={setShowModal}
                 centered={false}
                 dialogClassName="preview-modal"
-                footerChildren={<CButton
+                footerChildren={
+                    <>
+                    <CButton
+                    id=""
+                    name="Cancel"
+                    variant="outline-secondary"
+                    size="lg"
+                    className="float-right btn-action"
+                    onClickHandler={showModal}/>
+                    <CButton
                     id="departmentConfirm"
                     variant="primary"
                     size="lg"
                     className="float-right btn-action"
-                    onClickHandler={onConfirmClick}/>}
+                    onClickHandler={onConfirmClick}/>
+                    </>
+                }
                 closeButton={true}/>
     </>
 };
