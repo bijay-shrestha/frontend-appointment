@@ -780,7 +780,7 @@ class AdminManage extends PureComponent {
                 macIdList: [...macIdList],
                 adminAvatar: adminAvatar,
                 adminAvatarUrl: adminAvatarUrl,
-                hospitalList: [...this.props.HospitalSetupReducer.hospitalsForDropdown],
+                hospitalList: [...this.props.HospitalDropdownReducer.hospitalsForDropdown],
                 departmentList: [...this.props.DepartmentSetupReducer.departmentsByHospital],
                 profileList: [...this.props.ProfileSetupReducer.activeProfilesByDepartmentId],
                 remarks: remarks
@@ -829,7 +829,7 @@ class AdminManage extends PureComponent {
 
         const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer;
 
-        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 
@@ -937,7 +937,7 @@ export default ConnectHoc(AdminManage,
         'AdminDeleteReducer',
         'AdminEditReducer',
         'AdminPreviewReducer',
-        'HospitalSetupReducer',
+        'HospitalDropdownReducer',
         'DepartmentSetupReducer',
         'ProfileSetupReducer',
         'ProfilePreviewReducer',
