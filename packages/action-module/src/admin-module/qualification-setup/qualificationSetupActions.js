@@ -28,7 +28,10 @@ const {
   FETCH_COUNTRY_CODE_DROPDOWN_PENDING,
   FETCH_COUNTRY_CODE_DROPDOWN_ERROR,
   FETCH_UNIVERSITY_DROPDOWN_SUCCESS,
-  FETCH_UNIVERSITY_DROPDOWN_ERROR
+  FETCH_UNIVERSITY_DROPDOWN_ERROR,
+  FETCH_QF_DROPDOWN_SUCCESS,
+  FETCH_QF_DROPDOWN_ERROR,
+  FETCH_UNIVERSITY_DROPDOWN_PENDING
 } = qualificationSetupConstants
 
 export const clearQualificationCreateMessage = () => {
@@ -270,6 +273,24 @@ export const universityFetchForDropdownSuccess = data => {
 export const universitlyFetchForDropdownError = message => {
   return {
     type: FETCH_UNIVERSITY_DROPDOWN_ERROR,
+    payload: {
+      errorMessage: message
+    }
+  }
+}
+
+export const qualificationFetchForDropdownSuccess = data => {
+  return {
+    type: FETCH_QF_DROPDOWN_SUCCESS,
+    payload: {
+      data
+    }
+  }
+}
+
+export const qualificationFetchForDropdownError = message => {
+  return {
+    type: FETCH_QF_DROPDOWN_ERROR,
     payload: {
       errorMessage: message
     }
