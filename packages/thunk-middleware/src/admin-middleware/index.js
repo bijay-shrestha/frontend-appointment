@@ -25,7 +25,7 @@ import * as SpecializationSetupMiddleware from './specialization-setup-middlewar
 import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
 import * as ConsultantMiddleware from './consultant-setup-middleware/consultantSetupMiddleware';
 import * as departmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
-
+import * as QualificationSetupMiddleware from "./qualification-setup-middleware/qualificationSetupMiddleware";
 export {
     createProfile,
     fetchProfileList,
@@ -47,5 +47,6 @@ export {
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
     ConsultantMiddleware,
-    departmentSetupMiddleware
+    departmentSetupMiddleware,
+    QualificationSetupMiddleware
 }
