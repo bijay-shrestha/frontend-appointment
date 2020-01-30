@@ -343,7 +343,7 @@ class AdminAdd extends PureComponent {
             profileData
         } = this.state;
 
-        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
         const {dropdownErrorMessage} = this.props.ProfileSetupReducer;
         const {isCreateAdminLoading} = this.props.AdminSetupReducer;
 
@@ -461,7 +461,7 @@ class AdminAdd extends PureComponent {
 
 export default ConnectHoc(AdminAdd,
     [
-        'HospitalSetupReducer',
+        'HospitalDropdownReducer',
         'ProfileSetupReducer',
         'AdminSetupReducer',
         'ProfilePreviewReducer',
