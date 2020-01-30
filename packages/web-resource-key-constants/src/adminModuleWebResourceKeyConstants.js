@@ -114,5 +114,5 @@ export const countrySetupAliasCode = {
 }
 
 export const universitySetupAliasCode = {
-  FETCH_COUNTRY_CODE: BASE.concat(UN_BASE)
+  FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE)
 }
