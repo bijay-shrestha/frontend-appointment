@@ -137,7 +137,7 @@ class DepartmentAdd extends PureComponent {
             errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal
         } = this.state;
 
-        const {hospitalsForDropdown} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         return <>
             <div className=" ">
@@ -208,7 +208,7 @@ class DepartmentAdd extends PureComponent {
 
 export default ConnectHoc(DepartmentAdd,
     ['DepartmentSetupReducer',
-        'HospitalSetupReducer',], {
+        'HospitalDropdownReducer',], {
         createDepartment,
         clearDepartmentSuccessErrorMessagesFromStore,
         fetchActiveHospitalsForDropdown

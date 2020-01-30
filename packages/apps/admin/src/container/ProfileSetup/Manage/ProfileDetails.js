@@ -10,7 +10,7 @@ import {ActionFilterUtils} from "@frontend-appointment/helpers";
 const {checkIfRoleExists} = ActionFilterUtils;
 
 const ProfileDetails = props => (
-    <div className="profile-details">
+    <div className="manage-details">
         <h5 className="title">Profile Details</h5>
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
@@ -88,7 +88,9 @@ const ProfileDetails = props => (
                         childLabelRenderer: Statuslabel
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) && props.onPreviewHandler}
+                    getSelectedRows={
+                        // checkIfRoleExists(props.filteredActions, 4) &&
+                         props.onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}

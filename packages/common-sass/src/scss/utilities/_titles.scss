@@ -1,21 +1,28 @@
 h5.title{
 
     text-transform: uppercase;
-    color:lighten($body-color,0%);
+    color:darken($gray-900,0%);
     margin-bottom:14px;
     font-size:1rem;
     position: relative;
     display: inline-block;
+    letter-spacing: 0.04rem;
+    text-transform: capitalize;
     //  padding-left:8px;
     // margin-left:-20px;
 
-    // &:before{
+     &:before{
     //     content:"";
     //     position: absolute;
-    //     top:0px;
-    //     bottom:0px;
+    //     display: inline-block;
+    //     bottom:-5px;
     //     left:0;
-    //     border-left:2px solid lighten($body-color,0%);
+    //     width:20px;
+    //     height: 2px;
+    //     background-color:$cogent;
+    //     // border-left:2px solid lighten($body-color,0%);
+    // border-bottom-left-radius: 2px;
+    // border-bottom-right-radius: 2px;
 
-    // }
+    }
 }

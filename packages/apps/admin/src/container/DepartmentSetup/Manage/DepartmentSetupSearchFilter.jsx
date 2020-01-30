@@ -113,7 +113,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                         <div className="pull-right">
                                             <CButton
                                                 id="search-profiles"
-                                                variant='light'
+                                                variant='outline-secondary'
                                                 size='sm'
                                                 className=' btn-action mr-2'
                                                 // children={<i className='fa fa-chevron-up fa-lg'/>}
