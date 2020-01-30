@@ -99,9 +99,9 @@ export const qualificationSetupApiConstants = {
 };
 
 export const qualificationSetupAliasCode = {
-    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE); 
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE) 
 }
 
 export const countrySetupAliasCode = {
-    FETCH_COUNTRY_CODE:BASE.concat(CNTRY_BASE);
+    FETCH_COUNTRY_CODE:BASE.concat(CNTRY_BASE)
 }
