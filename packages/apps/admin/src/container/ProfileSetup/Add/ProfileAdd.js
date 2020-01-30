@@ -319,7 +319,7 @@ class ProfileAdd extends PureComponent {
     render() {
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
-        const {hospitalsForDropdown,} = this.props.HospitalSetupReducer;
+        const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
 
         const {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
@@ -330,7 +330,8 @@ class ProfileAdd extends PureComponent {
         return (
             <>
                 <div className=" ">
-                    <Container className="bg-white add-profile " fluid>
+                    <Container className="bg-white add-container " fluid>
+
                         <Row>
                             <ProfileInfoForm
                                 onEnterKeyPress={this.handleEnter}
@@ -417,7 +418,7 @@ export default ConnectHoc(ProfileAdd,
     [
         'ProfileSetupReducer',
         'DepartmentSetupReducer',
-        'HospitalSetupReducer'
+        'HospitalDropdownReducer'
     ], {
         fetchActiveDepartmentsForDropdown,
         createProfile,

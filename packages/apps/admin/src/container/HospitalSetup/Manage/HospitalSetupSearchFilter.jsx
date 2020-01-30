@@ -7,7 +7,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
-class SpecializationSetupSearchFilter extends PureComponent {
+class HospitalSetupSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -21,8 +21,8 @@ class SpecializationSetupSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.onSearchClick()
-    this.toggleSearchForm()
+    this.props.onSearchClick();
+    this.toggleSearchForm();
   }
 
   render () {
@@ -30,16 +30,16 @@ class SpecializationSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      handleEnter
+      handleEnter,
+      hospitalDropdown
     } = this.props
-    console.log('Search Parameters', searchParameters)
     return (
       <>
         {this.state.isSearchFormExpanded ? (
           // TODO: TO BE MADE DYNAMIC
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Specialization</h5>
+              <h5 className="title">Search Hospital</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -48,34 +48,25 @@ class SpecializationSetupSearchFilter extends PureComponent {
                   name="Reset"
                   onClickHandler={resetSearchForm}
                 >
-                  {' '}
                   <i className="fa fa-refresh" />
                 </CButton>
               </div>
             </div>
-            <CForm id="specialization-info" className="profile-info mt-4">
+            <CForm id="hospital-info" className="profile-info mt-4">
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="specialization-name"
+                  <CHybridSelect
+                      id="name"
                       name="name"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Specialization Name"
                       value={searchParameters.name}
+                      options={hospitalDropdown}
+                      label="Status"
                     />
                   </Col>
-                  <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="specialization-code"
-                      name="code"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
-                      placeholder="Specialization Code"
-                      value={searchParameters.code}
-                    />
-                  </Col>
+
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="status"
@@ -99,7 +90,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     <div className="pull-right">
                       <CButton
                         id="search-profiles"
-                        variant="outline-secondary"
+                        variant="light"
                         size="sm"
                         className=" btn-action mr-2"
                         // children={<i className='fa fa-chevron-up fa-lg'/>}
@@ -142,27 +133,11 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Specialization Name</Tooltip>
+                      <Tooltip {...props}>Hospital Name</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.name}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-
-              {searchParameters.code && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    delay={{show: 250, hide: 400}}
-                    overlay={props => (
-                      <Tooltip {...props}>Specialization Code</Tooltip>
-                    )}
-                  >
-                    <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.code}
+                      {searchParameters.name.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -195,4 +170,4 @@ class SpecializationSetupSearchFilter extends PureComponent {
   }
 }
 
-export default SpecializationSetupSearchFilter
+export default HospitalSetupSearchFilter

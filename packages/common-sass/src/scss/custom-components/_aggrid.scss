@@ -18,7 +18,7 @@
   $hover-color             : lighten($cogent, 45%);
   $border-color            :$cogent-border;
   $header-background-color :$white;
-  $header-foreground-color :darken($body-color, 10%);
+  $header-foreground-color :lighten($body-color, 20%);
   $odd-row-background-color:$white;
   $selected-color          : lighten($cogent, 40%);
 

@@ -10,27 +10,14 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from './tableComponents/TableAction'
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
+import HospitalPicture from '../commons/HospitalPicture'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
-const SpecializationDetailsDataTable = props => (
-    <div className="manage-details">
-        {console.log(props.searchData)}
-        <h5 className="title">Specialization Details</h5>
-        {/* <CButton
-      id="downloadExcel"
-      name="DownloadExcel"
-      onClickHandler={props.exportExcel}
-      disabled={
-        !props.isSearchLoading &&
-        !props.searchErrorMessage &&
-        props.searchData.length
-          ? false
-          : true
-      }
-      className="float-right p-2"
-      variant="info"
-    /> */}
+const HospitalDetailsDataTable = props => (
+    <div className="profile-details">
+        
+        <h5 className="title">Hospital Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -55,20 +42,29 @@ const SpecializationDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Specialization Name',
+                            headerName: 'Hospital Name',
                             field: 'name',
-                            // headerClass: "fi",
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Specialization Code',
-                            field: 'code',
+                            headerName: 'Hospital Logo',
+                            field: 'fileUri',
+                            // headerClass: "fi",
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'imageRenderer'
+                        },
+                        {
+                            headerName: 'Hospital Address',
+                            field: 'address',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
+                       
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -101,7 +97,8 @@ const SpecializationDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: StatusLabel
+                        childLabelRenderer: StatusLabel,
+                        imageRenderer:HospitalPicture
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
@@ -130,13 +127,13 @@ const SpecializationDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showSpecializationModal && !props.isPreviewLoading ? (
+        {props.showHospitalModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showSpecializationModal}
+                showModal={props.showHospitalModal}
                 setShowModal={props.setShowModal}
-                specializationData={props.specializationData}
-                specializationPreviewErrorMessage={
-                    props.specializationPreviewErrorMessage
+                hospitalData={props.hospitalData}
+                hospitalPreviewErrorMessage={
+                    props.hospitalPreviewErrorMessage
                 }
             />
         ) : (
@@ -144,7 +141,7 @@ const SpecializationDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Specialization?If yes please provide remarks."
+                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
                 modalHeader="Delete Specialization"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
@@ -158,4 +155,4 @@ const SpecializationDetailsDataTable = props => (
         )}
     </div>
 )
-export default memo(SpecializationDetailsDataTable)
+export default memo(HospitalDetailsDataTable)

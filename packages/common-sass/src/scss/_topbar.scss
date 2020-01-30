@@ -121,7 +121,7 @@
     }
 
     .module-switcher{
-
+        display: none;
         &.show{
             & .dropdown-toggle {
                 width:50px !important;
@@ -297,8 +297,8 @@
                 font-size    : 0.85rem;
                 font-weight  : 400;
                 color:$gray-700;
-                text-transform:lowercase;
-                -webkit-text-transform:lowercase;
+                text-transform:capitalize;
+                -webkit-text-transform:capitalize;
                 span{
                     color:$gray-600;
                 }

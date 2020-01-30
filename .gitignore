@@ -176,6 +176,7 @@ yarn-error.log*
 
 # dotenv environment variables file
 .env
+.env.development
 
 # jest
 .jest-cache*
