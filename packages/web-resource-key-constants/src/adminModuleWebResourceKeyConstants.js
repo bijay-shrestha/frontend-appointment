@@ -2,8 +2,10 @@ const BASE = "/api/v1";
 const SP_BASE = "/specialization";
 const HP_BASE = "/hospital";
 const CN_BASE = "/consultant";
-
+const QF_BASE = "/qualification";
 const PROFILE_BASE = "/profile";
+const QFA_BASE = "/qualificationAlias";
+
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -82,9 +84,18 @@ export const consultantSetupApiConstants = {
     SEARCH_CONSULTANT: BASE.concat(CN_BASE + "/search"),
     FETCH_CONSULTANT: BASE.concat(CN_BASE + "/detail"),
     EDIT_CONSULTANT: BASE.concat(CN_BASE),
-    EXPORT_CONSULTANT: BASE.concat(CN_BASE + "/excel"),
     DELETE_CONSULTANT: BASE.concat(CN_BASE),
-    DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown"),
-    ACTIVE_DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown/active"),
-    SPECIFIC_DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown/active")
+    SPECIFIC_DROPDOWN_CONSULTANT_ACTIVE: BASE.concat(CN_BASE + "/active/min")
 };
+
+export const qualificationSetupApiConstants = {
+    CREATE_QUALIFICATION: BASE.concat(QF_BASE),
+    SEARCH_QUALIFICATION: BASE.concat(QF_BASE + "/search"),
+    FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + "/detail"),
+    EDIT_HOSPITAL: BASE.concat(QF_BASE),
+    DELETE_HOSPITAL: BASE.concat(QF_BASE),
+    SPECIFIC_DROPDOWN_HOSPITAL_ACTIVE: BASE.concat(QF_BASE + "/active/min")
+};
+export const qualificationSetupAliasCode = {
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE) 
+}
