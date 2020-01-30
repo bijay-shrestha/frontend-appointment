@@ -63,7 +63,7 @@ class AdminSetupSearchFilter extends PureComponent {
                         <CForm id='department-info' className='add-info mt-4'>
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="admin-meta-info"
                                             name="metaInfo"
@@ -80,7 +80,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                             value={searchParameters.metaInfo}
                                         />
                                     </Col>
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="hospital"
                                             label="Hospital"
@@ -93,7 +93,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="department"
                                             label="Department"
@@ -106,7 +106,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="adminProfile"
                                             label="Profile"
@@ -119,7 +119,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="gender"
                                             name="genderCode"
@@ -134,7 +134,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="status"
                                             name="status"
@@ -151,7 +151,7 @@ class AdminSetupSearchFilter extends PureComponent {
 
                                     <Col
                                         sm={12}
-                                        md={{span: 6, offset: 6}}
+                                        md={{span: 8, offset: 4}}
                                         xl={{span: 6, offset: 6}}
                                     >
                                         <div className="pull-right">

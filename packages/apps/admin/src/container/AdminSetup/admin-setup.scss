@@ -22,7 +22,7 @@
  }
 
  .image-upload-container{
-    //  position: relative;
+   text-align: center;
 
      .image-box{
         //  position:absolute;
@@ -32,6 +32,10 @@
         img{
             width:140px;
             @include border-radius(50%);
+        }
+
+        .upload-button{
+            margin:0 auto;
         }
 
 

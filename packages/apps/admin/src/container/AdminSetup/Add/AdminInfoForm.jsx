@@ -82,6 +82,7 @@ const AdminInfoForm = ({
                                     placeholder="Select hospital."
                                 />
                             </Col>
+                            <Col sm={12} md={12} lg={6}></Col>
 
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridSelect
@@ -245,10 +246,9 @@ const AdminInfoForm = ({
                             </Col>
 
                             {/* mac binding inputs */}
-                            <Col sm={12} md={12} lg={12} className="py-4">
+                            <Col sm={12} md={12} lg={6} className="py-4">
                                 <Row>
-                                    <Col lg={12}>
-                                        <Row>
+                                    
                                             <Col>
                                                 {/* <label>Device Filter</label> */}
                                                 <CCheckbox id="admin-add-hasMacBinding"
@@ -273,11 +273,10 @@ const AdminInfoForm = ({
                                                     </CButton>
                                                 </Col> : ''
                                             }
-                                        </Row>
-                                    </Col>
+                                   
 
 
-                                    <Col lg={{span: 6, offset: 6}}>
+                                    <Col lg={12}>
                                         {adminInfoObj.hasMacBinding ?
                                             <>
                                                 {adminInfoObj.macIdList && adminInfoObj.macIdList.map(
