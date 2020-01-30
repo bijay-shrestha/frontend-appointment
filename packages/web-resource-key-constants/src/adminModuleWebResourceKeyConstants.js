@@ -5,6 +5,7 @@ const CN_BASE = "/consultant";
 const QF_BASE = "/qualification";
 const PROFILE_BASE = "/profile";
 const QFA_BASE = "/qualificationAlias";
+const CNTRY_BASE= "/country" ;
 
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
@@ -96,6 +97,11 @@ export const qualificationSetupApiConstants = {
     DELETE_HOSPITAL: BASE.concat(QF_BASE),
     SPECIFIC_DROPDOWN_HOSPITAL_ACTIVE: BASE.concat(QF_BASE + "/active/min")
 };
+
 export const qualificationSetupAliasCode = {
-    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE) 
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE); 
+}
+
+export const countrySetupAliasCode = {
+    FETCH_COUNTRY_CODE:BASE.concat(CNTRY_BASE);
 }
