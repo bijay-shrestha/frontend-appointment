@@ -1,97 +1,117 @@
-import {HospitalSetupActions} from '@frontend-appointment/action-module'
+import {QualificationSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 
-export const createHospital = (
+export const createQualification = (
   path,
-  hospitalData,
-  formData
+  QualificationData
 ) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalPending())
+  dispatch(QualificationSetupActions.createQualificationPending())
   try {
-    const response = await Axios.postForMultipart(
+    const response = await Axios.post(
       path,
-      'request',
-      hospitalData,
-      formData
+      QualificationData,
     )
-    dispatch(HospitalSetupActions.createHospitalSuccess())
+    dispatch(QualificationSetupActions.createQualificationSuccess())
     return response
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalError(e.errorMessage))
+    dispatch(QualificationSetupActions.createQualificationError(e.errorMessage))
     throw e
   }
 };
 
-export const clearHospitalCreateMessage = () => dispatch => {
-  dispatch(HospitalSetupActions.clearHospitalCreateMessage());
-  dispatch(HospitalSetupActions.clearHospitalDeleteMessage());
-  dispatch(HospitalSetupActions.clearHospitalEditMessage());
-  dispatch(HospitalSetupActions.clearHospitalListMessage());
-  dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
+export const clearQualificationCreateMessage = () => dispatch => {
+  dispatch(QualificationSetupActions.clearQualificationCreateMessage());
+  dispatch(QualificationSetupActions.clearQualificationDeleteMessage());
+  dispatch(QualificationSetupActions.clearQualificationEditMessage());
+  dispatch(QualificationSetupActions.clearQualificationListMessage());
+  dispatch(QualificationSetupActions.clearQualificationPreviewMessage())
 }
 
-export const editHospital = (path, data,formData) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalEditPending())
+export const editQualification = (path, data) => async dispatch => {
+  dispatch(QualificationSetupActions.createQualificationEditPending())
   try {
-    const response = await Axios.putWithMultiPart(path, 'request', data, formData)
-    dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data))
+    const response = await Axios.put(path,data)
+    dispatch(QualificationSetupActions.createQualificationEditSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalEditError(e.message))
+    dispatch(QualificationSetupActions.createQualificationEditError(e.message))
     throw e
   }
 };
 
-export const previewHospital = (path, id) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalPreviewPending());
+export const previewQualification = (path, id) => async dispatch => {
+  dispatch(QualificationSetupActions.createQualificationPreviewPending());
   try {
     const response = await Axios.getWithPathVariables(path, id)
-    dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
+    dispatch(QualificationSetupActions.createQualificationPreviewSuccess(response.data))
     return response;
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage));
+    dispatch(QualificationSetupActions.createQualificationPreviewError(e.errorMessage));
     throw e
   }
 };
 
-export const searchHospital = (path, queryParams, data) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalSearchPending());
+export const searchQualification = (path, queryParams, data) => async dispatch => {
+  dispatch(QualificationSetupActions.createQualificationSearchPending());
   try {
     const response = await Axios.putWithRequestParam(path, queryParams, data);
-    dispatch(HospitalSetupActions.createHospitalSearchSuccess(response.data));
+    dispatch(QualificationSetupActions.createQualificationSearchSuccess(response.data));
     return response;
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalListError(e.errorMessage));
+    dispatch(QualificationSetupActions.createQualificationListError(e.errorMessage));
     throw e
   }
 };
 
-export const deleteHospital = (path, id) => async dispatch => {
-  dispatch(HospitalSetupActions.createHospitalDeletePending());
+export const deleteQualification = (path, id) => async dispatch => {
+  dispatch(QualificationSetupActions.createQualificationDeletePending());
   try {
     const response = await Axios.del(path, id);
-    dispatch(HospitalSetupActions.createHospitalDeleteSucess());
+    dispatch(QualificationSetupActions.createQualificationDeleteSucess());
     return response
   } catch (e) {
-    dispatch(HospitalSetupActions.createHospitalDeleteError(e.errorMessage));
+    dispatch(QualificationSetupActions.createQualificationDeleteError(e.errorMessage));
     throw e
   }
 };
 
-export const downloadExcelForHospitals = path => async () => {
-  try {
-    return await Axios.getFile(path)
-  } catch (e) {
-    throw e
-  }
-};
 
-export const fetchActiveHospitalsForDropdown = (path) => async dispatch => {
+export const fetchActiveQualificationsForDropdown = (path) => async dispatch => {
   try {
     const response = await Axios.get(path);
-    dispatch(HospitalSetupActions.hospitalsFetchForDropdownSuccess(response.data));
+    dispatch(QualificationSetupActions.qualificationFetchForDropdownSuccess(response.data));
     return response.data;
   } catch (e) {
-    dispatch(HospitalSetupActions.hospitalsFetchForDropdownError("Error fetching department"));
+    dispatch(QualificationSetupActions.qualificationFetchForDropdownError("Error fetching qualifications"));
+  }
+};
+
+export const fetchActiveCountryCodeForDropdown = (path) => async dispatch => {
+  try {
+    const response = await Axios.get(path);
+    dispatch(QualificationSetupActions.countryCodeFetchForDropdownSuccess(response.data));
+    return response.data;
+  } catch (e) {
+    dispatch(QualificationSetupActions.countryCodeFetchForDropdownError("Error fetching country code"));
+  }
+};
+
+export const fetchActiveQualificationAliasForDropdown = (path) => async dispatch => {
+  try {
+    const response = await Axios.get(path);
+    dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownSuccess(response.data));
+    return response.data;
+  } catch (e) {
+    dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownError("Error fetching qualification alias"));
+  }
+};
+
+export const fetchActiveUniversityForDropdown = (path) => async dispatch => {
+  try {
+    const response = await Axios.get(path);
+    dispatch(QualificationSetupActions.universityFetchForDropdownSuccess(response.data));
+    return response.data;
+  } catch (e) {
+    dispatch(QualificationSetupActions.universityFetchForDropdownError("Error fetching university"));
   }
 };

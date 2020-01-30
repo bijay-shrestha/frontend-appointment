@@ -270,7 +270,7 @@ export const universityFetchForDropdownSuccess = data => {
   }
 }
 
-export const universitlyFetchForDropdownError = message => {
+export const universityFetchForDropdownError = message => {
   return {
     type: FETCH_UNIVERSITY_DROPDOWN_ERROR,
     payload: {
