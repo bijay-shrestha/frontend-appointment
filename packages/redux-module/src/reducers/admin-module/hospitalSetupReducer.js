@@ -21,10 +21,9 @@ const {
     HP_LIST_PENDING,
     HP_LIST_SUCCESS,
     CLEAR_HP_LIST_MESSAGE,
-    FETCH_HOSPITALS__DROPDOWN_ERROR,
-    FETCH_HOSPITALS__DROPDOWN_SUCCESS,
-    FETCH_HOSPITALS_DROPDOWN_PENDING,
-} = hospitalSetupConstants;
+    FETCH_HOSPITALS_DROPDOWN_ERROR,
+    FETCH_HOSPITALS_DROPDOWN_SUCCESS
+} = hospitalSetupConstants
 
 const initialState = {
     createHospitalLoading: true,
@@ -42,8 +41,8 @@ const initialState = {
     hospitalPreviewData: null,
     isPreviewLoading: true,
     hospitalPreviewErrorMessage: '',
-    hospitalsForDropdown: [],
-};
+    hospitalsForDropdown: []
+}
 
 export const HospitalSaveReducer = (state = {...initialState}, action) => {
     switch (action.type) {
@@ -53,34 +52,34 @@ export const HospitalSaveReducer = (state = {...initialState}, action) => {
                 createHospitalLoading: true,
                 createHospitalerrorMessage: '',
                 createHospitalsuccessMessage: ''
-            };
+            }
         case CREATE_HP_SUCCESS:
             return {
                 ...state,
                 createHospitalLoading: false,
                 createHospitalerrorMessage: '',
                 createHospitalsuccessMessage: action.payload.message
-            };
+            }
         case CREATE_HP_ERROR:
             return {
                 ...state,
                 createHospitalLoading: false,
                 createHospitalerrorMessage: action.payload.message,
                 createHospitalsuccessMessage: ''
-            };
+            }
         case CLEAR_HP_CREATE_MESSAGE:
             return {
                 ...state,
                 createHospitalLoading: false,
                 createHospitalerrorMessage: '',
                 createHospitalsuccessMessage: ''
-            };
+            }
         default:
             return {
                 ...state
             }
     }
-};
+}
 
 export const HospitalEditReducer = (state = {...initialState}, action) => {
     switch (action.type) {
@@ -90,34 +89,34 @@ export const HospitalEditReducer = (state = {...initialState}, action) => {
                 isHospitalEditLoading: true,
                 hospitalEditErrorMessage: '',
                 hospitalEditSuccessMessage: ''
-            };
+            }
         case HP_EDIT_SUCCESS:
             return {
                 ...state,
                 isHospitalEditLoading: false,
                 hospitalEditErrorMessage: '', //department edit error message
                 hospitalEditSuccessMessage: action.payload.message
-            };
+            }
         case HP_EDIT_ERROR:
             return {
                 ...state,
                 isHospitalEditLoading: false,
                 hospitalEditErrorMessage: action.payload.message,
                 hospitalEditSuccessMessage: ''
-            };
+            }
         case CLEAR_HP_EDIT_MESSAGE:
             return {
                 ...state,
                 isHospitalEditLoading: false,
                 hospitalEditErrorMessage: '',
                 hospitalEditSuccessMessage: ''
-            };
+            }
         default:
             return {
                 ...state
             }
     }
-};
+}
 
 export const HospitalPreviewReducer = (
     state = {...initialState},
@@ -130,39 +129,36 @@ export const HospitalPreviewReducer = (
                 hospitalPreviewData: null,
                 isPreviewLoading: true,
                 HospitalPreviewErrorMessage: ''
-            };
+            }
         case HP_PREVIEW_SUCCESS:
             return {
                 ...state,
                 hospitalPreviewData: action.payload.data,
                 isPreviewLoading: false,
                 hospitalPreviewErrorMessage: ''
-            };
+            }
         case HP_PREVIEW_ERROR:
             return {
                 ...state,
                 hospitalPreviewData: null,
                 isPreviewLoading: false,
                 hospitalPreviewErrorMessage: action.payload.message
-            };
+            }
         case CLEAR_HP_PREVIEW_MESSAGE:
             return {
                 ...state,
                 hospitalPreviewData: null,
                 isPreviewLoading: false,
                 hospitalPreviewErrorMessage: ''
-            };
+            }
         default:
             return {
                 ...state
             }
     }
-};
+}
 
-export const HospitalSearchReducer = (
-    state = {...initialState},
-    action
-) => {
+export const HospitalSearchReducer = (state = {...initialState}, action) => {
     switch (action.type) {
         case HP_LIST_PENDING:
             return {
@@ -170,67 +166,64 @@ export const HospitalSearchReducer = (
                 isSearchLoading: true,
                 hospitalList: [],
                 searchErrorMessage: ''
-            };
+            }
         case HP_LIST_SUCCESS:
             return {
                 ...state,
                 isSearchLoading: false,
                 hospitalList: action.payload.data,
                 searchErrorMessage: ''
-            };
+            }
         case HP_LIST_ERROR:
             return {
                 ...state,
                 isSearchLoading: false,
                 hospitalList: [],
                 searchErrorMessage: action.payload.message
-            };
+            }
         case CLEAR_HP_LIST_MESSAGE:
             return {
                 ...state,
                 isSearchLoading: false,
                 searchErrorMessage: ''
-            };
+            }
         default:
             return {
                 ...state
             }
     }
-};
+}
 
-export const HospitalDeleteReducer = (
-    state = {...initialState},
-    action
-) => {
+export const HospitalDeleteReducer = (state = {...initialState}, action) => {
     switch (action.type) {
         case HP_DELETE_PENDING:
             return {
                 ...state,
                 isDeleteLoading: true,
                 deleteErrorMessage: '',
-                deleteSuccessMessage: '',
-            };
+                deleteSuccessMessage: ''
+            }
         case HP_DELETE_SUCCESS:
             return {
                 ...state,
                 isDeleteLoading: false,
                 deleteErrorMessage: '',
-                deleteSuccessMessage: action.payload.message,
-            };
+                deleteSuccessMessage: action.payload.message
+            }
         case HP_DELETE_ERROR:
             return {
                 ...state,
                 isDeleteLoading: false,
                 deleteErrorMessage: action.payload.message,
-                deleteSuccessMessage: '',
-            };
+                deleteSuccessMessage: ''
+            }
         case CLEAR_HP_DELETE_MESSAGE:
             return {
                 ...state,
                 isDeleteLoading: false,
                 deleteErrorMessage: '',
-                deleteSuccessMessage: '',
-            };
+                deleteSuccessMessage: ''
+            }
         default:
             return {
                 ...state
@@ -238,14 +231,14 @@ export const HospitalDeleteReducer = (
     }
 };
 
-export const HospitalSetupReducer = (state = {...initialState}, action) => {
+export const HospitalDropdownReducer = (state = {...initialState}, action) => {
     switch (action.type) {
-        case FETCH_HOSPITALS__DROPDOWN_SUCCESS:
+        case FETCH_HOSPITALS_DROPDOWN_SUCCESS:
             return {
                 ...state,
                 hospitalsForDropdown: [...action.payload.data]
             };
-        case FETCH_HOSPITALS__DROPDOWN_ERROR:
+        case FETCH_HOSPITALS_DROPDOWN_ERROR:
             return {
                 ...state,
                 hospitalsForDropdown: []

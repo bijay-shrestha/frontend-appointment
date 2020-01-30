@@ -1,13 +1,16 @@
 import {rolesFromJson} from '@frontend-appointment/commons'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import React, {memo} from 'react'
-import PreviewRoles from '../commons/PreviewRoles'
+import PreviewRoles from '../../CommonComponents/PreviewRoles'
 import ConfirmDelete from './comp/ConfirmDelete'
-import Statuslabel from './comp/StatusLabel'
-import TableAction from './comp/TableAction'
+import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction'
+import {ActionFilterUtils} from "@frontend-appointment/helpers";
+
+const {checkIfRoleExists} = ActionFilterUtils;
 
 const ProfileDetails = props => (
-    <div className="profile-details">
+    <div className="manage-details">
         <h5 className="title">Profile Details</h5>
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
@@ -39,8 +42,15 @@ const ProfileDetails = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Sub Department',
-                            field: 'subDepartmentName',
+                            headerName: 'Hospital Name',
+                            field: 'hospitalName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
+                            headerName: 'Department Name',
+                            field: 'departmentName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -78,12 +88,13 @@ const ProfileDetails = props => (
                         childLabelRenderer: Statuslabel
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={props.onPreviewHandler}
+                    getSelectedRows={
+                        // checkIfRoleExists(props.filteredActions, 4) &&
+                         props.onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}
                 />
-                {console.log(props.totalItems)}
                 <CPagination
                     totalItems={props.totalItems}
                     maxSize={props.maxSize}

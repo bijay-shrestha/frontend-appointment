@@ -2,18 +2,19 @@ const BASE = "/api/v1";
 const SP_BASE = "/specialization";
 const HP_BASE = "/hospital";
 const CN_BASE = "/consultant";
+const QF_BASE = "/qualification";
+const PROFILE_BASE = "/profile";
+const QFA_BASE = "/qualificationAlias";
 
-const PROFILE_BASE = "/profiles";
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
-    FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat("/departments/dropdown/active"),
-    FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID: BASE.concat("/sub-departments/dropdown/active"),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
     DELETE_PROFILE: BASE.concat(PROFILE_BASE),
-    FETCH_PROFILE_DETAILS: BASE.concat(PROFILE_BASE.concat("/details")),
+    FETCH_PROFILE_DETAILS: BASE.concat(PROFILE_BASE.concat("/detail")),
     EDIT_PROFILE: BASE.concat(PROFILE_BASE),
     FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID: BASE.concat(PROFILE_BASE),
-    FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/dropdown/active"))
+    FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
+    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min"))
 };
 
 const DEPARTMENT_BASE = "/department";
@@ -24,7 +25,8 @@ export const departmentSetupAPIConstants = {
     EDIT_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     DELETE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     EXPORT_DEPARTMENT_EXCEL: BASE.concat(DEPARTMENT_BASE.concat("/excel")),
-    FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat(DEPARTMENT_BASE.concat("/dropdown/active")),
+    FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat(DEPARTMENT_BASE.concat("/active/min")),
+    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL: BASE.concat(DEPARTMENT_BASE),
 };
 
 const ADMIN_BASE = "/admin";
@@ -68,7 +70,7 @@ export const specializationSetupAPIConstants = {
 export const hostpitalSetupApiConstants = {
     CREATE_HOSPITAL: BASE.concat(HP_BASE),
     SEARCH_HOSPITAL: BASE.concat(HP_BASE + "/search"),
-    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/details"),
+    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/detail"),
     EDIT_HOSPITAL: BASE.concat(HP_BASE),
     EXPORT_HOSPITAL_EXCEL: BASE.concat(HP_BASE + "/excel"),
     DELETE_HOSPITAL: BASE.concat(HP_BASE),
@@ -80,11 +82,20 @@ export const hostpitalSetupApiConstants = {
 export const consultantSetupApiConstants = {
     CREATE_CONSULTANT: BASE.concat(CN_BASE),
     SEARCH_CONSULTANT: BASE.concat(CN_BASE + "/search"),
-    FETCH_CONSULTANT: BASE.concat(CN_BASE + "/details"),
+    FETCH_CONSULTANT: BASE.concat(CN_BASE + "/detail"),
     EDIT_CONSULTANT: BASE.concat(CN_BASE),
-    EXPORT_CONSULTANT: BASE.concat(CN_BASE + "/excel"),
     DELETE_CONSULTANT: BASE.concat(CN_BASE),
-    DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown"),
-    ACTIVE_DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown/active"),
-    SPECIFIC_DROPDOWN_CONSULTANT: BASE.concat(CN_BASE + "/dropdown/active")
+    SPECIFIC_DROPDOWN_CONSULTANT_ACTIVE: BASE.concat(CN_BASE + "/active/min")
 };
+
+export const qualificationSetupApiConstants = {
+    CREATE_QUALIFICATION: BASE.concat(QF_BASE),
+    SEARCH_QUALIFICATION: BASE.concat(QF_BASE + "/search"),
+    FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + "/detail"),
+    EDIT_HOSPITAL: BASE.concat(QF_BASE),
+    DELETE_HOSPITAL: BASE.concat(QF_BASE),
+    SPECIFIC_DROPDOWN_HOSPITAL_ACTIVE: BASE.concat(QF_BASE + "/active/min")
+};
+export const qualificationSetupAliasCode = {
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE) 
+}

@@ -3,8 +3,9 @@ import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
-import PreviewRoles from '../commons/PreviewRoles';
-import {rolesFromJson, TryCatchHandler} from '@frontend-appointment/commons';
+import PreviewRoles from '../../CommonComponents/PreviewRoles';
+import {TryCatchHandler} from '@frontend-appointment/commons';
+import {menuRoles} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -18,8 +19,8 @@ class ProfileMenuAssignment extends PureComponent {
         checkedAllRolesAndTabs: false,
         checkedAllUserMenus: false,
         totalNoOfMenusAndRoles: 0,
-        userMenusBySubDepartment: [], // For displaying user menus ,value will be changing when searched.
-        selectedSubDepartment: 0
+        userMenuByDepartment: [], // For displaying user menus ,value will be changing when searched.
+        selectedDepartment: 0
     };
 
     setShowModal = () => {
@@ -56,7 +57,7 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     setCurrentChildMenuAndTabsWithRoles = async (childMenu) => {
-        const rolesJson = JSON.stringify([...rolesFromJson]);
+        const rolesJson = JSON.stringify([...menuRoles]);
         const allRolesFromJson = JSON.parse(rolesJson);
 
         let rolesForSelectedMenu = [];
@@ -99,9 +100,9 @@ class ProfileMenuAssignment extends PureComponent {
             })
         });
         await this.setState({
-            userMenusBySubDepartment: [...this.props.userMenus],
+            userMenuByDepartment: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            selectedSubDepartment: this.props.profileData.subDepartmentValue.value
+            selectedDepartment: this.props.profileData.departmentValue.value
         });
     };
 
@@ -257,7 +258,7 @@ class ProfileMenuAssignment extends PureComponent {
 
         // if (menusMatchingKeyWord.length > 0) {
         await this.setState({
-            userMenusBySubDepartment: [...menusMatchingKeyWord]
+            userMenuByDepartment: [...menusMatchingKeyWord]
         });
         // }
     };
@@ -316,8 +317,7 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.userMenus.length > 0 && this.props.profileData.subDepartmentValue.value !== prevState.selectedSubDepartment) {
-            // if (this.props.userMenus.length !== prevProps.userMenus.length) {
+        if (this.props.userMenus.length > 0 && this.props.profileData.departmentValue.value !== prevState.selectedDepartment) {
             this.setTotalNumberOfMenusAndRoles();
             this.props.defaultSelectedMenu.length !== 0 ?
                 TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
@@ -355,8 +355,8 @@ class ProfileMenuAssignment extends PureComponent {
                                        label="All"
                                        className="select-all check-all"
                                        checked={this.state.checkedAllUserMenus}
-                                       disabled={this.state.userMenusBySubDepartment.length === 0}
-                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenusBySubDepartment)}/>
+                                       disabled={this.state.userMenuByDepartment.length === 0}
+                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenuByDepartment)}/>
                         </div>
                         <CScrollbar
                             id="menus"
@@ -368,7 +368,7 @@ class ProfileMenuAssignment extends PureComponent {
                                     <>
                                         <div className="filter-message">
                                             <div className="no-data">
-                                                <i className="fa fa-file-text-o"></i>
+                                                <i className="fa fa-file-text-o"/>
                                             </div>
                                             <div
                                                 className="message text-center">{profileData.userMenuAvailabilityMessage}</div>
@@ -377,23 +377,23 @@ class ProfileMenuAssignment extends PureComponent {
                                     :
                                     <div className="filter-message">
                                         <div className="no-data">
-                                            <i className="fa fa-hand-o-up"></i>
+                                            <i className="fa fa-hand-o-up"/>
                                         </div>
                                         <div className="message text-center"> Select Department and Sub-department
                                             first.
                                         </div>
                                     </div>) :
-                                    this.state.userMenusBySubDepartment.length === 0 ?
+                                    this.state.userMenuByDepartment.length === 0 ?
                                         // IN CASE NO MENUS FOUND ON SEARCH
                                         <div className="filter-message">
                                             <div className="no-data primary">
-                                                <i className="fa fa-file-text-o"></i>
+                                                <i className="fa fa-file-text-o"/>
                                             </div>
                                             <div className="message text-center"> No user menus found.</div>
                                         </div> :
                                         <Accordion className="menu-accordion"
                                                    activeKey={this.state.activeKey ? this.state.activeKey : this.props.defaultSelectedMenu.id}>
-                                            {this.state.userMenusBySubDepartment.map(userMenu =>
+                                            {this.state.userMenuByDepartment.map(userMenu =>
                                                 <Card
                                                     key={userMenu.id}>
                                                     <Accordion.Toggle
@@ -460,7 +460,7 @@ class ProfileMenuAssignment extends PureComponent {
                                     showModal={this.state.showModal}
                                     setShowModal={this.setShowModal}
                                     profileData={this.props.profileData}
-                                    rolesJson={rolesFromJson}
+                                    rolesJson={menuRoles}
                                 />
                             </div>
                             <div className="assign-previledge">
@@ -546,7 +546,7 @@ class ProfileMenuAssignment extends PureComponent {
                             </div>
                         </Col>
                     </>
-                    :''}
+                    : ''}
 
             </>
         );

@@ -49,15 +49,12 @@ class CDataTable extends PureComponent {
     };
 
     onSelectionChanged = row => {
-        // console.log(row.api.getSelectedRows()[0]);
-        // console.log("onSelectionChange",this.state.gridApi);
-        // console.log('row Api',row);
-        this.props.getSelectedRows(row.api.getSelectedRows()[0].id)
+        this.props.getSelectedRows && this.props.getSelectedRows(row.api.getSelectedRows()[0].id)
     };
 
     onCellClicked = e => {
         if (e.value) {
-            this.props.getSelectedRows(e.data.id);
+            this.props.getSelectedRows &&  this.props.getSelectedRows(e.data.id);
         }
     };
 
@@ -77,7 +74,7 @@ class CDataTable extends PureComponent {
             floatingFilter,
             editType,
             cellMouseOver
-        } = this.props
+        } = this.props;
         return (
             <>
                 <div style={{width: width, height: height}} className={classes} id={id}>
@@ -98,7 +95,6 @@ class CDataTable extends PureComponent {
                         cellMouseOver={cellMouseOver}
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
-                     
                     />
                 </div>
             </>

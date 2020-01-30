@@ -3,36 +3,36 @@ import {Col, Container, Row} from 'react-bootstrap'
 import ProfileInfoForm from './ProfileInfoForm'
 import ProfileMenuAssignment from './ProfileMenuAssignment'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import {ConnectHoc, menus, rolesFromJson, TryCatchHandler} from '@frontend-appointment/commons'
+import {ConnectHoc, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
-    fetchDepartments,
-    fetchSubDepartmentsByDepartmentId
+    departmentSetupMiddleware,
+    HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import {profileSetupAPIConstants} from '../ProfileSetupAPIConstants';
-import {UserMenuUtils} from "@frontend-appointment/helpers";
+import {EnterKeyPressUtils, menuRoles, userMenusJson, UserMenuUtils} from "@frontend-appointment/helpers";
+import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
-const {
-    FETCH_DEPARTMENTS_FOR_DROPDOWN,
-    FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID,
-    CREATE_PROFILE
-} = profileSetupAPIConstants;
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
+
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
 
 class ProfileAdd extends PureComponent {
 
     state = {
-        isSubDepartmentDisabled: true,
         profileDescription: '',
         profileName: '',
         selectedDepartment: null,
-        selectedSubDepartment: null,
+        selectedHospital: null,
         selectedMenus: [],
         status: 'Y',
-        subDepartmentsByDepartmentId: [],
-        userMenusBySubDepartment: [],
+        // subDepartmentsByDepartmentId: [],
+        userMenus: [],
         defaultSelectedMenu: [],
         showConfirmModal: false,
         selectedUserMenusForModal: [],
@@ -58,15 +58,13 @@ class ProfileAdd extends PureComponent {
 
     resetStateValues = () => {
         this.setState({
-            isSubDepartmentDisabled: true,
             profileDescription: '',
             profileName: '',
             selectedDepartment: null,
-            selectedSubDepartment: null,
+            selectedHospital: null,
             selectedMenus: [],
             status: 'Y',
-            subDepartmentsByDepartmentId: [],
-            userMenusBySubDepartment: [],
+            userMenus: [],
             defaultSelectedMenu: [],
             showConfirmModal: false,
             selectedUserMenusForModal: [],
@@ -85,8 +83,13 @@ class ProfileAdd extends PureComponent {
         this.setState({showConfirmModal: !this.state.showConfirmModal});
     };
 
+    initialApiCalls = async () => {
+        await this.fetchDepartments();
+        await this.fetchHospitals();
+    };
+
     componentDidMount() {
-        TryCatchHandler.genericTryCatch(this.fetchDepartments());
+        TryCatchHandler.genericTryCatch(this.initialApiCalls());
     }
 
     handleOnChange = async (event, fieldValid) => {
@@ -100,41 +103,30 @@ class ProfileAdd extends PureComponent {
             : this.setState({[key]: value, [key + "Valid"]: fieldValid});
 
     fetchDepartments = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchDepartments(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
     };
 
-    fetchSubDepartments = async departmentId => {
-        let response = await TryCatchHandler.genericTryCatch(this.props.fetchSubDepartmentsByDepartmentId(
-            FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID, departmentId));
-        this.setState({subDepartmentsByDepartmentId: response});
+    fetchHospitals = async () => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
     };
 
-    fetchSubDepartmentAndResetSubDepartment = (value) => {
-        this.setState({
-            isSubDepartmentDisabled: !this.state.selectedDepartment,
-            selectedSubDepartment: null,
-            subDepartmentsByDepartmentId: [],
-            userMenusBySubDepartment: [],
-            defaultSelectedMenu: [],
-            selectedMenus: [],
-            userMenuAvailabilityMessage: ''
-        });
-        return this.fetchSubDepartments(value);
+    fetchDepartmentsByHospitalId = async value => {
+        value &&
+        await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
     };
 
-    filterMenuBySubDepartment = subDepartmentId => {
-        let selectedSubDept = this.state.subDepartmentsByDepartmentId.filter(subDepartment =>
-            subDepartment.value === subDepartmentId);
-        let menusForSubDept = [...menus[selectedSubDept[0].code]];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
+    filterMenuByDepartment = () => {
+        let menusForDept = Object.keys(userMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
+            ? [...userMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
+        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForDept]);
         alphabeticallySortedMenus ?
             this.setState({
-                userMenusBySubDepartment: [...alphabeticallySortedMenus],
+                userMenus: [...alphabeticallySortedMenus],
                 // defaultSelectedMenu: menus[selectedSubDept[0].code][0],
                 selectedMenus: []
             }) :
             this.setState({
-                userMenusBySubDepartment: [],
+                userMenus: [],
                 defaultSelectedMenu: [],
                 selectedMenus: [],
                 userMenuAvailabilityMessage: 'No user menus available.'
@@ -143,7 +135,7 @@ class ProfileAdd extends PureComponent {
 
     checkFormValidity = () => {
         let formValidity = this.state.profileNameValid && this.state.profileDescriptionValid && this.state.profileName
-            && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedSubDepartment !== null
+            && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedHospital !== null
             && this.state.selectedMenus.length !== 0;
 
         this.setState({
@@ -157,20 +149,19 @@ class ProfileAdd extends PureComponent {
         let label = event.target.label;
         await this.setStateValues(fieldName, value, label, fieldValid);
         switch (fieldName) {
-            case 'selectedDepartment':
-                value ? this.fetchSubDepartmentAndResetSubDepartment(value) : this.setState({
-                    isSubDepartmentDisabled: !this.state.selectedDepartment,
-                    selectedSubDepartment: null,
-                    subDepartmentsByDepartmentId: [],
-                    userMenusBySubDepartment: [],
+            case 'selectedHospital':
+                value ? this.fetchDepartmentsByHospitalId(value) : this.setState({
+                    selectedHospital: null,
+                    selectedDepartment: null,
+                    userMenus: [],
                     defaultSelectedMenu: [],
                     selectedMenus: []
                 });
                 break;
-            case 'selectedSubDepartment':
-                value ? this.filterMenuBySubDepartment(value) : this.setState({
-                    selectedSubDepartment: null,
-                    userMenusBySubDepartment: [],
+            case 'selectedDepartment':
+                value ? this.filterMenuByDepartment(value) : this.setState({
+                    selectedDepartment: null,
+                    userMenus: [],
                     defaultSelectedMenu: [],
                     userMenuAvailabilityMessage: '',
                     selectedMenus: []
@@ -252,7 +243,7 @@ class ProfileAdd extends PureComponent {
         }
 
         userMenusSelected = currentSelectedMenus.length && this.setValuesForModalDisplay(
-            this.state.userMenusBySubDepartment, currentSelectedMenus);
+            this.state.userMenus, currentSelectedMenus);
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
@@ -277,7 +268,7 @@ class ProfileAdd extends PureComponent {
                 currentSelectedMenus.splice(currentSelectedMenus.findIndex(menu => menu.roleId === role.id && menu.userMenuId === childMenu.id), 1);
         }
 
-        let userMenusSelected = this.setValuesForModalDisplay(this.state.userMenusBySubDepartment, currentSelectedMenus);
+        let userMenusSelected = this.setValuesForModalDisplay(this.state.userMenus, currentSelectedMenus);
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
@@ -292,7 +283,8 @@ class ProfileAdd extends PureComponent {
                 name: this.state.profileName,
                 description: this.state.profileDescription,
                 status: this.state.status,
-                subDepartmentId: this.state.selectedSubDepartment.value
+                departmentId: this.state.selectedDepartment && this.state.selectedDepartment.value,
+                hospitalId: this.state.selectedHospital && this.state.selectedHospital.value
             },
             profileMenuRequestDTO: this.state.selectedMenus
         };
@@ -321,65 +313,62 @@ class ProfileAdd extends PureComponent {
     };
 
     handleEnter = (event) => {
-        let increment = 1;
-        if (event.keyCode === 13) {
-            const form = event.target.form;
-            const index = Array.prototype.indexOf.call(form, event.target);
-            increment = event.currentTarget.children.length ? 2 : 1;
-            form.elements[index + increment].focus();
-            if (increment !== 2)
-                event.preventDefault();
-        }
+        EnterKeyPressUtils.handleEnter(event)
     };
 
     render() {
-        // const Tabs = TabsHOC(CNavTabs, this.props.userMenus, this.props.path, 1)
+
+        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+        const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
+
+        const {
+            selectedDepartment, selectedHospital, profileDescription, profileName, status,
+            errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
+            selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid
+        } = this.state;
+
         return (
             <>
-                {/* <Tabs/> */}
-
                 <div className=" ">
                     <Container className="bg-white add-container " fluid>
 
                         <Row>
                             <ProfileInfoForm
                                 onEnterKeyPress={this.handleEnter}
-                                departmentList={this.props.ProfileSetupReducer.departments}
+                                departmentList={departmentsByHospital}
+                                hospitalList={hospitalsForDropdown}
                                 onInputChange={this.handleOnChange}
                                 profileInfoObj={{
-                                    departmentValue: this.state.selectedDepartment,
-                                    isSubDepartmentDisabled: this.state.isSubDepartmentDisabled,
-                                    profileDescription: this.state.profileDescription,
-                                    profileName: this.state.profileName,
-                                    status: this.state.status,
-                                    subDepartmentList: this.state.subDepartmentsByDepartmentId,
-                                    subDepartmentValue: this.state.selectedSubDepartment,
+                                    departmentValue: selectedDepartment,
+                                    hospitalValue: selectedHospital,
+                                    profileDescription: profileDescription,
+                                    profileName: profileName,
+                                    status: status,
                                 }}
-                                errorMessageForProfileName={this.state.errorMessageForProfileName}
-                                errorMessageForProfileDescription={this.state.errorMessageForProfileDescription}
+                                errorMessageForProfileName={errorMessageForProfileName}
+                                errorMessageForProfileDescription={errorMessageForProfileDescription}
                             />
-                            {this.state.selectedSubDepartment &&
+                            {selectedDepartment &&
                             <ProfileMenuAssignment
-                                userMenus={this.state.userMenusBySubDepartment}
-                                selectedMenus={this.state.selectedMenus}
-                                defaultSelectedMenu={this.state.defaultSelectedMenu}
+                                userMenus={userMenus}
+                                selectedMenus={selectedMenus}
+                                defaultSelectedMenu={defaultSelectedMenu}
                                 onCheckAllUserMenus={this.addAllMenusAndRoles}
                                 onTabAndRolesChange={this.handleRolesCheck}
                                 resetFormData={this.resetFormData}
                                 profileData={{
-                                    profileName: this.state.profileName,
-                                    profileDescription: this.state.profileDescription,
-                                    departmentValue: this.state.selectedDepartment,
-                                    subDepartmentValue: {...this.state.selectedSubDepartment},
-                                    status: this.state.status,
-                                    selectedMenus: this.state.selectedMenus,
-                                    userMenusBySubDepartment: this.state.userMenusBySubDepartment,
-                                    selectedUserMenusForModal: this.state.selectedUserMenusForModal,
-                                    userMenuAvailabilityMessage: this.state.userMenuAvailabilityMessage
+                                    profileName: profileName,
+                                    profileDescription: profileDescription,
+                                    departmentValue: selectedDepartment,
+                                    hospitalValue: selectedHospital,
+                                    status: status,
+                                    selectedMenus: selectedMenus,
+                                    userMenus: userMenus,
+                                    selectedUserMenusForModal: selectedUserMenusForModal,
+                                    userMenuAvailabilityMessage: userMenuAvailabilityMessage
                                 }}/>
                             }
                         </Row>
-
                         <Row className="mt-4">
                             <Col sm={12} md={{span: 3, offset: 9}}>
                                 <CButton
@@ -387,58 +376,36 @@ class ProfileAdd extends PureComponent {
                                     variant="primary "
                                     className="float-right btn-action"
                                     name="Save"
-                                    disabled={!this.state.formValid}
+                                    disabled={!formValid}
                                     onClickHandler={this.setShowConfirmModal}>
 
                                 </CButton>
                                 <ConfirmationModal
-                                    showConfirmModal={this.state.showConfirmModal}
+                                    showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
                                     profileData={{
-                                        profileName: this.state.profileName,
-                                        profileDescription: this.state.profileDescription,
-                                        departmentValue: this.state.selectedDepartment,
-                                        subDepartmentValue: this.state.selectedSubDepartment,
-                                        status: this.state.status,
-                                        selectedMenus: this.state.selectedMenus,
-                                        selectedUserMenusForModal: this.state.selectedUserMenusForModal,
-                                        userMenusBySubDepartment: this.state.userMenusBySubDepartment
+                                        profileName: profileName,
+                                        profileDescription: profileDescription,
+                                        departmentValue: selectedDepartment,
+                                        hospitalValue: selectedHospital,
+                                        status: status,
+                                        selectedMenus: selectedMenus,
+                                        selectedUserMenusForModal: selectedUserMenusForModal,
+                                        userMenus: userMenus
                                     }}
-                                    rolesJson={rolesFromJson}
+                                    rolesJson={menuRoles}
                                 />
                             </Col>
                         </Row>
                         <CAlert id="profile-manage"
-                                variant={this.state.alertMessageInfo.variant}
-                                show={this.state.showAlert}
+                                variant={alertMessageInfo.variant}
+                                show={showAlert}
                                 onClose={this.closeAlert}
-                                alertType={this.state.alertMessageInfo.variant === "success" ? <><Material.MdDone/>
-                                </> : <><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                                </>}
-                                message={this.state.alertMessageInfo.message}
+                                alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                                </> : <i className="fa fa-exclamation-triangle" aria-hidden="true"/>}
+                                message={alertMessageInfo.message}
                         />
-                        {/* <Alert variant="success">
-                    <div className="icon">
-                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                    </div>
-                        <div className="message">
-                            <h4>Success</h4>
-                            <p>thias sfasdfasdflasdjfasdf</p>
-                        </div>
-
-                </Alert> */}
-                        {/* <Alert variant="warning">
-                    <Alert.Heading className=""><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                        &nbsp; &nbsp;Some error occured</Alert.Heading>
-                           <p>message</p>
-                </Alert> */}
-                        {/* <Alert variant="success">
-                    <Alert.Heading className=""><i class="fa fa-check-circle" aria-hidden="true"></i>
-                        &nbsp; &nbsp;Success</Alert.Heading>
-                           <p>message</p>
-                </Alert> */}
-
                     </Container>
                 </div>
             </>
@@ -447,9 +414,15 @@ class ProfileAdd extends PureComponent {
     }
 }
 
-export default ConnectHoc(ProfileAdd, ['ProfileSetupReducer'], {
-  fetchDepartments,
-  fetchSubDepartmentsByDepartmentId,
-  createProfile,
-  clearSuccessErrorMessagesFromStore
-})
+export default ConnectHoc(ProfileAdd,
+    [
+        'ProfileSetupReducer',
+        'DepartmentSetupReducer',
+        'HospitalDropdownReducer'
+    ], {
+        fetchActiveDepartmentsForDropdown,
+        createProfile,
+        clearSuccessErrorMessagesFromStore,
+        fetchActiveHospitalsForDropdown,
+        fetchActiveDepartmentsByHospitalId
+    })

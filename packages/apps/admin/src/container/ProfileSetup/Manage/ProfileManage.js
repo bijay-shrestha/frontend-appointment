@@ -4,25 +4,32 @@ import {ConnectHoc, menus, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
+    departmentSetupMiddleware,
     editProfile,
+    fetchAllProfileListForSearchDropdown,
     fetchProfileList,
-    fetchSubDepartmentsByDepartmentId,
+    HospitalSetupMiddleware,
     previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {profileSetupAPIConstants} from '../ProfileSetupAPIConstants';
-import {UserMenuUtils} from "@frontend-appointment/helpers";
+import {userMenusJson, UserMenuUtils} from "@frontend-appointment/helpers";
+import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
-    FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID,
     SEARCH_PROFILE,
     DELETE_PROFILE,
     FETCH_PROFILE_DETAILS,
-    EDIT_PROFILE
-} = profileSetupAPIConstants;
+    EDIT_PROFILE,
+    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN
+} = AdminModuleAPIConstants.profileSetupAPIConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
+    AdminModuleAPIConstants.departmentSetupAPIConstants;
 
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
 
 class ProfileManage extends PureComponent {
     state = {
@@ -31,10 +38,10 @@ class ProfileManage extends PureComponent {
         deleteModalShow: false,
         subDepartmentsByDepartmentId: [],
         searchParameters: {
-            profileName: '',
+            profile: null,
             status: {value: 'A', label: 'All'},
-            selectedDepartment: null,
-            selectedSubDepartment: null
+            department: null,
+            hospital: null
         },
         queryParams: {
             page: 0,
@@ -51,17 +58,18 @@ class ProfileManage extends PureComponent {
             profileName: '',
             profileDescription: '',
             selectedDepartment: null,
-            selectedSubDepartment: null,
+            selectedHospital: null,
             selectedMenus: [],
             status: 'Y',
-            subDepartmentsByDepartmentId: [],
-            userMenusBySubDepartment: [],
+            departmentListByHospital: [],
+            userMenus: [],
             defaultSelectedMenu: [],
             selectedUserMenusForModal: [],
             userMenuAvailabilityMessage: '',
             formValid: true,
             profileNameValid: true,
             profileDescriptionValid: true,
+            remarks: '',
             errorMessageForProfileName: "Profile Name should not contain special characters",
             errorMessageForProfileDescription: 'Profile Description should contain 200 characters only.',
         },
@@ -69,7 +77,8 @@ class ProfileManage extends PureComponent {
             variant: '',
             message: ''
         },
-        showAlert: false
+        showAlert: false,
+        previewData: {}
     };
 
     closeAlert = () => {
@@ -99,32 +108,34 @@ class ProfileManage extends PureComponent {
                 profileName: '',
                 profileDescription: '',
                 selectedDepartment: null,
-                selectedSubDepartment: null,
+                selectedHospital: null,
                 selectedMenus: [],
                 status: 'Y',
-                subDepartmentsByDepartmentId: [],
-                userMenusBySubDepartment: [],
+                departmentListByHospital: [],
+                userMenus: [],
                 defaultSelectedMenu: [],
                 selectedUserMenusForModal: [],
                 userMenuAvailabilityMessage: '',
                 formValid: true,
                 profileNameValid: true,
                 profileDescriptionValid: true,
+                remarks: ''
             },
             showEditModal: false
         })
     };
 
     apiCall = async (page) => {
-        const {profileName, status, selectedSubDepartment} = this.state.searchParameters;
+        const {profile, status, department, hospital} = this.state.searchParameters;
         let searchData = {
-            name: profileName,
+            profileId: profile ? profile.value : '',
             status: status && status.value !== 'A'
                 ? status.value
                 : '',
-            subDepartmentId: selectedSubDepartment
-                ? selectedSubDepartment.value
-                : ''
+            departmentId: department
+                ? department.value
+                : '',
+            hospitalId: hospital ? hospital.value : '',
         };
 
         let updatedPage =
@@ -149,8 +160,15 @@ class ProfileManage extends PureComponent {
         })
     };
 
+    initialApiCall = async () => {
+        this.apiCall();
+        this.fetchHospitals();
+        this.fetchDepartments();
+        this.fetchProfileListForDropdown();
+    };
+
     componentDidMount() {
-        this.apiCall()
+        this.initialApiCall();
     }
 
     appendSNToTable = profileList =>
@@ -164,7 +182,13 @@ class ProfileManage extends PureComponent {
             );
             await this.setState({
                 deleteModalShow: false,
-                deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
+                deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: "success",
+                    message: this.props.ProfileDeleteReducer.deleteSuccessMessage ?
+                        this.props.ProfileDeleteReducer.deleteSuccessMessage : "Profile deleted successfully."
+                }
             });
             await this.apiCall();
 
@@ -194,32 +218,32 @@ class ProfileManage extends PureComponent {
         });
 
         menusSelected.forEach(menuSelected => {
-            menusSelectedWithFlag.push({...menuSelected, isNew: false});
+            menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        let menusForSubDept = [...menus[profileResponseDTO.subDepartmentCode]];
+        let menusForSubDept = [...userMenusJson[process.env.REACT_APP_MODULE_CODE]];
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {
-            let subDeptList = await this.fetchSubDepartments(profileResponseDTO.departmentId);
+            await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
             this.setState({
                 profileUpdateData: {
                     ...this.state.profileUpdateData,
                     id: id,
                     profileName: profileResponseDTO.name,
                     profileDescription: profileResponseDTO.description,
+                    selectedHospital: {
+                        value: profileResponseDTO.hospitalId,
+                        label: profileResponseDTO.hospitalName
+                    },
                     selectedDepartment: {
                         value: profileResponseDTO.departmentId,
                         label: profileResponseDTO.departmentName
                     },
-                    selectedSubDepartment: {
-                        value: profileResponseDTO.subDepartmentId,
-                        label: profileResponseDTO.subDepartmentName
-                    },
                     status: profileResponseDTO.status,
                     selectedMenus: [...menusSelectedWithFlag],
-                    subDepartmentsByDepartmentId: [...subDeptList],
-                    userMenusBySubDepartment: [...alphabeticallySortedMenus],
+                    departmentListByHospital: [...this.props.DepartmentSetupReducer.departmentsByHospital],
+                    userMenus: [...alphabeticallySortedMenus],
                     defaultSelectedMenu: alphabeticallySortedMenus[0]
                 },
                 showEditModal: true
@@ -237,18 +261,20 @@ class ProfileManage extends PureComponent {
     };
 
     editApiCall = async () => {
-        const {id, selectedMenus, profileName, profileDescription, selectedSubDepartment, status} = this.state.profileUpdateData;
+        const {id, selectedMenus, profileName, profileDescription, selectedHospital, selectedDepartment, remarks, status} = this.state.profileUpdateData;
 
+        let menusToBeUpdated = selectedMenus.filter(menu=> menu.isUpdated || menu.isNew);
         let editRequestDTO = {
             profileDTO: {
                 description: profileDescription,
                 id: id,
                 name: profileName,
-                remarks: "",
+                remarks: remarks,
                 status: status,
-                subDepartmentId: selectedSubDepartment && selectedSubDepartment.value
+                departmentId: selectedDepartment && selectedDepartment.value,
+                hospitalId: selectedHospital && selectedHospital.value
             },
-            profileMenuRequestDTO: [...selectedMenus]
+            profileMenuRequestDTO: [...menusToBeUpdated]
         };
         try {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
@@ -263,13 +289,7 @@ class ProfileManage extends PureComponent {
             });
             await this.apiCall();
         } catch (e) {
-            //     this.setState({
-            //         showAlert: true,
-            //         alertMessageInfo: {
-            //             variant: "danger",
-            //             message: e.errorMessage
-            //         }
-            //     })
+
         }
     };
 
@@ -277,96 +297,20 @@ class ProfileManage extends PureComponent {
         event && (await this.bindValuesToState(event, fieldValid))
     };
 
-    fetchSubDepartments = async departmentId => {
-        return await TryCatchHandler.genericTryCatch(
-            this.props.fetchSubDepartmentsByDepartmentId(
-                FETCH_SUB_DEPARTMENT_BY_DEPARTMENT_ID,
-                departmentId
-            )
-        );
+    fetchHospitals = async () => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
     };
 
-    fetchSubDepartmentAndResetSubDepartment = async value => {
-        let subDepartmentByDept = this.fetchSubDepartments(value);
-        this.setState({
-            selectedSubDepartment: null,
-            subDepartmentsByDepartmentId: [...subDepartmentByDept instanceof Promise ? await subDepartmentByDept : subDepartmentByDept],
-            profileUpdateData: {
-                ...this.state.profileUpdateData,
-                selectedSubDepartment: null,
-                subDepartmentsByDepartmentId: [],
-                userMenusBySubDepartment: [],
-                defaultSelectedMenu: [],
-                userMenuAvailabilityMessage: ''
-            }
-        });
-        // await this.setState({subDepartmentsByDepartmentId: [...this.fetchSubDepartments(value)]});
+    fetchDepartments = async () => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
     };
 
-    fetchSubDepartmentForUpdate = async value => {
-        this.setState({
-            profileUpdateData: {
-                ...this.state.profileUpdateData,
-                selectedSubDepartment: null,
-                subDepartmentsByDepartmentId: [],
-                userMenusBySubDepartment: [],
-                defaultSelectedMenu: [],
-                userMenuAvailabilityMessage: ''
-            }
-        });
-
-        let updatedSubDept = await this.fetchSubDepartments(value);
-        let updateInSelectedMenus = [...this.state.profileUpdateData.selectedMenus];
-        const {profileResponseDTO} = this.props.ProfilePreviewReducer.profilePreviewData;
-
-        if (profileResponseDTO.departmentId !== value) {
-            let dataSelected = updateInSelectedMenus.map(data => {
-                data.status = 'N';
-                return data;
-            });
-            updateInSelectedMenus = [...dataSelected];
-        }
-
-        if (updatedSubDept)
-            await this.setState({
-                profileUpdateData: {
-                    ...this.state.profileUpdateData,
-                    subDepartmentsByDepartmentId: [...updatedSubDept],
-                    selectedMenus: [...updateInSelectedMenus]
-                }
-            });
-        console.log("Selected", this.state.profileUpdateData.selectedMenus);
+    fetchDepartmentsByHospitalId = async value => {
+        return value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
     };
 
-    filterMenuBySubDepartment = subDepartmentId => {
-        //IN CASE OF UPDATE SUB-DEPARTMENT LIST IS ALREADY FETCHED
-        let selectedSubDept = this.state.profileUpdateData.subDepartmentsByDepartmentId.filter(subDepartment =>
-            subDepartment.value === subDepartmentId);
-        const {profileResponseDTO} = this.props.ProfilePreviewReducer.profilePreviewData;
-        let updatedSelectedMenus = (profileResponseDTO.subDepartmentId === subDepartmentId) ?
-            [...this.changeStatusOfSelectedMenusOnDepartmentSubDepartmentChange(true)]
-            :
-            [...this.changeStatusOfSelectedMenusOnDepartmentSubDepartmentChange(false)];
-
-        let menusForSubDept = menus[selectedSubDept[0].code];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
-        menusForSubDept ?
-            this.setState({
-                profileUpdateData: {
-                    ...this.state.profileUpdateData,
-                    userMenusBySubDepartment: [...alphabeticallySortedMenus],
-                    defaultSelectedMenu: alphabeticallySortedMenus[0],
-                    selectedMenus: [...updatedSelectedMenus]
-                }
-            }) :
-            this.setState({
-                profileUpdateData: {
-                    ...this.state.profileUpdateData,
-                    userMenusBySubDepartment: [],
-                    defaultSelectedMenu: [],
-                    userMenuAvailabilityMessage: 'No user menus available.'
-                }
-            });
+    fetchProfileListForDropdown = async () => {
+        await this.props.fetchAllProfileListForSearchDropdown(FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN);
     };
 
     deleteRemarksHandler = event => {
@@ -383,25 +327,6 @@ class ProfileManage extends PureComponent {
         let value = event.target.value;
         let label = event.target.label;
         await this.setStateValues(fieldName, value, label);
-        switch (fieldName) {
-            case 'selectedDepartment':
-                value
-                    ? this.fetchSubDepartmentAndResetSubDepartment(value)
-                    : this.setState({
-                        selectedSubDepartment: null,
-                        subDepartmentsByDepartmentId: []
-                    });
-                break;
-            case 'selectedSubDepartment':
-                !value &&
-                this.setState({
-                    selectedSubDepartment: null,
-                    userMenusBySubDepartment: []
-                });
-                break;
-            default:
-                break
-        }
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
@@ -414,8 +339,7 @@ class ProfileManage extends PureComponent {
         userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
         Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
             // For each parent menu's selected menus
-            const userMenusBySubDepartment =
-                menus[profileResponseDTO.subDepartmentCode];
+            const userMenus = userMenusJson[process.env.REACT_APP_MODULE_CODE];
             const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
             let selectedParentMenus = new Set();
             let selectedChildMenus = new Set();
@@ -424,13 +348,12 @@ class ProfileManage extends PureComponent {
             selectedUserMenus.map((selectedMenu, indx) => {
                 //filter out the selected unique parent menu and child menus
                 selectedMenus.push({...selectedMenu});
-                let parent = userMenusBySubDepartment && userMenusBySubDepartment.find(
+                let parent = userMenus && userMenus.find(
                     userMenu => Number(userMenu.id) === Number(selectedMenu.parentId)
                 );
                 parent && selectedParentMenus.add(parent);
-                let child = parent && parent.childMenus.length && parent.childMenus.find(
-                    childMenu =>
-                        Number(childMenu.id) === Number(selectedMenu.userMenuId)
+                let child = parent && parent.childMenus.length && parent.childMenus.find(childMenu =>
+                    Number(childMenu.id) === Number(selectedMenu.userMenuId)
                 );
                 child && selectedChildMenus.add(child)
             });
@@ -472,14 +395,14 @@ class ProfileManage extends PureComponent {
             filteredProfiles = {
                 ...filteredProfiles,
                 profileName: profileResponseDTO.name,
+                hospitalValue: {
+                    value: profileResponseDTO.hospitalId,
+                    label: profileResponseDTO.hospitalName
+                },
                 profileDescription: profileResponseDTO.description,
                 departmentValue: {
                     value: profileResponseDTO.departmentId,
                     label: profileResponseDTO.departmentName
-                },
-                subDepartmentValue: {
-                    value: profileResponseDTO.subDepartmentId,
-                    label: profileResponseDTO.subDepartmentName
                 },
                 status: profileResponseDTO.status
             };
@@ -493,16 +416,18 @@ class ProfileManage extends PureComponent {
     onPreviewHandler = async id => {
         try {
             await this.previewApiCall(id);
+            let previewData = await this.getProfileDataForUserMenus(this.props.ProfilePreviewReducer.profilePreviewData);
             this.setState({
-                showProfileModal: true
+                showProfileModal: true,
+                previewData: previewData
             })
         } catch (e) {
+            const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
                     variant: "danger",
-                    message: "Error fetching profile Details."
-                    // e.errorMessage ? e.errorMessage: e.message
+                    message: profilePreviewErrorMessage ? profilePreviewErrorMessage : "Error fetching profile Details."
                 }
             })
             //console.log(e)
@@ -529,12 +454,11 @@ class ProfileManage extends PureComponent {
         await this.setState({
             searchParameters: {
                 ...this.state.searchParameters,
-                profileName: '',
+                profile: null,
                 status: {value: 'A', label: 'All'},
-                selectedDepartment: null,
-                selectedSubDepartment: null
-            },
-            subDepartmentsByDepartmentId: []
+                department: null,
+                hospital: null
+            }
         });
         this.apiCall()
     };
@@ -566,14 +490,16 @@ class ProfileManage extends PureComponent {
             profileNameValid,
             profileDescriptionValid,
             profileName,
-            profileDescription, selectedDepartment, selectedSubDepartment, selectedMenus
+            profileDescription, selectedDepartment, selectedHospital, selectedMenus,
+            remarks
         } = this.state.profileUpdateData;
         let formValidity = profileNameValid
             && profileDescriptionValid
             && profileName
             && profileDescription
+            && remarks
             && selectedDepartment !== null
-            && selectedSubDepartment !== null
+            && selectedHospital !== null
             && selectedMenus.length !== 0;
 
         this.setState({
@@ -618,47 +544,26 @@ class ProfileManage extends PureComponent {
         let value = event.target.value;
         let label = event.target.label;
         await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
-        switch (fieldName) {
-            case 'selectedDepartment':
-                if (value) {
-                    await this.fetchSubDepartmentForUpdate(value);
-                    this.setState({
-                        profileUpdateData: {
-                            ...this.state.profileUpdateData,
-                        }
-                    })
-                } else {
-                    this.setState({
-                        profileUpdateData: {
-                            ...this.state.profileUpdateData,
-                            selectedSubDepartment: null,
-                            subDepartmentsByDepartmentId: [],
-                            userMenusBySubDepartment: [],
-                            defaultSelectedMenu: [],
-                            selectedMenus:
-                                [...this.changeStatusOfSelectedMenusOnDepartmentSubDepartmentChange(Boolean(value))]
-                        }
-                    });
-                }
-                break;
-            case 'selectedSubDepartment':
-                value ? this.filterMenuBySubDepartment(value) : this.setState({
+        if (fieldName === 'selectedHospital') {
+            if (value) {
+                let departments = await this.fetchDepartmentsByHospitalId(value);
+                this.setState({
                     profileUpdateData: {
                         ...this.state.profileUpdateData,
-                        selectedSubDepartment: null,
-                        userMenusBySubDepartment: [],
-                        defaultSelectedMenu: [],
-                        userMenuAvailabilityMessage: '',
-                        selectedMenus:
-                            [...this.changeStatusOfSelectedMenusOnDepartmentSubDepartmentChange(Boolean(value))]
+                        selectedDepartment: null,
+                        departmentListByHospital: [...departments]
                     }
-                });
-                break;
-            default:
-                break;
+                })
+            } else {
+                this.setState({
+                    profileUpdateData: {
+                        ...this.state.profileUpdateData,
+                        selectedDepartment: null,
+                        departmentListByHospital: []
+                    }
+                })
+            }
         }
-
-        console.log(this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -675,6 +580,7 @@ class ProfileManage extends PureComponent {
                 // FOR ALL ALREADY EXISTING MENUS, CHANGE STATUS TO 'Y'
                 currentSelectedMenusWithStatusUpdated = currentSelectedMenus.map(currentSelectedMenu => {
                         currentSelectedMenu.status = 'Y';
+                        currentSelectedMenu.isUpdated = true;
                         return currentSelectedMenu;
                     }
                 );
@@ -691,7 +597,8 @@ class ProfileManage extends PureComponent {
                             roleId: role,
                             status: 'Y',
                             profileMenuId: null,
-                            isNew: true
+                            isNew: true,
+                            isUpdated:false
                         })
                     })
                 }
@@ -703,12 +610,12 @@ class ProfileManage extends PureComponent {
             if (originalMenus.length > 0) {
                 let updatedMenus = originalMenus.map(originalMenu => {
                     originalMenu.status = 'N';
+                    originalMenu.isUpdated = true;
                     return originalMenu
                 });
                 currentSelectedMenus = [...updatedMenus];
             }
         }
-        // let userMenusSelected = this.setValuesForModalDisplay(this.state.userMenusBySubDepartment, currentSelectedMenus);
         await this.setState(
             {
                 profileUpdateData: {
@@ -717,6 +624,7 @@ class ProfileManage extends PureComponent {
                 }
                 // selectedUserMenusForModal: userMenusSelected
             });
+        console.log("menusss all",this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -727,25 +635,33 @@ class ProfileManage extends PureComponent {
                 // FIRST CHECK IF THE ROLE IS SELECTED ORIGINALLY, IF YES UPDATE THE STATUS ELSE ADD NEW OBJECT
                 let roleIndex = currentSelectedMenus.findIndex(menu => menu.roleId === role.id
                     && Number(menu.userMenuId) === Number(childMenu.id));
-                roleIndex >= 0 ? currentSelectedMenus[roleIndex].status = 'Y' : currentSelectedMenus.push({
-                    parentId: childMenu.parentId === null ? childMenu.id : childMenu.parentId,
-                    userMenuId: childMenu.id,
-                    roleId: role.id,
-                    status: 'Y',
-                    isNew: true,
-                    profileMenuId: null
-                })
+                if (roleIndex >= 0) {
+                    currentSelectedMenus[roleIndex].status = 'Y';
+                    currentSelectedMenus[roleIndex].isUpdated = true;
+                } else {
+                    currentSelectedMenus.push({
+                        parentId: childMenu.parentId === null ? childMenu.id : childMenu.parentId,
+                        userMenuId: childMenu.id,
+                        roleId: role.id,
+                        status: 'Y',
+                        isNew: true,
+                        isUpdated:false,
+                        profileMenuId: null
+                    })
+                }
             } else {
                 // CHECK IF THE ROLE IS ALREADY SELECTED, IF YES CHECK IF IT IS NEWLY ADDED OR ORIGINAL ONE
                 // IF NEWLY ADDED SPLICE IT FROM SELECTED ARRAY, ELSE CHANGE ITS STATUS TO 'N'
                 let indexOfRole = currentSelectedMenus.findIndex(menu => Number(menu.roleId) === Number(role.id)
                     && Number(menu.userMenuId) === Number(childMenu.id));
-                indexOfRole >= 0 &&
-                currentSelectedMenus[indexOfRole].isNew ? currentSelectedMenus.splice(indexOfRole, 1) :
+                if (indexOfRole >= 0 && currentSelectedMenus[indexOfRole].isNew) {
+                    currentSelectedMenus.splice(indexOfRole, 1)
+                } else {
                     currentSelectedMenus[indexOfRole].status = "N";
+                    currentSelectedMenus[indexOfRole].isUpdated = true;
+                }
             }
         }
-        // let userMenusSelected = this.setValuesForModalDisplay(this.state.userMenusBySubDepartment, currentSelectedMenus);
         await this.setState({
             profileUpdateData: {
                 ...this.state.profileUpdateData,
@@ -753,6 +669,7 @@ class ProfileManage extends PureComponent {
                 // selectedUserMenusForModal: userMenusSelected
             }
         });
+        console.log("menussss",this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -763,37 +680,34 @@ class ProfileManage extends PureComponent {
             searchErrorMessage
         } = this.props.ProfileListReducer;
 
-        const {
-            profilePreviewData,
-            profilePreviewErrorMessage,
-            // profilePreviewOpen
-        } = this.props.ProfilePreviewReducer;
+        const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
 
-        const {
-            deleteErrorMessage
-        } = this.props.ProfileDeleteReducer;
+        const {deleteErrorMessage} = this.props.ProfileDeleteReducer;
 
-        const {departments} = this.props.ProfileSetupReducer;
+        const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
         const {profileErrorMessage} = this.props.ProfileEditReducer;
+
+        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         const {
             selectedDepartment,
             profileDescription,
             profileName,
             status,
-            subDepartmentsByDepartmentId,
-            selectedSubDepartment,
+            selectedHospital,
+            departmentListByHospital,
             errorMessageForProfileName,
             errorMessageForProfileDescription,
-            userMenusBySubDepartment,
+            userMenus,
             selectedMenus,
             newSelectedMenus,
             defaultSelectedMenu,
-            userMenuAvailabilityMessage
+            userMenuAvailabilityMessage,
+            remarks
         } = this.state.profileUpdateData;
-
-        // const Tabs = TabsHOC(CNavTabs, this.props.userMenus, this.props.path, 6);
 
         return (
             <>
@@ -801,8 +715,9 @@ class ProfileManage extends PureComponent {
                 <div className="">
                     <ProfileSetupSearchFilter
                         searchParameters={this.state.searchParameters}
-                        departmentList={this.props.ProfileSetupReducer.departments}
-                        subDepartmentList={this.state.subDepartmentsByDepartmentId}
+                        profileList={allProfilesForDropdown}
+                        hospitalList={hospitalsForDropdown}
+                        departmentList={departments}
                         onInputChange={this.handleOnChange}
                         onSearchClick={() => this.apiCall(1)}
                         resetSearchForm={this.handleSearchFormReset}
@@ -818,7 +733,7 @@ class ProfileManage extends PureComponent {
                         onDeleteHandler={this.onDeleteHandler}
                         onEditHandler={this.onEditHandler}
                         onPreviewHandler={this.onPreviewHandler}
-                        profileData={this.getProfileDataForUserMenus(profilePreviewData)}
+                        profileData={this.state.previewData}
                         profilePreviewErrorMessage={profilePreviewErrorMessage}
                         totalItems={this.state.totalRecords}
                         maxSize={this.state.queryParams.size}
@@ -836,14 +751,15 @@ class ProfileManage extends PureComponent {
                         showEditModal={this.state.showEditModal}
                         setShowEditModal={this.setShowModal}
                         profileInfoObj={{
-                            departmentValue: selectedDepartment,
-                            profileDescription: profileDescription,
                             profileName: profileName,
+                            profileDescription: profileDescription,
+                            hospitalValue: selectedHospital,
+                            departmentValue: selectedDepartment,
+                            departmentList: departmentListByHospital,
                             status: status,
-                            subDepartmentList: subDepartmentsByDepartmentId,
-                            subDepartmentValue: selectedSubDepartment,
+                            remarks: remarks
                         }}
-                        departments={departments}
+                        hospitalList={hospitalsForDropdown}
                         onEnterKeyPress={this.handleEnter}
                         onInputChange={this.handleUpdateFormChange}
                         editApiCall={this.editApiCall}
@@ -853,7 +769,7 @@ class ProfileManage extends PureComponent {
                         errorMessage={profileErrorMessage}
                         profileMenuAssignmentProps={
                             {
-                                userMenus: userMenusBySubDepartment,
+                                userMenus: userMenus,
                                 selectedMenus: selectedMenus,
                                 defaultSelectedMenu: defaultSelectedMenu,
                                 onCheckAllUserMenus: this.addAllMenusAndRoles,
@@ -861,12 +777,12 @@ class ProfileManage extends PureComponent {
                                 profileData: {
                                     profileName: profileName,
                                     profileDescription: profileDescription,
+                                    hospitalValue: selectedHospital,
                                     departmentValue: selectedDepartment,
-                                    subDepartmentValue: selectedSubDepartment,
                                     status: status,
                                     selectedMenus: selectedMenus,
                                     newSelectedMenus: newSelectedMenus,
-                                    userMenusBySubDepartment: userMenusBySubDepartment,
+                                    userMenus: userMenus,
                                     userMenuAvailabilityMessage: userMenuAvailabilityMessage
                                 }
                             }
@@ -899,14 +815,19 @@ export default ConnectHoc(
         'ProfilePreviewReducer',
         'ProfileSetupReducer',
         'ProfileDeleteReducer',
-        'ProfileEditReducer'
+        'ProfileEditReducer',
+        'DepartmentSetupReducer',
+        'HospitalDropdownReducer'
     ],
     {
         fetchProfileList,
         deleteProfile,
         editProfile,
         previewProfile,
-        fetchSubDepartmentsByDepartmentId,
-        clearSuccessErrorMessagesFromStore
+        clearSuccessErrorMessagesFromStore,
+        fetchActiveHospitalsForDropdown,
+        fetchActiveDepartmentsByHospitalId,
+        fetchActiveDepartmentsForDropdown,
+        fetchAllProfileListForSearchDropdown
     }
 )

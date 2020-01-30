@@ -12,16 +12,6 @@ export const fetchDepartments = (path) => async dispatch => {
     }
 };
 
-export const fetchSubDepartmentsByDepartmentId = (path, departmentId) => async dispatch => {
-    dispatch(ProfileSetupActions.subDepartmentFetchingStart());
-    try {
-        const response = await Axios.getWithPathVariables(path, departmentId);
-        return response.data;
-    } catch (e) {
-        dispatch(ProfileSetupActions.subDepartmentFetchingError("Error fetching department"));
-    }
-};
-
 export const createProfile = (path, profileData) => async dispatch => {
     dispatch(ProfileSetupActions.createProfileLoading());
     try {
@@ -116,6 +106,16 @@ export const fetchActiveProfileListForDropdown = (path) => async dispatch =>{
         return response.data;
     } catch (e) {
         dispatch(ProfileSetupActions.fetchProfileListForDropDownActiveError(e.errorMessage));
+    }
+};
+
+export const fetchAllProfileListForSearchDropdown = (path) => async dispatch =>{
+    try {
+        let response = await Axios.get(path);
+        dispatch(ProfileSetupActions.fetchProfileListForSearchDropDownSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(ProfileSetupActions.fetchProfileListForSearchDropDownError(e.errorMessage));
     }
 };
 

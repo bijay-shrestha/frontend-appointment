@@ -12,7 +12,7 @@ const PreviewRoles = props => {
                     bodyChildren={<ModalContent profileData={profileData} rolesJson={rolesJson}/>}
                     onHide={setShowModal}
                     centered={false}
-                    dialogClassName="preview-roles-modal "
+                    dialogClassName="preview-modal"
                     closeButton={true}
             />
         </>

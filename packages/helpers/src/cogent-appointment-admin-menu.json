@@ -1,0 +1,257 @@
+{
+  "SUP": [
+    {
+      "id": "1",
+      "parentId": null,
+      "name": "General Setup",
+      "path": "/generalSetup",
+      "roles": [],
+      "icon": "fa fa-cogs",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "1",
+      "description": "Medicine",
+      "childMenus": [
+        {
+          "id": "2",
+          "parentId": "1",
+          "name": "DepartmentSetup",
+          "path": "/department",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 2,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        },
+        {
+          "id": "3",
+          "parentId": "1",
+          "name": "Specialization Setup",
+          "path": "/specializations",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        },
+        {
+          "id": "4",
+          "parentId": "1",
+          "name": "Profile Setup",
+          "path": "/profile",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 4,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        },
+        {
+          "id": "5",
+          "parentId": "1",
+          "name": "Admin Setup",
+          "path": "/admin-setup",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            7
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 5,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        },
+        {
+          "id": "6",
+          "parentId": "1",
+          "name": "Hospital Setup",
+          "path": "/hospitals",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        },
+        {
+          "id": "7",
+          "parentId": "1",
+          "name": "Doctor Setup",
+          "path": "/doctor",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Medicine",
+          "childMenus": []
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "parentId": null,
+      "name": "Doctor Duty Roster",
+      "path": "/doctorDutyRoster",
+      "roles": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "icon": "fa fa-calculator",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Doctor Duty Roster",
+      "childMenus": []
+    },
+    {
+      "id": "9",
+      "parentId": null,
+      "name": "Appointment",
+      "path": "/appointment",
+      "roles": [],
+      "icon": "fa fa-bar-chart",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "appointment",
+      "childMenus": [
+        {
+          "id": "10",
+          "parentId": "9",
+          "name": "Appointment Status",
+          "path": "/appoinmentStatus",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appoinmentStatus",
+          "childMenus": []
+        },
+        {
+          "id": "11",
+          "parentId": "9",
+          "name": "Refund Request List",
+          "path": "/refundRequestList",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "refundRequestList",
+          "childMenus": []
+        },
+        {
+          "id": "12",
+          "parentId": "9",
+          "name": "Appointment Visits",
+          "path": "/appointmentVisits",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentVisits",
+          "childMenus": []
+        },
+        {
+          "id": "13",
+          "parentId": "9",
+          "name": "Appointment Log",
+          "path": "/appointmentLog",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentLog",
+          "childMenus": []
+        }
+      ]
+    }
+  ]
+}

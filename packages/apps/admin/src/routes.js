@@ -9,12 +9,16 @@ const AddProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
     loading: () => getLoader()
 });
+
 const AddDepartmentComponent = Loadable({
     loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
     loading: () => getLoader()
 });
 
-
+const AddHospitalComponent = Loadable({
+    loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
+    loading: () => getLoader()
+});
 
 const AddDoctorDutyRosterComponent = Loadable({
     loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
@@ -40,7 +44,6 @@ const DashboardComponent = Loadable({
     loader: () => import('./container/AdminDashboard/AdminDashboard'),
     loading: () => getLoader(),
 });
-
 
 
 /* ****** E ***** */
@@ -76,6 +79,11 @@ const ManageSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageHospitalComponent = Loadable({
+    loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
+    loading: () => getLoader()
+});
+
 const ManageDoctorDutyRosterComponent = Loadable({
     loader: () => import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
     loading: () => getLoader()
@@ -91,7 +99,7 @@ const ManageDoctorDutyRosterComponent = Loadable({
 /* ****** O ***** */
 
 /* ****** P ***** */
- 
+
 const ProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/ProfileSetup'),
     loading: () => getLoader(),
@@ -192,7 +200,6 @@ export const routes = [
         "hasTab": true,
         "isLink": true
     },
-
     {
         "path": "/admin/doctordutyroster/add",
         "name": "Add",
@@ -201,7 +208,6 @@ export const routes = [
         "hasTab": true,
         "isLink": true
     },
-
     {
         "path": "/admin/doctordutyroster/manage",
         "name": "Manage",
@@ -210,6 +216,22 @@ export const routes = [
         "hasTab": true,
         "isLink": true
     },
+    {
+        "path": "/admin/hospital/add",
+        "component": AddHospitalComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "name": "Add"
+    },
+    {
+        "path": "/admin/hospital/manage",
+        "component": ManageHospitalComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "name": "Add"
+    }
     // {
     //     "path": "",
     //     "component": CUnauthorized,
@@ -217,6 +239,6 @@ export const routes = [
     //     "hasTab": false,
     //     "isLink": false,
     //     "name": "Unauthorized"
-    // }
+    // },
 
 ];
