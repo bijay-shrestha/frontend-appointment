@@ -33,8 +33,8 @@ const {
 
 const initialState = {
   createQualificationLoading: true,
-  createQualificationerrorMessage: '', //departmentCreate error message
-  createQualificationsuccessMessage: '',
+  createQualificationErrorMessage: '', //departmentCreate error message
+  createQualificationSuccessMessage: '',
   isSearchLoading: true,
   qualificationList: [],
   searchErrorMessage: '',
@@ -50,7 +50,7 @@ const initialState = {
   qualificationsForDropdown: [],
   countryCodeForDropdown:[],
   qualificationsAliasForDropdown:[],
-  universitiesForDropdown:[]
+  universitiesDropdown:[]
 }
 
 export const QualificationSaveReducer = (state = {...initialState}, action) => {
@@ -73,15 +73,15 @@ export const QualificationSaveReducer = (state = {...initialState}, action) => {
       return {
         ...state,
         createQualificationLoading: false,
-        createQualificationerrorMessage: action.payload.message,
-        createQualificationsuccessMessage: ''
+        createQualificationErrorMessage: action.payload.message,
+        createQualificationSuccessMessage: ''
       }
     case CLEAR_QF_CREATE_MESSAGE:
       return {
         ...state,
         createQualificationLoading: false,
-        createQualificationerrorMessage: '',
-        createQualificationsuccessMessage: ''
+        createQualificationErrorMessage: '',
+        createQualificationSuccessMessage: ''
       }
     default:
       return {
@@ -291,7 +291,7 @@ export const CountryCodeDropdownReducer = (state = {...initialState}, action) =>
   }
 }
 
-export const universitiesForDropdown = (state = {...initialState}, action) => {
+export const UniversitiesForDropdownReducer = (state = {...initialState}, action) => {
   switch (action.type) {
     case FETCH_UNIVERSITY_DROPDOWN_SUCCESS:
       return {
