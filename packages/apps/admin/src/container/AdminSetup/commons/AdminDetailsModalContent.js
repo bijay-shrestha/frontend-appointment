@@ -7,10 +7,10 @@ import {
     CImageDisplayAndView,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
-import {Col, Row} from "react-bootstrap";
-import * as DefaultProfileImage from "../Add/Picture.jpg";
+import { Col, Row } from "react-bootstrap";
+import * as DefaultProfileImage from "../Add/picture.png";
 
-const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
+const AdminDetailsModalContent = ({ adminInfoObj, adminImage }) => {
     const images = [{
         src: adminImage ? adminImage : DefaultProfileImage,
         alt: 'ADMIN',
@@ -20,7 +20,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
     return (
         <>
             <Container-fluid>
-                <Row className="pl-4 pr-4"><h5>Admin Info</h5></Row>
+                {/* <Row className="pl-4 pr-4"><h5>Admin Info</h5></Row> */}
 
                 <CForm
                     id="department-info"
@@ -33,11 +33,13 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                 {/*     onClick={this.handleViewImage}*/}
                                 {/*     src={adminImage ? adminImage : DefaultProfileImage}*/}
                                 {/*     style={{width: '150px'}}/>*/}
-                                <CImageDisplayAndView images={images}/>
+                                <div className="image-upload-container">
+                                    <CImageDisplayAndView images={images} className="image-box" />
+                                </div>
                             </Col>
                             <Col sm={12} md={12} lg={9}>
                                 <Row>
-                                    <Col sm={12} md={12} lg={6}>
+                                    <Col sm={12} md={12} lg={12}>
                                         <CHybridInput
                                             id="hospital"
                                             placeholder="Hospital"
@@ -110,71 +112,94 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                     </Col>
 
                                     <Col sm={12} md={12} lg={6}>
-                                        <CFLabel labelName="Gender" id="gender"/>
-                                        <CRadioButton
-                                            checked={adminInfoObj.genderCode === "F"}
-                                            id="female"
-                                            label="Female"
-                                            type="radio"
-                                            name="genderCode"
-                                            value="F"
-                                            disabled={true}
-                                            readOnly={true}
-                                        />
-                                        <CRadioButton
-                                            checked={adminInfoObj.genderCode === "M"}
-                                            id="male"
-                                            label="Male"
-                                            type="radio"
-                                            name="genderCode"
-                                            value="M"
-                                            disabled={true}
-                                            readOnly={true}
-                                        />
+                                        <CFLabel labelName="Gender" id="gender" />
+                                        <div>
+                                            {adminInfoObj.genderCode === "F" &&
 
-                                        <CRadioButton
-                                            checked={adminInfoObj.genderCode === "O"}
-                                            id="other"
-                                            label="Other"
-                                            type="radio"
-                                            name="genderCode"
-                                            value="O"
-                                            disabled={true}
-                                            readOnly={true}
-                                        />
+                                                <CRadioButton
+                                                    checked={adminInfoObj.genderCode === "F"}
+                                                    id="female"
+                                                    label="Female"
+                                                    type="radio"
+                                                    name="genderCode"
+                                                    value="F"
+                                                    disabled={true}
+                                                    readOnly={true}
+                                                />
+
+                                            }
+
+                                            {
+                                                adminInfoObj.genderCode === "M" &&
+                                                 <CRadioButton
+                                                 checked={adminInfoObj.genderCode === "M"}
+                                                 id="male"
+                                                 label="Male"
+                                                 type="radio"
+                                                 name="genderCode"
+                                                 value="M"
+                                                 disabled={true}
+                                                 readOnly={true}
+                                             />
+
+                                            }
+
+                                            {adminInfoObj.genderCode === "O" &&
+                                                  <CRadioButton
+                                                  checked={adminInfoObj.genderCode === "O"}
+                                                  id="other"
+                                                  label="Other"
+                                                  type="radio"
+                                                  name="genderCode"
+                                                  value="O"
+                                                  disabled={true}
+                                                  readOnly={true}
+                                              />
+
+                                            }
+
+                                           
+
+                                          
+                                        </div>
 
                                     </Col>
 
                                     <Col sm={12} md={12} lg={6}>
-                                        <CFLabel labelName="Status" id="status"/>
-                                        <CRadioButton
-                                            checked={Boolean(adminInfoObj.status)}
-                                            disabled={true}
-                                            id="radio1"
-                                            label="Active"
-                                            type="radio"
-                                            readOnly
-                                        />
-                                        <CRadioButton
-                                            checked={Boolean(!adminInfoObj.status)}
-                                            disabled={true}
-                                            id="radio2"
-                                            label="Inactive"
-                                            type="radio"
-                                            className="sr-only"
-                                            readOnly
-                                        />
+                                        <CFLabel labelName="Status" id="status" />
+                                        {adminInfoObj.status === 'Y' &&
+                                            <CRadioButton
+                                                checked={adminInfoObj.status === 'Y'}
+                                                disabled={true}
+                                                id="radio1"
+                                                label="Active"
+                                                type="radio"
+                                                readOnly
+                                            />
+                                        }
+                                        {
+                                            adminInfoObj.status === 'N' &&
+                                            <CRadioButton
+                                                checked={adminInfoObj.status === 'N'}
+                                                disabled={true}
+                                                id="radio2"
+                                                label="Inactive"
+                                                type="radio"
+                                                readOnly
+                                            />
+                                        }
                                     </Col>
 
-                                    <Col sm={12} md={12} lg={6}>
-                                        <>
-                                            <Col>
-                                                {adminInfoObj.hasMacBinding === 'Y' ?
-                                                    <i className=" fa fa-check"> </i> :
-                                                    <i className=" fa fa-close"> </i>} Device Filter
+                                    {adminInfoObj.hasMacBinding &&
+                                        <Col sm={12} md={12} lg={6}>
+                                            <>
+                                                <Col className="mt-4 pl-0">
+                                                    {adminInfoObj.hasMacBinding ?
+                                                        <i className=" fa fa-check"> </i> :
+                                                        <i className=" fa fa-close"> </i>} Device Filter
                                             </Col>
-                                            {adminInfoObj.hasMacBinding ?
-                                                (adminInfoObj.macIdList ?
+                                                {adminInfoObj.hasMacBinding ?
+                                                    (adminInfoObj.macIdList ?
                                                         (adminInfoObj.macIdList.map(
                                                             (macId, index) => (
                                                                 <>
@@ -188,11 +213,12 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                                                 </>
                                                             )))
                                                         : ''
-                                                )
-                                                : ''
-                                            }
-                                        </>
-                                    </Col>
+                                                    )
+                                                    : ''
+                                                }
+                                            </>
+                                        </Col>
+                                    }
                                 </Row>
                             </Col>
                         </Row>

@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import AdminInfoForm from "./AdminInfoForm";
-import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from "@frontend-appointment/helpers";
-import {ConnectHoc} from "@frontend-appointment/commons";
+import { AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils } from "@frontend-appointment/helpers";
+import { ConnectHoc } from "@frontend-appointment/commons";
 import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
@@ -10,21 +10,21 @@ import {
     HospitalSetupMiddleware,
     previewProfile
 } from "@frontend-appointment/thunk-middleware";
-import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
-import {Col, Container, Row} from "react-bootstrap";
-import {CAlert, CButton, CLoading} from "@frontend-appointment/ui-elements";
+import { AdminModuleAPIConstants } from "@frontend-appointment/web-resource-key-constants";
+import { Col, Container, Row } from "react-bootstrap";
+import { CAlert, CButton, CLoading } from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import AdminConfirmationModal from "./AdminConfirmationModal";
 import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
+const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
+const { fetchActiveDepartmentsByHospitalId } = departmentSetupMiddleware;
 
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
-const {FETCH_PROFILE_DETAILS, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID} = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
-const {CREATE_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants;
+const { FETCH_HOSPITALS_FOR_DROPDOWN } = AdminModuleAPIConstants.hospitalSetupApiConstants;
+const { FETCH_PROFILE_DETAILS, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID } = AdminModuleAPIConstants.profileSetupAPIConstants;
+const { FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL } = AdminModuleAPIConstants.departmentSetupAPIConstants;
+const { CREATE_ADMIN } = AdminModuleAPIConstants.adminSetupAPIConstants;
 
 class AdminAdd extends PureComponent {
 
@@ -73,7 +73,7 @@ class AdminAdd extends PureComponent {
             email: '',
             password: '',
             mobileNumber: '',
-            adminCategory: null,
+            genderCode: '',
             status: 'Y',
             hasMacBinding: '',
             macIdList: [],
@@ -81,11 +81,11 @@ class AdminAdd extends PureComponent {
             profileList: [],
             showImageUploadModal: false,
             showConfirmModal: false,
-            adminAvatar: null,
-            adminAvatarURL: '',
             adminImage: '',
             adminImageCroppedUrl: '',
             adminFileCropped: '',
+            adminAvatar: null,
+            adminAvatarURL: '',
             fullNameValid: false,
             emailValid: false,
             mobileNumberValid: false,
@@ -98,17 +98,17 @@ class AdminAdd extends PureComponent {
         })
     };
 
-    setMacIdListInState = macIds => this.setState({macIdList: [...macIds]});
+    setMacIdListInState = macIds => this.setState({ macIdList: [...macIds] });
 
     setStateValues = (key, value, label, fieldValid) =>
         label ? value ?
-            this.setState({[key]: {value, label}})
-            : this.setState({[key]: null})
-            : this.setState({[key]: value, [key + "Valid"]: fieldValid});
+            this.setState({ [key]: { value, label } })
+            : this.setState({ [key]: null })
+            : this.setState({ [key]: value, [key + "Valid"]: fieldValid });
 
-    setShowModal = () => this.setState({showImageUploadModal: !this.state.showImageUploadModal});
+    setShowModal = () => this.setState({ showImageUploadModal: !this.state.showImageUploadModal });
 
-    setShowConfirmModal = () => this.setState({showConfirmModal: !this.state.showConfirmModal});
+    setShowConfirmModal = () => this.setState({ showConfirmModal: !this.state.showConfirmModal });
 
     addMacIdObjectToMacIdList = (hasMacBinding) => {
         let tempArray = AdminSetupUtils.addRemoveMacAddressObject(hasMacBinding, this.state.macIdList);
@@ -144,7 +144,7 @@ class AdminAdd extends PureComponent {
     actionsOnHospitalChange = async value => {
         if (value) {
             await this.fetchDepartmentsByHospitalId(value);
-            const {departmentsByHospital} = this.props.DepartmentSetupReducer;
+            const { departmentsByHospital } = this.props.DepartmentSetupReducer;
             this.setState({
                 department: null,
                 profile: null,
@@ -164,7 +164,7 @@ class AdminAdd extends PureComponent {
     actionsOnDepartmentChange = async value => {
         if (value) {
             await this.fetchProfilesByDepartmentId(value);
-            const {activeProfilesByDepartmentId} = this.props.ProfileSetupReducer;
+            const { activeProfilesByDepartmentId } = this.props.ProfileSetupReducer;
             this.setState({
                 profile: null,
                 profileList: activeProfilesByDepartmentId ? activeProfilesByDepartmentId : [],
@@ -223,7 +223,7 @@ class AdminAdd extends PureComponent {
     };
 
     handleImageSelect = imageUrl => {
-        imageUrl && this.setState({adminImage: imageUrl})
+        imageUrl && this.setState({ adminImage: imageUrl })
     };
 
     handleCropImage = (croppedImageUrl) => {
@@ -267,7 +267,7 @@ class AdminAdd extends PureComponent {
         formData.append('file', new File([adminAvatar], username.concat('-picture.jpeg')));
         try {
             await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData);
-            this.resetStateValues();
+            await this.resetStateValues();
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
@@ -343,9 +343,9 @@ class AdminAdd extends PureComponent {
             profileData
         } = this.state;
 
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
-        const {dropdownErrorMessage} = this.props.ProfileSetupReducer;
-        const {isCreateAdminLoading} = this.props.AdminSetupReducer;
+        const { hospitalsForDropdown } = this.props.HospitalDropdownReducer;
+        const { dropdownErrorMessage } = this.props.ProfileSetupReducer;
+        const { isCreateAdminLoading } = this.props.AdminSetupReducer;
 
         return <>
             <div className=" ">
@@ -358,7 +358,7 @@ class AdminAdd extends PureComponent {
                             name='Reset'
                             className="mb-2  float-right"
                             onClickHandler={this.resetStateValues}>
-                            <>&nbsp;<i className='fa fa-refresh'/></>
+                            <>&nbsp;<i className='fa fa-refresh' /></>
                         </CButton>
                         <AdminInfoForm
                             adminInfoObj={{
@@ -399,7 +399,7 @@ class AdminAdd extends PureComponent {
                         />
                         <Row className="mt-4">
                             <Col
-                                sm={12} md={{span: 3, offset: 9}}>
+                                sm={12} md={{ span: 3, offset: 9 }}>
                                 <CButton
                                     id="save-admin"
                                     variant="primary "
@@ -422,7 +422,7 @@ class AdminAdd extends PureComponent {
                                         email: email,
                                         genderCode: genderCode,
                                         mobileNumber: mobileNumber,
-                                        status: status,
+                                        status: status ? 'Y' : 'N',
                                         hasMacBinding: hasMacBinding,
                                         macIdList: macIdList,
                                         adminAvatar: adminAvatar,
@@ -441,16 +441,16 @@ class AdminAdd extends PureComponent {
                             showModal={showProfileDetailModal}
                             setShowModal={this.closeProfileDetailsViewModal}
                             profileData={profileData}
-                            rolesJson={menuRoles}/>
+                            rolesJson={menuRoles} />
                     }
                     <CAlert
                         id="profile-manage"
                         variant={this.state.alertMessageInfo.variant}
                         show={this.state.showAlert}
                         onClose={this.closeAlert}
-                        alertType={this.state.alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                        alertType={this.state.alertMessageInfo.variant === "success" ? <><Material.MdDone />
                         </> : <><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                        </>}
+                            </>}
                         message={this.state.alertMessageInfo.message}
                     />
                 </Container>

@@ -159,7 +159,9 @@ const AdminDetailsDataTable = ({
                         imageRenderer: AdminPicture
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={checkIfRoleExists(filteredActions, 4) && onPreviewHandler}
+                    getSelectedRows={
+                        // checkIfRoleExists(filteredActions, 4) && 
+                        onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={setShowModal} // {this.showModal}
                     rowData={searchData}

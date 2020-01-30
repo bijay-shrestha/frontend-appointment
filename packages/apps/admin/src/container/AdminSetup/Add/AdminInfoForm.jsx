@@ -61,6 +61,7 @@ const AdminInfoForm = ({
                                     handleImageUpload={onImageUpload}
                                     imageSrc={adminImage}
                                     croppedImageSrc={adminCroppedImage}
+                                    circularCrop={true}
                                     onImageSelect={onImageSelect}
                                     onImageCrop={data => onImageCrop(data)}/>
 
@@ -99,6 +100,7 @@ const AdminInfoForm = ({
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
+                                <div className="profile-list">
                                 <CHybridSelect
                                     id="admin-profile"
                                     label="Profile"
@@ -108,7 +110,7 @@ const AdminInfoForm = ({
                                     options={profileList}
                                     value={adminInfoObj.profile}
                                     isDisabled={!adminInfoObj.department}
-                                    placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                    placeholder={adminInfoObj.department ? "Select profile." : "Select department first."}
                                 />
                                 {adminInfoObj.profile &&
                                 <CButton
@@ -120,6 +122,7 @@ const AdminInfoForm = ({
                                     <i className="fa fa-info-circle"/>
                                 </CButton>
                                 }
+                                </div>
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>

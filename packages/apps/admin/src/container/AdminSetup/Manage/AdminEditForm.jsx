@@ -13,7 +13,7 @@ import {
     CRadioButton
 } from "@frontend-appointment/ui-elements";
 import {Row} from "reactstrap";
-import * as DefaultProfileImage from '../Add/Picture.jpg';
+import * as DefaultProfileImage from '../Add/picture.png';
 import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
 
 const AdminEditForm = ({
@@ -74,6 +74,7 @@ const AdminEditForm = ({
                                         handleImageUpload={(data) => onImageUpload(data)}
                                         imageSrc={adminImage}
                                         croppedImageSrc={adminCroppedImage}
+                                        circularCrop={true}
                                         onImageSelect={(e) => onImageSelect(e)}
                                         onImageCrop={data => onImageCrop(data)}
                                     />
@@ -94,6 +95,7 @@ const AdminEditForm = ({
                                         placeholder="Select hospital."
                                     />
                                 </Col>
+                                <Col sm={12} md={12} lg={6}></Col>
 
                                 <Col sm={12} md={12} lg={6}>
                                     <CHybridSelect
@@ -110,6 +112,7 @@ const AdminEditForm = ({
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
+                                <div className="profile-list">
                                     <CHybridSelect
                                         id="admin-profile"
                                         label="Profile"
@@ -121,7 +124,9 @@ const AdminEditForm = ({
                                         isDisabled={!adminInfoObj.department}
                                         placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
                                     />
+                                    
                                     {adminInfoObj.profile &&
+                                 
                                     <CButton
                                         id={"profile-details".concat(adminInfoObj.profile.value)}
                                         variant=""
@@ -131,6 +136,7 @@ const AdminEditForm = ({
                                         <i className="fa fa-info-circle"/>
                                     </CButton>
                                     }
+                                    </div>
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
@@ -190,21 +196,11 @@ const AdminEditForm = ({
                                     />
                                 </Col>
 
-                                <Col sm={12} md={12} lg={6}>
-                                    <CHybridTextArea
-                                        id="remarks"
-                                        name="remarks"
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event, validity) => onInputChange(event, validity)}
-                                        placeholder="Remarks"
-                                        value={adminInfoObj.remarks}
-                                        max={200}
-                                        required={true}
-                                    />
-                                </Col>
+                              
 
                                 <Col sm={12} md={12} lg={6}>
                                     <CFLabel labelName="Gender" id="gender"/>
+                                    <div>
                                     <CRadioButton
                                         checked={adminInfoObj.genderCode === "F"}
                                         onKeyDown={(event) => onEnterKeyPress(event)}
@@ -236,6 +232,7 @@ const AdminEditForm = ({
                                         onKeyDown={(event) => onEnterKeyPress(event)}
                                         onChange={(event) => onInputChange(event)}
                                     />
+                                    </div>
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
@@ -262,7 +259,9 @@ const AdminEditForm = ({
                                     />
                                 </Col>
 
-                                <Col sm={12} md={12} lg={12} className="py-4">
+                              
+                               
+                                <Col sm={12} md={12} lg={6} className="mt-4">
                                     <Row>
                                         <Col lg={12} className="px-4">
                                             <Row>
@@ -283,16 +282,16 @@ const AdminEditForm = ({
                                                             id="macBinding"
                                                             name=""
                                                             size="lg"
-                                                            variant="success"
+                                                            variant="outline-secondary"
                                                             className="float-right mb-2"
                                                             onClickHandler={onAddMoreMacId}>
-                                                            <i className="fa fa-plus"/>
+                                                            <i className="fa fa-plus"/> Add
                                                         </CButton>
                                                     </Col>
 
                                                 }
 
-                                                <Col lg={{span: 6, offset: 6}}>
+                                                <Col lg={12}>
                                                     {adminInfoObj.hasMacBinding ?
                                                         <>
                                                             {adminInfoObj.macIdList && adminInfoObj.macIdList.map(
@@ -317,7 +316,7 @@ const AdminEditForm = ({
                                                                                 id="macBinding"
                                                                                 key={"macRemove" + index}
                                                                                 name=""
-                                                                                variant="danger"
+                                                                                variant="outline-danger"
                                                                                 className="float-right remove-mac "
                                                                                 onClickHandler={() => onRemoveMacId(macId, index)}>
                                                                                 <i className="fa fa-close"/>
@@ -334,6 +333,22 @@ const AdminEditForm = ({
                                         </Col>
                                     </Row>
                                 </Col>
+                            
+                                
+
+                                <Col sm={12} md={12} lg={6}>
+                                    <CHybridTextArea
+                                    className="mt-4"
+                                        id="remarks"
+                                        name="remarks"
+                                        onKeyDown={(event) => onEnterKeyPress(event)}
+                                        onChange={(event, validity) => onInputChange(event, validity)}
+                                        placeholder="Remarks"
+                                        value={adminInfoObj.remarks}
+                                        max={200}
+                                        required={true}
+                                    />
+                                </Col> 
                             </Row>
                         </Col>
                     </Row>

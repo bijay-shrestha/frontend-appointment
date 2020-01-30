@@ -70,6 +70,7 @@ export const AdminSetupReducer = (state = {...initialState}, action) => {
         case CREATE_ADMIN_ERROR:
             return {
                 ...state,
+                isCreateAdminLoading: false,
                 errorMessage: action.payload.errorMessage
             };
         case CLEAR_ADMIN_CREATE_ERROR_MESSAGE:

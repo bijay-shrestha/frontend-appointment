@@ -70,6 +70,7 @@ const HospitalForm = ({
                       handleImageUpload={handleImageUpload}
                       imageSrc={hospitalImage}
                       croppedImageSrc={hospitalImageCroppedUrl}
+                      circularCrop={false}
                       onImageSelect={onImageSelect}
                       onImageCrop={data => handleCropImage(data)}
                     />
