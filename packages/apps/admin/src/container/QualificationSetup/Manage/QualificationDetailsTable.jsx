@@ -16,21 +16,7 @@ const {checkIfRoleExists} = ActionFilterUtils
 const SpecializationDetailsDataTable = props => (
     <div className="profile-details">
         {console.log(props.searchData)}
-        <h5 className="title">Specialization Details</h5>
-        {/* <CButton
-      id="downloadExcel"
-      name="DownloadExcel"
-      onClickHandler={props.exportExcel}
-      disabled={
-        !props.isSearchLoading &&
-        !props.searchErrorMessage &&
-        props.searchData.length
-          ? false
-          : true
-      }
-      className="float-right p-2"
-      variant="info"
-    /> */}
+        <h5 className="title">Quailfication Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -55,7 +41,7 @@ const SpecializationDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Specialization Name',
+                            headerName: 'Qualification Name',
                             field: 'name',
                             // headerClass: "fi",
                             resizable: true,
@@ -63,7 +49,7 @@ const SpecializationDetailsDataTable = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Specialization Code',
+                            headerName: 'Qualification Alias Id',
                             field: 'code',
                             resizable: true,
                             sortable: true,
@@ -130,13 +116,13 @@ const SpecializationDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showSpecializationModal && !props.isPreviewLoading ? (
+        {props.showQualificationModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showSpecializationModal}
+                showModal={props.showQualificationModal}
                 setShowModal={props.setShowModal}
-                specializationData={props.specializationData}
-                specializationPreviewErrorMessage={
-                    props.specializationPreviewErrorMessage
+                qualificationData={props.qualificationData}
+                qualificationPreviewErrorMessage={
+                    props.qualificationPreviewErrorMessage
                 }
             />
         ) : (
@@ -144,8 +130,8 @@ const SpecializationDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Specialization?If yes please provide remarks."
-                modalHeader="Delete Specialization"
+                confirmationMessage="Are you sure you want to delete the Qualification?If yes please provide remarks."
+                modalHeader="Delete Qualification"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}

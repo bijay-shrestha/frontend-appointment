@@ -20,6 +20,11 @@ const AddHospitalComponent = Loadable({
     loading: () => getLoader()
 });
 
+const AddQualificationComponent = Loadable({
+    loader:() => import('./container/QualificationSetup/Add/QualificationAdd'),
+    loading:() => getLoader()
+})
+
 // const AddAdminComponent = Loadable({
 //     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
 //     loading: () => getLoader()
@@ -78,6 +83,10 @@ const ManageHospitalComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageQualificationComponent = Loadable({
+    loader:() => import('./container/QualificationSetup/Manage/QualificationManage'),
+    loading:() => getLoader()
+})
 // const ManageAdminComponent = Loadable({
 //     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
 //     loading: () => getLoader()
@@ -94,10 +103,7 @@ const ProfileComponent = Loadable({
     loading: () => getLoader(),
 });
 /* ****** Q ***** */
-const AddQualificationComponent = Loadable({
-    loader:() => import('./container/QualificationSetup/Add/QualificationAdd'),
-    loading:() => getLoader()
-})
+
 
 /* ****** R ***** */
 
@@ -157,7 +163,8 @@ export const routes = [
         "icon": "",
         "hasTab": true,
         "isLink": true,
-        "name": "Add",
+        "isTab":true,
+        "name": "Add"
     },
     {
         "path": "/admin/specialization/Manage",
@@ -165,15 +172,17 @@ export const routes = [
         "icon": "",
         "hasTab": true,
         "isLink": true,
-        "name": "Manage",
+        "isTab":true,
+        "name": "Manage"
     },
     {
         "path": "/admin/specialization",
         "component": <></>,
         "icon": "",
         "hasTab": true,
-        "isLink": true,
-        "name": "Add",
+        "isLink": false,
+        "isTab":false,
+        "name": "Specialization Setup",
     },
     {
         "path": "/admin/department",
@@ -195,7 +204,7 @@ export const routes = [
     },
     {
         "path": "/admin/department/manage",
-        "name": "Add",
+        "name": "Manage",
         "component": ManageDepartmentComponent,
         "icon": "",
         "hasTab": true,
@@ -226,16 +235,16 @@ export const routes = [
         "hasTab":true,
         "isLink":true,
         "isTab": true,
-        "name":"Add"
+        "name":"Manage"
     },
     {
         "path": "/admin/hospital",
         "component": <></>,
         "icon": "",
         "hasTab": true,
-        "isLink": true,
+        "isLink": false,
         "isTab": false,
-        "name": "Add",
+        "name": "Hospital Setup",
     },
     {
         "path": "/admin/qualification/add",
@@ -245,5 +254,22 @@ export const routes = [
         "isLink": true,
         "isTab": true,
         "name": "Add",
+    },
+    {
+        "path": "/admin/qualification/manage",
+        "component": ManageQualificationComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "isTab": true,
+        "name": "Manage",
+    },  {
+        "path": "/admin/qualification",
+        "component": <></>,
+        "icon": "",
+        "hasTab": true,
+        "isLink": false,
+        "isTab": false,
+        "name": "Qualification Setup",
     },
 ];

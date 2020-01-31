@@ -1,20 +1,20 @@
 import React, {memo} from 'react'
-import SpecializationSetupSearchFilter from './SpecializationSetupSearchFilter'
-import SpecializationDetailsTable from './SpecializationDetailsTable'
-import SubDepartmentEditForm from './SpecializationEditModal'
+import QualificationSetupSearchFilter from './QualificationSetupSearchFilter'
+import QualificationDetailsTable from './QualificationDetailsTable'
+import QualificationEditForm from './QualificationEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import SpecializationSetupHoc from '../SpecializationSetupHoc'
-const SpecializationManage = props => {
-  const SPManage = SpecializationSetupHoc(
+import QualificationSetupHoc from '../QualificationSetupHoc'
+const QualificationManage = props => {
+  const SPManage = QualificationSetupHoc(
     ({
       searchParameters,
       handleSearchFormChange,
-      searchSpecialization,
+      searchQualification,
       resetSearch,
       handleEnter,
-      showSpecializationModal,
+      showQualificationModal,
       isSearchLoading,
-      specializationList,
+      qualificationList,
       searchErrorMessage,
       deleteModalShow,
       onEditHandler,
@@ -24,50 +24,51 @@ const SpecializationManage = props => {
       onSubmitDeleteHandler,
       queryParams,
       totalRecords,
-      errorMessageForSpecializationCode,
-      errorMessageForSpecializationName,
+      errorMessageForQualificationName,
       alertMessageInfo,
       handleInputChange,
-      editSpecialization,
-      downloadEXCEL,
+      editQualification,
       deleteRemarksHandler,
-      specializationPreviewErrorMessage,
+      qualificationPreviewErrorMessage,
       deleteErrorMessage,
-      specializationEditErrorMessage,
+      qualificationEditErrorMessage,
       isPreviewLoading,
-      specializationPreviewData,
+      qualificationPreviewData,
       onPreviewHandler,
       showEditModal,
       formValid,
       deleteRequestDTO,
       showAlert,
       closeAlert,
-      specializationData
+      qualificationData,
+      qualificationsAliasForDropdown,
+      qualificationsForDropdown,
+      universitiesDropdown
     }) => (
       <>
         <div className="">
-          <SpecializationSetupSearchFilter
+          <QualificationSetupSearchFilter
             searchParameters={searchParameters}
             onInputChange={handleSearchFormChange}
-            onSearchClick={()=>searchSpecialization(1)}
+            onSearchClick={() => searchQualification(1)}
             resetSearchForm={resetSearch}
             handleEnter={handleEnter}
           />
         </div>
         <div className=" mb-2">
-          <SpecializationDetailsTable
+          <QualificationDetailsTable
             //filteredActions={props.filteredAction}
-            showSpecializationModal={showSpecializationModal}
+            showQualificationModal={showQualificationModal}
             isSearchLoading={isSearchLoading}
-            searchData={specializationList}
+            searchData={qualificationList}
             searchErrorMessage={searchErrorMessage}
             setShowModal={setShowModal}
             onDeleteHandler={onDeleteHandler}
             onEditHandler={onEditHandler}
             isPreviewLoading={isPreviewLoading}
             onPreviewHandler={onPreviewHandler}
-            specializationData={specializationPreviewData}
-            specializationPreviewErrorMessage={specializationPreviewErrorMessage}
+            qualificationData={qualificationPreviewData}
+            qualificaitonPreviewErrorMessage={qualificationPreviewErrorMessage}
             totalItems={totalRecords}
             maxSize={queryParams.size}
             currentPage={queryParams.page}
@@ -77,26 +78,22 @@ const SpecializationManage = props => {
             remarksHandler={deleteRemarksHandler}
             remarks={deleteRequestDTO.remarks}
             deleteErrorMsg={deleteErrorMessage}
-            exportExcel={downloadEXCEL}
-          
+            qualificationsAliasForDropdown={qualificationsAliasForDropdown}
+            qualificationsForDropdown={qualificationsForDropdown}
+            universitiesDropdown={universitiesDropdown}
           />
         </div>
         {showEditModal && (
-          <SubDepartmentEditForm
+          <QualificationEditForm
             showModal={showEditModal}
             setShowModal={setShowModal}
             onEnterKeyPress={handleEnter}
-            specializationData={specializationData}
+            qualificationData={qualificationData}
             onInputChange={handleInputChange}
-            editApiCall={editSpecialization}
+            editApiCall={editQualification}
             formValid={formValid}
-            errorMessageForSpecializationCode={
-              errorMessageForSpecializationCode
-            }
-            errorMessageForSpecializationName={
-              errorMessageForSpecializationName
-            }
-            errorMessage={specializationEditErrorMessage}
+            errorMessageForQualificationName={errorMessageForQualificationName}
+            errorMessage={qualificationEditErrorMessage}
           />
         )}
         <CAlert
@@ -123,30 +120,11 @@ const SpecializationManage = props => {
         />
       </>
     ),
-    props,"M"
+    props,
+    'M'
   )
   return <SPManage />
 }
 
-// const {
-//   isSearchLoading,
-//   specializationList,
-//   searchErrorMessage
-// } = this.props.SpecializationSearchReducer
 
-// const {
-//   specializationPreviewData,
-//   isPreviewLoading,
-//   specializationPreviewErrorMessage
-// } = this.props.SpecializationPreviewReducer
-
-// const {
-//   specializationEditErrorMessage
-// } = this.props.SpecializationEditReducer
-
-// const {deleteErrorMessage} = this.props.Specialization.Reducer
-
-//   }
-// }
-
-export default memo(SpecializationManage)
+export default memo(QualificationManage)

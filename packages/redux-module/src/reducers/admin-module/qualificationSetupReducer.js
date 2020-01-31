@@ -59,15 +59,15 @@ export const QualificationSaveReducer = (state = {...initialState}, action) => {
       return {
         ...state,
         createQualificationLoading: true,
-        createQualificationerrorMessage: '',
-        createQualificationsuccessMessage: ''
+        createQualificationErrorMessage: '',
+        createQualificationSuccessMessage: ''
       }
     case CREATE_QF_SUCCESS:
       return {
         ...state,
         createQualificationLoading: false,
-        createQualificationerrorMessage: '',
-        createQualificationsuccessMessage: action.payload.message
+        createQualificationErrorMessage: '',
+        createQualificationSuccessMessage: action.payload.message
       }
     case CREATE_QF_ERROR:
       return {

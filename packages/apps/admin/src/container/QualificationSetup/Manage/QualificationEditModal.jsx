@@ -6,7 +6,8 @@ import {
   CHybridInput,
   CModal,
   CRadioButton,
-  CHybridTextArea
+  CHybridTextArea,
+  CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -15,55 +16,68 @@ const DepartmentEditModal = ({
   setShowModal,
   onEnterKeyPress,
   onInputChange,
-  specializationData,
-  errorMessageForSpecializationName,
-  errorMessageForSpecializationCode,
+  qualificationData,
+  errorMessageForQualificationName,
   errorMessage,
   editApiCall,
-  formValid
+  formValid,
+  qualificationsAliasForDropdown,
+  universitiesDropdown
 }) => {
   const bodyContent = (
     <>
-      {console.log('Edit', specializationData)}
-      <CForm id="specialization-info" className="mt-2">
+      <CForm id="qualification-info" className="mt-2">
         <Row>
           <Col sm={12} md={12} lg={4}>
             <CHybridInput
-              id="specialization-name"
+              id="qualification-name"
               name="name"
               onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event, validity) =>
                 onInputChange(event, validity, 'E')
               }
-              placeholder="Specialization Name"
-              value={specializationData.name}
+              placeholder="Qualification Name"
+              value={qualificationData.name}
               required={true}
               hasValidation={true}
               fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForSpecializationName}
+              errorMessagePassed={errorMessageForQualificationName}
             />
           </Col>
           <Col sm={12} md={12} lg={4}>
-            <CHybridInput
-              id="Specialization Code"
+            <CHybridSelect
+              id="Qualificaiton Alias"
               name="code"
               onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event, validity) =>
                 onInputChange(event, validity, 'E')
               }
-              placeholder="Specialization Code"
-              value={specializationData.code}
+              placeholder="Select a Qualification Alias"
+              options={qualificationsAliasForDropdown}
+              value={qualificationData.qualificationAliasId}
               required={true}
-              // hasValidation={true}
-              // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-              errorMessagePassed={errorMessageForSpecializationCode}
+            />
+          </Col>
+
+          <Col sm={12} md={12} lg={4}>
+            <CHybridSelect
+              id="University Id"
+              name="universityId"
+              onKeyDown={event => onEnterKeyPress(event)}
+              onChange={(event, validity) =>
+                onInputChange(event, validity, 'E')
+              }
+              placeholder="Select a University Id"
+              value={qualificationData.universityId}
+              options={universitiesDropdown}
+              required={true}
             />
           </Col>
 
           <Col sm={12} md={12} lg={4}>
             <CFLabel labelName="Status" id="status"></CFLabel>
             <CRadioButton
-              checked={specializationData.status === 'Y'}
+              checked={qualificationData.status === 'Y'}
               name="status"
               id="radio1"
               label="Active"
@@ -73,7 +87,7 @@ const DepartmentEditModal = ({
               onChange={event => onInputChange(event, 'E')}
             />
             <CRadioButton
-              checked={specializationData.status === 'N'}
+              checked={qualificationData.status === 'N'}
               id="radio2"
               name="status"
               label="Inactive"
@@ -85,15 +99,12 @@ const DepartmentEditModal = ({
           </Col>
           <Col sm={12} md={12} lg={4}>
             <CHybridTextArea
-              id="Specialization Remarks"
+              id="Remarks"
               name="remarks"
-              //onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event, validity) => onInputChange(event, validity)}
-              placeholder="Specialization Remarks"
-              value={specializationData.remarks}
+              placeholder="Qualification Remarks"
+              value={qualificationData.remarks}
               required={true}
-              // hasValidation={true}
-              // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
             />
           </Col>
         </Row>
@@ -139,7 +150,7 @@ const DepartmentEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Specialization Details"
+        modalHeading="Qualification Details"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}

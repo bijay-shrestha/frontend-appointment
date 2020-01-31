@@ -2,7 +2,6 @@ import React, {PureComponent} from 'react'
 import {
   CButton,
   CForm,
-  CHybridInput,
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
@@ -30,16 +29,18 @@ class SpecializationSetupSearchFilter extends PureComponent {
       onInputChange,
       searchParameters,
       resetSearchForm,
-      handleEnter
+      handleEnter,
+      qualificationsAliasForDropdown,
+      qualificationsForDropdown,
+      universitiesDropdown
     } = this.props
     console.log('Search Parameters', searchParameters)
     return (
       <>
         {this.state.isSearchFormExpanded ? (
-          // TODO: TO BE MADE DYNAMIC
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Specialization</h5>
+              <h5 className="title">Search Qualification</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -53,30 +54,44 @@ class SpecializationSetupSearchFilter extends PureComponent {
                 </CButton>
               </div>
             </div>
-            <CForm id="specialization-info" className="profile-info mt-4">
+            <CForm id="qualification-info" className="profile-info mt-4">
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="specialization-name"
+                    <CHybridSelect
+                      id="qualification-name"
                       name="name"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Specialization Name"
+                      label="Select Qualification Name"
                       value={searchParameters.name}
+                      options={qualificationsForDropdown}
                     />
                   </Col>
+                  
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridInput
-                      id="specialization-code"
-                      name="code"
+                    <CHybridSelect
+                      id="university-id"
+                      name="universityId"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      placeholder="Specialization Code"
-                      value={searchParameters.code}
+                      label="Select University Name"
+                      value={searchParameters.universityId}
+                      options={universitiesDropdown}
                     />
                   </Col>
                   <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="qualification-alias"
+                      name="qualificationAliasId"
+                      onKeyDown={event => handleEnter(event)}
+                      onChange={event => onInputChange(event)}
+                      label="Select Qualification Alias"
+                      value={searchParameters.qualificationAliasId}
+                      options={qualificationsAliasForDropdown}
+                    />
+                  </Col>
+                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="status"
                       name="status"
@@ -142,7 +157,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Specialization Name</Tooltip>
+                      <Tooltip {...props}>Quailcation Name</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
@@ -152,17 +167,33 @@ class SpecializationSetupSearchFilter extends PureComponent {
                 </li>
               )}
 
-              {searchParameters.code && (
+              {searchParameters.universityId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Specialization Code</Tooltip>
+                      <Tooltip {...props}>University Id</Tooltip>
                     )}
                   >
                     <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.code}
+                      {searchParameters.universityId}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+               
+               {searchParameters.qualificationAliasId && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => (
+                      <Tooltip {...props}>Qualification Alias Id</Tooltip>
+                    )}
+                  >
+                    <Button id="button-search-filters" variant="secondary">
+                      {searchParameters.qualificationAliasId}
                     </Button>
                   </OverlayTrigger>
                 </li>
