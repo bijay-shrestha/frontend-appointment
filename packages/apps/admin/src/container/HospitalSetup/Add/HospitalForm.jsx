@@ -1,5 +1,5 @@
-import React, {memo} from 'react'
-import {Col, Row} from 'react-bootstrap'
+import React, { memo } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import {
   CFLabel,
   CForm,
@@ -9,8 +9,10 @@ import {
   CButton,
   CFControl
 } from '@frontend-appointment/ui-elements'
-import * as DefaultProfileImage from './picture.png'
-import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import * as DefaultLogo from '../img/default-logo.png'
+import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
+
+
 const HospitalForm = ({
   hospitalInfoObj,
   errorMessageForHospitalName,
@@ -37,23 +39,27 @@ const HospitalForm = ({
         <Row sm="12 p-0">
           <h5 className="title">Hospital Info</h5>
         </Row>
-        <CForm id="profile-info" className="mt-2 profile-info">
+        <CForm id="hospital-info" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col
+              <Col lg={3}  className=" order-md-first order-lg-last">
+                <Row>
+                <Col
                 sm={12}
                 md={12}
-                lg={3}
-                className="order-lg-last order-md-first"
+                lg={12}
+               
               >
                 <div className="image-upload-container">
+                  <CFLabel labelName="Hospital Logo"></CFLabel>
                   <div className="image-box">
+
                     <img
                       alt="HOSPITAL IMAGE"
                       src={
                         hospitalInfoObj.hospitalLogo
                           ? hospitalInfoObj.hospitalLogoUrl
-                          : DefaultProfileImage
+                          : DefaultLogo
                       }
                     />
                     <CButton
@@ -79,7 +85,20 @@ const HospitalForm = ({
                 </div>
               </Col>
 
-              <Col sm={12} md={6} lg={6}>
+              <Col
+                sm={12}
+                md={12}
+                lg={6}
+                className=" order-md-first"
+              >
+              </Col>
+                </Row>
+
+              </Col>
+         
+              <Col lg={9} >
+                <Row>
+                <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-name"
                   name="name"
@@ -109,17 +128,6 @@ const HospitalForm = ({
                 />
               </Col>
               <Col sm={12} md={6} lg={6}>
-                <CHybridTextArea
-                  id="hospital-address"
-                  name="address"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Hospital Address"
-                  value={hospitalInfoObj.address}
-                  required={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-panNumber"
                   name="panNumber"
@@ -130,8 +138,20 @@ const HospitalForm = ({
                   required={true}
                 />
               </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridTextArea
+                  id="hospital-address"
+                  name="address"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) => onInputChange(event, validity)}
+                  placeholder="Hospital Address"
+                  value={hospitalInfoObj.address}
+                  required={true}
+                />
+              </Col>
 
-              <Col sm={12} md={8} lg={8}>
+
+              <Col sm={12} md={6} lg={6}>
                 <CFLabel
                   labelName="Contact Number"
                   id="contactNumber"
@@ -139,50 +159,54 @@ const HospitalForm = ({
                 {contactLength != hospitalInfoObj.contactNumber.length && (
                   <CButton
                     id={'add-contact-numbers'}
-                    variant="outline-primary"
+                    variant="outline-secondary"
                     onClickHandler={() => addContactNumber('contactNumber', '')}
-                    name="Add"
-                  />
+                    name=""
+                    size="sm"
+                    className="pull-right"
+                  ><i className="fa fa-plus" /> Add
+                  </CButton>
                 )}
 
-                <Container-fluid key={'contactForm'}>
-                  <Row>
-                    {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
-                      return (
-                       <div key={"contInputs"+idx}>
-                          <CFControl
-                            key={'contactInput' + idx}
-                            id={'contactInput' + idx}
-                            id="contactNumber"
-                            name="contactNumber"
-                            onKeyDown={event => onEnterKeyPress(event)}
-                            onChange={e =>
-                              editContactNumber(
-                                'contactNumber',
-                                e.target.value,
-                                idx
-                              )
-                            }
-                            placeholder="Enter your Phone Number"
-                            value={contNumber}
-                            required={true}
-                            // errorMessagePassed={errorMessageForHospitalCode}
-                          />
-                          {hospitalInfoObj.contactNumber.length!==1?<CButton
-                            key={'removecontact' + idx}
-                            id={'removecontact' + idx}
-                            variant="outline-danger"
-                            onClickHandler={() =>
-                              removeContactNumber('contactNumber', idx)
-                            }
-                            name="Remove"
-                            size="sm"
-                          ></CButton>:''}
-                        </div>
-                      )
-                    })}
-                  </Row>
-                </Container-fluid>
+
+                <Row key={'contactForm'}>
+                  {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
+                    return (
+                      <Col md={12} lg={12} key={"contInputs" + idx} className="contact-box my-1">
+                        <CFControl
+                          key={'contactInput' + idx}
+                          id={'contactInput' + idx}
+                          id="contactNumber"
+                          name="contactNumber"
+                          onKeyDown={event => onEnterKeyPress(event)}
+                          onChange={e =>
+                            editContactNumber(
+                              'contactNumber',
+                              e.target.value,
+                              idx
+                            )
+                          }
+                          placeholder="Hopsital Contact Number"
+                          value={contNumber}
+                          required={true}
+                        // errorMessagePassed={errorMessageForHospitalCode}
+                        />
+                        {hospitalInfoObj.contactNumber.length !== 1 ? <CButton
+                          key={'removecontact' + idx}
+                          id={'removecontact' + idx}
+                          variant="outline-danger"
+                          onClickHandler={() =>
+                            removeContactNumber('contactNumber', idx)
+                          }
+                          name=""
+                          size="sm"
+                          className="remove-contact "
+                        >  <i className="fa fa-close" /></CButton> : ''}
+                      </Col>
+                    )
+                  })}
+                </Row>
+
               </Col>
 
               <Col sm={12} md={4} lg={4}>
@@ -204,6 +228,9 @@ const HospitalForm = ({
                   type="radio"
                 /> */}
               </Col>
+                </Row>
+                </Col>       
+             
             </Row>
           </Container-fluid>
         </CForm>

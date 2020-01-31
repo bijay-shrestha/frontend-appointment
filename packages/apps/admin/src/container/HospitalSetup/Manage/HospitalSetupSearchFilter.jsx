@@ -55,7 +55,7 @@ class HospitalSetupSearchFilter extends PureComponent {
             <CForm id="hospital-info" className="profile-info mt-4">
               <Container-fluid>
                 <Row>
-                  <Col sm={12} md={4} xl={4}>
+                  <Col sm={12} md={6} xl={6}>
                   <CHybridSelect
                       id="name"
                       name="name"
@@ -67,7 +67,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                     />
                   </Col>
 
-                  <Col sm={12} md={4} xl={4}>
+                  <Col sm={12} md={6} xl={6}>
                     <CHybridSelect
                       id="status"
                       name="status"

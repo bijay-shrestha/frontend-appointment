@@ -25,7 +25,7 @@ const ConfirmDelete = props => {
                 />
 
                 <CButton
-                    variant='outline-secondary '
+                    variant='light '
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'

@@ -9,10 +9,82 @@
  @import '~bootstrap/scss/mixins';
 
 
-
 h5.title{
-    // color:$cogent;
-    // background-color:$white;
-    // @include border-radius($cogent-radius);
-    display: inline-block !important;
+    // color:red !important;
+}
+
+ .contact-box{
+    position: relative;
+  
+
+
+    .remove-contact{
+        position: absolute;
+        right:15px;
+        top:0;
+        height:calc(1.5em + 0.8rem);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius:3px;
+        border-bottom-right-radius: 3px;
+       border:none;
+    }
+
+    &:first-child{
+        .remove-contact{
+            display:none;
+        }
+    }
+}
+
+.upload-button{
+    display: block;
+    width:140px;
+}
+
+.image-upload-container{
+  text-align: center;
+
+    .image-box{
+       img{
+           width:140px;
+           @include border-radius(10px);
+       }
+
+       .upload-button{
+           margin:0 auto;
+       }
+
+
+
+    }
+}
+
+
+
+.image-container .default-image {
+    background-image: url(./img/default-logo.png);
+}
+
+.preview-modal{
+    .contact-box{
+        .remove-contact{
+            right:0;
+        }
+    }
+}
+
+.cropped-image{
+
+    img{
+        @include border-radius(0px);
+    }
+    @include border-radius(5px);
+}
+
+.react-photo-gallery--gallery img {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto !important;
+    @include border-radius(10px);
 }

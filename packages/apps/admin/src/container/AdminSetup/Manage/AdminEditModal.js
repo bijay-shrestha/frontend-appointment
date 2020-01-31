@@ -30,12 +30,12 @@ const AdminEditModal = ({
     let footerChildren = <>
         <Container fluid="true">
             <Row>
-                <div className="col-md-6">
+                <div className="col-sm-12  col-md-6">
                     {errorMessage ?
                         <p className="modal-error"><i class="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
                         </p> : ''}
                 </div>
-                <div className="col-md-6">
+                <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
                         disabled={!adminUpdateData.formValid}
@@ -46,7 +46,7 @@ const AdminEditModal = ({
                     <CButton id="cancel-update-profile"
                              variant="light"
                              size="lg"
-                             variant="outline-secondary"
+                             variant="light"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
                              onClickHandler={setShowModal}
