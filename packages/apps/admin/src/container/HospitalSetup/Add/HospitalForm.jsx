@@ -6,10 +6,11 @@ import {
   CHybridInput,
   CRadioButton,
   CHybridTextArea,
-  CButton
+  CButton,
+  CFControl
 } from '@frontend-appointment/ui-elements'
-import * as DefaultProfileImage from './picture.png';
-import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
+import * as DefaultProfileImage from './picture.png'
+import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 const HospitalForm = ({
   hospitalInfoObj,
   errorMessageForHospitalName,
@@ -29,7 +30,7 @@ const HospitalForm = ({
   handleImageUpload,
   setImageShow
 }) => {
-  console.log('hospital Info',hospitalInfoObj)
+  console.log('hospital Info', hospitalInfoObj)
   return (
     <>
       <Container-fluid>
@@ -105,7 +106,6 @@ const HospitalForm = ({
                   errorMessagePassed={errorMessageForHospitalCode}
                   max={4}
                   min={2}
-                
                 />
               </Col>
               <Col sm={12} md={6} lg={6}>
@@ -132,6 +132,10 @@ const HospitalForm = ({
               </Col>
 
               <Col sm={12} md={8} lg={8}>
+                <CFLabel
+                  labelName="Contact Number"
+                  id="contactNumber"
+                ></CFLabel>
                 {contactLength != hospitalInfoObj.contactNumber.length && (
                   <CButton
                     id={'add-contact-numbers'}
@@ -140,42 +144,45 @@ const HospitalForm = ({
                     name="Add"
                   />
                 )}
-                {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
-                  return (
-                    <Container-fluid key={'contactForm' + idx}>
-                      <Row>
-                        <CHybridInput
-                          key={'contactInput' + idx}
-                          id={'contactInput' + idx}
-                          id="contactNumber"
-                          name="contactNumber"
-                          onKeyDown={event => onEnterKeyPress(event)}
-                          onChange={e =>
-                            editContactNumber(
-                              'contactNumber',
-                              e.target.value,
-                              idx
-                            )
-                          }
-                          placeholder="Contact Number"
-                          value={contNumber}
-                          required={true}
-                          errorMessagePassed={errorMessageForHospitalCode}
-                        />
-                        <CButton
-                          key={'removecontact' + idx}
-                          id={'removecontact' + idx}
-                          variant="outline-danger"
-                          onClickHandler={() =>
-                            removeContactNumber('contactNumber', idx)
-                          }
-                          name="Remove"
-                          size="sm"
-                        ></CButton>
-                      </Row>
-                    </Container-fluid>
-                  )
-                })}
+
+                <Container-fluid key={'contactForm'}>
+                  <Row>
+                    {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
+                      return (
+                       <div key={"contInputs"+idx}>
+                          <CFControl
+                            key={'contactInput' + idx}
+                            id={'contactInput' + idx}
+                            id="contactNumber"
+                            name="contactNumber"
+                            onKeyDown={event => onEnterKeyPress(event)}
+                            onChange={e =>
+                              editContactNumber(
+                                'contactNumber',
+                                e.target.value,
+                                idx
+                              )
+                            }
+                            placeholder="Contact Number"
+                            value={contNumber}
+                            required={true}
+                            // errorMessagePassed={errorMessageForHospitalCode}
+                          />
+                          {hospitalInfoObj.contactNumber.length!==1?<CButton
+                            key={'removecontact' + idx}
+                            id={'removecontact' + idx}
+                            variant="outline-danger"
+                            onClickHandler={() =>
+                              removeContactNumber('contactNumber', idx)
+                            }
+                            name="Remove"
+                            size="sm"
+                          ></CButton>:''}
+                        </div>
+                      )
+                    })}
+                  </Row>
+                </Container-fluid>
               </Col>
 
               <Col sm={12} md={4} lg={4}>

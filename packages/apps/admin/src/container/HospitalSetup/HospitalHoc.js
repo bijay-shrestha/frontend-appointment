@@ -21,11 +21,11 @@ const {
 } = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
   const {hospitalSetupApiConstants} = AdminModuleAPIConstants
-  
+
   class HospitalSetup extends React.PureComponent {
     state = {
       hospitalData: {
-        id:'',
+        id: '',
         name: '',
         address: '',
         panNumber: '',
@@ -33,7 +33,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         hospitalCode: '',
         hospitalLogo: null,
         hospitalLogoUrl: '',
-        contactNumber: [],
+        contactNumber: [''],
         contactNumberUpdateRequestDTOS: [],
         editContactNumberRequestDTOS: []
       },
@@ -58,7 +58,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       searchParameters: {
         // code: '',
         // id: null,
-        name:'',
+        name: '',
         status: {value: '', label: 'All'}
       },
       queryParams: {
@@ -92,17 +92,20 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     resetHospitalStateValues = () => {
       this.setState({
         hospitalData: {
-          id:'',
+          id: '',
           name: '',
           address: '',
           panNumber: '',
           status: 'Y',
           hospitalCode: '',
-          contactNumber: [],
+          contactNumber: [''],
           contactNumberUpdateRequestDTOS: [],
           editContactNumberRequestDTOS: []
         },
         hospitalLogo: '',
+        hospitalImage: '',
+        hospitalImageCroppedUrl: '',
+        hospitalFileCropped: '',
         formValid: false,
         nameValid: false,
         codeValid: false,
@@ -288,7 +291,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             panNumber: panNumber,
             address: address,
             hospitalCode: hospitalCode,
-            remarks:remarks,
+            remarks: remarks,
             contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
             editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
             hospitalLogoUrl: fileUri,
@@ -304,22 +307,24 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    searchHospitalForDropDown = async() => {
-    try{
-     await this.props.fetchActiveHospitalsForDropdown(hospitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
-    }catch(e){
-      console.log(e);
-    }
+    searchHospitalForDropDown = async () => {
+      try {
+        await this.props.fetchActiveHospitalsForDropdown(
+          hospitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL
+        )
+      } catch (e) {
+        console.log(e)
+      }
     }
 
     searchHospital = async page => {
       const {code, name, status, id} = this.state.searchParameters
       let searchData = {
-        name: name.value?name.label:name,
+        name: name.value ? name.label : name,
         code: code,
         status: status.value,
         id: id
-      }  
+      }
 
       let updatedPage =
         this.state.queryParams.page === 0
@@ -565,7 +570,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
       const {deleteErrorMessage} = this.props.HospitalDeleteReducer
 
-      const {hospitalsForDropdown}=this.props.HospitalDropdownReducer
+      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       return (
         <ComposedComponent
