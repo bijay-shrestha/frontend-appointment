@@ -11,7 +11,8 @@ import {
     SpecializationEditReducer,
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
-    SpecializationSearchReducer
+    SpecializationSearchReducer,
+    SpecializationDropdownReducer
 } from './admin-module/specializationSetupReducer'
 import {
     HospitalDeleteReducer,
@@ -59,6 +60,7 @@ export {
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
     SpecializationSearchReducer,
+    SpecializationDropdownReducer,
     HospitalDeleteReducer,
     HospitalEditReducer,
     HospitalPreviewReducer,

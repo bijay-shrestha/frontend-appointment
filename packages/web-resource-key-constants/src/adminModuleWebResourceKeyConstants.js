@@ -62,9 +62,8 @@ export const specializationSetupAPIConstants = {
     EDIT_SPECIALIZATION: BASE.concat(SP_BASE),
     EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + "/excel"),
     DELETE_SPECIALIZATION: BASE.concat(SP_BASE),
-    DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + "/dropdown"),
-    ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + "/dropdown/active"),
-    SPECIFIC_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + "/dropdown/active")
+    ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + "/active/min"),
+    SPECIALIZATION_BY_DOCTOR_ID:BASE.concat(SP_BASE)
 };
 
 export const hostpitalSetupApiConstants = {
@@ -97,5 +96,5 @@ export const qualificationSetupApiConstants = {
     SPECIFIC_DROPDOWN_HOSPITAL_ACTIVE: BASE.concat(QF_BASE + "/active/min")
 };
 export const qualificationSetupAliasCode = {
-    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE) 
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
 }

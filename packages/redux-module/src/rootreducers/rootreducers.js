@@ -33,6 +33,7 @@ import {
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
     SpecializationSearchReducer,
+    SpecializationDropdownReducer,
     HospitalDropdownReducer
 } from '../reducers'
 
@@ -48,6 +49,7 @@ export const rootReducers = combineReducers({
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
     SpecializationSearchReducer,
+    SpecializationDropdownReducer,
     HospitalDeleteReducer,
     HospitalEditReducer,
     HospitalPreviewReducer,
