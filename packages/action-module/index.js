@@ -11,8 +11,8 @@ import {
 import {
     adminSetupActionConstants,
     AdminSetupActions,
-    ConsultantSetupActions,
-    consultantSetupConstants,
+    DoctorSetupActions,
+    doctorSetupConstants,
     DepartmentSetupActions,
     departmentSetupConstants,
     HospitalSetupActions,
@@ -26,8 +26,8 @@ import {
 export {
     adminSetupActionConstants,
     AdminSetupActions,
-    ConsultantSetupActions,
-    consultantSetupConstants,
+    DoctorSetupActions,
+    doctorSetupConstants,
     DepartmentSetupActions,
     departmentSetupConstants,
     HospitalSetupActions,

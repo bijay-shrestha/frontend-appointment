@@ -23,12 +23,13 @@ import {
     HospitalDropdownReducer
 } from './admin-module/hospitalSetupReducer'
 import {
-    ConsultantDeleteReducer,
-    ConsultantEditReducer,
-    ConsultantPreviewReducer,
-    ConsultantSaveReducer,
-    ConsultantSearchReducer
-} from './admin-module/consultantSetupReducer'
+    DoctorDeleteReducer,
+    DoctorEditReducer,
+    DoctorPreviewReducer,
+    DoctorSaveReducer,
+    DoctorSearchReducer,
+    DoctorDropdownReducer
+} from './admin-module/doctorSetupReducer'
 import {
     DepartmentDeleteReducer,
     DepartmentEditReducer,
@@ -66,11 +67,12 @@ export {
     HospitalPreviewReducer,
     HospitalSaveReducer,
     HospitalSearchReducer,
-    ConsultantDeleteReducer,
-    ConsultantEditReducer,
-    ConsultantPreviewReducer,
-    ConsultantSaveReducer,
-    ConsultantSearchReducer,
+    DoctorDeleteReducer,
+    DoctorEditReducer,
+    DoctorPreviewReducer,
+    DoctorSaveReducer,
+    DoctorSearchReducer,
+    DoctorDropdownReducer,
     DepartmentDeleteReducer,
     DepartmentEditReducer,
     DepartmentListReducer,

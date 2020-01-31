@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import DepartmentSetupSearchFilter from "./DepartmentSetupSearchFilter";
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {
-    departmentSetupMiddleware,
+    DepartmentSetupMiddleware,
     logoutUser,
     HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
@@ -20,7 +20,7 @@ const {
     deleteDepartment,
     downloadExcelForDepartments,
     clearDepartmentSuccessErrorMessagesFromStore
-} = departmentSetupMiddleware;
+} = DepartmentSetupMiddleware;
 
 const {
     SEARCH_DEPARTMENT,

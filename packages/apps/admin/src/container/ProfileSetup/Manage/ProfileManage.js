@@ -4,7 +4,7 @@ import {ConnectHoc, menus, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
-    departmentSetupMiddleware,
+    DepartmentSetupMiddleware,
     editProfile,
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
@@ -29,7 +29,7 @@ const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITA
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
 
 class ProfileManage extends PureComponent {
     state = {

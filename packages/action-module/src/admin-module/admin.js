@@ -4,8 +4,8 @@ import {specializationSetupConstants} from "./specialization-setup/specializatio
 import * as SpecializationSetupActions from './specialization-setup/specializationSetupActions';
 import {hospitalSetupConstants} from "./hospital-setup/hospitalSetupConstant";
 import * as HospitalSetupActions from './hospital-setup/hospitalSetupActions';
-import {consultantSetupConstants} from './consultant-setup/consultantSetupConstant';
-import * as ConsultantSetupActions from './consultant-setup/consultantSetupActions';
+import {doctorSetupConstants} from './doctor-setup/doctorSetupConstant';
+import * as DoctorSetupActions from './doctor-setup/doctorSetupActions';
 import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant';
 import * as AdminSetupActions from './admin-setup/adminSetupActions';
 import * as DepartmentSetupActions from './department-setup/departmentSetupActions';
@@ -18,8 +18,8 @@ export {
     SpecializationSetupActions,
     hospitalSetupConstants,
     HospitalSetupActions,
-    consultantSetupConstants,
-    ConsultantSetupActions,
+    doctorSetupConstants,
+    DoctorSetupActions,
     adminSetupActionConstants,
     AdminSetupActions,
     departmentSetupConstants,

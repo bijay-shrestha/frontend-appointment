@@ -5,7 +5,7 @@ import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert, CButton} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {ConnectHoc} from "@frontend-appointment/commons";
-import {departmentSetupMiddleware, HospitalSetupMiddleware} from "@frontend-appointment/thunk-middleware";
+import {DepartmentSetupMiddleware, HospitalSetupMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import DepartmentConfirmationModal from "./DepartmentConfirmationModal";
 import "./../department-setup.scss";
@@ -13,7 +13,7 @@ import "./../department-setup.scss";
 const {CREATE_DEPARTMENT} = AdminModuleAPIConstants.departmentSetupAPIConstants;
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
 
-const {createDepartment, clearDepartmentSuccessErrorMessagesFromStore} = departmentSetupMiddleware;
+const {createDepartment, clearDepartmentSuccessErrorMessagesFromStore} = DepartmentSetupMiddleware;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 

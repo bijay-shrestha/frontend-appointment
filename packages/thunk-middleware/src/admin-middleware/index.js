@@ -23,8 +23,8 @@ import {
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
 import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
-import * as ConsultantMiddleware from './consultant-setup-middleware/consultantSetupMiddleware';
-import * as departmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
+import * as DoctorMiddleware from './doctor-setup-middleware/doctorSetupMiddleware';
+import * as DepartmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
 
 export {
     createProfile,
@@ -46,6 +46,6 @@ export {
     fetchAdminMetaInfo,
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
-    ConsultantMiddleware,
-    departmentSetupMiddleware
+    DoctorMiddleware,
+    DepartmentSetupMiddleware
 }

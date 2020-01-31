@@ -7,7 +7,7 @@ import {ConnectHoc, TryCatchHandler} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
-    departmentSetupMiddleware,
+    DepartmentSetupMiddleware,
     HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
@@ -20,7 +20,7 @@ const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApi
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = departmentSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
 
 class ProfileAdd extends PureComponent {
 
