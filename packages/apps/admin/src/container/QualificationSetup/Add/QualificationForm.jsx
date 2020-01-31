@@ -4,7 +4,8 @@ import {
   CFLabel,
   CForm,
   CHybridInput,
-  CRadioButton
+  CRadioButton,
+  CHybridSelect
 } from '@frontend-appointment/ui-elements'
 
 const QualificationForm = ({
@@ -14,7 +15,7 @@ const QualificationForm = ({
   onInputChange,
   countryCodeForDropdown,
   qualificationsAliasForDropdown,
-  qualificationsForDropdown,
+  // qualificationsForDropdown,
   universitiesDropdown
 }) => {
   return (
@@ -40,22 +41,22 @@ const QualificationForm = ({
                   errorMessagePassed={errorMessageForQualificationName}
                 />
               </Col>
-              <Col sm={12} md={4} xl={4}>
+              {/* <Col sm={12} md={4} xl={4}>
                   <CHybridSelect
                       id="countryId"
                       name="countryId"
-                      onKeyDown={event => handleEnter(event)}
+                      onKeyDown={event => onEnterKeyPress(event)}
                       onChange={event => onInputChange(event)}
                       value={qualificationInfoObj.countryId}
                       options={countryCodeForDropdown}
                       label="Select a Country"
                     />
-              </Col>
+              </Col> */}
               <Col sm={12} md={4} xl={4}>
                   <CHybridSelect
                       id="qualificationAliasId"
                       name="qualificationAliasId"
-                      onKeyDown={event => handleEnter(event)}
+                      onKeyDown={event => onEnterKeyPress(event)}
                       onChange={event => onInputChange(event)}
                       value={qualificationInfoObj.qualificationAliasId}
                       options={qualificationsAliasForDropdown}
@@ -66,11 +67,11 @@ const QualificationForm = ({
                   <CHybridSelect
                       id="universityId"
                       name="universityId"
-                      onKeyDown={event => handleEnter(event)}
+                      onKeyDown={event => onEnterKeyPress(event)}
                       onChange={event => onInputChange(event)}
                       value={qualificationInfoObj.universityId}
-                      options={qualificationsAliasForDropdown}
-                      label="Select a University Alias"
+                      options={universitiesDropdown}
+                      label="Select a University"
                     />
               </Col>
               <Col sm={12} md={4} lg={4}>

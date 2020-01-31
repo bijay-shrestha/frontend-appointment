@@ -94,6 +94,10 @@ const ProfileComponent = Loadable({
     loading: () => getLoader(),
 });
 /* ****** Q ***** */
+const AddQualificationComponent = Loadable({
+    loader:() => import('./container/QualificationSetup/Add/QualificationAdd'),
+    loading:() => getLoader()
+})
 
 /* ****** R ***** */
 
@@ -164,6 +168,14 @@ export const routes = [
         "name": "Manage",
     },
     {
+        "path": "/admin/specialization",
+        "component": <></>,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "name": "Add",
+    },
+    {
         "path": "/admin/department",
         "component": <></>,
         "isLink": false,
@@ -178,6 +190,7 @@ export const routes = [
         "component": AddDepartmentComponent,
         "icon": "",
         "hasTab": true,
+        "isTab":true,
         "isLink": true
     },
     {
@@ -186,6 +199,7 @@ export const routes = [
         "component": ManageDepartmentComponent,
         "icon": "",
         "hasTab": true,
+        "isTab": true,
         "isLink": true
     },
     // {
@@ -202,6 +216,7 @@ export const routes = [
         "icon":"",
         "hasTab":true,
         "isLink":true,
+        "isTab": true,
         "name":"Add"
     },
     {
@@ -210,6 +225,25 @@ export const routes = [
         "icon":"",
         "hasTab":true,
         "isLink":true,
+        "isTab": true,
         "name":"Add"
-    }
+    },
+    {
+        "path": "/admin/hospital",
+        "component": <></>,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "isTab": false,
+        "name": "Add",
+    },
+    {
+        "path": "/admin/qualification/add",
+        "component": AddQualificationComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true,
+        "isTab": true,
+        "name": "Add",
+    },
 ];

@@ -19,51 +19,37 @@ const DetailsModal = ({qualificationData}) => {
         <CForm id="department-info" className="mt-2 department-info">
           <Container-fluid>
             <Row>
-            <Col sm={12} md={4} lg={4}>
+              <Col sm={12} md={4} lg={4}>
                 <CHybridInput
                   id="qualification-name"
                   name="name"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
                   placeholder="Qualification Name"
                   value={qualificationData.name}
                   disabled={true}
                 />
               </Col>
               <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="countryId"
-                      name="countryId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationData.countryId}
-                      isDisabled={true}
-                  />
+                <CHybridSelect
+                  id="qualificationAliasId"
+                  name="qualificationAliasId"
+                  placeholder="Qualification Alias Id"
+                  value={qualificationData.qualificationAliasId}
+                  isDisabled={true}
+                />
               </Col>
               <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="qualificationAliasId"
-                      name="qualificationAliasId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationData.qualificationAliasId}
-                     isDisabled={true}
-                    />
-              </Col>
-              <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="universityId"
-                      name="universityId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationData.universityId}
-                      isDisabled={true}
-                    />
+                <CHybridSelect
+                  id="universityId"
+                  name="universityId"
+                  placeholder="University Id"
+                  value={qualificationData.universityId}
+                  isDisabled={true}
+                />
               </Col>
               <Col sm={12} md={4} lg={4}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
                 <CRadioButton
-                  checked={Boolean(qualificationInfoObj.status)}
+                  checked={Boolean(qualificationData.status)}
                   disabled={true}
                   id="radio1"
                   label="Active"

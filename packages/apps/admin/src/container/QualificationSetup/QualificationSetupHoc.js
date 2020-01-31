@@ -122,7 +122,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
       let formValidity =
         nameValid &&
         qualificationData.name &&
-        qualificationData.countryId &&
         qualificationData.status &&
         qualificationData.qualificationAliasId &&
         qualificationData.universityId
@@ -156,15 +155,14 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
     }
 
     handleConfirmClick = async () => {
-      const {name,countryId,qualificationAliasId,status,universityId} = this.state.qualificationData
+      const {name,qualificationAliasId,status,universityId} = this.state.qualificationData
       try {
         await this.props.createQualification(
           qualificationSetupApiConstants.CREATE_QUALIFICATION,
           {
             name,
-            countryId,
-            qualificationAliasId,
-            universityId,
+            qualificationAliasId:qualificationAliasId.value,
+            universityId:universityId.value,
             status
           }
         )
@@ -404,9 +402,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
       if (type === 'M') {
         await this.searchSpecialization()
       }
-      await this.props.fetchActiveCountryCodeForDropdown(
-        countrySetupAliasCode.FETCH_COUNTRY_CODE
-      )
+      // await this.props.fetchActiveCountryCodeForDropdown(
+      //   countrySetupAliasCode.FETCH_COUNTRY_CODE
+      // )
       await this.props.fetchActiveQualificationAliasForDropdown(
         qualificationSetupAliasCode.FETCH_QUALIFICATION_ALIAS_CODE
       )
@@ -449,7 +447,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
       const {
          qualificationEditErrorMessage
-      } = this.props.hospitalEditReducer
+      } = this.props.QualificationEditReducer
 
       const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
       const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
@@ -466,7 +464,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
           showConfirmModal={showConfirmModal}
           formValid={formValid}
           showAlert={showAlert}
-          codeValid={codeValid}
           nameValid={nameValid}
           errorMessageForQualificationName={errorMessageForQualificationName}
           alertMessageInfo={alertMessageInfo}
@@ -500,7 +497,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
           qualificationEditErrorMessage={qualificationEditErrorMessage}
           isPreviewLoading={isPreviewLoading}
           qualificationPreviewData={qualificationPreviewData}
-          countryCodeForDropdown={countryCodeForDropdown}
+         // countryCodeForDropdown={countryCodeForDropdown}
           qualificationsAliasForDropdown={qualificationsAliasForDropdown}
           qualificationsForDropdown = {qualificationsForDropdown}
           universitiesDropdown={universitiesDropdown}

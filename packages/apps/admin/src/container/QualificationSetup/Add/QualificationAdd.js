@@ -19,7 +19,7 @@ function QualificationAdd (props) {
     alertMessageInfo,
     showAlert,
     closeAlert,
-    countryCodeForDropdown,
+   // countryCodeForDropdown,
     qualificationsAliasForDropdown,
     qualificationsForDropdown ,
     universitiesDropdown,
@@ -44,7 +44,7 @@ function QualificationAdd (props) {
           errorMessageForQualificationName={errorMessageForQualificationName}
           onEnterKeyPress={handleEnter}
           onInputChange={handleInputChange}
-          countryCodeForDropdown={countryCodeForDropdown}
+        //  countryCodeForDropdown={countryCodeForDropdown}
           qualificationsAliasForDropdown={qualificationsAliasForDropdown}
           qualificationsForDropdown={qualificationsForDropdown}
           universitiesDropdown={universitiesDropdown}
