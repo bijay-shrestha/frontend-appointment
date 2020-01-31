@@ -20,8 +20,8 @@ const {
   //downloadExcelForHospitals
 } = HospitalSetupMiddleware
 const HospitalHOC = (ComposedComponent, props, type) => {
-  const {hostpitalSetupApiConstants} = AdminModuleAPIConstants
-
+  const {hospitalSetupApiConstants} = AdminModuleAPIConstants
+  
   class HospitalSetup extends React.PureComponent {
     state = {
       hospitalData: {
@@ -213,7 +213,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       )
       try {
         await this.props.createHospital(
-          hostpitalSetupApiConstants.CREATE_HOSPITAL,
+          hospitalSetupApiConstants.CREATE_HOSPITAL,
           {name, hospitalCode, status, contactNumber, address, panNumber},
           formData
         )
@@ -240,7 +240,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     previewApiCall = async id => {
       await this.props.previewHospital(
-        hostpitalSetupApiConstants.FETCH_HOSPITAL_DETAILS,
+        hospitalSetupApiConstants.FETCH_HOSPITAL_DETAILS,
         id
       )
     }
@@ -306,7 +306,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
     searchHospitalForDropDown = async() => {
     try{
-     await this.props.fetchActiveHospitalsForDropdown(hostpitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
+     await this.props.fetchActiveHospitalsForDropdown(hospitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL)
     }catch(e){
       console.log(e);
     }
@@ -328,7 +328,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.searchHospital(
-        hostpitalSetupApiConstants.SEARCH_HOSPITAL,
+        hospitalSetupApiConstants.SEARCH_HOSPITAL,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -414,7 +414,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
       try {
         console.log(this.state.editContactNumberRequestDTOS)
         await this.props.editHospital(
-          hostpitalSetupApiConstants.EDIT_HOSPITAL,
+          hospitalSetupApiConstants.EDIT_HOSPITAL,
           {
             name,
             status,
@@ -461,7 +461,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
     onSubmitDeleteHandler = async () => {
       try {
         await this.props.deleteHospital(
-          hostpitalSetupApiConstants.DELETE_HOSPITAL,
+          hospitalSetupApiConstants.DELETE_HOSPITAL,
           this.state.deleteRequestDTO
         )
         await this.setState({
