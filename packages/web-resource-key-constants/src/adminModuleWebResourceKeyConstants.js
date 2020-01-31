@@ -99,4 +99,14 @@ export const qualificationSetupApiConstants = {
 };
 export const qualificationSetupAliasCode = {
     FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
-}
+};
+
+
+const DOCTOR_DUTY_ROSTER_BASE = "/doctorDutyRoster";
+export const doctorDutyRosterApiConstants = {
+    CREATE_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE),
+    UPDATE_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE),
+    DELETE_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE),
+    SEARCH_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/search")),
+    FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/detail")),
+};

@@ -65,6 +65,7 @@ const AddDoctorInfoForm = ({
                         id="duration"
                         label="Duration"
                         type="number"
+                        name="rosterGapDuration"
                         placeholder="Enter Duration In Minutes."
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}

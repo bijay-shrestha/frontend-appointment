@@ -8,27 +8,27 @@ import {
 } from './admin-module/profileSetupReducer'
 import {
     SpecializationDeleteReducer,
+    SpecializationDropdownReducer,
     SpecializationEditReducer,
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
-    SpecializationSearchReducer,
-    SpecializationDropdownReducer
+    SpecializationSearchReducer
 } from './admin-module/specializationSetupReducer'
 import {
     HospitalDeleteReducer,
+    HospitalDropdownReducer,
     HospitalEditReducer,
     HospitalPreviewReducer,
     HospitalSaveReducer,
-    HospitalSearchReducer,
-    HospitalDropdownReducer
+    HospitalSearchReducer
 } from './admin-module/hospitalSetupReducer'
 import {
     DoctorDeleteReducer,
+    DoctorDropdownReducer,
     DoctorEditReducer,
     DoctorPreviewReducer,
     DoctorSaveReducer,
-    DoctorSearchReducer,
-    DoctorDropdownReducer
+    DoctorSearchReducer
 } from './admin-module/doctorSetupReducer'
 import {
     DepartmentDeleteReducer,
@@ -44,6 +44,13 @@ import {
     AdminPreviewReducer,
     AdminSetupReducer
 } from "./admin-module/adminSetupReducer";
+import {
+    DoctorDutyRosterDeleteReducer,
+    DoctorDutyRosterEditReducer,
+    DoctorDutyRosterListReducer,
+    DoctorDutyRosterPreviewReducer,
+    DoctorDutyRosterSaveReducer,
+} from "./admin-module/doctorDutyRosterReducer";
 
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
@@ -78,6 +85,11 @@ export {
     DepartmentListReducer,
     DepartmentPreviewReducer,
     DepartmentSetupReducer,
+    DoctorDutyRosterSaveReducer,
+    DoctorDutyRosterEditReducer,
+    DoctorDutyRosterDeleteReducer,
+    DoctorDutyRosterListReducer,
+    DoctorDutyRosterPreviewReducer,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,

@@ -25,6 +25,7 @@ import * as SpecializationSetupMiddleware from './specialization-setup-middlewar
 import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
 import * as DoctorMiddleware from './doctor-setup-middleware/doctorSetupMiddleware';
 import * as DepartmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
+import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doctorDutyRosterMiddleware";
 
 export {
     createProfile,
@@ -47,5 +48,6 @@ export {
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
     DoctorMiddleware,
-    DepartmentSetupMiddleware
+    DepartmentSetupMiddleware,
+    DoctorDutyRosterMiddleware
 }

@@ -21,7 +21,6 @@ const DoctorDutyRoosterAdd = props => {
                  doctorList,
                  doctorDropdownErrorMessage,
                  specializationDropdownError,
-                 onEnterKeyPress,
                  handleInputChange,
                  handleEnter,
                  handleShowExistingRoster,

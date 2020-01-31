@@ -10,6 +10,8 @@ import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant'
 import * as AdminSetupActions from './admin-setup/adminSetupActions';
 import * as DepartmentSetupActions from './department-setup/departmentSetupActions';
 import {departmentSetupConstants} from "./department-setup/departmentSetupActionConstants";
+import {doctorDutyRosterActionConstants} from "./doctor-duty-roster/doctorDutyRosterActionConstants";
+import * as DoctorDutyRosterActions from './doctor-duty-roster/doctorDutyRosterActions';
 
 export {
     profileSetupConstants,
@@ -24,4 +26,6 @@ export {
     AdminSetupActions,
     departmentSetupConstants,
     DepartmentSetupActions,
+    doctorDutyRosterActionConstants,
+    DoctorDutyRosterActions
 }
