@@ -163,7 +163,7 @@ const HospitalForm = ({
                                 idx
                               )
                             }
-                            placeholder="Contact Number"
+                            placeholder="Enter your Phone Number"
                             value={contNumber}
                             required={true}
                             // errorMessagePassed={errorMessageForHospitalCode}
