@@ -105,3 +105,15 @@ export const fetchActiveDoctorsForDropdown = path => async dispatch => {
         throw e;
     }
 };
+
+export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId) => async dispatch => {
+    try {
+        const response = await Axios.getWithPathVariables(path, specializationId);
+        dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownError(
+            e.errorMessage ? e.errorMessage : 'Error fetching doctors.'));
+        throw e;
+    }
+};

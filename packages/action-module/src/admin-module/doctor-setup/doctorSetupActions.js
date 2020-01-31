@@ -22,7 +22,9 @@ const {
     CN_PREVIEW_SUCCESS,
     CLEAR_CN_LIST_MESSAGE,
     FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_ERROR,
-    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_SUCCESS
+    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_SUCCESS,
+    FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
+    FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR
 } = doctorSetupConstants;
 
 export const clearHospitalCreateMessage = () => {
@@ -216,6 +218,24 @@ export const fetchActiveDoctorsForDropdownSuccess = data => {
 export const fetchActiveDoctorsForDropdownError = errorMessage => {
     return {
         type: FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+
+export const fetchDoctorsBySpecializationForDropdownSuccess = data => {
+    return {
+        type: FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchDoctorsBySpecializationForDropdownError = errorMessage => {
+    return {
+        type: FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR,
         payload: {
             errorMessage
         }

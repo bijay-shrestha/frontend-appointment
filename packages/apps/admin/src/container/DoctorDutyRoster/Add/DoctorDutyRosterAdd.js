@@ -18,10 +18,14 @@ const DoctorDutyRoosterAdd = props => {
                  doctorInfoData,
                  hospitalList,
                  specializationList,
+                 doctorList,
+                 doctorDropdownErrorMessage,
+                 specializationDropdownError,
                  onEnterKeyPress,
                  handleInputChange,
+                 handleEnter,
                  handleShowExistingRoster,
-                 specializationDropdownError
+
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -30,9 +34,11 @@ const DoctorDutyRoosterAdd = props => {
                                 doctorInfoData={doctorInfoData}
                                 hospitalList={hospitalList}
                                 specializationList={specializationList}
-                                onEnterKeyPress={onEnterKeyPress}
-                                onInputChange={handleInputChange}
                                 specializationDropdownError={specializationDropdownError}
+                                doctorList={doctorList}
+                                doctorDropdownErrorMessage={doctorDropdownErrorMessage}
+                                onEnterKeyPress={handleEnter}
+                                onInputChange={handleInputChange}
                             />
                             <DoctorAvailabilityForm/>
                         </Row>

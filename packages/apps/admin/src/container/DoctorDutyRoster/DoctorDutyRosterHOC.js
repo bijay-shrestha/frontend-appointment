@@ -2,11 +2,16 @@ import React, {PureComponent} from 'react';
 import {ConnectHoc, TryCatchHandler} from "@frontend-appointment/commons";
 import {HospitalSetupMiddleware, SpecializationSetupMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
+import {DoctorMiddleware} from "@frontend-appointment/thunk-middleware";
+import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
+const {fetchDoctorsBySpecializationIdForDropdown} = DoctorMiddleware;
+
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = AdminModuleAPIConstants.specializationSetupAPIConstants;
+const {FETCH_DOCTOR_BY_SPECIALIZATION_ID} = AdminModuleAPIConstants.doctorSetupApiConstants;
 
 const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     class DoctorDutyRoster extends PureComponent {
@@ -51,6 +56,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             event && this.bindValuesToState(event, fieldValid);
         };
 
+        handleEnter = (event) => {
+            EnterKeyPressUtils.handleEnter(event)
+        };
+
         setStateValues = (key, value, label, fieldValid) =>
             label ? value ?
                 this.setState({[key]: {value, label}})
@@ -63,6 +72,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let label = event.target.label;
 
             await this.setStateValues(fieldName, value, label, fieldValid);
+
+            if (fieldName === 'specialization') {
+                await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
+                await this.setState({
+                    doctor: null
+                })
+            }
 
             // this.checkFormValidity();
         };
@@ -77,6 +93,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
             const {activeSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
+            const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
             return <>
                 <ComposedComponent
                     {...props}
@@ -91,9 +108,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospitalList={hospitalsForDropdown}
                     specializationList={activeSpecializationList}
                     specializationDropdownError={dropdownErrorMessage}
+                    doctorList={doctorsBySpecializationForDropdown}
+                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                     showExistingRosterModal={showExistingRosterModal}
                     handleShowExistingRoster={this.handleShowExistingRoster}
                     handleInputChange={this.handleInputChange}
+                    handleEnter={this.handleEnter}
                 />
             </>;
         }
@@ -102,12 +122,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     return ConnectHoc(DoctorDutyRoster,
         [
             'HospitalDropdownReducer',
-            'SpecializationDropdownReducer'
+            'SpecializationDropdownReducer',
+            'DoctorDropdownReducer'
         ],
         {
             fetchActiveHospitalsForDropdown,
-            fetchSpecializationForDropdown
-
+            fetchSpecializationForDropdown,
+            fetchDoctorsBySpecializationIdForDropdown
         })
 };
 

@@ -6,10 +6,12 @@ const AddDoctorInfoForm = ({
                                handleShowExistingRoster,
                                hospitalList,
                                specializationList,
+                               doctorList,
                                doctorInfoData,
                                onInputChange,
                                onEnterKeyPress,
-                               specializationDropdownError
+                               specializationDropdownError,
+                               doctorDropdownErrorMessage
                            }) => {
     return <>
         <Col md={12} lg={5} className="info-container">
@@ -39,29 +41,39 @@ const AddDoctorInfoForm = ({
                         label="Specialization"
                         name="specialization"
                         options={specializationList}
-                        placeholder={ "Select specialization."}
+                        placeholder={"Select specialization."}
                         noOptionsMessage={specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.specialization}
                     />
-
+                    {console.log("No drop ms",doctorDropdownErrorMessage)}
                     <CHybridSelect
                         id="doctor"
                         label="Doctor"
                         name="doctor"
-                        placeholder="Select doctor"
+                        isDisabled={!doctorInfoData.specialization}
+                        placeholder={!doctorInfoData.specialization ? "Select Specialization first":"Select doctor."}
+                        options={doctorList}
+                        noOptionsMessage={()=>doctorDropdownErrorMessage}
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event) => onInputChange(event)}
+                        value={doctorInfoData.doctor}
                     />
 
                     <CHybridInput
                         id="duration"
                         label="Duration"
                         type="number"
-                        placeholder="Enter Duration In Minutes"
+                        placeholder="Enter Duration In Minutes."
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        onChange={(event) => onInputChange(event)}
+                        value={doctorInfoData.rosterGapDuration}
                     />
                 </Form>
 
                 <CButton
+                    id="show-existing"
                     variant="link"
                     size="lg"
                     onClickHandler={handleShowExistingRoster}
