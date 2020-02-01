@@ -49,8 +49,8 @@ const SpecializationDetailsDataTable = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Qualification Alias Id',
-                            field: 'code',
+                            headerName: 'Qualification Alias Name',
+                            field: 'qualificationAliasName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
@@ -124,6 +124,7 @@ const SpecializationDetailsDataTable = props => (
                 qualificationPreviewErrorMessage={
                     props.qualificationPreviewErrorMessage
                 }
+                type="M"
             />
         ) : (
             ''

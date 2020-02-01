@@ -47,10 +47,10 @@ const DepartmentEditModal = ({
           <Col sm={12} md={12} lg={4}>
             <CHybridSelect
               id="Qualificaiton Alias"
-              name="code"
+              name="qualificationAliasId"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) =>
-                onInputChange(event, validity, 'E')
+              onChange={(event) =>
+                onInputChange(event, '', 'E')
               }
               placeholder="Select a Qualification Alias"
               options={qualificationsAliasForDropdown}
@@ -64,8 +64,8 @@ const DepartmentEditModal = ({
               id="University Id"
               name="universityId"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event, validity) =>
-                onInputChange(event, validity, 'E')
+              onChange={(event) =>
+                onInputChange(event, '', 'E')
               }
               placeholder="Select a University Id"
               value={qualificationData.universityId}
@@ -84,7 +84,7 @@ const DepartmentEditModal = ({
               type="radio"
               value="Y"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event, 'E')}
+              onChange={event => onInputChange(event, '','E')}
             />
             <CRadioButton
               checked={qualificationData.status === 'N'}
@@ -94,14 +94,14 @@ const DepartmentEditModal = ({
               type="radio"
               value="N"
               onKeyDown={event => onEnterKeyPress(event)}
-              onChange={event => onInputChange(event, 'E')}
+              onChange={event => onInputChange(event, '','E')}
             />
           </Col>
           <Col sm={12} md={12} lg={4}>
             <CHybridTextArea
               id="Remarks"
               name="remarks"
-              onChange={(event, validity) => onInputChange(event, validity)}
+              onChange={(event) => onInputChange(event,'E')}
               placeholder="Qualification Remarks"
               value={qualificationData.remarks}
               required={true}
@@ -128,7 +128,7 @@ const DepartmentEditModal = ({
             <CButton
               id="submit-update-button"
               disabled={!formValid}
-              name="Update Specialization"
+              name="Update Qualification"
               size="lg"
               className="btn-action  float-right"
               onClickHandler={editApiCall}

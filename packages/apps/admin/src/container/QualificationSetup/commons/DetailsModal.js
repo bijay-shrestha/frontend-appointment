@@ -8,7 +8,17 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const DetailsModal = ({qualificationData}) => {
+const DetailsModal = ({qualificationData,type}) => {
+  console.log('Qualification Data',qualificationData);
+  let universityId,qualificationAliasId;
+  if(type!=='M'){
+   universityId=qualificationData.universityId;
+   qualificationAliasId=qualificationData.qualificationAliasId;
+  }
+  else{
+    universityId={value:qualificationData.universityId,label:qualificationData.universityName}
+    qualificationAliasId={value:qualificationData.qualificationAliasId,label:qualificationData.qualificationAliasName}
+  }
   return (
     <>
       <Container-fluid>
@@ -31,18 +41,18 @@ const DetailsModal = ({qualificationData}) => {
               <Col sm={12} md={4} xl={4}>
                 <CHybridSelect
                   id="qualificationAliasId"
-                  name="qualificationAliasId"
+                  name="qualificationAliasName"
                   placeholder="Qualification Alias Id"
-                  value={qualificationData.qualificationAliasId}
+                  value={qualificationAliasId}
                   isDisabled={true}
                 />
               </Col>
               <Col sm={12} md={4} xl={4}>
                 <CHybridSelect
                   id="universityId"
-                  name="universityId"
+                  name="universityName"
                   placeholder="University Id"
-                  value={qualificationData.universityId}
+                  value={universityId}
                   isDisabled={true}
                 />
               </Col>

@@ -126,9 +126,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         qualificationData.status &&
         qualificationData.qualificationAliasId &&
         qualificationData.universityId
-
+      console.log('Add formValidiy',formValidity);
       if (eventType === 'E')
         formValidity = formValidity && qualificationData.remarks
+        console.log('Edit Form Validity',formValidity);
       this.setState({
         formValid: formValidity
       })
@@ -222,23 +223,25 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
           name,
           universityId,
           qualificationAliasId,
+          universityName,
+          qualificationAliasName,
           status,
           remarks,
-          id
         } = this.props.QualificationPreviewReducer.qualificationPreviewData
         let formValid = this.state.formValid
         if (remarks) formValid = true
         this.setState({
           showEditModal: true,
           qualificationData: {
-            id:id,
+            id:idx,
             name:name,
-            universityId:universityId,
-            qualificationAliasId:qualificationAliasId,
+            universityId:{value:universityId,label:universityName},
+            qualificationAliasId:{value:qualificationAliasId,label:qualificationAliasName},
             status:status,
             remarks:remarks
           },
-          formValid: formValid
+          formValid: formValid,
+          nameValid:true
         })
       } catch (e) {
         console.log(e)
@@ -251,7 +254,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         name: name.value?name.value:name,
         universityId:universityId.value?universityId.value:universityId,
         qualificationAliasId:qualificationAliasId.value?qualificationAliasId.value:qualificationAliasId,
-        status:status,
+        status:status.value,
       }
 
       let updatedPage =
@@ -268,11 +271,11 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         },
         searchData
       )
-
+      console.log('QualificationSearchReducer',this.props.QualificationSearchReducer);
       await this.setState({
         totalRecords: this.props.QualificationSearchReducer.qualificationList
           .length
-          ? this.props.SpecializationSearchReducer.qualificationList[0]
+          ? this.props.QualificationSearchReducer.qualificationList[0]
               .totalItems
           : 0,
         queryParams: {
@@ -305,10 +308,25 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
     }
 
     editQualification = async () => {
+      const {
+        id,
+        name,
+        universityId,
+        qualificationAliasId,
+        status,
+        remarks,
+      }=this.state.qualificationData
       try {
         await this.props.editQualification(
           qualificationSetupApiConstants.EDIT_QUALIFICATION,
-          this.state.qualificationData
+          {
+            id,
+            name,
+            universityId:universityId.value,
+            qualificationAliasId:qualificationAliasId.value,
+            status,
+            remarks,
+          }
         )
         this.resetQualificationStateValues();
         this.setState({
@@ -344,8 +362,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
     onSubmitDeleteHandler = async () => {
       try {
-        await this.props.deleteHospital(
-          qualificationSetupApiConstants.DELETE_SPECIALIZATION,
+        await this.props.deleteQualification(
+          qualificationSetupApiConstants.DELETE_QUALIFICATION,
           this.state.deleteRequestDTO
         )
         await this.setState({

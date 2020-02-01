@@ -177,7 +177,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.universityId}
+                      {searchParameters.universityId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -193,7 +193,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.qualificationAliasId}
+                      {searchParameters.qualificationAliasId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

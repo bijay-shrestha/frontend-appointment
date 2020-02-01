@@ -4,6 +4,7 @@ import QualificationDetailsTable from './QualificationDetailsTable'
 import QualificationEditForm from './QualificationEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import QualificationSetupHoc from '../QualificationSetupHoc'
+import { qualificationAliasFetchForDropdownError } from '@frontend-appointment/action-module/src/admin-module/qualification-setup/qualificationSetupActions'
 const QualificationManage = props => {
   const SPManage = QualificationSetupHoc(
     ({
@@ -53,6 +54,9 @@ const QualificationManage = props => {
             onSearchClick={() => searchQualification(1)}
             resetSearchForm={resetSearch}
             handleEnter={handleEnter}
+            qualificationsAliasForDropdown={qualificationsAliasForDropdown}
+            qualificationsForDropdown={qualificationsForDropdown}
+            universitiesDropdown={universitiesDropdown}
           />
         </div>
         <div className=" mb-2">
@@ -94,6 +98,8 @@ const QualificationManage = props => {
             formValid={formValid}
             errorMessageForQualificationName={errorMessageForQualificationName}
             errorMessage={qualificationEditErrorMessage}
+            qualificationsAliasForDropdown={qualificationsAliasForDropdown}
+            universitiesDropdown={universitiesDropdown}
           />
         )}
         <CAlert
