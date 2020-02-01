@@ -1,56 +1,33 @@
 import React, { Component } from 'react';
 import { Button, Dropdown, FormControl, Image, InputGroup } from 'react-bootstrap';
 import * as Material from 'react-icons/md';
-import Cookies from 'js-cookie'
-import { Axios } from "@frontend-appointment/core";
 import { CAlert } from "@frontend-appointment/ui-elements";
 import { CBreadcrumb } from '@frontend-appointment/ui-elements';
 
 
 class CHeader extends Component {
-    state = {
-        alertMessageInfo: {
-            variant: '',
-            message: ''
-        },
-        showAlert: false
-    };
+    // state = {
+    //     alertMessageInfo: {
+    //         variant: '',
+    //         message: ''
+    //     },
+    //     showAlert: false
+    // };
 
-    closeAlert = () => {
-        this.setState({
-            showAlert: !this.state.showAlert,
-            alertMessageInfo: {
-                variant: '',
-                message: ''
-            },
-        });
-    };
+    // closeAlert = () => {
+    //     this.setState({
+    //         showAlert: !this.state.showAlert,
+    //         alertMessageInfo: {
+    //             variant: '',
+    //             message: ''
+    //         },
+    //     });
+    // };
 
     logoutUser = async () => {
-        if (Cookies.get('XSRF-TOKEN')) {
-            try {
-                await Axios.get('/cogent/logout');
-                Cookies.remove('XSRF-TOKEN',{domain:process.env.REACT_APP_DOMAIN_NAME});
+                localStorage.removeItem('auth-token');
                 localStorage.removeItem('userMenus');
                 this.props.history.push('/');
-            } catch (e) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: "danger",
-                        message: e.errorMessage ? e.errorMessage : 'Something wrong in server. Could not logout.'
-                    }
-                })
-            }
-        } else {
-            this.setState({
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: "danger",
-                    message: "Are you sure you're logged in ?"
-                }
-            })
-        }
     };
 
     render() {
@@ -58,7 +35,7 @@ class CHeader extends Component {
         return (
             <React.Fragment>
 
-                <CAlert id="profile-add"
+                {/* <CAlert id="profile-add"
                     variant={this.state.alertMessageInfo.variant}
                     show={this.state.showAlert}
                     onClose={this.closeAlert}
@@ -67,7 +44,7 @@ class CHeader extends Component {
                         : <><i className="fa fa-exclamation-triangle" aria-hidden="true"> </i>
                         </>}
                     message={this.state.alertMessageInfo.message}
-                />
+                /> */}
 
                 <header className="main-header container-fluid d-flex justify-content-between align-items-center">
                     <div className="header-content-left">

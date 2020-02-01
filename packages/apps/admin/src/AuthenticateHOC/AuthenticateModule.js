@@ -11,8 +11,8 @@ import {CFullPageLoading, CPageNotFound} from "@frontend-appointment/ui-elements
 
 const AuthenticateModule = () => {
     const getTokenFormLocalStorage = () => {
-        let storage = localStorage.getItem('x-auth-token');
-        return true
+        let storage = localStorage.getItem('auth-token');
+        return storage
     };
 
     const getUserMenusFromLocalStorage = () => {
@@ -23,6 +23,11 @@ const AuthenticateModule = () => {
     return (
         <>
             <Switch>
+            <Route
+                    path="/"
+                    exact
+                    component={props => <LoginPage {...props} id="login-form"/>}
+                />
                 {routes.map((route, idx) => (
                     <Route
                         key={idx}
@@ -35,38 +40,28 @@ const AuthenticateModule = () => {
                                     dataForBreadCrumb={routes}
                                     userMenus={getUserMenusFromLocalStorage()}
                                     hasTab={route.hasTab}
-                                    // mainViewComponent={
-                                    //   route.hasTab ? (
-                                    //     ComponentHoc(
-                                    //       route.component,
-                                    //       getUserMenusFromLocalStorage(),
-                                    //       route.path,
-                                    //       props
-                                    //     )
-                                    //   ) : (
-                                    //     <route.component
-                                    //       userMenus={getUserMenusFromLocalStorage()}
-                                    //       path={route.path}
-                                    //     />
-                                    //   )
-                                    // }
                                     mainViewComponent={
+                                      route.hasTab ? (
+                                        ComponentHoc(
+                                          route.component,
+                                          getUserMenusFromLocalStorage(),
+                                          route.path,
+                                          props
+                                        )
+                                      ) : (
                                         <route.component
-                                            userMenus={getUserMenusFromLocalStorage()}
-                                            path={route.path}
+                                          userMenus={getUserMenusFromLocalStorage()}
+                                          path={route.path}
                                         />
+                                      )
                                     }
+
                                 />
                             ),
                             getTokenFormLocalStorage
                         )}
                     />
                 ))}
-                <Route
-                    path="/"
-                    exact
-                    component={props => <LoginPage {...props} id="login-form"/>}
-                />
                 <Route path="/loading" component={CFullPageLoading}/>
                 <Route key="pageNotFound" exact path="" component={CPageNotFound}/>
             </Switch>

@@ -141,7 +141,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
       } else {
         this.setState({
           pathFound: false,
-          isLoading: true
+          isLoading: false
         })
       }
     }

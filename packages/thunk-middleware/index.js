@@ -20,7 +20,8 @@ import {
     HospitalSetupMiddleware,
     previewAdmin,
     previewProfile,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    QualificationSetupMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware';
@@ -56,5 +57,6 @@ export {
     savePassword,
     signinUser,
     SpecializationSetupMiddleware,
+    QualificationSetupMiddleware,
     verifyToken,
 }

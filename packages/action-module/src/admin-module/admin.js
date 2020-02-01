@@ -10,7 +10,8 @@ import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant'
 import * as AdminSetupActions from './admin-setup/adminSetupActions';
 import * as DepartmentSetupActions from './department-setup/departmentSetupActions';
 import {departmentSetupConstants} from "./department-setup/departmentSetupActionConstants";
-
+import * as QualificationSetupActions from './qualification-setup/qualificationSetupActions';
+import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
 export {
     profileSetupConstants,
     ProfileSetupActions,
@@ -24,4 +25,6 @@ export {
     AdminSetupActions,
     departmentSetupConstants,
     DepartmentSetupActions,
+    QualificationSetupActions,
+    qualificationSetupConstants
 }

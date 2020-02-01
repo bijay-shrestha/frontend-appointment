@@ -17,20 +17,18 @@ const getChildMenuFirst = (children, roleId, childMenus) => ({
   enabled: children.enabled,
   menuFor: children.menuFor,
   description: children.description,
-  subDepartmentCode: children.subDepartmentCode,
   childMenus: [...childMenus]
 });
 
 const usermenufilter = userMenus => {
-  const {subDepartmentCode, assignedRolesResponseDTOS} = userMenus;
-  const deptUserMenus = profiles[subDepartmentCode];
+  const {assignedRolesResponseDTOS} = userMenus;
+  const deptUserMenus = profiles['SUP'];
+  console.log('UserMenus',userMenus)
   const filteredMenus = []
   assignedRolesResponseDTOS &&
     assignedRolesResponseDTOS.map((assignedRoles, index) => {
-      console.log('From Backend, Assigned Roles::', assignedRoles);
       const {parentId, childMenus} = assignedRoles
       deptUserMenus.map((depts, ind) => {
-        console.log('From Frontend Department menus')
         if (Number(depts.id) === Number(parentId)) {
           let hasChild = checkIfChildExist(depts.childMenus)
           if (hasChild) {

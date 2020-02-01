@@ -1,10 +1,10 @@
 import {loginReducers} from './common/loginreducers'
 import {
-    ProfileDeleteReducer,
-    ProfileEditReducer,
-    ProfileListReducer,
-    ProfilePreviewReducer,
-    ProfileSetupReducer
+  ProfileDeleteReducer,
+  ProfileEditReducer,
+  ProfileListReducer,
+  ProfilePreviewReducer,
+  ProfileSetupReducer
 } from './admin-module/profileSetupReducer'
 import {
     SpecializationDeleteReducer,
@@ -15,12 +15,12 @@ import {
     SpecializationDropdownReducer
 } from './admin-module/specializationSetupReducer'
 import {
-    HospitalDeleteReducer,
-    HospitalEditReducer,
-    HospitalPreviewReducer,
-    HospitalSaveReducer,
-    HospitalSearchReducer,
-    HospitalDropdownReducer
+  HospitalDeleteReducer,
+  HospitalEditReducer,
+  HospitalPreviewReducer,
+  HospitalSaveReducer,
+  HospitalSearchReducer,
+  HospitalDropdownReducer
 } from './admin-module/hospitalSetupReducer'
 import {
     DoctorDeleteReducer,
@@ -31,23 +31,34 @@ import {
     DoctorDropdownReducer
 } from './admin-module/doctorSetupReducer'
 import {
-    DepartmentDeleteReducer,
-    DepartmentEditReducer,
-    DepartmentListReducer,
-    DepartmentPreviewReducer,
-    DepartmentSetupReducer
-} from './admin-module/departmentSetupReducer';
+  DepartmentDeleteReducer,
+  DepartmentEditReducer,
+  DepartmentListReducer,
+  DepartmentPreviewReducer,
+  DepartmentSetupReducer
+} from './admin-module/departmentSetupReducer'
 import {
-    AdminDeleteReducer,
-    AdminEditReducer,
-    AdminListReducer,
-    AdminPreviewReducer,
-    AdminSetupReducer
-} from "./admin-module/adminSetupReducer";
+  AdminDeleteReducer,
+  AdminEditReducer,
+  AdminListReducer,
+  AdminPreviewReducer,
+  AdminSetupReducer
+} from './admin-module/adminSetupReducer'
 
-import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
-import {logoutReducer} from './common/logoutReducer';
+import {
+  QualificationSaveReducer,
+  QualificationEditReducer,
+  QualificationPreviewReducer,
+  QualificationSearchReducer,
+  QualificationDeleteReducer,
+  CountryCodeDropdownReducer,
+  QualificationAliasDropdownReducer,
+  QualificationDropdownReducer,
+  UniversitiesForDropdownReducer
+} from './admin-module/qualificationSetupReducer'
 
+import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
+import {logoutReducer} from './common/logoutReducer'
 
 export {
     loginReducers,
@@ -85,5 +96,14 @@ export {
     AdminSetupReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
-    HospitalDropdownReducer
+    HospitalDropdownReducer,
+    QualificationSaveReducer,
+    QualificationEditReducer,
+    QualificationPreviewReducer,
+    QualificationSearchReducer,
+    QualificationDeleteReducer,
+    CountryCodeDropdownReducer,
+    QualificationAliasDropdownReducer,
+    QualificationDropdownReducer,
+    UniversitiesForDropdownReducer
 }
