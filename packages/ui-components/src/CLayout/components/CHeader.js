@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Dropdown, FormControl, Image, InputGroup } from 'react-bootstrap';
 import * as Material from 'react-icons/md';
-import Cookies from 'js-cookie'
-import { Axios } from "@frontend-appointment/core";
 import { CAlert } from "@frontend-appointment/ui-elements";
 import { CBreadcrumb } from '@frontend-appointment/ui-elements';
 
@@ -27,30 +25,9 @@ class CHeader extends Component {
     };
 
     logoutUser = async () => {
-        if (Cookies.get('XSRF-TOKEN')) {
-            try {
-                await Axios.get('/cogent/logout');
-                Cookies.remove('XSRF-TOKEN',{domain:process.env.REACT_APP_DOMAIN_NAME});
+                localStorage.removeItem('auth-token');
                 localStorage.removeItem('userMenus');
                 this.props.history.push('/');
-            } catch (e) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: "danger",
-                        message: e.errorMessage ? e.errorMessage : 'Something wrong in server. Could not logout.'
-                    }
-                })
-            }
-        } else {
-            this.setState({
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: "danger",
-                    message: "Are you sure you're logged in ?"
-                }
-            })
-        }
     };
 
     render() {

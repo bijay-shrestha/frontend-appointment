@@ -11,7 +11,7 @@ import {CFullPageLoading, CPageNotFound} from "@frontend-appointment/ui-elements
 
 const AuthenticateModule = () => {
     const getTokenFormLocalStorage = () => {
-        let storage = localStorage.getItem('x-auth-token');
+        let storage = localStorage.getItem('auth-token');
         return true
     };
 
@@ -35,21 +35,21 @@ const AuthenticateModule = () => {
                                     dataForBreadCrumb={routes}
                                     userMenus={getUserMenusFromLocalStorage()}
                                     hasTab={route.hasTab}
-                                    // mainViewComponent={
-                                    //   route.hasTab ? (
-                                    //     ComponentHoc(
-                                    //       route.component,
-                                    //       getUserMenusFromLocalStorage(),
-                                    //       route.path,
-                                    //       props
-                                    //     )
-                                    //   ) : (
-                                    //     <route.component
-                                    //       userMenus={getUserMenusFromLocalStorage()}
-                                    //       path={route.path}
-                                    //     />
-                                    //   )
-                                    // }
+                                    mainViewComponent={
+                                      route.hasTab ? (
+                                        ComponentHoc(
+                                          route.component,
+                                          getUserMenusFromLocalStorage(),
+                                          route.path,
+                                          props
+                                        )
+                                      ) : (
+                                        <route.component
+                                          userMenus={getUserMenusFromLocalStorage()}
+                                          path={route.path}
+                                        />
+                                      )
+                                    }
                                     mainViewComponent={
                                         <route.component
                                             userMenus={getUserMenusFromLocalStorage()}
