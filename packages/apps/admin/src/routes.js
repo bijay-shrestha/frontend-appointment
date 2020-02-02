@@ -246,15 +246,6 @@ export const routes = [
     isTab: true
   },
   {
-      "path": "",
-      "component": CUnauthorized,
-      "icon": "",
-      "hasTab": false,
-      "isLink": false,
-      "isTab":false,
-      "name": "Unauthorized"
-  },
-  {
     path: '/admin/hospital/add',
     component: AddHospitalComponent,
     icon: '',
@@ -306,6 +297,16 @@ export const routes = [
     hasTab: true,
     isLink: false,
     isTab: false,
-    name: 'Qualification Setup'
-  }
+    name: 'Qualification Setup',
+    
+  },
+  {
+    "path": "/unauthorized",
+    "component": CUnauthorized,
+    "icon": "",
+    "hasTab": false,
+    "isLink": false,
+    "isTab":false,
+    "name": "Unauthorized"
+},
 ]

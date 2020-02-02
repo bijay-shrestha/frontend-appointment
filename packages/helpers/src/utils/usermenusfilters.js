@@ -1,8 +1,6 @@
-import profiles from '../menu.json';
-import { UserMenuUtils } from "./index";
+import profiles from '../cogent-appointment-admin-menu.json'
+//import { UserMenuUtils } from "./index";
 const checkIfChildExist = child => (child.length ? true : false)
-
-// const getNewSubDepartmentMenu = (subdept, childMenus, role) => ({})
 
 const getChildMenuFirst = (children, roleId, childMenus) => ({
   id: children.id,
@@ -18,13 +16,14 @@ const getChildMenuFirst = (children, roleId, childMenus) => ({
   menuFor: children.menuFor,
   description: children.description,
   childMenus: [...childMenus]
-});
+})
 
 const usermenufilter = userMenus => {
-  const {assignedRolesResponseDTOS} = userMenus;
-  const deptUserMenus = profiles['SUP'];
-  console.log('UserMenus',userMenus)
-  const filteredMenus = []
+  const {assignedRolesResponseDTOS} = userMenus
+  const deptUserMenus = profiles['SUP']
+  console.log('UserMenus', userMenus)
+  console.log('DeptUserMenus', deptUserMenus)
+  let filteredMenus = []
   assignedRolesResponseDTOS &&
     assignedRolesResponseDTOS.map((assignedRoles, index) => {
       const {parentId, childMenus} = assignedRoles
@@ -41,16 +40,17 @@ const usermenufilter = userMenus => {
                   childMens.push(child)
                 }
               })
-            });
+            })
             filteredMenus.push(getChildMenuFirst(depts, [], childMens))
           } else {
-            filteredMenus.push(getChildMenuFirst(depts, depts.roleId, []))
+            filteredMenus.push(getChildMenuFirst(depts, depts.roles, []))
           }
         }
       })
-    });
-    let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...filteredMenus]);
-    localStorage.setItem('userMenus',JSON.stringify(alphabeticallySortedMenus));
+    })
+  //let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...filteredMenus]);
+  console.log(filteredMenus)
+  localStorage.setItem('userMenus', JSON.stringify(filteredMenus))
   return filteredMenus;
-};
-export default  usermenufilter;
+}
+export default usermenufilter

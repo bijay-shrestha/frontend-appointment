@@ -4,14 +4,14 @@ import {UserMenusFilter} from '@frontend-appointment/helpers';
 
 
 export const fetchUserMenus = (path, code) => async dispatch => {
-    dispatch(MenuActions.isMenuLoading(null));
+  //d  dispatch(MenuActions.isMenuLoading(null));
     try {
         const response = await Axios.put(path, code);
-        const userMenus = UserMenusFilter(response.data);
-        dispatch(MenuActions.isMenuSucces(userMenus));
-        //return response;
+        const userMenus = await UserMenusFilter(response.data);
+       // dispatch(MenuActions.isMenuSucces(userMenus));
+        return userMenus;
     } catch (error) {
-        dispatch(MenuActions.isMenuError(error));
+       // dispatch(MenuActions.isMenuError(error));
 
     }
 };
