@@ -31,14 +31,14 @@
           "order": 2,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "DepartmentSetup",
           "childMenus": []
         },
         {
           "id": "3",
           "parentId": "1",
           "name": "Specialization Setup",
-          "path": "/specializations",
+          "path": "/specialization",
           "roles": [
             2,
             3,
@@ -51,7 +51,7 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Specialization",
           "childMenus": []
         },
         {
@@ -71,7 +71,7 @@
           "order": 4,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Profile Setup",
           "childMenus": []
         },
         {
@@ -92,14 +92,14 @@
           "order": 5,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Admin Setup",
           "childMenus": []
         },
         {
           "id": "6",
           "parentId": "1",
           "name": "Hospital Setup",
-          "path": "/hospitals",
+          "path": "/hospital",
           "roles": [
             2,
             3,
@@ -132,7 +132,27 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Doctor Setup",
+          "childMenus": []
+        },
+        {
+          "id": "8",
+          "parentId": "1",
+          "name": "Qualification Setup",
+          "path": "/qualification",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Setup",
           "childMenus": []
         }
       ]
@@ -142,12 +162,7 @@
       "parentId": null,
       "name": "Doctor Duty Roster",
       "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5
-      ],
+      "roles": [2,3,4,5],
       "icon": "fa fa-calculator",
       "leftNavigation": "Y",
       "checked": false,
@@ -179,8 +194,7 @@
           "roles": [
             2,
             3,
-            4,
-            5
+            4
           ],
           "icon": "",
           "leftNavigation": "Y",
