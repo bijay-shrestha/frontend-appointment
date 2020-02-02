@@ -13,7 +13,8 @@ const AddDoctorInfoForm = ({
                                onDateChange,
                                onEnterKeyPress,
                                specializationDropdownError,
-                               doctorDropdownErrorMessage
+                               doctorDropdownErrorMessage,
+                               getExistingRoster
                            }) => {
     return <>
         <Col md={12} lg={5} className="info-container">
@@ -30,9 +31,12 @@ const AddDoctorInfoForm = ({
                             minDate={0}
                             showDisabledMonthNavigation={true}
                             selected={doctorInfoData.fromDate}
+                            peekNextMonth={true}
+                            showMonthDropdown={true}
+                            showYearDropdown={true}
+                            dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date)=>onDateChange(date,"fromDate")}
-                            // disabled={true}
+                            onChange={(date) => onDateChange(date, "fromDate")}
                         />
                         &nbsp;&nbsp;
                         <CEnglishDatePicker
@@ -43,8 +47,12 @@ const AddDoctorInfoForm = ({
                             minDate={0}
                             showDisabledMonthNavigation={true}
                             selected={doctorInfoData.toDate}
+                            peekNextMonth={true}
+                            showMonthDropdown={true}
+                            showYearDropdown={true}
+                            dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date)=>onDateChange(date,"toDate")}
+                            onChange={(date) => onDateChange(date, "toDate")}
                         />
                     </div>
 
@@ -65,7 +73,7 @@ const AddDoctorInfoForm = ({
                         name="specialization"
                         options={specializationList}
                         placeholder={"Select specialization."}
-                        noOptionsMessage={specializationDropdownError}
+                        noOptionsMessage={()=>specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.specialization}
@@ -100,7 +108,7 @@ const AddDoctorInfoForm = ({
                     id="show-existing"
                     variant="link"
                     size="lg"
-                    onClickHandler={handleShowExistingRoster}
+                    onClickHandler={getExistingRoster}
                     name="*Existing Availability"/>
             </div>
         </Col>

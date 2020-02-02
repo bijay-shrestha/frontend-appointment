@@ -6,7 +6,9 @@ import {
     logoutActionConstants,
     LogoutActions,
     MenuActions,
-    userMenusActionConstant
+    userMenusActionConstant,
+    weekdaysActionConstants,
+    WeekdaysActions
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -48,4 +50,6 @@ export {
     LoggedInAdminInfoActions,
     logoutActionConstants,
     LogoutActions,
+    weekdaysActionConstants,
+    WeekdaysActions
 }

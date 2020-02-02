@@ -54,6 +54,7 @@ import {
 
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
+import {WeekdaysReducer} from './common/weekdaysReducer';
 
 
 export {
@@ -97,5 +98,6 @@ export {
     AdminSetupReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
-    HospitalDropdownReducer
+    HospitalDropdownReducer,
+    WeekdaysReducer
 }

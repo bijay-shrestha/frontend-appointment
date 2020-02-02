@@ -24,8 +24,8 @@ const DoctorDutyRoosterAdd = props => {
                  handleInputChange,
                  handleDateChange,
                  handleEnter,
+                 getExistingRoster,
                  handleShowExistingRoster,
-
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -40,6 +40,7 @@ const DoctorDutyRoosterAdd = props => {
                                 onEnterKeyPress={handleEnter}
                                 onInputChange={handleInputChange}
                                 onDateChange={handleDateChange}
+                                getExistingRoster={getExistingRoster}
                             />
                             <DoctorAvailabilityForm
                                 doctorInfoData={doctorInfoData}

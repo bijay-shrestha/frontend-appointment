@@ -107,13 +107,13 @@ class CEnglishDatePicker extends PureComponent {
         const HybridInput = ({ value, onClick }) => (
         
             <CHybridInput className="example-custom-input"
-                onClick={onClick}
-                value={value}
-                placeholder={label}
-                autoComplete="off"
-                >
-
-            </CHybridInput>
+                          onClick={onClick}
+                          value={value}
+                          placeholder={label}
+                          onChange={onChange}
+                          readOnly={true}
+                          autoComplete="off"
+            />
         );
         return <>
     
@@ -252,9 +252,9 @@ CEnglishDatePicker.propTypes = {
     inline: PropTypes.bool,
     isClearable: PropTypes.bool,
     locale: PropTypes.string,
-    maxDate: PropTypes.instanceOf(Date),
+    maxDate: PropTypes.oneOfType([PropTypes.instanceOf(Date),PropTypes.number]),
     maxTime: PropTypes.instanceOf(Date),
-    minDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.oneOfType([PropTypes.instanceOf(Date),PropTypes.number]),
     minTime: PropTypes.instanceOf(Date),
     monthsShown: PropTypes.number,
     name: PropTypes.string,
