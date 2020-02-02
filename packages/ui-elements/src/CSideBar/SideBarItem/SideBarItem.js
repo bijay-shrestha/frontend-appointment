@@ -1,15 +1,23 @@
-import React, { PureComponent } from 'react'
-import { Nav, Accordion } from 'react-bootstrap'
+import React, {PureComponent} from 'react'
+import {Nav, Accordion} from 'react-bootstrap'
 import SideBarHeading from './SideBarHeading'
 import SubMenuChildren from './SubMenuChildren'
 
 class SideBarItem extends PureComponent {
   constructor (props) {
     super(props)
+    let collapsed = [],
+      active = '',
+      activeKey = []
+
+      collapsed = this.props.localFunc.localStorageDecoder('collapsed')||[]
+      active = this.props.localFunc.localStorageDecoder('active')||''
+      activeKey = this.props.localFunc.localStorageDecoder('activeStateKey')||[]
+    
     this.state = {
-      collapsed: [],
-      active: '',
-      activeKey: []
+      collapsed: collapsed,
+      active: active,
+      activeKey: activeKey
     }
   }
 
@@ -33,6 +41,7 @@ class SideBarItem extends PureComponent {
   setActiveNavBar = id => {
     let activeStateId = this.state.active
     activeStateId = this.filterAndSetActiveElement(id)
+    this.props.localFunc.localStorageEncoder('active', activeStateId)
     this.setState({
       active: activeStateId
     })
@@ -54,52 +63,49 @@ class SideBarItem extends PureComponent {
         root,
         true
       )
+      this.props.localFunc.localStorageEncoder('activeStateKey', alreadyActive)
+      this.props.localFunc.localStorageEncoder('collapsed', alreadyClickedId)
       this.setState({
         collapsed: alreadyClickedId,
         activeKey: alreadyActive
       })
     }
   }
-
-  emptyCollapsedAndActiveKeyState = () => {
-    this.setState({
-      collapsed: [],
-      activeKey: []
-    })
-  }
-
   
-
   render () {
-    let trees =[];
-    if(this.props.trees.length){
-      trees = JSON.parse(this.props.trees);
+    let trees = []
+    if (this.props.trees.length) {
+      trees = JSON.parse(this.props.trees)
     }
 
+    const active = this.state.active
+    const activeKey = this.state.activeKey
+    console.log('active', active)
     return (
-      <Nav className='flex-column'>
+      <Nav className="flex-column">
         <SideBarHeading heading={this.props.heading} />
-        <Accordion activeKey='1'>
-          {trees.length ?
-            trees.map((tree, index) => {
-              return (
-                <SubMenuChildren
-                  parent={tree}
-                  children={Object.values(tree.childMenus)}
-                  childKey={index}
-                  collapsed={this.state.collapsed}
-                  active={this.state.active}
-                  activeNavBar={this.setActiveNavBar}
-                  toggleNavbar={this.toggleNavbar}
-                  key={'submenu-child' + tree.id}
-                  id={'submenu-child' + tree.id}
-                  isOpen={this.props.isOpen}
-                  activeKey={this.state.activeKey}
-                  isHover={this.props.isHover}
-                  className="level-one"
-                />
-              )
-            }):''}
+        <Accordion activeKey="1">
+          {trees.length
+            ? trees.map((tree, index) => {
+                return (
+                  <SubMenuChildren
+                    parent={tree}
+                    children={Object.values(tree.childMenus)}
+                    childKey={index}
+                    collapsed={this.state.collapsed}
+                    active={active}
+                    activeNavBar={this.setActiveNavBar}
+                    toggleNavbar={this.toggleNavbar}
+                    key={'submenu-child' + tree.id}
+                    id={'submenu-child' + tree.id}
+                    isOpen={this.props.isOpen}
+                    activeKey={activeKey}
+                    isHover={this.props.isHover}
+                    className="level-one"
+                  />
+                )
+              })
+            : ''}
         </Accordion>
       </Nav>
     )

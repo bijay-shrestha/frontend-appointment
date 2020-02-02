@@ -1,6 +1,6 @@
 import profiles from '../cogent-appointment-admin-menu.json'
 //import { UserMenuUtils } from "./index";
-const checkIfChildExist = child => (child.length ? true : false)
+const checkIfChildExist = child => (child.length>1 ? true : false)
 
 const getChildMenuFirst = (children, roleId, childMenus) => ({
   id: children.id,
@@ -43,7 +43,7 @@ const usermenufilter = userMenus => {
             })
             filteredMenus.push(getChildMenuFirst(depts, [], childMens))
           } else {
-            filteredMenus.push(getChildMenuFirst(depts, depts.roles, []))
+            filteredMenus.push(getChildMenuFirst(depts, childMenus[0].roleId, []))
           }
         }
       })

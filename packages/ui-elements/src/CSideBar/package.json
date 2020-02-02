@@ -1,5 +1,5 @@
 {   
-"name": "@frontend-appointment/c-sidebar",
+"name": "@cogent/c-sidebar",
 "version": "0.0.0",
 "main": "CSideBar.js",
 "author": "Kaushal Regmi",

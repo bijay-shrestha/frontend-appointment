@@ -104,7 +104,7 @@ export const qualificationSetupApiConstants = {
   FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + '/detail'),
   EDIT_QUALIFICATION: BASE.concat(QF_BASE),
   DELETE_QUALIFICATION: BASE.concat(QF_BASE),
-  SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE: BASE.concat(QF_BASE + '/active/min')
+  SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE: BASE.concat(QF_BASE + '/min')
 }
 
 export const qualificationSetupAliasCode = {

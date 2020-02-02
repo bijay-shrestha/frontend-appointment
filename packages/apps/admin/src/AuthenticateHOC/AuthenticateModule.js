@@ -11,6 +11,7 @@ import {
   CFullPageLoading,
   CPageNotFound
 } from '@frontend-appointment/ui-elements'
+import { LocalStorageSecurity } from '@frontend-appointment/helpers'
 
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
@@ -43,6 +44,8 @@ const AuthenticateModule = () => {
                   dataForBreadCrumb={routes}
                   userMenus={getUserMenusFromLocalStorage()}
                   hasTab={route.hasTab}
+                  isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
+                  isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
                   mainViewComponent={
                     route.hasTab ? (
                       ComponentHoc(

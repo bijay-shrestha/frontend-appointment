@@ -1,11 +1,11 @@
-import React from 'react';
+import React,{memo} from 'react';
 import { Accordion, } from 'react-bootstrap'
 import SubMenuChildren from '..';
 
 const ChildrenMenus = (props) => {
     const {children,parent} = props;
     return (
-         <Accordion.Collapse  key={'accordion-collapse'+parent.id} eventKey={`${props.parent.id}`}>
+         props.isOpen || props.isHover ? <Accordion.Collapse  key={'accordion-collapse'+parent.id} eventKey={`${props.parent.id}`}>
           <>
             {children.map( child => {
              return <SubMenuChildren key={'submenu'+child.id} 
@@ -22,7 +22,7 @@ const ChildrenMenus = (props) => {
                                      />
             })}
           </>
-        </Accordion.Collapse>
+        </Accordion.Collapse>:''
     )
 } 
-export default ChildrenMenus;
+export default memo(ChildrenMenus);
