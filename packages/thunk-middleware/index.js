@@ -27,6 +27,7 @@ import {fetchUserMenus} from "./src/menu-middleware"
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware';
 import {logoutUser} from "./src/logout-middleware";
 import {changePassword, resetPassword, savePassword, verifyToken} from './src/password-save-middleware';
+import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware';
 
 export {
     changePassword,
@@ -59,4 +60,5 @@ export {
     signinUser,
     SpecializationSetupMiddleware,
     verifyToken,
+    WeekdaysMiddleware
 }

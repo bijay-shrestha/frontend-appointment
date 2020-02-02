@@ -108,6 +108,8 @@ class CEnglishDatePicker extends PureComponent {
                           onClick={onClick}
                           value={value}
                           placeholder={label}
+                          onChange={onChange}
+                          readOnly={true}
             />
         );
         return <>
@@ -243,9 +245,9 @@ CEnglishDatePicker.propTypes = {
     inline: PropTypes.bool,
     isClearable: PropTypes.bool,
     locale: PropTypes.string,
-    maxDate: PropTypes.instanceOf(Date),
+    maxDate: PropTypes.oneOfType([PropTypes.instanceOf(Date),PropTypes.number]),
     maxTime: PropTypes.instanceOf(Date),
-    minDate: PropTypes.instanceOf(Date),
+    minDate: PropTypes.oneOfType([PropTypes.instanceOf(Date),PropTypes.number]),
     minTime: PropTypes.instanceOf(Date),
     monthsShown: PropTypes.number,
     name: PropTypes.string,

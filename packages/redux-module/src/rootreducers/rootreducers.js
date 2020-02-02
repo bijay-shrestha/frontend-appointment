@@ -40,7 +40,8 @@ import {
     SpecializationSaveReducer,
     SpecializationSearchReducer,
     SpecializationDropdownReducer,
-    HospitalDropdownReducer
+    HospitalDropdownReducer,
+    WeekdaysReducer
 } from '../reducers'
 
 export const rootReducers = combineReducers({
@@ -85,4 +86,5 @@ export const rootReducers = combineReducers({
     AdminPreviewReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
+    WeekdaysReducer
 });
