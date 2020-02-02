@@ -30,7 +30,7 @@ const {
 } = adminSetupActionConstants;
 
 const initialState = {
-    isCreateAdminLoading: true,
+    isCreateAdminLoading: false,
     errorMessage: '',//profileCreate error message
     successMessage: '',
     isSearchLoading: true,
@@ -39,7 +39,7 @@ const initialState = {
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
     isDeleteLoading: true,
-    isAdminEditLoading: true,
+    isAdminEditLoading: false,
     adminErrorMessage: '',//profile edit error message
     adminSuccessMessage: '',
     adminPreviewData: {},
@@ -70,6 +70,7 @@ export const AdminSetupReducer = (state = {...initialState}, action) => {
         case CREATE_ADMIN_ERROR:
             return {
                 ...state,
+                isCreateAdminLoading: false,
                 errorMessage: action.payload.errorMessage
             };
         case CLEAR_ADMIN_CREATE_ERROR_MESSAGE:

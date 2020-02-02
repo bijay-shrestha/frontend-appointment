@@ -15,7 +15,7 @@ import HospitalPicture from '../commons/HospitalPicture'
 const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
-    <div className="profile-details">
+    <div className="manage-details">
         
         <h5 className="title">Hospital Details</h5>
         {!props.isSearchLoading &&

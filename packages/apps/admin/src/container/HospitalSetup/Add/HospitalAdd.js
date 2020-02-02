@@ -35,7 +35,7 @@ function SpecializationAdd (props) {
       setImageShow
     }) => (
       <div className="">
-        <Container className="bg-white add-profile " fluid>
+        <Container className="bg-white add-container " fluid>
           <CButton
             id="resetProfileForm"
             variant="outline-secondary"

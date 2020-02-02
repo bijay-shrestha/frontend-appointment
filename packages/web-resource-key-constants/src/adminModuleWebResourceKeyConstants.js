@@ -14,7 +14,8 @@ export const profileSetupAPIConstants = {
     EDIT_PROFILE: BASE.concat(PROFILE_BASE),
     FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID: BASE.concat(PROFILE_BASE),
     FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
-    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min"))
+    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
+    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID: BASE.concat(PROFILE_BASE)
 };
 
 const DEPARTMENT_BASE = "/department";
@@ -36,7 +37,7 @@ export const adminSetupAPIConstants = {
     EDIT_ADMIN: ADMIN_BASE_URL,
     DELETE_ADMIN: ADMIN_BASE_URL,
     SEARCH_ADMIN: ADMIN_BASE_URL.concat("/search"),
-    FETCH_ADMIN_DETAILS: ADMIN_BASE_URL.concat("/details"),
+    FETCH_ADMIN_DETAILS: ADMIN_BASE_URL.concat("/detail"),
     UPDATE_ADMIN_AVATAR: ADMIN_BASE_URL.concat('/avatar'),
     GET_LOGGED_IN_ADMIN_INFO: ADMIN_BASE_URL.concat('/info'),
     SAVE_ADMIN_PASSWORD: ADMIN_BASE_URL.concat('/password'),
@@ -66,7 +67,7 @@ export const specializationSetupAPIConstants = {
     SPECIALIZATION_BY_DOCTOR_ID: BASE.concat(SP_BASE)
 };
 
-export const hostpitalSetupApiConstants = {
+export const hospitalSetupApiConstants = {
     CREATE_HOSPITAL: BASE.concat(HP_BASE),
     SEARCH_HOSPITAL: BASE.concat(HP_BASE + "/search"),
     FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/detail"),

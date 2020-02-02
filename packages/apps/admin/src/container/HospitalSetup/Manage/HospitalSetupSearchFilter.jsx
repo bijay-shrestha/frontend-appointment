@@ -45,10 +45,10 @@ class HospitalSetupSearchFilter extends PureComponent {
                   id="reset-form"
                   variant="outline-secondary"
                   size="sm"
-                  name="Reset"
+                  name=""
                   onClickHandler={resetSearchForm}
                 >
-                  <i className="fa fa-refresh" />
+                 Reset <i className="fa fa-refresh" />
                 </CButton>
               </div>
             </div>

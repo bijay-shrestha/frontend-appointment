@@ -6,6 +6,7 @@ import {routes} from '../routes'
 // import Cookies from 'js-cookie'
 import LoginPage from '../container/Login'
 import {LoginHoc, ComponentHoc} from '@frontend-appointment/commons'
+import SetPassword from "../container/SavePassword/SavePassword";
 
 import {CFullPageLoading, CPageNotFound} from "@frontend-appointment/ui-elements";
 
@@ -23,6 +24,10 @@ const AuthenticateModule = () => {
     return (
         <>
             <Switch>
+                <Route
+                    path='/savePassword'
+                    component={SetPassword}
+                />
                 {routes.map((route, idx) => (
                     <Route
                         key={idx}

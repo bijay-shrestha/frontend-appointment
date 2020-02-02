@@ -14,6 +14,10 @@ const AddDepartmentComponent = Loadable({
     loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
     loading: () => getLoader()
 });
+const AddAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Add/AdminAdd'),
+    loading: () => getLoader()
+});
 
 const AddHospitalComponent = Loadable({
     loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
@@ -24,11 +28,6 @@ const AddDoctorDutyRosterComponent = Loadable({
     loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
     loading: () => getLoader(),
 });
-
-// const AddAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
-//     loading: () => getLoader()
-// });
 
 const AddSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
@@ -79,6 +78,11 @@ const ManageSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Manage/AdminManage'),
+    loading: () => getLoader()
+});
+
 const ManageHospitalComponent = Loadable({
     loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
     loading: () => getLoader()
@@ -88,11 +92,6 @@ const ManageDoctorDutyRosterComponent = Loadable({
     loader: () => import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
     loading: () => getLoader()
 });
-
-// const ManageAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
-//     loading: () => getLoader()
-// });
 
 /* ****** N ***** */
 
@@ -201,6 +200,30 @@ export const routes = [
         "isLink": true
     },
     {
+        "path": "/admin/admin-setup",
+        "name": "Admin Setup",
+        "component": <></>,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+    {
+        "path": "/admin/admin-setup/add",
+        "name": "Add",
+        "component": AddAdminComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+    {
+        "path": "/admin/admin-setup/manage",
+        "name": "Manage",
+        "component": ManageAdminComponent,
+        "icon": "",
+        "hasTab": true,
+        "isLink": true
+    },
+    {
         "path": "/admin/doctordutyroster/add",
         "name": "Add",
         "component": AddDoctorDutyRosterComponent,
@@ -231,7 +254,7 @@ export const routes = [
         "hasTab": true,
         "isLink": true,
         "name": "Add"
-    }
+    },
     // {
     //     "path": "",
     //     "component": CUnauthorized,
@@ -240,5 +263,4 @@ export const routes = [
     //     "isLink": false,
     //     "name": "Unauthorized"
     // },
-
 ];

@@ -34,7 +34,9 @@ const {
     FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID_ERROR,
     CLEAR_ERROR_MESSAGE_FOR_DROPDOWN,
     FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_SUCCESS,
-    FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_ERROR
+    FETCH_PROFILE_LIST_FOR_SEARCH_DROPDOWN_ERROR,
+    FETCH_PROFILES_BY_DEPARTMENT_ID_SUCCESS,
+    FETCH_PROFILES_BY_DEPARTMENT_ID_ERROR
 } = profileSetupConstants;
 
 const initialState = {
@@ -57,8 +59,9 @@ const initialState = {
     profilePreviewOpen: false,
     activeProfilesForDropdown: [],
     profilesBySubDepartmentId: [],
-    allProfilesForDropdown:[],
-    dropdownErrorMessage: ''
+    allProfilesForDropdown: [],
+    dropdownErrorMessage: '',
+    activeProfilesByDepartmentId: []
 };
 
 export const ProfileSetupReducer = (state = {...initialState}, action) => {
@@ -140,6 +143,18 @@ export const ProfileSetupReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 dropdownErrorMessage: ''
+            };
+        case FETCH_PROFILES_BY_DEPARTMENT_ID_SUCCESS:
+            return {
+                ...state,
+                activeProfilesByDepartmentId: [...action.payload.data],
+                dropdownErrorMessage: ''
+            };
+        case FETCH_PROFILES_BY_DEPARTMENT_ID_ERROR:
+            return {
+                ...state,
+                activeProfilesByDepartmentId: [],
+                dropdownErrorMessage: action.payload.errorMessage
             };
         default:
             return state
