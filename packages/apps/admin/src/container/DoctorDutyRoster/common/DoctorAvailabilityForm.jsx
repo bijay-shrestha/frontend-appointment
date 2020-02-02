@@ -23,6 +23,7 @@ const DoctorAvailabilityForm = ({
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
+                            className="time-picker"
                         />
                     </Col>
                     <Col> End Time</Col>

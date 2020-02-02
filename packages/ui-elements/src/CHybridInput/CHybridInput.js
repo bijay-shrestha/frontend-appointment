@@ -185,6 +185,7 @@ class CHybridInput extends React.PureComponent {
                     className="field-wrapper hinput"
                     id={'fieldWrapper'.concat(id)}
                     ref={'fieldWrapper'.concat(id)}
+                    onClick={onClick}
                 >
                     <Form.Control
                         _ref={_ref}
@@ -206,7 +207,7 @@ class CHybridInput extends React.PureComponent {
                         onBlur={this.handleOnBlur}
                         onChange={this.handleOnChange}
                         onFocus={this.handleOnFocus}
-                        onClick={onClick}
+                        // onClick={onClick}
                         onKeyDown={onKeyDown}
                         pattern={pattern}
                         plaintext={plaintext}

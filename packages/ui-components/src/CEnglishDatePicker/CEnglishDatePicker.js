@@ -1,9 +1,10 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 
-import "react-datepicker/dist/react-datepicker.css";
-import {CHybridInput} from "@frontend-appointment/ui-elements";
+//import "react-datepicker/dist/react-datepicker.css";
+import { CHybridInput } from "@frontend-appointment/ui-elements";
+import "./react-datepicker.scss";
 
 class CEnglishDatePicker extends PureComponent {
 
@@ -103,99 +104,107 @@ class CEnglishDatePicker extends PureComponent {
             yearDropdownItemNumber
         } = this.props;
 
-        const HybridInput = ({value, onClick}) => (
+        const HybridInput = ({ value, onClick }) => (
+        
             <CHybridInput className="example-custom-input"
-                          onClick={onClick}
-                          value={value}
-                          placeholder={label}
-            />
+                onClick={onClick}
+                value={value}
+                placeholder={label}
+                autoComplete="off"
+                >
+
+            </CHybridInput>
         );
         return <>
-            <DatePicker
-                allowSameDay={allowSameDay}
-                ariaLabelledBy={ariaLabelledBy}
-                autoComplete={autoComplete}
-                autoFocus={autoFocus}
-                calendarClassName={calendarClassName}
-                children={children}
-                className={className}
-                clearButtonTitle={clearButtonTitle}
-                customInput={<HybridInput/>}
-                customInputRef={customInputRef}
-                dateFormat={dateFormat}
-                dateFormatCalendar={dateFormatCalendar}
-                dayClassName={dayClassName}
-                disabled={disabled}
-                disabledKeyboardNavigation={disabledKeyboardNavigation}
-                dropdownMode={dropdownMode}
-                endDate={endDate}
-                excludeDates={excludeDates}
-                excludeTimes={excludeTimes}
-                filterDate={filterDate}
-                fixedHeight={fixedHeight}
-                forceShowMonthNavigation={forceShowMonthNavigation}
-                formatWeekNumber={formatWeekNumber}
-                highlightDates={highlightDates}
-                id={id}
-                includeDates={includeDates}
-                includeTimes={includeTimes}
-                injectTimes={injectTimes}
-                inline={inline}
-                isClearable={isClearable}
-                locale={locale}
-                maxDate={this.addDays(new Date(), maxDate)}
-                maxTime={maxTime}
-                minDate={this.subDays(new Date(), minDate)}
-                minTime={minTime}
-                monthsShown={monthsShown}
-                name={name}
-                onBlur={onBlur}
-                onCalendarClose={onCalendarClose}
-                onCalendarOpen={onCalendarOpen}
-                onChange={onChange}
-                onChangeRaw={onChangeRaw}
-                onClickOutside={onClickOutside}
-                onFocus={onFocus}
-                onKeyDown={onKeyDown}
-                onMonthChange={onMonthChange}
-                onSelect={onSelect}
-                onWeekSelect={onWeekSelect}
-                onYearChange={onYearChange}
-                openToDate={openToDate}
-                peekNextMonth={peekNextMonth}
-                placeholderText={placeholderText}
-                popperClassName={popperClassName}
-                popperContainer={popperContainer}
-                popperModifiers={popperModifiers}
-                popperPlacement={popperPlacement}
-                readOnly={readOnly}
-                required={required}
-                scrollableYearDropdown={scrollableYearDropdown}
-                selected={selected}
-                selectsEnd={selectsEnd}
-                selectsStart={selectsStart}
-                shouldCloseOnSelect={shouldCloseOnSelect}
-                showDisabledMonthNavigation={showDisabledMonthNavigation}
-                showMonthDropdown={showMonthDropdown}
-                showTimeSelect={showTimeSelect}
-                showTimeSelectOnly={showTimeSelectOnly}
-                showWeekNumbers={showWeekNumbers}
-                showYearDropdown={showYearDropdown}
-                startDate={startDate}
-                startOpen={startOpen}
-                tabIndex={tabIndex}
-                timeClassName={timeClassName}
-                timeFormat={timeFormat}
-                timeIntervals={timeIntervals}
-                title={title}
-                todayButton={todayButton}
-                useWeekdaysShort={useWeekdaysShort}
-                utcOffset={utcOffset}
-                value={value}
-                weekLabel={weekLabel}
-                withPortal={withPortal}
-                yearDropdownItemNumber={yearDropdownItemNumber}
-            />
+    
+          
+                <DatePicker
+                    allowSameDay={allowSameDay}
+                    ariaLabelledBy={ariaLabelledBy}
+                    autoComplete={autoComplete}
+                    autoFocus={autoFocus}
+                    calendarClassName={calendarClassName}
+                    children={children}
+                    className={className}
+                    clearButtonTitle={clearButtonTitle}
+                    customInput={<HybridInput />}
+                    customInputRef={customInputRef}
+                    dateFormat={dateFormat}
+                    dateFormatCalendar={dateFormatCalendar}
+                    dayClassName={dayClassName}
+                    disabled={disabled}
+                    disabledKeyboardNavigation={disabledKeyboardNavigation}
+                    dropdownMode={dropdownMode}
+                    endDate={endDate}
+                    excludeDates={excludeDates}
+                    excludeTimes={excludeTimes}
+                    filterDate={filterDate}
+                    fixedHeight={fixedHeight}
+                    forceShowMonthNavigation={forceShowMonthNavigation}
+                    formatWeekNumber={formatWeekNumber}
+                    highlightDates={highlightDates}
+                    id={id}
+                    includeDates={includeDates}
+                    includeTimes={includeTimes}
+                    injectTimes={injectTimes}
+                    inline={inline}
+                    isClearable={isClearable}
+                    locale={locale}
+                    maxDate={this.addDays(new Date(), maxDate)}
+                    maxTime={maxTime}
+                    minDate={this.subDays(new Date(), minDate)}
+                    minTime={minTime}
+                    monthsShown={monthsShown}
+                    name={name}
+                    onBlur={onBlur}
+                    onCalendarClose={onCalendarClose}
+                    onCalendarOpen={onCalendarOpen}
+                    onChange={onChange}
+                    onChangeRaw={onChangeRaw}
+                    onClickOutside={onClickOutside}
+                    onFocus={onFocus}
+                    onKeyDown={onKeyDown}
+                    onMonthChange={onMonthChange}
+                    onSelect={onSelect}
+                    onWeekSelect={onWeekSelect}
+                    onYearChange={onYearChange}
+                    openToDate={openToDate}
+                    peekNextMonth={peekNextMonth}
+                    placeholderText={placeholderText}
+                    popperClassName={popperClassName}
+                    popperContainer={popperContainer}
+                    popperModifiers={popperModifiers}
+                    popperPlacement={popperPlacement}
+                    readOnly={readOnly}
+                    required={required}
+                    scrollableYearDropdown={scrollableYearDropdown}
+                    selected={selected}
+                    selectsEnd={selectsEnd}
+                    selectsStart={selectsStart}
+                    shouldCloseOnSelect={shouldCloseOnSelect}
+                    showDisabledMonthNavigation={showDisabledMonthNavigation}
+                    showMonthDropdown={showMonthDropdown}
+                    showTimeSelect={showTimeSelect}
+                    showTimeSelectOnly={showTimeSelectOnly}
+                    showWeekNumbers={showWeekNumbers}
+                    showYearDropdown={showYearDropdown}
+                    startDate={startDate}
+                    startOpen={startOpen}
+                    tabIndex={tabIndex}
+                    timeClassName={timeClassName}
+                    timeFormat={timeFormat}
+                    timeIntervals={timeIntervals}
+                    title={title}
+                    todayButton={todayButton}
+                    useWeekdaysShort={useWeekdaysShort}
+                    utcOffset={utcOffset}
+                    value={value}
+                    weekLabel={weekLabel}
+                    withPortal={withPortal}
+                    yearDropdownItemNumber={yearDropdownItemNumber}
+                />
+             
+            
         </>;
     }
 
@@ -212,7 +221,7 @@ CEnglishDatePicker.propTypes = {
     allowSameDay: PropTypes.bool,
     ariaLabelledBy: PropTypes.string,// GIVES THIS PROPERTY
     autoComplete: PropTypes.string,// AUTOCOMPLETE PROPERTY FOR INPUT FIELD
-    autoFocus: PropTypes.bool,// INITIALLY AUTOFOCUS(OPEN)
+    autoFocus: PropTypes.bool,// INITIALLY AUTOFOCUS(OPEN) either 'ON' or 'OFF'
     calendarClassName: PropTypes.string,
     children: PropTypes.node,
     className: PropTypes.string,

@@ -32,6 +32,7 @@ const AddDoctorInfoForm = ({
                             selected={doctorInfoData.fromDate}
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date)=>onDateChange(date,"fromDate")}
+                            // disabled={true}
                         />
                         &nbsp;&nbsp;
                         <CEnglishDatePicker
