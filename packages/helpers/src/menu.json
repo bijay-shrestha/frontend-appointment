@@ -31,7 +31,7 @@
           "order": 2,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "DepartmentSetup",
           "childMenus": []
         },
         {
@@ -51,7 +51,7 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Specialization",
           "childMenus": []
         },
         {
@@ -71,7 +71,7 @@
           "order": 4,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Profile Setup",
           "childMenus": []
         },
         {
@@ -92,7 +92,7 @@
           "order": 5,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Admin Setup",
           "childMenus": []
         },
         {
@@ -132,7 +132,27 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Medicine",
+          "description": "Doctor Setup",
+          "childMenus": []
+        },
+        {
+          "id": "8",
+          "parentId": "1",
+          "name": "Qualification Setup",
+          "path": "/qualification",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Setup",
           "childMenus": []
         }
       ]
@@ -244,528 +264,6 @@
           "menuFor": "6",
           "description": "appointmentLog",
           "childMenus": []
-        },
-        {
-          "id": "16",
-          "parentId": null,
-          "name": "Settings",
-          "path": "/settings",
-          "roles": [],
-          "icon": "fa fa-crosshairs",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "Settings",
-          "subDepartmentCode": "SUPER_ADMIN",
-          "childMenus": [
-            {
-              "id": "17",
-              "parentId": "16",
-              "name": "Registration",
-              "path": "/settings/registration",
-              "roles": [
-                2,
-                3,
-                4
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Registration",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "18",
-              "parentId": "16",
-              "name": "Medical Settings",
-              "path": "/settings/medicalSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Reporting Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "19",
-              "parentId": "16",
-              "name": "Inventory Settings",
-              "path": "/settings/inventorySettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Inventory Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "20",
-              "parentId": "16",
-              "name": "Extra Reports Settings",
-              "path": "/settings/extraReportsSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Extra Reports Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "21",
-              "parentId": "16",
-              "name": "Device Settings",
-              "path": "/settings/deviceSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Device Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "22",
-              "parentId": "16",
-              "name": "Label Settings",
-              "path": "/settings/labelSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Label Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "23",
-              "parentId": "16",
-              "name": "Invoice Settings",
-              "path": "/settings/invoiceSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Invoice Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "24",
-              "parentId": "16",
-              "name": "Chart setting",
-              "path": "/settings/chartSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Chart setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "25",
-              "parentId": "16",
-              "name": "App Settings",
-              "path": "/settings/appSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "App Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "26",
-              "parentId": "16",
-              "name": "Print Settings",
-              "path": "/settings/printSettings",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Print Settings",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "27",
-              "parentId": "16",
-              "name": "Chart setting",
-              "path": "/settings/chartSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Chart setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            }
-          ]
-        },
-        {
-          "id": "28",
-          "parentId": null,
-          "name": "Laboratory",
-          "path": "/laboratory",
-          "roles": [],
-          "icon": "fa fa-flask",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "Laboratory",
-          "subDepartmentCode": "SUPER_ADMIN",
-          "childMenus": [
-            {
-              "id": "29",
-              "parentId": "28",
-              "name": "Dispensing",
-              "path": "/laboratory/dispensing",
-              "roles": [
-                2,
-                3,
-                4
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Dispensing",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "30",
-              "parentId": "28",
-              "name": "Chart setting",
-              "path": "/settings/chartSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Chart setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "31",
-              "parentId": "28",
-              "name": "Return form",
-              "path": "/laboratory/returnForm",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Returning Form",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "32",
-              "parentId": "28",
-              "name": "Dispense List",
-              "path": "/activity/dispenseList",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Dispense List",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            }
-          ]
-        },
-        {
-          "id": "33",
-          "parentId": null,
-          "name": "Radiology",
-          "path": "/radiology",
-          "roles": [],
-          "icon": "fa fa-bolt",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "Radiology",
-          "subDepartmentCode": "SUPER_ADMIN",
-          "childMenus": [
-            {
-              "id": "34",
-              "parentId": "33",
-              "name": "Chart setting",
-              "path": "/settings/chartSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Chart setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "35",
-              "parentId": "33",
-              "name": "Report Setting",
-              "path": "/activity/reportSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Report Setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            }
-          ]
-        },
-        {
-          "id": "36",
-          "parentId": null,
-          "name": "Billing",
-          "path": "/billing",
-          "roles": [],
-          "icon": "fa fa-money",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "Billing",
-          "subDepartmentCode": "SUPER_ADMIN",
-          "childMenus": [
-            {
-              "id": "37",
-              "parentId": "36",
-              "name": "Lab Setting",
-              "path": "/settings/labSetting",
-              "roles": [
-                2,
-                3,
-                4
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Lab Setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "38",
-              "parentId": "36",
-              "name": "Registration",
-              "path": "/settings/registration",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Registration",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            },
-            {
-              "id": "39",
-              "parentId": "36",
-              "name": "Chart setting",
-              "path": "/settings/chartSetting",
-              "roles": [
-                2,
-                3,
-                4,
-                5
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Chart setting",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            }
-          ]
-        },
-        {
-          "id": "40",
-          "parentId": null,
-          "name": "Custom Query",
-          "path": "/customQuery",
-          "roles": [],
-          "icon": "fa fa-code",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "Custom Query",
-          "subDepartmentCode": "SUPER_ADMIN",
-          "childMenus": [
-            {
-              "id": "41",
-              "parentId": "40",
-              "name": "Blood Storage",
-              "path": "/customQuery/bloodStorage",
-              "roles": [
-                2,
-                3,
-                4
-              ],
-              "icon": "",
-              "leftNavigation": "Y",
-              "checked": false,
-              "order": 1,
-              "enabled": "Y",
-              "menuFor": "6",
-              "description": "Blood Storage",
-              "subDepartmentCode": "SUPER_ADMIN",
-              "childMenus": []
-            }
-          ]
         }
       ]
     }
