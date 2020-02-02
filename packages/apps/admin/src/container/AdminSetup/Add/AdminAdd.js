@@ -5,7 +5,7 @@ import { ConnectHoc } from "@frontend-appointment/commons";
 import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
-    departmentSetupMiddleware,
+    DepartmentSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
     previewProfile
@@ -19,7 +19,7 @@ import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
 const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
-const { fetchActiveDepartmentsByHospitalId } = departmentSetupMiddleware;
+const { fetchActiveDepartmentsByHospitalId } = DepartmentSetupMiddleware;
 
 const { FETCH_HOSPITALS_FOR_DROPDOWN } = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const { FETCH_PROFILE_DETAILS, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID } = AdminModuleAPIConstants.profileSetupAPIConstants;

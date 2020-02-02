@@ -4,7 +4,7 @@ import { ConnectHoc, TryCatchHandler } from "@frontend-appointment/commons";
 import {
     clearAdminSuccessErrorMessagesFromStore,
     deleteAdmin,
-    departmentSetupMiddleware,
+    DepartmentSetupMiddleware,
     editAdmin,
     fetchActiveProfileListForDropdown,
     fetchActiveProfilesByDepartmentId,
@@ -38,7 +38,7 @@ const { FETCH_HOSPITALS_FOR_DROPDOWN } = AdminModuleAPIConstants.hospitalSetupAp
 
 const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
 
-const { fetchActiveDepartmentsByHospitalId, fetchActiveDepartmentsForDropdown } = departmentSetupMiddleware;
+const { fetchActiveDepartmentsByHospitalId, fetchActiveDepartmentsForDropdown } = DepartmentSetupMiddleware;
 
 class AdminManage extends PureComponent {
     state = {
@@ -729,7 +729,7 @@ class AdminManage extends PureComponent {
             if (adminMacAddressInfo && adminMacAddressInfo.length) {
                 macIDs = AdminSetupUtils.getMacAddresses(adminMacAddressInfo);
             }
-         
+
             return {
                 id: id,
                 hospital: { label: hospitalName, value: hospitalId },
