@@ -8,6 +8,10 @@
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
+$datepicker__selected-color: red !important;
+
+
+
 .react-datepicker-popper{
     z-index: 4;
 }
@@ -86,3 +90,41 @@
 //     z-index: 0;
 // }
 
+.react-datepicker__time-container {
+   
+  
+    .react-datepicker__time {
+      
+      .react-datepicker__time-box {
+
+  
+          li.react-datepicker__time-list-item {
+          
+            
+            &--selected {
+              background-color: $cogent;
+              color: white;
+              font-weight: bold;
+              &:hover {
+                background-color: $cogent !important;
+              }
+            }
+            &--disabled {
+            //   color: $datepicker__muted-color;
+  
+              &:hover {
+                cursor: default;
+                background-color: transparent;
+              }
+              }
+            }
+        }
+    }
+}
+.react-datepicker__day--selected, .react-datepicker__day--in-selecting-range, .react-datepicker__day--in-range, .react-datepicker__month-text--selected, .react-datepicker__month-text--in-selecting-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--selected, .react-datepicker__quarter-text--in-selecting-range, .react-datepicker__quarter-text--in-range {
+
+    background-color: $cogent;
+  
+}
+         
+ 
