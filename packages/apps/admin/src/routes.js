@@ -1,44 +1,44 @@
-import Loadable from 'react-loadable'
-import React from 'react'
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import Loadable from 'react-loadable';
+import React from 'react';
+import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements';
 
-const getLoader = () => <CLoading />
+const getLoader = () => <CLoading/>;
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
   loading: () => getLoader()
-})
+});
 
 const AddDepartmentComponent = Loadable({
   loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
   loading: () => getLoader()
-})
+});
+
+const AddAdminComponent = Loadable({
+  loader: () => import('./container/AdminSetup/Add/AdminAdd'),
+  loading: () => getLoader()
+});
 
 const AddHospitalComponent = Loadable({
   loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
   loading: () => getLoader()
-})
+});
 
 const AddDoctorDutyRosterComponent = Loadable({
   loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
   loading: () => getLoader()
-})
+});
 
 const AddQualificationComponent = Loadable({
   loader: () => import('./container/QualificationSetup/Add/QualificationAdd'),
   loading: () => getLoader()
-})
-// const AddAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
-//     loading: () => getLoader()
-// });
+});
 
 const AddSpecializationComponent = Loadable({
   loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
   loading: () => getLoader()
-})
-
+});
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -48,7 +48,8 @@ const AddSpecializationComponent = Loadable({
 const DashboardComponent = Loadable({
   loader: () => import('./container/AdminDashboard/AdminDashboard'),
   loading: () => getLoader()
-})
+});
+
 
 /* ****** E ***** */
 
@@ -71,40 +72,39 @@ const DashboardComponent = Loadable({
 const ManageProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/Manage/ProfileManage'),
   loading: () => getLoader()
-})
+});
 
 const ManageDepartmentComponent = Loadable({
   loader: () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
   loading: () => getLoader()
-})
+});
 
 const ManageSpecializationComponent = Loadable({
-  loader: () =>
-    import('./container/SpecializationSetup/Manage/SpecializationManage'),
+  loader: () => import('./container/SpecializationSetup/Manage/SpecializationManage'),
   loading: () => getLoader()
-})
+});
+
+const ManageAdminComponent = Loadable({
+  loader: () => import('./container/AdminSetup/Manage/AdminManage'),
+  loading: () => getLoader()
+});
 
 const ManageHospitalComponent = Loadable({
   loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
   loading: () => getLoader()
-})
+});
 
 const ManageDoctorDutyRosterComponent = Loadable({
   loader: () =>
     import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
   loading: () => getLoader()
-})
+});
 
 const ManageQualificationComponent = Loadable({
   loader: () =>
     import('./container/QualificationSetup/Manage/QualificationManage'),
   loading: () => getLoader()
-})
-
-// const ManageAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
-//     loading: () => getLoader()
-// });
+});
 
 /* ****** N ***** */
 
@@ -115,7 +115,7 @@ const ManageQualificationComponent = Loadable({
 const ProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/ProfileSetup'),
   loading: () => getLoader()
-})
+});
 /* ****** Q ***** */
 
 /* ****** R ***** */
@@ -142,7 +142,7 @@ export const routes = [
     component: DashboardComponent,
     isLink: true,
     icon: '',
-    isTab:'false',
+    isTab: 'false',
     hasTab: false,
     name: 'Dashboard'
   },
@@ -162,7 +162,7 @@ export const routes = [
     icon: '',
     hasTab: true,
     isLink: true,
-    isTab:true
+    isTab: true
   },
   {
     path: '/admin/profile/manage',
@@ -170,7 +170,7 @@ export const routes = [
     icon: '',
     hasTab: true,
     isLink: true,
-    isTab:true,
+    isTab: true,
     name: 'Manage'
   },
   {
@@ -226,6 +226,30 @@ export const routes = [
     hasTab: true,
     isTab: true,
     isLink: true
+  },
+  {
+    'path': '/admin/admin-setup',
+    'name': 'Admin Setup',
+    'component': <></>,
+    'icon': '',
+    'hasTab': true,
+    'isLink': true
+  },
+  {
+    'path': '/admin/admin-setup/add',
+    'name': 'Add',
+    'component': AddAdminComponent,
+    'icon': '',
+    'hasTab': true,
+    'isLink': true
+  },
+  {
+    'path': '/admin/admin-setup/manage',
+    'name': 'Manage',
+    'component': ManageAdminComponent,
+    'icon': '',
+    'hasTab': true,
+    'isLink': true
   },
   {
     path: '/admin/doctordutyroster/add',
@@ -297,16 +321,16 @@ export const routes = [
     hasTab: true,
     isLink: false,
     isTab: false,
-    name: 'Qualification Setup',
-    
+    name: 'Qualification Setup'
+
   },
   {
-    "path": "/unauthorized",
-    "component": CUnauthorized,
-    "icon": "",
-    "hasTab": false,
-    "isLink": false,
-    "isTab":false,
-    "name": "Unauthorized"
-},
-]
+    'path': '/unauthorized',
+    'component': CUnauthorized,
+    'icon': '',
+    'hasTab': false,
+    'isLink': false,
+    'isTab': false,
+    'name': 'Unauthorized'
+  }
+];

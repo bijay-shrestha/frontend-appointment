@@ -11,7 +11,7 @@ import DepartmentConfirmationModal from "./DepartmentConfirmationModal";
 import "./../department-setup.scss";
 
 const {CREATE_DEPARTMENT} = AdminModuleAPIConstants.departmentSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
 const {createDepartment, clearDepartmentSuccessErrorMessagesFromStore} = DepartmentSetupMiddleware;
 

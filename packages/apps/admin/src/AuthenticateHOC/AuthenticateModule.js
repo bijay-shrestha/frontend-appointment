@@ -1,17 +1,15 @@
-import React, {memo} from 'react'
-import {Route, Switch} from 'react-router-dom'
-import {AuthenticateHOC} from '@frontend-appointment/authentication-module'
-import {CLayout} from '@frontend-appointment/ui-components'
-import {routes} from '../routes'
+import React, {memo} from 'react';
+import {Route, Switch} from 'react-router-dom';
+import {AuthenticateHOC} from '@frontend-appointment/authentication-module';
+import {CLayout} from '@frontend-appointment/ui-components';
+import {routes} from '../routes';
 // import Cookies from 'js-cookie'
-import LoginPage from '../container/Login'
-import {LoginHoc, ComponentHoc} from '@frontend-appointment/commons'
+import LoginPage from '../container/Login';
+import {ComponentHoc} from '@frontend-appointment/commons';
+import SetPassword from '../container/SavePassword/SavePassword';
 
-import {
-  CFullPageLoading,
-  CPageNotFound
-} from '@frontend-appointment/ui-elements'
-import { LocalStorageSecurity } from '@frontend-appointment/helpers'
+import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
+import {LocalStorageSecurity} from '@frontend-appointment/helpers';
 
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
@@ -27,6 +25,10 @@ const AuthenticateModule = () => {
   return (
     <>
       <Switch>
+          <Route
+            path='/savePassword'
+            component={SetPassword}
+          />
         <Route
           path="/"
           exact

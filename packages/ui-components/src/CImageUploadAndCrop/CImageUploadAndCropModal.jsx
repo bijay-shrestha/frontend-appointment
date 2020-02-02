@@ -208,7 +208,7 @@ class CImageUploadAndCropModal extends PureComponent {
                                     renderSelectionAddon={renderSelectionAddon}
                                     renderComponent={renderComponent}
                                     ruleOfThirds={ruleOfThirds}
-                                    circularCrop={true}
+                                    circularCrop={circularCrop}
                                 />) :
                                 <div className="default-image"></div>
                             }
