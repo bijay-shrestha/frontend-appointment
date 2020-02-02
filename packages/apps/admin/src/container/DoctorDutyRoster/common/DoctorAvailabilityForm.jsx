@@ -14,6 +14,7 @@ const DoctorAvailabilityForm = ({
                 <Row className="header">
                     <Col> Days</Col>
                     <Col>
+                    <div className="time-picker">
                         <CEnglishDatePicker
                             id="time"
                             onChange={(val)=>onTimeChange(val,'time')}
@@ -23,8 +24,10 @@ const DoctorAvailabilityForm = ({
                             timeIntervals={15}
                             timeCaption="Time"
                             dateFormat="h:mm aa"
-                            className="time-picker"
+                            cusromClassName="sabu"
+                           timeClassName="time-picker"
                         />
+                        </div>
                     </Col>
                     <Col> End Time</Col>
                     <Col> <CCheckbox id="check-all-menu"

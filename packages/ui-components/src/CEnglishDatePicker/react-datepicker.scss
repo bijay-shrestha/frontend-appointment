@@ -16,7 +16,15 @@
     margin-top:-28px;
 }
 
-.react-datepicker-wrapper .field-wrapper{
+
+
+ .react-datepicker__current-month{
+        display: none !important;
+    }
+.react-datepicker-wrapper {
+   
+
+.field-wrapper{
     position: relative;
 
     &:before{
@@ -35,6 +43,40 @@
         }
     }
 
+    .form-control[readonly] {
+        background-color: $white;
+    }
+
+
+}
+
+}
+
+.time-picker{
+    .react-datepicker-wrapper .field-wrapper{
+        position: relative;
+    
+        &:before{
+            content: "\e192"; 
+            font-family: "Material Icons";
+            // content:"\f017";
+            // font-family: "FontAwesome" ;
+            top: 10px;
+            right: 10px;
+           
+            position: absolute;
+            z-index: 5;
+           
+        }
+    
+        &.myInput{
+            &:before{
+                color:$cogent;
+            }
+        }
+    
+    }
+    
 }
 
 // .fa-calendar{
