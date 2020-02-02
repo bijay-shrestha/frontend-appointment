@@ -4,3 +4,4 @@ export { default as ConfirmDelete } from './src/DeleteRemarksModal';
 export {default as CImageUploadAndCropModal} from './src/CImageUploadAndCrop';
 export {default as NewPassword} from './src/CNewPassword';
 export {default as CPasswordSaveForm} from './src/CPasswordSaveForm';
+export {default as CEnglishDatePicker} from './src/CEnglishDatePicker';

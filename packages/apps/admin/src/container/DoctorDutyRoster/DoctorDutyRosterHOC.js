@@ -28,7 +28,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 dayOffStatus: '',
                 endTime: '',
                 startTime: '',
-                weekDaysId: ''
+                weekDaysId: '',
+                time:''
             },
             hasOverrideDutyRoster: '',
             doctorDutyRosterOverrideRequestDTOS: []
@@ -54,6 +55,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         handleInputChange = (event, fieldValid) => {
             event && this.bindValuesToState(event, fieldValid);
+        };
+
+        handleDateChange = (date, name) => {
+            date && this.setState({
+                [name]: date
+            })
         };
 
         handleEnter = (event) => {
@@ -89,7 +96,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         render() {
-            const {showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration} = this.state;
+            const {showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate} = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
             const {activeSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
@@ -103,6 +110,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             specialization: specialization,
                             doctor: doctor,
                             rosterGapDuration: rosterGapDuration,
+                            fromDate: fromDate,
+                            toDate: toDate
                         }
                     }
                     hospitalList={hospitalsForDropdown}
@@ -113,6 +122,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     showExistingRosterModal={showExistingRosterModal}
                     handleShowExistingRoster={this.handleShowExistingRoster}
                     handleInputChange={this.handleInputChange}
+                    handleDateChange={this.handleDateChange}
                     handleEnter={this.handleEnter}
                 />
             </>;

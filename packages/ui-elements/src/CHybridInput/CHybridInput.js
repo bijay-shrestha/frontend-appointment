@@ -175,7 +175,8 @@ class CHybridInput extends React.PureComponent {
             rows,
             size,
             type,
-            value
+            value,
+            onClick
         } = this.props;
 
         return (
@@ -205,6 +206,7 @@ class CHybridInput extends React.PureComponent {
                         onBlur={this.handleOnBlur}
                         onChange={this.handleOnChange}
                         onFocus={this.handleOnFocus}
+                        onClick={onClick}
                         onKeyDown={onKeyDown}
                         pattern={pattern}
                         plaintext={plaintext}
@@ -220,7 +222,7 @@ class CHybridInput extends React.PureComponent {
                         ref={'fieldPlaceholder'.concat(id)}
                         onClick={this.handlePlaceholderClick}
                     >
-                        <span>{placeholder ? placeholder : 'Enter'}</span>
+                        <span>{placeholder ? placeholder : 'Enter Value'}</span>
                     </div>
                     <Form.Control.Feedback type="invalid" className="err-message">
                         {errorMsg ? errorMsg : this.state.errorMessage}

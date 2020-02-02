@@ -22,6 +22,7 @@ const DoctorDutyRoosterAdd = props => {
                  doctorDropdownErrorMessage,
                  specializationDropdownError,
                  handleInputChange,
+                 handleDateChange,
                  handleEnter,
                  handleShowExistingRoster,
 
@@ -38,8 +39,11 @@ const DoctorDutyRoosterAdd = props => {
                                 doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                                 onEnterKeyPress={handleEnter}
                                 onInputChange={handleInputChange}
+                                onDateChange={handleDateChange}
                             />
-                            <DoctorAvailabilityForm/>
+                            <DoctorAvailabilityForm
+                                doctorInfoData={doctorInfoData}
+                                onTimeChange={handleDateChange}/>
                         </Row>
                         <Row>
                             <DoctorAvailabilityOverrides/>

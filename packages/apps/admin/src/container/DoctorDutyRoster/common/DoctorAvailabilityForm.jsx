@@ -1,15 +1,30 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CCheckbox} from "@frontend-appointment/ui-elements";
+import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
-const DoctorAvailabilityForm = ({}) => {
+const DoctorAvailabilityForm = ({
+                                    doctorInfoData,
+                                    onTimeChange
+                                }) => {
     return <>
         <Col md={12} lg={7} className="">
             <div className="doctor-availability bg-white p-4">
                 <h5 className="title">Doctor Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
-                    <Col> Start Time</Col>
+                    <Col>
+                        <CEnglishDatePicker
+                            id="time"
+                            onChange={(val)=>onTimeChange(val,'time')}
+                            selected={doctorInfoData.time}
+                            showTimeSelect={true}
+                            showTimeSelectOnly={true}
+                            timeIntervals={15}
+                            timeCaption="Time"
+                            dateFormat="h:mm aa"
+                        />
+                    </Col>
                     <Col> End Time</Col>
                     <Col> <CCheckbox id="check-all-menu"
                                      label="Days Off"

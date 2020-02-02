@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col, Form} from "react-bootstrap";
 import {CButton, CHybridInput, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddDoctorInfoForm = ({
                                handleShowExistingRoster,
@@ -9,6 +10,7 @@ const AddDoctorInfoForm = ({
                                doctorList,
                                doctorInfoData,
                                onInputChange,
+                               onDateChange,
                                onEnterKeyPress,
                                specializationDropdownError,
                                doctorDropdownErrorMessage
@@ -18,11 +20,31 @@ const AddDoctorInfoForm = ({
             <div className="doctor-info bg-white p-4">
                 <h5 className="title">Doctor Info</h5>
                 <Form>
-                    <Form.Label>Date</Form.Label>
+                    {/*<Form.Label>Date</Form.Label>*/}
                     <div className="d-flex">
-                        <CHybridInput placeholder="From"/>
+                        <CEnglishDatePicker
+                            id="from-date"
+                            name="fromDate"
+                            label="From Date"
+                            dateFormat="yyyy-MM-dd"
+                            minDate={0}
+                            showDisabledMonthNavigation={true}
+                            selected={doctorInfoData.fromDate}
+                            onKeyDown={(event) => onEnterKeyPress(event)}
+                            onChange={(date)=>onDateChange(date,"fromDate")}
+                        />
                         &nbsp;&nbsp;
-                        <CHybridInput placeholder="To"/>
+                        <CEnglishDatePicker
+                            id="to-date"
+                            name="toDate"
+                            label="To Date"
+                            dateFormat="yyyy-MM-dd"
+                            minDate={0}
+                            showDisabledMonthNavigation={true}
+                            selected={doctorInfoData.toDate}
+                            onKeyDown={(event) => onEnterKeyPress(event)}
+                            onChange={(date)=>onDateChange(date,"toDate")}
+                        />
                     </div>
 
                     <CHybridSelect
@@ -47,15 +69,15 @@ const AddDoctorInfoForm = ({
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.specialization}
                     />
-                    {console.log("No drop ms",doctorDropdownErrorMessage)}
+                    {console.log("No drop ms", doctorDropdownErrorMessage)}
                     <CHybridSelect
                         id="doctor"
                         label="Doctor"
                         name="doctor"
                         isDisabled={!doctorInfoData.specialization}
-                        placeholder={!doctorInfoData.specialization ? "Select Specialization first":"Select doctor."}
+                        placeholder={!doctorInfoData.specialization ? "Select Specialization first" : "Select doctor."}
                         options={doctorList}
-                        noOptionsMessage={()=>doctorDropdownErrorMessage}
+                        noOptionsMessage={() => doctorDropdownErrorMessage}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.doctor}
