@@ -157,7 +157,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                         <div className="pull-right">
                                             <CButton
                                                 id="toggle-search-profiles"
-                                                variant='outline-secondary'
+                                                variant='light'
                                                 size='sm'
                                                 className=' btn-action mr-2'
                                                 // children={<i className='fa fa-chevron-up fa-lg'/>}

@@ -1,5 +1,5 @@
 import React,{memo} from 'react';
-import DefaultPic from '../Add/picture.png';
+import DefaultPic from '../img/default-logo.png';
 
 const HospitalPicture = props => {
     return (

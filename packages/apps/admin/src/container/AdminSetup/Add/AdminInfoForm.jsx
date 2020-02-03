@@ -45,7 +45,9 @@ const AdminInfoForm = ({
                 <Row>
                     <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
                         <div className="image-upload-container">
+                        <CFLabel labelName="Admin Picture"></CFLabel>
                             <div className="image-box">
+                         
                                 <img alt="ADMIN IMAGE"
                                      src={adminInfoObj.adminAvatarUrl ? adminInfoObj.adminAvatarUrl : DefaultProfileImage}/>
                                 <CButton id="uploadAdminImage"

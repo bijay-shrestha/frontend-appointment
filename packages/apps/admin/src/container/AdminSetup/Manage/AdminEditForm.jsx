@@ -281,7 +281,7 @@ const AdminEditForm = ({
                                                         <CButton
                                                             id="macBinding"
                                                             name=""
-                                                            size="lg"
+                                                            size="md"
                                                             variant="outline-secondary"
                                                             className="float-right mb-2"
                                                             onClickHandler={onAddMoreMacId}>

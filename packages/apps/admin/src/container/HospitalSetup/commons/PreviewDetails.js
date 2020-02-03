@@ -13,7 +13,7 @@ const PreviewDetails = props => {
                 hospitalData={hospitalData}/>}
                 onHide={setShowModal}
                 centered={false}
-                dialogClassName="preview-roles-modal"
+                dialogClassName="preview-modal"
                 closeButton={true}
                 type="E"
                 />

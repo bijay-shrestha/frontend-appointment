@@ -18,7 +18,7 @@ const HospitalConfirmationModal = props => {
         }
         onHide={setShowModal}
         centered={false}
-        dialogClassName="preview-roles-modal"
+        dialogClassName="preview-modal"
         footerChildren={
           <CButton
             id="hospitalConfirm"

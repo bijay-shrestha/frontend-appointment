@@ -5,6 +5,7 @@ import HospitalConfirmationModal from './HospitalConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc'
+
 function SpecializationAdd (props) {
   const SpecializationAdd = HospitalHoc(
     ({
