@@ -158,7 +158,8 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
             status
           }
         )
-        this.resetSpecializationStateValues()
+        this.resetSpecializationStateValues();
+        this.setShowConfirmModal();
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -168,7 +169,6 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
           }
         })
       } catch (e) {
-        await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -226,7 +226,8 @@ const SpecializationHOC = (ComposedComponent, props,type) => {
             status: status,
             remarks: remarks
           },
-          formValid:formValid
+          formValid:formValid,
+          nameValid:true
         })
       } catch (e) {
         console.log(e)

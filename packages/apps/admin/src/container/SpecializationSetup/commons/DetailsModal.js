@@ -7,7 +7,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const DetailsModal = ({specializationData}) => {
+const DetailsModal = ({specializationData, type}) => {
   return (
     <>
       <Container-fluid>
@@ -37,15 +37,19 @@ const DetailsModal = ({specializationData}) => {
                   disabled={true}
                 />
               </Col>
-              <Col sm={4} md={4} lg={4}>
-                <CHybridInput
-                  id="specialization-remarks"
-                  name="name"
-                  placeholder="Specialization Remarks"
-                  value={specializationData.remarks}
-                  disabled={true}
-                />
-              </Col>
+              {type !== 'A' ? (
+                <Col sm={4} md={4} lg={4}>
+                  <CHybridInput
+                    id="specialization-remarks"
+                    name="name"
+                    placeholder="Specialization Remarks"
+                    value={specializationData.remarks}
+                    disabled={true}
+                  />
+                </Col>
+              ) : (
+                ''
+              )}
               <Col sm={4} md={4} lg={4}>
                 <CFLabel labelName="Specialization Status" id="status" />
                 <CRadioButton
