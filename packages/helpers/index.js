@@ -8,7 +8,9 @@ import {
     ProfileSetupUtils,
     TryCatchHandler,
     UserMenusFilter,
-    UserMenuUtils
+    UserMenuUtils,
+    RolesUtils,
+    CommonUtils
 } from './src/utils';
 import * as userMenusJson from './src/cogent-appointment-admin-menu';
 import menuRoles from './src/roles';
@@ -26,5 +28,7 @@ export {
     menuRoles,
     ProfileSetupUtils,
     AdminSetupUtils,
-    LocalStorageSecurity
+    LocalStorageSecurity,
+    RolesUtils,
+    CommonUtils
 }

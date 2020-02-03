@@ -1,10 +1,10 @@
-import React, {memo} from 'react'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {Accordion, Nav, DropdownButton, Dropdown,} from 'react-bootstrap'
-import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons'
-import NavLink from 'react-bootstrap/NavLink'
-import classNames from 'classnames'
-import {Link} from 'react-router-dom'
+import React, {memo} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Accordion, Nav, Dropdown} from 'react-bootstrap';
+import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons';
+// import NavLink from 'react-bootstrap/NavLink'
+import classNames from 'classnames';
+import {Link} from 'react-router-dom';
 
 const ParentMenu = props => {
   const baseDepartment = process.env.REACT_APP_SIDE_BAR_CODE
@@ -31,7 +31,6 @@ const ParentMenu = props => {
           </span>
         </div>
         <div className="">
-          {/* {props.isOpen || props.isHover ? ( */}
           <FontAwesomeIcon
             icon={
              (props.isHover || props.isOpen) && props.collapsed.includes('nav-item' + props.parent.id + 'true')

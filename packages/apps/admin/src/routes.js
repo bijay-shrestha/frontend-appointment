@@ -147,7 +147,16 @@ export const routes = [
     name: 'Dashboard'
   },
   {
-    path: '/admin/profile',
+    path: '/admin/generalSetup',
+    name: '',
+    component:<></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true
+  },
+  {
+    path: '/admin/generalSetup/profile',
     component: ProfileComponent,
     isLink: false,
     icon: '',
@@ -156,7 +165,7 @@ export const routes = [
     name: 'Profile Setup'
   },
   {
-    path: '/admin/profile/add',
+    path: '/admin/generalSetup/profile/add',
     name: 'Add',
     component: AddProfileComponent,
     icon: '',
@@ -165,7 +174,7 @@ export const routes = [
     isTab: true
   },
   {
-    path: '/admin/profile/manage',
+    path: '/admin/generalSetup/profile/manage',
     component: ManageProfileComponent,
     icon: '',
     hasTab: true,
@@ -174,7 +183,7 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/specialization/add',
+    path: '/admin/generalSetup/specialization/add',
     component: AddSpecializationComponent,
     icon: '',
     hasTab: true,
@@ -183,7 +192,7 @@ export const routes = [
     name: 'Add'
   },
   {
-    path: '/admin/specialization/manage',
+    path: '/admin/generalSetup/specialization/manage',
     component: ManageSpecializationComponent,
     icon: '',
     hasTab: true,
@@ -192,7 +201,7 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/specialization',
+    path: '/admin/generalSetup/specialization',
     component: <></>,
     icon: '',
     hasTab: true,
@@ -201,7 +210,7 @@ export const routes = [
     name: 'Specialization Setup'
   },
   {
-    path: '/admin/department',
+    path: '/admin/generalSetup/department',
     component: <></>,
     isLink: false,
     icon: '',
@@ -210,7 +219,7 @@ export const routes = [
     name: 'Department Setup'
   },
   {
-    path: '/admin/department/add',
+    path: '/admin/generalSetup/department/add',
     name: 'Add',
     component: AddDepartmentComponent,
     icon: '',
@@ -219,7 +228,7 @@ export const routes = [
     isLink: true
   },
   {
-    path: '/admin/department/manage',
+    path: '/admin/generalSetup/department/manage',
     name: 'Manage',
     component: ManageDepartmentComponent,
     icon: '',
@@ -228,7 +237,7 @@ export const routes = [
     isLink: true
   },
   {
-    'path': '/admin/admin-setup',
+    'path': '/admin/generalSetup/admin-setup',
     'name': 'Admin Setup',
     'component': <></>,
     'icon': '',
@@ -236,7 +245,7 @@ export const routes = [
     'isLink': true
   },
   {
-    'path': '/admin/admin-setup/add',
+    'path': '/admin/generalSetup/admin-setup/add',
     'name': 'Add',
     'component': AddAdminComponent,
     'icon': '',
@@ -244,7 +253,7 @@ export const routes = [
     'isLink': true
   },
   {
-    'path': '/admin/admin-setup/manage',
+    'path': '/admin/generalSetup/admin-setup/manage',
     'name': 'Manage',
     'component': ManageAdminComponent,
     'icon': '',
@@ -252,7 +261,7 @@ export const routes = [
     'isLink': true
   },
   {
-    path: '/admin/doctordutyroster/add',
+    path: '/admin/generalSetup/doctordutyroster/add',
     name: 'Add',
     component: AddDoctorDutyRosterComponent,
     icon: '',
@@ -261,7 +270,7 @@ export const routes = [
     isTab: true
   },
   {
-    path: '/admin/doctordutyroster/manage',
+    path: '/admin/generalSetup/doctordutyroster/manage',
     name: 'Manage',
     component: ManageDoctorDutyRosterComponent,
     icon: '',
@@ -270,7 +279,7 @@ export const routes = [
     isTab: true
   },
   {
-    path: '/admin/hospital/add',
+    path: '/admin/generalSetup/hospital/add',
     component: AddHospitalComponent,
     icon: '',
     hasTab: true,
@@ -279,7 +288,7 @@ export const routes = [
     name: 'Add'
   },
   {
-    path: '/admin/hospital/manage',
+    path: '/admin/generalSetup/hospital/manage',
     component: ManageHospitalComponent,
     icon: '',
     hasTab: true,
@@ -288,7 +297,7 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/hospital',
+    path: '/admin/generalSetup/hospital',
     component: <></>,
     icon: '',
     hasTab: true,
@@ -297,7 +306,7 @@ export const routes = [
     name: 'Hospital Setup'
   },
   {
-    path: '/admin/qualification/add',
+    path: '/admin/generalSetup/qualification/add',
     component: AddQualificationComponent,
     icon: '',
     hasTab: true,
@@ -306,7 +315,7 @@ export const routes = [
     name: 'Add'
   },
   {
-    path: '/admin/qualification/manage',
+    path: '/admin/generalSetup/qualification/manage',
     component: ManageQualificationComponent,
     icon: '',
     hasTab: true,
@@ -315,13 +324,23 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/qualification',
+    path: '/admin/generalSetup//qualification',
     component: <></>,
     icon: '',
     hasTab: true,
     isLink: false,
     isTab: false,
     name: 'Qualification Setup'
+
+  },
+  {
+    path: '/admin/doctorDutyRoster',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: false,
+    isTab: false,
+    name: 'Doctor Dutky Roster Setup'
 
   },
   {
