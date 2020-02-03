@@ -82,10 +82,8 @@ class SideBarItem extends PureComponent {
     if (this.props.trees.length) {
       trees = JSON.parse(this.props.trees)
     }
-
-    const active = this.state.active
+   const active = this.state.active
     const activeKey = this.state.activeKey
-    console.log('active', active)
     return (
       <Nav className="flex-column">
         <SideBarHeading heading={this.props.heading} />

@@ -134,7 +134,6 @@ const AdminDetailsDataTable = ({
                                 onClick: function (e, id, type, username) {
                                     type === 'D'
                                         ?
-                                        // filteredActions.find(action => action.id === 5) &&
                                         onDeleteHandler(id)
                                         : type === 'E'
                                         ? onEditHandler(id)
@@ -153,7 +152,7 @@ const AdminDetailsDataTable = ({
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(filteredActions, 4) && 
+                         checkIfRoleExists(filteredActions, 4) && 
                         onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={setShowModal} // {this.showModal}
