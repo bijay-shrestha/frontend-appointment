@@ -61,7 +61,7 @@ const QualificationManage = props => {
         </div>
         <div className=" mb-2">
           <QualificationDetailsTable
-            //filteredActions={props.filteredAction}
+            filteredActions={props.filteredAction}
             showQualificationModal={showQualificationModal}
             isSearchLoading={isSearchLoading}
             searchData={qualificationList}

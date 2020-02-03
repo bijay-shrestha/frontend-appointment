@@ -77,7 +77,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
 
     getFilterTabs = (filteredAction, newPath) => {
       let filteredTabs = [];
-      let newBase = path.split('/')
+      let newBase = path.split('/');
       if (CommonUtils.checkIfOneArrayElementContainOther(RolesUtils.getOnlyAllTabsRoles(),newBase))
         newBase = newBase.splice(0, newBase.length - 1)
       newBase = newBase.join('/')

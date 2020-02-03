@@ -649,6 +649,7 @@ class ProfileManage extends PureComponent {
                 </div>
                 <div className=" mb-2">
                     <ProfileDetails
+                        filteredActions={this.props.filteredAction}
                         showProfileModal={this.state.showProfileModal}
                         isSearchLoading={isSearchLoading}
                         searchData={this.appendSNToTable(profileList)}
