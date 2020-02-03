@@ -26,6 +26,17 @@ const DoctorDutyRoosterAdd = props => {
                  handleEnter,
                  getExistingRoster,
                  handleShowExistingRoster,
+                 doctorAvailabilityData,
+                 handleAvailabilityTimeChange,
+                 handleDayOffStatusChange,
+                 wholeWeekOff,
+                 handleWholeWeekOff,
+                 hasOverrideDutyRoster,
+                 overrideData,
+                 doctorDutyRosterOverrideRequestDTOS,
+                 handleOverrideDutyRoster,
+                 showAddOverrideModal,
+                 setShowAddOverrideModal
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -43,11 +54,21 @@ const DoctorDutyRoosterAdd = props => {
                                 getExistingRoster={getExistingRoster}
                             />
                             <DoctorAvailabilityForm
-                                doctorInfoData={doctorInfoData}
-                                onTimeChange={handleDateChange}/>
+                                doctorAvailabilityData={doctorAvailabilityData}
+                                onTimeChange={handleAvailabilityTimeChange}
+                                handleDayOffStatusChange={handleDayOffStatusChange}
+                                wholeWeekOff={wholeWeekOff}
+                                handleWholeWeekOff={handleWholeWeekOff}/>
                         </Row>
                         <Row>
-                            <DoctorAvailabilityOverrides/>
+                            <DoctorAvailabilityOverrides
+                                hasOverrideDutyRoster={hasOverrideDutyRoster}
+                                overrideData={overrideData}
+                                doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}
+                                handleOverrideDutyRoster={handleOverrideDutyRoster}
+                                showAddOverrideModal={showAddOverrideModal}
+                                setShowAddOverrideModal={setShowAddOverrideModal}
+                            />
                         </Row>
                     </Container>
                     <CModal

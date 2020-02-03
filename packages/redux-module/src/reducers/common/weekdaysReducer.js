@@ -15,7 +15,7 @@ export const WeekdaysReducer = (state = {...initialState}, action) => {
         case FETCH_WEEK_DAYS_SUCCESS:
             return {
                 ...state,
-                weekdaysList: action.payload.data,
+                weekdaysList: [...action.payload.data],
                 weekdaysErrorMessage: ''
             };
         case FETCH_WEEK_DAYS_ERROR:

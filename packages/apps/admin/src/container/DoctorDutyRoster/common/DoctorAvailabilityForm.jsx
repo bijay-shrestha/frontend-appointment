@@ -4,8 +4,11 @@ import {CCheckbox} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityForm = ({
-                                    doctorInfoData,
-                                    onTimeChange
+                                    doctorAvailabilityData,
+                                    onTimeChange,
+                                    handleDayOffStatusChange,
+                                    wholeWeekOff,
+                                    handleWholeWeekOff
                                 }) => {
     return <>
         <Col md={12} lg={7} className="">
@@ -14,98 +17,67 @@ const DoctorAvailabilityForm = ({
                 <Row className="header">
                     <Col> Days</Col>
                     <Col>
-                    <div className="time-picker">
-                        <CEnglishDatePicker
-                            id="time"
-                            onChange={(val)=>onTimeChange(val,'time')}
-                            selected={doctorInfoData.time}
-                            showTimeSelect={true}
-                            showTimeSelectOnly={true}
-                            timeIntervals={15}
-                            timeCaption="Time"
-                            dateFormat="h:mm aa"
-                            cusromClassName="sabu"
-                           timeClassName="time-picker"
+                        Start Time
+                    </Col>
+                    <Col> End Time</Col>
+                    <Col>
+                        <CCheckbox
+                            id="check-all-menu"
+                            label="Days Off"
+                            className="select-all check-all"
+                            checked={wholeWeekOff === 'Y'}
+                            onChange={handleWholeWeekOff}
                         />
-                        </div>
-                    </Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check-all-menu"
-                                     label="Days Off"
-                                     className="select-all check-all"/>
                     </Col>
                 </Row>
-                <Row className="main-content mt-3">
-                    <Col> Sunday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Monday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Tuesday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Wednesday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Thursday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Friday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-                <Row className="main-content">
-                    <Col> Saturday</Col>
-                    <Col> Start Time</Col>
-                    <Col> End Time</Col>
-                    <Col> <CCheckbox id="check"
-                                     label="&nbsp;"
-                                     className=" ">
-                    </CCheckbox>
-                    </Col>
-                </Row>
-
+                {
+                    doctorAvailabilityData.map((day, index) => (
+                        <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
+                            <Col>{day.weekDaysName}</Col>
+                            <Col>
+                                <div className="time-picker">
+                                    <CEnglishDatePicker
+                                        id={"startTime".concat(day.weekDaysId)}
+                                        name={"startTime".concat(day.weekDaysId)}
+                                        label="Start Time"
+                                        onChange={(val) => onTimeChange(val, 'startTime', index)}
+                                        selected={day.startTime}
+                                        showTimeSelect={true}
+                                        showTimeSelectOnly={true}
+                                        timeIntervals={15}
+                                        timeCaption="Start Time"
+                                        dateFormat="h:mm aa"
+                                    />
+                                </div>
+                            </Col>
+                            <Col>
+                                <div className="time-picker">
+                                    <CEnglishDatePicker
+                                        id={"endTime".concat(day.weekDaysId)}
+                                        name={"endTime".concat(day.weekDaysId)}
+                                        label="End Time"
+                                        onChange={(val) => onTimeChange(val, 'endTime', index)}
+                                        selected={day.endTime}
+                                        showTimeSelect={true}
+                                        showTimeSelectOnly={true}
+                                        timeIntervals={15}
+                                        timeCaption="End Time"
+                                        dateFormat="h:mm aa"
+                                    />
+                                </div>
+                            </Col>
+                            <Col>
+                                <CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}
+                                           label="&nbsp;"
+                                           className=" "
+                                           checked={day.dayOffStatus === 'Y'}
+                                           onChange={(e) => handleDayOffStatusChange(e, index)}
+                                >
+                                </CCheckbox>
+                            </Col>
+                        </Row>
+                    ))
+                }
             </div>
         </Col>
     </>
