@@ -8,7 +8,7 @@ import {
     WeekdaysMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants, CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
-import {DoctorDutyRosterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
+import {DateTimeFormatterUtils, DoctorDutyRosterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 
@@ -24,12 +24,17 @@ const {FETCH_DOCTOR_BY_SPECIALIZATION_ID} = AdminModuleAPIConstants.doctorSetupA
 const {FETCH_EXISTING_DOCTOR_DUTY_ROSTER} = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
 
+const {convertDateToHourMinuteFormat, convertDateToYearMonthDateFormat} = DateTimeFormatterUtils;
+
 const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     class DoctorDutyRoster extends PureComponent {
         state = {
             showExistingRosterModal: false,
             showAddOverrideModal: false,
+            isModifyOverride: false,
             showAlert: false,
+            formValid: true,
+            showConfirmModal: false,
             hospital: null,
             specialization: null,
             doctor: null,
@@ -46,8 +51,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 toDate: new Date(),
                 startTime: '',
                 endTime: '',
-                dayOffStatus: '',
-                remarks: ''
+                dayOffStatus: 'N',
+                remarks: '',
+                fromDateDisplay: '',
+                toDateDisplay: '',
+                startTimeDisplay: '',
+                endTimeDisplay: ''
             },
             alertMessageInfo: {
                 variant: "",
@@ -140,9 +149,111 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             if (event) {
                 let isOverride = event.target.checked;
                 if (isOverride) {
-
+                    this.setState({
+                        hasOverrideDutyRoster: 'Y',
+                        showAddOverrideModal: true
+                    })
+                } else {
+                    this.setState({
+                        hasOverrideDutyRoster: 'N',
+                        doctorDutyRosterOverrideRequestDTOS: [],
+                        overrideRequestDTO: {
+                            fromDate: new Date(),
+                            toDate: new Date(),
+                            startTime: '',
+                            endTime: '',
+                            dayOffStatus: '',
+                            remarks: '',
+                            fromDateDisplay: '',
+                            toDateDisplay: '',
+                            startTimeDisplay: '',
+                            endTimeDisplay: '',
+                            id: ''
+                        },
+                    })
                 }
             }
+        };
+
+        handleOverrideFormInputChange = (event, field) => {
+            if (event) {
+                let key = field ? field : event.target.name;
+                let value = field ? event
+                    : (event.target.type === 'checkbox' ? (event.target.checked === true ? 'Y' : 'N')
+                        : event.target.value);
+                this.setState({
+                    overrideRequestDTO: {
+                        ...this.state.overrideRequestDTO,
+                        [key]: value
+                    }
+                })
+            }
+        };
+
+        handleAddOverride = (isAddAnother, isModifyOverride) => {
+            let showOverrideModal = isAddAnother;
+
+            let overrideList = [...this.state.doctorDutyRosterOverrideRequestDTOS];
+
+            let currentOverride = {...this.state.overrideRequestDTO};
+            currentOverride.fromDateDisplay = convertDateToYearMonthDateFormat(currentOverride.fromDate);
+            currentOverride.toDateDisplay = convertDateToYearMonthDateFormat(currentOverride.toDate);
+            currentOverride.startTimeDisplay = convertDateToHourMinuteFormat(currentOverride.startTime);
+            currentOverride.endTimeDisplay = convertDateToHourMinuteFormat(currentOverride.endTime);
+
+            if (isModifyOverride) {
+                // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
+                overrideList[currentOverride.id] = currentOverride;
+            } else {
+                // ELSE SIMPLY ADD
+                overrideList.push(currentOverride);
+            }
+
+            this.setState({
+                doctorDutyRosterOverrideRequestDTOS: [...overrideList],
+                overrideRequestDTO: {
+                    ...this.state.overrideRequestDTO,
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    fromDateDisplay: '',
+                    toDateDisplay: '',
+                    startTimeDisplay: '',
+                    endTimeDisplay: '',
+                    id: ''
+                },
+                isModifyOverride: false,
+                showAddOverrideModal: showOverrideModal
+            })
+
+        };
+
+        handleModifyOverride = (data, index) => {
+            this.setState({
+                overrideRequestDTO: {
+                    ...this.state.overrideRequestDTO,
+                    fromDate: data.fromDate,
+                    toDate: data.toDate,
+                    startTime: data.startTime,
+                    endTime: data.endTime,
+                    dayOffStatus: data.dayOffStatus,
+                    remarks: data.remarks,
+                    id: index
+                },
+                isModifyOverride: true,
+                showAddOverrideModal: true
+            })
+        };
+
+        handleRemoveOverride = (data, index) => {
+            let overrides = [...this.state.doctorDutyRosterOverrideRequestDTOS];
+            overrides.splice(index, 1);
+            this.setState({
+                doctorDutyRosterOverrideRequestDTOS: [...overrides]
+            });
         };
 
         handleEnter = (event) => {
@@ -157,8 +268,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         setShowAddOverrideModal = () => {
             this.setState({
-                showAddOverrideModal: !this.state.showAddOverrideModal
+                showAddOverrideModal: !this.state.showAddOverrideModal,
+                isModifyOverride: false
             })
+        };
+
+        setShowConfirmModal = () => {
+
         };
 
         bindValuesToState = async (event, fieldValid) => {
@@ -174,7 +290,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     doctor: null
                 })
             }
-
             // this.checkFormValidity();
         };
 
@@ -225,8 +340,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate,
                 doctorWeekDaysDutyRosterRequestDTOS, isWholeWeekOff,
                 hasOverrideDutyRoster, overrideRequestDTO, doctorDutyRosterOverrideRequestDTOS,
-                showAlert, alertMessageInfo, showAddOverrideModal,
-
+                showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -267,6 +381,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     handleOverrideDutyRoster={this.handleOverrideDutyRoster}
                     showAddOverrideModal={showAddOverrideModal}
                     setShowAddOverrideModal={this.setShowAddOverrideModal}
+                    handleOverrideFormInputChange={this.handleOverrideFormInputChange}
+                    addOverride={this.handleAddOverride}
+                    onModifyOverride={this.handleModifyOverride}
+                    onRemoveOverride={this.handleRemoveOverride}
+                    isModifyOverride={isModifyOverride}
+                    formValid={formValid}
                 />
                 <CAlert
                     id="profile-manage"

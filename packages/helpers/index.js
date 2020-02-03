@@ -1,6 +1,7 @@
 import {
     ActionFilterUtils,
     AdminInfoUtils,
+    DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
     EnterKeyPressUtils,
     FileExportUtils,
@@ -22,5 +23,6 @@ export {
     ActionFilterUtils,
     userMenusJson,
     menuRoles,
-    DoctorDutyRosterUtils
+    DoctorDutyRosterUtils,
+    DateTimeFormatterUtils
 }

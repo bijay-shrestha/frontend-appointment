@@ -1,7 +1,7 @@
 import React from 'react';
-import {Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import DoctorDutyRosterHOC from '../DoctorDutyRosterHOC';
-import {CModal} from "@frontend-appointment/ui-elements";
+import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 import ExistingRooster from './ExistingRoster';
 import AddDoctorInfoForm from "./AddDoctorInfoForm";
@@ -9,6 +9,7 @@ import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
 
 import "./../doctor-duty-roster.scss";
+import DepartmentConfirmationModal from "../../DepartmentSetup/Add/DepartmentConfirmationModal";
 
 const DoctorDutyRoosterAdd = props => {
     const DoctorDutyRoosterAdd =
@@ -36,7 +37,14 @@ const DoctorDutyRoosterAdd = props => {
                  doctorDutyRosterOverrideRequestDTOS,
                  handleOverrideDutyRoster,
                  showAddOverrideModal,
-                 setShowAddOverrideModal
+                 setShowAddOverrideModal,
+                 handleOverrideFormInputChange,
+                 addOverride,
+                 onModifyOverride,
+                 onRemoveOverride,
+                 isModifyOverride,
+                 formValid,
+                 setShowConfirmModal
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -68,9 +76,29 @@ const DoctorDutyRoosterAdd = props => {
                                 handleOverrideDutyRoster={handleOverrideDutyRoster}
                                 showAddOverrideModal={showAddOverrideModal}
                                 setShowAddOverrideModal={setShowAddOverrideModal}
+                                handleOverrideFormInputChange={handleOverrideFormInputChange}
+                                onEnterKeyPress={handleEnter}
+                                addOverride={addOverride}
+                                onRemove={onRemoveOverride}
+                                onModify={onModifyOverride}
+                                isModifyOverride={isModifyOverride}
                             />
                         </Row>
                     </Container>
+
+                    <Row className="mt-4">
+                        <Col
+                            sm={12} md={{span: 3, offset: 9}}>
+                            <CButton
+                                id="save-profile-add"
+                                variant="primary "
+                                className="float-right btn-action"
+                                name="Save"
+                                disabled={!formValid}
+                                onClickHandler={setShowConfirmModal}>
+                            </CButton>
+                        </Col>
+                    </Row>
                     <CModal
                         show={showExistingRosterModal}
                         modalHeading="Existing Doctor Roster"

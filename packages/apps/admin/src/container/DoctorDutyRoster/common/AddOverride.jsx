@@ -1,16 +1,17 @@
 import React from 'react';
-import {CCheckbox, CHybridTextArea, CModal} from "@frontend-appointment/ui-elements";
+import {CButton, CCheckbox, CHybridTextArea, CModal} from "@frontend-appointment/ui-elements";
 import {Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddOverrideModal = ({
+                              isModifyOverride,
                               showAddOverrideModal,
                               setShowAddOverrideModal,
                               overrideData,
-                              onOverrideFormChange,
+                              handleOverrideFormInputChange,
                               onEnterKeyPress,
+                              addOverride
                           }) => {
-
     const body = <>
         <Container className="p-0" fluid>
             <Row className="mb-2">
@@ -30,7 +31,7 @@ const AddOverrideModal = ({
                             showYearDropdown={true}
                             dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date) => onOverrideFormChange(date, "fromDate")}
+                            onChange={(date) => handleOverrideFormInputChange(date, "fromDate")}
                         />
                         &nbsp;&nbsp;
                         <CEnglishDatePicker
@@ -46,7 +47,7 @@ const AddOverrideModal = ({
                             showYearDropdown={true}
                             dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date) => onOverrideFormChange(date, "toDate")}
+                            onChange={(date) => handleOverrideFormInputChange(date, "toDate")}
                         />
                     </div>
 
@@ -56,7 +57,7 @@ const AddOverrideModal = ({
                                 id={"startTime-override"}
                                 name={"startTime"}
                                 label="Start Time"
-                                onChange={(val) => onOverrideFormChange(val, 'startTime')}
+                                onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}
                                 selected={overrideData.startTime}
                                 showTimeSelect={true}
                                 showTimeSelectOnly={true}
@@ -70,27 +71,28 @@ const AddOverrideModal = ({
                                 id={"endTime-override"}
                                 name={"endTime"}
                                 label="End Time"
-                                onChange={(val) => onOverrideFormChange(val, 'endTime')}
+                                onChange={(val) => handleOverrideFormInputChange(val, 'endTime')}
                                 selected={overrideData.endTime}
                                 showTimeSelect={true}
                                 showTimeSelectOnly={true}
                                 timeIntervals={15}
-                                timeCaption="Start Time"
+                                timeCaption="End Time"
                                 dateFormat="h:mm aa"
                             />
                         </div>
                     </div>
                     <CCheckbox
-                        id="check-all-menu"
+                        id="day-off-status-override"
                         label="Days Off"
+                        name="dayOffStatus"
                         className="select-all check-all"
                         checked={overrideData.dayOffStatus === 'Y'}
-                        onChange={(e)=>onOverrideFormChange(e)}
+                        onChange={(e) => handleOverrideFormInputChange(e, '')}
                     />
                     <CHybridTextArea
                         id="remarks"
                         name="remarks"
-                        onChange={onOverrideFormChange}
+                        onChange={(e) => handleOverrideFormInputChange(e, '')}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         placeholder="Remarks"
                         value={overrideData.remarks}
@@ -102,11 +104,51 @@ const AddOverrideModal = ({
         </Container>
     </>;
 
-    const footer = <></>;
+    const footer = <>
+        <Container fluid="true">
+            <Row>
+                {/*<div className="col-md-6">*/}
+                {/*    {errorMessage ?*/}
+                {/*        <p className="modal-error"><i class="fa fa-exclamation-triangle"></i> &nbsp;  {errorMessage}*/}
+                {/*        </p> : ''}*/}
+                {/*</div>*/}
+                {
+                    isModifyOverride ?
+                        <div className="col-md-6">
+                            <CButton
+                                id="submit-update-button"
+                                disabled={!overrideData.remarks}
+                                name="Modify"
+                                size="lg"
+                                className="btn-action  float-right"
+                                onClickHandler={() => addOverride(false, true)}/>
+                        </div> :
+                        <div className="col-md-6">
+                            <CButton
+                                id="submit-update-button"
+                                disabled={!overrideData.remarks}
+                                name="Add"
+                                size="lg"
+                                className="btn-action  float-right"
+                                onClickHandler={() => addOverride(false, false)}/>
+                            <CButton id="submit-update-button"
+                                     variant="outline-primary"
+                                     disabled={!overrideData.remarks}
+                                     size="lg"
+                                     className="btn-action  float-right mr-2"
+                                     name="Add and Create Another"
+                                     onClickHandler={() => addOverride(true, false)}
+                            />
+
+                        </div>
+                }
+            </Row>
+        </Container>
+    </>;
 
     return <>
         <CModal show={showAddOverrideModal}
-                modalHeading="Add Override"
+                modalHeading={isModifyOverride ? "Modify Override" : "Add Override"}
                 size="xl"
                 bodyChildren={body}
                 onHide={setShowAddOverrideModal}
