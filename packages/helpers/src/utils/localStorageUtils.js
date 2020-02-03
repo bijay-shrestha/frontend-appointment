@@ -6,7 +6,6 @@ const ls = new SecureLS({encodingType:encodingType ,isCompression:isCompression}
 export const localStorageSecurity = {
   localStorageDecoder: key => {
     try {
-      console.log("nodeEnv",process.env.NODE_ENV);
       return ls.get(key)
     } catch (e) {
       return false
