@@ -324,7 +324,7 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/generalSetup//qualification',
+    path: '/admin/generalSetup/qualification',
     component: <></>,
     icon: '',
     hasTab: true,

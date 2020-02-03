@@ -48,8 +48,7 @@ class CHeader extends Component {
   };
 
   logoutUser = async () => {
-    localStorage.removeItem('auth-token');
-    localStorage.removeItem('userMenus');
+    localStorage.clear();
     this.props.history.push('/');
   };
 

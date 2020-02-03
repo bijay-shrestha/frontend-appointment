@@ -8,12 +8,18 @@ class SideBarItem extends PureComponent {
     super(props)
     let collapsed = [],
       active = '',
-      activeKey = []
-
+      activeKey = [],
+      propsActiveKey='';
+      if(this.props.activeStateKey) {
+      propsActiveKey=props.activeStateKey.split('/');
+      propsActiveKey =propsActiveKey.slice(2);
+      propsActiveKey.pop();
+      propsActiveKey="/"+propsActiveKey.join("/")+true;
+        
+    }
       collapsed = this.props.localFunc.localStorageDecoder('collapsed')||[]
-      active = this.props.localFunc.localStorageDecoder('active')||''
+      active = propsActiveKey||this.props.localFunc.localStorageDecoder('active')||''
       activeKey = this.props.localFunc.localStorageDecoder('activeStateKey')||[]
-    
     this.state = {
       collapsed: collapsed,
       active: active,

@@ -33,13 +33,6 @@ const AdminDetailsDataTable = ({
                                }) => (
     <div className="manage-details">
         <h5 className="title">Admin Details</h5>
-        {/*<CButton*/}
-        {/*    id="downloadExcel"*/}
-        {/*    name="DownloadExcel"*/}
-        {/*    onClickHandler={props.exportExcel}*/}
-        {/*    className="float-right p-2"*/}
-        {/*    variant='info'*/}
-        {/*/>*/}
         {!isSearchLoading && !searchErrorMessage && searchData.length ? (
             <>
                 <CDataTable
