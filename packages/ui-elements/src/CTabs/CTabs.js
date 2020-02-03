@@ -3,7 +3,7 @@ import Proptypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import { TryCatchHandler } from "../../../commons";
+import { TryCatchHandler } from "@frontend-appointment/helpers";
 
 class CTabs extends PureComponent {
 

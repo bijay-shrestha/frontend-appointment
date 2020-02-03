@@ -1,4 +1,4 @@
-import ApiError from "./api-error";
+import ApiError from "@frontend-appointment/commons/src/api-error";
 
 export default {
     genericTryCatch: async executionMethod => {

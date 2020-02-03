@@ -1,11 +1,11 @@
 import SecureLS from 'secure-ls'
-const ls = new SecureLS({encodingType: 'aes'})
+const ls = new SecureLS({encodingType: process.env.NODE_ENV == "development"?'':'aes'})
 export const localStorageSecurity = {
   localStorageDecoder: key => {
     try {
-      return ls.get(key)
+      return this.ls.get(key)
     } catch (e) {
-        return false;
+      return false
     }
   },
   localStorageEncoder: (key, encodeValue) => {
@@ -17,19 +17,19 @@ export const localStorageSecurity = {
   },
   localStorageRemover: () => {
     try {
-      ls.removeAll();
-      ls.remove('_secure__ls__metadata');
+     ls.removeAll()
+    ls.remove('_secure__ls__metadata')
     } catch (e) {
-       console.log('localstorage removing error',e);
+      console.log('localstorage removing error', e)
     }
   },
-  particularValueRemover:(key) => {
-      try{
-       ls.remove(key);
-       ls.remove('_secure__ls__metadata');
-      }catch(e){
-       console.log('localstorage removing error',e);
-      }
+  particularValueRemover: key => {
+    try {
+      ls.remove(key)
+      ls.remove('_secure__ls__metadata')
+    } catch (e) {
+      console.log('localstorage removing error', e)
+    }
   }
 }
 export default localStorageSecurity;

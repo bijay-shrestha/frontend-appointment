@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import ProfileDetails from './ProfileDetails'
-import {ConnectHoc, TryCatchHandler} from '@frontend-appointment/commons'
+import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
@@ -14,7 +14,7 @@ import {
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {ProfileSetupUtils, userMenusJson, UserMenuUtils} from "@frontend-appointment/helpers";
+import {ProfileSetupUtils, userMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
