@@ -78,10 +78,7 @@ class SideBarItem extends PureComponent {
   }
 
   render () {
-    let trees = []
-    if (this.props.trees.length) {
-      trees = JSON.parse(this.props.trees)
-    }
+    let trees =this.props.trees
    const active = this.state.active
     const activeKey = this.state.activeKey
     return (

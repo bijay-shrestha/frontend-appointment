@@ -104,7 +104,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
       newPath = newPath.join('/')
       newPath = '/'.concat(newPath)
       let newUserMenus = []
-      if (userMenus.length) newUserMenus = JSON.parse(userMenus)
+      if (userMenus.length) newUserMenus = userMenus
 
       newUserMenus &&
         newUserMenus.map(userMenu => {
