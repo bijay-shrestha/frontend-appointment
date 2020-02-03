@@ -9,17 +9,16 @@ class SideBarItem extends PureComponent {
     let collapsed = [],
       active = '',
       activeKey = [],
-      propsActiveKey='';
-      if(this.props.activeStateKey) {
-      propsActiveKey=props.activeStateKey.split('/');
-      propsActiveKey =propsActiveKey.slice(2);
-      propsActiveKey.pop();
-      propsActiveKey="/"+propsActiveKey.join("/")+true;
-        
+      propsActiveKey = ''
+    if (this.props.activeStateKey) {
+      propsActiveKey = props.activeStateKey.split('/')
+      propsActiveKey = propsActiveKey.slice(2)
+      propsActiveKey.pop()
+      propsActiveKey = '/' + propsActiveKey.join('/') + true
     }
-      collapsed = this.props.localFunc.localStorageDecoder('collapsed')||[]
-      active = propsActiveKey||this.props.localFunc.localStorageDecoder('active')||''
-      activeKey = this.props.localFunc.localStorageDecoder('activeStateKey')||[]
+    collapsed = this.props.localFunc.localStorageDecoder('collapsed') || []
+    active = propsActiveKey || ''
+    activeKey = this.props.localFunc.localStorageDecoder('activeStateKey') || []
     this.state = {
       collapsed: collapsed,
       active: active,
@@ -77,7 +76,7 @@ class SideBarItem extends PureComponent {
       })
     }
   }
-  
+
   render () {
     let trees = []
     if (this.props.trees.length) {
