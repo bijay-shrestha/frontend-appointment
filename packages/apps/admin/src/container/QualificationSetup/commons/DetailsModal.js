@@ -26,7 +26,7 @@ const DetailsModal = ({qualificationData,type}) => {
           <h5>Qualification Info</h5>
         </Row>
 
-        <CForm id="department-info" className="mt-2 department-info">
+        <CForm id="department-info" className="mt-2 ">
           <Container-fluid>
             <Row>
               <Col sm={12} md={4} lg={4}>

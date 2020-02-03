@@ -25,7 +25,7 @@ function QualificationAdd (props) {
     universitiesDropdown,
   })=>
     <div className="">
-      <Container className="bg-white add-profile " fluid>
+      <Container className="bg-white add-container " fluid>
         <CButton
           id="resetProfileForm"
           variant="outline-secondary"

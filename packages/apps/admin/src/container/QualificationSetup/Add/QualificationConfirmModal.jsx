@@ -9,12 +9,12 @@ const QualificationConfirmationModal = props => {
     <>
       <CModal
         show={showModal}
-        modalHeading="Specialization Details"
+        modalHeading="Qualification Details"
         size="lg"
         bodyChildren={<DetailsModal qualificationData={qualificationData} />}
         onHide={setShowModal}
         centered={false}
-        dialogClassName="preview-roles-modal"
+        dialogClassName="preview-modal"
         footerChildren={
           <CButton
             id="specializationConfirm"

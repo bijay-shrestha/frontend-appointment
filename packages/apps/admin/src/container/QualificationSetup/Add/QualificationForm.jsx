@@ -24,7 +24,7 @@ const QualificationForm = ({
         <Row sm="12 p-0">
           <h5 className="title">Qualification Info</h5>
         </Row>
-        <CForm id="profile-info" className="mt-2 profile-info">
+        <CForm id="profile-info" className="mt-2">
           <Container-fluid>
             <Row>
               <Col sm={12} md={4} lg={4}>

@@ -14,7 +14,7 @@ import PreviewDetails from '../commons/PreviewDetails'
 const {checkIfRoleExists} = ActionFilterUtils
 
 const SpecializationDetailsDataTable = props => (
-    <div className="profile-details">
+    <div className="manage-details">
         {console.log(props.searchData)}
         <h5 className="title">Quailfication Details</h5>
         {!props.isSearchLoading &&

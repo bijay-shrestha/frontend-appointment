@@ -24,7 +24,7 @@ const SpecializationConfirmationModal = props => {
           <CButton
           name="Cancel"
           id=""
-          variant="outline-secondary"
+          variant="light"
           size="lg"
           className="float-right btn-action"
           onClickHandler={setShowModal}

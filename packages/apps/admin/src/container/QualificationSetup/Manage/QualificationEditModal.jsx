@@ -128,7 +128,7 @@ const DepartmentEditModal = ({
             <CButton
               id="submit-update-button"
               disabled={!formValid}
-              name="Update Qualification"
+              name="Update"
               size="lg"
               className="btn-action  float-right"
               onClickHandler={editApiCall}
@@ -155,7 +155,7 @@ const DepartmentEditModal = ({
         bodyChildren={bodyContent}
         onHide={setShowModal}
         centered={false}
-        dialogClassName="preview-roles-modal"
+        dialogClassName="preview-modal"
         footerChildren={footerChildren}
         closeButton={true}
       />
