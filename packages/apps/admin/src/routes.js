@@ -148,11 +148,11 @@ export const routes = [
   },
   {
     path: '/admin/generalSetup',
-    name: '',
+    name: 'General Setup',
     component:<></>,
     icon: '',
     hasTab: true,
-    isLink: true,
+    isLink: false,
     isTab: true
   },
   {
