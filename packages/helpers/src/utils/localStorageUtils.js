@@ -1,9 +1,13 @@
 import SecureLS from 'secure-ls'
-const ls = new SecureLS({encodingType: process.env.NODE_ENV == "development"?'':'aes'})
+const env =process.env.NODE_ENV;
+const encodingType=env.toString() === "development"?'':'aes';
+const isCompression=env.toString() === "development"?false:true;
+const ls = new SecureLS({encodingType:encodingType ,isCompression:isCompression})
 export const localStorageSecurity = {
   localStorageDecoder: key => {
     try {
-      return this.ls.get(key)
+      console.log("nodeEnv",process.env.NODE_ENV);
+      return ls.get(key)
     } catch (e) {
       return false
     }
