@@ -38,11 +38,12 @@ const DoctorAvailabilityOverrides = ({
                             id="add-override"
                             variant='outline-secondary'
                             size='lg'
-                            name='Add More'
+                            name=''
                             className="pull-right"
                             disabled={hasOverrideDutyRoster === 'N'}
                             onClickHandler={setShowAddOverrideModal}
                         >
+                                 <i className='fa fa-plus'></i> Add More
                         </CButton>
                         <AddOverrideModal
                             isModifyOverride={isModifyOverride}
@@ -63,7 +64,7 @@ const DoctorAvailabilityOverrides = ({
                                 classes="ag-theme-balham"
                                 id="roles-table"
                                 width="100%"
-                                height="460px"
+                                 height="240px"
                                 enableSorting
                                 editType
                                 columnDefs={[

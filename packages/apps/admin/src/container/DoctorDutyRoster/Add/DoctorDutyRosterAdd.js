@@ -98,12 +98,13 @@ const DoctorDutyRoosterAdd = props => {
                         </Row>
                     </Container>
 
-                    <Row className="mt-4">
+                    <Row className="my-4">
                         <Col
                             sm={12} md={{span: 3, offset: 9}}>
                             <CButton
                                 id="save-profile-add"
-                                variant="primary "
+                                variant="primary  "
+                                size = "xl"
                                 className="float-right btn-action"
                                 name={showConfirmModal ? "Saving" : "Save"}
                                 disabled={!formValid || showConfirmModal}
@@ -141,7 +142,7 @@ const DoctorDutyRoosterAdd = props => {
                                 name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
                                 disabled={isSaveRosterLoading}
                                 size="lg"
-                                className="float-right"
+                                className="float-right btn-action mr-3"
                                 onClickHandler={saveDoctorDutyRoster}/>
                         }
                         onHide={setShowConfirmModal}

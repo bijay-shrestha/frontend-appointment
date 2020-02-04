@@ -85,7 +85,7 @@ export const doctorSetupApiConstants = {
     EDIT_DOCTOR: BASE.concat(DOCTOR_BASE),
     DELETE_DOCTOR: BASE.concat(DOCTOR_BASE),
     FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + "/active/min"),
-    FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
+    FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat("/specialization-wise")),
     FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat("/updateDetails"))
 };
 

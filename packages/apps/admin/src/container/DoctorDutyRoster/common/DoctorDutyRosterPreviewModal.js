@@ -13,11 +13,11 @@ const DoctorDutyRosterPreviewModal = ({
                                       }) => {
 
     return <>
-        <Container className="p-0" fluid>
+        <Container className="" fluid>
             <Row className="mb-2">
-                <Col md={12} lg={5} className="info-container">
+                <Col md={12} lg={5} className="">
                     <div className="doctor-info bg-white p-4">
-                        <h5 className="title">Doctor Info</h5>
+                        <h5 className="title mb-4">Doctor Info</h5>
                         <Form>
                             <div className="d-flex">
                                 <CEnglishDatePicker
@@ -104,12 +104,7 @@ const DoctorDutyRosterPreviewModal = ({
                             <Col> End Time</Col>
                             <Col>
                                 Days Off
-                                {/*<CCheckbox*/}
-                                {/*    id="check-all-menu"*/}
-                                {/*    label="Days Off"*/}
-                                {/*    className="select-all check-all"*/}
-                                {/*    checked={wholeWeekOff === 'Y'}*/}
-                                {/*/>*/}
+                         
                             </Col>
                         </Row>
                         {
@@ -118,51 +113,17 @@ const DoctorDutyRosterPreviewModal = ({
                                     <Col>{day.weekDaysName}</Col>
                                     <Col>
                                         {DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime)}
-                                        {/*<div className="time-picker">*/}
-                                        {/*    <CEnglishDatePicker*/}
-                                        {/*        id={"startTime".concat(day.weekDaysId)}*/}
-                                        {/*        name={"startTime".concat(day.weekDaysId)}*/}
-                                        {/*        label="Start Time"*/}
-                                        {/*        onChange={() => {*/}
-                                        {/*        }}*/}
-                                        {/*        selected={day.startTime}*/}
-                                        {/*        showTimeSelect={true}*/}
-                                        {/*        showTimeSelectOnly={true}*/}
-                                        {/*        timeIntervals={15}*/}
-                                        {/*        timeCaption="Start Time"*/}
-                                        {/*        dateFormat="h:mm aa"*/}
-                                        {/*        disabled={true}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
+                                 
                                     </Col>
                                     <Col>
                                         {DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime)}
-                                        {/*<div className="time-picker">*/}
-                                        {/*    <CEnglishDatePicker*/}
-                                        {/*        id={"endTime".concat(day.weekDaysId)}*/}
-                                        {/*        name={"endTime".concat(day.weekDaysId)}*/}
-                                        {/*        label="End Time"*/}
-                                        {/*        onChange={() => {*/}
-                                        {/*        }}*/}
-                                        {/*        selected={day.endTime}*/}
-                                        {/*        showTimeSelect={true}*/}
-                                        {/*        showTimeSelectOnly={true}*/}
-                                        {/*        timeIntervals={15}*/}
-                                        {/*        timeCaption="End Time"*/}
-                                        {/*        dateFormat="h:mm aa"*/}
-                                        {/*        disabled={true}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
+                                 
                                     </Col>
                                     <Col>
                                         {day.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
                                             <i className="fa fa-close"/>}
-                                        {/*<CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}*/}
-                                        {/*           label="&nbsp;"*/}
-                                        {/*           className=" "*/}
-                                        {/*           checked={day.dayOffStatus === 'Y'}*/}
-                                        {/*>*/}
-                                        {/*</CCheckbox>*/}
+                                     
+                                     
                                     </Col>
                                 </Row>
                             ))
@@ -171,13 +132,16 @@ const DoctorDutyRosterPreviewModal = ({
                 </Col>
             </Row>
             <Row>
+
+                <Col className="doctor-override">
+                    <h5 className="title">Overrides</h5>
                 {hasOverrideDutyRoster === 'Y' && doctorDutyRosterOverrideRequestDTOS.length ?
                     <>
                         <CDataTable
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
-                            height="460px"
+                            height="260px"
                             enableSorting
                             editType
                             columnDefs={[
@@ -224,23 +188,7 @@ const DoctorDutyRosterPreviewModal = ({
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                 },
-                                // {
-                                //     headerName: '',
-                                //     action: 'action',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     cellRenderer: 'childActionRenderer',
-                                //     cellClass: 'actions-button-cell',
-                                //     cellRendererParams: {
-                                //         onClick: function (e, data, index, type) {
-                                //             type === 'R'
-                                //                 ? onRemove(data, index)
-                                //                 : onModify(data, index)
-                                //         }
-                                //     },
-                                //     cellStyle: {overflow: 'visible', 'z-index': '99'}
-                                // }
+                              
                             ]}
                             frameworkComponents={{
                                 // childActionRenderer: OverrideActions,
@@ -258,6 +206,8 @@ const DoctorDutyRosterPreviewModal = ({
                             </div>
                             <div className="message"> No overrides added!</div>
                         </div> : '')}
+
+                </Col>
             </Row>
         </Container>
     </>
