@@ -8,12 +8,17 @@ class SideBarItem extends PureComponent {
     super(props)
     let collapsed = [],
       active = '',
-      activeKey = []
-
-      collapsed = this.props.localFunc.localStorageDecoder('collapsed')||[]
-      active = this.props.localFunc.localStorageDecoder('active')||''
-      activeKey = this.props.localFunc.localStorageDecoder('activeStateKey')||[]
-    
+      activeKey = [],
+      propsActiveKey = ''
+    if (this.props.activeStateKey) {
+      propsActiveKey = props.activeStateKey.split('/')
+      propsActiveKey = propsActiveKey.slice(2)
+      propsActiveKey.pop()
+      propsActiveKey = '/' + propsActiveKey.join('/') + true
+    }
+    collapsed = this.props.localFunc.localStorageDecoder('collapsed') || []
+    active = propsActiveKey || ''
+    activeKey = this.props.localFunc.localStorageDecoder('activeStateKey') || []
     this.state = {
       collapsed: collapsed,
       active: active,
@@ -71,16 +76,11 @@ class SideBarItem extends PureComponent {
       })
     }
   }
-  
-  render () {
-    let trees = []
-    if (this.props.trees.length) {
-      trees = JSON.parse(this.props.trees)
-    }
 
-    const active = this.state.active
+  render () {
+    let trees =this.props.trees
+   const active = this.state.active
     const activeKey = this.state.activeKey
-    console.log('active', active)
     return (
       <Nav className="flex-column">
         <SideBarHeading heading={this.props.heading} />

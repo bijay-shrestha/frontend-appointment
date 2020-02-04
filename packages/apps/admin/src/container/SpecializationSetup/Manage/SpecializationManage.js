@@ -5,6 +5,7 @@ import SubDepartmentEditForm from './SpecializationEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import SpecializationSetupHoc from '../SpecializationSetupHoc'
 const SpecializationManage = props => {
+  console.log("Props Specialization Manage",props);
   const SPManage = SpecializationSetupHoc(
     ({
       searchParameters,
@@ -42,7 +43,8 @@ const SpecializationManage = props => {
       deleteRequestDTO,
       showAlert,
       closeAlert,
-      specializationData
+      specializationData,
+      
     }) => (
       <>
         <div className="">
@@ -56,7 +58,7 @@ const SpecializationManage = props => {
         </div>
         <div className=" mb-2">
           <SpecializationDetailsTable
-            //filteredActions={props.filteredAction}
+            filteredActions={props.filteredAction}
             showSpecializationModal={showSpecializationModal}
             isSearchLoading={isSearchLoading}
             searchData={specializationList}
@@ -77,8 +79,7 @@ const SpecializationManage = props => {
             remarksHandler={deleteRemarksHandler}
             remarks={deleteRequestDTO.remarks}
             deleteErrorMsg={deleteErrorMessage}
-            exportExcel={downloadEXCEL}
-          
+            exportExcel={downloadEXCEL}          
           />
         </div>
         {showEditModal && (

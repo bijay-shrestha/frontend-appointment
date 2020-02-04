@@ -82,6 +82,7 @@ class CLayout extends PureComponent {
                         onHoverSideBar={this.onHoverSideBar}
                         trees={this.props.userMenus}
                         localFunc={LocalStorageSecurity}
+                        activeStateKey={this.props.activeStateKey}
                     />
 
                     {/* Content Wrapper  */}

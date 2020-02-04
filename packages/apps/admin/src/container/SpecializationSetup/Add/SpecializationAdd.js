@@ -59,6 +59,7 @@ function SpecializationAdd (props) {
               setShowModal={setShowConfirmModal}
               onConfirmClick={submitAddChanges}
               specializationData={specializationData}
+              type="A"
             />
           </Col>
         </Row>
@@ -82,8 +83,7 @@ function SpecializationAdd (props) {
           />
       </Container>
     </div>
-  ,props)
-  console.log('specializationAdd',SpecializationAdd)
+  ,props,'A')
   return <SpecializationAdd/>
    
   

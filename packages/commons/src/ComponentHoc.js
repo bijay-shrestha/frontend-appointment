@@ -76,14 +76,11 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
     }
 
     getFilterTabs = (filteredAction, newPath) => {
-      let filteredTabs = []
-      console.log('getFilterTabs new path', newPath)
-      console.log('path', path)
-      let newBase = path.split('/')
+      let filteredTabs = [];
+      let newBase = path.split('/');
       if (CommonUtils.checkIfOneArrayElementContainOther(RolesUtils.getOnlyAllTabsRoles(),newBase))
         newBase = newBase.splice(0, newBase.length - 1)
       newBase = newBase.join('/')
-      console.log(newBase)
       roless.map(role => {
         filteredAction.map(actions => {
           if (Number(actions.parent) === Number(role.id))
@@ -107,7 +104,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
       newPath = newPath.join('/')
       newPath = '/'.concat(newPath)
       let newUserMenus = []
-      if (userMenus.length) newUserMenus = JSON.parse(userMenus)
+      if (userMenus.length) newUserMenus = userMenus
 
       newUserMenus &&
         newUserMenus.map(userMenu => {
@@ -131,7 +128,6 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
         filteredAction: [...filteredAction],
         filteredRolesTab: [...this.state.filteredRolesTab, ...filteredRolesTab]
       })
-      console.log('hello', filteredRolesTab)
       return filteredRolesTab
     }
 

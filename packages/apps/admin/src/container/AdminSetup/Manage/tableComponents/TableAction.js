@@ -16,15 +16,15 @@ class TableAction extends PureComponent {
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {
-                            // checkIfRoleExists(this.props.filteredAction, 3) &&
+                            checkIfRoleExists(this.props.filteredAction, 3) &&
                         <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'E')}>
                             <Material.MdEdit/> Edit </Dropdown.Item>}
                         {
-                            // checkIfRoleExists(this.props.filteredAction, 5) &&
+                            checkIfRoleExists(this.props.filteredAction, 5) &&
                         <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'D')}>
                             <Material.MdDeleteForever/> Delete</Dropdown.Item>}
                         {
-                            // checkIfRoleExists(this.props.filteredAction, 7) &&
+                            checkIfRoleExists(this.props.filteredAction, 7) &&
                         <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'R',
                             this.props.node.data.username)}>
                             <Material.MdRefresh/> Reset Password</Dropdown.Item>}

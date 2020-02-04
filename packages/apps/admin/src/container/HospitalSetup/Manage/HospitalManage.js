@@ -69,7 +69,7 @@ const HospitalManage = props => {
         </div>
         <div className=" mb-2">
           <HospitalDetailsTable
-            //filteredActions={props.filteredAction}
+            filteredActions={props.filteredAction}
             showHospitalModal={showHospitalModal}
             isSearchLoading={isSearchLoading}
             searchData={hospitalList}

@@ -1,5 +1,6 @@
-import profiles from '../cogent-appointment-admin-menu.json'
-//import { UserMenuUtils } from "./index";
+import profiles from "../cogent-appointment-admin-menu.json";
+import {localStorageSecurity} from  "./localStorageUtils";
+import {sortUserMenuJson} from "./UserMenuUtils"
 const checkIfChildExist = child => (child.length>1 ? true : false)
 
 const getChildMenuFirst = (children, roleId, childMenus) => ({
@@ -48,9 +49,9 @@ const usermenufilter = userMenus => {
         }
       })
     })
-  //let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...filteredMenus]);
-  console.log(filteredMenus)
-  localStorage.setItem('userMenus', JSON.stringify(filteredMenus))
+  let alphabeticallySortedMenus = sortUserMenuJson([...filteredMenus]);
+  localStorageSecurity.localStorageEncoder("userMenus",alphabeticallySortedMenus)
+
   return filteredMenus;
 }
 export default usermenufilter

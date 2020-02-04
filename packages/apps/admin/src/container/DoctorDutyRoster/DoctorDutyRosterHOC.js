@@ -1,8 +1,8 @@
 import React, {PureComponent} from 'react';
-import {ConnectHoc, TryCatchHandler} from "@frontend-appointment/commons";
+import {ConnectHoc} from "@frontend-appointment/commons";
 import {HospitalSetupMiddleware, SpecializationSetupMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
-
+import {TryCatchHandler} from "@frontend-appointment/helpers";
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;

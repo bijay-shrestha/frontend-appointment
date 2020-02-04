@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import AdminSetupSearchFilter from "./AdminSetupSearchFilter";
-import { ConnectHoc, TryCatchHandler } from "@frontend-appointment/commons";
+import { ConnectHoc } from "@frontend-appointment/commons";
 import {
     clearAdminSuccessErrorMessagesFromStore,
     deleteAdmin,
@@ -20,7 +20,7 @@ import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-
 import AdminDetailsDataTable from "./AdminDetailsDataTable";
 import { CAlert, CLoading } from "@frontend-appointment/ui-elements";
 import AdminEditModal from "./AdminEditModal";
-import { AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils } from "@frontend-appointment/helpers";
+import { AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils,TryCatchHandler } from "@frontend-appointment/helpers";
 import PasswordResetModal from "./PasswordResetModal";
 import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";

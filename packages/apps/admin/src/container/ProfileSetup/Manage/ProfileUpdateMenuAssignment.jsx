@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import {TryCatchHandler} from "@frontend-appointment/commons";
-import { menuRoles} from '@frontend-appointment/helpers';
+import { menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 

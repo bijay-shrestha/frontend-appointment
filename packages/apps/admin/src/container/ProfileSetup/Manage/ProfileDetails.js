@@ -78,8 +78,8 @@ const ProfileDetails = props => (
                                         : type === 'E'
                                         ? props.onEditHandler(id)
                                         : props.onPreviewHandler(id)
-                                }
-                            },
+                                },
+                                filteredAction:props.filteredActions                            },
                             cellStyle: {overflow: 'visible', 'z-index': '99'}
                         }
                     ]}
@@ -89,7 +89,7 @@ const ProfileDetails = props => (
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(props.filteredActions, 4) &&
+                        checkIfRoleExists(props.filteredActions, 4) &&
                          props.onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}

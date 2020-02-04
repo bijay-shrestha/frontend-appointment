@@ -4,8 +4,7 @@ import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {TryCatchHandler} from '@frontend-appointment/commons';
-import {menuRoles} from '@frontend-appointment/helpers';
+import {menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {

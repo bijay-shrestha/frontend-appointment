@@ -33,13 +33,6 @@ const AdminDetailsDataTable = ({
                                }) => (
     <div className="manage-details">
         <h5 className="title">Admin Details</h5>
-        {/*<CButton*/}
-        {/*    id="downloadExcel"*/}
-        {/*    name="DownloadExcel"*/}
-        {/*    onClickHandler={props.exportExcel}*/}
-        {/*    className="float-right p-2"*/}
-        {/*    variant='info'*/}
-        {/*/>*/}
         {!isSearchLoading && !searchErrorMessage && searchData.length ? (
             <>
                 <CDataTable
@@ -141,7 +134,6 @@ const AdminDetailsDataTable = ({
                                 onClick: function (e, id, type, username) {
                                     type === 'D'
                                         ?
-                                        // filteredActions.find(action => action.id === 5) &&
                                         onDeleteHandler(id)
                                         : type === 'E'
                                         ? onEditHandler(id)
@@ -160,7 +152,7 @@ const AdminDetailsDataTable = ({
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(filteredActions, 4) && 
+                         checkIfRoleExists(filteredActions, 4) && 
                         onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={setShowModal} // {this.showModal}

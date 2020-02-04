@@ -105,7 +105,7 @@ const SpecializationDetailsDataTable = props => (
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(props.filteredActions, 4) &&
+                        checkIfRoleExists(props.filteredActions, 4) &&
                         props.onPreviewHandler
                     }
                     rowSelection={'single'}

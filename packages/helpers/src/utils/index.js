@@ -7,8 +7,8 @@ import * as ProfileSetupUtils from './ProfileSetupUtils'
 import * as AdminSetupUtils from './AdminSetupUtils'
 import * as CommonUtils from '../utils/CommonUtils';
 import * as RolesUtils from '../utils/RolesUtils';
+export {default  as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
-export {default as TryCatchHandler} from '../../../core/src/axios/axios-helper/try-catch-wrapper'
 export {default as LocalStorageSecurity} from '../utils/localStorageUtils';
 
 

@@ -10,7 +10,7 @@ import {
     UserMenusFilter,
     UserMenuUtils,
     RolesUtils,
-    CommonUtils
+    CommonUtils,
 } from './src/utils';
 import * as userMenusJson from './src/cogent-appointment-admin-menu';
 import menuRoles from './src/roles';
