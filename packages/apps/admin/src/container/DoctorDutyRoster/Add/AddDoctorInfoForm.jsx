@@ -18,7 +18,7 @@ const AddDoctorInfoForm = ({
     return <>
         <Col md={12} lg={5} className="info-container">
             <div className="doctor-info bg-white p-4">
-                <h5 className="title">Doctor Info</h5>
+                <h5 className="title mb-4">Doctor Info</h5>
                 <Form>
                     {/*<Form.Label>Date</Form.Label>*/}
                     <div className="d-flex">
