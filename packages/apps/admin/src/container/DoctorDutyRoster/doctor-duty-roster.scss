@@ -27,17 +27,22 @@
 
     .header{
         font-weight: 600;
-        text-transform: uppercase;
+        text-transform: capitalize;
+        margin-top:10px;
+      
         
     }
 
     .main-content{
-       margin-top:24px;
-       margin-bottom:24px;
+       margin-top:14px;
+       margin-bottom:14px;
 
-       & :first-child{
-           text-transform: uppercase;
-           font-weight:500;
+       &:first-child{
+           text-transform: capitalize;
+           font-weight:400;
+       }
+       .field-wrapper{
+           min-height: 50px;
        }
     }
 
