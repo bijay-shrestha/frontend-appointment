@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import Proptypes from 'prop-types';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {withRouter} from 'react-router-dom';
-import {TryCatchHandler} from "@frontend-appointment/commons";
+import {TryCatchHandler} from "@frontend-appointment/helpers";
 
 class CBreadcrumb extends PureComponent {
     state = {
@@ -126,7 +126,7 @@ class CBreadcrumb extends PureComponent {
         <Breadcrumb.Item
             {...this.getBreadcrumbItemProps(breadcrumb, index)}
         >
-            {breadcrumb.name}
+            {index === 0 ? <i className="fa fa-home"/> : ''} {breadcrumb.name}
         </Breadcrumb.Item>;
 
     render() {
@@ -139,7 +139,7 @@ class CBreadcrumb extends PureComponent {
                 bsPrefix={bsPrefix}
                 children={children}
             >
-               {this.state.routes.map((breadcrumb, index) => ( 
+                {this.state.routes.map((breadcrumb, index) => (
                     this.getBreadcrumbItems(breadcrumb, index)
                 ))}
             </Breadcrumb>);

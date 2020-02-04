@@ -11,7 +11,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
-import DefaulHospitalImage from '../Add/picture.png'
+import DefaulHospitalImage from '../img/default-logo.png'
 
 const HospitalEditModal = ({
   showModal,
@@ -38,7 +38,7 @@ const HospitalEditModal = ({
   console.log('file', hospitalData)
   const bodyContent = (
     <>
-      <h5 className="title">Edit Hospital Setup</h5>
+      {/* <h5 className="title">Edit Hospital Setup</h5> */}
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
           <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
@@ -137,20 +137,6 @@ const HospitalEditModal = ({
                 />
               </Col>
 
-              <Col sm={12} md={12} lg={6}>
-                <CHybridTextArea
-                  id="remarks"
-                  name="remarks"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) =>
-                    onInputChange(event, validity, 'E')
-                  }
-                  placeholder="Remarks"
-                  value={hospitalData.remarks}
-                  max={200}
-                  required={true}
-                />
-              </Col>
 
               <Col sm={12} md={12} lg={6}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
@@ -176,16 +162,33 @@ const HospitalEditModal = ({
                 />
               </Col>
 
-              <Col sm={12} md={12} lg={12} className="py-4">
+
+              <Col sm={12} md={12} lg={6}>
+                <CHybridTextArea
+                  id="remarks"
+                  name="remarks"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  placeholder="Remarks"
+                  value={hospitalData.remarks}
+                  max={200}
+                  required={true}
+                />
+              </Col>
+
+              <Col sm={12} md={12} lg={6} className="py-4">
                 <Row>
                   <Col lg={12} className="px-4">
                     <Row>
                       <Col>
+                      <CFLabel labelName="Contact Number"></CFLabel>
                         <CButton
                           id="macBinding"
                           name=""
                           size="lg"
-                          variant="success"
+                          variant="outline-secondary"
                           className="float-right mb-2"
                           onClickHandler={event =>
                             addContactNumber(
@@ -199,16 +202,18 @@ const HospitalEditModal = ({
                             )
                           }
                         >
-                          <i className="fa fa-plus"></i>
+                          <i className="fa fa-plus"></i> Add
                         </CButton>
                       </Col>
 
-                      <Col lg={{span: 6, offset: 6}}>
+                      <Col lg={12}>
                         <>
                           {hospitalData.contactNumberUpdateRequestDTOS.map(
                             (phone, index) => (
                               <>
-                                <div className="mac-box mb-2">
+                             
+                                <div className="contact-box mb-2">
+                                
                                   <CFControl
                                     id="hospitalContactNumber"
                                     key={'phone' + index}
@@ -236,14 +241,18 @@ const HospitalEditModal = ({
                                       message={macId.errorMessage}
                                     />
                                   )} */}
+
+                                 
                                   {hospitalData.contactNumberUpdateRequestDTOS
                                     .length >= 1 && (
+                                    
                                     <CButton
                                       id="hospital-contact"
                                       key={'hospRemove' + index}
                                       name=""
-                                      variant="danger"
-                                      className="float-right remove-mac "
+                                     
+                                      variant="outline-danger"
+                                      className="float-right remove-contact "
                                       onClickHandler={e =>
                                         removeContactNumber(
                                           'contactNumberUpdateRequestDTOS',
@@ -288,7 +297,8 @@ const HospitalEditModal = ({
             <CButton
               id="submit-update-button"
               disabled={!formValid}
-              name="Update Hospital"
+              name="Update"
+              variant="primary"
               size="lg"
               className="btn-action  float-right"
               onClickHandler={editApiCall}
@@ -315,7 +325,7 @@ const HospitalEditModal = ({
         bodyChildren={bodyContent}
         onHide={setShowModal}
         centered={false}
-        dialogClassName="preview-roles-modal"
+        dialogClassName="preview-modal"
         footerChildren={footerChildren}
         closeButton={true}
       />

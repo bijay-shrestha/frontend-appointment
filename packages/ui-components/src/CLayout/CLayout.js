@@ -1,54 +1,58 @@
 import React, {PureComponent} from 'react'
 import CHeader from './components/CHeader'
-import CFooter from './components/CFooter';
-import {CBreadcrumb} from '@frontend-appointment/ui-elements';
-import classNames from "classnames";
-import {CSideBar} from '@frontend-appointment/ui-elements';
-import menu from './menu.json';
-
+import CFooter from './components/CFooter'
+import {CSideBar} from '@frontend-appointment/ui-elements'
+import classNames from 'classnames'
+import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 
 class CLayout extends PureComponent {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            isOpen: true,
+            isOpen: props.isOpen ? props.isOpen : props.isOpen,
             isMobile: true,
-            hover: false
-        };
+            hover: props.isHover ? props.isHover : props.isHover
+        }
         this.previousWidth = -1
     }
 
     updateWidth() {
-        const width = window.innerWidth;
-        const widthLimit = 576;
-        const isMobile = width <= widthLimit;
-        const wasMobile = this.previousWidth <= widthLimit;
+        const width = window.innerWidth
+        const widthLimit = 576
+        const isMobile = width <= widthLimit
+        const wasMobile = this.previousWidth <= widthLimit
         if (isMobile !== wasMobile) {
             this.setState({
                 isOpen: !isMobile
             })
         }
-        this.previousWidth = width;
+        this.previousWidth = width
     }
 
     /**
      * Add event listener
      */
+
     componentDidMount() {
-        this.updateWidth();
-        window.addEventListener('resize', this.updateWidth.bind(this))
+        console.log(this.props)
+        //this.updateWidth()
+        //window.addEventListener('resize', this.updateWidth.bind(this))
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWidth.bind(this))
+        //window.removeEventListener('resize', this.updateWidth.bind(this))
     }
 
     toggle = () => {
+        let flag = false
+        if (!this.state.isOpen) flag = true
+        LocalStorageSecurity.localStorageEncoder('isOpen', flag)
         this.setState(prevState => ({isOpen: !prevState.isOpen}))
     };
 
     onHoverSideBar = () => {
-        if (!this.props.isOpen) {
+        if (!this.state.isOpen) {
+            LocalStorageSecurity.localStorageEncoder('isHover', true)
             this.setState({
                 hover: true
             })
@@ -56,7 +60,8 @@ class CLayout extends PureComponent {
     };
 
     onLeaveHoverSideBar = () => {
-        if (!this.props.isOpen) {
+        if (!this.state.isOpen) {
+            LocalStorageSecurity.localStorageEncoder('isHover', false)
             this.setState({
                 hover: false
             })
@@ -64,12 +69,11 @@ class CLayout extends PureComponent {
     };
 
     render() {
-        const {dataForBreadCrumb, mainViewComponent, hasTab} = this.props;
-        const MainViewComponent = mainViewComponent;
+        const {mainViewComponent, hasTab} = this.props
+        const MainViewComponent = mainViewComponent
         return (
             <>
                 <div id="wrapper">
-
                     <CSideBar
                         toggle={this.toggle}
                         isOpen={this.state.isOpen}
@@ -77,28 +81,32 @@ class CLayout extends PureComponent {
                         onLeaveHover={this.onLeaveHoverSideBar}
                         onHoverSideBar={this.onHoverSideBar}
                         trees={this.props.userMenus}
-
+                        localFunc={LocalStorageSecurity}
+                        activeStateKey={this.props.activeStateKey}
                     />
 
                     {/* Content Wrapper  */}
-                    <div id="content-wrapper" className={classNames("d-flex flex-column content", {
-                        "is-open": this.state.isOpen,
-                        "is-close": !this.state.isOpen
-                    })}>
+                    <div
+                        id="content-wrapper"
+                        className={classNames('d-flex flex-column content', {
+                            'is-open': this.state.isOpen,
+                            'is-close': !this.state.isOpen
+                        })}
+                    >
                         <div id="topbar-wrapper">
-                            <CHeader {...this.props}/>
+                            <CHeader {...this.props} />
                         </div>
 
-                             {/*  <div id="breadcrumb">
+                        {/*  <div id="breadcrumb">
                       <CBreadcrumb
                                 id="cogent"
-                                breadcrumbData={dataForBreadCrumb}/> 
+                                breadcrumbData={dataForBreadCrumb}/>
                         </div>*/}
 
                         {/* Main Content  */}
                         <div id="main-content">
-                            {/* {hasTab?<MainViewComponent/>:MainViewComponent} */}
-                            {MainViewComponent}
+                            {hasTab ? <MainViewComponent {...this.props}/> : MainViewComponent}
+                            {/*{clonedContentView}*/}
                         </div>
 
                         {/*End Main Content  */}
@@ -106,11 +114,9 @@ class CLayout extends PureComponent {
                         <div id="footer-wrapper">
                             <CFooter/>
                         </div>
-
                     </div>
                     {/*End Main Content-wrapper  */}
                 </div>
-
             </>
         )
     }

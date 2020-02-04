@@ -178,7 +178,7 @@ class CImageUploadAndCropModal extends PureComponent {
         const bodyContent = (<>
             <Container fluid="true">
                 <Row>
-                    <Col lg="8">
+                    <Col md={12} lg={8} >
                         <div className="image-container">
 
                             {imageSrc ?
@@ -208,14 +208,20 @@ class CImageUploadAndCropModal extends PureComponent {
                                     renderSelectionAddon={renderSelectionAddon}
                                     renderComponent={renderComponent}
                                     ruleOfThirds={ruleOfThirds}
-                                    circularCrop={true}
+                                    circularCrop={circularCrop}
                                 />) :
                                 <div className="default-image"></div>
                             }
 
                         </div>
+                        {errorMessage ?
+                        <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+                        </p> : ''}
+                    <input id="imageUpload" type="file" accept="image/*" onChange={this.handleImageSelect} className=""/>
+
                     </Col>
-                    <Col lg="4 cropped-image-container">
+                    <Col md={12} lg="4">
+                        <div className="cropped-image-container">
                         <div className="cropped-image">
                             <p className="text-center">Preview Final Image</p>
                             {croppedImageSrc && (
@@ -224,15 +230,13 @@ class CImageUploadAndCropModal extends PureComponent {
                                 />
                             )}
                         </div>
+                        </div>
+                       
                     </Col>
                 </Row>
 
             </Container>
-            {errorMessage ?
-                <p className="modal-error pl-3"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
-                </p> : ''}
-            <input id="imageUpload" type="file" accept="image/*" onChange={this.handleImageSelect} className="pl-3"/>
-
+           
         </>);
 
         let footerContent = <>
@@ -254,7 +258,7 @@ class CImageUploadAndCropModal extends PureComponent {
         return <>
             <CModal
                 modalHeading="Upload Image"
-                size='lg'
+                size="lg"
                 show={showModal}
                 onHide={this.handleModalClose}
                 centered={true}

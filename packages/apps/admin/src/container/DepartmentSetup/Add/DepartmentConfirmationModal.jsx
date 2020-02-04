@@ -17,7 +17,7 @@ const DepartmentConfirmationModal = ({showModal, setShowModal, departmentData, o
                     <CButton
                     id=""
                     name="Cancel"
-                    variant="outline-secondary"
+                    variant="light"
                     size="lg"
                     className="float-right btn-action"
                     onClickHandler={showModal}/>

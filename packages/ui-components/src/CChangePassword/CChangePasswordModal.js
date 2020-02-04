@@ -73,7 +73,7 @@ const CChangePasswordModal = ({
                     bodyChildren={bodyContent}
                     onHide={setShowModal}
                     centered={false}
-                    dialogClassName="preview-modal"
+                    dialogClassName="preview-modal change-password"
                     footerChildren={footerChildren}
                     closeButton={true}
             />

@@ -1,10 +1,12 @@
-const BASE = "/api/v1";
-const SP_BASE = "/specialization";
-const HP_BASE = "/hospital";
-const DOCTOR_BASE = "/doctor";
-const QF_BASE = "/qualification";
-const PROFILE_BASE = "/profile";
-const QFA_BASE = "/qualificationAlias";
+const BASE = '/api/v1';
+const SP_BASE = '/specialization';
+const HP_BASE = '/hospital';
+const DOCTOR_BASE = '/consultant';
+const QF_BASE = '/qualification';
+const PROFILE_BASE = '/profile';
+const QFA_BASE = '/qualificationAlias';
+const CNTRY_BASE = '/country';
+const UN_BASE = '/university';
 
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
@@ -14,7 +16,8 @@ export const profileSetupAPIConstants = {
     EDIT_PROFILE: BASE.concat(PROFILE_BASE),
     FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID: BASE.concat(PROFILE_BASE),
     FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
-    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min"))
+    FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
+    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID: BASE.concat(PROFILE_BASE)
 };
 
 const DEPARTMENT_BASE = "/department";
@@ -57,16 +60,19 @@ export const passwordAPIConstants = {
 
 export const specializationSetupAPIConstants = {
     CREATE_SPECIALIZATION: BASE.concat(SP_BASE),
-    SEARCH_SPECIALIZATION: BASE.concat(SP_BASE + "/search"),
-    FETCH_SPECIALIZATION_DETAILS: BASE.concat(SP_BASE + "/details"),
+    SEARCH_SPECIALIZATION: BASE.concat(SP_BASE + '/search'),
+    FETCH_SPECIALIZATION_DETAILS: BASE.concat(SP_BASE + '/detail'),
     EDIT_SPECIALIZATION: BASE.concat(SP_BASE),
-    EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + "/excel"),
+    EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + '/excel'),
     DELETE_SPECIALIZATION: BASE.concat(SP_BASE),
-    ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + "/active/min"),
-    SPECIALIZATION_BY_DOCTOR_ID: BASE.concat(SP_BASE)
+    DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown'),
+    ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/active/min'),
+    SPECIALIZATION_BY_HOSPITAL: BASE.concat(SP_BASE.concat('/hospital-wise')),
+    SPECIALIZATION_BY_DOCTOR: BASE.concat(SP_BASE.concat('/doctor-wise'))
+    // SPECIFIC_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown/active')
 };
 
-export const hostpitalSetupApiConstants = {
+export const hospitalSetupApiConstants = {
     CREATE_HOSPITAL: BASE.concat(HP_BASE),
     SEARCH_HOSPITAL: BASE.concat(HP_BASE + "/search"),
     FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + "/detail"),
@@ -91,12 +97,13 @@ export const doctorSetupApiConstants = {
 
 export const qualificationSetupApiConstants = {
     CREATE_QUALIFICATION: BASE.concat(QF_BASE),
-    SEARCH_QUALIFICATION: BASE.concat(QF_BASE + "/search"),
-    FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + "/detail"),
-    EDIT_HOSPITAL: BASE.concat(QF_BASE),
-    DELETE_HOSPITAL: BASE.concat(QF_BASE),
-    SPECIFIC_DROPDOWN_HOSPITAL_ACTIVE: BASE.concat(QF_BASE + "/active/min")
+    SEARCH_QUALIFICATION: BASE.concat(QF_BASE + '/search'),
+    FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + '/detail'),
+    EDIT_QUALIFICATION: BASE.concat(QF_BASE),
+    DELETE_QUALIFICATION: BASE.concat(QF_BASE),
+    SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE: BASE.concat(QF_BASE + '/min')
 };
+
 export const qualificationSetupAliasCode = {
     FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
 };
@@ -112,4 +119,12 @@ export const doctorDutyRosterApiConstants = {
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/existing")),
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/existing/detail")),
     FETCH_DOCTOR_DUTY_ROSTER_OVERRIDE: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/doctorDutyRosterOverride"))
+};
+
+export const countrySetupAliasCode = {
+    FETCH_COUNTRY_CODE: BASE.concat(CNTRY_BASE)
+};
+
+export const universitySetupAliasCode = {
+    FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE + '/active/min')
 };

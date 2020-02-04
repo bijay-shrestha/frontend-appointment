@@ -125,7 +125,72 @@ flex-direction:column;
 .company-logo{
   width:40px;
   height: auto;
+  display: none;
+}
+
+//////////////////
+//for new password 
+/////////////////
+
+.new-password{
+
+  .login-wrapper{
+    padding:60px 10px;
+  }
+
+  .login-header{
+    display: none;
+  }
+
+
+  .login-page-title{
+    text-transform: capitalize;
+    color:darken($cogent,5%);
+    text-align: center;
+    font-weight: 400;
+    font-size:19px;
+    margin:4px 0 24px;
+   }
+   
+   .password-requirement{
+     // display:none;
+     margin-bottom:16px;
+     p{
+       margin-bottom:2px;
+       font-weight: 300;
+       margin:0px 0;
+     }
+   ul{
+     
+     li{
+       list-style-type: disc;
+       color:$gray-600;
+       font-size:12px;
+       margin-left: 16px;
+       font-weight: 300;
+     }
+   }
+     
+   }
+
+}
+
+
+.error{
+  color:$danger;
+  margin-bottom:6px;
   
+}
+
+
+//////////////////
+//for change password modal  
+/////////////////
+
+.change-password{
+  .password-requirement{
+    display:none;
+  }
 }
 
 // .logo-wrapper{
@@ -138,6 +203,11 @@ flex-direction:column;
 // @include border-radius(50%);
 
 // }
+
+/////////////////Background css/////////////////
+
+
+
 
 .waves {
 position:relative;
@@ -176,9 +246,7 @@ animation-duration: 13s;
 animation-delay: -5s;
 animation-duration: 20s;
 }
-.error{
-  color:red
-}
+
 @keyframes move-forever {
 0% {
  transform: translate3d(-90px,0,0);

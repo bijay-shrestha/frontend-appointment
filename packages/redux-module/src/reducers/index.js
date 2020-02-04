@@ -36,7 +36,7 @@ import {
     DepartmentListReducer,
     DepartmentPreviewReducer,
     DepartmentSetupReducer
-} from './admin-module/departmentSetupReducer';
+} from './admin-module/departmentSetupReducer'
 import {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -52,6 +52,18 @@ import {
     DoctorDutyRosterSaveReducer,
 } from "./admin-module/doctorDutyRosterReducer";
 
+
+import {
+    CountryCodeDropdownReducer,
+    QualificationAliasDropdownReducer,
+    QualificationDeleteReducer,
+    QualificationDropdownReducer,
+    QualificationEditReducer,
+    QualificationPreviewReducer,
+    QualificationSaveReducer,
+    QualificationSearchReducer,
+    UniversitiesForDropdownReducer
+} from './admin-module/qualificationSetupReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
 import {WeekdaysReducer} from './common/weekdaysReducer';
@@ -98,6 +110,15 @@ export {
     AdminSetupReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
+    WeekdaysReducer,
     HospitalDropdownReducer,
-    WeekdaysReducer
+    QualificationSaveReducer,
+    QualificationEditReducer,
+    QualificationPreviewReducer,
+    QualificationSearchReducer,
+    QualificationDeleteReducer,
+    CountryCodeDropdownReducer,
+    QualificationAliasDropdownReducer,
+    QualificationDropdownReducer,
+    UniversitiesForDropdownReducer
 }

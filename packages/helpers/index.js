@@ -1,10 +1,15 @@
 import {
     ActionFilterUtils,
     AdminInfoUtils,
+    AdminSetupUtils,
+    CommonUtils,
     DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
     EnterKeyPressUtils,
     FileExportUtils,
+    LocalStorageSecurity,
+    ProfileSetupUtils,
+    RolesUtils,
     TryCatchHandler,
     UserMenusFilter,
     UserMenuUtils
@@ -18,11 +23,16 @@ export {
     TryCatchHandler,
     UserMenuUtils,
     AdminInfoUtils,
+    AdminSetupUtils,
     FileExportUtils,
     EnterKeyPressUtils,
     ActionFilterUtils,
     userMenusJson,
     menuRoles,
     DoctorDutyRosterUtils,
-    DateTimeFormatterUtils
+    DateTimeFormatterUtils,
+    ProfileSetupUtils,
+    LocalStorageSecurity,
+    RolesUtils,
+    CommonUtils
 }

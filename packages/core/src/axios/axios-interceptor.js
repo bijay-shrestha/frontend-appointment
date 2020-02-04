@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import {LocalStorageSecurity} from '@frontend-appointment/helpers';
 
 const SERVER_DOMAIN = process.env.REACT_APP_SERVER_DOMAIN || ''
 const APP_PORT = process.env.PORT || ''
@@ -16,7 +17,7 @@ let Axios = axios.create({
 
 Axios.interceptors.request.use(
     requestConfig => {
-        let token = localStorage.getItem('auth-token') || '';
+        let token = LocalStorageSecurity.localStorageDecoder('auth-token') || '';
         requestConfig.headers.Authorization = token ? token : '';
         return requestConfig
     },

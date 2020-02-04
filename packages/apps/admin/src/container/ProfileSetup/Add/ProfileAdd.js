@@ -3,7 +3,7 @@ import {Col, Container, Row} from 'react-bootstrap'
 import ProfileInfoForm from './ProfileInfoForm'
 import ProfileMenuAssignment from './ProfileMenuAssignment'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import {ConnectHoc, TryCatchHandler} from '@frontend-appointment/commons'
+import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
@@ -12,11 +12,11 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import {EnterKeyPressUtils, menuRoles, userMenusJson, UserMenuUtils} from "@frontend-appointment/helpers";
+import {EnterKeyPressUtils, menuRoles, userMenusJson, UserMenuUtils,TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;

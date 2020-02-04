@@ -15,6 +15,11 @@ const AddDepartmentComponent = Loadable({
     loading: () => getLoader()
 });
 
+const AddAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Add/AdminAdd'),
+    loading: () => getLoader()
+});
+
 const AddHospitalComponent = Loadable({
     loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
     loading: () => getLoader()
@@ -22,13 +27,13 @@ const AddHospitalComponent = Loadable({
 
 const AddDoctorDutyRosterComponent = Loadable({
     loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
-    loading: () => getLoader(),
+    loading: () => getLoader()
 });
 
-// const AddAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Add/AdminAdd'),
-//     loading: () => getLoader()
-// });
+const AddQualificationComponent = Loadable({
+    loader: () => import('./container/QualificationSetup/Add/QualificationAdd'),
+    loading: () => getLoader()
+});
 
 const AddSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
@@ -42,7 +47,7 @@ const AddSpecializationComponent = Loadable({
 
 const DashboardComponent = Loadable({
     loader: () => import('./container/AdminDashboard/AdminDashboard'),
-    loading: () => getLoader(),
+    loading: () => getLoader()
 });
 
 
@@ -79,20 +84,27 @@ const ManageSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageAdminComponent = Loadable({
+    loader: () => import('./container/AdminSetup/Manage/AdminManage'),
+    loading: () => getLoader()
+});
+
 const ManageHospitalComponent = Loadable({
     loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
     loading: () => getLoader()
 });
 
 const ManageDoctorDutyRosterComponent = Loadable({
-    loader: () => import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
+    loader: () =>
+        import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
     loading: () => getLoader()
 });
 
-// const ManageAdminComponent = Loadable({
-//     loader: () => import('./container/AdminSetup/Manage/AdminManage'),
-//     loading: () => getLoader()
-// });
+const ManageQualificationComponent = Loadable({
+    loader: () =>
+        import('./container/QualificationSetup/Manage/QualificationManage'),
+    loading: () => getLoader()
+});
 
 /* ****** N ***** */
 
@@ -102,12 +114,11 @@ const ManageDoctorDutyRosterComponent = Loadable({
 
 const ProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/ProfileSetup'),
-    loading: () => getLoader(),
+    loading: () => getLoader()
 });
 /* ****** Q ***** */
 
 /* ****** R ***** */
-
 
 /* ****** S ***** */
 
@@ -127,118 +138,217 @@ const ProfileComponent = Loadable({
 
 export const routes = [
     {
-        "path": "/admin/dashboard",
-        "component": DashboardComponent,
-        "isLink": true,
-        "icon": "",
-        "hasTab": false,
-        "name": "Dashboard"
+        path: '/admin/dashboard',
+        component: DashboardComponent,
+        isLink: true,
+        icon: '',
+        isTab: 'false',
+        hasTab: false,
+        name: 'Dashboard'
     },
     {
-        "path": "/admin/profile",
-        "component": ProfileComponent,
-        "isLink": false,
-        "icon": "",
-        "hasTab": true,
-        "isTab": false,
-        "name": "Profile Setup"
+        path: '/admin/generalSetup',
+        name: 'General Setup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: true
     },
     {
-        "path": "/admin/profile/add",
-        "name": "Add",
-        "component": AddProfileComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true
+        path: '/admin/generalSetup/profile',
+        component: ProfileComponent,
+        isLink: false,
+        icon: '',
+        hasTab: true,
+        isTab: false,
+        name: 'Profile Setup'
     },
     {
-        "path": "/admin/profile/manage",
-        "component": ManageProfileComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true,
-        "name": "Manage",
+        path: '/admin/generalSetup/profile/add',
+        name: 'Add',
+        component: AddProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true
     },
     {
-        "path": "/admin/specialization/add",
-        "component": AddSpecializationComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true,
-        "name": "Add",
+        path: '/admin/generalSetup/profile/manage',
+        component: ManageProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
     },
     {
-        "path": "/admin/specialization/Manage",
-        "component": ManageSpecializationComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true,
-        "name": "Manage",
+        path: '/admin/generalSetup/specialization/add',
+        component: AddSpecializationComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add'
     },
     {
-        "path": "/admin/department",
-        "component": <></>,
-        "isLink": false,
-        "icon": "",
-        "hasTab": true,
-        "isTab": false,
-        "name": "Department Setup"
+        path: '/admin/generalSetup/specialization/manage',
+        component: ManageSpecializationComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
     },
     {
-        "path": "/admin/department/add",
-        "name": "Add",
-        "component": AddDepartmentComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true
+        path: '/admin/generalSetup/specialization',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Specialization Setup'
     },
     {
-        "path": "/admin/department/manage",
-        "name": "Add",
-        "component": ManageDepartmentComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true
+        path: '/admin/generalSetup/department',
+        component: <></>,
+        isLink: false,
+        icon: '',
+        hasTab: true,
+        isTab: false,
+        name: 'Department Setup'
     },
     {
-        "path": "/admin/doctordutyroster/add",
-        "name": "Add",
-        "component": AddDoctorDutyRosterComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true
+        path: '/admin/generalSetup/department/add',
+        name: 'Add',
+        component: AddDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isTab: true,
+        isLink: true
     },
     {
-        "path": "/admin/doctordutyroster/manage",
-        "name": "Manage",
-        "component": ManageDoctorDutyRosterComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true
+        path: '/admin/generalSetup/department/manage',
+        name: 'Manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isTab: true,
+        isLink: true
     },
     {
-        "path": "/admin/hospital/add",
-        "component": AddHospitalComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true,
-        "name": "Add"
+        'path': '/admin/generalSetup/admin-setup',
+        'name': 'Admin Setup',
+        'component': <></>,
+        'icon': '',
+        'hasTab': true,
+        'isLink': true
     },
     {
-        "path": "/admin/hospital/manage",
-        "component": ManageHospitalComponent,
-        "icon": "",
-        "hasTab": true,
-        "isLink": true,
-        "name": "Add"
-    }
-    // {
-    //     "path": "",
-    //     "component": CUnauthorized,
-    //     "icon": "",
-    //     "hasTab": false,
-    //     "isLink": false,
-    //     "name": "Unauthorized"
-    // },
+        'path': '/admin/generalSetup/admin-setup/add',
+        'name': 'Add',
+        'component': AddAdminComponent,
+        'icon': '',
+        'hasTab': true,
+        'isLink': true
+    },
+    {
+        'path': '/admin/generalSetup/admin-setup/manage',
+        'name': 'Manage',
+        'component': ManageAdminComponent,
+        'icon': '',
+        'hasTab': true,
+        'isLink': true
+    },
+    {
+        path: '/admin/doctorDutyRoster',
+        name: 'Doctor Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false
+    },
+    {
+        path: '/admin/doctorDutyRoster/add',
+        name: 'Add',
+        component: AddDoctorDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true
+    },
+    {
+        path: '/admin/doctorDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDoctorDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true
+    },
+    {
+        path: '/admin/generalSetup/hospital/add',
+        component: AddHospitalComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add'
+    },
+    {
+        path: '/admin/generalSetup/hospital/manage',
+        component: ManageHospitalComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+    },
+    {
+        path: '/admin/generalSetup/hospital',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Hospital Setup'
+    },
+    {
+        path: '/admin/generalSetup/qualification/add',
+        component: AddQualificationComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add'
+    },
+    {
+        path: '/admin/generalSetup/qualification/manage',
+        component: ManageQualificationComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+    },
+    {
+        path: '/admin/generalSetup/qualification',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Qualification Setup'
 
+    },
+    {
+        'path': '/unauthorized',
+        'component': CUnauthorized,
+        'icon': '',
+        'hasTab': false,
+        'isLink': false,
+        'isTab': false,
+        'name': 'Unauthorized'
+    }
 ];

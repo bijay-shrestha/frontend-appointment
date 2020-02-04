@@ -13,6 +13,7 @@ import {
     editAdmin,
     editProfile,
     fetchActiveProfileListForDropdown,
+    fetchActiveProfilesByDepartmentId,
     fetchAdminList,
     fetchAdminMetaInfo,
     fetchAllProfileListForSearchDropdown,
@@ -21,6 +22,7 @@ import {
     HospitalSetupMiddleware,
     previewAdmin,
     previewProfile,
+    QualificationSetupMiddleware,
     SpecializationSetupMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
@@ -51,6 +53,7 @@ export {
     fetchProfileList,
     fetchProfileListBySubDepartmentId,
     fetchUserMenus,
+    fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
     logoutUser,
     previewAdmin,
@@ -59,6 +62,7 @@ export {
     savePassword,
     signinUser,
     SpecializationSetupMiddleware,
+    QualificationSetupMiddleware,
     verifyToken,
     WeekdaysMiddleware
 }

@@ -5,10 +5,11 @@ import {
   CHybridInput,
   CRadioButton,
   CHybridTextArea,
-  CImageDisplayAndView
+  CImageDisplayAndView,
+  CFControl
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
-import * as DefaultProfileImage from '../Add/picture.png'
+import * as DefaultProfileImage from '../img/default-logo.png'
 const DetailsModal = ({type, hospitalData}) => {
   const getOnlyContactNumber =(contactsResponse) =>{
     let contacts =[];
@@ -43,17 +44,20 @@ const DetailsModal = ({type, hospitalData}) => {
   return (
     <>
       <Container-fluid>
-        <Row className="pl-4 pr-4">
+        {/* <Row className="pl-4 pr-4">
           <h5>Hospital Info</h5>
-        </Row>
+        </Row> */}
 
-        <CForm id="hospital-info" className="mt-2 department-info">
+        <CForm id="hospital-info" className="mt-2">
           <Container-fluid>
             <Row>
-              <Col sm={4} md={4} lg={4}>
+              
+              <Col sm={12} md={12} lg={3} className= "order-md-first order-lg-last">
                 <CImageDisplayAndView images={images} />
               </Col>
-              <Col sm={4} md={4} lg={4}>
+              <Col lg={9}>
+                <Row>
+                <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-name"
                   name="name"
@@ -63,7 +67,7 @@ const DetailsModal = ({type, hospitalData}) => {
                 />
               </Col>
 
-              <Col sm={4} md={4} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-code"
                   name="code"
@@ -73,7 +77,7 @@ const DetailsModal = ({type, hospitalData}) => {
                 />
               </Col>
 
-              <Col sm={4} md={4} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CHybridTextArea
                   id="Address"
                   name="address"
@@ -82,7 +86,7 @@ const DetailsModal = ({type, hospitalData}) => {
                   disabled={true}
                 />
               </Col>
-              <Col sm={4} md={4} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="panNumber"
                   name="panNubmer"
@@ -92,7 +96,7 @@ const DetailsModal = ({type, hospitalData}) => {
                 />
               </Col>
               {type !== 'A' && (
-                <Col sm={4} md={4} lg={4}>
+                <Col sm={12} md={6} lg={6}>
                   <CHybridInput
                     id="hospital-remarks"
                     name="remarks"
@@ -102,7 +106,7 @@ const DetailsModal = ({type, hospitalData}) => {
                   />
                 </Col>
               )}
-              <Col sm={4} md={4} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CFLabel labelName="Hospital Status" id="status" />
                 <CRadioButton
                   checked={hospitalData.status === 'Y'}
@@ -113,30 +117,29 @@ const DetailsModal = ({type, hospitalData}) => {
                   type="radio"
                 />
               </Col>
-              <Col sm={12} md={4} lg={4}>
-                <CFLabel
-                  labelName="Hospital Contact Number"
+              <Col sm={12} md={6} lg={6}>
+                {/* <CFLabel
+                  labelName="Contact Number"
                   id="hospital_contact_number"
-                />
-                {contactNumber.map((contNumber, idx) => {
-                  return (
-                    <CHybridInput
-                      key={'contactInput' + idx}
-                      id={'contactInput' + idx}
+                /> */}
+                    <CHybridTextArea
+                      key={'contactInput'}
+                      id={'contactInput' }
                       id="contactNumber"
                       name="contactNumber"
                       disabled={true}
                       readOnly={true}
                       placeholder="Contact Number"
-                      value={contNumber}
+                      value={contactNumber.join(", ")}
                       required={true}
                       // errorMessagePassed={errorMessageForHospitalCode}
                     />
 
-                    // </Container-fluid>
-                  )
-                })}
+                    
               </Col>
+                </Row>
+              </Col>
+             
 
               {/* <CRadioButton
                   checked={specializationData.status === 'N'}

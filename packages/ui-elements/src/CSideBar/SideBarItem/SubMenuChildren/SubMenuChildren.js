@@ -1,8 +1,5 @@
 import React, {memo} from 'react'
 import {Accordion, Nav} from 'react-bootstrap'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons'
-// import classNames from 'classnames'
 import ParentMenu from './ParentMenu/ParentMenu'
 import ChildrenMenu from './ChildrenMenu/ChilrenMenu'
 
@@ -30,7 +27,6 @@ const SubMenuChildren = props => {
               childrenSize={props.children.length}
               parent={props.parent}
               collapsed={props.collapsed}
-
               active={props.active}
               activeNavBar={props.activeNavBar}
               toggleNavbar={props.toggleNavbar}

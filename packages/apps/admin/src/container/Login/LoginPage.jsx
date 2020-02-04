@@ -6,12 +6,8 @@ import {ConnectHoc} from '@frontend-appointment/commons';
 class LoginPage extends React.PureComponent {
   onSubmitHandler = async user => {
     try {
-      await this.props.signinUser('/api/v1/auth/login', user);
-      await this.props.fetchLoggedInAdminUserInfo('/admin/api/v1/admin/info',
-        {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
-      //Axios.get("http://10.13.184.16:9090/api/test/helloworld",{withCredentials:true,crossOrigin:true,crossDomain:true});
-      // await this.props.fetchUserMenus('/admin/api/v1/sidebar',
-      //     {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
+      await this.props.signinUser('/api/v1/login', user);
+      await this.props.fetchUserMenus('/api/v1/sidebar',{username:user.username});
       await this.props.history.push('/admin/dashboard');
       return null;
     } catch (e) {

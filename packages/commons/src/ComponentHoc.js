@@ -1,21 +1,22 @@
 import React from 'react'
 import roless from './roles.json'
 import {Redirect} from 'react-router-dom'
-import {CNavTabs} from '@frontend-appointment/ui-elements'
+import {CNavTabs} from '@frontend-appointment/ui-elements';
+import {RolesUtils,CommonUtils} from  '@frontend-appointment/helpers'
 
-const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
+const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
   return class CheckTabs extends React.PureComponent {
     state = {
       isLoading: true,
       filteredAction: [],
       filteredRolesTab: [],
       pathFound: false,
-      currentActiveTab: 0
+      currentActiveTab: 0,
+      unauthorized: false
     }
 
     getAction = (childMenus, newPath) => {
       let filteredActions = []
-      let filteredTabs = []
       const {roles, path} = childMenus
       const newP = newPath.split('/')
       if (newPath.includes(path)) {
@@ -42,33 +43,50 @@ const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
     getUniquesElement = data => {
       let result = []
       let flag = false
-      for (let i = 0; i < data.length - 1; i++) {
-        for (let j = 0; j < i; j++) {
-          if (data[i].id == result[j].id) {
-            flag = true
-            break
+      if (data.length == 1) result.push(data[0])
+      else {
+        for (let i = 0; i < data.length; i++) {
+          for (let j = 0; j < i; j++) {
+            console.log('dataId', data)
+            if (result.length) {
+              if (data[i].id == result[j].id) {
+                flag = true
+                break
+              }
+            }
           }
+          if (!flag) result.push(data[i])
         }
-        if (!flag) result.push(data[i])
       }
+      console.log(result)
       return result
     }
 
-    getFilterTabs = (filteredAction, newPath) => {
-      let filteredTabs = []
-      console.log('getFilterTabs new path', newPath)
-      console.log('path', path)
-      let newBase = path.split('/')
-      if (newBase.length > 3) newBase = newBase.splice(0, newBase.length - 1)
+    removeDuplicatePathInUrl = newFilteredTabs => {
+      let splittedPath = newFilteredTabs.split('/')
+      let newPath = newFilteredTabs
+      if (
+        splittedPath[splittedPath.length - 1] ===
+        splittedPath[splittedPath.length - 2]
+      ) {
+        splittedPath.pop()
+        newPath = splittedPath.join('/')
+      }
+      return newPath
+    }
 
+    getFilterTabs = (filteredAction, newPath) => {
+      let filteredTabs = [];
+      let newBase = path.split('/');
+      if (CommonUtils.checkIfOneArrayElementContainOther(RolesUtils.getOnlyAllTabsRoles(),newBase))
+        newBase = newBase.splice(0, newBase.length - 1)
       newBase = newBase.join('/')
-      console.log(newBase)
       roless.map(role => {
         filteredAction.map(actions => {
           if (Number(actions.parent) === Number(role.id))
             filteredTabs.push({
               id: role.id,
-              url: `${newBase}${role.path}`,
+              url: this.removeDuplicatePathInUrl(`${newBase}${role.path}`),
               name: role.name
             })
         })
@@ -86,7 +104,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
       newPath = newPath.join('/')
       newPath = '/'.concat(newPath)
       let newUserMenus = []
-      if (userMenus.length) newUserMenus = JSON.parse(userMenus)
+      if (userMenus.length) newUserMenus = userMenus
 
       newUserMenus &&
         newUserMenus.map(userMenu => {
@@ -110,46 +128,48 @@ const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
         filteredAction: [...filteredAction],
         filteredRolesTab: [...this.state.filteredRolesTab, ...filteredRolesTab]
       })
-      console.log('hello',filteredRolesTab);
-      return filteredRolesTab;
+      return filteredRolesTab
     }
 
-    checkIfPathIsTabPath = (filteredRolesTab) => {
+    checkIfPathIsTabPath = filteredRolesTab => {
       //const {filteredRolesTab} = this.state
       let isTab = false,
         loading = true,
-        currentActiveTab;
+        currentActiveTab
       if (filteredRolesTab.length) {
         for (let filteredRole of filteredRolesTab) {
-          if (filteredRole.url === path) {
-            isTab = true;
-            loading = false;
-            currentActiveTab = filteredRole.id;
-            break;
+          if (this.removeDuplicatePathInUrl(filteredRole.url) === path) {
+            isTab = true
+            loading = false
+            currentActiveTab = filteredRole.id
+            break
           }
         }
         if (isTab) {
           this.setState({
-            pathFound: true,filteredRolesTab,
+            pathFound: true,
             isLoading: loading,
-            currentActiveTab: currentActiveTab
+            currentActiveTab: currentActiveTab,
+            unauthorized: false
           })
         } else {
-          console.log('fitlered roles',filteredRolesTab);
-          props.history.push(filteredRolesTab[0].url)
+          let newPathUrl = this.removeDuplicatePathInUrl(
+            filteredRolesTab[0].url
+          )
+          props.history.push(newPathUrl)
         }
       } else {
         this.setState({
           pathFound: false,
-          isLoading: true
+          isLoading: true,
+          unauthorized: true
         })
       }
     }
-    async componentDidMount () {
 
-     const filteredRolesTab = await this.checkRoles();
-     console.log('newfilters',filteredRolesTab);
-      this.checkIfPathIsTabPath(filteredRolesTab);
+    async componentDidMount () {
+      const filteredRolesTab = await this.checkRoles()
+      this.checkIfPathIsTabPath(filteredRolesTab)
     }
 
     render () {
@@ -158,25 +178,28 @@ const ComponentHoc = (ComposedComponent, userMenus, path,props) => {
         filteredRolesTab,
         isLoading,
         pathFound,
-        currentActiveTab
+        currentActiveTab,
+        unauthorized
       } = this.state
       return !isLoading &&
         filteredAction.length &&
         filteredRolesTab.length &&
         pathFound ? (
         <>
-        <CNavTabs filteredAction={filteredAction} 
-                  roles={filteredRolesTab} 
-                  currentActiveTab={currentActiveTab}
-                  customClass="page-tabs" /> 
-        <ComposedComponent
-          {...this.props}
-          filteredAction={filteredAction}
-          roles={filteredRolesTab}
-          hasTabs={true}
-        />
+          <CNavTabs
+            filteredAction={filteredAction}
+            roles={filteredRolesTab}
+            currentActiveTab={currentActiveTab}
+            customClass="page-tabs"
+          />
+          <ComposedComponent
+            {...this.props}
+            filteredAction={filteredAction}
+            roles={filteredRolesTab}
+            hasTabs={true}
+          />
         </>
-      ) : isLoading? (
+      ) : isLoading && !unauthorized ? (
         <div>loading</div>
       ) : (
         <Redirect to="/unauthorized" />

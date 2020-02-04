@@ -1,50 +1,50 @@
-import React, { PureComponent } from 'react'
+import React, {memo} from 'react'
 import classNames from 'classnames'
 import SideBarHeader from './SideBarHeader'
 import SideBarItem from './SideBarItem'
 
-class CSideBar extends PureComponent {
-  render () {
-    return (
-      <div
-        id='sidebar-wrapper'
-        className={classNames(
-          'sidebar',
-          { 'is-open': this.props.isOpen },
-          { 'is-sidehover': this.props.isHover && !this.props.isOpen },
-          { 'is-close': !this.props.isOpen && !this.props.isHover }
-        )}
-        style={
-          this.props.isOpen || this.props.isHover
-            ? {
-              height: this.props.height,
-              overflowY: this.props.overflow
+const CSideBar = props => {
+  console.log(props.isOpen);
+  return (
+    <div
+      id="sidebar-wrapper"
+      className={classNames(
+        'sidebar',
+        {'is-open': props.isOpen},
+        {'is-sidehover': props.isHover && !props.isOpen},
+        {'is-close': !props.isOpen && !props.isHover}
+      )}
+      style={
+        props.isOpen || props.isHover
+          ? {
+              height: props.height,
+              overflowY: props.overflow
             }
-            : { height: this.props.height }
-        }
-        onMouseOver={this.props.onHoverSideBar}
-        onMouseLeave={this.props.onLeaveHover}
-      >
-        <SideBarHeader
-          header='cogentEMR'
-          toggle={this.props.toggle}
-          isOpen={this.props.isOpen}
-          isHover={this.props.isHover}
-        />
+          : {height: props.height}
+      }
+      onMouseOver={props.onHoverSideBar}
+      onMouseLeave={props.onLeaveHover}
+    >
+      <SideBarHeader
+        header="cogentEMR"
+        toggle={props.toggle}
+        isOpen={props.isOpen}
+        isHover={props.isHover}
+      />
 
-        <SideBarItem
-          trees={this.props.trees}
-          isOpen={this.props.isOpen}
-          heading='heading'
-          isHover={this.props.isHover}
-        />
-      </div>
-    )
-  }
+      <SideBarItem
+        trees={props.trees}
+        isOpen={props.isOpen}
+        heading="heading"
+        isHover={props.isHover}
+        localFunc={props.localFunc}
+        activeStateKey={props.activeStateKey}
+      />
+    </div>
+  )
 }
+
 CSideBar.defaultProps = {
-  isOpen: true,
-   height: 'calc(100% - 2rem);',
   overflow: 'auto'
 }
-export default CSideBar;
+export default memo(CSideBar)

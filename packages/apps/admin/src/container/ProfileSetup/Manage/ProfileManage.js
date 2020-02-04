@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import ProfileDetails from './ProfileDetails'
-import {ConnectHoc, menus, TryCatchHandler} from '@frontend-appointment/commons'
+import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
@@ -14,7 +14,7 @@ import {
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {userMenusJson, UserMenuUtils} from "@frontend-appointment/helpers";
+import {ProfileSetupUtils, userMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
@@ -24,7 +24,7 @@ const {
     EDIT_PROFILE,
     FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN
 } = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 
@@ -330,83 +330,7 @@ class ProfileManage extends PureComponent {
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
-        let filteredProfiles = {};
-        let selectedMenus = [],
-            selectedUserMenusForModal = [];
-
-        const {profileResponseDTO, profileMenuResponseDTOS} = userMenusProfile;
-
-        userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
-        Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
-            // For each parent menu's selected menus
-            const userMenus = userMenusJson[process.env.REACT_APP_MODULE_CODE];
-            const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
-            let selectedParentMenus = new Set();
-            let selectedChildMenus = new Set();
-
-            selectedUserMenus &&
-            selectedUserMenus.map((selectedMenu, indx) => {
-                //filter out the selected unique parent menu and child menus
-                selectedMenus.push({...selectedMenu});
-                let parent = userMenus && userMenus.find(
-                    userMenu => Number(userMenu.id) === Number(selectedMenu.parentId)
-                );
-                parent && selectedParentMenus.add(parent);
-                let child = parent && parent.childMenus.length && parent.childMenus.find(childMenu =>
-                    Number(childMenu.id) === Number(selectedMenu.userMenuId)
-                );
-                child && selectedChildMenus.add(child)
-            });
-            selectedUserMenusForModal = selectedUserMenusForModal.concat(Array.from(selectedParentMenus).map(
-                // add filtered out child to their respective filtered out parent menu.
-                parent => {
-                    let data = {
-                        id: parent.id,
-                        name: parent.name,
-                        icon: parent.icon,
-                        parentId: parent.parentId,
-                        roles: [...parent.roles],
-                        childMenus: []
-                    };
-                    let childrenOfParent = Array.from(selectedChildMenus).filter(
-                        child => {
-                            return (
-                                child.parentId === parent.id && {
-                                    id: child.id,
-                                    name: child.name,
-                                    icon: child.icon,
-                                    parentId: child.parentId,
-                                    roles: child.roles,
-                                    childMenus: []
-                                }
-                            )
-                        }
-                    );
-                    data.childMenus = [...childrenOfParent];
-                    return data
-                }
-            ));
-            filteredProfiles = {
-                selectedMenus,
-                selectedUserMenusForModal
-            }
-        });
-        if (profileResponseDTO)
-            filteredProfiles = {
-                ...filteredProfiles,
-                profileName: profileResponseDTO.name,
-                hospitalValue: {
-                    value: profileResponseDTO.hospitalId,
-                    label: profileResponseDTO.hospitalName
-                },
-                profileDescription: profileResponseDTO.description,
-                departmentValue: {
-                    value: profileResponseDTO.departmentId,
-                    label: profileResponseDTO.departmentName
-                },
-                status: profileResponseDTO.status
-            };
-        return filteredProfiles
+        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile);
     };
 
     previewApiCall = async id => {
@@ -725,6 +649,7 @@ class ProfileManage extends PureComponent {
                 </div>
                 <div className=" mb-2">
                     <ProfileDetails
+                        filteredActions={this.props.filteredAction}
                         showProfileModal={this.state.showProfileModal}
                         isSearchLoading={isSearchLoading}
                         searchData={this.appendSNToTable(profileList)}

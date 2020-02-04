@@ -3,7 +3,7 @@ import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
 const SpecializationConfirmationModal = props => {
-  const {showModal, setShowModal, specializationData, onConfirmClick} = props
+  const {showModal, setShowModal, specializationData, onConfirmClick,type} = props
   console.log('onConfirmClick',onConfirmClick);
   return (
     <>
@@ -14,6 +14,7 @@ const SpecializationConfirmationModal = props => {
         bodyChildren={
           <DetailsModal
             specializationData={specializationData}
+            type={type}
           />
         }
         onHide={setShowModal}
@@ -24,7 +25,7 @@ const SpecializationConfirmationModal = props => {
           <CButton
           name="Cancel"
           id=""
-          variant="outline-secondary"
+          variant="light"
           size="lg"
           className="float-right btn-action"
           onClickHandler={setShowModal}

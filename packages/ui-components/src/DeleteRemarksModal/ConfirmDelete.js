@@ -7,7 +7,7 @@ const ConfirmDelete = props => {
         <>
             <div>
                 {/*<h5> Are you sure you want to delete the Profile?If yes please provide remarks.</h5>*/}
-                <h5> {props.confirmationMessage}</h5>
+                <h6> {props.confirmationMessage}</h6>
                 <CHybridTextArea
                     onChange={props.onDeleteRemarksChangeHandler}
                     id="remarks"
@@ -29,7 +29,7 @@ const ConfirmDelete = props => {
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'
-                    onClickHandler={props.onSubmitDelete}
+                    onClickHandler={props.showModal}
                 />
 
             </div>

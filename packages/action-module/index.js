@@ -25,6 +25,8 @@ import {
     profileSetupConstants,
     SpecializationSetupActions,
     specializationSetupConstants,
+    QualificationSetupActions,
+    qualificationSetupConstants
 } from './src/admin-module'
 
 export {
@@ -50,6 +52,8 @@ export {
     LoggedInAdminInfoActions,
     logoutActionConstants,
     LogoutActions,
+    QualificationSetupActions,
+    qualificationSetupConstants,
     weekdaysActionConstants,
     WeekdaysActions
 }

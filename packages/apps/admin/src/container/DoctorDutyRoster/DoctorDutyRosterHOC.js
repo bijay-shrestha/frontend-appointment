@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
-import {ConnectHoc, TryCatchHandler} from "@frontend-appointment/commons";
+import {ConnectHoc} from "@frontend-appointment/commons";
+import {TryCatchHandler} from "@frontend-appointment/helpers";
 import {
     DoctorDutyRosterMiddleware,
     DoctorMiddleware,
@@ -22,7 +23,7 @@ const {
     fetchExistingDoctorDutyRosterDetails
 } = DoctorDutyRosterMiddleware;
 
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = AdminModuleAPIConstants.specializationSetupAPIConstants;
 const {FETCH_DOCTOR_BY_SPECIALIZATION_ID} = AdminModuleAPIConstants.doctorSetupApiConstants;
 const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
@@ -459,7 +460,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
-            return <>
+            return (<>
                 <ComposedComponent
                     {...props}
                     doctorInfoData={
@@ -520,11 +521,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     </>}
                     message={alertMessageInfo.message}
                 />
-            </>;
+            </>);
         }
     }
 
-    return ConnectHoc(DoctorDutyRoster,
+    return ConnectHoc(
+        DoctorDutyRoster,
         [
             'HospitalDropdownReducer',
             'SpecializationDropdownReducer',

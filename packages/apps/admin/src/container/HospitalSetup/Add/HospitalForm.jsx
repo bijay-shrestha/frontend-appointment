@@ -1,15 +1,18 @@
-import React, {memo} from 'react'
-import {Col, Row} from 'react-bootstrap'
+import React, { memo } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import {
   CFLabel,
   CForm,
   CHybridInput,
   CRadioButton,
   CHybridTextArea,
-  CButton
+  CButton,
+  CFControl
 } from '@frontend-appointment/ui-elements'
-import * as DefaultProfileImage from './picture.png';
-import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
+import * as DefaultLogo from '../img/default-logo.png'
+import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
+
+
 const HospitalForm = ({
   hospitalInfoObj,
   errorMessageForHospitalName,
@@ -29,30 +32,34 @@ const HospitalForm = ({
   handleImageUpload,
   setImageShow
 }) => {
-  console.log('hospital Info',hospitalInfoObj)
+  console.log('hospital Info', hospitalInfoObj)
   return (
     <>
       <Container-fluid>
         <Row sm="12 p-0">
           <h5 className="title">Hospital Info</h5>
         </Row>
-        <CForm id="profile-info" className="mt-2 profile-info">
+        <CForm id="hospital-info" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col
+              <Col lg={3}  className=" order-md-first order-lg-last">
+                <Row>
+                <Col
                 sm={12}
                 md={12}
-                lg={3}
-                className="order-lg-last order-md-first"
+                lg={12}
+               
               >
                 <div className="image-upload-container">
+                  <CFLabel labelName="Hospital Logo"></CFLabel>
                   <div className="image-box">
+
                     <img
                       alt="HOSPITAL IMAGE"
                       src={
                         hospitalInfoObj.hospitalLogo
                           ? hospitalInfoObj.hospitalLogoUrl
-                          : DefaultProfileImage
+                          : DefaultLogo
                       }
                     />
                     <CButton
@@ -70,6 +77,7 @@ const HospitalForm = ({
                       handleImageUpload={handleImageUpload}
                       imageSrc={hospitalImage}
                       croppedImageSrc={hospitalImageCroppedUrl}
+                      circularCrop={false}
                       onImageSelect={onImageSelect}
                       onImageCrop={data => handleCropImage(data)}
                     />
@@ -77,7 +85,20 @@ const HospitalForm = ({
                 </div>
               </Col>
 
-              <Col sm={12} md={6} lg={6}>
+              <Col
+                sm={12}
+                md={12}
+                lg={6}
+                className=" order-md-first"
+              >
+              </Col>
+                </Row>
+
+              </Col>
+         
+              <Col lg={9} >
+                <Row>
+                <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospital-name"
                   name="name"
@@ -104,18 +125,6 @@ const HospitalForm = ({
                   errorMessagePassed={errorMessageForHospitalCode}
                   max={4}
                   min={2}
-                
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridTextArea
-                  id="hospital-address"
-                  name="address"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Hospital Address"
-                  value={hospitalInfoObj.address}
-                  required={true}
                 />
               </Col>
               <Col sm={12} md={6} lg={6}>
@@ -129,21 +138,42 @@ const HospitalForm = ({
                   required={true}
                 />
               </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridTextArea
+                  id="hospital-address"
+                  name="address"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) => onInputChange(event, validity)}
+                  placeholder="Hospital Address"
+                  value={hospitalInfoObj.address}
+                  required={true}
+                />
+              </Col>
 
-              <Col sm={12} md={8} lg={8}>
+
+              <Col sm={12} md={6} lg={6}>
+                <CFLabel
+                  labelName="Contact Number"
+                  id="contactNumber"
+                ></CFLabel>
                 {contactLength != hospitalInfoObj.contactNumber.length && (
                   <CButton
                     id={'add-contact-numbers'}
-                    variant="outline-primary"
+                    variant="outline-secondary"
                     onClickHandler={() => addContactNumber('contactNumber', '')}
-                    name="Add"
-                  />
+                    name=""
+                    size="sm"
+                    className="pull-right"
+                  ><i className="fa fa-plus" /> Add
+                  </CButton>
                 )}
-                {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
-                  return (
-                    <Container-fluid key={'contactForm' + idx}>
-                      <Row>
-                        <CHybridInput
+
+
+                <Row key={'contactForm'}>
+                  {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
+                    return (
+                      <Col md={12} lg={12} key={"contInputs" + idx} className="contact-box my-1">
+                        <CFControl
                           key={'contactInput' + idx}
                           id={'contactInput' + idx}
                           id="contactNumber"
@@ -156,25 +186,27 @@ const HospitalForm = ({
                               idx
                             )
                           }
-                          placeholder="Contact Number"
+                          placeholder="Hopsital Contact Number"
                           value={contNumber}
                           required={true}
-                          errorMessagePassed={errorMessageForHospitalCode}
+                        // errorMessagePassed={errorMessageForHospitalCode}
                         />
-                        <CButton
+                        {hospitalInfoObj.contactNumber.length !== 1 ? <CButton
                           key={'removecontact' + idx}
                           id={'removecontact' + idx}
                           variant="outline-danger"
                           onClickHandler={() =>
                             removeContactNumber('contactNumber', idx)
                           }
-                          name="Remove"
+                          name=""
                           size="sm"
-                        ></CButton>
-                      </Row>
-                    </Container-fluid>
-                  )
-                })}
+                          className="remove-contact "
+                        >  <i className="fa fa-close" /></CButton> : ''}
+                      </Col>
+                    )
+                  })}
+                </Row>
+
               </Col>
 
               <Col sm={12} md={4} lg={4}>
@@ -196,6 +228,9 @@ const HospitalForm = ({
                   type="radio"
                 /> */}
               </Col>
+                </Row>
+                </Col>       
+             
             </Row>
           </Container-fluid>
         </CForm>

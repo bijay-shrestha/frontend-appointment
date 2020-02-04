@@ -1,8 +1,7 @@
-import profiles from '../menu.json';
-import { UserMenuUtils } from "./index";
-const checkIfChildExist = child => (child.length ? true : false)
-
-// const getNewSubDepartmentMenu = (subdept, childMenus, role) => ({})
+import profiles from "../cogent-appointment-admin-menu.json";
+import {localStorageSecurity} from  "./localStorageUtils";
+import {sortUserMenuJson} from "./UserMenuUtils"
+const checkIfChildExist = child => (child.length>1 ? true : false)
 
 const getChildMenuFirst = (children, roleId, childMenus) => ({
   id: children.id,
@@ -17,20 +16,19 @@ const getChildMenuFirst = (children, roleId, childMenus) => ({
   enabled: children.enabled,
   menuFor: children.menuFor,
   description: children.description,
-  subDepartmentCode: children.subDepartmentCode,
   childMenus: [...childMenus]
-});
+})
 
 const usermenufilter = userMenus => {
-  const {subDepartmentCode, assignedRolesResponseDTOS} = userMenus;
-  const deptUserMenus = profiles[subDepartmentCode];
-  const filteredMenus = []
+  const {assignedRolesResponseDTOS} = userMenus
+  const deptUserMenus = profiles['SUP']
+  console.log('UserMenus', userMenus)
+  console.log('DeptUserMenus', deptUserMenus)
+  let filteredMenus = []
   assignedRolesResponseDTOS &&
     assignedRolesResponseDTOS.map((assignedRoles, index) => {
-      console.log('From Backend, Assigned Roles::', assignedRoles);
       const {parentId, childMenus} = assignedRoles
       deptUserMenus.map((depts, ind) => {
-        console.log('From Frontend Department menus')
         if (Number(depts.id) === Number(parentId)) {
           let hasChild = checkIfChildExist(depts.childMenus)
           if (hasChild) {
@@ -43,16 +41,17 @@ const usermenufilter = userMenus => {
                   childMens.push(child)
                 }
               })
-            });
+            })
             filteredMenus.push(getChildMenuFirst(depts, [], childMens))
           } else {
-            filteredMenus.push(getChildMenuFirst(depts, depts.roleId, []))
+            filteredMenus.push(getChildMenuFirst(depts, childMenus[0].roleId, []))
           }
         }
       })
-    });
-    let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...filteredMenus]);
-    localStorage.setItem('userMenus',JSON.stringify(alphabeticallySortedMenus));
+    })
+  let alphabeticallySortedMenus = sortUserMenuJson([...filteredMenus]);
+  localStorageSecurity.localStorageEncoder("userMenus",alphabeticallySortedMenus)
+
   return filteredMenus;
-};
-export default  usermenufilter;
+}
+export default usermenufilter

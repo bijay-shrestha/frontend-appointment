@@ -4,7 +4,7 @@ import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
 import DoctorDutyRosterHOC from "../DoctorDutyRosterHOC";
 import "./../doctor-duty-roster.scss";
 
-const DoctorDutyRosterManage = props => {
+function DoctorDutyRosterManage(props) {
     const DoctorDutyRosterManage = DoctorDutyRosterHOC(
         ({}) =>
             <>
@@ -14,6 +14,6 @@ const DoctorDutyRosterManage = props => {
         , props);
     return <DoctorDutyRosterManage/>;
 
-};
+}
 
 export default DoctorDutyRosterManage

@@ -5,11 +5,12 @@ import {
     deleteProfile,
     editProfile,
     fetchActiveProfileListForDropdown,
+    fetchActiveProfilesByDepartmentId,
+    fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     fetchProfileListBySubDepartmentId,
-    previewProfile,
-    fetchAllProfileListForSearchDropdown
-} from "./profile-setup-middleware/profileSetupMiddleware";
+    previewProfile
+} from './profile-setup-middleware/profileSetupMiddleware';
 
 import {
     clearAdminSuccessErrorMessagesFromStore,
@@ -26,6 +27,7 @@ import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSe
 import * as DoctorMiddleware from './doctor-setup-middleware/doctorSetupMiddleware';
 import * as DepartmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
 import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doctorDutyRosterMiddleware";
+import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
 
 export {
     createProfile,
@@ -45,9 +47,11 @@ export {
     fetchAdminList,
     previewAdmin,
     fetchAdminMetaInfo,
+    fetchActiveProfilesByDepartmentId,
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
     DoctorMiddleware,
     DepartmentSetupMiddleware,
+    QualificationSetupMiddleware,
     DoctorDutyRosterMiddleware
-}
+};
