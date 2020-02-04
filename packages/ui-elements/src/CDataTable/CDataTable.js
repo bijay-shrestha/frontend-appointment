@@ -54,7 +54,8 @@ class CDataTable extends PureComponent {
 
     onCellClicked = e => {
         if (e.value) {
-            this.props.getSelectedRows &&  this.props.getSelectedRows(e.data.id);
+            let dataToPassed = e.data.id ? e.data.id : e.data;
+            this.props.getSelectedRows && this.props.getSelectedRows(dataToPassed);
         }
     };
 

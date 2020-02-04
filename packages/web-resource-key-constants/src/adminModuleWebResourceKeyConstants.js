@@ -36,7 +36,7 @@ export const adminSetupAPIConstants = {
     EDIT_ADMIN: ADMIN_BASE_URL,
     DELETE_ADMIN: ADMIN_BASE_URL,
     SEARCH_ADMIN: ADMIN_BASE_URL.concat("/search"),
-    FETCH_ADMIN_DETAILS: ADMIN_BASE_URL.concat("/details"),
+    FETCH_ADMIN_DETAILS: ADMIN_BASE_URL.concat("/detail"),
     UPDATE_ADMIN_AVATAR: ADMIN_BASE_URL.concat('/avatar'),
     GET_LOGGED_IN_ADMIN_INFO: ADMIN_BASE_URL.concat('/info'),
     SAVE_ADMIN_PASSWORD: ADMIN_BASE_URL.concat('/password'),
@@ -85,7 +85,7 @@ export const doctorSetupApiConstants = {
     EDIT_DOCTOR: BASE.concat(DOCTOR_BASE),
     DELETE_DOCTOR: BASE.concat(DOCTOR_BASE),
     FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + "/active/min"),
-    FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE),
+    FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
     FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat("/updateDetails"))
 };
 

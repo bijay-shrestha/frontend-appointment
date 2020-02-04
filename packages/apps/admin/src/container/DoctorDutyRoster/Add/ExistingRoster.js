@@ -1,170 +1,211 @@
-import React, { PureComponent } from 'react';
-import { Col, Container, Row, Form } from "react-bootstrap";
+import React, {memo} from 'react';
+import {Col, Container, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {
-    CFLabel, CForm, CHybridInput,
-    CHybridSelect, CRadioButton, CInputGroup,
-    CDataTable,
-    CButton, CCheckbox, CModal
-}
-    from "@frontend-appointment/ui-elements";
+import {CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
+import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
+import StartTimeDisplayForTable from "../common/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable from "../common/table-components/EndTimeDisplayForTable";
+import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 
 
-class ExistingRooster extends PureComponent {
-    render() {
+const ExistingRooster = ({
+                             existingRosterTableData,
+                             onViewDetailsExisting,
+                             existingDoctorWeekDaysAvailability,
+                             existingOverrides,
+                         }) => {
+    return <>
+        <Container className="p-0" fluid>
+            <Row className="">
 
-        return <>
-            <Container className="p-0" fluid>
-                <Row className="">
+                <Col md={12} lg={12} className="mb-2">
+                    <div className="doctor-availability bg-white p-4">
+                        {console.log("--------------", existingRosterTableData)}
+                        {
+                            existingRosterTableData.length ?
+                                <CDataTable
+                                    classes="ag-theme-balham"
+                                    id="roster-table"
+                                    width="100%"
+                                    height="260px"
+                                    enableSorting
+                                    editType
+                                    columnDefs={[
+                                        {
+                                            headerName: 'From Date',
+                                            field: 'fromDate',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true
+                                        },
+                                        {
+                                            headerName: 'To Date',
+                                            field: 'toDate',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true
+                                        },
+                                        {
+                                            headerName: 'Time Duration',
+                                            field: 'rosterGapDuration',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true,
+                                        },
+                                        // {
+                                        //     headerName: 'Created By',
+                                        //     field: 'createdBy',
+                                        //     resizable: true,
+                                        //     sortable: true,
+                                        //     sizeColumnsToFit: true,
+                                        // },
+                                        // {
+                                        //     headerName: 'Created Date',
+                                        //     field: 'createdDate',
+                                        //     resizable: true,
+                                        //     sortable: true,
+                                        //     sizeColumnsToFit: true,
+                                        // },
+                                    ]}
+                                    frameworkComponents={{
+                                        // childActionRenderer: OverrideActions,
+                                        // childLabelRenderer: DayOffStatusLabel
+                                    }}
+                                    defaultColDef={{resizable: true}}
+                                    getSelectedRows={onViewDetailsExisting}
+                                    rowSelection={'single'}
+                                    // setShowModal={setShowModal} // {this.showModal}
+                                    rowData={existingRosterTableData}
+                                /> : ''
+                        }
 
+                    </div>
+                </Col>
 
-                    <Col md={12} lg={12} className="mb-2">
-                        <div className="doctor-availability bg-white p-4">
+                {
+                    existingDoctorWeekDaysAvailability.length ?
+                        <Col md={12} lg={12} className="">
+                            <div className="doctor-availability bg-white p-4">
+                                <h5 className="title">Doctor Availability</h5>
+                                <Row className="header">
+                                    <Col> Days</Col>
+                                    <Col> Start Time</Col>
+                                    <Col> End Time</Col>
+                                    <Col> <CCheckbox id="check-all-menu"
+                                                     label="Days Off"
+                                                     className="select-all check-all"/>
+                                    </Col>
+                                </Row>
+                                {
+                                    existingDoctorWeekDaysAvailability.map(weekDay => (
+                                        <Row className="main-content mt-3">
+                                            <Col> {weekDay.weekDaysName}</Col>
+                                            {console.log("========",DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.startTime))}
+                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.startTime)}</Col>
+                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.endTime)}</Col>
+                                            <Col> {weekDay.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
+                                                <i className="fa fa-close"/>}</Col>
+                                        </Row>
+                                    ))
+                                }
+                            </div>
+                        </Col> : ''
+                }
+            </Row>
 
-                            <Row className="header">
-                                <Col> Date</Col>
-                                <Col> Time Duration</Col>
-                                <Col> Created By</Col>
-                                <Col> Created Date</Col>
-                                <Col> View Details</Col>
-
-                            </Row>
-                        </div>
-                    </Col>
-
-
-
-
-                    <Col md={12} lg={12} className="">
-                        <div className="doctor-availability bg-white p-4">
-                            <h5 className="title">Doctor Availability</h5>
-                            <Row className="header">
-                                <Col> Days</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col>  <CCheckbox id="check-all-menu"
-                                    label="Days Off"
-                                    className="select-all check-all" />
-                                </Col>
-                            </Row>
-                            <Row className="main-content mt-3">
-                                <Col> Sunday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Monday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Tuesday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Wednesday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Thursday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Friday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Saturday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-
-                        </div>
-
-
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
+            <Row>
+                <Col>
+                    {existingOverrides.length ?
                         <div className="doctor-override bg-white mt-2">
                             <Row>
-                                <Col md={12} lg={12} > 
-                                <CCheckbox id="check--override"
-                                    label="Override"
-                                    className="select-all check-all" />
+                                <Col md={12} lg={12}>
+                                    <i className="fa fa-check"/> Override
+                                    {/*<CCheckbox id="check--override"*/}
+                                    {/*           label="Override"*/}
+                                    {/*           className="select-all check-all"/>*/}
                                 </Col>
-
-
-
 
                                 <Col md={12} lg={12} className="">
                                     <div className="doctor-availability ">
+                                        {
+                                            existingOverrides.length ?
+                                                <CDataTable
+                                                    classes="ag-theme-balham"
+                                                    id="override-table"
+                                                    width="100%"
+                                                    height="460px"
+                                                    enableSorting
+                                                    editType
+                                                    columnDefs={[
+                                                        {
+                                                            headerName: 'From Date',
+                                                            field: 'fromDate',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true
+                                                        },
+                                                        {
+                                                            headerName: 'To Date',
+                                                            field: 'toDate',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true
+                                                        },
+                                                        {
+                                                            headerName: 'Start Time',
+                                                            field: 'startTime',
+                                                            cellRenderer: 'startTimeRenderer',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true
+                                                        },
+                                                        {
+                                                            headerName: 'End Time',
+                                                            field: 'endTime',
+                                                            cellRenderer: 'endTimeRenderer',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true
+                                                        },
+                                                        {
+                                                            headerName: 'Day Off Status',
+                                                            field: 'dayOffStatus',
+                                                            cellRenderer: 'childLabelRenderer',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true,
+                                                        },
+                                                        {
+                                                            headerName: 'Remarks',
+                                                            field: 'remarks',
+                                                            resizable: true,
+                                                            sortable: true,
+                                                            sizeColumnsToFit: true,
+                                                        },
+                                                    ]}
+                                                    frameworkComponents={{
+                                                        startTimeRenderer: StartTimeDisplayForTable,
+                                                        endTimeRenderer: EndTimeDisplayForTable,
+                                                        childLabelRenderer: DayOffStatusLabel
+                                                    }}
+                                                    defaultColDef={{resizable: true}}
+                                                    // getSelectedRows={onViewDetailsExisting}
+                                                    rowSelection={'single'}
+                                                    // setShowModal={setShowModal} // {this.showModal}
+                                                    rowData={existingOverrides}
+                                                /> : ''
+                                        }
 
-                                        <Row className="header">
-                                            <Col> Date</Col>
-                                            <Col> Time Duration</Col>
-                                            <Col> Created By</Col>
-                                            <Col> Created Date</Col>
-                                            <Col> View Details</Col>
-
-                                        </Row>
                                     </div>
                                 </Col>
                             </Row>
+                        </div> : ''
+                    }
+                </Col>
+            </Row>
+        </Container>
+    </>
+};
 
-
-
-
-                        </div>
-
-
-                    </Col>
-                </Row>
-            </Container>
-
-        </>
-    }
-}
-
-export default ExistingRooster
+export default memo(ExistingRooster)
