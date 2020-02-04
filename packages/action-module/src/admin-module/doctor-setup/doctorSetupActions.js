@@ -25,23 +25,23 @@ const {
     FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_SUCCESS
 } = doctorSetupConstants;
 
-export const clearHospitalCreateMessage = () => {
+export const clearConsultantCreateMessage = () => {
     return {
         type: CLEAR_CN_CREATE_MESSAGE
     }
 };
 
-export const createHospitalSuccess = data => {
+export const createConsultantSuccess = () => {
     return {
         type: CREATE_CN_SUCCESS,
         payload: {
             status: 'S',
-            message: 'Hospital Created Successfully'
+            message: 'Doctor Created Successfully'
         }
     }
 }
 
-export const createHospitalPending = () => {
+export const createConsultantPending = () => {
     return {
         type: CREATE_CN_PENDING,
         payload: {
@@ -51,7 +51,7 @@ export const createHospitalPending = () => {
     }
 }
 
-export const createHospitalError = message => {
+export const createConsultantError = message => {
     return {
         type: CREATE_CN_ERROR,
         payload: {
@@ -61,23 +61,23 @@ export const createHospitalError = message => {
     }
 }
 
-export const clearHospitalEditMessage = () => {
+export const clearConsultantEditMessage = () => {
     return {
         type: CLEAR_CN_EDIT_MESSAGE
     }
 }
 
-export const createHospitalEditSuccess = data => {
+export const createConsultantEditSuccess = data => {
     return {
         type: CN_EDIT_SUCCESS,
         payload: {
             status: 'S',
-            message: 'Hospital Modified Successfully'
+            message: 'Doctor Modified Successfully'
         }
     }
 }
 
-export const createHospitalEditError = message => {
+export const createConsultantEditError = message => {
     return {
         type: CN_EDIT_ERROR,
         payload: {
@@ -87,7 +87,7 @@ export const createHospitalEditError = message => {
     }
 }
 
-export const createHospitalEditPending = () => {
+export const createConsultantEditPending = () => {
     return {
         type: CN_EDIT_PENDING,
         payload: {
@@ -97,13 +97,13 @@ export const createHospitalEditPending = () => {
     }
 }
 
-export const clearHospitalListMessage = () => {
+export const clearConsultantListMessage = () => {
     return {
         type: CLEAR_CN_LIST_MESSAGE
     }
 }
 
-export const createHospitalSearchSuccess = data => {
+export const createConsultantSearchSuccess = data => {
     return {
         type: CN_LIST_SUCCESS,
         payload: {
@@ -113,7 +113,7 @@ export const createHospitalSearchSuccess = data => {
     }
 }
 
-export const createHospitalSearchPending = () => {
+export const createConsultantSearchPending = () => {
     return {
         type: CN_LIST_PENDING,
         payload: {
@@ -123,7 +123,7 @@ export const createHospitalSearchPending = () => {
     }
 }
 
-export const createHospitalListError = message => {
+export const createConsultantListError = message => {
     return {
         type: CN_LIST_ERROR,
         payload: {
@@ -133,13 +133,13 @@ export const createHospitalListError = message => {
     }
 }
 
-export const clearHospitalPreviewMessage = () => {
+export const clearConsultantPreviewMessage = () => {
     return {
         type: CLEAR_CN_PREVIEW_MESSAGE
     }
 }
 
-export const createHospitalPreviewSuccess = data => {
+export const createConsultantPreviewSuccess = data => {
     return {
         type: CN_PREVIEW_SUCCESS,
         payload: {
@@ -149,7 +149,7 @@ export const createHospitalPreviewSuccess = data => {
     }
 }
 
-export const createHospitalPreviewPending = () => {
+export const createConsultantPreviewPending = () => {
     return {
         type: CN_PREVIEW_PENDING,
         payload: {
@@ -159,7 +159,7 @@ export const createHospitalPreviewPending = () => {
     }
 }
 
-export const createHospitalPreviewError = message => {
+export const createConsultantPreviewError = message => {
     return {
         type: CN_PREVIEW_ERROR,
         payload: {
@@ -169,23 +169,23 @@ export const createHospitalPreviewError = message => {
     }
 }
 
-export const clearHospitalDeleteMessage = () => {
+export const clearConsultantDeleteMessage = () => {
     return {
         type: CLEAR_CN_DELETE_MESSAGE
     }
 }
 
-export const createHospitalDeleteSucess = () => {
+export const createConsultantDeleteSucess = () => {
     return {
         type: CN_DELETE_SUCCESS,
         payload: {
             status: 'S',
-            message: 'Hospital Deleted SucessFully'
+            message: 'Doctor Deleted SucessFully'
         }
     }
 }
 
-export const createHospitalDeletePending = () => {
+export const createConsultantDeletePending = () => {
     return {
         type: CN_DELETE_PENDING,
         payload: {
@@ -194,7 +194,7 @@ export const createHospitalDeletePending = () => {
     }
 }
 
-export const createHospitalDeleteError = message => {
+export const createConsultantDeleteError = message => {
     return {
         type: CN_DELETE_ERROR,
         payload: {

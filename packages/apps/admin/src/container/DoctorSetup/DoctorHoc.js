@@ -250,6 +250,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       this.setState({showConfirmModal: !this.state.showConfirmModal})
     }
 
+    getOnlyValueFromMultipleSelectList =(data) => data.map(datum=>datum.value)
+
     handleConfirmClick = async () => {
       const {
         name,
@@ -275,14 +277,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           {
             name,
             status,
-            contactNumber,
-            specializationIds,
+            mobileNumber:contactNumber,
+            specializationIds:this.getOnlyValueFromMultipleSelectList(specializationIds),
             nmcNumber,
             appointmentCharge,
-            hospitalId,
+            hospitalId:hospitalId.value,
             email,
             genderCode,
-            qualificationIds
+            qualificationIds:this.getOnlyValueFromMultipleSelectList(qualificationIds)
           },
           formData
         )
@@ -297,6 +299,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           }
         })
       } catch (e) {
+        await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
