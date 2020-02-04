@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import DoctorDutyRosterHOC from '../DoctorDutyRosterHOC';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
@@ -48,7 +48,11 @@ const DoctorDutyRoosterAdd = props => {
                  setShowConfirmModal,
                  saveDoctorDutyRoster,
                  onSaveButtonClick,
-                 isSaveRosterLoading
+                 isSaveRosterLoading,
+                 existingRosterTableData,
+                 onViewDetailsExisting,
+                 existingDoctorWeekDaysAvailability,
+                 existingOverrides,
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -64,6 +68,10 @@ const DoctorDutyRoosterAdd = props => {
                                 onInputChange={handleInputChange}
                                 onDateChange={handleDateChange}
                                 getExistingRoster={getExistingRoster}
+                                existingRosterTableData={existingRosterTableData}
+                                onViewDetailsExisting={onViewDetailsExisting}
+                                existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
+                                existingOverrides={existingOverrides}
                             />
                             <DoctorAvailabilityForm
                                 doctorAvailabilityData={doctorAvailabilityData}
@@ -108,7 +116,11 @@ const DoctorDutyRoosterAdd = props => {
                         show={showExistingRosterModal}
                         modalHeading="Existing Doctor Roster"
                         size="lg"
-                        bodyChildren={<ExistingRooster/>}
+                        bodyChildren={<ExistingRooster
+                            existingRosterTableData={existingRosterTableData}
+                            onViewDetailsExisting={onViewDetailsExisting}
+                            existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
+                            existingOverrides={existingOverrides}/>}
                         onHide={handleShowExistingRoster}
                         centered={false}
                         dialogClassName="preview-modal"
@@ -143,4 +155,4 @@ const DoctorDutyRoosterAdd = props => {
     return <DoctorDutyRoosterAdd/>
 };
 
-export default DoctorDutyRoosterAdd;
+export default memo(DoctorDutyRoosterAdd);

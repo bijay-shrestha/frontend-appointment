@@ -59,7 +59,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 id="hospital"
                                 label="Hospital"
                                 name="hospital"
-                                placeholder="Select hospital."
+                                placeholder="Hospital"
                                 value={doctorInfoData.hospital && doctorInfoData.hospital.label}
                                 disabled={true}
                             />
@@ -68,6 +68,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 id="specialization"
                                 label="Specialization"
                                 name="specialization"
+                                placeholder="Specialization"
                                 value={doctorInfoData.specialization && doctorInfoData.specialization.label}
                                 disabled={true}
                             />
@@ -75,6 +76,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 id="doctor"
                                 label="Doctor"
                                 name="doctor"
+                                placeholder="Doctor"
                                 value={doctorInfoData.doctor && doctorInfoData.doctor.label}
                                 disabled={true}
                             />
@@ -83,7 +85,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 label="Duration"
                                 type="number"
                                 name="rosterGapDuration"
-                                placeholder="Enter Duration In Minutes."
+                                placeholder="Duration In Minutes."
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />

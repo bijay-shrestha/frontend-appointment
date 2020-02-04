@@ -1,25 +1,19 @@
-import React, { PureComponent } from 'react';
-import { Col, Container, Row ,Form} from "react-bootstrap";
-import "./../doctor-duty-roster.scss";
-import {CFLabel, CForm, CHybridInput,
-     CHybridSelect, CRadioButton, CInputGroup, 
-     CDataTable,
-    CButton, CCheckbox} 
-    from "@frontend-appointment/ui-elements";
-import DoctorDutyRosterSearchFilter   from "./DoctorDutyRosterSearchFilter";
+import React from 'react';
+import DoctorDutyRosterSearchFilter from "./DoctorDutyRosterSearchFilter";
 import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
-import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
+import DoctorDutyRosterHOC from "../DoctorDutyRosterHOC";
+import "./../doctor-duty-roster.scss";
 
-class DoctorDutyRosterManage extends PureComponent {
-   
-    render() {
-       
-        return <>
-         <DoctorDutyRosterSearchFilter/>
-         <DoctorDutyRosterDataTable/>
-        </>
+const DoctorDutyRosterManage = props => {
+    const DoctorDutyRosterManage = DoctorDutyRosterHOC(
+        ({}) =>
+            <>
+                <DoctorDutyRosterSearchFilter/>
+                <DoctorDutyRosterDataTable/>
+            </>
+        , props);
+    return <DoctorDutyRosterManage/>;
 
-        }
-    }
+};
 
-    export default DoctorDutyRosterManage         
+export default DoctorDutyRosterManage

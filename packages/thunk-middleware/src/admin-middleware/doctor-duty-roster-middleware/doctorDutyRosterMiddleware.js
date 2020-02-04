@@ -19,7 +19,7 @@ export const fetchDoctorDutyRosterList = (path, searchData) => async dispatch =>
     try {
         const response = await Axios.put(path, searchData);
         dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterSuccess(response.data));
-        return response;
+        return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterError(e.errorMessage ? e.errorMessage
             : "Sorry something wrong in the server!"));
@@ -32,7 +32,7 @@ export const fetchDoctorDutyRosterDetailById = (path, doctorDutyRosterId) => asy
     try {
         const response = await Axios.getWithPathVariables(path, doctorDutyRosterId);
         dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailSuccess(response.data));
-        return response;
+        return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailError(e.errorMessage ? e.errorMessage
             : "Sorry something wrong in the server!"));
@@ -45,7 +45,7 @@ export const updateDoctorDutyRoster = (path, updateDoctorDutyRosterData) => asyn
     try {
         const response = await Axios.put(path, updateDoctorDutyRosterData);
         dispatch(DoctorDutyRosterActions.updateDoctorDutyRosterSuccess('Doctor Duty roster edited successfully.'));
-        return response;
+        return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.updateDoctorDutyRosterError(e.errorMessage ? e.errorMessage
             : "Sorry something wrong in the server!"));
@@ -58,7 +58,7 @@ export const deleteDoctorDutyRoster = (path, deleteRosterData) => async dispatch
     try {
         const response = await Axios.del(path, deleteRosterData);
         dispatch(DoctorDutyRosterActions.deleteDoctorDutyRosterSuccess('Doctor Duty roster deleted successfully.'));
-        return response;
+        return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.deleteDoctorDutyRosterError(e.errorMessage ? e.errorMessage
             : "Sorry something wrong in the server!"));
@@ -70,7 +70,16 @@ export const fetchExistingDoctorDutyRoster = (path, requestDTO) => async dispatc
     // TODO Add action and reducers
     try {
         const response = await Axios.put(path, requestDTO);
-        return response;
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const fetchExistingDoctorDutyRosterDetails = (path, doctorDutyRosterId) => async dispatch => {
+    try {
+        const response = await Axios.getWithPathVariables(path, doctorDutyRosterId);
+        return response.data;
     } catch (e) {
         throw e;
     }
