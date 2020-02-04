@@ -108,7 +108,7 @@ class CHeader extends Component {
 
   componentDidMount() {
     this.setLoggedInUserInfo();
-    console.log(this.props);
+    // console.log(this.props);
   };
 
   render() {

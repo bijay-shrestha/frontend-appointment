@@ -47,7 +47,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
       else {
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < i; j++) {
-            console.log('dataId', data)
+            // console.log('dataId', data)
             if (result.length) {
               if (data[i].id == result[j].id) {
                 flag = true
@@ -58,7 +58,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
           if (!flag) result.push(data[i])
         }
       }
-      console.log(result)
+      // console.log(result)
       return result
     }
 
@@ -99,7 +99,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
       let filteredRolesTab = [],
         filteredAction = []
       const splittedPath = path.split('/')
-      console.log(splittedPath)
+      // console.log(splittedPath)
       let newPath = splittedPath.filter((sp, id) => id > 1)
       newPath = newPath.join('/')
       newPath = '/'.concat(newPath)

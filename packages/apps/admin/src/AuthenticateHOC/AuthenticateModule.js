@@ -32,7 +32,6 @@ const AuthenticateModule = () => {
                     exact
                     component={props => <LoginPage {...props} id="login-form"/>}
                 />
-                {console.log("-------------------------->", routes)}
                 {routes.map((route, idx) => (
                     <Route
                         key={idx}
