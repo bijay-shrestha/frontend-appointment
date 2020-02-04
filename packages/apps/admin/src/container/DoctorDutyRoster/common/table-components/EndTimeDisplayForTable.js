@@ -5,7 +5,7 @@ import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 const EndTimeDisplayForTable = props => {
     return (
         <>
-            <p>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(props.node.data.endTime ? props.node.data.endTime : '')}</p>
+            {DateTimeFormatterUtils.convertDateToHourMinuteFormat(props.node.data.endTime ? new Date(props.node.data.endTime) : '')}
         </>
     );
 };

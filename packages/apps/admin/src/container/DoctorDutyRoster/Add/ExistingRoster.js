@@ -101,9 +101,8 @@ const ExistingRooster = ({
                                     existingDoctorWeekDaysAvailability.map(weekDay => (
                                         <Row className="main-content mt-3">
                                             <Col> {weekDay.weekDaysName}</Col>
-                                            {console.log("========",DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.startTime))}
-                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.startTime)}</Col>
-                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(weekDay.endTime)}</Col>
+                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
+                                            <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
                                             <Col> {weekDay.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
                                                 <i className="fa fa-close"/>}</Col>
                                         </Row>
