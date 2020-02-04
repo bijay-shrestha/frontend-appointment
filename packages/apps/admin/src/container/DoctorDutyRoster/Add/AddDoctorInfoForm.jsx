@@ -77,7 +77,6 @@ const AddDoctorInfoForm = ({
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.specialization}
                     />
-                    {console.log("No drop ms", doctorDropdownErrorMessage)}
                     <CHybridSelect
                         id="doctor"
                         label="Doctor"

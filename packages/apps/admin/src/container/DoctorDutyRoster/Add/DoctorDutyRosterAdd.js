@@ -9,7 +9,7 @@ import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
 
 import "./../doctor-duty-roster.scss";
-import DepartmentConfirmationModal from "../../DepartmentSetup/Add/DepartmentConfirmationModal";
+import DoctorDutyRosterPreviewModal from "../common/DoctorDutyRosterPreviewModal";
 
 const DoctorDutyRoosterAdd = props => {
     const DoctorDutyRoosterAdd =
@@ -44,7 +44,11 @@ const DoctorDutyRoosterAdd = props => {
                  onRemoveOverride,
                  isModifyOverride,
                  formValid,
-                 setShowConfirmModal
+                 showConfirmModal,
+                 setShowConfirmModal,
+                 saveDoctorDutyRoster,
+                 onSaveButtonClick,
+                 isSaveRosterLoading
              }) =>
                 <>
                     <Container className="p-0" fluid>
@@ -93,9 +97,9 @@ const DoctorDutyRoosterAdd = props => {
                                 id="save-profile-add"
                                 variant="primary "
                                 className="float-right btn-action"
-                                name="Save"
-                                disabled={!formValid}
-                                onClickHandler={setShowConfirmModal}>
+                                name={showConfirmModal ? "Saving" : "Save"}
+                                disabled={!formValid || showConfirmModal}
+                                onClickHandler={onSaveButtonClick}>
                             </CButton>
                         </Col>
                     </Row>
@@ -108,6 +112,31 @@ const DoctorDutyRoosterAdd = props => {
                         centered={false}
                         dialogClassName="preview-modal"
                         closeButton={true}/>
+                    <CModal
+                        show={showConfirmModal}
+                        modalHeading="Doctor Duty Roster Details"
+                        size="lg"
+                        bodyChildren={
+                            <DoctorDutyRosterPreviewModal
+                                doctorInfoData={doctorInfoData}
+                                doctorAvailabilityData={doctorAvailabilityData}
+                                hasOverrideDutyRoster={hasOverrideDutyRoster}
+                                doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>
+                        }
+                        footerChildren={
+                            <CButton
+                                variant="primary"
+                                name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
+                                disabled={isSaveRosterLoading}
+                                size="lg"
+                                className="float-right"
+                                onClickHandler={saveDoctorDutyRoster}/>
+                        }
+                        onHide={setShowConfirmModal}
+                        centered={false}
+                        dialogClassName="preview-modal"
+                        closeButton={true}
+                    />
                 </>,
             props);
     return <DoctorDutyRoosterAdd/>

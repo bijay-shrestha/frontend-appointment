@@ -16,13 +16,13 @@ const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
 const {fetchDoctorsBySpecializationIdForDropdown} = DoctorMiddleware;
 const {fetchWeekdays} = WeekdaysMiddleware;
-const {fetchExistingDoctorDutyRoster} = DoctorDutyRosterMiddleware;
+const {fetchExistingDoctorDutyRoster, createDoctorDutyRoster} = DoctorDutyRosterMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hostpitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = AdminModuleAPIConstants.specializationSetupAPIConstants;
 const {FETCH_DOCTOR_BY_SPECIALIZATION_ID} = AdminModuleAPIConstants.doctorSetupApiConstants;
-const {FETCH_EXISTING_DOCTOR_DUTY_ROSTER} = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
+const {FETCH_EXISTING_DOCTOR_DUTY_ROSTER, CREATE_DOCTOR_DUTY_ROSTER} = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
 const {convertDateToHourMinuteFormat, convertDateToYearMonthDateFormat} = DateTimeFormatterUtils;
 
@@ -62,6 +62,34 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 variant: "",
                 message: ""
             },
+        };
+
+        resetAddForm = () => {
+            this.setState({
+                hospital: null,
+                specialization: null,
+                doctor: null,
+                rosterGapDuration: '',
+                status: 'Y',
+                fromDate: new Date(),
+                toDate: new Date(),
+                hasOverrideDutyRoster: 'N',
+                isWholeWeekOff: 'N',
+                doctorWeekDaysDutyRosterRequestDTOS: [],
+                doctorDutyRosterOverrideRequestDTOS: [],
+                overrideRequestDTO: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    fromDateDisplay: '',
+                    toDateDisplay: '',
+                    startTimeDisplay: '',
+                    endTimeDisplay: ''
+                },
+            })
         };
 
         componentDidMount() {
@@ -256,6 +284,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             });
         };
 
+        handleSaveButtonClick = async () => {
+            await this.setState({
+                showConfirmModal: true
+            })
+        };
+
         handleEnter = (event) => {
             EnterKeyPressUtils.handleEnter(event)
         };
@@ -274,7 +308,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         setShowConfirmModal = () => {
-
+            this.setState({
+                showConfirmModal: !this.state.showConfirmModal
+            })
         };
 
         bindValuesToState = async (event, fieldValid) => {
@@ -335,17 +371,58 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             await this.fetchWeekdaysData();
         };
 
+        saveDoctorDutyRoster = async () => {
+            const {
+                doctorDutyRosterOverrideRequestDTOS, doctor, doctorWeekDaysDutyRosterRequestDTOS, fromDate,
+                hasOverrideDutyRoster, rosterGapDuration, specialization, status, toDate
+            } = this.state;
+            let dataToSave = {
+                fromDate,
+                toDate,
+                specializationId: specialization ? specialization.value : '',
+                doctorId: doctor ? doctor.value : '',
+                rosterGapDuration,
+                doctorWeekDaysDutyRosterRequestDTOS,
+                hasOverrideDutyRoster,
+                doctorDutyRosterOverrideRequestDTOS,
+                status,
+            };
+            const {saveSuccessMessage, saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer;
+            try {
+                await this.props.createDoctorDutyRoster(CREATE_DOCTOR_DUTY_ROSTER, dataToSave);
+                this.setState({
+                    showConfirmModal: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: "success",
+                        message: saveSuccessMessage ? saveSuccessMessage : 'Doctor Duty Roster saved successfully.'
+                    },
+                });
+                this.resetAddForm();
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: "danger",
+                        message: saveErrorMessage ? saveErrorMessage : 'Error occurred while saving Doctor Duty Roster.'
+                    },
+                });
+            }
+        };
+
         render() {
             const {
                 showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate,
                 doctorWeekDaysDutyRosterRequestDTOS, isWholeWeekOff,
                 hasOverrideDutyRoster, overrideRequestDTO, doctorDutyRosterOverrideRequestDTOS,
-                showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid
+                showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid, showConfirmModal
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
             const {activeSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
+
+            const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
             return <>
                 <ComposedComponent
                     {...props}
@@ -387,6 +464,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     onRemoveOverride={this.handleRemoveOverride}
                     isModifyOverride={isModifyOverride}
                     formValid={formValid}
+                    showConfirmModal={showConfirmModal}
+                    setShowConfirmModal={this.setShowConfirmModal}
+                    saveDoctorDutyRoster={this.saveDoctorDutyRoster}
+                    onSaveButtonClick={this.handleSaveButtonClick}
+                    isSaveRosterLoading={isSaveRosterLoading}
                 />
                 <CAlert
                     id="profile-manage"
@@ -407,14 +489,16 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             'HospitalDropdownReducer',
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
-            'WeekdaysReducer'
+            'WeekdaysReducer',
+            'DoctorDutyRosterSaveReducer'
         ],
         {
             fetchActiveHospitalsForDropdown,
             fetchSpecializationForDropdown,
             fetchDoctorsBySpecializationIdForDropdown,
             fetchWeekdays,
-            fetchExistingDoctorDutyRoster
+            fetchExistingDoctorDutyRoster,
+            createDoctorDutyRoster
         })
 };
 
