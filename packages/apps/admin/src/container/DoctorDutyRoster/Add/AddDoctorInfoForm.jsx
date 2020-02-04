@@ -4,7 +4,6 @@ import {CButton, CHybridInput, CHybridSelect} from "@frontend-appointment/ui-ele
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddDoctorInfoForm = ({
-                               handleShowExistingRoster,
                                hospitalList,
                                specializationList,
                                doctorList,
@@ -73,12 +72,11 @@ const AddDoctorInfoForm = ({
                         name="specialization"
                         options={specializationList}
                         placeholder={"Select specialization."}
-                        noOptionsMessage={()=>specializationDropdownError}
+                        noOptionsMessage={() => specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}
                         value={doctorInfoData.specialization}
                     />
-                    {console.log("No drop ms", doctorDropdownErrorMessage)}
                     <CHybridSelect
                         id="doctor"
                         label="Doctor"
