@@ -39,6 +39,11 @@ const AddSpecializationComponent = Loadable({
   loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
   loading: () => getLoader()
 });
+
+const AddDoctorComponent = Loadable({
+  loader: () => import('./container/DoctorSetup/Add/DoctorAdd'),
+  loading: () => getLoader()
+});
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -334,15 +339,36 @@ export const routes = [
 
   },
   {
+    path: '/admin/generalSetup/doctor',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: false,
+    isTab: false,
+    name: 'Doctor'
+
+  },
+  {
+    path: '/admin/generalSetup/doctor/add',
+    component: AddDoctorComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Doctor'
+
+  },
+  {
     path: '/admin/doctorDutyRoster',
     component: <></>,
     icon: '',
     hasTab: true,
     isLink: false,
     isTab: false,
-    name: 'Doctor Dutky Roster Setup'
+    name: 'Doctor Duty Roster Setup'
 
   },
+
   {
     'path': '/unauthorized',
     'component': CUnauthorized,

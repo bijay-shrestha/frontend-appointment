@@ -1,20 +1,20 @@
 import React, {memo} from 'react'
 import * as Material from 'react-icons/md'
-import HospitalForm from './HospitalForm'
-import HospitalConfirmationModal from './HospitalConfirmModal'
+import DoctorForm from './DoctorForm'
+import DoctorConfirmationModal from '././DoctorConfirmationModal';
 import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import HospitalHoc from '../HospitalHoc'
+import DoctorHoc from '../DoctorHoc'
 
-function HospitalAdd (props) {
-  const HospitalAddSetup = HospitalHoc(
+function DoctorAdd (props) {
+  const DoctorAddSetup = DoctorHoc(
     ({
-      hospitalData,
+      doctorData,
       handleEnter,
       formValid,
       resetStateAddValues,
-      errorMessageForHospitalCode,
-      errorMessageForHospitalName,
+      errorMessageForDoctorContact,
+      errorMessageForDoctorName,
       handleInputChange,
       setShowConfirmModal,
       showConfirmModal,
@@ -22,18 +22,25 @@ function HospitalAdd (props) {
       alertMessageInfo,
       showAlert,
       closeAlert,
-      addContactNumber,
-      removeContactNumber,
-      editContactNumber,
+      // addContactNumber,
+      // removeContactNumber,
+      // editContactNumber,
       contactLength,
-      hospitalImage,
-      hospitalImageCroppedUrl,
-      hospitalFileCropped,
+      doctorImage,
+      doctorImageCroppedUrl,
+      doctorFileCropped,
       showImageUploadModal,
       onImageSelect,
       handleCropImage,
       handleImageUpload,
-      setImageShow
+      setImageShow,
+      qualificationDropdown,
+      hospitalsForDropdown,
+      activeSpecializationList,
+      appointmentChargeValid,
+      errorMessageForAppointmentCharge,
+      emailValid
+      
     }) => (
       <div className="">
         <Container className="bg-white add-container " fluid>
@@ -50,24 +57,27 @@ function HospitalAdd (props) {
               <i className="fa fa-refresh" />
             </>
           </CButton>
-          <HospitalForm
-            hospitalInfoObj={hospitalData}
-            errorMessageForHospitalName={errorMessageForHospitalName}
-            errorMessageForHospitalCode={errorMessageForHospitalCode}
+          <DoctorForm
+            doctorInfoObj={doctorData}
+            errorMessageForDoctorContact={errorMessageForDoctorContact}
+            errorMessageForDoctorName={errorMessageForDoctorName}
             onEnterKeyPress={handleEnter}
             onInputChange={handleInputChange}
-            addContactNumber={addContactNumber}
-            removeContactNumber={removeContactNumber}
-            editContactNumber={editContactNumber}
             contactLength={contactLength}
-            hospitalImage={hospitalImage}
-            hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-            hospitalFileCropped={hospitalFileCropped}
+            doctorImage={doctorImage}
+            doctorImageCroppedUrl={doctorImageCroppedUrl}
+            doctorFileCropped={doctorFileCropped}
             showImageUploadModal={showImageUploadModal}
             onImageSelect={onImageSelect}
             handleCropImage={handleCropImage}
             handleImageUpload={handleImageUpload}
             setImageShow={setImageShow}   
+            qualificationDropdown={qualificationDropdown}
+            hospitalsForDropdown={hospitalsForDropdown}
+            activeSpecializationList={activeSpecializationList}
+            appointmentChargeValid={appointmentChargeValid}
+            errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
+            emailValid={emailValid}
           />
 
           <Row className="mt-4">
@@ -80,13 +90,13 @@ function HospitalAdd (props) {
                 disabled={!formValid}
                 onClickHandler={setShowConfirmModal}
               ></CButton>
-              <HospitalConfirmationModal
+              <DoctorConfirmationModal
                 showModal={showConfirmModal}
                 setShowModal={setShowConfirmModal}
                 onConfirmClick={submitAddChanges}
-                hospitalData={hospitalData}
+                doctorData={doctorData}
                 type="A"
-                hospitalImageCroppedUrl={hospitalImageCroppedUrl}
+                doctorImageCroppedUrl={doctorImageCroppedUrl}
               />
             </Col>
           </Row>
@@ -113,6 +123,8 @@ function HospitalAdd (props) {
     ),
     props
   )
-  return <HospitalAddSetup/>
+  return <DoctorAddSetup/>
 }
-export default HospitalAdd;
+// return <SpecializationAdd></SpecializationAdd>
+
+export default DoctorAdd

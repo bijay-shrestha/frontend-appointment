@@ -68,7 +68,7 @@ export const specializationSetupAPIConstants = {
   EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + '/excel'),
   DELETE_SPECIALIZATION: BASE.concat(SP_BASE),
   DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown'),
-  ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown/active'),
+  ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/active/min'),
   SPECIFIC_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown/active')
 }
 
