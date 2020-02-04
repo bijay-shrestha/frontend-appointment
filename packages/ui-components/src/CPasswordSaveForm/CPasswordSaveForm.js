@@ -96,6 +96,7 @@ class CPasswordSaveForm extends PureComponent {
         console.log("error", errorMsg);
         return (
             <>
+            <p className="login-page-title">Create New Password</p>
                 <CHybridPassword
                     id="password"
                     placeholder="Password"
@@ -134,7 +135,14 @@ class CPasswordSaveForm extends PureComponent {
                 }
 
                 <p className="error">{submitErrorMsg}</p>
-                <br></br>
+               <div className="password-requirement">
+               <p>Password Requirements</p>
+                <ul >
+                    <li>Must be a  minimum of 5 characters</li>
+                    <li>Password must match</li>
+                </ul>
+               </div>
+               
                 <Button
                     variant="primary"
                     className="btn-action float-right"

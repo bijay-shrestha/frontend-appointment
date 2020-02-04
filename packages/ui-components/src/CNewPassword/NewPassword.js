@@ -8,7 +8,7 @@ const NewPassword = props => {
 
     return (
         <>
-            <div className="header-login">
+            <div className="header-login new-password">
                 <div className="inner-header flex">
                     <Container className="container-login">
                         <Row>

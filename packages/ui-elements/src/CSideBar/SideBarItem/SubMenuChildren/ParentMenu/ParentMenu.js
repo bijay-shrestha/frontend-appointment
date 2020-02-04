@@ -58,23 +58,26 @@ const ParentMenu = props => {
         className={String(props.active) === String(props.parent.path + 'true')?'active' : ""}
         key={'nav-item-parent' + props.parent.id}
         onClick={id => props.activeNavBar(props.parent.path)}
+          
       >
         <Nav.Link
           as={Link}
           key={'nav-link' + props.parent.id}
           to={sideBase + props.parent.path}
           exact="true"
+          className={!props.parent.parentId?"no-child":""}
         >
+             <i className="fa fa-calendar-plus-o " />    
           <span
             className={classNames(
               {text: props.isOpen || props.isHover},
               {closemenutext: !props.isOpen && !props.isHover}
             )}
-            
           >
-        
+            {/* <i className="fa fa-calendar-plus-o " /> */}
             {props.parent.name}
           </span>
+        
         </Nav.Link>
       </Nav.Item>
     </Nav>
