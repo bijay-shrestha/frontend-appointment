@@ -222,6 +222,10 @@
       //   left:35px;
       //   top:23px;
       // }
+
+      i{
+        display: none;
+      }
     }
   }
 
@@ -454,6 +458,15 @@
     }
   }
 
+  .no-child{
+    padding:1rem 0rem 1rem 1.55rem;
+    .fa{
+      width:30px;
+      color           : rgba($white, 0.8);
+    }
+
+  
+  }
 
 
 
