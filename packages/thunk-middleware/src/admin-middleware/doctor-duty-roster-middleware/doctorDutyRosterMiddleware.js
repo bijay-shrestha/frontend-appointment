@@ -67,7 +67,7 @@ export const deleteDoctorDutyRoster = (path, deleteRosterData) => async dispatch
 };
 
 export const fetchExistingDoctorDutyRoster = (path, requestDTO) => async dispatch => {
-    // TODO Add action and reducers
+    // TODO Add action and reducers?
     try {
         const response = await Axios.put(path, requestDTO);
         return response.data;
@@ -83,4 +83,17 @@ export const fetchExistingDoctorDutyRosterDetails = (path, doctorDutyRosterId) =
     } catch (e) {
         throw e;
     }
+};
+
+export const clearDDRSuccessErrorMessage = () => async dispatch => {
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateErrorMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateSuccessMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteErrorMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteSuccessMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailErrorMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailSuccessMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchErrorMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchSuccessMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateErrorMessage());
+  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateSuccessMessage());
 };

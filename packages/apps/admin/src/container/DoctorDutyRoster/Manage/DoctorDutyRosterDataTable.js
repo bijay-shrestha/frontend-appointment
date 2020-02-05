@@ -99,9 +99,9 @@ const DoctorDutyRosterDataTable = ({
                                         cellRenderer: 'childActionRenderer',
                                         cellClass: 'actions-button-cell',
                                         cellRendererParams: {
-                                            onClick: function (e, id, type) {
+                                            onClick: function (e, id, type, data) {
                                                 type === 'D'
-                                                    ? onDeleteHandler(id)
+                                                    ? onDeleteHandler(data)
                                                     : type === 'E'
                                                     ? onEditHandler(id)
                                                     : onPreviewHandler(id)
@@ -119,7 +119,6 @@ const DoctorDutyRosterDataTable = ({
                                 getSelectedRows={checkIfRoleExists(filteredAction, 4) ? onPreviewHandler : () => {
                                 }}
                                 rowSelection={'single'}
-                                // setShowModal={props.setShowModal}
                                 rowData={doctorDutyRosterList}
                             />
                             <CPagination

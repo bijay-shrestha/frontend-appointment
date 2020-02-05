@@ -3,8 +3,7 @@ import DoctorDutyRosterSearchFilter from "./DoctorDutyRosterSearchFilter";
 import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
 import DoctorDutyRosterHOC from "../DoctorDutyRosterHOC";
 import "./../doctor-duty-roster.scss";
-import {CModal} from "@frontend-appointment/ui-elements";
-import DoctorDutyRosterPreviewModal from "../common/DoctorDutyRosterPreviewModal";
+import {ConfirmDelete} from "@frontend-appointment/ui-components";
 
 function DoctorDutyRosterManage(props) {
     const DoctorDutyRosterManage = DoctorDutyRosterHOC(
@@ -26,7 +25,13 @@ function DoctorDutyRosterManage(props) {
              handlePageChange,
              onPreviewHandler,
              onDeleteHandler,
-             onEditHandler
+             onEditHandler,
+             showDeleteModal,
+             setShowDeleteModal,
+             remarksHandler,
+             remarks,
+             deleteDoctorDutyRoster,
+             deleteErrorMessage
          }) =>
             <>
                 <DoctorDutyRosterSearchFilter
@@ -54,22 +59,20 @@ function DoctorDutyRosterManage(props) {
                     onEditHandler={onEditHandler}
                 />
 
-                {/*<CModal*/}
-                {/*    show={showConfirmModal}*/}
-                {/*    modalHeading="Doctor Duty Roster Details"*/}
-                {/*    size="lg"*/}
-                {/*    bodyChildren={*/}
-                {/*        <DoctorDutyRosterPreviewModal*/}
-                {/*            doctorInfoData={doctorInfoData}*/}
-                {/*            doctorAvailabilityData={doctorAvailabilityData}*/}
-                {/*            hasOverrideDutyRoster={hasOverrideDutyRoster}*/}
-                {/*            doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>*/}
-                {/*    }*/}
-                {/*    onHide={setShowConfirmModal}*/}
-                {/*    centered={false}*/}
-                {/*    dialogClassName="preview-modal"*/}
-                {/*    closeButton={true}*/}
-                {/*/>*/}
+                {showDeleteModal ? (
+                    <ConfirmDelete
+                        confirmationMessage="Are you sure you want to delete this Doctor Duty Roster? If yes please provide remarks."
+                        modalHeader="Delete Doctor Duty Roster"
+                        showModal={showDeleteModal}
+                        setShowModal={setShowDeleteModal}
+                        onDeleteRemarksChangeHandler={remarksHandler}
+                        remarks={remarks}
+                        onSubmitDelete={deleteDoctorDutyRoster}
+                        deleteErrorMessage={deleteErrorMessage}
+                    />
+                ) : (
+                    ''
+                )}
             </>
         , props, 'M');
     return <DoctorDutyRosterManage/>;

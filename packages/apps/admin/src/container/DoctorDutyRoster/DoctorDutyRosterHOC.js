@@ -25,7 +25,8 @@ const {
     fetchExistingDoctorDutyRosterDetails,
     fetchDoctorDutyRosterDetailById,
     deleteDoctorDutyRoster,
-    updateDoctorDutyRoster
+    updateDoctorDutyRoster,
+    clearDDRSuccessErrorMessage
 } = DoctorDutyRosterMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
@@ -54,6 +55,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             showAlert: false,
             formValid: true,
             showConfirmModal: false,
+            showDeleteModal: false,
             hospital: null,
             specialization: null,
             doctor: null,
@@ -93,7 +95,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 size: 10
             },
             totalRecords: 0,
-            previewData: {}
+            deleteRequestDTO: {
+                id: 0,
+                hospitalId: 0,
+                remarks: '',
+                status: 'D'
+            },
         };
 
         resetAddForm = () => {
@@ -382,6 +389,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 // hospital: hospital,
                 showConfirmModal: true,
+                showAlert:false,
                 specialization: {label: specializationName, value: specializationId},
                 doctor: {label: doctorName, value: doctorId},
                 rosterGapDuration: rosterGapDuration,
@@ -390,6 +398,27 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hasOverrideDutyRoster: hasOverrideDutyRoster,
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
                 doctorDutyRosterOverrideRequestDTOS: [...overrideRosters]
+            })
+        };
+
+        handleDelete = async data => {
+            this.props.clearDDRSuccessErrorMessage();
+            let deleteRequestDTO = {...this.state.deleteRequestDTO};
+            deleteRequestDTO['id'] = data.id;
+            deleteRequestDTO['hospitalId'] = data.hospitalId;
+            await this.setState({
+                deleteRequestDTO: deleteRequestDTO,
+                showDeleteModal: true,
+                showAlert: false
+            })
+        };
+
+        handleDeleteRemarksChange = event => {
+            const {name, value} = event.target;
+            let deleteRequest = {...this.state.deleteRequestDTO};
+            deleteRequest[name] = value;
+            this.setState({
+                deleteRequestDTO: deleteRequest
             })
         };
 
@@ -413,6 +442,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         setShowConfirmModal = () => {
             this.setState({
                 showConfirmModal: !this.state.showConfirmModal
+            })
+        };
+
+        setShowDeleteModal = () => {
+            this.setState({
+                showDeleteModal: !this.state.showDeleteModal
             })
         };
 
@@ -567,6 +602,29 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             })
         };
 
+        deleteDoctorDutyRoster = async () => {
+            try {
+                await this.props.deleteDoctorDutyRoster(
+                    DELETE_DOCTOR_DUTY_ROSTER,
+                    this.state.deleteRequestDTO
+                );
+                await this.setState({
+                    showDeleteModal: false,
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D', hospitalId: 0},
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: "success",
+                        message: this.props.DoctorDutyRosterDeleteReducer.deleteSuccessMessage
+                    }
+                });
+                await this.searchDoctorDutyRoster(1);
+            } catch (e) {
+                this.setState({
+                    showDeleteModal: true,
+                });
+            }
+        };
+
         render() {
             const {
                 showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate,
@@ -574,7 +632,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hasOverrideDutyRoster, overrideRequestDTO, doctorDutyRosterOverrideRequestDTOS,
                 showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid, showConfirmModal,
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
-                searchParameters, queryParams, totalRecords
+                searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -582,6 +640,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage, activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
+            const {deleteErrorMessage} = this.props.DoctorDutyRosterDeleteReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
                 <ComposedComponent
@@ -644,8 +703,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     paginationData={{...queryParams, totalRecords}}
                     handlePageChange={this.handlePageChange}
                     onPreviewHandler={this.handlePreview}
-                    // onDeleteHandler={}
+                    onDeleteHandler={this.handleDelete}
                     // onEditHandler={}
+                    showDeleteModal={showDeleteModal}
+                    setShowDeleteModal={this.setShowDeleteModal}
+                    remarksHandler={this.handleDeleteRemarksChange}
+                    remarks={deleteRequestDTO.remarks}
+                    deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
+                    deleteErrorMessage={deleteErrorMessage}
                 />
                 <CModal
                     show={showConfirmModal}
@@ -707,6 +772,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             'WeekdaysReducer',
         ],
         {
+            clearDDRSuccessErrorMessage,
             createDoctorDutyRoster,
             deleteDoctorDutyRoster,
             fetchActiveDoctorsForDropdown,
