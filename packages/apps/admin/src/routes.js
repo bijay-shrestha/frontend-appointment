@@ -50,6 +50,11 @@ const DashboardComponent = Loadable({
     loading: () => getLoader()
 });
 
+const AppointmentLogComponent = Loadable({
+    loader: () => import('./container/AppointmentLog/AppointmentLog'),
+    loading: () => getLoader()
+});
+
 
 /* ****** E ***** */
 
@@ -343,6 +348,15 @@ export const routes = [
 
     },
     {
+        'path': '/admin/appointment/appointmentLog',
+        component: AppointmentLogComponent,
+        'icon': '',
+        'hasTab': false,
+        'isLink': false,
+        'isTab': false,
+        'name': 'Appointment Status'
+    },
+    {
         'path': '/unauthorized',
         'component': CUnauthorized,
         'icon': '',
@@ -350,5 +364,8 @@ export const routes = [
         'isLink': false,
         'isTab': false,
         'name': 'Unauthorized'
-    }
+    },
+   
+
+
 ];
