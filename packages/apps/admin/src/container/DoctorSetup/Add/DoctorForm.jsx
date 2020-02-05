@@ -124,6 +124,7 @@ const DoctorForm = ({
                       }
                       label="Select Specialization"
                       options={activeSpecializationList}
+                      isDisabled={!activeSpecializationList.length?true:false}
                       value={doctorInfoObj.specializationIds}
                       required={true}
                       isMulti={true}

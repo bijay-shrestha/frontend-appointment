@@ -16,7 +16,8 @@ const {
   editConsultant,
   previewConsultant,
   searchConsultant,
-  fetchActiveDoctorsForDropdown,
+  // fetchActiveDoctorsForDropdown,
+  fetchActiveDoctorsHospitalWiseForDropdown,
   downloadExcelForConsultants
 } = DoctorMiddleware
 const {
@@ -26,7 +27,7 @@ const {
 fetchActiveHospitalsForDropdown
 }=HospitalSetupMiddleware;
 const {
-  fetchSpecializationForDropdown
+  fetchSpecializationHospitalWiseForDropdown
 }=SpecializationSetupMiddleware
 const DoctorHOC = (ComposedComponent, props, type) => {
   const {
@@ -79,6 +80,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         mobileNumber: '',
         name: '',
         specializationId: '',
+        hospitalId:'',
         status: {value: '', label: 'All'}
       },
       queryParams: {
@@ -172,7 +174,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       const {consultantData, nameValid, contactValid,emailValid,appointmentChargeValid} = this.state
       let formValidity =
         nameValid &&
-      //  emailValid &&
         contactValid &&
         appointmentChargeValid &&
         consultantData.appointmentCharge &&
@@ -189,41 +190,22 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
       if (eventType === 'E') formValidity = formValidity && consultantData.remarks
       //else formValidity = formValidity && hospitalData.contactNumber.length
-
-      //console.log('Form Valid', formValidity)
       this.setState({
         formValid: formValidity?true:false
       })
     }
-
-    // addContactNumber = (fieldName, value, eventType) => {
-    //   let hospitalData = {...this.state.hospitalData}
-    //   hospitalData[fieldName].push(value)
-    //   hospitalData['editContactNumberRequestDTOS'].push(value)
-    //   this.setTheState('hospitalData', hospitalData)
-    //   this.checkFormValidity(eventType)
-    // }
-
-    // removeContactNumber = (fieldName, idx, eventType) => {
-    //   let hospitalData = {...this.state.hospitalData}
-    //   hospitalData[fieldName].splice(idx, 1)
-    //   if (eventType === 'E')
-    //     hospitalData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
-    //   this.setTheState('hospitalData', hospitalData)
-    //   this.checkFormValidity(eventType)
-    // }
-
-    // editContactNumber = (fieldName, value, idx, eventType) => {
-    //   let hospitalData = {...this.state.hospitalData}
-    //   hospitalData[fieldName][idx] = value
-    //   hospitalData['editContactNumberRequestDTOS'][idx] = value
-    //   this.setTheState('hospitalData', hospitalData)
-    //   this.checkFormValidity(eventType)
-    // }
+    
+    callSpecializationApi =(name) => {
+      const {hospitalId} = this.state.consultantData
+      if(name==="hospitalId"){
+       this.props.fetchSpecializationHospitalWiseForDropdown(specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,hospitalId.value);
+      }
+    }
 
     handleOnChange = async (event, fieldValid, eventType) => {
       let consultant = {...this.state.consultantData}
       let name, value, label,select;
+      this.callSpecializationApi(event.target.name);
       if(event.target.values){
         name=event.target.name
         value=event.target.values;
@@ -376,14 +358,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    searchHospitalForDropDown = async () => {
+    searchDoctorForDropDown = async (name) => {
+      if(name==="hospitalId"){
       try {
-        await this.props.fetchActiveDoctorsForDropdown(
-          doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
-        )
+        await this.props.fetchActiveDoctorsHospitalWiseForDropdown(doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,this.state.searchParameters.hospitalId.value)
       } catch (e) {
         console.log(e)
       }
+    }
     }
 
     searchDoctor = async page => {
@@ -392,14 +374,16 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         status,
         code,
         mobileNumber,
-        specializationId
+        specializationId,
+        hospitalId
       } = this.state.searchParameters
       let searchData = {
-        name: name.value ? name.label : name,
+        name: name.value||0,
         code: code,
-        status: status.value,
+        status: status.value||"",
         mobileNumber: mobileNumber,
-        specializationId: specializationId.value
+        hospitalId:hospitalId.value||"",
+        specializationId: specializationId.value||""
       }
 
       let updatedPage =
@@ -570,7 +554,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           status: {value: '', label: 'All'},
           code: '',
           mobileNumber: '',
-          specializationId: ''
+          specializationId: '',
+          hospitalId:''
         }
       })
       this.searchHospital()
@@ -589,6 +574,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         let label = event.target.label
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        this.searchDoctorForDropDown()
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -601,11 +587,11 @@ const DoctorHOC = (ComposedComponent, props, type) => {
     async componentDidMount () {
       if (type === 'M') {
         await this.searchDoctor()
-        await this.searchHospitalForDropDown()
+      }
+      else{
+      this.props.fetchActiveQualificationsForDropdown(qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE);
       }
       this.props.fetchActiveHospitalsForDropdown(hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN);
-      this.props.fetchSpecializationForDropdown(specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION);
-      this.props.fetchActiveQualificationsForDropdown(qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE);
      
     }
     setImageShowModal = () =>
@@ -751,11 +737,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       editConsultant,
       previewConsultant,
       searchConsultant,
-      fetchActiveDoctorsForDropdown,
+      //fetchActiveDoctorsForDropdown,
+      fetchActiveDoctorsHospitalWiseForDropdown,
       downloadExcelForConsultants,
       fetchActiveQualificationsForDropdown,
       fetchActiveHospitalsForDropdown,
-      fetchSpecializationForDropdown
+      fetchSpecializationHospitalWiseForDropdown,
+
     }
   )
 }
