@@ -47,6 +47,7 @@ const DoctorAvailabilityForm = ({
                                         timeIntervals={15}
                                         timeCaption="Start Time"
                                         dateFormat="h:mm aa"
+                                        disabled={day.dayOffStatus === 'Y'}
                                     />
                                 </div>
                             </Col>
@@ -63,6 +64,7 @@ const DoctorAvailabilityForm = ({
                                         timeIntervals={15}
                                         timeCaption="End Time"
                                         dateFormat="h:mm aa"
+                                        disabled={day.dayOffStatus === 'Y'}
                                     />
                                 </div>
                             </Col>

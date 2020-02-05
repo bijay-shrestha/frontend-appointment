@@ -114,6 +114,7 @@ class CEnglishDatePicker extends PureComponent {
                 onChange={onChange}
                 readOnly={true}
                 autoComplete="off"
+                disabled={disabled}
             />
         );
         return <>

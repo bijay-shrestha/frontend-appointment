@@ -33,7 +33,7 @@ const {
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
 } = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
-const {convertDateToHourMinuteFormat, convertDateToYearMonthDateFormat} = DateTimeFormatterUtils;
+const {convertDateToHourMinuteFormat, convertDateToYearMonthDateFormat, getDateWithTimeSetToGivenTime} = DateTimeFormatterUtils;
 
 const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     class DoctorDutyRoster extends PureComponent {
@@ -166,7 +166,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         handleDayOffStatusChange = (event, index) => {
             if (event) {
                 let doctorWeekDaysAvailability = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
-                doctorWeekDaysAvailability[index].dayOffStatus = event.target.checked ? 'Y' : 'N';
+                this.setDefaultStartAndEndTimeAndDayOffStatus(event.target.checked, doctorWeekDaysAvailability[index]);
                 this.setState({
                     doctorWeekDaysDutyRosterRequestDTOS: [...doctorWeekDaysAvailability]
                 })
@@ -177,8 +177,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             if (event) {
                 let doctorWeekDaysAvailability = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
                 let updatedWeekDays = doctorWeekDaysAvailability.map(day => {
-                    day.dayOffStatus = event.target.checked ? 'Y' : 'N';
-                    return day
+                    this.setDefaultStartAndEndTimeAndDayOffStatus(event.target.checked, day);
+                    return day;
                 });
                 this.setState({
                     isWholeWeekOff: event.target.checked ? 'Y' : 'N',
@@ -224,11 +224,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 let value = field ? event
                     : (event.target.type === 'checkbox' ? (event.target.checked === true ? 'Y' : 'N')
                         : event.target.value);
+                let overrideRequestDTO = {...this.state.overrideRequestDTO};
+                if (key === 'dayOffStatus' && event.target.checked) {
+                    this.setDefaultStartAndEndTimeAndDayOffStatus(event.target.checked, overrideRequestDTO);
+                } else {
+                    overrideRequestDTO[key] = value;
+                }
                 this.setState({
-                    overrideRequestDTO: {
-                        ...this.state.overrideRequestDTO,
-                        [key]: value
-                    }
+                    overrideRequestDTO: {...overrideRequestDTO}
                 })
             }
         };
@@ -345,6 +348,20 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showConfirmModal: !this.state.showConfirmModal
             })
+        };
+
+        setDefaultStartAndEndTimeAndDayOffStatus = (dayOff, doctorWeekDaysAvailability) => {
+            if (dayOff) {
+                doctorWeekDaysAvailability.dayOffStatus = 'Y';
+                doctorWeekDaysAvailability.startTime =
+                    getDateWithTimeSetToGivenTime(new Date(), 24, 0, 0);
+                doctorWeekDaysAvailability.endTime =
+                    getDateWithTimeSetToGivenTime(new Date(), 12, 0, 0);
+            } else {
+                doctorWeekDaysAvailability.dayOffStatus = 'N';
+                doctorWeekDaysAvailability.startTime = '';
+                doctorWeekDaysAvailability.endTime = '';
+            }
         };
 
         bindValuesToState = async (event, fieldValid) => {
