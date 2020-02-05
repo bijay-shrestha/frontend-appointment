@@ -14,10 +14,10 @@ export const createDoctorDutyRoster = (path, doctorDutyRosterData) => async disp
     }
 };
 
-export const fetchDoctorDutyRosterList = (path, searchData) => async dispatch => {
+export const fetchDoctorDutyRosterList = (path, searchData, pageObj) => async dispatch => {
     dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterPending());
     try {
-        const response = await Axios.put(path, searchData);
+        const response = await Axios.putWithPagination(path, searchData, pageObj);
         dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterSuccess(response.data));
         return response.data;
     } catch (e) {

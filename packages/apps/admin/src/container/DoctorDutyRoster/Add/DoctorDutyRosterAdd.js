@@ -123,32 +123,32 @@ function DoctorDutyRosterAdd(props) {
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}/>
-            <CModal
-                show={showConfirmModal}
-                modalHeading="Doctor Duty Roster Details"
-                size="lg"
-                bodyChildren={
-                    <DoctorDutyRosterPreviewModal
-                        doctorInfoData={doctorInfoData}
-                        doctorAvailabilityData={doctorAvailabilityData}
-                        hasOverrideDutyRoster={hasOverrideDutyRoster}
-                        doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>
-                }
-                footerChildren={
-                    <CButton
-                        variant="primary"
-                        name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
-                        disabled={isSaveRosterLoading}
-                        size="lg"
-                        className="float-right btn-action mr-3"
-                        onClickHandler={saveDoctorDutyRoster}/>
-                }
-                onHide={setShowConfirmModal}
-                centered={false}
-                dialogClassName="preview-modal"
-                closeButton={true}
-            />
-        </div>, props, '');
+            {/*<CModal*/}
+            {/*    show={showConfirmModal}*/}
+            {/*    modalHeading="Doctor Duty Roster Details"*/}
+            {/*    size="lg"*/}
+            {/*    bodyChildren={*/}
+            {/*        <DoctorDutyRosterPreviewModal*/}
+            {/*            doctorInfoData={doctorInfoData}*/}
+            {/*            doctorAvailabilityData={doctorAvailabilityData}*/}
+            {/*            hasOverrideDutyRoster={hasOverrideDutyRoster}*/}
+            {/*            doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>*/}
+            {/*    }*/}
+            {/*    footerChildren={*/}
+            {/*        <CButton*/}
+            {/*            variant="primary"*/}
+            {/*            name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}*/}
+            {/*            disabled={isSaveRosterLoading}*/}
+            {/*            size="lg"*/}
+            {/*            className="float-right btn-action mr-3"*/}
+            {/*            onClickHandler={saveDoctorDutyRoster}/>*/}
+            {/*    }*/}
+            {/*    onHide={setShowConfirmModal}*/}
+            {/*    centered={false}*/}
+            {/*    dialogClassName="preview-modal"*/}
+            {/*    closeButton={true}*/}
+            {/*/>*/}
+        </div>, props, 'A');
     return <DoctorDutyRosterAddSetup/>
 }
 

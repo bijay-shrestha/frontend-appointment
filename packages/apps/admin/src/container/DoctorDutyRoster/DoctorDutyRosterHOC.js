@@ -10,27 +10,37 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants, CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {DateTimeFormatterUtils, DoctorDutyRosterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
-import {CAlert} from "@frontend-appointment/ui-elements";
+import {CAlert, CButton, CModal} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
+import DoctorDutyRosterPreviewModal from "./common/DoctorDutyRosterPreviewModal";
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
-const {fetchDoctorsBySpecializationIdForDropdown} = DoctorMiddleware;
+const {fetchDoctorsBySpecializationIdForDropdown, fetchActiveDoctorsForDropdown} = DoctorMiddleware;
 const {fetchWeekdays} = WeekdaysMiddleware;
 const {
     createDoctorDutyRoster,
+    fetchDoctorDutyRosterList,
     fetchExistingDoctorDutyRoster,
-    fetchExistingDoctorDutyRosterDetails
+    fetchExistingDoctorDutyRosterDetails,
+    fetchDoctorDutyRosterDetailById,
+    deleteDoctorDutyRoster,
+    updateDoctorDutyRoster
 } = DoctorDutyRosterMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = AdminModuleAPIConstants.specializationSetupAPIConstants;
-const {FETCH_DOCTOR_BY_SPECIALIZATION_ID} = AdminModuleAPIConstants.doctorSetupApiConstants;
+const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
 const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
 const {
     CREATE_DOCTOR_DUTY_ROSTER,
+    DELETE_DOCTOR_DUTY_ROSTER,
+    FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
+    FETCH_DOCTOR_DUTY_ROSTER_OVERRIDE,
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER,
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
+    SEARCH_DOCTOR_DUTY_ROSTER,
+    UPDATE_DOCTOR_DUTY_ROSTER,
 } = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
 const {convertDateToHourMinuteFormat, convertDateToYearMonthDateFormat, getDateWithTimeSetToGivenTime} = DateTimeFormatterUtils;
@@ -62,10 +72,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 endTime: '',
                 dayOffStatus: 'N',
                 remarks: '',
-                fromDateDisplay: '',
-                toDateDisplay: '',
-                startTimeDisplay: '',
-                endTimeDisplay: '',
                 status: 'Y'
             },
             alertMessageInfo: {
@@ -74,7 +80,20 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             },
             existingRosterTableData: [],
             existingDoctorWeekDaysAvailability: [],
-            existingOverrides: []
+            existingOverrides: [],
+            searchParameters: {
+                fromDate: new Date(),
+                toDate: new Date(),
+                hospital: null,
+                specialization: null,
+                doctor: null
+            },
+            queryParams: {
+                page: 0,
+                size: 10
+            },
+            totalRecords: 0,
+            previewData: {}
         };
 
         resetAddForm = () => {
@@ -97,13 +116,23 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     endTime: '',
                     dayOffStatus: 'N',
                     remarks: '',
-                    fromDateDisplay: '',
-                    toDateDisplay: '',
-                    startTimeDisplay: '',
-                    endTimeDisplay: '',
                     status: 'Y'
                 },
             })
+        };
+
+        resetSearchForm = async () => {
+            this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    hospital: null,
+                    specialization: null,
+                    doctor: null
+                }
+            });
+            await this.searchDoctorDutyRoster(1);
         };
 
         componentDidMount() {
@@ -114,8 +143,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
         };
 
-        fetchSpecializationForDropdown = async () => {
+        fetchActiveSpecializationForDropdown = async () => {
             await TryCatchHandler.genericTryCatch(this.props.fetchSpecializationForDropdown(ACTIVE_DROPDOWN_SPECIALIZATION))
+        };
+
+        fetchActiveDoctors = async () => {
+            await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
         };
 
         fetchWeekdaysData = async () => {
@@ -135,6 +168,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     fromDate: fromDate,
                     toDate: toDate
                 });
+        };
+
+        fetchDoctorDutyRosterDetailsById = async id => {
+            await this.props.fetchDoctorDutyRosterDetailById(FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID, id);
         };
 
         handleShowExistingRoster = () => {
@@ -206,10 +243,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             endTime: '',
                             dayOffStatus: '',
                             remarks: '',
-                            fromDateDisplay: '',
-                            toDateDisplay: '',
-                            startTimeDisplay: '',
-                            endTimeDisplay: '',
                             id: '',
                             status: 'Y'
                         },
@@ -242,10 +275,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let overrideList = [...this.state.doctorDutyRosterOverrideRequestDTOS];
 
             let currentOverride = {...this.state.overrideRequestDTO};
-            currentOverride.fromDateDisplay = convertDateToYearMonthDateFormat(currentOverride.fromDate);
-            currentOverride.toDateDisplay = convertDateToYearMonthDateFormat(currentOverride.toDate);
-            currentOverride.startTimeDisplay = convertDateToHourMinuteFormat(currentOverride.startTime);
-            currentOverride.endTimeDisplay = convertDateToHourMinuteFormat(currentOverride.endTime);
 
             if (isModifyOverride) {
                 // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
@@ -265,10 +294,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     endTime: '',
                     dayOffStatus: 'N',
                     remarks: '',
-                    fromDateDisplay: '',
-                    toDateDisplay: '',
-                    startTimeDisplay: '',
-                    endTimeDisplay: '',
                     id: ''
                 },
                 isModifyOverride: false,
@@ -325,6 +350,47 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 })
             }
+        };
+
+        handleSearchInputChange = (event, fieldName) => {
+            let key = fieldName ? fieldName : event.target.name;
+            let value = fieldName ? event : event.target.value;
+            let label = fieldName ? '' : event.target.label;
+
+            this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    [key]: label ? {label, value} : value
+                }
+            })
+        };
+
+        handlePageChange = async newPage => {
+            await this.setState({
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: newPage
+                }
+            });
+            await this.searchDoctorDutyRoster();
+        };
+
+        handlePreview = async id => {
+            await this.fetchDoctorDutyRosterDetailsById(id);
+            const {doctorDutyRosterInfo, overrideRosters, weekDaysRosters} = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData;
+            const {specializationName, specializationId, doctorId, doctorName, rosterGapDuration, fromDate, toDate, hasOverrideDutyRoster} = doctorDutyRosterInfo && doctorDutyRosterInfo;
+            await this.setState({
+                // hospital: hospital,
+                showConfirmModal: true,
+                specialization: {label: specializationName, value: specializationId},
+                doctor: {label: doctorName, value: doctorId},
+                rosterGapDuration: rosterGapDuration,
+                fromDate: new Date(fromDate),
+                toDate: new Date(toDate),
+                hasOverrideDutyRoster: hasOverrideDutyRoster,
+                doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
+                doctorDutyRosterOverrideRequestDTOS: [...overrideRosters]
+            })
         };
 
         handleEnter = (event) => {
@@ -394,7 +460,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     this.setState({
                         showAlert: false,
                         showExistingRosterModal: true,
-                        existingRosterTableData: [...existingRosters]
+                        existingRosterTableData: [...existingRosters],
+                        existingDoctorWeekDaysAvailability: [],
+                        existingOverrides: [],
                     })
                 } else {
                     this.setState({
@@ -419,8 +487,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         initialApiCalls = async () => {
             await this.fetchHospitalsForDropdown();
-            await this.fetchSpecializationForDropdown();
+            await this.fetchActiveSpecializationForDropdown();
             await this.fetchWeekdaysData();
+            if (type === 'M') {
+                await this.fetchActiveDoctors();
+                await this.searchDoctorDutyRoster(1);
+            }
         };
 
         saveDoctorDutyRoster = async () => {
@@ -463,20 +535,54 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        searchDoctorDutyRoster = async page => {
+            const {fromDate, toDate, hospital, specialization, doctor} = this.state.searchParameters;
+            let searchData = {
+                doctorId: doctor ? doctor.value : '',
+                specializationId: specialization ? specialization.value : '',
+                fromDate: fromDate,
+                toDate: toDate
+            };
+
+            let updatedPage =
+                this.state.queryParams.page === 0 ? 1 : (page ? page : this.state.queryParams.page);
+
+            await this.props.fetchDoctorDutyRosterList(
+                SEARCH_DOCTOR_DUTY_ROSTER,
+                {
+                    page: updatedPage,
+                    size: this.state.queryParams.size
+                },
+                searchData
+            );
+
+            await this.setState({
+                totalRecords: this.props.DoctorDutyRosterListReducer.doctorDutyRosterList.length
+                    ? this.props.DoctorDutyRosterListReducer.doctorDutyRosterList[0].totalItems
+                    : 0,
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: updatedPage
+                }
+            })
+        };
+
         render() {
             const {
                 showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate,
                 doctorWeekDaysDutyRosterRequestDTOS, isWholeWeekOff,
                 hasOverrideDutyRoster, overrideRequestDTO, doctorDutyRosterOverrideRequestDTOS,
                 showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid, showConfirmModal,
-                existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides
+                existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
+                searchParameters, queryParams, totalRecords
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
             const {activeSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
-            const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
+            const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage, activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
+            const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
                 <ComposedComponent
                     {...props}
@@ -496,6 +602,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     specializationList={activeSpecializationList}
                     specializationDropdownError={dropdownErrorMessage}
                     doctorList={doctorsBySpecializationForDropdown}
+                    activeDoctorList={activeDoctorsForDropdown}
                     doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                     showExistingRosterModal={showExistingRosterModal}
                     wholeWeekOff={isWholeWeekOff}
@@ -527,6 +634,50 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     onViewDetailsExisting={this.handleViewDetailsExisting}
                     existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
                     existingOverrides={existingOverrides}
+                    searchParameters={searchParameters}
+                    resetSearchForm={this.resetSearchForm}
+                    searchDoctorDutyRoster={() => this.searchDoctorDutyRoster(1)}
+                    onSearchInputChange={this.handleSearchInputChange}
+                    isSearchRosterLoading={isSearchRosterLoading}
+                    searchErrorMessage={searchErrorMessage}
+                    doctorDutyRosterList={doctorDutyRosterList}
+                    paginationData={{...queryParams, totalRecords}}
+                    handlePageChange={this.handlePageChange}
+                    onPreviewHandler={this.handlePreview}
+                    // onDeleteHandler={}
+                    // onEditHandler={}
+                />
+                <CModal
+                    show={showConfirmModal}
+                    modalHeading="Doctor Duty Roster Details"
+                    size="lg"
+                    bodyChildren={
+                        <DoctorDutyRosterPreviewModal
+                            doctorInfoData={{
+                                hospital: hospital,
+                                specialization: specialization,
+                                doctor: doctor,
+                                rosterGapDuration: rosterGapDuration,
+                                fromDate: fromDate,
+                                toDate: toDate
+                            }}
+                            doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
+                            hasOverrideDutyRoster={hasOverrideDutyRoster}
+                            doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>
+                    }
+                    footerChildren={type === 'A' ?
+                        <CButton
+                            variant="primary"
+                            name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
+                            disabled={isSaveRosterLoading}
+                            size="lg"
+                            className="float-right btn-action mr-3"
+                            onClickHandler={this.saveDoctorDutyRoster}/> : ''
+                    }
+                    onHide={this.setShowConfirmModal}
+                    centered={false}
+                    dialogClassName="preview-modal"
+                    closeButton={true}
                 />
                 <CAlert
                     id="profile-manage"
@@ -545,20 +696,29 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     return ConnectHoc(
         DoctorDutyRoster,
         [
+            'DoctorDropdownReducer',
+            'DoctorDutyRosterDeleteReducer',
+            'DoctorDutyRosterEditReducer',
+            'DoctorDutyRosterListReducer',
+            'DoctorDutyRosterPreviewReducer',
+            'DoctorDutyRosterSaveReducer',
             'HospitalDropdownReducer',
             'SpecializationDropdownReducer',
-            'DoctorDropdownReducer',
             'WeekdaysReducer',
-            'DoctorDutyRosterSaveReducer'
         ],
         {
-            fetchActiveHospitalsForDropdown,
-            fetchSpecializationForDropdown,
-            fetchDoctorsBySpecializationIdForDropdown,
-            fetchWeekdays,
-            fetchExistingDoctorDutyRoster,
             createDoctorDutyRoster,
-            fetchExistingDoctorDutyRosterDetails
+            deleteDoctorDutyRoster,
+            fetchActiveDoctorsForDropdown,
+            fetchActiveHospitalsForDropdown,
+            fetchDoctorDutyRosterDetailById,
+            fetchDoctorDutyRosterList,
+            fetchDoctorsBySpecializationIdForDropdown,
+            fetchExistingDoctorDutyRoster,
+            fetchExistingDoctorDutyRosterDetails,
+            fetchSpecializationForDropdown,
+            fetchWeekdays,
+            updateDoctorDutyRoster
         })
 };
 

@@ -4,12 +4,17 @@ import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 import {CDataTable, CHybridInput} from "@frontend-appointment/ui-elements";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
+import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
+import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
+import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
 
 const DoctorDutyRosterPreviewModal = ({
                                           doctorInfoData,
                                           doctorAvailabilityData,
                                           hasOverrideDutyRoster,
-                                          doctorDutyRosterOverrideRequestDTOS
+                                          doctorDutyRosterOverrideRequestDTOS,
+                                          type
                                       }) => {
 
     return <>
@@ -104,7 +109,7 @@ const DoctorDutyRosterPreviewModal = ({
                             <Col> End Time</Col>
                             <Col>
                                 Days Off
-                         
+
                             </Col>
                         </Row>
                         {
@@ -112,18 +117,18 @@ const DoctorDutyRosterPreviewModal = ({
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
                                     <Col>
-                                        {DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime)}
-                                 
+                                        {type === 'A' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
+                                            DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
+
                                     </Col>
                                     <Col>
-                                        {DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime)}
-                                 
+                                        {type === 'A' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
+                                            DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
+
                                     </Col>
                                     <Col>
                                         {day.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
                                             <i className="fa fa-close"/>}
-                                     
-                                     
                                     </Col>
                                 </Row>
                             ))
@@ -132,82 +137,92 @@ const DoctorDutyRosterPreviewModal = ({
                 </Col>
             </Row>
             <Row>
+                {hasOverrideDutyRoster === 'Y' ?
+                    <Col className="doctor-override">
+                        <h5 className="title">Overrides</h5>
+                        {hasOverrideDutyRoster === 'Y' && doctorDutyRosterOverrideRequestDTOS.length ?
+                            <>
+                                <CDataTable
+                                    classes="ag-theme-balham"
+                                    id="roles-table"
+                                    width="100%"
+                                    height="260px"
+                                    enableSorting
+                                    editType
+                                    columnDefs={[
+                                        {
+                                            headerName: 'From Date',
+                                            field: 'fromDate',
+                                            cellRenderer:'fromDateRenderer',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true
+                                        },
+                                        {
+                                            headerName: 'To Date',
+                                            field: 'toDate',
+                                            cellRenderer:'toDateRenderer',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true
+                                        },
+                                        {
+                                            headerName: 'Start Time',
+                                            field: 'startTime',
+                                            cellRenderer: 'startTimeRenderer',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true
+                                        },
+                                        {
+                                            headerName: 'End Time',
+                                            field: 'endTime',
+                                            cellRenderer: 'endTimeRenderer',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true,
+                                        },
+                                        {
+                                            headerName: 'Days Off',
+                                            field: 'dayOffStatus',
+                                            cellRenderer: 'childLabelRenderer',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true,
+                                        },
+                                        {
+                                            headerName: 'Remarks',
+                                            field: 'remarks',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true,
+                                        },
 
-                <Col className="doctor-override">
-                    <h5 className="title">Overrides</h5>
-                {hasOverrideDutyRoster === 'Y' && doctorDutyRosterOverrideRequestDTOS.length ?
-                    <>
-                        <CDataTable
-                            classes="ag-theme-balham"
-                            id="roles-table"
-                            width="100%"
-                            height="260px"
-                            enableSorting
-                            editType
-                            columnDefs={[
-                                {
-                                    headerName: 'From Date',
-                                    field: 'fromDateDisplay',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'To Date',
-                                    field: 'toDateDisplay',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Start Time',
-                                    field: 'startTimeDisplay',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'End Time',
-                                    field: 'endTimeDisplay',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                },
-                                {
-                                    headerName: 'Days Off',
-                                    field: 'dayOffStatus',
-                                    cellRenderer: 'childLabelRenderer',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                },
-                                {
-                                    headerName: 'Remarks',
-                                    field: 'remarks',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                },
-                              
-                            ]}
-                            frameworkComponents={{
-                                // childActionRenderer: OverrideActions,
-                                childLabelRenderer: DayOffStatusLabel
-                            }}
-                            defaultColDef={{resizable: true}}
-                            rowSelection={'single'}
-                            rowData={doctorDutyRosterOverrideRequestDTOS}
-                        />
-                    </>
-                    : (hasOverrideDutyRoster === 'Y' && !doctorDutyRosterOverrideRequestDTOS.length ?
-                        <div className="filter-message">
-                            <div className="no-data">
-                                <i className="fa fa-file-text-o"/>
-                            </div>
-                            <div className="message"> No overrides added!</div>
-                        </div> : '')}
-
-                </Col>
+                                    ]}
+                                    frameworkComponents={{
+                                        // childActionRenderer: OverrideActions,
+                                        startTimeRenderer: StartTimeDisplayForTable,
+                                        endTimeRenderer: EndTimeDisplayForTable,
+                                        childLabelRenderer: DayOffStatusLabel,
+                                        fromDateRenderer:FromDateDisplayForTable,
+                                        toDateRenderer:ToDateDisplayForTable
+                                    }}
+                                    defaultColDef={{resizable: true}}
+                                    rowSelection={'single'}
+                                    rowData={doctorDutyRosterOverrideRequestDTOS}
+                                />
+                            </>
+                            : (hasOverrideDutyRoster === 'Y' && !doctorDutyRosterOverrideRequestDTOS.length ?
+                                <div className="filter-message">
+                                    <div className="no-data">
+                                        <i className="fa fa-file-text-o"/>
+                                    </div>
+                                    <div className="message"> No overrides added!</div>
+                                </div> : '')
+                        }
+                    </Col>
+                    : ''
+                }
             </Row>
         </Container>
     </>
