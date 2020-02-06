@@ -1,5 +1,5 @@
-import {DoctorSetupActions} from '@frontend-appointment/action-module'
-import {Axios} from '@frontend-appointment/core'
+import { DoctorSetupActions } from '@frontend-appointment/action-module'
+import { Axios } from '@frontend-appointment/core'
 
 export const createConsultant = (
   path,
@@ -17,7 +17,7 @@ export const createConsultant = (
     dispatch(DoctorSetupActions.createConsultantSuccess())
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantError(e.errorMessage))
+    dispatch(DoctorSetupActions.createConsultantError(e.errorMessage||'Sorry Internal Server Error'))
     throw e
   }
 }
@@ -30,14 +30,14 @@ export const clearConsultantCreateMessage = () => dispatch => {
   dispatch(DoctorSetupActions.clearConsultantPreviewMessage())
 }
 
-export const editConsultant = (path, data) => async dispatch => {
+export const editConsultant = (path, data,formData) => async dispatch => {
   dispatch(DoctorSetupActions.createConsultantEditPending())
   try {
-    const response = await Axios.put(path, data)
+    const response = await Axios.putWithMultiPart(path,'request',data,formData)
     dispatch(DoctorSetupActions.createConsultantEditSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantEditError(e.errorMessage))
+    dispatch(DoctorSetupActions.createConsultantEditError(e.errorMessage||'Sorry Internal Server'))
     throw e
   }
 }
@@ -49,7 +49,7 @@ export const previewConsultant = (path, id) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPreviewSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantPreviewError(e.error||'Sorry Internal Server Error'))
+    dispatch(DoctorSetupActions.createConsultantPreviewError(e.errorMessage||'Sorry Internal Server Error'))
     throw e
   }
 }
@@ -61,7 +61,7 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantSearchSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage))
+    dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage||"Sorry Internal Server Error"))
     throw e
   }
 }
@@ -73,7 +73,7 @@ export const deleteConsultant = (path, id) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantDeleteSucess())
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantDeleteError(e.errorMessage))
+    dispatch(DoctorSetupActions.createConsultantDeleteError(e.errorMessage||"Sorry Internal Server Error"))
     throw e
   }
 }

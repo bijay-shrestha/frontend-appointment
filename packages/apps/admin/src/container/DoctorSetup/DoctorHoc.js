@@ -1,6 +1,11 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {DoctorMiddleware,QualificationSetupMiddleware,HospitalSetupMiddleware,SpecializationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {
+  DoctorMiddleware,
+  QualificationSetupMiddleware,
+  HospitalSetupMiddleware,
+  SpecializationSetupMiddleware
+} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
@@ -20,15 +25,11 @@ const {
   fetchActiveDoctorsHospitalWiseForDropdown,
   downloadExcelForConsultants
 } = DoctorMiddleware
-const {
-  fetchActiveQualificationsForDropdown
-}=QualificationSetupMiddleware;
-const {
-fetchActiveHospitalsForDropdown
-}=HospitalSetupMiddleware;
+const {fetchActiveQualificationsForDropdown} = QualificationSetupMiddleware
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {
   fetchSpecializationHospitalWiseForDropdown
-}=SpecializationSetupMiddleware
+} = SpecializationSetupMiddleware
 const DoctorHOC = (ComposedComponent, props, type) => {
   const {
     doctorSetupApiConstants,
@@ -45,22 +46,27 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         email: '',
         status: 'Y',
         hospitalId: '',
+        editHospitalId: '',
         genderCode: '',
         contactNumber: '',
         specializationIds: [],
         qualificationIds: [],
         appointmentCharge: '',
-        nmcNumber:'',
+        nmcNumber: '',
         remarks: '',
+        selectedSpecializations: [],
+        newSpecializationList: [],
+        newQualificationList: [],
         doctorAvatar: null,
         doctorAvatarUrl: ''
       },
       formValid: false,
       nameValid: false,
       contactValid: false,
-      appointmentChargeValid:false,
-      errorMessageForAppointmentCharge:"Appointment Charge Should only be number and upto 2 decimal",
-      emailValid:false,
+      appointmentChargeValid: false,
+      errorMessageForAppointmentCharge:
+        'Appointment Charge Should only be number and upto 2 decimal',
+      emailValid: false,
       logoValid: false,
       showConfirmModal: false,
       errorMessageForDoctorName:
@@ -80,7 +86,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         mobileNumber: '',
         name: '',
         specializationId: '',
-        hospitalId:'',
+        hospitalId: '',
         status: {value: '', label: 'All'}
       },
       queryParams: {
@@ -123,8 +129,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           contactNumber: '',
           specializationIds: [],
           qualificationIds: [],
+          editHospitalId: '',
+          selectedSpecializations: [],
+          newSpecializationList: [],
+          newQualificationList: [],
           appointmentCharge: '',
-          nmcNumber:'',
+          nmcNumber: '',
           remarks: '',
           doctorAvatar: null,
           doctorAvatarUrl: ''
@@ -135,8 +145,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         formValid: false,
         nameValid: false,
         contactValid: false,
-        emailValid:false,
-        appointmentChargeValid:false,
+        emailValid: false,
+        appointmentChargeValid: false,
         logoValid: false,
         showEditModal: false
       })
@@ -147,11 +157,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       if (eventName) {
         if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
         if (eventName === 'contactNumber')
-          stateObj = {...stateObj, contactValid:valid}
-        if(eventName === "appointmentCharge")
-          stateObj= {...stateObj , appointmentChargeValid:valid}
-        if(eventName === "email")
-          stateObj = {...stateObj, emailValid:valid}  
+          stateObj = {...stateObj, contactValid: valid}
+        if (eventName === 'appointmentCharge')
+          stateObj = {...stateObj, appointmentChargeValid: valid}
+        if (eventName === 'email') stateObj = {...stateObj, emailValid: valid}
       }
       return {...stateObj}
     }
@@ -171,7 +180,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {consultantData, nameValid, contactValid,emailValid,appointmentChargeValid} = this.state
+      const {
+        consultantData,
+        nameValid,
+        contactValid,
+        emailValid,
+        appointmentChargeValid
+      } = this.state
       let formValidity =
         nameValid &&
         contactValid &&
@@ -188,43 +203,57 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         consultantData.nmcNumber &&
         consultantData.doctorAvatar
 
-      if (eventType === 'E') formValidity = formValidity && consultantData.remarks
+      if (eventType === 'E')
+        formValidity = formValidity && consultantData.remarks
       //else formValidity = formValidity && hospitalData.contactNumber.length
       this.setState({
-        formValid: formValidity?true:false
+        formValid: formValidity ? true : false
       })
     }
-    
-    callSpecializationApi =(name,id) => {
-      const {hospitalId} = this.state.consultantData
-      if(name==="hospitalId"){
-       this.props.fetchSpecializationHospitalWiseForDropdown(specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,id?id.value:hospitalId.value);
+
+    callSpecialization = async id => {
+      try {
+        await this.props.fetchSpecializationHospitalWiseForDropdown(
+          specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
+          id
+        )
+      } catch (e) {
+        console.log(e)
       }
     }
 
-    handleOnChange = async (event, fieldValid, eventType) => {
-      let consultant = {...this.state.consultantData}
-      let name, value, label,select;
-      this.callSpecializationApi(event.target.name);
-      if(event.target.values){
-        name=event.target.name
-        value=event.target.values;
-        label=event.target.values;
-        select=event.target.values;
+    callSpecializationApi = (name, id,value) => {
+      let consultantData = {...this.state.consultantData}
+      let dataToSend
+      let searchParams = {...this.state.searchParameters}
+      if (name === 'hospitalId') {
+        this.callSpecialization(value ?value : id)
+        consultantData.specializationIds = []
+        searchParams.name = ''
+        searchParams.specializationId = ''
       }
-      else{
-       name=event.target.name
-       value=event.target.value
-       label=event.target.label
-       select={value:value,label:label}
+      if (id) dataToSend = searchParams
+      else dataToSend = consultantData
+      return dataToSend
+    }
+
+    handleOnChange = (event, fieldValid, eventType) => {
+      let name, value, label, select, values
+      values = event.target.values
+      name = event.target.name
+      value = event.target.value
+      label = event.target.label
+      let consultant = this.callSpecializationApi(name,null,value)
+      if (values) {
+        value = values
+        label = values
+        select = values
+      } else {
+        select = {value: value, label: label}
       }
       value = name === 'nmcNumber' ? value.toUpperCase() : value
-      consultant[name] = !label
-        ? value
-        : value
-        ? select
-        : {value: null}
-      await this.setTheState('consultantData', consultant, fieldValid, name)
+      consultant[name] = !label ? value : value ? select : {value: null}
+      this.setTheState('consultantData', consultant, fieldValid, name)
       this.checkFormValidity(eventType)
     }
 
@@ -232,7 +261,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       this.setState({showConfirmModal: !this.state.showConfirmModal})
     }
 
-    getOnlyValueFromMultipleSelectList =(data) => data.map(datum=>datum.value)
+    getOnlyValueFromMultipleSelectList = data => data.map(datum => datum.value)
 
     handleConfirmClick = async () => {
       const {
@@ -259,14 +288,18 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           {
             name,
             status,
-            mobileNumber:contactNumber,
-            specializationIds:this.getOnlyValueFromMultipleSelectList(specializationIds),
+            mobileNumber: contactNumber,
+            specializationIds: this.getOnlyValueFromMultipleSelectList(
+              specializationIds
+            ),
             nmcNumber,
             appointmentCharge,
-            hospitalId:hospitalId.value,
+            hospitalId: hospitalId.value,
             email,
             genderCode,
-            qualificationIds:this.getOnlyValueFromMultipleSelectList(qualificationIds)
+            qualificationIds: this.getOnlyValueFromMultipleSelectList(
+              qualificationIds
+            )
           },
           formData
         )
@@ -317,56 +350,112 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    editPreviewApiCall = async id => {
+      await this.props.previewConsultant(
+        doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
+        id
+      )
+    }
+
+    makeValueForMultipleSelect = (key, datas) => {
+      let doctorKey = 'doctor' + key + 'Id'
+      let lowerCaseKey = key[0].toLowerCase() + key.slice(1)
+      return datas.map((datum, index) => {
+        return {
+          [doctorKey]: datum['doctor' + key + 'Id'].toString(),
+          value: datum[lowerCaseKey + 'Id'].toString(),
+          label: datum[lowerCaseKey + 'Name'].toString(),
+          status: 'Y'
+        }
+      })
+    }
+
     onEditHandler = async id => {
       this.props.clearConsultantCreateMessage()
       try {
-        await this.previewApiCall(id)
+        await this.editPreviewApiCall(id)
         const {
-          name,
+          doctorId,
+          doctorName,
+          mobileNumber,
+          email,
+          gender,
+          nmcNumber,
           status,
+          hospitalId,
+          hospitalName,
           remarks,
-          panNumber,
-          address,
-          contactNumberResponseDTOS,
-          hospitalCode,
-          fileUri
+          appointmentCharge,
+          fileUri,
+          doctorSpecializationResponseDTOS,
+          doctorQualificationResponseDTOS
         } = this.props.DoctorPreviewReducer.consultantPreviewData
         let formValid = this.state.formValid
         if (remarks) formValid = true
-        this.setState({
+        await this.setState({
           showEditModal: true,
-          hospitalData: {
-            id: id,
-            name: name,
+          consultantData: {
+            id: doctorId,
+            name: doctorName,
             status: status,
-            panNumber: panNumber,
-            address: address,
-            hospitalCode: hospitalCode,
-            remarks: remarks,
-            contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
-            editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
-            hospitalLogoUrl: fileUri,
-            hospitalLogo: new File([5120], fileUri),
-            hospitalImage: new File([5120], fileUri),
-            hospitalImageCroppedUrl: fileUri
+            nmcNumber: nmcNumber,
+            contactNumber: mobileNumber,
+            hospitalId: {value: hospitalId, label: hospitalName},
+            remarks: remarks || '',
+            email: email,
+            editHospitalId: {value: hospitalId, label: hospitalName},
+            genderCode: gender.charAt(0),
+            specializationIds: [
+              ...this.makeValueForMultipleSelect(
+                'Specialization',
+                doctorSpecializationResponseDTOS
+              )
+            ],
+            selectedSpecializations: [
+              ...this.makeValueForMultipleSelect(
+                'Specialization',
+                doctorSpecializationResponseDTOS
+              )
+            ],
+            newSpecializationList: [...doctorSpecializationResponseDTOS],
+            newQualificationList: [...doctorQualificationResponseDTOS],
+            qualificationIds: [
+              ...this.makeValueForMultipleSelect(
+                'Qualification',
+                doctorQualificationResponseDTOS
+              )
+            ],
+            doctorAvatarUrl: fileUri,
+            doctorAvatar: new File([5120], fileUri),
+            appointmentCharge: appointmentCharge
           },
+          doctorImage: new File([5120], fileUri),
+          doctorImageCroppedUrl: fileUri,
           formValid: formValid,
-          nameValid: true
+          nameValid: true,
+          appointmentChargeValid: true,
+          contactValid: true
         })
+        this.callSpecialization(hospitalId)
       } catch (e) {
         console.log(e)
       }
     }
 
-    searchDoctorForDropDown = async (name) => {
-      if(name==="hospitalId"){
-      try {
-        await this.props.fetchActiveDoctorsHospitalWiseForDropdown(doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,this.state.searchParameters.hospitalId.value)
-        this.callSpecializationApi(name,this.state.searchParameters.hospitalId)
-      } catch (e) {
-        console.log(e)
+    searchDoctorForDropDown = async (name, value) => {
+      let searchParams = {...this.state.searchParameters}
+      if (name === 'hospitalId') {
+        try {
+          await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
+            doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
+            value
+          )
+          searchParams = await this.callSpecializationApi(name, value)
+        } catch (e) {
+          console.log(e)
+        }
       }
-    }
+      return searchParams
     }
 
     searchDoctor = async page => {
@@ -379,12 +468,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         hospitalId
       } = this.state.searchParameters
       let searchData = {
-        name: name.value||0,
+        name: name.value || 0,
         code: code,
-        status: status.value||"",
+        status: status.value || '',
         mobileNumber: mobileNumber,
-        hospitalId:hospitalId.value||"",
-        specializationId: specializationId.value||""
+        hospitalId: hospitalId.value || '',
+        specializationId: specializationId.value || ''
       }
 
       let updatedPage =
@@ -424,7 +513,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         })
     }
 
-    handleImageUpload = async croppedImageFile => {
+    handleImageUpload = async (croppedImageFile, eventType) => {
       let croppedImage = this.state.doctorImageCroppedUrl
       let doctorImage = {...this.state.consultantData}
       doctorImage.doctorAvatar = new File(
@@ -434,9 +523,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       doctorImage.doctorAvatarUrl = croppedImage
       await this.setState({
         consultantData: {...doctorImage},
-        showImageUploadModal: false,
+        showImageUploadModal: false
       })
-      this.checkFormValidity()
+      this.checkFormValidity(eventType)
     }
 
     appendSNToTable = consultantList => {
@@ -447,7 +536,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           sN: index + 1,
           name: spec.doctorName.toUpperCase()
         }))
-      return newConsultantList;
+      return newConsultantList
     }
 
     handlePageChange = async newPage => {
@@ -457,40 +546,76 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchDoctor();
+      this.searchDoctor()
+    }
+    
+    findAndMixDatas = (key,newEditData,oldData,lower) => {
+     let mixedEditData=[...newEditData]
+      oldData.map(old => {
+        let dataId= old[lower+'Id']
+        let flag = false
+        newEditData.map(newEditDatum => {
+          if (newEditDatum[key].toString() === old[key].toString())
+            flag = true
+        })
+        !flag && mixedEditData.push({[key]:old[key],[lower+'Id']:dataId,status:'N'})
+      })
+      return mixedEditData
     }
 
+    makeMultipleSelectForEditResponse = (key,newData,oldData)=>{
+      let doctorKey = 'doctor' + key + 'Id'
+      let lowerCaseKey = key[0].toLowerCase() + key.slice(1)
+      let newEditData = [];
+      newData.map(newDat =>{
+        let newDatum={...newDat}
+        newDatum={[doctorKey]:newDatum[doctorKey]||'',[lowerCaseKey+'Id']:newDatum.value,status:'Y'};
+        newEditData.push(newDatum);
+      });
+      const mixedData =this.findAndMixDatas(doctorKey,newEditData,oldData,lowerCaseKey);
+      console.log(mixedData)
+      return mixedData;    
+      
+    }
     editDoctor = async () => {
       const {
+        id,
         name,
         status,
-        hospitalLogo,
-        address,
-        panNumber,
-        hospitalCode,
-        editContactNumberRequestDTOS,
+        nmcNumber,
+        contactNumber,
+        hospitalId,
         remarks,
-        id
-      } = this.state.hospitalData
+        email,
+        genderCode,
+        specializationIds,
+        newSpecializationList,
+        newQualificationList,
+        qualificationIds,
+        doctorAvatar,
+        appointmentCharge
+      } = this.state.consultantData
       let formData = new FormData()
       formData.append(
-        'file',
-        new File([hospitalLogo], name.concat('-picture.jpeg'))
+        'avatar',
+        new File([doctorAvatar], name.concat('-picture.jpeg'))
       )
       try {
-        console.log(this.state.editContactNumberRequestDTOS)
-
-        await this.props.editHospital(
-          hospitalSetupApiConstants.EDIT_HOSPITAL,
+        await this.props.editConsultant(
+          doctorSetupApiConstants.EDIT_DOCTOR,
           {
+            updateDTO:{
             name,
             status,
-            address,
-            panNumber,
-            hospitalCode,
-            remarks,
-            id,
-            contactNumberUpdateRequestDTOS: [...editContactNumberRequestDTOS]
+            nmcNumber,
+            hospitalId:hospitalId.value,
+            mobileNumber:contactNumber,
+            genderCode,
+            appointmentCharge,
+            },
+            doctorQualificationUpdateDTOS:this.makeMultipleSelectForEditResponse('Qualification',qualificationIds,newQualificationList),
+            specializationUpdateRequestDTOS:this.makeMultipleSelectForEditResponse('Specialization',specializationIds,newSpecializationList),
+            
           },
           formData
         )
@@ -556,10 +681,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           code: '',
           mobileNumber: '',
           specializationId: '',
-          hospitalId:''
+          hospitalId: ''
         }
       })
-      this.searchHospital()
+      this.searchDoctor()
     }
 
     setStateValuesForSearch = searchParams => {
@@ -569,15 +694,18 @@ const DoctorHOC = (ComposedComponent, props, type) => {
     }
 
     handleSearchFormChange = async event => {
-      if (event) {
-        let fieldName = event.target.name
-        let value = event.target.value
-        let label = event.target.label
-        let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-        
+      const {name, value, label} = event.target
+      let searchParams = await this.searchDoctorForDropDown(name, value)
+      if (name) {
+        let fieldName = name
+        let val = value
+        let lbl = label
+        searchParams[fieldName] = label
+          ? value
+            ? {value: val, label: lbl}
+            : ''
+          : value
         await this.setStateValuesForSearch(searchParams)
-        this.searchDoctorForDropDown(event.target.name)
       }
     }
     setFormValidManage = () => {
@@ -587,17 +715,20 @@ const DoctorHOC = (ComposedComponent, props, type) => {
     }
 
     async componentDidMount () {
-      try{
-      if (type === 'M') {
-        await this.searchDoctor()
+      try {
+        if (type === 'M') {
+          await this.searchDoctor()
+        }
+
+        this.props.fetchActiveQualificationsForDropdown(
+          qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE
+        )
+        this.props.fetchActiveHospitalsForDropdown(
+          hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
+        )
+      } catch (e) {
+        console.log(e)
       }
-      else{
-      this.props.fetchActiveQualificationsForDropdown(qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE);
-      }
-      this.props.fetchActiveHospitalsForDropdown(hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN);
-    }catch(e){
-      console.log(e);
-    }
     }
     setImageShowModal = () =>
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
@@ -647,9 +778,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
       const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
 
-      const {activeSpecializationList} = this.props.SpecializationDropdownReducer
+      const {
+        activeSpecializationList
+      } = this.props.SpecializationDropdownReducer
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-      const {qualificationsForDropdown} = this.props.QualificationDropdownReducer
+      const {
+        qualificationsForDropdown
+      } = this.props.QualificationDropdownReducer
 
       return (
         <ComposedComponent
@@ -716,8 +851,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           appointmentChargeValid={appointmentChargeValid}
           errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
           emailValid={emailValid}
-        >    
-        </ComposedComponent>
+        ></ComposedComponent>
       )
     }
   }
@@ -747,8 +881,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       downloadExcelForConsultants,
       fetchActiveQualificationsForDropdown,
       fetchActiveHospitalsForDropdown,
-      fetchSpecializationHospitalWiseForDropdown,
-
+      fetchSpecializationHospitalWiseForDropdown
     }
   )
 }

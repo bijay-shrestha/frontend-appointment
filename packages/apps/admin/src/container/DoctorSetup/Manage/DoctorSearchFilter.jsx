@@ -106,8 +106,8 @@ class DoctorSetupSearchFilter extends PureComponent {
                   </Col>
                   <Col sm={12} md={6} xl={6}>
                     <CHybridInput
-                      id="code"
-                      name="code"
+                      id="mobileNumber"
+                      name="mobileNumber"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       value={searchParameters.mobileNumber}
@@ -230,7 +230,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.moblieNumber && (
+              {searchParameters.mobileNumber && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -240,7 +240,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.code}
+                      {searchParameters.mobileNumber}
                     </Button>
                   </OverlayTrigger>
                 </li>

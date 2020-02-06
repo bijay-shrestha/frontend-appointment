@@ -55,7 +55,7 @@ const DoctorManage = props => {
       doctorsForDropdown,
       hospitalsForDropdown,
       activeSpecializationList,
-      
+      qualificationDropdown
     }) => (
       <>
         <div className="">
@@ -95,35 +95,32 @@ const DoctorManage = props => {
             deleteErrorMsg={deleteErrorMessage} 
           />
         </div>
-        {/* {showEditModal && (
-          <HospitalEditForm
+        {showEditModal && (
+          <DoctorEditForm
             showModal={showEditModal}
             setShowModal={setShowModal}
             onEnterKeyPress={handleEnter}
-            hospitalData={hospitalData}
+            doctorData={doctorData}
             onInputChange={handleInputChange}
-            editApiCall={editHospital}
+            editApiCall={editDoctor}
             formValid={formValid}
-            errorMessageForHospitalCode={
-              errorMessageForHospitalCode
-            }
-            errorMessageForSpecializationName={
-              errorMessageForHospitalName
-            }
-            errorMessage={hospitalEditErrorMessage}
-            addContactNumber={addContactNumber}
-            removeContactNumber={removeContactNumber}
-            editContactNumber={editContactNumber}
-            hospitalImage={hospitalImage}
-            hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-            hospitalFileCropped={hospitalFileCropped}
+            errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
+            errorMessageForDoctorContact={errorMessageForDoctorContact}
+            errorMessageForDoctorName={errorMessageForDoctorName}
+            errorMessage={doctorEditErrorMessage}
+            doctorImage={doctorImage}
+            doctorImageCroppedUrl={doctorImageCroppedUrl}
+            doctorFileCropped={doctorFileCropped}
             showImageUploadModal={showImageUploadModal}
             onImageSelect={onImageSelect}
             handleCropImage={handleCropImage}
             handleImageUpload={handleImageUpload}
             setImageShow={setImageShow}   
+            qualificationDropdown={qualificationDropdown}
+            hospitalsForDropdown={hospitalsForDropdown}
+            activeSpecializationList={activeSpecializationList}
           />
-        )} */}
+        )}
         <CAlert
           id="profile-add"
           variant={alertMessageInfo.variant}
