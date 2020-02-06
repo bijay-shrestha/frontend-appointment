@@ -49,7 +49,7 @@ export const previewConsultant = (path, id) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPreviewSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(DoctorSetupActions.createConsultantPreviewError(e.errorMessage))
+    dispatch(DoctorSetupActions.createConsultantPreviewError(e.error||'Sorry Internal Server Error'))
     throw e
   }
 }

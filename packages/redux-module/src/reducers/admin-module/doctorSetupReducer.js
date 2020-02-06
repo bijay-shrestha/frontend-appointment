@@ -128,21 +128,21 @@ export const DoctorPreviewReducer = (
             return {
                 ...state,
                 consultantPreviewData: null,
-                iPreviewLoading: true,
+                isPreviewLoading: true,
                 onsultantPreviewErrorMessage: ''
             }
         case CN_PREVIEW_SUCCESS:
             return {
                 ...state,
                 consultantPreviewData: action.payload.data,
-                iPreviewLoading: false,
+                isPreviewLoading: false,
                 consultantPreviewErrorMessage: ''
             }
         case CN_PREVIEW_ERROR:
             return {
                 ...state,
                 consultantPreviewData: null,
-                iPreviewLoading: false,
+                isPreviewLoading: false,
                 consultantPreviewErrorMessage: action.payload.message
             }
         case CLEAR_CN_PREVIEW_MESSAGE:

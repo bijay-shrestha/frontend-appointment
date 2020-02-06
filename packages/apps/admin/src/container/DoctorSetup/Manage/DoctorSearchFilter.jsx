@@ -76,20 +76,20 @@ class DoctorSetupSearchFilter extends PureComponent {
                       onChange={event => onInputChange(event)}
                       value={searchParameters.name}
                       options={doctorsForDropdown}
-                      isDisabled={doctorsForDropdown.length ? true : false}
+                      isDisabled={!doctorsForDropdown.length ? true : false}
                       label="Doctors Name"
                     />
                   </Col>
                   <Col sm={12} md={6} xl={6}>
                     <CHybridSelect
                       id="name"
-                      name="name"
+                      name="specializationId"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       value={searchParameters.specializationId}
                       options={activeSpecializationList}
                       isDisabled={
-                        activeSpecializationList.length ? true : false
+                        !activeSpecializationList.length ? true : false
                       }
                       label="Doctors Specialization"
                     />
@@ -101,7 +101,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       value={searchParameters.code}
-                      label="Doctors Code"
+                      placeholder="Doctor Code"
                     />
                   </Col>
                   <Col sm={12} md={6} xl={6}>
@@ -111,7 +111,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       value={searchParameters.mobileNumber}
-                      label="Doctor Number"
+                      placeholder="Doctor Number"
                     />
                   </Col>
                   <Col sm={12} md={6} xl={6}>
@@ -212,7 +212,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.specializationId}
+                      {searchParameters.specializationId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

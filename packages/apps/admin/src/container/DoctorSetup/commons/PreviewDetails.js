@@ -10,12 +10,14 @@ const PreviewDetails = props => {
                 modalHeading="Hospital Details"
                 size="lg"
                 bodyChildren={<DetailsModal
-                doctorData={doctorData}/>}
+                doctorData={doctorData}
+                type="M"
+                />}
                 onHide={setShowModal}
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}
-                type="E"
+               
                 />
     </>
 };

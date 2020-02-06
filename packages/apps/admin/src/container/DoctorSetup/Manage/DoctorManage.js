@@ -5,7 +5,7 @@ import DoctorEditForm from './DoctorEditModal'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import DoctorHoc from '../DoctorHoc'
 const DoctorManage = props => {
-  const DocManage = HospitalHoc(
+  const DocManage = DoctorHoc(
     ({
       searchParameters,
       handleSearchFormChange,
@@ -32,7 +32,7 @@ const DoctorManage = props => {
       editDoctor,
       downloadEXCEL,
       deleteRemarksHandler,
-      editPreviewErrorMessage,
+      doctorPreviewErrorMessage,
       deleteErrorMessage,
       doctorEditErrorMessage,
       isPreviewLoading,
@@ -71,19 +71,19 @@ const DoctorManage = props => {
           />
         </div>
         <div className=" mb-2">
-          <HospitalDetailsTable
+          <DoctorDetailsTable
             filteredActions={props.filteredAction}
-            showHospitalModal={showHospitalModal}
+            showDoctorModal={showDoctorModal}
             isSearchLoading={isSearchLoading}
-            searchData={hospitalList}
+            searchData={doctorList}
             searchErrorMessage={searchErrorMessage}
             setShowModal={setShowModal}
             onDeleteHandler={onDeleteHandler}
             onEditHandler={onEditHandler}
             isPreviewLoading={isPreviewLoading}
             onPreviewHandler={onPreviewHandler}
-            hospitalData={hospitalPreviewData}
-            hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
+            doctorData={doctorPreviewData}
+            doctorPreviewErrorMessage={doctorPreviewErrorMessage}
             totalItems={totalRecords}
             maxSize={queryParams.size}
             currentPage={queryParams.page}
@@ -92,9 +92,7 @@ const DoctorManage = props => {
             onSubmitDelete={onSubmitDeleteHandler}
             remarksHandler={deleteRemarksHandler}
             remarks={deleteRequestDTO.remarks}
-            deleteErrorMsg={deleteErrorMessage}
-            // exportExcel={downloadEXCEL}
-          
+            deleteErrorMsg={deleteErrorMessage} 
           />
         </div>
         {/* {showEditModal && (
@@ -152,6 +150,6 @@ const DoctorManage = props => {
     ),
     props,"M"
   )
-  return <SPManage />
+  return <DocManage />
 }
-export default memo(HospitalManage)
+export default memo(DoctorManage)

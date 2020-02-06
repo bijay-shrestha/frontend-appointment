@@ -16,8 +16,8 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
     <div className="manage-details">
-        
-        <h5 className="title">Hospital Details</h5>
+        {console.log(props.searchData)}
+        <h5 className="title">Doctor Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -42,14 +42,14 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Name',
-                            field: 'name',
+                            headerName: 'Name',
+                            field: 'doctorName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Logo',
+                            headerName: 'Picture',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,
@@ -58,13 +58,34 @@ const HospitalDetailsDataTable = props => (
                             cellRenderer: 'imageRenderer'
                         },
                         {
-                            headerName: 'Hospital Address',
-                            field: 'address',
+                            headerName: 'Code',
+                            field: 'code',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                       
+                        {
+                            headerName: 'Phone Number',
+                            field: 'mobileNumber',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
+                            headerName: 'Specialization',
+                            field: 'specializationName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
+                            headerName: 'Hospital Name',
+                            field: 'hospitalName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -127,13 +148,13 @@ const HospitalDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showHospitalModal && !props.isPreviewLoading ? (
+        {props.showDoctorModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showHospitalModal}
+                showModal={props.showDoctorModal}
                 setShowModal={props.setShowModal}
-                hospitalData={props.hospitalData}
-                hospitalPreviewErrorMessage={
-                    props.hospitalPreviewErrorMessage
+                doctorData={props.doctorData}
+                doctorPreviewErrorMessage={
+                    props.doctorPreviewErrorMessage
                 }
             />
         ) : (
@@ -141,8 +162,8 @@ const HospitalDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
-                modalHeader="Delete Specialization"
+                confirmationMessage="Are you sure you want to delete the Doctor?If yes please provide remarks."
+                modalHeader="Delete Doctor"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}

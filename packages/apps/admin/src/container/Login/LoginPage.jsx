@@ -6,7 +6,7 @@ import {LocalStorageSecurity} from '@frontend-appointment/helpers';
 class LoginPage extends React.PureComponent {
   onSubmitHandler = async user => {
     try {
-      await this.props.signinUser('/api/v1/login', user);
+      await this.props.signinUser('/api/v1/login', {...user});
       await this.props.fetchUserMenus('/api/v1/sidebar',{username:user.username});
       const selectedPath = LocalStorageSecurity.localStorageDecoder("active");
       const pathToRedirect = selectedPath?"/admin"+selectedPath.replace("true",""):"/admin/dashboard"

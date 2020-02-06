@@ -195,10 +195,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       })
     }
     
-    callSpecializationApi =(name) => {
+    callSpecializationApi =(name,id) => {
       const {hospitalId} = this.state.consultantData
       if(name==="hospitalId"){
-       this.props.fetchSpecializationHospitalWiseForDropdown(specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,hospitalId.value);
+       this.props.fetchSpecializationHospitalWiseForDropdown(specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,id?id.value:hospitalId.value);
       }
     }
 
@@ -294,7 +294,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
     previewApiCall = async id => {
       await this.props.previewConsultant(
-        doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
+        doctorSetupApiConstants.FETCH_DOCTOR,
         id
       )
     }
@@ -362,6 +362,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       if(name==="hospitalId"){
       try {
         await this.props.fetchActiveDoctorsHospitalWiseForDropdown(doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,this.state.searchParameters.hospitalId.value)
+        this.callSpecializationApi(name,this.state.searchParameters.hospitalId)
       } catch (e) {
         console.log(e)
       }
@@ -403,7 +404,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
       await this.setState({
         totalRecords: this.props.DoctorSearchReducer.consultantList.length
-          ? this.props.DoctorSearchReducer.hospitalList[0].totalItems
+          ? this.props.DoctorSearchReducer.consultantList[0].totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -444,10 +445,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         consultantList.map((spec, index) => ({
           ...spec,
           sN: index + 1,
-          name: spec.name.toUpperCase()
+          name: spec.doctorName.toUpperCase()
         }))
-      console.log('New Consultant List', newConsultantList)
-      return newConsultantList
+      return newConsultantList;
     }
 
     handlePageChange = async newPage => {
@@ -457,7 +457,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchDoctor()
+      this.searchDoctor();
     }
 
     editDoctor = async () => {
@@ -479,6 +479,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       )
       try {
         console.log(this.state.editContactNumberRequestDTOS)
+
         await this.props.editHospital(
           hospitalSetupApiConstants.EDIT_HOSPITAL,
           {
@@ -574,8 +575,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         let label = event.target.label
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-        this.searchDoctorForDropDown()
+        
         await this.setStateValuesForSearch(searchParams)
+        this.searchDoctorForDropDown(event.target.name)
       }
     }
     setFormValidManage = () => {
@@ -585,6 +587,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
     }
 
     async componentDidMount () {
+      try{
       if (type === 'M') {
         await this.searchDoctor()
       }
@@ -592,7 +595,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
       this.props.fetchActiveQualificationsForDropdown(qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE);
       }
       this.props.fetchActiveHospitalsForDropdown(hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN);
-     
+    }catch(e){
+      console.log(e);
+    }
     }
     setImageShowModal = () =>
       this.setState({showImageUploadModal: !this.state.showImageUploadModal})
@@ -640,7 +645,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
       const {deleteErrorMessage} = this.props.DoctorDeleteReducer
 
-      const {doctorsForDropdown} = this.props.DoctorDropdownReducer
+      const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
 
       const {activeSpecializationList} = this.props.SpecializationDropdownReducer
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
@@ -686,7 +691,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO={deleteRequestDTO}
           totalRecords={totalRecords}
           isSearchLoading={isSearchLoading}
-          hospitalList={this.appendSNToTable(consultantList)}
+          doctorList={this.appendSNToTable(consultantList)}
           searchErrorMessage={searchErrorMessage}
           doctorPreviewErrorMessage={consultantPreviewErrorMessage}
           deleteErrorMessage={deleteErrorMessage}
@@ -704,7 +709,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
           handleCropImage={this.handleCropImage}
           handleImageUpload={this.handleImageUpload}
           setImageShow={this.setImageShowModal}
-          doctorDropdown={doctorsForDropdown}
+          doctorsForDropdown={activeDoctorsForDropdown}
           qualificationDropdown={qualificationsForDropdown}
           hospitalsForDropdown={hospitalsForDropdown}
           activeSpecializationList={activeSpecializationList}

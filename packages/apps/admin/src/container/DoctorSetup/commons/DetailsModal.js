@@ -11,12 +11,8 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
 const DetailsModal = ({type, doctorData}) => {
-  // const getOnlyContactNumber =(contactsResponse) =>{
-  //   let contacts =[];
-  //   contactsResponse.map(contactNumber=>{contacts.push(contactNumber.contactNumber)})
-  //   return contacts
-  // }
-  let images // contactNumber;
+  let images //,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
+
   if (type !== 'A') {
     images = [
       {
@@ -66,29 +62,54 @@ const DetailsModal = ({type, doctorData}) => {
                       id="doctor-name"
                       name="name"
                       placeholder="Doctor Name"
-                      value={doctorData.name}
+                      value={
+                        type === 'A' ? doctorData.name : doctorData.doctorName
+                      }
                       disabled={true}
                     />
                   </Col>
 
                   <Col sm={12} md={6} lg={6}>
-                    <CHybridSelect
-                      id="hospital-id"
-                      label="Hospital Name"
-                      value={doctorData.hospitalId}
-                      isDisabled={true}
-                      
-                    />
+                    {type === 'M' ? (
+                      <CHybridInput
+                        id="hospital-id"
+                        placeholder="Hospital Name"
+                        value={doctorData.hospitalName}
+                        disabled={true}
+                      />
+                    ) : (
+                      <CHybridSelect
+                        id="hospital-id"
+                        label="Hospital Name"
+                        value={doctorData.hospitalId}
+                        isDisabled={true}
+                      />
+                    )}
                   </Col>
 
                   <Col sm={12} md={6} lg={6}>
-                    <CHybridSelect
-                      id="specilizationName"
+                    {/* <CHybridSelect
+                      id="specializationName"
                       label="Specialization Names"
                       value={doctorData.specializationIds}
                       isMulti={true}
                       isDisabled={true}
-                    />
+                    /> */}
+                    {type !== 'A' ? (
+                      <CHybridInput
+                        id="specializationNames"
+                        placeholder="Specialization Names"
+                        value={doctorData.specializationName}
+                      />
+                    ) : (
+                      <CHybridSelect
+                        id="specializationNames"
+                        label="Specialization Names"
+                        value={doctorData.specializationIds}
+                        isMulti={true}
+                        isDisabled={true}
+                      />
+                    )}
                   </Col>
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
@@ -102,7 +123,11 @@ const DetailsModal = ({type, doctorData}) => {
                   <Col sm={12} md={3} lg={3}>
                     <CFLabel labelName="Gender" id="Gender"></CFLabel>
                     <CRadioButton
-                      checked={doctorData.genderCode === 'M'}
+                      checked={
+                        type === 'A'
+                          ? doctorData.genderCode === 'M'
+                          : doctorData.gender === 'MALE'
+                      }
                       name="genderCode"
                       id="radio1"
                       label="Male"
@@ -112,7 +137,11 @@ const DetailsModal = ({type, doctorData}) => {
                       readOnly={true}
                     />
                     <CRadioButton
-                      checked={doctorData.genderCode === 'F'}
+                      checked={
+                        type === 'A'
+                          ? doctorData.genderCode === 'F'
+                          : doctorData.gender === 'FEMALE'
+                      }
                       name="genderCode"
                       id="radio2"
                       label="Female"
@@ -122,7 +151,11 @@ const DetailsModal = ({type, doctorData}) => {
                       readOnly={true}
                     />
                     <CRadioButton
-                      checked={doctorData.genderCode === 'O'}
+                      checked={
+                        type === 'A'
+                          ? doctorData.genderCode === 'O'
+                          : doctorData.gender === 'OTHER'
+                      }
                       name="genderCode"
                       id="radio3"
                       label="Other"
@@ -144,19 +177,31 @@ const DetailsModal = ({type, doctorData}) => {
                     />
                   </Col>
                   <Col sm={12} md={6} lg={6}>
-                    <CHybridSelect
-                      id="qualificationIds"
-                      label="Qualification Name"
-                      value={doctorData.qualificationIds}
-                      isDisabled={true}
-                      isMulti={true}
-                    />
+                    {type !== 'A' ? (
+                      <CHybridInput
+                        id="qualificationIds"
+                        placeholder="Qualification Name"
+                        value={doctorData.qualificationName}
+                      />
+                    ) : (
+                      <CHybridSelect
+                        id="qualificationIds"
+                        label="Qualification Name"
+                        value={doctorData.qualificationIds}
+                        isDisabled={true}
+                        isMulti={true}
+                      />
+                    )}
                   </Col>
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="doctor-number"
                       placeholder="Doctor Phone Number"
-                      value={doctorData.contactNumber}
+                      value={
+                        type !== 'A'
+                          ? doctorData.mobileNumber
+                          : doctorData.contactNumber
+                      }
                       disabled={true}
                       readOnly={true}
                     />

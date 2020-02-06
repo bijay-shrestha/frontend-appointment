@@ -111,6 +111,11 @@ const ManageQualificationComponent = Loadable({
   loading: () => getLoader()
 });
 
+const ManageDoctorComponent =Loadable({
+  loader: () =>
+    import('./container/DoctorSetup/Manage/DoctorManage'),
+  loading: () => getLoader()
+})
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -355,7 +360,17 @@ export const routes = [
     hasTab: true,
     isLink: true,
     isTab: true,
-    name: 'Doctor'
+    name: 'Add'
+
+  },
+  {
+    path: '/admin/generalSetup/doctor/manage',
+    component: ManageDoctorComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Manage'
 
   },
   {
