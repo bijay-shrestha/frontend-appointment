@@ -12,7 +12,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
-import DefaulHospitalImage from '../img/default-logo.png'
+import DefaulHospitalImage from '../img/picture.png'
 
 const DoctorEditModal = ({
   showModal,
@@ -107,6 +107,7 @@ const DoctorEditModal = ({
                   required={true}
                 />
               </Col>
+              <Col sm={12} md={12} lg={6}></Col>
               <Col sm={12} md={12} lg={6}>
                 <CHybridInput
                   id="doctor-name"
@@ -124,39 +125,10 @@ const DoctorEditModal = ({
                   errorMessagePassed={errorMessageForDoctorName}
                 />
               </Col>
+
               <Col sm={12} md={6} lg={6}>
-                <CHybridSelect
-                  id="specializationIds"
-                  name="specializationIds"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) =>
-                    onInputChange(event, validity, 'E')
-                  }
-                  label="Select Specialization"
-                  options={activeSpecializationList}
-                  isDisabled={!activeSpecializationList.length ? true : false}
-                  value={checkIfSpecializationIdAndHospitalIdMatch(
-                    doctorData.specializationIds,
-                    doctorData.selectedSpecializations,
-                    doctorData.hospitalId
-                  )}
-                  required={true}
-                  isMulti={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="nmc-number"
-                  name="nmcNumber"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, '', 'E')}
-                  placeholder="Doctor NMC Number"
-                  value={doctorData.nmcNumber}
-                  required={true}
-                />
-              </Col>
-              <Col sm={3} md={3} lg={3}>
                 <CFLabel labelName="Gender" id="gender"></CFLabel>
+                <div>
                 <CRadioButton
                   checked={doctorData.genderCode === 'M'}
                   onKeyDown={event => onEnterKeyPress(event)}
@@ -187,7 +159,42 @@ const DoctorEditModal = ({
                   type="radio"
                   value="O"
                 />
+                </div>
               </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="nmc-number"
+                  name="nmcNumber"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) => onInputChange(event, '', 'E')}
+                  placeholder="Doctor NMC Number"
+                  value={doctorData.nmcNumber}
+                  required={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridSelect
+                  id="specializationIds"
+                  name="specializationIds"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
+                  label="Select Specialization"
+                  options={activeSpecializationList}
+                  isDisabled={!activeSpecializationList.length ? true : false}
+                  value={checkIfSpecializationIdAndHospitalIdMatch(
+                    doctorData.specializationIds,
+                    doctorData.selectedSpecializations,
+                    doctorData.hospitalId
+                  )}
+                  required={true}
+                  isMulti={true}
+                />
+              </Col>
+              
+             
 
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput

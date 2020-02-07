@@ -57,7 +57,7 @@ class DoctorSetupSearchFilter extends PureComponent {
             <CForm id="hospital-info" className="profile-info mt-4">
               <Container-fluid>
                 <Row>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="hospitalId"
                       name="hospitalId"
@@ -68,7 +68,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       label="Hospital Name"
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="name"
                       name="name"
@@ -80,7 +80,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       label="Doctors Name"
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="name"
                       name="specializationId"
@@ -94,7 +94,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       label="Doctors Specialization"
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridInput
                       id="code"
                       name="code"
@@ -104,7 +104,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       placeholder="Doctor Code"
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridInput
                       id="mobileNumber"
                       name="mobileNumber"
@@ -114,7 +114,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       placeholder="Doctor Number"
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={6}>
+                  <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="status"
                       name="status"

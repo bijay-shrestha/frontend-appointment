@@ -16,3 +16,43 @@ h5.title{
     // @include border-radius($cogent-radius);
     display: inline-block !important;
 }
+
+.upload-button{
+    display: block;
+    width:140px;
+}
+
+
+.image-upload-container{
+    text-align: center;
+ 
+      .image-box{
+         img{
+             width:140px;
+             @include border-radius(50%);
+         }
+ 
+         .upload-button{
+             margin:0 auto;
+         }
+ 
+ 
+ 
+      }
+  }
+
+  .mac-box{
+    position: relative;
+
+    .remove-mac{
+        position: absolute;
+        right:0;
+        top:0;
+        height:calc(1.5em + 0.75rem);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-top-right-radius:3px;
+        border-bottom-right-radius: 3px;
+        border:none;
+    }
+}
