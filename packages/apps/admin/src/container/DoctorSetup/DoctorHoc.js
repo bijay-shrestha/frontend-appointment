@@ -604,7 +604,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         await this.props.editConsultant(
           doctorSetupApiConstants.EDIT_DOCTOR,
           {
-            updateDTO:{
+            doctorInfo:{
             name,
             status,
             nmcNumber,
@@ -612,22 +612,26 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             mobileNumber:contactNumber,
             genderCode,
             appointmentCharge,
+            remarks,
+            email,
+            id
             },
-            doctorQualificationUpdateDTOS:this.makeMultipleSelectForEditResponse('Qualification',qualificationIds,newQualificationList),
-            specializationUpdateRequestDTOS:this.makeMultipleSelectForEditResponse('Specialization',specializationIds,newSpecializationList),
+            doctorQualificationInfo:this.makeMultipleSelectForEditResponse('Qualification',qualificationIds,newQualificationList),
+            doctorSpecializationInfo:this.makeMultipleSelectForEditResponse('Specialization',specializationIds,newSpecializationList),
             
           },
           formData
         )
-        this.resetHospitalStateValues()
+        this.resetConsultantStateValues()
+        this.setShowModal();
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalEditReducer.hospitalEditSuccessMessage
+            message: this.props.DoctorEditReducer.consultantEditSuccessMessage
           }
         })
-        await this.searchHospital()
+        await this.searchDoctor()
       } catch (e) {}
     }
 
