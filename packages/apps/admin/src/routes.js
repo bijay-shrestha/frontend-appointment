@@ -39,6 +39,11 @@ const AddSpecializationComponent = Loadable({
     loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
     loading: () => getLoader()
 });
+
+const AppointmentStatusComponent = Loadable({
+    loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
+    loading: () => getLoader()
+});
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -68,6 +73,8 @@ const DashboardComponent = Loadable({
 /* ****** L ***** */
 
 /* ****** M ***** */
+
+
 
 const ManageProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/Manage/ProfileManage'),
@@ -340,6 +347,16 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Setup'
+
+    },
+    {
+        path: '/admin/appointment/appointmentStatus',
+        component: AppointmentStatusComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Appointment Status'
 
     },
     {

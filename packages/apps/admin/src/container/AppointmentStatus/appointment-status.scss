@@ -1,0 +1,109 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+ .title{
+    // &::before{
+    //     content:"";
+    //     display: block;
+    //     position: absolute;
+    //     width:100%;
+    //     height:1px;
+    //     bottom:-9px;
+    //     border:1px solid $cogent;
+    //     background-color:$cogent;
+    // }
+   
+ }
+
+ .appointment-badge{
+    float: right;  
+    margin:10px 0;
+    
+        &>span{
+         margin-right:20px;
+         height: auto;
+        //  line-height: 40px;
+
+         &:last-child{
+             margin-right: 0;
+         }
+     }
+
+     .btn{
+        margin-bottom:10px;
+     }
+    
+
+}
+
+// .badge{
+//     width:35px;
+//     height: 35px;
+//     // top:50%;
+//     // left:50%;
+//     // transform:translate(-50%,-50%);
+//     text-align: center;
+//     vertical-align: middle;
+//     font-size: 16px;
+//     line-height: 22px;
+//     padding:6px;
+//     @include border-radius(50%);
+// }
+
+.react-datepicker-wrapper{
+    width:50%;
+    // padding-left: 4px;
+}
+
+.doctor-name{
+    position: relative;
+
+    display: inline-block;
+    margin-bottom:20px;
+     &::before{
+        content:"";
+        display: block;
+        position: absolute;
+        width:100%;
+        height:2px;
+        bottom:-5px;
+        background-color:$gray-600;
+    }
+   
+}
+
+.time-container{
+    ul li{
+        display: inline-block;
+        margin-right:10px;
+        margin-bottom:6px;
+    }
+}
+
+.appointment-status-list{
+    margin: 0 -30px;
+}
+
+.appointment-status-list,.appointment-badge{
+    .btn-success{
+        background-color: adjust-hue($success,20%);
+    }
+
+    .btn{
+        padding:10px 6px;
+    }
+}
+
+@media (max-width: 1199px) { 
+    .hide-on-md{
+      display:none;
+    }
+  }
+
