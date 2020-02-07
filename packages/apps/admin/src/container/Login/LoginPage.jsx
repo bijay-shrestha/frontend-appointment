@@ -2,13 +2,15 @@ import {fetchLoggedInAdminUserInfo, fetchUserMenus, signinUser} from '@frontend-
 import {Login} from '@frontend-appointment/ui-components';
 import React from 'react';
 import {ConnectHoc} from '@frontend-appointment/commons';
-
+import {LocalStorageSecurity} from '@frontend-appointment/helpers';
 class LoginPage extends React.PureComponent {
   onSubmitHandler = async user => {
     try {
-      await this.props.signinUser('/api/v1/login', user);
+      await this.props.signinUser('/api/v1/login', {...user});
       await this.props.fetchUserMenus('/api/v1/sidebar',{username:user.username});
-      await this.props.history.push('/admin/dashboard');
+      const selectedPath = LocalStorageSecurity.localStorageDecoder("active");
+      const pathToRedirect = selectedPath?"/admin"+selectedPath.replace("true",""):"/admin/dashboard"
+      await this.props.history.push(pathToRedirect);
       return null;
     } catch (e) {
       console.log(e);
