@@ -51,7 +51,7 @@ const DashboardComponent = Loadable({
 });
 
 const AppointmentLogComponent = Loadable({
-    loader: () => import('./container/AppointmentLog/AppointmentLog'),
+    loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
     loading: () => getLoader()
 });
 

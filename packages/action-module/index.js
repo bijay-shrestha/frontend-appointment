@@ -13,6 +13,8 @@ import {
 import {
     adminSetupActionConstants,
     AdminSetupActions,
+    AppointmentDetailActions,
+    appointmentDetailsConstants,
     DoctorSetupActions,
     doctorSetupConstants,
     DepartmentSetupActions,
@@ -27,11 +29,14 @@ import {
     specializationSetupConstants,
     QualificationSetupActions,
     qualificationSetupConstants
+   
 } from './src/admin-module'
 
 export {
     adminSetupActionConstants,
     AdminSetupActions,
+    AppointmentDetailActions,
+    appointmentDetailsConstants,
     DoctorSetupActions,
     doctorSetupConstants,
     DepartmentSetupActions,

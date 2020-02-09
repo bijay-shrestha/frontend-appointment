@@ -14,8 +14,11 @@ import * as QualificationSetupActions from './qualification-setup/qualificationS
 import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
 import {doctorDutyRosterActionConstants} from "./doctor-duty-roster/doctorDutyRosterActionConstants";
 import * as DoctorDutyRosterActions from './doctor-duty-roster/doctorDutyRosterActions';
-
+import * as AppointmentDetailActions from './appointment-details/appointmentDetailActions';
+import {appointmentDetailsConstants} from "./appointment-details/appointmentDetailActionConstants";
 export {
+    AppointmentDetailActions,
+    appointmentDetailsConstants,
     profileSetupConstants,
     ProfileSetupActions,
     specializationSetupConstants,
