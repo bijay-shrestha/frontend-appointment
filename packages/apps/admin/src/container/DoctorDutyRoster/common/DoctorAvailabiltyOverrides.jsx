@@ -31,7 +31,7 @@ const DoctorAvailabilityOverrides = ({
                     <Col>
                         <CCheckbox
                             id="check--override"
-                            label="Override"
+                            label="Override ( optional )"
                             className="select-all check-all"
                             checked={hasOverrideDutyRoster === 'Y'}
                             onChange={handleOverrideDutyRoster}

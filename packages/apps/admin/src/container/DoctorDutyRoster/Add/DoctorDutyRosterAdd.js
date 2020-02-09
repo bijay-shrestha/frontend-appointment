@@ -20,7 +20,6 @@ function DoctorDutyRosterAdd(props) {
                                                               doctorDropdownErrorMessage,
                                                               specializationDropdownError,
                                                               handleInputChange,
-                                                              handleDateChange,
                                                               handleEnter,
                                                               getExistingRoster,
                                                               handleShowExistingRoster,
@@ -59,7 +58,6 @@ function DoctorDutyRosterAdd(props) {
                         doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                         onEnterKeyPress={handleEnter}
                         onInputChange={handleInputChange}
-                        onDateChange={handleDateChange}
                         getExistingRoster={getExistingRoster}
                         existingRosterTableData={existingRosterTableData}
                         onViewDetailsExisting={onViewDetailsExisting}

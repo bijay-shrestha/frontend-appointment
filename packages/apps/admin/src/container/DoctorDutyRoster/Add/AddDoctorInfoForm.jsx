@@ -9,7 +9,6 @@ const AddDoctorInfoForm = ({
                                doctorList,
                                doctorInfoData,
                                onInputChange,
-                               onDateChange,
                                onEnterKeyPress,
                                specializationDropdownError,
                                doctorDropdownErrorMessage,
@@ -35,7 +34,7 @@ const AddDoctorInfoForm = ({
                             showYearDropdown={true}
                             dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date) => onDateChange(date, "fromDate")}
+                            onChange={(date) => onInputChange(date, "fromDate")}
                         />
                         &nbsp;&nbsp;
                         <CEnglishDatePicker
@@ -51,7 +50,7 @@ const AddDoctorInfoForm = ({
                             showYearDropdown={true}
                             dropdownMode="select"
                             onKeyDown={(event) => onEnterKeyPress(event)}
-                            onChange={(date) => onDateChange(date, "toDate")}
+                            onChange={(date) => onInputChange(date, "toDate")}
                         />
                     </div>
 
@@ -62,7 +61,7 @@ const AddDoctorInfoForm = ({
                         options={hospitalList}
                         placeholder="Select hospital."
                         onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event)}
+                        onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.hospital}
                     />
 
@@ -74,7 +73,7 @@ const AddDoctorInfoForm = ({
                         placeholder={"Select specialization."}
                         noOptionsMessage={() => specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event)}
+                        onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.specialization}
                     />
                     <CHybridSelect
@@ -86,7 +85,7 @@ const AddDoctorInfoForm = ({
                         options={doctorList}
                         noOptionsMessage={() => doctorDropdownErrorMessage}
                         onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event)}
+                        onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.doctor}
                     />
 
@@ -97,7 +96,7 @@ const AddDoctorInfoForm = ({
                         name="rosterGapDuration"
                         placeholder="Enter Duration In Minutes."
                         onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event)}
+                        onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.rosterGapDuration}
                     />
                 </Form>

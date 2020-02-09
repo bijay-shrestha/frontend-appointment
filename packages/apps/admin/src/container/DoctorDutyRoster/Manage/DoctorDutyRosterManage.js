@@ -36,7 +36,6 @@ function DoctorDutyRosterManage(props) {
              deleteDoctorDutyRoster,
              deleteErrorMessage,
              showEditModal,
-             setShowModal,
              updateDoctorDutyRosterData,
              editErrorMessage,
              editDoctorDutyRoster,

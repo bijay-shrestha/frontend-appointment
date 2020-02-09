@@ -62,7 +62,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             showAddOverrideModal: false,
             isModifyOverride: false,
             showAlert: false,
-            formValid: true,
+            formValid: false,
             showConfirmModal: false,
             showDeleteModal: false,
             showEditModal: false,
@@ -129,7 +129,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 overridesUpdate: [],
                 originalOverrides: [],
                 updatedOverrides: [],
-                formValid: true
+                formValid: false
             },
             overrideUpdateErrorMessage: '',
             deleteOverrideErrorMessage: ''
@@ -215,7 +215,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         fetchWeekdaysData = async () => {
             await TryCatchHandler.genericTryCatch(this.props.fetchWeekdays(FETCH_WEEKDAYS));
-            let weekDaysData = await this.getWeekDaysDataForForm();
+            let weekDaysData = this.getWeekDaysDataForForm();
             this.setState({
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
             });
@@ -242,26 +242,23 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        handleInputChange = (event, fieldValid) => {
-            event && this.bindValuesToState(event, fieldValid);
+        handleDoctorInfoFormInputChange = (event, fieldName, fieldValid) => {
+            event && this.bindValuesToState(event, fieldName, fieldValid);
         };
 
-        handleDateChange = (date, name) => {
-            date && this.setState({
-                [name]: date
-            })
-        };
-
-        handleDoctorAvailabilityFormChange = (event, fieldName, index) => {
+        handleDoctorAvailabilityFormChange = async (event, fieldName, index) => {
             let value = fieldName ? event : event.target.checked;
             let doctorWeekDaysAvailability;
             switch (type) {
                 case 'ADD':
                     doctorWeekDaysAvailability = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
                     this.setAvailabilityData(fieldName, doctorWeekDaysAvailability, index, value);
-                    this.setState({
-                        doctorWeekDaysDutyRosterRequestDTOS: [...doctorWeekDaysAvailability]
+                    let wholeWeekOff = this.checkIfWholeWeekOff(doctorWeekDaysAvailability);
+                    await this.setState({
+                        doctorWeekDaysDutyRosterRequestDTOS: [...doctorWeekDaysAvailability],
+                        isWholeWeekOff: wholeWeekOff ? "Y" : "N"
                     });
+                    this.checkFormValidity();
                     break;
                 case 'MANAGE':
                     doctorWeekDaysAvailability = [...this.state.updateDoctorDutyRosterData.weekDaysDutyRosterUpdateRequestDTOS];
@@ -272,6 +269,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             weekDaysDutyRosterUpdateRequestDTOS: [...doctorWeekDaysAvailability]
                         }
                     });
+                    this.checkManageFormValidity();
                     break;
                 default:
                     break;
@@ -292,18 +290,18 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        handleOverrideDutyRoster = (event) => {
+        handleOverrideDutyRoster = async (event) => {
             if (event) {
                 let isOverride = event.target.checked;
                 switch (type) {
                     case 'ADD':
                         if (isOverride) {
-                            this.setState({
+                            await this.setState({
                                 hasOverrideDutyRoster: 'Y',
                                 showAddOverrideModal: true
                             })
                         } else {
-                            this.setState({
+                            await this.setState({
                                 hasOverrideDutyRoster: 'N',
                                 doctorDutyRosterOverrideRequestDTOS: [],
                                 overrideRequestDTO: {
@@ -318,10 +316,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 },
                             })
                         }
+                        this.checkFormValidity();
                         break;
                     case 'MANAGE':
                         if (isOverride) {
-                            this.setState({
+                            await this.setState({
                                 updateDoctorDutyRosterData: {
                                     ...this.state.updateDoctorDutyRosterData,
                                     hasOverrideDutyRoster: 'Y',
@@ -329,7 +328,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 showAddOverrideModal: true
                             })
                         } else {
-                            this.setState({
+                            await this.setState({
                                 updateDoctorDutyRosterData: {
                                     ...this.state.updateDoctorDutyRosterData,
                                     hasOverrideDutyRoster: 'N',
@@ -347,6 +346,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 },
                             })
                         }
+                        this.checkManageFormValidity();
                         break;
                     default:
                         break;
@@ -766,20 +766,20 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        bindValuesToState = async (event, fieldValid) => {
-            let fieldName = event.target.name;
-            let value = event.target.value;
-            let label = event.target.label;
+        bindValuesToState = async (event, fieldName, fieldValid) => {
+            let key = fieldName ? fieldName : event.target.name;
+            let value = fieldName ? event : event.target.value;
+            let label = fieldName ? '' : event.target.label;
 
-            await this.setStateValues(fieldName, value, label, fieldValid);
+            await this.setStateValues(key, value, label, fieldValid);
 
-            if (fieldName === 'specialization') {
+            if (key === 'specialization') {
                 await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
                 await this.setState({
                     doctor: null
                 })
             }
-            // this.checkFormValidity();
+            type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity();
         };
 
         cancelCloseEditModal = async () => {
@@ -789,6 +789,59 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showEditModal: false
             })
+        };
+
+        checkFormValidity = () => {
+            const {
+                fromDate, toDate, hospital, specialization, doctor, rosterGapDuration, hasOverrideDutyRoster,
+                doctorDutyRosterOverrideRequestDTOS, doctorWeekDaysDutyRosterRequestDTOS
+            } = this.state;
+
+            let formValid = fromDate && toDate && hospital && specialization && doctor && rosterGapDuration;
+            if (hasOverrideDutyRoster === "Y") {
+                formValid = formValid && doctorDutyRosterOverrideRequestDTOS.length;
+            }
+
+            doctorWeekDaysDutyRosterRequestDTOS.map(weekDay => {
+                formValid = formValid && weekDay.startTime && weekDay.endTime
+            });
+
+            this.setState({
+                formValid: Boolean(formValid)
+            })
+        };
+
+        checkManageFormValidity = () => {
+            const {
+                rosterGapDuration, remarks, hasOverrideDutyRoster, overridesUpdate,
+                weekDaysDutyRosterUpdateRequestDTOS
+            } = this.state.updateDoctorDutyRosterData;
+
+            let formValid = rosterGapDuration && remarks;
+
+            if (hasOverrideDutyRoster === "Y") {
+                formValid = formValid && overridesUpdate.length;
+            }
+
+            weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
+                formValid = formValid && weekDay.startTime && weekDay.endTime
+            });
+
+            this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    formValid: Boolean(formValid)
+                }
+            })
+
+        };
+
+        checkIfWholeWeekOff = (doctorWeekDaysAvailability) => {
+            let wholeWeekOff = true;
+            doctorWeekDaysAvailability.map(day => {
+                wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y'
+            });
+            return wholeWeekOff;
         };
 
         closeAlert = () => {
@@ -1061,7 +1114,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        revertOverrideUpdatesOnCancel = async (data) => {
+        revertOverrideUpdatesOnCancel = async () => {
             const {updatedOverrides, originalOverrides} = this.state.updateDoctorDutyRosterData;
             let overridesToBeReverted = [];
             let originalUpdatedOverrides = updatedOverrides.filter(override => !override.isNew);
@@ -1137,8 +1190,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     wholeWeekOff={isWholeWeekOff}
                     handleWholeWeekOff={this.handleWholeWeekOff}
                     handleShowExistingRoster={this.handleShowExistingRoster}
-                    handleInputChange={this.handleInputChange}
-                    handleDateChange={this.handleDateChange}
+                    handleInputChange={this.handleDoctorInfoFormInputChange}
                     handleDoctorAvailabilityFormChange={this.handleDoctorAvailabilityFormChange}
                     handleEnter={this.handleEnter}
                     getExistingRoster={this.getExistingRoster}
