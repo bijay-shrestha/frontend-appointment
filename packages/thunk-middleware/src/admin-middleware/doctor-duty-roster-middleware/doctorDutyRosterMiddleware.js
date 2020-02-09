@@ -94,6 +94,15 @@ export const updateDoctorDutyRosterOverride = (path, data) => async dispatch => 
     }
 };
 
+export const revertDoctorDutyRosterOverrideUpdate = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.put(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
 export const deleteDoctorDutyRosterOverride = (path, data) => async dispatch => {
     try {
         const response = await Axios.del(path, data);

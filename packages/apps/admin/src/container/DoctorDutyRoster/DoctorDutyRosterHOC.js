@@ -32,7 +32,8 @@ const {
     updateDoctorDutyRoster,
     clearDDRSuccessErrorMessage,
     updateDoctorDutyRosterOverride,
-    deleteDoctorDutyRosterOverride
+    deleteDoctorDutyRosterOverride,
+    revertDoctorDutyRosterOverrideUpdate
 } = DoctorDutyRosterMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
@@ -49,6 +50,7 @@ const {
     SEARCH_DOCTOR_DUTY_ROSTER,
     UPDATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
+    REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE
 } = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
 const {getDateWithTimeSetToGivenTime, addDate} = DateTimeFormatterUtils;
@@ -85,7 +87,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 remarks: '',
                 status: 'Y',
                 doctorDutyRosterOverrideId: '',
-                id: ''
+                id: '',
+                isNew: false
             },
             alertMessageInfo: {
                 variant: "",
@@ -125,6 +128,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 weekDaysDutyRosterUpdateRequestDTOS: [],
                 overridesUpdate: [],
                 originalOverrides: [],
+                updatedOverrides: [],
                 formValid: true
             },
             overrideUpdateErrorMessage: '',
@@ -401,6 +405,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     break;
                 case 'MANAGE':
+                    let updatedOverrides = [...this.state.updateDoctorDutyRosterData.updatedOverrides];
                     try {
                         let dataToSave = {
                             dayOffStatus: currentOverride.dayOffStatus,
@@ -419,12 +424,15 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 overrideList[currentOverride.id] = currentOverride;
                             } else {
                                 currentOverride.doctorDutyRosterOverrideId = response.savedOverrideId;
+                                currentOverride.isNew = true;
                                 overrideList.push(currentOverride);
                             }
+                            updatedOverrides.push(currentOverride);
                             this.setState({
                                 updateDoctorDutyRosterData: {
                                     ...this.state.updateDoctorDutyRosterData,
-                                    overridesUpdate: [...overrideList]
+                                    overridesUpdate: [...overrideList],
+                                    updatedOverrides: [...updatedOverrides]
                                 },
                                 overrideRequestDTO: {
                                     ...this.state.overrideRequestDTO,
@@ -734,8 +742,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         setShowModal = () => {
             this.setState({
                 showConfirmModal: false,
-                showDeleteModal: false,
-                showEditModal: false
+                showDeleteModal: false
             })
         };
 
@@ -773,6 +780,15 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 })
             }
             // this.checkFormValidity();
+        };
+
+        cancelCloseEditModal = async () => {
+            if (this.state.updateDoctorDutyRosterData.updatedOverrides.length) {
+                await this.revertOverrideUpdatesOnCancel();
+            }
+            this.setState({
+                showEditModal: false
+            })
         };
 
         closeAlert = () => {
@@ -1023,19 +1039,17 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         deleteOverride = async (data, index) => {
-            let deleteData = {
-                id: this.state.deleteRequestDTO.id,
-                status: 'N',
-                remarks: this.state.deleteRequestDTO.remarks
-            };
+            let updatedOverride = [...this.state.updateDoctorDutyRosterData.updatedOverrides];
             try {
-                await this.props.deleteDoctorDutyRosterOverride(DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE, deleteData);
+                await this.props.deleteDoctorDutyRosterOverride(DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE, this.state.deleteRequestDTO);
                 let overrides = [...this.state.updateDoctorDutyRosterData.overridesUpdate];
-                overrides.splice(index, 1);
+                let deletedOverride = overrides.splice(index, 1);
+                updatedOverride.push(deletedOverride);
                 this.setState({
                     updateDoctorDutyRosterData: {
                         ...this.state.updateDoctorDutyRosterData,
-                        overridesUpdate: [...overrides]
+                        overridesUpdate: [...overrides],
+                        updatedOverrides: [...updatedOverride]
                     },
                     showDeleteOverrideModal: false,
                     deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
@@ -1044,6 +1058,37 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     deleteOverrideErrorMessage: e.errorMessage ? e.errorMessage : 'Error occurred while deleting override'
                 })
+            }
+        };
+
+        revertOverrideUpdatesOnCancel = async (data) => {
+            const {updatedOverrides, originalOverrides} = this.state.updateDoctorDutyRosterData;
+            let overridesToBeReverted = [];
+            let originalUpdatedOverrides = updatedOverrides.filter(override => !override.isNew);
+            let newOverrides = updatedOverrides.filter(override => override.isNew);
+
+            originalUpdatedOverrides.map(originalUpdated => {
+                // FIND THE ORIGINAL DATA, CHANGE IT'S STATUS TO 'Y' ; ADD isOriginal FLAG THEN ADD TO ARRAY
+                let originalOverride = originalOverrides.find(original =>
+                    (original.doctorDutyRosterOverrideId === originalUpdated.doctorDutyRosterOverrideId));
+                if (originalOverride) {
+                    originalOverride.status = 'Y';
+                    originalOverride.isOriginal = true;
+                    overridesToBeReverted.push(originalOverride);
+                }
+            });
+
+            newOverrides.length && newOverrides.map(newAdded => {
+                // FOR NEWLY ADDED DATA, CHANGE STATUS TO 'D' , ADD REMARKS THEN ADD TO ARRAY
+                newAdded.status = 'D';
+                newAdded.remarks = "Update Cancelled.";
+                overridesToBeReverted.push(newAdded);
+            });
+
+            try {
+                await this.props.revertDoctorDutyRosterOverrideUpdate(REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE);
+            } catch (e) {
+                console.log("Revert Override Error", e.errorMessage);
             }
         };
 
@@ -1136,6 +1181,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
                     deleteErrorMessage={deleteErrorMessage}
                     showEditModal={showEditModal}
+                    cancelCloseEditModal={this.cancelCloseEditModal}
                     setShowModal={this.setShowModal}
                     updateDoctorDutyRosterData={updateDoctorDutyRosterData}
                     editErrorMessage={editErrorMessage}
@@ -1220,7 +1266,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             fetchWeekdays,
             updateDoctorDutyRoster,
             updateDoctorDutyRosterOverride,
-            deleteDoctorDutyRosterOverride
+            deleteDoctorDutyRosterOverride,
+            revertDoctorDutyRosterOverrideUpdate
         })
 };
 

@@ -47,6 +47,7 @@ function DoctorDutyRosterManage(props) {
              handleOverrideDutyRoster,
              handleOverrideFormInputChange,
              showAddOverrideModal,
+             cancelCloseEditModal,
              setShowAddOverrideModal,
              addOverride,
              overrideUpdateErrorMessage,
@@ -80,7 +81,7 @@ function DoctorDutyRosterManage(props) {
                                      size="lg"
                                      className="btn-action  float-right mr-2"
                                      name="Cancel"
-                                     onClickHandler={setShowModal}
+                                     onClickHandler={cancelCloseEditModal}
                             />
                         </div>
                     </Row>
@@ -154,7 +155,7 @@ function DoctorDutyRosterManage(props) {
                                     deleteOverride={deleteOverride}
                                     onRemoveOverride={onRemoveOverride}/>
                             }
-                            onHide={setShowModal}
+                            onHide={cancelCloseEditModal}
                             centered={false}
                             dialogClassName="preview-modal"
                             footerChildren={footerContent}
