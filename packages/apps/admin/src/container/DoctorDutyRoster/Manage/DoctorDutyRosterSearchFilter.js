@@ -167,7 +167,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                     <div className="search-filter-wrapper" onClick={this.toggleSearchForm}>
                         <ul id="" className="search-filter-item">
                             <li>
-                                <CButton variant="primary" name="">
+                                <CButton id="filter" variant="primary" name="">
                                     <><i className="fa fa-filter"/>
                                         &nbsp; Filter
                                     </>

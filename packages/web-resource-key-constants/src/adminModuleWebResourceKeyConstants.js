@@ -118,7 +118,8 @@ export const doctorDutyRosterApiConstants = {
     FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/detail")),
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/existing")),
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/existing/detail")),
-    FETCH_DOCTOR_DUTY_ROSTER_OVERRIDE: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/doctorDutyRosterOverride"))
+    UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/doctorDutyRosterOverride")),
+    DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE: BASE.concat(DOCTOR_DUTY_ROSTER_BASE.concat("/doctorDutyRosterOverride"))
 };
 
 export const countrySetupAliasCode = {

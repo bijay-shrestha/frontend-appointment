@@ -5,10 +5,10 @@ import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityForm = ({
                                     doctorAvailabilityData,
-                                    onTimeChange,
-                                    handleDayOffStatusChange,
+                                    handleDoctorAvailabilityFormChange,
                                     wholeWeekOff,
-                                    handleWholeWeekOff
+                                    handleWholeWeekOff,
+                                    type
                                 }) => {
     return <>
         <Col md={12} lg={7} className="">
@@ -21,13 +21,15 @@ const DoctorAvailabilityForm = ({
                     </Col>
                     <Col> End Time</Col>
                     <Col>
-                        <CCheckbox
-                            id="check-all-menu"
-                            label="Days Off"
-                            className="select-all check-all"
-                            checked={wholeWeekOff === 'Y'}
-                            onChange={handleWholeWeekOff}
-                        />
+                        {type === 'ADD' ?
+                            <CCheckbox
+                                id="check-all-menu"
+                                label="Days Off"
+                                className="select-all check-all"
+                                checked={wholeWeekOff === 'Y'}
+                                onChange={handleWholeWeekOff}
+                            /> : "Days Off"
+                        }
                     </Col>
                 </Row>
                 {
@@ -40,7 +42,7 @@ const DoctorAvailabilityForm = ({
                                         id={"startTime".concat(day.weekDaysId)}
                                         name={"startTime".concat(day.weekDaysId)}
                                         label="Start Time"
-                                        onChange={(val) => onTimeChange(val, 'startTime', index)}
+                                        onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}
                                         selected={day.startTime}
                                         showTimeSelect={true}
                                         showTimeSelectOnly={true}
@@ -57,7 +59,7 @@ const DoctorAvailabilityForm = ({
                                         id={"endTime".concat(day.weekDaysId)}
                                         name={"endTime".concat(day.weekDaysId)}
                                         label="End Time"
-                                        onChange={(val) => onTimeChange(val, 'endTime', index)}
+                                        onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}
                                         selected={day.endTime}
                                         showTimeSelect={true}
                                         showTimeSelectOnly={true}
@@ -73,8 +75,7 @@ const DoctorAvailabilityForm = ({
                                            label="&nbsp;"
                                            className=" "
                                            checked={day.dayOffStatus === 'Y'}
-                                           onChange={(e) => handleDayOffStatusChange(e, index)}
-                                >
+                                           onChange={(e) => handleDoctorAvailabilityFormChange(e, '', index)}>
                                 </CCheckbox>
                             </Col>
                         </Row>

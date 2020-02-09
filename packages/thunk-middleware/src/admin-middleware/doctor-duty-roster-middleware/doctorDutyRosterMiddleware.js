@@ -85,15 +85,33 @@ export const fetchExistingDoctorDutyRosterDetails = (path, doctorDutyRosterId) =
     }
 };
 
+export const updateDoctorDutyRosterOverride = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.put(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const deleteDoctorDutyRosterOverride = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.del(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
 export const clearDDRSuccessErrorMessage = () => async dispatch => {
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateErrorMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateSuccessMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteErrorMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteSuccessMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailErrorMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailSuccessMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchErrorMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchSuccessMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateErrorMessage());
-  dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateSuccessMessage());
 };

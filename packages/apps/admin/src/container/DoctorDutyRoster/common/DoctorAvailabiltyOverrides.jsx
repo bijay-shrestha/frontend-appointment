@@ -4,6 +4,10 @@ import {CButton, CCheckbox, CDataTable} from "@frontend-appointment/ui-elements"
 import AddOverrideModal from "./AddOverride";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import OverrideActions from "./table-components/OverrideActions";
+import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
+import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
+import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
 
 const DoctorAvailabilityOverrides = ({
                                          hasOverrideDutyRoster,
@@ -17,7 +21,8 @@ const DoctorAvailabilityOverrides = ({
                                          handleOverrideFormInputChange,
                                          onEnterKeyPress,
                                          addOverride,
-                                         isModifyOverride
+                                         isModifyOverride,
+                                         overrideUpdateErrorMessage
                                      }) => {
     return <>
         <Col>
@@ -43,7 +48,7 @@ const DoctorAvailabilityOverrides = ({
                             disabled={hasOverrideDutyRoster === 'N'}
                             onClickHandler={setShowAddOverrideModal}
                         >
-                                 <i className='fa fa-plus'></i> Add More
+                            <i className='fa fa-plus'></i> Add More
                         </CButton>
                         <AddOverrideModal
                             isModifyOverride={isModifyOverride}
@@ -53,6 +58,7 @@ const DoctorAvailabilityOverrides = ({
                             handleOverrideFormInputChange={handleOverrideFormInputChange}
                             onEnterKeyPress={onEnterKeyPress}
                             addOverride={addOverride}
+                            overrideUpdateErrorMessage={overrideUpdateErrorMessage}
                         />
                     </Col>
                     }
@@ -64,7 +70,7 @@ const DoctorAvailabilityOverrides = ({
                                 classes="ag-theme-balham"
                                 id="roles-table"
                                 width="100%"
-                                 height="240px"
+                                height="240px"
                                 enableSorting
                                 editType
                                 columnDefs={[
@@ -81,30 +87,34 @@ const DoctorAvailabilityOverrides = ({
                                     // },
                                     {
                                         headerName: 'From Date',
-                                        field: 'fromDateDisplay',
+                                        field: 'fromDate',
                                         // headerClass: "fi",
+                                        cellRenderer: 'fromDateRenderer',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
                                     },
                                     {
                                         headerName: 'To Date',
-                                        field: 'toDateDisplay',
+                                        field: 'toDate',
                                         // headerClass: "fi",
+                                        cellRenderer: 'toDateRenderer',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
                                     },
                                     {
                                         headerName: 'Start Time',
-                                        field: 'startTimeDisplay',
+                                        field: 'startTime',
+                                        cellRenderer: 'startTimeRenderer',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
                                     },
                                     {
                                         headerName: 'End Time',
-                                        field: 'endTimeDisplay',
+                                        field: 'endTime',
+                                        cellRenderer: 'endTimeRenderer',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
@@ -144,7 +154,12 @@ const DoctorAvailabilityOverrides = ({
                                 ]}
                                 frameworkComponents={{
                                     childActionRenderer: OverrideActions,
-                                    childLabelRenderer: DayOffStatusLabel
+                                    childLabelRenderer: DayOffStatusLabel,
+                                    fromDateRenderer: FromDateDisplayForTable,
+                                    toDateRenderer: ToDateDisplayForTable,
+                                    startTimeRenderer: StartTimeDisplayForTable,
+                                    endTimeRenderer: EndTimeDisplayForTable
+
                                 }}
                                 defaultColDef={{resizable: true}}
                                 // getSelectedRows={checkIfRoleExists(props.filteredActions, 4) ? props.onPreviewHandler : () => {}}

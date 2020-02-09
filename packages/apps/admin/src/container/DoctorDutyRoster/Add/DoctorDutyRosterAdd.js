@@ -25,8 +25,7 @@ function DoctorDutyRosterAdd(props) {
                                                               getExistingRoster,
                                                               handleShowExistingRoster,
                                                               doctorAvailabilityData,
-                                                              handleAvailabilityTimeChange,
-                                                              handleDayOffStatusChange,
+                                                              handleDoctorAvailabilityFormChange,
                                                               wholeWeekOff,
                                                               handleWholeWeekOff,
                                                               hasOverrideDutyRoster,
@@ -69,10 +68,10 @@ function DoctorDutyRosterAdd(props) {
                     />
                     <DoctorAvailabilityForm
                         doctorAvailabilityData={doctorAvailabilityData}
-                        onTimeChange={handleAvailabilityTimeChange}
-                        handleDayOffStatusChange={handleDayOffStatusChange}
+                        handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
                         wholeWeekOff={wholeWeekOff}
-                        handleWholeWeekOff={handleWholeWeekOff}/>
+                        handleWholeWeekOff={handleWholeWeekOff}
+                        type="ADD"/>
                 </Row>
                 <Row>
                     <DoctorAvailabilityOverrides
@@ -119,7 +118,7 @@ function DoctorDutyRosterAdd(props) {
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}/>
-        </div>, props, 'A');
+        </div>, props, 'ADD');
     return <DoctorDutyRosterAddSetup/>
 }
 

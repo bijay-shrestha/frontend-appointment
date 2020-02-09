@@ -5,7 +5,7 @@ export const prepareWeekdaysData = (weekdays) => {
             weekDaysName: day.label,
             startTime: "",
             endTime: "",
-            dayOffStatus: ''
+            dayOffStatus: 'N'
         }
     }) : [];
 };

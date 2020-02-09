@@ -20,13 +20,10 @@ const DoctorDutyRosterDataTable = ({
                                        onDeleteHandler,
                                        onEditHandler
                                    }) => {
-    const modalBody = (<EditDoctorDutyRoster/>);
     return (
         <>
             <div className="manage-details">
                 <h5 className="title">Doctor Roster Details</h5>
-                {/*<CButton href="" variant="link" size="lg" onClickHandler={this.handleShow} name="">Edit*/}
-                {/*    Roster</CButton>*/}
                 {!isSearchRosterLoading && !searchErrorMessage && doctorDutyRosterList.length ?
                     (<>
                             <CDataTable
@@ -139,23 +136,6 @@ const DoctorDutyRosterDataTable = ({
                         <CLoading/>
                     )}
             </div>
-
-
-            {/*<CModal*/}
-            {/*    show={this.state.show}*/}
-            {/*    modalHeading="Edit Doctor Roster"*/}
-            {/*    size="lg"*/}
-            {/*    bodyChildren={modalBody}*/}
-            {/*    onHide={this.handleShow}*/}
-            {/*    centered={false}*/}
-            {/*    dialogClassName="preview-modal"*/}
-            {/*    // footerChildren={<CButton*/}
-            {/*    //     id="departmentConfirm"*/}
-            {/*    //     variant="primary"*/}
-            {/*    size="lg"*/}
-            {/*    //     className="float-right btn-action"*/}
-            {/*    //     onClickHandler={onConfirmClick}/>}*/}
-            {/*    closeButton={true}/>*/}
         </>
     )
 };

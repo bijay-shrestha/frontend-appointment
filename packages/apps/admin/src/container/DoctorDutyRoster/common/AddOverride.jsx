@@ -10,7 +10,8 @@ const AddOverrideModal = ({
                               overrideData,
                               handleOverrideFormInputChange,
                               onEnterKeyPress,
-                              addOverride
+                              addOverride,
+                              overrideUpdateErrorMessage
                           }) => {
     const body = <>
         <Container className="" fluid>
@@ -113,11 +114,14 @@ const AddOverrideModal = ({
     const footer = <>
         <Container fluid="true">
             <Row>
-                {/*<div className="col-md-6">*/}
-                {/*    {errorMessage ?*/}
-                {/*        <p className="modal-error"><i class="fa fa-exclamation-triangle"></i> &nbsp;  {errorMessage}*/}
-                {/*        </p> : ''}*/}
-                {/*</div>*/}
+                <div className="col-sm-12">
+                    {overrideUpdateErrorMessage ?
+                        <p className="modal-error"><i
+                            className="fa fa-exclamation-triangle"/> &nbsp;  {overrideUpdateErrorMessage}
+                        </p> : ''}
+                </div>
+            </Row>
+            <Row>
                 {
                     isModifyOverride ?
                         <div className="col-md-12">

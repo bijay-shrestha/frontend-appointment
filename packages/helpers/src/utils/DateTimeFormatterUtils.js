@@ -9,3 +9,13 @@ export const convertDateToHourMinuteFormat = date => {
 export const getDateWithTimeSetToGivenTime = (date, hours, minutes, seconds) => {
     return date.setHours(hours, minutes, seconds, 0);
 };
+
+export const subtractDate = (date, daysToSubtract) => {
+    date = date.setDate(date.getDate() - daysToSubtract);
+    return new Date(date);
+};
+
+export const addDate = (date, daysToAdd) => {
+    date = date.setDate(date.getDate() + daysToAdd);
+    return new Date(date);
+};

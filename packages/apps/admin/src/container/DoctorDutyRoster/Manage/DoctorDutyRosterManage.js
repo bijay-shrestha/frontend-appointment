@@ -4,6 +4,9 @@ import DoctorDutyRosterDataTable from "./DoctorDutyRosterDataTable";
 import DoctorDutyRosterHOC from "../DoctorDutyRosterHOC";
 import "./../doctor-duty-roster.scss";
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
+import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
+import {CButton, CModal} from "@frontend-appointment/ui-elements";
+import {Container, Row} from "react-bootstrap";
 
 function DoctorDutyRosterManage(props) {
     const DoctorDutyRosterManage = DoctorDutyRosterHOC(
@@ -31,9 +34,58 @@ function DoctorDutyRosterManage(props) {
              remarksHandler,
              remarks,
              deleteDoctorDutyRoster,
-             deleteErrorMessage
-         }) =>
-            <>
+             deleteErrorMessage,
+             showEditModal,
+             setShowModal,
+             updateDoctorDutyRosterData,
+             editErrorMessage,
+             editDoctorDutyRoster,
+             overrideData,
+             handleEnter,
+             handleInputChange,
+             handleDoctorAvailabilityFormChange,
+             handleOverrideDutyRoster,
+             handleOverrideFormInputChange,
+             showAddOverrideModal,
+             setShowAddOverrideModal,
+             addOverride,
+             overrideUpdateErrorMessage,
+             onModifyOverride,
+             isModifyOverride,
+             setShowDeleteOverrideModal,
+             showDeleteOverrideModal,
+             deleteOverrideErrorMessage,
+             deleteOverride,
+             onRemoveOverride
+         }) => {
+            const footerContent =
+                <Container fluid="true">
+                    <Row>
+                        <div className="col-sm-12  col-md-6">
+                            {editErrorMessage ?
+                                <p className="modal-error"><i
+                                    className="fa fa-exclamation-triangle"/> &nbsp;  {editErrorMessage}
+                                </p> : ''}
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                            <CButton
+                                id="submit-update-button"
+                                disabled={!updateDoctorDutyRosterData.formValid}
+                                name="Update"
+                                size="lg"
+                                className="btn-action  float-right"
+                                onClickHandler={editDoctorDutyRoster}/>
+                            <CButton id="cancel-update-profile"
+                                     variant="light"
+                                     size="lg"
+                                     className="btn-action  float-right mr-2"
+                                     name="Cancel"
+                                     onClickHandler={setShowModal}
+                            />
+                        </div>
+                    </Row>
+                </Container>;
+            return <>
                 <DoctorDutyRosterSearchFilter
                     searchParameters={searchParameters}
                     onSearchInputChange={onSearchInputChange}
@@ -73,8 +125,45 @@ function DoctorDutyRosterManage(props) {
                 ) : (
                     ''
                 )}
+                {
+                    showEditModal ? (
+                        <CModal
+                            show={showEditModal}
+                            modalHeading="Edit Doctor Roster"
+                            size="xl"
+                            bodyChildren={
+                                <EditDoctorDutyRoster
+                                    updateDoctorDutyRosterData={updateDoctorDutyRosterData}
+                                    onInputChange={handleInputChange}
+                                    onEnterKeyPress={handleEnter}
+                                    overrideData={overrideData}
+                                    handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
+                                    handleOverrideDutyRoster={handleOverrideDutyRoster}
+                                    showAddOverrideModal={showAddOverrideModal}
+                                    setShowAddOverrideModal={setShowAddOverrideModal}
+                                    handleOverrideFormInputChange={handleOverrideFormInputChange}
+                                    addOverride={addOverride}
+                                    overrideUpdateErrorMessage={overrideUpdateErrorMessage}
+                                    onModifyOverride={onModifyOverride}
+                                    isModifyOverride={isModifyOverride}
+                                    setShowDeleteOverrideModal={setShowDeleteOverrideModal}
+                                    showDeleteOverrideModal={showDeleteOverrideModal}
+                                    remarksHandler={remarksHandler}
+                                    remarks={remarks}
+                                    deleteOverrideErrorMessage={deleteOverrideErrorMessage}
+                                    deleteOverride={deleteOverride}
+                                    onRemoveOverride={onRemoveOverride}/>
+                            }
+                            onHide={setShowModal}
+                            centered={false}
+                            dialogClassName="preview-modal"
+                            footerChildren={footerContent}
+                            closeButton={true}/>
+                    ) : ''
+                }
             </>
-        , props, 'M');
+        }
+        , props, 'MANAGE');
     return <DoctorDutyRosterManage/>;
 
 }
