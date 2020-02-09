@@ -12,39 +12,40 @@ import "./../doctor-duty-roster.scss";
 
 function DoctorDutyRosterAdd(props) {
     const DoctorDutyRosterAddSetup = DoctorDutyRosterHOC(({
-                                                              showExistingRosterModal,
-                                                              doctorInfoData,
-                                                              hospitalList,
-                                                              specializationList,
-                                                              doctorList,
-                                                              doctorDropdownErrorMessage,
-                                                              specializationDropdownError,
-                                                              handleInputChange,
-                                                              handleEnter,
-                                                              getExistingRoster,
-                                                              handleShowExistingRoster,
-                                                              doctorAvailabilityData,
-                                                              handleDoctorAvailabilityFormChange,
-                                                              wholeWeekOff,
-                                                              handleWholeWeekOff,
-                                                              hasOverrideDutyRoster,
-                                                              overrideData,
-                                                              doctorDutyRosterOverrideRequestDTOS,
-                                                              handleOverrideDutyRoster,
-                                                              showAddOverrideModal,
-                                                              setShowAddOverrideModal,
-                                                              handleOverrideFormInputChange,
                                                               addOverride,
-                                                              onModifyOverride,
-                                                              onRemoveOverride,
-                                                              isModifyOverride,
-                                                              formValid,
-                                                              showConfirmModal,
-                                                              onSaveButtonClick,
-                                                              existingRosterTableData,
-                                                              onViewDetailsExisting,
+                                                              dateErrorMessage,
+                                                              doctorAvailabilityData,
+                                                              doctorDropdownErrorMessage,
+                                                              doctorDutyRosterOverrideRequestDTOS,
+                                                              doctorInfoData,
+                                                              doctorList,
                                                               existingDoctorWeekDaysAvailability,
                                                               existingOverrides,
+                                                              existingRosterTableData,
+                                                              formValid,
+                                                              getExistingRoster,
+                                                              handleDoctorAvailabilityFormChange,
+                                                              handleEnter,
+                                                              handleInputChange,
+                                                              handleOverrideDutyRoster,
+                                                              handleOverrideFormInputChange,
+                                                              handleShowExistingRoster,
+                                                              handleWholeWeekOff,
+                                                              hasOverrideDutyRoster,
+                                                              hospitalList,
+                                                              isModifyOverride,
+                                                              onModifyOverride,
+                                                              onRemoveOverride,
+                                                              onSaveButtonClick,
+                                                              onViewDetailsExisting,
+                                                              overrideData,
+                                                              setShowAddOverrideModal,
+                                                              showAddOverrideModal,
+                                                              showConfirmModal,
+                                                              showExistingRosterModal,
+                                                              specializationDropdownError,
+                                                              specializationList,
+                                                              wholeWeekOff,
                                                           }) =>
         <div>
             <Container className="p-0" fluid>
@@ -63,6 +64,7 @@ function DoctorDutyRosterAdd(props) {
                         onViewDetailsExisting={onViewDetailsExisting}
                         existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
                         existingOverrides={existingOverrides}
+                        dateErrorMessage={dateErrorMessage}
                     />
                     <DoctorAvailabilityForm
                         doctorAvailabilityData={doctorAvailabilityData}

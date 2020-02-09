@@ -50,9 +50,14 @@ const AddOverrideModal = ({
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => handleOverrideFormInputChange(date, "toDate")}
                         />
+                      <div>
+                          {overrideData.dateErrorMessage ?
+                              <p className="error-message">
+                                  {overrideData.dateErrorMessage}</p> : ''}
+                      </div>
                     </Col>
 
-                    <Col xs={12}     >
+                    <Col xs={12}>
                         <div className="time-picker">
                             <CEnglishDatePicker
                                 id={"startTime-override"}
@@ -82,6 +87,11 @@ const AddOverrideModal = ({
                                 dateFormat="h:mm aa"
                                 disabled={overrideData.dayOffStatus === 'Y'}
                             />
+                        </div>
+                        <div>
+                            {overrideData.timeErrorMessage ?
+                                <p className="error-message">
+                                    {overrideData.timeErrorMessage}</p> : ''}
                         </div>
                         </Col>
                         <Col xs={12}>

@@ -88,7 +88,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 status: 'Y',
                 doctorDutyRosterOverrideId: '',
                 id: '',
-                isNew: false
+                isNew: false,
+                dateErrorMessage: '',
+                timeErrorMessage: ''
             },
             alertMessageInfo: {
                 variant: "",
@@ -132,7 +134,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 formValid: false
             },
             overrideUpdateErrorMessage: '',
-            deleteOverrideErrorMessage: ''
+            deleteOverrideErrorMessage: '',
+            dateErrorMessage: ''
         };
 
         resetAddForm = async () => {
@@ -156,21 +159,25 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     endTime: '',
                     dayOffStatus: 'N',
                     remarks: '',
-                    status: 'Y'
+                    status: 'Y',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
                 },
             })
         };
 
         resetSearchForm = async () => {
-            this.setState({
+            await this.setState({
                 searchParameters: {
                     ...this.state.searchParameters,
                     fromDate: new Date(),
-                    toDate: new Date(),
+                    toDate: addDate(new Date(), 30),
                     hospital: null,
                     specialization: null,
-                    doctor: null
-                }
+                    doctor: null,
+                },
+                showAlert: false
             });
             await this.searchDoctorDutyRoster(1);
         };
@@ -368,6 +375,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 } else {
                     overrideRequestDTO[key] = value;
                 }
+
+                if (key === 'fromDate' || key === 'toDate') {
+                    overrideRequestDTO.dateErrorMessage = overrideRequestDTO.fromDate > overrideRequestDTO.toDate ?
+                        'From date must not be greater than to date!' : ''
+                } else if ( key === 'endTime') {
+                    overrideRequestDTO.timeErrorMessage = overrideRequestDTO.startTime > overrideRequestDTO.endTime ?
+                        'Start time must not be greater than end time!' : ''
+                }
                 this.setState({
                     overrideRequestDTO: {...overrideRequestDTO}
                 })
@@ -397,7 +412,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             endTime: '',
                             dayOffStatus: 'N',
                             remarks: '',
-                            id: ''
+                            id: '',
+                            dateErrorMessage: '',
+                            timeErrorMessage: ''
                         },
                         isModifyOverride: false,
                         showAddOverrideModal: isAddAnother,
@@ -442,7 +459,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     endTime: '',
                                     dayOffStatus: 'N',
                                     remarks: '',
-                                    id: ''
+                                    id: '',
+                                    dateErrorMessage: '',
+                                    timeErrorMessage: ''
                                 },
                                 isModifyOverride: false,
                                 showAddOverrideModal: isAddAnother,
@@ -706,7 +725,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarks: '',
                             status: 'Y',
                             doctorDutyRosterOverrideId: '',
-                            id: ''
+                            id: '',
+                            dateErrorMessage: '',
+                            timeErrorMessage: ''
                         }
                     });
                     break;
@@ -731,7 +752,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarks: '',
                             status: 'Y',
                             doctorDutyRosterOverrideId: '',
-                            id: ''
+                            id: '',
+                            dateErrorMessage: '',
+                            timeErrorMessage: ''
                         }
                     });
                     break;
@@ -778,6 +801,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.setState({
                     doctor: null
                 })
+            }
+
+            if (key === 'fromDate' || key === 'toDate') {
+                let errorMessage = this.state.fromDate > this.state.toDate ? 'From date must not be greater than to date!' : '';
+                await this.setState({
+                    dateErrorMessage: errorMessage
+                });
             }
             type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity();
         };
@@ -999,34 +1029,44 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         searchDoctorDutyRoster = async page => {
             const {fromDate, toDate, hospital, specialization, doctor} = this.state.searchParameters;
-            let searchData = {
-                doctorId: doctor ? doctor.value : '',
-                specializationId: specialization ? specialization.value : '',
-                fromDate: fromDate,
-                toDate: toDate
-            };
+            if (fromDate > toDate) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: "danger",
+                        message: "From date must not be greater than to date!"
+                    },
+                })
+            } else {
+                let searchData = {
+                    doctorId: doctor ? doctor.value : '',
+                    specializationId: specialization ? specialization.value : '',
+                    fromDate: fromDate,
+                    toDate: toDate
+                };
 
-            let updatedPage =
-                this.state.queryParams.page === 0 ? 1 : (page ? page : this.state.queryParams.page);
+                let updatedPage =
+                    this.state.queryParams.page === 0 ? 1 : (page ? page : this.state.queryParams.page);
 
-            await this.props.fetchDoctorDutyRosterList(
-                SEARCH_DOCTOR_DUTY_ROSTER,
-                {
-                    page: updatedPage,
-                    size: this.state.queryParams.size
-                },
-                searchData
-            );
+                await this.props.fetchDoctorDutyRosterList(
+                    SEARCH_DOCTOR_DUTY_ROSTER,
+                    {
+                        page: updatedPage,
+                        size: this.state.queryParams.size
+                    },
+                    searchData
+                );
 
-            await this.setState({
-                totalRecords: this.props.DoctorDutyRosterListReducer.doctorDutyRosterList.length
-                    ? this.props.DoctorDutyRosterListReducer.doctorDutyRosterList[0].totalItems
-                    : 0,
-                queryParams: {
-                    ...this.state.queryParams,
-                    page: updatedPage
-                }
-            })
+                await this.setState({
+                    totalRecords: this.props.DoctorDutyRosterListReducer.doctorDutyRosterList.length
+                        ? this.props.DoctorDutyRosterListReducer.doctorDutyRosterList[0].totalItems
+                        : 0,
+                    queryParams: {
+                        ...this.state.queryParams,
+                        page: updatedPage
+                    }
+                })
+            }
         };
 
         deleteDoctorDutyRoster = async () => {
@@ -1154,7 +1194,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
                 searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO,
                 showEditModal, updateDoctorDutyRosterData, overrideUpdateErrorMessage, showDeleteOverrideModal,
-                deleteOverrideErrorMessage
+                deleteOverrideErrorMessage, dateErrorMessage
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -1168,6 +1208,18 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             return (<>
                 <ComposedComponent
                     {...props}
+                    activeDoctorList={activeDoctorsForDropdown}
+                    addOverride={this.handleAddOverride}
+                    cancelCloseEditModal={this.cancelCloseEditModal}
+                    dateErrorMessage={dateErrorMessage}
+                    deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
+                    deleteErrorMessage={deleteErrorMessage}
+                    deleteOverride={this.deleteOverride}
+                    deleteOverrideErrorMessage={deleteOverrideErrorMessage}
+                    doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
+                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
+                    doctorDutyRosterList={doctorDutyRosterList}
+                    doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}
                     doctorInfoData={
                         {
                             hospital: hospital,
@@ -1178,71 +1230,60 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             toDate: toDate
                         }
                     }
-                    overrideData={{...overrideRequestDTO}}
-                    doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
-                    hospitalList={hospitalsForDropdown}
-                    specializationList={activeSpecializationList}
-                    specializationDropdownError={dropdownErrorMessage}
                     doctorList={doctorsBySpecializationForDropdown}
-                    activeDoctorList={activeDoctorsForDropdown}
-                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
-                    showExistingRosterModal={showExistingRosterModal}
-                    wholeWeekOff={isWholeWeekOff}
-                    handleWholeWeekOff={this.handleWholeWeekOff}
-                    handleShowExistingRoster={this.handleShowExistingRoster}
-                    handleInputChange={this.handleDoctorInfoFormInputChange}
-                    handleDoctorAvailabilityFormChange={this.handleDoctorAvailabilityFormChange}
-                    handleEnter={this.handleEnter}
-                    getExistingRoster={this.getExistingRoster}
-                    hasOverrideDutyRoster={hasOverrideDutyRoster}
-                    doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}
-                    handleOverrideDutyRoster={this.handleOverrideDutyRoster}
-                    showAddOverrideModal={showAddOverrideModal}
-                    setShowAddOverrideModal={this.setShowAddOverrideModal}
-                    handleOverrideFormInputChange={this.handleOverrideFormInputChange}
-                    addOverride={this.handleAddOverride}
-                    onModifyOverride={this.handleModifyOverride}
-                    onRemoveOverride={this.handleRemoveOverride}
-                    isModifyOverride={isModifyOverride}
-                    formValid={formValid}
-                    showConfirmModal={showConfirmModal}
-                    setShowConfirmModal={this.setShowModal}
-                    saveDoctorDutyRoster={this.saveDoctorDutyRoster}
-                    onSaveButtonClick={this.handleSaveButtonClick}
-                    isSaveRosterLoading={isSaveRosterLoading}
-                    existingRosterTableData={existingRosterTableData}
-                    onViewDetailsExisting={this.handleViewDetailsExisting}
+                    editDoctorDutyRoster={this.editDoctorDutyRoster}
+                    editErrorMessage={editErrorMessage}
                     existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
                     existingOverrides={existingOverrides}
-                    searchParameters={searchParameters}
-                    resetSearchForm={this.resetSearchForm}
-                    searchDoctorDutyRoster={() => this.searchDoctorDutyRoster(1)}
-                    onSearchInputChange={this.handleSearchInputChange}
-                    isSearchRosterLoading={isSearchRosterLoading}
-                    searchErrorMessage={searchErrorMessage}
-                    doctorDutyRosterList={doctorDutyRosterList}
-                    paginationData={{...queryParams, totalRecords}}
+                    existingRosterTableData={existingRosterTableData}
+                    formValid={formValid}
+                    getExistingRoster={this.getExistingRoster}
+                    handleDoctorAvailabilityFormChange={this.handleDoctorAvailabilityFormChange}
+                    handleEnter={this.handleEnter}
+                    handleInputChange={this.handleDoctorInfoFormInputChange}
+                    handleOverrideDutyRoster={this.handleOverrideDutyRoster}
+                    handleOverrideFormInputChange={this.handleOverrideFormInputChange}
                     handlePageChange={this.handlePageChange}
-                    onPreviewHandler={this.handlePreview}
+                    handleShowExistingRoster={this.handleShowExistingRoster}
+                    handleWholeWeekOff={this.handleWholeWeekOff}
+                    hasOverrideDutyRoster={hasOverrideDutyRoster}
+                    hospitalList={hospitalsForDropdown}
+                    isModifyOverride={isModifyOverride}
+                    isSaveRosterLoading={isSaveRosterLoading}
+                    isSearchRosterLoading={isSearchRosterLoading}
                     onDeleteHandler={this.handleDelete}
                     onEditHandler={this.handleEdit}
-                    showDeleteModal={showDeleteModal}
-                    setShowDeleteModal={this.setShowModal}
-                    remarksHandler={this.handleDeleteRemarksChange}
-                    remarks={deleteRequestDTO.remarks}
-                    deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
-                    deleteErrorMessage={deleteErrorMessage}
-                    showEditModal={showEditModal}
-                    cancelCloseEditModal={this.cancelCloseEditModal}
-                    setShowModal={this.setShowModal}
-                    updateDoctorDutyRosterData={updateDoctorDutyRosterData}
-                    editErrorMessage={editErrorMessage}
+                    onModifyOverride={this.handleModifyOverride}
+                    onPreviewHandler={this.handlePreview}
+                    onRemoveOverride={this.handleRemoveOverride}
+                    onSaveButtonClick={this.handleSaveButtonClick}
+                    onSearchInputChange={this.handleSearchInputChange}
+                    onViewDetailsExisting={this.handleViewDetailsExisting}
+                    overrideData={{...overrideRequestDTO}}
                     overrideUpdateErrorMessage={overrideUpdateErrorMessage}
-                    editDoctorDutyRoster={this.editDoctorDutyRoster}
+                    paginationData={{...queryParams, totalRecords}}
+                    remarks={deleteRequestDTO.remarks}
+                    remarksHandler={this.handleDeleteRemarksChange}
+                    resetSearchForm={this.resetSearchForm}
+                    saveDoctorDutyRoster={this.saveDoctorDutyRoster}
+                    searchDoctorDutyRoster={() => this.searchDoctorDutyRoster(1)}
+                    searchErrorMessage={searchErrorMessage}
+                    searchParameters={searchParameters}
+                    setShowAddOverrideModal={this.setShowAddOverrideModal}
+                    setShowConfirmModal={this.setShowModal}
+                    setShowDeleteModal={this.setShowModal}
                     setShowDeleteOverrideModal={this.setShowDeleteOverrideModal}
+                    setShowModal={this.setShowModal}
+                    showAddOverrideModal={showAddOverrideModal}
+                    showConfirmModal={showConfirmModal}
+                    showDeleteModal={showDeleteModal}
                     showDeleteOverrideModal={showDeleteOverrideModal}
-                    deleteOverrideErrorMessage={deleteOverrideErrorMessage}
-                    deleteOverride={this.deleteOverride}
+                    showEditModal={showEditModal}
+                    showExistingRosterModal={showExistingRosterModal}
+                    specializationDropdownError={dropdownErrorMessage}
+                    specializationList={activeSpecializationList}
+                    updateDoctorDutyRosterData={updateDoctorDutyRosterData}
+                    wholeWeekOff={isWholeWeekOff}
                 />
                 <CModal
                     show={showConfirmModal}

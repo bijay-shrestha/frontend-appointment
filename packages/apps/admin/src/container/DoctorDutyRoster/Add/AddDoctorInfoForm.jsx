@@ -12,7 +12,8 @@ const AddDoctorInfoForm = ({
                                onEnterKeyPress,
                                specializationDropdownError,
                                doctorDropdownErrorMessage,
-                               getExistingRoster
+                               getExistingRoster,
+                               dateErrorMessage
                            }) => {
     return <>
         <Col md={12} lg={5} className="info-container">
@@ -52,6 +53,12 @@ const AddDoctorInfoForm = ({
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => onInputChange(date, "toDate")}
                         />
+
+                    </div>
+                    <div>
+                        {dateErrorMessage ?
+                            <p className="error-message">
+                                {dateErrorMessage}</p> : ''}
                     </div>
 
                     <CHybridSelect
