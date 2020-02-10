@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 
-import {CHybridInput} from "@frontend-appointment/ui-elements";
+import {CFControl, CHybridInput} from "@frontend-appointment/ui-elements";
 import "./react-datepicker.scss";
 
 class CTimePicker extends PureComponent {
@@ -104,13 +104,27 @@ class CTimePicker extends PureComponent {
             value,
             weekLabel,
             withPortal,
-            yearDropdownItemNumber
+            yearDropdownItemNumber,
+            inputType
         } = this.props;
 
         const HybridInput = ({value, onClick}) => (
             <CHybridInput
                 id={id}
                 className="example-custom-input"
+                onClick={onClick}
+                value={value}
+                placeholder={label}
+                onChange={onChange}
+                readOnly={true}
+                autoComplete="off"
+                disabled={disabled}
+            />
+        );
+
+        const NormalInput = ({value, onClick}) => (
+            <CFControl
+                id={id}
                 onClick={onClick}
                 value={value}
                 placeholder={label}
@@ -130,7 +144,7 @@ class CTimePicker extends PureComponent {
                 children={children}
                 className={className}
                 clearButtonTitle={clearButtonTitle}
-                customInput={<HybridInput/>}
+                customInput={inputType === "hybrid" ? <HybridInput/> : <NormalInput/>}
                 customInputRef={customInputRef}
                 dateFormat={dateFormat}
                 dateFormatCalendar={dateFormatCalendar}

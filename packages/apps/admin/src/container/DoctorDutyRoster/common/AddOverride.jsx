@@ -71,6 +71,7 @@ const AddOverrideModal = ({
                                 timeCaption="Start Time"
                                 dateFormat="h:mm aa"
                                 disabled={overrideData.dayOffStatus === 'Y'}
+                                inputType="hybrid"
                             />
                         </div>
                         <div className="time-picker">
@@ -86,6 +87,7 @@ const AddOverrideModal = ({
                                 timeCaption="End Time"
                                 dateFormat="h:mm aa"
                                 disabled={overrideData.dayOffStatus === 'Y'}
+                                inputType="hybrid"
                             />
                         </div>
                         <div>

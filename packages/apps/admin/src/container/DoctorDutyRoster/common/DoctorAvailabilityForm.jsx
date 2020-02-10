@@ -51,6 +51,7 @@ const DoctorAvailabilityForm = ({
                                             timeCaption="Start Time"
                                             dateFormat="h:mm aa"
                                             disabled={day.dayOffStatus === 'Y'}
+                                            inputType="normal"
                                         />
                                     </div>
                                 </Col>
