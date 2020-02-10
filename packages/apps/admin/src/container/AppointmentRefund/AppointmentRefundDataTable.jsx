@@ -19,7 +19,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
             <Col className="p-0">
               <h5 className="title">Appointment Log Details</h5>
             </Col>
-            <Col>
+            {/* <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
@@ -30,7 +30,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col>
+            </Col> */}
           </Row>
 
           {/* <Row>
@@ -47,9 +47,9 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
             </Row> */}
           <Row>
             <div>
-              {!props.isSearchLoading &&
-              !props.searchErrorMessage &&
-              props.searchData.length ? (
+              {!isSearchLoading &&
+               !appointmentRefundList &&
+               appointmentRefundList.length ? (
                 <>
                   <CDataTable
                     classes="ag-theme-balham"
@@ -84,7 +84,6 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                         resizable: true,
                         sortable: true,
                         sizeColumnsToFit: true,
-                        cellRenderer: 'imageRenderer'
                       },
                       {
                         headerName: 'Appointment Number',
@@ -166,9 +165,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                       }
                     ]}
                     frameworkComponents={{
-                      childActionRenderer: TableAction,
-                      childLabelRenderer: StatusLabel,
-                      imageRenderer: HospitalPicture
+                      childActionRenderer: TableRefundStatus
                     }}
                     defaultColDef={{resizable: true}}
                     // getSelectedRows={
@@ -186,12 +183,12 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                     onPageChanged={props.handlePageChange}
                   />
                 </>
-              ) : !props.isSearchLoading && props.searchErrorMessage ? (
+              ) : !isSearchLoading && searchErrorMessage ? (
                 <div className="filter-message">
                   <div className="no-data">
                     <i className="fa fa-file-text-o"></i>
                   </div>
-                  <div className="message"> {props.searchErrorMessage}</div>
+                  <div className="message"> {searchErrorMessage}</div>
                 </div>
               ) : (
                 <CLoading />
