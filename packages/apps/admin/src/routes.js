@@ -44,6 +44,11 @@ const AddDoctorComponent = Loadable({
   loader: () => import('./container/DoctorSetup/Add/DoctorAdd'),
   loading: () => getLoader()
 });
+
+const AppointmentRefundListComponent = Loadable({
+    loader: () => import('./container/AppointmentRefund/AppointmentRefund'),
+    loading: () => getLoader() 
+})
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -415,6 +420,4 @@ export const routes = [
     'isTab': false,
     'name': 'Unauthorized'
   }
-
-
 ];

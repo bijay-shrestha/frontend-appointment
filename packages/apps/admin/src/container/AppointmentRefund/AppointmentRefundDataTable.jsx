@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 
 import {Col, Container, Row, Badge} from 'react-bootstrap'
-import {CButton, CDataTable} from '@frontend-appointment/ui-elements'
+import {CButton, CDataTable, CLoading} from '@frontend-appointment/ui-elements'
 import './appointment-log.scss'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
@@ -10,7 +10,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
     appointmentRefundList,
     searchErrorMessage
   } = tableHandler
-
+  const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
@@ -48,8 +48,8 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
           <Row>
             <div>
               {!isSearchLoading &&
-               !appointmentRefundList &&
-               appointmentRefundList.length ? (
+              !appointmentRefundList &&
+              appointmentRefundList.length ? (
                 <>
                   <CDataTable
                     classes="ag-theme-balham"
@@ -83,7 +83,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                         // headerClass: "fi",
                         resizable: true,
                         sortable: true,
-                        sizeColumnsToFit: true,
+                        sizeColumnsToFit: true
                       },
                       {
                         headerName: 'Appointment Number',
@@ -159,7 +159,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                               ? props.onEditHandler(id)
                               : props.onPreviewHandler(id)
                           },
-                          filteredAction: props.filteredActions
+                         // filteredAction: props.filteredActions
                         },
                         cellStyle: {overflow: 'visible', 'z-index': '99'}
                       }
@@ -169,7 +169,7 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                     }}
                     defaultColDef={{resizable: true}}
                     // getSelectedRows={
-                      
+
                     //   props.onPreviewHandler
                     // }
                     // rowSelection={'single'}
@@ -177,10 +177,10 @@ const AppointmentLogDataTable = ({tableHandler, paginationProps}) => {
                     rowData={props.searchData}
                   />
                   <CPagination
-                    totalItems={props.totalItems}
-                    maxSize={props.maxSize}
-                    currentPage={props.currentPage}
-                    onPageChanged={props.handlePageChange}
+                    totalItems={totalRecords}
+                    maxSize={queryParams.size}
+                    currentPage={queryParams.page}
+                    onPageChanged={handlePageChange}
                   />
                 </>
               ) : !isSearchLoading && searchErrorMessage ? (

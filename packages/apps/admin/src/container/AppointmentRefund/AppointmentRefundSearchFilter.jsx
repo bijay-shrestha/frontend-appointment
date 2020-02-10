@@ -20,7 +20,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
 
   handleSearchButtonClick = () => {
     this.props.searchAppointment()
-    this.toggleSearchForm();
+    this.toggleSearchForm()
   }
 
   render () {
@@ -100,7 +100,9 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         dropdownMode="select"
                         selected={searchParameters.fromDate}
                         onKeyDown={event => handleEnter(event)}
-                        onChange={date => handleSearchFormChange(date, 'fromDate')}
+                        onChange={date =>
+                          handleSearchFormChange(date, 'fromDate')
+                        }
                       />
                       &nbsp;&nbsp;
                       <CEnglishDatePicker
@@ -116,7 +118,9 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         showYearDropdown={true}
                         dropdownMode="select"
                         onKeyDown={event => handleEnter(event)}
-                        onChange={date => handleSearchFormChange(date, 'toDate')}
+                        onChange={date =>
+                          handleSearchFormChange(date, 'toDate')
+                        }
                       />
                     </div>
                   </Col>
@@ -171,7 +175,10 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       label="Select Patient Type"
                       name="patientType"
                       value={searchParameters.patientType}
-                      options={['New', 'Registered']}
+                      options={[
+                        {value: 'Y', label: 'New'},
+                        {value: 'N', label: 'Registered'}
+                      ]}
                       placeholder="Select PatientType."
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}
