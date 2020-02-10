@@ -65,7 +65,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       placeholder="Select Appointment Number"
                       value={searchParameters.appointmentNumber}
                       onChange={handleSearchFormChange}
-                      onEnter={handleEnter}
+                      onKeyDown={handleEnter}
                     />
                   </Col>
                   <Col sm={12} md={6} xl={4}>
@@ -78,7 +78,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       isDisabled={hospitalsDropdown.length ? false : true}
                       value={searchParameters.hospitalId}
                       onChange={handleSearchFormChange}
-                      onEnter={handleEnter}
+                      onKeyDown={handleEnter}
                     />
                   </Col>
                   <Col sm={12} md={6} xl={4}>
@@ -120,9 +120,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       />
                     </div>
                   </Col>
-                  <Col sm={12} md={6} xl={4} className="hide-on-md">
-                    {/* //should be empty */}
-                  </Col>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="admin-meta-info"
@@ -159,6 +156,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       onKeyDown={event => handleEnter(event)}
                       options={activeSpecializationList}
                       value={searchParameters.specializationId}
+                      isDisabled={activeSpecializationList.length ? false : true}
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}
                     />
