@@ -1,7 +1,7 @@
 import React from 'react';
 import {CButton, CCheckbox, CHybridTextArea, CModal} from "@frontend-appointment/ui-elements";
-import {Container, Form, Row,Col} from "react-bootstrap";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import {Container, Form, Row, Col} from "react-bootstrap";
+import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
 const AddOverrideModal = ({
                               isModifyOverride,
@@ -18,7 +18,7 @@ const AddOverrideModal = ({
             <Row className="mb-2">
                 <Form className="override-form">
                     {/*<Form.Label>Date</Form.Label>*/}
-                  <Col xs={12}>
+                    <Col xs={12}>
                         <CEnglishDatePicker
                             id="from-date-override"
                             name="fromDate"
@@ -50,16 +50,16 @@ const AddOverrideModal = ({
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => handleOverrideFormInputChange(date, "toDate")}
                         />
-                      <div>
-                          {overrideData.dateErrorMessage ?
-                              <p className="error-message">
-                                  {overrideData.dateErrorMessage}</p> : ''}
-                      </div>
+                        <div>
+                            {overrideData.dateErrorMessage ?
+                                <p className="error-message">
+                                    {overrideData.dateErrorMessage}</p> : ''}
+                        </div>
                     </Col>
 
                     <Col xs={12}>
                         <div className="time-picker">
-                            <CEnglishDatePicker
+                            <CTimePicker
                                 id={"startTime-override"}
                                 name={"startTime"}
                                 label="Start Time"
@@ -74,7 +74,7 @@ const AddOverrideModal = ({
                             />
                         </div>
                         <div className="time-picker">
-                            <CEnglishDatePicker
+                            <CTimePicker
                                 id={"endTime-override"}
                                 name={"endTime"}
                                 label="End Time"
@@ -93,28 +93,28 @@ const AddOverrideModal = ({
                                 <p className="error-message">
                                     {overrideData.timeErrorMessage}</p> : ''}
                         </div>
-                        </Col>
-                        <Col xs={12}>
-                    <CCheckbox
-                        id="day-off-status-override"
-                        label="Days Off"
-                        name="dayOffStatus"
-                        className=" check-all"
-                        checked={overrideData.dayOffStatus === 'Y'}
-                        onChange={(e) => handleOverrideFormInputChange(e, '')}
-                    />
                     </Col>
                     <Col xs={12}>
-                    <CHybridTextArea
-                        id="remarks"
-                        name="remarks"
-                        onChange={(e) => handleOverrideFormInputChange(e, '')}
-                        onKeyDown={(event) => onEnterKeyPress(event)}
-                        placeholder="Remarks"
-                        value={overrideData.remarks}
-                        max={200}
-                        required={true}
-                    />
+                        <CCheckbox
+                            id="day-off-status-override"
+                            label="Days Off"
+                            name="dayOffStatus"
+                            className=" check-all"
+                            checked={overrideData.dayOffStatus === 'Y'}
+                            onChange={(e) => handleOverrideFormInputChange(e, '')}
+                        />
+                    </Col>
+                    <Col xs={12}>
+                        <CHybridTextArea
+                            id="remarks"
+                            name="remarks"
+                            onChange={(e) => handleOverrideFormInputChange(e, '')}
+                            onKeyDown={(event) => onEnterKeyPress(event)}
+                            placeholder="Remarks"
+                            value={overrideData.remarks}
+                            max={200}
+                            required={true}
+                        />
                     </Col>
                 </Form>
             </Row>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CCheckbox} from "@frontend-appointment/ui-elements";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityForm = ({
                                     doctorAvailabilityData,
@@ -39,7 +39,7 @@ const DoctorAvailabilityForm = ({
                                 <Col>{day.weekDaysName}</Col>
                                 <Col>
                                     <div className="time-picker">
-                                        <CEnglishDatePicker
+                                        <CTimePicker
                                             id={"startTime".concat(day.weekDaysId)}
                                             name={"startTime".concat(day.weekDaysId)}
                                             label="Start Time"
@@ -56,7 +56,7 @@ const DoctorAvailabilityForm = ({
                                 </Col>
                                 <Col>
                                     <div className="time-picker">
-                                        <CEnglishDatePicker
+                                        <CTimePicker
                                             id={"endTime".concat(day.weekDaysId)}
                                             name={"endTime".concat(day.weekDaysId)}
                                             label="End Time"
