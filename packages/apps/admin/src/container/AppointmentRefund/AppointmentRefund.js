@@ -1,30 +1,35 @@
 import React, { PureComponent } from 'react';
 import AppointmentLogSearchFilter from "./AppointmentRefundSearchFilter";
 import AppointmentLogDataTable from "./AppointmentRefundDataTable";
+import AppointRefundApprovalHoc from "./AppointmentRefundApprovalHoc";
 import { Col, Container, Row } from "react-bootstrap";
 
 import "./appointment-log.scss";
 
-class AppointmentLog extends PureComponent {
+const AppointmentRefundLog = props=> {
+  const AppoinmentRefund = AppointRefundApprovalHoc(
+  ({searchHandler,paginationProps,tableHandler})=>(
+        <>
+        <div>
 
+        <AppointmentLogSearchFilter searchHandler={searchHandler}/>
+            </div>
 
-    render() {
+        <div className="">
+            <AppointmentLogDataTable tableHandler={tableHandler}
+            paginationProps={paginationProps}/>
+            </div>
+    </>
 
-        return <>
-            <div>
+    ),
+    props,""
+  );
 
-            <AppointmentLogSearchFilter/>
-                </div>
+ return <AppoinmentRefund/>
 
-            <div className="">
-                <AppointmentLogDataTable/>
-                </div>
-        </>
+} 
 
-    }
-
-}
-export default AppointmentLog
+export default AppointmentRefundLog
 
 
 

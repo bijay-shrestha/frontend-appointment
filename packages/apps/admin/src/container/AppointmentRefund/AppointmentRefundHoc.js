@@ -4,15 +4,16 @@ import {
   AppointmentDetailsMiddleware,
   HospitalSetupMiddleware,
   DoctorMiddleware,
-  SpecializationSetupMiddleware
-} from '@frontend-appointment/thunk-middleware'
+  SpecializationSetupMiddleware,
+  PatientDetailsMiddleware
+} from '@frontend-appointment/thunk-middleware';
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
   FileExportUtils
-} from '@frontend-appointment/helpers'
-import './hospitalHoc.scss'
-
+} from '@frontend-appointment/helpers';
+import './hospitalHoc.scss';
+import { DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 const {
   clearAppointmentRefundPending,
   fetchAppointmentRefundList
@@ -23,10 +24,17 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
   fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
-const AppointmentDetailHOC = (ComposedComponent, props, type) => {
-  const {appointmentSetupApiConstant} = AdminModuleAPIConstants
+const {fetchPatientMetaList} = PatientDetailsMiddleware
+const AppointRefundHOC = (ComposedComponent, props, type) => {
+  const {
+    appointmentSetupApiConstant,
+    hospitalSetupApiConstants,
+    doctorSetupApiConstants,
+    specializationSetupAPIConstants,
+    patientSetupApiConstant
+  } = AdminModuleAPIConstants
 
-  class AppointmentSetup extends React.PureComponent {
+  class AppointmentRefundDetails extends React.PureComponent {
     state = {
       searchParameters: {
         appointmentNumber: '',
@@ -34,9 +42,9 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
         toDate: '',
         hospitalId: '',
         patientMetaInfoId: '',
+        doctorId:'',
         patientType: '',
-        specializationId: '',
-        name: ''
+        specializationId: ''
       },
       queryParams: {
         page: 0,
@@ -78,11 +86,9 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
         },
         searchData
       )
-
       await this.setState({
-        totalRecords: this.props.AppointmentRefundSearchReducer.refundList
-          .length
-          ? this.props.AppointmentRefundSearchReducer.refundList[0].totalItems
+        totalRecords: this.props.AppointmentRefundSearchReducer.refundList.length
+          ? this.props.AppointmentRefundSearchReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -123,7 +129,7 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
           patientMetaInfoId: '',
           patientType: '',
           specializationId: '',
-          name: ''
+          doctorId:''
         }
       })
       this.searchAppointment()
@@ -135,16 +141,26 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    callApiForHospitalChange = (hospitalId) => {
-       
+    callApiForHospitalChange = hospitalId => {
+      this.props.fetchActiveDoctorsHospitalWiseForDropdown(doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,hospitalId);
+      this.props.fetchSpecializationHospitalWiseForDropdown(specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,hospitalId);
+      this.props.fetchPatientMetaList(patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS);
     }
 
-    handleSearchFormChange = async event => {
+    handleSearchFormChange = async (event,field) => {
       if (event) {
-        let fieldName = event.target.name
-        let value = event.target.value
-        let label = event.target.label
-        this.callApiForHospitalChange();
+        let fieldName,value,label;
+        if(field){
+          fieldName=field;
+          value=event;
+        }
+        else{
+          fieldName=event.target.name;
+          value=event.target.value;
+          label=event.target.label
+        if(fieldName==="hospitalId")
+           this.callApiForHospitalChange(value)
+        }              
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
         await this.setStateValuesForSearch(searchParams)
@@ -165,7 +181,6 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
       const {
         searchParameters,
         queryParams,
-        deleteRequestDTO,
         totalRecords
       } = this.state
 
@@ -184,9 +199,9 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
         activeSpecializationList,
         dropdownErrorMessage
       } = this.props.SpecializationDropdownReducer
-
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-
+       
+      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+      const {patientList,patientDropdownErrorMessage}=this.props.PatientDropdownListReducer;
       return (
         <ComposedComponent
           {...this.props}
@@ -196,14 +211,15 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
             handleSearchFormChange: this.handleSearchFormChange,
             resetSearch: this.handleSearchFormReset,
             searchAppointment: this.searchAppointment,
-            handlePageChange: this.handlePageChange,
             handleSearchFormChange: this.handleSearchFormChange,
             hospitalsDropdown: hospitalsForDropdown,
             doctorsDropdown: activeDoctorsForDropdown,
             doctorDropdownErrorMessage: doctorDropdownErrorMessage,
             activeSpecializationList: activeSpecializationList,
-            specializationDropdownErrorMessage:dropdownErrorMessage,
-            searchParameters: searchParameters
+            specializationDropdownErrorMessage: dropdownErrorMessage,
+            searchParameters: searchParameters,
+            patientListDropdown:patientList,
+            patientDropdownErrorMessage:patientDropdownErrorMessage
           }}
           paginationProps={{
             queryParams: queryParams,
@@ -213,7 +229,7 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
           tableHandler={{
             isSearchLoading: isRefundListLoading,
             appointmentRefundList: this.appendSNToTable(refundList),
-            searchErrorMessage: refundErrorMessage
+            searchErrorMessage: refundErrorMessage,
           }}
         ></ComposedComponent>
       )
@@ -221,20 +237,22 @@ const AppointmentDetailHOC = (ComposedComponent, props, type) => {
   }
 
   return ConnectHoc(
-    HospitalSetup,
+    AppointmentRefundDetails,
     [
       'AppointmentRefundListReducer',
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
-      'HospitalDropdownReducer'
+      'HospitalDropdownReducer',
+      'PatientDropdownListReducer'
     ],
     {
       clearAppointmentRefundPending,
       fetchAppointmentRefundList,
       fetchActiveHospitalsForDropdown,
       fetchActiveDoctorsHospitalWiseForDropdown,
-      fetchSpecializationHospitalWiseForDropdown
+      fetchSpecializationHospitalWiseForDropdown,
+      fetchPatientMetaList
     }
   )
 }
-export default HospitalHOC
+export default AppointRefundHOC

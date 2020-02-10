@@ -8,9 +8,11 @@ const {
 } = appointmentDetailsConstants
 
 const initialState = {
-  refundList: [],
+  refundList:[],
   isRefundListLoading: true,
-  refundErrorMessage: ''
+  refundErrorMessage: '',
+  totalRefundAmount:'',
+  totalItems:''
 };
 
 export const AppointmentRefundListReducer = (state = {...initialState}, action) => {
@@ -20,26 +22,33 @@ export const AppointmentRefundListReducer = (state = {...initialState}, action) 
                 ...state,
                 refundList: [...state.refundList],
                 isRefundListLoading: true,
-                refundErrorMessage: ''
+                refundErrorMessage: '',
+                totalRefundAmount:'',
+                totalItems:''
             };
         case REFUND_FETCH_SUCCESS:
             return {
                 ...state,
-                refundList: [...action.payload.data],
+                refundList: [...action.payload.data.refundAppointments],
                 isRefundListLoading: false,
-                refundErrorMessage: ''
+                refundErrorMessage: '',
+                totalRefundAmount:action.payload.data.totalRefundAmount,
+                totalItems:action.payload.data.totalItems
             };
         case REFUND_FETCH_ERROR:
             return {
                 ...state,
                 refundList: [...state.refundList],
                 isRefundListLoading: false,
-                refundErrorMessage: action.payload.data
+                refundErrorMessage: action.payload.data,
+                totalRefundAmount:'',
+                totalItems:''
             };
         case CLEAR_REFUND_LIST_MESSAGE:
             return {
                 ...state,
-                refundErrorMessage: ''
+                refundErrorMessage: '',
+
             };
         default:
             return {...state}
