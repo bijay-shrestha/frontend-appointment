@@ -108,3 +108,15 @@ export const fetchSpecializationForDropdown = path => async dispatch => {
         throw e;
     }
 };
+
+export const fetchSpecializationHospitalWiseForDropdown = (path,id) => async dispatch => {
+    try {
+        const response = await Axios.getWithPathVariables(path,id);
+        dispatch(SpecializationSetupActions.fetchActiveSpecializationForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(SpecializationSetupActions.fetchActiveSpecializationForDropdownError(
+            e.errorMessage ? e.errorMessage : 'Error fetching specializations.'));
+        throw e;
+    }
+};
