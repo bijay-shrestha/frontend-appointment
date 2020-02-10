@@ -387,9 +387,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 if (key === 'fromDate' || key === 'toDate') {
                     overrideRequestDTO.dateErrorMessage = isFirstDateGreaterThanSecondDate(overrideRequestDTO.fromDate,
                         overrideRequestDTO.toDate) ? DATE_ERROR_MESSAGE : ''
-                } else if (key === 'endTime') {
-                    overrideRequestDTO.timeErrorMessage = isFirstTimeGreaterThanSecond(overrideRequestDTO.startTime,
-                        overrideRequestDTO.endTime) ? TIME_ERROR_MESSAGE : ''
+                } else if (key === 'endTime' || key === 'startTime') {
+                    if (overrideRequestDTO.startTime && overrideRequestDTO.endTime) {
+                        overrideRequestDTO.timeErrorMessage = isFirstTimeGreaterThanSecond(overrideRequestDTO.startTime,
+                            overrideRequestDTO.endTime) ? TIME_ERROR_MESSAGE : ''
+                    }
                 }
                 this.setState({
                     overrideRequestDTO: {...overrideRequestDTO}
@@ -708,10 +710,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         setAvailabilityData(fieldName, doctorWeekDaysAvailability, index, value) {
             if (fieldName) {
                 doctorWeekDaysAvailability[index][fieldName] = value;
-                if (doctorWeekDaysAvailability[index].startTime && doctorWeekDaysAvailability[index].endTime){
-                doctorWeekDaysAvailability[index].errorMessage = isFirstTimeGreaterThanSecond(
-                    doctorWeekDaysAvailability[index].startTime, doctorWeekDaysAvailability[index].endTime) ?
-                    TIME_ERROR_MESSAGE : ''
+                if (doctorWeekDaysAvailability[index].startTime && doctorWeekDaysAvailability[index].endTime) {
+                    doctorWeekDaysAvailability[index].errorMessage = isFirstTimeGreaterThanSecond(
+                        doctorWeekDaysAvailability[index].startTime, doctorWeekDaysAvailability[index].endTime) ?
+                        TIME_ERROR_MESSAGE : ''
                 }
             } else {
                 this.setDefaultStartAndEndTimeAndDayOffStatus(value, doctorWeekDaysAvailability[index]);
