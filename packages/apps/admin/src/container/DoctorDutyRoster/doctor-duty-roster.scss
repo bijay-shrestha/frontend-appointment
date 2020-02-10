@@ -58,6 +58,16 @@
     .filter-message{
         width:100%;
     }
+
+    .select-all{
+        display: inline-block;
+    }
+
+    .optional{
+        font-style: italic;
+        color:$gray-800;
+    }
+    
  }
  .preview-modal{
      
