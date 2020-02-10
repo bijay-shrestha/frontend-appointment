@@ -708,9 +708,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         setAvailabilityData(fieldName, doctorWeekDaysAvailability, index, value) {
             if (fieldName) {
                 doctorWeekDaysAvailability[index][fieldName] = value;
+                if (doctorWeekDaysAvailability[index].startTime && doctorWeekDaysAvailability[index].endTime){
                 doctorWeekDaysAvailability[index].errorMessage = isFirstTimeGreaterThanSecond(
                     doctorWeekDaysAvailability[index].startTime, doctorWeekDaysAvailability[index].endTime) ?
                     TIME_ERROR_MESSAGE : ''
+                }
             } else {
                 this.setDefaultStartAndEndTimeAndDayOffStatus(value, doctorWeekDaysAvailability[index]);
             }
