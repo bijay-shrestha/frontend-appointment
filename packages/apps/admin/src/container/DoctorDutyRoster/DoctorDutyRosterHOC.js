@@ -141,7 +141,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             dateErrorMessage: ''
         };
 
-        resetAddForm = async () => {
+        resetAddForm = async (onSuccessData) => {
             const weekDays = await this.getWeekDaysDataForForm();
             await this.setState({
                 hospital: null,
@@ -167,6 +167,28 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     dateErrorMessage: '',
                     timeErrorMessage: ''
                 },
+                ...onSuccessData
+            })
+        };
+
+        partialResetAddForm = async (onSuccessData) => {
+            await this.setState({
+                doctor: null,
+                rosterGapDuration: '',
+                status: 'Y',
+                overrideRequestDTO: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    status: 'Y',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
+                },
+                ...onSuccessData
             })
         };
 
@@ -301,7 +323,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isWholeWeekOff: event.target.checked ? 'Y' : 'N',
                     doctorWeekDaysDutyRosterRequestDTOS: [...updatedWeekDays]
-                })
+                });
+                this.checkFormValidity();
             }
         };
 
@@ -412,7 +435,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         // ELSE SIMPLY ADD
                         overrideList.push(currentOverride);
                     }
-                    this.setState({
+                    await this.setState({
                         doctorDutyRosterOverrideRequestDTOS: [...overrideList],
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
@@ -430,6 +453,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         showAddOverrideModal: isAddAnother,
                         overrideUpdateErrorMessage: ''
                     });
+                    this.checkFormValidity();
                     break;
                 case 'MANAGE':
                     let updatedOverrides = [...this.state.updateDoctorDutyRosterData.updatedOverrides];
@@ -477,6 +501,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 showAddOverrideModal: isAddAnother,
                                 overrideUpdateErrorMessage: ''
                             });
+                            this.checkManageFormValidity();
                         } catch (e) {
                             await this.setState({
                                 overrideUpdateErrorMessage: e.errorMessage ? e.errorMessage : 'Error Occurred while adding/modifying override.'
@@ -1026,7 +1051,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        saveDoctorDutyRoster = async () => {
+        saveDoctorDutyRoster = async (isClone) => {
             const {
                 doctorDutyRosterOverrideRequestDTOS, doctor, doctorWeekDaysDutyRosterRequestDTOS, fromDate,
                 hasOverrideDutyRoster, rosterGapDuration, specialization, status, toDate, hospital
@@ -1046,15 +1071,23 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {saveSuccessMessage, saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer;
             try {
                 await this.props.createDoctorDutyRoster(CREATE_DOCTOR_DUTY_ROSTER, dataToSave);
-                this.setState({
+                // this.setState({
+                //     showConfirmModal: false,
+                //     showAlert: true,
+                //     alertMessageInfo: {
+                //         variant: "success",
+                //         message: saveSuccessMessage ? saveSuccessMessage : 'Doctor Duty Roster saved successfully.'
+                //     },
+                // });
+                let onSuccessData = {
                     showConfirmModal: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "success",
                         message: saveSuccessMessage ? saveSuccessMessage : 'Doctor Duty Roster saved successfully.'
-                    },
-                });
-                this.resetAddForm();
+                    }
+                };
+                isClone ? this.partialResetAddForm(onSuccessData) : this.resetAddForm(onSuccessData);
             } catch (e) {
                 this.setState({
                     showAlert: true,
@@ -1365,13 +1398,22 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>
                     }
                     footerChildren={type === 'ADD' ?
-                        <CButton
-                            variant="primary"
-                            name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
-                            disabled={isSaveRosterLoading}
-                            size="lg"
-                            className="float-right btn-action mr-3"
-                            onClickHandler={this.saveDoctorDutyRoster}/> : ''
+                        <>
+                            <CButton
+                                variant="outline primary"
+                                name={isSaveRosterLoading ? 'Cloning' : 'Clone and Add New Doctor Duty Roster'}
+                                disabled={isSaveRosterLoading}
+                                size="lg"
+                                className="float-right btn-action mr-3"
+                                onClickHandler={() => this.saveDoctorDutyRoster(true)}/>
+                            <CButton
+                                variant="primary"
+                                name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
+                                disabled={isSaveRosterLoading}
+                                size="lg"
+                                className="float-right btn-action mr-3"
+                                onClickHandler={() => this.saveDoctorDutyRoster(false)}/>
+                        </> : ''
                     }
                     onHide={this.setShowModal}
                     centered={false}
