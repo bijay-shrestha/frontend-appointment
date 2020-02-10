@@ -48,7 +48,7 @@ const DoctorAvailabilityOverrides = ({
                             disabled={hasOverrideDutyRoster === 'N'}
                             onClickHandler={setShowAddOverrideModal}
                         >
-                            <i className='fa fa-plus'></i> Add More
+                            <><i className='fa fa-plus'/> Add More</>
                         </CButton>
                         <AddOverrideModal
                             isModifyOverride={isModifyOverride}
