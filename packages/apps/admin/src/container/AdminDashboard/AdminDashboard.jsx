@@ -15,15 +15,15 @@ const AdminDashboard = () => {
                     <div className="revenue-box">
 
 
-                        <p><img src={require('./img/paper-money.svg')} /> <br></br>5,00,000</p>
-                        <div>
+                        <p><i class="fa fa-money"></i> <br></br>5,00,000</p>
+                        <div className="total">
                             Total Revenue
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p><img src={require('./img/paper-money.svg')} /> <br></br>1,00,000</p>
+                        <p> <br></br>1,00,000</p>
                         <div className="up">
                             <i className="fa fa-chevron-up"></i> 5% from last month
                                 </div>
@@ -31,7 +31,7 @@ const AdminDashboard = () => {
 
                     <div className="revenue-box">
 
-                        <p><img src={require('./img/paper-money.svg')} /> <br></br>50,000</p>
+                        <p> <br></br>50,000</p>
                         <div className="up">
                             <i className="fa fa-chevron-up"></i> 5% from last week
                                 </div>
@@ -39,7 +39,7 @@ const AdminDashboard = () => {
 
                     <div className="revenue-box">
 
-                        <p><img src={require('./img/paper-money.svg')} /> <br></br>9,000</p>
+                        <p> <br></br>9,000</p>
                         <div className="down">
                             <i className="fa fa-chevron-down"></i> -3% from last day
                                 </div>
@@ -48,27 +48,27 @@ const AdminDashboard = () => {
                 </Row>
 
                 <Row className="mt-1">
-                    <Col lg={7} className="chart">
+                    <Col  lg={7} className="chart">
                         <Row>
-                            <Col >
+                            <Col xs={12} md={4}>
                                 <Row><h5 className="title">Revenue Statistics</h5></Row>
 
                             </Col>
-                            <Col className="p-0">
+                            <Col  xs={12} md={8} className="p-0">
                                 <CButton
                                     name="Weekly"
-                                    varianty="primary"
+                                    variant="outline-secondary"
                                     size="lg"
                                     className="m-0">
                                 </CButton>
                                 <CButton
                                     name="Monthly"
-                                    varianty="primary"
+                                    variant="outline-secondary"
                                     size="lg">
                                 </CButton>
                                 <CButton
                                     name="Yearly"
-                                    varianty="primary"
+                                    variant="outline-secondary"
                                     size="lg"
                                 >
                                 </CButton>
@@ -93,20 +93,25 @@ const AdminDashboard = () => {
 
                         <div className="appointment-box">
                         <ButtonGroup aria-label="Basic example" size="sm"  className="mb-3">
-                        <Button variant="secondary">Daily</Button>
-                        <Button variant="secondary">Weekly</Button>
-                        <Button variant="secondary">Monthly</Button>
-                        <Button variant="secondary">Yearly</Button>
+                        <Button variant="outline-secondary">Daily</Button>
+                        <Button variant="outline-secondary">Weekly</Button>
+                        <Button variant="outline-secondary">Monthly</Button>
+                        <Button variant="outline-secondary">Yearly</Button>
                         </ButtonGroup>
                         <Row>
                             <Col className="date">
-                            <CHybridInput></CHybridInput>
+                            <CHybridInput 
+                            name="From"
+                            placeholder = "From"
+                         
+                            ></CHybridInput>
                             </Col>
                             <Col className="date">
                           
-                               <CHybridInput></CHybridInput>
-                               
-                          
+                               <CHybridInput
+                                name="To"
+                                placeholder = "To"
+                               ></CHybridInput>
                          
                             </Col>
 
@@ -115,13 +120,13 @@ const AdminDashboard = () => {
 
 
                             <p>< i className="fa fa-calendar"></i> <br></br>1,000</p>
-                            <div >
+                            <div className="title">
                                Appointments
                             </div>
                              <hr></hr>
                              <ul>
-                                 <li>200<br></br>New Patient</li>
-                                 <li>200<br></br>New Patient</li>
+                                 <li><span>200</span><br></br>New Patient</li>
+                                 <li><span>800</span><br></br>Registered Patient</li>
                              </ul>
                             
                         </div>
