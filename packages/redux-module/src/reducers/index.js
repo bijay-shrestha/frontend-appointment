@@ -66,7 +66,10 @@ import {
 } from './admin-module/qualificationSetupReducer';
 
 import {
-  AppointmentRefundListReducer
+  AppointmentRefundListReducer,
+  AppointmentApprovalListReducer,
+  AppointmentLogListReducer,
+  AppointmentStatusListReducer
 } from './admin-module/appointmentDetailsReducer'; 
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
@@ -74,6 +77,9 @@ import {WeekdaysReducer} from './common/weekdaysReducer';
 import {PatientDropdownListReducer} from './admin-module/patientSetupReducer';
 
 export {
+    AppointmentApprovalListReducer,
+    AppointmentLogListReducer,
+    AppointmentStatusListReducer,
     AppointmentRefundListReducer,
     loginReducers,
     ProfileSetupReducer,

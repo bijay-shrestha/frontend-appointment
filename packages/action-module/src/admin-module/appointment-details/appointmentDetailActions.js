@@ -127,6 +127,6 @@ export const appointmentStatusFetchingError = message => {
 
 export const clearAppointmentStatusMessage = () => {
     return {
-        type: CLEAR_APPROVAL_Status_MESSAGE
+        type: CLEAR_STATUS_LIST_MESSAGE
     }
 };
