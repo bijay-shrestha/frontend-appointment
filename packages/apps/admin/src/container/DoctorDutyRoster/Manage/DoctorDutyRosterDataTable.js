@@ -45,20 +45,6 @@ const DoctorDutyRosterDataTable = ({
                                     //     cellClass: 'first-class'
                                     // },
                                     {
-                                        headerName: 'From Date',
-                                        field: 'fromDate',
-                                        resizable: true,
-                                        sortable: true,
-                                        sizeColumnsToFit: true
-                                    },
-                                    {
-                                        headerName: 'To Date',
-                                        field: 'toDate',
-                                        resizable: true,
-                                        sortable: true,
-                                        sizeColumnsToFit: true
-                                    },
-                                    {
                                         headerName: 'Doctor Name',
                                         field: 'doctorName',
                                         resizable: true,
@@ -68,6 +54,20 @@ const DoctorDutyRosterDataTable = ({
                                     {
                                         headerName: 'Specialization Name',
                                         field: 'specializationName',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true
+                                    },
+                                    {
+                                        headerName: 'From Date',
+                                        field: 'fromDate',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true
+                                    },
+                                    {
+                                        headerName: 'To Date',
+                                        field: 'toDate',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
