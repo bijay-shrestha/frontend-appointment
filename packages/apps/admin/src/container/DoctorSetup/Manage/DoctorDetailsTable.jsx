@@ -14,7 +14,7 @@ import HospitalPicture from '../commons/HospitalPicture'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
-const HospitalDetailsDataTable = props => (
+const DoctorDetailsDataTable = props => (
     <div className="manage-details">
         {console.log(props.searchData)}
         <h5 className="title">Doctor Details</h5>
@@ -176,4 +176,4 @@ const HospitalDetailsDataTable = props => (
         )}
     </div>
 )
-export default memo(HospitalDetailsDataTable)
+export default memo(DoctorDetailsDataTable)

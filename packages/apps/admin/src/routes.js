@@ -1,53 +1,53 @@
-import Loadable from 'react-loadable';
-import React from 'react';
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements';
+import Loadable from 'react-loadable'
+import React from 'react'
+import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-const getLoader = () => <CLoading/>;
+const getLoader = () => <CLoading />
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddDepartmentComponent = Loadable({
   loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddAdminComponent = Loadable({
   loader: () => import('./container/AdminSetup/Add/AdminAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddHospitalComponent = Loadable({
   loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddDoctorDutyRosterComponent = Loadable({
   loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddQualificationComponent = Loadable({
   loader: () => import('./container/QualificationSetup/Add/QualificationAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddSpecializationComponent = Loadable({
   loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
   loading: () => getLoader()
-});
+})
 
 const AddDoctorComponent = Loadable({
   loader: () => import('./container/DoctorSetup/Add/DoctorAdd'),
   loading: () => getLoader()
-});
+})
 
 const AppointmentRefundListComponent = Loadable({
-    loader: () => import('./container/AppointmentRefund/AppointmentRefund'),
-    loading: () => getLoader() 
+  loader: () => import('./container/AppointmentRefund/AppointmentRefund'),
+  loading: () => getLoader()
 })
 /* ****** B ***** */
 
@@ -58,13 +58,12 @@ const AppointmentRefundListComponent = Loadable({
 const DashboardComponent = Loadable({
   loader: () => import('./container/AdminDashboard/AdminDashboard'),
   loading: () => getLoader()
-});
+})
 
-const AppointmentLogComponent = Loadable({
-  loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
-  loading: () => getLoader()
-});
-
+// const AppointmentLogComponent = Loadable({
+//   loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
+//   loading: () => getLoader()
+// })
 
 /* ****** E ***** */
 
@@ -87,45 +86,45 @@ const AppointmentLogComponent = Loadable({
 const ManageProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/Manage/ProfileManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageDepartmentComponent = Loadable({
   loader: () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageSpecializationComponent = Loadable({
-  loader: () => import('./container/SpecializationSetup/Manage/SpecializationManage'),
+  loader: () =>
+    import('./container/SpecializationSetup/Manage/SpecializationManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageAdminComponent = Loadable({
   loader: () => import('./container/AdminSetup/Manage/AdminManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageHospitalComponent = Loadable({
   loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageDoctorDutyRosterComponent = Loadable({
   loader: () =>
     import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageQualificationComponent = Loadable({
   loader: () =>
     import('./container/QualificationSetup/Manage/QualificationManage'),
   loading: () => getLoader()
-});
+})
 
 const ManageDoctorComponent = Loadable({
-  loader: () =>
-    import('./container/DoctorSetup/Manage/DoctorManage'),
+  loader: () => import('./container/DoctorSetup/Manage/DoctorManage'),
   loading: () => getLoader()
-});
+})
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -135,7 +134,7 @@ const ManageDoctorComponent = Loadable({
 const ProfileComponent = Loadable({
   loader: () => import('./container/ProfileSetup/ProfileSetup'),
   loading: () => getLoader()
-});
+})
 /* ****** Q ***** */
 
 /* ****** R ***** */
@@ -257,28 +256,28 @@ export const routes = [
     isLink: true
   },
   {
-    'path': '/admin/generalSetup/admin-setup',
-    'name': 'Admin Setup',
-    'component': <></>,
-    'icon': '',
-    'hasTab': true,
-    'isLink': true
+    path: '/admin/generalSetup/admin-setup',
+    name: 'Admin Setup',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true
   },
   {
-    'path': '/admin/generalSetup/admin-setup/add',
-    'name': 'Add',
-    'component': AddAdminComponent,
-    'icon': '',
-    'hasTab': true,
-    'isLink': true
+    path: '/admin/generalSetup/admin-setup/add',
+    name: 'Add',
+    component: AddAdminComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true
   },
   {
-    'path': '/admin/generalSetup/admin-setup/manage',
-    'name': 'Manage',
-    'component': ManageAdminComponent,
-    'icon': '',
-    'hasTab': true,
-    'isLink': true
+    path: '/admin/generalSetup/admin-setup/manage',
+    name: 'Manage',
+    component: ManageAdminComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true
   },
   {
     path: '/admin/doctorDutyRoster',
@@ -360,7 +359,6 @@ export const routes = [
     isLink: false,
     isTab: false,
     name: 'Qualification Setup'
-
   },
   {
     path: '/admin/generalSetup/doctor',
@@ -370,7 +368,6 @@ export const routes = [
     isLink: false,
     isTab: false,
     name: 'Doctor'
-
   },
   {
     path: '/admin/generalSetup/doctor/add',
@@ -380,7 +377,6 @@ export const routes = [
     isLink: true,
     isTab: true,
     name: 'Add'
-
   },
   {
     path: '/admin/generalSetup/doctor/manage',
@@ -390,7 +386,6 @@ export const routes = [
     isLink: true,
     isTab: true,
     name: 'Manage'
-
   },
   {
     path: '/admin/doctorDutyRoster',
@@ -400,24 +395,23 @@ export const routes = [
     isLink: false,
     isTab: false,
     name: 'Doctor Duty Roster Setup'
-
   },
   {
-    'path': '/admin/appointment/appointmentLog',
-    component: AppointmentLogComponent,
-    'icon': '',
-    'hasTab': false,
-    'isLink': false,
-    'isTab': false,
-    'name': 'Appointment Status'
+    path: '/admin/appointment/appointmentRefundRequest',
+    component: AppointmentRefundListComponent,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false,
+    name: 'Appointment Refund'
   },
   {
-    'path': '/unauthorized',
-    'component': CUnauthorized,
-    'icon': '',
-    'hasTab': false,
-    'isLink': false,
-    'isTab': false,
-    'name': 'Unauthorized'
+    path: '/unauthorized',
+    component: CUnauthorized,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false,
+    name: 'Unauthorized'
   }
-];
+]

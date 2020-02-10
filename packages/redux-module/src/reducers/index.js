@@ -63,13 +63,18 @@ import {
     QualificationSaveReducer,
     QualificationSearchReducer,
     UniversitiesForDropdownReducer
-} from './admin-module/qualificationSetupReducer'
+} from './admin-module/qualificationSetupReducer';
+
+import {
+  AppointmentRefundListReducer
+} from './admin-module/appointmentDetailsReducer'; 
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
 import {WeekdaysReducer} from './common/weekdaysReducer';
 import {PatientDropdownListReducer} from './admin-module/patientSetupReducer';
 
 export {
+    AppointmentRefundListReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,

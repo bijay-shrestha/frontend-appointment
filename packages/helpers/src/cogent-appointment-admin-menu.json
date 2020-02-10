@@ -209,7 +209,7 @@
           "id": "12",
           "parentId": "10",
           "name": "Refund Request List",
-          "path": "/appointment/refundRequestList",
+          "path": "/appointment/appointmentRefundRequest",
           "roles": [
             2,
             3,

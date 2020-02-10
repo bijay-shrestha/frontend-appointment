@@ -76,6 +76,7 @@ class CDataTable extends PureComponent {
             editType,
             cellMouseOver
         } = this.props;
+        debugger;;
         return (
             <>
                 <div style={{width: width, height: height}} className={classes} id={id}>

@@ -1,9 +1,7 @@
 import React, {PureComponent} from 'react'
-import {Col, Container, Row} from 'react-bootstrap'
-import {CButton, CHybridSelect, CForm} from '@frontend-appointment/ui-elements'
+import {Col, Container, Row,OverlayTrigger,Tooltip,Button} from 'react-bootstrap'
+import {CButton, CHybridSelect, CForm,CHybridInput} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
-
-import './appointment-log.scss'
 
 class AppointmentApprovalListSearchFilter extends PureComponent {
   state = {
@@ -19,7 +17,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchAppointment()
+    this.props.searchHandler.searchAppointment(1)
     this.toggleSearchForm()
   }
 
@@ -29,7 +27,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      handleSearchFormChange,
       hospitalsDropdown,
       doctorsDropdown,
       doctorDropdownErrorMessage,
@@ -54,7 +51,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                   name="Reset"
                   onClickHandler={resetSearch}
                 >
-                  {' '}
                   <i className="fa fa-refresh" />
                 </CButton>
               </div>
@@ -66,7 +62,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                     <CHybridInput
                       id="appointmentNumber"
                       name="appointmentNumber"
-                      name="Select Appointment Number"
+                      placeholder="Select Appointment Number"
                       value={searchParameters.appointmentNumber}
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}
@@ -92,7 +88,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         name="fromDate"
                         label="From Date"
                         dateFormat="yyyy-MM-dd"
-                        minDate={0}
+                        maxDate={0}
                         showDisabledMonthNavigation={true}
                         peekNextMonth={true}
                         showMonthDropdown={true}
@@ -110,7 +106,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         name="toDate"
                         label="To Date"
                         dateFormat="yyyy-MM-dd"
-                        minDate={0}
+                        maxDate={0}
                         showDisabledMonthNavigation={true}
                         selected={searchParameters.toDate}
                         peekNextMonth={true}
@@ -146,7 +142,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       label="Select a Doctor"
                       name="doctorId"
                       onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
+                      onChange={event => handleSearchFormChange(event)}
                       options={doctorsDropdown}
                       value={searchParameters.doctorId}
                       isDisabled={doctorsDropdown.length ? false : true}
@@ -161,7 +157,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       label="Select Specialization"
                       name="specializationId"
                       onKeyDown={event => handleEnter(event)}
-                      onChange={event => onInputChange(event)}
                       options={activeSpecializationList}
                       value={searchParameters.specializationId}
                       onChange={handleSearchFormChange}

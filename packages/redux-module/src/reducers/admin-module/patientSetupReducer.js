@@ -17,7 +17,7 @@ export const PatientDropdownListReducer = (state = {...initialState}, action) =>
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_START:
             return {
                 ...state,
-                patientList: [...state.refundList],
+                patientList: [],
                 patientDropdownErrorMessage: '',
                 
             };
@@ -30,13 +30,13 @@ export const PatientDropdownListReducer = (state = {...initialState}, action) =>
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR:
             return {
                 ...state,
-                patientList:  [...state.refundList],
-                patientDropdownErrorMessage:''
+                patientList:  [],
+                patientDropdownErrorMessage:action.payload.data
             };
         case PATIENT_CLEAR_DROPDOWN_META:
             return {
                 ...state,
-                refundErrorMessage: ''
+                patientDropdownErrorMessage: ''
             };
         default:
             return {...state}

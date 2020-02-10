@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import {
+  AppointmentRefundListReducer,
   AdminDeleteReducer,
   AdminEditReducer,
   AdminListReducer,
@@ -55,6 +56,7 @@ import {
 } from '../reducers';
 
 export const rootReducers = combineReducers({
+  AppointmentRefundListReducer,
   loginReducers: login,
   ProfileSetupReducer,
   ProfileListReducer,

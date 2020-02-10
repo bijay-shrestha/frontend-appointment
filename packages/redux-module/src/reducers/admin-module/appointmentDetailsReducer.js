@@ -20,7 +20,7 @@ export const AppointmentRefundListReducer = (state = {...initialState}, action) 
         case REFUND_FETCH_START:
             return {
                 ...state,
-                refundList: [...state.refundList],
+                refundList: [],
                 isRefundListLoading: true,
                 refundErrorMessage: '',
                 totalRefundAmount:'',
@@ -38,7 +38,7 @@ export const AppointmentRefundListReducer = (state = {...initialState}, action) 
         case REFUND_FETCH_ERROR:
             return {
                 ...state,
-                refundList: [...state.refundList],
+                refundList: [],
                 isRefundListLoading: false,
                 refundErrorMessage: action.payload.data,
                 totalRefundAmount:'',
