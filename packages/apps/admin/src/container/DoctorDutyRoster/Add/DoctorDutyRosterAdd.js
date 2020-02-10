@@ -45,6 +45,7 @@ function DoctorDutyRosterAdd(props) {
                                                               showExistingRosterModal,
                                                               specializationDropdownError,
                                                               specializationList,
+                                                              activeSpecializationListByHospital,
                                                               wholeWeekOff,
                                                           }) =>
         <div>
@@ -53,7 +54,7 @@ function DoctorDutyRosterAdd(props) {
                     <AddDoctorInfoForm
                         doctorInfoData={doctorInfoData}
                         hospitalList={hospitalList}
-                        specializationList={specializationList}
+                        specializationList={activeSpecializationListByHospital}
                         specializationDropdownError={specializationDropdownError}
                         doctorList={doctorList}
                         doctorDropdownErrorMessage={doctorDropdownErrorMessage}

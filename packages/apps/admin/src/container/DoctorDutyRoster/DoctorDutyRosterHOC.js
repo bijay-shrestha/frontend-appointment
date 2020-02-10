@@ -19,7 +19,7 @@ import * as Material from 'react-icons/md';
 import DoctorDutyRosterPreviewModal from "./common/DoctorDutyRosterPreviewModal";
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
+const {fetchSpecializationForDropdown, fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
 const {fetchDoctorsBySpecializationIdForDropdown, fetchActiveDoctorsForDropdown} = DoctorMiddleware;
 const {fetchWeekdays} = WeekdaysMiddleware;
 const {
@@ -37,7 +37,7 @@ const {
 } = DoctorDutyRosterMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
-const {ACTIVE_DROPDOWN_SPECIALIZATION} = AdminModuleAPIConstants.specializationSetupAPIConstants;
+const {ACTIVE_DROPDOWN_SPECIALIZATION, SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = AdminModuleAPIConstants.specializationSetupAPIConstants;
 const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
 const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
 const {
@@ -217,6 +217,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         fetchActiveSpecializationForDropdown = async () => {
             await TryCatchHandler.genericTryCatch(this.props.fetchSpecializationForDropdown(ACTIVE_DROPDOWN_SPECIALIZATION))
+        };
+
+        fetchActiveSpecializationByHospitalForDropdown = async (hospitalId) => {
+            return await this.props.fetchSpecializationHospitalWiseForDropdown(
+                SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL, hospitalId)
         };
 
         fetchActiveDoctors = async () => {
@@ -810,7 +815,22 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             await this.setStateValues(key, value, label, fieldValid);
 
-            if (key === 'specialization') {
+            if (key === 'hospital') {
+                if (value) {
+                    await this.fetchActiveSpecializationByHospitalForDropdown(value);
+                    this.setState({
+                        specialization: null,
+                        doctor: null
+                    })
+                } else {
+                    this.setState({
+                        specialization: null,
+                        doctor: null
+                    });
+                    await this.fetchActiveSpecializationByHospitalForDropdown(0);
+                }
+
+            } else if (key === 'specialization') {
                 await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
                 await this.setState({
                     doctor: null
@@ -1234,7 +1254,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
-            const {activeSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
+            const {allActiveSpecializationList, activeSpecializationListByHospital, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage, activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
@@ -1245,6 +1265,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 <ComposedComponent
                     {...props}
                     activeDoctorList={activeDoctorsForDropdown}
+                    activeSpecializationListByHospital={activeSpecializationListByHospital}
                     addOverride={this.handleAddOverride}
                     cancelCloseEditModal={this.cancelCloseEditModal}
                     dateErrorMessage={dateErrorMessage}
@@ -1317,7 +1338,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     showEditModal={showEditModal}
                     showExistingRosterModal={showExistingRosterModal}
                     specializationDropdownError={dropdownErrorMessage}
-                    specializationList={activeSpecializationList}
+                    specializationList={allActiveSpecializationList}
                     updateDoctorDutyRosterData={updateDoctorDutyRosterData}
                     wholeWeekOff={isWholeWeekOff}
                 />
@@ -1386,6 +1407,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             deleteDoctorDutyRoster,
             fetchActiveDoctorsForDropdown,
             fetchActiveHospitalsForDropdown,
+            fetchSpecializationHospitalWiseForDropdown,
             fetchDoctorDutyRosterDetailById,
             fetchDoctorDutyRosterList,
             fetchDoctorsBySpecializationIdForDropdown,
