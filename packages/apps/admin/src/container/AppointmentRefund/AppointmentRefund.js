@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import AppointmentLogSearchFilter from "./AppointmentLogSearchFilter";
-import AppointmentLogDataTable from "./AppointmentLogDataTable";
+import AppointmentLogSearchFilter from "./AppointmentRefundSearchFilter";
+import AppointmentLogDataTable from "./AppointmentRefundDataTable";
 import { Col, Container, Row } from "react-bootstrap";
 
 import "./appointment-log.scss";
