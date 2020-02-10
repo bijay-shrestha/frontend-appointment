@@ -67,7 +67,7 @@ import {
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
 import {logoutReducer} from './common/logoutReducer';
 import {WeekdaysReducer} from './common/weekdaysReducer';
-
+import {PatientDropdownListReducer} from './admin-module/patientSetupReducer';
 
 export {
     loginReducers,
@@ -120,5 +120,6 @@ export {
     CountryCodeDropdownReducer,
     QualificationAliasDropdownReducer,
     QualificationDropdownReducer,
-    UniversitiesForDropdownReducer
+    UniversitiesForDropdownReducer,
+    PatientDropdownListReducer
 }

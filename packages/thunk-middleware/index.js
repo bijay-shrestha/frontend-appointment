@@ -23,7 +23,8 @@ import {
     previewAdmin,
     previewProfile,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    PatientDetailsMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware';
@@ -65,5 +66,6 @@ export {
     SpecializationSetupMiddleware,
     QualificationSetupMiddleware,
     verifyToken,
-    WeekdaysMiddleware
+    WeekdaysMiddleware,
+    PatientDetailsMiddleware
 }

@@ -28,7 +28,9 @@ import {
     SpecializationSetupActions,
     specializationSetupConstants,
     QualificationSetupActions,
-    qualificationSetupConstants
+    qualificationSetupConstants,
+    PatientDetailsActions,
+    patientDetailsConstants
    
 } from './src/admin-module'
 
@@ -60,5 +62,7 @@ export {
     QualificationSetupActions,
     qualificationSetupConstants,
     weekdaysActionConstants,
-    WeekdaysActions
+    WeekdaysActions,
+    PatientDetailsActions,
+    patientDetailsConstants
 }

@@ -16,6 +16,9 @@ import {doctorDutyRosterActionConstants} from "./doctor-duty-roster/doctorDutyRo
 import * as DoctorDutyRosterActions from './doctor-duty-roster/doctorDutyRosterActions';
 import * as AppointmentDetailActions from './appointment-details/appointmentDetailActions';
 import {appointmentDetailsConstants} from "./appointment-details/appointmentDetailActionConstants";
+import * as PatientDetailsActions from './patent-details/patientDetailActions';
+import {patientDetailsConstants} from "./patent-details/patientDetailActionConstants";
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -34,5 +37,7 @@ export {
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     QualificationSetupActions,
-    qualificationSetupConstants
+    qualificationSetupConstants,
+    PatientDetailsActions,
+    patientDetailsConstants
 }
