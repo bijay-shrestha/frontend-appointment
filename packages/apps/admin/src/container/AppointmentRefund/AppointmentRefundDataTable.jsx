@@ -49,9 +49,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
             </Col>
         
             </Row> */}
-
-        {console.log('==================', appointmentRefundList)}
-
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (
@@ -59,9 +56,10 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
             <CDataTable
               classes="ag-theme-balham"
               id="roles-table"
-              tableId={"refund-table"}
               width="100%"
               height="460px"
+              enableSorting
+              editType
               columnDefs={[
                 {
                   headerName: 'SN',
@@ -84,7 +82,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Appointment Date',
                   field: 'appointmentDate',
-                  // headerClass: "fi",
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -92,6 +89,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Appointment Number',
                   field: 'appointmentNumber',
+                  // headerClass: "fi",
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -103,7 +101,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                ,
                 {
                   headerName: 'Patient Name',
                   field: 'patientName',
@@ -112,12 +109,20 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Doctor Name',
+                  headerName: 'Doctor',
                   field: 'doctorName',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
+                {
+                  headerName: 'Specialization',
+                  field: 'specializationName',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
@@ -133,14 +138,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Canceled Date',
+                  headerName: 'Cancelled Date',
                   field: 'cancelledDate',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Refund Amount',
+                  headerName: 'Amount',
                   field: 'refundAmount',
                   resizable: true,
                   sortable: true,
@@ -154,17 +159,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
-                  cellRendererParams: {
-                    onClick: function (e, id, type) {
-                      //   type === 'D'
-                      //     ? // ? props.filteredActions.find(action => action.id === 5) &&
-                      //       props.onDeleteHandler(id)
-                      //     : type === 'E'
-                      //     ? props.onEditHandler(id)
-                      //     : props.onPreviewHandler(id)
-                    }
-                    // filteredAction: props.filteredActions
-                  },
+                  // cellRendererParams: {
+                  //     onClick: function (e, id, type) {
+                  //         type === 'D'
+                  //             // ? props.filteredActions.find(action => action.id === 5) &&
+                  //             ? props.onDeleteHandler(id)
+                  //             : type === 'E'
+                  //             ? props.onEditHandler(id)
+                  //             : props.onPreviewHandler(id)
+                  //     },
+                  //     filteredAction: props.filteredActions
+                  // },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }
               ]}
@@ -172,11 +177,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 childActionRenderer: TableRefundStatus
               }}
               defaultColDef={{resizable: true}}
-              getSelectedRows={() => {
-                console.log('hello')
-              }}
+              // getSelectedRows={
+              //     // checkIfRoleExists(props.filteredActions, 4) &&
+              //     props.onPreviewHandler
+              // }
               rowSelection={'single'}
-              // setShowModal={props.setShowModal} // {this.showModal}
               rowData={appointmentRefundList}
             />
             <CPagination

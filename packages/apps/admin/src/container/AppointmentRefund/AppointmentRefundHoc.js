@@ -101,7 +101,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     appendSNToTable = refundList => {
       let newRefundList =[];
 
-        refundList.length &&
+      newRefundList = refundList.length &&
         refundList.map((spec, index) => ({
           "appointmentNumber":spec.appointmentNumber||"",
           "hospitalName": spec.hospitalName||"",
@@ -115,7 +115,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           "esewaId": spec.esewaId||"",
            sN: index + 1
         }))
-      newRefundList =[...refundList];
+    
       console.log('New RefundList', newRefundList)
       return newRefundList
     }
@@ -239,7 +239,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           }}
           tableHandler={{
             isSearchLoading: isRefundListLoading,
-            appointmentRefundList: refundList,//this.appendSNToTable(refundList),
+            appointmentRefundList:this.appendSNToTable(refundList),
             searchErrorMessage: refundErrorMessage,
           }}
         ></ComposedComponent>
