@@ -42,7 +42,7 @@ const DoctorAvailabilityForm = ({
                                         <CTimePicker
                                             id={"startTime".concat(day.weekDaysId)}
                                             name={"startTime".concat(day.weekDaysId)}
-                                            label="Start Time"
+                                            label="00:00"
                                             onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}
                                             selected={day.startTime}
                                             showTimeSelect={true}
@@ -60,7 +60,7 @@ const DoctorAvailabilityForm = ({
                                         <CTimePicker
                                             id={"endTime".concat(day.weekDaysId)}
                                             name={"endTime".concat(day.weekDaysId)}
-                                            label="End Time"
+                                            label="00:00"
                                             onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}
                                             selected={day.endTime}
                                             showTimeSelect={true}
@@ -83,7 +83,7 @@ const DoctorAvailabilityForm = ({
                             </Row>
                             <div>
                                 {day.errorMessage ?
-                                    <p className="error-message">
+                                    <p className="time-error">
                                         {day.errorMessage}</p> : ''}
                             </div>
                         </div>

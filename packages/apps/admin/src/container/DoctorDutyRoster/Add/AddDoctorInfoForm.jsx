@@ -57,7 +57,7 @@ const AddDoctorInfoForm = ({
                     </div>
                     <div>
                         {dateErrorMessage ?
-                            <p className="error-message">
+                            <p className="date-error">
                                 {dateErrorMessage}</p> : ''}
                     </div>
 

@@ -52,7 +52,7 @@ const AddOverrideModal = ({
                         />
                         <div>
                             {overrideData.dateErrorMessage ?
-                                <p className="error-message">
+                                <p className="date-error">
                                     {overrideData.dateErrorMessage}</p> : ''}
                         </div>
                     </Col>
@@ -92,7 +92,7 @@ const AddOverrideModal = ({
                         </div>
                         <div>
                             {overrideData.timeErrorMessage ?
-                                <p className="error-message">
+                                <p className="time-error">
                                     {overrideData.timeErrorMessage}</p> : ''}
                         </div>
                     </Col>
