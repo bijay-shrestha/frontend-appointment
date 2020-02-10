@@ -19,3 +19,11 @@ export const addDate = (date, daysToAdd) => {
     date = date.setDate(date.getDate() + daysToAdd);
     return new Date(date);
 };
+
+export const isFirstDateGreaterThanSecondDate = (date1, date2) => {
+    return date1 > date2;
+};
+
+export const isFirstTimeGreaterThanSecond = (time1, time2) => {
+    return time1 > time2;
+};

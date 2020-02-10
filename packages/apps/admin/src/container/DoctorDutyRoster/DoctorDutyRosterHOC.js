@@ -53,7 +53,10 @@ const {
     REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE
 } = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
-const {getDateWithTimeSetToGivenTime, addDate} = DateTimeFormatterUtils;
+const {getDateWithTimeSetToGivenTime, addDate, isFirstTimeGreaterThanSecond, isFirstDateGreaterThanSecondDate} = DateTimeFormatterUtils;
+
+const DATE_ERROR_MESSAGE = "From date must not be greater than to date!";
+const TIME_ERROR_MESSAGE = "Start time must not be greater than end time!";
 
 const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
     class DoctorDutyRoster extends PureComponent {
@@ -377,11 +380,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 if (key === 'fromDate' || key === 'toDate') {
-                    overrideRequestDTO.dateErrorMessage = overrideRequestDTO.fromDate > overrideRequestDTO.toDate ?
-                        'From date must not be greater than to date!' : ''
-                } else if ( key === 'endTime') {
-                    overrideRequestDTO.timeErrorMessage = overrideRequestDTO.startTime > overrideRequestDTO.endTime ?
-                        'Start time must not be greater than end time!' : ''
+                    overrideRequestDTO.dateErrorMessage = isFirstDateGreaterThanSecondDate(overrideRequestDTO.fromDate,
+                        overrideRequestDTO.toDate) ? DATE_ERROR_MESSAGE : ''
+                } else if (key === 'endTime') {
+                    overrideRequestDTO.timeErrorMessage = isFirstTimeGreaterThanSecond(overrideRequestDTO.startTime,
+                        overrideRequestDTO.endTime) ? TIME_ERROR_MESSAGE : ''
                 }
                 this.setState({
                     overrideRequestDTO: {...overrideRequestDTO}
@@ -699,6 +702,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         setAvailabilityData(fieldName, doctorWeekDaysAvailability, index, value) {
             if (fieldName) {
                 doctorWeekDaysAvailability[index][fieldName] = value;
+                doctorWeekDaysAvailability[index].errorMessage = isFirstTimeGreaterThanSecond(
+                    doctorWeekDaysAvailability[index].startTime, doctorWeekDaysAvailability[index].endTime) ?
+                    TIME_ERROR_MESSAGE : ''
             } else {
                 this.setDefaultStartAndEndTimeAndDayOffStatus(value, doctorWeekDaysAvailability[index]);
             }
@@ -782,10 +788,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     getDateWithTimeSetToGivenTime(new Date(), 24, 0, 0);
                 doctorWeekDaysAvailability.endTime =
                     getDateWithTimeSetToGivenTime(new Date(), 12, 0, 0);
+                doctorWeekDaysAvailability.errorMessage='';
             } else {
                 doctorWeekDaysAvailability.dayOffStatus = 'N';
                 doctorWeekDaysAvailability.startTime = '';
                 doctorWeekDaysAvailability.endTime = '';
+                doctorWeekDaysAvailability.errorMessage='';
             }
         };
 
@@ -804,7 +812,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
 
             if (key === 'fromDate' || key === 'toDate') {
-                let errorMessage = this.state.fromDate > this.state.toDate ? 'From date must not be greater than to date!' : '';
+                let errorMessage = isFirstDateGreaterThanSecondDate(this.state.fromDate, this.state.toDate) ?
+                    DATE_ERROR_MESSAGE : '';
                 await this.setState({
                     dateErrorMessage: errorMessage
                 });
@@ -1029,12 +1038,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         searchDoctorDutyRoster = async page => {
             const {fromDate, toDate, hospital, specialization, doctor} = this.state.searchParameters;
-            if (fromDate > toDate) {
+            if (isFirstDateGreaterThanSecondDate(fromDate, toDate)) {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "danger",
-                        message: "From date must not be greater than to date!"
+                        message: DATE_ERROR_MESSAGE
                     },
                 })
             } else {
