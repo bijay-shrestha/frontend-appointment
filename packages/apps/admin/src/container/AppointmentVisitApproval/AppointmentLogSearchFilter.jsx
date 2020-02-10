@@ -115,23 +115,23 @@ const AppointmentApprovalListSearchFilter = props => {
                 />
               </Col>
 
-              <Col sm={12} md={6} xl={4}>
+              {/* <Col sm={12} md={6} xl={4}>
                 <CHybridSelect
                   id="Patient Category"
                   label="Patient Category"
                   name="Patient Category"
                   placeholder="Select Patient Category."
                 />
-              </Col>
+              </Col> */}
 
-              <Col sm={12} md={6} xl={4}>
+              {/* <Col sm={12} md={6} xl={4}>
                 <CHybridSelect
                   id="Status"
                   label="Status"
                   name="Status"
                   placeholder="Select Status."
                 />
-              </Col>
+              </Col> */}
 
               <Col sm={12} md={{span: 8, offset: 4}} xl={{span: 6, offset: 6}}>
                 <div className="pull-right">
