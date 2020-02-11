@@ -1400,7 +1400,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     footerChildren={type === 'ADD' ?
                         <>
                             <CButton
-                                variant="outline primary"
+                                variant="outline-primary"
                                 name={isSaveRosterLoading ? 'Cloning' : 'Clone and Add New Doctor Duty Roster'}
                                 disabled={isSaveRosterLoading}
                                 size="lg"

@@ -156,7 +156,7 @@ function DoctorDutyRosterManage(props) {
                             }
                             onHide={cancelCloseEditModal}
                             centered={false}
-                            dialogClassName="preview-modal"
+                            dialogClassName="preview-modal edit-doctordutyroster"
                             footerChildren={footerContent}
                             closeButton={true}/>
                     ) : ''

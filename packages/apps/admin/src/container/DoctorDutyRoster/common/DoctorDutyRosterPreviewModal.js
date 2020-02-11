@@ -127,8 +127,8 @@ const DoctorDutyRosterPreviewModal = ({
 
                                     </Col>
                                     <Col>
-                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
-                                            <i className="fa fa-close"/>}
+                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
+                                            ''}
                                     </Col>
                                 </Row>
                             ))
