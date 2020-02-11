@@ -151,7 +151,7 @@ export const AppointmentApprovalListReducer = (
       return {
         ...state,
         approvalList: [...action.payload.data.pendingAppointmentApprovals],
-        isApprovalListLoading: true,
+        isApprovalListLoading: false,
         approvalErrorMessage: '',
         totalAmount:action.payload.data.totalAmount,
         totalItems: action.payload.data.totalItems
@@ -160,7 +160,7 @@ export const AppointmentApprovalListReducer = (
       return {
         ...state,
         approvalList: [],
-        isApprovalListLoading: true,
+        isApprovalListLoading: false,
         approvalErrorMessage: action.payload.data,
         totalAmount: '',
         totalItems: ''

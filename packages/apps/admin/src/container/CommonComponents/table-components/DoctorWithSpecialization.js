@@ -1,7 +1,7 @@
 import React, {memo} from 'react'
 import {Badge} from 'react-bootstrap'
 
-const DoctorWithSpecialization = () => {
+const DoctorWithSpecialization = (props) => {
   return (
     <>
       <span>

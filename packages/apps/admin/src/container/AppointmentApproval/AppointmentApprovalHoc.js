@@ -113,7 +113,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.fetchAppointmentRefundList(
+      await this.props.fetchAppointmentApprovalList(
         appointmentSetupApiConstant.APPOINTMENT_APPROVAL_LIST,
         {
           page: updatedPage,
@@ -217,7 +217,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
     }
 
     render () {
-      const {searchParameters, queryParams, totalRecords} = this.state
+      const {searchParameters, queryParams, totalRecords,showModal,previewData} = this.state
 
       const {
         approvalList,

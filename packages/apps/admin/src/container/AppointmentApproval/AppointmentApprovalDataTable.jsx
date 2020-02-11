@@ -6,6 +6,7 @@ import {
 } from '@frontend-appointment/ui-elements';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
+import PreviewDetails from './AppointmentApprovalPreview';
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
