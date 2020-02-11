@@ -51,8 +51,8 @@ const AppointmentRefundListComponent = Loadable({
 })
 
 const AppointmentApprovalListComponent = Loadable({
-    loader:()=> import('./container/AppointmentApproval/AppointmentApproval'),
-    loading:() =>getLoader()
+    loader:() => import('./container/AppointmentApproval/AppointmentApproval'),
+    loading:() => getLoader()
 })
 /* ****** B ***** */
 
@@ -417,7 +417,7 @@ export const routes = [
     hasTab: false,
     isLink: false,
     isTab: false,
-    name: 'Appointment Refund'
+    name: 'Appointment Approval'
   },
   {
     path: '/unauthorized',

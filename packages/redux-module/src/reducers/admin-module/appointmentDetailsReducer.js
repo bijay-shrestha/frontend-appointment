@@ -150,11 +150,11 @@ export const AppointmentApprovalListReducer = (
     case APPROVAL_FETCH_SUCCESS:
       return {
         ...state,
-        approvalList: action.payload.data,
+        approvalList: [...action.payload.data.pendingAppointmentApprovals],
         isApprovalListLoading: true,
         approvalErrorMessage: '',
-        totalAmount: '',
-        totalItems: ''
+        totalAmount:action.payload.data.totalAmount,
+        totalItems: action.payload.data.totalItems
       }
     case APPROVAL_FETCH_ERROR:
       return {

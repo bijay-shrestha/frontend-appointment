@@ -16,7 +16,7 @@ import './appointment-approval.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 const {
   clearAppointmentRefundPending,
-  fetchAppointmentRefundList
+  fetchAppointmentApprovalList
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -51,7 +51,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 10
       },
-      totalRecords: 0
+      totalRecords: 0,
+      showModal:false,
+      previewData:{}
     }
 
     handleEnterPress = event => {
@@ -99,7 +101,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.fetchAppointmentRefundList(
-        appointmentSetupApiConstant.APPOINTMENT_REFUND_LIST,
+        appointmentSetupApiConstant.APPOINTMENT_APPROVAL_LIST,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -107,8 +109,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.AppointmentRefundListReducer.refundList.length
-          ? this.props.AppointmentRefundListReducer.totalItems
+        totalRecords: this.props.AppointmentApprovalListReducer.approvalList.length
+          ? this.props.AppointmentApprovalListReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -123,16 +125,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       newRefundList =
         refundList.length &&
         refundList.map((spec, index) => ({
-          appointmentNumber: spec.appointmentNumber || '',
-          hospitalName: spec.hospitalName || '',
-          patientName: spec.patientName || '',
-          registrationNumber: spec.registrationNumber || '',
-          doctorName: spec.doctorName || ' ',
-          specializationName: spec.specializationName || '',
-          transactionNumber: spec.transactionNumber || '',
-          cancelledDate: spec.cancelledDate || '',
-          refundAmount: spec.refundAmount || '',
-          esewaId: spec.esewaId || '',
+          ...spec,
           sN: index + 1
         }))
 
@@ -204,25 +197,20 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         await this.setStateValuesForSearch(searchParams)
       }
     }
-    // setFormValidManage = () => {
-    //   this.setState({
-    //     formValid: true
-    //   })
-    // }
-
+ 
     async componentDidMount () {
-      //await this.searchAppointment()
-      await this.searchHospitalForDropDown()
+      await this.searchAppointment()
+     await this.searchHospitalForDropDown()
     }
 
     render () {
       const {searchParameters, queryParams, totalRecords} = this.state
 
       const {
-        isRefundListLoading,
-        refundList,
-        refundErrorMessage
-      } = this.props.AppointmentRefundListReducer
+        approvalList,
+        isApprovalListLoading,
+        approvalErrorMessage
+      } = this.props.AppointmentApprovalListReducer
 
       const {
         activeDoctorsForDropdown,
@@ -264,9 +252,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             handlePageChange: this.handlePageChange
           }}
           tableHandler={{
-            isSearchLoading: isRefundListLoading,
-            appointmentRefundList: this.appendSNToTable(refundList),
-            searchErrorMessage: refundErrorMessage
+            isSearchLoading: isApprovalListLoading,
+            appointmentApprovalList: this.appendSNToTable(approvalList),
+            searchErrorMessage: approvalErrorMessage
           }}
         ></ComposedComponent>
       )
@@ -276,7 +264,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
   return ConnectHoc(
     AppointmentApprovalDetails,
     [
-      'AppointmentRefundListReducer',
+      'AppointmentApprovalListReducer',
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
       'HospitalDropdownReducer',
@@ -284,11 +272,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
     ],
     {
       clearAppointmentRefundPending,
-      fetchAppointmentRefundList,
       fetchActiveHospitalsForDropdown,
       fetchActiveDoctorsHospitalWiseForDropdown,
       fetchSpecializationHospitalWiseForDropdown,
-      fetchPatientMetaList
+      fetchPatientMetaList,
+      fetchAppointmentApprovalList
     }
   )
 }

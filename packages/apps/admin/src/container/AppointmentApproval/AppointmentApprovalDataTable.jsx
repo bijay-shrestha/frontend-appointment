@@ -4,21 +4,21 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
+import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
-    appointmentRefundList,
+    appointmentApprovalList,
     searchErrorMessage
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Refund Details</h5>
+        <h5 className="title">Appointment Approval Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
-        appointmentRefundList.length ? (
+        appointmentApprovalList.length ? (
           <>
             <CDataTable
               classes="ag-theme-balham"
@@ -53,9 +53,23 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
+                  headerName: 'Appointment Time',
+                  field: 'appointmentTime',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+                {
                   headerName: 'Appointment Number',
                   field: 'appointmentNumber',
                   // headerClass: "fi",
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+                {
+                  headerName: 'Esewa Id',
+                  field: 'esewaId',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -74,13 +88,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                {
-                  headerName: 'Doctor',
-                  field: 'doctorName',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+               
                 {
                   headerName: 'Specialization',
                   field: 'specializationName',
@@ -88,10 +96,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-
                 {
-                  headerName: 'Esewa Id',
-                  field: 'esewaId',
+                  headerName: 'Mobile Number',
+                  field: 'mobileNumber',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
+                {
+                  headerName: 'Doctor (Specialization)',
+                  field: 'doctorName',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -99,13 +113,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Transaction Number',
                   field: 'transactionNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Cancelled Date',
-                  field: 'cancelledDate',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -140,7 +147,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 }
               ]}
               frameworkComponents={{
-                childActionRenderer: TableRefundStatus
+                childActionRenderer: TableApproveAction
               }}
               defaultColDef={{resizable: true}}
               // getSelectedRows={
@@ -148,7 +155,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               //     props.onPreviewHandler
               // }
               rowSelection={'single'}
-              rowData={appointmentRefundList}
+              rowData={appointmentApprovalList}
             />
             <CPagination
               totalItems={totalRecords}

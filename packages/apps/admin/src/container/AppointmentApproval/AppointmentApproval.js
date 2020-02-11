@@ -1,7 +1,7 @@
-import React, {memo} from 'react'
-import AppointmentApprovalSearchFilter from './AppointmentApprovalSearchFilter'
-import AppointmentApprovalDataTable from './AppointmentApproval'
-import AppointmentApprovalHoc from './AppointmentApprovalHoc'
+import React from 'react';
+import AppointmentApprovalSearchFilter from './AppointmentApprovalSearchFilter';
+import AppointmentApprovalDataTable from './AppointmentApprovalDataTable';
+import AppointmentApprovalHoc from './AppointmentApprovalHoc';
 
 const AppointmentApprovalLog = props => {
   const AppoinmentApproval = AppointmentApprovalHoc(
@@ -26,4 +26,4 @@ const AppointmentApprovalLog = props => {
   return <AppoinmentApproval/>
 }
 
-export default memo(AppointmentApprovalLog)
+export default AppointmentApprovalLog

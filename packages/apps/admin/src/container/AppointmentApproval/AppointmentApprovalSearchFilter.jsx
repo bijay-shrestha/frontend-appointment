@@ -198,11 +198,13 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       label="Patient Category"
                       name="patientCategory"
                       options={[
-                        {value: 'S', label: 'Self'},
-                        {value: 'O', label: 'Others'}
+                        {value: 'Y', label: 'Self'},
+                        {value: 'N', label: 'Others'}
                       ]}
                       label="Select Patient Category."
                       placeholder="Select Patient Category."
+                      onChange={handleSearchFormChange}
+                      onEnter={handleEnter}
                     />
                   </Col>
 

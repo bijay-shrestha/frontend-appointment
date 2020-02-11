@@ -141,5 +141,5 @@ export const appointmentSetupApiConstant ={
     APPOINTMENT_REJECT_REFUND_EDIT:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
     APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
     APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
-    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/approve")
+    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval")
 }
