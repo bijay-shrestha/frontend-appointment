@@ -27,3 +27,22 @@ export const isFirstDateGreaterThanSecondDate = (date1, date2) => {
 export const isFirstTimeGreaterThanSecond = (time1, time2) => {
     return time1 > time2;
 };
+
+export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
+    let dateValue = new Date(fromDate);
+    let daysIncluded = [];
+    while (dateValue <= toDate) {
+        let day = getDayOfWeek(dateValue);
+        let weekDayData = weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase());
+        weekDayData.weekDaysName = day;
+        daysIncluded.push(weekDayData);
+        dateValue = addDate(dateValue, 1);
+    }
+    return daysIncluded.sort((first, second) => first.weekDaysId - second.weekDaysId);
+};
+
+export const getDayOfWeek = (date) => {
+    const dayOfWeek = new Date(date).getDay();
+    return isNaN(dayOfWeek) ? null :
+        ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
+};

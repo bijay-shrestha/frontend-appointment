@@ -34,6 +34,7 @@ const AddDoctorInfoForm = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
+                            invalid={true}
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => onInputChange(date, "fromDate")}
                         />

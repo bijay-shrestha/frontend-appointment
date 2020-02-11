@@ -51,6 +51,7 @@ class CEnglishDatePicker extends Component {
             includeTimes,
             injectTimes,
             inline,
+            invalid,
             isClearable,
             label,
             locale,
@@ -119,6 +120,7 @@ class CEnglishDatePicker extends Component {
                 readOnly={true}
                 autoComplete="off"
                 disabled={disabled}
+                invalid={invalid}
             />
         );
         return <>

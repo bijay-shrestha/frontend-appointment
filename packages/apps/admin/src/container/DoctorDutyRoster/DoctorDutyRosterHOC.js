@@ -21,7 +21,7 @@ import DoctorDutyRosterPreviewModal from "./common/DoctorDutyRosterPreviewModal"
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown, fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
 const {fetchDoctorsBySpecializationIdForDropdown, fetchActiveDoctorsForDropdown} = DoctorMiddleware;
-const {fetchWeekdays} = WeekdaysMiddleware;
+const {fetchWeekdays, fetchWeekdaysData} = WeekdaysMiddleware;
 const {
     createDoctorDutyRoster,
     fetchDoctorDutyRosterList,
@@ -39,7 +39,7 @@ const {
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION, SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = AdminModuleAPIConstants.specializationSetupAPIConstants;
 const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
-const {FETCH_WEEKDAYS} = CommonAPIConstants.WeekdaysApiConstants;
+const {FETCH_WEEKDAYS, FETCH_WEEKDAYS_DATA} = CommonAPIConstants.WeekdaysApiConstants;
 const {
     CREATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER,
@@ -76,7 +76,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             rosterGapDuration: '',
             status: 'Y',
             fromDate: new Date(),
-            toDate: new Date(),
+            toDate: addDate(new Date(), 6),
             hasOverrideDutyRoster: 'N',
             isWholeWeekOff: 'N',
             doctorWeekDaysDutyRosterRequestDTOS: [],
@@ -250,9 +250,18 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
         };
 
+        // fetchWeekdays = async () => {
+        //     await TryCatchHandler.genericTryCatch(this.props.fetchWeekdays(FETCH_WEEKDAYS));
+        //     let weekDaysData = this.getWeekDaysDataForForm();
+        //     this.setState({
+        //         doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
+        //     });
+        // };
+
         fetchWeekdaysData = async () => {
-            await TryCatchHandler.genericTryCatch(this.props.fetchWeekdays(FETCH_WEEKDAYS));
-            let weekDaysData = this.getWeekDaysDataForForm();
+            await TryCatchHandler.genericTryCatch(this.props.fetchWeekdaysData(FETCH_WEEKDAYS_DATA));
+            let weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(this.state.fromDate,
+                this.state.toDate, [...this.props.WeekdaysReducer.weekdaysDataList]);
             this.setState({
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
             });
@@ -858,7 +867,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     await this.fetchActiveSpecializationByHospitalForDropdown(0);
                 }
-
             } else if (key === 'specialization') {
                 await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
                 await this.setState({
@@ -867,10 +875,21 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
 
             if (key === 'fromDate' || key === 'toDate') {
-                let errorMessage = isFirstDateGreaterThanSecondDate(this.state.fromDate, this.state.toDate) ?
-                    DATE_ERROR_MESSAGE : '';
+                let errorMessage = '';
+                let originalWeekDaysData = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
+                let weekDaysData = [];
+                if (isFirstDateGreaterThanSecondDate(
+                    getDateWithTimeSetToGivenTime(this.state.fromDate, 0, 0, 0),
+                    getDateWithTimeSetToGivenTime(this.state.toDate, 0, 0, 0))) {
+                    errorMessage = DATE_ERROR_MESSAGE;
+                    weekDaysData=[...originalWeekDaysData];
+                } else {
+                    weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
+                        this.state.fromDate, this.state.toDate, [...this.props.WeekdaysReducer.weekdaysDataList])
+                }
                 await this.setState({
-                    dateErrorMessage: errorMessage
+                    dateErrorMessage: errorMessage,
+                    doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
                 });
             }
             type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity();
@@ -1461,6 +1480,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             fetchExistingDoctorDutyRosterDetails,
             fetchSpecializationForDropdown,
             fetchWeekdays,
+            fetchWeekdaysData,
             updateDoctorDutyRoster,
             updateDoctorDutyRosterOverride,
             deleteDoctorDutyRosterOverride,
