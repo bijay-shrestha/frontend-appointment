@@ -53,33 +53,12 @@
         }
 
         .dropdown-details {
-            // background-color: darken($cogent, 15%);
-            background         : darken($cogent, 15%);
-            background         : linear-gradient(180deg, darken($cogent, 25%), rgba(0, 212, 255, 1) 100%);
-            background-image   : url("../images/clinic6.jpg");
-            justify-content    : center;
-            background-repeat  : no-repeat;
-            background-size    : cover;
-            background-position: center;
             position           : relative;
             height             : 60px;
             margin-bottom      : 20px;
             text-align         : center;
 
-            .dropdown-header {
-                color    : $white;
-                position : absolute;
-                bottom   : -25px;
-                left     : 50%;
-                transform: translateX(-50%);
-
-                .header-title {
-                    background-color: $cogent;
-                    padding         : 4px 6px;
-                    font-size       : .9rem;
-                    @include border-radius(5px);
-                }
-            }
+         
 
 
         }
@@ -115,115 +94,60 @@
 
     .topbar-search {
         margin-right: 4px;
-        display     : none;
-
-
-    }
-
-    .module-switcher{
-        display: none;
-        &.show{
-            & .dropdown-toggle {
-                width:50px !important;
-                height: 50px !important;
-                @include border-radius(50px);
-                background-color: #e6efff;
-            }
-        }
-
-        .dropdown-menu{
-            padding: 6px !important;
-            width:260px !important;
-           
-        }
 
         .dropdown-menu {
-            &:before {
-                right:18px;
+            width        : 300px;
+
+            li{
+                padding:14px ; 
+                height: auto ;
             }
         }
 
-        .dropdown-toggle {
-            width:50px !important;
-            height: 50px !important;
-            @include border-radius(50px);
-           
-        }
 
-        .md-apps{
-            width:24px;
-            height: auto;
-            
-        }
-        .hide-box {
-            width: calc(100% - 1px) !important;
-            overflow: hidden !important;
-        }
-
-        ul {
-            display:flex;
+        .menu-link{
+            display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
-            // display: block;
-            // height: auto;
-            // clear: both;
-            margin:0;
-            padding:0;
-
-        li{
-            // display:block;
-            flex:1 0 33.33%;
-            // width:100%;
-            height:70px;
-            // // background-color:$gray-600;
-            //  border:1px solid #ccc;
-            margin:0;
-            padding:0;
-            position: relative;
-            box-shadow: 0 0  0.5px 0 $gray-600;
-            float: left;
             &:hover{
-                background-color:lighten($cogent,45%);
-                cursor: pointer;
-
-                i,span{
-                    color:$cogent;
-                }
+                text-decoration: none;
             }
-
-
-            a{
-                i{
-                    position: absolute;
-                    font-size: 22px;
-                    top:30%;
-                    left:50%;
-                    transform: translate(-50%,-30%);
-                }
-                span{
-                    position: absolute;
-               
-                    font-size: 0.65rem;
-                    top:58%;
-                    text-align: center;
-                    width:100%;
-                    display: inline-block;
-                    
-                }
-
-                i,span{
-                    color:$body-color;
-                }
+          
+            .anchor-icon{
+              width:32px;
+              height: 32px;
+              line-height: 32px;
+              text-align: center;
+              @include border-radius(50%);
+              border:1px solid $gray-100;
+              background-color:$gray-200;
             }
-        }
-            
-        }
-        
+          
+            .menu-box{
+              margin-left:10px;
+              .menu{
+                font-size:13px;
+                font-weight: 500;
+                color:$gray-800;
+              }
+          
+              .sub-menu{
+                font-size:12px;
+                font-weight: 400;
+                color:$gray-700;
+              }
+            }
+          
+          }
+     
+
+
     }
+
+  
 
     // for profile details
 
-    .user-profile ,.module-switcher{
+    .user-profile {
         &.show{
             background-color: #e6efff;
             @include border-radius(50%);        }
