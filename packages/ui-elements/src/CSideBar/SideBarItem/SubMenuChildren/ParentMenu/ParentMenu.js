@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import {Link} from 'react-router-dom';
 
 const ParentMenu = props => {
-  const baseDepartment = process.env.REACT_APP_SIDE_BAR_CODE
+  const baseDepartment = process.env.REACT_APP_BASE_PATH_CODE
   const sideBase = baseDepartment ? baseDepartment : ''
   return props.childrenSize > 0  ? (
     <Accordion.Toggle
@@ -58,7 +58,7 @@ const ParentMenu = props => {
         className={String(props.active) === String(props.parent.path + 'true')?'active' : ""}
         key={'nav-item-parent' + props.parent.id}
         onClick={id => props.activeNavBar(props.parent.path)}
-          
+
       >
         <Nav.Link
           as={Link}
@@ -67,7 +67,7 @@ const ParentMenu = props => {
           exact="true"
           className={!props.parent.parentId?"no-child":""}
         >
-             <i className="fa fa-calendar-plus-o " />    
+             <i className="fa fa-calendar-plus-o " />
           <span
             className={classNames(
               {text: props.isOpen || props.isHover},
@@ -77,7 +77,7 @@ const ParentMenu = props => {
             {/* <i className="fa fa-calendar-plus-o " /> */}
             {props.parent.name}
           </span>
-        
+
         </Nav.Link>
       </Nav.Item>
     </Nav>

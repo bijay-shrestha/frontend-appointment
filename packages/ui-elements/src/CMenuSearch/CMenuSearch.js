@@ -52,7 +52,7 @@ class CMenuSearch extends PureComponent {
 
 
     render() {
-        const {id, value, setRef, handleOnBlur,handleOnFocus} = this.props;
+        const {id, value, setRef, handleOnBlur, handleOnFocus} = this.props;
         return (
 
             <>
@@ -64,7 +64,7 @@ class CMenuSearch extends PureComponent {
                         onChange={(e) => this.handleSearchValueChange(e)}
                         onBlur={handleOnBlur}
                         onFocus={handleOnFocus}
-                        placeholder='Search user menus'
+                        placeholder='Search Menus'
                         value={value}/>
                 </div>
             </>

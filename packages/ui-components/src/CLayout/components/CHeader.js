@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Dropdown, Image} from 'react-bootstrap';
+import {Button, Dropdown, Image, Nav} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CMenuSearch} from '@frontend-appointment/ui-elements';
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
+import {Link} from "react-router-dom";
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
 
@@ -23,7 +24,9 @@ class CHeader extends Component {
         oldPassword: '',
         errorOldPassword: '',
         keyPressCount: 0,
-        searchKeyword: ''
+        searchKeyword: '',
+        searchResult: [],
+        showResults: false
     };
 
     formControl = React.createRef();
@@ -135,10 +138,10 @@ class CHeader extends Component {
                 let searchClass = ReactDOM.findDOMNode(this.formControl.current).className;
                 if (!searchClass.includes('active')) {
                     this.formControl.current && this.formControl.current.focus();
-                    ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
+                    // ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
                 } else {
                     this.formControl.current && this.formControl.current.blur();
-                    ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+                    // ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
                 }
                 keypressCount += 1;
                 this.setState({
@@ -162,8 +165,13 @@ class CHeader extends Component {
         clearTimeout(this.clearKeyPressCount);
     }
 
-    handleSearchOnBlur = () => {
-        ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+    handleSearchOnBlur = (event) => {
+        if (event.target.value) {
+
+        } else {
+
+            ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+        }
     };
 
     handleSearchOnFocus = () => {
@@ -171,8 +179,50 @@ class CHeader extends Component {
     };
 
     searchUserMenus = (event) => {
+        let BASE_PATH = process.env.REACT_APP_BASE_PATH_CODE;
+        let keyWord = event.target.value;
+        let menusMatchingKeyWord = [];
+        let userMenus = JSON.parse(localStorage.getItem('userMenus'));
+
+        if (keyWord !== '') {
+            keyWord = keyWord.toLowerCase();
+            userMenus.map(
+                userMenu => {
+                    if (!userMenu.childMenus.length) {
+                        if ((userMenu.name).toLowerCase().includes(keyWord)) {
+                            // IF PARENT MATCHES THE KEYWORD,ADD PARENT
+                            let displayData = {
+                                id: userMenu.id,
+                                name: userMenu.name,
+                                path: BASE_PATH.concat(userMenu.path)
+                            };
+                            menusMatchingKeyWord.push(displayData);
+                        }
+                    } else {
+                        // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
+                        let childrenMatchingKeyWord = userMenu.childMenus.filter(
+                            child => (child.name).toLowerCase().includes(keyWord));
+                        if (childrenMatchingKeyWord.length > 0) {
+                            childrenMatchingKeyWord.map(child => {
+                                let displayData = {
+                                    id: child.id,
+                                    name: userMenu.name.concat("/".concat(child.name)),
+                                    path: BASE_PATH.concat(child.path)
+                                };
+                                menusMatchingKeyWord.push(displayData);
+                            });
+                        }
+                    }
+                }
+            )
+        } else {
+            menusMatchingKeyWord = [];
+        }
+
         this.setState({
-            searchKeyword: event.target.value
+            searchKeyword: event.target.value,
+            searchResult: [...menusMatchingKeyWord],
+            showResults: true
         });
     };
 
@@ -251,6 +301,28 @@ class CHeader extends Component {
                                         handleOnFocus={this.handleSearchOnFocus}
                                     />
                                 </span>
+                        {
+                            this.state.showResults ?
+                                <ul className="drop-down-list">
+                                    {
+                                        this.state.searchResult.length ?
+                                            this.state.searchResult.map(value => (
+                                                <li className="" key={'menu-li' + value.id}>
+                                                    <div className="menu" key={value.id}>
+                                                        <Link
+                                                            key={'menu-link' + value.id}
+                                                            to={value.path}
+                                                        >
+                                                            {value.name}
+                                                        </Link>
+                                                        {/*<a href={value.path}>{value.name}</a>*/}
+                                                    </div>
+                                                </li>
+                                            ))
+                                            : ''
+                                    }
+                                </ul> : ''
+                        }
                         {/*</Dropdown.Toggle>*/}
                         {/*</Dropdown>*/}
                         {/* end search */}
