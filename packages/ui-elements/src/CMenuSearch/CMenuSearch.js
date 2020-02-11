@@ -56,7 +56,7 @@ class CMenuSearch extends PureComponent {
         return (
 
             <>
-                <div id="expandible-search">
+                <div id="menu-search">
                     <Form.Control
                         id={id}
                         type="search"
