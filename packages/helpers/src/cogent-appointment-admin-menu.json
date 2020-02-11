@@ -264,6 +264,26 @@
           "menuFor": "6",
           "description": "appointmentLog",
           "childMenus": []
+        },
+        {
+          "id": "15",
+          "parentId": "10",
+          "name": "Approval List",
+          "path": "/appointment/appointmentApprovalRequest",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "approvalRequestList",
+          "childMenus": []
         }
       ]
     }

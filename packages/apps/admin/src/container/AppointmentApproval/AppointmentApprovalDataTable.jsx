@@ -1,58 +1,21 @@
-import React, {memo} from 'react'
+import React, {PureComponent} from 'react'
 import {
-  CButton,
   CDataTable,
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus';
-import PreviewDetails from './AppointmentRefundPreview';
-
+import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
     appointmentRefundList,
-    searchErrorMessage,
-    previewCall,
-    previewData,
-    showModal,
-    setShowModal
+    searchErrorMessage
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
-        {/* <Container fluid>
-          <Row>
-          */}
         <h5 className="title">Appointment Refund Details</h5>
-        {/* </Col> */}
-        {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col> */}
-        {/* </Row> */}
-
-        {/* <Row>
-            <Col >
-            <div className="appointment-badge float-right">
-            <span><Badge variant="primary">PA</Badge> : Pending Approval</span>
-            <span><Badge variant="success">A</Badge> : Approved</span>
-            <span><Badge variant="danger">C</Badge> : Canceled</span>
-            <span><Badge variant="warning">RE</Badge> : Rejected</span>
-            <span><Badge variant="dark">R</Badge> : Refunded</span>
-            </div>
-            </Col>
-        
-            </Row> */}
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (
@@ -74,7 +37,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   editable: true,
                   sizeColumnsToFit: true,
                   cellClass: 'first-class'
-                  //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                 },
                 {
                   headerName: 'Hospital Name',
@@ -93,13 +55,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Appointment Number',
                   field: 'appointmentNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Appointment Time',
-                  field: 'appointmentTime',
+                  // headerClass: "fi",
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -162,13 +118,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Remarks',
-                  field: 'remarks',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
                   headerName: '',
                   action: 'action',
                   resizable: true,
@@ -194,7 +143,10 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 childActionRenderer: TableRefundStatus
               }}
               defaultColDef={{resizable: true}}
-              getSelectedRows={previewCall}
+              // getSelectedRows={
+              //     // checkIfRoleExists(props.filteredActions, 4) &&
+              //     props.onPreviewHandler
+              // }
               rowSelection={'single'}
               rowData={appointmentRefundList}
             />
@@ -216,17 +168,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
           <CLoading />
         )}
       </div>
-      {showModal ? (
-        <PreviewDetails
-          showModal={showModal}
-          setShowModal={setShowModal}
-          refundData={previewData}
-        />
-      ) : (
-        ''
-      )}
     </>
   )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default AppointmentRefundDataTable

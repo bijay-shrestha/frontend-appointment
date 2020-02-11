@@ -12,7 +12,7 @@ import {
   EnterKeyPressUtils,
   FileExportUtils
 } from '@frontend-appointment/helpers'
-import './appointment-refund.scss'
+import './appointment-approval.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 const {
   clearAppointmentRefundPending,
@@ -25,7 +25,7 @@ const {
   fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
 const {fetchPatientMetaList} = PatientDetailsMiddleware
-const AppointRefundHOC = (ComposedComponent, props, type) => {
+const AppointApprovalHOC = (ComposedComponent, props, type) => {
   const {
     appointmentSetupApiConstant,
     hospitalSetupApiConstants,
@@ -34,7 +34,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     patientSetupApiConstant
   } = AdminModuleAPIConstants
 
-  class AppointmentRefundDetails extends React.PureComponent {
+  class AppointmentApprovalDetails extends React.PureComponent {
     state = {
       searchParameters: {
         appointmentNumber: '',
@@ -44,15 +44,14 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId: '',
         doctorId: '',
         patientType: '',
-        specializationId: ''
+        specializationId: '',
+        patientCategory:''
       },
       queryParams: {
         page: 0,
         size: 10
       },
-      totalRecords: 0,
-      showModal:false,
-      previewData:{}
+      totalRecords: 0
     }
 
     handleEnterPress = event => {
@@ -78,7 +77,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId,
         patientType,
         specializationId,
-        doctorId
+        doctorId,
+        patientCategory
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -88,7 +88,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientMetaInfoId:patientMetaInfoId.value||'',
         patientType:patientType.value||'',
         specializationId:specializationId.value||'',
-        doctorId:doctorId.value||''
+        doctorId:doctorId.value||'',
+        patientCategory:patientCategory.value||''
       }
 
       let updatedPage =
@@ -122,7 +123,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       newRefundList =
         refundList.length &&
         refundList.map((spec, index) => ({
-          appointmentTime:spec.appointmentTime||'',
           appointmentNumber: spec.appointmentNumber || '',
           hospitalName: spec.hospitalName || '',
           patientName: spec.patientName || '',
@@ -133,7 +133,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           cancelledDate: spec.cancelledDate || '',
           refundAmount: spec.refundAmount || '',
           esewaId: spec.esewaId || '',
-          remarks:spec.remarks || '',
           sN: index + 1
         }))
 
@@ -173,13 +172,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    previewCall = data => {
-        this.setState({
-          previewData:data,
-          showModal:true
-        })
-    }
-
     callApiForHospitalChange = hospitalId => {
       this.props.fetchActiveDoctorsHospitalWiseForDropdown(
         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
@@ -212,20 +204,19 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         await this.setStateValuesForSearch(searchParams)
       }
     }
-
-    setShowModal = () => {
-      this.setState(prevState => ({
-        showModal: !prevState.showModal
-      }))
-    }
+    // setFormValidManage = () => {
+    //   this.setState({
+    //     formValid: true
+    //   })
+    // }
 
     async componentDidMount () {
-      await this.searchAppointment()
+      //await this.searchAppointment()
       await this.searchHospitalForDropDown()
     }
 
     render () {
-      const {searchParameters, queryParams, totalRecords,showModal,previewData} = this.state
+      const {searchParameters, queryParams, totalRecords} = this.state
 
       const {
         isRefundListLoading,
@@ -275,11 +266,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           tableHandler={{
             isSearchLoading: isRefundListLoading,
             appointmentRefundList: this.appendSNToTable(refundList),
-            searchErrorMessage: refundErrorMessage,
-            setShowModal:this.setShowModal,
-            showModal:showModal,
-            previewCall:this.previewCall,
-            previewData:previewData
+            searchErrorMessage: refundErrorMessage
           }}
         ></ComposedComponent>
       )
@@ -287,7 +274,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
   }
 
   return ConnectHoc(
-    AppointmentRefundDetails,
+    AppointmentApprovalDetails,
     [
       'AppointmentRefundListReducer',
       'SpecializationDropdownReducer',
@@ -305,4 +292,4 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
   )
 }
-export default AppointRefundHOC
+export default AppointApprovalHOC
