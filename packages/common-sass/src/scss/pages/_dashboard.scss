@@ -77,15 +77,15 @@
         text-align: center;
 
         &:first-child{
-            background-color:darken($warning,0%);
+            background-color:darken($cogent,0%);
             p{
-                color:$black;
+                color:$white;
             }
             .total{
                 color:$black;
 
                 .up{
-                    color:$success;
+                    color:rgba(255, 255, 255, 0.6);
                 }
     
                 .down{
@@ -105,7 +105,7 @@
 
         .total{
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 400;
             color:$cogent;
         }
 
