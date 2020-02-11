@@ -1,0 +1,122 @@
+
+// .search-comp.input-group{
+//   display:flex;
+//   min-width:200px;
+//   justify-content: flex-end;
+//   transition: width 0.4s linear;
+
+//   .search-btn{
+//     border-radius:0 4px 4px 0 !important;
+// }
+  
+
+//   .form-control{
+//     transition: width 0.4s linear;
+//   }
+
+//   &.open{
+//     .form-control{
+//         display:none
+//     }
+
+//     .search-btn{
+//       border-radius:4px !important;
+//   }
+
+  
+//   }
+
+
+//   .search-form{
+//     position: relative;
+//     &::before{
+//       position: absolute;
+//       left: 5px;
+//       top: 50%;
+//       -webkit-transform: translateY(-50%);
+//       transform: translateY(-50%);
+//       color: #cccccc;
+//       z-index: 4;
+ 
+//     }
+//   }
+
+
+// }
+
+input {
+	outline: none;
+}
+input[type=search] {
+	-webkit-appearance: textfield;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: 100%;
+	height: auto;
+	
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+	display: none; 
+}
+
+input:-moz-placeholder {
+	color: #999;
+}
+input::-webkit-input-placeholder {
+	color: #999;
+}
+
+/* Demo 2 */
+
+#expandible-search{
+  width: auto;
+  display: flex;
+  flex-basis: 1;
+  flex-direction: row-reverse;
+  position: relative;
+}
+
+#expandible-search input[type=search] {
+	width:32px;
+	color: transparent;
+	cursor: pointer;
+	
+
+	background: #fff url(./search.svg) no-repeat left    center;
+	background-size:26px 16px;
+	border:1px solid transparent;
+	padding: 4px 2px;
+	box-sizing:border-box;
+	
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+	transition: all .5s;
+}
+#expandible-search input[type=search]:hover {
+	background-color: #fff;
+}
+#expandible-search input[type=search]:focus {
+	width: 100%;
+	background-color: #fff;
+	border: 1px solid  #e9ecef !important;
+	padding:4px 2px;
+	padding-left: 32px;
+	color: #000;
+	cursor: auto;
+
+
+}
+#expandible-search input:-moz-placeholder {
+	color: transparent;
+}
+#expandible-search input::-webkit-input-placeholder {
+	color: transparent;
+}
+
