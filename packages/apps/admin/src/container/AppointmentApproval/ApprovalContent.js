@@ -60,7 +60,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="patientType"
                   placeholder="Patient Type"
-                  value={approvalData.patientType}
+                  value={approvalData.patientType ==='N'?'New':'Registered'}
                   disabled={true}
                 />
               </Col>
@@ -86,9 +86,9 @@ const ApprovalContent = ({approvalData}) => {
                   placeholder="Doctor(Specialization)"
                   value={
                     'Dr.' +
-                    approvalData +
+                    approvalData.doctorName.toUpperCase() +
                     '(' +
-                    approvalData.specializationName +
+                    approvalData.specializationName.toUpperCase() +
                     ')'
                   }
                   disabled={true}

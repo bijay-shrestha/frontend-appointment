@@ -134,6 +134,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           refundAmount: spec.refundAmount || '',
           esewaId: spec.esewaId || '',
           remarks:spec.remarks || '',
+          appointmentDate:spec.appointmentDate||'',
           sN: index + 1
         }))
 

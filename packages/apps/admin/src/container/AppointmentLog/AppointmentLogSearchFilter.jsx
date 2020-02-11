@@ -42,7 +42,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Appointment Refund List</h5>
+              <h5 className="title">Search Appointment Log List</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -169,8 +169,8 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       name="patientType"
                       value={searchParameters.patientType}
                       options={[
-                        {value: 'Y', label: 'New'},
-                        {value: 'N', label: 'Registered'}
+                        {value: 'N', label: 'New'},
+                        {value: 'Y', label: 'Registered'}
                       ]}
                       placeholder="Select PatientType."
                       onChange={handleSearchFormChange}
@@ -178,23 +178,37 @@ class AppointmentLogListSearchFilter extends PureComponent {
                     />
                   </Col>
 
-                  {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Patient Category"
-                  label="Patient Category"
-                  name="Patient Category"
-                  placeholder="Select Patient Category."
-                />
-              </Col> */}
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="patientCategory"
+                      label="Patient Category"
+                      name="patientCategory"
+                      options={[
+                        {value: 'Y', label: 'Self'},
+                        {value: 'N', label: 'Others'}
+                      ]}
+                      label="Select Patient Category."
+                      placeholder="Select Patient Category."
+                      onChange={handleSearchFormChange}
+                      onEnter={handleEnter}
+                    />
+                  </Col>
 
-                  {/* <Col sm={12} md={6} xl={4}>
+                  <Col sm={12} md={6} xl={4}>
                 <CHybridSelect
-                  id="Status"
-                  label="Status"
-                  name="Status"
-                  placeholder="Select Status."
+                  id="status"
+                  label="Select Status"
+                  name="status"
+                  options={[
+                    {value: 'PA', label: 'Pending Approval'},
+                    {value: 'A', label: 'Approved'},
+                    {value: 'RE', label: 'Rejected'},
+                    {value: 'C', label: 'Cancelled'},
+                    {value: 'R', label: 'Refunded'}
+                  ]}
+                  onChange={handleSearchFormChange}
                 />
-              </Col> */}
+              </Col>
 
                   <Col
                     sm={12}
@@ -355,6 +369,36 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       variant="secondary"
                     >
                       {searchParameters.patientType.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+                {searchParameters.patientCategory && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Patient Category</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.patientCategory.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+               {searchParameters.status && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Status</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.status.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

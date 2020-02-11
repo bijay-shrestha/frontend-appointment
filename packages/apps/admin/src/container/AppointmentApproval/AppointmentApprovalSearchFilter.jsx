@@ -54,7 +54,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Appointment Refund List</h5>
+              <h5 className="title">Search Appointment Approval List</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -183,8 +183,8 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       name="patientType"
                       value={searchParameters.patientType}
                       options={[
-                        {value: 'Y', label: 'New'},
-                        {value: 'N', label: 'Registered'}
+                        {value: 'N', label: 'New'},
+                        {value: 'Y', label: 'Registered'}
                       ]}
                       placeholder="Select PatientType."
                       onChange={handleSearchFormChange}
@@ -202,6 +202,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         {value: 'N', label: 'Others'}
                       ]}
                       label="Select Patient Category."
+                      value={searchParameters.patientCategory}
                       placeholder="Select Patient Category."
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}

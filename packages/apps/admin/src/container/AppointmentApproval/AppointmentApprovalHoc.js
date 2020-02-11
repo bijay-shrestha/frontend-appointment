@@ -93,7 +93,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         patientType,
         specializationId,
         doctorId,
-        patientCategory
+        patientCategory,
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -105,6 +105,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         specializationId:specializationId.value||'',
         doctorId:doctorId.value||'',
         patientCategory:patientCategory.value||''
+        
       }
 
       let updatedPage =
@@ -141,9 +142,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           ...spec,
           sN: index + 1
         }))
-
-      console.log('New RefundList', newRefundList)
-      return newRefundList
+      return newRefundList;
     }
 
     handlePageChange = async newPage => {
@@ -153,7 +152,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchAppointment()
+      this.searchAppointment();
     }
 
     handleSearchFormReset = async () => {
@@ -166,7 +165,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           patientMetaInfoId: '',
           patientType: '',
           specializationId: '',
-          doctorId: ''
+          doctorId: '',
+          patientCategory:'',
         }
       })
       this.searchAppointment()

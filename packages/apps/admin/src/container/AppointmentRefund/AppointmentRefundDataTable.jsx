@@ -5,8 +5,8 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
-import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus';
-import PreviewDetails from './AppointmentRefundPreview';
+import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
+import PreviewDetails from './AppointmentRefundPreview'
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {

@@ -169,8 +169,8 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                       name="patientType"
                       value={searchParameters.patientType}
                       options={[
-                        {value: 'Y', label: 'New'},
-                        {value: 'N', label: 'Registered'}
+                        {value: 'N', label: 'New'},
+                        {value: 'Y', label: 'Registered'}
                       ]}
                       placeholder="Select PatientType."
                       onChange={handleSearchFormChange}

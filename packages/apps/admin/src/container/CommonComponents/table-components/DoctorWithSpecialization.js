@@ -5,7 +5,7 @@ const DoctorWithSpecialization = (props) => {
   return (
     <>
       <span>
-        Dr. {props.node.data.doctorName} {props.node.data.specializationName}
+        Dr. {props.node.data.doctorName.toUpperCase()} ({props.node.data.specializationName.toUpperCase()})
       </span>
     </>
   )

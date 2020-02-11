@@ -61,7 +61,7 @@ const DetailsModal = ({logData}) => {
                 <CHybridInput
                   id="patientName"
                   placeholder="Patient Name"
-                  value={logData.patientName+"("+logData.patientAge.toUpperCase()+"/"+logData.patientGender.split[0].toUpperCase()+")"}
+                  value={logData.patientName+"("+logData.patientAge+"/"+logData.patientGender.split("")[0].toUpperCase()+")"}
                   disabled={true}
                 />
               </Col>
