@@ -167,11 +167,13 @@ class CHeader extends Component {
 
     handleSearchOnBlur = (event) => {
         if (event.target.value) {
-
-        } else {
-
-            ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+            this.setState({
+                searchKeyword: '',
+                searchResult: [],
+                showResults: false
+            })
         }
+        ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
     handleSearchOnFocus = () => {
@@ -194,7 +196,9 @@ class CHeader extends Component {
                             let displayData = {
                                 id: userMenu.id,
                                 name: userMenu.name,
-                                path: BASE_PATH.concat(userMenu.path)
+                                path: BASE_PATH.concat(userMenu.path),
+                                breadcrumb: userMenu.name,
+                                iCharacter: userMenu.name.charAt(0).toUpperCase()
                             };
                             menusMatchingKeyWord.push(displayData);
                         }
@@ -206,8 +210,10 @@ class CHeader extends Component {
                             childrenMatchingKeyWord.map(child => {
                                 let displayData = {
                                     id: child.id,
-                                    name: userMenu.name.concat("/".concat(child.name)),
-                                    path: BASE_PATH.concat(child.path)
+                                    name: child.name,
+                                    path: BASE_PATH.concat(child.path),
+                                    breadcrumb: userMenu.name.concat("/".concat(child.name)),
+                                    iCharacter: child.name.charAt(0).toUpperCase()
                                 };
                                 menusMatchingKeyWord.push(displayData);
                             });
@@ -313,7 +319,9 @@ class CHeader extends Component {
                                                             key={'menu-link' + value.id}
                                                             to={value.path}
                                                         >
+                                                            {value.iCharacter}
                                                             {value.name}
+                                                            {value.breadcrumb}
                                                         </Link>
                                                         {/*<a href={value.path}>{value.name}</a>*/}
                                                     </div>
