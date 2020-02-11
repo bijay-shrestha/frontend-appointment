@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Dropdown, Image, Nav} from 'react-bootstrap';
+import {Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CMenuSearch} from '@frontend-appointment/ui-elements';
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {Link} from "react-router-dom";
+import * as Material from 'react-icons/md';
+
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
 
@@ -166,13 +168,13 @@ class CHeader extends Component {
     }
 
     handleSearchOnBlur = (event) => {
-        if (event.target.value) {
-            this.setState({
-                searchKeyword: '',
-                searchResult: [],
-                showResults: false
-            })
-        }
+        // if (event.target.value) {
+        //     this.setState({
+        //         searchKeyword: '',
+        //         searchResult: [],
+        //         showResults: false
+        //     })
+        // }
         ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
@@ -245,60 +247,12 @@ class CHeader extends Component {
 
                     {/*search start*/}
                     <div className="header-content-right d-flex align-items-center">
-                        {/*<Dropdown alignRight className="topbar-dropdown topbar-search">*/}
-                        {/*    <Dropdown.Toggle variant="default" id="dropdown-basic"*/}
-                        {/*                     className="search-button rounded-circle">*/}
-                        {/*        <Material.MdSearch className="search-icon"/>*/}
-                        {/*        <InputGroup className="ts-input">*/}
-                        {/*            <InputGroup.Prepend>*/}
-                        {/*                <InputGroup.Text id="ssea">*/}
-                        {/*                    <Material.MdSearch className="search-icon"/>*/}
-                        {/*                </InputGroup.Text>*/}
-                        {/*            </InputGroup.Prepend>*/}
-                        {/*            <FormControl*/}
-                        {/*                placeholder="Search ..."*/}
-                        {/*            />*/}
-                        {/*            <InputGroup.Append>*/}
-                        {/*                <InputGroup.Text> <Material.MdClose/></InputGroup.Text>*/}
-                        {/*            </InputGroup.Append>*/}
-                        {/*        </InputGroup>*/}
-                        {/*    </Dropdown.Toggle>*/}
-                        {/*    <Dropdown.Menu>*/}
-                        {/*        <div className="dropdown-details">*/}
-                        {/*            <InputGroup className="ts-input">*/}
-                        {/*                <InputGroup.Prepend>*/}
-                        {/*                    <InputGroup.Text id="ssea">*/}
-                        {/*                        <Material.MdSearch className="search-icon"/>*/}
-                        {/*                    </InputGroup.Text>*/}
-                        {/*                </InputGroup.Prepend>*/}
-                        {/*                <FormControl*/}
-                        {/*                    id="searchMenu"*/}
-                        {/*                    placeholder="Search ..."*/}
-                        {/*                />*/}
-                        {/*                <InputGroup.Append>*/}
-                        {/*                    <InputGroup.Text> <Material.MdClose/></InputGroup.Text>*/}
-                        {/*                </InputGroup.Append>*/}
-                        {/*            </InputGroup>*/}
-                        {/*        </div>*/}
-                        {/*        <ul className="drop-down-list">*/}
-                        {/*            <li className="">*/}
-                        {/*                <div className="menu">Menu :</div>*/}
-                        {/*                <div className="sub-menu"> Submenu</div>*/}
-                        {/*            </li>*/}
-                        {/*            <li className="">*/}
-                        {/*                <div className="menu">Menu :</div>*/}
-                        {/*                <div className="sub-menu"> Submenu</div>*/}
-                        {/*            </li>*/}
-                        {/*            <li className="">*/}
-                        {/*                <div className="menu">No results found...</div>*/}
-                        {/*            </li>*/}
-                        {/*        </ul>*/}
-                        {/*    </Dropdown.Menu>*/}
-                        {/*</Dropdown>*/}
-                        {/*<Dropdown alignRight>*/}
-                        {/*<Dropdown.Toggle>*/}
-                        <span className="searchMenu">
-                                    <CMenuSearch
+                        <Dropdown alignRight className="topbar-dropdown topbar-search">
+                           <Dropdown.Toggle variant="default" id="dropdown-basic"
+                                            className="search-button rounded-circle">
+
+
+                               <CMenuSearch
                                         id="searchMenu"
                                         setRef={this.formControl}
                                         onChange={this.searchUserMenus}
@@ -306,33 +260,57 @@ class CHeader extends Component {
                                         handleOnBlur={this.handleSearchOnBlur}
                                         handleOnFocus={this.handleSearchOnFocus}
                                     />
-                                </span>
-                        {
-                            this.state.showResults ?
+                                   {/* <FormControl
+                                       placeholder="Search ..."
+                                   /> */}
+
+
+                           </Dropdown.Toggle>
+                           <Dropdown.Menu>
+
+                           {this.state.showResults ?
                                 <ul className="drop-down-list">
                                     {
                                         this.state.searchResult.length ?
-                                            this.state.searchResult.map(value => (
+                                           this.state.searchResult.map(value => (
+
                                                 <li className="" key={'menu-li' + value.id}>
-                                                    <div className="menu" key={value.id}>
+                                                    <div className="" key={value.id}>
                                                         <Link
                                                             key={'menu-link' + value.id}
                                                             to={value.path}
+                                                            className="menu-link"
                                                         >
+                                                            <div className="anchor-icon">
                                                             {value.iCharacter}
-                                                            {value.name}
-                                                            {value.breadcrumb}
+                                                            </div>
+                                                           <div className="menu-box">
+                                                                <div className="menu">{value.name}</div>
+                                                                 <div className="sub-menu">{value.breadcrumb}</div>
+                                                           </div>
+
+
+
                                                         </Link>
                                                         {/*<a href={value.path}>{value.name}</a>*/}
                                                     </div>
                                                 </li>
                                             ))
-                                            : ''
+                                            :
+                                            <li className="">
+                                                    <div className="">
+                                                        No result(s) found.
+                                                    </div>
+                                                </li>
                                     }
                                 </ul> : ''
                         }
-                        {/*</Dropdown.Toggle>*/}
-                        {/*</Dropdown>*/}
+
+
+                           </Dropdown.Menu>
+                       </Dropdown>
+
+
                         {/* end search */}
 
                         {/* start user profile */}
@@ -351,6 +329,7 @@ class CHeader extends Component {
                                     <Button variant="outline-light" className="mb-2 reset-password">Reset
                                         Password</Button>
                                 </div>
+
                                 <div className="logout">
                                     <Button variant="outline-primary"
                                             onClick={this.handleChangePassword}

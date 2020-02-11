@@ -8,8 +8,7 @@
 
 
   #sidebar-wrapper {
-    // width           :16rem;
-    // background-color:$primary;
+
     height             : calc(100vh - 2rem);
     display            : block;
     position           : fixed;
@@ -19,7 +18,7 @@
 
   #content-wrapper {
     width           : 100%;
-    //background-color: $cogent-bg;
+
     min-height      : calc(100vh - 2rem);
 
 
@@ -29,8 +28,7 @@
       display            : flex;
       flex-direction     : row;
       align-items        : center;
-      // border-bottom   :1px solid $gray-200;
-      // background-color:$white;
+     
       margin             : 0rem -15px;
       @include border-radius($cogent-radius);
     }
@@ -41,36 +39,18 @@
       align-items     : center;
       background-color: transparent;
       margin-bottom   : 0px;
-      
-
-      // box-shadow   : 0 10px 10px 0 rgba(82,63,105,.08);
-      // margin-bottom:5px;
-      // border-bottom:1px solid $gray-200;
-
-
 
     }
 
     #main-content {
       flex               : 1 0 auto;
-      // background-color:purple;
-      // padding         :10px 20px;
-      // background-color:rgba(82,63,105,.08);
-      // background-color:$white;
-    //   @include border-radius($cogent-radius);
-    //   border-radius: 1rem;
-    // background-color: white;
-    // margin-bottom: 1rem;
+
 
     }
 
     .page-tabs {
       margin-bottom: 1rem;
-      // margin-top:-15px;
-
-      // &.nav{
-      //   background-color:transparent;
-      // }
+ 
 
       &.nav {
         //padding-left:20px;
@@ -158,3 +138,5 @@
   }
 
 }
+
+

@@ -115,7 +115,8 @@ input::-webkit-input-placeholder {
 	-moz-border-radius: 22px;
 	border-radius: 22px;
 }
-#menu-search input[type=search]:focus {
+#menu-search input[type=search]:focus ,
+#menu-search input.active{
 	width: 100%;
 	background-color: #fff;
 	border: 1px solid  #e9ecef !important;
