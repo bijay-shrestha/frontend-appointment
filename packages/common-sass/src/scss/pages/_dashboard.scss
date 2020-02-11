@@ -83,6 +83,14 @@
             }
             .total{
                 color:$black;
+
+                .up{
+                    color:$success;
+                }
+    
+                .down{
+                    color:$danger;
+                }
             }
         }
 
@@ -208,6 +216,11 @@
            
         }
 
+        .doughnut-chart{
+            width:60%;
+            text-align: center;
+        }
+
         .title{
             font-size: 14px;
             font-weight: 500;
@@ -226,12 +239,33 @@
             text-align: center;
             font-size: 14px;
             font-weight: 500;
+            color:$gray-900;
 
             span{
                 font-size: 18px;
-                font-weight: 600;
+                color:$gray-600;
+                font-weight: 400;
             }
            
+        }
+
+        .color-code{
+            display:inline-block;
+            width:10px;
+            height: 10px;
+            background-color:$info;
+           vertical-align: middle;
+           margin-bottom:6px;
+           margin-right:2px;
+            @include border-radius(50%);
+
+            &.code1{
+                background-color:$success;
+            }
+
+            &.code2{
+                background-color:$cogent;
+            }
         }
       
     }

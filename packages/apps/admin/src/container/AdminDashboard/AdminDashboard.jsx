@@ -19,7 +19,7 @@ const AdminDashboard = () => {
                         <div className="total">
                             {/* Total Revenue  */}
                             <span className="up">
-                            5% from last year
+                            +5% from last year
                                 </span>
                                 </div>
                     </div>
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
 
                         <p>Rs. 1,00,000</p>
                         <div className="up">
-                            5% from last month
+                            +5% from last month
                                 </div>
                     </div>
 
@@ -36,7 +36,7 @@ const AdminDashboard = () => {
 
                         <p>Rs. 50,000</p>
                         <div className="up">
-                            5% from last week
+                            +5% from last week
                                 </div>
                     </div>
 
@@ -116,23 +116,27 @@ const AdminDashboard = () => {
                             </Col>
                            
                          </Row>
-                        
-                        <Row>
-                            
-
+                         <Row>
+                         <img src={require("./img/doughnut-chart.png")} className="doughnut-chart mx-auto"/>
                         </Row>
+                         
+                        
+                    
+                             <p><br></br>1,000</p>
+                                <div className="title">
+                                Appointments
+                                </div>
+                                <hr></hr>
+                                <ul>
+                                    <li><span className="color-code code1">&nbsp;</span><span>200</span><br></br>New Patient</li>
+                                    <li><span className="color-code code2">&nbsp;</span><span>800</span><br></br>Registered Patient</li>
+                                </ul>
+
+                  
                         
 
 
-                            <p>< i className="fa fa-calendar"></i> <br></br>1,000</p>
-                            <div className="title">
-                               Appointments
-                            </div>
-                             <hr></hr>
-                             <ul>
-                                 <li><span>200</span><br></br>New Patient</li>
-                                 <li><span>800</span><br></br>Registered Patient</li>
-                             </ul>
+                           
                             
                         </div>
                     </Col>
