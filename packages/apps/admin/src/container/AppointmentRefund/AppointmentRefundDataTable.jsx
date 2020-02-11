@@ -22,37 +22,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        {/* <Container fluid>
-          <Row>
-          */}
         <h5 className="title">Appointment Refund Details</h5>
-        {/* </Col> */}
-        {/* <Col>
-              <CButton
-                id="downloadExcel"
-                name="DownloadExcel"
-                onClickHandler={props.exportExcel}
-                className="float-right"
-                variant="outline-secondary"
-              >
-                {' '}
-                <i className="fa fa-download" />
-              </CButton>
-            </Col> */}
-        {/* </Row> */}
-
-        {/* <Row>
-            <Col >
-            <div className="appointment-badge float-right">
-            <span><Badge variant="primary">PA</Badge> : Pending Approval</span>
-            <span><Badge variant="success">A</Badge> : Approved</span>
-            <span><Badge variant="danger">C</Badge> : Canceled</span>
-            <span><Badge variant="warning">RE</Badge> : Rejected</span>
-            <span><Badge variant="dark">R</Badge> : Refunded</span>
-            </div>
-            </Col>
-        
-            </Row> */}
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (

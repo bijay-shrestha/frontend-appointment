@@ -16,7 +16,13 @@ const {
     LOG_FETCH_SUCCESS,
     STATUS_FETCH_ERROR,
     STATUS_FETCH_START,
-    STATUS_FETCH_SUCCESS
+    STATUS_FETCH_SUCCESS,
+    REFUND_ERROR,
+    REFUND_START,
+    REFUND_SUCCESS,
+    REFUND_REJECT_ERROR,
+    REFUND_REJECT_START,
+    REFUND_REJECT_SUCCESS
 } = appointmentDetailsConstants;
 
 export const appointmentRefundFetchingStart = () => {
@@ -128,5 +134,27 @@ export const appointmentStatusFetchingError = message => {
 export const clearAppointmentStatusMessage = () => {
     return {
         type: CLEAR_STATUS_LIST_MESSAGE
+    }
+};
+
+export const appointmentRefundRejectStart = () => {
+    return {
+        type: REFUND_REJECT_START
+    }
+};
+
+export const appointmentRefundRejectSuccess = message => {
+    return {
+        type: REFUND_REJECT_SUCCESS,
+        payload:{data:message}
+    }
+};
+
+export const appointmentRefundRejectError = message => {
+    return {
+        type: REFUND_REJECT_ERROR,
+        payload: {
+            data: message
+        }
     }
 };

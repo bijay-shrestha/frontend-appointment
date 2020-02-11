@@ -52,7 +52,12 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0,
       showModal:false,
-      previewData:{}
+      previewData:{},
+      refundRejectRequestDTO:{
+        "appointmentId": "",
+        "remarks": ""
+      },
+      rejectModalShow:false
     }
 
     handleEnterPress = event => {
@@ -122,19 +127,20 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       newRefundList =
         refundList.length &&
         refundList.map((spec, index) => ({
-          appointmentTime:spec.appointmentTime||'',
-          appointmentNumber: spec.appointmentNumber || '',
-          hospitalName: spec.hospitalName || '',
-          patientName: spec.patientName || '',
-          registrationNumber: spec.registrationNumber || '',
-          doctorName: spec.doctorName || ' ',
-          specializationName: spec.specializationName || '',
-          transactionNumber: spec.transactionNumber || '',
-          cancelledDate: spec.cancelledDate || '',
-          refundAmount: spec.refundAmount || '',
-          esewaId: spec.esewaId || '',
-          remarks:spec.remarks || '',
-          appointmentDate:spec.appointmentDate||'',
+          appointmentId:spec.appointmentId||'N/A',
+          appointmentTime:spec.appointmentTime||'N/A',
+          appointmentNumber: spec.appointmentNumber || 'N/A',
+          hospitalName: spec.hospitalName || 'N/A',
+          patientName: spec.patientName || 'N/A',
+          registrationNumber: spec.registrationNumber || 'N/A',
+          doctorName: spec.doctorName || 'N/A',
+          specializationName: spec.specializationName || 'N/A',
+          transactionNumber: spec.transactionNumber || 'N/A',
+          cancelledDate: spec.cancelledDate || 'N/A',
+          refundAmount: spec.refundAmount || 'N/A',
+          esewaId: spec.esewaId || 'N/A',
+          remarks:spec.remarks || 'N/A',
+          appointmentDate:spec.appointmentDate||'N/A',
           sN: index + 1
         }))
 
@@ -218,6 +224,25 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       this.setState(prevState => ({
         showModal: !prevState.showModal
       }))
+    }
+
+    refundRejectRemarksHandler = event => {
+      const {name, value} = event.target
+      let refundReject = {...this.state.refundRejectRequestDTO}
+      refundReject[name] = value
+      this.setState({
+        refundRejectRequestDTO: refundReject
+      })
+    }
+   
+    onRejectHandler = async data => {
+     // this.props.clearHospitalCreateMessage()
+      let deleteRequestDTO = {...this.state.deleteRequestDTO}
+      deleteRequestDTO['appointmentId'] = data.appointmentId
+      await this.setState({
+        refundRejectRequestDTO: deleteRequestDTO,
+        rejectModalShow: true
+      })
     }
 
     async componentDidMount () {
