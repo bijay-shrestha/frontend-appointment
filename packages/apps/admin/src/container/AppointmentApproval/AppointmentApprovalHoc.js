@@ -70,6 +70,19 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
+    previewCall = data => {
+      this.setState({
+        previewData:data,
+        showModal:true
+      })
+    }
+
+    setShowModal = () => {
+      this.setState(prevState => ({
+        showModal: !prevState.showModal
+      }))
+    }
+
     searchAppointment = async page => {
       const {
         appointmentNumber,
@@ -254,7 +267,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           tableHandler={{
             isSearchLoading: isApprovalListLoading,
             appointmentApprovalList: this.appendSNToTable(approvalList),
-            searchErrorMessage: approvalErrorMessage
+            searchErrorMessage: approvalErrorMessage,
+            setShowModal:this.setShowModal,
+            showModal:showModal,
+            previewCall:this.previewCall,
+            previewData:previewData
           }}
         ></ComposedComponent>
       )

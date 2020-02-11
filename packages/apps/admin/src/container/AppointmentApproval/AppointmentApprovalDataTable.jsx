@@ -1,17 +1,22 @@
-import React, {PureComponent} from 'react'
+import React, {memo} from 'react';
 import {
   CDataTable,
   CLoading,
   CPagination
-} from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+} from '@frontend-appointment/ui-elements';
+import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
+import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
+const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
     appointmentApprovalList,
-    searchErrorMessage
-  } = tableHandler
-  const {queryParams, totalRecords, handlePageChange} = paginationProps
+    searchErrorMessage,
+    previewCall,
+    previewData,
+    showModal,
+    setShowModal
+  } = tableHandler;
+  const {queryParams, totalRecords, handlePageChange} = paginationProps;
   return (
     <>
       <div className="manage-details">
@@ -104,11 +109,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Doctor (Specialization)',
-                  field: 'doctorName',
+                  headerName: 'Doctor(Specialization)',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  cellRenderer:'doctorwithSpecializationRenderer'
                 },
                 {
                   headerName: 'Transaction Number',
@@ -147,13 +152,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 }
               ]}
               frameworkComponents={{
-                childActionRenderer: TableApproveAction
+                childActionRenderer: TableApproveAction,
+                doctorwithSpecializationRenderer:DoctorWithSpecialization
               }}
               defaultColDef={{resizable: true}}
-              // getSelectedRows={
-              //     // checkIfRoleExists(props.filteredActions, 4) &&
-              //     props.onPreviewHandler
-              // }
+              getSelectedRows={
+                  // checkIfRoleExists(props.filteredActions, 4) &&
+                  previewCall
+              }
               rowSelection={'single'}
               rowData={appointmentApprovalList}
             />
@@ -175,8 +181,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
           <CLoading />
         )}
       </div>
+      {showModal ? (
+        <PreviewDetails
+          showModal={showModal}
+          setShowModal={setShowModal}
+          approvalData={previewData}
+        />
+      ) : (
+        ''
+      )}
     </>
   )
 }
 
-export default AppointmentRefundDataTable
+export default memo(AppointmentApprovalDataTable);
