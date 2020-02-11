@@ -27,7 +27,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         {/* <Container fluid>
           <Row>
           */}
-        <h5 className="title">Appointment Refund Details</h5>
+        <h5 className="title">Appointment Log Details</h5>
         {/* </Col> */}
         {/* <Col>
               <CButton
