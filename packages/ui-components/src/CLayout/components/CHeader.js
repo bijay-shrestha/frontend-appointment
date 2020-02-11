@@ -164,17 +164,26 @@ class CHeader extends Component {
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress);
-        clearTimeout(this.clearKeyPressCount);
+        clearTimeout(this.clearKeyPressCount,this.clearStateOnTimeout);
+    
+    }
+
+    resetState=()=>{
+        this.setState({
+            searchKeyword: '',
+            searchResult: [],
+            showResults: false
+        })
+    }
+
+    clearStateOnTimeout = ()=>{
+        setTimeout(()=>this.resetState(),100);
     }
 
     handleSearchOnBlur = (event) => {
-        // if (event.target.value) {
-        //     this.setState({
-        //         searchKeyword: '',
-        //         searchResult: [],
-        //         showResults: false
-        //     })
-        // }
+        if (event.target.value) {
+           this.clearStateOnTimeout();
+        }
         ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
@@ -247,7 +256,11 @@ class CHeader extends Component {
 
                     {/*search start*/}
                     <div className="header-content-right d-flex align-items-center">
-                        <Dropdown alignRight className="topbar-dropdown topbar-search">
+                        <Dropdown
+                            alignRight
+                            className="topbar-dropdown topbar-search"
+                            show={this.state.showResults}
+                        >
                            <Dropdown.Toggle variant="default" id="dropdown-basic"
                                             className="search-button rounded-circle">
 
