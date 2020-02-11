@@ -39,6 +39,7 @@ const CSideBar = props => {
         isHover={props.isHover}
         localFunc={props.localFunc}
         activeStateKey={props.activeStateKey}
+        hasTab={props.hasTab}
       />
     </div>
   )
