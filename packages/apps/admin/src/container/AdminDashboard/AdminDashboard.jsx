@@ -15,33 +15,36 @@ const AdminDashboard = () => {
                     <div className="revenue-box">
 
 
-                        <p><i class="fa fa-money"></i> <br></br>5,00,000</p>
+                        <p>Rs. 5,00,000</p>
                         <div className="total">
-                            Total Revenue
+                            {/* Total Revenue  */}
+                            <span className="up">
+                            5% from last year
+                                </span>
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p> <br></br>1,00,000</p>
+                        <p>Rs. 1,00,000</p>
                         <div className="up">
-                            <i className="fa fa-chevron-up"></i> 5% from last month
+                            5% from last month
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p> <br></br>50,000</p>
+                        <p>Rs. 50,000</p>
                         <div className="up">
-                            <i className="fa fa-chevron-up"></i> 5% from last week
+                            5% from last week
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p> <br></br>9,000</p>
+                        <p>Rs. 9,000</p>
                         <div className="down">
-                            <i className="fa fa-chevron-down"></i> -3% from last day
+                          -3% from last day
                                 </div>
                     </div>
 
@@ -85,35 +88,37 @@ const AdminDashboard = () => {
                         <div className="overall-box">
                
 
-                            <p>< i className="fa fa-users"></i> <br></br>1,00,000</p>
+                            <p>1,00,000</p>
                             <div className="title">
                                 Overall Registered Patients
                              </div>
                         </div>
 
                         <div className="appointment-box">
-                        <ButtonGroup aria-label="Basic example" size="sm"  className="mb-3">
-                        <Button variant="outline-secondary">Daily</Button>
-                        <Button variant="outline-secondary">Weekly</Button>
-                        <Button variant="outline-secondary">Monthly</Button>
-                        <Button variant="outline-secondary">Yearly</Button>
-                        </ButtonGroup>
+                         <Row>
+                             <Col>
+                             <ButtonGroup aria-label="Basic example" size="sm"  className="mb-3">
+                            <Button variant="outline-secondary">Daily</Button>
+                            <Button variant="outline-secondary">Weekly</Button>
+                            <Button variant="outline-secondary">Monthly</Button>
+                            <Button variant="outline-secondary">Yearly</Button>
+                            </ButtonGroup>
+                             </Col>
+                             <Col className="date">
+                            <div>
+                                <span>From :</span> 1-2-2020
+                            </div>
+                            <div>
+                                <span>To :</span> 1-2-2020
+                            </div>
+                             
+                         
+                            </Col>
+                           
+                         </Row>
+                        
                         <Row>
-                            <Col className="date">
-                            <CHybridInput 
-                            name="From"
-                            placeholder = "From"
-                         
-                            ></CHybridInput>
-                            </Col>
-                            <Col className="date">
-                          
-                               <CHybridInput
-                                name="To"
-                                placeholder = "To"
-                               ></CHybridInput>
-                         
-                            </Col>
+                            
 
                         </Row>
                         
