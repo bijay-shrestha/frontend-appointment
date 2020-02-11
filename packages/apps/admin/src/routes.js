@@ -53,6 +53,11 @@ const AppointmentRefundListComponent = Loadable({
 const AppointmentApprovalListComponent = Loadable({
     loader:() => import('./container/AppointmentApproval/AppointmentApproval'),
     loading:() => getLoader()
+});
+
+const AppointmentLogListComponent = Loadable({
+  loader:() => import('./container/AppointmentLog/AppointmentLog'),
+  loading:() => getLoader()
 })
 /* ****** B ***** */
 
@@ -418,6 +423,15 @@ export const routes = [
     isLink: false,
     isTab: false,
     name: 'Appointment Approval'
+  },
+  {
+    path: '/admin/appointment/appointmentLog',
+    component: AppointmentLogListComponent,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false,
+    name: 'Appointment Log'
   },
   {
     path: '/unauthorized',

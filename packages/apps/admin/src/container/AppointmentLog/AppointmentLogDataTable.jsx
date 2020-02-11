@@ -9,7 +9,7 @@ import DoctorWithSpecialization from '../CommonComponents/table-components/Docto
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import PreviewDetails from './AppointmentLogPreview';
-
+import {Row,Col,Badge} from 'react-bootstrap';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -84,6 +84,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   cellRenderer:'statusRenderer'
                 },
                 {
+                  headerName: 'Hospital Name',
+                  field:'hospitalName',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                },
+                {
                   headerName: 'Appointment Date',
                   field: 'appointmentDate',
                   resizable: true,
@@ -106,22 +113,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Esewa Id',
-                  field: 'esewaId',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
                   headerName: 'Registration Number',
                   field: 'registrationNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'HIS',
-                  field: 'his',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -135,8 +128,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                
                 {
-                  headerName: 'Specialization',
-                  field: 'specializationName',
+                  headerName: 'DOB',
+                  field: 'patientDob',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -170,14 +163,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Amount',
-                  field: 'amount',
+                  headerName: 'Appointment Amount',
+                  field: 'appointmentAmount',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Amount',
+                  headerName: 'Refund Amount',
                   field: 'refundAmount',
                   resizable: true,
                   sortable: true,

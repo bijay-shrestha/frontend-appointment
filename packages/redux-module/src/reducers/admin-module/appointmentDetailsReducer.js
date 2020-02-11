@@ -108,17 +108,17 @@ export const AppointmentLogListReducer = (
     case LOG_FETCH_SUCCESS:
       return {
         ...state,
-        logList: action.payload.data,
-        isLogListLoading: true,
+        logList: [...action.payload.data.appointmentLogs],
+        isLogListLoading: false,
         logErrorMessage: '',
-        totalAmount: '',
-        totalItems: ''
+        totalAmount:action.payload.data.totalAmount,
+        totalItems:action.payload.data.totalItems
       }
     case LOG_FETCH_ERROR:
       return {
         ...state,
         logList: [],
-        isLogListLoading: true,
+        isLogListLoading: false,
         logErrorMessage: action.payload.data,
         totalAmount: '',
         totalItems: ''

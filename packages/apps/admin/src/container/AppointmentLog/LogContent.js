@@ -48,16 +48,6 @@ const DetailsModal = ({logData}) => {
                   disabled={true}
                 />
               </Col>
-
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="registrationNumber"
-                  placeholder="Registration Number"
-                  value={logData.registrationNumber}
-                  disabled={true}
-                />
-              </Col>
-
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="registrationNumber"
@@ -71,13 +61,23 @@ const DetailsModal = ({logData}) => {
                 <CHybridInput
                   id="patientName"
                   placeholder="Patient Name"
-                  value={logData.patientName+"("+logData.age+"yrs/"+logData.genderCode+")"}
+                  value={logData.patientName+"("+logData.patientAge.toUpperCase()+"/"+logData.patientGender.split[0].toUpperCase()+")"}
                   disabled={true}
                 />
               </Col>
+
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id=""
+                  id="DOB"
+                  placeholder="Date of Birth"
+                  value={logData.patientDob}
+                  disabled={true}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="mobileNumber"
                   placeholder="Mobile Number"
                   value={logData.mobileNumber}
                   disabled={true}
@@ -101,9 +101,9 @@ const DetailsModal = ({logData}) => {
               </Col>
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id="cancelledDate"
-                  placeholder="Cancelled Date"
-                  value={logData.cancelledDate}
+                  id="AppointmentAmount"
+                  placeholder="Appointment Amount"
+                  value={logData.appointmentAmount}
                   disabled={true}
                 />
               </Col>

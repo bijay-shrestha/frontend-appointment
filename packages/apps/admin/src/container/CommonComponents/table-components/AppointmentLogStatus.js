@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import {Badge} from 'react-bootstrap'
+import {Badge} from 'react-bootstrap';
 
 const AppointmentLogAction = props => {
   const {status} = props.node.data

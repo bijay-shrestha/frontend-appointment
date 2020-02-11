@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
-import AppointmentLogSearchFilter from './AppointmentRefundSearchFilter'
-import AppointmentRefundDataTable from './AppointmentRefundDataTable'
-import AppointRefundApprovalHoc from './AppointmentRefundHoc'
+import AppointmentLogSearchFilter from './AppointmentLogSearchFilter'
+import AppointmentRefundDataTable from './AppointmentLogDataTable'
+import AppointRefundApprovalHoc from './AppointmentLogHoc'
 import {Col, Container, Row} from 'react-bootstrap'
 
 const AppointmentRefundLog = props => {

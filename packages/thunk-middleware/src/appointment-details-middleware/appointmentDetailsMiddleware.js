@@ -61,6 +61,7 @@ export const fetchAppointmentLogList = (
       AppointmentDetailActions.appointmentLogFetchingSuccess(response.data)
     )
   } catch (e) {
+    console.log(e)
     dispatch(
       AppointmentDetailActions.appointmentLogFetchingError(
         e.errorMessage || 'Sorry Internal Server Problem'

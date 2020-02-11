@@ -366,4 +366,4 @@ class AppointmentLogListSearchFilter extends PureComponent {
     )
   }
 }
-export default AppointmentApprovalListSearchFilter
+export default AppointmentLogListSearchFilter

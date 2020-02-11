@@ -56,7 +56,7 @@ export const appointmentApprovalFetchingStart = () => {
 export const appointmentApprovalFetchingSuccess = data => {
     return {
         type: APPROVAL_FETCH_SUCCESS,
-        payload:data
+        payload:{data}
     }
 };
 
@@ -84,7 +84,7 @@ export const appointmentLogFetchingStart = () => {
 export const appointmentLogFetchingSuccess = data => {
     return {
         type: LOG_FETCH_SUCCESS,
-        payload:data
+        payload:{data}
     }
 };
 
@@ -112,7 +112,7 @@ export const appointmentStatusFetchingStart = () => {
 export const appointmentStatusFetchingSuccess = data => {
     return {
         type: STATUS_FETCH_SUCCESS,
-        payload:data
+        payload:{data}
     }
 };
 

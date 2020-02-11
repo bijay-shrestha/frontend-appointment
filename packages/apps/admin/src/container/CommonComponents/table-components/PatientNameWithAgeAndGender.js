@@ -5,8 +5,8 @@ const PatientWithAgeAndGender = props => {
   return (
     <>
       <span>
-        {props.node.data.patientName} ({props.node.data.age}/:
-        {props.node.data.genderCode})
+        {props.node.data.patientName.toUpperCase()} ({props.node.data.patientAge}/
+        {props.node.data.patientGender.split('')[0].toUpperCase()})
       </span>
     </>
   )

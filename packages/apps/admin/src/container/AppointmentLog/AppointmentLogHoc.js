@@ -12,7 +12,7 @@ import {
   EnterKeyPressUtils,
   FileExportUtils
 } from '@frontend-appointment/helpers';
-import './appointment-refund.scss';
+import './appointment-log.scss';
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 const {
   clearAppointmentRefundPending,
@@ -97,7 +97,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.fetchAppointmentRefundList(
+      await this.props.fetchAppointmentLogList(
         appointmentSetupApiConstant.APPOINTMENT_LOG_LIST,
         {
           page: updatedPage,
@@ -260,7 +260,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           }}
           tableHandler={{
             isSearchLoading: isLogListLoading,
-            appointmentRefundList: this.appendSNToTable(logList),
+            appointmentLogList: this.appendSNToTable(logList),
             searchErrorMessage: logErrorMessage,
             setShowModal:this.setShowModal,
             showModal:showModal,
