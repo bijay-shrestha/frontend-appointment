@@ -32,6 +32,7 @@ class CHeader extends Component {
     };
 
     formControl = React.createRef();
+    searchDropdown = React.createRef();
 
     // closeAlert = () => {
     //     this.setState({
@@ -122,8 +123,6 @@ class CHeader extends Component {
     };
 
     clearKeyPressCount = () => {
-        // console.log("===========================>",document.activeElement);
-        // console.log("===========================>",document.getElementById('searchMenu'));
         setTimeout(() => this.clearCount(), 1000)
     };
 
@@ -164,31 +163,32 @@ class CHeader extends Component {
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress);
-        clearTimeout(this.clearKeyPressCount,this.clearStateOnTimeout);
-    
+        clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
     }
 
-    resetState=()=>{
+    resetState = () => {
         this.setState({
             searchKeyword: '',
-            searchResult: [],
+            // searchResult: [],
             showResults: false
         })
-    }
+    };
 
-    clearStateOnTimeout = ()=>{
-        setTimeout(()=>this.resetState(),100);
-    }
+    clearStateOnTimeout = () => {
+        setTimeout(() => this.resetState(), 300);
+    };
 
     handleSearchOnBlur = (event) => {
         if (event.target.value) {
-           this.clearStateOnTimeout();
+            this.clearStateOnTimeout();
+            // this.formControl.current.focus();
         }
         ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
     handleSearchOnFocus = () => {
         ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
+        this.searchDropdown.current.focus();
     };
 
     searchUserMenus = (event) => {
@@ -257,71 +257,58 @@ class CHeader extends Component {
                     {/*search start*/}
                     <div className="header-content-right d-flex align-items-center">
                         <Dropdown
+                            ref={this.searchDropdown}
                             alignRight
                             className="topbar-dropdown topbar-search"
                             show={this.state.showResults}
                         >
-                           <Dropdown.Toggle variant="default" id="dropdown-basic"
-                                            className="search-button rounded-circle">
+                            <Dropdown.Toggle variant="default" id="dropdown-basic"
+                                             className="search-button rounded-circle">
+                                <CMenuSearch
+                                    id="searchMenu"
+                                    setRef={this.formControl}
+                                    onChange={this.searchUserMenus}
+                                    value={this.state.searchKeyword}
+                                    handleOnBlur={this.handleSearchOnBlur}
+                                    handleOnFocus={this.handleSearchOnFocus}
+                                    // handleOnKeyDown={}
+                                />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {this.state.showResults ?
+                                    <ul className="drop-down-list">
+                                        {
+                                            this.state.searchResult.length ?
+                                                this.state.searchResult.map(value => (
 
-
-                               <CMenuSearch
-                                        id="searchMenu"
-                                        setRef={this.formControl}
-                                        onChange={this.searchUserMenus}
-                                        value={this.state.searchKeyword}
-                                        handleOnBlur={this.handleSearchOnBlur}
-                                        handleOnFocus={this.handleSearchOnFocus}
-                                    />
-                                   {/* <FormControl
-                                       placeholder="Search ..."
-                                   /> */}
-
-
-                           </Dropdown.Toggle>
-                           <Dropdown.Menu>
-
-                           {this.state.showResults ?
-                                <ul className="drop-down-list">
-                                    {
-                                        this.state.searchResult.length ?
-                                           this.state.searchResult.map(value => (
-
-                                                <li className="" key={'menu-li' + value.id}>
-                                                    <div className="" key={value.id}>
-                                                        <Link
-                                                            key={'menu-link' + value.id}
-                                                            to={value.path}
-                                                            className="menu-link"
-                                                        >
-                                                            <div className="anchor-icon">
-                                                            {value.iCharacter}
-                                                            </div>
-                                                           <div className="menu-box">
-                                                                <div className="menu">{value.name}</div>
-                                                                 <div className="sub-menu">{value.breadcrumb}</div>
-                                                           </div>
-
-
-
-                                                        </Link>
-                                                        {/*<a href={value.path}>{value.name}</a>*/}
-                                                    </div>
-                                                </li>
-                                            ))
-                                            :
-                                            <li className="">
+                                                    <li className="" key={'menu-li' + value.id}>
+                                                        <div className="" key={value.id}>
+                                                            <Link
+                                                                key={'menu-link' + value.id}
+                                                                to={value.path}
+                                                                className="menu-link">
+                                                                <div className="anchor-icon">
+                                                                    {value.iCharacter}
+                                                                </div>
+                                                                <div className="menu-box">
+                                                                    <div className="menu">{value.name}</div>
+                                                                    <div className="sub-menu">{value.breadcrumb}</div>
+                                                                </div>
+                                                            </Link>
+                                                        </div>
+                                                    </li>
+                                                ))
+                                                :
+                                                <li className="">
                                                     <div className="">
                                                         No result(s) found.
                                                     </div>
                                                 </li>
-                                    }
-                                </ul> : ''
-                        }
-
-
-                           </Dropdown.Menu>
-                       </Dropdown>
+                                        }
+                                    </ul> : ''
+                                }
+                            </Dropdown.Menu>
+                        </Dropdown>
 
 
                         {/* end search */}
