@@ -2,15 +2,17 @@ import React from 'react';
 import { Image, Container, Row, Col ,ButtonGroup, Button, Form} from "react-bootstrap";
 import { CButton, CHybridInput } from "@frontend-appointment/ui-elements";
 import "./admin-dashboard.scss";
+import * as Material from 'react-icons/md';
 
 const AdminDashboard = () => {
     return (
         <div className="dashboard-wrapper">
 
             <Container fluid className="" >
-                {/* <Row><h5 className="title">Revenue Generated</h5></Row> */}
-
+                <Row><h5 className="title">Revenue Statistics</h5></Row>
+               
                 <Row>
+                   
 
                     <div className="revenue-box">
 
@@ -19,7 +21,7 @@ const AdminDashboard = () => {
                         <div className="total">
                             {/* Total Revenue  */}
                             <span className="up">
-                            +5% from last year
+                            <Material.MdExpandLess /> +5% from last year
                                 </span>
                                 </div>
                     </div>
@@ -28,7 +30,7 @@ const AdminDashboard = () => {
 
                         <p>Rs. 1,00,000</p>
                         <div className="up">
-                            +5% from last month
+                        <Material.MdExpandLess />  +5% from last month
                                 </div>
                     </div>
 
@@ -36,7 +38,7 @@ const AdminDashboard = () => {
 
                         <p>Rs. 50,000</p>
                         <div className="up">
-                            +5% from last week
+                        <Material.MdExpandLess /> +5% from last week
                                 </div>
                     </div>
 
@@ -44,56 +46,62 @@ const AdminDashboard = () => {
 
                         <p>Rs. 9,000</p>
                         <div className="down">
-                          -3% from last day
+                        <Material.MdExpandMore/>  -3% from last day
                                 </div>
                     </div>
 
                 </Row>
 
                 <Row className="mt-1">
-                    <Col  lg={7} className="chart">
+                    <Col  lg={7} >
+                    <Row><h5 className="title">Revenue Trend</h5></Row>
+                    <Row>
+                    <div className="chart">
                         <Row>
-                            <Col xs={12} md={4}>
-                                <Row><h5 className="title">Revenue Statistics</h5></Row>
+                   
+                            <Col xs={12} md={8}>
+
+                            <ButtonGroup aria-label="Basic example" size="sm"  className="mb-3">
+                            <Button variant="outline-secondary">Daily</Button>
+                            <Button variant="outline-secondary">Weekly</Button>
+                            <Button variant="outline-secondary">Monthly</Button>
+                            <Button variant="outline-secondary">Yearly</Button>
+                            </ButtonGroup>
+                               
 
                             </Col>
-                            <Col  xs={12} md={8} className="p-0">
-                                <CButton
-                                    name="Weekly"
-                                    variant="outline-secondary"
-                                    size="lg"
-                                    className="m-0">
-                                </CButton>
-                                <CButton
-                                    name="Monthly"
-                                    variant="outline-secondary"
-                                    size="lg">
-                                </CButton>
-                                <CButton
-                                    name="Yearly"
-                                    variant="outline-secondary"
-                                    size="lg"
-                                >
-                                </CButton>
+                            <Col  xs={12} md={4} className="p-0">
+                            <Col className="date">
+                            <div>
+                                <span>From :</span> 1-2-2020
+                            </div>
+                            <div>
+                                <span>To :</span> 1-2-2020
+                            </div>
+                             
+                         
                             </Col>
-                        </Row>
+                            </Col>
+                            </Row>
+                       
                         <Row>
 
                             <img src={require("./img/line-chart.png")} />
                         </Row>
+                    </div>
+                    </Row>
+                       
                     </Col>
 
                     <Col lg={5} className="pr-0">
-          
+                   <h5 className="title">Patient Statistics</h5>
                         <div className="overall-box">
-               
-
                             <p>1,00,000</p>
                             <div className="title">
                                 Overall Registered Patients
                              </div>
                         </div>
-
+                      <h5 className="title">Appointment Statistics</h5>
                         <div className="appointment-box">
                          <Row>
                              <Col>
