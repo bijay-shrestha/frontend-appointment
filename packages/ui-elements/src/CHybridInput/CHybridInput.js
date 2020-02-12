@@ -263,8 +263,14 @@ CHybridInput.propTypes = {
     required: PropTypes.bool,
     rows: PropTypes.string,
     size: PropTypes.string, // 'sm','lg
-    type: PropTypes.string,
-    value: PropTypes.string
+    type: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
 };
 
 export default CHybridInput

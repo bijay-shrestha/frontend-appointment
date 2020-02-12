@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import DoctorDutyRosterHOC from '../DoctorDutyRosterHOC';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
@@ -9,48 +9,44 @@ import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
 
 import "./../doctor-duty-roster.scss";
-import DoctorDutyRosterPreviewModal from "../common/DoctorDutyRosterPreviewModal";
 
 function DoctorDutyRosterAdd(props) {
     const DoctorDutyRosterAddSetup = DoctorDutyRosterHOC(({
-                                                              showExistingRosterModal,
-                                                              doctorInfoData,
-                                                              hospitalList,
-                                                              specializationList,
-                                                              doctorList,
-                                                              doctorDropdownErrorMessage,
-                                                              specializationDropdownError,
-                                                              handleInputChange,
-                                                              handleDateChange,
-                                                              handleEnter,
-                                                              getExistingRoster,
-                                                              handleShowExistingRoster,
-                                                              doctorAvailabilityData,
-                                                              handleAvailabilityTimeChange,
-                                                              handleDayOffStatusChange,
-                                                              wholeWeekOff,
-                                                              handleWholeWeekOff,
-                                                              hasOverrideDutyRoster,
-                                                              overrideData,
-                                                              doctorDutyRosterOverrideRequestDTOS,
-                                                              handleOverrideDutyRoster,
-                                                              showAddOverrideModal,
-                                                              setShowAddOverrideModal,
-                                                              handleOverrideFormInputChange,
                                                               addOverride,
-                                                              onModifyOverride,
-                                                              onRemoveOverride,
-                                                              isModifyOverride,
-                                                              formValid,
-                                                              showConfirmModal,
-                                                              setShowConfirmModal,
-                                                              saveDoctorDutyRoster,
-                                                              onSaveButtonClick,
-                                                              isSaveRosterLoading,
-                                                              existingRosterTableData,
-                                                              onViewDetailsExisting,
+                                                              dateErrorMessage,
+                                                              doctorAvailabilityData,
+                                                              doctorDropdownErrorMessage,
+                                                              doctorDutyRosterOverrideRequestDTOS,
+                                                              doctorInfoData,
+                                                              doctorList,
                                                               existingDoctorWeekDaysAvailability,
                                                               existingOverrides,
+                                                              existingRosterTableData,
+                                                              formValid,
+                                                              getExistingRoster,
+                                                              handleDoctorAvailabilityFormChange,
+                                                              handleEnter,
+                                                              handleInputChange,
+                                                              handleOverrideDutyRoster,
+                                                              handleOverrideFormInputChange,
+                                                              handleShowExistingRoster,
+                                                              handleWholeWeekOff,
+                                                              hasOverrideDutyRoster,
+                                                              hospitalList,
+                                                              isModifyOverride,
+                                                              onModifyOverride,
+                                                              onRemoveOverride,
+                                                              onSaveButtonClick,
+                                                              onViewDetailsExisting,
+                                                              overrideData,
+                                                              setShowAddOverrideModal,
+                                                              showAddOverrideModal,
+                                                              showConfirmModal,
+                                                              showExistingRosterModal,
+                                                              specializationDropdownError,
+                                                              specializationList,
+                                                              activeSpecializationListByHospital,
+                                                              wholeWeekOff,
                                                           }) =>
         <div>
             <Container className="p-0" fluid>
@@ -58,25 +54,25 @@ function DoctorDutyRosterAdd(props) {
                     <AddDoctorInfoForm
                         doctorInfoData={doctorInfoData}
                         hospitalList={hospitalList}
-                        specializationList={specializationList}
+                        specializationList={activeSpecializationListByHospital}
                         specializationDropdownError={specializationDropdownError}
                         doctorList={doctorList}
                         doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                         onEnterKeyPress={handleEnter}
                         onInputChange={handleInputChange}
-                        onDateChange={handleDateChange}
                         getExistingRoster={getExistingRoster}
                         existingRosterTableData={existingRosterTableData}
                         onViewDetailsExisting={onViewDetailsExisting}
                         existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
                         existingOverrides={existingOverrides}
+                        dateErrorMessage={dateErrorMessage}
                     />
                     <DoctorAvailabilityForm
                         doctorAvailabilityData={doctorAvailabilityData}
-                        onTimeChange={handleAvailabilityTimeChange}
-                        handleDayOffStatusChange={handleDayOffStatusChange}
+                        handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
                         wholeWeekOff={wholeWeekOff}
-                        handleWholeWeekOff={handleWholeWeekOff}/>
+                        handleWholeWeekOff={handleWholeWeekOff}
+                        type="ADD"/>
                 </Row>
                 <Row>
                     <DoctorAvailabilityOverrides
@@ -123,32 +119,7 @@ function DoctorDutyRosterAdd(props) {
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}/>
-            <CModal
-                show={showConfirmModal}
-                modalHeading="Doctor Duty Roster Details"
-                size="lg"
-                bodyChildren={
-                    <DoctorDutyRosterPreviewModal
-                        doctorInfoData={doctorInfoData}
-                        doctorAvailabilityData={doctorAvailabilityData}
-                        hasOverrideDutyRoster={hasOverrideDutyRoster}
-                        doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}/>
-                }
-                footerChildren={
-                    <CButton
-                        variant="primary"
-                        name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
-                        disabled={isSaveRosterLoading}
-                        size="lg"
-                        className="float-right btn-action mr-3"
-                        onClickHandler={saveDoctorDutyRoster}/>
-                }
-                onHide={setShowConfirmModal}
-                centered={false}
-                dialogClassName="preview-modal"
-                closeButton={true}
-            />
-        </div>, props, '');
+        </div>, props, 'ADD');
     return <DoctorDutyRosterAddSetup/>
 }
 

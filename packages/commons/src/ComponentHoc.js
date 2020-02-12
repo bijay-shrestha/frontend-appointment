@@ -1,5 +1,5 @@
 import React from 'react'
-import roless from './roles.json'
+import {menuRoles as roless}  from '@frontend-appointment/helpers';
 import {Redirect} from 'react-router-dom'
 import {CNavTabs} from '@frontend-appointment/ui-elements';
 import {RolesUtils,CommonUtils} from  '@frontend-appointment/helpers'

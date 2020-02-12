@@ -20,6 +20,7 @@ export {default as CHybridInput} from './src/CHybridInput';
 export {default as CHybridSelect} from './src/CHybridSelect';
 export {default as CHybridTextArea} from './src/CHybridTextArea';
 export {default as CSearch} from './src/CSearch';
+export {default as CMenuSearch} from './src/CMenuSearch';
 export {default as CRadioButton} from './src/CRadioButton';
 export {default as CDataTable} from './src/CDataTable';
 export {default as CSideBar} from './src/CSideBar';

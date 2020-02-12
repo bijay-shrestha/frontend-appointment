@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 
@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {CHybridInput} from "@frontend-appointment/ui-elements";
 import "./react-datepicker.scss";
 
-class CEnglishDatePicker extends PureComponent {
+class CEnglishDatePicker extends Component {
 
     subDays = (date, days) => {
         return date.setDate(date.getDate() - days);
@@ -15,6 +15,10 @@ class CEnglishDatePicker extends PureComponent {
     addDays = (date, days) => {
         return date.setDate(date.getDate() + days);
     };
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps.selected.toLocaleString() !== this.props.selected.toLocaleString();
+    }
 
     render() {
         const {
@@ -47,6 +51,7 @@ class CEnglishDatePicker extends PureComponent {
             includeTimes,
             injectTimes,
             inline,
+            invalid,
             isClearable,
             label,
             locale,
@@ -114,6 +119,8 @@ class CEnglishDatePicker extends PureComponent {
                 onChange={onChange}
                 readOnly={true}
                 autoComplete="off"
+                disabled={disabled}
+                invalid={invalid}
             />
         );
         return <>

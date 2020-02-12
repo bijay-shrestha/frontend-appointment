@@ -29,7 +29,7 @@ const SpecializationForm = ({
                 name="name"
                 onKeyDown={event => onEnterKeyPress(event)}
                 onChange={(event, validity) => onInputChange(event, validity)}
-                placeholder="Sub Department Name"
+                placeholder="Specialization Name"
                 value={specializationInfoObj.name}
                 required={true}
                 hasValidation={true}
@@ -44,7 +44,7 @@ const SpecializationForm = ({
                 name="code"
                 onKeyDown={event => onEnterKeyPress(event)}
                 onChange={(event, validity) => onInputChange(event, validity)}
-                placeholder="Sub Department Code"
+                placeholder="Specialization Code"
                 value={specializationInfoObj.code}
                 required={true}
                 errorMessagePassed={errorMessageForSpecializationCode}

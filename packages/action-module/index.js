@@ -13,6 +13,8 @@ import {
 import {
     adminSetupActionConstants,
     AdminSetupActions,
+    AppointmentDetailActions,
+    appointmentDetailsConstants,
     DoctorSetupActions,
     doctorSetupConstants,
     DepartmentSetupActions,
@@ -26,12 +28,17 @@ import {
     SpecializationSetupActions,
     specializationSetupConstants,
     QualificationSetupActions,
-    qualificationSetupConstants
+    qualificationSetupConstants,
+    PatientDetailsActions,
+    patientDetailsConstants
+   
 } from './src/admin-module'
 
 export {
     adminSetupActionConstants,
     AdminSetupActions,
+    AppointmentDetailActions,
+    appointmentDetailsConstants,
     DoctorSetupActions,
     doctorSetupConstants,
     DepartmentSetupActions,
@@ -55,5 +62,7 @@ export {
     QualificationSetupActions,
     qualificationSetupConstants,
     weekdaysActionConstants,
-    WeekdaysActions
+    WeekdaysActions,
+    PatientDetailsActions,
+    patientDetailsConstants
 }
