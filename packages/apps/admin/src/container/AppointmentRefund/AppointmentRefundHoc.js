@@ -13,10 +13,15 @@ import {
   FileExportUtils
 } from '@frontend-appointment/helpers'
 import './appointment-refund.scss'
+import {CAlert} from '@frontend-appointment/ui-elements';
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 const {
   clearAppointmentRefundPending,
-  fetchAppointmentRefundList
+  fetchAppointmentRefundList,
+  clearAppointmentRefundRejectMessage,
+  clearAppointmentRefundMessage,
+  appointmentRefund,
+  appointmentRejectRefund
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -57,9 +62,19 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         "appointmentId": "",
         "remarks": ""
       },
-      rejectModalShow:false
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      rejectModalShow:false,
+      showAlert:false
     }
 
+    setShowAlert = () =>{
+      this.setState(prevState =>({
+        showAlert:!prevState.showAlert
+      }))
+    }
     handleEnterPress = event => {
       EnterKeyPressUtils.handleEnter(event)
     }
@@ -225,7 +240,28 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         showModal: !prevState.showModal
       }))
     }
+    refundHandler = (data) =>{
+      try{
+        
+      }catch(e){
 
+      }
+
+    }
+    rejectSubmitHandler = async()=>{
+      try{
+        await this.props.appointmentRejectRefund(appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,this.state.refundRejectRequestDTO)
+        this.setState({
+        showAlert:true,
+         alertMessageInfo:{
+           variant:'success',
+           message:this.props.AppointmentRefundRejectReducer.refundRejectSuccess,
+         }
+        })
+      }catch(e){
+        console.log(e);
+      }
+    }
     refundRejectRemarksHandler = event => {
       const {name, value} = event.target
       let refundReject = {...this.state.refundRejectRequestDTO}
@@ -236,11 +272,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
    
     onRejectHandler = async data => {
-     // this.props.clearHospitalCreateMessage()
-      let deleteRequestDTO = {...this.state.deleteRequestDTO}
-      deleteRequestDTO['appointmentId'] = data.appointmentId
+     this.props.clearAppointmentRefundRejectMessage()
+      let refundReject = {...this.state.refundRejectRequestDTO}
+      refundReject['appointmentId'] = data.appointmentId
       await this.setState({
-        refundRejectRequestDTO: deleteRequestDTO,
+        refundRejectRequestDTO: refundReject,
         rejectModalShow: true
       })
     }
@@ -251,7 +287,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     render () {
-      const {searchParameters, queryParams, totalRecords,showModal,previewData} = this.state
+      const {searchParameters, queryParams, totalRecords,showModal,previewData,alertMessageInfo,showAlert} = this.state
 
       const {
         isRefundListLoading,
@@ -275,6 +311,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         patientDropdownErrorMessage
       } = this.props.PatientDropdownListReducer
       return (
+        <>
         <ComposedComponent
           {...this.props}
           {...props}
@@ -308,6 +345,30 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             previewData:previewData
           }}
         ></ComposedComponent>
+        <CAlert
+        id="profile-add"
+        variant={alertMessageInfo.variant}
+        show={showAlert}
+        onClose={this.setShowAlert}
+        alertType={
+          alertMessageInfo.variant === 'success' ? (
+            <>
+              <i className="fa fa-check-circle" aria-hidden="true">
+                {' '}
+              </i>
+            </>
+          ) : (
+            <>
+              <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                {' '}
+              </i>
+            </>
+          )
+        }
+        message={alertMessageInfo.message}
+      />
+    </>
+    
       )
     }
   }
@@ -315,6 +376,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
   return ConnectHoc(
     AppointmentRefundDetails,
     [
+      'AppointmentRefundRejectReducer',
+      'AppointmentRefundReducer',
       'AppointmentRefundListReducer',
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
@@ -327,7 +390,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       fetchActiveHospitalsForDropdown,
       fetchActiveDoctorsHospitalWiseForDropdown,
       fetchSpecializationHospitalWiseForDropdown,
-      fetchPatientMetaList
+      fetchPatientMetaList,
+      clearAppointmentRefundRejectMessage,
+      clearAppointmentRefundMessage,
+      appointmentRefund,
+      appointmentRejectRefund
     }
   )
 }

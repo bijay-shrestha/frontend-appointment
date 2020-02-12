@@ -97,3 +97,50 @@ export const fetchAppointmentStatusList = (
 export const clearAppointmentStatusMessage = () => async dispatch => {
   dispatch(AppointmentDetailActions.clearAppointmentStatusMessage())
 }
+
+
+export const appointmentRejectRefund = (
+  path,
+  data
+) => async dispatch => {
+  dispatch(AppointmentDetailActions.appointmentRefundRejectStart())
+  try {
+    const response = await Axios.put(path,data)
+    dispatch(
+      AppointmentDetailActions.appointmentRefundRejectSuccess('Refund Reject Successfully')
+    )
+  } catch (e) {
+    dispatch(
+      AppointmentDetailActions.appointmentRefundRejectError(
+        e.errorMessage || 'Sorry Internal Server Problem'
+      )
+    )
+  }
+}
+
+export const appointmentRefund = (
+  path,
+  data
+) => async dispatch => {
+  dispatch(AppointmentDetailActions.appointmentRefundStart())
+  try {
+    const response = await Axios.put(path,data)
+    dispatch(
+      AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
+    )
+  } catch (e) {
+    dispatch(
+      AppointmentDetailActions.appointmentRefundError(
+        e.errorMessage || 'Sorry Internal Server Problem'
+      )
+    )
+  }
+}
+
+export const clearAppointmentRefundRejectMessage = () => async dispatch => {
+  dispatch({type:'CLEAR_REFUND_REJECT_MESSAGE'})
+}
+
+export const clearAppointmentRefundMessage = () => async dispatch => {
+  dispatch({type:'CLEAR_REFUND_MESSAGE'})
+}

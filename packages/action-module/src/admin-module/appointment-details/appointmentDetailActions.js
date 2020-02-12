@@ -158,3 +158,25 @@ export const appointmentRefundRejectError = message => {
         }
     }
 };
+
+export const appointmentRefundStart = () => {
+    return {
+        type: REFUND_START
+    }
+};
+
+export const appointmentRefundSuccess = message => {
+    return {
+        type: REFUND_SUCCESS,
+        payload:{data:message}
+    }
+};
+
+export const appointmentRefundError = message => {
+    return {
+        type: REFUND_ERROR,
+        payload: {
+            data: message
+        }
+    }
+};
