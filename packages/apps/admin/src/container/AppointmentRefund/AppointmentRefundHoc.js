@@ -242,7 +242,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     refundHandler = data => {
       this.setState({
-        refundConfirmationModel: true,
+        refundConfirmationModal: true,
         refundAppointmentId: data.appointmentId
       });
     };
@@ -250,7 +250,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     refundHandleApi = async () => {
       try {
         await this.props.appointmentRefund(
-          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,
+          appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
           this.state.refundAppointmentId
         );
         this.setState({
@@ -264,27 +264,33 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         this.setState({
           showAlert: true,
           alertMessageInfo: {
-            variant: 'success',
+            variant: 'error',
             message: this.props.AppointmentRefundReducer.refundError
           }
         });
+      }finally{
+        this.setShowModal();
       }
+
     };
 
     rejectSubmitHandler = async () => {
       try {
         await this.props.appointmentRejectRefund(
-          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,
+          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
           this.state.refundRejectRequestDTO
         );
+        this.setShowModal();
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
             message: this.props.AppointmentRefundRejectReducer
               .refundRejectSuccess
-          }
+          },
+          
         });
+       
       } catch (e) {
         console.log(e);
       }

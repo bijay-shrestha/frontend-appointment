@@ -12,12 +12,14 @@ export const fetchAppointmentRefundList = (
     dispatch(
       AppointmentDetailActions.appointmentRefundFetchingSuccess(response.data)
     )
+    return response;
   } catch (e) {
     dispatch(
       AppointmentDetailActions.appointmentRefundFetchingError(
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
@@ -36,12 +38,14 @@ export const fetchAppointmentApprovalList = (
     dispatch(
       AppointmentDetailActions.appointmentApprovalFetchingSuccess(response.data)
     )
+    return response;
   } catch (e) {
     dispatch(
       AppointmentDetailActions.appointmentApprovalFetchingError(
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
@@ -60,6 +64,7 @@ export const fetchAppointmentLogList = (
     dispatch(
       AppointmentDetailActions.appointmentLogFetchingSuccess(response.data)
     )
+    return response;
   } catch (e) {
     console.log(e)
     dispatch(
@@ -67,6 +72,7 @@ export const fetchAppointmentLogList = (
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
@@ -85,12 +91,14 @@ export const fetchAppointmentStatusList = (
     dispatch(
       AppointmentDetailActions.appointmentStatusFetchingSuccess(response.data)
     )
+    return response;
   } catch (e) {
     dispatch(
       AppointmentDetailActions.appointmentStatusFetchingError(
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
@@ -109,31 +117,35 @@ export const appointmentRejectRefund = (
     dispatch(
       AppointmentDetailActions.appointmentRefundRejectSuccess('Refund Reject Successfully')
     )
+    return response
   } catch (e) {
     dispatch(
       AppointmentDetailActions.appointmentRefundRejectError(
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
 export const appointmentRefund = (
   path,
-  data
+  id
 ) => async dispatch => {
   dispatch(AppointmentDetailActions.appointmentRefundStart())
   try {
-    const response = await Axios.put(path,data)
+    const response = await Axios.getWithPathVariables(path,id)
     dispatch(
       AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
     )
+    return response;
   } catch (e) {
     dispatch(
       AppointmentDetailActions.appointmentRefundError(
-        e.errorMessage || 'Sorry Internal Server Problem'
+        e.errorMessage?e.errorMessage:'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
