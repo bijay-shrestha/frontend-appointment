@@ -244,6 +244,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer
             return (
+                <div id="appointment-log">
                 <ComposedComponent
                     {...this.props}
                     {...props}
@@ -276,6 +277,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         previewData: previewData
                     }}
                 />
+                </div>
             )
         }
     }
