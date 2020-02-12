@@ -398,15 +398,6 @@ export const routes = [
     name: 'Manage'
   },
   {
-    path: '/admin/doctorDutyRoster',
-    component: <></>,
-    icon: '',
-    hasTab: true,
-    isLink: false,
-    isTab: false,
-    name: 'Doctor Duty Roster Setup'
-  },
-  {
     path: '/admin/appointment/appointmentRefundRequest',
     component: AppointmentRefundListComponent,
     icon: '',
@@ -432,6 +423,15 @@ export const routes = [
     isLink: false,
     isTab: false,
     name: 'Appointment Log'
+  },
+  {
+    path: '/admin/appointment',
+    component: <></>,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false,
+    name: 'Appointment'
   },
   {
     path: '/unauthorized',
