@@ -9,7 +9,7 @@ import {
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
-import * as DefaultProfileImage from '../img/default-logo.png'
+import * as DefaultProfileImage from '../img/picture.png'
 const DetailsModal = ({type, doctorData}) => {
   let images //,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
 
@@ -57,19 +57,8 @@ const DetailsModal = ({type, doctorData}) => {
               </Col>
               <Col lg={9}>
                 <Row>
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="doctor-name"
-                      name="name"
-                      placeholder="Doctor Name"
-                      value={
-                        type === 'A' ? doctorData.name : doctorData.doctorName
-                      }
-                      disabled={true}
-                    />
-                  </Col>
 
-                  <Col sm={12} md={6} lg={6}>
+                <Col sm={12} md={6} lg={6}>
                     {type === 'M' ? (
                       <CHybridInput
                         id="hospital-id"
@@ -86,42 +75,23 @@ const DetailsModal = ({type, doctorData}) => {
                       />
                     )}
                   </Col>
+                  <Col sm={12} md={6} lg={6}></Col>
 
-                  <Col sm={12} md={6} lg={6}>
-                    {/* <CHybridSelect
-                      id="specializationName"
-                      label="Specialization Names"
-                      value={doctorData.specializationIds}
-                      isMulti={true}
-                      isDisabled={true}
-                    /> */}
-                    {type !== 'A' ? (
-                      <CHybridInput
-                        id="specializationNames"
-                        placeholder="Specialization Names"
-                        value={doctorData.specializationName}
-                      />
-                    ) : (
-                      <CHybridSelect
-                        id="specializationNames"
-                        label="Specialization Names"
-                        value={doctorData.specializationIds}
-                        isMulti={true}
-                        isDisabled={true}
-                      />
-                    )}
-                  </Col>
+                  
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
-                      id="nmcNumber"
-                      placeholder="NMC Number"
-                      value={doctorData.nmcNumber}
+                      id="doctor-name"
+                      name="name"
+                      placeholder="Doctor Name"
+                      value={
+                        type === 'A' ? doctorData.name : doctorData.doctorName
+                      }
                       disabled={true}
-                      readOnly={true}
                     />
                   </Col>
-                  <Col sm={12} md={3} lg={3}>
-                    <CFLabel labelName="Gender" id="Gender"></CFLabel>
+
+                  <Col sm={12} md={6} lg={6}>
+                    <CFLabel labelName="Gender" id="Gender"></CFLabel><br></br>
                     <CRadioButton
                       checked={
                         type === 'A'
@@ -165,23 +135,53 @@ const DetailsModal = ({type, doctorData}) => {
                       readOnly={true}
                     />
                   </Col>
+                
+
+                  
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
-                      id="doctor-email"
-                      name="email"
-                      placeholder="Doctor Email"
-                      value={doctorData.email}
-                      type="email"
+                      id="nmcNumber"
+                      placeholder="NMC Number"
+                      value={doctorData.nmcNumber}
                       disabled={true}
                       readOnly={true}
                     />
                   </Col>
+
+                  <Col sm={12} md={6} lg={6}>
+                    {/* <CHybridSelect
+                      id="specializationName"
+                      label="Specialization Names"
+                      value={doctorData.specializationIds}
+                      isMulti={true}
+                      isDisabled={true}
+                    /> */}
+                    {type !== 'A' ? (
+                      <CHybridInput
+                        id="specializationNames"
+                        placeholder="Specialization Names"
+                        value={doctorData.specializationName}
+                        disabled={true}
+                      />
+                    ) : (
+                      <CHybridSelect
+                        id="specializationNames"
+                        label="Specialization Names"
+                        value={doctorData.specializationIds}
+                        isMulti={true}
+                        isDisabled={true}
+                      />
+                    )}
+                  </Col>
+
                   <Col sm={12} md={6} lg={6}>
                     {type !== 'A' ? (
                       <CHybridInput
                         id="qualificationIds"
                         placeholder="Qualification Name"
                         value={doctorData.qualificationName}
+                        disabled={true}
                       />
                     ) : (
                       <CHybridSelect
@@ -193,6 +193,21 @@ const DetailsModal = ({type, doctorData}) => {
                       />
                     )}
                   </Col>
+
+                 
+                 
+                   <Col sm={12} md={6} lg={6}>
+                    <CHybridInput
+                      id="doctor-email"
+                      name="email"
+                      placeholder="Doctor Email"
+                      value={doctorData.email}
+                      type="email"
+                      disabled={true}
+                      readOnly={true}
+                    />
+                  </Col>
+                  
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="doctor-number"

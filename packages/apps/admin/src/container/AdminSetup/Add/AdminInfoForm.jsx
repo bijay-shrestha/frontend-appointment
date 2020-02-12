@@ -186,6 +186,7 @@ const AdminInfoForm = ({
 
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Gender" id="gender"/>
+                                <div>
                                 <CRadioButton
                                     checked={adminInfoObj.genderCode === "F"}
                                     onKeyDown={(event) => onEnterKeyPress(event)}
@@ -218,10 +219,13 @@ const AdminInfoForm = ({
                                     onChange={(event) => onInputChange(event)}
                                 />
 
+                                </div>
+                                
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Status" id="status"/>
+                                <div>
                                 <CRadioButton
                                     checked={adminInfoObj.status === "Y"}
                                     id="radio1"
@@ -247,6 +251,7 @@ const AdminInfoForm = ({
                                     disabled={true}
                                     readOnly={true}
                                 />
+                                </div>
 
                             </Col>
 

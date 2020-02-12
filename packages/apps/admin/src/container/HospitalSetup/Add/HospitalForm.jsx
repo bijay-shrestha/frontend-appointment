@@ -211,6 +211,7 @@ const HospitalForm = ({
 
               <Col sm={12} md={4} lg={4}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
+                <div>
                 <CRadioButton
                   checked={Boolean(hospitalInfoObj.status)}
                   disabled={true}
@@ -227,6 +228,7 @@ const HospitalForm = ({
                   label="Inactive"
                   type="radio"
                 /> */}
+                </div>
               </Col>
                 </Row>
                 </Col>       

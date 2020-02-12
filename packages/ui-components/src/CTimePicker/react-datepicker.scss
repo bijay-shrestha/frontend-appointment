@@ -13,11 +13,11 @@ $datepicker__selected-color: red !important;
 
 
 .react-datepicker-popper{
-    z-index: 6 !important;
+    z-index: 4;
 }
 
 .react-datepicker-popper[data-placement^="bottom"]{
-    // margin-top:24px !important;
+    margin-top:-28px;
 }
 
 
@@ -25,7 +25,6 @@ $datepicker__selected-color: red !important;
  .react-datepicker__current-month{
         display: none !important;
     }
-
 .react-datepicker-wrapper {
    
 
@@ -58,10 +57,7 @@ $datepicker__selected-color: red !important;
 }
 
 .time-picker{
-    .react-datepicker-popper[data-placement^="bottom"]{
-        margin-top:8px !important;
-    }
-    .react-datepicker-wrapper .field-wrapper,.react-datepicker-wrapper input{
+    .react-datepicker-wrapper .field-wrapper{
         position: relative;
     
         &:before{
@@ -129,10 +125,6 @@ $datepicker__selected-color: red !important;
 
     background-color: $cogent;
   
-}
-
-.form-control[readonly]{
-    background-color:$white !important;
 }
          
  

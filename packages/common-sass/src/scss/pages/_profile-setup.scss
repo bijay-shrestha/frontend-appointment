@@ -12,6 +12,24 @@
 
 }
 
+// .radio-container{
+//     .form-label {
+//     display: block;
+// }
+
+// }
+
+
+
+.form-check{
+    display: inline-block;
+    margin-right:10px;
+}
+
+.form-check-input[type="radio"] {
+    margin-top: 0.1rem;
+}
+
 
 .assign-menu {
     border       : 1px solid $gray-200;

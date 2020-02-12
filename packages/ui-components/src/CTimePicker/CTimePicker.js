@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 
-//import "react-datepicker/dist/react-datepicker.css";
-import {CHybridInput} from "@frontend-appointment/ui-elements";
+import {CFControl, CHybridInput} from "@frontend-appointment/ui-elements";
 import "./react-datepicker.scss";
 
-class CEnglishDatePicker extends Component {
+class CTimePicker extends PureComponent {
 
     subDays = (date, days) => {
         return date.setDate(date.getDate() - days);
@@ -51,7 +50,6 @@ class CEnglishDatePicker extends Component {
             includeTimes,
             injectTimes,
             inline,
-            invalid,
             isClearable,
             label,
             locale,
@@ -106,7 +104,8 @@ class CEnglishDatePicker extends Component {
             value,
             weekLabel,
             withPortal,
-            yearDropdownItemNumber
+            yearDropdownItemNumber,
+            inputType
         } = this.props;
 
         const HybridInput = ({value, onClick}) => (
@@ -120,7 +119,19 @@ class CEnglishDatePicker extends Component {
                 readOnly={true}
                 autoComplete="off"
                 disabled={disabled}
-                invalid={invalid}
+            />
+        );
+
+        const NormalInput = ({value, onClick}) => (
+            <CFControl
+                id={id}
+                onClick={onClick}
+                value={value}
+                placeholder={label}
+                onChange={onChange}
+                readOnly={true}
+                autoComplete="off"
+                disabled={disabled}
             />
         );
         return <>
@@ -133,7 +144,7 @@ class CEnglishDatePicker extends Component {
                 children={children}
                 className={className}
                 clearButtonTitle={clearButtonTitle}
-                customInput={<HybridInput/>}
+                customInput={inputType === "hybrid" ? <HybridInput/> : <NormalInput/>}
                 customInputRef={customInputRef}
                 dateFormat={dateFormat}
                 dateFormatCalendar={dateFormatCalendar}
@@ -218,12 +229,12 @@ class CEnglishDatePicker extends Component {
 
 // Reference: https://github.com/Hacker0x01/react-datepicker/blob/master/docs/datepicker.md
 // Examples: https://reactdatepicker.com/#example-custom-time-class-name
-CEnglishDatePicker.defaultProps = {
+CTimePicker.defaultProps = {
     label: "Date"
 };
 
 
-CEnglishDatePicker.propTypes = {
+CTimePicker.propTypes = {
     allowSameDay: PropTypes.bool,
     ariaLabelledBy: PropTypes.string,// GIVES THIS PROPERTY
     autoComplete: PropTypes.string,// AUTOCOMPLETE PROPERTY FOR INPUT FIELD
@@ -312,4 +323,4 @@ CEnglishDatePicker.propTypes = {
     yearDropdownItemNumber: PropTypes.number
 };
 
-export default CEnglishDatePicker;
+export default CTimePicker;

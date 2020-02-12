@@ -162,7 +162,12 @@
       "parentId": null,
       "name": "Doctor Duty Roster",
       "path": "/doctorDutyRoster",
-      "roles": [2,3,4,5],
+      "roles": [
+        2,
+        3,
+        4,
+        5
+      ],
       "icon": "fa fa-bar-chart",
       "leftNavigation": "Y",
       "checked": false,

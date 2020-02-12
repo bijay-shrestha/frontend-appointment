@@ -4,8 +4,8 @@ import "./../doctor-duty-roster.scss";
 
 import {CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../common/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../common/table-components/EndTimeDisplayForTable";
+import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 
 
