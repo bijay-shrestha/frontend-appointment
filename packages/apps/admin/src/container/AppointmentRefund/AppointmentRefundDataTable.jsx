@@ -165,8 +165,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         ? // ? props.filteredActions.find(action => action.id === 5) &&
                           onRejectHandler(id)
                         : refundHandler(id)
-                    },
-                    filteredAction: props.filteredActions
+                    }
+                   // filteredAction: props.filteredActions
                   },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }
