@@ -4,7 +4,8 @@
     margin-bottom:1.5rem;
 
     h5.title{
-        color:desaturate($cogent,60%);
+        // color:desaturate($cogent,60%);
+        color:$gray-900;
         margin-top:22px;
         margin-bottom:22px;
         font-weight: 500;
