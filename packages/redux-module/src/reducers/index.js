@@ -1,64 +1,73 @@
 import {loginReducers} from './common/loginreducers'
 import {
-  ProfileDeleteReducer,
-  ProfileEditReducer,
-  ProfileListReducer,
-  ProfilePreviewReducer,
-  ProfileSetupReducer
+    ProfileDeleteReducer,
+    ProfileEditReducer,
+    ProfileListReducer,
+    ProfilePreviewReducer,
+    ProfileSetupReducer
 } from './admin-module/profileSetupReducer'
 import {
     SpecializationDeleteReducer,
+    SpecializationDropdownReducer,
     SpecializationEditReducer,
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
-    SpecializationSearchReducer,
-    SpecializationDropdownReducer
+    SpecializationSearchReducer
 } from './admin-module/specializationSetupReducer'
 import {
-  HospitalDeleteReducer,
-  HospitalEditReducer,
-  HospitalPreviewReducer,
-  HospitalSaveReducer,
-  HospitalSearchReducer,
-  HospitalDropdownReducer
+    HospitalDeleteReducer,
+    HospitalDropdownReducer,
+    HospitalEditReducer,
+    HospitalPreviewReducer,
+    HospitalSaveReducer,
+    HospitalSearchReducer
 } from './admin-module/hospitalSetupReducer'
 import {
     DoctorDeleteReducer,
+    DoctorDropdownReducer,
     DoctorEditReducer,
     DoctorPreviewReducer,
     DoctorSaveReducer,
-    DoctorSearchReducer,
-    DoctorDropdownReducer
+    DoctorSearchReducer
 } from './admin-module/doctorSetupReducer'
 import {
-  DepartmentDeleteReducer,
-  DepartmentEditReducer,
-  DepartmentListReducer,
-  DepartmentPreviewReducer,
-  DepartmentSetupReducer
+    DepartmentDeleteReducer,
+    DepartmentEditReducer,
+    DepartmentListReducer,
+    DepartmentPreviewReducer,
+    DepartmentSetupReducer
 } from './admin-module/departmentSetupReducer'
 import {
-  AdminDeleteReducer,
-  AdminEditReducer,
-  AdminListReducer,
-  AdminPreviewReducer,
-  AdminSetupReducer
-} from './admin-module/adminSetupReducer'
+    AdminDeleteReducer,
+    AdminEditReducer,
+    AdminListReducer,
+    AdminPreviewReducer,
+    AdminSetupReducer
+} from "./admin-module/adminSetupReducer";
+import {
+    DoctorDutyRosterDeleteReducer,
+    DoctorDutyRosterEditReducer,
+    DoctorDutyRosterListReducer,
+    DoctorDutyRosterPreviewReducer,
+    DoctorDutyRosterSaveReducer,
+} from "./admin-module/doctorDutyRosterReducer";
+
 
 import {
-  QualificationSaveReducer,
-  QualificationEditReducer,
-  QualificationPreviewReducer,
-  QualificationSearchReducer,
-  QualificationDeleteReducer,
-  CountryCodeDropdownReducer,
-  QualificationAliasDropdownReducer,
-  QualificationDropdownReducer,
-  UniversitiesForDropdownReducer
+    CountryCodeDropdownReducer,
+    QualificationAliasDropdownReducer,
+    QualificationDeleteReducer,
+    QualificationDropdownReducer,
+    QualificationEditReducer,
+    QualificationPreviewReducer,
+    QualificationSaveReducer,
+    QualificationSearchReducer,
+    UniversitiesForDropdownReducer
 } from './admin-module/qualificationSetupReducer'
+import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
+import {logoutReducer} from './common/logoutReducer';
+import {WeekdaysReducer} from './common/weekdaysReducer';
 
-import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
-import {logoutReducer} from './common/logoutReducer'
 
 export {
     loginReducers,
@@ -89,6 +98,11 @@ export {
     DepartmentListReducer,
     DepartmentPreviewReducer,
     DepartmentSetupReducer,
+    DoctorDutyRosterSaveReducer,
+    DoctorDutyRosterEditReducer,
+    DoctorDutyRosterDeleteReducer,
+    DoctorDutyRosterListReducer,
+    DoctorDutyRosterPreviewReducer,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,
@@ -96,6 +110,7 @@ export {
     AdminSetupReducer,
     loggedInAdminInfoReducer,
     logoutReducer,
+    WeekdaysReducer,
     HospitalDropdownReducer,
     QualificationSaveReducer,
     QualificationEditReducer,

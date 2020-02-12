@@ -1,41 +1,41 @@
-import React, {PureComponent} from 'react'
-import Select from 'react-select'
-import PropTypes from 'prop-types'
-import {Form} from 'react-bootstrap'
-import './hybrid-select.scss'
-import ReactDOM from 'react-dom'
+import React, {PureComponent} from 'react';
+import Select from 'react-select';
+import PropTypes from 'prop-types';
+import {Form} from 'react-bootstrap';
+import './hybrid-select.scss';
+import ReactDOM from 'react-dom';
 
 class CHybridSelect extends PureComponent {
   handleOnBlur = event => {
     ReactDOM.findDOMNode(
       this.refs['select-label'.concat(this.props.id)]
-    ).classList.remove('active')
-  }
+    ).classList.remove('active');
+  };
 
   handleOnFocus = event => {
     ReactDOM.findDOMNode(
       this.refs['select-label'.concat(this.props.id)]
-    ).classList.add('active')
-  }
+    ).classList.add('active');
+  };
 
-  handleMultiOrSingleSelectedValue = event =>{
-  const {isMulti,name} = this.props;
-  return isMulti ? {values:[...event]} : {value:event.value,label:event.label}
-  }
+  handleMultiOrSingleSelectedValue = event => {
+    const {isMulti, name} = this.props;
+    return isMulti ? {values: [...event]} : {value: event.value, label: event.label};
+  };
   handleOnChange = event => {
     event
       ? this.props.onChange({
-          target: {
-            name: this.props.name,
-            ...this.handleMultiOrSingleSelectedValue(event)
-          }
-        })
+        target: {
+          name: this.props.name,
+          ...this.handleMultiOrSingleSelectedValue(event)
+        }
+      })
       : this.props.onChange({
-          target: {name: this.props.name, value: '', label: ''}
-        })
-  }
+        target: {name: this.props.name, value: '', label: ''}
+      });
+  };
 
-  render () {
+  render() {
     const {
       autoFocus,
       backspaceRemovesValue,
@@ -83,7 +83,7 @@ class CHybridSelect extends PureComponent {
       styles,
       theme,
       value
-    } = this.props
+    } = this.props;
     return (
       <>
         <div
@@ -145,7 +145,7 @@ class CHybridSelect extends PureComponent {
           />
         </div>
       </>
-    )
+    );
   }
 }
 
@@ -155,11 +155,12 @@ CHybridSelect.defaultProps = {
   isClearable: true,
   isSearchable: true,
   isMulti: false,
-  onChange: () => {},
+  onChange: () => {
+  },
   openMenuOnClick: true,
   options: [],
   placeholder: 'Select ...'
-}
+};
 
 CHybridSelect.propTypes = {
   autoFocus: PropTypes.bool,
@@ -194,7 +195,7 @@ CHybridSelect.propTypes = {
   menuPosition: PropTypes.string, //absolute fixed
   minMenuHeight: PropTypes.number,
   name: PropTypes.string,
-  noOptionsMessage: PropTypes.string,
+  noOptionsMessage: PropTypes.func,// function returning string
   onChange: PropTypes.func.isRequired,
   onInputChange: PropTypes.func,
   onKeyDown: PropTypes.func,
@@ -212,6 +213,6 @@ CHybridSelect.propTypes = {
   styles: PropTypes.object,
   theme: PropTypes.object,
   value: PropTypes.any
-}
+};
 
-export default CHybridSelect
+export default CHybridSelect;

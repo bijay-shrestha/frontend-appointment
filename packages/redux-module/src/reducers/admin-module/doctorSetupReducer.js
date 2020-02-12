@@ -22,7 +22,9 @@ const {
     CN_LIST_SUCCESS,
     CLEAR_CN_LIST_MESSAGE,
     FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_ERROR,
-    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_SUCCESS
+    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN_SUCCESS,
+    FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
+    FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR
 } = doctorSetupConstants;
 
 const initialState = {
@@ -42,6 +44,7 @@ const initialState = {
     isPreviewLoading: true,
     consultantPreviewErrorMessage: '',
     activeDoctorsForDropdown: [],
+    doctorsBySpecializationForDropdown: [],
     doctorDropdownErrorMessage: '',
 };
 
@@ -250,6 +253,18 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 activeDoctorsForDropdown: [],
+                doctorDropdownErrorMessage: action.payload.errorMessage,
+            };
+        case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                doctorsBySpecializationForDropdown: [...action.payload.data],
+                doctorDropdownErrorMessage: '',
+            };
+        case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                doctorsBySpecializationForDropdown: [],
                 doctorDropdownErrorMessage: action.payload.errorMessage,
             };
         default:

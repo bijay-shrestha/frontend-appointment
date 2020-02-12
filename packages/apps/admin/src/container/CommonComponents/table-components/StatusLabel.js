@@ -3,7 +3,7 @@ import { Badge } from 'react-bootstrap';
 
 class TableAction extends PureComponent {
     render() {
-         console.log('node status',this.props.node);
+         // console.log('node status',this.props.node);
         return (
             <>
                 {this.props.node.data.status ==='Y'?<Badge variant="success">Active</Badge>:<Badge variant="danger">Inactive</Badge>}

@@ -1,7 +1,7 @@
 import React from 'react';
-import {Container, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import DoctorDutyRosterHOC from '../DoctorDutyRosterHOC';
-import {CModal} from "@frontend-appointment/ui-elements";
+import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 import ExistingRooster from './ExistingRoster';
 import AddDoctorInfoForm from "./AddDoctorInfoForm";
@@ -10,48 +10,117 @@ import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
 
 import "./../doctor-duty-roster.scss";
 
-const DoctorDutyRoosterAdd = props => {
-    const DoctorDutyRoosterAdd =
-        DoctorDutyRosterHOC(
-            ({
-                 showExistingRosterModal,
-                 doctorInfoData,
-                 hospitalList,
-                 specializationList,
-                 onEnterKeyPress,
-                 handleInputChange,
-                 handleShowExistingRoster,
-                 specializationDropdownError
-             }) =>
-                <>
-                    <Container className="p-0" fluid>
-                        <Row className="mb-2">
-                            <AddDoctorInfoForm
-                                doctorInfoData={doctorInfoData}
-                                hospitalList={hospitalList}
-                                specializationList={specializationList}
-                                onEnterKeyPress={onEnterKeyPress}
-                                onInputChange={handleInputChange}
-                                specializationDropdownError={specializationDropdownError}
-                            />
-                            <DoctorAvailabilityForm/>
-                        </Row>
-                        <Row>
-                            <DoctorAvailabilityOverrides/>
-                        </Row>
-                    </Container>
-                    <CModal
-                        show={showExistingRosterModal}
-                        modalHeading="Existing Doctor Roster"
-                        size="lg"
-                        bodyChildren={<ExistingRooster/>}
-                        onHide={handleShowExistingRoster}
-                        centered={false}
-                        dialogClassName="preview-modal"
-                        closeButton={true}/>
-                </>,
-            props);
-    return <DoctorDutyRoosterAdd/>
-};
+function DoctorDutyRosterAdd(props) {
+    const DoctorDutyRosterAddSetup = DoctorDutyRosterHOC(({
+                                                              addOverride,
+                                                              dateErrorMessage,
+                                                              doctorAvailabilityData,
+                                                              doctorDropdownErrorMessage,
+                                                              doctorDutyRosterOverrideRequestDTOS,
+                                                              doctorInfoData,
+                                                              doctorList,
+                                                              existingDoctorWeekDaysAvailability,
+                                                              existingOverrides,
+                                                              existingRosterTableData,
+                                                              formValid,
+                                                              getExistingRoster,
+                                                              handleDoctorAvailabilityFormChange,
+                                                              handleEnter,
+                                                              handleInputChange,
+                                                              handleOverrideDutyRoster,
+                                                              handleOverrideFormInputChange,
+                                                              handleShowExistingRoster,
+                                                              handleWholeWeekOff,
+                                                              hasOverrideDutyRoster,
+                                                              hospitalList,
+                                                              isModifyOverride,
+                                                              onModifyOverride,
+                                                              onRemoveOverride,
+                                                              onSaveButtonClick,
+                                                              onViewDetailsExisting,
+                                                              overrideData,
+                                                              setShowAddOverrideModal,
+                                                              showAddOverrideModal,
+                                                              showConfirmModal,
+                                                              showExistingRosterModal,
+                                                              specializationDropdownError,
+                                                              specializationList,
+                                                              activeSpecializationListByHospital,
+                                                              wholeWeekOff,
+                                                          }) =>
+        <div>
+            <Container className="p-0" fluid>
+                <Row className="mb-2">
+                    <AddDoctorInfoForm
+                        doctorInfoData={doctorInfoData}
+                        hospitalList={hospitalList}
+                        specializationList={activeSpecializationListByHospital}
+                        specializationDropdownError={specializationDropdownError}
+                        doctorList={doctorList}
+                        doctorDropdownErrorMessage={doctorDropdownErrorMessage}
+                        onEnterKeyPress={handleEnter}
+                        onInputChange={handleInputChange}
+                        getExistingRoster={getExistingRoster}
+                        existingRosterTableData={existingRosterTableData}
+                        onViewDetailsExisting={onViewDetailsExisting}
+                        existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
+                        existingOverrides={existingOverrides}
+                        dateErrorMessage={dateErrorMessage}
+                    />
+                    <DoctorAvailabilityForm
+                        doctorAvailabilityData={doctorAvailabilityData}
+                        handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
+                        wholeWeekOff={wholeWeekOff}
+                        handleWholeWeekOff={handleWholeWeekOff}
+                        type="ADD"/>
+                </Row>
+                <Row>
+                    <DoctorAvailabilityOverrides
+                        hasOverrideDutyRoster={hasOverrideDutyRoster}
+                        overrideData={overrideData}
+                        doctorDutyRosterOverrideRequestDTOS={doctorDutyRosterOverrideRequestDTOS}
+                        handleOverrideDutyRoster={handleOverrideDutyRoster}
+                        showAddOverrideModal={showAddOverrideModal}
+                        setShowAddOverrideModal={setShowAddOverrideModal}
+                        handleOverrideFormInputChange={handleOverrideFormInputChange}
+                        onEnterKeyPress={handleEnter}
+                        addOverride={addOverride}
+                        onRemove={onRemoveOverride}
+                        onModify={onModifyOverride}
+                        isModifyOverride={isModifyOverride}
+                    />
+                </Row>
+            </Container>
 
-export default DoctorDutyRoosterAdd;
+            <Row className="my-4">
+                <Col
+                    sm={12} md={{span: 3, offset: 9}}>
+                    <CButton
+                        id="save-profile-add"
+                        variant="primary  "
+                        size="xl"
+                        className="float-right btn-action"
+                        name={showConfirmModal ? "Saving" : "Save"}
+                        disabled={!formValid || showConfirmModal}
+                        onClickHandler={onSaveButtonClick}>
+                    </CButton>
+                </Col>
+            </Row>
+            <CModal
+                show={showExistingRosterModal}
+                modalHeading="Existing Doctor Roster"
+                size="lg"
+                bodyChildren={<ExistingRooster
+                    existingRosterTableData={existingRosterTableData}
+                    onViewDetailsExisting={onViewDetailsExisting}
+                    existingDoctorWeekDaysAvailability={existingDoctorWeekDaysAvailability}
+                    existingOverrides={existingOverrides}/>}
+                onHide={handleShowExistingRoster}
+                centered={false}
+                dialogClassName="preview-modal"
+                closeButton={true}/>
+        </div>, props, 'ADD');
+    return <DoctorDutyRosterAddSetup/>
+}
+
+export default DoctorDutyRosterAdd;

@@ -34,7 +34,7 @@ class CLayout extends PureComponent {
      */
 
     componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         //this.updateWidth()
         //window.addEventListener('resize', this.updateWidth.bind(this))
     }

@@ -57,11 +57,11 @@
   },
   {
     "id": 7,
-    "name": "Test",
+    "name": "Reset Password",
     "status": "Y",
-    "parent_role_id": 1,
-    "role_type": "tab",
-    "tabOrder": 2,
+    "parent_role_id": 6,
+    "role_type": "action",
+    "tabOrder": null,
     "isChecked": false
   }
 ]

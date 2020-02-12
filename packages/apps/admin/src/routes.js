@@ -111,11 +111,11 @@ const ManageQualificationComponent = Loadable({
   loading: () => getLoader()
 });
 
-const ManageDoctorComponent =Loadable({
+const ManageDoctorComponent = Loadable({
   loader: () =>
     import('./container/DoctorSetup/Manage/DoctorManage'),
   loading: () => getLoader()
-})
+});
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -159,7 +159,7 @@ export const routes = [
   {
     path: '/admin/generalSetup',
     name: 'General Setup',
-    component:<></>,
+    component: <></>,
     icon: '',
     hasTab: true,
     isLink: false,
@@ -271,7 +271,16 @@ export const routes = [
     'isLink': true
   },
   {
-    path: '/admin/generalSetup/doctordutyroster/add',
+    path: '/admin/doctorDutyRoster',
+    name: 'Doctor Duty Roster',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: false,
+    isTab: false
+  },
+  {
+    path: '/admin/doctorDutyRoster/add',
     name: 'Add',
     component: AddDoctorDutyRosterComponent,
     icon: '',
@@ -280,7 +289,7 @@ export const routes = [
     isTab: true
   },
   {
-    path: '/admin/generalSetup/doctordutyroster/manage',
+    path: '/admin/doctorDutyRoster/manage',
     name: 'Manage',
     component: ManageDoctorDutyRosterComponent,
     icon: '',

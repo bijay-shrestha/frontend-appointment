@@ -29,7 +29,7 @@ const ConfirmDelete = props => {
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'
-                    onClickHandler={props.showModal}
+                    onClickHandler={props.setShowModal}
                 />
 
             </div>

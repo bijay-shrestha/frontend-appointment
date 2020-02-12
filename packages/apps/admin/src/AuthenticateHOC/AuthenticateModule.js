@@ -10,69 +10,69 @@ import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements
 import {LocalStorageSecurity} from '@frontend-appointment/helpers';
 
 const AuthenticateModule = () => {
-  const getTokenFormLocalStorage = () => {
-    let storage = LocalStorageSecurity.localStorageDecoder('auth-token');
-    return storage;
-  }
+    const getTokenFormLocalStorage = () => {
+        let storage = LocalStorageSecurity.localStorageDecoder('auth-token');
+        return storage;
+    }
 
-  const getUserMenusFromLocalStorage = () => {
-    const userMenus =LocalStorageSecurity.localStorageDecoder('userMenus')
-    return userMenus ? userMenus : []
-  }
+    const getUserMenusFromLocalStorage = () => {
+        const userMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
+        return userMenus ? userMenus : []
+    }
 
-  return (
-    <>
-      <Switch>
-          <Route
-            path='/savePassword'
-            component={SetPassword}
-          />
-        <Route
-          path="/"
-          exact
-          component={props => <LoginPage {...props} id="login-form" />}
-        />
-        {routes.map((route, idx) => (
-          <Route
-            key={idx}
-            exact
-            path={route.path}
-            component={AuthenticateHOC(
-              props => (
-                <CLayout
-                  {...props}
-                  dataForBreadCrumb={routes}
-                  userMenus={getUserMenusFromLocalStorage()}
-                  hasTab={route.hasTab}
-                  isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
-                  isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
-                  activeStateKey={route.path}
-                  mainViewComponent={
-                    route.hasTab ? (
-                      ComponentHoc(
-                        route.component,
-                        getUserMenusFromLocalStorage(),
-                        route.path,
-                        props
-                      )
-                    ) : (
-                      <route.component
-                        userMenus={getUserMenusFromLocalStorage()}
-                        path={route.path}
-                      />
-                    )
-                  }
+    return (
+        <>
+            <Switch>
+                <Route
+                    path='/savePassword'
+                    component={SetPassword}
                 />
-              ),
-              getTokenFormLocalStorage
-            )}
-          />
-        ))}
-        <Route path="/loading" component={CFullPageLoading} />
-        <Route key="pageNotFound" exact path="" component={CPageNotFound} />
-      </Switch>
-    </>
-  )
+                <Route
+                    path="/"
+                    exact
+                    component={props => <LoginPage {...props} id="login-form"/>}
+                />
+                {routes.map((route, idx) => (
+                    <Route
+                        key={idx}
+                        exact
+                        path={route.path}
+                        component={AuthenticateHOC(
+                            props => (
+                                <CLayout
+                                    {...props}
+                                    dataForBreadCrumb={routes}
+                                    userMenus={getUserMenusFromLocalStorage()}
+                                    hasTab={route.hasTab}
+                                    isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
+                                    isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
+                                    activeStateKey={route.path}
+                                    mainViewComponent={
+                                        route.hasTab ? (
+                                            ComponentHoc(
+                                                route.component,
+                                                getUserMenusFromLocalStorage(),
+                                                route.path,
+                                                props
+                                            )
+                                        ) : (
+                                            <route.component
+                                                userMenus={getUserMenusFromLocalStorage()}
+                                                path={route.path}
+                                            />
+                                        )
+                                    }
+                                />
+                            ),
+                            getTokenFormLocalStorage
+                        )}
+                    />
+                ))}
+                <Route path="/loading" component={CFullPageLoading}/>
+                <Route key="pageNotFound" exact path="" component={CPageNotFound}/>
+            </Switch>
+        </>
+    )
 }
 
 export default memo(AuthenticateModule)

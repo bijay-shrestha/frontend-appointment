@@ -22,7 +22,9 @@ const {
     SP_LIST_SUCCESS,
     CLEAR_SP_LIST_MESSAGE,
     FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
-    FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_ERROR
+    FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_ERROR
 } = specializationSetupConstants;
 
 const initialState = {
@@ -41,7 +43,8 @@ const initialState = {
     specializationPreviewData: null,
     isPreviewLoading: true,
     specializationPreviewErrorMessage: '',
-    activeSpecializationList: [],
+    activeSpecializationListByHospital: [],
+    allActiveSpecializationList:[],
     dropdownErrorMessage: ''
 };
 
@@ -240,16 +243,28 @@ export const SpecializationDeleteReducer = (
 //sabu
 export const SpecializationDropdownReducer = (state = {...initialState}, action) => {
     switch (action.type) {
+        case FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                activeSpecializationListByHospital: [...action.payload.data],
+                dropdownErrorMessage: ''
+            };
+        case FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                activeSpecializationListByHospital: [],
+                dropdownErrorMessage: action.payload.errorMessage
+            };
         case FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_SUCCESS:
             return {
                 ...state,
-                activeSpecializationList: [...action.payload.data],
+                allActiveSpecializationList: [...action.payload.data],
                 dropdownErrorMessage: ''
             };
         case FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_ERROR:
             return {
                 ...state,
-                activeSpecializationList: [],
+                allActiveSpecializationList: [],
                 dropdownErrorMessage: action.payload.errorMessage
             };
         default:

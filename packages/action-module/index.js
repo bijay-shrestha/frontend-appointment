@@ -6,7 +6,9 @@ import {
     logoutActionConstants,
     LogoutActions,
     MenuActions,
-    userMenusActionConstant
+    userMenusActionConstant,
+    weekdaysActionConstants,
+    WeekdaysActions
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -15,6 +17,8 @@ import {
     doctorSetupConstants,
     DepartmentSetupActions,
     departmentSetupConstants,
+    doctorDutyRosterActionConstants,
+    DoctorDutyRosterActions,
     HospitalSetupActions,
     hospitalSetupConstants,
     ProfileSetupActions,
@@ -32,6 +36,8 @@ export {
     doctorSetupConstants,
     DepartmentSetupActions,
     departmentSetupConstants,
+    doctorDutyRosterActionConstants,
+    DoctorDutyRosterActions,
     HospitalSetupActions,
     hospitalSetupConstants,
     loginActionConstant,
@@ -47,5 +53,7 @@ export {
     logoutActionConstants,
     LogoutActions,
     QualificationSetupActions,
-    qualificationSetupConstants
+    qualificationSetupConstants,
+    weekdaysActionConstants,
+    WeekdaysActions
 }

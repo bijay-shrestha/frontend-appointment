@@ -20,6 +20,7 @@ const CFControl = props => {
         multiple,
         name,
         onChange,
+        onClick,
         pattern,
         placeholder,
         plaintext,
@@ -47,6 +48,7 @@ const CFControl = props => {
             min={min}
             multiple={multiple}
             name={name}
+            onClick={onClick}
             onChange={onChange}
             pattern={pattern}
             placeholder={placeholder}

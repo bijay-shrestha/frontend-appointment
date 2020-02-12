@@ -12,6 +12,9 @@ import * as DepartmentSetupActions from './department-setup/departmentSetupActio
 import {departmentSetupConstants} from "./department-setup/departmentSetupActionConstants";
 import * as QualificationSetupActions from './qualification-setup/qualificationSetupActions';
 import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
+import {doctorDutyRosterActionConstants} from "./doctor-duty-roster/doctorDutyRosterActionConstants";
+import * as DoctorDutyRosterActions from './doctor-duty-roster/doctorDutyRosterActions';
+
 export {
     profileSetupConstants,
     ProfileSetupActions,
@@ -25,6 +28,8 @@ export {
     AdminSetupActions,
     departmentSetupConstants,
     DepartmentSetupActions,
+    doctorDutyRosterActionConstants,
+    DoctorDutyRosterActions,
     QualificationSetupActions,
     qualificationSetupConstants
 }

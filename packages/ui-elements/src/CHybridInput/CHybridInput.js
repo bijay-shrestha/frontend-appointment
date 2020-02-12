@@ -175,7 +175,8 @@ class CHybridInput extends React.PureComponent {
             rows,
             size,
             type,
-            value
+            value,
+            onClick
         } = this.props;
 
         return (
@@ -184,6 +185,7 @@ class CHybridInput extends React.PureComponent {
                     className="field-wrapper hinput"
                     id={'fieldWrapper'.concat(id)}
                     ref={'fieldWrapper'.concat(id)}
+                    onClick={onClick}
                 >
                     <Form.Control
                         _ref={_ref}
@@ -205,6 +207,7 @@ class CHybridInput extends React.PureComponent {
                         onBlur={this.handleOnBlur}
                         onChange={this.handleOnChange}
                         onFocus={this.handleOnFocus}
+                        // onClick={onClick}
                         onKeyDown={onKeyDown}
                         pattern={pattern}
                         plaintext={plaintext}
@@ -220,7 +223,7 @@ class CHybridInput extends React.PureComponent {
                         ref={'fieldPlaceholder'.concat(id)}
                         onClick={this.handlePlaceholderClick}
                     >
-                        <span>{placeholder ? placeholder : 'Enter'}</span>
+                        <span>{placeholder ? placeholder : 'Enter Value'}</span>
                     </div>
                     <Form.Control.Feedback type="invalid" className="err-message">
                         {errorMsg ? errorMsg : this.state.errorMessage}
@@ -260,8 +263,14 @@ CHybridInput.propTypes = {
     required: PropTypes.bool,
     rows: PropTypes.string,
     size: PropTypes.string, // 'sm','lg
-    type: PropTypes.string,
-    value: PropTypes.string
+    type: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
 };
 
 export default CHybridInput
