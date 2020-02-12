@@ -162,7 +162,12 @@
       "parentId": null,
       "name": "Doctor Duty Roster",
       "path": "/doctorDutyRoster",
-      "roles": [2,3,4,5],
+      "roles": [
+        2,
+        3,
+        4,
+        5
+      ],
       "icon": "fa fa-bar-chart",
       "leftNavigation": "Y",
       "checked": false,
@@ -190,7 +195,7 @@
           "id": "11",
           "parentId": "10",
           "name": "Appointment Status",
-          "path": "/appoinmentStatus",
+          "path": "/appointment/appointmentStatus",
           "roles": [
             2,
             3,
@@ -202,14 +207,14 @@
           "order": 1,
           "enabled": "Y",
           "menuFor": "6",
-          "description": "appoinmentStatus",
+          "description": "appointmentStatus",
           "childMenus": []
         },
         {
           "id": "12",
           "parentId": "10",
           "name": "Refund Request List",
-          "path": "/refundRequestList",
+          "path": "/appointment/appointmentRefundRequest",
           "roles": [
             2,
             3,
@@ -229,7 +234,7 @@
           "id": "13",
           "parentId": "10",
           "name": "Appointment Visits",
-          "path": "/appointmentVisits",
+          "path": "/appointment/appointmentVisits",
           "roles": [
             2,
             3,
@@ -249,7 +254,7 @@
           "id": "14",
           "parentId": "10",
           "name": "Appointment Log",
-          "path": "/appointmentLog",
+          "path": "/appointment/appointmentLog",
           "roles": [
             2,
             3,
@@ -263,6 +268,26 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "appointmentLog",
+          "childMenus": []
+        },
+        {
+          "id": "15",
+          "parentId": "10",
+          "name": "Approval List",
+          "path": "/appointment/appointmentApprovalRequest",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "approvalRequestList",
           "childMenus": []
         }
       ]

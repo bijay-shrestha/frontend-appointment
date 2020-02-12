@@ -8,7 +8,7 @@ import {
   CButton,
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
-import * as DefaultLogo from '../img/default-logo.png'
+import * as DefaultLogo from '../img/picture.png'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 
 const DoctorForm = ({
@@ -84,7 +84,7 @@ const DoctorForm = ({
 
               <Col lg={9}>
                 <Row>
-                  <Col sm={12} md={6} lg={6}>
+                  <Col sm={12} md={12} lg={6}>
                     <CHybridSelect
                       id="hospital-Id"
                       name="hospitalId"
@@ -98,6 +98,7 @@ const DoctorForm = ({
                       required={true}
                     />
                   </Col>
+                  <Col sm={12} md={12} lg={6}></Col>
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="doctor-name"
@@ -114,38 +115,10 @@ const DoctorForm = ({
                       errorMessagePassed={errorMessageForDoctorName}
                     />
                   </Col>
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridSelect
-                      id="specializationIds"
-                      name="specializationIds"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={(event, validity) =>
-                        onInputChange(event, validity)
-                      }
-                      label="Select Specialization"
-                      options={activeSpecializationList}
-                      isDisabled={!activeSpecializationList.length?true:false}
-                      value={doctorInfoObj.specializationIds}
-                      required={true}
-                      isMulti={true}
-                    />
-                  </Col>
 
                   <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="nmc-number"
-                      name="nmcNumber"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={(event, validity) =>
-                        onInputChange(event, validity)
-                      }
-                      placeholder="Doctor NMC Number"
-                      value={doctorInfoObj.nmcNumber}
-                      required={true}
-                    />
-                  </Col>
-                  <Col sm={3} md={3} lg={3}>
                     <CFLabel labelName="Gender" id="gender"></CFLabel>
+                    <div>
                     <CRadioButton
                       checked={doctorInfoObj.genderCode==="M"}
                       onKeyDown={event => onEnterKeyPress(event)}
@@ -175,23 +148,41 @@ const DoctorForm = ({
                       label="Other"
                       type="radio"
                       value="O"
-                    />
+                    /></div>
                   </Col>
+                 
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
-                      id="doctor-email"
-                      name="email"
+                      id="nmc-number"
+                      name="nmcNumber"
                       onKeyDown={event => onEnterKeyPress(event)}
                       onChange={(event, validity) =>
                         onInputChange(event, validity)
                       }
-                      placeholder="Doctor Email"
-                      value={doctorInfoObj.email}
-                      type="email"
+                      placeholder="Doctor NMC Number"
+                      value={doctorInfoObj.nmcNumber}
                       required={true}
                     />
                   </Col>
+                  <Col sm={12} md={6} lg={6}>
+                    <CHybridSelect
+                      id="specializationIds"
+                      name="specializationIds"
+                      onKeyDown={event => onEnterKeyPress(event)}
+                      onChange={(event, validity) =>
+                        onInputChange(event, validity)
+                      }
+                      label="Select Specialization"
+                      options={activeSpecializationList}
+                      isDisabled={!activeSpecializationList.length?true:false}
+                      value={doctorInfoObj.specializationIds}
+                      required={true}
+                      isMulti={true}
+                    />
+                  </Col>
 
+                 
                   <Col sm={12} md={6} lg={6}>
                     <CHybridSelect
                       id="qualificationIds"
@@ -209,6 +200,22 @@ const DoctorForm = ({
                   </Col>
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
+                      id="doctor-email"
+                      name="email"
+                      onKeyDown={event => onEnterKeyPress(event)}
+                      onChange={(event, validity) =>
+                        onInputChange(event, validity)
+                      }
+                      placeholder="Doctor Email"
+                      value={doctorInfoObj.email}
+                      type="email"
+                      required={true}
+                    />
+                  </Col>
+
+                  
+                  <Col sm={12} md={6} lg={6}>
+                    <CHybridInput
                       id="doctor-number"
                       name="contactNumber"
                       onKeyDown={event => onEnterKeyPress(event)}
@@ -223,8 +230,8 @@ const DoctorForm = ({
                       errorMessagePassed={errorMessageForDoctorContact}
                     />
                   </Col>
-
-                  <Col sm={12} md={6} lg={6}>
+                  
+                  <Col sm={12} md={6} lg={6} className="">
                     <CHybridInput
                       id="appointment-charge"
                       name="appointmentCharge"
@@ -243,6 +250,7 @@ const DoctorForm = ({
 
                   <Col sm={12} md={4} lg={4}>
                     <CFLabel labelName="Status" id="status"></CFLabel>
+                    <div>
                     <CRadioButton
                       checked={Boolean(doctorInfoObj.status)}
                       disabled={true}
@@ -251,7 +259,10 @@ const DoctorForm = ({
                       type="radio"
                       readOnly
                     />
+                    </div>
                   </Col>
+
+                  
                 </Row>
               </Col>
             </Row>

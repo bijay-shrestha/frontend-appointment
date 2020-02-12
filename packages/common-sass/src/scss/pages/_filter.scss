@@ -82,7 +82,7 @@
     transition:max-height 0.3s ease-out; 
     -webkit-transition: max-height 0.3s ease-out; 
     height:auto;
-    max-height:600px; 
+    // max-height:600px; 
     @include border-radius($cogent-radius);
 
     &.collapsed{

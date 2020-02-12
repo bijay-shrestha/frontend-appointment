@@ -9,12 +9,16 @@ class SideBarItem extends PureComponent {
     let collapsed = [],
       active = '',
       activeKey = [],
-      propsActiveKey = ''
-    if (this.props.activeStateKey) {
+      propsActiveKey =this.props.activeStateKey;
+    if (this.props.activeStateKey && this.props.hasTab) {
       propsActiveKey = props.activeStateKey.split('/')
       propsActiveKey = propsActiveKey.slice(2)
       propsActiveKey.pop()
       propsActiveKey = '/' + propsActiveKey.join('/') + true
+    }
+    else{
+      propsActiveKey = propsActiveKey.replace("/admin","");
+      propsActiveKey=propsActiveKey+true;
     }
     collapsed = this.props.localFunc.localStorageDecoder('collapsed') || []
     active = propsActiveKey || ''

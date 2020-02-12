@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-menu-search",
+  "version": "0.0.0",
+  "main": "CMenuSearch.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
