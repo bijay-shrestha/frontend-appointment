@@ -83,6 +83,7 @@ class CLayout extends PureComponent {
                         trees={this.props.userMenus}
                         localFunc={LocalStorageSecurity}
                         activeStateKey={this.props.activeStateKey}
+                        hasTab={this.props.hasTab}
                     />
 
                     {/* Content Wrapper  */}

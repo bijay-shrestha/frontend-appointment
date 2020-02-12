@@ -1,5 +1,11 @@
 import {combineReducers} from 'redux';
 import {
+  AppointmentApprovalListReducer,
+  AppointmentLogListReducer,
+  AppointmentStatusListReducer,
+  AppointmentRefundListReducer,
+  AppointmentRefundReducer,
+  AppointmentRefundRejectReducer,
   AdminDeleteReducer,
   AdminEditReducer,
   AdminListReducer,
@@ -36,6 +42,7 @@ import {
   ProfileListReducer,
   ProfilePreviewReducer,
   ProfileSetupReducer,
+  PatientDropdownListReducer,
   QualificationAliasDropdownReducer,
   QualificationDeleteReducer,
   QualificationDropdownReducer,
@@ -54,12 +61,19 @@ import {
 } from '../reducers';
 
 export const rootReducers = combineReducers({
+  AppointmentApprovalListReducer,
+  AppointmentLogListReducer,
+  AppointmentStatusListReducer,
+  AppointmentRefundListReducer,
+  AppointmentRefundReducer,
+  AppointmentRefundRejectReducer,
   loginReducers: login,
   ProfileSetupReducer,
   ProfileListReducer,
   ProfileDeleteReducer,
   ProfileEditReducer,
   ProfilePreviewReducer,
+  PatientDropdownListReducer,
   SpecializationDeleteReducer,
   SpecializationEditReducer,
   SpecializationPreviewReducer,

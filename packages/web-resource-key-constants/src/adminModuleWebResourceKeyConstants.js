@@ -7,7 +7,8 @@ const PROFILE_BASE = '/profile';
 const QFA_BASE = '/qualificationAlias';
 const CNTRY_BASE = '/country';
 const UN_BASE = '/university';
-
+const PATIENT_BASE="/patient";
+const APPOINTMENT_BASE="/appointment"
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -131,3 +132,16 @@ export const countrySetupAliasCode = {
 export const universitySetupAliasCode = {
   FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE + '/active/min')
 };
+
+export const patientSetupApiConstant = {
+   ACTIVE_PATIENT_META_INFO_DETAILS:BASE.concat(PATIENT_BASE+"metaInfo/active/min")
+}
+
+export const appointmentSetupApiConstant ={
+    APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
+    APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund"),
+    APPOINTMENT_REJECT_REFUND_EDIT:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
+    APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
+    APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
+    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval")
+}

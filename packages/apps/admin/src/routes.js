@@ -45,8 +45,23 @@ const AddDoctorComponent = Loadable({
     loading: () => getLoader()
 });
 
+const AppointmentRefundListComponent = Loadable({
+    loader: () => import('./container/AppointmentRefund/AppointmentRefund'),
+    loading: () => getLoader()
+});
+
+const AppointmentApprovalListComponent = Loadable({
+    loader: () => import('./container/AppointmentApproval/AppointmentApproval'),
+    loading: () => getLoader()
+});
+
 const AppointmentStatusComponent = Loadable({
     loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
+    loading: () => getLoader()
+});
+
+const AppointmentLogListComponent = Loadable({
+    loader: () => import('./container/AppointmentLog/AppointmentLog'),
     loading: () => getLoader()
 });
 /* ****** B ***** */
@@ -78,7 +93,6 @@ const DashboardComponent = Loadable({
 /* ****** L ***** */
 
 /* ****** M ***** */
-
 
 const ManageProfileComponent = Loadable({
     loader: () => import('./container/ProfileSetup/Manage/ProfileManage'),
@@ -253,28 +267,28 @@ export const routes = [
         isLink: true
     },
     {
-        'path': '/admin/generalSetup/admin-setup',
-        'name': 'Admin Setup',
-        'component': <></>,
-        'icon': '',
-        'hasTab': true,
-        'isLink': true
+        path: '/admin/generalSetup/admin-setup',
+        name: 'Admin Setup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true
     },
     {
-        'path': '/admin/generalSetup/admin-setup/add',
-        'name': 'Add',
-        'component': AddAdminComponent,
-        'icon': '',
-        'hasTab': true,
-        'isLink': true
+        path: '/admin/generalSetup/admin-setup/add',
+        name: 'Add',
+        component: AddAdminComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true
     },
     {
-        'path': '/admin/generalSetup/admin-setup/manage',
-        'name': 'Manage',
-        'component': ManageAdminComponent,
-        'icon': '',
-        'hasTab': true,
-        'isLink': true
+        path: '/admin/generalSetup/admin-setup/manage',
+        name: 'Manage',
+        component: ManageAdminComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true
     },
     {
         path: '/admin/doctorDutyRoster',
@@ -356,7 +370,6 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Setup'
-
     },
     {
         path: '/admin/generalSetup/doctor',
@@ -366,7 +379,6 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Doctor'
-
     },
     {
         path: '/admin/generalSetup/doctor/add',
@@ -376,7 +388,6 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add'
-
     },
     {
         path: '/admin/generalSetup/doctor/manage',
@@ -386,7 +397,6 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage'
-
     },
     {
         path: '/admin/doctorDutyRoster',
@@ -396,7 +406,33 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Doctor Duty Roster Setup'
-
+    },
+    {
+        path: '/admin/appointment/appointmentRefundRequest',
+        component: AppointmentRefundListComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Appointment Refund'
+    },
+    {
+        path: '/admin/appointment/appointmentApprovalRequest',
+        component: AppointmentApprovalListComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Appointment Approval'
+    },
+    {
+        path: '/admin/appointment/appointmentLog',
+        component: AppointmentLogListComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Appointment Log'
     },
     {
         path: '/admin/appointment/appointmentStatus',
@@ -406,15 +442,14 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Status'
-
     },
     {
-        'path': '/unauthorized',
-        'component': CUnauthorized,
-        'icon': '',
-        'hasTab': false,
-        'isLink': false,
-        'isTab': false,
-        'name': 'Unauthorized'
+        path: '/unauthorized',
+        component: CUnauthorized,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Unauthorized'
     }
-];
+]

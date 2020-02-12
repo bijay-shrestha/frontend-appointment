@@ -30,15 +30,15 @@ export const isFirstTimeGreaterThanSecond = (time1, time2) => {
 
 export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
     let dateValue = new Date(fromDate);
-    let daysIncluded = [];
+    let daysIncluded = new Set();
     while (dateValue <= toDate) {
         let day = getDayOfWeek(dateValue);
         let weekDayData = weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase());
         weekDayData.weekDaysName = day;
-        daysIncluded.push(weekDayData);
+        daysIncluded.add(weekDayData);
         dateValue = addDate(dateValue, 1);
     }
-    return daysIncluded.sort((first, second) => first.weekDaysId - second.weekDaysId);
+    return Array.from(daysIncluded).sort((first, second) => first.weekDaysId - second.weekDaysId);
 };
 
 export const getDayOfWeek = (date) => {

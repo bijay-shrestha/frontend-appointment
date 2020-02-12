@@ -59,6 +59,8 @@ const AuthenticateModule = () => {
                                             <route.component
                                                 userMenus={getUserMenusFromLocalStorage()}
                                                 path={route.path}
+                                                {...props}
+                                                hasTab={route.hasTab}
                                             />
                                         )
                                     }

@@ -23,15 +23,17 @@ import {
     previewAdmin,
     previewProfile,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    PatientDetailsMiddleware
 } from "./src/admin-middleware";
 import {fetchUserMenus} from "./src/menu-middleware"
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware';
 import {logoutUser} from "./src/logout-middleware";
 import {changePassword, resetPassword, savePassword, verifyToken} from './src/password-save-middleware';
 import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware';
-
+import * as AppointmentDetailsMiddleware from './src/appointment-details-middleware/appointmentDetailsMiddleware';
 export {
+    AppointmentDetailsMiddleware,
     changePassword,
     clearAdminSuccessErrorMessagesFromStore,
     clearErrorMessageForDropdown,
@@ -64,5 +66,6 @@ export {
     SpecializationSetupMiddleware,
     QualificationSetupMiddleware,
     verifyToken,
-    WeekdaysMiddleware
+    WeekdaysMiddleware,
+    PatientDetailsMiddleware
 }
