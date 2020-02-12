@@ -14,10 +14,10 @@ export const createDoctorDutyRoster = (path, doctorDutyRosterData) => async disp
     }
 };
 
-export const fetchDoctorDutyRosterList = (path, searchData) => async dispatch => {
+export const fetchDoctorDutyRosterList = (path, searchData, pageObj) => async dispatch => {
     dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterPending());
     try {
-        const response = await Axios.put(path, searchData);
+        const response = await Axios.putWithPagination(path, searchData, pageObj);
         dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterSuccess(response.data));
         return response.data;
     } catch (e) {
@@ -67,7 +67,7 @@ export const deleteDoctorDutyRoster = (path, deleteRosterData) => async dispatch
 };
 
 export const fetchExistingDoctorDutyRoster = (path, requestDTO) => async dispatch => {
-    // TODO Add action and reducers
+    // TODO Add action and reducers?
     try {
         const response = await Axios.put(path, requestDTO);
         return response.data;
@@ -83,4 +83,44 @@ export const fetchExistingDoctorDutyRosterDetails = (path, doctorDutyRosterId) =
     } catch (e) {
         throw e;
     }
+};
+
+export const updateDoctorDutyRosterOverride = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.put(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const revertDoctorDutyRosterOverrideUpdate = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.put(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const deleteDoctorDutyRosterOverride = (path, data) => async dispatch => {
+    try {
+        const response = await Axios.del(path, data);
+        return response.data;
+    } catch (e) {
+        throw e;
+    }
+};
+
+export const clearDDRSuccessErrorMessage = () => async dispatch => {
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterCreateSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDeleteSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterDetailSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterSearchSuccessMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateErrorMessage());
+    dispatch(DoctorDutyRosterActions.clearDoctorDutyRosterUpdateSuccessMessage());
 };

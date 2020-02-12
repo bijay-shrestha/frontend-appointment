@@ -40,6 +40,11 @@ const AddSpecializationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const AddDoctorComponent = Loadable({
+    loader: () => import('./container/DoctorSetup/Add/DoctorAdd'),
+    loading: () => getLoader()
+});
+
 const AppointmentStatusComponent = Loadable({
     loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
     loading: () => getLoader()
@@ -73,7 +78,6 @@ const DashboardComponent = Loadable({
 /* ****** L ***** */
 
 /* ****** M ***** */
-
 
 
 const ManageProfileComponent = Loadable({
@@ -113,6 +117,11 @@ const ManageQualificationComponent = Loadable({
     loading: () => getLoader()
 });
 
+const ManageDoctorComponent = Loadable({
+    loader: () =>
+        import('./container/DoctorSetup/Manage/DoctorManage'),
+    loading: () => getLoader()
+});
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -347,6 +356,46 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Setup'
+
+    },
+    {
+        path: '/admin/generalSetup/doctor',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Doctor'
+
+    },
+    {
+        path: '/admin/generalSetup/doctor/add',
+        component: AddDoctorComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add'
+
+    },
+    {
+        path: '/admin/generalSetup/doctor/manage',
+        component: ManageDoctorComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+
+    },
+    {
+        path: '/admin/doctorDutyRoster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Doctor Duty Roster Setup'
 
     },
     {

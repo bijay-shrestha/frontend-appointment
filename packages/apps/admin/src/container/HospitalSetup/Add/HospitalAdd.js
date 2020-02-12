@@ -6,8 +6,8 @@ import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc'
 
-function SpecializationAdd (props) {
-  const SpecializationAdd = HospitalHoc(
+function HospitalAdd (props) {
+  const HospitalAddSetup = HospitalHoc(
     ({
       hospitalData,
       handleEnter,
@@ -113,8 +113,6 @@ function SpecializationAdd (props) {
     ),
     props
   )
-  return <SpecializationAdd />
+  return <HospitalAddSetup/>
 }
-// return <SpecializationAdd></SpecializationAdd>
-
-export default SpecializationAdd
+export default HospitalAdd;

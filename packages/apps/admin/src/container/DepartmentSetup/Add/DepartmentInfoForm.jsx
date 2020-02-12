@@ -64,6 +64,7 @@ const DepartmentInfoForm = ({
 
                         <Col sm={12} md={4} lg={4}>
                             <CFLabel labelName="Status" id="status"/>
+                            <div>
                             <CRadioButton
                                 checked={Boolean(departmentInfoObj.status)}
                                 disabled={true}
@@ -81,6 +82,7 @@ const DepartmentInfoForm = ({
                                 className="sr-only"
                                 readOnly
                             />
+                            </div>
                         </Col>
                     </Row>
                 </CForm>

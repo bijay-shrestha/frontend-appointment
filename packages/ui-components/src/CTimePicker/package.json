@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-time-picker",
+  "version": "1.0.0",
+  "main": "CTimePicker.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

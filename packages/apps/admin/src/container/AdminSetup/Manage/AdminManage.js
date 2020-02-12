@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import AdminSetupSearchFilter from "./AdminSetupSearchFilter";
-import { ConnectHoc } from "@frontend-appointment/commons";
+import {ConnectHoc} from "@frontend-appointment/commons";
 import {
     clearAdminSuccessErrorMessagesFromStore,
     deleteAdmin,
@@ -16,29 +16,35 @@ import {
     previewProfile,
     resetPassword,
 } from "@frontend-appointment/thunk-middleware";
-import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-constants';
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import AdminDetailsDataTable from "./AdminDetailsDataTable";
-import { CAlert, CLoading } from "@frontend-appointment/ui-elements";
+import {CAlert, CLoading} from "@frontend-appointment/ui-elements";
 import AdminEditModal from "./AdminEditModal";
-import { AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils,TryCatchHandler } from "@frontend-appointment/helpers";
+import {
+    AdminSetupUtils,
+    EnterKeyPressUtils,
+    menuRoles,
+    ProfileSetupUtils,
+    TryCatchHandler
+} from "@frontend-appointment/helpers";
 import PasswordResetModal from "./PasswordResetModal";
 import "./../admin-setup.scss";
 import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
-const { SEARCH_ADMIN, FETCH_ADMIN_DETAILS, EDIT_ADMIN, DELETE_ADMIN, FETCH_ADMIN_META_INFO, RESET_PASSWORD } =
+const {SEARCH_ADMIN, FETCH_ADMIN_DETAILS, EDIT_ADMIN, DELETE_ADMIN, FETCH_ADMIN_META_INFO, RESET_PASSWORD} =
     AdminModuleAPIConstants.adminSetupAPIConstants;
 
-const { FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, FETCH_PROFILE_DETAILS } =
+const {FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN, FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, FETCH_PROFILE_DETAILS} =
     AdminModuleAPIConstants.profileSetupAPIConstants;
 
-const { FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL } =
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 
-const { FETCH_HOSPITALS_FOR_DROPDOWN } = AdminModuleAPIConstants.hospitalSetupApiConstants;
+const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
-const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 
-const { fetchActiveDepartmentsByHospitalId, fetchActiveDepartmentsForDropdown } = DepartmentSetupMiddleware;
+const {fetchActiveDepartmentsByHospitalId, fetchActiveDepartmentsForDropdown} = DepartmentSetupMiddleware;
 
 class AdminManage extends PureComponent {
     state = {
@@ -58,7 +64,7 @@ class AdminManage extends PureComponent {
             department: '',
             profile: '',
             genderCode: '',
-            status: { value: 'A', label: 'All' }
+            status: {value: 'A', label: 'All'}
         },
         queryParams: {
             page: 0,
@@ -96,7 +102,9 @@ class AdminManage extends PureComponent {
             remarks: '',
             fullNameValid: true,
             emailValid: true,
-            mobileNumberValid: true
+            mobileNumberValid: true,
+            departmentList: [],
+            profileList: []
         },
         errorMessageForAdminName: 'Admin Name should not contain special characters.',
         errorMessageForAdminMobileNumber: 'Mobile number should be of 10 digits.',
@@ -160,20 +168,20 @@ class AdminManage extends PureComponent {
         })
     };
 
-    setImageShowModal = () => this.setState({ showImageUploadModal: !this.state.showImageUploadModal });
+    setImageShowModal = () => this.setState({showImageUploadModal: !this.state.showImageUploadModal});
 
     setStateValuesForSearch = (key, value, label) => {
         label ? (value ? this.setState({
-            searchParameters: {
-                ...this.state.searchParameters,
-                [key]: { value, label }
-            }
-        }) : this.setState({
-            searchParameters: { ...this.state.searchParameters, [key]: null }
-        })
-        )
+                    searchParameters: {
+                        ...this.state.searchParameters,
+                        [key]: {value, label}
+                    }
+                }) : this.setState({
+                    searchParameters: {...this.state.searchParameters, [key]: null}
+                })
+            )
             : this.setState({
-                searchParameters: { ...this.state.searchParameters, [key]: value }
+                searchParameters: {...this.state.searchParameters, [key]: value}
             });
     };
 
@@ -182,7 +190,7 @@ class AdminManage extends PureComponent {
             this.setState({
                 adminUpdateData: {
                     ...this.state.adminUpdateData,
-                    [key]: { value, label }
+                    [key]: {value, label}
                 }
             })
             : this.setState({
@@ -227,14 +235,14 @@ class AdminManage extends PureComponent {
             adminUpdateData: {
                 ...this.state.adminUpdateData,
                 id: id,
-                hospital: { ...hospital },
-                department: { ...department },
-                profile: { ...profile },
+                hospital: {...hospital},
+                department: {...department},
+                profile: {...profile},
                 fullName: fullName,
                 username: username,
                 email: email,
                 mobileNumber: mobileNumber,
-                adminCategory: { ...adminCategory },
+                adminCategory: {...adminCategory},
                 genderCode: genderCode,
                 status: status,
                 hasMacBinding: hasMacBinding,
@@ -336,7 +344,7 @@ class AdminManage extends PureComponent {
                 department: null,
                 profile: null,
                 genderCode: null,
-                status: { value: 'A', label: 'All' }
+                status: {value: 'A', label: 'All'}
             },
         });
         this.searchAdmins();
@@ -362,8 +370,16 @@ class AdminManage extends PureComponent {
             let value = event.target.type === "checkbox" ? event.target.checked : event.target.value;
             let label = event.target.label;
             await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
-            if (fieldName === "hasMacBinding") {
-                this.addMacIdObjectToMacIdList(value);
+            switch (fieldName) {
+                case "hospital":
+                    this.actionsOnHospitalChange(value);
+                    break;
+                case "department":
+                    this.actionsOnDepartmentChange(value);
+                    break;
+                case "hasMacBinding":
+                    this.addMacIdObjectToMacIdList(value);
+                    break;
             }
             this.checkFormValidity();
         }
@@ -432,8 +448,8 @@ class AdminManage extends PureComponent {
                 label: event.target.label,
                 value: event.target.value
             };
-            modules[index].profileSelected = { ...profileObj };
-            currentUpdatedModulesAndProfile[index].profileSelected = { ...profileObj }
+            modules[index].profileSelected = {...profileObj};
+            currentUpdatedModulesAndProfile[index].profileSelected = {...profileObj}
         } else {
             modules[index].profileSelected = null;
             currentUpdatedModulesAndProfile[index].profileSelected = null;
@@ -443,7 +459,7 @@ class AdminManage extends PureComponent {
     };
 
     handleImageSelect = imageUrl => {
-        imageUrl && this.setState({ adminImage: imageUrl })
+        imageUrl && this.setState({adminImage: imageUrl})
     };
 
     handleCropImage = (croppedImageUrl) => {
@@ -490,7 +506,7 @@ class AdminManage extends PureComponent {
 
     onDeleteHandler = async id => {
         this.props.clearAdminSuccessErrorMessagesFromStore();
-        let deleteRequestDTO = { ...this.state.deleteRequestDTO };
+        let deleteRequestDTO = {...this.state.deleteRequestDTO};
         deleteRequestDTO['id'] = id;
         await this.setState({
             deleteRequestDTO: deleteRequestDTO,
@@ -534,7 +550,7 @@ class AdminManage extends PureComponent {
             if (!selfDelete) {
                 await this.setState({
                     deleteModalShow: false,
-                    deleteRequestDTO: { id: 0, remarks: '', status: 'D' },
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "success",
@@ -587,8 +603,8 @@ class AdminManage extends PureComponent {
 
 
     deleteRemarksHandler = event => {
-        const { name, value } = event.target;
-        let deleteRequest = { ...this.state.deleteRequestDTO };
+        const {name, value} = event.target;
+        let deleteRequest = {...this.state.deleteRequestDTO};
         deleteRequest[name] = value;
         this.setState({
             deleteRequestDTO: deleteRequest
@@ -624,7 +640,7 @@ class AdminManage extends PureComponent {
     };
 
     searchAdmins = async (page) => {
-        const { metaInfo, hospital, department, profile, genderCode, status, } = this.state.searchParameters;
+        const {metaInfo, hospital, department, profile, genderCode, status,} = this.state.searchParameters;
         let searchData = {
             adminMetaInfoId: metaInfo && metaInfo.value,
             hospitalId: hospital && hospital.value,
@@ -663,7 +679,7 @@ class AdminManage extends PureComponent {
             id, hospital, profile, fullName, email, mobileNumber, adminCategory, status, hasMacBinding,
             adminAvatar, remarks, adminAvatarUrlNew, genderCode
         } = this.state.adminUpdateData;
-        const { updatedMacIdList } = this.state;
+        const {updatedMacIdList} = this.state;
 
         let macAddressList = [];
         if (updatedMacIdList.length) {
@@ -718,6 +734,55 @@ class AdminManage extends PureComponent {
         }
     };
 
+    actionsOnHospitalChange = async value => {
+        if (value) {
+            await this.fetchDepartmentsByHospitalId(value);
+            const {departmentsByHospital} = this.props.DepartmentSetupReducer;
+            this.setState({
+                adminUpdateData: {
+                    ...this.state.adminUpdateData,
+                    department: null,
+                    profile: null,
+                    departmentList: departmentsByHospital ? departmentsByHospital : [],
+                    profileList: []
+                }
+
+            })
+        } else {
+            this.setState({
+                adminUpdateData: {
+                    ...this.state.adminUpdateData,
+                    department: null,
+                    profile: null,
+                    departmentList: [],
+                    profileList: []
+                }
+            })
+        }
+    };
+
+    actionsOnDepartmentChange = async value => {
+        if (value) {
+            await this.fetchProfilesByDepartmentId(value);
+            const {activeProfilesByDepartmentId} = this.props.ProfileSetupReducer;
+            this.setState({
+                adminUpdateData: {
+                    ...this.state.adminUpdateData,
+                    profile: null,
+                    profileList: activeProfilesByDepartmentId ? activeProfilesByDepartmentId : [],
+                }
+            })
+        } else {
+            this.setState({
+                adminUpdateData: {
+                    ...this.state.adminUpdateData,
+                    profile: null,
+                    profileList: []
+                }
+            })
+        }
+    };
+
     prepareDataForPreview = adminData => {
         let macIDs = [];
         if (adminData) {
@@ -732,9 +797,9 @@ class AdminManage extends PureComponent {
 
             return {
                 id: id,
-                hospital: { label: hospitalName, value: hospitalId },
-                department: { label: departmentName, value: departmentId },
-                profile: { label: profileName, value: profileId },
+                hospital: {label: hospitalName, value: hospitalId},
+                department: {label: departmentName, value: departmentId},
+                profile: {label: profileName, value: profileId},
                 fullName: fullName,
                 username: username,
                 email: email,
@@ -816,7 +881,7 @@ class AdminManage extends PureComponent {
             profileData, errorMessage
         } = this.state;
 
-        const { activeProfilesForDropdown } = this.props.ProfileSetupReducer;
+        const {activeProfilesForDropdown} = this.props.ProfileSetupReducer;
 
         const {
             isSearchLoading,
@@ -824,15 +889,15 @@ class AdminManage extends PureComponent {
             searchErrorMessage
         } = this.props.AdminListReducer;
 
-        const { adminErrorMessage, isAdminEditLoading } = this.props.AdminEditReducer;
+        const {adminErrorMessage, isAdminEditLoading} = this.props.AdminEditReducer;
 
-        const { deleteErrorMessage } = this.props.AdminDeleteReducer;
+        const {deleteErrorMessage} = this.props.AdminDeleteReducer;
 
-        const { adminMetaInfoForDropdown } = this.props.AdminSetupReducer;
+        const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer;
 
-        const { hospitalsForDropdown } = this.props.HospitalDropdownReducer;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
-        const { departments, departmentsByHospital } = this.props.DepartmentSetupReducer;
+        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 
         return <>
             <div className="">
@@ -873,40 +938,40 @@ class AdminManage extends PureComponent {
                 />
             </div>
             {showEditModal &&
-                <AdminEditModal
-                    adminUpdateData={adminUpdateData}
-                    onEnterKeyPress={this.handleEnter}
-                    onInputChange={this.handleOnChange}
-                    onMacIdChange={this.handleMacIdChange}
-                    onAddMoreMacId={this.handleAddMoreMacId}
-                    onRemoveMacId={this.handleRemoveMacId}
-                    onModuleChange={this.handleModuleChange}
-                    onProfileChange={this.handleProfileChange}
-                    errorMessageForAdminName={errorMessageForAdminName}
-                    errorMessageForAdminMobileNumber={errorMessageForAdminMobileNumber}
-                    showModal={showEditModal}
-                    showImageUploadModal={showImageUploadModal}
-                    setImageShowModal={this.setImageShowModal}
-                    setShowModal={this.resetImageIfSelectedOnCloseOrCancel}
-                    onImageUpload={(data) => this.handleImageUpload(data)}
-                    adminImage={adminImage}
-                    adminCroppedImage={adminImageCroppedUrl}
-                    onImageSelect={this.handleImageSelect}
-                    onImageCrop={this.handleCropImage}
-                    editApiCall={this.editApiCall}
-                    errorMessage={adminErrorMessage || errorMessage}
-                    viewProfileDetails={this.handleViewProfileDetails}
-                    isAdminEditLoading={isAdminEditLoading}
-                />
+            <AdminEditModal
+                adminUpdateData={adminUpdateData}
+                onEnterKeyPress={this.handleEnter}
+                onInputChange={this.handleOnChange}
+                onMacIdChange={this.handleMacIdChange}
+                onAddMoreMacId={this.handleAddMoreMacId}
+                onRemoveMacId={this.handleRemoveMacId}
+                onModuleChange={this.handleModuleChange}
+                onProfileChange={this.handleProfileChange}
+                errorMessageForAdminName={errorMessageForAdminName}
+                errorMessageForAdminMobileNumber={errorMessageForAdminMobileNumber}
+                showModal={showEditModal}
+                showImageUploadModal={showImageUploadModal}
+                setImageShowModal={this.setImageShowModal}
+                setShowModal={this.resetImageIfSelectedOnCloseOrCancel}
+                onImageUpload={(data) => this.handleImageUpload(data)}
+                adminImage={adminImage}
+                adminCroppedImage={adminImageCroppedUrl}
+                onImageSelect={this.handleImageSelect}
+                onImageCrop={this.handleCropImage}
+                editApiCall={this.editApiCall}
+                errorMessage={adminErrorMessage || errorMessage}
+                viewProfileDetails={this.handleViewProfileDetails}
+                isAdminEditLoading={isAdminEditLoading}
+            />
             }
             {showPasswordResetModal &&
-                <PasswordResetModal
-                    showPasswordResetModal={showPasswordResetModal}
-                    setShowModal={this.setShowModal}
-                    resetPassword={this.resetPassword}
-                    passwordResetData={passwordResetDTO}
-                    errorMessage={passwordResetError}
-                />
+            <PasswordResetModal
+                showPasswordResetModal={showPasswordResetModal}
+                setShowModal={this.setShowModal}
+                resetPassword={this.resetPassword}
+                passwordResetData={passwordResetDTO}
+                errorMessage={passwordResetError}
+            />
             }
             {
                 showProfileDetailModal &&
@@ -914,17 +979,17 @@ class AdminManage extends PureComponent {
                     showModal={showProfileDetailModal}
                     setShowModal={this.closeProfileDetailsViewModal}
                     profileData={profileData}
-                    rolesJson={menuRoles} />
+                    rolesJson={menuRoles}/>
             }
             <CAlert id="admin-manage"
-                variant={this.state.alertMessageInfo.variant}
-                show={this.state.showAlert}
-                onClose={this.closeAlert}
-                alertType={this.state.alertMessageInfo.variant === "success" ?
-                    <><i className="fa fa-check-circle" aria-hidden="true"> </i></>
-                    : <><i className="fa fa-exclamation-triangle" aria-hidden="true"> </i>
-                    </>}
-                message={this.state.alertMessageInfo.message}
+                    variant={this.state.alertMessageInfo.variant}
+                    show={this.state.showAlert}
+                    onClose={this.closeAlert}
+                    alertType={this.state.alertMessageInfo.variant === "success" ?
+                        <><i className="fa fa-check-circle" aria-hidden="true"> </i></>
+                        : <><i className="fa fa-exclamation-triangle" aria-hidden="true"> </i>
+                        </>}
+                    message={this.state.alertMessageInfo.message}
             />
         </>
     }

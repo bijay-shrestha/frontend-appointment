@@ -22,7 +22,9 @@ const {
     SP_PREVIEW_SUCCESS,
     CLEAR_SP_LIST_MESSAGE,
     FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_ERROR,
-    FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_SUCCESS
+    FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_SUCCESS
 } = specializationSetupConstants;
 
 export const clearSpecializationCreateMessage = () => {
@@ -216,6 +218,24 @@ export const fetchActiveSpecializationForDropdownSuccess = data => {
 export const fetchActiveSpecializationForDropdownError = errorMessage => {
     return {
         type: FETCH_ACTIVE_SPECIALIZATION_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+
+export const fetchActiveSpecializationHospitalWiseForDropdownSuccess = data => {
+    return {
+        type: FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchActiveSpecializationHospitalWiseForDropdownError = errorMessage => {
+    return {
+        type: FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_ERROR,
         payload: {
             errorMessage
         }

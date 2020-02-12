@@ -1,170 +1,165 @@
-import React, { PureComponent } from 'react';
-import { Col, Container, Row, Form } from "react-bootstrap";
+import React from 'react';
+import {Col, Container, Form, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {
-    CFLabel, CForm, CHybridInput,
-    CHybridSelect, CRadioButton, CInputGroup,
-    CDataTable,
-    CButton, CCheckbox, CModal
-}
-    from "@frontend-appointment/ui-elements";
+import {CHybridInput, CHybridTextArea} from "@frontend-appointment/ui-elements";
+import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
+import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
+import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
 
 
-class ExistingRooster extends PureComponent {
+const EditDoctorDutyRoster = ({
+                                  updateDoctorDutyRosterData,
+                                  onEnterKeyPress,
+                                  onInputChange,
+                                  overrideData,
+                                  handleDoctorAvailabilityFormChange,
+                                  handleOverrideDutyRoster,
+                                  showAddOverrideModal,
+                                  handleOverrideFormInputChange,
+                                  addOverride,
+                                  setShowAddOverrideModal,
+                                  overrideUpdateErrorMessage,
+                                  onModifyOverride,
+                                  isModifyOverride,
+                                  setShowDeleteOverrideModal,
+                                  showDeleteOverrideModal,
+                                  remarksHandler,
+                                  remarks,
+                                  onRemoveOverride,
+                                  deleteOverride,
+                                  deleteOverrideErrorMessage,
+                              }) => {
+    return <>
+        <Container className="p-0" fluid>
+            <Row className="">
+                <Col md={12} lg={5} className="">
+                    <div className="doctor-info bg-white p-4">
+                        <h5 className="title mb-4">Doctor Info</h5>
+                        <Form>
+                            <div className="d-flex">
+                                <CEnglishDatePicker
+                                    id="from-date"
+                                    name="fromDate"
+                                    label="From Date"
+                                    dateFormat="yyyy-MM-dd"
+                                    minDate={0}
+                                    showDisabledMonthNavigation={true}
+                                    selected={updateDoctorDutyRosterData.fromDate}
+                                    peekNextMonth={true}
+                                    showMonthDropdown={true}
+                                    showYearDropdown={true}
+                                    dropdownMode="select"
+                                    disabled={true}
+                                    onChange={() => {
+                                    }}
+                                />
+                                &nbsp;&nbsp;
+                                <CEnglishDatePicker
+                                    id="to-date"
+                                    name="toDate"
+                                    label="To Date"
+                                    dateFormat="yyyy-MM-dd"
+                                    minDate={0}
+                                    showDisabledMonthNavigation={true}
+                                    selected={updateDoctorDutyRosterData.toDate}
+                                    peekNextMonth={true}
+                                    showMonthDropdown={true}
+                                    showYearDropdown={true}
+                                    dropdownMode="select"
+                                    disabled={true}
+                                    onChange={() => {
+                                    }}
+                                />
+                            </div>
 
+                            <CHybridInput
+                                id="hospital"
+                                label="Hospital"
+                                name="hospital"
+                                placeholder="Hospital"
+                                value={updateDoctorDutyRosterData.hospital && updateDoctorDutyRosterData.hospital.label}
+                                disabled={true}
+                            />
 
-        state={show:false}
-    handleShow=()=>{
-        this.setState(prevState =>({
-            show:!prevState.show
-        }))
-    }
+                            <CHybridInput
+                                id="specialization"
+                                label="Specialization"
+                                name="specialization"
+                                placeholder="Specialization"
+                                value={updateDoctorDutyRosterData.specialization && updateDoctorDutyRosterData.specialization.label}
+                                disabled={true}
+                            />
+                            <CHybridInput
+                                id="doctor"
+                                label="Doctor"
+                                name="doctor"
+                                placeholder="Doctor"
+                                value={updateDoctorDutyRosterData.doctor && updateDoctorDutyRosterData.doctor.label}
+                                disabled={true}
+                            />
+                            <CHybridInput
+                                id="duration"
+                                label="Duration"
+                                type="number"
+                                name="rosterGapDuration"
+                                placeholder="Duration In Minutes."
+                                value={updateDoctorDutyRosterData.rosterGapDuration}
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event)}
+                            />
 
-    render() {
-    const modalBody=(<h1>hi</h1>)
+                            <CHybridTextArea
+                                onChange={onInputChange}
+                                id="remarks"
+                                name="remarks"
+                                placeholder="Remarks"
+                                value={updateDoctorDutyRosterData.remarks}
+                            />
+                        </Form>
+                    </div>
+                </Col>
+                <DoctorAvailabilityForm
+                    doctorAvailabilityData={updateDoctorDutyRosterData.weekDaysDutyRosterUpdateRequestDTOS}
+                    handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
+                    type="MANAGE"
+                />
+            </Row>
 
-        return <>
-            <Container className="p-0" fluid>
-                <Row className="">
+            <Row>
+                <DoctorAvailabilityOverrides
+                    hasOverrideDutyRoster={updateDoctorDutyRosterData.hasOverrideDutyRoster}
+                    overrideData={overrideData}
+                    doctorDutyRosterOverrideRequestDTOS={updateDoctorDutyRosterData.overridesUpdate}
+                    onEnterKeyPress={onEnterKeyPress}
+                    handleOverrideDutyRoster={handleOverrideDutyRoster}
+                    showAddOverrideModal={showAddOverrideModal}
+                    handleOverrideFormInputChange={handleOverrideFormInputChange}
+                    addOverride={addOverride}
+                    setShowAddOverrideModal={setShowAddOverrideModal}
+                    overrideUpdateErrorMessage={overrideUpdateErrorMessage}
+                    onModify={onModifyOverride}
+                    isModifyOverride={isModifyOverride}
+                    onRemove={onRemoveOverride}
+                />
+                {showDeleteOverrideModal ? (
+                    <ConfirmDelete
+                        confirmationMessage="Are you sure you want to delete this Override? If yes please provide remarks."
+                        modalHeader="Delete Override"
+                        showModal={showDeleteOverrideModal}
+                        setShowModal={setShowDeleteOverrideModal}
+                        onDeleteRemarksChangeHandler={remarksHandler}
+                        remarks={remarks}
+                        onSubmitDelete={deleteOverride}
+                        deleteErrorMessage={deleteOverrideErrorMessage}
+                    />
+                ) : (
+                    ''
+                )}
 
-                    <Col md={12} lg={12} className="">
-                        <div className="doctor-availability bg-white p-4">
-                            <h5 className="title">Doctor Availability</h5>
-                            <Row className="header">
-                                <Col> Days</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col>  <CCheckbox id="check-all-menu"
-                                    label="Days Off"
-                                    className="select-all check-all" />
-                                </Col>
-                            </Row>
-                            <Row className="main-content mt-3">
-                                <Col> Sunday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Monday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Tuesday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Wednesday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Thursday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Friday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
-                            <Row className="main-content">
-                                <Col> Saturday</Col>
-                                <Col> Start Time</Col>
-                                <Col> End Time</Col>
-                                <Col> <CCheckbox id="check"
-                                    label="&nbsp;"
-                                    className=" ">
-                                </CCheckbox>
-                                </Col>
-                            </Row>
+            </Row>
+        </Container>
+    </>
+};
 
-                        </div>
-
-
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Col>
-                        <div className="doctor-override bg-white mt-2">
-                            <Row>
-                                <Col> <CCheckbox id="check--override"
-                                    label="Override"
-                                    className="select-all check-all" />
-                                </Col>
-                                <Col>
-                                    <CButton
-                                        id="add-override"
-                                        variant='outline-secondary'
-                                        size='lg'
-                                        name='Add More'
-                                        className="pull-right"
-                                        onClickHandler={this.handleShow}
-                                    >
-                                    </CButton>
-                                </Col>
-                            </Row>
-                        </div>
-
-
-                    </Col>
-                </Row>            
-                </Container>
-
-                <CModal 
-                show={this.state.show}
-                modalHeading="Add Override"
-                size="lg"
-                bodyChildren={modalBody}
-                onHide={this.handleShow}
-                centered={false}
-                dialogClassName="preview-modal"
-                footerChildren={<CButton
-                 name="Save"
-                 size="lg"
-                 />}
-                //     id="departmentConfirm"
-                //     variant="primary"
-                //     size="lg"
-                //     className="float-right btn-action"
-                //     onClickHandler={onConfirmClick}/>}
-                closeButton={true}></CModal>
-
-        </>
-    }
-}
-
-export default ExistingRooster
+export default EditDoctorDutyRoster

@@ -1,4 +1,4 @@
-import {rolesFromJson} from '@frontend-appointment/commons'
+import {menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import React, {memo} from 'react'
 import PreviewRoles from '../../CommonComponents/PreviewRoles'
@@ -79,7 +79,7 @@ const ProfileDetails = props => (
                                         ? props.onEditHandler(id)
                                         : props.onPreviewHandler(id)
                                 },
-                                filteredAction:props.filteredActions                            },
+                                filteredAction:props.filteredActions},
                             cellStyle: {overflow: 'visible', 'z-index': '99'}
                         }
                     ]}
