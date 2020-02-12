@@ -13,7 +13,7 @@ import {
   FileExportUtils
 } from '@frontend-appointment/helpers'
 import './appointment-refund.scss'
-import {CAlert} from '@frontend-appointment/ui-elements';
+import {CAlert} from '@frontend-appointment/ui-elements'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 const {
   clearAppointmentRefundPending,
@@ -56,23 +56,25 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         size: 10
       },
       totalRecords: 0,
-      showModal:false,
-      previewData:{},
-      refundRejectRequestDTO:{
-        "appointmentId": "",
-        "remarks": ""
+      showModal: false,
+      previewData: {},
+      refundRejectRequestDTO: {
+        appointmentId: '',
+        remarks: ''
       },
       alertMessageInfo: {
         variant: '',
         message: ''
       },
-      rejectModalShow:false,
-      showAlert:false
+      rejectModalShow: false,
+      showAlert: false,
+      refundConfirmationModal: false,
+      refundAppointmentId: ''
     }
 
-    setShowAlert = () =>{
-      this.setState(prevState =>({
-        showAlert:!prevState.showAlert
+    setShowAlert = () => {
+      this.setState(prevState => ({
+        showAlert: !prevState.showAlert
       }))
     }
     handleEnterPress = event => {
@@ -104,11 +106,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         appointmentNumber,
         fromDate,
         toDate,
-        hospitalId:hospitalId.value||'',
-        patientMetaInfoId:patientMetaInfoId.value||'',
-        patientType:patientType.value||'',
-        specializationId:specializationId.value||'',
-        doctorId:doctorId.value||''
+        hospitalId: hospitalId.value || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        patientType: patientType.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || ''
       }
 
       let updatedPage =
@@ -142,8 +144,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       newRefundList =
         refundList.length &&
         refundList.map((spec, index) => ({
-          appointmentId:spec.appointmentId||'N/A',
-          appointmentTime:spec.appointmentTime||'N/A',
+          appointmentId: spec.appointmentId || 'N/A',
+          appointmentTime: spec.appointmentTime || 'N/A',
           appointmentNumber: spec.appointmentNumber || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           patientName: spec.patientName || 'N/A',
@@ -154,12 +156,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           cancelledDate: spec.cancelledDate || 'N/A',
           refundAmount: spec.refundAmount || 'N/A',
           esewaId: spec.esewaId || 'N/A',
-          remarks:spec.remarks || 'N/A',
-          appointmentDate:spec.appointmentDate||'N/A',
+          remarks: spec.remarks || 'N/A',
+          appointmentDate: spec.appointmentDate || 'N/A',
           sN: index + 1
         }))
-
-      console.log('New RefundList', newRefundList)
       return newRefundList
     }
 
@@ -196,10 +196,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     previewCall = data => {
-        this.setState({
-          previewData:data,
-          showModal:true
-        })
+      this.setState({
+        previewData: data,
+        showModal: true
+      })
     }
 
     callApiForHospitalChange = hospitalId => {
@@ -237,31 +237,62 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     setShowModal = () => {
       this.setState(prevState => ({
-        showModal: !prevState.showModal
+        showModal: false,
+        rejectModalShow: false,
+        refundConfirmationModal: false
       }))
     }
-    refundHandler = (data) =>{
-      try{
-        
-      }catch(e){
 
-      }
-
+    refundHandler = data => {
+      this.setState({
+        refundConfirmationModel: true,
+        refundAppointmentId: data.appointmentId
+      })
     }
-    rejectSubmitHandler = async()=>{
-      try{
-        await this.props.appointmentRejectRefund(appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,this.state.refundRejectRequestDTO)
+
+    refundHandleApi = async () => {
+      try {
+        await this.props.appointmentRefund(
+          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,
+          this.state.refundAppointmentId
+        )
         this.setState({
-        showAlert:true,
-         alertMessageInfo:{
-           variant:'success',
-           message:this.props.AppointmentRefundRejectReducer.refundRejectSuccess,
-         }
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentRefundReducer.refundSuccess
+          }
         })
-      }catch(e){
-        console.log(e);
+      } catch (e) {
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentRefundReducer.refundError
+          }
+        })
       }
     }
+
+    rejectSubmitHandler = async () => {
+      try {
+        await this.props.appointmentRejectRefund(
+          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID,
+          this.state.refundRejectRequestDTO
+        )
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentRefundRejectReducer
+              .refundRejectSuccess
+          }
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    }
+
     refundRejectRemarksHandler = event => {
       const {name, value} = event.target
       let refundReject = {...this.state.refundRejectRequestDTO}
@@ -270,9 +301,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         refundRejectRequestDTO: refundReject
       })
     }
-   
+
     onRejectHandler = async data => {
-     this.props.clearAppointmentRefundRejectMessage()
+      this.props.clearAppointmentRefundRejectMessage()
       let refundReject = {...this.state.refundRejectRequestDTO}
       refundReject['appointmentId'] = data.appointmentId
       await this.setState({
@@ -287,7 +318,18 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     render () {
-      const {searchParameters, queryParams, totalRecords,showModal,previewData,alertMessageInfo,showAlert} = this.state
+      const {
+        searchParameters,
+        queryParams,
+        totalRecords,
+        showModal,
+        previewData,
+        alertMessageInfo,
+        showAlert,
+        rejectModalShow,
+        refundRejectRequestDTO,
+        refundConfirmationModal
+      } = this.state
 
       const {
         isRefundListLoading,
@@ -295,6 +337,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         refundErrorMessage
       } = this.props.AppointmentRefundListReducer
 
+      const {
+        refundRejectError,
+        isRefundLoading
+      } = this.props.AppointmentRefundRejectReducer
       const {
         activeDoctorsForDropdown,
         doctorDropdownErrorMessage
@@ -312,63 +358,72 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       } = this.props.PatientDropdownListReducer
       return (
         <>
-        <ComposedComponent
-          {...this.props}
-          {...props}
-          searchHandler={{
-            handleEnter: this.handleEnterPress,
-            handleSearchFormChange: this.handleSearchFormChange,
-            resetSearch: this.handleSearchFormReset,
-            searchAppointment: this.searchAppointment,
-            handleSearchFormChange: this.handleSearchFormChange,
-            hospitalsDropdown: hospitalsForDropdown,
-            doctorsDropdown: activeDoctorsForDropdown,
-            doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-            activeSpecializationList: activeSpecializationList,
-            specializationDropdownErrorMessage: dropdownErrorMessage,
-            searchParameters: searchParameters,
-            patientListDropdown: patientList,
-            patientDropdownErrorMessage: patientDropdownErrorMessage
-          }}
-          paginationProps={{
-            queryParams: queryParams,
-            totalRecords: totalRecords,
-            handlePageChange: this.handlePageChange
-          }}
-          tableHandler={{
-            isSearchLoading: isRefundListLoading,
-            appointmentRefundList: this.appendSNToTable(refundList),
-            searchErrorMessage: refundErrorMessage,
-            setShowModal:this.setShowModal,
-            showModal:showModal,
-            previewCall:this.previewCall,
-            previewData:previewData
-          }}
-        ></ComposedComponent>
-        <CAlert
-        id="profile-add"
-        variant={alertMessageInfo.variant}
-        show={showAlert}
-        onClose={this.setShowAlert}
-        alertType={
-          alertMessageInfo.variant === 'success' ? (
-            <>
-              <i className="fa fa-check-circle" aria-hidden="true">
-                {' '}
-              </i>
-            </>
-          ) : (
-            <>
-              <i className="fa fa-exclamation-triangle" aria-hidden="true">
-                {' '}
-              </i>
-            </>
-          )
-        }
-        message={alertMessageInfo.message}
-      />
-    </>
-    
+          <ComposedComponent
+            {...this.props}
+            {...props}
+            searchHandler={{
+              handleEnter: this.handleEnterPress,
+              handleSearchFormChange: this.handleSearchFormChange,
+              resetSearch: this.handleSearchFormReset,
+              searchAppointment: this.searchAppointment,
+              handleSearchFormChange: this.handleSearchFormChange,
+              hospitalsDropdown: hospitalsForDropdown,
+              doctorsDropdown: activeDoctorsForDropdown,
+              doctorDropdownErrorMessage: doctorDropdownErrorMessage,
+              activeSpecializationList: activeSpecializationList,
+              specializationDropdownErrorMessage: dropdownErrorMessage,
+              searchParameters: searchParameters,
+              patientListDropdown: patientList,
+              patientDropdownErrorMessage: patientDropdownErrorMessage
+            }}
+            paginationProps={{
+              queryParams: queryParams,
+              totalRecords: totalRecords,
+              handlePageChange: this.handlePageChange
+            }}
+            tableHandler={{
+              isSearchLoading: isRefundListLoading,
+              appointmentRefundList: this.appendSNToTable(refundList),
+              searchErrorMessage: refundErrorMessage,
+              setShowModal: this.setShowModal,
+              showModal: showModal,
+              previewCall: this.previewCall,
+              previewData: previewData,
+              rejectSubmitHandler: this.rejectSubmitHandler,
+              refundRejectRemarksHandler: this.refundRejectRemarksHandler,
+              onRejectHandler: this.onRejectHandler,
+              refundHandler: this.refundHandler,
+              refundHandleApi: this.refundHandleApi,
+              refundRejectError: refundRejectError,
+              isRefundLoading: isRefundLoading,
+              refundConfirmationModal: refundConfirmationModal,
+              rejectModalShow: rejectModalShow,
+              remarks: refundRejectRequestDTO.remarks
+            }}
+          ></ComposedComponent>
+          <CAlert
+            id="profile-add"
+            variant={alertMessageInfo.variant}
+            show={showAlert}
+            onClose={this.setShowAlert}
+            alertType={
+              alertMessageInfo.variant === 'success' ? (
+                <>
+                  <i className="fa fa-check-circle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              ) : (
+                <>
+                  <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              )
+            }
+            message={alertMessageInfo.message}
+          />
+        </>
       )
     }
   }
