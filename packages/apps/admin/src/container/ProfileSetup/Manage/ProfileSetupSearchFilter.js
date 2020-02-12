@@ -165,7 +165,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                     overlay={(props) => <Tooltip {...props}>Profile</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.profile}
+                                        {searchParameters.profile && searchParameters.profile.label}
                                     </Button>
                                 </OverlayTrigger>
 

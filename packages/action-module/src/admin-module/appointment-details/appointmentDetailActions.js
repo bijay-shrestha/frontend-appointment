@@ -34,7 +34,7 @@ export const appointmentRefundFetchingStart = () => {
 export const appointmentRefundFetchingSuccess = data => {
     return {
         type: REFUND_FETCH_SUCCESS,
-        payload:{data}
+        payload: {data}
     }
 };
 
@@ -62,7 +62,7 @@ export const appointmentApprovalFetchingStart = () => {
 export const appointmentApprovalFetchingSuccess = data => {
     return {
         type: APPROVAL_FETCH_SUCCESS,
-        payload:{data}
+        payload: {data}
     }
 };
 
@@ -90,7 +90,7 @@ export const appointmentLogFetchingStart = () => {
 export const appointmentLogFetchingSuccess = data => {
     return {
         type: LOG_FETCH_SUCCESS,
-        payload:{data}
+        payload: {data}
     }
 };
 
@@ -118,7 +118,7 @@ export const appointmentStatusFetchingStart = () => {
 export const appointmentStatusFetchingSuccess = data => {
     return {
         type: STATUS_FETCH_SUCCESS,
-        payload:{data}
+        payload: {data}
     }
 };
 
@@ -126,7 +126,7 @@ export const appointmentStatusFetchingError = message => {
     return {
         type: STATUS_FETCH_ERROR,
         payload: {
-            data: message
+            errorMessage: message
         }
     }
 };
@@ -146,7 +146,7 @@ export const appointmentRefundRejectStart = () => {
 export const appointmentRefundRejectSuccess = message => {
     return {
         type: REFUND_REJECT_SUCCESS,
-        payload:{data:message}
+        payload: {data: message}
     }
 };
 
@@ -168,7 +168,7 @@ export const appointmentRefundStart = () => {
 export const appointmentRefundSuccess = message => {
     return {
         type: REFUND_SUCCESS,
-        payload:{data:message}
+        payload: {data: message}
     }
 };
 

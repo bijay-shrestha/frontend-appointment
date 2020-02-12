@@ -297,7 +297,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             } = this.props.AppointmentRefundListReducer
 
             const {
-                activeDoctorsForDropdown,
+                activeDoctorsByHospitalForDropdown,
                 doctorDropdownErrorMessage
             } = this.props.DoctorDropdownReducer
 
@@ -322,7 +322,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                             resetSearch: this.handleSearchFormReset,
                             searchAppointment: this.searchAppointment,
                             hospitalsDropdown: hospitalsForDropdown,
-                            doctorsDropdown: activeDoctorsForDropdown,
+                            doctorsDropdown: activeDoctorsByHospitalForDropdown,
                             doctorDropdownErrorMessage: doctorDropdownErrorMessage,
                             activeSpecializationList: activeSpecializationListByHospital,
                             specializationDropdownErrorMessage: dropdownErrorMessage,
