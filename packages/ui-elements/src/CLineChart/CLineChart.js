@@ -6,13 +6,17 @@ const LineChart = props => {
 
  
  const options = {
+    animation: {
+        duration: 300, // general animation time
+    },
     responsive: true,
     scaleShowGridLines: true,
     scaleGridLineColor: 'rgba(0,0,0,.05)',
-    scaleGridLineWidth: 2,
-    bezierCurve: true,
-    bezierCurveTension: 0.4,
+    scaleGridLineWidth: 0,
+    bezierCurve: false,
+    bezierCurveTension: 0,
     showLines: true,
+    lineTension:0,
     scales: {
         yAxes: [
             {
@@ -49,4 +53,4 @@ return(
     <Line data={chartFillData} width={width} height={height} options={options} redraw/>
 )
 }
-export default LineChart;
+export default memo(LineChart);

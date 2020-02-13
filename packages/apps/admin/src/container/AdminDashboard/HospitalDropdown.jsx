@@ -3,7 +3,7 @@ import { Col, Form, Row} from 'react-bootstrap'
 import {CHybridSelect} from '@frontend-appointment/ui-elements'
 
 const HospitalDropdownList = props => {
-    const{hospitalDropdown,hospitalId} = props
+    const{hospitalDropdown,hospitalId,handleHospitalChange} = props
   return (
     <Col className="px-0">
       <Form className="hospital-list">
@@ -12,7 +12,7 @@ const HospitalDropdownList = props => {
             Hospital &nbsp;&nbsp;
           </Form.Label>
           <Col sm="10">
-            <CHybridSelect placeholder="Select hospital" options={hospitalDropdown} value={hospitalId}></CHybridSelect>
+            <CHybridSelect name="hospitalId" placeholder="Select hospital" onChange={handleHospitalChange} options={hospitalDropdown} value={hospitalId}></CHybridSelect>
           </Col>
         </Form.Group>
       </Form>

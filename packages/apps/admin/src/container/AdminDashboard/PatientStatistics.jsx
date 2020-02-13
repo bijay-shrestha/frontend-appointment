@@ -11,7 +11,7 @@ const PatientStatistics = props => {
       <h5 className="title">Patient Statistics</h5>
       <div className="overall-box">
         {!isRegisteredPatientLoading &&
-        registeredPatientsData &&
+        registeredPatientsData!==null &&
         !registeredPatientsErrorMessage ? (
           <>
             {' '}

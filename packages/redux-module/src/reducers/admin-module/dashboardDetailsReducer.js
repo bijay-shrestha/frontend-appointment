@@ -25,7 +25,7 @@ const {
 
 const appointmentStatsState = {
   isAppointmentStatsLoading: true,
-  appointmentStatsData: [],
+  appointmentStatsData: null,
   appointmentStatsErrorMessage: ''
 }
 
@@ -73,23 +73,23 @@ export const DashboardAppointmentStatisticsReducer = (
     case DASHBOARD_APPOINTMENT_STATISTICS_START:
       return {
         ...state,
-        isRevenueStatsLoading: true,
-        revenueStatsData: [],
-        revenueStatsErrorMessage: ''
+        isAppointmentStatsLoading: true,
+        appointmentStatsData: null,
+        appointmentStatsErrorMessage: ''
       }
     case DASHBOARD_APPOINTMENT_STATISTICS_SUCCESS:
       return {
         ...state,
-        isRevenueStatsLoading: true,
-        revenueStatsData:action.payload.data,
-        revenueStatsErrorMessage: ''
+        isAppointmentStatsLoading: true,
+        appointmentStatsData: action.payload.data,
+        appointmentStatsErrorMessage: ''
       }
     case DASHBOARD_APPOINTMENT_STATISTICS_ERROR:
       return {
         ...state,
-        isRevenueStatsLoading: true,
-        revenueStatsData: [],
-        revenueStatsErrorMessage: action.payload.data
+        isAppointmentStatsLoading: true,
+        appointmentStatsData: null,
+        appointmentStatsErrorMessage:action.payload.data
       }
     default:
       return {...state}

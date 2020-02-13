@@ -37,11 +37,18 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
         hospitalId: null
       },
-      searchParamsForOverallAppoinmentAndRevenueTrend: {
+      searchParamsForOverallAppoinment: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
         hospitalId: null
-      }
+      },
+      searchParameterForRevenueTrend: {
+        revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+        revToDate: new Date(),
+        revHospitalId: null
+      },
+      revenueFilter:'W',
+      appointmentFilter:'W'
     }
 
     searchHospitalForDropDown = async () => {
@@ -54,83 +61,193 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    callApiForHospitalChange = () => {
-      this.props.fetchDashboardAppointmentStatisticsList(
-        DashboardApiConstant.OVERALL_APPOINTMENTS,
-        this.state.searchParamsForOverallAppoinmentAndRevenueTrend
-      )
-      this.props.fetchDashboardRegisteredPatientList(
-        DashboardApiConstant.REGISTERED_PATIENTS,
-        0
-      )
-      this.props.fetchDashboardRevenueRefundList(
-        DashboardApiConstant.REVENUE_STATISTICS,
-        this.state.searchParamsForOverallAppoinmentAndRevenueTrend
-      )
-      this.props.fetchDashboardRevenueDayList(
-        DashboardApiConstant.REVENUE_GENERATED,
-        {
-          currentToDate: new Date(),
-          currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-          previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
-          previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
-          hospitalId: null
-        }
-      )
-      this.props.fetchDashboardRevenueWeekList(
-        DashboardApiConstant.REVENUE_GENERATED,
-        {
-          currentToDate: new Date(),
-          currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
-          previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 8),
-          previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 15),
-          hospitalId: null
-        }
-      )
-      this.props.fetchDashboardRevenueMonthList(
-        DashboardApiConstant.REVENUE_GENERATED,
-        {
-          currentToDate: new Date(),
-          currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 30),
-          previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
-          previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 61),
-          hospitalId: null
-        }
-      )
+    callApiForHospitalChange = statsType => {
+      const {
+        hospitalId,
+        fromDate,
+        toDate
+      } = this.state.searchParamsForOverallAppoinment
+      const {
+        revFromDate,
+        revHospitalId,
+        revToDate
+      } = this.state.searchParameterForRevenueTrend
+      if (!statsType || statsType !== 'refund')
+        this.props.fetchDashboardAppointmentStatisticsList(
+          DashboardApiConstant.OVERALL_APPOINTMENTS,
+          {
+            hospitalId: hospitalId ? hospitalId.value : null,
+            fromDate,
+            toDate
+          }
+        )
+      if (!statsType || statsType === 'refund')
+        this.props.fetchDashboardRevenueRefundList(
+          DashboardApiConstant.REVENUE_STATISTICS,
+          {
+            hospitalId: revHospitalId ? revHospitalId.value : null,
+            fromDate: revFromDate,
+            toDate: revToDate
+          }
+        )
+      if (!statsType) {
+        this.props.fetchDashboardRegisteredPatientList(
+          DashboardApiConstant.REGISTERED_PATIENTS,
+          hospitalId ? hospitalId.value : 0
+        )
 
-      this.props.fetchDashboardRevenueYearList(
-        DashboardApiConstant.REVENUE_GENERATED,
-        {
-          currentToDate: new Date(),
-          currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 365),
-          previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 366),
-          previousFromDate: DateTimeFormatterUtils.subtractDate(
-            new Date(),
-            731
-          ),
-          hospitalId: null
-        }
-      )
+        this.props.fetchDashboardRevenueDayList(
+          DashboardApiConstant.REVENUE_GENERATED,
+          {
+            currentToDate: new Date(),
+            currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+            previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
+            previousFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              3
+            ),
+            hospitalId: hospitalId ? hospitalId.value : null
+          }
+        )
+        this.props.fetchDashboardRevenueWeekList(
+          DashboardApiConstant.REVENUE_GENERATED,
+          {
+            currentToDate: new Date(),
+            currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+            previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 8),
+            previousFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              15
+            ),
+            hospitalId: hospitalId ? hospitalId.value : null
+          }
+        )
+        this.props.fetchDashboardRevenueMonthList(
+          DashboardApiConstant.REVENUE_GENERATED,
+          {
+            currentToDate: new Date(),
+            currentFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              30
+            ),
+            previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
+            previousFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              61
+            ),
+            hospitalId: hospitalId ? hospitalId.value : null
+          }
+        )
+
+        this.props.fetchDashboardRevenueYearList(
+          DashboardApiConstant.REVENUE_GENERATED,
+          {
+            currentToDate: new Date(),
+            currentFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              365
+            ),
+            previousToDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              366
+            ),
+            previousFromDate: DateTimeFormatterUtils.subtractDate(
+              new Date(),
+              731
+            ),
+            hospitalId: hospitalId ? hospitalId.value : null
+          }
+        )
+      }
     }
 
-    onPillsClickHandler = type => {}
+    filterDateAccordingToDayFilter = dayFilter => {
+      let searchParameterChange = {
+        fromDate: '',
+        toDate: '',
+        hospitalId: this.state.searchParamsForOverallAppoinment.hospitalId
+      }
+      switch (dayFilter) {
+        case 'D':
+          searchParameterChange = {
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+            toDate: new Date(),
+            hospitalId: searchParameterChange.hospitalId
+          }
+          break
+        case 'W':
+          searchParameterChange = {
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+            toDate: new Date(),
+            hospitalId: searchParameterChange.hospitalId
+          }
+          break
+        case 'M':
+          searchParameterChange = {
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 30),
+            toDate: new Date(),
+            hospitalId: searchParameterChange.hospitalId
+          }
+          break
+        case 'Y':
+          searchParameterChange = {
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 365),
+            toDate: new Date(),
+            hospitalId: searchParameterChange.hospitalId
+          }
+          break
+      }
+      return searchParameterChange
+    }
+
+    onPillsClickHandler = async (dayFilter, type) => {
+      let searchParameter = this.filterDateAccordingToDayFilter(dayFilter)
+      if (type === 'refund'){
+       if(this.state.revenueFilter!==dayFilter){
+        await this.setState({
+          searchParameterForRevenueTrend: {
+            revFromDate: searchParameter.fromDate,
+            revToDate: searchParameter.toDate,
+            hospitalId: searchParameter.hospitalId,
+          },
+          revenueFilter:dayFilter
+        })
+        this.callApiForHospitalChange(type)
+       }
+      }
+      else {
+        if(this.state.appointmentFilter!==dayFilter){
+        await this.setState({
+          searchParamsForOverallAppoinment: {
+            ...searchParameter,
+          },
+          appointmentFilter:dayFilter
+        })
+        this.callApiForHospitalChange(type)
+      }
+     }
+      
+    }
 
     handleHospitalChange = async (event, field) => {
       let searchParams1 = {...this.state.searchParameterForGenerateRevenue}
       let searchParams = {
-        ...this.state.searchParamsForOverallAppoinmentAndRevenueTrend
+        ...this.state.searchParamsForOverallAppoinment
       }
+      let searchParams3 = {...this.state.searchParameterForRevenueTrend}
       let fieldName, value, label
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
       searchParams[fieldName] = label ? (value ? {value, label} : '') : value
       searchParams1[fieldName] = label ? (value ? {value, label} : '') : value
+      searchParams3[fieldName] = label ? (value ? {value, label} : '') : value
       await this.setState({
-        searchParams,
-        searchParams1
+        searchParamsForOverallAppoinment: searchParams,
+        searchParameterForGenerateRevenue: searchParams1,
+        searchParameterForRevenueTrend: searchParams3
       })
-      if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
+      if (fieldName === 'hospitalId') this.callApiForHospitalChange()
     }
 
     componentDidMount () {
@@ -141,17 +258,17 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     render () {
       const {
         searchParameterForGenerateRevenue,
-        searchParamsForOverallAppoinmentAndRevenueTrend
+        searchParamsForOverallAppoinment,
+        searchParameterForRevenueTrend
       } = this.state
-      const {fromDate, toDate} = searchParamsForOverallAppoinmentAndRevenueTrend
+      const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
       const {
-        currentFromDate,
         currentToDate,
         previousFromDate,
-        previousToDate,
         hospitalId
       } = searchParameterForGenerateRevenue
+      const {fromDate, toDate} = searchParamsForOverallAppoinment
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       const {
         isAppointmentStatsLoading,
@@ -224,8 +341,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             isRevenueStatsLoading: isRevenueStatsLoading,
             revenueStatsData: revenueStatsData,
             revenueStatsErrorMessage: revenueStatsErrorMessage,
-            fromDate: {fromDate},
-            toDate: {toDate}
+            fromDate: {revFromDate},
+            toDate: {revToDate}
           }}
           registeredPatients={{
             isRegisteredPatientLoading: isRegisteredPatientLoading,
@@ -235,6 +352,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}
           hospitalDropdown={hospitalsForDropdown}
+          hospitalId={hospitalId}
         />
       )
     }

@@ -16,7 +16,8 @@ const RevenueTrend = props => {
     revenueStatsData,
     revenueStatsErrorMessage,
     fromDate,
-    toDate
+    toDate,
+    onPillsClickHandler
   } = props.revenueStatistics
   let newLineData = [],
     newRevenueStatsData = []
@@ -36,18 +37,18 @@ const RevenueTrend = props => {
         <h5 className="title">Revenue Trend</h5>
       </Row>
       <Row>
-        {newLineData.length ? (
+        {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
           <div className="chart">
             <Row>
-              <CDateButtonPills />
+              <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund"/>
               <Col xs={12} md={4} className="p-0">
                 <Col className="date">
                   <div>
                     <span>From :</span>
-                    {new Date(fromDate).toLocaleDateString()}
+                    {fromDate.revFromDate.toLocaleDateString()}
                   </div>
                   <div>
-                    <span>To :</span> {new Date(toDate).toLocaleDateString()}
+                    <span>To :</span> {toDate.revToDate.toLocaleDateString()}
                   </div>
                 </Col>
               </Col>
