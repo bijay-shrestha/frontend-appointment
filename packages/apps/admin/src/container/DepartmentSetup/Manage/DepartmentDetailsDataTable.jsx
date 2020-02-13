@@ -13,14 +13,14 @@ const DepartmentDetailsDataTable = props => (
         <h5 className="title">Department Details</h5>
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
-                <CButton
-                    id="downloadExcel"
-                    name="DownloadExcel"
-                    onClickHandler={props.exportExcel}
-                    className="float-right"
-                    variant='outline-secondary'
-                > <i className='fa fa-download'/>
-                </CButton>
+                {/*<CButton*/}
+                {/*    id="downloadExcel"*/}
+                {/*    name="DownloadExcel"*/}
+                {/*    onClickHandler={props.exportExcel}*/}
+                {/*    className="float-right"*/}
+                {/*    variant='outline-secondary'*/}
+                {/*> <i className='fa fa-download'/>*/}
+                {/*</CButton>*/}
                 <CDataTable
                     classes="ag-theme-balham"
                     id="roles-table"

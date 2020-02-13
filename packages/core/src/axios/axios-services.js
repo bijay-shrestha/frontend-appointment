@@ -152,6 +152,16 @@ export default {
             )
         ),
 
+    putForMultipleMultipart: (path, paramVariable, data, formData1, formData2) =>
+        API_WRAPPER(
+            PUT(
+                addObjectAsRequestParam(path, paramVariable, data),
+                formData1,
+                formData2,
+                MULTIPART_HEADER
+            )
+        ),
+
     // ********************************* END PUT REQUESTS *******************************//
 
     // ********************************* DELETE REQUESTS **********************************//

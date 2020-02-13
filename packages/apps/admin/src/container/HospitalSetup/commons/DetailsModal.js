@@ -77,8 +77,7 @@ const DetailsModal = ({type, hospitalData}) => {
 
                             <Col sm={12} md={12} lg={3} className="order-md-first order-lg-last">
                                 <CImageDisplayAndView images={images}/>
-                            </Col>
-                            <Col sm={12} md={12} lg={3} className="order-md-first order-lg-last">
+                                <br/>
                                 <CImageDisplayAndView images={bannerImages}/>
                             </Col>
                             <Col lg={9}>

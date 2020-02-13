@@ -25,7 +25,6 @@ const HospitalForm = ({
                           contactLength,
                           hospitalImage,
                           hospitalImageCroppedUrl,
-                          hospitalFileCropped,
                           showImageUploadModal,
                           onImageSelect,
                           handleCropImage,
@@ -34,7 +33,6 @@ const HospitalForm = ({
                           hospitalBannerImage,
                           onBannerImageSelect,
                           hospitalBannerImageCroppedUrl,
-                          hospitalBannerFileCropped,
                           showBannerUploadModal,
                           handleCropBannerImage,
                           handleBannerImageUpload,
@@ -249,7 +247,6 @@ const HospitalForm = ({
                                         </div>
                                     </Col>
 
-                                    <br/>
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
                                             id="admin-refund-percentage"

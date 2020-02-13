@@ -244,11 +244,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        onEditHandler = async id => {
-            this.props.clearHospitalCreateMessage()
+        onEditHandler = async idSelected => {
+            this.props.clearHospitalCreateMessage();
             try {
-                await this.previewApiCall(id)
+                await this.previewApiCall(idSelected);
                 const {
+                    id,
                     name,
                     status,
                     remarks,
@@ -256,10 +257,15 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     address,
                     contactNumberResponseDTOS,
                     hospitalCode,
-                    fileUri
-                } = this.props.HospitalPreviewReducer.hospitalPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                    hospitalLogo,
+                    hospitalBanner,
+                    refundPercentage,
+                    numberOfAdmins,
+                    numberOfFreeFollowUps,
+                    followUpIntervalDays
+                } = this.props.HospitalPreviewReducer.hospitalPreviewData;
+                let formValid = this.state.formValid;
+                if (remarks) formValid = true;
                 this.setState({
                     showEditModal: true,
                     hospitalData: {
@@ -270,12 +276,20 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         address: address,
                         hospitalCode: hospitalCode,
                         remarks: remarks,
+                        refundPercentage,
+                        numberOfAdmins,
+                        numberOfFreeFollowUps,
+                        followUpIntervalDays,
                         contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
                         editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
-                        hospitalLogoUrl: fileUri,
-                        hospitalLogo: new File([5120], fileUri),
-                        hospitalImage: new File([5120], fileUri),
-                        hospitalImageCroppedUrl: fileUri
+                        hospitalLogoUrl: hospitalLogo,
+                        hospitalBannerUrl: hospitalBanner,
+                        hospitalLogo: new File([5120], hospitalLogo),
+                        hospitalImage: new File([5120], hospitalLogo),
+                        hospitalImageCroppedUrl: hospitalLogo,
+                        hospitalBanner: new File([5120], hospitalBanner),
+                        hospitalBannerImage: new File([5120], hospitalBanner),
+                        hospitalBannerImageCroppedUrl: hospitalBanner
                     },
                     formValid: formValid,
                     nameValid: true
@@ -283,7 +297,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         editHospital = async () => {
             const {
@@ -295,29 +309,47 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode,
                 editContactNumberRequestDTOS,
                 remarks,
-                id
-            } = this.state.hospitalData
-            let formData = new FormData()
-            formData.append(
-                'file',
+                id,
+                refundPercentage,
+                followUpIntervalDays,
+                hospitalBanner,
+                numberOfAdmins,
+                numberOfFreeFollowUps,
+                isCogentAdmin,
+            } = this.state.hospitalData;
+            let hospitalData = {
+                id,
+                name,
+                status,
+                contactNumberUpdateRequestDTOS: editContactNumberRequestDTOS,
+                remarks,
+                address,
+                panNumber,
+                hospitalCode,
+                isCogentAdmin,
+                numberOfFreeFollowUps,
+                numberOfAdmins,
+                followUpIntervalDays,
+                refundPercentage
+            };
+
+            let formDataLogo = new FormData();
+            formDataLogo.append(
+                'logo',
                 new File([hospitalLogo], name.concat('-picture.jpeg'))
-            )
+            );
+            let formDataBanner = new FormData();
+            formDataBanner.append('banner',
+                new File([hospitalBanner], name.concat('-picture.jpeg'))
+            );
             try {
-                console.log(this.state.editContactNumberRequestDTOS)
+
                 await this.props.editHospital(
                     hospitalSetupApiConstants.EDIT_HOSPITAL,
-                    {
-                        name,
-                        status,
-                        address,
-                        panNumber,
-                        hospitalCode,
-                        remarks,
-                        id,
-                        contactNumberUpdateRequestDTOS: [...editContactNumberRequestDTOS]
-                    },
-                    formData
-                )
+                    hospitalData,
+                    formDataLogo,
+                    formDataBanner
+                );
                 this.resetHospitalStateValues();
                 this.setState({
                     showAlert: true,
@@ -325,11 +357,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         variant: 'success',
                         message: this.props.HospitalEditReducer.hospitalEditSuccessMessage
                     }
-                })
+                });
                 await this.searchHospital()
             } catch (e) {
             }
-        }
+        };
 
         searchHospitalForDropDown = async () => {
             try {
@@ -411,7 +443,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 await this.props.deleteHospital(
                     hospitalSetupApiConstants.DELETE_HOSPITAL,
                     this.state.deleteRequestDTO
-                )
+                );
                 await this.setState({
                     deleteModalShow: false,
                     deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
@@ -420,14 +452,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         message: this.props.HospitalDeleteReducer.deleteSuccessMessage
                     },
                     showAlert: true
-                })
+                });
                 await this.searchHospital()
             } catch (e) {
                 this.setState({
                     deleteModalShow: true
                 })
             }
-        }
+        };
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
@@ -529,7 +561,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfFreeFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
-                refundPercentage
+                refundPercentage,
+                hospitalBanner
             } = this.state.hospitalData;
 
             let hospitalData = {
@@ -552,7 +585,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 new File([hospitalLogo], name.concat('-picture.jpeg'))
             );
             let formDataBanner = new FormData();
-            formDataBanner.append('banner', [], name.concat('-picture.jpeg'));
+            formDataBanner.append('banner',
+                new File([hospitalBanner], name.concat('-picture.jpeg'))
+            );
 
             try {
                 await this.props.createHospital(
