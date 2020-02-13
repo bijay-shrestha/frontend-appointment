@@ -8,31 +8,32 @@
  @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
  @import '~bootstrap/scss/mixins';
 
+ #appointment-status{
  .title{
-    // &::before{
-    //     content:"";
-    //     display: block;
-    //     position: absolute;
-    //     width:100%;
-    //     height:1px;
-    //     bottom:-9px;
-    //     border:1px solid $cogent;
-    //     background-color:$cogent;
-    // }
-   
  }
 
  .appointment-badge{
     float: right;  
     margin:10px 0;
     
-        &>span{
+        &>div{
          margin-right:20px;
          height: auto;
+         display: inline-block;
         //  line-height: 40px;
 
          &:last-child{
              margin-right: 0;
+         }
+
+         .badge{
+             margin-right:4px;
+             width:16px;
+             height: 16px;
+         }
+
+         a{
+             color:$gray-900;
          }
      }
 
@@ -82,28 +83,52 @@
 .time-container{
     ul li{
         display: inline-block;
-        margin-right:10px;
-        margin-bottom:6px;
+        margin-right:16px;
+        margin-bottom:16px;
+
+        .btn{
+            width:100px;
+            height: 36px;
+        }
+
+        // .btn-success{
+        //    &:hover{
+
+        //     }
+        // }
     }
 }
 
 .appointment-status-list{
-    margin: 0 -30px;
+    margin: 15px -30px;
 }
 
 .appointment-status-list,.appointment-badge{
     .btn-success{
-        background-color: adjust-hue($success,20%);
+        // background-color: adjust-hue($success,20%);
+
+        background-color:$spotify;
+        color:#191414;
+       
+        padding:8px 12px;
+        // margin: 0 0 12px;
     }
 
     .btn{
         padding:10px 6px;
+        font-weight: 500;
     }
 }
+
+.filter-message{
+    margin:0 auto;
+}
+
+
 
 @media (max-width: 1199px) { 
     .hide-on-md{
       display:none;
     }
   }
-
+}
