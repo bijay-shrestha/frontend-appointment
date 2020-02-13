@@ -7,28 +7,23 @@ import {
   ButtonGroup,
   Button,
   Form
-} from 'react-bootstrap'
+} from 'react-bootstrap';
+import {CDateButtonPills} from '@frontend-appointment/ui-components';
 
 const AppointmentStatistics = props => {
+    const {onPillsClickHandler,previousFromDate,currentToDate,chartData} =props
   return (
     <>
       <h5 className="title">Appointment Statistics</h5>
       <div className="appointment-box">
         <Row>
-          <Col>
-            <ButtonGroup aria-label="Basic example" size="sm" className="mb-3">
-              <Button variant="outline-secondary">Daily</Button>
-              <Button variant="outline-secondary">Weekly</Button>
-              <Button variant="outline-secondary">Monthly</Button>
-              <Button variant="outline-secondary">Yearly</Button>
-            </ButtonGroup>
-          </Col>
+          <CDateButtonPills onPillsClickHandler={onPillsClickHandler}/>
           <Col className="date">
             <div>
-              <span>From :</span> 1-2-2020
+              <span>From :</span>{previousFromDate} 
             </div>
             <div>
-              <span>To :</span> 1-2-2020
+              <span>To :</span>{currentToDate}
             </div>
           </Col>
         </Row>
