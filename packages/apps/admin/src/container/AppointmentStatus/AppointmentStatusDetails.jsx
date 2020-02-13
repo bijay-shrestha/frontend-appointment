@@ -57,7 +57,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
                             <Col sm={12} md={9} lg={9} className="time-container">
                                 <ul>
-                                    {appointmentStatusDetail.doctorTimeSlots &&
+                                    {appointmentStatusDetail.doctorTimeSlots ?
                                     (appointmentStatusDetail.doctorTimeSlots.length ?
                                             appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
                                                 <li key={'timeSlot-' + index}>
@@ -90,7 +90,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             ))
                                             : appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
                                                 : TIME_SLOT_EMPRTY_ERROR_MESSAGE
-                                    )
+                                    ): appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
+                                            : TIME_SLOT_EMPRTY_ERROR_MESSAGE
                                     }
                                 </ul>
                             </Col>

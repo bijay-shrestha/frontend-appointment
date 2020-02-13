@@ -31,9 +31,10 @@ const {APPOINTMENT_STATUS_LIST} = appointmentSetupApiConstant;
 
 const {isFirstDateGreaterThanSecondDate, getDateWithTimeSetToGivenTime, getNoOfDaysBetweenGivenDatesInclusive} = DateTimeFormatterUtils;
 
-const SELECT_HOSPITAL_MESSAGE = "Select Hospital then search to view Appointment Status Details";
-const SELECT_DOCTOR_MESSAGE = "Select Doctor then search to view Appointment Status Details";
-const SELECT_HOSPITAL_AND_DOCTOR_MESSAGE = "Select Hospital and Doctor then search to view Appointment Status Details";
+const SELECT_HOSPITAL_MESSAGE = "Select Hospital.";
+const SELECT_DOCTOR_MESSAGE = "Select Doctor.";
+const SELECT_HOSPITAL_AND_DOCTOR_MESSAGE = "Select Hospital and Doctor.";
+const DATE_RANGE_ERROR_MESSAGE = "From date and to date must be within 7 days or less.";
 
 const AppointmentStatusHOC = (ComposedComponent, props, type) => {
     class AppointmentStatusHOC extends React.PureComponent {
@@ -117,25 +118,28 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name;
                     value = event.target.value;
                     label = event.target.label;
-                    if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
+                    if (fieldName === 'hospitalId') {
+                        this.callApiForHospitalChange(value)
+                    }
                 }
                 let searchParams = {...this.state.searchParameters};
                 searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
                 await this.setStateValuesForSearch(searchParams);
 
+                let errorMsg = "";
                 if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
                     if (isFirstDateGreaterThanSecondDate(
-                        getDateWithTimeSetToGivenTime(this.state.searchParameters.fromDate, 0, 0, 0),
-                        getDateWithTimeSetToGivenTime(this.state.searchParameters.toDate, 0, 0, 0))) {
-                        this.setState({
-                            showAlert: true,
-                            alertMessageInfo: {
-                                variant: "danger",
-                                message: "From date cannot be greater than To date!"
-                            }
-                        });
+                        getDateWithTimeSetToGivenTime(searchParams.fromDate, 0, 0, 0),
+                        getDateWithTimeSetToGivenTime(searchParams.toDate, 0, 0, 0))) {
+                        errorMsg = "From date cannot be greater than To date!";
+                        this.showWarningAlert(errorMsg);
+                        this.clearAlertTimeout();
+                    } else if (getNoOfDaysBetweenGivenDatesInclusive(searchParams.fromDate, searchParams.toDate) > 7) {
+                        errorMsg = DATE_RANGE_ERROR_MESSAGE;
+                        this.showWarningAlert(errorMsg);
                         this.clearAlertTimeout();
                     }
+
                 }
             }
         };
@@ -150,6 +154,16 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             this.setState(prevState => ({
                 showModal: !prevState.showModal
             }));
+        };
+
+        showWarningAlert = (message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: "warning",
+                    message: message
+                }
+            });
         };
 
         clearAlertTimeout = () => {
@@ -208,7 +222,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             if (status !== 'ALL') {
                 filteredStatus = appointmentStatus.map(appointment => {
-                    let appointmentCopy = {...appointment};
+                        let appointmentCopy = {...appointment};
                         if (appointment.doctorTimeSlots) {
                             let filteredTimeSlots = appointment.doctorTimeSlots.filter(time =>
                                 time.status === status
@@ -244,7 +258,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 errorMessageForStatus = hospitalId ? (doctorId ? '' : SELECT_DOCTOR_MESSAGE)
                     : SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
             } else if (fromDate && toDate && getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) > 7) {
-                errorMessageForStatus = "From date and to date should include 7 days or less."
+                errorMessageForStatus = DATE_RANGE_ERROR_MESSAGE
             }
 
             this.setState({
