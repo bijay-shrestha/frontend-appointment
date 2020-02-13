@@ -130,7 +130,7 @@ const DepartmentEditModal = ({
                         <CButton
                             id="submit-update-button"
                             disabled={!formValid}
-                            name="Update Specialization"
+                            name="Update"
                             size="lg"
                             className="btn-action  float-right"
                             onClickHandler={editApiCall}
@@ -157,12 +157,12 @@ const DepartmentEditModal = ({
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}
-                dialogClassName="preview-roles-modal"
+                dialogClassName="preview-modal"
                 footerChildren={footerChildren}
                 closeButton={true}
             />
         </>
     )
-}
+};
 
 export default memo(DepartmentEditModal)

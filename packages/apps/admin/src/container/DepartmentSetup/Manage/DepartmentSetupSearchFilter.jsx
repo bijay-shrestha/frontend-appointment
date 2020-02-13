@@ -59,6 +59,17 @@ class DepartmentSetupSearchFilter extends PureComponent {
                         <CForm id='department-info' className='add-info mt-4'>
                             <Container-fluid>
                                 <Row>
+                                <Col sm={12} md={4} xl={4}>
+                                        <CHybridSelect
+                                            id="hospital"
+                                            name="hospital"
+                                            onKeyDown={(event) => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            value={searchParameters.hospital}
+                                            options={hospitalList}
+                                            label='Hospital'
+                                        />
+                                    </Col>
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridInput
                                             id="department-name"
@@ -79,17 +90,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             value={searchParameters.departmentCode}
                                         />
                                     </Col>
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
-                                            id="hospital"
-                                            name="hospital"
-                                            onKeyDown={(event) => this.handleEnter(event)}
-                                            onChange={(event) => onInputChange(event)}
-                                            value={searchParameters.hospital}
-                                            options={hospitalList}
-                                            label='Hospital'
-                                        />
-                                    </Col>
+                                  
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="status"

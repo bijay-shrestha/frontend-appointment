@@ -1336,13 +1336,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {editErrorMessage} = this.props.DoctorDutyRosterEditReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
+            <div className="doctorDutyRoster-setup">
                 <ComposedComponent
                     {...props}
                     activeDoctorList={activeDoctorsForDropdown}
                     activeSpecializationListByHospital={activeSpecializationListByHospital}
                     addOverride={this.handleAddOverride}
                     cancelCloseEditModal={this.cancelCloseEditModal}
-                    dateErrorMessage={dateErrorMessage}
+                    dateErrorMessag e={dateErrorMessage}
                     deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
                     deleteErrorMessage={deleteErrorMessage}
                     deleteOverride={this.deleteOverride}
@@ -1467,6 +1468,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     </>}
                     message={alertMessageInfo.message}
                 />
+                </div>
             </>);
         }
     }

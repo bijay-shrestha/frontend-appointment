@@ -45,7 +45,7 @@ const DoctorForm = ({
                 <Row>
                   <Col sm={12} md={12} lg={12}>
                     <div className="image-upload-container">
-                      <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel>
+                      {/* <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel> */}
                       <div className="image-box">
                         <img
                           alt="Doctor Image"

@@ -313,7 +313,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             } = this.props.PatientDropdownListReducer
             return (
                 <>
-                    <ComposedComponent
+                <div id="appointment-refund">
+
+               
+                    <ComposedComponent 
                         {...this.props}
                         {...props}
                         searchHandler={{
@@ -367,6 +370,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                         }
                         message={alertMessageInfo.message}
                     />
+
+                    </div>
                 </>
 
             )

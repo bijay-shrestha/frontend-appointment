@@ -242,6 +242,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer
             return (
+                <div id="appointment-approval">
                 <ComposedComponent
                     {...this.props}
                     {...props}
@@ -274,6 +275,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                         previewData: previewData
                     }}
                 />
+                </div>
             )
         }
     }

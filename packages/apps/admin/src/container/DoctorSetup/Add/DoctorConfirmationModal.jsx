@@ -8,7 +8,7 @@ const HospitalConfirmationModal = props => {
     <>
       <CModal
         show={showModal}
-        modalHeading="Hospital Details"
+        modalHeading="Doctor Details"
         size="lg"
         bodyChildren={
           <DetailsModal
