@@ -1,8 +1,23 @@
 import React, {memo} from 'react'
 import {Row} from 'react-bootstrap'
 import * as Material from 'react-icons/md'
+import {CLoading} from '@frontend-appointment/ui-elements'
 
-const RevenueStatistics = props=> {
+const RevenueStatistics = props => {
+  const {
+    isRevenueGeneratedDayLoading,
+    revenueGeneratedDayData,
+    revenueGeneratedDayErrorMessage,
+    isRevenueGeneratedMonthLoading,
+    revenueGeneratedMonthData,
+    revenueGeneratedMonthErrorMessage,
+    isRevenueGeneratedWeekLoading,
+    revenueGeneratedWeekData,
+    revenueGeneratedWeekErrorMessage,
+    isRevenueGeneratedYearLoading,
+    revenueGeneratedYearData,
+    revenueGeneratedYearErrorMessage
+  } = props.generateRevenue
   return (
     <>
       <Row>
@@ -10,34 +25,87 @@ const RevenueStatistics = props=> {
       </Row>
       <Row>
         <div className="revenue-box">
-          <p>Rs. 5,00,000</p>
-          <div className="total">
-            {/* Total Revenue  */}
-            <span className="up">
-              <Material.MdExpandLess /> +5% from last year
-            </span>
-          </div>
+          {!isRevenueGeneratedYearLoading &&
+          Object.keys(revenueGeneratedYearData) ? (
+            <>
+              {' '}
+              <p>Rs. {revenueGeneratedYearData.amount}</p>
+              <div className="total">
+                {/* Total Revenue  */}
+                <span className="up">
+                  <Material.MdExpandLess /> 
+                  {revenueGeneratedYearData.growthPercent}% from last year
+                </span>
+              </div>
+            </>
+          ) : isRevenueGeneratedYearLoading ? (
+            <CLoading />
+          ) : (
+            <span>{revenueGeneratedYearErrorMessage}</span>
+          )}
         </div>
 
         <div className="revenue-box">
-          <p>Rs. 1,00,000</p>
-          <div className="up">
-            <Material.MdExpandLess /> +5% from last month
-          </div>
+          {!isRevenueGeneratedMonthLoading &&
+          Object.keys(revenueGeneratedMonthData) ? (
+            <>
+              {' '}
+              <p>Rs. {revenueGeneratedMonthData.amount}</p>
+              <div className="total">
+                {/* Total Revenue  */}
+                <span className="up">
+                  <Material.MdExpandLess /> 
+                  {revenueGeneratedMonthData.growthPercent}% from last month
+                </span>
+              </div>
+            </>
+          ) : isRevenueGeneratedMonthLoading ? (
+            <CLoading />
+          ) : (
+            <span>{revenueGeneratedMonthErrorMessage}</span>
+          )}
         </div>
 
         <div className="revenue-box">
-          <p>Rs. 50,000</p>
-          <div className="up">
-            <Material.MdExpandLess /> +5% from last week
-          </div>
+          {!isRevenueGeneratedWeekLoading &&
+          Object.keys(revenueGeneratedWeekData) ? (
+            <>
+              {' '}
+              <p>Rs. {revenueGeneratedWeekData.amount}</p>
+              <div className="total">
+                {/* Total Revenue  */}
+                <span className="up">
+                  <Material.MdExpandLess /> 
+                  {revenueGeneratedWeekData.growthPercent}% from last week
+                </span>
+              </div>
+            </>
+          ) : isRevenueGeneratedWeekLoading ? (
+            <CLoading />
+          ) : (
+            <span>{revenueGeneratedWeekErrorMessage}</span>
+          )}
         </div>
 
         <div className="revenue-box">
-          <p>Rs. 9,000</p>
-          <div className="down">
-            <Material.MdExpandMore /> -3% from last day
-          </div>
+          {!isRevenueGeneratedDayLoading &&
+          Object.keys(revenueGeneratedDayData) ? (
+            <>
+              {' '}
+              <p>Rs. {revenueGeneratedDayData.amount}</p>
+              <div className="total">
+                {/* Total Revenue  */}
+                <span className="up">
+                  <Material.MdExpandLess />
+                  {revenueGeneratedDayData.growthPercent}% from last day
+                </span>
+              </div>
+            </>
+          ) : isRevenueGeneratedDayLoading ? (
+            <CLoading />
+          ) : (
+            <span>{revenueGeneratedDayErrorMessage}</span>
+          )}
         </div>
       </Row>
     </>

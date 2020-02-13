@@ -143,7 +143,7 @@ export const DashboardRevenueStatisticsReducer = (
       return {
         ...state,
         isRevenueStatsLoading: false,
-        revenueStatsData: action.payload.data,
+        revenueStatsData: action.payload.data.data,
         revenueStatsErrorMessage: ''
       }
     case DASHBOARD_REVENUE_STATISTICS_FETCH_ERROR:
@@ -151,7 +151,7 @@ export const DashboardRevenueStatisticsReducer = (
         ...state,
         isRevenueStatsLoading: false,
         revenueStatsData: [],
-        revenueStatsErrorMessage: action.payload.message
+        revenueStatsErrorMessage: action.payload.data.message
       }
     default:
       return {...state}

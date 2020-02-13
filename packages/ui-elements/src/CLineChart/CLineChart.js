@@ -3,6 +3,7 @@ import {Line} from 'react-chartjs-2';
 
 const LineChart = props => {
  const {lineData,width,height,labels} =props;
+
  
  const options = {
     responsive: true,
@@ -29,6 +30,7 @@ const chartFillData = {
     labels: labels,
     datasets: [
         {
+            label:'Revenue Refund',
             backgroundColor: "rgba(110,102,155,0.2)",
             fillColor: 'rgba(110,102,155,0.2)',
             borderColor: "rgba(110,102,155,1)",
@@ -44,6 +46,7 @@ const chartFillData = {
 }
 
 return(
-    <Line data={chartFillData} width={width} height={height} options={options}/>
+    <Line data={chartFillData} width={width} height={height} options={options} redraw/>
 )
 }
+export default LineChart;

@@ -8,7 +8,28 @@ import {
   Button,
   Form
 } from 'react-bootstrap'
+import {CDateButtonPills} from '@frontend-appointment/ui-components';
+import {CLineChart} from '@frontend-appointment/ui-elements';
 const RevenueTrend = props => {
+  const {
+    isRevenueStatsLoading,
+    revenueStatsData,
+    revenueStatsErrorMessage,
+    fromDate,
+    toDate
+  }=props.revenueStatistics;
+  let newLineData=[],newRevenueStatsData=[];
+  const changeObjectToArray = (lineData) => {
+
+     Object.keys(lineData).map(line => {
+      newLineData.push(lineData[line]);
+    })
+    console.log(newLineData)
+    return newLineData;
+  }
+  newLineData =[...changeObjectToArray(revenueStatsData)];
+  console.log(revenueStatsData);
+  newRevenueStatsData=Object.keys(revenueStatsData)?Object.keys(revenueStatsData):{}
   return (
     <Col lg={7}>
       <Row>
@@ -17,32 +38,21 @@ const RevenueTrend = props => {
       <Row>
         <div className="chart">
           <Row>
-            <Col xs={12} md={8}>
-              <ButtonGroup
-                aria-label="Basic example"
-                size="sm"
-                className="mb-3"
-              >
-                <Button variant="outline-secondary">Daily</Button>
-                <Button variant="outline-secondary">Weekly</Button>
-                <Button variant="outline-secondary">Monthly</Button>
-                <Button variant="outline-secondary">Yearly</Button>
-              </ButtonGroup>
-            </Col>
+           <CDateButtonPills/>
             <Col xs={12} md={4} className="p-0">
               <Col className="date">
                 <div>
-                  <span>From :</span> 1-2-2020
+                  {/* <span>From :</span>{fromDate} */}
                 </div>
                 <div>
-                  <span>To :</span> 1-2-2020
+                  {/* <span>To :</span> {toDate} */}
                 </div>
               </Col>
             </Col>
           </Row>
 
           <Row>
-            <img src={require('./img/line-chart.png')} />
+           <CLineChart lineData={newLineData} labels={newRevenueStatsData?newRevenueStatsData:[]} width={600} height={350}/>
           </Row>
         </div>
       </Row>

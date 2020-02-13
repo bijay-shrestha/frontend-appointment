@@ -1,4 +1,4 @@
-import React,{memo} from 'react'
+import React, {memo} from 'react'
 import {
   Image,
   Container,
@@ -15,22 +15,28 @@ import AppointmentStatistics from './AppointmentStatistics'
 import {CButton, CHybridInput} from '@frontend-appointment/ui-elements'
 import './admin-dashboard.scss'
 import * as Material from 'react-icons/md'
-
-const AdminDashboard = () => {
-  return (
-    <div className="dashboard-wrapper">
-      <Container fluid className="">
-        <RevenueStatistics />
-        <Row className="mt-1">
-          <RevenueTrend />
-          <Col lg={5} className="pr-0">
-            <PatientStatistics />
-            <AppointmentStatistics />
-          </Col>
-        </Row>
-      </Container>
-    </div>
+import AdminDashboardHoc from './AdminDashboardHoc'
+const AdminDashboard = props => {
+  const AdminDash = AdminDashboardHoc(
+    ({generateRevenue,revenueStatistics}) => (
+      <div className="dashboard-wrapper">
+        <Container fluid className="">
+          <RevenueStatistics generateRevenue={generateRevenue} />
+          <Row className="mt-1">
+            <RevenueTrend revenueStatistics={revenueStatistics} />
+            <Col lg={5} className="pr-0">
+              <PatientStatistics />
+              <AppointmentStatistics />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    ),
+    props,
+    ''
   )
+
+  return <AdminDash />
 }
 
 export default memo(AdminDashboard)
