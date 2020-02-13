@@ -1,13 +1,13 @@
-import Loadable from 'react-loadable';
-import React from 'react';
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements';
+import Loadable from 'react-loadable'
+import React from 'react'
+import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-const getLoader = () => <CLoading/>;
+const getLoader = () => <CLoading />
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
-    loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
-    loading: () => getLoader()
+  loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
+  loading: () => getLoader()
 });
 
 const AddDepartmentComponent = Loadable({
@@ -75,6 +75,10 @@ const DashboardComponent = Loadable({
     loading: () => getLoader()
 });
 
+// const AppointmentLogComponent = Loadable({
+//   loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
+//   loading: () => getLoader()
+// })
 
 /* ****** E ***** */
 
@@ -399,15 +403,6 @@ export const routes = [
         name: 'Manage'
     },
     {
-        path: '/admin/doctorDutyRoster',
-        component: <></>,
-        icon: '',
-        hasTab: true,
-        isLink: false,
-        isTab: false,
-        name: 'Doctor Duty Roster Setup'
-    },
-    {
         path: '/admin/appointment/appointmentRefundRequest',
         component: AppointmentRefundListComponent,
         icon: '',
@@ -442,6 +437,15 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Status'
+    },
+    {
+        path: '/admin/appointment',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Appointment'
     },
     {
         path: '/unauthorized',
