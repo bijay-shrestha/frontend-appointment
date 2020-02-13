@@ -100,7 +100,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     status: ''
                 },
                 statusDetails: [],
-                errorMessageForStatus: SELECT_HOSPITAL_MESSAGE,
+                errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
                 appointmentStatusDetails: [],
                 appointmentStatusDetailsCopy: [],
             });

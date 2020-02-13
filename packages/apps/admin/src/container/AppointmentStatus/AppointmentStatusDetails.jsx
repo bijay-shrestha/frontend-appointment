@@ -6,6 +6,9 @@ import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 import "./appointment-status.scss";
 import {appointmentStatusList} from "@frontend-appointment/helpers";
 
+const TIME_SLOT_EMPRTY_ERROR_MESSAGE = "TIME SLOTS NOT AVAILABLE";
+const DAY_OFF_MESSAGE = "DAY OFF";
+
 const AppointmentStatusDetails = ({statusDetailsData}) => {
     const {
         appointmentStatusDetails,
@@ -55,46 +58,47 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={9} lg={9} className="time-container">
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots &&
-                                        (appointmentStatusDetail.doctorTimeSlots.length ?
-                                                appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
-                                                    <li key={'timeSlot-' + index}>
-                                                        {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
-                                                            <OverlayTrigger
-                                                                placement='top'
-                                                                overlay={
-                                                                    <Tooltip id={timeSlot.status + "-" + index}>
-                                                                        App no: {timeSlot.appointmentNumber}<br>
-                                                                    </br>
-                                                                        {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
-                                                                    </br>
-                                                                        Mobile No: {timeSlot.mobileNumber || 'N/A'}
-                                                                    </Tooltip>
-                                                                }>
-                                                                <Button variant="warning"
-                                                                        size="lg">
-                                                                    {timeSlot.appointmentTime}
-                                                                </Button>
-                                                            </OverlayTrigger> :
-                                                            (timeSlot.status === 'V') ?
-                                                                (<Button
-                                                                    variant={"success"}
+                                    (appointmentStatusDetail.doctorTimeSlots.length ?
+                                            appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+                                                <li key={'timeSlot-' + index}>
+                                                    {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
+                                                        <OverlayTrigger
+                                                            placement='top'
+                                                            overlay={
+                                                                <Tooltip id={timeSlot.status + "-" + index}>
+                                                                    App no: {timeSlot.appointmentNumber}<br>
+                                                                </br>
+                                                                    {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
+                                                                </br>
+                                                                    Mobile No: {timeSlot.mobileNumber || 'N/A'}
+                                                                </Tooltip>
+                                                            }>
+                                                            <Button variant="warning"
                                                                     size="lg">
-                                                                    {timeSlot.appointmentTime}
-                                                                </Button>)
-                                                                : ''
-                                                        }
-                                                    </li>
-                                                ))
-                                                : appointmentStatusDetail.dayOffStatus ? "DAY OFF": "DOCTOR DUTY ROSTER NOT AVAILABLE!"
-                                        )
-                                        }
+                                                                {timeSlot.appointmentTime}
+                                                            </Button>
+                                                        </OverlayTrigger> :
+                                                        (timeSlot.status === 'V') ?
+                                                            (<Button
+                                                                variant={"success"}
+                                                                size="lg">
+                                                                {timeSlot.appointmentTime}
+                                                            </Button>)
+                                                            : ''
+                                                    }
+                                                </li>
+                                            ))
+                                            : appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
+                                                : TIME_SLOT_EMPRTY_ERROR_MESSAGE
+                                    )
+                                    }
                                 </ul>
                             </Col>
                         </Row>
                     ))
                     :
                     <>
-                        {!isStatusListLoading && searchErrorMessage ?
+                        {(!isStatusListLoading && searchErrorMessage) ?
                             (
                                 <Row>
                                     <div className="filter-message">
@@ -104,11 +108,11 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         <div className="message text-center">{searchErrorMessage}</div>
                                     </div>
                                 </Row>
-                            ) : (!isStatusListLoading && errorMessageForStatusDetails ?
+                            ) : ((!isStatusListLoading && errorMessageForStatusDetails) ?
                                     (
                                         <Row>
                                             <div className="filter-message">
-                                                <div className="no-data primary">
+                                                <div className="no-data ">
                                                     <i className="fa fa-hand-o-up"/>
                                                 </div>
                                                 <div
