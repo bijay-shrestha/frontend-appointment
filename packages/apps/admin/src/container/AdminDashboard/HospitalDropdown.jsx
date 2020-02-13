@@ -12,7 +12,7 @@ const HospitalDropdownList = props => {
             Hospital &nbsp;&nbsp;
           </Form.Label>
           <Col sm="10">
-            <CHybridSelect label="Select hospital" options={hospitalDropdown} value={hospitalId}></CHybridSelect>
+            <CHybridSelect placeholder="Select hospital" options={hospitalDropdown} value={hospitalId}></CHybridSelect>
           </Col>
         </Form.Group>
       </Form>
