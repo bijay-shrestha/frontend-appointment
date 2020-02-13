@@ -24,7 +24,8 @@ const DetailsModal = ({specializationData, type}) => {
                                     id="hospital"
                                     name="hospitalId"
                                     placeholder="Hospital"
-                                    value={specializationData.hospitalId && specializationData.hospitalId.label}
+                                    value={typeof specializationData.hospitalId ==='object' ?
+                                    ( specializationData.hospitalId && specializationData.hospitalId.label ): specializationData.hospitalName}
                                     disabled={true}
                                 />
                             </Col>
