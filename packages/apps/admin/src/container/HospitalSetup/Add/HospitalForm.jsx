@@ -30,7 +30,15 @@ const HospitalForm = ({
                           onImageSelect,
                           handleCropImage,
                           handleImageUpload,
-                          setImageShow
+                          setImageShow,
+                          hospitalBannerImage,
+                          onBannerImageSelect,
+                          hospitalBannerImageCroppedUrl,
+                          hospitalBannerFileCropped,
+                          showBannerUploadModal,
+                          handleCropBannerImage,
+                          handleBannerImageUpload,
+                          setShowBannerUploadModal
                       }) => {
     return (
         <>
@@ -43,23 +51,13 @@ const HospitalForm = ({
                         <Row>
                             <Col lg={3} className=" order-md-first order-lg-last">
                                 <Row>
-                                    <Col
-                                        sm={12}
-                                        md={12}
-                                        lg={12}
-
-                                    >
+                                    <Col sm={12} md={12} lg={12}>
                                         <div className="image-upload-container">
-                                            <CFLabel labelName="Hospital Logo"></CFLabel>
+                                            <CFLabel id='logo' labelName="Hospital Logo"/>
                                             <div className="image-box">
-
                                                 <img
                                                     alt="HOSPITAL IMAGE"
-                                                    src={
-                                                        hospitalInfoObj.hospitalLogo
-                                                            ? hospitalInfoObj.hospitalLogoUrl
-                                                            : DefaultLogo
-                                                    }
+                                                    src={hospitalInfoObj.hospitalLogo ? hospitalInfoObj.hospitalLogoUrl : DefaultLogo}
                                                 />
                                                 <CButton
                                                     id="uploadAdminImage"
@@ -70,6 +68,7 @@ const HospitalForm = ({
                                                     onClickHandler={setImageShow}
                                                 />
                                                 <CImageUploadAndCropModal
+                                                    id='hospital-logo'
                                                     showModal={showImageUploadModal}
                                                     setShowModal={setImageShow}
                                                     ruleOfThirds={true}
@@ -79,6 +78,36 @@ const HospitalForm = ({
                                                     circularCrop={false}
                                                     onImageSelect={onImageSelect}
                                                     onImageCrop={data => handleCropImage(data)}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="image-upload-container">
+                                            <CFLabel id='banner' labelName="Hospital Banner"/>
+                                            <div className="image-box">
+                                                <img
+                                                    alt="HOSPITAL BANNER"
+                                                    src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : DefaultLogo}
+                                                />
+                                                <CButton
+                                                    id="uploadBanner"
+                                                    name="Upload"
+                                                    size="lg"
+                                                    variant="primary"
+                                                    className=" mt-1 mb-4  upload-button"
+                                                    onClickHandler={setShowBannerUploadModal}
+                                                />
+                                                <CImageUploadAndCropModal
+                                                    id='hospital-baner'
+                                                    ruleOfThirds={true}
+                                                    circularCrop={false}
+                                                    showModal={showBannerUploadModal}
+                                                    setShowModal={setShowBannerUploadModal}
+                                                    imageSrc={hospitalBannerImage}
+                                                    croppedImageSrc={hospitalBannerImageCroppedUrl}
+                                                    handleImageUpload={handleBannerImageUpload}
+                                                    onImageSelect={onBannerImageSelect}
+                                                    onImageCrop={data => handleCropBannerImage(data)}
                                                 />
                                             </div>
                                         </div>
@@ -206,7 +235,7 @@ const HospitalForm = ({
                                         </Row>
                                     </Col>
 
-                                    <Col sm={12} md={4} lg={4}>
+                                    <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Status" id="status"/>
                                         <div>
                                             <CRadioButton
@@ -220,6 +249,7 @@ const HospitalForm = ({
                                         </div>
                                     </Col>
 
+                                    <br/>
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
                                             id="admin-refund-percentage"
@@ -238,7 +268,7 @@ const HospitalForm = ({
                                                    name="isCogentAdmin"
                                                    label="Only For Cogent Admin"
                                                    className="module"
-                                                   checked={hospitalInfoObj.isCogentAdmin}
+                                                   checked={hospitalInfoObj.isCogentAdmin === 'Y'}
                                                    onChange={(event) => onInputChange(event)}
                                                    onKeyDown={(event) => onEnterKeyPress(event)}
                                         />
@@ -278,7 +308,7 @@ const HospitalForm = ({
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Follow Up Interval Days"
-                                            value={hospitalInfoObj.numberOfFreeFollowUps}
+                                            value={hospitalInfoObj.followUpIntervalDays}
                                             required={true}
                                         />
                                     </Col>

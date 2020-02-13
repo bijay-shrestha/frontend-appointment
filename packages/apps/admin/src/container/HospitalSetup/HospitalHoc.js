@@ -2,11 +2,7 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    FileExportUtils,
-    AdminInfoUtils
-} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './hospitalHoc.scss'
 
 const {
@@ -19,9 +15,10 @@ const {
     fetchActiveHospitalsForDropdown
     //downloadExcelForHospitals
 } = HospitalSetupMiddleware;
-const HospitalHOC = (ComposedComponent, props, type) => {
-    const {hospitalSetupApiConstants} = AdminModuleAPIConstants;
 
+const {hospitalSetupApiConstants} = AdminModuleAPIConstants;
+
+const HospitalHOC = (ComposedComponent, props, type) => {
     class HospitalSetup extends React.PureComponent {
         state = {
             hospitalData: {
@@ -33,6 +30,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode: '',
                 hospitalLogo: null,
                 hospitalLogoUrl: '',
+                hospitalBanner: null,
+                hospitalBannerUrl: '',
                 contactNumber: [''],
                 contactNumberUpdateRequestDTOS: [],
                 editContactNumberRequestDTOS: [],
@@ -64,6 +63,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 // code: '',
                 // id: null,
                 name: '',
+                hospitalCode: '',
                 status: {value: '', label: 'All'}
             },
             queryParams: {
@@ -79,20 +79,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             hospitalImage: '',
             hospitalImageCroppedUrl: '',
             hospitalFileCropped: '',
-            showImageUploadModal: false
-        }
-
-        handleEnterPress = event => {
-            EnterKeyPressUtils.handleEnter(event)
-        }
-
-        setShowModal = () => {
-            this.setState({
-                showHospitalModal: false,
-                deleteModalShow: false,
-                showEditModal: false
-            })
-        }
+            hospitalBannerImage: '',
+            hospitalBannerImageCroppedUrl: '',
+            hospitalBannerFileCropped: '',
+            showImageUploadModal: false,
+            showBannerUploadModal: false
+        };
 
         resetHospitalStateValues = () => {
             this.setState({
@@ -105,7 +97,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     hospitalCode: '',
                     contactNumber: [''],
                     contactNumberUpdateRequestDTOS: [],
-                    editContactNumberRequestDTOS: []
+                    editContactNumberRequestDTOS: [],
+                    isCogentAdmin: 'N',
+                    numberOfFreeFollowUps: '',
+                    numberOfAdmins: '',
+                    followUpIntervalDays: '',
+                    refundPercentage: ''
                 },
                 hospitalLogo: '',
                 hospitalImage: '',
@@ -116,134 +113,110 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 codeValid: false,
                 showEditModal: false
             })
-        }
+        };
 
-        checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
-            let stateObj = {[fieldName]: valueToChange}
-            if (eventName)
-                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
-            return {...stateObj}
-        }
+        setShowModal = () => {
+            this.setState({
+                showHospitalModal: false,
+                deleteModalShow: false,
+                showEditModal: false
+            })
+        };
 
         setTheState = async (fieldName, valueToChange, valid, eventName) => {
             await this.setState(
                 this.checkInputValidity(fieldName, valueToChange, valid, eventName)
             )
+        };
+
+        setShowConfirmModal = () => {
+            this.setState({showConfirmModal: !this.state.showConfirmModal})
+        };
+
+        setImageShowModal = () =>
+            this.setState({showImageUploadModal: !this.state.showImageUploadModal});
+
+        setShowBannerModal = () => this.setState({showBannerUploadModal: !this.state.showBannerUploadModal});
+
+        setStateValuesForSearch = searchParams => {
+            this.setState({
+                searchParameters: searchParams
+            })
         }
 
+        setFormValidManage = () => {
+            this.setState({
+                formValid: true
+            })
+        }
+
+        checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
+            let stateObj = {[fieldName]: valueToChange};
+            if (eventName)
+                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid};
+            return {...stateObj}
+        };
+
         closeAlert = () => {
-            this.props.clearHospitalCreateMessage()
+            this.props.clearHospitalCreateMessage();
             this.setState({
                 showAlert: !this.state.showAlert,
                 alertMessageInfo: ''
             })
-        }
+        };
 
         checkFormValidity = eventType => {
-            const {hospitalData, nameValid} = this.state
+            const {hospitalData, nameValid} = this.state;
+            const {
+                name, status, hospitalCode, address, panNumber, isCogentAdmin, refundPercentage, followUpIntervalDays,
+                numberOfAdmins, numberOfFreeFollowUps
+            } = hospitalData;
             let formValidity =
                 nameValid &&
-                hospitalData.name &&
-                hospitalData.status &&
-                hospitalData.hospitalCode &&
-                hospitalData.address &&
-                hospitalData.panNumber
+                name &&
+                status &&
+                hospitalCode &&
+                address &&
+                panNumber &&
+                refundPercentage &&
+                followUpIntervalDays &&
+                numberOfAdmins && numberOfFreeFollowUps;
 
             if (eventType === 'E')
                 formValidity =
                     formValidity &&
                     hospitalData.remarks &&
-                    hospitalData.contactNumberUpdateRequestDTOS.length
-            else formValidity = formValidity && hospitalData.contactNumber.length
+                    hospitalData.contactNumberUpdateRequestDTOS.length;
+            else formValidity = formValidity && hospitalData.contactNumber.length;
 
-            console.log('Form Valid', formValidity)
             this.setState({
                 formValid: formValidity
             })
-        }
+        };
 
         addContactNumber = (fieldName, value, eventType) => {
-            let hospitalData = {...this.state.hospitalData}
-            hospitalData[fieldName].push(value)
-            hospitalData['editContactNumberRequestDTOS'].push(value)
-            this.setTheState('hospitalData', hospitalData)
+            let hospitalData = {...this.state.hospitalData};
+            hospitalData[fieldName].push(value);
+            hospitalData['editContactNumberRequestDTOS'].push(value);
+            this.setTheState('hospitalData', hospitalData);
             this.checkFormValidity(eventType)
-        }
+        };
 
         removeContactNumber = (fieldName, idx, eventType) => {
-            let hospitalData = {...this.state.hospitalData}
-            hospitalData[fieldName].splice(idx, 1)
+            let hospitalData = {...this.state.hospitalData};
+            hospitalData[fieldName].splice(idx, 1);
             if (eventType === 'E')
-                hospitalData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
-            this.setTheState('hospitalData', hospitalData)
+                hospitalData['editContactNumberRequestDTOS'][idx]['status'] = 'N';
+            this.setTheState('hospitalData', hospitalData);
             this.checkFormValidity(eventType)
-        }
+        };
 
         editContactNumber = (fieldName, value, idx, eventType) => {
-            let hospitalData = {...this.state.hospitalData}
-            hospitalData[fieldName][idx] = value
-            hospitalData['editContactNumberRequestDTOS'][idx] = value
-            this.setTheState('hospitalData', hospitalData)
+            let hospitalData = {...this.state.hospitalData};
+            hospitalData[fieldName][idx] = value;
+            hospitalData['editContactNumberRequestDTOS'][idx] = value;
+            this.setTheState('hospitalData', hospitalData);
             this.checkFormValidity(eventType)
-        }
-
-        handleOnChange = async (event, fieldValid, eventType) => {
-            let hospital = {...this.state.hospitalData}
-            let {name, value, label} = event.target
-            value = name === 'hospitalCode' ? value.toUpperCase() : value
-            hospital[name] = !label
-                ? value
-                : value
-                    ? {value: value, label: label}
-                    : {value: null}
-            await this.setTheState('hospitalData', hospital, fieldValid, name)
-            this.checkFormValidity(eventType)
-        }
-
-        setShowConfirmModal = () => {
-            this.setState({showConfirmModal: !this.state.showConfirmModal})
-        }
-
-        handleConfirmClick = async () => {
-            const {
-                name,
-                status,
-                contactNumber,
-                hospitalLogo,
-                address,
-                panNumber,
-                hospitalCode
-            } = this.state.hospitalData
-            let formData = new FormData()
-            formData.append(
-                'file',
-                new File([hospitalLogo], name.concat('-picture.jpeg'))
-            )
-            try {
-                await this.props.createHospital(
-                    hospitalSetupApiConstants.CREATE_HOSPITAL,
-                    {name, hospitalCode, status, contactNumber, address, panNumber},
-                    formData
-                )
-
-                await this.setShowConfirmModal()
-                this.resetHospitalStateValues()
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: this.props.HospitalSaveReducer.createHospitalsuccessMessage
-                    }
-                })
-            } catch (e) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: e.errorMessage ? e.errorMessage : e.message
-                    }
-                })
-            }
         }
 
         previewApiCall = async id => {
@@ -312,98 +285,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        searchHospitalForDropDown = async () => {
-            try {
-                await this.props.fetchActiveHospitalsForDropdown(
-                    hospitalSetupApiConstants.SPECIFIC_DROPDOWN_HOSPITAL
-                )
-            } catch (e) {
-                console.log(e)
-            }
-        }
-
-        searchHospital = async page => {
-            const {code, name, status, id} = this.state.searchParameters
-            let searchData = {
-                name: name.value ? name.label : name,
-                code: code,
-                status: status.value,
-                id: id
-            }
-
-            let updatedPage =
-                this.state.queryParams.page === 0
-                    ? 1
-                    : page
-                    ? page
-                    : this.state.queryParams.page
-            await this.props.searchHospital(
-                hospitalSetupApiConstants.SEARCH_HOSPITAL,
-                {
-                    page: updatedPage,
-                    size: this.state.queryParams.size
-                },
-                searchData
-            )
-
-            await this.setState({
-                totalRecords: this.props.HospitalSearchReducer.hospitalList.length
-                    ? this.props.HospitalSearchReducer.hospitalList[0].totalItems
-                    : 0,
-                queryParams: {
-                    ...this.state.queryParams,
-                    page: updatedPage
-                }
-            })
-        }
-
-        handleImageSelect = imageUrl => {
-            imageUrl && this.setState({hospitalImage: imageUrl})
-        }
-
-        handleCropImage = croppedImageUrl => {
-            croppedImageUrl &&
-            this.setState({
-                hospitalImageCroppedUrl: croppedImageUrl
-            })
-        }
-
-        handleImageUpload = async croppedImageFile => {
-            let croppedImage = this.state.hospitalImageCroppedUrl
-            let hospitalImage = {...this.state.hospitalData}
-            hospitalImage.hospitalLogo = new File(
-                [croppedImageFile],
-                'hospitalAvatar.jpeg'
-            )
-            hospitalImage.hospitalLogoUrl = croppedImage
-            await this.setState({
-                hospitalData: {...hospitalImage},
-                showImageUploadModal: false
-            })
-        }
-
-        appendSNToTable = hospitalList => {
-            const newHospitalList =
-                hospitalList.length &&
-                hospitalList.map((spec, index) => ({
-                    ...spec,
-                    sN: index + 1,
-                    name: spec.name.toUpperCase()
-                }))
-            console.log('New HospitalList', newHospitalList)
-            return newHospitalList
-        }
-
-        handlePageChange = async newPage => {
-            await this.setState({
-                queryParams: {
-                    ...this.state.queryParams,
-                    page: newPage
-                }
-            })
-            this.searchHospital()
-        }
-
         editHospital = async () => {
             const {
                 name,
@@ -437,7 +318,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     },
                     formData
                 )
-                this.resetHospitalStateValues()
+                this.resetHospitalStateValues();
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -449,6 +330,62 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             } catch (e) {
             }
         }
+
+        searchHospitalForDropDown = async () => {
+            try {
+                await this.props.fetchActiveHospitalsForDropdown(
+                    hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
+                )
+            } catch (e) {
+                console.log(e)
+            }
+        };
+
+        searchHospital = async page => {
+            const {hospitalCode, name, status, id} = this.state.searchParameters;
+            let searchData = {
+                name: name.value ? name.label : name,
+                hospitalCode: hospitalCode,
+                status: status.value,
+                id: id
+            };
+
+            let updatedPage =
+                this.state.queryParams.page === 0
+                    ? 1
+                    : page
+                    ? page
+                    : this.state.queryParams.page;
+            await this.props.searchHospital(
+                hospitalSetupApiConstants.SEARCH_HOSPITAL,
+                {
+                    page: updatedPage,
+                    size: this.state.queryParams.size
+                },
+                searchData
+            );
+
+            await this.setState({
+                totalRecords: this.props.HospitalSearchReducer.hospitalList.length
+                    ? this.props.HospitalSearchReducer.hospitalList[0].totalItems
+                    : 0,
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: updatedPage
+                }
+            })
+        };
+
+        appendSNToTable = hospitalList => {
+            const newHospitalList =
+                hospitalList.length &&
+                hospitalList.map((spec, index) => ({
+                    ...spec,
+                    sN: index + 1,
+                    name: spec.name.toUpperCase()
+                }));
+            return newHospitalList
+        };
 
         onDeleteHandler = async id => {
             this.props.clearHospitalCreateMessage()
@@ -492,39 +429,175 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             }
         }
 
+        handleEnterPress = event => {
+            EnterKeyPressUtils.handleEnter(event)
+        };
+
+        handleSearchFormChange = async event => {
+            if (event) {
+                let fieldName = event.target.name;
+                let value = event.target.value;
+                let label = event.target.label;
+                let searchParams = {...this.state.searchParameters};
+                searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                await this.setStateValuesForSearch(searchParams)
+            }
+        };
+
         handleSearchFormReset = async () => {
             await this.setState({
                 searchParameters: {
-                    // code: '',
+                    hospitalCode: '',
                     status: {value: '', label: 'All'},
                     name: ''
                     //id: null
+                }
+            });
+            this.searchHospital()
+        };
+
+        handlePageChange = async newPage => {
+            await this.setState({
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: newPage
                 }
             })
             this.searchHospital()
         }
 
-        setStateValuesForSearch = searchParams => {
-            this.setState({
-                searchParameters: searchParams
-            })
-        }
+        handleImageSelect = imageUrl => {
+            imageUrl && this.setState({hospitalImage: imageUrl})
+        };
 
-        handleSearchFormChange = async event => {
-            if (event) {
-                let fieldName = event.target.name
-                let value = event.target.value
-                let label = event.target.label
-                let searchParams = {...this.state.searchParameters}
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-                await this.setStateValuesForSearch(searchParams)
-            }
-        }
-        setFormValidManage = () => {
+        handleCropImage = croppedImageUrl => {
+            croppedImageUrl &&
             this.setState({
-                formValid: true
+                hospitalImageCroppedUrl: croppedImageUrl
             })
-        }
+        };
+
+        handleImageUpload = async croppedImageFile => {
+            let croppedImage = this.state.hospitalImageCroppedUrl;
+            let hospitalImage = {...this.state.hospitalData};
+            hospitalImage.hospitalLogo = new File(
+                [croppedImageFile],
+                'hospitalAvatar.jpeg'
+            );
+            hospitalImage.hospitalLogoUrl = croppedImage;
+            await this.setState({
+                hospitalData: {...hospitalImage},
+                showImageUploadModal: false
+            })
+        };
+
+        handleBannerSelect = imageUrl => {
+            imageUrl && this.setState({hospitalBannerImage: imageUrl})
+        };
+
+        handleCropBannerImage = croppedImageUrl => {
+            croppedImageUrl &&
+            this.setState({
+                hospitalBannerImageCroppedUrl: croppedImageUrl
+            })
+        };
+
+        handleBannerImageUpload = async croppedImageFile => {
+            let croppedImage = this.state.hospitalBannerImageCroppedUrl;
+            let hospitalImage = {...this.state.hospitalData};
+            hospitalImage.hospitalBanner = new File(
+                [croppedImageFile],
+                'hospitalBanner.jpeg'
+            );
+            hospitalImage.hospitalBannerUrl = croppedImage;
+            await this.setState({
+                hospitalData: {...hospitalImage},
+                showBannerUploadModal: false
+            })
+        };
+
+        handleConfirmClick = async () => {
+            const {
+                name,
+                status,
+                contactNumber,
+                hospitalLogo,
+                address,
+                panNumber,
+                hospitalCode,
+                isCogentAdmin,
+                numberOfFreeFollowUps,
+                numberOfAdmins,
+                followUpIntervalDays,
+                refundPercentage
+            } = this.state.hospitalData;
+
+            let hospitalData = {
+                name,
+                status,
+                contactNumber,
+                address,
+                panNumber,
+                hospitalCode,
+                isCogentAdmin,
+                numberOfFreeFollowUps,
+                numberOfAdmins,
+                followUpIntervalDays,
+                refundPercentage
+            };
+
+            let formDataLogo = new FormData();
+            formDataLogo.append(
+                'logo',
+                new File([hospitalLogo], name.concat('-picture.jpeg'))
+            );
+            let formDataBanner = new FormData();
+            formDataBanner.append('banner', [], name.concat('-picture.jpeg'));
+
+            try {
+                await this.props.createHospital(
+                    hospitalSetupApiConstants.CREATE_HOSPITAL,
+                    hospitalData,
+                    formDataLogo,
+                    formDataBanner
+                );
+
+                await this.setShowConfirmModal();
+                this.resetHospitalStateValues();
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.HospitalSaveReducer.createHospitalsuccessMessage
+                    }
+                })
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: e.errorMessage ? e.errorMessage : e.message
+                    }
+                })
+            }
+        };
+
+        handleOnChange = async (event, fieldValid, eventType) => {
+            let hospital = {...this.state.hospitalData};
+            let {name, value, label, type} = event.target;
+
+            value = name === 'hospitalCode' ? value.toUpperCase()
+                : (type === "checkbox" ? (event.target.checked ? 'Y' : 'N')
+                    : value);
+
+            hospital[name] = !label
+                ? value
+                : value
+                    ? {value: value, label: label}
+                    : {value: null};
+            await this.setTheState('hospitalData', hospital, fieldValid, name);
+            this.checkFormValidity(eventType)
+        };
 
         async componentDidMount() {
             if (type === 'M') {
@@ -532,9 +605,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 await this.searchHospitalForDropDown()
             }
         }
-
-        setImageShowModal = () =>
-            this.setState({showImageUploadModal: !this.state.showImageUploadModal})
 
         render() {
             const {
@@ -558,26 +628,30 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalImage,
                 hospitalImageCroppedUrl,
                 hospitalFileCropped,
-                showImageUploadModal
-            } = this.state
+                showImageUploadModal,
+                hospitalBannerFileCropped,
+                hospitalBannerImage,
+                hospitalBannerImageCroppedUrl,
+                showBannerUploadModal
+            } = this.state;
 
             const {
                 isSearchLoading,
                 hospitalList,
                 searchErrorMessage
-            } = this.props.HospitalSearchReducer
+            } = this.props.HospitalSearchReducer;
 
             const {
                 hospitalPreviewData,
                 isPreviewLoading,
                 hospitalPreviewErrorMessage
-            } = this.props.HospitalPreviewReducer
+            } = this.props.HospitalPreviewReducer;
 
-            const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
+            const {hospitalEditErrorMessage} = this.props.HospitalEditReducer;
 
-            const {deleteErrorMessage} = this.props.HospitalDeleteReducer
+            const {deleteErrorMessage} = this.props.HospitalDeleteReducer;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
             return (
                 <ComposedComponent
@@ -603,7 +677,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     resetSearch={this.handleSearchFormReset}
                     searchHospital={this.searchHospital}
                     handlePageChange={this.handlePageChange}
-                    handleSearchFormChange={this.handleSearchFormChange}
                     onSubmitDeleteHandler={this.onSubmitDeleteHandler}
                     editHospital={this.editHospital}
                     onEditHandler={this.onEditHandler}
@@ -638,6 +711,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     handleCropImage={this.handleCropImage}
                     handleImageUpload={this.handleImageUpload}
                     setImageShow={this.setImageShowModal}
+                    hospitalBannerImage={hospitalBannerImage}
+                    hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                    hospitalBannerFileCropped={hospitalBannerFileCropped}
+                    showBannerUploadModal={showBannerUploadModal}
+                    onBannerImageSelect={this.handleBannerSelect}
+                    handleCropBannerImage={this.handleCropBannerImage}
+                    handleBannerImageUpload={this.handleBannerImageUpload}
+                    setShowBannerUploadModal={this.setShowBannerModal}
                     hospitalDropdown={hospitalsForDropdown}
                 />
             )
@@ -664,5 +745,5 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             fetchActiveHospitalsForDropdown
         }
     )
-}
+};
 export default HospitalHOC
