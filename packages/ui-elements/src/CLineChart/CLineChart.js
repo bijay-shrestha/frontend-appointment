@@ -2,7 +2,7 @@ import React,{memo} from 'react';
 import {Line} from 'react-chartjs-2';
 
 const LineChart = props => {
- const {lineDatasets,width,height} =props;
+ const {lineData,width,height,labels} =props;
  
  const options = {
     responsive: true,
@@ -24,4 +24,26 @@ const LineChart = props => {
     //For y axes scale to always begin at 0
 };
 
+const chartFillData = {
+
+    labels: labels,
+    datasets: [
+        {
+            backgroundColor: "rgba(110,102,155,0.2)",
+            fillColor: 'rgba(110,102,155,0.2)',
+            borderColor: "rgba(110,102,155,1)",
+            borderWidth: 2,
+            pointColor: "rgba(110,102,155,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: 'rgba(110,102,155,1)',
+            data: lineData
+        }
+    ]
+
+}
+
+return(
+    <Line data={chartFillData} width={width} height={height} options={options}/>
+)
 }

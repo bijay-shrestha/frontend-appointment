@@ -1,3 +1,5 @@
+
+
 export {default as CButton} from './src/CButton';
 export {default as CDropdown} from './src/CDropdown';
 export {default as CInputGroup} from './src/CInputGroup';
@@ -34,3 +36,5 @@ export {default as CPageNotFound} from './src/404error';
 export {default as CFullPageLoading} from './src/CFullPageLoading';
 export {default as CLoading} from './src/CLoading';
 export {default as CUnauthorized} from './src/Unauthorized';
+export {default as CDoughnutChart} from './src/CDoughnutChart'; 
+export {default as CLineChart} from './src/CLineChart';
