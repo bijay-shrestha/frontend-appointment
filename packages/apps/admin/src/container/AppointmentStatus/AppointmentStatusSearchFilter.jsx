@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CButton, CHybridSelect, CForm} from "@frontend-appointment/ui-elements";
+import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 import "./appointment-status.scss";
-import {DateTimeFormatterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
+import {appointmentStatusList, DateTimeFormatterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
 
 class AppointmentLog extends PureComponent {
     state = {
@@ -155,13 +155,7 @@ class AppointmentLog extends PureComponent {
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.status}
-                                        options={[
-                                            {value: 'ALL', label: 'All'},
-                                            {value: 'V', label: 'Vacant'},
-                                            {value: 'PA', label: 'Pending Approval'},
-                                            {value: 'A', label: 'Approved'},
-                                            {value: 'C', label: 'Cancelled'}
-                                            ]}
+                                        options={appointmentStatusList}
                                         label='Status'
                                     />
                                 </Col>

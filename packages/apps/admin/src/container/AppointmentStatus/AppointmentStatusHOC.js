@@ -192,32 +192,39 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 };
 
                 await this.props.fetchAppointmentStatusList(APPOINTMENT_STATUS_LIST, searchData);
+                let statusList = [...this.props.AppointmentStatusListReducer.statusList];
                 await this.setState({
-                    appointmentStatusDetails: [...this.props.AppointmentStatusListReducer.statusList],
-                    appointmentStatusDetailsCopy: [...this.props.AppointmentStatusListReducer.statusList]
+                    appointmentStatusDetails: [...statusList],
+                    appointmentStatusDetailsCopy: [...statusList]
                 })
             }
 
         };
 
-        filterAppointmentDetailsByStatus = async (status,event) => {
+        filterAppointmentDetailsByStatus = async (status, event) => {
             event.preventDefault();
-            let appointmentStatus = [...this.state.appointmentStatusDetails];
+            let appointmentStatus = [...this.state.appointmentStatusDetailsCopy],
+                filteredStatus;
 
-            // let filteredStatus = appointmentStatus.map(appointment => {
-            //         let filteredTimeSlots = appointment.doctorTimeSlots.filter(time =>
-            //         )
-            //     }
-            // )
+            if (status !== 'ALL') {
+                filteredStatus = appointmentStatus.map(appointment => {
+                    let appointmentCopy = {...appointment};
+                        if (appointment.doctorTimeSlots) {
+                            let filteredTimeSlots = appointment.doctorTimeSlots.filter(time =>
+                                time.status === status
+                            );
+                            appointmentCopy.doctorTimeSlots = [...filteredTimeSlots];
+                        }
+                        return appointmentCopy;
+                    }
+                );
+            } else {
+                filteredStatus = [...this.state.appointmentStatusDetailsCopy]
+            }
 
-
-            // await this.setState({
-            //     searchParameters: {
-            //         ...this.state.searchParameters,
-            //         status: status
-            //     }
-            // });
-            // this.searchAppointmentStatus();
+            await this.setState({
+                appointmentStatusDetails: [...filteredStatus]
+            });
         };
 
         isSearchParametersValid = () => {
