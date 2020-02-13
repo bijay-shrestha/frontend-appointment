@@ -1,17 +1,9 @@
-import React from 'react';
-import { Image, Container, Row, Col ,ButtonGroup, Button, Form} from "react-bootstrap";
-import { CButton, CHybridInput, CHybridSelect } from "@frontend-appointment/ui-elements";
-import "./admin-dashboard.scss";
-import * as Material from 'react-icons/md';
+import React,{memo} from 'react';
+import {Button, ButtonGroup, Col, Container, Form, Row} from 'react-bootstrap';
+import {CHybridSelect} from '@frontend-appointment/ui-elements';
+import './admin-dashboard.scss';
 import * as Ionicons from 'react-icons/io';
 
-import RevenueStatistics from './RevenueStatistics'
-import RevenueTrend from './RevenueTrend'
-import PatientStatistics from './PatientStatistics'
-import AppointmentStatistics from './AppointmentStatistics'
-import {CButton, CHybridInput} from '@frontend-appointment/ui-elements'
-
-import AdminDashboardHoc from './AdminDashboardHoc'
 const AdminDashboard = () => {
 //   ({generateRevenue,revenueStatistics}) => (
 //     <div className="dashboard-wrapper">
@@ -224,7 +216,7 @@ const AdminDashboard = () => {
             </div> */}
         </div>
     );
-  return <AdminDash />
+  // return <AdminDash />
 }
 
 export default memo(AdminDashboard)
