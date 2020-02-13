@@ -50,7 +50,7 @@ const ProfileUpdateForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={!profileInfoObj.departmentValue ? 'Select department first.' : 'Select Sub Department'}
+                    placeholder={'Select hospital.'}
                 />
 
                 <CHybridSelect
@@ -61,7 +61,7 @@ const ProfileUpdateForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={profileInfoObj.departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder="Select department"
+                    placeholder={!profileInfoObj.hospitalValue ? 'Select hospital first.' : 'Select Department'}
                 />
 
                 <CFLabel labelName="Status" id="status"></CFLabel>
