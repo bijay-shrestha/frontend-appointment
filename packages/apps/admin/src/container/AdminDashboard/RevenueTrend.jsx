@@ -24,11 +24,9 @@ const RevenueTrend = props => {
     Object.keys(lineData).map(line => {
       newLineData.push(lineData[line])
     })
-    console.log(newLineData)
     return newLineData
   }
   newLineData = [...changeObjectToArray(revenueStatsData)]
-  console.log(revenueStatsData)
   newRevenueStatsData = Object.keys(revenueStatsData)
     ? Object.keys(revenueStatsData)
     : {}
@@ -46,10 +44,10 @@ const RevenueTrend = props => {
                 <Col className="date">
                   <div>
                     <span>From :</span>
-                    {fromDate}
+                    {new Date(fromDate).toLocaleDateString()}
                   </div>
                   <div>
-                    <span>To :</span> {toDate}
+                    <span>To :</span> {new Date(toDate).toLocaleDateString()}
                   </div>
                 </Col>
               </Col>

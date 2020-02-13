@@ -31,7 +31,7 @@ const appointmentStatsState = {
 
 const registeredPatientsState = {
   isRegisteredPatientLoading: true,
-  registeredPatientsData: {},
+  registeredPatientsData: null,
   registeredPatientsErrorMessage: ''
 }
 
@@ -104,8 +104,8 @@ export const DashboardRegisteredPatientReducer = (
     case DASHBOARD_REGISTERED_PATIENTS_FETCH_START:
       return {
         ...state,
-        isRegisteredPatientLoading: false,
-        registeredPatientsData: {},
+        isRegisteredPatientLoading: true,
+        registeredPatientsData:null,
         registeredPatientsErrorMessage: ''
       }
     case DASHBOARD_REGISTERED_PATIENTS_FETCH_SUCCESS:
@@ -119,7 +119,7 @@ export const DashboardRegisteredPatientReducer = (
       return {
         ...state,
         isRegisteredPatientLoading: false,
-        registeredPatientsData: {},
+        registeredPatientsData: null,
         registeredPatientsErrorMessage: action.payload.data
       }
     default:

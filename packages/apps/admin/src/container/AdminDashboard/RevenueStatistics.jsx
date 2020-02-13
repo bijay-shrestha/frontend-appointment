@@ -23,7 +23,7 @@ const RevenueStatistics = props => {
       <Row>
         <div className="revenue-box">
           {!isRevenueGeneratedYearLoading &&
-          Object.keys(revenueGeneratedYearData) ? (
+          Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
             <>
               {' '}
               <p>Rs. {revenueGeneratedYearData.amount}</p>
@@ -40,13 +40,13 @@ const RevenueStatistics = props => {
           ) : isRevenueGeneratedYearLoading ? (
             <CLoading />
           ) : (
-            <span>{revenueGeneratedYearErrorMessage}</span>
+            <span><p>{revenueGeneratedYearErrorMessage}</p></span>
           )}
         </div>
 
         <div className="revenue-box">
           {!isRevenueGeneratedMonthLoading &&
-          Object.keys(revenueGeneratedMonthData) ? (
+          Object.keys(revenueGeneratedMonthData) && !revenueGeneratedMonthErrorMessage? (
             <>
               {' '}
               <p>Rs. {revenueGeneratedMonthData.amount}</p>
@@ -63,13 +63,13 @@ const RevenueStatistics = props => {
           ) : isRevenueGeneratedMonthLoading ? (
             <CLoading />
           ) : (
-            <span>{revenueGeneratedMonthErrorMessage}</span>
+            <span><p>{revenueGeneratedMonthErrorMessage}</p></span>
           )}
         </div>
 
         <div className="revenue-box">
           {!isRevenueGeneratedWeekLoading &&
-          Object.keys(revenueGeneratedWeekData) ? (
+          Object.keys(revenueGeneratedWeekData)&&!revenueGeneratedWeekErrorMessage ? (
             <>
               {' '}
               <p>Rs. {revenueGeneratedWeekData.amount}</p>
@@ -86,13 +86,13 @@ const RevenueStatistics = props => {
           ) : isRevenueGeneratedWeekLoading ? (
             <CLoading />
           ) : (
-            <span>{revenueGeneratedWeekErrorMessage}</span>
+            <span><p>{revenueGeneratedWeekErrorMessage}</p></span>
           )}
         </div>
 
         <div className="revenue-box">
           {!isRevenueGeneratedDayLoading &&
-          Object.keys(revenueGeneratedDayData) ? (
+          Object.keys(revenueGeneratedDayData) && !revenueGeneratedDayErrorMessage ? (
             <>
               {' '}
               <p>Rs. {revenueGeneratedDayData.amount}</p>
@@ -109,7 +109,7 @@ const RevenueStatistics = props => {
           ) : isRevenueGeneratedDayLoading ? (
             <CLoading />
           ) : (
-            <span>{revenueGeneratedDayErrorMessage}</span>
+            <span><p>{revenueGeneratedDayErrorMessage}</p></span>
           )}
         </div>
       </Row>
