@@ -11,7 +11,6 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         errorMessageForStatusDetails,
         searchErrorMessage,
         isStatusListLoading,
-        showTimeSlotsOfStatus,
         filterAppointmentDetailsByStatus
     } = statusDetailsData;
     return <>
@@ -25,49 +24,61 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                         <Col>
                             <div className="appointment-badge float-right">
                             <span>
-                                <CButton
-                                    id="all-filter"
-                                    variant="secondary"
-                                    size="lg"
-                                    name="All"
-                                    onClickHandler={() => filterAppointmentDetailsByStatus('')}
-                                />
+                                <a href=""
+                                    onClick={(event) => filterAppointmentDetailsByStatus('', event)}>
+                                    All
+                                </a>
+                                {/*<CButton*/}
+                                {/*    id="all-filter"*/}
+                                {/*    variant="secondary"*/}
+                                {/*    size="lg"*/}
+                                {/*    name="All"*/}
+                                {/*    onClickHandler={() => filterAppointmentDetailsByStatus('')}*/}
+                                {/*/>*/}
                             </span>
                                 <span>
-                                <CButton
-                                    id="vacant"
-                                    variant="success"
-                                    size="lg"
-                                    name="Vacant"
-                                    onClickHandler={() => filterAppointmentDetailsByStatus('V')}
-                                />
+                                    <a href=""
+                                       onClick={(event) => filterAppointmentDetailsByStatus('V', event)}>Vacant</a>
+                                    {/*<CButton*/}
+                                    {/*    id="vacant"*/}
+                                    {/*    variant="success"*/}
+                                    {/*    size="lg"*/}
+                                    {/*    name="Vacant"*/}
+                                    {/*    onClickHandler={() => filterAppointmentDetailsByStatus('V')}*/}
+                                    {/*/>*/}
                             </span>
                                 <span>
-                                <CButton
-                                    id="pending-approval"
-                                    variant="warning"
-                                    size="lg"
-                                    name="Pending Approval"
-                                    onClickHandler={() => filterAppointmentDetailsByStatus('PA')}
-                                />
+                                     <a href=""
+                                        onClick={(event) => filterAppointmentDetailsByStatus('PA', event)}>Pending Approval</a>
+                                    {/*<CButton*/}
+                                    {/*    id="pending-approval"*/}
+                                    {/*    variant="warning"*/}
+                                    {/*    size="lg"*/}
+                                    {/*    name="Pending Approval"*/}
+                                    {/*    onClickHandler={() => filterAppointmentDetailsByStatus('PA')}*/}
+                                    {/*/>*/}
                             </span>
                                 <span>
-                                <CButton
-                                    id="approved"
-                                    variant="danger"
-                                    size="lg"
-                                    name="Approved"
-                                    onClickHandler={() => filterAppointmentDetailsByStatus('A')}
-                                />
+                                     <a href=""
+                                        onClick={(event) => filterAppointmentDetailsByStatus('A', event)}>Approved</a>
+                                    {/*<CButton*/}
+                                    {/*    id="approved"*/}
+                                    {/*    variant="danger"*/}
+                                    {/*    size="lg"*/}
+                                    {/*    name="Approved"*/}
+                                    {/*    onClickHandler={() => filterAppointmentDetailsByStatus('A')}*/}
+                                    {/*/>*/}
                             </span>
                                 <span>
-                                <CButton
-                                    id="cancelled"
-                                    variant="dark"
-                                    size="lg"
-                                    name="Cancelled"
-                                    onClickHandler={() => filterAppointmentDetailsByStatus('C')}
-                                />
+                                         <a href=""
+                                            onClick={(event) => filterAppointmentDetailsByStatus('C', event)}>Cancelled</a>
+                                    {/*<CButton*/}
+                                    {/*    id="cancelled"*/}
+                                    {/*    variant="dark"*/}
+                                    {/*    size="lg"*/}
+                                    {/*    name="Cancelled"*/}
+                                    {/*    onClickHandler={() => filterAppointmentDetailsByStatus('C')}*/}
+                                    {/*/>*/}
                             </span>
                             </div>
                         </Col>
@@ -90,36 +101,42 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={9} lg={9} className="time-container">
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
-                                        appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
-                                            <li key={'timeSlot-' + index}>
-                                                {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 &&
-                                                (showTimeSlotsOfStatus === timeSlot.status || showTimeSlotsOfStatus === '') ?
-                                                    <OverlayTrigger
-                                                        placement='top'
-                                                        overlay={
-                                                            <Tooltip id={timeSlot.status + "-" + index}>
-                                                                App no: {timeSlot.appointmentNumber}<br>
-                                                            </br>
-                                                                {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
-                                                            </br>
-                                                                Mobile No: {timeSlot.mobileNumber || 'N/A'}
-                                                            </Tooltip>
-                                                        }>
-                                                        <Button variant="warning"
-                                                                size="lg">
-                                                            {timeSlot.appointmentTime}
-                                                        </Button>
-                                                    </OverlayTrigger> :
-                                                    (showTimeSlotsOfStatus === timeSlot.status || showTimeSlotsOfStatus === '') ?
-                                                        (<Button
-                                                            variant={"success"}
-                                                            size="lg">
-                                                            {timeSlot.appointmentTime}
-                                                        </Button>) : ''
-                                                }
-                                            </li>
-                                        )) :
-                                        'N/A'}
+                                        (appointmentStatusDetail.doctorTimeSlots.length ?
+                                                appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+                                                    <li key={'timeSlot-' + index}>
+                                                        {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
+                                                            <OverlayTrigger
+                                                                placement='top'
+                                                                overlay={
+                                                                    <Tooltip id={timeSlot.status + "-" + index}>
+                                                                        App no: {timeSlot.appointmentNumber}<br>
+                                                                    </br>
+                                                                        {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
+                                                                    </br>
+                                                                        Mobile No: {timeSlot.mobileNumber || 'N/A'}
+                                                                    </Tooltip>
+                                                                }>
+                                                                <Button variant="warning"
+                                                                        size="lg">
+                                                                    {timeSlot.appointmentTime}
+                                                                </Button>
+                                                            </OverlayTrigger> :
+                                                            (timeSlot.status === 'V') ?
+                                                                (<Button
+                                                                    variant={"success"}
+                                                                    size="lg">
+                                                                    {timeSlot.appointmentTime}
+                                                                </Button>)
+                                                                : ''
+                                                        }
+                                                    </li>
+                                                ))
+                                                : "N/A"
+                                        )
+                                        :
+                                        appointmentStatusDetail.dayOffStatus ?
+                                            "DAY OFF" :
+                                            "DOCTOR DUTY ROSTER NOT CREATED!"}
                                 </ul>
                             </Col>
                         </Row>

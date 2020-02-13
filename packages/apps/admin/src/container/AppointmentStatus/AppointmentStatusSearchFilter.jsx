@@ -73,7 +73,7 @@ class AppointmentLog extends PureComponent {
                                             name="fromDate"
                                             label="From Date"
                                             dateFormat="yyyy-MM-dd"
-                                            minDate={0}
+                                            // minDate={0}
                                             showDisabledMonthNavigation={true}
                                             selected={searchParameters.fromDate}
                                             peekNextMonth={true}
@@ -88,7 +88,7 @@ class AppointmentLog extends PureComponent {
                                             name="toDate"
                                             label="To Date"
                                             dateFormat="yyyy-MM-dd"
-                                            minDate={0}
+                                            // minDate={0}
                                             showDisabledMonthNavigation={true}
                                             selected={searchParameters.toDate}
                                             peekNextMonth={true}
@@ -145,6 +145,24 @@ class AppointmentLog extends PureComponent {
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.specializationId}
                                         isDisabled={!searchParameters.hospitalId}
+                                    />
+                                </Col>
+
+                                <Col sm={6} md={6} xl={3}>
+                                    <CHybridSelect
+                                        id="status"
+                                        name="status"
+                                        onKeyDown={this.handleEnter}
+                                        onChange={(event) => handleSearchFormChange(event)}
+                                        value={searchParameters.status}
+                                        options={[
+                                            {value: 'ALL', label: 'All'},
+                                            {value: 'V', label: 'Vacant'},
+                                            {value: 'PA', label: 'Pending Approval'},
+                                            {value: 'A', label: 'Approved'},
+                                            {value: 'C', label: 'Cancelled'}
+                                            ]}
+                                        label='Status'
                                     />
                                 </Col>
 
@@ -254,6 +272,21 @@ class AppointmentLog extends PureComponent {
                             >
                                 <Button id="button-search-filters" variant="secondary">
                                     {searchParameters.specializationId.label}
+                                </Button>
+                            </OverlayTrigger>
+
+                        </li>
+                        }
+
+                        {searchParameters && searchParameters.status &&
+                        <li>
+                            <OverlayTrigger
+                                placement="top"
+                                delay={{show: 250, hide: 400}}
+                                overlay={(props) => <Tooltip {...props}>Status</Tooltip>}
+                            >
+                                <Button id="button-search-filters" variant="secondary">
+                                    {searchParameters.status.label}
                                 </Button>
                             </OverlayTrigger>
 
