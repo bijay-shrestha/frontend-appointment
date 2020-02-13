@@ -1,12 +1,8 @@
+import { ConnectHoc } from '@frontend-appointment/commons'
+import { EnterKeyPressUtils, FileExportUtils } from '@frontend-appointment/helpers'
+import { HospitalSetupMiddleware, SpecializationSetupMiddleware } from '@frontend-appointment/thunk-middleware'
+import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-constants'
 import React from 'react'
-import {ConnectHoc} from '@frontend-appointment/commons'
-import {SpecializationSetupMiddleware, HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    FileExportUtils,
-    AdminInfoUtils
-} from '@frontend-appointment/helpers'
 import './specialization.scss'
 
 const {
@@ -18,9 +14,9 @@ const {
     previewSpecialization,
     searchSpecialization
 } = SpecializationSetupMiddleware;
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
 const SpecializationHOC = (ComposedComponent, props, type) => {
-    const {specializationSetupAPIConstants, hospitalSetupApiConstants} = AdminModuleAPIConstants;
+    const { specializationSetupAPIConstants, hospitalSetupApiConstants } = AdminModuleAPIConstants;
 
     class SpecializationSetup extends React.PureComponent {
         state = {
@@ -52,7 +48,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 id: null,
                 name: '',
                 hospitalId: null,
-                status: {value: '', label: 'All'}
+                status: { value: '', label: 'All' }
             },
             queryParams: {
                 page: 0,
@@ -96,10 +92,10 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         };
 
         checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
-            let stateObj = {[fieldName]: valueToChange}
+            let stateObj = { [fieldName]: valueToChange }
             if (eventName)
-                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
-            return {...stateObj}
+                if (eventName === 'name') stateObj = { ...stateObj, nameValid: valid }
+            return { ...stateObj }
         };
 
         setTheState = async (fieldName, valueToChange, valid, eventName) => {
@@ -117,7 +113,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         };
 
         checkFormValidity = eventType => {
-            const {specializationData, nameValid} = this.state
+            const { specializationData, nameValid } = this.state
             let formValidity =
                 nameValid &&
                 specializationData.name &&
@@ -133,14 +129,14 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         };
 
         handleOnChange = async (event, fieldValid, eventType) => {
-            let specialization = {...this.state.specializationData};
-            let {name, value, label} = event.target;
+            let specialization = { ...this.state.specializationData };
+            let { name, value, label } = event.target;
             value = name === 'code' ? value.toUpperCase() : value;
             specialization[name] = !label
                 ? value
                 : value
-                    ? {value: value, label: label}
-                    : {value: null}
+                    ? { value: value, label: label }
+                    : { value: null }
             await this.setTheState(
                 'specializationData',
                 specialization,
@@ -151,17 +147,17 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         };
 
         setShowConfirmModal = () => {
-            this.setState({showConfirmModal: !this.state.showConfirmModal})
+            this.setState({ showConfirmModal: !this.state.showConfirmModal })
         };
 
         handleConfirmClick = async () => {
-            const {name, code, status, hospitalId} = this.state.specializationData;
+            const { name, code, status, hospitalId } = this.state.specializationData;
             try {
                 await this.props.createSpecialization(
                     specializationSetupAPIConstants.CREATE_SPECIALIZATION,
                     {
                         name,
-                        // code,
+                        code,
                         status,
                         hospitalId: hospitalId.value || ''
                     }
@@ -220,7 +216,9 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                     name,
                     code,
                     status,
-                    remarks
+                    remarks,
+                    hospitalId,
+                    hospitalName
                 } = this.props.SpecializationPreviewReducer.specializationPreviewData
                 let formValid = this.state.formValid
                 if (remarks)
@@ -232,7 +230,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                         name: name,
                         code: code,
                         status: status,
-                        remarks: remarks
+                        remarks: remarks,
+                        hospitalId:{label: hospitalName,value: hospitalId}
                     },
                     formValid: formValid,
                     nameValid: true
@@ -243,7 +242,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         }
 
         searchSpecialization = async page => {
-            const {code, name, status, id, hospitalId} = this.state.searchParameters;
+            const { code, name, status, id, hospitalId } = this.state.searchParameters;
             let searchData = {
                 name: name,
                 code: code,
@@ -256,8 +255,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 this.state.queryParams.page === 0
                     ? 1
                     : page
-                    ? page
-                    : this.state.queryParams.page;
+                        ? page
+                        : this.state.queryParams.page;
             await this.props.searchSpecialization(
                 specializationSetupAPIConstants.SEARCH_SPECIALIZATION,
                 {
@@ -303,12 +302,13 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
 
         editSpeclization = async () => {
 
-            const {id, name, status, hospitalId, remarks} = this.state.specializationData;
+            const { id, name, status, hospitalId, code, remarks } = this.state.specializationData;
             const data = {
                 id: id,
                 name: name,
                 status: status,
                 hospitalId: hospitalId ? hospitalId.value : '',
+                code: code,
                 remarks: remarks
             };
             try {
@@ -332,7 +332,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
 
         onDeleteHandler = async id => {
             this.props.clearSpecializationCreateMessage()
-            let deleteRequestDTO = {...this.state.deleteRequestDTO}
+            let deleteRequestDTO = { ...this.state.deleteRequestDTO }
             deleteRequestDTO['id'] = id
             await this.setState({
                 deleteRequestDTO: deleteRequestDTO,
@@ -341,8 +341,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         }
 
         deleteRemarksHandler = event => {
-            const {name, value} = event.target
-            let deleteRequest = {...this.state.deleteRequestDTO}
+            const { name, value } = event.target
+            let deleteRequest = { ...this.state.deleteRequestDTO }
             deleteRequest[name] = value
             this.setState({
                 deleteRequestDTO: deleteRequest
@@ -357,7 +357,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 )
                 await this.setState({
                     deleteModalShow: false,
-                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
+                    deleteRequestDTO: { id: 0, remarks: '', status: 'D' },
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.SpecializationDeleteReducer
@@ -397,7 +397,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 searchParameters: {
                     code: '',
-                    status: {value: '', label: 'All'},
+                    status: { value: '', label: 'All' },
                     name: '',
                     id: null
                 }
@@ -416,8 +416,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 let fieldName = event.target.name
                 let value = event.target.value
                 let label = event.target.label
-                let searchParams = {...this.state.searchParameters}
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+                let searchParams = { ...this.state.searchParameters }
+                searchParams[fieldName] = label ? (value ? { value, label } : '') : value
                 await this.setStateValuesForSearch(searchParams)
             }
         }
@@ -481,9 +481,9 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
 
             } = this.props.SpecializationEditReducer
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            const { hospitalsForDropdown } = this.props.HospitalDropdownReducer;
 
-            const {deleteErrorMessage} = this.props.SpecializationDeleteReducer
+            const { deleteErrorMessage } = this.props.SpecializationDeleteReducer
             console.log('Delete Modal Show', this.state.deleteModalShow)
             return (
                 <ComposedComponent
