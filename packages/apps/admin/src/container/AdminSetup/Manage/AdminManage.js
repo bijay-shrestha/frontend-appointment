@@ -98,7 +98,7 @@ class AdminManage extends PureComponent {
             adminAvatar: null,
             adminAvatarUrl: '',
             adminAvatarUrlNew: '',
-            formValid: true,
+            formValid: false,
             remarks: '',
             fullNameValid: true,
             emailValid: true,
@@ -277,7 +277,10 @@ class AdminManage extends PureComponent {
             && email && mobileNumberValid && mobileNumber && remarks && genderCode;
 
         this.setState({
-            formValid: Boolean(formValidity)
+            adminUpdateData: {
+                ...this.state.adminUpdateData,
+                formValid: Boolean(formValidity)
+            }
         })
     };
 
@@ -849,7 +852,7 @@ class AdminManage extends PureComponent {
                 hospitalList: [...this.props.HospitalDropdownReducer.hospitalsForDropdown],
                 departmentList: [...this.props.DepartmentSetupReducer.departmentsByHospital],
                 profileList: [...this.props.ProfileSetupReducer.activeProfilesByDepartmentId],
-                remarks: remarks
+                remarks: ''
             },
             updatedMacIdList: [...macIdList],
         });
