@@ -1,12 +1,12 @@
 import React from 'react';
 
 import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CButton, CLoading} from "@frontend-appointment/ui-elements";
+import {CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
 import {appointmentStatusList} from "@frontend-appointment/helpers";
 
-const TIME_SLOT_EMPRTY_ERROR_MESSAGE = "TIME SLOTS NOT AVAILABLE";
+const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
 
 const AppointmentStatusDetails = ({statusDetailsData}) => {
@@ -89,9 +89,9 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 </li>
                                             ))
                                             : appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
-                                                : TIME_SLOT_EMPRTY_ERROR_MESSAGE
+                                                : TIME_SLOT_EMPTY_ERROR_MESSAGE
                                     ): appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
-                                            : TIME_SLOT_EMPRTY_ERROR_MESSAGE
+                                            : TIME_SLOT_EMPTY_ERROR_MESSAGE
                                     }
                                 </ul>
                             </Col>
