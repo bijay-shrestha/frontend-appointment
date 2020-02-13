@@ -1,20 +1,15 @@
 import React, {memo} from 'react'
 import {
-  Image,
-  Container,
   Row,
-  Col,
-  ButtonGroup,
-  Button,
-  Form
+  Col
 } from 'react-bootstrap';
 import {CDateButtonPills} from '@frontend-appointment/ui-components';
 
+
 const AppointmentStatistics = props => {
     const {onPillsClickHandler,previousFromDate,currentToDate,chartData} =props
-  return (
+  return(
     <>
-      <h5 className="title">Appointment Statistics</h5>
       <div className="appointment-box">
         <Row>
           <CDateButtonPills onPillsClickHandler={onPillsClickHandler}/>

@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {Row} from 'react-bootstrap'
 import * as Material from 'react-icons/md'
 import {CLoading} from '@frontend-appointment/ui-elements'
-
+import {checkPositveAndNegativeIcons} from '@frontend-appointment/commons'
 const RevenueStatistics = props => {
   const {
     isRevenueGeneratedDayLoading,
@@ -21,9 +21,6 @@ const RevenueStatistics = props => {
   return (
     <>
       <Row>
-        <h5 className="title">Revenue Statistics</h5>
-      </Row>
-      <Row>
         <div className="revenue-box">
           {!isRevenueGeneratedYearLoading &&
           Object.keys(revenueGeneratedYearData) ? (
@@ -33,7 +30,9 @@ const RevenueStatistics = props => {
               <div className="total">
                 {/* Total Revenue  */}
                 <span className="up">
-                  <Material.MdExpandLess /> 
+                  {checkPositveAndNegativeIcons(
+                    revenueGeneratedYearData.growthPercent
+                  )}
                   {revenueGeneratedYearData.growthPercent}% from last year
                 </span>
               </div>
@@ -54,7 +53,9 @@ const RevenueStatistics = props => {
               <div className="total">
                 {/* Total Revenue  */}
                 <span className="up">
-                  <Material.MdExpandLess /> 
+                  {checkPositveAndNegativeIcons(
+                    revenueGeneratedMonthData.growthPercent
+                  )}
                   {revenueGeneratedMonthData.growthPercent}% from last month
                 </span>
               </div>
@@ -75,7 +76,9 @@ const RevenueStatistics = props => {
               <div className="total">
                 {/* Total Revenue  */}
                 <span className="up">
-                  <Material.MdExpandLess /> 
+                  {checkPositveAndNegativeIcons(
+                    revenueGeneratedWeekData.growthPercent
+                  )}
                   {revenueGeneratedWeekData.growthPercent}% from last week
                 </span>
               </div>
@@ -96,7 +99,9 @@ const RevenueStatistics = props => {
               <div className="total">
                 {/* Total Revenue  */}
                 <span className="up">
-                  <Material.MdExpandLess />
+                  {checkPositveAndNegativeIcons(
+                    revenueGeneratedDayData.growthPercent
+                  )}
                   {revenueGeneratedDayData.growthPercent}% from last day
                 </span>
               </div>

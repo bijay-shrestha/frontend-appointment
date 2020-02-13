@@ -8,8 +8,8 @@ import {
   Button,
   Form
 } from 'react-bootstrap'
-import {CDateButtonPills} from '@frontend-appointment/ui-components';
-import {CLineChart} from '@frontend-appointment/ui-elements';
+import {CDateButtonPills} from '@frontend-appointment/ui-components'
+import {CLineChart, CLoading} from '@frontend-appointment/ui-elements'
 const RevenueTrend = props => {
   const {
     isRevenueStatsLoading,
@@ -17,44 +17,60 @@ const RevenueTrend = props => {
     revenueStatsErrorMessage,
     fromDate,
     toDate
-  }=props.revenueStatistics;
-  let newLineData=[],newRevenueStatsData=[];
-  const changeObjectToArray = (lineData) => {
-
-     Object.keys(lineData).map(line => {
-      newLineData.push(lineData[line]);
+  } = props.revenueStatistics
+  let newLineData = [],
+    newRevenueStatsData = []
+  const changeObjectToArray = lineData => {
+    Object.keys(lineData).map(line => {
+      newLineData.push(lineData[line])
     })
     console.log(newLineData)
-    return newLineData;
+    return newLineData
   }
-  newLineData =[...changeObjectToArray(revenueStatsData)];
-  console.log(revenueStatsData);
-  newRevenueStatsData=Object.keys(revenueStatsData)?Object.keys(revenueStatsData):{}
+  newLineData = [...changeObjectToArray(revenueStatsData)]
+  console.log(revenueStatsData)
+  newRevenueStatsData = Object.keys(revenueStatsData)
+    ? Object.keys(revenueStatsData)
+    : {}
   return (
     <Col lg={7}>
       <Row>
         <h5 className="title">Revenue Trend</h5>
       </Row>
       <Row>
-        <div className="chart">
-          <Row>
-           <CDateButtonPills/>
-            <Col xs={12} md={4} className="p-0">
-              <Col className="date">
-                <div>
-                  {/* <span>From :</span>{fromDate} */}
-                </div>
-                <div>
-                  {/* <span>To :</span> {toDate} */}
-                </div>
+        {newLineData.length ? (
+          <div className="chart">
+            <Row>
+              <CDateButtonPills />
+              <Col xs={12} md={4} className="p-0">
+                <Col className="date">
+                  <div>
+                    <span>From :</span>
+                    {fromDate}
+                  </div>
+                  <div>
+                    <span>To :</span> {toDate}
+                  </div>
+                </Col>
               </Col>
-            </Col>
-          </Row>
+            </Row>
 
-          <Row>
-           <CLineChart lineData={newLineData} labels={newRevenueStatsData?newRevenueStatsData:[]} width={600} height={350}/>
-          </Row>
-        </div>
+            <Row>
+              <CLineChart
+                lineData={newLineData}
+                labels={newRevenueStatsData ? newRevenueStatsData : []}
+                width={600}
+                height={350}
+              />
+            </Row>
+          </div>
+        ) : isRevenueStatsLoading ? (
+          <CLoading />
+        ) : (
+          <span>
+            <p>{revenueStatsErrorMessage}</p>
+          </span>
+        )}
       </Row>
     </Col>
   )
