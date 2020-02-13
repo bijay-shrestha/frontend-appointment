@@ -1,15 +1,45 @@
 import React from 'react';
 import { Image, Container, Row, Col ,ButtonGroup, Button, Form} from "react-bootstrap";
-import { CButton, CHybridInput } from "@frontend-appointment/ui-elements";
+import { CButton, CHybridInput, CHybridSelect } from "@frontend-appointment/ui-elements";
 import "./admin-dashboard.scss";
 import * as Material from 'react-icons/md';
+import * as Ionicons from 'react-icons/io';
 
 const AdminDashboard = () => {
     return (
         <div className="dashboard-wrapper">
 
             <Container fluid className="" >
-                <Row><h5 className="title">Revenue Statistics</h5></Row>
+                <Row className="">
+                    <Col className="px-0">
+                    <div className="revenue-title-box">
+                    <div className="fiscal">F<span className="slash">/</span>Y 2019<span className="slash">/</span>2020</div>
+                    <h5 className="title">Revenue Statistics</h5>
+
+                    </div>
+                    </Col>
+                    <Col className="px-0">
+                    
+                    <Form className="hospital-list">
+                    <Form.Group as={Row} controlId="formPlaintextEmail">
+                        <Form.Label column sm="2">Hospital &nbsp;&nbsp;</Form.Label>
+                        <Col sm="10">
+                        <CHybridSelect
+                        placeholder="Select hospital"
+                        ></CHybridSelect>
+                        </Col>
+                    </Form.Group>
+                                
+                      
+                        
+             
+                    </Form>
+                    </Col>
+   
+
+                
+              
+                </Row>
                
                 <Row>
                    
@@ -17,36 +47,39 @@ const AdminDashboard = () => {
                     <div className="revenue-box">
 
 
-                        <p>Rs. 5,00,000</p>
+                        <p>5,00,000<span>NPR</span> </p>
                         <div className="total">
                             {/* Total Revenue  */}
                             <span className="up">
-                            <Material.MdExpandLess /> +5% from last year
+                            <Ionicons.IoIosTrendingUp />&nbsp;5% from last year
                                 </span>
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p>Rs. 1,00,000</p>
+                        <p>1,00,000<span>NPR</span> </p>
                         <div className="up">
-                        <Material.MdExpandLess />  +5% from last month
+
+                        <Ionicons.IoIosTrendingUp />  5% from last month
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p>Rs. 50,000</p>
+                        <p>50,000<span>NPR</span> </p>
                         <div className="up">
-                        <Material.MdExpandLess /> +5% from last week
+                            
+                           <Ionicons.IoIosTrendingUp /> 5%  from last week
+                          
                                 </div>
                     </div>
 
                     <div className="revenue-box">
 
-                        <p>Rs. 9,000</p>
+                        <p>9,000<span>NPR</span> </p>
                         <div className="down">
-                        <Material.MdExpandMore/>  -3% from last day
+                        <Ionicons.IoIosTrendingDown/>  3% from last day
                                 </div>
                     </div>
 
