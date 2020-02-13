@@ -227,7 +227,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             fromDate: {fromDate},
             toDate: {toDate}
           }}
-          registerePatients={{
+          registeredPatients={{
             isRegisteredPatientLoading: isRegisteredPatientLoading,
             registeredPatientsData: registeredPatientsData,
             registeredPatientsErrorMessage: registeredPatientsErrorMessage

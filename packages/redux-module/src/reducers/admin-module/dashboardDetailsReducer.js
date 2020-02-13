@@ -81,7 +81,7 @@ export const DashboardAppointmentStatisticsReducer = (
       return {
         ...state,
         isRevenueStatsLoading: true,
-        revenueStatsData: [],
+        revenueStatsData:action.payload.data,
         revenueStatsErrorMessage: ''
       }
     case DASHBOARD_APPOINTMENT_STATISTICS_ERROR:
@@ -89,7 +89,7 @@ export const DashboardAppointmentStatisticsReducer = (
         ...state,
         isRevenueStatsLoading: true,
         revenueStatsData: [],
-        revenueStatsErrorMessage: ''
+        revenueStatsErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -120,7 +120,7 @@ export const DashboardRegisteredPatientReducer = (
         ...state,
         isRegisteredPatientLoading: false,
         registeredPatientsData: {},
-        registeredPatientsErrorMessage: action.payload.message
+        registeredPatientsErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -151,7 +151,7 @@ export const DashboardRevenueStatisticsReducer = (
         ...state,
         isRevenueStatsLoading: false,
         revenueStatsData: [],
-        revenueStatsErrorMessage: action.payload.data.message
+        revenueStatsErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -182,7 +182,7 @@ export const DashboardRevenueGeneratedDayReducer = (
         ...state,
         isRevenueGeneratedDayLoading: false,
         revenueGeneratedDayData: {},
-        revenueGeneratedDayErrorMessage: action.payload.message
+        revenueGeneratedDayErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -213,7 +213,7 @@ export const DashboardRevenueGeneratedMonthReducer = (
         ...state,
         isRevenueGeneratedMonthLoading: false,
         revenueGeneratedMonthData: {},
-        revenueGeneratedMonthErrorMessage: action.payload.message
+        revenueGeneratedMonthErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -244,7 +244,7 @@ export const DashboardRevenueGeneratedWeekReducer = (
         ...state,
         isRevenueGeneratedWeekLoading: false,
         revenueGeneratedWeekData: {},
-        revenueGeneratedWeekErrorMessage: action.payload.message
+        revenueGeneratedWeekErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -275,7 +275,7 @@ export const DashboardRevenueGeneratedYearReducer = (
         ...state,
         isRevenueGeneratedYearLoading: false,
         revenueGeneratedYearData: {},
-        revenueGeneratedYearErrorMessage: action.payload.message
+        revenueGeneratedYearErrorMessage: action.payload.data
       }
     default:
       return {...state}

@@ -8,7 +8,7 @@ import AppointmentStatistics from './AppointmentStatistics'
 import AdminDashboardHoc from './AdminDashboardHoc'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
-    ({generateRevenue, revenueStatistics}) => (
+    ({generateRevenue, revenueStatistics,registeredPatients}) => (
       <div className="dashboard-wrapper">
         <Container fluid className="">
           <Row className="">
@@ -29,7 +29,7 @@ const AdminDashboard = props => {
             <RevenueTrend revenueStatistics={revenueStatistics} />
 
             <Col lg={5} className="pr-0">
-              <PatientStatistics />
+              <PatientStatistics registeredPatients={registeredPatients}/>
               <AppointmentStatistics />
             </Col>
           </Row>
