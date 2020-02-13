@@ -5,7 +5,7 @@
 //
 
 .btn {
-  border-radius: 2px;
+  // border-radius: 4px;
   font-size    : 0.85rem;
 
   &:focus {
@@ -41,5 +41,6 @@ button:disabled {
 }
 
 .btn-outline-secondary{
-  border-color:rgba($gray-200,1);
+  // border-color:rgba($gray-200,1);
+  color:$gray-900;
 }
