@@ -50,13 +50,13 @@ const RevenueStatistics = props => {
             <>
               {' '}
               <p>Rs. {revenueGeneratedMonthData.amount}</p>
-              <div className="total">
+              <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedMonthData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedMonthData.growthPercent
                   )}
-                  {revenueGeneratedMonthData.growthPercent}% from last month
+                  {Math.abs(Number(revenueGeneratedMonthData.growthPercent))}% from last month
                 </span>
               </div>
             </>
@@ -73,13 +73,13 @@ const RevenueStatistics = props => {
             <>
               {' '}
               <p>Rs. {revenueGeneratedWeekData.amount}</p>
-              <div className="total">
+              <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedWeekData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedWeekData.growthPercent
                   )}
-                  {revenueGeneratedWeekData.growthPercent}% from last week
+                  {Math.abs(Number(revenueGeneratedWeekData.growthPercent))}% from last week
                 </span>
               </div>
             </>
@@ -96,13 +96,13 @@ const RevenueStatistics = props => {
             <>
               {' '}
               <p>Rs. {revenueGeneratedDayData.amount}</p>
-              <div className="total">
+              <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedDayData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedDayData.growthPercent
                   )}
-                  {revenueGeneratedDayData.growthPercent}% from last day
+                  {Math.abs(Number(revenueGeneratedDayData.growthPercent))}% from last day
                 </span>
               </div>
             </>
