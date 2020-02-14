@@ -178,7 +178,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={6} lg={6} className="mb-4">
                                         <CFLabel
                                             labelName="Contact Number"
                                             id="contactNumber"
