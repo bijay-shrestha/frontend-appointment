@@ -25,8 +25,8 @@ const AppointmentStatistics = props => {
       (registeredPatient / totalAppointment) * 100
     data.push(newPatientPercent)
     data.push(registeredPatientPercent)
-    color.push('green')
-    color.push('red')
+    color.push('yellow')
+    color.push('blue')
     label.push('New Patients')
     label.push('Registered Patients')
     chartData = {

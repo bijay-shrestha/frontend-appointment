@@ -17,8 +17,8 @@ const CDoughnutChart = props => {
       datalabels: {
         formatter: (value, ctx) => {
           let sum = ctx.dataset._meta[0].total
-          let percentage = ((value * 100) / sum).toFixed(2) + '%'
-          return percentage
+          let percentage = ((value * 100) / sum)
+          return percentage.toFixed(2)+"%"
         },
         color: '#fff'
       }

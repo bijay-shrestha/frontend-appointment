@@ -148,7 +148,7 @@ export const appointmentSetupApiConstant ={
 }
 
 export const DashboardApiConstant = {
-    OVERALL_APPOINTMENTS:BASE.concat(DASHBOARD_BASE+"/overallAppointments"),
+    OVERALL_APPOINTMENTS:BASE.concat(DASHBOARD_BASE+"/overAllAppointments"),
     REGISTERED_PATIENTS:BASE.concat(DASHBOARD_BASE+"/registeredPatients/count"),
     REVENUE_GENERATED:BASE.concat(DASHBOARD_BASE+"/revenueGenerated"),
     REVENUE_STATISTICS:BASE.concat(DASHBOARD_BASE+"/revenueStatistics")   

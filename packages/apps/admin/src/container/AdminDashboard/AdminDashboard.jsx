@@ -19,15 +19,28 @@ const AdminDashboard = props => {
         onPillsClickHandler,
         appointmentList
       }) => (
-        
         <div className="dashboard-wrapper">
           <Container fluid className="">
             <Row className="">
               <Col className="px-0">
                 <div className="revenue-title-box">
                   <div className="fiscal">
-                    F<span className="slash">/</span>Y {generateRevenue && generateRevenue.revenueGeneratedDayData && generateRevenue.revenueGeneratedDayData.fiscalYear ? generateRevenue.revenueGeneratedDayData.fiscalYear.split('/')[0]:''}
-                    <span className="slash">/</span>{generateRevenue && generateRevenue.revenueGeneratedDayData && generateRevenue.revenueGeneratedDayData.fiscalYear ? generateRevenue.revenueGeneratedDayData.fiscalYear.split('/')[1]:''}
+                    F<span className="slash">/</span>Y{' '}
+                    {generateRevenue &&
+                    generateRevenue.revenueGeneratedDayData &&
+                    generateRevenue.revenueGeneratedDayData.fiscalYear
+                      ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                          '/'
+                        )[0]
+                      : ''}
+                    <span className="slash">/</span>
+                    {generateRevenue &&
+                    generateRevenue.revenueGeneratedDayData &&
+                    generateRevenue.revenueGeneratedDayData.fiscalYear
+                      ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                          '/'
+                        )[1]
+                      : ''}
                   </div>
                   <h5 className="title">Revenue Statistics</h5>
                 </div>
