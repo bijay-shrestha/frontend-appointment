@@ -40,7 +40,7 @@ const RevenueTrend = props => {
         {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
           <div className="chart">
             <Row>
-              <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund"/>
+              <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund" variant="outline-secondary"/>
               <Col xs={12} md={4} className="p-0">
                 <Col className="date">
                   <div>

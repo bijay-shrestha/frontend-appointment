@@ -29,7 +29,7 @@ const RevenueStatistics = props => {
               <p>Rs. {revenueGeneratedYearData.amount}</p>
               <div className="total">
                 {/* Total Revenue  */}
-                <span className="up">
+                <span className={"up"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedYearData.growthPercent
                   )}
@@ -52,7 +52,7 @@ const RevenueStatistics = props => {
               <p>Rs. {revenueGeneratedMonthData.amount}</p>
               <div className="total">
                 {/* Total Revenue  */}
-                <span className="up">
+                <span className={Number(revenueGeneratedMonthData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedMonthData.growthPercent
                   )}
@@ -75,7 +75,7 @@ const RevenueStatistics = props => {
               <p>Rs. {revenueGeneratedWeekData.amount}</p>
               <div className="total">
                 {/* Total Revenue  */}
-                <span className="up">
+                <span className={Number(revenueGeneratedWeekData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedWeekData.growthPercent
                   )}
@@ -98,7 +98,7 @@ const RevenueStatistics = props => {
               <p>Rs. {revenueGeneratedDayData.amount}</p>
               <div className="total">
                 {/* Total Revenue  */}
-                <span className="up">
+                <span className={Number(revenueGeneratedDayData.growthPercent)>0?"up":"down"}>
                   {checkPositveAndNegativeIcons(
                     revenueGeneratedDayData.growthPercent
                   )}
