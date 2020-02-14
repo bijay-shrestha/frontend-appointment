@@ -56,7 +56,9 @@ function DoctorDutyRosterManage(props) {
              showDeleteOverrideModal,
              deleteOverrideErrorMessage,
              deleteOverride,
-             onRemoveOverride
+             onRemoveOverride,
+             activeDoctorsByHospitalForDropdown,
+             activeSpecializationListByHospital
          }) => {
             const footerContent =
                 <Container fluid="true">
@@ -92,9 +94,9 @@ function DoctorDutyRosterManage(props) {
                     resetSearchForm={resetSearchForm}
                     onSearchClick={() => searchDoctorDutyRoster(1)}
                     hospitalList={hospitalList}
-                    specializationList={specializationList}
+                    specializationList={activeSpecializationListByHospital}
                     specializationDropdownError={specializationDropdownError}
-                    doctorList={activeDoctorList}
+                    doctorList={activeDoctorsByHospitalForDropdown}
                     doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                 />
                 <DoctorDutyRosterDataTable
