@@ -150,7 +150,7 @@ const DoctorForm = ({
                       value="O"
                     /></div>
                   </Col>
-                 
+
 
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
@@ -175,14 +175,14 @@ const DoctorForm = ({
                       }
                       label="Select Specialization"
                       options={activeSpecializationList}
-                      isDisabled={!activeSpecializationList.length?true:false}
+                      // isDisabled={!activeSpecializationList.length ?true:false}
                       value={doctorInfoObj.specializationIds}
                       required={true}
                       isMulti={true}
                     />
                   </Col>
 
-                 
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridSelect
                       id="qualificationIds"
@@ -213,7 +213,7 @@ const DoctorForm = ({
                     />
                   </Col>
 
-                  
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="doctor-number"
@@ -230,7 +230,7 @@ const DoctorForm = ({
                       errorMessagePassed={errorMessageForDoctorContact}
                     />
                   </Col>
-                  
+
                   <Col sm={12} md={6} lg={6} className="">
                     <CHybridInput
                       id="appointment-charge"
@@ -262,7 +262,7 @@ const DoctorForm = ({
                     </div>
                   </Col>
 
-                  
+
                 </Row>
               </Col>
             </Row>
