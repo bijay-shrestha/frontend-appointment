@@ -50,9 +50,7 @@ const ParentMenu = props => {
     <Nav
       key={'nav-child-key' + props.parent.id}
       onClick={id => props.activeNavBar(props.parent.path)}
-    //   activeKey={
-    //     props.parent.path + 'true' === props.active ? props.parent.path : ''
-    //   }
+     
     >
       <Nav.Item
         className={String(props.active) === String(props.parent.path + 'true')?'active' : ""}
@@ -73,6 +71,9 @@ const ParentMenu = props => {
               {text: props.isOpen || props.isHover},
               {closemenutext: !props.isOpen && !props.isHover}
             )}
+            onClick={props.parent.id?()=>props.toggleNavbar('nav-item' + props.parent.id, props.parent.root):()=>{
+
+            }}
           >
             {/* <i className="fa fa-calendar-plus-o " /> */}
             {props.parent.name}
