@@ -971,7 +971,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         closeAlert = () => {
             // this.props.clearDepartmentSuccessErrorMessagesFromStore();
             this.setState({
-                showAlert: !this.state.showAlert
+                showAlert: false
             });
         };
 
