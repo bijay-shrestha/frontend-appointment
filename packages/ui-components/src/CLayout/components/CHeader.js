@@ -114,7 +114,7 @@ class CHeader extends Component {
         setTimeout(() => this.clearCount(), 1000)
     };
 
-    handleKeyPress = (event) => {
+    handleShiftKeyPress = (event) => {
         let keypressCount = this.state.keyPressCount;
         if (event.keyCode === 16) {
             if (!keypressCount || keypressCount === 2) {
@@ -146,13 +146,15 @@ class CHeader extends Component {
 
     componentDidMount() {
         this.setLoggedInUserInfo();
-        document.addEventListener('keydown', this.handleKeyPress)
+        document.addEventListener('keydown', this.handleShiftKeyPress);
+        document.addEventListener('keyup', this.handleShiftKeyPress);
     };
 
     componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleKeyPress);
+        document.removeEventListener("keydown", this.handleShiftKeyPress);
+        document.removeEventListener("keyup", this.handleShiftKeyPress);
         clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
-    }
+    };
 
     resetState = () => {
         this.setState({
@@ -167,20 +169,20 @@ class CHeader extends Component {
     };
 
     handleSearchOnBlur = (event) => {
-        setTimeout(() => {
+        // setTimeout(event,(event)=>{
             if (event.target.value) {
                 this.clearStateOnTimeout();
                 // this.formControl.current.focus();
             }
             ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
-        });
+        // });
     };
 
-    handleSearchOnFocus = () => {
-        setTimeout(() => {
+    handleSearchOnFocus = (event) => {
+        // setTimeout(event, (event) => {
             ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
             this.searchDropdown.current.focus();
-        });
+        // });
     };
 
     handleKeyDown = ()=>{
