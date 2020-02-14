@@ -62,7 +62,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder="Select Appointment Number"
+                                            placeholder=" Appointment Number"
                                             value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
