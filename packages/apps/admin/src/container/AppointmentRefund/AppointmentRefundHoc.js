@@ -260,6 +260,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             message: this.props.AppointmentRefundReducer.refundSuccess
           }
         });
+        this.searchAppointment()
       } catch (e) {
         this.setState({
           showAlert: true,
@@ -290,6 +291,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           },
           
         });
+        this.searchAppointment();
        
       } catch (e) {
         console.log(e);
