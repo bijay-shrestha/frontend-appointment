@@ -233,6 +233,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             this.initialApiCalls()
         }
 
+        componentWillUnmount() {
+            clearTimeout(this.clearAlertTimeout);
+        }
+
         fetchHospitalsForDropdown = async () => {
             await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
         };
@@ -611,7 +615,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         variant: "danger",
                         message: e.errorMessage
                     }
-                })
+                });
+                this.clearAlertTimeout();
             }
         };
 
@@ -668,6 +673,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: e.errorMessage ? e.errorMessage : 'Error occurred while fetching Doctor Duty Roster details.'
                     },
                 });
+                this.clearAlertTimeout();
             }
 
         };
@@ -705,6 +711,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: e.errorMessage ? e.errorMessage : 'Error occurred while fetching Doctor Duty Roster details.'
                     },
                 });
+                this.clearAlertTimeout();
             }
         };
 
@@ -957,6 +964,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             return wholeWeekOff;
         };
 
+        clearAlertTimeout = () => {
+            setTimeout(() => this.closeAlert(), 5000)
+        };
+
         closeAlert = () => {
             // this.props.clearDepartmentSuccessErrorMessagesFromStore();
             this.setState({
@@ -986,7 +997,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             variant: "warning",
                             message: "No existing rosters found."
                         }
-                    })
+                    });
+                    this.clearAlertTimeout();
                 }
             } catch (e) {
                 this.setState({
@@ -995,7 +1007,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         variant: "danger",
                         message: e.errorMessage
                     }
-                })
+                });
+                this.clearAlertTimeout();
             }
 
         };
@@ -1106,6 +1119,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: saveSuccessMessage ? saveSuccessMessage : 'Doctor Duty Roster saved successfully.'
                     }
                 };
+                this.clearAlertTimeout();
                 isClone ? this.partialResetAddForm(onSuccessData) : this.resetAddForm(onSuccessData);
             } catch (e) {
                 this.setState({
@@ -1116,6 +1130,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: saveErrorMessage ? saveErrorMessage : 'Error occurred while saving Doctor Duty Roster.'
                     },
                 });
+                this.clearAlertTimeout();
             }
         };
 
@@ -1128,7 +1143,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         variant: "danger",
                         message: DATE_ERROR_MESSAGE
                     },
-                })
+                });
+                this.clearAlertTimeout();
             } else {
                 let searchData = {
                     doctorId: doctor ? doctor.value : '',
@@ -1176,6 +1192,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: this.props.DoctorDutyRosterDeleteReducer.deleteSuccessMessage
                     }
                 });
+                this.clearAlertTimeout();
                 await this.searchDoctorDutyRoster(1);
             } catch (e) {
                 this.setState({
@@ -1208,6 +1225,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         message: editSuccessMessage ? editSuccessMessage : 'Doctor Duty Roster saved successfully.'
                     },
                 });
+                this.clearAlertTimeout();
                 this.resetEditForm();
                 await this.searchDoctorDutyRoster();
             } catch (e) {
@@ -1318,13 +1336,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {editErrorMessage} = this.props.DoctorDutyRosterEditReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
+            <div className="doctorDutyRoster-setup">
                 <ComposedComponent
                     {...props}
                     activeDoctorList={activeDoctorsForDropdown}
                     activeSpecializationListByHospital={activeSpecializationListByHospital}
                     addOverride={this.handleAddOverride}
                     cancelCloseEditModal={this.cancelCloseEditModal}
-                    dateErrorMessage={dateErrorMessage}
+                    dateErrorMessag e={dateErrorMessage}
                     deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
                     deleteErrorMessage={deleteErrorMessage}
                     deleteOverride={this.deleteOverride}
@@ -1449,6 +1468,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     </>}
                     message={alertMessageInfo.message}
                 />
+                </div>
             </>);
         }
     }

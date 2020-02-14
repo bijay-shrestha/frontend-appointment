@@ -28,11 +28,6 @@ const AdminDetailsModalContent = ({ adminInfoObj, adminImage }) => {
                     <Container-fluid>
                         <Row>
                             <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
-                                {/*TODO remove the inline style of image tag*/}
-                                {/*<img alt="ADMIN IMAGE"*/}
-                                {/*     onClick={this.handleViewImage}*/}
-                                {/*     src={adminImage ? adminImage : DefaultProfileImage}*/}
-                                {/*     style={{width: '150px'}}/>*/}
                                 <div className="image-upload-container">
                                     <CImageDisplayAndView images={images} className="image-box" />
                                 </div>
@@ -159,9 +154,9 @@ const AdminDetailsModalContent = ({ adminInfoObj, adminImage }) => {
 
                                             }
 
-                                           
 
-                                          
+
+
                                         </div>
 
                                     </Col>

@@ -140,7 +140,7 @@ class DepartmentAdd extends PureComponent {
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         return <>
-            <div className=" ">
+            <div className="department-setup">
                 <Container className="bg-white add-container " fluid>
                     <CButton
                         id="resetProfileForm"

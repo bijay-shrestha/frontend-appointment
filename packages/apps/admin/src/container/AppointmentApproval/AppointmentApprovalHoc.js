@@ -227,7 +227,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } = this.props.AppointmentApprovalListReducer
 
             const {
-                activeDoctorsForDropdown,
+                activeDoctorsByHospitalForDropdown,
                 doctorDropdownErrorMessage
             } = this.props.DoctorDropdownReducer
 
@@ -242,6 +242,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer
             return (
+                <div id="appointment-approval">
                 <ComposedComponent
                     {...this.props}
                     {...props}
@@ -251,7 +252,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                         resetSearch: this.handleSearchFormReset,
                         searchAppointment: this.searchAppointment,
                         hospitalsDropdown: hospitalsForDropdown,
-                        doctorsDropdown: activeDoctorsForDropdown,
+                        doctorsDropdown: activeDoctorsByHospitalForDropdown,
                         doctorDropdownErrorMessage: doctorDropdownErrorMessage,
                         activeSpecializationList: activeSpecializationListByHospital,
                         specializationDropdownErrorMessage: dropdownErrorMessage,
@@ -274,6 +275,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                         previewData: previewData
                     }}
                 />
+                </div>
             )
         }
     }

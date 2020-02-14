@@ -8,6 +8,8 @@ class LoginPage extends React.PureComponent {
     try {
       await this.props.signinUser('/api/v1/login', {...user});
       await this.props.fetchUserMenus('/api/v1/sidebar',{username:user.username});
+      await this.props.fetchLoggedInAdminUserInfo('/api/v1/admin/info',
+          {username: user.username, subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE});
       const selectedPath = LocalStorageSecurity.localStorageDecoder("active");
       const pathToRedirect = selectedPath?"/admin"+selectedPath.replace("true",""):"/admin/dashboard"
       await this.props.history.push(pathToRedirect);

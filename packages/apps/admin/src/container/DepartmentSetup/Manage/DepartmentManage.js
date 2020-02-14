@@ -435,6 +435,7 @@ class DepartmentManage extends PureComponent {
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         return <>
+        <div className="department-setup">
             <div className="">
                 <DepartmentSetupSearchFilter
                     searchParameters={this.state.searchParameters}
@@ -494,6 +495,7 @@ class DepartmentManage extends PureComponent {
                         </>}
                     message={this.state.alertMessageInfo.message}
             />
+            </div>
         </>;
     }
 }

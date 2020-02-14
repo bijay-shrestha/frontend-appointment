@@ -25,7 +25,6 @@ class CImageDisplayAndView extends React.PureComponent {
     render() {
         const { images } = this.props;
         const { openViewer, currentImage } = this.state;
-        console.log(images);
         return (
             <>
                 {/*photos is array of object{src,height,width} all three are required

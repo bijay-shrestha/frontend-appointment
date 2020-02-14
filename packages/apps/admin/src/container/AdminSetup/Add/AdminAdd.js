@@ -85,7 +85,7 @@ class AdminAdd extends PureComponent {
             adminImageCroppedUrl: '',
             adminFileCropped: '',
             adminAvatar: null,
-            adminAvatarURL: '',
+            adminAvatarUrl: '',
             fullNameValid: false,
             emailValid: false,
             mobileNumberValid: false,

@@ -76,6 +76,7 @@ const QualificationForm = ({
               </Col>
               <Col sm={12} md={4} lg={4}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
+                <div >
                 <CRadioButton
                   checked={Boolean(qualificationInfoObj.status)}
                   disabled={true}
@@ -84,6 +85,7 @@ const QualificationForm = ({
                   type="radio"
                   readOnly
                 />
+                </div>
               </Col>
             </Row>
           </Container-fluid>
