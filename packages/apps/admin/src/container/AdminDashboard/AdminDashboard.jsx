@@ -17,7 +17,9 @@ const AdminDashboard = props => {
         hospitalId,
         handleHospitalChange,
         onPillsClickHandler,
-        appointmentList
+        appointmentList,
+        revenueFilter,
+        appointmentFilter
       }) => (
         <div className="dashboard-wrapper">
           <Container fluid className="">
@@ -57,6 +59,7 @@ const AdminDashboard = props => {
               <RevenueTrend
                 revenueStatistics={revenueStatistics}
                 onPillsClickHandler={onPillsClickHandler}
+                revenueFilter={revenueFilter}
               />
 
               <Col lg={5} className="pr-0">
@@ -65,6 +68,7 @@ const AdminDashboard = props => {
                   onPillsClickHandler={onPillsClickHandler}
                   type="appointment"
                   appointmentList={appointmentList}
+                  appointmentFilter={appointmentFilter}
                 />
               </Col>
             </Row>
