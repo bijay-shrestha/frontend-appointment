@@ -6,8 +6,9 @@ export const logoutUser = (path) => async dispatch => {
     dispatch(LogoutActions.logoutPending({}));
     if (Cookies.get('XSRF-TOKEN')) {
         try {
-            await Axios.get(path);
-            Cookies.remove('XSRF-TOKEN', {domain: process.env.REACT_APP_DOMAIN_NAME});
+            // await Axios.get(path);
+            // Cookies.remove('XSRF-TOKEN', {domain: process.env.REACT_APP_DOMAIN_NAME});
+            // localStorage.clear();
             localStorage.clear();
             dispatch(LogoutActions.logoutSuccess());
             return true;
