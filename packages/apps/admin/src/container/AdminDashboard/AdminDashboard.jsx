@@ -27,7 +27,7 @@ const AdminDashboard = props => {
               <Col className="px-0">
                 <div className="revenue-title-box">
                   <div className="fiscal">
-                    F<span className="slash">/</span>Y{' '}
+                    Fiscal Year{' '}
                     {generateRevenue &&
                     generateRevenue.revenueGeneratedDayData &&
                     generateRevenue.revenueGeneratedDayData.fiscalYear

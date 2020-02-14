@@ -26,7 +26,7 @@ const RevenueStatistics = props => {
           Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
             <>
               {' '}
-              <p>Rs. {revenueGeneratedYearData.amount}</p>
+              <p>{revenueGeneratedYearData.amount}<span>NPR</span></p>
               <div className="total">
                 {/* Total Revenue  */}
                 <span className={"up"}>
@@ -49,7 +49,7 @@ const RevenueStatistics = props => {
           Object.keys(revenueGeneratedMonthData) && !revenueGeneratedMonthErrorMessage? (
             <>
               {' '}
-              <p>Rs. {revenueGeneratedMonthData.amount}</p>
+              <p>{revenueGeneratedMonthData.amount}<span>NPR</span></p>
               <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedMonthData.growthPercent)>0?"up":"down"}>
@@ -72,7 +72,7 @@ const RevenueStatistics = props => {
           Object.keys(revenueGeneratedWeekData)&&!revenueGeneratedWeekErrorMessage ? (
             <>
               {' '}
-              <p>Rs. {revenueGeneratedWeekData.amount}</p>
+              <p>{revenueGeneratedWeekData.amount}<span>NPR</span></p>
               <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedWeekData.growthPercent)>0?"up":"down"}>
@@ -95,7 +95,7 @@ const RevenueStatistics = props => {
           Object.keys(revenueGeneratedDayData) && !revenueGeneratedDayErrorMessage ? (
             <>
               {' '}
-              <p>Rs. {revenueGeneratedDayData.amount}</p>
+              <p>{revenueGeneratedDayData.amount}<span>NPR</span></p>
               <div className="">
                 {/* Total Revenue  */}
                 <span className={Number(revenueGeneratedDayData.growthPercent)>0?"up":"down"}>
