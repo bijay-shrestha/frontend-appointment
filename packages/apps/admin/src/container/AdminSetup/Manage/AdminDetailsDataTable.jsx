@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
-import {CDataTable, CPagination,CLoading} from '@frontend-appointment/ui-elements';
+import {CDataTable, CPagination, CLoading} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
 import TableAction from "./tableComponents/TableAction";
 import StatusLabel from "./tableComponents/StatusLabel";
@@ -55,6 +55,13 @@ const AdminDetailsDataTable = ({
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
+                            headerName: 'Hospital',
+                            field: 'hospitalName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true,
+                        },
+                        {
                             headerName: 'Admin Avatar',
                             field: 'fileUri',
                             resizable: true,
@@ -101,13 +108,6 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital',
-                            field: 'hospitalName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                        },
-                        {
                             headerName: 'Profile',
                             field: 'profileName',
                             resizable: true,
@@ -152,7 +152,7 @@ const AdminDetailsDataTable = ({
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                         checkIfRoleExists(filteredActions, 4) && 
+                        checkIfRoleExists(filteredActions, 4) &&
                         onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={setShowModal} // {this.showModal}

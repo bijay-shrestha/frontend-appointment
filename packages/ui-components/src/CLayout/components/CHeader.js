@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
+import {Badge, Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CMenuSearch} from '@frontend-appointment/ui-elements';
 
@@ -316,16 +316,27 @@ class CHeader extends Component {
                         {/* start user profile */}
                         <Dropdown alignRight className="user-profile">
                             <Dropdown.Toggle variant="default" id="dropdown-basic">
-                                <Image src={require('../../img/sabu.jpg')} className="avatar"/>
+                                <Image src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
+                                    : require('../../img/sabu.jpg')} className="avatar"/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <div className="user-details">
-                                    <Image src={require('../../img/sabu.jpg')} className="avatar"/>
+                                    <Image
+                                        src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
+                                            : require('../../img/sabu.jpg')}
+                                        className="avatar"/>
                                     <div
                                         className="user-name"> {this.state.userInfo && this.state.userInfo.fullName}</div>
                                     <div
                                         className="profile-name">
                                         {this.state.userInfo && this.state.userInfo.profileName}</div>
+                                    {
+                                        this.state.userInfo.isCogentAdmin === 'Y' ?
+                                            <div>
+                                                <Badge variant="primary">Cogent Admin</Badge>
+                                            </div> :
+                                            ''
+                                    }
                                     <Button variant="outline-light" className="mb-2 reset-password">Reset
                                         Password</Button>
                                 </div>

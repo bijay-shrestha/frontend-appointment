@@ -38,10 +38,26 @@
         width:300px;
         float:right;
 
+        .hospital-list-input{
+            position: relative;
+
+            .form-label{
+                position: absolute;
+                left:25px;
+                bottom:26px;
+                padding-bottom:2px;
+                // line-height: 14px;
+                background-color: transparent;
+              
+                
+            }
+        }
+
         .form-label{
             padding-bottom: 0;
             font-size: 11px;
-            margin-top:3px;
+            // margin-top:3px;
+            margin-bottom:0px;
             // line-height: 1.6;
         }
         .select-wrapper{
@@ -54,13 +70,21 @@
                
           .css-yk16xz-control{
            background-color:transparent;
-           border-bottom:1px solid $gray-500;
+        border-color:transparent !important;
+           border-bottom:1px solid $gray-500 !important;
            @include border-radius(0);
 
            &:hover{
                border:transparent !important;
             border-bottom:1px solid $gray-500 !important;
           }
+          }
+
+          .css-1uccc91-singleValue{
+              color:$gray-900;
+              letter-spacing: 0.5px !important;
+              text-transform: capitalize;
+              font-size:11px !important;
           }
         
           .css-1pahdxg-control{
@@ -90,8 +114,13 @@
           .css-1wa3eu0-placeholder{
             color:$gray-600;
             font-weight: 300;
+       
         
           } 
+
+          .css-tlfecz-indicatorContainer{
+              padding:4px !important;
+          }
         
           
         }
