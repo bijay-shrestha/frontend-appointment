@@ -115,9 +115,9 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specialization"
                                             options={specializationList}
-                                            placeholder={"Select specialization."}
+                                            placeholder={!searchParameters.hospital ?"Select Hospital first":"Select specialization."}
                                             isDisabled={!searchParameters.hospital}
-                                            noOptionsMessage={() => specializationDropdownError}
+                                            noOptionsMessage={() => specializationDropdownError? specializationDropdownError: "No Specializatipon(s) found."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.specialization}
@@ -128,7 +128,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
-                                            placeholder={"Select doctor."}
+                                            placeholder={!searchParameters.hospital?"Select Hospital first":"Select doctor."}
                                             options={doctorList}
                                             isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
