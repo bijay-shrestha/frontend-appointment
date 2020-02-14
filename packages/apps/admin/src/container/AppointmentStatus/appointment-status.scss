@@ -33,7 +33,14 @@
          }
 
          a{
-             color:$gray-900;
+            
+             color:$gray-600;
+             font-weight: 500;
+             margin-left:4px;
+
+             &::visited,&::active,&::focus{
+                color:$gray-900;
+             }
          }
      }
 
