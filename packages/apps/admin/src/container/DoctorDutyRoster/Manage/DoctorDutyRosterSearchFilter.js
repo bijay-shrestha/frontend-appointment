@@ -81,7 +81,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                                 name="fromDate"
                                                 label="From Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                minDate={0}
+                                                // minDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.fromDate}
                                                 peekNextMonth={true}
@@ -96,7 +96,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                                 name="toDate"
                                                 label="To Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                minDate={0}
+                                                // minDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
                                                 peekNextMonth={true}
@@ -116,6 +116,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             name="specialization"
                                             options={specializationList}
                                             placeholder={"Select specialization."}
+                                            isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => specializationDropdownError}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
@@ -129,6 +130,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             name="doctor"
                                             placeholder={"Select doctor."}
                                             options={doctorList}
+                                            isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
