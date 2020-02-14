@@ -347,7 +347,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         isRefundLoading
       } = this.props.AppointmentRefundRejectReducer;
       const {
-        activeDoctorsForDropdown,
+        activeDoctorsByHospitalForDropdown,
         doctorDropdownErrorMessage
       } = this.props.DoctorDropdownReducer;
 
@@ -372,7 +372,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               resetSearch: this.handleSearchFormReset,
               searchAppointment: this.searchAppointment,
               hospitalsDropdown: hospitalsForDropdown,
-              doctorsDropdown: activeDoctorsForDropdown,
+              doctorsDropdown: activeDoctorsByHospitalForDropdown,
               doctorDropdownErrorMessage: doctorDropdownErrorMessage,
               activeSpecializationList: activeSpecializationListByHospital,
               specializationDropdownErrorMessage: dropdownErrorMessage,
