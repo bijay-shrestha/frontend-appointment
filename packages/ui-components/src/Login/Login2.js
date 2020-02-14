@@ -21,7 +21,7 @@ class Login2 extends PureComponent {
             errorMsg[name] = '';
             if (name === 'password') {
                 errorMsg['passwordValid'] = true;
-            } else if (name === 'username')  {
+            } else if (name === 'username') {
                 errorMsg['usernameValid'] = true;
             }
             other = false
@@ -42,7 +42,7 @@ class Login2 extends PureComponent {
     };
 
     checkFormSubmitIsValid = () => {
-        let errorMsg = {username: '', password: ''};
+        let errorMsg = {username: '', password: '', passwordValid: true, usernameValid: true};
         let formStatus = true;
         Object.keys(this.state['user']).map((s, i) => {
             if (!Object.values(this.state['user'])[i]) {
