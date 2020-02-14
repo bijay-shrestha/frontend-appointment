@@ -38,6 +38,7 @@ const DepartmentEditModal = ({
                         options={hospitalList}
                         value={departmentData.hospital}
                         placeholder="Select hospital."
+                        isDisabled={true}
                     />
                 </Col>
                 <Col sm={12} md={12} lg={4}>
@@ -63,6 +64,7 @@ const DepartmentEditModal = ({
                         placeholder="Department Code"
                         value={departmentData.code}
                         required={true}
+                        disabled={true}
                         // hasValidation={true}
                         // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                         errorMessagePassed={errorMessageForDepartmentCode}

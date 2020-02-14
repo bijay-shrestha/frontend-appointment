@@ -12,7 +12,7 @@ const DepartmentInfoForm = ({
                             }) => {
     return (
         <>
-            <Col sm="12 p-0"><h5 className="title">Department Info</h5></Col>
+            <Col sm="6 p-0"><h5 className="title">Department Info</h5></Col>
             <Col sm="12" className="p-0">
 
                 <CForm

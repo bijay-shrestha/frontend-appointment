@@ -93,6 +93,7 @@ const AdminEditForm = ({
                                         options={hospitalList}
                                         value={adminInfoObj.hospital}
                                         placeholder="Select hospital."
+                                        isDisabled={true}
                                     />
                                 </Col>
                                 <Col sm={12} md={12} lg={6}></Col>
@@ -124,9 +125,9 @@ const AdminEditForm = ({
                                         isDisabled={!adminInfoObj.department}
                                         placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
                                     />
-                                    
+
                                     {adminInfoObj.profile &&
-                                 
+
                                     <CButton
                                         id={"profile-details".concat(adminInfoObj.profile.value)}
                                         variant=""
@@ -196,7 +197,7 @@ const AdminEditForm = ({
                                     />
                                 </Col>
 
-                              
+
 
                                 <Col sm={12} md={12} lg={6}>
                                     <CFLabel labelName="Gender" id="gender"/>
@@ -259,8 +260,8 @@ const AdminEditForm = ({
                                     />
                                 </Col>
 
-                              
-                               
+
+
                                 <Col sm={12} md={12} lg={6} className="mt-4">
                                     <Row>
                                         <Col lg={12} className="px-4">
@@ -333,8 +334,8 @@ const AdminEditForm = ({
                                         </Col>
                                     </Row>
                                 </Col>
-                            
-                                
+
+
 
                                 <Col sm={12} md={12} lg={6}>
                                     <CHybridTextArea
@@ -348,7 +349,7 @@ const AdminEditForm = ({
                                         max={200}
                                         required={true}
                                     />
-                                </Col> 
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
