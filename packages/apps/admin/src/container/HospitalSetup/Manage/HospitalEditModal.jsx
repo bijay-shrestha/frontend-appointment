@@ -78,35 +78,35 @@ const HospitalEditModal = ({
                             </div>
                         </div>
 
-                        <div className="image-upload-container">
-                            <CFLabel id='banner' labelName="Hospital Banner"/>
-                            <div className="image-box">
-                                <img
-                                    alt="HOSPITAL BANNER"
-                                    src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}
-                                />
-                                <CButton
-                                    id="uploadBanner"
-                                    name="Upload"
-                                    size="lg"
-                                    variant="primary"
-                                    className=" mt-1 mb-4  upload-button"
-                                    onClickHandler={setShowBannerUploadModal}
-                                />
-                                <CImageUploadAndCropModal
-                                    id='hospital-baner'
-                                    ruleOfThirds={true}
-                                    circularCrop={false}
-                                    showModal={showBannerUploadModal}
-                                    setShowModal={setShowBannerUploadModal}
-                                    imageSrc={hospitalBannerImage}
-                                    croppedImageSrc={hospitalBannerImageCroppedUrl}
-                                    handleImageUpload={handleBannerImageUpload}
-                                    onImageSelect={onBannerImageSelect}
-                                    onImageCrop={data => handleCropBannerImage(data)}
-                                />
-                            </div>
-                        </div>
+                        {/*<div className="image-upload-container">*/}
+                        {/*    <CFLabel id='banner' labelName="Hospital Banner"/>*/}
+                        {/*    <div className="image-box">*/}
+                        {/*        <img*/}
+                        {/*            alt="HOSPITAL BANNER"*/}
+                        {/*            src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}*/}
+                        {/*        />*/}
+                        {/*        <CButton*/}
+                        {/*            id="uploadBanner"*/}
+                        {/*            name="Upload"*/}
+                        {/*            size="lg"*/}
+                        {/*            variant="primary"*/}
+                        {/*            className=" mt-1 mb-4  upload-button"*/}
+                        {/*            onClickHandler={setShowBannerUploadModal}*/}
+                        {/*        />*/}
+                        {/*        <CImageUploadAndCropModal*/}
+                        {/*            id='hospital-baner'*/}
+                        {/*            ruleOfThirds={true}*/}
+                        {/*            circularCrop={false}*/}
+                        {/*            showModal={showBannerUploadModal}*/}
+                        {/*            setShowModal={setShowBannerUploadModal}*/}
+                        {/*            imageSrc={hospitalBannerImage}*/}
+                        {/*            croppedImageSrc={hospitalBannerImageCroppedUrl}*/}
+                        {/*            handleImageUpload={handleBannerImageUpload}*/}
+                        {/*            onImageSelect={onBannerImageSelect}*/}
+                        {/*            onImageCrop={data => handleCropBannerImage(data)}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </Col>
                     <Col sm={12} md={12} lg={9}>
                         <Row>
