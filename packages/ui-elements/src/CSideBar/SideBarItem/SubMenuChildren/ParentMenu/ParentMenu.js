@@ -77,11 +77,6 @@ const ParentMenu = props => {
               {text: props.isOpen || props.isHover},
               {closemenutext: !props.isOpen && !props.isHover}
             )}
-<<<<<<< HEAD
-            onClick={!props.parent.parentId?()=>props.toggleNavbar('nav-item' + props.parent.id, props.parentId):()=>{
-
-            }}
-=======
             onClick={
               props.parent.parentId
                 ? () =>
@@ -91,7 +86,6 @@ const ParentMenu = props => {
                     )
                 : () => {}
             }
->>>>>>> 50ea03d365d795cf941dac5e20daa5fbcd69419d
           >
             {/* <i className="fa fa-calendar-plus-o " /> */}
             {props.parent.name}
@@ -102,3 +96,4 @@ const ParentMenu = props => {
   )
 }
 export default memo(ParentMenu)
+/*  */
