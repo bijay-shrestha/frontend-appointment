@@ -80,14 +80,14 @@ export const DashboardAppointmentStatisticsReducer = (
     case DASHBOARD_APPOINTMENT_STATISTICS_SUCCESS:
       return {
         ...state,
-        isAppointmentStatsLoading: true,
+        isAppointmentStatsLoading: false,
         appointmentStatsData: action.payload.data,
         appointmentStatsErrorMessage: ''
       }
     case DASHBOARD_APPOINTMENT_STATISTICS_ERROR:
       return {
         ...state,
-        isAppointmentStatsLoading: true,
+        isAppointmentStatsLoading: false,
         appointmentStatsData: null,
         appointmentStatsErrorMessage:action.payload.data
       }

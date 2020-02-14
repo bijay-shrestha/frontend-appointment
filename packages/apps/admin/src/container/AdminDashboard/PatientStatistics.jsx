@@ -18,12 +18,13 @@ const PatientStatistics = props => {
             <p>{registeredPatientsData}</p>
             <div className="title">Overall Registered Patients</div>
           </>
-        ) : !isRegisteredPatientLoading && registeredPatientsErrorMessage ? (
+        ) : !isRegisteredPatientLoading && !registeredPatientsErrorMessage ? (
+          <CLoading />
+         
+        ) : (
           <span>
             <p>{registeredPatientsErrorMessage}</p>
           </span>
-        ) : (
-          <CLoading />
         )}
       </div>
     </>
