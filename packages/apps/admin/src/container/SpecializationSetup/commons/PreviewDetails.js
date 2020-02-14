@@ -13,7 +13,7 @@ const PreviewDetails = props => {
                 specializationData={specializationData}/>}
                 onHide={setShowModal}
                 centered={false}
-                dialogClassName="preview-roles-modal"
+                dialogClassName="preview-modal"
                 closeButton={true}/>
     </>
 };

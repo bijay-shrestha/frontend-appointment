@@ -194,14 +194,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData.appointmentCharge &&
                 consultantData.status &&
                 consultantData.contactNumber &&
-                consultantData.doctorAvatar &&
+                // consultantData.doctorAvatar &&
                 consultantData.hospitalId &&
                 consultantData.specializationIds.length &&
                 consultantData.qualificationIds.length &&
                 consultantData.genderCode &&
                 consultantData.email &&
-                consultantData.nmcNumber &&
-                consultantData.doctorAvatar
+                consultantData.nmcNumber
+                // consultantData.doctorAvatar
 
             if (eventType === 'E')
                 formValidity = formValidity && consultantData.remarks
@@ -782,11 +782,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
             const {deleteErrorMessage} = this.props.DoctorDeleteReducer
 
-            const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
+            const {activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer
 
             const {
                 activeSpecializationListByHospital
-            } = this.props.SpecializationDropdownReducer
+            } = this.props.SpecializationDropdownReducer;
+
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
             const {
                 qualificationsForDropdown
@@ -816,7 +817,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     resetSearch={this.handleSearchFormReset}
                     searchDoctor={this.searchDoctor}
                     handlePageChange={this.handlePageChange}
-                    handleSearchFormChange={this.handleSearchFormChange}
                     onSubmitDeleteHandler={this.onSubmitDeleteHandler}
                     editDoctor={this.editDoctor}
                     onEditHandler={this.onEditHandler}
@@ -850,7 +850,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     handleCropImage={this.handleCropImage}
                     handleImageUpload={this.handleImageUpload}
                     setImageShow={this.setImageShowModal}
-                    doctorsForDropdown={activeDoctorsForDropdown}
+                    doctorsForDropdown={activeDoctorsByHospitalForDropdown}
                     qualificationDropdown={qualificationsForDropdown}
                     hospitalsForDropdown={hospitalsForDropdown}
                     activeSpecializationList={activeSpecializationListByHospital}

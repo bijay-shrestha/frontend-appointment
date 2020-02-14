@@ -35,14 +35,14 @@ const chartFillData = {
     datasets: [
         {
             label:'Revenue Refund',
-            backgroundColor: "rgba(110,102,155,0.2)",
-            fillColor: 'rgba(110,102,155,0.2)',
-            borderColor: "rgba(110,102,155,1)",
+            backgroundColor:'rgba(0, 99, 255, 0.2)',
+            fillColor: 'rgba(0, 99, 255, 0.2)',
+            borderColor: '#0063ff',
             borderWidth: 2,
-            pointColor: "rgba(110,102,155,1)",
+            pointColor: 'rgba(0, 99, 255, 1)',
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
-            pointHighlightStroke: 'rgba(110,102,155,1)',
+            pointHighlightStroke: 'rgba(0, 99, 255, 0.2)',
             data: lineData
         }
     ]

@@ -229,7 +229,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             } = this.props.AppointmentLogListReducer
 
             const {
-                activeDoctorsForDropdown,
+                activeDoctorsByHospitalForDropdown,
                 doctorDropdownErrorMessage
             } = this.props.DoctorDropdownReducer
 
@@ -244,6 +244,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer
             return (
+                <div id="appointment-log">
                 <ComposedComponent
                     {...this.props}
                     {...props}
@@ -253,7 +254,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         resetSearch: this.handleSearchFormReset,
                         searchAppointment: this.searchAppointment,
                         hospitalsDropdown: hospitalsForDropdown,
-                        doctorsDropdown: activeDoctorsForDropdown,
+                        doctorsDropdown: activeDoctorsByHospitalForDropdown,
                         doctorDropdownErrorMessage: doctorDropdownErrorMessage,
                         activeSpecializationList: activeSpecializationListByHospital,
                         specializationDropdownErrorMessage: dropdownErrorMessage,
@@ -276,6 +277,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         previewData: previewData
                     }}
                 />
+                </div>
             )
         }
     }
