@@ -45,10 +45,10 @@ const RevenueTrend = props => {
                 <Col className="date">
                   <div>
                     <span>From :</span>
-                    {fromDate.revFromDate.toLocaleDateString()}
+                    {fromDate.revFromDate.toDateString()}
                   </div>
                   <div>
-                    <span>To :</span> {toDate.revToDate.toLocaleDateString()}
+                    <span>To :</span> {toDate.revToDate.toDateString()}
                   </div>
                 </Col>
               </Col>
