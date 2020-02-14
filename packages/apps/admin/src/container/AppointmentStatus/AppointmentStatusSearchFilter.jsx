@@ -114,9 +114,9 @@ class AppointmentLog extends PureComponent {
                                     />
                                 </Col>
 
-                                {/*<Col sm={12} md={6} xl={4} className="hide-on-md">*/}
+                            <Col sm={12} md={4} xl={4} className="hide-on-md">
                                 {/*    /!* //should be empty *!/*/}
-                                {/*</Col>*/}
+                            </Col>
 
                                 <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
@@ -148,7 +148,7 @@ class AppointmentLog extends PureComponent {
                                     />
                                 </Col>
 
-                                <Col sm={6} md={6} xl={3}>
+                                <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
                                         id="status"
                                         name="status"

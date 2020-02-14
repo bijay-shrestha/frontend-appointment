@@ -263,7 +263,7 @@ class ProfileManage extends PureComponent {
     editApiCall = async () => {
         const {id, selectedMenus, profileName, profileDescription, selectedHospital, selectedDepartment, remarks, status} = this.state.profileUpdateData;
 
-        let menusToBeUpdated = selectedMenus.filter(menu=> menu.isUpdated || menu.isNew);
+        let menusToBeUpdated = selectedMenus.filter(menu => menu.isUpdated || menu.isNew);
         let editRequestDTO = {
             profileDTO: {
                 description: profileDescription,
@@ -274,7 +274,7 @@ class ProfileManage extends PureComponent {
                 departmentId: selectedDepartment && selectedDepartment.value,
                 hospitalId: selectedHospital && selectedHospital.value
             },
-            profileMenuRequestDTO: [...menusToBeUpdated]
+            profileMenuRequestDTO: menusToBeUpdated.length ? [...menusToBeUpdated] : [...selectedMenus]
         };
         try {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
@@ -522,7 +522,7 @@ class ProfileManage extends PureComponent {
                             status: 'Y',
                             profileMenuId: null,
                             isNew: true,
-                            isUpdated:false
+                            isUpdated: false
                         })
                     })
                 }
@@ -548,7 +548,7 @@ class ProfileManage extends PureComponent {
                 }
                 // selectedUserMenusForModal: userMenusSelected
             });
-        console.log("menusss all",this.state.profileUpdateData.selectedMenus);
+        console.log("menusss all", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -569,7 +569,7 @@ class ProfileManage extends PureComponent {
                         roleId: role.id,
                         status: 'Y',
                         isNew: true,
-                        isUpdated:false,
+                        isUpdated: false,
                         profileMenuId: null
                     })
                 }
@@ -593,7 +593,7 @@ class ProfileManage extends PureComponent {
                 // selectedUserMenusForModal: userMenusSelected
             }
         });
-        console.log("menussss",this.state.profileUpdateData.selectedMenus);
+        console.log("menussss", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 

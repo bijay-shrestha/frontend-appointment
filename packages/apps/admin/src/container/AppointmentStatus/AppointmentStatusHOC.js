@@ -292,6 +292,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             return (
                 <>
+                <div id="appointment-status">
                     <ComposedComponent
                         {...this.props}
                         {...props}
@@ -325,6 +326,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         </>}
                         message={alertMessageInfo.message}
                     />
+                    </div>
                 </>
             )
         }

@@ -83,14 +83,14 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridInput
                                             id="department-code"
-                                            name="code"
+                                            name="departmentCode"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                             placeholder="Department Code"
                                             value={searchParameters.departmentCode}
                                         />
                                     </Col>
-                                  
+
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="status"

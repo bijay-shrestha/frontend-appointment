@@ -786,7 +786,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
             const {
                 activeSpecializationListByHospital
-            } = this.props.SpecializationDropdownReducer
+            } = this.props.SpecializationDropdownReducer;
+
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
             const {
                 qualificationsForDropdown

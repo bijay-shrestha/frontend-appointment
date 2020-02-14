@@ -33,7 +33,15 @@ function HospitalAdd(props) {
              onImageSelect,
              handleCropImage,
              handleImageUpload,
-             setImageShow
+             setImageShow,
+             hospitalBannerImage,
+             onBannerImageSelect,
+             hospitalBannerImageCroppedUrl,
+             hospitalBannerFileCropped,
+             showBannerUploadModal,
+             handleCropBannerImage,
+             handleBannerImageUpload,
+             setShowBannerUploadModal
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -68,6 +76,14 @@ function HospitalAdd(props) {
                         handleCropImage={handleCropImage}
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
+                        hospitalBannerImage={hospitalBannerImage}
+                        hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                        hospitalBannerFileCropped={hospitalBannerFileCropped}
+                        showBannerUploadModal={showBannerUploadModal}
+                        onBannerImageSelect={onBannerImageSelect}
+                        handleCropBannerImage={handleCropBannerImage}
+                        handleBannerImageUpload={handleBannerImageUpload}
+                        setShowBannerUploadModal={setShowBannerUploadModal}
                     />
 
                     <Row className="mt-4">
@@ -87,6 +103,7 @@ function HospitalAdd(props) {
                                 hospitalData={hospitalData}
                                 type="A"
                                 hospitalImageCroppedUrl={hospitalImageCroppedUrl}
+                                hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
                             />
                         </Col>
                     </Row>

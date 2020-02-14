@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CLoading} from "@frontend-appointment/ui-elements";
+import {Button, Col, Container, OverlayTrigger, Row, Tooltip,Badge} from "react-bootstrap";
+import {CLoading,CButton} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
 import {appointmentStatusList} from "@frontend-appointment/helpers";
@@ -29,12 +29,13 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <div className="appointment-badge float-right">
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
-                                        <span>
+                                        <div>
+                                            <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
                                             <a href=""
                                                onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                 {appointmentStatus.label}
                                             </a>
-                                        </span>
+                                        </div>
                                     ))
                                 }
                             </div>
@@ -79,11 +80,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                             </Button>
                                                         </OverlayTrigger> :
                                                         (timeSlot.status === 'V') ?
-                                                            (<Button
+                                                            (<CButton
                                                                 variant={"success"}
-                                                                size="lg">
+                                                                size="lg"
+                                                                id="vacant"
+                                                                name=""
+                                                                >
                                                                 {timeSlot.appointmentTime}
-                                                            </Button>)
+                                                            </CButton>)
                                                             : ''
                                                     }
                                                 </li>
