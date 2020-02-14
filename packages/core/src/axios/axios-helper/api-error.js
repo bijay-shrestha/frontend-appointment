@@ -17,7 +17,7 @@ export default {
             default:
                 console.log("Developer Api Error:", error);
                 let errorObj = {
-                    errorMessage: error.message,
+                    errorMessage: error.message||error.errorMessage,
                     stack: error.stack
                 };
                 throw errorObj;

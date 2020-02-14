@@ -288,6 +288,7 @@ class AdminManage extends PureComponent {
         let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
         if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
             await this.logoutUser();
+            this.props.history.push('/');
         }
         return false;
     };
