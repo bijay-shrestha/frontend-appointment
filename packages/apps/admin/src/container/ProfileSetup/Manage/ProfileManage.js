@@ -260,6 +260,42 @@ class ProfileManage extends PureComponent {
         }
     };
 
+
+    logoutUser = async () => {
+        try {
+            let logoutResponse = await this.props.logoutUser('/cogent/logout');
+            if (logoutResponse) {
+                this.props.history.push('/');
+            }
+        } catch (e) {
+        }
+    };
+
+    automaticLogoutUser = () => {
+        setTimeout(() => this.logoutUser(), 10000)
+    };
+
+    checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
+        let variantType = '', message = '';
+        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        if (editedProfileId === loggedInAdminInfo.profileId) {
+            variantType = "warning";
+            message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
+                "you'll be automatically logged out in 10s";
+            this.automaticLogoutUser();
+        } else {
+            variantType = "success";
+            message = this.props.ProfileEditReducer.profileSuccessMessage;
+        }
+        this.setState({
+            showAlert: true,
+            alertMessageInfo: {
+                variant: variantType,
+                message: message
+            }
+        });
+    };
+
     editApiCall = async () => {
         const {id, selectedMenus, profileName, profileDescription, selectedHospital, selectedDepartment, remarks, status} = this.state.profileUpdateData;
 
@@ -279,7 +315,7 @@ class ProfileManage extends PureComponent {
         try {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
             this.resetProfileUpdateDataFromState();
-
+            this.checkIfEditedOwnProfileAndShowMessage(editRequestDTO.profileDTO.id);
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
