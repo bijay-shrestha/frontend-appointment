@@ -15,7 +15,7 @@ const ParentMenu = props => {
       variant="link"
       eventKey={`${props.parent.id}`}
       onClick={id =>
-        props.toggleNavbar('nav-item' + props.parent.id, props.parent.root)
+        props.toggleNavbar('nav-item' + props.parent.id, props.parent.parentId)
       }
       key={'accordion-toogle' + props.parent.id}
       id={'accordion-toogle' + props.parent.id}
@@ -71,7 +71,7 @@ const ParentMenu = props => {
               {text: props.isOpen || props.isHover},
               {closemenutext: !props.isOpen && !props.isHover}
             )}
-            onClick={props.parent.id?()=>props.toggleNavbar('nav-item' + props.parent.id, props.parent.root):()=>{
+            onClick={!props.parent.parentId?()=>props.toggleNavbar('nav-item' + props.parent.id, props.parentId):()=>{
 
             }}
           >
