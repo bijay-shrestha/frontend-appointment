@@ -23,7 +23,7 @@ const DetailsModal = ({type, hospitalData}) => {
     if (type !== 'A') {
         images = [
             {
-                src: hospitalData.fileUri ? hospitalData.fileUri : DefaultProfileImage,
+                src: hospitalData.hospitalLogo ? hospitalData.hospitalLogo : DefaultProfileImage,
                 alt: 'LOGO',
                 width: 4,
                 height: 3
@@ -162,6 +162,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
 
                                     {type !== 'A' && (
+                                        hospitalData.remarks &&
                                         <Col sm={12} md={6} lg={6}>
                                             <CHybridInput
                                                 id="hospital-remarks"

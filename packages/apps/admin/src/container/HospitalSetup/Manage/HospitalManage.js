@@ -4,6 +4,7 @@ import HospitalDetailsTable from './HospitalDetailsTable'
 import HospitalEditForm from './HospitalEditModal'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc'
+import HospitalForm from "../Add/HospitalForm";
 
 const HospitalManage = props => {
     const SPManage = HospitalHoc(
@@ -55,7 +56,15 @@ const HospitalManage = props => {
              handleCropImage,
              handleImageUpload,
              setImageShow,
-             hospitalDropdown
+             hospitalDropdown,
+             hospitalBannerImage,
+             onBannerImageSelect,
+             hospitalBannerImageCroppedUrl,
+             hospitalBannerFileCropped,
+             showBannerUploadModal,
+             handleCropBannerImage,
+             handleBannerImageUpload,
+             setShowBannerUploadModal
          }) => (
             <>
                 <div className="">
@@ -122,6 +131,14 @@ const HospitalManage = props => {
                         handleCropImage={handleCropImage}
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
+                        hospitalBannerImage={hospitalBannerImage}
+                        hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                        hospitalBannerFileCropped={hospitalBannerFileCropped}
+                        showBannerUploadModal={showBannerUploadModal}
+                        onBannerImageSelect={onBannerImageSelect}
+                        handleCropBannerImage={handleCropBannerImage}
+                        handleBannerImageUpload={handleBannerImageUpload}
+                        setShowBannerUploadModal={setShowBannerUploadModal}
                     />
                 )}
                 <CAlert

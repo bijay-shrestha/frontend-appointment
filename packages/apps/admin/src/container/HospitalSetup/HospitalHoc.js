@@ -103,7 +103,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     numberOfAdmins: '',
                     followUpIntervalDays: '',
                     refundPercentage: '',
-                    hospitalBanner:'',
+                    hospitalBanner: '',
                     hospitalLogo: '',
                 },
                 hospitalLogo: '',
@@ -191,8 +191,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 formValidity =
                     formValidity &&
                     hospitalData.remarks &&
-                    hospitalData.contactNumberUpdateRequestDTOS.length;
-            else formValidity = formValidity && hospitalData.contactNumber.length;
+                    (hospitalData.contactNumberUpdateRequestDTOS &&
+                        hospitalData.contactNumberUpdateRequestDTOS.length);
+            else formValidity = formValidity && (hospitalData.contactNumber && hospitalData.contactNumber.length);
 
             this.setState({
                 formValid: formValidity
@@ -331,7 +332,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCogentAdmin,
+                isHospital:isCogentAdmin,
                 numberOfFreeFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,

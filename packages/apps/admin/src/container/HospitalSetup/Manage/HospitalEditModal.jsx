@@ -198,22 +198,6 @@ const HospitalEditModal = ({
                                 />
                             </Col>
 
-
-                            <Col sm={12} md={12} lg={6}>
-                                <CHybridTextArea
-                                    id="remarks"
-                                    name="remarks"
-                                    onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) =>
-                                        onInputChange(event, validity, 'E')
-                                    }
-                                    placeholder="Remarks"
-                                    value={hospitalData.remarks}
-                                    max={200}
-                                    required={true}
-                                />
-                            </Col>
-
                             <Col sm={12} md={12} lg={6} className="py-4">
                                 <Row>
                                     <Col lg={12} className="px-4">
@@ -362,6 +346,21 @@ const HospitalEditModal = ({
                                     required={true}
                                 />
                             </Col>
+
+                            <Col sm={12} md={12} lg={6}>
+                                <CHybridTextArea
+                                    id="remarks"
+                                    name="remarks"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) =>
+                                        onInputChange(event, validity, 'E')
+                                    }
+                                    placeholder="Remarks"
+                                    value={hospitalData.remarks}
+                                    max={200}
+                                    required={true}
+                                />
+                            </Col>
                         </Row>
                     </Col>
                 </Row>
@@ -384,7 +383,7 @@ const HospitalEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid}
+                            // disabled={!formValid}
                             name="Update"
                             variant="primary"
                             size="lg"
