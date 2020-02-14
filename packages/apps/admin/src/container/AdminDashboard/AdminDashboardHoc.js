@@ -92,7 +92,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                 this.props.fetchDashboardRevenueRefundList(
                     DashboardApiConstant.REVENUE_STATISTICS,
                     {
-                        hospitalId: revHospitalId ? revHospitalId.value === 'A' ? null : revHospitalId.value : null,
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null,
                         fromDate: revFromDate,
                         toDate: revToDate
                     }
