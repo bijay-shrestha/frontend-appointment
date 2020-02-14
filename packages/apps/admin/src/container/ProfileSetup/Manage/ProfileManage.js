@@ -9,7 +9,8 @@ import {
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     HospitalSetupMiddleware,
-    previewProfile
+    previewProfile,
+    logoutUser
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
@@ -282,18 +283,25 @@ class ProfileManage extends PureComponent {
             variantType = "warning";
             message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
                 "you'll be automatically logged out in 10s";
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: variantType,
+                    message: message
+                }
+            });
             this.automaticLogoutUser();
         } else {
             variantType = "success";
             message = this.props.ProfileEditReducer.profileSuccessMessage;
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: variantType,
+                    message: message
+                }
+            });
         }
-        this.setState({
-            showAlert: true,
-            alertMessageInfo: {
-                variant: variantType,
-                message: message
-            }
-        });
     };
 
     editApiCall = async () => {
@@ -789,6 +797,7 @@ export default ConnectHoc(
         fetchActiveHospitalsForDropdown,
         fetchActiveDepartmentsByHospitalId,
         fetchActiveDepartmentsForDropdown,
-        fetchAllProfileListForSearchDropdown
+        fetchAllProfileListForSearchDropdown,
+        logoutUser
     }
 )
