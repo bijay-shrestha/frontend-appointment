@@ -126,7 +126,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer:'patientRenderer'
                 },
-               
+
                 {
                   headerName: 'DOB',
                   field: 'patientDob',
@@ -143,7 +143,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Address',
-                  field: 'address',
+                  field: 'patientAddress',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true

@@ -324,13 +324,13 @@ class ProfileManage extends PureComponent {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
             this.resetProfileUpdateDataFromState();
             this.checkIfEditedOwnProfileAndShowMessage(editRequestDTO.profileDTO.id);
-            this.setState({
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: "success",
-                    message: this.props.ProfileEditReducer.profileSuccessMessage
-                }
-            });
+            // this.setState({
+            //     showAlert: true,
+            //     alertMessageInfo: {
+            //         variant: "success",
+            //         message: this.props.ProfileEditReducer.profileSuccessMessage
+            //     }
+            // });
             await this.apiCall();
         } catch (e) {
 
