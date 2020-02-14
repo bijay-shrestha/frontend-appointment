@@ -175,7 +175,7 @@
         text-align: center;
 
         &:first-child{
-            background-color:lighten($cogent,10%);
+            background-color:$cogent;
             p{
                 color:$white;
 
@@ -234,13 +234,22 @@
             font-weight: 400;
             // color:$black;
 
-            &.up{
+            & .up{
                 color:$success;
+                     font-weight: 500;
+
+                     svg{
+                         margin-right:4px;
+                     }
                
             }
 
-            &.down{
+            & .down{
                 color:$danger;
+                     font-weight: 500;
+                     svg{
+                        margin-right:4px;
+                    }
             }
 
             &.up,&.down{
@@ -268,6 +277,7 @@
     .chart {
         background-color:$white;
         padding:20px 40px;
+        width:100%;
         @include border-radius(0.5rem);
         img{
             width:100%;
@@ -324,6 +334,7 @@
         .doughnut-chart{
             width:60%;
             text-align: center;
+            margin:0 auto;
         }
 
         .title{
@@ -365,7 +376,8 @@
             @include border-radius(50%);
 
             &.code1{
-                background-color:$success;
+                // background-color:lighten($cogent,20%);
+               background-color: rgba(0, 99, 255, 0.2);
             }
 
             &.code2{

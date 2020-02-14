@@ -125,7 +125,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder="Name, Mobile no, App. no Or Reg. no"
+                                            placeholder="Name, Mobile no Or Reg. no"
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}

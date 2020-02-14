@@ -25,8 +25,8 @@ const AppointmentStatistics = props => {
       (registeredPatient / totalAppointment) * 100
     data.push(newPatientPercent)
     data.push(registeredPatientPercent)
-    color.push('yellow')
-    color.push('blue')
+    color.push('rgba(0, 99, 255, 0.2)')
+    color.push('#0063ff')
     label.push('New Patients')
     label.push('Registered Patients')
     chartData = {
@@ -44,6 +44,7 @@ const AppointmentStatistics = props => {
               <CDateButtonPills
                 onPillsClickHandler={props.onPillsClickHandler}
                 type={props.type}
+                variant="outline-secondary"
               />
               <Col className="date">
                 <div>
@@ -61,7 +62,9 @@ const AppointmentStatistics = props => {
             src={require('./img/doughnut-chart.png')}
             className="doughnut-chart mx-auto"
           /> */}
+         <div className="doughnut-chart">
               <CDoughnutChart chartData={chartData} width={200} height={200} />
+              </div>
             </Row>
             <p>
               <br></br>
