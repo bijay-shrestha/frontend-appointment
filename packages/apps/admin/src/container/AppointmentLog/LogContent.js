@@ -87,7 +87,7 @@ const DetailsModal = ({logData}) => {
                 <CHybridInput
                   id=""
                   placeholder="Address"
-                  value={logData.address}
+                  value={logData.patientAddress}
                   disabled={true}
                 />
               </Col>
