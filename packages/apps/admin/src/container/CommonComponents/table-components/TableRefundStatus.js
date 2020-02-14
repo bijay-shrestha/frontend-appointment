@@ -17,7 +17,7 @@ const RefundTableAction = props => {
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item
-              onClick={e => this.props.onClick(e, this.props.node.data.id, 'E')}
+              onClick={e => props.onClick(e, props.node.data.id?props.node.data.id:props.node.data, 'E')}
             >
               <Material.MdEdit /> Refund{' '}
             </Dropdown.Item>
@@ -25,7 +25,7 @@ const RefundTableAction = props => {
           {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item
-              onClick={e => this.props.onClick(e, this.props.node.data.id, 'D')}
+              onClick={e => props.onClick(e, props.node.data.id?props.node.data.id:props.node.data,'D')}
             >
               <Material.MdDeleteForever /> Reject
             </Dropdown.Item>

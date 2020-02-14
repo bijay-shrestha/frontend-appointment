@@ -56,6 +56,15 @@ const DetailsModal = ({logData}) => {
                   disabled={true}
                 />
               </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="doctorName"
+                  placeholder="Doctor Name(Specialization)"
+                  value={logData.doctorName.toUpperCase()+"("+logData.specializationName.toUpperCase()+")"}
+                  disabled={true}
+                />
+              </Col>
             
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput

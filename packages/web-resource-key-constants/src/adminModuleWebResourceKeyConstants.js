@@ -138,14 +138,16 @@ export const patientSetupApiConstant = {
     ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "metaInfo/active/min")
 };
 
-export const appointmentSetupApiConstant = {
-    APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
-    APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund"),
-    APPOINTMENT_REJECT_REFUND_EDIT: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
-    APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
-    APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
-    APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval")
-};
+
+
+export const appointmentSetupApiConstant ={
+    APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
+    APPOINTMENT_REFUND_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund/approve"),
+    APPOINTMENT_REJECT_REFUND:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
+    APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
+    APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
+    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval")
+}
 
 export const DashboardApiConstant = {
     OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + "/overAllAppointments"),
