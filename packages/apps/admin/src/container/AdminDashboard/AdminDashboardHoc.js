@@ -93,8 +93,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             if (!statsType) {
                 this.props.fetchDashboardRegisteredPatientList(
                     DashboardApiConstant.REGISTERED_PATIENTS,
-                    hospitalId ? hospitalId.value : 0
-                )
+                    hospitalId ? hospitalId.value?hospitalId.value:0:0
+                );
 
                 this.props.fetchDashboardRevenueDayList(
                     DashboardApiConstant.REVENUE_GENERATED,
