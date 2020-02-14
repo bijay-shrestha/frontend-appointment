@@ -352,6 +352,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                     handleHospitalChange={this.handleHospitalChange}
                     hospitalDropdown={hospitalsForDropdown}
                     hospitalId={hospitalId}
+                    revenueFilter={this.state.revenueFilter}
+                    appointmentFilter={this.state.appointmentFilter}
                 />
             )
         }
