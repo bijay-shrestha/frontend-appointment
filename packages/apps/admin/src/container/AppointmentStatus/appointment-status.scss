@@ -9,8 +9,11 @@
  @import '~bootstrap/scss/mixins';
 
  #appointment-status{
- .title{
- }
+.filter-message{
+    .message{
+        width:200px;
+    }
+}
 
  .appointment-badge{
     float: right;  

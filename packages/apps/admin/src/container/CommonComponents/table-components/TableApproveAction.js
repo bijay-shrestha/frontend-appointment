@@ -19,7 +19,7 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => this.props.onClick(e, this.props.node.data.id, 'E')}
             >
-              <Material.MdEdit /> Refund{' '}
+              <Material.MdEdit /> Approve{' '}
             </Dropdown.Item>
           }
           {
