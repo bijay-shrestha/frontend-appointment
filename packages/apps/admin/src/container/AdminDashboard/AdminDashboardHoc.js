@@ -48,44 +48,51 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                 revHospitalId: {label: 'ALL', value: null}
             },
             revenueFilter: 'W',
-            appointmentFilter: 'W'
-        }
+            appointmentFilter: 'W',
+            hospitalList: []
+        };
 
         searchHospitalForDropDown = async () => {
             try {
                 await this.props.fetchActiveHospitalsForDropdown(
                     hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
-                )
+                );
+                const {hospitalsForDropdown} = {...this.props.HospitalDropdownReducer};
+                let hospitals = [...hospitalsForDropdown];
+                hospitals.push({label: 'ALL', value: 'A'});
+                this.setState({
+                    hospitalList: [...hospitals]
+                })
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         callApiForHospitalChange = statsType => {
             const {
                 hospitalId,
                 fromDate,
                 toDate
-            } = this.state.searchParamsForOverallAppoinment
+            } = this.state.searchParamsForOverallAppoinment;
             const {
                 revFromDate,
                 revHospitalId,
                 revToDate
-            } = this.state.searchParameterForRevenueTrend
+            } = this.state.searchParameterForRevenueTrend;
             if (!statsType || statsType !== 'refund')
                 this.props.fetchDashboardAppointmentStatisticsList(
                     DashboardApiConstant.OVERALL_APPOINTMENTS,
                     {
-                        hospitalId: hospitalId ? hospitalId.value : null,
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null,
                         fromDate,
                         toDate
                     }
-                )
+                );
             if (!statsType || statsType === 'refund')
                 this.props.fetchDashboardRevenueRefundList(
                     DashboardApiConstant.REVENUE_STATISTICS,
                     {
-                        hospitalId: revHospitalId ? revHospitalId.value : null,
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null,
                         fromDate: revFromDate,
                         toDate: revToDate
                     }
@@ -93,7 +100,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             if (!statsType) {
                 this.props.fetchDashboardRegisteredPatientList(
                     DashboardApiConstant.REGISTERED_PATIENTS,
-                    hospitalId ? hospitalId.value?hospitalId.value:0:0
+                    hospitalId ? hospitalId.value ? hospitalId.value === 'A' ? 0 : hospitalId.value : 0 : 0
                 );
 
                 this.props.fetchDashboardRevenueDayList(
@@ -106,7 +113,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             new Date(),
                             3
                         ),
-                        hospitalId: hospitalId ? hospitalId.value : null
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null
                     }
                 )
                 this.props.fetchDashboardRevenueWeekList(
@@ -119,7 +126,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             new Date(),
                             15
                         ),
-                        hospitalId: hospitalId ? hospitalId.value : null
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null
                     }
                 )
                 this.props.fetchDashboardRevenueMonthList(
@@ -135,7 +142,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             new Date(),
                             61
                         ),
-                        hospitalId: hospitalId ? hospitalId.value : null
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null
                     }
                 )
 
@@ -155,7 +162,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             new Date(),
                             731
                         ),
-                        hospitalId: hospitalId ? hospitalId.value : null
+                        hospitalId: hospitalId ? hospitalId.value === 'A' ? null : hospitalId.value : null
                     }
                 )
             }
@@ -258,8 +265,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             const {
                 searchParameterForGenerateRevenue,
                 searchParamsForOverallAppoinment,
-                searchParameterForRevenueTrend
-            } = this.state
+                searchParameterForRevenueTrend,
+                hospitalList
+            } = this.state;
             const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
             const {
@@ -350,8 +358,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                     }}
                     onPillsClickHandler={this.onPillsClickHandler}
                     handleHospitalChange={this.handleHospitalChange}
-                    hospitalDropdown={hospitalsForDropdown}
+                    hospitalDropdown={hospitalList}
                     hospitalId={hospitalId}
+                    revenueFilter={this.state.revenueFilter}
+                    appointmentFilter={this.state.appointmentFilter}
                 />
             )
         }

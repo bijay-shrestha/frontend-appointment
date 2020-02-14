@@ -38,7 +38,7 @@
              font-weight: 500;
              margin-left:4px;
 
-             &::visited,&::active,&::focus{
+             &.active{
                 color:$gray-900;
              }
          }

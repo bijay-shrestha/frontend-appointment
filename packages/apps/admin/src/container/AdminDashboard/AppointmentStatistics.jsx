@@ -45,15 +45,16 @@ const AppointmentStatistics = props => {
                 onPillsClickHandler={props.onPillsClickHandler}
                 type={props.type}
                 variant="outline-secondary"
+                data={props.appointmentFilter}
               />
               <Col className="date">
                 <div>
                   <span>From :</span>
-                  {fromDate.fromDate.toLocaleDateString()}
+                  {fromDate.fromDate.toDateString()}
                 </div>
                 <div>
                   <span>To :</span>
-                  {toDate.toDate.toLocaleDateString()}
+                  {toDate.toDate.toDateString()}
                 </div>
               </Col>
             </Row>
