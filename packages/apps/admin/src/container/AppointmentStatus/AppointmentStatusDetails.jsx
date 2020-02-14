@@ -1,27 +1,28 @@
 import React from 'react';
 
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip,Badge} from "react-bootstrap";
-import {CLoading,CButton} from "@frontend-appointment/ui-elements";
+import { Button, Col, Container, OverlayTrigger, Row, Tooltip, Badge } from "react-bootstrap";
+import { CLoading, CButton } from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
-import {appointmentStatusList} from "@frontend-appointment/helpers";
+import { appointmentStatusList } from "@frontend-appointment/helpers";
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
 
-const AppointmentStatusDetails = ({statusDetailsData}) => {
+const AppointmentStatusDetails = ({ statusDetailsData }) => {
     const {
         appointmentStatusDetails,
         errorMessageForStatusDetails,
         searchErrorMessage,
         isStatusListLoading,
-        filterAppointmentDetailsByStatus
+        filterAppointmentDetailsByStatus,
+        activeStatus
     } = statusDetailsData;
     return <>
         <div className="manage-details">
             <Container fluid>
                 {!isStatusListLoading && !searchErrorMessage &&
-                appointmentStatusDetails.length ?
+                    appointmentStatusDetails.length ?
                     <Row>
                         <Col className="p-0"><h5 className="title">Appointment Status Details</h5></Col>
 
@@ -30,9 +31,11 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
                                         <div>
+                                            {console.log('======',activeStatus)}
                                             <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
                                             <a href=""
-                                               onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                 {appointmentStatus.label}
                                             </a>
                                         </div>
@@ -59,7 +62,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={9} lg={9} className="time-container">
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
-                                    (appointmentStatusDetail.doctorTimeSlots.length ?
+                                        (appointmentStatusDetail.doctorTimeSlots.length ?
                                             appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
                                                 <li key={'timeSlot-' + index}>
                                                     {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
@@ -68,14 +71,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                             overlay={
                                                                 <Tooltip id={timeSlot.status + "-" + index}>
                                                                     App no: {timeSlot.appointmentNumber}<br>
-                                                                </br>
+                                                                    </br>
                                                                     {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
-                                                                </br>
+                                                                    </br>
                                                                     Mobile No: {timeSlot.mobileNumber || 'N/A'}
                                                                 </Tooltip>
                                                             }>
                                                             <Button variant="warning"
-                                                                    size="lg">
+                                                                size="lg">
                                                                 {timeSlot.appointmentTime}
                                                             </Button>
                                                         </OverlayTrigger> :
@@ -85,7 +88,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                 size="lg"
                                                                 id="vacant"
                                                                 name=""
-                                                                >
+                                                            >
                                                                 {timeSlot.appointmentTime}
                                                             </CButton>)
                                                             : ''
@@ -94,7 +97,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             ))
                                             : appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
                                                 : TIME_SLOT_EMPTY_ERROR_MESSAGE
-                                    ): appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
+                                        ) : appointmentStatusDetail.dayOffStatus === 'Y' ? DAY_OFF_MESSAGE
                                             : TIME_SLOT_EMPTY_ERROR_MESSAGE
                                     }
                                 </ul>
@@ -108,24 +111,24 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 <Row>
                                     <div className="filter-message">
                                         <div className="no-data primary">
-                                            <i className="fa fa-file-text-o"/>
+                                            <i className="fa fa-file-text-o" />
                                         </div>
                                         <div className="message text-center">{searchErrorMessage}</div>
                                     </div>
                                 </Row>
                             ) : ((!isStatusListLoading && errorMessageForStatusDetails) ?
-                                    (
-                                        <Row>
-                                            <div className="filter-message">
-                                                <div className="no-data ">
-                                                    <i className="fa fa-hand-o-up"/>
-                                                </div>
-                                                <div
-                                                    className="message text-center">{errorMessageForStatusDetails}</div>
+                                (
+                                    <Row>
+                                        <div className="filter-message">
+                                            <div className="no-data ">
+                                                <i className="fa fa-hand-o-up" />
                                             </div>
-                                        </Row>
-                                    ) :
-                                    <CLoading/>
+                                            <div
+                                                className="message text-center">{errorMessageForStatusDetails}</div>
+                                        </div>
+                                    </Row>
+                                ) :
+                                <CLoading />
                             )
                         }
                     </>

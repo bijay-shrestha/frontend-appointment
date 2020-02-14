@@ -1,21 +1,21 @@
 import React from 'react'
-import {ConnectHoc} from '@frontend-appointment/commons'
+import { ConnectHoc } from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
     HospitalSetupMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers';
+import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-constants'
+import { DateTimeFormatterUtils, EnterKeyPressUtils } from '@frontend-appointment/helpers';
 import './appointment-status.scss';
-import {CAlert} from "@frontend-appointment/ui-elements";
+import { CAlert } from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 
-const {fetchAppointmentStatusList, clearAppointmentStatusMessage} = AppointmentDetailsMiddleware;
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
-const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
+const { fetchAppointmentStatusList, clearAppointmentStatusMessage } = AppointmentDetailsMiddleware;
+const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware;
+const { fetchActiveDoctorsHospitalWiseForDropdown } = DoctorMiddleware;
+const { fetchSpecializationHospitalWiseForDropdown } = SpecializationSetupMiddleware;
 
 const {
     appointmentSetupApiConstant,
@@ -24,12 +24,12 @@ const {
     specializationSetupAPIConstants,
 } = AdminModuleAPIConstants;
 
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants;
-const {FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN} = doctorSetupApiConstants;
-const {SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = specializationSetupAPIConstants;
-const {APPOINTMENT_STATUS_LIST} = appointmentSetupApiConstant;
+const { FETCH_HOSPITALS_FOR_DROPDOWN } = hospitalSetupApiConstants;
+const { FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN } = doctorSetupApiConstants;
+const { SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL } = specializationSetupAPIConstants;
+const { APPOINTMENT_STATUS_LIST } = appointmentSetupApiConstant;
 
-const {isFirstDateGreaterThanSecondDate, getDateWithTimeSetToGivenTime, getNoOfDaysBetweenGivenDatesInclusive} = DateTimeFormatterUtils;
+const { isFirstDateGreaterThanSecondDate, getDateWithTimeSetToGivenTime, getNoOfDaysBetweenGivenDatesInclusive } = DateTimeFormatterUtils;
 
 const SELECT_HOSPITAL_MESSAGE = "Select Hospital.";
 const SELECT_DOCTOR_MESSAGE = "Select Doctor.";
@@ -55,7 +55,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             alertMessageInfo: {
                 variant: "",
                 message: ""
-            }
+            },
+            activeStatus: 'ALL'
         };
 
         fetchHospitalForDropDown = async () => {
@@ -122,8 +123,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         this.callApiForHospitalChange(value)
                     }
                 }
-                let searchParams = {...this.state.searchParameters};
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                let searchParams = { ...this.state.searchParameters };
+                searchParams[fieldName] = label ? (value ? { value, label } : '') : value;
                 await this.setStateValuesForSearch(searchParams);
 
                 let errorMsg = "";
@@ -222,22 +223,23 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             if (status !== 'ALL') {
                 filteredStatus = appointmentStatus.map(appointment => {
-                        let appointmentCopy = {...appointment};
-                        if (appointment.doctorTimeSlots) {
-                            let filteredTimeSlots = appointment.doctorTimeSlots.filter(time =>
-                                time.status === status
-                            );
-                            appointmentCopy.doctorTimeSlots = [...filteredTimeSlots];
-                        }
-                        return appointmentCopy;
+                    let appointmentCopy = { ...appointment };
+                    if (appointment.doctorTimeSlots) {
+                        let filteredTimeSlots = appointment.doctorTimeSlots.filter(time =>
+                            time.status === status
+                        );
+                        appointmentCopy.doctorTimeSlots = [...filteredTimeSlots];
                     }
+                    return appointmentCopy;
+                }
                 );
             } else {
                 filteredStatus = [...this.state.appointmentStatusDetailsCopy]
             }
 
             await this.setState({
-                appointmentStatusDetails: [...filteredStatus]
+                appointmentStatusDetails: [...filteredStatus],
+                activeStatus: status
             });
         };
 
@@ -279,53 +281,55 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         render() {
             const {
-                searchParameters, appointmentStatusDetails, errorMessageForStatusDetails, showAlert, alertMessageInfo
+                searchParameters, appointmentStatusDetails, errorMessageForStatusDetails, showAlert, alertMessageInfo,
+                activeStatus
             } = this.state;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            const { hospitalsForDropdown } = this.props.HospitalDropdownReducer;
 
-            const {activeDoctorsByHospitalForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
+            const { activeDoctorsByHospitalForDropdown, doctorDropdownErrorMessage } = this.props.DoctorDropdownReducer;
 
-            const {activeSpecializationListByHospital, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
+            const { activeSpecializationListByHospital, dropdownErrorMessage } = this.props.SpecializationDropdownReducer;
 
-            const {statusErrorMessage, statusList, isStatusListLoading} = this.props.AppointmentStatusListReducer;
+            const { statusErrorMessage, statusList, isStatusListLoading } = this.props.AppointmentStatusListReducer;
 
             return (
                 <>
-                <div id="appointment-status">
-                    <ComposedComponent
-                        {...this.props}
-                        {...props}
-                        searchHandler={{
-                            handleSearchFormChange: this.handleSearchFormChange,
-                            resetSearchForm: this.handleSearchFormReset,
-                            searchAppointmentStatus: this.searchAppointmentStatus,
-                            hospitalList: hospitalsForDropdown,
-                            doctorList: activeDoctorsByHospitalForDropdown,
-                            doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                            specializationList: activeSpecializationListByHospital,
-                            specializationDropdownErrorMessage: dropdownErrorMessage,
-                            searchParameters: searchParameters
-                        }}
-                        statusDetailsData={{
-                            appointmentStatusDetails,
-                            errorMessageForStatusDetails,
-                            searchErrorMessage: statusErrorMessage,
-                            isStatusListLoading,
-                            searchAppointmentStatus: this.searchAppointmentStatus,
-                            filterAppointmentDetailsByStatus: this.filterAppointmentDetailsByStatus
-                        }}
-                    />
-                    <CAlert
-                        id="profile-manage"
-                        variant={alertMessageInfo.variant}
-                        show={showAlert}
-                        onClose={this.closeAlert}
-                        alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
-                        </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true"/>
-                        </>}
-                        message={alertMessageInfo.message}
-                    />
+                    <div id="appointment-status">
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            searchHandler={{
+                                handleSearchFormChange: this.handleSearchFormChange,
+                                resetSearchForm: this.handleSearchFormReset,
+                                searchAppointmentStatus: this.searchAppointmentStatus,
+                                hospitalList: hospitalsForDropdown,
+                                doctorList: activeDoctorsByHospitalForDropdown,
+                                doctorDropdownErrorMessage: doctorDropdownErrorMessage,
+                                specializationList: activeSpecializationListByHospital,
+                                specializationDropdownErrorMessage: dropdownErrorMessage,
+                                searchParameters: searchParameters
+                            }}
+                            statusDetailsData={{
+                                appointmentStatusDetails,
+                                errorMessageForStatusDetails,
+                                searchErrorMessage: statusErrorMessage,
+                                isStatusListLoading,
+                                searchAppointmentStatus: this.searchAppointmentStatus,
+                                activeStatus: activeStatus,
+                                filterAppointmentDetailsByStatus: this.filterAppointmentDetailsByStatus
+                            }}
+                        />
+                        <CAlert
+                            id="profile-manage"
+                            variant={alertMessageInfo.variant}
+                            show={showAlert}
+                            onClose={this.closeAlert}
+                            alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone />
+                            </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true" />
+                                </>}
+                            message={alertMessageInfo.message}
+                        />
                     </div>
                 </>
             )
