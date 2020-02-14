@@ -194,14 +194,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData.appointmentCharge &&
                 consultantData.status &&
                 consultantData.contactNumber &&
-                consultantData.doctorAvatar &&
+                // consultantData.doctorAvatar &&
                 consultantData.hospitalId &&
                 consultantData.specializationIds.length &&
                 consultantData.qualificationIds.length &&
                 consultantData.genderCode &&
                 consultantData.email &&
-                consultantData.nmcNumber &&
-                consultantData.doctorAvatar
+                consultantData.nmcNumber
+                // consultantData.doctorAvatar
 
             if (eventType === 'E')
                 formValidity = formValidity && consultantData.remarks

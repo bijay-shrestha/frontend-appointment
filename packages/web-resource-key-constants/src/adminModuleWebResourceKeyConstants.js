@@ -8,7 +8,8 @@ const QFA_BASE = '/qualificationAlias';
 const CNTRY_BASE = '/country';
 const UN_BASE = '/university';
 const PATIENT_BASE = "/patient";
-const APPOINTMENT_BASE = "/appointment"
+const APPOINTMENT_BASE = "/appointment";
+const DASHBOARD_BASE = "/dashboard";
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -144,4 +145,11 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
     APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
     APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval")
-}
+};
+
+export const DashboardApiConstant = {
+    OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + "/overAllAppointments"),
+    REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
+    REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
+    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics")
+};

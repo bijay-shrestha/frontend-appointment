@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import {combineReducers} from 'redux'
 import {
   AppointmentApprovalListReducer,
   AppointmentLogListReducer,
@@ -12,6 +12,13 @@ import {
   AdminPreviewReducer,
   AdminSetupReducer,
   CountryCodeDropdownReducer,
+  DashboardAppointmentStatisticsReducer,
+  DashboardRegisteredPatientReducer,
+  DashboardRevenueGeneratedDayReducer,
+  DashboardRevenueGeneratedMonthReducer,
+  DashboardRevenueGeneratedWeekReducer,
+  DashboardRevenueGeneratedYearReducer,
+  DashboardRevenueStatisticsReducer,
   DepartmentDeleteReducer,
   DepartmentEditReducer,
   DepartmentListReducer,
@@ -58,7 +65,7 @@ import {
   SpecializationSearchReducer,
   UniversitiesForDropdownReducer,
   WeekdaysReducer
-} from '../reducers';
+} from '../reducers'
 
 export const rootReducers = combineReducers({
   AppointmentApprovalListReducer,
@@ -67,6 +74,13 @@ export const rootReducers = combineReducers({
   AppointmentRefundListReducer,
   AppointmentRefundReducer,
   AppointmentRefundRejectReducer,
+  DashboardAppointmentStatisticsReducer,
+  DashboardRegisteredPatientReducer,
+  DashboardRevenueGeneratedDayReducer,
+  DashboardRevenueGeneratedMonthReducer,
+  DashboardRevenueGeneratedWeekReducer,
+  DashboardRevenueGeneratedYearReducer,
+  DashboardRevenueStatisticsReducer,
   loginReducers: login,
   ProfileSetupReducer,
   ProfileListReducer,
@@ -119,4 +133,4 @@ export const rootReducers = combineReducers({
   QualificationDropdownReducer,
   UniversitiesForDropdownReducer,
   WeekdaysReducer
-});
+})

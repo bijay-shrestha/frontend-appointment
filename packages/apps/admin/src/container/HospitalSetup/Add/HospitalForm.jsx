@@ -80,35 +80,35 @@ const HospitalForm = ({
                                             </div>
                                         </div>
 
-                                        <div className="image-upload-container">
-                                            <CFLabel id='banner' labelName="Hospital Banner"/>
-                                            <div className="image-box">
-                                                <img
-                                                    alt="HOSPITAL BANNER"
-                                                    src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : DefaultLogo}
-                                                />
-                                                <CButton
-                                                    id="uploadBanner"
-                                                    name="Upload"
-                                                    size="lg"
-                                                    variant="primary"
-                                                    className=" mt-1 mb-4  upload-button"
-                                                    onClickHandler={setShowBannerUploadModal}
-                                                />
-                                                <CImageUploadAndCropModal
-                                                    id='hospital-baner'
-                                                    ruleOfThirds={true}
-                                                    circularCrop={false}
-                                                    showModal={showBannerUploadModal}
-                                                    setShowModal={setShowBannerUploadModal}
-                                                    imageSrc={hospitalBannerImage}
-                                                    croppedImageSrc={hospitalBannerImageCroppedUrl}
-                                                    handleImageUpload={handleBannerImageUpload}
-                                                    onImageSelect={onBannerImageSelect}
-                                                    onImageCrop={data => handleCropBannerImage(data)}
-                                                />
-                                            </div>
-                                        </div>
+                                        {/*<div className="image-upload-container">*/}
+                                        {/*    <CFLabel id='banner' labelName="Hospital Banner"/>*/}
+                                        {/*    <div className="image-box">*/}
+                                        {/*        <img*/}
+                                        {/*            alt="HOSPITAL BANNER"*/}
+                                        {/*            src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : DefaultLogo}*/}
+                                        {/*        />*/}
+                                        {/*        <CButton*/}
+                                        {/*            id="uploadBanner"*/}
+                                        {/*            name="Upload"*/}
+                                        {/*            size="lg"*/}
+                                        {/*            variant="primary"*/}
+                                        {/*            className=" mt-1 mb-4  upload-button"*/}
+                                        {/*            onClickHandler={setShowBannerUploadModal}*/}
+                                        {/*        />*/}
+                                        {/*        <CImageUploadAndCropModal*/}
+                                        {/*            id='hospital-baner'*/}
+                                        {/*            ruleOfThirds={true}*/}
+                                        {/*            circularCrop={false}*/}
+                                        {/*            showModal={showBannerUploadModal}*/}
+                                        {/*            setShowModal={setShowBannerUploadModal}*/}
+                                        {/*            imageSrc={hospitalBannerImage}*/}
+                                        {/*            croppedImageSrc={hospitalBannerImageCroppedUrl}*/}
+                                        {/*            handleImageUpload={handleBannerImageUpload}*/}
+                                        {/*            onImageSelect={onBannerImageSelect}*/}
+                                        {/*            onImageCrop={data => handleCropBannerImage(data)}*/}
+                                        {/*        />*/}
+                                        {/*    </div>*/}
+                                        {/*</div>*/}
                                     </Col>
 
                                     <Col
@@ -160,7 +160,7 @@ const HospitalForm = ({
                                             name="panNumber"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital PanNumber"
+                                            placeholder="Hospital PAN Number"
                                             value={hospitalInfoObj.panNumber}
                                             required={true}
                                         />
