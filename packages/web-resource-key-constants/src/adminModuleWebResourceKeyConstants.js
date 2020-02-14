@@ -135,7 +135,7 @@ export const universitySetupAliasCode = {
 };
 
 export const patientSetupApiConstant = {
-    ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "metaInfo/active/min")
+    ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min")
 };
 
 
