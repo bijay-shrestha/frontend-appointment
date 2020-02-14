@@ -1,0 +1,137 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+ .module{
+
+    &.form-check{
+        margin-left:15px;
+        display: inline-block;
+    }
+ }
+
+ .upload-button{
+     display: block;
+     width:140px;
+ }
+
+ .image-upload-container{
+   text-align: center;
+
+     .image-box{
+        img{
+            width:140px;
+            @include border-radius(50%);
+        }
+
+        .upload-button{
+            margin:0 auto;
+        }
+
+
+
+     }
+ }
+
+ .mac-box{
+     position: relative;
+
+     .remove-mac{
+         position: absolute;
+         right:0;
+         top:0;
+         height:calc(1.5em + 0.75rem);
+         border-top-left-radius: 0;
+         border-bottom-left-radius: 0;
+         border-top-right-radius:3px;
+         border-bottom-right-radius: 3px;
+         border:none;
+     }
+ }
+
+ .data-image{
+     width:40px;
+     height: 40px;
+     @include border-radius(50%);
+     overflow: hidden;
+     img{
+        width:40px;
+        height: 40px;
+     }
+ }
+
+ .ag-row{
+     height: 45px;
+ }
+
+ .image-crop{
+    //background-color:rgba(#000,0.6);
+    //border:1px solid #000;
+       .modal-content{
+        //   box-shadow: 0px 14px 14px 2px #ced4da;
+        //   border:1px solid #ccc !important;
+       }
+
+   }
+
+   .fade{
+      // background-color:rgba(#000,0.6);
+   }
+
+   .module-profile{
+       display: flex;
+       flex-direction: row;
+
+       .field-wrapper{
+            width:90%;
+            display:inline-block;
+       }
+
+       .profile-info{
+            width:10%;
+            padding-top:14px;
+            display: inline-block;
+           align-self: flex-start;
+       }
+
+
+   }
+
+   .profile-list{
+       position: relative;
+
+       .profile-info{
+           position:absolute;
+           right:-30px;
+           top:5px;
+        //    color:$cogent;
+       }
+   }
+
+   .react-photo-gallery--gallery{
+      
+       text-align: center;
+       margin-bottom:20px;
+       
+       img{
+        width:140px;
+        height: 140px;
+        margin:0 auto !important;
+        @include border-radius(50%);
+
+       }
+   }
+
+ .form-check {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+
+
