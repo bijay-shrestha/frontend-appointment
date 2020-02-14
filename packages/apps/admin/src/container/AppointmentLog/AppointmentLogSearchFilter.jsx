@@ -88,7 +88,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 name="fromDate"
                                                 label="From Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                maxDate={0}
+                                                // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
                                                 showMonthDropdown={true}
@@ -106,7 +106,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 name="toDate"
                                                 label="To Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                maxDate={0}
+                                                // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
                                                 peekNextMonth={true}

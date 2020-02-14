@@ -426,7 +426,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
             this.setState({
                 formValid: true
             })
-        }
+        };
 
         fetchHospitalForDropDown = async () => {
             try {
@@ -462,29 +462,28 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 deleteRequestDTO,
                 totalRecords
-            } = this.state
+            } = this.state;
 
             const {
                 isSearchLoading,
                 specializationList,
                 searchErrorMessage
-            } = this.props.SpecializationSearchReducer
+            } = this.props.SpecializationSearchReducer;
 
             const {
                 specializationPreviewData,
                 isPreviewLoading,
                 specializationPreviewErrorMessage
-            } = this.props.SpecializationPreviewReducer
+            } = this.props.SpecializationPreviewReducer;
 
             const {
                 specializationEditErrorMessage
 
-            } = this.props.SpecializationEditReducer
+            } = this.props.SpecializationEditReducer;
 
             const { hospitalsForDropdown } = this.props.HospitalDropdownReducer;
 
-            const { deleteErrorMessage } = this.props.SpecializationDeleteReducer
-            console.log('Delete Modal Show', this.state.deleteModalShow)
+            const { deleteErrorMessage } = this.props.SpecializationDeleteReducer;
             return (
                 <ComposedComponent
                     {...this.props}
