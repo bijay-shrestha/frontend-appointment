@@ -45,6 +45,7 @@ const AppointmentStatistics = props => {
                 onPillsClickHandler={props.onPillsClickHandler}
                 type={props.type}
                 variant="outline-secondary"
+                data={props.appointmentFilter}
               />
               <Col className="date">
                 <div>

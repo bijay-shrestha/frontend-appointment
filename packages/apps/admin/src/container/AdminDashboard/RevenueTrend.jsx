@@ -16,8 +16,7 @@ const RevenueTrend = props => {
     revenueStatsData,
     revenueStatsErrorMessage,
     fromDate,
-    toDate,
-    onPillsClickHandler
+    toDate
   } = props.revenueStatistics
   let newLineData = [],
     newRevenueStatsData = []
@@ -40,7 +39,7 @@ const RevenueTrend = props => {
         {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
           <div className="chart">
             <Row>
-              <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund" variant="outline-secondary" />
+              <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund" variant="outline-secondary" data={props.revenueFilter} />
               <Col xs={12} md={4} className="p-0">
                 <Col className="date">
                   <div>

@@ -50,7 +50,7 @@ const chartFillData = {
 }
 
 return(
-    <Line data={chartFillData} width={width} height={height} options={options} redraw/>
+    <Line data={chartFillData} width={width} height={height} options={options} />
 )
 }
 export default memo(LineChart);
