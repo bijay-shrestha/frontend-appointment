@@ -421,7 +421,7 @@ export const routes = [
         name: 'Appointment Approval'
     },
     {
-        path: '/admin/appointment/appointmentLog',
+        path: '/admin/reports/appointmentLog',
         component: AppointmentLogListComponent,
         icon: '',
         hasTab: false,
@@ -430,7 +430,7 @@ export const routes = [
         name: 'Appointment Log'
     },
     {
-        path: '/admin/appointment/appointmentStatus',
+        path: '/admin/reports/appointmentStatus',
         component: AppointmentStatusComponent,
         icon: '',
         hasTab: false,
@@ -448,6 +448,15 @@ export const routes = [
         name: 'Appointment'
     },
     {
+        path: '/admin/reports',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Report'
+    },
+    {
         path: '/unauthorized',
         component: CUnauthorized,
         icon: '',
@@ -456,4 +465,4 @@ export const routes = [
         isTab: false,
         name: 'Unauthorized'
     }
-]
+];
