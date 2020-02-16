@@ -390,6 +390,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     hospitalName,
                     remarks,
                     appointmentCharge,
+                    appointmentFollowUpCharge,
                     fileUri,
                     doctorSpecializationResponseDTOS,
                     doctorQualificationResponseDTOS
@@ -431,7 +432,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         ],
                         doctorAvatarUrl: fileUri,
                         doctorAvatar: new File([5120], fileUri),
-                        appointmentCharge: appointmentCharge
+                        appointmentCharge: appointmentCharge,
+                        appointmentFollowUpCharge: appointmentFollowUpCharge
                     },
                     doctorImage: new File([5120], fileUri),
                     doctorImageCroppedUrl: fileUri,
