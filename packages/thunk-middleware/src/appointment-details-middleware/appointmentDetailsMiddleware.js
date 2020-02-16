@@ -93,39 +93,43 @@ export const appointmentRejectRefund = (
     path,
     data
 ) => async dispatch => {
-    dispatch(AppointmentDetailActions.appointmentRefundRejectStart());
-    try {
-        const response = await Axios.put(path, data);
-        dispatch(
-            AppointmentDetailActions.appointmentRefundRejectSuccess('Refund Reject Successfully')
-        )
-    } catch (e) {
-        dispatch(
-            AppointmentDetailActions.appointmentRefundRejectError(
-                e.errorMessage || 'Sorry Internal Server Problem'
-            )
-        )
-    }
-};
+  dispatch(AppointmentDetailActions.appointmentRefundRejectStart())
+  try {
+    const response = await Axios.put(path,data)
+    dispatch(
+      AppointmentDetailActions.appointmentRefundRejectSuccess('Refund Reject Successfully')
+    )
+    return response
+  } catch (e) {
+    dispatch(
+      AppointmentDetailActions.appointmentRefundRejectError(
+        e.errorMessage || 'Sorry Internal Server Problem'
+      )
+    )
+    throw e;
+  }
+}
 
 export const appointmentRefund = (
-    path,
-    data
+  path,
+  id
 ) => async dispatch => {
-    dispatch(AppointmentDetailActions.appointmentRefundStart());
-    try {
-        const response = await Axios.put(path, data);
-        dispatch(
-            AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
-        )
-    } catch (e) {
-        dispatch(
-            AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage || 'Sorry Internal Server Problem'
-            )
-        )
-    }
-};
+  dispatch(AppointmentDetailActions.appointmentRefundStart())
+  try {
+    const response = await Axios.getWithPathVariables(path,id)
+    dispatch(
+      AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
+    )
+    return response;
+  } catch (e) {
+    dispatch(
+      AppointmentDetailActions.appointmentRefundError(
+        e.errorMessage?e.errorMessage:'Sorry Internal Server Problem'
+      )
+    )
+    throw e;
+  }
+}
 
 export const clearAppointmentRefundRejectMessage = () => async dispatch => {
     dispatch({type: 'CLEAR_REFUND_REJECT_MESSAGE'})
