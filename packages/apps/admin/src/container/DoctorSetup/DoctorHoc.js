@@ -52,6 +52,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 specializationIds: [],
                 qualificationIds: [],
                 appointmentCharge: '',
+                appointmentFollowUpCharge: '',
                 nmcNumber: '',
                 remarks: '',
                 selectedSpecializations: [],
@@ -134,6 +135,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     newSpecializationList: [],
                     newQualificationList: [],
                     appointmentCharge: '',
+                    appointmentFollowUpCharge: '',
                     nmcNumber: '',
                     remarks: '',
                     doctorAvatar: null,
@@ -150,34 +152,34 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 logoValid: false,
                 showEditModal: false
             })
-        }
+        };
 
         checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
-            let stateObj = {[fieldName]: valueToChange}
+            let stateObj = {[fieldName]: valueToChange};
             if (eventName) {
-                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid};
                 if (eventName === 'contactNumber')
-                    stateObj = {...stateObj, contactValid: valid}
+                    stateObj = {...stateObj, contactValid: valid};
                 if (eventName === 'appointmentCharge')
-                    stateObj = {...stateObj, appointmentChargeValid: valid}
+                    stateObj = {...stateObj, appointmentChargeValid: valid};
                 if (eventName === 'email') stateObj = {...stateObj, emailValid: valid}
             }
             return {...stateObj}
-        }
+        };
 
         setTheState = async (fieldName, valueToChange, valid, eventName) => {
             await this.setState(
                 this.checkInputValidity(fieldName, valueToChange, valid, eventName)
             )
-        }
+        };
 
         closeAlert = () => {
-            this.props.clearConsultantCreateMessage()
+            this.props.clearConsultantCreateMessage();
             this.setState({
                 showAlert: !this.state.showAlert,
                 alertMessageInfo: ''
             })
-        }
+        };
 
         checkFormValidity = eventType => {
             const {
@@ -201,7 +203,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData.genderCode &&
                 consultantData.email &&
                 consultantData.nmcNumber
-                // consultantData.doctorAvatar
+            // consultantData.doctorAvatar
 
             if (eventType === 'E')
                 formValidity = formValidity && consultantData.remarks
@@ -209,7 +211,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             this.setState({
                 formValid: formValidity ? true : false
             })
-        }
+        };
 
         callSpecialization = async id => {
             try {
@@ -272,16 +274,17 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 specializationIds,
                 nmcNumber,
                 appointmentCharge,
+                appointmentFollowUpCharge,
                 hospitalId,
                 email,
                 genderCode,
                 qualificationIds
-            } = this.state.consultantData
-            let formData = new FormData()
+            } = this.state.consultantData;
+            let formData = new FormData();
             formData.append(
                 'avatar',
                 new File([doctorAvatar], name.concat('-picture.jpeg'))
-            )
+            );
             try {
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
@@ -294,6 +297,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         ),
                         nmcNumber,
                         appointmentCharge,
+                        appointmentFollowUpCharge,
                         hospitalId: hospitalId.value,
                         email,
                         genderCode,
@@ -302,10 +306,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         )
                     },
                     formData
-                )
+                );
 
-                await this.setShowConfirmModal()
-                this.resetConsultantStateValues()
+                await this.setShowConfirmModal();
+                this.resetConsultantStateValues();
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -323,18 +327,18 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         previewApiCall = async id => {
             await this.props.previewConsultant(
                 doctorSetupApiConstants.FETCH_DOCTOR,
                 id
             )
-        }
+        };
 
         onPreviewHandler = async id => {
             try {
-                await this.previewApiCall(id)
+                await this.previewApiCall(id);
                 this.setState({
                     showDoctorModal: true
                 })
@@ -348,14 +352,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         editPreviewApiCall = async id => {
             await this.props.previewConsultant(
                 doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
                 id
             )
-        }
+        };
 
         makeValueForMultipleSelect = (key, datas) => {
             let doctorKey = 'doctor' + key + 'Id'
@@ -368,12 +372,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     status: 'Y'
                 }
             })
-        }
+        };
 
         onEditHandler = async id => {
-            this.props.clearConsultantCreateMessage()
+            this.props.clearConsultantCreateMessage();
             try {
-                await this.editPreviewApiCall(id)
+                await this.editPreviewApiCall(id);
                 const {
                     doctorId,
                     doctorName,
@@ -389,9 +393,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     fileUri,
                     doctorSpecializationResponseDTOS,
                     doctorQualificationResponseDTOS
-                } = this.props.DoctorPreviewReducer.consultantPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                } = this.props.DoctorPreviewReducer.consultantPreviewData;
+                let formValid = this.state.formValid;
+                if (remarks) formValid = true;
                 await this.setState({
                     showEditModal: true,
                     consultantData: {
@@ -435,28 +439,28 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     nameValid: true,
                     appointmentChargeValid: true,
                     contactValid: true
-                })
+                });
                 this.callSpecialization(hospitalId)
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         searchDoctorForDropDown = async (name, value) => {
-            let searchParams = {...this.state.searchParameters}
+            let searchParams = {...this.state.searchParameters};
             if (name === 'hospitalId') {
                 try {
                     await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
                         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
                         value
-                    )
+                    );
                     searchParams = await this.callSpecializationApi(name, value)
                 } catch (e) {
                     console.log(e)
                 }
             }
             return searchParams
-        }
+        };
 
         searchDoctor = async page => {
             const {
@@ -466,7 +470,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 mobileNumber,
                 specializationId,
                 hospitalId
-            } = this.state.searchParameters
+            } = this.state.searchParameters;
             let searchData = {
                 name: name.value || 0,
                 code: code,
@@ -474,14 +478,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 mobileNumber: mobileNumber,
                 hospitalId: hospitalId.value || '',
                 specializationId: specializationId.value || ''
-            }
+            };
 
             let updatedPage =
                 this.state.queryParams.page === 0
                     ? 1
                     : page
                     ? page
-                    : this.state.queryParams.page
+                    : this.state.queryParams.page;
             await this.props.searchConsultant(
                 doctorSetupApiConstants.SEARCH_DOCTOR,
                 {
@@ -489,7 +493,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     size: this.state.queryParams.size
                 },
                 searchData
-            )
+            );
 
             await this.setState({
                 totalRecords: this.props.DoctorSearchReducer.consultantList.length
@@ -500,33 +504,33 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     page: updatedPage
                 }
             })
-        }
+        };
 
         handleImageSelect = imageUrl => {
             imageUrl && this.setState({doctorImage: imageUrl})
-        }
+        };
 
         handleCropImage = croppedImageUrl => {
             croppedImageUrl &&
             this.setState({
                 doctorImageCroppedUrl: croppedImageUrl
             })
-        }
+        };
 
         handleImageUpload = async (croppedImageFile, eventType) => {
-            let croppedImage = this.state.doctorImageCroppedUrl
-            let doctorImage = {...this.state.consultantData}
+            let croppedImage = this.state.doctorImageCroppedUrl;
+            let doctorImage = {...this.state.consultantData};
             doctorImage.doctorAvatar = new File(
                 [croppedImageFile],
                 'doctorAvatar.jpeg'
-            )
-            doctorImage.doctorAvatarUrl = croppedImage
+            );
+            doctorImage.doctorAvatarUrl = croppedImage;
             await this.setState({
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
-            })
+            });
             this.checkFormValidity(eventType)
-        }
+        };
 
         appendSNToTable = consultantList => {
             const newConsultantList =
@@ -535,9 +539,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     ...spec,
                     sN: index + 1,
                     name: spec.doctorName.toUpperCase()
-                }))
+                }));
             return newConsultantList
-        }
+        };
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -545,38 +549,39 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     ...this.state.queryParams,
                     page: newPage
                 }
-            })
+            });
             this.searchDoctor()
-        }
+        };
 
         findAndMixDatas = (key, newEditData, oldData, lower) => {
-            let mixedEditData = [...newEditData]
+            let mixedEditData = [...newEditData];
             oldData.map(old => {
-                let dataId = old[lower + 'Id']
-                let flag = false
+                let dataId = old[lower + 'Id'];
+                let flag = false;
                 newEditData.map(newEditDatum => {
                     if (newEditDatum[key].toString() === old[key].toString())
                         flag = true
-                })
+                });
                 !flag && mixedEditData.push({[key]: old[key], [lower + 'Id']: dataId, status: 'N'})
-            })
+            });
             return mixedEditData
-        }
+        };
 
         makeMultipleSelectForEditResponse = (key, newData, oldData) => {
-            let doctorKey = 'doctor' + key + 'Id'
-            let lowerCaseKey = key[0].toLowerCase() + key.slice(1)
+            let doctorKey = 'doctor' + key + 'Id';
+            let lowerCaseKey = key[0].toLowerCase() + key.slice(1);
             let newEditData = [];
             newData.map(newDat => {
-                let newDatum = {...newDat}
+                let newDatum = {...newDat};
                 newDatum = {[doctorKey]: newDatum[doctorKey] || '', [lowerCaseKey + 'Id']: newDatum.value, status: 'Y'};
                 newEditData.push(newDatum);
             });
             const mixedData = this.findAndMixDatas(doctorKey, newEditData, oldData, lowerCaseKey);
-            console.log(mixedData)
+            // console.log(mixedData);
             return mixedData;
 
-        }
+        };
+
         editDoctor = async () => {
             const {
                 id,
@@ -593,13 +598,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newQualificationList,
                 qualificationIds,
                 doctorAvatar,
-                appointmentCharge
-            } = this.state.consultantData
-            let formData = new FormData()
+                appointmentCharge,
+                appointmentFollowUpCharge
+            } = this.state.consultantData;
+            let formData = new FormData();
             formData.append(
                 'avatar',
                 new File([doctorAvatar], name.concat('-picture.jpeg'))
-            )
+            );
             try {
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
@@ -612,6 +618,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             mobileNumber: contactNumber,
                             genderCode,
                             appointmentCharge,
+                            appointmentFollowUpCharge,
                             remarks,
                             email,
                             id
@@ -621,8 +628,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
                     },
                     formData
-                )
-                this.resetConsultantStateValues()
+                );
+                this.resetConsultantStateValues();
                 this.setShowModal();
                 this.setState({
                     showAlert: true,
@@ -630,37 +637,37 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         variant: 'success',
                         message: this.props.DoctorEditReducer.consultantEditSuccessMessage
                     }
-                })
+                });
                 await this.searchDoctor()
             } catch (e) {
             }
-        }
+        };
 
         onDeleteHandler = async id => {
-            this.props.clearConsultantCreateMessage()
-            let deleteRequestDTO = {...this.state.deleteRequestDTO}
-            deleteRequestDTO['id'] = id
+            this.props.clearConsultantCreateMessage();
+            let deleteRequestDTO = {...this.state.deleteRequestDTO};
+            deleteRequestDTO['id'] = id;
             await this.setState({
                 deleteRequestDTO: deleteRequestDTO,
                 deleteModalShow: true
             })
-        }
+        };
 
         deleteRemarksHandler = event => {
-            const {name, value} = event.target
-            let deleteRequest = {...this.state.deleteRequestDTO}
-            deleteRequest[name] = value
+            const {name, value} = event.target;
+            let deleteRequest = {...this.state.deleteRequestDTO};
+            deleteRequest[name] = value;
             this.setState({
                 deleteRequestDTO: deleteRequest
             })
-        }
+        };
 
         onSubmitDeleteHandler = async () => {
             try {
                 await this.props.deleteConsultant(
                     doctorSetupApiConstants.DELETE_DOCTOR,
                     this.state.deleteRequestDTO
-                )
+                );
                 await this.setState({
                     deleteModalShow: false,
                     deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
@@ -669,14 +676,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         message: this.props.DoctorDeleteReducer.deleteSuccessMessage
                     },
                     showAlert: true
-                })
+                });
                 await this.searchDoctor()
             } catch (e) {
                 this.setState({
                     deleteModalShow: true
                 })
             }
-        }
+        };
 
         handleSearchFormReset = async () => {
             await this.setState({
@@ -688,23 +695,23 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     hospitalId: ''
                 }
-            })
+            });
             this.searchDoctor()
-        }
+        };
 
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
             })
-        }
+        };
 
         handleSearchFormChange = async event => {
-            const {name, value, label} = event.target
-            let searchParams = await this.searchDoctorForDropDown(name, value)
+            const {name, value, label} = event.target;
+            let searchParams = await this.searchDoctorForDropDown(name, value);
             if (name) {
-                let fieldName = name
-                let val = value
-                let lbl = label
+                let fieldName = name;
+                let val = value;
+                let lbl = label;
                 searchParams[fieldName] = label
                     ? value
                         ? {value: val, label: lbl}
@@ -712,12 +719,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     : value
                 await this.setStateValuesForSearch(searchParams)
             }
-        }
+        };
         setFormValidManage = () => {
             this.setState({
                 formValid: true
             })
-        }
+        };
 
         async componentDidMount() {
             try {
