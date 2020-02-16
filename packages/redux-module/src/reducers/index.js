@@ -85,7 +85,7 @@ import {
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
-import {PatientDropdownListReducer} from './admin-module/patientSetupReducer'
+import {PatientDropdownListReducer,PatientEditReducer,PatientPreviewReducer,PatientSearchReducer} from './admin-module/patientSetupReducer'
 
 export {
   AppointmentApprovalListReducer,
@@ -152,5 +152,8 @@ export {
   QualificationAliasDropdownReducer,
   QualificationDropdownReducer,
   UniversitiesForDropdownReducer,
-  PatientDropdownListReducer
+  PatientDropdownListReducer,
+  PatientEditReducer,
+  PatientPreviewReducer,
+  PatientSearchReducer
 }
