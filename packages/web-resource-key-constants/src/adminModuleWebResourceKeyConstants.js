@@ -139,7 +139,6 @@ export const patientSetupApiConstant = {
 };
 
 
-
 export const appointmentSetupApiConstant ={
     APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
     APPOINTMENT_REFUND_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund/approve"),
