@@ -16,8 +16,8 @@ import {doctorDutyRosterActionConstants} from "./doctor-duty-roster/doctorDutyRo
 import * as DoctorDutyRosterActions from './doctor-duty-roster/doctorDutyRosterActions';
 import * as AppointmentDetailActions from './appointment-details/appointmentDetailActions';
 import {appointmentDetailsConstants} from "./appointment-details/appointmentDetailActionConstants";
-import * as PatientDetailsActions from './patent-details/patientDetailActions';
-import {patientDetailsConstants} from "./patent-details/patientDetailActionConstants";
+import * as PatientDetailsActions from './patient-details/patientDetailActions';
+import {patientDetailsConstants} from "./patient-details/patientDetailActionConstants";
 import * as DashboardDetailsActions from './dashboard-details/dashboardDetailsActions';
 import {dashboardDetailsActionsConstant} from './dashboard-details/dashboardDetailsActionConstant';
 export {
