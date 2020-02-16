@@ -59,7 +59,7 @@ const appointmentApprovalState = {
 }
 
 const appointmentStatusState = {
-    statusList: [],
+    statusList:null,
     isStatusListLoading: false,
     statusErrorMessage: '',
     totalAmount: '',
@@ -274,7 +274,7 @@ export const AppointmentStatusListReducer = (
         case STATUS_FETCH_START:
             return {
                 ...state,
-                statusList: [],
+                statusList:null,
                 isStatusListLoading: true,
                 statusErrorMessage: '',
                 totalAmount: '',
@@ -292,7 +292,7 @@ export const AppointmentStatusListReducer = (
         case STATUS_FETCH_ERROR:
             return {
                 ...state,
-                statusList: [],
+                statusList:null,
                 isStatusListLoading: false,
                 statusErrorMessage: action.payload.errorMessage,
                 totalAmount: '',
