@@ -16,17 +16,28 @@ export const clearPatientDetails = () => async dispatch => {
     dispatch(PatientDetailsActions.clearPatientDropdownSuccessMessage());
 }
 
-export const searchPatientList = (path,data,pagination) => async dispatch => {
-    dispatch(PatientDetailsActions.patientSearchStart());
+export const editPatient = (path,data) => async dispatch => {
+    dispatch(PatientDetailsActions.patientEditPending());
     try {
-        const response = await Axios.putWithPagination(path,data,pagination);
-        dispatch(PatientDetailsActions.patientActiveDropdownFetchingSuccess(response.data));
+        const response = await Axios.put(path,data);
+        dispatch(PatientDetailsActions.patientEditSuccess(response.data));
         return response.data;
     } catch (e) {
-        dispatch(PatientDetailsActions.patientActiveDropdownFetchingError(e.errorMessage||"Sorry Internal Server Problem"));
+        dispatch(PatientDetailsActions.patientEditError(e.errorMessage||"Sorry Internal Server Problem"));
     }
 };
 
-export const clearPatientEdit = () => async dispatch => {
-    dispatch(PatientDetailsActions.clearPatientEditMessage());
+export const clearPatientPreview = () => async dispatch => {
+    dispatch(PatientDetailsActions.clearPatientPreviewMessage());
 }
+
+export const previewPatient = (path,data) => async dispatch => {
+    dispatch(PatientDetailsActions.patientPreviewPending());
+    try {
+        const response = await Axios.put(path,data);
+        dispatch(PatientDetailsActions.patientPreviewSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(PatientDetailsActions.patientPreviewError(e.errorMessage||"Sorry Internal Server Problem"));
+    }
+};
