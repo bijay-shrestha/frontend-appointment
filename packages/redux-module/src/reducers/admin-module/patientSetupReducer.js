@@ -35,10 +35,10 @@ const editState = {
   patientEditErrorMessage: ''
 }
 
-const previewState ={
-    patientPreviewData:null,
-    isPatientPreviewLoading: true,
-    patientPreviewErrorMessage: ''
+const previewState = {
+  patientPreviewData: null,
+  isPatientPreviewLoading: true,
+  patientPreviewErrorMessage: ''
 }
 
 export const PatientDropdownListReducer = (
@@ -136,34 +136,34 @@ export const PatientEditReducer = (state = {...editState}, action) => {
 }
 
 export const PatientPreviewReducer = (state = {...previewState}, action) => {
-    switch (action.type) {
-      case PATIENT_PREVIEW_PENDING:
-        return {
-          ...state,
-          patientPreviewData:null,
-          isPatientPreviewLoading: true,
-          patientPreviewErrorMessage: ''
-        }
-      case PATIENT_EDIT_SUCCESS:
-        return {
-          ...state,
-          patientPreviewData:action.payload.data,
-          isPatientPreviewLoading: false,
-          patientPreviewErrorMessage: ''
-        }
-      case PATIENT_EDIT_ERROR:
-        return {
-          ...state,
-          patientPreviewData:null,
-          isPatientPreviewLoading: false,
-          patientPreviewErrorMessage: action.payload.data
-        }
-      case CLEAR_PATIENT_EDIT_MESSAGE:
-        return {
-          ...state,
-          patientPreviewErrorMessage: ''
-        }
-      default:
-        return {...state}
-    }
+  switch (action.type) {
+    case PATIENT_PREVIEW_PENDING:
+      return {
+        ...state,
+        patientPreviewData: null,
+        isPatientPreviewLoading: true,
+        patientPreviewErrorMessage: ''
+      }
+    case PATIENT_PREVIEW_SUCCESS:
+      return {
+        ...state,
+        patientPreviewData: action.payload.data,
+        isPatientPreviewLoading: false,
+        patientPreviewErrorMessage: ''
+      }
+    case PATIENT_PREVIEW_ERROR:
+      return {
+        ...state,
+        patientPreviewData: null,
+        isPatientPreviewLoading: false,
+        patientPreviewErrorMessage: action.payload.data
+      }
+    case CLEAR_PATIENT_PREVIEW_MESSAGE:
+      return {
+        ...state,
+        patientPreviewErrorMessage: ''
+      }
+    default:
+      return {...state}
   }
+}
