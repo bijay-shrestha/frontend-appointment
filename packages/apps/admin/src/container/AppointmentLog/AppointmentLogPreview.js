@@ -8,7 +8,7 @@ const PreviewRefund = props => {
         <>
             <CModal show={showModal}
                     modalHeading="Appointment Log Details"
-                    size="xl"
+                    size="lg"
                     bodyChildren={<LogContent logData={logData} />}
                     onHide={setShowModal}
                     centered={false}

@@ -89,13 +89,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentNumber,
         fromDate,
         toDate,
-        hospitalId: hospitalId.value || '',
-        patientMetaInfoId: patientMetaInfoId.value || '',
-        patientType: patientType.value || '',
-        specializationId: specializationId.value || '',
-        doctorId: doctorId.value || '',
-        patientCategory: patientCategory.value || '',
-        status: status.value || ''
+        hospitalId: hospitalId.value || 'N/A',
+        patientMetaInfoId: patientMetaInfoId.value || 'N/A',
+        patientType: patientType.value || 'N/A',
+        specializationId: specializationId.value || 'N/A',
+        doctorId: doctorId.value || 'N/A',
+        patientCategory: patientCategory.value || 'N/A',
+        status: status.value || 'N/A'
       }
 
       let updatedPage =
