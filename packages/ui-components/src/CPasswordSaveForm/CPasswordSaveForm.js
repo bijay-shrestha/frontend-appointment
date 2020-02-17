@@ -134,7 +134,7 @@ class CPasswordSaveForm extends PureComponent {
                     /> : ''
                 }
 
-                <p className="error">{submitErrorMsg}</p>
+            <p className="error">{submitErrorMsg}</p>
                <div className="password-requirement">
                <p>Password Requirements</p>
                 <ul >
