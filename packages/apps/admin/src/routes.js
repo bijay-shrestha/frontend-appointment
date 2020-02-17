@@ -430,7 +430,7 @@ export const routes = [
         name: 'Appointment Log'
     },
     {
-        path: '/admin/reports/appointmentStatus',
+        path: '/admin/appointment/appointmentStatus',
         component: AppointmentStatusComponent,
         icon: '',
         hasTab: false,
