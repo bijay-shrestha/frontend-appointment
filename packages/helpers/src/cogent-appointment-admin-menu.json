@@ -224,26 +224,10 @@
           "menuFor": "6",
           "description": "approvalRequestList",
           "childMenus": []
-        }
-      ]
-    },
-    {
-      "id": "13",
-      "parentId": null,
-      "name": "Reports",
-      "path": "/reports",
-      "roles": [],
-      "icon": "fa fa-bar-chart",
-      "leftNavigation": "Y",
-      "checked": false,
-      "order": 1,
-      "enabled": "Y",
-      "menuFor": "6",
-      "description": "Reports",
-      "childMenus": [
+        },
         {
-          "id": "14",
-          "parentId": "13",
+          "id": "13",
+          "parentId": "10",
           "name": "Appointment Status",
           "path": "/reports/appointmentStatus",
           "roles": [
@@ -257,10 +241,26 @@
           "menuFor": "6",
           "description": "appointmentStatus",
           "childMenus": []
-        },
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "parentId": null,
+      "name": "Reports",
+      "path": "/reports",
+      "roles": [],
+      "icon": "fa fa-bar-chart",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Reports",
+      "childMenus": [
         {
           "id": "15",
-          "parentId": "13",
+          "parentId": "14",
           "name": "Appointment Log",
           "path": "/reports/appointmentLog",
           "roles": [
@@ -277,7 +277,7 @@
         },
         {
           "id": "16",
-          "parentId": "13",
+          "parentId": "14",
           "name": "Reschedule Log",
           "path": "/reports/rescheduleLog",
           "roles": [
