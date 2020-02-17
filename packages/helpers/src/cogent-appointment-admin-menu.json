@@ -229,7 +229,7 @@
           "id": "13",
           "parentId": "10",
           "name": "Appointment Status",
-          "path": "/reports/appointmentStatus",
+          "path": "/appointment/appointmentStatus",
           "roles": [
             11
           ],

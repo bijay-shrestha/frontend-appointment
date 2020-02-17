@@ -22,7 +22,11 @@ const {
     REFUND_SUCCESS,
     REFUND_REJECT_ERROR,
     REFUND_REJECT_START,
-    REFUND_REJECT_SUCCESS
+    REFUND_REJECT_SUCCESS,
+    SEARCH_RESCHEDULE_LOG_START,
+    SEARCH_RESCHEDULE_LOG_SUCCESS,
+    SEARCH_RESCHEDULE_LOG_ERROR,
+    CLEAR_RESCHEDULE_LOG_MESSAGE
 } = appointmentDetailsConstants;
 
 export const appointmentRefundFetchingStart = () => {
@@ -178,5 +182,35 @@ export const appointmentRefundError = message => {
         payload: {
             data: message
         }
+    }
+};
+
+export const searchRescheduleStart = () => {
+    return {
+        type: SEARCH_RESCHEDULE_LOG_START
+    }
+};
+
+export const searchRescheduleSuccess = data => {
+    return {
+        type: SEARCH_RESCHEDULE_LOG_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const searchRescheduleError = errorMessage => {
+    return {
+        type: SEARCH_RESCHEDULE_LOG_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+
+export const clearRescheduleLogMessage = ()=>{
+    return {
+        type: CLEAR_RESCHEDULE_LOG_MESSAGE
     }
 };
