@@ -1,6 +1,6 @@
 import React from 'react';
 import {CForm, CHybridInput, CModal} from "@frontend-appointment/ui-elements";
-import {Container, Row,Col} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import {CPasswordSaveForm} from "@frontend-appointment/ui-components";
 
 const PasswordResetModal = ({
@@ -17,7 +17,7 @@ const PasswordResetModal = ({
             <CForm
                 id="save-password"
                 className="" >
-                   
+
                 <CHybridInput
                     id="username"
                     name="username"
@@ -26,27 +26,28 @@ const PasswordResetModal = ({
                     disabled={true}
                 />
                 <CPasswordSaveForm
-                    onSubmitHandler={(userPasswordObject) => 
+                    onSubmitHandler={(userPasswordObject) =>
                         resetPassword(userPasswordObject)}
-                    showRemarksField={true}/>
-                   
+                    showRemarksField={true}
+                    errorMessage={errorMessage}/>
+
             </CForm>
             </Col>
         </Row>
     </>;
 
-    let footerChildren = <>
-        <Container fluid="true">
-            <Row>
-                <div className="col-md-12">
-                    {errorMessage ?
-                        <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
-                        </p> : ''}
-                </div>
-       
-            </Row>
-        </Container>
-    </>;
+    // let footerChildren = <>
+    //     <Container fluid="true">
+    //         <Row>
+    //             <div className="col-md-12">
+    //                 {errorMessage ?
+    //                     <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+    //                     </p> : ''}
+    //             </div>
+    //
+    //         </Row>
+    //     </Container>
+    // </>;
     return (
         <>
             <CModal show={showPasswordResetModal}
@@ -56,7 +57,7 @@ const PasswordResetModal = ({
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
-                    footerChildren={footerChildren}
+                    // footerChildren={footerChildren}
                     closeButton={true}
             />
         </>
