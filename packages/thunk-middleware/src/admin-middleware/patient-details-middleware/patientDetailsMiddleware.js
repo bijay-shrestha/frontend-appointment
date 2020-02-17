@@ -22,6 +22,10 @@ export const clearPatientDetails = () => async dispatch => {
   dispatch(PatientDetailsActions.clearPatientDropdownSuccessMessage())
 }
 
+export const clearPatientEdit = () => async dispatch => {
+  dispatch(PatientDetailsActions.clearPatientEditMessage())
+}
+
 export const editPatient = (path, data) => async dispatch => {
   dispatch(PatientDetailsActions.patientEditPending())
   try {
@@ -34,6 +38,7 @@ export const editPatient = (path, data) => async dispatch => {
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e;
   }
 }
 
@@ -53,6 +58,7 @@ export const previewPatient = (path, id) => async dispatch => {
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e
   }
 }
 
@@ -72,5 +78,6 @@ export const fetchPatientMetaList = (
         e.errorMessage || 'Sorry Internal Server Problem'
       )
     )
+    throw e
   }
 }

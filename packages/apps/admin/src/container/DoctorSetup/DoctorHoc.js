@@ -184,7 +184,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData,
                 nameValid,
                 contactValid,
-                emailValid,
+              //  emailValid,
                 appointmentChargeValid
             } = this.state
             let formValidity =
@@ -200,8 +200,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData.qualificationIds.length &&
                 consultantData.genderCode &&
                 consultantData.email &&
-                consultantData.nmcNumber &&
-                emailValid
+                consultantData.nmcNumber 
+                //emailValid
                 // consultantData.doctorAvatar
 
             if (eventType === 'E')

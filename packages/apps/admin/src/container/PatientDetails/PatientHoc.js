@@ -2,12 +2,10 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   HospitalSetupMiddleware,
-  PatientDetailsMiddleware,
+  PatientDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-  EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './patient-detail.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -53,6 +51,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 10
       },
+      errorMessageForMobileNumber: 'Number Should be valid and only 10 digit',
+      errorMessageForName: 'Name Should only contain alphabet',
       totalRecords: 0,
       showModal: false,
       previewData: {},
@@ -65,7 +65,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       editModalShow: false,
       formValid: false,
       mobileNumberValid: false,
-      emailValid: false,
+      nameValid: false,
       hospitalNumber: false
     }
 
@@ -139,11 +139,11 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           age: patient.age || 'N/A',
           status: patient.status || 'N/A',
           hospitalNumber: patient.hospitalNumber || 'N/A',
-          hospitalName:patient.hospitalName || 'N/A',
+          hospitalName: patient.hospitalName || 'N/A',
           dateOfBirth: patient.dateOfBirth || 'N/A',
           sN: index + 1
         }))
-      return patientList;
+      return patientList
     }
 
     handlePageChange = async newPage => {
@@ -241,7 +241,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {patientUpdate, mobileNumberValid, emailValid} = this.state
+      const {patientUpdate, mobileNumberValid, nameValid} = this.state
       const {
         address,
         dateOfBirth,
@@ -268,7 +268,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         remarks &&
         status &&
         mobileNumberValid &&
-        emailValid
+        nameValid
       this.setState({
         formValid: formValidity
       })
@@ -277,7 +277,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
       let stateObj = {[fieldName]: valueToChange}
       if (eventName)
-        if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+        if (eventName ==='name') stateObj = {...stateObj, nameValid: valid}
+      if (eventName === 'mobileNumber') stateObj = {...stateObj, mobileNumberValid:valid}
       return {...stateObj}
     }
 
@@ -287,15 +288,24 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       )
     }
 
-    handleOnChange = async (event, fieldValid, eventType) => {
+    handleOnChange = async (event, fieldValid,eventType,field) => {
       let patientData = {...this.state.patientUpdate}
-      let {name, value, label} = event.target
+      let name, value, label;
+      if(field){
+        name=field;
+        value=event;
+      }else{
+        name =event.target.name;
+        value=event.target.value;
+        label=event.target.label;
+      }
+
       patientData[name] = !label
         ? value
         : value
         ? {value: value, label: label}
         : {value: null}
-      await this.setTheState('patientUpdate', 'update', fieldValid, name)
+      await this.setTheState('patientUpdate', patientData, fieldValid, name)
       this.checkFormValidity(eventType)
     }
 
@@ -310,25 +320,32 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           mobileNumber,
           status,
           hospitalNumber,
-          hospitalName,
           dateOfBirth,
           hospitalId,
           remarks
         } = this.props.PatientPreviewReducer.patientPreviewData
+        let formValidity =true,nameValid=false,mobileNumberValid=false;
+        if(!remarks||!(mobileNumber && mobileNumber.length===10)||!name) formValidity=false
+        if(name) nameValid=true;
+        if(mobileNumber) mobileNumberValid=true;
         this.setState({
           patientUpdate: {
             id: id,
             name: name,
-            dateOfBirth: dateOfBirth,
+            dateOfBirth: new Date(dateOfBirth),
             mobileNumber: mobileNumber,
             address: address,
-            gender: gender,
+            gender: gender.slice(0,1),
             email: email,
             hospitalNumber: hospitalNumber,
             status: status,
             remarks: remarks,
-            hospitalId: {value: hospitalId, label: hospitalName}
-          }
+            hospitalId: hospitalId
+          },
+          formValidity:formValidity,
+          nameValid:nameValid,
+          mobileNumberValid:mobileNumberValid,
+          editModalShow:true
         })
       }
     }
@@ -337,8 +354,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       try {
         await this.props.editPatient(
           patientSetupApiConstant.UPDATE_PATIENT_DETAIL_BY_ID,
-          this.state.previewData
+          this.state.patientUpdate
         )
+        this.setShowModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -346,18 +364,10 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             message: this.props.PatientEditReducer.patientSuccessMessage
           }
         })
-        this.searchPatient()
+        this.searchPatient();
       } catch (e) {
-        this.setState({
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'error',
-            message: this.props.PatientEditReducer.patientErrorMessage
-          }
-        })
-      } finally {
-        this.setShowModal()
-      }
+
+      } 
     }
 
     async componentDidMount () {
@@ -374,7 +384,11 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         editModalShow,
         previewData,
         alertMessageInfo,
-        showAlert
+        showAlert,
+        patientUpdate,
+        formValid,
+        errorMessageForMobileNumber,
+        errorMessageForName
       } = this.state
 
       const {
@@ -434,7 +448,14 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               patientEditErrorMessage: patientEditErrorMessage,
               editHandler: this.editHandler,
               editModal: editModalShow,
-              hospitalsDropdown: hospitalsForDropdown
+              patientUpdate: patientUpdate,
+              hospitalsDropdown: hospitalsForDropdown,
+              errorMessageForMobileNumber: errorMessageForMobileNumber,
+              errorMessageForName: errorMessageForName,
+              formValid: formValid,
+              editChange: this.handleOnChange,
+              handleEnter: this.handleEnterPress,
+              editHandleApi: this.editHandleApi
             }}
           />
           <CAlert

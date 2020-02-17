@@ -7,275 +7,188 @@ import {
   CModal,
   CRadioButton,
   CHybridTextArea,
-  CHybridSelect
+
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
-import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
-import DefaulHospitalImage from '../img/picture.png'
+import {CEnglishDatePicker} from '@frontend-appointment/ui-components';
 
 const PatientEditModal = ({
   showModal,
   setShowModal,
-  onEnterKeyPress,
+  patientData,
+  // isPatientEditLoading,
+  patientEditErrorMessage,
+  errorMessageForMobileNumber,
   onInputChange,
-  doctorData,
-  errorMessageForAppointmentCharge,
-  errorMessageForDoctorContact,
-  errorMessageForDoctorName,
-  errorMessage,
-  editApiCall,
+  errorMessageForName,
+  handleEnterPress,
   formValid,
-  doctorImage,
-  doctorImageCroppedUrl,
-  showImageUploadModal,
-  onImageSelect,
-  handleCropImage,
-  handleImageUpload,
-  setImageShow,
-  hospitalsForDropdown,
-  activeSpecializationList,
-  qualificationDropdown
+  editApiCall
 }) => {
-  const checkIfSpecializationIdAndHospitalIdMatch = (
-    currSpec,
-    editSpec,
-    hospitalId
-  ) => {
-    let newArray = [...currSpec]
-    if (Number(hospitalId.value) === Number(doctorData.editHospitalId.value)) {
-      editSpec.map(editSp => {
-        let flag = false
-        currSpec && currSpec.map(currSpec => {
-          if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
-            flag = true
-        })
-        !flag && editSpec.length!==currSpec.length && newArray.push(editSp)
-      })
-    }
-    return newArray
-  }
   const bodyContent = (
     <>
       {/* <h5 className="title">Edit Hospital Setup</h5> */}
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
-          <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
-            <div className="image-upload-container">
-              <div className="image-box">
-                <img
-                  alt="DOCTOR IMAGE"
-                  src={
-                    doctorData.doctorAvatarUrl
-                      ? doctorData.doctorAvatarUrl
-                      : DefaulHospitalImage
-                  }
-                />
-                <CButton
-                  id="uploadAdminImage"
-                  name="Upload"
-                  size="lg"
-                  className="upload-button my-1"
-                  onClickHandler={setImageShow}
-                />
-                <CImageUploadAndCropModal
-                  showModal={showImageUploadModal}
-                  ruleOfThirds={true}
-                  setShowModal={setImageShow}
-                  handleImageUpload={data => handleImageUpload(data,'E')}
-                  imageSrc={doctorImage}
-                  croppedImageSrc={doctorImageCroppedUrl}
-                  onImageSelect={e => onImageSelect(e)}
-                  onImageCrop={data => handleCropImage(data)}
-                />
-              </div>
-            </div>
-          </Col>
           <Col sm={12} md={12} lg={9}>
             <Row>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridSelect
-                  id="hospital-Id"
-                  name="hospitalId"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) =>
-                    onInputChange(event, validity, 'E')
-                  }
-                  label="Select Hospital"
-                  options={hospitalsForDropdown}
-                  value={doctorData.hospitalId}
-                  required={true}
-                />
-              </Col>
-              <Col sm={12} md={12} lg={6}></Col>
               <Col sm={12} md={12} lg={6}>
                 <CHybridInput
-                  id="doctor-name"
+                  id="patient-name"
                   name="name"
                   type="text"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Doctor Name"
-                  value={doctorData.name}
+                  placeholder="Patient Name"
+                  value={patientData.name}
                   required={true}
                   hasValidation={true}
                   fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                  errorMessagePassed={errorMessageForDoctorName}
+                  errorMessagePassed={errorMessageForName}
                 />
               </Col>
 
               <Col sm={12} md={6} lg={6}>
                 <CFLabel labelName="Gender" id="gender"></CFLabel>
                 <div>
-                <CRadioButton
-                  checked={doctorData.genderCode === 'M'}
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={event => onInputChange(event, '', 'E')}
-                  name="genderCode"
-                  id="radio1"
-                  label="Male"
-                  type="radio"
-                  value="M"
-                />
-                <CRadioButton
-                  checked={doctorData.genderCode === 'F'}
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={event => onInputChange(event, '', 'E')}
-                  name="genderCode"
-                  id="radio2"
-                  label="Female"
-                  type="radio"
-                  value="F"
-                />
-                <CRadioButton
-                  checked={doctorData.genderCode === 'O'}
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={event => onInputChange(event, '', 'E')}
-                  name="genderCode"
-                  id="radio3"
-                  label="Other"
-                  type="radio"
-                  value="O"
-                />
+                  <CRadioButton
+                    checked={patientData.gender === 'M'}
+                    onKeyDown={event => handleEnterPress(event)}
+                    onChange={(event, validity) =>
+                      onInputChange(event, validity, 'E')
+                    }
+                    name="gender"
+                    id="radio1"
+                    label="Male"
+                    type="radio"
+                    value="M"
+                  />
+                
+                  <CRadioButton
+                    checked={patientData.gender === 'F'}
+                    onKeyDown={event => handleEnterPress(event)}
+                    onChange={(event, validity) =>
+                      onInputChange(event, validity, 'E')
+                    }
+                    name="gender"
+                    id="radio2"
+                    label="Female"
+                    type="radio"
+                    value="F"
+                  />
+                  <CRadioButton
+                    checked={patientData.gender === 'O'}
+                    onKeyDown={event => handleEnterPress(event)}
+                    onChange={(event, validity) =>
+                      onInputChange(event, validity, 'E')
+                    }
+                    name="gender"
+                    id="radio3"
+                    label="Other"
+                    type="radio"
+                    value="O"
+                  />
                 </div>
               </Col>
-
+              <Col sm={12} md={6} xl={4}>
+                  <div className="d-flex">
+                      <CEnglishDatePicker
+                        id="dateOfBirth"
+                        name="dateOfBirth"
+                        label="Date Of Birth"
+                        dateFormat="yyyy-MM-dd"
+                        maxDate={0}
+                        showDisabledMonthNavigation={true}
+                        peekNextMonth={true}
+                        showMonthDropdown={true}
+                        showYearDropdown={true}
+                        dropdownMode="select"
+                        selected={patientData.dateOfBirth}
+                        onKeyDown={event => handleEnterPress(event)}
+                        onChange={date =>
+                          onInputChange(date,'','','dateOfBirth')
+                        }
+                      />
+                      </div>
+                   </Col>   
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id="nmc-number"
-                  name="nmcNumber"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, '', 'E')}
-                  placeholder="Doctor NMC Number"
-                  value={doctorData.nmcNumber}
-                  required={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridSelect
-                  id="specializationIds"
-                  name="specializationIds"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  id="hospitalNumber"
+                  name="hospitalNumber"
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  label="Select Specialization"
-                  options={activeSpecializationList}
-                  isDisabled={!activeSpecializationList.length ? true : false}
-                  value={checkIfSpecializationIdAndHospitalIdMatch(
-                    doctorData.specializationIds,
-                    doctorData.selectedSpecializations,
-                    doctorData.hospitalId
-                  )}
+                  placeholder="Hospital Number"
+                  value={patientData.hospitalNumber}
                   required={true}
-                  isMulti={true}
                 />
               </Col>
               
-             
-
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id="doctor-email"
+                  id="patient-email"
                   name="email"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Doctor Email"
-                  value={doctorData.email}
+                  placeholder="Patient Email"
+                  value={patientData.email}
                   type="email"
                   required={true}
                 />
               </Col>
 
               <Col sm={12} md={6} lg={6}>
-                <CHybridSelect
-                  id="qualificationIds"
-                  name="qualificationIds"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) =>
-                    onInputChange(event, validity, 'E')
-                  }
-                  label="Select Qualifications"
-                  options={qualificationDropdown}
-                  value={doctorData.qualificationIds}
-                  required={true}
-                  isMulti={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id="doctor-number"
-                  name="contactNumber"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  id="mobileNumber"
+                  name="mobileNumber"
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Doctor Phone Number"
-                  value={doctorData.contactNumber}
+                  placeholder="Patient Phone Number"
+                  value={patientData.mobileNumber}
                   required={true}
                   hasValidation={true}
                   fieldValuePattern={/^\d{10}$/}
-                  errorMessagePassed={errorMessageForDoctorContact}
+                  errorMessagePassed={errorMessageForMobileNumber}
                 />
               </Col>
-
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
-                  id="appointment-charge"
-                  name="appointmentCharge"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  id="patient-address"
+                  name="address"
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Doctor Appointment Charge"
-                  value={doctorData.appointmentCharge}
+                  placeholder="Patient Address"
+                  value={patientData.address}
+                  type="text"
                   required={true}
-                  hasValidation={true}
-                  fieldValuePattern={
-                    new RegExp('^\\d*(?:\\.\\d{1,' + 2 + '})?$')
-                  }
-                  errorMessagePassed={errorMessageForAppointmentCharge}
                 />
               </Col>
-
               <Col sm={12} md={12} lg={6}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
                 <CRadioButton
-                  checked={doctorData.status === 'Y'}
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  checked={patientData.status === 'Y'}
+                  onKeyDown={event => handleEnterPress(event)}
+                  onChange={(event, validity) =>
+                    onInputChange(event, validity, 'E')
+                  }
                   id="radio1"
                   label="Active"
                   type="radio"
                   name="status"
                   value="Y"
-                  onChange={event => onInputChange(event, '', 'E')}
                 />
                 <CRadioButton
-                  checked={doctorData.status === 'N'}
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  checked={patientData.status === 'N'}
+                  onKeyDown={event => handleEnterPress(event)}
                   id="radio2"
                   label="Inactive"
                   type="radio"
@@ -289,12 +202,12 @@ const PatientEditModal = ({
                 <CHybridTextArea
                   id="remarks"
                   name="remarks"
-                  onKeyDown={event => onEnterKeyPress(event)}
+                  onKeyDown={event => handleEnterPress(event)}
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
                   placeholder="Remarks"
-                  value={doctorData.remarks}
+                  value={patientData.remarks}
                   max={200}
                   required={true}
                 />
@@ -310,9 +223,10 @@ const PatientEditModal = ({
       <Container fluid="true">
         <Row>
           <div className="col-md-6">
-            {errorMessage ? (
+            {patientEditErrorMessage ? (
               <p className="modal-error">
-                <i class="fa fa-exclamation-triangle" /> &nbsp; {errorMessage}
+                <i class="fa fa-exclamation-triangle" /> &nbsp;{' '}
+                {patientEditErrorMessage}
               </p>
             ) : (
               ''
@@ -345,7 +259,7 @@ const PatientEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Doctor Details"
+        modalHeading="Patient Details"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}

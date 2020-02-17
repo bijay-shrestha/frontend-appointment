@@ -6,6 +6,7 @@ import {
 } from '@frontend-appointment/ui-elements';
 import TableAction from '../CommonComponents/table-components/TableAction';
 import PreviewDetails from './PatientPreview';
+import PatientEditModal from './PatientEditModal';
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -15,8 +16,17 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
     showModal,
     previewCall,
     previewData,
-    editHandler
-  
+    editHandler,
+    isPatientEditLoading,
+    patientEditErrorMessage,
+    patientUpdate,
+    editModal,
+    errorMessageForMobileNumber,
+    errorMessageForName,
+    formValid,
+    handleEnter,
+    editChange,
+    editHandleApi
   } = tableHandler;
   const {queryParams, totalRecords, handlePageChange} = paginationProps;
   return (
@@ -177,6 +187,24 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
           showModal={showModal}
           setShowModal={setShowModal}
           patientData={previewData}
+        />
+      ) : (
+        ''
+      )}
+      {editModal ? (
+        <PatientEditModal
+          showModal={editModal}
+          setShowModal={setShowModal}
+          patientData={patientUpdate}
+          isPatientEditLoading={isPatientEditLoading}
+          patientEditErrorMessage={patientEditErrorMessage}
+          errorMessageForName={errorMessageForName}
+          formValid={formValid}
+          handleEnterPress={handleEnter}
+          errorMessageForMobileNumber={errorMessageForMobileNumber}
+          onInputChange={editChange}
+          editApiCall={editHandleApi}
+          
         />
       ) : (
         ''
