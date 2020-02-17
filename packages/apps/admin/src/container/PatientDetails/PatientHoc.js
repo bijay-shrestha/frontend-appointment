@@ -19,14 +19,14 @@ const {
   clearPatientPreview,
   editPatient,
   fetchPatientMetaList,
-  previewPatient
+  previewPatient,
+  fetchPatientMetaDropdown
 } = PatientDetailsMiddleware
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 
-
 const PatientDetailsHOC = (ComposedComponent, props, type) => {
-const {
+  const {
     hospitalSetupApiConstants,
     patientSetupApiConstant
   } = AdminModuleAPIConstants
@@ -37,7 +37,20 @@ const {
         esewaId: '',
         hospitalId: '',
         patientMetaInfoId: '',
-        status:{value:null,label:'All'}
+        status: {value: null, label: 'All'}
+      },
+      patientUpdate: {
+        id: '',
+        name: '',
+        dateOfBirth: '',
+        mobileNumber: '',
+        address: '',
+        gender: '',
+        hospitalNumber: '',
+        email: '',
+        status: '',
+        remarks: '',
+        hospitalId: ''
       },
       queryParams: {
         page: 0,
@@ -51,8 +64,12 @@ const {
         message: ''
       },
       showAlert: false,
-      refundConfirmationModal: false,
-      refundAppointmentId: ''
+      previewModalShow: false,
+      editModalShow: false,
+      formValid: false,
+      mobileNumberValid: false,
+      emailValid: false,
+      hospitalNumber: false
     }
 
     setShowAlert = () => {
@@ -76,16 +93,16 @@ const {
 
     searchPatient = async page => {
       const {
-       esewaId,
-       hospitalId,
-       patientMetaInfoId,
-       status
+        esewaId,
+        hospitalId,
+        patientMetaInfoId,
+        status
       } = this.state.searchParameters
       let searchData = {
         esewaId,
-        hospitalId:hospitalId.value||'',
-        patientMetaInfoId:patientMetaInfoId.value||'',
-        status:status.value||''
+        hospitalId: hospitalId.value || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        status: status.value || ''
       }
 
       let updatedPage =
@@ -94,8 +111,8 @@ const {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.fetchAppointmentRefundList(
-        appointmentSetupApiConstant.APPOINTMENT_REFUND_LIST,
+      await this.props.PatientSearchReducer(
+        patientSetupApiConstant.SEARCH_PATIENT_INFO,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -103,9 +120,7 @@ const {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.AppointmentRefundListReducer.refundList.length
-          ? this.props.AppointmentRefundListReducer.totalItems
-          : 0,
+        totalRecords: this.props.PatientSearchReducer.patientSearchList.length,
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
@@ -113,29 +128,25 @@ const {
       })
     }
 
-    appendSNToTable = refundList => {
-      let newRefundList = []
-
-      newRefundList =
-        refundList.length &&
-        refundList.map((spec, index) => ({
-          appointmentId: spec.appointmentId || 'N/A',
-          appointmentTime: spec.appointmentTime || 'N/A',
-          appointmentNumber: spec.appointmentNumber || 'N/A',
-          hospitalName: spec.hospitalName || 'N/A',
-          patientName: spec.patientName || 'N/A',
-          registrationNumber: spec.registrationNumber || 'N/A',
-          doctorName: spec.doctorName || 'N/A',
-          specializationName: spec.specializationName || 'N/A',
-          transactionNumber: spec.transactionNumber || 'N/A',
-          cancelledDate: spec.cancelledDate || 'N/A',
-          refundAmount: spec.refundAmount || 'N/A',
-          esewaId: spec.esewaId || 'N/A',
-          remarks: spec.remarks || 'N/A',
-          appointmentDate: spec.appointmentDate || 'N/A',
+    appendSNToTable = patientList => {
+      let patientList = []
+      patienList =
+        patientList.length &&
+        patientList.map((patient, index) => ({
+          id: patient.id || 'N/A',
+          name: patient.name || 'N/A',
+          address: patient.address || 'N/A',
+          email: patient.email || 'N/A',
+          registrationNumber: patient.registrationNumber || 'N/A',
+          mobileNumber: patient.mobileNumber || 'N/A',
+          esewaId: patient.esewaId || 'N/A',
+          age: patient.age || 'N/A',
+          status: patient.status || 'N/A',
+          hospitalNumber: patient.hospitalNumber || 'N/A',
+          dateOfBirth: spec.edateOfBirth || 'N/A',
           sN: index + 1
         }))
-      return newRefundList
+      return patientList
     }
 
     handlePageChange = async newPage => {
@@ -145,19 +156,19 @@ const {
           page: newPage
         }
       })
-      this.searchAppointment()
+      this.searchPatient()
     }
 
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
-        esewaId: '',
-        hospitalId: '',
-        patientMetaInfoId: '',
-        status:{value:null,label:'All'}
+          esewaId: '',
+          hospitalId: '',
+          patientMetaInfoId: '',
+          status: {value: null, label: 'All'}
         }
       })
-      this.searchAppointment()
+      this.searchPatient()
     }
 
     setStateValuesForSearch = searchParams => {
@@ -166,10 +177,18 @@ const {
       })
     }
 
-    previewCall = data => {
+    previewApiCall = async id => {
+      await this.props.previewPatient(
+        patientSetupApiConstant.PREVIEW_PATIENT_DETAIL_BY_ID,
+        id
+      )
+    }
+
+    previewHandler = async id => {
+      await this.previewApiCall(id)
       this.setState({
-        previewData: data,
-        showModal: true
+        previewModalShow: true,
+        previewData: this.props.PatientPreviewReducer.patientPreviewData
       })
     }
 
@@ -177,25 +196,13 @@ const {
       await this.setState({
         searchParameters: {
           ...this.state.searchParameters,
-          patientMetaInfoId: '',
-          patientType: '',
-          specializationId: '',
-          doctorId: '',
-          patientCategory: ''
+          patientMetaInfoId: ''
         }
       })
     }
 
     callApiForHospitalChange = async hospitalId => {
       await this.handleHospitalChangeReset()
-      this.props.fetchActiveDoctorsHospitalWiseForDropdown(
-        doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-        hospitalId
-      )
-      this.props.fetchSpecializationHospitalWiseForDropdown(
-        specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
-        hospitalId
-      )
       this.props.fetchPatientMetaList(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
         hospitalId
@@ -233,38 +240,115 @@ const {
     setShowModal = () => {
       this.setState(prevState => ({
         showModal: false,
-        rejectModalShow: false,
-        refundConfirmationModal: false
+        previewModalShow: false,
+        editModalShow: false
       }))
     }
 
-    refundHandler = data => {
+    checkFormValidity = eventType => {
+      const {
+        patientUpdate,
+        mobileNumberValid,
+        emailValid
+      } = this.state
+      const {
+        address,
+        dateOfBirth,
+        email,
+        gender,
+        hospitalId,
+        hospitalNumber,
+        id,
+        mobileNumber,
+        name,
+        remarks,
+        status
+      } = patientUpdate
+      let formValidity =
+        address &&
+        dateOfBirth &&
+        email &&
+        gender &&
+        hospitalId &&
+        hospitalNumber &&
+        id &&
+        mobileNumber &&
+        name &&
+        remarks &&
+        status &&
+        mobileNumberValid &&
+        emailValid
       this.setState({
-        refundConfirmationModal: true,
-        refundAppointmentId: data.appointmentId
+        formValid: formValidity
       })
     }
 
-    refundHandleApi = async () => {
+    handleOnChange = async (event, fieldValid, eventType) => {
+      let patientData = {...this.state.patientUpdate}
+      let {name, value, label} = event.target
+      patientData[name] = !label
+        ? value
+        : value
+        ? {value: value, label: label}
+        : {value: null}
+      await this.setTheState(patientData, qualification, fieldValid, name)
+      this.checkFormValidity(eventType)
+    }
+
+    editHandler = async id => {
+      await this.previewApiCall(id)
+      if (this.props.PatientPreviewReducer.patientPreviewData) {
+        const {
+          name,
+          gender,
+          address,
+          email,
+          mobileNumber,
+          status,
+          hospitalNumber,
+          hospitalName,
+          dateOfBirth,
+          hospitalId,
+          remarks
+        } = this.props.PatientPreviewReducer.patientPreviewData
+        this.setState({
+          patientUpdate: {
+            id: id,
+            name: name,
+            dateOfBirth: dateOfBirth,
+            mobileNumber: mobileNumber,
+            address: address,
+            gender: gender,
+            email: email,
+            hospitalNumber: hospitalNumber,
+            status: status,
+            remarks: remarks,
+            hospitalId: {value: hospitalId, label: hospitalName}
+          }
+        })
+      }
+    }
+
+    editHandleApi = async () => {
       try {
-        await this.props.appointmentRefund(
-          appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
-          this.state.refundAppointmentId
+        await this.props.editPatient(
+          patientSetupApiConstant.UPDATE_PATIENT_DETAIL_BY_ID,
+          this.state.previewData
         )
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.AppointmentRefundReducer.refundSuccess
+            message: this.props.PatientEditReducer.patientSuccessMessage
           }
         })
-        this.searchAppointment()
+        this.searchPatient()
       } catch (e) {
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'error',
-            message: this.props.AppointmentRefundReducer.refundError
+            message: this.props.PatientEditReducer.patientErrorMessage
           }
         })
       } finally {
@@ -272,48 +356,8 @@ const {
       }
     }
 
-    rejectSubmitHandler = async () => {
-      try {
-        await this.props.appointmentRejectRefund(
-          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
-          this.state.refundRejectRequestDTO
-        )
-        this.setShowModal()
-        this.setState({
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'success',
-            message: this.props.AppointmentRefundRejectReducer
-              .refundRejectSuccess
-          }
-        })
-        this.searchAppointment()
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    refundRejectRemarksHandler = event => {
-      const {name, value} = event.target
-      let refundReject = {...this.state.refundRejectRequestDTO}
-      refundReject[name] = value
-      this.setState({
-        refundRejectRequestDTO: refundReject
-      })
-    }
-
-    onRejectHandler = async data => {
-      this.props.clearAppointmentRefundRejectMessage()
-      let refundReject = {...this.state.refundRejectRequestDTO}
-      refundReject['appointmentId'] = data.appointmentId
-      await this.setState({
-        refundRejectRequestDTO: refundReject,
-        rejectModalShow: true
-      })
-    }
-
     async componentDidMount () {
-      await this.searchAppointment()
+      await this.searchPatient()
       await this.searchHospitalForDropDown()
     }
 
@@ -325,31 +369,25 @@ const {
         showModal,
         previewData,
         alertMessageInfo,
-        showAlert,
-        rejectModalShow,
-        refundRejectRequestDTO,
-        refundConfirmationModal
+        showAlert
       } = this.state
 
       const {
-        isRefundListLoading,
-        refundList,
-        refundErrorMessage
-      } = this.props.AppointmentRefundListReducer
+        patientSearchList,
+        isPatientSearchLoading,
+        patientSearchErrorMessage
+      } = this.props.PatientSearchReducer
 
       const {
-        refundRejectError,
-        isRefundLoading
-      } = this.props.AppointmentRefundRejectReducer
-      const {
-        activeDoctorsByHospitalForDropdown,
-        doctorDropdownErrorMessage
-      } = this.props.DoctorDropdownReducer
+        isPatientPreviewLoading,
+        patientPreviewErrorMessage
+      } = this.props.PatientPreviewReducer
 
       const {
-        activeSpecializationListByHospital,
-        dropdownErrorMessage
-      } = this.props.SpecializationDropdownReducer
+        patientSuccessMessage,
+        isPatientEditLoading,
+        patientEditErrorMessage
+      } = this.props.PatientEditReducer
 
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       const {
@@ -365,12 +403,8 @@ const {
               handleEnter: this.handleEnterPress,
               handleSearchFormChange: this.handleSearchFormChange,
               resetSearch: this.handleSearchFormReset,
-              searchAppointment: this.searchAppointment,
+              searchPatient: this.searchPatient,
               hospitalsDropdown: hospitalsForDropdown,
-              doctorsDropdown: activeDoctorsByHospitalForDropdown,
-              doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-              activeSpecializationList: activeSpecializationListByHospital,
-              specializationDropdownErrorMessage: dropdownErrorMessage,
               searchParameters: searchParameters,
               patientListDropdown: patientList,
               patientDropdownErrorMessage: patientDropdownErrorMessage
@@ -381,23 +415,20 @@ const {
               handlePageChange: this.handlePageChange
             }}
             tableHandler={{
-              isSearchLoading: isRefundListLoading,
-              appointmentRefundList: this.appendSNToTable(refundList),
-              searchErrorMessage: refundErrorMessage,
+              isSearchLoading: isPatientSearchLoading,
+              patientSearchList: this.appendSNToTable(patientSearchList),
+              searchErrorMessage: patientSearchErrorMessage,
               setShowModal: this.setShowModal,
               showModal: showModal,
-              previewCall: this.previewCall,
+              previewCall: this.previewHandler,
               previewData: previewData,
-              rejectSubmitHandler: this.rejectSubmitHandler,
-              refundRejectRemarksHandler: this.refundRejectRemarksHandler,
-              onRejectHandler: this.onRejectHandler,
-              refundHandler: this.refundHandler,
-              refundHandleApi: this.refundHandleApi,
-              refundRejectError: refundRejectError,
-              isRefundLoading: isRefundLoading,
-              refundConfirmationModal: refundConfirmationModal,
-              rejectModalShow: rejectModalShow,
-              remarks: refundRejectRequestDTO.remarks
+              previewErrorMsg: patientPreviewErrorMessage,
+              previewLoading: isPatientPreviewLoading,
+              patientSuccessMessage: patientSuccessMessage,
+              isPatientEditLoading: isPatientEditLoading,
+              patientEditErrorMessage: patientEditErrorMessage,
+              editHandler:this.editHandler,
+              hospitalsDropdown: hospitalsForDropdown,
             }}
           />
           <CAlert
@@ -444,9 +475,10 @@ const {
       clearPatientPreview,
       editPatient,
       fetchPatientMetaList,
+      fetchPatientMetaDropdown,
       previewPatient,
       fetchActiveHospitalsForDropdown,
-      fetchActiveDoctorsHospitalWiseForDropdown,
+      fetchActiveDoctorsHospitalWiseForDropdown
     }
   )
 }
