@@ -9,7 +9,7 @@ import * as ProfileSetupUtils from './ProfileSetupUtils'
 import * as AdminSetupUtils from './AdminSetupUtils'
 import * as CommonUtils from '../utils/CommonUtils';
 import * as RolesUtils from '../utils/RolesUtils';
-
+import * as EnvironmentVariableGetter from '../utils/EnvironmentVariableGetter';
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
 export {default as LocalStorageSecurity} from '../utils/localStorageUtils';
@@ -18,6 +18,7 @@ export {
     UserMenuUtils,
     AdminInfoUtils,
     EnterKeyPressUtils,
+    EnvironmentVariableGetter,
     FileExportUtils,
     ProfileSetupUtils,
     AdminSetupUtils,

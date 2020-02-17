@@ -1,0 +1,6 @@
+export const SERVER_DOMAIN = process.env.REACT_APP_SERVER_DOMAIN || ''
+export const APP_PORT = process.env.PORT || ''
+export const REACT_APP_BASE_PATH_CODE =process.env.REACT_APP_BASE_PATH_CODE||''
+export const REACT_APP_MODULE_CODE=process.env.REACT_APP_MODULE_CODE||''
+export const REACT_APP_IMAGE_UPLOAD_SIZE_LIMIT=process.env.REACT_APP_IMAGE_UPLOAD_SIZE_LIMIT||''
+export const REACT_APP_HOSPITAL_CODE=process.env.REACT_APP_HOSPITAL_CODE||''

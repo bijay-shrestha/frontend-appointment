@@ -6,13 +6,14 @@ import {
     DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
     EnterKeyPressUtils,
+    EnvironmentVariableGetter,
     FileExportUtils,
     LocalStorageSecurity,
     ProfileSetupUtils,
     RolesUtils,
     TryCatchHandler,
     UserMenusFilter,
-    UserMenuUtils,
+    UserMenuUtils
 } from "./src/utils";
 import * as userMenusJson from './src/cogent-appointment-admin-menu';
 import menuRoles from './src/roles';
@@ -28,6 +29,7 @@ export {
     AdminSetupUtils,
     FileExportUtils,
     EnterKeyPressUtils,
+    EnvironmentVariableGetter,
     ActionFilterUtils,
     userMenusJson,
     menuRoles,
