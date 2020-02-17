@@ -4,7 +4,7 @@ import {
   CForm,
   CHybridInput,
   CRadioButton,
-  CHybridTextArea,
+  // CHybridTextArea,
   CImageDisplayAndView,
   CHybridSelect
 } from '@frontend-appointment/ui-elements'

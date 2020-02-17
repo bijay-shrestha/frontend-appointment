@@ -41,10 +41,10 @@ export const clearPatientPreview = () => async dispatch => {
   dispatch(PatientDetailsActions.clearPatientPreviewMessage())
 }
 
-export const previewPatient = (path, data) => async dispatch => {
+export const previewPatient = (path, id) => async dispatch => {
   dispatch(PatientDetailsActions.patientPreviewPending())
   try {
-    const response = await Axios.put(path, data)
+    const response = await Axios.getWithPathVariables(path, id)
     dispatch(PatientDetailsActions.patientPreviewSuccess(response.data))
     return response.data
   } catch (e) {
@@ -58,8 +58,8 @@ export const previewPatient = (path, data) => async dispatch => {
 
 export const fetchPatientMetaList = (
   path,
-  searchData,
-  pagination
+  pagination,
+  searchData
 ) => async dispatch => {
   dispatch(PatientDetailsActions.patientSearchStart())
   try {

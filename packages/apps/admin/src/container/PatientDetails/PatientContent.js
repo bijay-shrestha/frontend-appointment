@@ -12,7 +12,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="name"
                   placeholder="Name"
-                  value={previewData.name}
+                  value={previewData.name||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -20,7 +20,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="address"
                   placeholder="Address"
-                  value={previewData.address}
+                  value={previewData.address||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -28,7 +28,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="email"
                   placeholder="Email"
-                  value={previewData.email}
+                  value={previewData.email||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -37,7 +37,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="registrationNumber"
                   placeholder="Registration Number"
-                  value={previewData.registrationNumber}
+                  value={previewData.registrationNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -46,7 +46,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="esewaId"
                   placeholder="Esewa Id"
-                  value={previewData.esewaId}
+                  value={previewData.esewaId||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -54,7 +54,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="mobileNumber"
                   placeholder="Mobile Number"
-                  value={previewData.mobileNumber}
+                  value={previewData.mobileNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -62,7 +62,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="age"
                   placeholder="Age"
-                  value={previewData.age}
+                  value={previewData.age||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -70,7 +70,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="status"
                   placeholder="status"
-                  value={previewData.status}
+                  value={previewData.status||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -78,7 +78,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="hospitalNumber"
                   placeholder="Hospital Number"
-                  value={previewData.hospitalNumber}
+                  value={previewData.hospitalNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -86,7 +86,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="hospitalName"
                   placeholder="Hospital Name"
-                  value={previewData.hospitalName}
+                  value={previewData.hospitalName||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -94,7 +94,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="DOB"
                   placeholder="Date of Birth"
-                  value={previewData.dateOfBirth}
+                  value={previewData.dateOfBirth||'N/A'}
                   disabled={true}
                 />
               </Col>

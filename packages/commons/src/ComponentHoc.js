@@ -18,7 +18,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
     getAction = (childMenus, newPath) => {
       let filteredActions = []
       const {roles, path} = childMenus
-      const newP = newPath.split('/')
+      // const newPath1 = newPath.split('/')
       if (newPath.includes(path)) {
         roless.map((role, id) => {
           roles.map((rol, ind) => {
@@ -31,7 +31,9 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
                 })
               }
             }
+            return rol;
           })
+          return role;
         })
       }
       if (filteredActions.length) return filteredActions
@@ -43,13 +45,13 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
     getUniquesElement = data => {
       let result = []
       let flag = false
-      if (data.length == 1) result.push(data[0])
+      if (data.length === 1) result.push(data[0])
       else {
         for (let i = 0; i < data.length; i++) {
           for (let j = 0; j < i; j++) {
             // console.log('dataId', data)
             if (result.length) {
-              if (data[i].id == result[j].id) {
+              if (Number(data[i].id) == Number(result[j].id)) {
                 flag = true
                 break
               }

@@ -459,7 +459,7 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment'
+        name: 'Patient Information'
     },
     {
         path: '/unauthorized',

@@ -29,7 +29,7 @@ class PatientSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchHandler.searchAppointment(1)
+    this.props.searchHandler.searchPatient(1);
     this.toggleSearchForm()
   }
 

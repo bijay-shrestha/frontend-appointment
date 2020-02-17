@@ -135,7 +135,9 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   cellRendererParams: {
                       onClick: function (e, id, type) {
                        editHandler(id)
-                      }
+                      },
+                      byPass:true,
+                      onlyEdit:true
                       // filteredAction: props.filteredActions
                   },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
@@ -174,7 +176,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
         <PreviewDetails
           showModal={showModal}
           setShowModal={setShowModal}
-          paitentData={previewData}
+          patientData={previewData}
         />
       ) : (
         ''

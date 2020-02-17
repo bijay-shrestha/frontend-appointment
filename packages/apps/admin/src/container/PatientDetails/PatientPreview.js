@@ -9,7 +9,7 @@ const PreviewRefund = props => {
             <CModal show={showModal}
                     modalHeading="Appointment Log Details"
                     size="xl"
-                    bodyChildren={<PatientContent patientData={patientData} />}
+                    bodyChildren={<PatientContent previewData={patientData} />}
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"

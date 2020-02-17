@@ -5,8 +5,8 @@ import {
     CHybridInput,
     CRadioButton,
     CHybridTextArea,
-    CImageDisplayAndView,
-    CFControl
+    CImageDisplayAndView
+    // CFControl
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
@@ -15,11 +15,12 @@ const DetailsModal = ({type, hospitalData}) => {
     const getOnlyContactNumber = (contactsResponse) => {
         let contacts = [];
         contactsResponse.map(contactNumber => {
-            contacts.push(contactNumber.contactNumber)
+            contacts.push(contactNumber.contactNumber);
+            return contacts
         });
         return contacts
     };
-    let images, contactNumber, bannerImages;
+    let images, contactNumber,bannerImages;
     if (type !== 'A') {
         images = [
             {
@@ -186,8 +187,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridTextArea
-                                            key={'contactInput'}
-                                            id={'contactInput'}
+                                            key={'contactNumber'}
                                             id="contactNumber"
                                             name="contactNumber"
                                             disabled={true}

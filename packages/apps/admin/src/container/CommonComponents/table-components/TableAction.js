@@ -18,11 +18,11 @@ class TableAction extends PureComponent {
 
                     <Dropdown.Menu>
                         {
-                            checkIfRoleExists(this.props.filteredAction, 3) &&
+                            checkIfRoleExists(this.props.filteredAction, 3) ||(this.props.byPass &&this.props.onlyEdit) &&
                             <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'E',this.props.node.data)}>
                                 <Material.MdEdit/> Edit </Dropdown.Item>}
                         {
-                            checkIfRoleExists(this.props.filteredAction, 5) &&
+                            checkIfRoleExists(this.props.filteredAction, 5) ||(this.props.byPass &&!this.props.onlyEdit) &&
                             <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'D',this.props.node.data)}>
                                 <Material.MdDeleteForever/> Delete</Dropdown.Item>}
                     </Dropdown.Menu>

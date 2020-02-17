@@ -1,14 +1,11 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-  DoctorMiddleware,
   HospitalSetupMiddleware,
   PatientDetailsMiddleware,
-  SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
-  DateTimeFormatterUtils,
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 import './patient-detail.scss'
@@ -129,8 +126,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     appendSNToTable = patientSearchList => {
-      let patientList = []
-      patientSearchList =
+      let patientList =
         patientSearchList.length &&
         patientSearchList.map((patient, index) => ({
           id: patient.id || 'N/A',
@@ -143,10 +139,11 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           age: patient.age || 'N/A',
           status: patient.status || 'N/A',
           hospitalNumber: patient.hospitalNumber || 'N/A',
+          hospitalName:patient.hospitalName || 'N/A',
           dateOfBirth: patient.dateOfBirth || 'N/A',
           sN: index + 1
         }))
-      return patientList
+      return patientList;
     }
 
     handlePageChange = async newPage => {

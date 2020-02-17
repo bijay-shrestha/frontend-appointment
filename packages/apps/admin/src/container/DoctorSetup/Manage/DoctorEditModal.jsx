@@ -7,7 +7,6 @@ import {
   CModal,
   CRadioButton,
   CHybridTextArea,
-  CFControl,
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
@@ -51,6 +50,7 @@ const DoctorEditModal = ({
             flag = true
         })
         !flag && editSpec.length!==currSpec.length && newArray.push(editSp)
+        return flag;
       })
     }
     return newArray

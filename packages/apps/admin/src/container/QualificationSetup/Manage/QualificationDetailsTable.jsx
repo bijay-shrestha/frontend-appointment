@@ -11,11 +11,10 @@ import TableAction from './tableComponents/TableAction'
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
 
-const {checkIfRoleExists} = ActionFilterUtils
+//const {checkIfRoleExists} = ActionFilterUtils
 
-const SpecializationDetailsDataTable = props => (
+const QualificationDetailsDataTable = props => (
     <div className="manage-details">
-        {console.log(props.searchData)}
         <h5 className="title">Quailfication Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
@@ -145,4 +144,4 @@ const SpecializationDetailsDataTable = props => (
         )}
     </div>
 )
-export default memo(SpecializationDetailsDataTable)
+export default memo(QualificationDetailsDataTable)
