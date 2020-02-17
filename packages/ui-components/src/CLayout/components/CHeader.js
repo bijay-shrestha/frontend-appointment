@@ -128,6 +128,7 @@ class CHeader extends Component {
 
     handleKeyPress = (event) => {
         let keypressCount = this.state.keyPressCount;
+        debugger;;
         if (event.keyCode === 16) {
             if (!keypressCount || keypressCount === 2) {
                 keypressCount += 1;
@@ -149,20 +150,22 @@ class CHeader extends Component {
                     keyPressCount: keypressCount
                 });
             }
-            // else if (keypressCount === 3) {
-            //     this.formControl.current && this.formControl.current.blur();
-            //     this.clearCount();
-            // }
+            else if (keypressCount === 3) {
+                this.formControl.current && this.formControl.current.blur();
+                // this.clearCount();
+            }
         }
     };
 
     componentDidMount() {
         this.setLoggedInUserInfo();
-        document.addEventListener('keydown', this.handleKeyPress)
+        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keyup', this.handleKeyPress);
     };
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress);
+        document.removeEventListener("keyup", this.handleKeyPress);
         clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
     }
 
