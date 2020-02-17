@@ -37,7 +37,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         esewaId: '',
         hospitalId: '',
         patientMetaInfoId: '',
-        status: {value: null, label: 'All'}
+        status: {value: '', label: 'All'}
       },
       patientUpdate: {
         id: '',
@@ -165,7 +165,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           esewaId: '',
           hospitalId: '',
           patientMetaInfoId: '',
-          status: {value: null, label: 'All'}
+          status: {value: '', label: 'All'}
         }
       })
       this.searchPatient()
@@ -202,7 +202,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     callApiForHospitalChange = async hospitalId => {
-     // await this.handleHospitalChangeReset()
       this.props.fetchPatientMetaDropdown(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
         hospitalId
