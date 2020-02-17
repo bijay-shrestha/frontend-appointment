@@ -31,12 +31,16 @@ const RevenueTrend = props => {
     ? Object.keys(revenueStatsData)
     : {}
   return (
-    <Col lg={7}>
+    // <Col lg={7}>
+    //   <Row>
+    //     <h5 className="title">Revenue Trend</h5>
+    //   </Row>
+
+
       <Row>
-        <h5 className="title">Revenue Trend</h5>
-      </Row>
-      <Row>
+            <h5 className="title">Revenue Trend</h5>
       <div className="chart">
+     
         {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
         <>
             <Row>
@@ -54,6 +58,7 @@ const RevenueTrend = props => {
             </Row>
 
             <Row>
+           
               <CLineChart
                 lineData={newLineData}
                 labels={newRevenueStatsData ? newRevenueStatsData : []}
@@ -74,7 +79,7 @@ const RevenueTrend = props => {
         )}
         </div>
       </Row>
-    </Col>
+    // </Col>
   )
 }
 export default memo(RevenueTrend)

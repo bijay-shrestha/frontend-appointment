@@ -72,6 +72,7 @@
            background-color:transparent;
         border-color:transparent !important;
            border-bottom:1px solid $gray-500 !important;
+        //    min-height: 30px;
            @include border-radius(0);
 
            &:hover{
@@ -319,6 +320,13 @@
             margin-bottom:4px;
             float:right;
         }
+    }
+
+    .app-log{
+        background-color:$white;
+        padding:20px 40px;
+        width:100%;
+        @include border-radius(0.5rem);
     }
 
 

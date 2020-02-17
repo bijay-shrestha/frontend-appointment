@@ -89,13 +89,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         appointmentNumber,
         fromDate,
         toDate,
-        hospitalId: hospitalId.value || 'N/A',
-        patientMetaInfoId: patientMetaInfoId.value || 'N/A',
-        patientType: patientType.value || 'N/A',
-        specializationId: specializationId.value || 'N/A',
-        doctorId: doctorId.value || 'N/A',
-        patientCategory: patientCategory.value || 'N/A',
-        status: status.value || 'N/A'
+        hospitalId: hospitalId.value || '',
+        patientMetaInfoId: patientMetaInfoId.value || '',
+        patientType: patientType.value || '',
+        specializationId: specializationId.value || '',
+        doctorId: doctorId.value || '',
+        patientCategory: patientCategory.value || '',
+        status: status.value || ''
       }
 
       let updatedPage =
@@ -128,10 +128,30 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       newLogList =
         logList.length &&
         logList.map((spec, index) => ({
-          ...spec,
-          sN: index + 1
+          sN: index + 1,
+          status: spec.status|| 'N/A',
+          hospitalName: spec.hospitalName || 'N/A',
+          appointmentDate: spec.appointmentDate || 'N/A',
+          appointmentNumber: spec.appointmentNumber || 'N/A',
+          appointmentTime: spec.appointmentTime || 'N/A',
+          esewaId: spec.esewaId || 'N/A',
+          registrationNumber:  spec.registrationNumber || 'N/A',
+          patientName: spec.patientName || 'N/A',
+          patientAddress: spec.patientAddress || 'N/A',
+          patientGender: spec.patientGender || 'N/A',
+          patientAge: spec.patientAge || 'N/A',
+          patientDob: spec.patientDob || 'N/A',
+          isSelf: spec.isSelf || 'N/A',
+          isRegistered: spec.isRegistered || 'N/A',
+          mobileNumber: spec.mobileNumber || 'N/A',
+          doctorName: spec.doctorName || 'N/A',
+          specializationName: spec.specializationName || 'N/A',
+          transactionNumber: spec.transactionNumber || 'N/A',
+          appointmentAmount: spec.appointmentAmount || 'N/A',
+          refundAmount: spec.refundAmount || '0',
         }))
-      return newLogList
+      
+      return newLogList;
     }
 
     handlePageChange = async newPage => {
