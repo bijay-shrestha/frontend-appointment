@@ -106,9 +106,6 @@ class ClientLogin extends PureComponent {
                                     <div className="login-wrapper">
                                         <div className="login-header">
                                             <Image src={logo} className="logo-image"/>
-                                            {/* <h2 style={{color: '#444444', textAlign: 'center'}}>
-                        cogentEMR
-                      </h2> */}
                                         </div>
 
                                         <Form className="login-form">
@@ -116,7 +113,7 @@ class ClientLogin extends PureComponent {
                                             <CHybridInput
                                                 id="hospitalCode"
                                                 name="hospitalCode"
-                                                placeholder="Hospital Code"
+                                                placeholder="Access Key"
                                                 value={user.hospitalCode}
                                                 onChange={this.onChangeHandler}
                                             />
