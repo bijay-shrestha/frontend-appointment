@@ -19,7 +19,7 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => this.props.onClick(e, this.props.node.data.id, 'E')}
             >
-              <Material.MdEdit /> Approve{' '}
+              <Material.MdVerifiedUser />  Approve{' '}
             </Dropdown.Item>
           }
           {
@@ -27,7 +27,7 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => this.props.onClick(e, this.props.node.data.id, 'D')}
             >
-              <Material.MdDeleteForever /> Reject
+              <Material.MdBlock /> Reject
             </Dropdown.Item>
           }
         </Dropdown.Menu>

@@ -93,10 +93,10 @@ class CPasswordSaveForm extends PureComponent {
 
     render() {
         const {userPassword, errorMsg, submitErrorMsg} = this.state;
-        console.log("error", errorMsg);
+
         return (
             <>
-            <p className="login-page-title">Create New Password</p>
+                <p className="login-page-title">Create New Password</p>
                 <CHybridPassword
                     id="password"
                     placeholder="Password"
@@ -134,15 +134,15 @@ class CPasswordSaveForm extends PureComponent {
                     /> : ''
                 }
 
-                <p className="error">{submitErrorMsg}</p>
-               <div className="password-requirement">
-               <p>Password Requirements</p>
-                <ul >
-                    <li>Must be a  minimum of 5 characters</li>
-                    <li>Password must match</li>
-                </ul>
-               </div>
-               
+                <p className="error">{submitErrorMsg ? submitErrorMsg : this.props.errorMessage}</p>
+                <div className="password-requirement">
+                    <p>Password Requirements</p>
+                    <ul>
+                        <li>Must be a minimum of 5 characters</li>
+                        <li>Password must match</li>
+                    </ul>
+                </div>
+
                 <Button
                     variant="primary"
                     className="btn-action float-right"

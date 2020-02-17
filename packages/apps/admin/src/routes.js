@@ -154,6 +154,11 @@ const ProfileComponent = Loadable({
 
 /* ****** R ***** */
 
+const RescheduleLog = Loadable({
+    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loading: () => getLoader()
+});
+
 /* ****** S ***** */
 
 /* ****** T ***** */
@@ -430,7 +435,7 @@ export const routes = [
         name: 'Appointment Log'
     },
     {
-        path: '/admin/reports/appointmentStatus',
+        path: '/admin/appointment/appointmentStatus',
         component: AppointmentStatusComponent,
         icon: '',
         hasTab: false,
@@ -454,7 +459,7 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Report'
+        name: 'Reports'
     },
     {
         path: '/unauthorized',
@@ -464,5 +469,14 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized'
-    }
+    },
+    {
+        path: '/admin/reports/rescheduleLog',
+        component: RescheduleLog,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Reschedule Log'
+    },
 ];

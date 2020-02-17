@@ -168,7 +168,7 @@
         4,
         5
       ],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
@@ -183,7 +183,7 @@
       "name": "Appointment",
       "path": "/appointment",
       "roles": [],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-calendar-plus-o ",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
@@ -224,11 +224,28 @@
           "menuFor": "6",
           "description": "approvalRequestList",
           "childMenus": []
+        },
+        {
+          "id": "13",
+          "parentId": "10",
+          "name": "Appointment Status",
+          "path": "/appointment/appointmentStatus",
+          "roles": [
+            11
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentStatus",
+          "childMenus": []
         }
       ]
     },
     {
-      "id": "13",
+      "id": "14",
       "parentId": null,
       "name": "Reports",
       "path": "/reports",
@@ -242,25 +259,8 @@
       "description": "Reports",
       "childMenus": [
         {
-          "id": "14",
-          "parentId": "13",
-          "name": "Appointment Status",
-          "path": "/reports/appointmentStatus",
-          "roles": [
-            11
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "appointmentStatus",
-          "childMenus": []
-        },
-        {
           "id": "15",
-          "parentId": "13",
+          "parentId": "14",
           "name": "Appointment Log",
           "path": "/reports/appointmentLog",
           "roles": [
@@ -277,7 +277,7 @@
         },
         {
           "id": "16",
-          "parentId": "13",
+          "parentId": "14",
           "name": "Reschedule Log",
           "path": "/reports/rescheduleLog",
           "roles": [
