@@ -437,7 +437,7 @@ class ProfileMenuAssignment extends PureComponent {
                                 <div>
                                     <CButton
                                         name="Preview"
-                                        variant="outline-info"
+                                        variant="outline-primary"
                                         className="mb-2  ml-2 float-right"
                                         size="sm"
                                         id="modal"

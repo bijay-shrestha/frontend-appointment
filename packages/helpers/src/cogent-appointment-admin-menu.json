@@ -168,7 +168,7 @@
         4,
         5
       ],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
@@ -183,7 +183,7 @@
       "name": "Appointment",
       "path": "/appointment",
       "roles": [],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-calendar-plus-o ",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,

@@ -19,7 +19,7 @@ const RefundTableAction = props => {
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id?props.node.data.id:props.node.data, 'E')}
             >
-              <Material.MdEdit /> Refund{' '}
+              <Material.MdVerifiedUser /> Refund{' '}
             </Dropdown.Item>
           }
           {
@@ -27,7 +27,7 @@ const RefundTableAction = props => {
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id?props.node.data.id:props.node.data,'D')}
             >
-              <Material.MdDeleteForever /> Reject
+              <Material.MdBlock /> Reject
             </Dropdown.Item>
           }
         </Dropdown.Menu>
