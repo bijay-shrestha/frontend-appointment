@@ -80,46 +80,6 @@ class PatientSearchFilter extends PureComponent {
                       onKeyDown={handleEnter}
                     />
                   </Col>
-
-                  <Col sm={12} md={6} xl={4}>
-                    <div className="d-flex">
-                      <CEnglishDatePicker
-                        id="from-date"
-                        name="fromDate"
-                        label="From Date"
-                        dateFormat="yyyy-MM-dd"
-                        // maxDate={0}
-                        showDisabledMonthNavigation={true}
-                        peekNextMonth={true}
-                        showMonthDropdown={true}
-                        showYearDropdown={true}
-                        dropdownMode="select"
-                        selected={searchParameters.fromDate}
-                        onKeyDown={event => handleEnter(event)}
-                        onChange={date =>
-                          handleSearchFormChange(date, 'fromDate')
-                        }
-                      />
-                      &nbsp;&nbsp;
-                      <CEnglishDatePicker
-                        id="to-date"
-                        name="toDate"
-                        label="To Date"
-                        dateFormat="yyyy-MM-dd"
-                        // maxDate={0}
-                        showDisabledMonthNavigation={true}
-                        selected={searchParameters.toDate}
-                        peekNextMonth={true}
-                        showMonthDropdown={true}
-                        showYearDropdown={true}
-                        dropdownMode="select"
-                        onKeyDown={event => handleEnter(event)}
-                        onChange={date =>
-                          handleSearchFormChange(date, 'toDate')
-                        }
-                      />
-                    </div>
-                  </Col>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="admin-meta-info"
@@ -137,7 +97,7 @@ class PatientSearchFilter extends PureComponent {
                   <Col sm={12} md={6} xl={4}>
                     <CHybridInput
                       id="esewaId"
-                      placeholder=""
+                      placeholder="Esewa Id"
                       name="esewaId"
                       value={searchParameters.esewaId}
                     />
@@ -158,25 +118,6 @@ class PatientSearchFilter extends PureComponent {
                       onEnter={handleEnter}
                     />
                   </Col>
-
-                  {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Patient Category"
-                  label="Patient Category"
-                  name="Patient Category"
-                  placeholder="Select Patient Category."
-                />
-              </Col> */}
-
-                  {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Status"
-                  label="Status"
-                  name="Status"
-                  placeholder="Select Status."
-                />
-              </Col> */}
-
                   <Col
                     sm={12}
                     md={{span: 8, offset: 4}}
@@ -234,36 +175,6 @@ class PatientSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.fromDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">From Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.fromDate.toLocaleDateString()}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-              {searchParameters.toDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">To Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.toDate.toLocaleDateString()}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
               {searchParameters.patienMetaInfoId && (
                 <li>
                   <OverlayTrigger
@@ -302,4 +213,4 @@ class PatientSearchFilter extends PureComponent {
     )
   }
 }
-export default memo(PatientSearchFilter)
+export default PatientSearchFilter

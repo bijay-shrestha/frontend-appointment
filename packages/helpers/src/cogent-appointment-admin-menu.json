@@ -271,6 +271,26 @@
           "childMenus": []
         }
       ]
+    },
+    {
+      "id": "10",
+      "parentId": null,
+      "name": "Patient Information",
+      "path": "/patientInformation",
+      "roles": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "icon": "fa fa-bar-chart",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "patientInformation",
+      "childMenus": []
     }
   ]
 }

@@ -1,0 +1,126 @@
+import React,{memo} from 'react'
+import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {Col, Row} from 'react-bootstrap'
+const DetailsModal = ({previewData}) => {
+  return (
+    <>
+      <Container-fluid>
+        <CForm id="refund-info" className="mt-2">
+          <Container-fluid>
+            <Row>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="name"
+                  placeholder="Name"
+                  value={previewData.name}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="address"
+                  placeholder="Address"
+                  value={previewData.address}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="email"
+                  placeholder="Email"
+                  value={previewData.email}
+                  disabled={true}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="registrationNumber"
+                  placeholder="Registration Number"
+                  value={previewData.registrationNumber}
+                  disabled={true}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="esewaId"
+                  placeholder="Esewa Id"
+                  value={previewData.esewaId}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="mobileNumber"
+                  placeholder="Mobile Number"
+                  value={previewData.mobileNumber}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="age"
+                  placeholder="Age"
+                  value={previewData.age}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="status"
+                  placeholder="status"
+                  value={previewData.status}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="hospitalNumber"
+                  placeholder="Hospital Number"
+                  value={previewData.hospitalNumber}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="hospitalName"
+                  placeholder="Hospital Name"
+                  value={previewData.hospitalName}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="DOB"
+                  placeholder="Date of Birth"
+                  value={previewData.dateOfBirth}
+                  disabled={true}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="category_Patient"
+                  placeholder="Patient Category"
+                  value={previewData.isSelf ? 'Self' : 'Other'}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="type_patient"
+                  placeholder="Patient Type"
+                  value={previewData.isRegistered ? 'Registered' : 'Not Registered'}
+                  disabled={true}
+                />
+              </Col>
+            </Row>
+          </Container-fluid>
+        </CForm>
+      </Container-fluid>
+    </>
+  )
+}
+
+export default memo(DetailsModal)

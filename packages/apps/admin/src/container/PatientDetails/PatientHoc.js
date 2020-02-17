@@ -11,7 +11,7 @@ import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
-import './appointment-refund.scss'
+import './patient-detail.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
@@ -111,7 +111,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.PatientSearchReducer(
+      await this.props.fetchPatientMetaList(
         patientSetupApiConstant.SEARCH_PATIENT_INFO,
         {
           page: updatedPage,
@@ -128,11 +128,11 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    appendSNToTable = patientList => {
+    appendSNToTable = patientSearchList => {
       let patientList = []
-      patienList =
-        patientList.length &&
-        patientList.map((patient, index) => ({
+      patientSearchList =
+        patientSearchList.length &&
+        patientSearchList.map((patient, index) => ({
           id: patient.id || 'N/A',
           name: patient.name || 'N/A',
           address: patient.address || 'N/A',
@@ -143,7 +143,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           age: patient.age || 'N/A',
           status: patient.status || 'N/A',
           hospitalNumber: patient.hospitalNumber || 'N/A',
-          dateOfBirth: spec.edateOfBirth || 'N/A',
+          dateOfBirth: patient.dateOfBirth || 'N/A',
           sN: index + 1
         }))
       return patientList
@@ -202,8 +202,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     callApiForHospitalChange = async hospitalId => {
-      await this.handleHospitalChangeReset()
-      this.props.fetchPatientMetaList(
+     // await this.handleHospitalChangeReset()
+      this.props.fetchPatientMetaDropdown(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
         hospitalId
       )
@@ -239,18 +239,13 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
 
     setShowModal = () => {
       this.setState(prevState => ({
-        showModal: false,
         previewModalShow: false,
         editModalShow: false
       }))
     }
 
     checkFormValidity = eventType => {
-      const {
-        patientUpdate,
-        mobileNumberValid,
-        emailValid
-      } = this.state
+      const {patientUpdate, mobileNumberValid, emailValid} = this.state
       const {
         address,
         dateOfBirth,
@@ -283,6 +278,19 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       })
     }
 
+    checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
+      let stateObj = {[fieldName]: valueToChange}
+      if (eventName)
+        if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+      return {...stateObj}
+    }
+
+    setTheState = async (fieldName, valueToChange, valid, eventName) => {
+      await this.setState(
+        this.checkInputValidity(fieldName, valueToChange, valid, eventName)
+      )
+    }
+
     handleOnChange = async (event, fieldValid, eventType) => {
       let patientData = {...this.state.patientUpdate}
       let {name, value, label} = event.target
@@ -291,7 +299,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         : value
         ? {value: value, label: label}
         : {value: null}
-      await this.setTheState(patientData, qualification, fieldValid, name)
+      await this.setTheState('patientUpdate', 'update', fieldValid, name)
       this.checkFormValidity(eventType)
     }
 
@@ -366,7 +374,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         searchParameters,
         queryParams,
         totalRecords,
-        showModal,
+        previewModalShow,
+        editModalShow,
         previewData,
         alertMessageInfo,
         showAlert
@@ -419,7 +428,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               patientSearchList: this.appendSNToTable(patientSearchList),
               searchErrorMessage: patientSearchErrorMessage,
               setShowModal: this.setShowModal,
-              showModal: showModal,
+              showModal: previewModalShow,
               previewCall: this.previewHandler,
               previewData: previewData,
               previewErrorMsg: patientPreviewErrorMessage,
@@ -427,8 +436,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               patientSuccessMessage: patientSuccessMessage,
               isPatientEditLoading: isPatientEditLoading,
               patientEditErrorMessage: patientEditErrorMessage,
-              editHandler:this.editHandler,
-              hospitalsDropdown: hospitalsForDropdown,
+              editHandler: this.editHandler,
+              editModal: editModalShow,
+              hospitalsDropdown: hospitalsForDropdown
             }}
           />
           <CAlert
@@ -477,8 +487,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       fetchPatientMetaList,
       fetchPatientMetaDropdown,
       previewPatient,
-      fetchActiveHospitalsForDropdown,
-      fetchActiveDoctorsHospitalWiseForDropdown
+      fetchActiveHospitalsForDropdown
     }
   )
 }

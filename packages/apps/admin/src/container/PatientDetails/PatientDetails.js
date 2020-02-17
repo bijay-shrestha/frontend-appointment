@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
-import PatientDetailsSearchFilter from './PatientDetailsSearchFilter';
-import AppointmentRefundDataTable from './AppointmentRefundDataTable';
-import AppointRefundApprovalHoc from './AppointmentRefundHoc';
+import PatientDetailsSearchFilter from './PatientSearchFilter';
+import PatientDataTable from './PatientDataTable';
+import PatientHoc from './PatientHoc';
 
-const AppointmentRefundLog = props => {
-  const AppoinmentRefund = AppointRefundApprovalHoc(
+const PatientInformationLog = props => {
+  const PatientDetails= PatientHoc(
     ({searchHandler, paginationProps, tableHandler}) => (
       <>
         <div>
@@ -12,7 +12,7 @@ const AppointmentRefundLog = props => {
         </div>
 
         <div className="">
-          <AppointmentRefundDataTable
+          <PatientDataTable
             tableHandler={tableHandler}
             paginationProps={paginationProps}
           />
@@ -23,7 +23,7 @@ const AppointmentRefundLog = props => {
     ''
   )
 
-  return <AppoinmentRefund />
+  return <PatientDetails/>
 }
 
-export default memo(AppointmentRefundLog)
+export default memo(PatientInformationLog)
