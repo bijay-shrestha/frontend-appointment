@@ -9,6 +9,6 @@ const DoctorWithSpecialization = (props) => {
       </span>
     </>
   )
-}
+};
 
 export default memo(DoctorWithSpecialization)

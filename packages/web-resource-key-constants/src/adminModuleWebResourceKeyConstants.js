@@ -135,16 +135,22 @@ export const universitySetupAliasCode = {
 };
 
 export const patientSetupApiConstant = {
-    ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "metaInfo/active/min")
+    ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min"),
+    ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE+ "/metaInfo/min"),
+    SEARCH_PATIENT_INFO:BASE.concat(PATIENT_BASE+"/patient/search"),
+    PREVIEW_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE+"/detail"),
+    UPDATE_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE)
 };
 
-export const appointmentSetupApiConstant = {
-    APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
-    APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund"),
-    APPOINTMENT_REJECT_REFUND_EDIT: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
-    APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
-    APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
-    APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval")
+
+export const appointmentSetupApiConstant ={
+    APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
+    APPOINTMENT_REFUND_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund/approve"),
+    APPOINTMENT_REJECT_REFUND:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
+    APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
+    APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
+    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval"),
+    SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log"))
 };
 
 export const DashboardApiConstant = {
@@ -153,3 +159,8 @@ export const DashboardApiConstant = {
     REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
     REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics")
 };
+
+
+
+
+

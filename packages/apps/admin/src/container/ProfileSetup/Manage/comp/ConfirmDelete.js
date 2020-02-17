@@ -18,7 +18,7 @@ const ConfirmDelete = props => {
         />
 
         <CButton
-        variant='outline-danger '
+        variant='danger '
         size='lg'
         className="float-right btn-action ml-2"
         name='Delete'
@@ -26,7 +26,7 @@ const ConfirmDelete = props => {
         ></CButton>
 
          <CButton
-        variant='outline-secondary '
+        variant='light '
         size='lg'
         className="float-right btn-action "
         name='Cancel'

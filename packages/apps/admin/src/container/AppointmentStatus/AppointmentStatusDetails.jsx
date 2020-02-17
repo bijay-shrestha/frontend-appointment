@@ -31,7 +31,6 @@ const AppointmentStatusDetails = ({ statusDetailsData }) => {
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
                                         <div>
-                                            {console.log('======',activeStatus)}
                                             <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
                                             <a href=""
                                                 className={activeStatus === appointmentStatus.value ? "active" : ''}
@@ -77,7 +76,7 @@ const AppointmentStatusDetails = ({ statusDetailsData }) => {
                                                                     Mobile No: {timeSlot.mobileNumber || 'N/A'}
                                                                 </Tooltip>
                                                             }>
-                                                            <Button variant="warning"
+                                                            <Button variant={timeSlot.status==='PA'?'primary':timeSlot.status==='A'?'danger':timeSlot.status==='C'?'dark':'info'}
                                                                 size="lg">
                                                                 {timeSlot.appointmentTime}
                                                             </Button>

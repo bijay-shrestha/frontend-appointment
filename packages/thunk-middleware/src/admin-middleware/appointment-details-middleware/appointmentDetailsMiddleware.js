@@ -93,39 +93,43 @@ export const appointmentRejectRefund = (
     path,
     data
 ) => async dispatch => {
-    dispatch(AppointmentDetailActions.appointmentRefundRejectStart());
+    dispatch(AppointmentDetailActions.appointmentRefundRejectStart())
     try {
-        const response = await Axios.put(path, data);
+        const response = await Axios.put(path, data)
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectSuccess('Refund Reject Successfully')
         )
+        return response
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectError(
                 e.errorMessage || 'Sorry Internal Server Problem'
             )
         )
+        throw e;
     }
-};
+}
 
 export const appointmentRefund = (
     path,
-    data
+    id
 ) => async dispatch => {
-    dispatch(AppointmentDetailActions.appointmentRefundStart());
+    dispatch(AppointmentDetailActions.appointmentRefundStart())
     try {
-        const response = await Axios.put(path, data);
+        const response = await Axios.getWithPathVariables(path, id)
         dispatch(
             AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
         )
+        return response;
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage || 'Sorry Internal Server Problem'
+                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
             )
         )
+        throw e;
     }
-};
+}
 
 export const clearAppointmentRefundRejectMessage = () => async dispatch => {
     dispatch({type: 'CLEAR_REFUND_REJECT_MESSAGE'})
@@ -133,4 +137,19 @@ export const clearAppointmentRefundRejectMessage = () => async dispatch => {
 
 export const clearAppointmentRefundMessage = () => async dispatch => {
     dispatch({type: 'CLEAR_REFUND_MESSAGE'})
+};
+
+export const searchRescheduleLog = (path,paginationData, searchParam) => async dispatch => {
+    dispatch(AppointmentDetailActions.searchRescheduleStart());
+    try {
+        const response = await Axios.putWithPagination(path,paginationData, searchParam);
+        dispatch(AppointmentDetailActions.searchRescheduleSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(AppointmentDetailActions.searchRescheduleError(e.errorMessage ? e.errorMessage : "Sorry internal server error!"));
+        throw e;
+    }
+};
+export const clearRescheduleLogMessage = () => async dispatch => {
+    dispatch(AppointmentDetailActions.clearRescheduleLogMessage())
 };

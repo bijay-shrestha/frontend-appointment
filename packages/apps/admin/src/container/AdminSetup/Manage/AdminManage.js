@@ -136,7 +136,11 @@ class AdminManage extends PureComponent {
                 moduleList: [],
                 adminAvatar: null,
                 adminAvatarUrl: '',
+                adminAvatarUrlNew: ''
             },
+            adminImage: '',
+            adminImageCroppedUrl: '',
+            adminFileCropped: '',
             showEditModal: false,
             updatedMacIdList: [],
             updatedModulesAndProfiles: []

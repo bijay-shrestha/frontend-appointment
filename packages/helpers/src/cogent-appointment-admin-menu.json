@@ -168,7 +168,7 @@
         4,
         5
       ],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
@@ -183,7 +183,7 @@
       "name": "Appointment",
       "path": "/appointment",
       "roles": [],
-      "icon": "fa fa-bar-chart",
+      "icon": "fa fa-calendar-plus-o ",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
@@ -194,32 +194,10 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Appointment Status",
-          "path": "/appointment/appointmentStatus",
-          "roles": [
-            2,
-            3,
-            4
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "appointmentStatus",
-          "childMenus": []
-        },
-        {
-          "id": "12",
-          "parentId": "10",
-          "name": "Refund Request List",
+          "name": "Pending Refund Approval",
           "path": "/appointment/appointmentRefundRequest",
           "roles": [
-            2,
-            3,
-            4,
-            5
+           17,18,19
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -231,15 +209,62 @@
           "childMenus": []
         },
         {
-          "id": "14",
+          "id": "12",
           "parentId": "10",
-          "name": "Appointment Log",
-          "path": "/appointment/appointmentLog",
+          "name": "Pending Appointment Approval",
+          "path": "/appointment/appointmentApprovalRequest",
           "roles": [
-            2,
-            3,
-            4,
-            5
+           13,14,15
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "approvalRequestList",
+          "childMenus": []
+        },
+        {
+          "id": "13",
+          "parentId": "10",
+          "name": "Appointment Status",
+          "path": "/appointment/appointmentStatus",
+          "roles": [
+            11
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentStatus",
+          "childMenus": []
+        }
+      ]
+    },
+    {
+      "id": "14",
+      "parentId": null,
+      "name": "Reports",
+      "path": "/reports",
+      "roles": [],
+      "icon": "fa fa-bar-chart",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Reports",
+      "childMenus": [
+        {
+          "id": "15",
+          "parentId": "14",
+          "name": "Appointment Log",
+          "path": "/reports/appointmentLog",
+          "roles": [
+            9
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -251,15 +276,12 @@
           "childMenus": []
         },
         {
-          "id": "15",
-          "parentId": "10",
-          "name": "Approval List",
-          "path": "/appointment/appointmentApprovalRequest",
+          "id": "16",
+          "parentId": "14",
+          "name": "Reschedule Log",
+          "path": "/reports/rescheduleLog",
           "roles": [
-            2,
-            3,
-            4,
-            5
+            21
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -267,7 +289,7 @@
           "order": 1,
           "enabled": "Y",
           "menuFor": "6",
-          "description": "approvalRequestList",
+          "description": "Reschedule Log",
           "childMenus": []
         }
       ]

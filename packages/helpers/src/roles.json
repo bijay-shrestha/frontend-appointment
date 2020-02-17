@@ -63,5 +63,131 @@
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false
+  },
+  {
+    "id": 8,
+    "name": "Appointment Log",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 9,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 8,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 10,
+    "name": "Appointment Status",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 11,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 10,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 12,
+    "name": "Pending Appointment Approval",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 13,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 12,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 14,
+    "name": "Approve",
+    "status": "Y",
+    "parent_role_id": 12,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 15,
+    "name": "Reject",
+    "status": "Y",
+    "parent_role_id": 12,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 16,
+    "name": "Pending Refund Approval",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 17,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 16,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 18,
+    "name": "Refund",
+    "status": "Y",
+    "parent_role_id": 16,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 19,
+    "name": "Reject",
+    "status": "Y",
+    "parent_role_id": 16,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 20,
+    "name": "Reschedule Log",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 21,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 20,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
   }
 ]

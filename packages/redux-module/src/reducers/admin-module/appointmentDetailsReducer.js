@@ -22,8 +22,12 @@ const {
     REFUND_REJECT_START,
     REFUND_REJECT_SUCCESS,
     REFUND_START,
-    REFUND_SUCCESS
-} = appointmentDetailsConstants
+    REFUND_SUCCESS,
+    SEARCH_RESCHEDULE_LOG_ERROR,
+    SEARCH_RESCHEDULE_LOG_SUCCESS,
+    SEARCH_RESCHEDULE_LOG_START,
+    CLEAR_RESCHEDULE_LOG_MESSAGE
+} = appointmentDetailsConstants;
 
 const initialState = {
     refundList: [],
@@ -31,24 +35,24 @@ const initialState = {
     refundErrorMessage: '',
     totalRefundAmount: '',
     totalItems: ''
-}
+};
 const refundRejectState = {
     refundRejectSuccess: '',
     refundRejectError: '',
     isRefundRejectLoading: false
-}
+};
 const refundState = {
     refundSuccess: '',
     refundError: '',
     isRefundLoading: ''
-}
+};
 const appointmentLogState = {
     logList: [],
     isLogListLoading: true,
     logErrorMessage: '',
     totalAmount: '',
     totalItems: ''
-}
+};
 
 const appointmentApprovalState = {
     approvalList: [],
@@ -56,12 +60,20 @@ const appointmentApprovalState = {
     approvalErrorMessage: '',
     totalAmount: '',
     totalItems: ''
-}
+};
 
 const appointmentStatusState = {
-    statusList: [],
+    statusList:null,
     isStatusListLoading: false,
     statusErrorMessage: '',
+    totalAmount: '',
+    totalItems: ''
+};
+
+const rescheduleLogState = {
+    rescheduleLogList: [],
+    isRescheduleLogLoading: false,
+    rescheduleLogErrorMessage: '',
     totalAmount: '',
     totalItems: ''
 };
@@ -274,7 +286,7 @@ export const AppointmentStatusListReducer = (
         case STATUS_FETCH_START:
             return {
                 ...state,
-                statusList: [],
+                statusList:null,
                 isStatusListLoading: true,
                 statusErrorMessage: '',
                 totalAmount: '',
@@ -292,7 +304,7 @@ export const AppointmentStatusListReducer = (
         case STATUS_FETCH_ERROR:
             return {
                 ...state,
-                statusList: [],
+                statusList:null,
                 isStatusListLoading: false,
                 statusErrorMessage: action.payload.errorMessage,
                 totalAmount: '',
@@ -302,6 +314,45 @@ export const AppointmentStatusListReducer = (
             return {
                 ...state,
                 statusErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+
+export const RescheduleLogReducer = (state = {...rescheduleLogState}, action) => {
+    switch (action.type) {
+        case SEARCH_RESCHEDULE_LOG_START:
+            return {
+                ...state,
+                rescheduleLogList: [],
+                isRescheduleLogLoading: true,
+                rescheduleLogErrorMessage: '',
+                totalAmount: '',
+                totalItems: ''
+            };
+        case SEARCH_RESCHEDULE_LOG_SUCCESS:
+            return {
+                ...state,
+                rescheduleLogList: [...action.payload.data.appointmentRescheduleLogDTOS],
+                isRescheduleLogLoading: false,
+                rescheduleLogErrorMessage: '',
+                totalAmount: action.payload.data.totalAmount,
+                totalItems: action.payload.data.totalItems
+            };
+        case SEARCH_RESCHEDULE_LOG_ERROR:
+            return {
+                ...state,
+                rescheduleLogList: [],
+                isRescheduleLogLoading: false,
+                rescheduleLogErrorMessage: action.payload.errorMessage,
+                totalAmount: '',
+                totalItems: ''
+            };
+        case CLEAR_RESCHEDULE_LOG_MESSAGE:
+            return {
+                ...state,
+                rescheduleLogErrorMessage: ''
             };
         default:
             return {...state}
