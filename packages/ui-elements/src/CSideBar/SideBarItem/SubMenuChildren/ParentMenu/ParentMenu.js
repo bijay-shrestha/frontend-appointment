@@ -71,7 +71,7 @@ const ParentMenu = props => {
           exact="true"
           className={!props.parent.parentId ? 'no-child' : ''}
         >
-          <i className={props.parent.icon} />
+          <i className={props.parent.icon}/>
           <span
             className={classNames(
               {text: props.isOpen || props.isHover},

@@ -32,15 +32,15 @@ const RevenueTrend = props => {
         <h5 className="title">Revenue Trend</h5>
       </Row>
       <Row>
+      <div className="chart">
         {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
-          <div className="chart">
+        <>
             <Row>
               <CDateButtonPills onPillsClickHandler={props.onPillsClickHandler} type="refund" variant="outline-secondary" data={props.revenueFilter} />
               <Col xs={12} md={4} className="p-0">
                 <Col className="date">
                   <div>
-                    <span>From :</span>
-                    {fromDate.revFromDate.toDateString()}
+                    <span>From :</span> {fromDate.revFromDate.toDateString()}
                   </div>
                   <div>
                     <span>To :</span> {toDate.revToDate.toDateString()}
@@ -57,14 +57,18 @@ const RevenueTrend = props => {
                 height={350}
               />
             </Row>
-          </div>
+            </>
+       
         ) : isRevenueStatsLoading ? (
+       
           <CLoading />
+         
         ) : (
           <span>
             <p>{revenueStatsErrorMessage}</p>
           </span>
         )}
+        </div>
       </Row>
     </Col>
   )

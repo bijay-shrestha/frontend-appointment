@@ -248,6 +248,23 @@ const DoctorForm = ({
                     />
                   </Col>
 
+                  <Col sm={12} md={6} lg={6} className="">
+                    <CHybridInput
+                        id="appointment-follow-up-charge"
+                        name="appointmentFollowUpCharge"
+                        onKeyDown={event => onEnterKeyPress(event)}
+                        onChange={(event, validity) =>
+                            onInputChange(event, validity)
+                        }
+                        placeholder="Doctor Appointment Follow Up Charge"
+                        value={doctorInfoObj.appointmentFollowUpCharge}
+                        required={true}
+                        hasValidation={true}
+                        fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1,"+2+"})?$")}
+                        errorMessagePassed={errorMessageForAppointmentCharge}
+                    />
+                  </Col>
+
                   <Col sm={12} md={4} lg={4}>
                     <CFLabel labelName="Status" id="status"></CFLabel>
                     <div>

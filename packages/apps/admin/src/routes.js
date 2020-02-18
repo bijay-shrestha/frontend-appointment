@@ -159,6 +159,11 @@ const PatientInformationComponent = Loadable({
 
 /* ****** R ***** */
 
+const RescheduleLog = Loadable({
+    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loading: () => getLoader()
+});
+
 /* ****** S ***** */
 
 /* ****** T ***** */
@@ -426,7 +431,7 @@ export const routes = [
         name: 'Appointment Approval'
     },
     {
-        path: '/admin/appointment/appointmentLog',
+        path: '/admin/reports/appointmentLog',
         component: AppointmentLogListComponent,
         icon: '',
         hasTab: false,
@@ -462,6 +467,15 @@ export const routes = [
         name: 'Patient Information'
     },
     {
+        path: '/admin/reports',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Reports'
+    },
+    {
         path: '/unauthorized',
         component: CUnauthorized,
         icon: '',
@@ -469,5 +483,14 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized'
-    }
-]
+    },
+    {
+        path: '/admin/reports/rescheduleLog',
+        component: RescheduleLog,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Reschedule Log'
+    },
+];

@@ -36,7 +36,7 @@ import {
   verifyToken
 } from './src/password-save-middleware'
 import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware'
-import * as AppointmentDetailsMiddleware from './src/appointment-details-middleware/appointmentDetailsMiddleware'
+import * as AppointmentDetailsMiddleware from './src/admin-middleware/appointment-details-middleware/appointmentDetailsMiddleware'
 import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboardMiddleware'
 export {
   AppointmentDetailsMiddleware,
