@@ -29,7 +29,9 @@ const LineChart = props => {
             ticks: {
                 userCallback: function(label, index, labels) {
                     if(revenueFilter==='M')
-                    return index%2!==0?'':label
+                     return index%2!==0?'':label;
+                    else
+                     return label;
                 }
              }
         }]
