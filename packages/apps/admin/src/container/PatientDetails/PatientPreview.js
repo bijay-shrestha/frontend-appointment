@@ -8,7 +8,7 @@ const PatientPreview = props => {
         <>
             <CModal show={showModal}
                     modalHeading="Patient Information Details"
-                    size="xl"
+                    size="lg"
                     bodyChildren={<PatientContent previewData={patientData} />}
                     onHide={setShowModal}
                     centered={false}

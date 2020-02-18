@@ -28,10 +28,10 @@ const PatientEditModal = ({
   const bodyContent = (
     <>
       {/* <h5 className="title">Edit Hospital Setup</h5> */}
-      <CForm id="admin-info" className="mt-2 add-info">
+      <CForm id="patient-info" className="mt-2 add-info">
         <Row>
-          <Col sm={12} md={12} lg={9}>
-            <Row>
+          {/* <Col sm={12} md={12} lg={9}>
+            <Row> */}
               <Col sm={12} md={12} lg={6}>
                 <CHybridInput
                   id="patient-name"
@@ -92,7 +92,7 @@ const PatientEditModal = ({
                   />
                 </div>
               </Col>
-              <Col sm={12} md={6} xl={4}>
+              <Col sm={12} md={6} xl={6}>
                   <div className="d-flex">
                       <CEnglishDatePicker
                         id="dateOfBirth"
@@ -212,8 +212,8 @@ const PatientEditModal = ({
                   required={true}
                 />
               </Col>
-            </Row>
-          </Col>
+            {/* </Row>
+          </Col> */}
         </Row>
       </CForm>
     </>
