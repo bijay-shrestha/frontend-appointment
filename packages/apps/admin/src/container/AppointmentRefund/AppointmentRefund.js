@@ -1,8 +1,7 @@
-import React, {PureComponent} from 'react'
-import AppointmentLogSearchFilter from './AppointmentRefundSearchFilter'
-import AppointmentRefundDataTable from './AppointmentRefundDataTable'
-import AppointRefundApprovalHoc from './AppointmentRefundHoc'
-import {Col, Container, Row} from 'react-bootstrap'
+import React, {memo} from 'react';
+import AppointmentLogSearchFilter from './AppointmentRefundSearchFilter';
+import AppointmentRefundDataTable from './AppointmentRefundDataTable';
+import AppointRefundApprovalHoc from './AppointmentRefundHoc';
 
 const AppointmentRefundLog = props => {
   const AppoinmentRefund = AppointRefundApprovalHoc(
@@ -27,4 +26,4 @@ const AppointmentRefundLog = props => {
   return <AppoinmentRefund />
 }
 
-export default AppointmentRefundLog
+export default memo(AppointmentRefundLog)

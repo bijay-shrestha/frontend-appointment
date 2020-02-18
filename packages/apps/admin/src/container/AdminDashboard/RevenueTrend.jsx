@@ -1,12 +1,7 @@
 import React, {memo} from 'react'
 import {
-  Image,
-  Container,
   Row,
   Col,
-  ButtonGroup,
-  Button,
-  Form
 } from 'react-bootstrap'
 import {CDateButtonPills} from '@frontend-appointment/ui-components'
 import {CLineChart, CLoading} from '@frontend-appointment/ui-elements'
@@ -23,6 +18,7 @@ const RevenueTrend = props => {
   const changeObjectToArray = lineData => {
     Object.keys(lineData).map(line => {
       newLineData.push(lineData[line])
+      return newLineData;
     })
     return newLineData
   }

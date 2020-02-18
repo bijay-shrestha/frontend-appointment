@@ -4,7 +4,7 @@ import {AuthenticateHOC} from '@frontend-appointment/authentication-module';
 import {CLayout} from '@frontend-appointment/ui-components';
 import {routes} from '../routes';
 import LoginPage from '../container/Login';
-import {ComponentHoc} from '@frontend-appointment/commons';
+import {ComponentHoc,LoginHoc} from '@frontend-appointment/commons';
 import SetPassword from '../container/SavePassword/SavePassword';
 import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
 import {LocalStorageSecurity} from '@frontend-appointment/helpers';
@@ -30,7 +30,7 @@ const AuthenticateModule = () => {
                 <Route
                     path="/"
                     exact
-                    component={props => <LoginPage {...props} id="login-form"/>}
+                    component={LoginHoc(props => <LoginPage {...props} id="login-form"/>,'/admin/dashboard')}
                 />
                 {routes.map((route, idx) => (
                     <Route
