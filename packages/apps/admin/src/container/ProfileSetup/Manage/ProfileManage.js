@@ -15,7 +15,7 @@ import {
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {ProfileSetupUtils, userMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
+import {ProfileSetupUtils, adminUserMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
@@ -222,7 +222,7 @@ class ProfileManage extends PureComponent {
             menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        let menusForSubDept = [...userMenusJson[process.env.REACT_APP_MODULE_CODE]];
+        let menusForSubDept = [...adminUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {

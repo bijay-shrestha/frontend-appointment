@@ -4,14 +4,14 @@ import {AuthenticateHOC} from '@frontend-appointment/authentication-module';
 import {CLayout} from '@frontend-appointment/ui-components';
 import {routes} from '../routes';
 import LoginPage from '../container/Login';
-import {ComponentHoc,LoginHoc} from '@frontend-appointment/commons';
+import {ComponentHoc, LoginHoc} from '@frontend-appointment/commons';
 import SetPassword from '../container/SavePassword/SavePassword';
 import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
-import {LocalStorageSecurity} from '@frontend-appointment/helpers';
+import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
 
 const AuthenticateModule = () => {
     const getTokenFormLocalStorage = () => {
-        let storage = LocalStorageSecurity.localStorageDecoder('auth-token');
+        let storage = LocalStorageSecurity.localStorageDecoder(EnvironmentVariableGetter.AUTH_TOKEN);
         return storage;
     }
 
@@ -30,7 +30,7 @@ const AuthenticateModule = () => {
                 <Route
                     path="/"
                     exact
-                    component={LoginHoc(props => <LoginPage {...props} id="login-form"/>,'/admin/dashboard')}
+                    component={LoginHoc(props => <LoginPage {...props} id="login-form"/>, '/admin/dashboard')}
                 />
                 {routes.map((route, idx) => (
                     <Route

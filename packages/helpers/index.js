@@ -15,7 +15,8 @@ import {
     UserMenusFilter,
     UserMenuUtils
 } from "./src/utils";
-import * as userMenusJson from './src/cogent-appointment-admin-menu';
+import * as adminUserMenusJson from './src/cogent-appointment-admin-menu';
+import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
 import menuRoles from './src/roles';
 import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
@@ -31,7 +32,7 @@ export {
     EnterKeyPressUtils,
     EnvironmentVariableGetter,
     ActionFilterUtils,
-    userMenusJson,
+    adminUserMenusJson,
     menuRoles,
     DoctorDutyRosterUtils,
     DateTimeFormatterUtils,
@@ -40,5 +41,6 @@ export {
     RolesUtils,
     CommonUtils,
     dateHelpers,
-    appointmentStatusList
+    appointmentStatusList,
+    clientUserMenusJson
 }

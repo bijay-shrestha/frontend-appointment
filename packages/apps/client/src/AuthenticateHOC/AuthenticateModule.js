@@ -7,11 +7,11 @@ import LoginPage from '../container/Login';
 import {ComponentHoc} from '@frontend-appointment/commons';
 import SetPassword from '../container/SavePassword/SavePassword';
 import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
-import {LocalStorageSecurity} from '@frontend-appointment/helpers';
+import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
 
 const AuthenticateModule = () => {
     const getTokenFormLocalStorage = () => {
-        let storage = LocalStorageSecurity.localStorageDecoder('auth-token');
+        let storage = LocalStorageSecurity.localStorageDecoder(EnvironmentVariableGetter.AUTH_TOKEN);
         return storage;
     }
 

@@ -10,8 +10,7 @@ class LoginPage extends React.PureComponent {
         try {
             await this.props.signinUser('/api/v1/login', {...user});
             await this.props.fetchUserMenus('/api/v1/sidebar', {
-                username: user.username, hospitalCode: user.hospitalCode
-            });
+                username: user.username, hospitalCode: user.hospitalCode});
             await this.props.fetchLoggedInAdminUserInfo('/api/v1/admin/info',
                 {username: user.username});
             const selectedPath = LocalStorageSecurity.localStorageDecoder("active");

@@ -12,7 +12,7 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import { EnterKeyPressUtils, menuRoles, userMenusJson, UserMenuUtils, TryCatchHandler } from "@frontend-appointment/helpers";
+import { EnterKeyPressUtils, menuRoles, adminUserMenusJson, UserMenuUtils, TryCatchHandler } from "@frontend-appointment/helpers";
 import { AdminModuleAPIConstants } from "@frontend-appointment/web-resource-key-constants";
 
 const { FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL } = AdminModuleAPIConstants.departmentSetupAPIConstants;
@@ -121,8 +121,8 @@ class ProfileAdd extends PureComponent {
     };
 
     filterMenuByDepartment = () => {
-        let menusForDept = Object.keys(userMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
-            ? [...userMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
+        let menusForDept = Object.keys(adminUserMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
+            ? [...adminUserMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForDept]);
         alphabeticallySortedMenus ?
             this.setState({

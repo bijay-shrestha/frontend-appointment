@@ -1,4 +1,5 @@
-import profiles from "../cogent-appointment-admin-menu.json";
+import adminMenus from "../cogent-appointment-admin-menu.json";
+import clientMenus from "../cogent-appointment-client-menu.json";
 import {localStorageSecurity} from "./localStorageUtils";
 import {sortUserMenuJson} from "./UserMenuUtils";
 import {EnvironmentVariableGetter} from '../utils';
@@ -24,27 +25,25 @@ const getChildMenuFirst = (children, roleId, childMenus) => ({
 const usermenufilter = userMenus => {
     const {assignedRolesResponseDTOS} = userMenus;
     const moduleCode = EnvironmentVariableGetter.REACT_APP_MODULE_CODE;
-    const deptUserMenus = profiles[moduleCode]
-    console.log('UserMenus', userMenus)
-    console.log('DeptUserMenus', deptUserMenus)
-    let filteredMenus = []
+    const deptUserMenus = moduleCode === 'ADMIN' ? adminMenus[moduleCode] : clientMenus[moduleCode];
+    let filteredMenus = [];
     assignedRolesResponseDTOS &&
     assignedRolesResponseDTOS.map((assignedRoles, index) => {
-        const {parentId, childMenus} = assignedRoles
+        const {parentId, childMenus} = assignedRoles;
         deptUserMenus.map((depts, ind) => {
             if (Number(depts.id) === Number(parentId)) {
-                let hasChild = checkIfChildExist(depts.childMenus)
+                let hasChild = checkIfChildExist(depts.childMenus);
                 if (hasChild) {
-                    let childMens = []
+                    let childMens = [];
                     childMenus.map((assignedChild, indx) => {
-                        const {userMenuId, roleId} = assignedChild
+                        const {userMenuId, roleId} = assignedChild;
                         depts.childMenus.map((dept, iddx) => {
                             if (Number(dept.id) === Number(userMenuId)) {
                                 let child = getChildMenuFirst(dept, roleId, [])
                                 childMens.push(child)
                             }
                         })
-                    })
+                    });
                     filteredMenus.push(getChildMenuFirst(depts, [], childMens))
                 } else {
                     filteredMenus.push(getChildMenuFirst(depts, childMenus[0].roleId, []))
