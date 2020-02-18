@@ -2,11 +2,7 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    FileExportUtils,
-    AdminInfoUtils
-} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './qualification.scss'
 
 const {
@@ -272,8 +268,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     size: this.state.queryParams.size
                 },
                 searchData
-            )
-            console.log('QualificationSearchReducer', this.props.QualificationSearchReducer);
+            );
+
             await this.setState({
                 totalRecords: this.props.QualificationSearchReducer.qualificationList
                     .length

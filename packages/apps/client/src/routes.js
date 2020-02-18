@@ -2,7 +2,7 @@ import Loadable from 'react-loadable'
 import React from 'react'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-const getLoader = () => <CLoading />;
+const getLoader = () => <CLoading/>;
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
@@ -31,7 +31,7 @@ const AddDoctorDutyRosterComponent = Loadable({
 });
 
 const AddQualificationComponent = Loadable({
-    loader: () => import('./container/QualificationSetup/Add/QualificationAdd'),
+    loader: () => import('./container/ClientQualificationSetup/Add/QualificationAdd'),
     loading: () => getLoader()
 });
 
@@ -131,7 +131,7 @@ const ManageDoctorDutyRosterComponent = Loadable({
 
 const ManageQualificationComponent = Loadable({
     loader: () =>
-        import('./container/QualificationSetup/Manage/QualificationManage'),
+        import('./container/ClientQualificationSetup/Manage/QualificationManage'),
     loading: () => getLoader()
 });
 
