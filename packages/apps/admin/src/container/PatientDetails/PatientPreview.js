@@ -2,7 +2,7 @@ import React,{memo} from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
 import PatientContent from "./PatientContent";
 
-const PreviewRefund = props => {
+const PatientPreview = props => {
     const {showModal, setShowModal, patientData} = props;
     return (
         <>
@@ -19,4 +19,4 @@ const PreviewRefund = props => {
     );
 };
 
-export default PreviewRefund;
+export default memo(PatientPreview);
