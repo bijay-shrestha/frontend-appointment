@@ -61,15 +61,6 @@ const DoctorDutyRosterPreviewModal = ({
                             </div>
 
                             <CHybridInput
-                                id="hospital"
-                                label="Hospital"
-                                name="hospital"
-                                placeholder="Hospital"
-                                value={doctorInfoData.hospital && doctorInfoData.hospital.label}
-                                disabled={true}
-                            />
-
-                            <CHybridInput
                                 id="specialization"
                                 label="Specialization"
                                 name="specialization"

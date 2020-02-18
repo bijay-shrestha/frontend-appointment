@@ -1,6 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {DashboardDetailsMiddleware, HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {DashboardDetailsMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import './admin-dashboard.scss'
@@ -8,13 +8,14 @@ import './admin-dashboard.scss'
 const {
     fetchDashboardAppointmentStatisticsList,
     fetchDashboardRegisteredPatientList,
+    fetchDashboardRegisteredPatientListForClient,
     fetchDashboardRevenueDayList,
     fetchDashboardRevenueMonthList,
     fetchDashboardRevenueRefundList,
     fetchDashboardRevenueWeekList,
     fetchDashboardRevenueYearList
 } = DashboardDetailsMiddleware;
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+
 const ClientDashboardHoc = (ComposedComponent, props, type) => {
     const {
         DashboardApiConstant
@@ -71,9 +72,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     }
                 );
             if (!statsType) {
-                this.props.fetchDashboardRegisteredPatientList(
-                    DashboardApiConstant.REGISTERED_PATIENTS,
-                    hospitalId
+                this.props.fetchDashboardRegisteredPatientListForClient(
+                    DashboardApiConstant.REGISTERED_PATIENTS
                 );
 
                 this.props.fetchDashboardRevenueDayList(
@@ -347,6 +347,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         {
             fetchDashboardAppointmentStatisticsList,
             fetchDashboardRegisteredPatientList,
+            fetchDashboardRegisteredPatientListForClient,
             fetchDashboardRevenueDayList,
             fetchDashboardRevenueMonthList,
             fetchDashboardRevenueRefundList,

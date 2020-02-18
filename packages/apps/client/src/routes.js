@@ -26,7 +26,7 @@ const AddHospitalComponent = Loadable({
 });
 
 const AddDoctorDutyRosterComponent = Loadable({
-    loader: () => import('./container/DoctorDutyRoster/Add/DoctorDutyRosterAdd'),
+    loader: () => import('./container/ClientDoctorDutyRoster/Add/DoctorDutyRosterAdd'),
     loading: () => getLoader()
 });
 
@@ -125,7 +125,7 @@ const ManageHospitalComponent = Loadable({
 
 const ManageDoctorDutyRosterComponent = Loadable({
     loader: () =>
-        import('./container/DoctorDutyRoster/Manage/DoctorDutyRosterManage'),
+        import('./container/ClientDoctorDutyRoster/Manage/DoctorDutyRosterManage'),
     loading: () => getLoader()
 });
 

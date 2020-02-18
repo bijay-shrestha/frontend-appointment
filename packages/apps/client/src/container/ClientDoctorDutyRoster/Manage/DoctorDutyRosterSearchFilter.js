@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import {CButton, CForm, CHybridInput, CHybridSelect} from "@frontend-appointment/ui-elements";
-import {Button, Col, Form, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
@@ -33,7 +33,6 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
             onSearchInputChange,
             searchParameters,
             resetSearchForm,
-            hospitalList,
             specializationList,
             specializationDropdownError,
             doctorList,
@@ -62,18 +61,6 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                         <CForm id='department-info' className='add-info mt-4'>
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
-                                            id="hospital"
-                                            label="Hospital"
-                                            name="hospital"
-                                            options={hospitalList}
-                                            placeholder="Select hospital."
-                                            onKeyDown={this.handleEnter}
-                                            onChange={(event) => onSearchInputChange(event)}
-                                            value={searchParameters.hospital}
-                                        />
-                                    </Col>
                                     <Col sm={12} md={4} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -115,9 +102,8 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specialization"
                                             options={specializationList}
-                                            placeholder={!searchParameters.hospital ?"Select Hospital first":"Select specialization."}
-                                            isDisabled={!searchParameters.hospital}
-                                            noOptionsMessage={() => specializationDropdownError? specializationDropdownError: "No Specializatipon(s) found."}
+                                            placeholder={"Select specialization."}
+                                            noOptionsMessage={() => specializationDropdownError ? specializationDropdownError : "No Specializatipon(s) found."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.specialization}
@@ -128,9 +114,8 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
-                                            placeholder={!searchParameters.hospital?"Select Hospital first":"Select doctor."}
+                                            placeholder={"Select doctor."}
                                             options={doctorList}
-                                            isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}

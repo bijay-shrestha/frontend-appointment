@@ -93,7 +93,6 @@ function DoctorDutyRosterManage(props) {
                     onSearchInputChange={onSearchInputChange}
                     resetSearchForm={resetSearchForm}
                     onSearchClick={() => searchDoctorDutyRoster(1)}
-                    hospitalList={hospitalList}
                     specializationList={activeSpecializationListByHospital}
                     specializationDropdownError={specializationDropdownError}
                     doctorList={activeDoctorsByHospitalForDropdown}

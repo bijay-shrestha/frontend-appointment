@@ -74,15 +74,6 @@ const EditDoctorDutyRoster = ({
                             </div>
 
                             <CHybridInput
-                                id="hospital"
-                                label="Hospital"
-                                name="hospital"
-                                placeholder="Hospital"
-                                value={updateDoctorDutyRosterData.hospital && updateDoctorDutyRosterData.hospital.label}
-                                disabled={true}
-                            />
-
-                            <CHybridInput
                                 id="specialization"
                                 label="Specialization"
                                 name="specialization"

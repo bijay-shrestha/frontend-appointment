@@ -53,7 +53,6 @@ function DoctorDutyRosterAdd(props) {
                 <Row className="mb-2">
                     <AddDoctorInfoForm
                         doctorInfoData={doctorInfoData}
-                        hospitalList={hospitalList}
                         specializationList={activeSpecializationListByHospital}
                         specializationDropdownError={specializationDropdownError}
                         doctorList={doctorList}
