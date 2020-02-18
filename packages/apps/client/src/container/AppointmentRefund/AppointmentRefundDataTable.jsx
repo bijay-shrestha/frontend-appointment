@@ -1,10 +1,13 @@
 import React, {memo} from 'react'
 import {
-  CButton,
   CDataTable,
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
+import {
+  ConfirmDelete,
+  CConfirmationModal
+} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 
@@ -16,7 +19,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    rejectModalShow,
+    rejectSubmitHandler,
+    refundRejectRemarksHandler,
+    onRejectHandler,
+    refundHandler,
+    refundHandleApi,
+    refundRejectError,
+    isRefundLoading,
+    refundConfirmationModal,
+    remarks
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
@@ -146,17 +159,15 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
-                  // cellRendererParams: {
-                  //     onClick: function (e, id, type) {
-                  //         type === 'D'
-                  //             // ? props.filteredActions.find(action => action.id === 5) &&
-                  //             ? props.onDeleteHandler(id)
-                  //             : type === 'E'
-                  //             ? props.onEditHandler(id)
-                  //             : props.onPreviewHandler(id)
-                  //     },
-                  //     filteredAction: props.filteredActions
-                  // },
+                  cellRendererParams: {
+                    onClick: function (e, id, type) {
+                      type === 'D'
+                        ? // ? props.filteredActions.find(action => action.id === 5) &&
+                          onRejectHandler(id)
+                        : refundHandler(id)
+                    }
+                   // filteredAction: props.filteredActions
+                  },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }
               ]}
@@ -191,6 +202,33 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
           showModal={showModal}
           setShowModal={setShowModal}
           refundData={previewData}
+        />
+      ) : (
+        ''
+      )}
+      {rejectModalShow ? (
+        <ConfirmDelete
+          confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
+          modalHeader="Reject Refund"
+          showModal={rejectModalShow}
+          setShowModal={setShowModal}
+          onDeleteRemarksChangeHandler={refundRejectRemarksHandler}
+          remarks={remarks}
+          onSubmitDelete={rejectSubmitHandler}
+          deleteErrorMessage={refundRejectError}
+        />
+      ) : (
+        ''
+      )}
+
+      {refundConfirmationModal ? (
+        <CConfirmationModal
+          modalHeader="Are you sure you want to refund?"
+          showModal={refundConfirmationModal}
+          setShowModal={setShowModal}
+          remarks={remarks}
+          onAccept={refundHandleApi}
+          onReject={setShowModal}
         />
       ) : (
         ''

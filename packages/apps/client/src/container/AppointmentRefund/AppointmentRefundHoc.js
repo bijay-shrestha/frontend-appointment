@@ -2,19 +2,18 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    HospitalSetupMiddleware,
     DoctorMiddleware,
-    SpecializationSetupMiddleware,
-    PatientDetailsMiddleware
+    HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
-    EnterKeyPressUtils,
-    FileExportUtils
+    DateTimeFormatterUtils,
+    EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 import './appointment-refund.scss'
-import {CAlert} from '@frontend-appointment/ui-elements';
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
     clearAppointmentRefundPending,
@@ -60,25 +59,28 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             showModal: false,
             previewData: {},
             refundRejectRequestDTO: {
-                "appointmentId": "",
-                "remarks": ""
+                appointmentId: '',
+                remarks: ''
             },
             alertMessageInfo: {
                 variant: '',
                 message: ''
             },
             rejectModalShow: false,
-            showAlert: false
+            showAlert: false,
+            refundConfirmationModal: false,
+            refundAppointmentId: ''
         }
 
         setShowAlert = () => {
             this.setState(prevState => ({
                 showAlert: !prevState.showAlert
             }))
-        }
+        };
+
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        }
+        };
 
         searchHospitalForDropDown = async () => {
             try {
@@ -88,7 +90,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         searchAppointment = async page => {
             const {
@@ -159,8 +161,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     appointmentDate: spec.appointmentDate || 'N/A',
                     sN: index + 1
                 }))
-
-            console.log('New RefundList', newRefundList)
             return newRefundList
         }
 
@@ -203,7 +203,21 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             })
         }
 
-        callApiForHospitalChange = hospitalId => {
+        handleHospitalChangeReset = async () => {
+            await this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    patientMetaInfoId: '',
+                    patientType: '',
+                    specializationId: '',
+                    doctorId: '',
+                    patientCategory: ''
+                }
+            })
+        }
+
+        callApiForHospitalChange = async hospitalId => {
+            await this.handleHospitalChangeReset()
             this.props.fetchActiveDoctorsHospitalWiseForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
                 hospitalId
@@ -228,41 +242,87 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name
                     value = event.target.value
                     label = event.target.label
-                    if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
+                    if (fieldName === 'hospitalId')
+                        await this.callApiForHospitalChange(value)
                 }
                 let searchParams = {...this.state.searchParameters}
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-                await this.setStateValuesForSearch(searchParams)
+                if (fieldName === 'hospitalId')
+                    await this.handleHospitalChangeReset(searchParams)
+
+                let newSearchParams = {...this.state.searchParameters}
+
+                newSearchParams[fieldName] = label
+                    ? value
+                        ? {value, label}
+                        : ''
+                    : value
+                await this.setStateValuesForSearch(newSearchParams)
             }
         }
 
         setShowModal = () => {
             this.setState(prevState => ({
-                showModal: !prevState.showModal
+                showModal: false,
+                rejectModalShow: false,
+                refundConfirmationModal: false
             }))
         }
-        refundHandler = (data) => {
-            try {
 
-            } catch (e) {
-
-            }
-
+        refundHandler = data => {
+            this.setState({
+                refundConfirmationModal: true,
+                refundAppointmentId: data.appointmentId
+            })
         }
-        rejectSubmitHandler = async () => {
+
+        refundHandleApi = async () => {
             try {
-                await this.props.appointmentRejectRefund(appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID, this.state.refundRejectRequestDTO)
+                await this.props.appointmentRefund(
+                    appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
+                    this.state.refundAppointmentId
+                )
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
-                        message: this.props.AppointmentRefundRejectReducer.refundRejectSuccess,
+                        message: this.props.AppointmentRefundReducer.refundSuccess
                     }
                 })
+                this.searchAppointment()
             } catch (e) {
-                console.log(e);
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'error',
+                        message: this.props.AppointmentRefundReducer.refundError
+                    }
+                })
+            } finally {
+                this.setShowModal()
             }
         }
+
+        rejectSubmitHandler = async () => {
+            try {
+                await this.props.appointmentRejectRefund(
+                    appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
+                    this.state.refundRejectRequestDTO
+                )
+                this.setShowModal()
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.AppointmentRefundRejectReducer
+                            .refundRejectSuccess
+                    }
+                })
+                this.searchAppointment()
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
         refundRejectRemarksHandler = event => {
             const {name, value} = event.target
             let refundReject = {...this.state.refundRejectRequestDTO}
@@ -288,7 +348,18 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         }
 
         render() {
-            const {searchParameters, queryParams, totalRecords, showModal, previewData, alertMessageInfo, showAlert} = this.state
+            const {
+                searchParameters,
+                queryParams,
+                totalRecords,
+                showModal,
+                previewData,
+                alertMessageInfo,
+                showAlert,
+                rejectModalShow,
+                refundRejectRequestDTO,
+                refundConfirmationModal
+            } = this.state
 
             const {
                 isRefundListLoading,
@@ -296,6 +367,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 refundErrorMessage
             } = this.props.AppointmentRefundListReducer
 
+            const {
+                refundRejectError,
+                isRefundLoading
+            } = this.props.AppointmentRefundRejectReducer
             const {
                 activeDoctorsByHospitalForDropdown,
                 doctorDropdownErrorMessage
@@ -313,10 +388,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             } = this.props.PatientDropdownListReducer
             return (
                 <>
-                <div id="appointment-refund">
-
-               
-                    <ComposedComponent 
+                    <ComposedComponent
                         {...this.props}
                         {...props}
                         searchHandler={{
@@ -345,7 +417,17 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: previewData
+                            previewData: previewData,
+                            rejectSubmitHandler: this.rejectSubmitHandler,
+                            refundRejectRemarksHandler: this.refundRejectRemarksHandler,
+                            onRejectHandler: this.onRejectHandler,
+                            refundHandler: this.refundHandler,
+                            refundHandleApi: this.refundHandleApi,
+                            refundRejectError: refundRejectError,
+                            isRefundLoading: isRefundLoading,
+                            refundConfirmationModal: refundConfirmationModal,
+                            rejectModalShow: rejectModalShow,
+                            remarks: refundRejectRequestDTO.remarks
                         }}
                     />
                     <CAlert
@@ -370,10 +452,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                         }
                         message={alertMessageInfo.message}
                     />
-
-                    </div>
                 </>
-
             )
         }
     }
@@ -402,5 +481,5 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             appointmentRejectRefund
         }
     )
-};
+}
 export default AppointRefundHOC

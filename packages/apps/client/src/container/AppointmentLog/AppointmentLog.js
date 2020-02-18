@@ -1,11 +1,10 @@
 import React, {PureComponent} from 'react'
 import AppointmentLogSearchFilter from './AppointmentLogSearchFilter'
-import AppointmentRefundDataTable from './AppointmentLogDataTable'
-import AppointRefundApprovalHoc from './AppointmentLogHoc'
-import {Col, Container, Row} from 'react-bootstrap'
+import AppointmentLogDataTable from './AppointmentLogDataTable'
+import AppointmentLogHoc from './AppointmentLogHoc'
 
 const AppointmentRefundLog = props => {
-  const AppoinmentRefund = AppointRefundApprovalHoc(
+  const AppoinmentRefund = AppointmentLogHoc(
     ({searchHandler, paginationProps, tableHandler}) => (
       <>
         <div>
@@ -13,7 +12,7 @@ const AppointmentRefundLog = props => {
         </div>
 
         <div className="">
-          <AppointmentRefundDataTable
+          <AppointmentLogDataTable
             tableHandler={tableHandler}
             paginationProps={paginationProps}
           />

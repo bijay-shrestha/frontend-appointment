@@ -2,7 +2,7 @@ import Loadable from 'react-loadable'
 import React from 'react'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-const getLoader = () => <CLoading/>;
+const getLoader = () => <CLoading />;
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
@@ -71,7 +71,7 @@ const AppointmentLogListComponent = Loadable({
 /* ****** D ***** */
 
 const DashboardComponent = Loadable({
-    loader: () => import('./container/AdminDashboard/AdminDashboard'),
+    loader: () => import('./container/ClientDashboard/ClientDashboard'),
     loading: () => getLoader()
 });
 
@@ -153,6 +153,11 @@ const ProfileComponent = Loadable({
 /* ****** Q ***** */
 
 /* ****** R ***** */
+
+const RescheduleLog = Loadable({
+    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loading: () => getLoader()
+});
 
 /* ****** S ***** */
 
@@ -448,6 +453,15 @@ export const routes = [
         name: 'Appointment'
     },
     {
+        path: '/reports',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Reports'
+    },
+    {
         path: '/unauthorized',
         component: CUnauthorized,
         icon: '',
@@ -455,5 +469,14 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized'
-    }
+    },
+    {
+        path: '/reports/rescheduleLog',
+        component: RescheduleLog,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Reschedule Log'
+    },
 ];
