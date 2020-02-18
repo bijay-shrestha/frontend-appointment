@@ -124,7 +124,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer:'patientRenderer'
+                  cellRenderer:'patientRenderer',
+                  autoSize:true
                 },
 
                 {
@@ -133,6 +134,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
+                  
                 },
                 {
                   headerName: 'Mobile Number',
@@ -153,7 +155,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer:'doctorwithSpecializationRenderer'
+                  cellRenderer:'doctorwithSpecializationRenderer',
+                  autoSize:true,
+                  autoWidth:true
                 },
                 {
                   headerName: 'Transaction Number',
@@ -189,6 +193,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               }
               rowSelection={'single'}
               rowData={appointmentLogList}
+
             />
             <CPagination
               totalItems={totalRecords}

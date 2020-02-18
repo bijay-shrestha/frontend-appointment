@@ -59,6 +59,10 @@ class CDataTable extends PureComponent {
         }
     };
 
+    getRowHeight = params => {
+        return params.node.rowHeight;
+    }
+
     render() {
         const {
             id,
@@ -74,7 +78,8 @@ class CDataTable extends PureComponent {
             frameworkComponents,
             floatingFilter,
             editType,
-            cellMouseOver
+             cellMouseOver
+            // getRowHeight
         } = this.props;
 
         return (
@@ -97,6 +102,7 @@ class CDataTable extends PureComponent {
                         cellMouseOver={cellMouseOver}
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
+                        getRowHeight={this.getRowHeight}
                     />
                 </div>
             </>
