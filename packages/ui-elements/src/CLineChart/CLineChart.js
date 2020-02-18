@@ -2,7 +2,7 @@ import React,{memo} from 'react';
 import {Line} from 'react-chartjs-2';
 
 const LineChart = props => {
- const {lineData,width,height,labels} =props;
+ const {lineData,width,height,labels,revenueFilter} =props;
 
  
  const options = {
@@ -24,7 +24,15 @@ const LineChart = props => {
                     beginAtZero: true
                 }
             }
-        ]
+        ],
+        xAxes:[{
+            ticks: {
+                userCallback: function(label, index, labels) {
+                    if(revenueFilter==='M')
+                    return index%2!==0?'':label
+                }
+             }
+        }]
     }
     //For y axes scale to always begin at 0
 };

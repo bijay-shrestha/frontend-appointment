@@ -31,13 +31,17 @@ const RevenueTrend = props => {
   const mapKeysToArray = revenueStatsData => {
     let keysLabel = []
     if (Object.keys(revenueStatsData))
-      if (props.revenueFilter === 'M') {
-        Object.keys(revenueStatsData).map((revenueKey, index) => {
-          if ((index + 1) % 7 === 0) keysLabel.push(revenueKey)
-        })
-      } else {
-        keysLabel = [...Object.keys(revenueStatsData)]
-      }
+      keysLabel = [...Object.keys(revenueStatsData)]
+      // if (props.revenueFilter === 'M') {
+      //   Object.keys(revenueStatsData).map((revenueKey, index) => {
+      //     if ((index) % 7 === 0) keysLabel.push(revenueKey)
+      //     else{
+      //       keysLabel.push("")
+      //     }
+      //   })
+      // } else {
+        
+      //}
 
     return keysLabel
   }
@@ -78,6 +82,7 @@ const RevenueTrend = props => {
                   labels={newRevenueStatsData ? newRevenueStatsData : []}
                   width={600}
                   height={350}
+                  revenueFilter={props.revenueFilter}
                 />
               </Row>
             </>
