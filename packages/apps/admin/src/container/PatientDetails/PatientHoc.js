@@ -277,8 +277,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
       let stateObj = {[fieldName]: valueToChange}
       if (eventName)
-        if (eventName ==='name') stateObj = {...stateObj, nameValid: valid}
-      if (eventName === 'mobileNumber') stateObj = {...stateObj, mobileNumberValid:valid}
+        if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+      if (eventName === 'mobileNumber')
+        stateObj = {...stateObj, mobileNumberValid: valid}
       return {...stateObj}
     }
 
@@ -288,16 +289,16 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       )
     }
 
-    handleOnChange = async (event, fieldValid,eventType,field) => {
+    handleOnChange = async (event, fieldValid, eventType, field) => {
       let patientData = {...this.state.patientUpdate}
-      let name, value, label;
-      if(field){
-        name=field;
-        value=event;
-      }else{
-        name =event.target.name;
-        value=event.target.value;
-        label=event.target.label;
+      let name, value, label
+      if (field) {
+        name = field
+        value = event
+      } else {
+        name = event.target.name
+        value = event.target.value
+        label = event.target.label
       }
 
       patientData[name] = !label
@@ -324,10 +325,13 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           hospitalId,
           remarks
         } = this.props.PatientPreviewReducer.patientPreviewData
-        let formValidity =true,nameValid=false,mobileNumberValid=false;
-        if(!remarks||!(mobileNumber && mobileNumber.length===10)||!name) formValidity=false
-        if(name) nameValid=true;
-        if(mobileNumber) mobileNumberValid=true;
+        let formValidity = true,
+          nameValid = false,
+          mobileNumberValid = false
+        if (!remarks || !(mobileNumber && mobileNumber.length === 10) || !name)
+          formValidity = false
+        if (name) nameValid = true
+        if (mobileNumber) mobileNumberValid = true
         this.setState({
           patientUpdate: {
             id: id,
@@ -335,17 +339,17 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             dateOfBirth: new Date(dateOfBirth),
             mobileNumber: mobileNumber,
             address: address,
-            gender: gender.slice(0,1),
+            gender: gender,
             email: email,
             hospitalNumber: hospitalNumber,
             status: status,
             remarks: remarks,
             hospitalId: hospitalId
           },
-          formValidity:formValidity,
-          nameValid:nameValid,
-          mobileNumberValid:mobileNumberValid,
-          editModalShow:true
+          formValidity: formValidity,
+          nameValid: nameValid,
+          mobileNumberValid: mobileNumberValid,
+          editModalShow: true
         })
       }
     }
@@ -356,18 +360,16 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           patientSetupApiConstant.UPDATE_PATIENT_DETAIL_BY_ID,
           this.state.patientUpdate
         )
-        this.setShowModal()
-        this.setState({
+        await this.setShowModal()
+        await this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
             message: this.props.PatientEditReducer.patientSuccessMessage
           }
         })
-        this.searchPatient();
-      } catch (e) {
-
-      } 
+        await this.searchPatient()
+      } catch (e) {}
     }
 
     async componentDidMount () {
