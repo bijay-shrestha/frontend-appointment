@@ -20,26 +20,12 @@ const DepartmentEditModal = ({
                                  errorMessageForSpecializationCode,
                                  errorMessage,
                                  editApiCall,
-                                 formValid,
-                                 hospitalList
+                                 formValid
                              }) => {
     const bodyContent = (
         <>
-            {console.log('Edit', specializationData)}
             <CForm id="specialization-info" className="mt-2">
                 <Row>
-                    <Col sm={12} md={4} lg={4}>
-                        <CHybridSelect
-                            id="hospital"
-                            label="Hospital"
-                            name="hospitalId"
-                            onKeyDown={onEnterKeyPress}
-                            onChange={(event, validity) => onInputChange(event, validity)}
-                            options={hospitalList}
-                            value={specializationData.hospitalId}
-                            placeholder={'Select Hospital.'}
-                        />
-                    </Col>
                     <Col sm={12} md={12} lg={4}>
                         <CHybridInput
                             id="specialization-name"
@@ -64,6 +50,7 @@ const DepartmentEditModal = ({
                             onChange={(event, validity) =>
                                 onInputChange(event, validity, 'E')
                             }
+                            disabled={true}
                             placeholder="Specialization Code"
                             value={specializationData.code}
                             required={true}

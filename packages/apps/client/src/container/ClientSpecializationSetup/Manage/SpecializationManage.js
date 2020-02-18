@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import SpecializationSetupSearchFilter from './SpecializationSetupSearchFilter'
 import SpecializationDetailsTable from './SpecializationDetailsTable'
 import SubDepartmentEditForm from './SpecializationEditModal'
-import {CAlert, CButton} from '@frontend-appointment/ui-elements'
+import {CAlert} from '@frontend-appointment/ui-elements'
 import SpecializationSetupHoc from '../SpecializationSetupHoc'
 
 const SpecializationManage = props => {
@@ -45,7 +45,7 @@ const SpecializationManage = props => {
              showAlert,
              closeAlert,
              specializationData,
-             hospitalList
+
          }) => (
             <>
                 <div className="">
@@ -55,7 +55,6 @@ const SpecializationManage = props => {
                         onSearchClick={() => searchSpecialization(1)}
                         resetSearchForm={resetSearch}
                         handleEnter={handleEnter}
-                        hospitalList={hospitalList}
                     />
                 </div>
                 <div className=" mb-2">
@@ -93,7 +92,6 @@ const SpecializationManage = props => {
                         onInputChange={handleInputChange}
                         editApiCall={editSpecialization}
                         formValid={formValid}
-                        hospitalList={hospitalList}
                         errorMessageForSpecializationCode={
                             errorMessageForSpecializationCode
                         }

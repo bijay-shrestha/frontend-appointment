@@ -56,20 +56,6 @@ class SpecializationSetupSearchFilter extends PureComponent {
                         <CForm id="specialization-info" className="profile-info mt-4">
                             <Container-fluid>
                                 <Row>
-
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
-                                            id="hospital"
-                                            label="Hospital"
-                                            name="hospitalId"
-                                            onKeyDown={handleEnter}
-                                            onChange={(event, validity) => onInputChange(event, validity)}
-                                            options={hospitalList}
-                                            value={searchParameters.hospitalId}
-                                            placeholder={'Select Hospital.'}
-                                        />
-                                    </Col>
-
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridInput
                                             id="specialization-name"

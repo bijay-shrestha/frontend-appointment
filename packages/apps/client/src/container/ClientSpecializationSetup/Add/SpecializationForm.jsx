@@ -8,7 +8,6 @@ const SpecializationForm = ({
                                 errorMessageForSpecializationCode,
                                 onEnterKeyPress,
                                 onInputChange,
-                                hospitalList
                             }) => {
     return (
         <>
@@ -19,19 +18,6 @@ const SpecializationForm = ({
                 <CForm id="profile-info" className="mt-2 profile-info">
                     <Container-fluid>
                         <Row>
-                            <Col sm={12} md={6} lg={4}>
-                                <CHybridSelect
-                                    id="hospital"
-                                    label="Hospital"
-                                    name="hospitalId"
-                                    onKeyDown={onEnterKeyPress}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
-                                    options={hospitalList}
-                                    value={specializationInfoObj.hospitalId}
-                                    placeholder={'Select Hospital.'}
-                                />
-                            </Col>
-
                             <Col sm={12} md={6} lg={4}>
                                 <CHybridInput
                                     id="specialization-name"

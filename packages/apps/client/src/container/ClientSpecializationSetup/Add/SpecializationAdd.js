@@ -21,7 +21,6 @@ function SpecializationAdd(props) {
                                                      alertMessageInfo,
                                                      showAlert,
                                                      closeAlert,
-                                                     hospitalList
                                                  }) =>
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -44,7 +43,6 @@ function SpecializationAdd(props) {
                         errorMessageForSpecializationCode={errorMessageForSpecializationCode}
                         onEnterKeyPress={handleEnter}
                         onInputChange={handleInputChange}
-                        hospitalList={hospitalList}
                     />
 
                     <Row className="mt-4">
@@ -86,7 +84,7 @@ function SpecializationAdd(props) {
                     />
                 </Container>
             </div>
-        , props, 'A')
+        , props, 'A');
     return <SpecializationAdd/>
 
 
@@ -94,4 +92,4 @@ function SpecializationAdd(props) {
 
 // return <SpecializationAdd></SpecializationAdd>
 
-export default SpecializationAdd
+export default memo(SpecializationAdd)

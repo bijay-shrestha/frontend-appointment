@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    CFLabel,
-    CForm,
-    CHybridInput,
-    CRadioButton
-} from '@frontend-appointment/ui-elements'
+import {CFLabel, CForm, CHybridInput, CHybridTextArea, CRadioButton} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const DetailsModal = ({specializationData, type}) => {
@@ -18,18 +13,6 @@ const DetailsModal = ({specializationData, type}) => {
                 <CForm id="department-info" className="mt-2 department-info">
                     <Container-fluid>
                         <Row>
-
-                            <Col sm={4} md={4} lg={4}>
-                                <CHybridInput
-                                    id="hospital"
-                                    name="hospitalId"
-                                    placeholder="Hospital"
-                                    value={typeof specializationData.hospitalId ==='object' ?
-                                    ( specializationData.hospitalId && specializationData.hospitalId.label ): specializationData.hospitalName}
-                                    disabled={true}
-                                />
-                            </Col>
-
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridInput
                                     id="specialization-name"
@@ -51,11 +34,11 @@ const DetailsModal = ({specializationData, type}) => {
                             </Col>
                             {type !== 'A' ? (
                                 <Col sm={4} md={4} lg={4}>
-                                    <CHybridInput
+                                    <CHybridTextArea
                                         id="specialization-remarks"
                                         name="name"
                                         placeholder="Specialization Remarks"
-                                        value={specializationData.remarks}
+                                        value={specializationData.remarks || 'N/A'}
                                         disabled={true}
                                     />
                                 </Col>

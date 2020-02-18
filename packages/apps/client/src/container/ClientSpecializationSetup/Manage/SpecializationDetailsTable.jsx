@@ -55,14 +55,6 @@ const SpecializationDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Name',
-                            field: 'hospitalName',
-                            // headerClass: "fi",
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-                        {
                             headerName: 'Specialization Name',
                             field: 'name',
                             // headerClass: "fi",

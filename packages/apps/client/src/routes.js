@@ -36,7 +36,7 @@ const AddQualificationComponent = Loadable({
 });
 
 const AddSpecializationComponent = Loadable({
-    loader: () => import('./container/SpecializationSetup/Add/SpecializationAdd'),
+    loader: () => import('./container/ClientSpecializationSetup/Add/SpecializationAdd'),
     loading: () => getLoader()
 });
 
@@ -109,7 +109,7 @@ const ManageDepartmentComponent = Loadable({
 });
 
 const ManageSpecializationComponent = Loadable({
-    loader: () => import('./container/SpecializationSetup/Manage/SpecializationManage'),
+    loader: () => import('./container/ClientSpecializationSetup/Manage/SpecializationManage'),
     loading: () => getLoader()
 });
 
