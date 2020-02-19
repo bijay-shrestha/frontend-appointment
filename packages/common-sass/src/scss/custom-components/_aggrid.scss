@@ -11,7 +11,7 @@
 
   // changes the selected checkbox check mark color
   $accent-color            : $cogent;
-  $foreground-color        :$body-color;
+  $foreground-color        :$gray-900;
   $header-height           : 50px;
   $row-height              : 40px;
   $row-border-width        : 1px;
@@ -21,6 +21,7 @@
   $header-foreground-color :lighten($body-color, 10%);
   $odd-row-background-color:$white;
   $selected-color          : lighten($cogent, 40%);
+  $font-weight              :500;
 
 
   $ag-range-selected-color-1: $cogent;

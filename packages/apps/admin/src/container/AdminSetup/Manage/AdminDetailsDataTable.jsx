@@ -51,7 +51,8 @@ const AdminDetailsDataTable = ({
                             sortable: true,
                             editable: true,
                             sizeColumnsToFit: true,
-                            cellClass: 'first-class'
+                            cellClass: 'first-class',
+                            width:'140'
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
@@ -62,12 +63,13 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true,
                         },
                         {
-                            headerName: 'Admin Avatar',
+                            headerName: 'Admin Pic',
                             field: 'fileUri',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
+                            cellRenderer: 'imageRenderer',
+                            width:"140"
                         },
                         {
                             headerName: 'Name',
@@ -84,15 +86,15 @@ const AdminDetailsDataTable = ({
                             sortable: true,
                             sizeColumnsToFit: true
                         },
+                        // {
+                        //     headerName: 'Email',
+                        //     field: 'email',
+                        //     resizable: true,
+                        //     sortable: true,
+                        //     sizeColumnsToFit: true,
+                        // },
                         {
-                            headerName: 'Email',
-                            field: 'email',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                        },
-                        {
-                            headerName: 'Mobile Number',
+                            headerName: 'Mobile No',
                             field: 'mobileNumber',
                             // headerClass: "fi",
                             resizable: true,
@@ -105,7 +107,8 @@ const AdminDetailsDataTable = ({
                             // headerClass: "fi",
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            width:"140"
                         },
                         {
                             headerName: 'Profile',
@@ -120,7 +123,8 @@ const AdminDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            cellRenderer: 'childLabelRenderer'
+                            cellRenderer: 'childLabelRenderer',
+                            width:'120'
                         },
                         {
                             headerName: '',
@@ -130,6 +134,7 @@ const AdminDetailsDataTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
+                            width:'120',
                             cellRendererParams: {
                                 onClick: function (e, id, type, username) {
                                     type === 'D'
