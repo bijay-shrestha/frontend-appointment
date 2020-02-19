@@ -9,6 +9,7 @@ import {
     CModal,
     CRadioButton
 } from '@frontend-appointment/ui-elements'
+import {CommonUtils} from '@frontend-appointment/helpers'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 import DefaulHospitalImage from '../img/picture.png'
@@ -35,6 +36,7 @@ const DoctorEditModal = ({
                              activeSpecializationList,
                              qualificationDropdown
                          }) => {
+
     const checkIfSpecializationIdAndHospitalIdMatch = (
         currSpec,
         editSpec
@@ -46,10 +48,11 @@ const DoctorEditModal = ({
                 if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                     flag = true
             });
-            !flag && editSpec.length !== currSpec.length && newArray.push(editSp)
+            !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec) && newArray.push(editSp)
         });
-        return newArray
+        return newArray;
     };
+
     const bodyContent = (
         <>
             {/* <h5 className="title">Edit Hospital Setup</h5> */}
