@@ -72,6 +72,7 @@
            background-color:transparent;
         border-color:transparent !important;
            border-bottom:1px solid $gray-500 !important;
+        //    min-height: 30px;
            @include border-radius(0);
 
            &:hover{
@@ -321,6 +322,13 @@
         }
     }
 
+    .app-log{
+        background-color:$white;
+        padding:20px 40px;
+        width:100%;
+        @include border-radius(0.5rem);
+    }
+
 
     .overall-box{
         background-color:$white;
@@ -426,6 +434,18 @@
             }
         }
          
+      }
+
+      .app-queue-datatable{
+          width:100%;
+
+          .data-image{
+            //   width:25px;
+          }
+
+          ul li{
+              line-height: 22px;
+          }
       }
     
    

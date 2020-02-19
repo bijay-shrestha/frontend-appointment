@@ -378,7 +378,7 @@ class ProfileMenuAssignment extends PureComponent {
                                         <div className="no-data">
                                             <i className="fa fa-hand-o-up"/>
                                         </div>
-                                        <div className="message text-center"> Select Department and Sub-department
+                                        <div className="message text-center"> Select Department
                                             first.
                                         </div>
                                     </div>) :
@@ -495,7 +495,7 @@ class ProfileMenuAssignment extends PureComponent {
                                                         <div className="no-data primary">
                                                             <i className="fa fa-hand-o-up"></i>
                                                         </div>
-                                                        <div className="message text-center"> Select Sub-department and
+                                                        <div className="message text-center"> Select department and
                                                             menu.
                                                         </div>
                                                     </div>

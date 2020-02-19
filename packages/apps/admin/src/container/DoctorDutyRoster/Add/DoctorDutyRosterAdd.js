@@ -69,6 +69,7 @@ function DoctorDutyRosterAdd(props) {
                     />
                     <DoctorAvailabilityForm
                         doctorAvailabilityData={doctorAvailabilityData}
+                        rosterGapDuration={doctorInfoData.rosterGapDuration}
                         handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
                         wholeWeekOff={wholeWeekOff}
                         handleWholeWeekOff={handleWholeWeekOff}
