@@ -48,7 +48,7 @@ const DoctorEditModal = ({
                 if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                     flag = true
             });
-            !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec) && newArray.push(editSp)
+            !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec,'doctorSpecializationId') && newArray.push(editSp)
         });
         return newArray;
     };

@@ -3,9 +3,9 @@ export const checkIfOneArrayElementContainOther = (fArray, sArray) => {
 }
 
 export const checkIfTwoArrayEquals = (fArray, sArray, keyToMatch) => {
-  fArray.every((value, index) =>
+ return fArray.length && sArray.length ? fArray.every((value, index) =>
     keyToMatch
-      ? value[keyToMatch] === sArray[index][keyToMatch]
+      ? Number(value[keyToMatch]) === Number(sArray[index][keyToMatch])
       : value === sArray[index]
-  )
+  ):false
 }
