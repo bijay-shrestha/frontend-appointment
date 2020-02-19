@@ -4,7 +4,7 @@ import {Badge} from 'react-bootstrap'
 const DoctorWithSpecialization = (props) => {
   return (
     <>
-      <ul>
+      <ul className="doctor-column">
         <li>
         Dr. {props.node.data.doctorName.toUpperCase()}
         </li>

@@ -65,7 +65,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               height="460px"
               enableSorting
               editType
-            
+              rowHeight= {50}
+                
               
               columnDefs={[
                 {
@@ -76,6 +77,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
+                  width:160,
                   cellClass: 'first-class'
                 },
                 {
@@ -83,15 +85,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
+                  supprestSizeToFit : false,
+                  width:140,
                   cellRenderer:'statusRenderer'
                 },
-                {
-                  headerName: 'Hospital Name',
-                  field:'hospitalName',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                },
+                // {
+                //   headerName: 'Hospital Name',
+                //   field:'hospitalName',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                // },
                 {
                   headerName: 'Appointment Date',
                   field: 'appointmentDate',
@@ -107,7 +111,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Appointment Number',
+                  headerName: 'Appointment No',
                   field: 'appointmentNumber',
                   // headerClass: "fi",
                   resizable: true,
@@ -115,7 +119,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Registration Number',
+                  headerName: 'Registration No',
                   field: 'registrationNumber',
                   resizable: true,
                   sortable: true,
@@ -137,7 +141,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Mobile Number',
+                  headerName: 'Mobile No',
                   field: 'mobileNumber',
                   resizable: true,
                   sortable: true,
@@ -157,27 +161,27 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer:'doctorwithSpecializationRenderer'
                 },
-                {
-                  headerName: 'Transaction Number',
-                  field: 'transactionNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Appointment Amount',
-                  field: 'appointmentAmount',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Refund Amount',
-                  field: 'refundAmount',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                }
+                // {
+                //   headerName: 'Transaction Number',
+                //   field: 'transactionNumber',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Appointment Amount',
+                //   field: 'appointmentAmount',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Refund Amount',
+                //   field: 'refundAmount',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // }
               ]}
               frameworkComponents={{
                 doctorwithSpecializationRenderer:DoctorWithSpecialization,

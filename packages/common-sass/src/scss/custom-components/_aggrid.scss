@@ -21,6 +21,9 @@
   $header-foreground-color :lighten($body-color, 10%);
   $odd-row-background-color:$white;
   $selected-color          : lighten($cogent, 40%);
+  $cell-horizontal-padding : 6px;
+//  $row-height :40px;
+
 
 
   $ag-range-selected-color-1: $cogent;
