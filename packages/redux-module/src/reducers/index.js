@@ -59,7 +59,9 @@ import {
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer
+    DashboardRevenueStatisticsReducer,
+    DashboardAppointmentQueueReducer
+    
 } from './admin-module/dashboardDetailsReducer'
 
 import {
@@ -102,6 +104,7 @@ export {
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
+    DashboardAppointmentQueueReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,

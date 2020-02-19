@@ -83,8 +83,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer:'statusRenderer',
-                  width:"120",
+                  supprestSizeToFit : false,
+                  width:140,
+                  cellRenderer:'statusRenderer'
                 },
                 // {
                 //   headerName: 'Hospital Name',
@@ -94,21 +95,21 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 //   sizeColumnsToFit: true,
                 // },
                 {
-                  headerName: 'App. Date',
+                  headerName: 'Appointment Date',
                   field: 'appointmentDate',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'App. Time',
+                  headerName: 'Appointment Time',
                   field: 'appointmentTime',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'App. No',
+                  headerName: 'Appointment No',
                   field: 'appointmentNumber',
                   // headerClass: "fi",
                   resizable: true,
@@ -117,7 +118,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width:"150"
                 },
                 {
-                  headerName: 'Reg. No',
+                  headerName: 'Registration No',
                   field: 'registrationNumber',
                   resizable: true,
                   sortable: true,
@@ -140,7 +141,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   width:'180'
-                  
+
                 },
                 {
                   headerName: 'Mobile No.',
