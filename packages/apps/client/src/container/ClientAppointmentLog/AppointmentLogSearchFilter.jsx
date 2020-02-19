@@ -27,7 +27,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
             handleEnter,
             handleSearchFormChange,
             resetSearch,
-            hospitalsDropdown,
             doctorsDropdown,
             doctorDropdownErrorMessage,
             activeSpecializationList,
@@ -35,7 +34,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
             searchParameters,
             patientListDropdown,
             patientDropdownErrorMessage
-        } = searchHandler
+        } = searchHandler;
 
         return (
             <>
@@ -64,19 +63,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             name="appointmentNumber"
                                             placeholder=" Appointment Number"
                                             value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="hospitalId"
-                                            name="hospitalId"
-                                            label="Select Hospital"
-                                            placeholder="Select Hospital"
-                                            options={hospitalsDropdown}
-                                            isDisabled={hospitalsDropdown.length ? false : true}
-                                            value={searchParameters.hospitalId}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
@@ -128,7 +114,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             placeholder="Name, Mobile no Or Reg. no"
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
-                                            isDisabled={patientListDropdown.length ? false : true}
+                                            // isDisabled={patientListDropdown.length ? false : true}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
@@ -142,7 +128,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
                                             value={searchParameters.doctorId}
-                                            isDisabled={doctorsDropdown.length ? false : true}
+                                            // isDisabled={doctorsDropdown.length ? false : true}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
@@ -156,7 +142,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
-                                            isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
+                                            // isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
@@ -230,7 +216,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
