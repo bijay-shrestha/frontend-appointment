@@ -1,4 +1,4 @@
-import {adminUserMenusJson} from "../../index";
+import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
 export const prepareProfilePreviewData = (userMenusProfile) => {
@@ -11,7 +11,9 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
     userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
     Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
         // For each parent menu's selected menus
-        const userMenus = adminUserMenusJson[process.env.REACT_APP_MODULE_CODE];
+        let moduleCode = EnvironmentVariableGetter.REACT_APP_MODULE_CODE;
+        const userMenus = moduleCode === "ADMIN" ?
+            adminUserMenusJson[moduleCode] : clientUserMenusJson[moduleCode];
         const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
         let selectedParentMenus = new Set();
         let selectedChildMenus = new Set();

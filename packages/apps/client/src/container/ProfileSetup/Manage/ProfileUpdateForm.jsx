@@ -4,7 +4,6 @@ import {Col} from "react-bootstrap";
 
 const ProfileUpdateForm = ({
                                onEnterKeyPress,
-                               hospitalList,
                                onInputChange,
                                profileInfoObj,
                                errorMessageForProfileName,
@@ -43,17 +42,6 @@ const ProfileUpdateForm = ({
                 />
 
                 <CHybridSelect
-                    id="hospital"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
-                    name="selectedHospital"
-                    onChange={(event) => onInputChange(event)}
-                    options={hospitalList}
-                    value={profileInfoObj.hospitalValue}
-                    placeholder={'Select hospital.'}
-                />
-
-                <CHybridSelect
                     id="department"
                     label="Department"
                     name="selectedDepartment"
@@ -64,7 +52,7 @@ const ProfileUpdateForm = ({
                     placeholder={!profileInfoObj.hospitalValue ? 'Select hospital first.' : 'Select Department'}
                 />
 
-                <CFLabel labelName="Status" id="status"></CFLabel>
+                <CFLabel labelName="Status" id="status"/>
                 <CRadioButton
                     checked={profileInfoObj.status === "Y"}
                     id="radio1"

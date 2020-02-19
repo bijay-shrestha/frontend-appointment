@@ -12,7 +12,6 @@ import {
 const ProfileInfoForm = ({
                              onEnterKeyPress,
                              departmentList,
-                             hospitalList,
                              onInputChange,
                              profileInfoObj,
                              errorMessageForProfileName,
@@ -51,17 +50,6 @@ const ProfileInfoForm = ({
                 />
 
                 <CHybridSelect
-                    id="hospital"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
-                    name="selectedHospital"
-                    onChange={(event) => onInputChange(event)}
-                    options={hospitalList}
-                    value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Hospital.'}
-                />
-
-                <CHybridSelect
                     id="department"
                     label="Department"
                     name="selectedDepartment"
@@ -70,10 +58,9 @@ const ProfileInfoForm = ({
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
                     placeholder="Select department"
-                    isDisabled={!profileInfoObj.hospitalValue}
                 />
 
-                <CFLabel labelName="Status" id="status"></CFLabel>
+                <CFLabel labelName="Status" id="status"/>
                 <div>
                 <CRadioButton
                     checked={Boolean(profileInfoObj.status)}

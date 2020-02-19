@@ -15,7 +15,7 @@ import {
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {ProfileSetupUtils, adminUserMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
+import {ProfileSetupUtils, clientUserMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
@@ -41,8 +41,7 @@ class ProfileManage extends PureComponent {
         searchParameters: {
             profile: null,
             status: {value: 'A', label: 'All'},
-            department: null,
-            hospital: null
+            department: null
         },
         queryParams: {
             page: 0,
@@ -59,7 +58,6 @@ class ProfileManage extends PureComponent {
             profileName: '',
             profileDescription: '',
             selectedDepartment: null,
-            selectedHospital: null,
             selectedMenus: [],
             status: 'Y',
             departmentListByHospital: [],
@@ -109,7 +107,6 @@ class ProfileManage extends PureComponent {
                 profileName: '',
                 profileDescription: '',
                 selectedDepartment: null,
-                selectedHospital: null,
                 selectedMenus: [],
                 status: 'Y',
                 departmentListByHospital: [],
@@ -127,7 +124,7 @@ class ProfileManage extends PureComponent {
     };
 
     apiCall = async (page) => {
-        const {profile, status, department, hospital} = this.state.searchParameters;
+        const {profile, status, department} = this.state.searchParameters;
         let searchData = {
             profileId: profile ? profile.value : '',
             status: status && status.value !== 'A'
@@ -135,8 +132,7 @@ class ProfileManage extends PureComponent {
                 : '',
             departmentId: department
                 ? department.value
-                : '',
-            hospitalId: hospital ? hospital.value : '',
+                : ''
         };
 
         let updatedPage =
@@ -163,7 +159,6 @@ class ProfileManage extends PureComponent {
 
     initialApiCall = async () => {
         this.apiCall();
-        this.fetchHospitals();
         this.fetchDepartments();
         this.fetchProfileListForDropdown();
     };
@@ -222,28 +217,23 @@ class ProfileManage extends PureComponent {
             menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        let menusForSubDept = [...adminUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
+        let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {
-            await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
             this.setState({
                 profileUpdateData: {
                     ...this.state.profileUpdateData,
                     id: id,
                     profileName: profileResponseDTO.name,
                     profileDescription: profileResponseDTO.description,
-                    selectedHospital: {
-                        value: profileResponseDTO.hospitalId,
-                        label: profileResponseDTO.hospitalName
-                    },
                     selectedDepartment: {
                         value: profileResponseDTO.departmentId,
                         label: profileResponseDTO.departmentName
                     },
                     status: profileResponseDTO.status,
                     selectedMenus: [...menusSelectedWithFlag],
-                    departmentListByHospital: [...this.props.DepartmentSetupReducer.departmentsByHospital],
+                    departmentListByHospital: [...this.props.DepartmentSetupReducer.departments],
                     userMenus: [...alphabeticallySortedMenus],
                     defaultSelectedMenu: alphabeticallySortedMenus[0]
                 },
@@ -305,7 +295,7 @@ class ProfileManage extends PureComponent {
     };
 
     editApiCall = async () => {
-        const {id, selectedMenus, profileName, profileDescription, selectedHospital, selectedDepartment, remarks, status} = this.state.profileUpdateData;
+        const {id, selectedMenus, profileName, profileDescription, selectedDepartment, remarks, status} = this.state.profileUpdateData;
 
         let menusToBeUpdated = selectedMenus.filter(menu => menu.isUpdated || menu.isNew);
         let editRequestDTO = {
@@ -315,8 +305,7 @@ class ProfileManage extends PureComponent {
                 name: profileName,
                 remarks: remarks,
                 status: status,
-                departmentId: selectedDepartment && selectedDepartment.value,
-                hospitalId: selectedHospital && selectedHospital.value
+                departmentId: selectedDepartment && selectedDepartment.value
             },
             profileMenuRequestDTO: menusToBeUpdated.length ? [...menusToBeUpdated] : [...selectedMenus]
         };
@@ -324,13 +313,6 @@ class ProfileManage extends PureComponent {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
             this.resetProfileUpdateDataFromState();
             this.checkIfEditedOwnProfileAndShowMessage(editRequestDTO.profileDTO.id);
-            // this.setState({
-            //     showAlert: true,
-            //     alertMessageInfo: {
-            //         variant: "success",
-            //         message: this.props.ProfileEditReducer.profileSuccessMessage
-            //     }
-            // });
             await this.apiCall();
         } catch (e) {
 
@@ -339,10 +321,6 @@ class ProfileManage extends PureComponent {
 
     handleOnChange = async (event, fieldValid) => {
         event && (await this.bindValuesToState(event, fieldValid))
-    };
-
-    fetchHospitals = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
     };
 
     fetchDepartments = async () => {
@@ -424,8 +402,7 @@ class ProfileManage extends PureComponent {
                 ...this.state.searchParameters,
                 profile: null,
                 status: {value: 'A', label: 'All'},
-                department: null,
-                hospital: null
+                department: null
             }
         });
         this.apiCall()
@@ -458,7 +435,7 @@ class ProfileManage extends PureComponent {
             profileNameValid,
             profileDescriptionValid,
             profileName,
-            profileDescription, selectedDepartment, selectedHospital, selectedMenus,
+            profileDescription, selectedDepartment, selectedMenus,
             remarks
         } = this.state.profileUpdateData;
         let formValidity = profileNameValid
@@ -467,7 +444,6 @@ class ProfileManage extends PureComponent {
             && profileDescription
             && remarks
             && selectedDepartment !== null
-            && selectedHospital !== null
             && selectedMenus.length !== 0;
 
         this.setState({
@@ -512,26 +488,6 @@ class ProfileManage extends PureComponent {
         let value = event.target.value;
         let label = event.target.label;
         await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
-        if (fieldName === 'selectedHospital') {
-            if (value) {
-                let departments = await this.fetchDepartmentsByHospitalId(value);
-                this.setState({
-                    profileUpdateData: {
-                        ...this.state.profileUpdateData,
-                        selectedDepartment: null,
-                        departmentListByHospital: [...departments]
-                    }
-                })
-            } else {
-                this.setState({
-                    profileUpdateData: {
-                        ...this.state.profileUpdateData,
-                        selectedDepartment: null,
-                        departmentListByHospital: []
-                    }
-                })
-            }
-        }
         this.checkFormValidity();
     };
 
@@ -656,16 +612,13 @@ class ProfileManage extends PureComponent {
 
         const {profileErrorMessage} = this.props.ProfileEditReducer;
 
-        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
-
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+        const {departments} = this.props.DepartmentSetupReducer;
 
         const {
             selectedDepartment,
             profileDescription,
             profileName,
             status,
-            selectedHospital,
             departmentListByHospital,
             errorMessageForProfileName,
             errorMessageForProfileDescription,
@@ -684,7 +637,6 @@ class ProfileManage extends PureComponent {
                     <ProfileSetupSearchFilter
                         searchParameters={this.state.searchParameters}
                         profileList={allProfilesForDropdown}
-                        hospitalList={hospitalsForDropdown}
                         departmentList={departments}
                         onInputChange={this.handleOnChange}
                         onSearchClick={() => this.apiCall(1)}
@@ -722,13 +674,11 @@ class ProfileManage extends PureComponent {
                         profileInfoObj={{
                             profileName: profileName,
                             profileDescription: profileDescription,
-                            hospitalValue: selectedHospital,
                             departmentValue: selectedDepartment,
-                            departmentList: departmentListByHospital,
+                            departmentList: departments,
                             status: status,
                             remarks: remarks
                         }}
-                        hospitalList={hospitalsForDropdown}
                         onEnterKeyPress={this.handleEnter}
                         onInputChange={this.handleUpdateFormChange}
                         editApiCall={this.editApiCall}
@@ -746,7 +696,6 @@ class ProfileManage extends PureComponent {
                                 profileData: {
                                     profileName: profileName,
                                     profileDescription: profileDescription,
-                                    hospitalValue: selectedHospital,
                                     departmentValue: selectedDepartment,
                                     status: status,
                                     selectedMenus: selectedMenus,
@@ -768,10 +717,6 @@ class ProfileManage extends PureComponent {
                             </>}
                         message={this.state.alertMessageInfo.message}
                 />
-                {/* <Alert variant="success">
-                    <Alert.Heading className=""><i class="fa fa-check-circle" aria-hidden="true"></i>
-                        &nbsp; &nbsp;Success</Alert.Heading>
-                </Alert> */}
             </>
         )
     }
@@ -785,8 +730,7 @@ export default ConnectHoc(
         'ProfileSetupReducer',
         'ProfileDeleteReducer',
         'ProfileEditReducer',
-        'DepartmentSetupReducer',
-        'HospitalDropdownReducer'
+        'DepartmentSetupReducer'
     ],
     {
         fetchProfileList,

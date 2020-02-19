@@ -107,7 +107,6 @@ const DepartmentEditModal = ({
                         </p> : ''}
                 </div>
                 <div className="col-md-6">
-                    {console.log("===============",departmentData.formValid)}
                     <CButton
                         id="submit-update-button"
                         disabled={!departmentData.formValid}

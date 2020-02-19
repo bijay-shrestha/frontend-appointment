@@ -53,7 +53,6 @@ const UpdateProfileModal = ({
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}
-                    hospitalList={hospitalList}
                     onInputChange={onInputChange}
                     profileInfoObj={profileInfoObj}
                     errorMessageForProfileName={errorMessageForProfileName}

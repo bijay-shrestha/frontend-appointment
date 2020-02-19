@@ -33,7 +33,6 @@ class ProfileSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             profileList,
-            hospitalList,
             departmentList,
             resetSearchForm
         } = this.props;
@@ -70,18 +69,6 @@ class ProfileSetupSearchFilter extends PureComponent {
                                             placeholder="Select profile."
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                        />
-                                    </Col>
-                                    <Col sm={6} md={6} xl={3}>
-                                        <CHybridSelect
-                                            id="hospital"
-                                            label="Hospital"
-                                            name="hospital"
-                                            onKeyDown={(event) => this.handleEnter(event)}
-                                            onChange={(event) => onInputChange(event)}
-                                            options={hospitalList}
-                                            value={searchParameters.hospital}
-                                            placeholder={'Select Hospital.'}
                                         />
                                     </Col>
 
