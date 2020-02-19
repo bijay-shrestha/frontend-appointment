@@ -7,8 +7,7 @@ const DepartmentInfoForm = ({
                                 errorMessageForDepartmentName,
                                 errorMessageForDepartmentCode,
                                 onEnterKeyPress,
-                                onInputChange,
-                                hospitalList
+                                onInputChange
                             }) => {
     return (
         <>
@@ -19,18 +18,6 @@ const DepartmentInfoForm = ({
                     id="profile-info"
                     className="mt-2 add-info">
                     <Row>
-                        <Col sm={12} md={4} lg={4}>
-                            <CHybridSelect
-                                id="hospital"
-                                label="Hospital"
-                                name="hospital"
-                                onKeyDown={(event) => onEnterKeyPress(event)}
-                                onChange={(event) => onInputChange(event)}
-                                options={hospitalList}
-                                value={departmentInfoObj.hospital}
-                                placeholder="Select hospital."
-                            />
-                        </Col>
                         <Col sm={12} md={4} lg={4}>
                             <CHybridInput
                                 id="department-name"
@@ -65,23 +52,23 @@ const DepartmentInfoForm = ({
                         <Col sm={12} md={4} lg={4}>
                             <CFLabel labelName="Status" id="status"/>
                             <div>
-                            <CRadioButton
-                                checked={Boolean(departmentInfoObj.status)}
-                                disabled={true}
-                                id="radio1"
-                                label="Active"
-                                type="radio"
-                                readOnly
-                            />
-                            <CRadioButton
-                                checked={Boolean(!departmentInfoObj.status)}
-                                disabled={true}
-                                id="radio2"
-                                label="Inactive"
-                                type="radio"
-                                className="sr-only"
-                                readOnly
-                            />
+                                <CRadioButton
+                                    checked={Boolean(departmentInfoObj.status)}
+                                    disabled={true}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    readOnly
+                                />
+                                <CRadioButton
+                                    checked={Boolean(!departmentInfoObj.status)}
+                                    disabled={true}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    className="sr-only"
+                                    readOnly
+                                />
                             </div>
                         </Col>
                     </Row>

@@ -20,7 +20,6 @@ const DepartmentEditModal = ({
                                  errorMessageForDepartmentCode,
                                  errorMessage,
                                  editApiCall,
-                                 hospitalList
                              }) => {
 
     const bodyContent = <>
@@ -28,19 +27,6 @@ const DepartmentEditModal = ({
             id="department-info"
             className="mt-2">
             <Row>
-                <Col sm={12} md={6} >
-                    <CHybridSelect
-                        id="hospital"
-                        label="Hospital"
-                        name="hospital"
-                        onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event)}
-                        options={hospitalList}
-                        value={departmentData.hospital}
-                        placeholder="Select hospital."
-                        isDisabled={true}
-                    />
-                </Col>
                 <Col sm={12} md={6} >
                     <CHybridInput
                         id="department-name"
@@ -121,6 +107,7 @@ const DepartmentEditModal = ({
                         </p> : ''}
                 </div>
                 <div className="col-md-6">
+                    {console.log("===============",departmentData.formValid)}
                     <CButton
                         id="submit-update-button"
                         disabled={!departmentData.formValid}

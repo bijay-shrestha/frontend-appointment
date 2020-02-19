@@ -1,11 +1,7 @@
 import React, {PureComponent} from 'react';
 import DepartmentSetupSearchFilter from "./DepartmentSetupSearchFilter";
 import {ConnectHoc} from "@frontend-appointment/commons";
-import {
-    DepartmentSetupMiddleware,
-    logoutUser,
-    HospitalSetupMiddleware
-} from "@frontend-appointment/thunk-middleware";
+import {DepartmentSetupMiddleware, logoutUser} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import DepartmentDetailsDataTable from "./DepartmentDetailsDataTable";
 import DepartmentEditForm from "./DepartmentEditModal";
@@ -32,8 +28,6 @@ const {
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-
 class DepartmentManage extends PureComponent {
     state = {
         showDepartmentModal: false,
@@ -42,7 +36,6 @@ class DepartmentManage extends PureComponent {
         searchParameters: {
             departmentName: '',
             departmentCode: '',
-            hospital: '',
             status: {value: 'A', label: 'All'}
         },
         queryParams: {
@@ -65,7 +58,6 @@ class DepartmentManage extends PureComponent {
             name: '',
             code: '',
             status: 'Y',
-            hospital: '',
             remarks: '',
             formValid: false,
             nameValid: false,
@@ -137,7 +129,6 @@ class DepartmentManage extends PureComponent {
                 ...this.state.searchParameters,
                 departmentName: '',
                 departmentCode: '',
-                hospital: '',
                 status: {value: 'A', label: 'All'}
             },
         });
@@ -149,7 +140,6 @@ class DepartmentManage extends PureComponent {
         let searchData = {
             name: departmentName,
             departmentCode: departmentCode,
-            hospitalId: hospital ? hospital.value : '',
             status: status && status.value !== 'A'
                 ? status.value
                 : ''
@@ -217,7 +207,7 @@ class DepartmentManage extends PureComponent {
     onEditHandler = async id => {
         try {
             await this.previewApiCall(id);
-            const {name, departmentCode, status, hospitalId, hospitalName} = this.props.DepartmentPreviewReducer.departmentPreviewData;
+            const {name, departmentCode, status} = this.props.DepartmentPreviewReducer.departmentPreviewData;
             this.setState({
                 showEditModal: true,
                 departmentUpdateData: {
@@ -225,9 +215,8 @@ class DepartmentManage extends PureComponent {
                     name: name,
                     code: departmentCode,
                     status: status,
-                    hospital: {label: hospitalName, value: hospitalId},
                     id: id,
-                    formValid: true,
+                    formValid: false,
                     nameValid: true,
                     codeValid: true,
                 }
@@ -238,13 +227,12 @@ class DepartmentManage extends PureComponent {
     };
 
     editDepartment = async () => {
-        const {id, name, code, status, hospital, remarks} = this.state.departmentUpdateData;
+        const {id, name, code, status, remarks} = this.state.departmentUpdateData;
 
         let departmentUpdateRequestDTO = {
             id: id,
             name: name,
             departmentCode: code,
-            hospitalId: Number(hospital.value),
             remarks: remarks,
             status: status,
         };
@@ -376,9 +364,10 @@ class DepartmentManage extends PureComponent {
             name,
             code,
             nameValid,
-            codeValid
+            codeValid,
+            remarks
         } = this.state.departmentUpdateData;
-        let formValidity = nameValid && name && code;
+        let formValidity = nameValid && name && code && remarks;
 
         this.setState({
             departmentUpdateData: {
@@ -408,13 +397,8 @@ class DepartmentManage extends PureComponent {
         }
     };
 
-    fetchHospitals = async () => {
-        await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
-    };
-
     componentDidMount() {
         this.searchDepartments();
-        this.fetchHospitals();
     }
 
     render() {
@@ -432,14 +416,11 @@ class DepartmentManage extends PureComponent {
 
         const {deleteErrorMessage} = this.props.DepartmentDeleteReducer;
 
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
-
         return <>
         <div className="department-setup">
             <div className="">
                 <DepartmentSetupSearchFilter
                     searchParameters={this.state.searchParameters}
-                    hospitalList={hospitalsForDropdown}
                     onInputChange={this.handleSearchFormChange}
                     onSearchClick={() => this.searchDepartments(1)}
                     resetSearchForm={this.handleSearchFormReset}
@@ -476,7 +457,6 @@ class DepartmentManage extends PureComponent {
                     setShowModal={this.setShowModal}
                     onEnterKeyPress={this.handleEnter}
                     departmentData={this.state.departmentUpdateData}
-                    hospitalList={hospitalsForDropdown}
                     onInputChange={this.handleUpdateFormChange}
                     editApiCall={this.editDepartment}
                     formValid={departmentUpdateData.formValid}
@@ -517,7 +497,5 @@ export default ConnectHoc(
         deleteDepartment,
         downloadExcelForDepartments,
         clearDepartmentSuccessErrorMessagesFromStore,
-        logoutUser,
-        fetchActiveHospitalsForDropdown
-
+        logoutUser
     });

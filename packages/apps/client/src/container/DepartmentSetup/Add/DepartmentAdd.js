@@ -22,7 +22,6 @@ class DepartmentAdd extends PureComponent {
         name: '',
         code: '',
         status: 'Y',
-        hospital: '',
         showConfirmModal: false,
         formValid: false,
         nameValid: false,
@@ -128,7 +127,7 @@ class DepartmentAdd extends PureComponent {
     };
 
     componentDidMount() {
-        this.fetchHospitals();
+
     }
 
     render() {
@@ -136,8 +135,6 @@ class DepartmentAdd extends PureComponent {
             name, code, status, hospital, errorMessageForDepartmentName,
             errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal
         } = this.state;
-
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
         return <>
             <div className="department-setup">
@@ -155,14 +152,12 @@ class DepartmentAdd extends PureComponent {
                         departmentInfoObj={{
                             name: name,
                             code: code,
-                            status: status,
-                            hospital: hospital
+                            status: status
                         }}
                         errorMessageForDepartmentName={errorMessageForDepartmentName}
                         errorMessageForDepartmentCode={errorMessageForDepartmentCode}
                         onEnterKeyPress={this.handleEnter}
                         onInputChange={this.handleOnChange}
-                        hospitalList={hospitalsForDropdown}
                     />
 
                     <Row className="mt-4">
@@ -184,8 +179,7 @@ class DepartmentAdd extends PureComponent {
                                 departmentData={{
                                     name: name,
                                     code: code,
-                                    status: status,
-                                    hospitalName: typeof hospital == "object" ? hospital.label : hospital
+                                    status: status
                                 }}
                             />
                         </Col>
