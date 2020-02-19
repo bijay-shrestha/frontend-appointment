@@ -74,7 +74,8 @@ class CDataTable extends PureComponent {
             frameworkComponents,
             floatingFilter,
             editType,
-            cellMouseOver
+            cellMouseOver,
+            rowHeight
         } = this.props;
 
         return (
@@ -97,6 +98,7 @@ class CDataTable extends PureComponent {
                         cellMouseOver={cellMouseOver}
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
+                        rowHeight={rowHeight}
                     />
                 </div>
             </>

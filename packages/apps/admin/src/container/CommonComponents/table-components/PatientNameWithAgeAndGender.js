@@ -4,7 +4,7 @@ import {Badge} from 'react-bootstrap'
 const PatientWithAgeAndGender = props => {
   return (
     <>
-     <ul>
+     <ul className="patient-column">
        <li>
        {props.node.data.patientName.toUpperCase()} 
       </li>
