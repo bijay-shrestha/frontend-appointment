@@ -34,17 +34,6 @@ const AdminDetailsModalContent = ({ adminInfoObj, adminImage }) => {
                             </Col>
                             <Col sm={12} md={12} lg={9}>
                                 <Row>
-                                    <Col sm={12} md={6} lg={6}>
-                                        <CHybridInput
-                                            id="hospital"
-                                            placeholder="Hospital"
-                                            name="hospital"
-                                            value={adminInfoObj.hospital && adminInfoObj.hospital.label}
-                                            disabled={true}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} lg={6}></Col>
-
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridInput
                                             id="department"

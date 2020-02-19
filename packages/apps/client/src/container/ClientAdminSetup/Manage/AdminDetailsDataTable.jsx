@@ -55,13 +55,6 @@ const AdminDetailsDataTable = ({
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital',
-                            field: 'hospitalName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                        },
-                        {
                             headerName: 'Admin Avatar',
                             field: 'fileUri',
                             resizable: true,

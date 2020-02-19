@@ -68,7 +68,6 @@ const AdminEditModal = ({
                                        onMacIdChange={onMacIdChange}
                                        onAddMoreMacId={onAddMoreMacId}
                                        onRemoveMacId={onRemoveMacId}
-                                       hospitalList={adminUpdateData.hospitalList}
                                        departmentList={adminUpdateData.departmentList}
                                        profileList={adminUpdateData.profileList}
                                        errorMessageForAdminName={errorMessageForAdminName}

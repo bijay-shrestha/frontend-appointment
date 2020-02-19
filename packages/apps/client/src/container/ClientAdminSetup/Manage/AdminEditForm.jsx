@@ -23,7 +23,6 @@ const AdminEditForm = ({
                            onMacIdChange,
                            onAddMoreMacId,
                            onRemoveMacId,
-                           hospitalList,
                            departmentList,
                            profileList,
                            errorMessageForAdminName,
@@ -85,21 +84,6 @@ const AdminEditForm = ({
                             <Row>
                                 <Col sm={12} md={12} lg={6}>
                                     <CHybridSelect
-                                        id="hospital"
-                                        label="Hospital"
-                                        name="hospital"
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event)}
-                                        options={hospitalList}
-                                        value={adminInfoObj.hospital}
-                                        placeholder="Select hospital."
-                                        isDisabled={true}
-                                    />
-                                </Col>
-                                <Col sm={12} md={12} lg={6}></Col>
-
-                                <Col sm={12} md={12} lg={6}>
-                                    <CHybridSelect
                                         id="admin-department"
                                         label="Department"
                                         name="department"
@@ -107,8 +91,7 @@ const AdminEditForm = ({
                                         onChange={(event) => onInputChange(event)}
                                         options={departmentList}
                                         value={adminInfoObj.department}
-                                        isDisabled={!adminInfoObj.hospital}
-                                        placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                        placeholder={"Select department."}
                                     />
                                 </Col>
 

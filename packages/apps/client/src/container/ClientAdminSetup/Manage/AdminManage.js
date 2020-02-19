@@ -18,7 +18,7 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import AdminDetailsDataTable from "./AdminDetailsDataTable";
-import {CAlert, CLoading} from "@frontend-appointment/ui-elements";
+import {CAlert} from "@frontend-appointment/ui-elements";
 import AdminEditModal from "./AdminEditModal";
 import {
     AdminSetupUtils,
@@ -60,7 +60,6 @@ class AdminManage extends PureComponent {
         passwordResetError: '',
         searchParameters: {
             metaInfo: '',
-            hospital: '',
             department: '',
             profile: '',
             genderCode: '',
@@ -83,7 +82,6 @@ class AdminManage extends PureComponent {
         showAlert: false,
         adminUpdateData: {
             id: '',
-            hospital: null,
             department: null,
             profile: null,
             fullName: '',
@@ -123,7 +121,6 @@ class AdminManage extends PureComponent {
         this.setState({
             adminUpdateData: {
                 ...this.state.departmentUpdateData,
-                hospital: null,
                 fullName: '',
                 username: '',
                 email: '',
@@ -228,7 +225,7 @@ class AdminManage extends PureComponent {
 
     setDataForPreview = async (adminData) => {
         const {
-            id, hospital, department, profile, fullName, username, email, mobileNumber, adminCategory, genderCode, status,
+            id, department, profile, fullName, username, email, mobileNumber, adminCategory, genderCode, status,
             hasMacBinding, macIdList, adminAvatar, remarks, adminAvatarUrl
         } = adminData;
 
@@ -239,7 +236,6 @@ class AdminManage extends PureComponent {
             adminUpdateData: {
                 ...this.state.adminUpdateData,
                 id: id,
-                hospital: {...hospital},
                 department: {...department},
                 profile: {...profile},
                 fullName: fullName,
@@ -273,11 +269,11 @@ class AdminManage extends PureComponent {
 
     checkFormValidity = () => {
         const {
-            hospital, department, profile, fullName, username, email, mobileNumber, genderCode, fullNameValid,
+            department, profile, fullName, username, email, mobileNumber, genderCode, fullNameValid,
             emailValid, mobileNumberValid, remarks
         } = this.state.adminUpdateData;
 
-        let formValidity = hospital && department && profile && fullNameValid && fullName && username && emailValid
+        let formValidity = department && profile && fullNameValid && fullName && username && emailValid
             && email && mobileNumberValid && mobileNumber && remarks && genderCode;
 
         this.setState({
@@ -348,7 +344,6 @@ class AdminManage extends PureComponent {
             searchParameters: {
                 ...this.state.searchParameters,
                 metaInfo: null,
-                hospital: null,
                 department: null,
                 profile: null,
                 genderCode: null,
@@ -379,9 +374,6 @@ class AdminManage extends PureComponent {
             let label = event.target.label;
             await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
             switch (fieldName) {
-                case "hospital":
-                    this.actionsOnHospitalChange(value);
-                    break;
                 case "department":
                     this.actionsOnDepartmentChange(value);
                     break;
@@ -627,10 +619,6 @@ class AdminManage extends PureComponent {
         await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
     };
 
-    fetchDepartmentsByHospitalId = async value => {
-        value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
-    };
-
     fetchProfilesByDepartmentId = async value => {
         value && await this.props.fetchActiveProfilesByDepartmentId(FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID, value);
     };
@@ -648,10 +636,9 @@ class AdminManage extends PureComponent {
     };
 
     searchAdmins = async (page) => {
-        const {metaInfo, hospital, department, profile, genderCode, status,} = this.state.searchParameters;
+        const {metaInfo, department, profile, genderCode, status,} = this.state.searchParameters;
         let searchData = {
             adminMetaInfoId: metaInfo && metaInfo.value,
-            hospitalId: hospital && hospital.value,
             departmentId: department && department.value,
             profileId: profile && profile.value,
             genderCode: genderCode && genderCode.value,
@@ -684,7 +671,7 @@ class AdminManage extends PureComponent {
 
     editApiCall = async () => {
         const {
-            id, hospital, profile, fullName, email, mobileNumber, adminCategory, status, hasMacBinding,
+            id, profile, fullName, email, mobileNumber, status, hasMacBinding,
             adminAvatar, remarks, adminAvatarUrlNew, genderCode
         } = this.state.adminUpdateData;
         const {updatedMacIdList} = this.state;
@@ -707,7 +694,6 @@ class AdminManage extends PureComponent {
             status,
             genderCode,
             hasMacBinding: hasMacBinding ? 'Y' : 'N',
-            hospitalId: hospital.value,
             profileId: profile.value,
             remarks: remarks,
             macAddressUpdateInfo: [...macAddressList],
@@ -795,7 +781,7 @@ class AdminManage extends PureComponent {
         let macIDs = [];
         if (adminData) {
             const {
-                id, hospitalName, hospitalId, departmentId, departmentName, profileId, profileName, fullName, username,
+                id, departmentId, departmentName, profileId, profileName, fullName, username,
                 email, mobileNumber, gender, status, hasMacBinding, fileUri, adminMacAddressInfo, remarks
             } = adminData;
 
@@ -805,7 +791,6 @@ class AdminManage extends PureComponent {
 
             return {
                 id: id,
-                hospital: {label: hospitalName, value: hospitalId},
                 department: {label: departmentName, value: departmentId},
                 profile: {label: profileName, value: profileId},
                 fullName: fullName,
@@ -829,11 +814,11 @@ class AdminManage extends PureComponent {
         let adminInfoObj = this.prepareDataForPreview(adminData);
 
         const {
-            id, hospital, department, profile, fullName, username, email, mobileNumber, genderCode, status,
-            hasMacBinding, macIdList, adminAvatar, remarks, adminAvatarUrl
+            id, department, profile, fullName, username, email, mobileNumber, genderCode, status,
+            hasMacBinding, macIdList, adminAvatar, adminAvatarUrl
         } = adminInfoObj;
 
-        await this.fetchDepartmentsByHospitalId(hospital.value);
+        // await this.fetchDepartments();
         await this.fetchProfilesByDepartmentId(department.value);
 
         this.setState({
@@ -841,7 +826,6 @@ class AdminManage extends PureComponent {
             adminUpdateData: {
                 ...this.state.adminUpdateData,
                 id: id,
-                hospital: hospital,
                 department: department,
                 profile: profile,
                 fullName: fullName,
@@ -854,8 +838,7 @@ class AdminManage extends PureComponent {
                 macIdList: [...macIdList],
                 adminAvatar: adminAvatar,
                 adminAvatarUrl: adminAvatarUrl,
-                hospitalList: [...this.props.HospitalDropdownReducer.hospitalsForDropdown],
-                departmentList: [...this.props.DepartmentSetupReducer.departmentsByHospital],
+                departmentList: [...this.props.DepartmentSetupReducer.departments],
                 profileList: [...this.props.ProfileSetupReducer.activeProfilesByDepartmentId],
                 remarks: ''
             },
@@ -866,7 +849,6 @@ class AdminManage extends PureComponent {
     initialAPICalls = () => {
         this.fetchAdminMetaInfosForDropdown();
         this.fetchActiveProfileLists();
-        this.fetchHospitals();
         this.fetchDepartments();
         this.searchAdmins();
     };
@@ -903,8 +885,6 @@ class AdminManage extends PureComponent {
 
         const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer;
 
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
-
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 
         return <>
@@ -913,7 +893,6 @@ class AdminManage extends PureComponent {
                     onInputChange={this.handleSearchFormChange}
                     searchParameters={searchParameters}
                     resetSearchForm={this.handleSearchFormReset}
-                    hospitalList={hospitalsForDropdown}
                     departmentList={departments}
                     profileList={activeProfilesForDropdown}
                     adminMetaInfos={adminMetaInfoForDropdown}

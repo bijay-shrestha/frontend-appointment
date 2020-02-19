@@ -91,7 +91,7 @@ class ProfileAdd extends PureComponent {
 
     initialApiCalls = async () => {
         await this.fetchDepartments();
-        await this.fetchHospitals();
+        // await this.fetchHospitals();
     };
 
     componentDidMount() {

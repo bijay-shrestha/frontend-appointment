@@ -21,7 +21,6 @@ const AdminInfoForm = ({
                            onMacIdChange,
                            onAddMoreMacId,
                            onRemoveMacId,
-                           hospitalList,
                            departmentList,
                            profileList,
                            errorMessageForAdminName,
@@ -47,7 +46,7 @@ const AdminInfoForm = ({
                         <div className="image-upload-container">
                         {/* <CFLabel labelName="Admin Picture"></CFLabel> */}
                             <div className="image-box">
-                         
+
                                 <img alt="ADMIN IMAGE"
                                      src={adminInfoObj.adminAvatarUrl ? adminInfoObj.adminAvatarUrl : DefaultProfileImage}/>
                                 <CButton id="uploadAdminImage"
@@ -73,19 +72,6 @@ const AdminInfoForm = ({
 
                     <Col md={12} lg={9} className="">
                         <Row className="p-0">
-                            <Col sm={12} md={12} lg={6}>
-                                <CHybridSelect
-                                    id="admin-hospital"
-                                    label="Hospital"
-                                    name="hospital"
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                    onChange={(event) => onInputChange(event)}
-                                    options={hospitalList}
-                                    value={adminInfoObj.hospital}
-                                    placeholder="Select hospital."
-                                />
-                            </Col>
-                            <Col sm={12} md={12} lg={6}></Col>
 
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridSelect
@@ -96,8 +82,7 @@ const AdminInfoForm = ({
                                     onChange={(event) => onInputChange(event)}
                                     options={departmentList}
                                     value={adminInfoObj.department}
-                                    isDisabled={!adminInfoObj.hospital}
-                                    placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                    placeholder={"Select department."}
                                 />
                             </Col>
 
@@ -220,7 +205,7 @@ const AdminInfoForm = ({
                                 />
 
                                 </div>
-                                
+
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
@@ -258,7 +243,7 @@ const AdminInfoForm = ({
                             {/* mac binding inputs */}
                             <Col sm={12} md={12} lg={6} className="py-4">
                                 <Row>
-                                    
+
                                             <Col>
                                                 {/* <label>Device Filter</label> */}
                                                 <CCheckbox id="admin-add-hasMacBinding"
@@ -283,7 +268,7 @@ const AdminInfoForm = ({
                                                     </CButton>
                                                 </Col> : ''
                                             }
-                                   
+
 
 
                                     <Col lg={12}>
