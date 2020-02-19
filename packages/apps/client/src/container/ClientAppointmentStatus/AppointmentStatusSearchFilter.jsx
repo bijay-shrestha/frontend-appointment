@@ -103,35 +103,21 @@ class AppointmentLog extends PureComponent {
 
                                 <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
-                                        id="hospital"
-                                        label="Hospital"
-                                        name="hospitalId"
-                                        options={hospitalList}
-                                        placeholder="Select hospital."
-                                        onKeyDown={this.handleEnter}
-                                        onChange={(event) => handleSearchFormChange(event)}
-                                        value={searchParameters.hospitalId}
-                                    />
-                                </Col>
-
-                            <Col sm={12} md={4} xl={4} className="hide-on-md">
-                                {/*    /!* //should be empty *!/*/}
-                            </Col>
-
-                                <Col sm={12} md={4} xl={4}>
-                                    <CHybridSelect
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
-                                        placeholder={!searchParameters.hospitalId ? "Select hospital first." : "Select doctor."}
+                                        placeholder={"Select doctor."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.doctorId}
-                                        isDisabled={!searchParameters.hospitalId}
                                     />
                                 </Col>
+
+                                {/*<Col sm={12} md={4} xl={4} className="hide-on-md">*/}
+                                {/*    /!*    /!* //should be empty *!/*!/*/}
+                                {/*</Col>*/}
 
                                 <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
@@ -139,12 +125,11 @@ class AppointmentLog extends PureComponent {
                                         label="Specialization"
                                         name="specializationId"
                                         options={specializationList}
-                                        placeholder={!searchParameters.hospitalId ? "Select hospital first." : "Select specialization."}
+                                        placeholder={"Select specialization."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.specializationId}
-                                        isDisabled={!searchParameters.hospitalId}
                                     />
                                 </Col>
 

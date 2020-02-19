@@ -56,7 +56,7 @@ const AppointmentApprovalListComponent = Loadable({
 });
 
 const AppointmentStatusComponent = Loadable({
-    loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
+    loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
     loading: () => getLoader()
 });
 

@@ -107,29 +107,31 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                     :
                     <>
                         {((!isStatusListLoading && errorMessageForStatusDetails) ?
-                            (
-                                <Row>
-                                    <div className="filter-message">
-                                        <div className="no-data ">
-                                            <i className="fa fa-hand-o-up"/>
-                                        </div>
-                                        <div
-                                            className="message text-center">{errorMessageForStatusDetails}</div>
-                                    </div>
-                                </Row>
-                            ) :
-                            (!isStatusListLoading && searchErrorMessage) ?
-                                (
-                                    <Row>
-                                        <div className="filter-message">
-                                            <div className="no-data primary">
-                                                <i className="fa fa-file-text-o"/>
+                                    (
+                                        <Row>
+                                            <div className="filter-message">
+                                                <div className="no-data ">
+                                                    <i className="fa fa-hand-o-up"/>
+                                                </div>
+                                                <div
+                                                    className="message text-center">{errorMessageForStatusDetails}</div>
                                             </div>
-                                            <div className="message text-center">{searchErrorMessage}</div>
-                                        </div>
-                                    </Row>
-                                ) :
-                                <CLoading/>)}
+                                        </Row>
+                                    ) :
+                                    (!isStatusListLoading && searchErrorMessage) ?
+                                        (
+                                            <Row>
+                                                <div className="filter-message">
+                                                    <div className="no-data primary">
+                                                        <i className="fa fa-file-text-o"/>
+                                                    </div>
+                                                    <div className="message text-center">{searchErrorMessage}</div>
+                                                </div>
+                                            </Row>
+                                        ) :
+                                        <CLoading/>
+                            )
+                        }
                     </>
                 }
 
