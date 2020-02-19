@@ -1,12 +1,13 @@
-import React, {memo} from 'react';
+import React, {memo} from 'react'
 import {
   CDataTable,
   CLoading,
   CPagination
-} from '@frontend-appointment/ui-elements';
-import TableAction from '../CommonComponents/table-components/TableAction';
-import PreviewDetails from './PatientPreview';
-import PatientEditModal from './PatientEditModal';
+} from '@frontend-appointment/ui-elements'
+import TableAction from '../CommonComponents/table-components/TableAction'
+import TableStatus from '../CommonComponents/table-components/StatusLabel'
+import PreviewDetails from './PatientPreview'
+import PatientEditModal from './PatientEditModal'
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -27,15 +28,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
     handleEnter,
     editChange,
     editHandleApi
-  } = tableHandler;
-  const {queryParams, totalRecords, handlePageChange} = paginationProps;
+  } = tableHandler
+  const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
         <h5 className="title">Patient Details</h5>
-        {!isSearchLoading &&
-        !searchErrorMessage &&
-         patientSearchList.length ? (
+        {!isSearchLoading && !searchErrorMessage && patientSearchList.length ? (
           <>
             <CDataTable
               classes="ag-theme-balham"
@@ -51,7 +50,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   headerClass: 'resizable-header header-first-class',
                   resizable: true,
                   sortable: true,
-                  editable: true,
+                  width: 200,
+                  height: 200,
                   sizeColumnsToFit: true,
                   cellClass: 'first-class'
                 },
@@ -93,7 +93,6 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
-                  // headerClass: "fi",
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -107,7 +106,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Status',
-                  field: 'status',
+                  cellRenderer: 'tableStatusRenderer',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -119,7 +118,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-               
+
                 {
                   headerName: 'Hospital Name',
                   field: 'hospitalName',
@@ -143,26 +142,29 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
                   cellRendererParams: {
-                      onClick: function (e, id, type) {
-                       editHandler(id)
-                      },
-                      byPass:true,
-                      onlyEdit:true
-                      // filteredAction: props.filteredActions
+                    onClick: function (e, id, type) {
+                      editHandler(id)
+                    },
+                    byPass: true,
+                    onlyEdit: true
                   },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }
               ]}
               defaultColDef={{resizable: true}}
               getSelectedRows={
-                  // checkIfRoleExists(props.filteredActions, 4) &&
-                  previewCall
+                // checkIfRoleExists(props.filteredActions, 4) &&
+                previewCall
               }
               frameworkComponents={{
-                childActionRenderer: TableAction
+                childActionRenderer: TableAction,
+                tableStatusRenderer: TableStatus
               }}
               rowSelection={'single'}
               rowData={patientSearchList}
+              getRowHeight={(params)=>function (params) {
+                return params.data.rowHeight
+              }}
             />
             <CPagination
               totalItems={totalRecords}
@@ -204,7 +206,6 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
           errorMessageForMobileNumber={errorMessageForMobileNumber}
           onInputChange={editChange}
           editApiCall={editHandleApi}
-          
         />
       ) : (
         ''
@@ -213,4 +214,4 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
   )
 }
 
-export default memo(PatientDataList);
+export default memo(PatientDataList)
