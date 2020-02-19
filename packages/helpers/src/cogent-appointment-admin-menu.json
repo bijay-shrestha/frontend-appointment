@@ -1,5 +1,5 @@
 {
-  "SUP": [
+  "ADMIN": [
     {
       "id": "1",
       "parentId": null,
@@ -300,10 +300,8 @@
       "name": "Patient Information",
       "path": "/patientInformation",
       "roles": [
-        2,
-        3,
-        4,
-        5
+       23,
+       24
       ],
       "icon": "fa fa-id-badge",
       "leftNavigation": "Y",

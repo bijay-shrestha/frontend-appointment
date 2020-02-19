@@ -54,7 +54,7 @@ const PatientEditModal = ({
                 <CFLabel labelName="Gender" id="gender"></CFLabel>
                 <div>
                   <CRadioButton
-                    checked={patientData.gender === 'M'}
+                    checked={patientData.gender === 'MALE'}
                     onKeyDown={event => handleEnterPress(event)}
                     onChange={(event, validity) =>
                       onInputChange(event, validity, 'E')
@@ -63,11 +63,11 @@ const PatientEditModal = ({
                     id="radio1"
                     label="Male"
                     type="radio"
-                    value="M"
+                    value="MALE"
                   />
                 
                   <CRadioButton
-                    checked={patientData.gender === 'F'}
+                    checked={patientData.gender === 'FEMALE'}
                     onKeyDown={event => handleEnterPress(event)}
                     onChange={(event, validity) =>
                       onInputChange(event, validity, 'E')
@@ -76,10 +76,10 @@ const PatientEditModal = ({
                     id="radio2"
                     label="Female"
                     type="radio"
-                    value="F"
+                    value="FEMALE"
                   />
                   <CRadioButton
-                    checked={patientData.gender === 'O'}
+                    checked={patientData.gender === 'OTHER'}
                     onKeyDown={event => handleEnterPress(event)}
                     onChange={(event, validity) =>
                       onInputChange(event, validity, 'E')
@@ -88,7 +88,7 @@ const PatientEditModal = ({
                     id="radio3"
                     label="Other"
                     type="radio"
-                    value="O"
+                    value="Other"
                   />
                 </div>
               </Col>
