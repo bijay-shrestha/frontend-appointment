@@ -71,7 +71,8 @@ const revenueGeneratedWeek = {
 const appointmentQueueDaily = {
   isAppointmentQueueLoading:true,
   appointmentQueueData:[],
-  appointmentQueueErrorMessage:''
+  appointmentQueueErrorMessage:'',
+  totalItems:''
 }
 
 export const DashboardAppointmentQueueReducer = (
@@ -84,21 +85,24 @@ export const DashboardAppointmentQueueReducer = (
         ...state,
         isAppointmentQueueLoading:true,
         appointmentQueueData:[],
-        appointmentQueueErrorMessage:''
+        appointmentQueueErrorMessage:'',
+        totalItems:''
       }
     case DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS:
       return {
         ...state,
-        isAppointmentQueueLoading:true,
-        appointmentQueueData:action.payload.data,
-        appointmentQueueErrorMessage:''
+        isAppointmentQueueLoading:false,
+        appointmentQueueData:action.payload.data.appointmentQueueByTimeDTOList,
+        appointmentQueueErrorMessage:'',
+        totalItems:action.payload.data.appointmentQueueByTimeDTOList.totalItems
       }
-    case DASHBOARD_APPOINTMENT_STATISTICS_ERROR:
+    case DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR:
       return {
         ...state,
-        isAppointmentQueueLoading:true,
+        isAppointmentQueueLoading:false,
         appointmentQueueData:[],
-        appointmentQueueErrorMessage:action.payload.data
+        appointmentQueueErrorMessage:action.payload.data,
+        totalItems:''
       }
     default:
       return {...state}

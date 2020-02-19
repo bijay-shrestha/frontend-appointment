@@ -158,7 +158,7 @@ export const DashboardApiConstant = {
     REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
     REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
     REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics"),
-    APPOINTMENT_QUERY:BASE.concat(APPOINTMENT_BASE + "/appoitment-queue")
+    APPOINTMENT_QUERY:BASE.concat(DASHBOARD_BASE + "/today-appointment")
 };
 
 

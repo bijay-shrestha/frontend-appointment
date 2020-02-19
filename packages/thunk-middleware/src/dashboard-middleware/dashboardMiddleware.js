@@ -182,6 +182,6 @@ export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
     dispatch(
       DashboardDetailsActions.dashboardYearRevenueFetchingError(errorMessage)
     )
-    throw e
+    throw e;
   }
 }
