@@ -9,7 +9,8 @@ import {
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     HospitalSetupMiddleware,
-    previewProfile
+    previewProfile,
+    logoutUser
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
@@ -260,10 +261,53 @@ class ProfileManage extends PureComponent {
         }
     };
 
+
+    logoutUser = async () => {
+        try {
+            let logoutResponse = await this.props.logoutUser('/cogent/logout');
+            if (logoutResponse) {
+                this.props.history.push('/');
+            }
+        } catch (e) {
+        }
+    };
+
+    automaticLogoutUser = () => {
+        setTimeout(() => this.logoutUser(), 10000)
+    };
+
+    checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
+        let variantType = '', message = '';
+        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        if (editedProfileId === loggedInAdminInfo.profileId) {
+            variantType = "warning";
+            message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
+                "you'll be automatically logged out in 10s";
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: variantType,
+                    message: message
+                }
+            });
+            this.automaticLogoutUser();
+        } else {
+            variantType = "success";
+            message = this.props.ProfileEditReducer.profileSuccessMessage;
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: variantType,
+                    message: message
+                }
+            });
+        }
+    };
+
     editApiCall = async () => {
         const {id, selectedMenus, profileName, profileDescription, selectedHospital, selectedDepartment, remarks, status} = this.state.profileUpdateData;
 
-        let menusToBeUpdated = selectedMenus.filter(menu=> menu.isUpdated || menu.isNew);
+        let menusToBeUpdated = selectedMenus.filter(menu => menu.isUpdated || menu.isNew);
         let editRequestDTO = {
             profileDTO: {
                 description: profileDescription,
@@ -274,19 +318,19 @@ class ProfileManage extends PureComponent {
                 departmentId: selectedDepartment && selectedDepartment.value,
                 hospitalId: selectedHospital && selectedHospital.value
             },
-            profileMenuRequestDTO: [...menusToBeUpdated]
+            profileMenuRequestDTO: menusToBeUpdated.length ? [...menusToBeUpdated] : [...selectedMenus]
         };
         try {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
             this.resetProfileUpdateDataFromState();
-
-            this.setState({
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: "success",
-                    message: this.props.ProfileEditReducer.profileSuccessMessage
-                }
-            });
+            this.checkIfEditedOwnProfileAndShowMessage(editRequestDTO.profileDTO.id);
+            // this.setState({
+            //     showAlert: true,
+            //     alertMessageInfo: {
+            //         variant: "success",
+            //         message: this.props.ProfileEditReducer.profileSuccessMessage
+            //     }
+            // });
             await this.apiCall();
         } catch (e) {
 
@@ -522,7 +566,7 @@ class ProfileManage extends PureComponent {
                             status: 'Y',
                             profileMenuId: null,
                             isNew: true,
-                            isUpdated:false
+                            isUpdated: false
                         })
                     })
                 }
@@ -548,7 +592,7 @@ class ProfileManage extends PureComponent {
                 }
                 // selectedUserMenusForModal: userMenusSelected
             });
-        console.log("menusss all",this.state.profileUpdateData.selectedMenus);
+        console.log("menusss all", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -569,7 +613,7 @@ class ProfileManage extends PureComponent {
                         roleId: role.id,
                         status: 'Y',
                         isNew: true,
-                        isUpdated:false,
+                        isUpdated: false,
                         profileMenuId: null
                     })
                 }
@@ -593,7 +637,7 @@ class ProfileManage extends PureComponent {
                 // selectedUserMenusForModal: userMenusSelected
             }
         });
-        console.log("menussss",this.state.profileUpdateData.selectedMenus);
+        console.log("menussss", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
@@ -753,6 +797,7 @@ export default ConnectHoc(
         fetchActiveHospitalsForDropdown,
         fetchActiveDepartmentsByHospitalId,
         fetchActiveDepartmentsForDropdown,
-        fetchAllProfileListForSearchDropdown
+        fetchAllProfileListForSearchDropdown,
+        logoutUser
     }
 )

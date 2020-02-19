@@ -45,7 +45,7 @@ const DoctorForm = ({
                 <Row>
                   <Col sm={12} md={12} lg={12}>
                     <div className="image-upload-container">
-                      <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel>
+                      {/* <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel> */}
                       <div className="image-box">
                         <img
                           alt="Doctor Image"
@@ -150,7 +150,7 @@ const DoctorForm = ({
                       value="O"
                     /></div>
                   </Col>
-                 
+
 
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
@@ -175,14 +175,14 @@ const DoctorForm = ({
                       }
                       label="Select Specialization"
                       options={activeSpecializationList}
-                      isDisabled={!activeSpecializationList.length?true:false}
+                      // isDisabled={!activeSpecializationList.length ?true:false}
                       value={doctorInfoObj.specializationIds}
                       required={true}
                       isMulti={true}
                     />
                   </Col>
 
-                 
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridSelect
                       id="qualificationIds"
@@ -213,7 +213,7 @@ const DoctorForm = ({
                     />
                   </Col>
 
-                  
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="doctor-number"
@@ -230,7 +230,7 @@ const DoctorForm = ({
                       errorMessagePassed={errorMessageForDoctorContact}
                     />
                   </Col>
-                  
+
                   <Col sm={12} md={6} lg={6} className="">
                     <CHybridInput
                       id="appointment-charge"
@@ -248,6 +248,23 @@ const DoctorForm = ({
                     />
                   </Col>
 
+                  <Col sm={12} md={6} lg={6} className="">
+                    <CHybridInput
+                        id="appointment-follow-up-charge"
+                        name="appointmentFollowUpCharge"
+                        onKeyDown={event => onEnterKeyPress(event)}
+                        onChange={(event, validity) =>
+                            onInputChange(event, validity)
+                        }
+                        placeholder="Doctor Appointment Follow Up Charge"
+                        value={doctorInfoObj.appointmentFollowUpCharge}
+                        required={true}
+                        hasValidation={true}
+                        fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1,"+2+"})?$")}
+                        errorMessagePassed={errorMessageForAppointmentCharge}
+                    />
+                  </Col>
+
                   <Col sm={12} md={4} lg={4}>
                     <CFLabel labelName="Status" id="status"></CFLabel>
                     <div>
@@ -262,7 +279,7 @@ const DoctorForm = ({
                     </div>
                   </Col>
 
-                  
+
                 </Row>
               </Col>
             </Row>

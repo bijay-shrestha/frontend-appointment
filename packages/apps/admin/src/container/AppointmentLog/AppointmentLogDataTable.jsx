@@ -46,11 +46,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         <Row>
             <Col >
             <div className="appointment-badge float-right">
-            <span><Badge variant="primary">PA</Badge> : Pending Approval</span>
-            <span><Badge variant="success">A</Badge> : Approved</span>
-            <span><Badge variant="danger">C</Badge> : Canceled</span>
-            <span><Badge variant="warning">RE</Badge> : Rejected</span>
-            <span><Badge variant="dark">R</Badge> : Refunded</span>
+            <span><Badge variant="primary">PA</Badge>  <span className="badge-data">Pending Approval</span></span>
+            <span><Badge variant="success">A</Badge>  <span className="badge-data">Approved</span> </span>
+            <span><Badge variant="danger">C</Badge>  <span className="badge-data">Canceled</span></span>
+            <span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>
+            <span><Badge variant="dark">R</Badge>  <span className="badge-data">Refunded</span></span>
             </div>
             </Col>
             </Row>
@@ -126,7 +126,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer:'patientRenderer'
                 },
-               
+
                 {
                   headerName: 'DOB',
                   field: 'patientDob',
@@ -143,7 +143,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Address',
-                  field: 'address',
+                  field: 'patientAddress',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true

@@ -32,39 +32,24 @@ const CChangePasswordModal = ({
                     />
                     <CPasswordSaveForm
                         onSubmitHandler={(userPasswordObject) => changePassword(userPasswordObject)}
-                        showRemarksField={true}/>
+                        showRemarksField={true}
+                        errorMessage={errorMessage}/>
                 </CForm>
             </Col>
         </Row>
     </>;
 
-    let footerChildren = <>
-        <Container fluid="true">
-            <Row>
-                <div className="col-md-12">
-                    {errorMessage ?
-                        <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
-                        </p> : ''}
-                </div>
-                {/*<div className="col-md-6">*/}
-                {/*    /!*<CButton*!/*/}
-                {/*    /!*    id="submit-update-button"*!/*/}
-                {/*    /!*    // disabled={!adminUpdateData.formValid}*!/*/}
-                {/*    /!*    name="Update"*!/*/}
-                {/*    /!*    size="lg"*!/*/}
-                {/*    /!*    className="btn-action  float-right"*!/*/}
-                {/*    /!*    onClickHandler={resetPassword}/>*!/*/}
-                {/*    <CButton id="cancel-update-profile"*/}
-                {/*             variant="light"*/}
-                {/*             size="lg"*/}
-                {/*             className="btn-action  float-right mr-2"*/}
-                {/*             name="Cancel"*/}
-                {/*             onClickHandler={setShowModal}*/}
-                {/*    />*/}
-                {/*</div>*/}
-            </Row>
-        </Container>
-    </>;
+    // let footerChildren = <>
+    //     <Container fluid="true">
+    //         <Row>
+    //             <div className="col-md-12">
+    //                 {errorMessage ?
+    //                     <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+    //                     </p> : ''}
+    //             </div>
+    //         </Row>
+    //     </Container>
+    // </>;
     return (
         <>
             <CModal show={showPasswordChangeModal}
@@ -74,7 +59,7 @@ const CChangePasswordModal = ({
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal change-password"
-                    footerChildren={footerChildren}
+                    // footerChildren={footerChildren}
                     closeButton={true}
             />
         </>

@@ -46,3 +46,9 @@ export const getDayOfWeek = (date) => {
     return isNaN(dayOfWeek) ? null :
         ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
 };
+
+export const getNoOfDaysBetweenGivenDatesInclusive = (fromDate, toDate) => {
+    let differenceInTime = toDate.getTime() - fromDate.getTime();
+    let milliSecondsInADay = (1000 * 3600 * 24);
+    return (Math.round(differenceInTime / milliSecondsInADay)) + 1;
+};

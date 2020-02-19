@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
+import {Badge, Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CMenuSearch} from '@frontend-appointment/ui-elements';
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {Link} from "react-router-dom";
+import * as Material from 'react-icons/md';
+
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
 
@@ -31,6 +33,16 @@ class CHeader extends Component {
 
     formControl = React.createRef();
     searchDropdown = React.createRef();
+
+    // closeAlert = () => {
+    //     this.setState({
+    //         showAlert: !this.state.showAlert,
+    //         alertMessageInfo: {
+    //             variant: '',
+    //             message: ''
+    //         },
+    //     });
+    // };
 
     setShowModal = () => this.setState({
         showChangePasswordModal: false,
@@ -114,13 +126,13 @@ class CHeader extends Component {
         setTimeout(() => this.clearCount(), 1000)
     };
 
-    handleShiftKeyPress = (event) => {
+    handleKeyPress = (event) => {
         let keypressCount = this.state.keyPressCount;
         if (event.keyCode === 16) {
             if (!keypressCount || keypressCount === 2) {
-                keypressCount += 1;
+                console.log('i am double clicked');
                 this.setState({
-                    keyPressCount: keypressCount
+                    keyPressCount: keypressCount +1
                 });
                 this.clearKeyPressCount();
             } else if (keypressCount === 1) {
@@ -137,24 +149,24 @@ class CHeader extends Component {
                     keyPressCount: keypressCount
                 });
             }
-            // else if (keypressCount === 3) {
-            //     this.formControl.current && this.formControl.current.blur();
-            //     this.clearCount();
-            // }
+            else if (keypressCount === 3) {
+                this.formControl.current && this.formControl.current.blur();
+                // this.clearCount();
+            }
         }
     };
 
     componentDidMount() {
         this.setLoggedInUserInfo();
-        document.addEventListener('keydown', this.handleShiftKeyPress);
-        document.addEventListener('keyup', this.handleShiftKeyPress);
+        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keyup', this.handleKeyPress);
     };
 
     componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleShiftKeyPress);
-        document.removeEventListener("keyup", this.handleShiftKeyPress);
+        document.removeEventListener("keydown", this.handleKeyPress);
+        document.removeEventListener("keyup", this.handleKeyPress);
         clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
-    };
+    }
 
     resetState = () => {
         this.setState({
@@ -169,28 +181,16 @@ class CHeader extends Component {
     };
 
     handleSearchOnBlur = (event) => {
-        // setTimeout(event,(event)=>{
-            if (event.target.value) {
-                this.clearStateOnTimeout();
-                // this.formControl.current.focus();
-            }
-            ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
-        // });
+        if (event.target.value) {
+            this.clearStateOnTimeout();
+            // this.formControl.current.focus();
+        }
+        ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
-    handleSearchOnFocus = (event) => {
-        // setTimeout(event, (event) => {
-            ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
-            this.searchDropdown.current.focus();
-        // });
-    };
-
-    handleKeyDown = ()=>{
-
-    };
-
-    handleKeyUp = (e)=>{
-        if (e.keyCode === 13){ return console.log('hello world')}
+    handleSearchOnFocus = () => {
+        ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
+        this.searchDropdown.current.focus();
     };
 
     searchUserMenus = (event) => {
@@ -202,37 +202,37 @@ class CHeader extends Component {
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
             userMenus.map(
-              userMenu => {
-                  if (!userMenu.childMenus.length) {
-                      if ((userMenu.name).toLowerCase().includes(keyWord)) {
-                          // IF PARENT MATCHES THE KEYWORD,ADD PARENT
-                          let displayData = {
-                              id: userMenu.id,
-                              name: userMenu.name,
-                              path: BASE_PATH.concat(userMenu.path),
-                              breadcrumb: userMenu.name,
-                              iCharacter: userMenu.name.charAt(0).toUpperCase()
-                          };
-                          menusMatchingKeyWord.push(displayData);
-                      }
-                  } else {
-                      // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
-                      let childrenMatchingKeyWord = userMenu.childMenus.filter(
-                        child => (child.name).toLowerCase().includes(keyWord));
-                      if (childrenMatchingKeyWord.length > 0) {
-                          childrenMatchingKeyWord.map(child => {
-                              let displayData = {
-                                  id: child.id,
-                                  name: child.name,
-                                  path: BASE_PATH.concat(child.path),
-                                  breadcrumb: userMenu.name.concat("/".concat(child.name)),
-                                  iCharacter: child.name.charAt(0).toUpperCase()
-                              };
-                              menusMatchingKeyWord.push(displayData);
-                          });
-                      }
-                  }
-              }
+                userMenu => {
+                    if (!userMenu.childMenus.length) {
+                        if ((userMenu.name).toLowerCase().includes(keyWord)) {
+                            // IF PARENT MATCHES THE KEYWORD,ADD PARENT
+                            let displayData = {
+                                id: userMenu.id,
+                                name: userMenu.name,
+                                path: BASE_PATH.concat(userMenu.path),
+                                breadcrumb: userMenu.name,
+                                iCharacter: userMenu.name.charAt(0).toUpperCase()
+                            };
+                            menusMatchingKeyWord.push(displayData);
+                        }
+                    } else {
+                        // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
+                        let childrenMatchingKeyWord = userMenu.childMenus.filter(
+                            child => (child.name).toLowerCase().includes(keyWord));
+                        if (childrenMatchingKeyWord.length > 0) {
+                            childrenMatchingKeyWord.map(child => {
+                                let displayData = {
+                                    id: child.id,
+                                    name: child.name,
+                                    path: BASE_PATH.concat(child.path),
+                                    breadcrumb: userMenu.name.concat("/".concat(child.name)),
+                                    iCharacter: child.name.charAt(0).toUpperCase()
+                                };
+                                menusMatchingKeyWord.push(displayData);
+                            });
+                        }
+                    }
+                }
             )
         } else {
             menusMatchingKeyWord = [];
@@ -248,117 +248,127 @@ class CHeader extends Component {
     render() {
 
         return (
-          <React.Fragment>
-              <header className="main-header container-fluid d-flex justify-content-between align-items-center">
-                  <div className="header-content-left">
-                      <CBreadcrumb
-                        id="cogent"
-                        breadcrumbData={this.props.dataForBreadCrumb}/>
-                  </div>
+            <React.Fragment>
+                <header className="main-header container-fluid d-flex justify-content-between align-items-center">
+                    <div className="header-content-left">
+                        <CBreadcrumb
+                            id="cogent"
+                            breadcrumbData={this.props.dataForBreadCrumb}/>
+                    </div>
 
-                  {/*search start*/}
-                  <div className="header-content-right d-flex align-items-center">
-                      <Dropdown
-                        ref={this.searchDropdown}
-                        alignRight
-                        className="topbar-dropdown topbar-search"
-                        show={this.state.showResults}
-                      >
-                          <Dropdown.Toggle variant="default" id="dropdown-basic"
-                                           className="search-button rounded-circle">
-                              <CMenuSearch
-                                id="searchMenu"
-                                setRef={this.formControl}
-                                onChange={this.searchUserMenus}
-                                value={this.state.searchKeyword}
-                                handleOnBlur={this.handleSearchOnBlur}
-                                handleOnFocus={this.handleSearchOnFocus}
-                                handleKeyDown={this.handleKeyDown}
-                                handleKeyUp={this.handleKeyUp}
-                              />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                              {this.state.showResults ?
-                                <ul className="drop-down-list">
+                    {/*search start*/}
+                    <div className="header-content-right d-flex align-items-center">
+                        <Dropdown
+                            ref={this.searchDropdown}
+                            alignRight
+                            className="topbar-dropdown topbar-search"
+                            show={this.state.showResults}
+                        >
+                            <Dropdown.Toggle variant="default" id="dropdown-basic"
+                                             className="search-button rounded-circle">
+                                <CMenuSearch
+                                    id="searchMenu"
+                                    setRef={this.formControl}
+                                    onChange={this.searchUserMenus}
+                                    value={this.state.searchKeyword}
+                                    handleOnBlur={this.handleSearchOnBlur}
+                                    handleOnFocus={this.handleSearchOnFocus}
+                                    // handleOnKeyDown={}
+                                />
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                {this.state.showResults ?
+                                    <ul className="drop-down-list">
+                                        {
+                                            this.state.searchResult.length ?
+                                                this.state.searchResult.map(value => (
+
+                                                    <li className="" key={'menu-li' + value.id}>
+                                                        <div className="" key={value.id}>
+                                                            <Link
+                                                                key={'menu-link' + value.id}
+                                                                to={value.path}
+                                                                className="menu-link">
+                                                                <div className="anchor-icon">
+                                                                    {value.iCharacter}
+                                                                </div>
+                                                                <div className="menu-box">
+                                                                    <div className="menu">{value.name}</div>
+                                                                    <div className="sub-menu">{value.breadcrumb}</div>
+                                                                </div>
+                                                            </Link>
+                                                        </div>
+                                                    </li>
+                                                ))
+                                                :
+                                                <li className="">
+                                                    <div className="">
+                                                        No result(s) found.
+                                                    </div>
+                                                </li>
+                                        }
+                                    </ul> : ''
+                                }
+                            </Dropdown.Menu>
+                        </Dropdown>
+
+
+                        {/* end search */}
+
+                        {/* start user profile */}
+                        <Dropdown alignRight className="user-profile">
+                            <Dropdown.Toggle variant="default" id="dropdown-basic">
+                                <Image src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
+                                    : require('../../img/sabu.jpg')} className="avatar"/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <div className="user-details">
+                                    <Image
+                                        src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
+                                            : require('../../img/sabu.jpg')}
+                                        className="avatar"/>
+                                    <div
+                                        className="user-name"> {this.state.userInfo && this.state.userInfo.fullName}</div>
+                                    <div
+                                        className="profile-name">
+                                        {this.state.userInfo && this.state.userInfo.profileName}</div>
                                     {
-                                        this.state.searchResult.length ?
-                                          this.state.searchResult.map(value => (
-
-                                            <li className="" key={'menu-li' + value.id}>
-                                                <div className="" key={value.id}>
-                                                    <Link
-                                                      key={'menu-link' + value.id}
-                                                      to={value.path}
-                                                      className="menu-link">
-                                                        <div className="anchor-icon">
-                                                            {value.iCharacter}
-                                                        </div>
-                                                        <div className="menu-box">
-                                                            <div className="menu">{value.name}</div>
-                                                            <div className="sub-menu">{value.breadcrumb}</div>
-                                                        </div>
-                                                    </Link>
-                                                </div>
-                                            </li>
-                                          ))
-                                          :
-                                          <li className="">
-                                              <div className="">
-                                                  No result(s) found.
-                                              </div>
-                                          </li>
+                                        this.state.userInfo.isCogentAdmin === 'Y' ?
+                                            <div>
+                                                <Badge variant="primary">Cogent Admin</Badge>
+                                            </div> :
+                                            ''
                                     }
-                                </ul> : ''
-                              }
-                          </Dropdown.Menu>
-                      </Dropdown>
+                                    <Button variant="outline-light" className="mb-2 reset-password">Reset
+                                        Password</Button>
+                                </div>
 
+                                <div className="logout">
+                                    <Button variant="outline-primary"
+                                            onClick={this.handleChangePassword}
+                                            block><i className='fa fa-lock'/> Change Password</Button>
+                                    <Button variant="outline-primary"
+                                            onClick={this.logoutUser}
+                                            block><i className='fa fa-sign-out'/> Logout</Button>
+                                </div>
+                                {this.state.showChangePasswordModal &&
+                                <CChangePasswordModal
+                                    showPasswordChangeModal={this.state.showChangePasswordModal}
+                                    setShowModal={this.setShowModal}
+                                    oldPassword={this.state.oldPassword}
+                                    oldPasswordError={this.state.errorOldPassword}
+                                    onChangeHandler={this.onChangeHandler}
+                                    changePassword={this.changePassword}
+                                />
+                                }
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        {/* end user profile */}
+                    </div>
 
-                      {/* end search */}
+                </header>
 
-                      {/* start user profile */}
-                      <Dropdown alignRight className="user-profile">
-                          <Dropdown.Toggle variant="default" id="dropdown-basic">
-                              <Image src={require('../../img/sabu.jpg')} className="avatar"/>
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                              <div className="user-details">
-                                  <Image src={require('../../img/sabu.jpg')} className="avatar"/>
-                                  <div
-                                    className="user-name"> {this.state.userInfo && this.state.userInfo.fullName}</div>
-                                  <div
-                                    className="profile-name">
-                                      {this.state.userInfo && this.state.userInfo.profileName}</div>
-                                  <Button variant="outline-light" className="mb-2 reset-password">Reset
-                                      Password</Button>
-                              </div>
-
-                              <div className="logout">
-                                  <Button variant="outline-primary"
-                                          onClick={this.handleChangePassword}
-                                          block><i className='fa fa-lock'/> Change Password</Button>
-                                  <Button variant="outline-primary"
-                                          onClick={this.logoutUser}
-                                          block><i className='fa fa-sign-out'/> Logout</Button>
-                              </div>
-                              {this.state.showChangePasswordModal &&
-                              <CChangePasswordModal
-                                showPasswordChangeModal={this.state.showChangePasswordModal}
-                                setShowModal={this.setShowModal}
-                                oldPassword={this.state.oldPassword}
-                                oldPasswordError={this.state.errorOldPassword}
-                                onChangeHandler={this.onChangeHandler}
-                                changePassword={this.changePassword}
-                              />
-                              }
-                          </Dropdown.Menu>
-                      </Dropdown>
-                      {/* end user profile */}
-                  </div>
-
-              </header>
-
-          </React.Fragment>
+            </React.Fragment>
         );
 
     }

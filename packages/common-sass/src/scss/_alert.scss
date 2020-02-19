@@ -63,8 +63,22 @@
   .alert-danger{
     background-color:$danger;
   }
+
   .alert-warning{
     background-color:$warning;
+
+    &.alert-dismissible .close{
+      color:$gray-900 !important;
+    }
+
+    .alert-heading i{
+      color:$gray-900;
+    }
+
+    p{
+      color:$gray-900;
+    }
+
   }
 
 

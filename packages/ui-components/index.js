@@ -6,3 +6,5 @@ export {default as NewPassword} from './src/CNewPassword';
 export {default as CPasswordSaveForm} from './src/CPasswordSaveForm';
 export {default as CEnglishDatePicker} from './src/CEnglishDatePicker';
 export {default as CTimePicker} from './src/CTimePicker';
+export {default as CConfirmationModal} from './src/CConfirmationModal' ;
+export {default as CDateButtonPills} from './src/CDateButtonPills/CDateButtonPills';

@@ -100,6 +100,7 @@ export const DepartmentSetupReducer = (state = {...initialState}, action) => {
         case FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR:
             return {
                 ...state,
+                departmentsByHospital:[],
                 errorMessageForDropdown: action.payload.errorMessage
             };
         default:

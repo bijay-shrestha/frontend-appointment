@@ -62,7 +62,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder="Select Appointment Number"
+                                            placeholder=" Appointment Number"
                                             value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
@@ -88,7 +88,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 name="fromDate"
                                                 label="From Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                maxDate={0}
+                                                // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
                                                 showMonthDropdown={true}
@@ -106,7 +106,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 name="toDate"
                                                 label="To Date"
                                                 dateFormat="yyyy-MM-dd"
-                                                maxDate={0}
+                                                // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
                                                 peekNextMonth={true}
@@ -125,7 +125,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder="Name, Mobile no, App. no Or Reg. no"
+                                            placeholder="Name, Mobile no Or Reg. no"
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}

@@ -43,15 +43,24 @@ import {
     AdminListReducer,
     AdminPreviewReducer,
     AdminSetupReducer
-} from "./admin-module/adminSetupReducer";
+} from './admin-module/adminSetupReducer'
 import {
     DoctorDutyRosterDeleteReducer,
     DoctorDutyRosterEditReducer,
     DoctorDutyRosterListReducer,
     DoctorDutyRosterPreviewReducer,
-    DoctorDutyRosterSaveReducer,
-} from "./admin-module/doctorDutyRosterReducer";
+    DoctorDutyRosterSaveReducer
+} from './admin-module/doctorDutyRosterReducer'
 
+import {
+    DashboardAppointmentStatisticsReducer,
+    DashboardRegisteredPatientReducer,
+    DashboardRevenueGeneratedDayReducer,
+    DashboardRevenueGeneratedMonthReducer,
+    DashboardRevenueGeneratedWeekReducer,
+    DashboardRevenueGeneratedYearReducer,
+    DashboardRevenueStatisticsReducer
+} from './admin-module/dashboardDetailsReducer'
 
 import {
     CountryCodeDropdownReducer,
@@ -63,29 +72,36 @@ import {
     QualificationSaveReducer,
     QualificationSearchReducer,
     UniversitiesForDropdownReducer
-} from './admin-module/qualificationSetupReducer';
+} from './admin-module/qualificationSetupReducer'
 
 import {
-  AppointmentRefundListReducer,
-  AppointmentApprovalListReducer,
-  AppointmentLogListReducer,
-  AppointmentStatusListReducer,
-  AppointmentRefundReducer,
-  AppointmentRefundRejectReducer
-} from './admin-module/appointmentDetailsReducer'; 
-import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer';
-import {logoutReducer} from './common/logoutReducer';
-import {WeekdaysReducer} from './common/weekdaysReducer';
-import {PatientDropdownListReducer} from './admin-module/patientSetupReducer';
+    AppointmentApprovalListReducer,
+    AppointmentLogListReducer,
+    AppointmentRefundListReducer,
+    AppointmentRefundReducer,
+    AppointmentRefundRejectReducer,
+    AppointmentStatusListReducer,
+    RescheduleLogReducer
+} from './admin-module/appointmentDetailsReducer'
+import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
+import {logoutReducer} from './common/logoutReducer'
+import {WeekdaysReducer} from './common/weekdaysReducer'
+import {PatientDropdownListReducer,PatientEditReducer,PatientPreviewReducer,PatientSearchReducer} from './admin-module/patientSetupReducer'
 
 export {
-
     AppointmentApprovalListReducer,
     AppointmentLogListReducer,
     AppointmentStatusListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRefundListReducer,
+    DashboardAppointmentStatisticsReducer,
+    DashboardRegisteredPatientReducer,
+    DashboardRevenueGeneratedDayReducer,
+    DashboardRevenueGeneratedMonthReducer,
+    DashboardRevenueGeneratedWeekReducer,
+    DashboardRevenueGeneratedYearReducer,
+    DashboardRevenueStatisticsReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,
@@ -137,5 +153,9 @@ export {
     QualificationAliasDropdownReducer,
     QualificationDropdownReducer,
     UniversitiesForDropdownReducer,
-    PatientDropdownListReducer
+    PatientDropdownListReducer,
+    RescheduleLogReducer,
+    PatientEditReducer,
+    PatientPreviewReducer,
+    PatientSearchReducer
 }

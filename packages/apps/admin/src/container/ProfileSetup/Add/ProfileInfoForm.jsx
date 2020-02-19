@@ -74,6 +74,7 @@ const ProfileInfoForm = ({
                 />
 
                 <CFLabel labelName="Status" id="status"></CFLabel>
+                <div>
                 <CRadioButton
                     checked={Boolean(profileInfoObj.status)}
                     disabled={true}
@@ -91,6 +92,7 @@ const ProfileInfoForm = ({
                     type="radio"
                     className="sr-only"
                 />
+                </div>
             </CForm>
         </Col>
     );

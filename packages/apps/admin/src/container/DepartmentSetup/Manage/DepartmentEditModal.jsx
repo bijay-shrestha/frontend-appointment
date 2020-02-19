@@ -28,7 +28,7 @@ const DepartmentEditModal = ({
             id="department-info"
             className="mt-2">
             <Row>
-                <Col sm={12} md={4} lg={4}>
+                <Col sm={12} md={6} >
                     <CHybridSelect
                         id="hospital"
                         label="Hospital"
@@ -38,9 +38,10 @@ const DepartmentEditModal = ({
                         options={hospitalList}
                         value={departmentData.hospital}
                         placeholder="Select hospital."
+                        isDisabled={true}
                     />
                 </Col>
-                <Col sm={12} md={12} lg={4}>
+                <Col sm={12} md={6} >
                     <CHybridInput
                         id="department-name"
                         name="name"
@@ -54,7 +55,7 @@ const DepartmentEditModal = ({
                         errorMessagePassed={errorMessageForDepartmentName}
                     />
                 </Col>
-                <Col sm={12} md={12} lg={4}>
+                <Col sm={12} md={6} >
                     <CHybridInput
                         id="department-code"
                         name="code"
@@ -63,12 +64,13 @@ const DepartmentEditModal = ({
                         placeholder="Department Code"
                         value={departmentData.code}
                         required={true}
+                        disabled={true}
                         // hasValidation={true}
                         // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                         errorMessagePassed={errorMessageForDepartmentCode}
                     />
                 </Col>
-                <Col sm={12} md={12} lg={4}>
+                <Col sm={12} md={6}>
 
                     <CFLabel labelName="Status" id="status"/>
                     <CRadioButton
@@ -93,7 +95,7 @@ const DepartmentEditModal = ({
                     />
                 </Col>
 
-                <Col sm={12} md={12} lg={6}>
+                <Col sm={12} md={6}>
                     <CHybridTextArea
                         id="department-remarks"
                         name="remarks"
@@ -122,7 +124,7 @@ const DepartmentEditModal = ({
                     <CButton
                         id="submit-update-button"
                         disabled={!departmentData.formValid}
-                        name="Update Department"
+                        name="Update"
                         size="lg"
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>

@@ -18,7 +18,7 @@
   $hover-color             : lighten($cogent, 45%);
   $border-color            :$cogent-border;
   $header-background-color :$white;
-  $header-foreground-color :lighten($body-color, 20%);
+  $header-foreground-color :lighten($body-color, 10%);
   $odd-row-background-color:$white;
   $selected-color          : lighten($cogent, 40%);
 
@@ -94,8 +94,8 @@
   // }
 
   .ag-theme-balham .ag-header {
-      font-weight   : 600;
-      text-transform: uppercase;
+      font-weight   : 500;
+      text-transform: capitalize;
       font-size     : 12px;
       letter-spacing: 0.02rem;
     
@@ -116,7 +116,7 @@
   }
 
   .ag-cell{
-      text-transform:lowercase;
+      text-transform:uppercase;
   }
 
 //   .ag-theme-balham .ag-ltr .ag-cell 
@@ -137,3 +137,15 @@
 
 
 //   }
+
+.data-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img{
+        width: 40px;
+    height: 40px;
+    }
+}

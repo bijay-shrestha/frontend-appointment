@@ -7,8 +7,9 @@ const PROFILE_BASE = '/profile';
 const QFA_BASE = '/qualificationAlias';
 const CNTRY_BASE = '/country';
 const UN_BASE = '/university';
-const PATIENT_BASE="/patient";
-const APPOINTMENT_BASE="/appointment"
+const PATIENT_BASE = "/patient";
+const APPOINTMENT_BASE = "/appointment";
+const DASHBOARD_BASE = "/dashboard";
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -60,54 +61,54 @@ export const passwordAPIConstants = {
 };
 
 export const specializationSetupAPIConstants = {
-  CREATE_SPECIALIZATION: BASE.concat(SP_BASE),
-  SEARCH_SPECIALIZATION: BASE.concat(SP_BASE + '/search'),
-  FETCH_SPECIALIZATION_DETAILS: BASE.concat(SP_BASE + '/detail'),
-  EDIT_SPECIALIZATION: BASE.concat(SP_BASE),
-  EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + '/excel'),
-  DELETE_SPECIALIZATION: BASE.concat(SP_BASE),
-  DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown'),
-  ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/active/min'),
-  SPECIALIZATION_BY_HOSPITAL: BASE.concat(SP_BASE.concat('/hospital-wise')),
-  SPECIALIZATION_BY_DOCTOR: BASE.concat(SP_BASE.concat('/doctor-wise')),
-  SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL: BASE.concat(SP_BASE + '/hospital-wise')
+    CREATE_SPECIALIZATION: BASE.concat(SP_BASE),
+    SEARCH_SPECIALIZATION: BASE.concat(SP_BASE + '/search'),
+    FETCH_SPECIALIZATION_DETAILS: BASE.concat(SP_BASE + '/detail'),
+    EDIT_SPECIALIZATION: BASE.concat(SP_BASE),
+    EXPORT_SPECIALIZATION_EXCEL: BASE.concat(SP_BASE + '/excel'),
+    DELETE_SPECIALIZATION: BASE.concat(SP_BASE),
+    DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/dropdown'),
+    ACTIVE_DROPDOWN_SPECIALIZATION: BASE.concat(SP_BASE + '/active/min'),
+    SPECIALIZATION_BY_HOSPITAL: BASE.concat(SP_BASE.concat('/hospital-wise')),
+    SPECIALIZATION_BY_DOCTOR: BASE.concat(SP_BASE.concat('/doctor-wise')),
+    SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL: BASE.concat(SP_BASE + '/hospital-wise')
 };
 
 export const hospitalSetupApiConstants = {
-  CREATE_HOSPITAL: BASE.concat(HP_BASE),
-  SEARCH_HOSPITAL: BASE.concat(HP_BASE + '/search'),
-  FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + '/detail'),
-  EDIT_HOSPITAL: BASE.concat(HP_BASE),
-  EXPORT_HOSPITAL_EXCEL: BASE.concat(HP_BASE + '/excel'),
-  DELETE_HOSPITAL: BASE.concat(HP_BASE),
-  DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown'),
-  FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/active/min')),
-  SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown/active')
+    CREATE_HOSPITAL: BASE.concat(HP_BASE),
+    SEARCH_HOSPITAL: BASE.concat(HP_BASE + '/search'),
+    FETCH_HOSPITAL_DETAILS: BASE.concat(HP_BASE + '/detail'),
+    EDIT_HOSPITAL: BASE.concat(HP_BASE),
+    EXPORT_HOSPITAL_EXCEL: BASE.concat(HP_BASE + '/excel'),
+    DELETE_HOSPITAL: BASE.concat(HP_BASE),
+    DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown'),
+    FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/active/min')),
+    SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown/active')
 };
 
 export const doctorSetupApiConstants = {
-  CREATE_DOCTOR: BASE.concat(DOCTOR_BASE),
-  SEARCH_DOCTOR: BASE.concat(DOCTOR_BASE + '/search'),
-  FETCH_DOCTOR: BASE.concat(DOCTOR_BASE + '/detail'),
-  EDIT_DOCTOR: BASE.concat(DOCTOR_BASE),
-  DELETE_DOCTOR: BASE.concat(DOCTOR_BASE),
-  FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/active/min'),
-  FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/hospital-wise'),
-  FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
-  FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat('/updateDetails'))
+    CREATE_DOCTOR: BASE.concat(DOCTOR_BASE),
+    SEARCH_DOCTOR: BASE.concat(DOCTOR_BASE + '/search'),
+    FETCH_DOCTOR: BASE.concat(DOCTOR_BASE + '/detail'),
+    EDIT_DOCTOR: BASE.concat(DOCTOR_BASE),
+    DELETE_DOCTOR: BASE.concat(DOCTOR_BASE),
+    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/active/min'),
+    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/hospital-wise'),
+    FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
+    FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat('/updateDetails'))
 };
 
 export const qualificationSetupApiConstants = {
-  CREATE_QUALIFICATION: BASE.concat(QF_BASE),
-  SEARCH_QUALIFICATION: BASE.concat(QF_BASE + '/search'),
-  FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + '/detail'),
-  EDIT_QUALIFICATION: BASE.concat(QF_BASE),
-  DELETE_QUALIFICATION: BASE.concat(QF_BASE),
-  SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE: BASE.concat(QF_BASE + '/min')
+    CREATE_QUALIFICATION: BASE.concat(QF_BASE),
+    SEARCH_QUALIFICATION: BASE.concat(QF_BASE + '/search'),
+    FETCH_QUALIFICATION_DETAIL: BASE.concat(QF_BASE + '/detail'),
+    EDIT_QUALIFICATION: BASE.concat(QF_BASE),
+    DELETE_QUALIFICATION: BASE.concat(QF_BASE),
+    SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE: BASE.concat(QF_BASE + '/min')
 };
 
 export const qualificationSetupAliasCode = {
-  FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
 };
 
 
@@ -126,22 +127,40 @@ export const doctorDutyRosterApiConstants = {
 };
 
 export const countrySetupAliasCode = {
-  FETCH_COUNTRY_CODE: BASE.concat(CNTRY_BASE)
+    FETCH_COUNTRY_CODE: BASE.concat(CNTRY_BASE)
 };
 
 export const universitySetupAliasCode = {
-  FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE + '/active/min')
+    FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE + '/active/min')
 };
 
 export const patientSetupApiConstant = {
-   ACTIVE_PATIENT_META_INFO_DETAILS:BASE.concat(PATIENT_BASE+"metaInfo/active/min")
-}
+    ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min"),
+    ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE+ "/metaInfo/min"),
+    SEARCH_PATIENT_INFO:BASE.concat(PATIENT_BASE+"/patient/search"),
+    PREVIEW_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE+"/detail"),
+    UPDATE_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE)
+};
+
 
 export const appointmentSetupApiConstant ={
     APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
-    APPOINTMENT_REJECT_REFUND_DETAIL_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund"),
-    APPOINTMENT_REJECT_REFUND_EDIT:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
+    APPOINTMENT_REFUND_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund/approve"),
+    APPOINTMENT_REJECT_REFUND:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
     APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
     APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
-    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval")
-}
+    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval"),
+    SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log"))
+};
+
+export const DashboardApiConstant = {
+    OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + "/overAllAppointments"),
+    REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
+    REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
+    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics")
+};
+
+
+
+
+
