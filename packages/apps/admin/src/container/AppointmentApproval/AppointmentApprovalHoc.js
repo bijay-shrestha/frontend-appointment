@@ -54,7 +54,19 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0,
       showModal: false,
-      previewData: {}
+      previewData: {},
+      rejectRequestDTO: {
+        appointmentId: '',
+        remarks: ''
+      },
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      rejectModalShow: false,
+      showAlert: false,
+      approveConfirmationModal: false,
+      approveAppointmentId: ''
     }
 
     handleEnterPress = event => {
@@ -236,80 +248,79 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-
     approveHandler = data => {
       this.setState({
-          refundConfirmationModal: true,
-          refundAppointmentId: data.appointmentId
+        approveConfirmationModal: true,
+        approveAppointmentId: data.appointmentId
       })
-  }
+    }
 
-  approveHandleApi = async () => {
+    approveHandleApi = async () => {
       try {
-          await this.props.appointmentRefund(
-              appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
-              this.state.refundAppointmentId
-          )
-          this.setState({
-              showAlert: true,
-              alertMessageInfo: {
-                  variant: 'success',
-                  message: this.props.AppointmentRefundReducer.refundSuccess
-              }
-          })
-          this.searchAppointment()
+        await this.props.appointmentRefund(
+          appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
+          this.state.refundAppointmentId
+        )
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentRefundReducer.refundSuccess
+          }
+        })
+        this.searchAppointment()
       } catch (e) {
-          this.setState({
-              showAlert: true,
-              alertMessageInfo: {
-                  variant: 'error',
-                  message: this.props.AppointmentRefundReducer.refundError
-              }
-          })
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'error',
+            message: this.props.AppointmentRefundReducer.refundError
+          }
+        })
       } finally {
-          this.setShowModal()
+        this.setShowModal()
       }
-  }
+    }
 
-  rejectSubmitHandler = async () => {
+    rejectSubmitHandler = async () => {
       try {
-          await this.props.appointmentRejectRefund(
-              appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
-              this.state.refundRejectRequestDTO
-          )
-          this.setShowModal()
-          this.setState({
-              showAlert: true,
-              alertMessageInfo: {
-                  variant: 'success',
-                  message: this.props.AppointmentRefundRejectReducer
-                      .refundRejectSuccess
-              }
-          })
-          this.searchAppointment()
+        await this.props.appointmentRejectRefund(
+          appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
+          this.state.refundRejectRequestDTO
+        )
+        this.setShowModal()
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentRefundRejectReducer
+              .refundRejectSuccess
+          }
+        })
+        this.searchAppointment()
       } catch (e) {
-          console.log(e)
+        console.log(e)
       }
-  }
+    }
 
-  rejectRemarksHandler = event => {
+    rejectRemarksHandler = event => {
       const {name, value} = event.target
       let rejectData = {...this.state.rejectRequestDTO}
-      reject[name] = value
+      rejectData[name] = value
       this.setState({
-          rejectRequestDTO: rejectData
+        rejectRequestDTO: rejectData
       })
-  }
+    }
 
-  onRejectHandler = async data => {
+    onRejectHandler = async data => {
       this.props.clearAppointmentRefundRejectMessage()
       let rejectData = {...this.state.refundRejectRequestDTO}
-      reject['appointmentId'] = data.appointmentId
+      rejectData['appointmentId'] = data.appointmentId
       await this.setState({
-          rejectRequestDTO: rejectData,
-          rejectModalShow: true
+        rejectRequestDTO: rejectData,
+        rejectModalShow: true
       })
-  }
+    }
 
     async componentDidMount () {
       await this.searchAppointment()

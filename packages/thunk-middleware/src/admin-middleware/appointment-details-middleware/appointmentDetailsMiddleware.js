@@ -153,3 +153,53 @@ export const searchRescheduleLog = (path,paginationData, searchParam) => async d
 export const clearRescheduleLogMessage = () => async dispatch => {
     dispatch(AppointmentDetailActions.clearRescheduleLogMessage())
 };
+
+export const appointmentApprove= (
+    path,
+    id
+) => async dispatch => {
+    dispatch(AppointmentDetailActions.appointmentApproveStart())
+    try {
+        const response = await Axios.getWithPathVariables(path, id)
+        dispatch(
+            AppointmentDetailActions.appointmentApproveSuccess('Appointment Approved Successfully')
+        )
+        return response;
+    } catch (e) {
+        dispatch(
+            AppointmentDetailActions.appointmentApproveSuccess(
+                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
+            )
+        )
+        throw e;
+    }
+}
+
+export const appointmentReject= (
+    path,
+    data
+) => async dispatch => {
+    dispatch(AppointmentDetailActions.appointmentRejectStart())
+    try {
+        const response = await Axios.put(path, id)
+        dispatch(
+            AppointmentDetailActions.appointmentRejectSuccess('Appointment Reject Succesfully')
+        )
+        return response;
+    } catch (e) {
+        dispatch(
+            AppointmentDetailActions.appointmentRejectError(
+                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
+            )
+        )
+        throw e;
+    }
+}
+
+export const clearAppointmentRejectMessage = () => async dispatch => {
+    dispatch({type: 'CLEAR_APPOINTMENT_REJECT_MESSAGE'})
+};
+
+export const clearAppointmentApproveMessage = () => async dispatch => {
+    dispatch({type: 'CLEAR_APPOINTMENT_APPROVE_MESSAGE'})
+};
