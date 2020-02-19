@@ -445,8 +445,8 @@ export const AppointmentApproveReducer = (
     case 'CLEAR_APPOINTMENT_APPROVE_MESSAGE':
       return {
         ...state,
-        appointmentRejectSuccessMessage: '',
-        appointmentRejectErrorMessage: ''
+        approveSuccessMessage: '',
+        approveErrorMessage: ''
       }
     default:
       return {...state}

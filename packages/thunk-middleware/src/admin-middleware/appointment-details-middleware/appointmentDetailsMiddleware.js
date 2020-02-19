@@ -167,7 +167,7 @@ export const appointmentApprove= (
         return response;
     } catch (e) {
         dispatch(
-            AppointmentDetailActions.appointmentApproveSuccess(
+            AppointmentDetailActions.appointmentApproveError(
                 e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
             )
         )
@@ -181,7 +181,7 @@ export const appointmentReject= (
 ) => async dispatch => {
     dispatch(AppointmentDetailActions.appointmentRejectStart())
     try {
-        const response = await Axios.put(path, id)
+        const response = await Axios.put(path, data)
         dispatch(
             AppointmentDetailActions.appointmentRejectSuccess('Appointment Reject Succesfully')
         )
