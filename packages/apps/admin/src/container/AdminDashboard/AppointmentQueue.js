@@ -64,11 +64,14 @@ const AppointmentQueue = props => {
               rowHeight={70}
               columnDefs={[
                 {
-                  headerName: '',
+                  headerName: 'Appointment Time',
                   field: 'appointmentTime',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  valueFormatter:function timeFormatter(params) {
+                    return new Date(params.value).getHours().toString()+":"+new Date(params.value).getMinutes().toString();
+                  }
                 },
                 {
                   headerName: 'Patient(Mobile Number)',
