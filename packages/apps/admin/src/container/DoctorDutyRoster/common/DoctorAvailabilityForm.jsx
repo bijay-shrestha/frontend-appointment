@@ -8,7 +8,8 @@ const DoctorAvailabilityForm = ({
                                     handleDoctorAvailabilityFormChange,
                                     wholeWeekOff,
                                     handleWholeWeekOff,
-                                    type
+                                    type,
+                                    rosterGapDuration
                                 }) => {
     return <>
         <Col md={12} lg={7} className="">
@@ -47,7 +48,7 @@ const DoctorAvailabilityForm = ({
                                             selected={day.startTime}
                                             showTimeSelect={true}
                                             showTimeSelectOnly={true}
-                                            timeIntervals={15}
+                                            timeIntervals={rosterGapDuration ? rosterGapDuration : 15}
                                             timeCaption="Start Time"
                                             dateFormat="h:mm aa"
                                             disabled={day.dayOffStatus === 'Y'}
@@ -65,7 +66,7 @@ const DoctorAvailabilityForm = ({
                                             selected={day.endTime}
                                             showTimeSelect={true}
                                             showTimeSelectOnly={true}
-                                            timeIntervals={15}
+                                            timeIntervals={rosterGapDuration ? rosterGapDuration : 15}
                                             timeCaption="End Time"
                                             dateFormat="h:mm aa"
                                             disabled={day.dayOffStatus === 'Y'}

@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import Proptypes from 'prop-types';
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import {withRouter} from 'react-router-dom';
-import {TryCatchHandler} from "@frontend-appointment/helpers";
+import {EnvironmentVariableGetter, TryCatchHandler} from "@frontend-appointment/helpers";
 
 class CBreadcrumb extends PureComponent {
     state = {
@@ -32,18 +32,24 @@ class CBreadcrumb extends PureComponent {
         // REMOVE THE FIRST EMPTY ELEMENT FROM ARRAY
         pathsToInclude.shift();
 
-        let baseOfModule = pathsToInclude[0];
+        // let baseOfModule = pathsToInclude[0];
+        let baseOfModule = EnvironmentVariableGetter.REACT_APP_BASE_PATH_CODE ?
+            (EnvironmentVariableGetter.REACT_APP_BASE_PATH_CODE).split("/")[1] : '';
 
         // REMOVE THE BASE OF ADMIN
-        pathsToInclude.shift();
+        if (pathsToInclude[0] === baseOfModule) pathsToInclude.shift();
 
         // IF ROUTE IS NOT 'home/dashboard' ADD 'home/dashboard' AS FIRST PATH
         pathsToInclude[0] !== "dashboard" && pathsToInclude.unshift("dashboard");
 
         //INCLUDE '/' IN EACH PATHNAME
         for (let i = 0; i < pathsToInclude.length; i++) {
-            i === 0 || i === 1 ? pathsToInclude[i] = "/".concat(baseOfModule).concat("/".concat(pathsToInclude[i]))
-                : pathsToInclude[i] = pathsToInclude[i - 1] + "/".concat(pathsToInclude[i])
+            if (i === 0 || i === 1) {
+                pathsToInclude[i] = baseOfModule ? ("/".concat(baseOfModule).concat("/".concat(pathsToInclude[i])))
+                    : "/".concat(pathsToInclude[i]);
+            } else {
+                pathsToInclude[i] = pathsToInclude[i - 1] + "/".concat(pathsToInclude[i])
+            }
         }
 
         return pathsToInclude;
