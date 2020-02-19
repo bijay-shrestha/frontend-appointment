@@ -200,8 +200,8 @@ class CHybridInput extends React.PureComponent {
             id={'fControl_'.concat(id)}
             isInvalid={isInvalid ? isInvalid : !this.state.valid}
             isValid={isValid}
-            max={max}
-            min={min}
+            maxLength={max}
+            minLength={min}
             multiple={multiple}
             name={name}
             onBlur={this.handleOnBlur}
