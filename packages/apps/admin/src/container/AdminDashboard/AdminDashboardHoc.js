@@ -20,8 +20,8 @@ const {
   fetchDashboardRevenueYearList,
   fetchAppointmentQueueList
 } = DashboardDetailsMiddleware
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const DashBoardHOC = (ComposedComponent, props, type) => {
   const {
     hospitalSetupApiConstants,
@@ -273,12 +273,12 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         }
       }
     }
-    
-    searchDoctorForHospitalWise =async value =>{
-       await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
-            doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-            value
-          )
+
+    searchDoctorForHospitalWise = async value => {
+      await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
+        doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
+        value
+      )
     }
 
     handleHospitalChange = async (event, field) => {
@@ -287,7 +287,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         ...this.state.searchParamsForOverallAppoinment
       }
       let searchParams3 = {...this.state.searchParameterForRevenueTrend}
-      let searchParams4 ={...this.state.appointmentQueue}
+      let searchParams4 = {...this.state.appointmentQueue}
       let fieldName, value, label
       fieldName = event.target.name
       value = event.target.value
@@ -300,13 +300,13 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         searchParamsForOverallAppoinment: searchParams,
         searchParameterForGenerateRevenue: searchParams1,
         searchParameterForRevenueTrend: searchParams3,
-        appointmentQueue:searchParams4
+        appointmentQueue: searchParams4
       })
       if (fieldName === 'hospitalId') {
         this.callApiForHospitalChange()
-        if (value){ 
-            this.searchAppointmentQueue()
-            this.searchDoctorForHospitalWise(value)
+        if (value) {
+          this.searchAppointmentQueue()
+          this.searchDoctorForHospitalWise(value)
         }
       }
     }
@@ -327,11 +327,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         fieldName === 'doctorId' &&
         this.state.searchParameterForGenerateRevenue.hospitalId
       )
-        this.searchAppointmentQueue();
+        this.searchAppointmentQueue()
     }
 
     searchAppointmentQueue = async page => {
-      const {doctorId,hospitalId} = this.state.appointmentQueue
+      const {doctorId, hospitalId} = this.state.appointmentQueue
       if (hospitalId) {
         let updatedPage =
           this.state.queryParams.page === 0
@@ -488,9 +488,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             totalRecords: totalRecords,
             queryParams: queryParams,
             handlePageChange: this.handlePageChange,
-            handleDoctorChange:this.handleDoctorChange,
-            doctorId:this.state.appointmentQueue.doctorId,
-            doctorDropdown:activeDoctorsByHospitalForDropdown
+            handleDoctorChange: this.handleDoctorChange,
+            doctorId: this.state.appointmentQueue.doctorId,
+            doctorDropdown: activeDoctorsByHospitalForDropdown
           }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}

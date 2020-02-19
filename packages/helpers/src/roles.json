@@ -189,5 +189,32 @@
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false
+  },
+  {
+    "id": 22,
+    "name": "Patient Information",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 23,
+    "name": "Edit",
+    "status": "Y",
+    "parent_role_id": 22,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
+  },
+  {
+    "id": 24,
+    "name": "Preview",
+    "status": "Y",
+    "parent_role_id": 22,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
   }
 ]
