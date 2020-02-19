@@ -45,9 +45,10 @@ const RevenueTrend = props => {
   newRevenueStatsData = mapKeysToArray(revenueStatsData)
   return (
     // <Col lg={7}>
-    //   <Row>
-    //     <h5 className="title">Revenue Trend</h5>
-    //   </Row>
+    <>
+      <Row>
+        <h5 className="title">Revenue Trend</h5>
+      </Row>
 
 
       <Row>
@@ -92,6 +93,7 @@ const RevenueTrend = props => {
           )}
         </div>
       </Row>
+      </>
     // </Col>
   )
 }
