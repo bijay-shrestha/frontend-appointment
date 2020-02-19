@@ -47,8 +47,8 @@ const AppointmentQueue = props => {
         </Col>
       </Row>
       <Row>
-        <h1> Data grid </h1>
-        <div className="manage-details">
+       
+        <div className="app-queue-datatable">
       
         {!isAppointmentQueueLoading &&
         !appointmentQueueErrorMessage &&
@@ -58,11 +58,27 @@ const AppointmentQueue = props => {
               classes="ag-theme-balham"
               id="roles-table"
               width="100%"
-              height="460px"
+              height="360px"
               enableSorting
               editType
-              rowHeight={70}
+              rowHeight={50}
               columnDefs={[
+                {
+                  headerName: 'Doctor(Specialization)',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  cellRenderer:'doctorwithSpecializationRenderer'
+                },
+                
+                {
+                  headerName: 'Patient(Mobile Number)',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  cellRenderer:'mobileRender'
+                },
+
                 {
                   headerName: 'Appointment Time',
                   field: 'appointmentTime',
@@ -73,20 +89,7 @@ const AppointmentQueue = props => {
                     return new Date(params.value).getHours().toString()+":"+new Date(params.value).getMinutes().toString();
                   }
                 },
-                {
-                  headerName: 'Patient(Mobile Number)',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  cellRenderer:'mobileRender'
-                },
-                {
-                  headerName: 'Doctor(Specialization)',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  cellRenderer:'doctorwithSpecializationRenderer'
-                },
+                
              
               ]}
               frameworkComponents={{
