@@ -20,7 +20,10 @@ const {
   DASHBOARD_REVENUE_WEEK_FETCH_SUCCESS,
   DASHBOARD_REVENUE_YEAR_FETCH_ERROR,
   DASHBOARD_REVENUE_YEAR_FETCH_START,
-  DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS
+  DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS,
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_START,
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -63,6 +66,43 @@ const revenueGeneratedWeek = {
   isRevenueGeneratedWeekLoading: true,
   revenueGeneratedWeekData: {},
   revenueGeneratedWeekErrorMessage: ''
+}
+
+const appointmentQueueDaily = {
+  isAppointmentQueueLoading:true,
+  appointmentQueueData:[],
+  appointmentQueueErrorMessage:''
+}
+
+export const DashboardAppointmentQueueReducer = (
+  state = {...appointmentQueueDaily},
+  action
+) => {
+  switch (action.type) {
+    case DASHBOARD_APPOINTMENT_QUEUE_FETCH_START:
+      return {
+        ...state,
+        isAppointmentQueueLoading:true,
+        appointmentQueueData:[],
+        appointmentQueueErrorMessage:''
+      }
+    case DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS:
+      return {
+        ...state,
+        isAppointmentQueueLoading:true,
+        appointmentQueueData:action.payload.data,
+        appointmentQueueErrorMessage:''
+      }
+    case DASHBOARD_APPOINTMENT_STATISTICS_ERROR:
+      return {
+        ...state,
+        isAppointmentQueueLoading:true,
+        appointmentQueueData:[],
+        appointmentQueueErrorMessage:action.payload.data
+      }
+    default:
+      return {...state}
+  }
 }
 
 export const DashboardAppointmentStatisticsReducer = (

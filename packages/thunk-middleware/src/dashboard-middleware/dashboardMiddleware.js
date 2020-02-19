@@ -28,6 +28,31 @@ export const fetchDashboardAppointmentStatisticsList = (
   }
 }
 
+export const fetchAppointmentQueueList = (path,paginationData,queueSearchData) => async dispatch =>{
+  dispatch(
+    DashboardDetailsActions.dashboardAppointmentQueueFetchingStart()
+  )
+  try {
+    const response = await Axios.putWithPagination(path,paginationData,queueSearchData)
+    dispatch(
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingSuccess(
+        response.data
+      )
+    )
+    return response
+  } catch (e) {
+    const errorMessage = e.errorMessage
+      ? e.errorMessage
+      : 'Sorry Something Error Occured!!'
+    dispatch(
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingError(
+        errorMessage
+      )
+    )
+    throw e
+  }
+}
+
 export const fetchDashboardRegisteredPatientList = (
   path,
   hospitalId
