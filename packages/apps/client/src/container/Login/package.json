@@ -1,0 +1,5 @@
+{
+    "main": "LoginPage.jsx",
+    "name":"cogent-admin-login-module",
+    "version": "1.0.0"
+}

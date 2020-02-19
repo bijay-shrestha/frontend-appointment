@@ -1,0 +1,5 @@
+{
+  "main": "AuthenticateModule.js",
+  "name": "cogent-admin-auth-module",
+  "version": "0.0.0"
+}

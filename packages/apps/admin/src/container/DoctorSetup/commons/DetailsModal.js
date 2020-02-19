@@ -5,7 +5,8 @@ import {
     CHybridInput,
     CHybridSelect,
     CImageDisplayAndView,
-    CRadioButton
+    CRadioButton,
+    CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/picture.png'
@@ -156,7 +157,7 @@ const DetailsModal = ({type, doctorData}) => {
                       isDisabled={true}
                     /> */}
                                         {type !== 'A' ? (
-                                            <CHybridInput
+                                            <CHybridTextArea
                                                 id="specializationNames"
                                                 placeholder="Specialization Names"
                                                 value={doctorData.specializationName}
@@ -175,7 +176,7 @@ const DetailsModal = ({type, doctorData}) => {
 
                                     <Col sm={12} md={6} lg={6}>
                                         {type !== 'A' ? (
-                                            <CHybridInput
+                                            <CHybridTextArea
                                                 id="qualificationIds"
                                                 placeholder="Qualification Name"
                                                 value={doctorData.qualificationName}

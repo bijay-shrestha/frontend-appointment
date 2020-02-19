@@ -1,0 +1,18 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+
+
+h5.title{
+    // color:$cogent;
+    // background-color:$white;
+    // @include border-radius($cogent-radius);
+    display: inline-block !important;
+}

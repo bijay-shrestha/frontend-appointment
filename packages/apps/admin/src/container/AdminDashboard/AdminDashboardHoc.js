@@ -8,8 +8,8 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {} from '@frontend-appointment/helpers'
 import './admin-dashboard.scss'
 import {
-    DateTimeFormatterUtils,
-    dateHelpers
+    DateTimeFormatterUtils
+    //dateHelpers
 } from '@frontend-appointment/helpers'
 
 const {
@@ -76,7 +76,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParamsForOverallAppoinment;
             const {
                 revFromDate,
-                revHospitalId,
+               // revHospitalId,
                 revToDate
             } = this.state.searchParameterForRevenueTrend;
             if (!statsType || statsType !== 'refund')
@@ -203,8 +203,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                         hospitalId: searchParameterChange.hospitalId
                     }
                     break
+                default : break;
             }
-            return searchParameterChange
+            return searchParameterChange;
         }
 
         onPillsClickHandler = async (dayFilter, type) => {
