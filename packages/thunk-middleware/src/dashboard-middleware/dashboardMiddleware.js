@@ -29,6 +29,31 @@ export const fetchDashboardAppointmentStatisticsList = (
     }
 }
 
+export const fetchAppointmentQueueList = (path,paginationData,queueSearchData) => async dispatch =>{
+  dispatch(
+    DashboardDetailsActions.dashboardAppointmentQueueFetchingStart()
+  )
+  try {
+    const response = await Axios.putWithPagination(path,paginationData,queueSearchData)
+    dispatch(
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingSuccess(
+        response.data
+      )
+    )
+    return response
+  } catch (e) {
+    const errorMessage = e.errorMessage
+      ? e.errorMessage
+      : 'Sorry Something Error Occured!!'
+    dispatch(
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingError(
+        errorMessage
+      )
+    )
+    throw e
+  }
+}
+
 export const fetchDashboardRegisteredPatientList = (
     path,
     hospitalId
@@ -169,20 +194,20 @@ export const fetchDashboardRevenueWeekList = (path, data) => async dispatch => {
 }
 
 export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
-    dispatch(DashboardDetailsActions.dashboardYearRevenueFetchingStart())
-    try {
-        const response = await Axios.put(path, data)
-        dispatch(
-            DashboardDetailsActions.dashboardYearRevenueFetchingSuccess(response.data)
-        )
-        return response
-    } catch (e) {
-        const errorMessage = e.errorMessage
-            ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
-        dispatch(
-            DashboardDetailsActions.dashboardYearRevenueFetchingError(errorMessage)
-        )
-        throw e
-    }
+  dispatch(DashboardDetailsActions.dashboardYearRevenueFetchingStart())
+  try {
+    const response = await Axios.put(path, data)
+    dispatch(
+      DashboardDetailsActions.dashboardYearRevenueFetchingSuccess(response.data)
+    )
+    return response
+  } catch (e) {
+    const errorMessage = e.errorMessage
+      ? e.errorMessage
+      : 'Sorry Something Error Occured!!'
+    dispatch(
+      DashboardDetailsActions.dashboardYearRevenueFetchingError(errorMessage)
+    )
+    throw e;
+  }
 }

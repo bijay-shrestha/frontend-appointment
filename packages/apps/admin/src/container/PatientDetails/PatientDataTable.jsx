@@ -50,8 +50,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   headerClass: 'resizable-header header-first-class',
                   resizable: true,
                   sortable: true,
-                  width: 200,
-                  height: 200,
+                  width: 130,
+              
                   sizeColumnsToFit: true,
                   cellClass: 'first-class'
                 },
@@ -60,7 +60,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   field: 'name',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width:"260"
                 },
                 {
                   headerName: 'Address',
@@ -69,22 +70,23 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
+                // {
+                //   headerName: 'Email',
+                //   field: 'email',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
-                  headerName: 'Email',
-                  field: 'email',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Registration Number',
+                  headerName: 'Reg No',
                   field: 'registrationNumber',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width:140,
                 },
                 {
-                  headerName: 'Mobile Number',
+                  headerName: 'Mobile No',
                   field: 'mobileNumber',
                   resizable: true,
                   sortable: true,
@@ -97,22 +99,23 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                {
-                  headerName: 'Age',
-                  field: 'age',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Age',
+                //   field: 'age',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
                   headerName: 'Status',
                   cellRenderer: 'tableStatusRenderer',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width:120,
                 },
                 {
-                  headerName: 'Hospital Number',
+                  headerName: 'Hospital No',
                   field: 'hospitalNumber',
                   resizable: true,
                   sortable: true,
@@ -141,6 +144,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
+                  width:"120",
                   cellRendererParams: {
                     onClick: function (e, id, type) {
                       editHandler(id)

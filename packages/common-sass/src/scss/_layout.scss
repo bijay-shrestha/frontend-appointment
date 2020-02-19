@@ -69,7 +69,7 @@
       }
 
       .nav-link{
-        color:$gray-600;
+        color:$gray-700;
         position: relative;
         border:0;
         &::before{
@@ -79,7 +79,7 @@
           width:100%;
           top:32px;
           left:0;
-          background-color:$gray-500;
+          background-color:$gray-600;
           @include border-radius(6px 6px 0 0);
         }
        
@@ -94,7 +94,7 @@
             width:100%;
             top:32px;
             left:0;
-            background-color:$gray-500;
+            background-color:$gray-900;
             @include border-radius(6px 6px 0 0);
           }
          
