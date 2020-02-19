@@ -1,0 +1,142 @@
+#wrapper {
+  display: flex;
+  padding: 1rem;
+ height : auto;
+ min-height:100vh;
+ flex-shrink: 0;
+ background-color: $cogent-bg;
+
+
+  #sidebar-wrapper {
+
+    height             : calc(100vh - 2rem);
+    display            : block;
+    position           : fixed;
+    @include border-radius($cogent-radius);
+    // margin:1rem;
+  }
+
+  #content-wrapper {
+    width           : 100%;
+
+    min-height      : calc(100vh - 2rem);
+
+
+
+    #topbar-wrapper {
+      height             : 4.2rem;
+      display            : flex;
+      flex-direction     : row;
+      align-items        : center;
+     
+      margin             : 0rem -15px;
+      @include border-radius($cogent-radius);
+    }
+
+    #breadcrumb {
+      display         : flex;
+      flex-direction  : row;
+      align-items     : center;
+      background-color: transparent;
+      margin-bottom   : 0px;
+
+    }
+
+    #main-content {
+      flex               : 1 0 auto;
+
+
+    }
+
+    .page-tabs {
+      margin-bottom: 1rem;
+ 
+
+      &.nav {
+        //padding-left:20px;
+        padding-top:0px;
+        
+        // margin             : 0rem -15px;
+        @include border-radius($cogent-radius);
+        background-color:transparent;
+        
+      }
+
+      .nav-item{
+        font-size:0.9rem;
+        line-height: 1.2rem;
+        
+      }
+
+      .nav-link{
+        color:$gray-700;
+        position: relative;
+        border:0;
+        &::before{
+          content:'';
+          position: absolute;
+          height:2px;
+          width:100%;
+          top:32px;
+          left:0;
+          background-color:$gray-600;
+          @include border-radius(6px 6px 0 0);
+        }
+       
+
+        &:hover{
+          color:$gray-900;
+          border:0;
+          &::before{
+            content:'';
+            position: absolute;
+            height:2px;
+            width:100%;
+            top:32px;
+            left:0;
+            background-color:$gray-900;
+            @include border-radius(6px 6px 0 0);
+          }
+         
+        }
+
+        &.active{
+           color:$cogent;
+           border:0;
+          &::before{
+            content:'';
+            position: absolute;
+            height:2px;
+            width:100%;
+            top:32px;
+            left:0;
+            background-color:$cogent;
+            @include border-radius(6px 6px 0 0);
+          }
+         
+        }
+      }
+      
+      .nav-item,.nav-link{
+        margin-right:4px;
+
+        // &:first-child{
+        //   margin-left:0;
+        // }
+      }
+
+
+    }
+
+    #footer-wrapper {
+      padding         : 1rem 0;
+      flex-shrink     : 0;
+      background-color: $white;
+      @include border-radius($cogent-radius);
+      // margin:0 1rem 1rem ;
+    }
+  }
+
+}
+
+

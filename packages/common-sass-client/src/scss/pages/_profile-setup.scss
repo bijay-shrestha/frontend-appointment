@@ -1,0 +1,401 @@
+.add-container {
+    padding: 24px;
+    margin : 1rem 0;
+
+    @include border-radius($cogent-radius);
+}
+
+.add-info {
+    .form-check-input[type="radio"] {
+        margin-top: 0.1rem;
+    }
+
+}
+
+// .radio-container{
+//     .form-label {
+//     display: block;
+// }
+
+// }
+
+
+
+.form-check{
+    display: inline-block;
+    margin-right:10px;
+}
+
+.form-check-input[type="radio"] {
+    margin-top: 0.1rem;
+}
+
+
+.assign-menu {
+    border       : 1px solid $gray-200;
+    padding      : 5px 0 0;
+    border-radius: 5px;
+    height       : 360px;
+    //background-color:$white;
+
+    .am-header {
+        border-bottom : 1px solid $gray-200;
+        padding       : 0 10px 4px;
+        display       : flex;
+        flex-direction: row;
+        position      : relative;
+
+        .searchMenu {
+            position: absolute;
+            right   : 50px;
+            top     : -5px;
+            width   : calc(100% - 50px);
+
+            #expandible-search input[type=search] {
+                border: none;
+            }
+
+        }
+
+        .select-all {
+            position: absolute;
+            right   : 0;
+            width   : 40px;
+
+            &.form-check .form-check-label:before {
+                margin-left: -4px;
+            }
+        }
+
+    }
+
+    .am-title {
+        font-size  : 14px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+
+
+    .card {
+        border-radius: 0;
+        border       : none;
+        // background-color:$white;
+        &>:not(:first-child) {
+            div{
+            padding-left: 44px;
+            font-size   : 0.75rem;
+            }
+
+
+        }
+
+        & .collapse{
+            background-color: lighten($cogent,48%);
+
+            .card-header{
+                background-color:rgba($cogent,0.01);
+                transition: 0.3s;
+                &:hover {
+                    background-color: lighten($cogent, 45%);
+                      cursor            : pointer;
+
+                  }
+            }
+
+       }
+
+
+    }
+
+
+
+    .card-header:first-child {
+        border-radius: 0;
+    }
+
+    .card-header {
+         background-color: $white;
+        border-bottom   : 0px solid lighten($cogent-border, 5%);
+        display         : flex;
+        flex-direction  : row;
+        justify-content : flex-start;
+        align-items     : center;
+        padding         : 0.75rem 0.6rem 0.75rem 0.9rem;
+        // transition: 0.3s;
+
+        & :nth-child(1) {
+            flex: 0 0 30px;
+        }
+
+        & :nth-child(2) {
+            flex: 1 0 120px;
+        }
+
+        & :nth-child(3) {
+            flex: 0 0 20px;
+            margin-top:-5px;
+        }
+
+        &.activeParent {
+            background-color: lighten($cogent,10%) !important;
+            color           : $white !important;
+
+        }
+
+        &:hover {
+            //background-color:lighten($cogent, 20%);
+            //color             : lighten($gray-900, 0%);
+            cursor            : pointer;
+            background-color: lighten($cogent, 45%);
+
+        }
+
+
+
+
+
+    }
+
+
+
+    // .card .show {
+    //     border-left: 10px;
+
+    // }
+
+    .card .activeChild .card-header {
+        // background-color: lighten($cogent, 10%);
+        // color           : $white;
+        position           : relative;
+        background-color   :lighten($cogent, 42%);
+        color:$cogent;
+
+        &:before {
+            content    : "";
+            position   : absolute;
+            top        : 0;
+            bottom     : 0;
+            left       : 0;
+            border-left: 3px solid lighten($cogent,10%);
+
+        }
+    }
+
+    .card-header.activeChild{
+        position           : relative;
+        background-color   :lighten($cogent, 45%);
+        color:$cogent;
+
+        &:before {
+            content    : "";
+            position   : absolute;
+            top        : 0;
+            bottom     : 0;
+            left       : 0;
+            border-left: 3px solid lighten($cogent,10%);
+
+        }
+    }
+}
+
+.previledge-title {
+    display        : flex;
+    flex-direction : row-reverse;
+    justify-content: space-between;
+    align-items    : flex-start;
+    //margin-bottom:10px;
+    // h5,button{
+    //     display: inline-block;
+    // }
+
+    // button{
+    //     margin-top:-8px;
+    // }
+
+}
+
+.assign-previledge {
+    border       : 1px solid $gray-200;
+    padding      : 5px 0;
+    border-radius: 5px;
+    height       : 360px;
+    // padding   :20px 20px;
+
+    .am-title {
+        font-size  : 14px;
+        line-height: 20px;
+        font-weight: 400;
+    }
+
+    .am-header {
+        border-bottom : 1px solid $gray-200;
+        padding       : 0 10px 4px;
+        display       : flex;
+        flex-direction: row;
+        position      : relative;
+
+        .searchMenu {
+            position: absolute;
+            right   : 50px;
+            top     : -5px;
+            width   : calc(100% - 50px);
+
+            #expandible-search input[type=search] {
+                border: none;
+            }
+
+        }
+
+        .select-all {
+            position: absolute;
+            right   : 0;
+            width   : 40px;
+
+            &.form-check .form-check-label:before {
+                margin-left: -4px;
+            }
+        }
+
+    }
+
+    .assign-body {
+        padding: 20px;
+    }
+
+
+    .assign-item {
+        padding      : 10px;
+        margin-bottom: 10px;
+
+        .form-check {
+            margin-bottom: 5px;
+        }
+
+        .row {
+            margin-left: 15px;
+        }
+    }
+
+    .assign-header {
+        font-weight: 700;
+
+        .form-check .form-check-label {
+            font-weight: 400;
+            font-size  : 0.9rem;
+        }
+    }
+
+}
+
+.view-assigned-menu {
+    padding: 5px 0;
+
+    .role-header {
+        text-transform: uppercase;
+
+    }
+
+    .menu-role>div {
+        margin-bottom: 5px;
+
+        i {
+            color: $gray-700;
+        }
+    }
+}
+
+
+
+.manage-details {
+    background-color: $white;
+    padding: 24px;
+    margin          : 1rem 0;
+    @include border-radius($cogent-radius);
+
+    h2 {
+        padding-left: 10px;
+    }
+}
+
+
+.preview-modal {
+    .modal-content {
+        border        : none;
+        padding-bottom: 30px;
+
+        .modal-header {
+
+            background-color         : darken($cogent, 5%);
+            // background      : linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
+            //background-image : url("../images/clinic5.png");
+            justify-content    : center;
+            background-repeat  : no-repeat;
+            background-size    : cover;
+            background-position: center;
+            position           : relative;
+            padding-top        : 20px;
+            margin-bottom      : 20px;
+            text-align         : center;
+            color              : $white;
+            border             : none;
+            opacity            : 0.9;
+
+        }
+    }
+
+    #label_status {
+        display: block;
+    }
+
+    .form-check {
+        display      : inline-block;
+        padding-right: 10px;
+    }
+
+    .assign-item{
+        .assign-header{
+            i{
+                font-weight: 700;
+                color:$gray-700;
+            }
+        }
+        i{
+            font-weight: 400;
+            color:$gray-600;
+            font-size: 12px;
+        }
+    }
+
+    // .assign-menu,.assign-previledge  {
+    //     height: 370px;
+    //     .am-header {
+    //         padding:8px ;
+    //     }
+
+    //     .am-title{
+    //         font-weight: 500;
+    //     }
+
+
+
+    // }
+}
+
+
+
+@include media-breakpoint-down(md) {
+    .add-info {
+        margin-bottom: 30px;
+    }
+
+}
+
+@include media-breakpoint-down(sm) {
+
+    .add-info,
+    .menu-list-wrapper,
+    .roles-wrapper {
+        margin-bottom: 30px;
+    }
+
+}

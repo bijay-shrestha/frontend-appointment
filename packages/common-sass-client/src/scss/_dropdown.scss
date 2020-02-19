@@ -1,0 +1,39 @@
+
+    .dropdown-toggle {
+        border-radius: 0px;
+        padding:4px;
+        text-align: center;
+
+        &:focus,
+        &:hover {
+            outline   : 0;
+            // box-shadow: 0 0 4px 1px $cogent-border;
+
+        }
+
+        &::after {
+            display          : inline-block;
+            margin-left      : 0.255em;
+            vertical-align   : 0.255em;
+            //    font-family:  'Fontawesome';
+            //     content   : "\f142";
+            border           : none;
+        }
+    }
+
+    .dropdown-menu {
+        padding      : 0;
+        border-radius: 0 !important;
+        min-width    : auto;
+      
+        // box-shadow: 0 0 4px 4px #ccc;
+    }
+
+
+    .dropdown-item {
+        padding: 0.25rem 2rem 0.25rem 1rem;
+        &:hover {
+            background-color: $gray-200;
+            color           : $cogent;
+        }
+    }
