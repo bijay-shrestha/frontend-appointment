@@ -59,6 +59,10 @@ class CDataTable extends PureComponent {
         }
     };
 
+    getRowHeight = params => {
+        return params.node.rowHeight;
+    }
+
     render() {
         const {
             id,

@@ -10,7 +10,8 @@ import {
     CRadioButton
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
-import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components';
+import {CommonUtils} from '@frontend-appointment/helpers'
 import DefaulHospitalImage from '../img/picture.png'
 
 const DoctorEditModal = ({
@@ -49,7 +50,7 @@ const DoctorEditModal = ({
                     if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                         flag = true
                 });
-                !flag && editSpec.length !== currSpec.length && newArray.push(editSp)
+                !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec,'doctorSpecializationId') && newArray.push(editSp)
             })
         }
         return newArray
