@@ -32,7 +32,6 @@ function DoctorAdd(props) {
              handleImageUpload,
              setImageShow,
              qualificationDropdown,
-             hospitalsForDropdown,
              activeSpecializationList,
              appointmentChargeValid,
              errorMessageForAppointmentCharge,
@@ -70,7 +69,6 @@ function DoctorAdd(props) {
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
                         qualificationDropdown={qualificationDropdown}
-                        hospitalsForDropdown={hospitalsForDropdown}
                         activeSpecializationList={activeSpecializationList}
                         appointmentChargeValid={appointmentChargeValid}
                         errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}

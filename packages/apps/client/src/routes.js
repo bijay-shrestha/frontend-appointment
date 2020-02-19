@@ -41,7 +41,7 @@ const AddSpecializationComponent = Loadable({
 });
 
 const AddDoctorComponent = Loadable({
-    loader: () => import('./container/DoctorSetup/Add/DoctorAdd'),
+    loader: () => import('./container/ClientDoctorSetup/Add/DoctorAdd'),
     loading: () => getLoader()
 });
 
@@ -137,7 +137,7 @@ const ManageQualificationComponent = Loadable({
 
 const ManageDoctorComponent = Loadable({
     loader: () =>
-        import('./container/DoctorSetup/Manage/DoctorManage'),
+        import('./container/ClientDoctorSetup/Manage/DoctorManage'),
     loading: () => getLoader()
 });
 /* ****** N ***** */

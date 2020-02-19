@@ -3,7 +3,7 @@ import {
     CFLabel,
     CForm,
     CHybridInput,
-    CHybridSelect,
+    CHybridSelect, CHybridTextArea,
     CImageDisplayAndView,
     CRadioButton
 } from '@frontend-appointment/ui-elements'
@@ -40,10 +40,6 @@ const DetailsModal = ({type, doctorData}) => {
     return (
         <>
             <Container-fluid>
-                {/* <Row className="pl-4 pr-4">
-          <h5>Hospital Info</h5>
-        </Row> */}
-
                 <CForm id="hospital-info" className="mt-2">
                     <Container-fluid>
                         <Row>
@@ -57,27 +53,6 @@ const DetailsModal = ({type, doctorData}) => {
                             </Col>
                             <Col lg={9}>
                                 <Row>
-
-                                    <Col sm={12} md={6} lg={6}>
-                                        {type === 'M' ? (
-                                            <CHybridInput
-                                                id="hospital-id"
-                                                placeholder="Hospital Name"
-                                                value={doctorData.hospitalName}
-                                                disabled={true}
-                                            />
-                                        ) : (
-                                            <CHybridSelect
-                                                id="hospital-id"
-                                                label="Hospital Name"
-                                                value={doctorData.hospitalId}
-                                                isDisabled={true}
-                                            />
-                                        )}
-                                    </Col>
-                                    <Col sm={12} md={6} lg={6}></Col>
-
-
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
                                             id="doctor-name"
@@ -253,10 +228,10 @@ const DetailsModal = ({type, doctorData}) => {
                                     </Col>
                                     {type !== 'A' && (
                                         <Col sm={12} md={6} lg={6}>
-                                            <CHybridInput
+                                            <CHybridTextArea
                                                 id="doctor-remarks"
                                                 placeholder="Doctor Remarks"
-                                                value={doctorData.remarks}
+                                                value={doctorData.remarks || 'N/A'}
                                                 disabled={true}
                                             />
                                         </Col>

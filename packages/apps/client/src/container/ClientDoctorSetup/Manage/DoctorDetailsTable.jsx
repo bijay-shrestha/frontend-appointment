@@ -1,18 +1,10 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CPagination,
-    CButton,
-    CLoading
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
-import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from './tableComponents/TableAction'
+import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
-
-const {checkIfRoleExists} = ActionFilterUtils
 
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
@@ -79,14 +71,6 @@ const DoctorDetailsDataTable = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Name',
-                            field: 'hospitalName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-
-                        {
                             headerName: 'Status',
                             field: 'status',
                             resizable: true,
@@ -103,13 +87,13 @@ const DoctorDetailsDataTable = props => (
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
                             cellRendererParams: {
-                                onClick: function (e, id, type) {
+                                onClick: function (e, id, type, data) {
                                     type === 'D'
                                         // ? props.filteredActions.find(action => action.id === 5) &&
-                                        ? props.onDeleteHandler(id)
+                                        ? props.onDeleteHandler(id || data)
                                         : type === 'E'
-                                        ? props.onEditHandler(id)
-                                        : props.onPreviewHandler(id)
+                                        ? props.onEditHandler(id || data)
+                                        : props.onPreviewHandler(id || data)
                                 },
                                 filteredAction: props.filteredActions
                             },
@@ -119,7 +103,7 @@ const DoctorDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
-                        imageRenderer:HospitalPicture
+                        imageRenderer: HospitalPicture
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

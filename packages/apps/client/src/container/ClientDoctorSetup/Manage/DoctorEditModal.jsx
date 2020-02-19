@@ -32,26 +32,22 @@ const DoctorEditModal = ({
                              handleCropImage,
                              handleImageUpload,
                              setImageShow,
-                             hospitalsForDropdown,
                              activeSpecializationList,
                              qualificationDropdown
                          }) => {
     const checkIfSpecializationIdAndHospitalIdMatch = (
         currSpec,
-        editSpec,
-        hospitalId
+        editSpec
     ) => {
         let newArray = [...currSpec];
-        if (Number(hospitalId.value) === Number(doctorData.editHospitalId.value)) {
-            editSpec.map(editSp => {
-                let flag = false;
-                currSpec && currSpec.map(currSpec => {
-                    if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
-                        flag = true
-                });
-                !flag && editSpec.length !== currSpec.length && newArray.push(editSp)
-            })
-        }
+        editSpec.map(editSp => {
+            let flag = false;
+            currSpec && currSpec.map(currSpec => {
+                if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
+                    flag = true
+            });
+            !flag && editSpec.length !== currSpec.length && newArray.push(editSp)
+        });
         return newArray
     };
     const bodyContent = (
@@ -92,21 +88,6 @@ const DoctorEditModal = ({
                     </Col>
                     <Col sm={12} md={12} lg={9}>
                         <Row>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridSelect
-                                    id="hospital-Id"
-                                    name="hospitalId"
-                                    onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) =>
-                                        onInputChange(event, validity, 'E')
-                                    }
-                                    label="Select Hospital"
-                                    options={hospitalsForDropdown}
-                                    value={doctorData.hospitalId}
-                                    required={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={12} lg={6}></Col>
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
                                     id="doctor-name"
@@ -123,42 +104,6 @@ const DoctorEditModal = ({
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     errorMessagePassed={errorMessageForDoctorName}
                                 />
-                            </Col>
-
-                            <Col sm={12} md={6} lg={6}>
-                                <CFLabel labelName="Gender" id="gender"></CFLabel>
-                                <div>
-                                    <CRadioButton
-                                        checked={doctorData.genderCode === 'M'}
-                                        onKeyDown={event => onEnterKeyPress(event)}
-                                        onChange={event => onInputChange(event, '', 'E')}
-                                        name="genderCode"
-                                        id="radio1"
-                                        label="Male"
-                                        type="radio"
-                                        value="M"
-                                    />
-                                    <CRadioButton
-                                        checked={doctorData.genderCode === 'F'}
-                                        onKeyDown={event => onEnterKeyPress(event)}
-                                        onChange={event => onInputChange(event, '', 'E')}
-                                        name="genderCode"
-                                        id="radio2"
-                                        label="Female"
-                                        type="radio"
-                                        value="F"
-                                    />
-                                    <CRadioButton
-                                        checked={doctorData.genderCode === 'O'}
-                                        onKeyDown={event => onEnterKeyPress(event)}
-                                        onChange={event => onInputChange(event, '', 'E')}
-                                        name="genderCode"
-                                        id="radio3"
-                                        label="Other"
-                                        type="radio"
-                                        value="O"
-                                    />
-                                </div>
                             </Col>
 
                             <Col sm={12} md={6} lg={6}>
@@ -185,8 +130,7 @@ const DoctorEditModal = ({
                                     isDisabled={!activeSpecializationList.length ? true : false}
                                     value={checkIfSpecializationIdAndHospitalIdMatch(
                                         doctorData.specializationIds,
-                                        doctorData.selectedSpecializations,
-                                        doctorData.hospitalId
+                                        doctorData.selectedSpecializations
                                     )}
                                     required={true}
                                     isMulti={true}
@@ -279,8 +223,44 @@ const DoctorEditModal = ({
                                 />
                             </Col>
 
+                            <Col sm={12} md={6} lg={6}>
+                                <CFLabel labelName="Gender" id="gender"/>
+                                <div>
+                                    <CRadioButton
+                                        checked={doctorData.genderCode === 'M'}
+                                        onKeyDown={event => onEnterKeyPress(event)}
+                                        onChange={event => onInputChange(event, '', 'E')}
+                                        name="genderCode"
+                                        id="radio1"
+                                        label="Male"
+                                        type="radio"
+                                        value="M"
+                                    />
+                                    <CRadioButton
+                                        checked={doctorData.genderCode === 'F'}
+                                        onKeyDown={event => onEnterKeyPress(event)}
+                                        onChange={event => onInputChange(event, '', 'E')}
+                                        name="genderCode"
+                                        id="radio2"
+                                        label="Female"
+                                        type="radio"
+                                        value="F"
+                                    />
+                                    <CRadioButton
+                                        checked={doctorData.genderCode === 'O'}
+                                        onKeyDown={event => onEnterKeyPress(event)}
+                                        onChange={event => onInputChange(event, '', 'E')}
+                                        name="genderCode"
+                                        id="radio3"
+                                        label="Other"
+                                        type="radio"
+                                        value="O"
+                                    />
+                                </div>
+                            </Col>
+
                             <Col sm={12} md={12} lg={6}>
-                                <CFLabel labelName="Status" id="status"></CFLabel>
+                                <CFLabel labelName="Status" id="status"/>
                                 <CRadioButton
                                     checked={doctorData.status === 'Y'}
                                     onKeyDown={event => onEnterKeyPress(event)}
@@ -322,7 +302,7 @@ const DoctorEditModal = ({
                 </Row>
             </CForm>
         </>
-    )
+    );
     let footerChildren = (
         <>
             <Container fluid="true">
@@ -358,13 +338,14 @@ const DoctorEditModal = ({
                 </Row>
             </Container>
         </>
-    )
+    );
     return (
         <>
             <CModal
                 show={showModal}
                 modalHeading="Doctor Details"
                 size="lg"
+                backdrop={true}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}
@@ -374,6 +355,6 @@ const DoctorEditModal = ({
             />
         </>
     )
-}
+};
 
 export default memo(DoctorEditModal)
