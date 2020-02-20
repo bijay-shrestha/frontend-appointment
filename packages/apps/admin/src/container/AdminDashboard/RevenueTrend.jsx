@@ -44,10 +44,13 @@ const RevenueTrend = props => {
   newLineData = [...changeObjectToArray(revenueStatsData)]
   newRevenueStatsData = mapKeysToArray(revenueStatsData)
   return (
-    <Col lg={7}>
+    // <Col lg={7}>
+    <>
       <Row>
         <h5 className="title">Revenue Trend</h5>
       </Row>
+
+
       <Row>
         <div className="chart">
           {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
@@ -90,7 +93,8 @@ const RevenueTrend = props => {
           )}
         </div>
       </Row>
-    </Col>
+      </>
+    // </Col>
   )
 }
 export default memo(RevenueTrend)

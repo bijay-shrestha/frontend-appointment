@@ -699,8 +699,6 @@ class AdminManage extends PureComponent {
                 }
             })
         }
-        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
-
 
         let adminUpdateRequestDTO = {
             id,
