@@ -48,8 +48,8 @@
                 padding-bottom:2px;
                 // line-height: 14px;
                 background-color: transparent;
-              
-                
+
+
             }
         }
 
@@ -67,7 +67,7 @@
             // .select-label.active {
             //     color:$cogent;
             //   }
-               
+
           .css-yk16xz-control{
            background-color:transparent;
         border-color:transparent !important;
@@ -87,7 +87,7 @@
               text-transform: capitalize;
               font-size:11px !important;
           }
-        
+
           .css-1pahdxg-control{
             border-color:transparent !important;
             border-bottom:1px solid $gray-500 !important;
@@ -98,44 +98,44 @@
                 border-bottom:1px solid $gray-500 !important;
             }
           }
-        
+
             //for disabled select
           .css-1fhf3k1-control{
             background-color:$gray-100 !important;
-        
-              // cursor: not-allowed; 
-           
+
+              // cursor: not-allowed;
+
           }
-        
+
           .css-1n7v3ny-option{
             //background-color:#DEEBFF;
             background-color: lighten($cogent,45%);
           }
-        
+
           .css-1wa3eu0-placeholder{
             color:$gray-600;
             font-weight: 300;
-       
-        
-          } 
+
+
+          }
 
           .css-tlfecz-indicatorContainer{
               padding:4px !important;
           }
-        
-          
+
+
         }
 
-        
 
-       
+
+
     }
 
     .unauthorized{
         // position: relative;
         padding:0;
         @include border-radius (1rem);
-    
+
         .filter-message{
             position: relative;
             width:100%;
@@ -158,14 +158,14 @@
                     left:50%;
                     transform: translateX(-50%);
                     text-transform: uppercase;
-    
+
                 }
             }
-    
+
             h5{
                 text-transform: uppercase;
             }
-    
+
             h6{
                color: rgba(89, 93, 110, 0.9);
                 padding:10px 0;
@@ -175,23 +175,23 @@
         .message-cont{
             text-align: center;
             width:auto !important;
-    
+
             width:auto;
         }
-    
+
         i{
             font-size:60px;
             color:#dc3545;
         }
     }
-    
+
 }
 
 .dashboard-wrapper{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
     .revenue-box{
         background-color:$white;
          padding:30px;
@@ -216,7 +216,7 @@
                 .up{
                     color:rgba(255, 255, 255, 0.6);
                 }
-    
+
                 .down{
                     color:$danger;
                 }
@@ -227,7 +227,7 @@
             margin:15px;
             margin-top:0
         }
-        
+
         &:nth-child(3){
             margin:0px 15px 15px 0;
         }
@@ -240,9 +240,9 @@
 
         img{
             width:30px;
-            
+
             // display: none;
-           
+
         }
 
         p{
@@ -256,7 +256,7 @@
                 font-size: 10px;
                 font-weight: 400;
             }
-            
+
         }
 
         div{
@@ -271,7 +271,7 @@
                      svg{
                          margin-right:4px;
                      }
-               
+
             }
 
             & .down{
@@ -287,7 +287,7 @@
                     // color:$gray-600;
                     // margin-left:2px;
                     // font-weight: 500;
-      
+
                 }
             }
             .fa-chevron-up{
@@ -301,7 +301,7 @@
             }
         }
 
-        
+
     }
 
     .chart {
@@ -312,7 +312,7 @@
         img{
             width:100%;
             height: auto;
-           
+
         }
 
         .btn{
@@ -339,16 +339,16 @@
 
         img{
             width:30px;
-            
+
             // display: none;
-           
+
         }
 
         p{
             text-align: center;
             font-size: 22px;
             font-weight: 500;
-            
+
         }
 
         .title{
@@ -366,7 +366,7 @@
         text-align: center;
         @include border-radius(0.5rem);
 
-        
+
 
         .doughnut-chart{
             width:60%;
@@ -399,7 +399,7 @@
                 color:$gray-700;
                 font-weight: 400;
             }
-           
+
         }
 
         .color-code{
@@ -421,7 +421,7 @@
                 background-color:$cogent;
             }
         }
-      
+
     }
 
     .date{
@@ -433,7 +433,7 @@
                 font-weight:600;
             }
         }
-         
+
       }
 
       .app-queue-datatable{
@@ -441,14 +441,15 @@
 
           .data-image{
             //   width:25px;
+              margin-top: 4px;
           }
 
           ul li{
               line-height: 22px;
           }
       }
-    
-   
+
+
 }
 
 // .dashboard-image{
