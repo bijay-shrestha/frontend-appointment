@@ -1,0 +1,11 @@
+.tooltip-inner {
+    max-width: $tooltip-max-width;
+    padding: $tooltip-padding-y $tooltip-padding-x;
+    color: $tooltip-color;
+    text-align: center;
+    background-color: $tooltip-bg;
+    // letter-spacing: 1px;
+    font-size: 0.8rem;
+    @include border-radius($tooltip-border-radius);
+  }
+  

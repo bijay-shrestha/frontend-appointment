@@ -20,6 +20,7 @@
       "packages/ui-elements",
       "packages/action-module",
       "packages/authentication-module",
+      "packages/common-sass-client",
       "packages/common-sass",
       "packages/commons",
       "packages/core",
