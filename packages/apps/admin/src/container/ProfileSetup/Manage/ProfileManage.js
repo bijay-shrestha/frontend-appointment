@@ -570,13 +570,31 @@ class ProfileManage extends PureComponent {
             }
             // FOR REMAINING CHECK IF THE ROLE AND MENU ALREADY EXISTS OR NOT AND THEN ADD NEW OBJECT TO ARRAY
             for (let menu of userMenus) {
-                for (let child of menu.childMenus) {
-                    child.roles.forEach(role => {
-                        let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
-                            && Number(menu.userMenuId) === Number(child.id)));
+                if (menu.childMenus.length) {
+                    for (let child of menu.childMenus) {
+                        child.roles.forEach(role => {
+                            let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
+                                && Number(menu.userMenuId) === Number(child.id)));
+                            !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
+                                parentId: menu.id,
+                                userMenuId: child.id,
+                                roleId: role,
+                                status: 'Y',
+                                profileMenuId: null,
+                                isNew: true,
+                                isUpdated: false
+                            })
+                        })
+                    }
+                } else {
+                    menu.roles.map(role => {
+                        let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
+                                (Number(currentMenu.roleId) === Number(role)) && (Number(currentMenu.userMenuId) === Number(menu.id))
+                            ))
+                        );
                         !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
                             parentId: menu.id,
-                            userMenuId: child.id,
+                            userMenuId: menu.id,
                             roleId: role,
                             status: 'Y',
                             profileMenuId: null,
