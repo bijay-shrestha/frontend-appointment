@@ -701,7 +701,6 @@ class AdminManage extends PureComponent {
         }
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
-        let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(hospitalsForDropdown,hospital);
 
         let adminUpdateRequestDTO = {
             id,
@@ -715,8 +714,7 @@ class AdminManage extends PureComponent {
             profileId: profile.value,
             remarks: remarks,
             macAddressUpdateInfo: [...macAddressList],
-            isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
-            baseUrl: baseUrlForEmail
+            isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N'
         };
 
         let formData = new FormData();
