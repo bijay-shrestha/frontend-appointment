@@ -95,7 +95,7 @@ function DoctorDutyRosterManage(props) {
                     onSearchClick={() => searchDoctorDutyRoster(1)}
                     specializationList={activeSpecializationListByHospital}
                     specializationDropdownError={specializationDropdownError}
-                    doctorList={activeDoctorsByHospitalForDropdown}
+                    doctorList={activeDoctorList}
                     doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                 />
                 <DoctorDutyRosterDataTable
