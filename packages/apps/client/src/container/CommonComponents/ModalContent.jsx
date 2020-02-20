@@ -105,16 +105,6 @@ class ModalContent extends React.PureComponent {
                             </Col>
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridSelect
-                                    id="hospital"
-                                    isDisabled={true}
-                                    label="Hospital"
-                                    name="selectedHospital"
-                                    // options={subDepartmentList}
-                                    value={profileData.hospitalValue}
-                                />
-                            </Col>
-                            <Col sm={4} md={4} lg={4}>
-                                <CHybridSelect
                                     id="department"
                                     label="Department"
                                     name="selectedDepartment"

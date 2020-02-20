@@ -59,7 +59,9 @@ import {
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer
+    DashboardRevenueStatisticsReducer,
+    DashboardAppointmentQueueReducer
+    
 } from './admin-module/dashboardDetailsReducer'
 
 import {
@@ -81,7 +83,9 @@ import {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentStatusListReducer,
-    RescheduleLogReducer
+    RescheduleLogReducer,
+    AppointmentApproveReducer,
+    AppointmentRejectReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
@@ -89,6 +93,8 @@ import {WeekdaysReducer} from './common/weekdaysReducer'
 import {PatientDropdownListReducer,PatientEditReducer,PatientPreviewReducer,PatientSearchReducer} from './admin-module/patientSetupReducer'
 
 export {
+    AppointmentApproveReducer,
+    AppointmentRejectReducer,
     AppointmentApprovalListReducer,
     AppointmentLogListReducer,
     AppointmentStatusListReducer,
@@ -102,6 +108,7 @@ export {
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
+    DashboardAppointmentQueueReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,

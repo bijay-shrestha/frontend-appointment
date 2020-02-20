@@ -293,7 +293,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
-                        variant: 'error',
+                        variant: 'danger',
                         message: this.props.AppointmentRefundReducer.refundError
                     }
                 })

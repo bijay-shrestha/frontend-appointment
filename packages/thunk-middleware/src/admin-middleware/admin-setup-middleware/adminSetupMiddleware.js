@@ -5,7 +5,7 @@ export const createAdmin = (path, adminData, formData) => async dispatch => {
     dispatch(AdminSetupActions.createAdminPending());
     try {
         let response = await Axios.postForMultipart(path, 'request', adminData, formData);
-        dispatch(AdminSetupActions.creatingAdminSuccess("AdminCreated Successfully."));
+        dispatch(AdminSetupActions.creatingAdminSuccess("Admin Created Successfully."));
         return response;
     } catch (e) {
         dispatch(AdminSetupActions.creatingAdminError(e.errorMessage));

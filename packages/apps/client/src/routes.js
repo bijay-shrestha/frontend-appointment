@@ -6,17 +6,17 @@ const getLoader = () => <CLoading/>;
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
-    loader: () => import('./container/ProfileSetup/Add/ProfileAdd'),
+    loader: () => import('./container/ClientProfileSetup/Add/ProfileAdd'),
     loading: () => getLoader()
 });
 
 const AddDepartmentComponent = Loadable({
-    loader: () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
+    loader: () => import('./container/ClientDepartmentSetup/Add/DepartmentAdd'),
     loading: () => getLoader()
 });
 
 const AddAdminComponent = Loadable({
-    loader: () => import('./container/AdminSetup/Add/AdminAdd'),
+    loader: () => import('./container/ClientAdminSetup/Add/AdminAdd'),
     loading: () => getLoader()
 });
 
@@ -56,12 +56,12 @@ const AppointmentApprovalListComponent = Loadable({
 });
 
 const AppointmentStatusComponent = Loadable({
-    loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
+    loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
     loading: () => getLoader()
 });
 
 const AppointmentLogListComponent = Loadable({
-    loader: () => import('./container/AppointmentLog/AppointmentLog'),
+    loader: () => import('./container/ClientAppointmentLog/AppointmentLog'),
     loading: () => getLoader()
 });
 /* ****** B ***** */
@@ -76,7 +76,7 @@ const DashboardComponent = Loadable({
 });
 
 // const AppointmentLogComponent = Loadable({
-//   loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
+//   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
 // })
 
@@ -99,12 +99,12 @@ const DashboardComponent = Loadable({
 /* ****** M ***** */
 
 const ManageProfileComponent = Loadable({
-    loader: () => import('./container/ProfileSetup/Manage/ProfileManage'),
+    loader: () => import('./container/ClientProfileSetup/Manage/ProfileManage'),
     loading: () => getLoader()
 });
 
 const ManageDepartmentComponent = Loadable({
-    loader: () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
+    loader: () => import('./container/ClientDepartmentSetup/Manage/DepartmentManage'),
     loading: () => getLoader()
 });
 
@@ -114,7 +114,7 @@ const ManageSpecializationComponent = Loadable({
 });
 
 const ManageAdminComponent = Loadable({
-    loader: () => import('./container/AdminSetup/Manage/AdminManage'),
+    loader: () => import('./container/ClientAdminSetup/Manage/AdminManage'),
     loading: () => getLoader()
 });
 
@@ -147,7 +147,7 @@ const ManageDoctorComponent = Loadable({
 /* ****** P ***** */
 
 const ProfileComponent = Loadable({
-    loader: () => import('./container/ProfileSetup/ProfileSetup'),
+    loader: () => import('./container/ClientProfileSetup/ProfileSetup'),
     loading: () => getLoader()
 });
 /* ****** Q ***** */
@@ -426,7 +426,7 @@ export const routes = [
         name: 'Appointment Approval'
     },
     {
-        path: '/appointment/appointmentLog',
+        path: '/reports/appointmentLog',
         component: AppointmentLogListComponent,
         icon: '',
         hasTab: false,

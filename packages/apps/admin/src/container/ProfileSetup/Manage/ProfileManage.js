@@ -15,7 +15,14 @@ import {
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {ProfileSetupUtils, adminUserMenusJson, UserMenuUtils, TryCatchHandler} from "@frontend-appointment/helpers";
+import {
+    ProfileSetupUtils,
+    adminUserMenusJson,
+    clientUserMenusJson,
+    UserMenuUtils,
+    TryCatchHandler,
+    EnvironmentVariableGetter
+} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
@@ -222,8 +229,9 @@ class ProfileManage extends PureComponent {
             menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        let menusForSubDept = [...adminUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
+        const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
+        let alphabeticallySortedMenus = ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
+            hospitalsForDropdown, profileResponseDTO.hospitalId);
 
         if (profileResponseDTO) {
             await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
@@ -514,11 +522,18 @@ class ProfileManage extends PureComponent {
         await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
         if (fieldName === 'selectedHospital') {
             if (value) {
+                const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
+                let alphabeticallySortedMenus =
+                    ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(hospitalsForDropdown,
+                        this.state.profileUpdateData.selectedHospital.value);
+
                 let departments = await this.fetchDepartmentsByHospitalId(value);
                 this.setState({
                     profileUpdateData: {
                         ...this.state.profileUpdateData,
                         selectedDepartment: null,
+                        userMenus: [...alphabeticallySortedMenus],
+                        defaultSelectedMenu: alphabeticallySortedMenus[0],
                         departmentListByHospital: [...departments]
                     }
                 })
@@ -555,13 +570,31 @@ class ProfileManage extends PureComponent {
             }
             // FOR REMAINING CHECK IF THE ROLE AND MENU ALREADY EXISTS OR NOT AND THEN ADD NEW OBJECT TO ARRAY
             for (let menu of userMenus) {
-                for (let child of menu.childMenus) {
-                    child.roles.forEach(role => {
-                        let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
-                            && Number(menu.userMenuId) === Number(child.id)));
+                if (menu.childMenus.length) {
+                    for (let child of menu.childMenus) {
+                        child.roles.forEach(role => {
+                            let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
+                                && Number(menu.userMenuId) === Number(child.id)));
+                            !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
+                                parentId: menu.id,
+                                userMenuId: child.id,
+                                roleId: role,
+                                status: 'Y',
+                                profileMenuId: null,
+                                isNew: true,
+                                isUpdated: false
+                            })
+                        })
+                    }
+                } else {
+                    menu.roles.map(role => {
+                        let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
+                                (Number(currentMenu.roleId) === Number(role)) && (Number(currentMenu.userMenuId) === Number(menu.id))
+                            ))
+                        );
                         !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
                             parentId: menu.id,
-                            userMenuId: child.id,
+                            userMenuId: menu.id,
                             roleId: role,
                             status: 'Y',
                             profileMenuId: null,
