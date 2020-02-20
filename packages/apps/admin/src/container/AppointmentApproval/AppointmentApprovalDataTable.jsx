@@ -4,6 +4,10 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements';
+import {
+  ConfirmDelete,
+  CConfirmationModal
+} from '@frontend-appointment/ui-components';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewDetails from './AppointmentApprovalPreview';
@@ -15,7 +19,17 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    rejectSubmitHandler,
+    rejectRemarksHandler,
+    onRejectHandler,
+    approveHandler,
+    approveHandleApi,
+    rejectError,
+    isAppointmentRejectLoading,
+    approveConfirmationModal,
+    rejectModalShow,
+    remarks
   } = tableHandler;
   const {queryParams, totalRecords, handlePageChange} = paginationProps;
   return (
@@ -138,17 +152,16 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
                   width:"100",
-                  // cellRendererParams: {
-                  //     onClick: function (e, id, type) {
-                  //         type === 'D'
-                  //             // ? props.filteredActions.find(action => action.id === 5) &&
-                  //             ? props.onDeleteHandler(id)
-                  //             : type === 'E'
-                  //             ? props.onEditHandler(id)
-                  //             : props.onPreviewHandler(id)
-                  //     },
-                  //     filteredAction: props.filteredActions
-                  // },
+                  cellRendererParams: {
+                      onClick: function (e, id, type) {
+                          type === 'D'
+                              // ? props.filteredActions.find(action => action.id === 5) &&
+                              ? onRejectHandler(id)
+                              : approveHandler(id)
+                              //: props.onPreviewHandler(id)
+                      },
+                     // filteredAction: props.filteredActions
+                  },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }
               ]}
@@ -187,6 +200,33 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
           showModal={showModal}
           setShowModal={setShowModal}
           approvalData={previewData}
+        />
+      ) : (
+        ''
+      )}
+      {rejectModalShow ? (
+        <ConfirmDelete
+          confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
+          modalHeader="Reject Appointment"
+          showModal={rejectModalShow}
+          setShowModal={setShowModal}
+          onDeleteRemarksChangeHandler={rejectRemarksHandler}
+          remarks={remarks}
+          onSubmitDelete={rejectSubmitHandler}
+          deleteErrorMessage={rejectError}
+        />
+      ) : (
+        ''
+      )}
+
+      {approveConfirmationModal ? (
+        <CConfirmationModal
+          modalHeader="Are you sure you want to approve?"
+          showModal={approveConfirmationModal}
+          setShowModal={setShowModal}
+          remarks={remarks}
+          onAccept={approveHandleApi}
+          onReject={setShowModal}
         />
       ) : (
         ''
