@@ -11,6 +11,7 @@ import {
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewDetails from './AppointmentApprovalPreview';
+import RejectModal from "./RejectModal";
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -113,7 +114,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-  
+
                 {
                   headerName: 'Mobile Number',
                   field: 'mobileNumber',
@@ -205,7 +206,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         ''
       )}
       {rejectModalShow ? (
-        <ConfirmDelete
+        <RejectModal
           confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
           modalHeader="Reject Appointment"
           showModal={rejectModalShow}
