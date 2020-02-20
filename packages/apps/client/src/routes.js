@@ -155,7 +155,7 @@ const ProfileComponent = Loadable({
 /* ****** R ***** */
 
 const RescheduleLog = Loadable({
-    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
     loading: () => getLoader()
 });
 

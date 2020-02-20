@@ -14,8 +14,8 @@ import * as Material from 'react-icons/md';
 
 const {searchRescheduleLog, clearRescheduleLogMessage} = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
-const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
+const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
+const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
 const {fetchPatientMetaList} = PatientDetailsMiddleware;
 
 const {
@@ -27,8 +27,8 @@ const {
 } = AdminModuleAPIConstants;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants;
-const {FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN} = doctorSetupApiConstants;
-const {SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = specializationSetupAPIConstants;
+const {FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = doctorSetupApiConstants;
+const {ACTIVE_DROPDOWN_SPECIALIZATION} = specializationSetupAPIConstants;
 const {SEARCH_APPOINTMENT_RESCHEDULE} = appointmentSetupApiConstant;
 const {ACTIVE_PATIENT_META_INFO_DETAILS} = patientSetupApiConstant;
 
@@ -40,7 +40,6 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             searchParameters: {
                 fromDate: new Date(),
                 toDate: new Date(),
-                hospitalId: '',
                 doctorId: '',
                 specializationId: '',
                 patientMetaInfoId: '',
@@ -70,14 +69,12 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        fetchDoctorsByHospital = async hospitalId => {
-            await this.props.fetchActiveDoctorsHospitalWiseForDropdown(FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-                hospitalId);
+        fetchDoctors = async () => {
+            await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
         };
 
-        fetchSpecializationByHospital = async hospitalId => {
-            await this.props.fetchSpecializationHospitalWiseForDropdown(SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
-                hospitalId);
+        fetchSpecializationByHospital = async () => {
+            await this.props.fetchSpecializationForDropdown(ACTIVE_DROPDOWN_SPECIALIZATION);
         };
 
         fetchPatientMetaInfo = async hospitalId => {
@@ -191,14 +188,14 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        callApiForHospitalChange = hospitalId => {
-            this.fetchDoctorsByHospital(hospitalId);
-            this.fetchSpecializationByHospital(hospitalId);
-            this.fetchPatientMetaInfo(hospitalId);
+        callApiForHospitalChange = () => {
+            this.fetchDoctors();
+            this.fetchSpecializationByHospital();
+            this.fetchPatientMetaInfo(0);
         };
 
         initialApiCalls = async () => {
-            await this.fetchHospitalForDropDown();
+            this.callApiForHospitalChange();
             await this.searchRescheduleLog(1);
         };
 
@@ -206,7 +203,6 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             const {
                 fromDate,
                 toDate,
-                hospitalId,
                 doctorId,
                 specializationId,
                 appointmentNumber,
@@ -225,7 +221,6 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             let searchData = {
                 fromDate,
                 toDate,
-                hospitalId: hospitalId.value || '',
                 specializationId: specializationId.value || '',
                 doctorId: doctorId.value || '',
                 appointmentNumber,
@@ -270,7 +265,6 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                     appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
                     doctorName: rescheduleData.doctorName || 'N/A',
                     esewaId: rescheduleData.esewaId || 'N/A',
-                    hospitalName: rescheduleData.hospitalName || 'N/A',
                     mobileNumber: rescheduleData.mobileNumber || 'N/A',
                     patientAge: rescheduleData.patientAge || 'N/A',
                     patientGender: rescheduleData.patientGender || 'N/A',
@@ -299,11 +293,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 searchParameters, rescheduleLogList, showAlert, alertMessageInfo, queryParams, totalRecords
             } = this.state;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            const {activeDoctorsForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
 
-            const {activeDoctorsByHospitalForDropdown, doctorDropdownErrorMessage} = this.props.DoctorDropdownReducer;
-
-            const {activeSpecializationListByHospital, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
+            const {allActiveSpecializationList, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
 
             const {isRescheduleLogLoading, rescheduleLogErrorMessage, totalAmount} = this.props.RescheduleLogReducer;
 
@@ -320,10 +312,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                                 handleEnter: this.handleEnterPress,
                                 resetSearch: this.handleSearchFormReset,
                                 searchRescheduleLog: this.searchRescheduleLog,
-                                hospitalList: hospitalsForDropdown,
-                                doctorList: activeDoctorsByHospitalForDropdown,
+                                doctorList: activeDoctorsForDropdown,
                                 doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                                specializationList: activeSpecializationListByHospital,
+                                specializationList: allActiveSpecializationList,
                                 specializationDropdownErrorMessage: dropdownErrorMessage,
                                 searchParameters: searchParameters,
                                 patientListDropdown: patientList,
@@ -368,8 +359,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         ],
         {
             fetchActiveHospitalsForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchSpecializationHospitalWiseForDropdown,
+            fetchActiveDoctorsForDropdown,
+            fetchSpecializationForDropdown,
             searchRescheduleLog,
             clearRescheduleLogMessage,
             fetchPatientMetaList
