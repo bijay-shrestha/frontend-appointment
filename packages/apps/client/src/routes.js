@@ -51,7 +51,7 @@ const AppointmentRefundListComponent = Loadable({
 });
 
 const AppointmentApprovalListComponent = Loadable({
-    loader: () => import('./container/AppointmentApproval/AppointmentApproval'),
+    loader: () => import('./container/ClientAppointmentApproval/AppointmentApproval'),
     loading: () => getLoader()
 });
 
