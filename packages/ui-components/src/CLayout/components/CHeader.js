@@ -128,7 +128,6 @@ class CHeader extends Component {
 
     handleKeyPress = (event) => {
         let keypressCount = this.state.keyPressCount;
-        debugger;;
         if (event.keyCode === 16) {
             if (!keypressCount || keypressCount === 2) {
                 keypressCount += 1;
