@@ -235,7 +235,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         await this.setStateValuesForSearch(newSearchParams)
       }
     }
-
+    
     async componentDidMount () {
       await this.searchAppointment()
       await this.searchHospitalForDropDown()
