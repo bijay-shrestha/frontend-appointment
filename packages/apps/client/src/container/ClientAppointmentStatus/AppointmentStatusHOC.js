@@ -93,7 +93,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     page: newPage
                 }
             });
-            this.searchAppointmentStatus()
+            this.searchAppointmentStatus();
         };
 
         handleSearchFormReset = async () => {
@@ -194,6 +194,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         initialApiCalls = async () => {
             await this.fetchDoctorsByHospital();
             await this.searchAppointmentStatus();
+            await this.fetchSpecializationByHospital()
         };
 
         searchAppointmentStatus = async () => {
@@ -320,7 +321,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 activeStatus
             } = this.state;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+           // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
             const {
                 activeDoctorsForDropdown,
@@ -405,7 +406,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             fetchActiveDoctorsForDropdown,
             fetchSpecializationForDropdown,
             fetchAppointmentStatusList,
-            clearAppointmentStatusMessage
+            clearAppointmentStatusMessage,
+            
         }
     )
 };
