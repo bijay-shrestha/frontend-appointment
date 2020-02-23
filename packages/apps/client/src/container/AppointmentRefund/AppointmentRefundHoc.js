@@ -22,14 +22,13 @@ const {
     clearAppointmentRefundMessage,
     appointmentRefund,
     appointmentRejectRefund
-    //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
+//const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {
-    fetchSpecializationHospitalWiseForDropdown
+    fetchSpecializationForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const AppointRefundHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
