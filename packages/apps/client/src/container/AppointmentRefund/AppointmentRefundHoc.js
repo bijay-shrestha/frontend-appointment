@@ -3,7 +3,6 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
-    HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
@@ -28,7 +27,7 @@ const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {
     fetchSpecializationForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdownWithoutHospitalId} = PatientDetailsMiddleware
 const AppointRefundHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -470,12 +469,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         {
             clearAppointmentRefundPending,
             fetchAppointmentRefundList,
-            fetchActiveHospitalsForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchSpecializationHospitalWiseForDropdown,
-            fetchPatientMetaList,
+            fetchActiveDoctorsForDropdown,
+            fetchSpecializationForDropdown,
             clearAppointmentRefundRejectMessage,
             clearAppointmentRefundMessage,
+            fetchPatientMetaDropdownWithoutHospitalId,
             appointmentRefund,
             appointmentRejectRefund
         }
