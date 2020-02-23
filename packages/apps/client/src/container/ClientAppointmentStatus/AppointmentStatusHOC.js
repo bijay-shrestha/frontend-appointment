@@ -194,7 +194,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         initialApiCalls = async () => {
             await this.fetchDoctorsByHospital();
             await this.searchAppointmentStatus();
-            await this.fetchSpecializationByHospital()
+            await this.fetchSpecializationByHospital();
         };
 
         searchAppointmentStatus = async () => {
