@@ -56,6 +56,7 @@ const RevenueTrend = props => {
             <Row>
               <CLineChart
                 lineData={newLineData}
+                revenueFilter={props.revenueFilter}
                 labels={newRevenueStatsData ? newRevenueStatsData : []}
                 width={600}
                 height={350}
