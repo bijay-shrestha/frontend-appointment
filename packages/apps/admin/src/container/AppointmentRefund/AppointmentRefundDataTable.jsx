@@ -10,6 +10,7 @@ import {
 } from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
+import RejectModal from "./RejectModal";
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
@@ -84,7 +85,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   width:160,
                 },
-                
+
                 {
                   headerName: 'App Time',
                   field: 'appointmentTime',
@@ -143,7 +144,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 //   sortable: true,
                 //   sizeColumnsToFit: true
                 // },
-                
+
                 // {
                 //   headerName: 'Amount',
                 //   field: 'refundAmount',
@@ -215,7 +216,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         ''
       )}
       {rejectModalShow ? (
-        <ConfirmDelete
+        <RejectModal
           confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
           modalHeader="Reject Refund"
           showModal={rejectModalShow}
