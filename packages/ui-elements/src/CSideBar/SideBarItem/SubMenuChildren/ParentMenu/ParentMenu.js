@@ -5,9 +5,10 @@ import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons'
 // import NavLink from 'react-bootstrap/NavLink'
 import classNames from 'classnames'
 import {Link} from 'react-router-dom'
+import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
 const ParentMenu = props => {
-  const baseDepartment = process.env.REACT_APP_BASE_PATH_CODE
+  const baseDepartment = EnvironmentVariableGetter.REACT_APP_BASE_PATH_CODE;
   const sideBase = baseDepartment ? baseDepartment : ''
   return props.childrenSize > 0 ? (
     <Accordion.Toggle
