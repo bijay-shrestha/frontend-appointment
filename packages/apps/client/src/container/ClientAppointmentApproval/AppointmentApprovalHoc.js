@@ -2,7 +2,6 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    HospitalSetupMiddleware,
     DoctorMiddleware,
     SpecializationSetupMiddleware,
     PatientDetailsMiddleware
@@ -28,7 +27,6 @@ const {fetchPatientMetaList} = PatientDetailsMiddleware;
 const AppointApprovalHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
-        hospitalSetupApiConstants,
         doctorSetupApiConstants,
         specializationSetupAPIConstants,
         patientSetupApiConstant
@@ -188,14 +186,13 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         };
 
         callApiForHospitalChange = async () => {
-            await this.handleHospitalChangeReset();
 
             this.props.fetchActiveDoctorsForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
             );
 
             this.props.fetchSpecializationForDropdown(
-                specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL
+                specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
             );
 
             this.props.fetchPatientMetaList(
@@ -229,7 +226,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         async componentDidMount() {
             await this.searchAppointment();
-            await this.searchHospitalForDropDown()
+            await this.callApiForHospitalChange();
         }
 
         render() {
