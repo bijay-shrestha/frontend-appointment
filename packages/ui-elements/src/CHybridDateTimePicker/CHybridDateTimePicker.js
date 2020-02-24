@@ -1,10 +1,11 @@
-import React, {useState, useRef} from 'React'
-import ReactDOM from 'react-dom'
+import React, {useState, useRef} from 'React';
+import ReactDOM from 'react-dom';
+
 const CHybridDateTimePicker = props => {
-  const timePickerRef = useRef()
-  const fieldWrapperRef = useRef()
-  const fieldPlaceholderRef = userRef()
-  const [errorMessage, setErrorMessage] = useState('')
+  const timePickerRef = useRef();
+  const fieldWrapperRef = useRef();
+  const fieldPlaceholderRef = userRef();
+  const [errorMessage, setErrorMessage] = useState('');
   const [isValid, setValid] = useState('')
 
   const toggleClassName = (ref, values) => {
