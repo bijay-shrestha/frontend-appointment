@@ -5,7 +5,7 @@ import {CLayout} from '@frontend-appointment/ui-components';
 import {routes} from '../routes';
 import LoginPage from '../container/Login';
 import {ComponentHoc} from '@frontend-appointment/commons';
-import SetPassword from '../container/SavePassword/SavePassword';
+import SetPassword from '../container/ClientSavePassword/SavePassword';
 import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
 import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
 

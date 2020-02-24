@@ -9,7 +9,7 @@ import {
 
 // ********************************* START GENERIC REQUESTS ********************************//
 
-// const domain = process.env.REACT_APP_SERVER_DOMAIN;
+// const domain = process.env.REACT_APP_BACKEND_SERVER_DOMAIN;
 // const SERVER_DOMAIN = domain ? domain : '';
 
 const GET = (path, headers) => Axios.get(`${path}`, headers);

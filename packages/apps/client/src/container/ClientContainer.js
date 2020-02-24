@@ -1,11 +1,9 @@
 import React from 'react';
-import {HashRouter, Route} from 'react-router-dom';
+import {HashRouter} from 'react-router-dom';
 import AuthenticationModule from '../AuthenticateHOC';
-import LoginPage from './Login/LoginPage';
-import {LoginHoc} from '@frontend-appointment/commons';
 
 
-const AdminContainer = props => {
+const ClientContainer = props => {
     const authenticatePath = (<AuthenticationModule/>);
     return (
         <HashRouter>
@@ -15,4 +13,4 @@ const AdminContainer = props => {
 
 };
 
-export default AdminContainer;
+export default ClientContainer;

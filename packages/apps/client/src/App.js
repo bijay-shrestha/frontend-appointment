@@ -1,13 +1,13 @@
 import React from 'react';
 //import './App.css';
-import AdminContainer from "./container/AdminContainer";
+import ClientContainer from "./container/ClientContainer";
 import '@frontend-appointment/common-sass-client';
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/iconfont/material-icons.scss';
 
 const App = props => {
     return (
-        <AdminContainer {...props}/>
+        <ClientContainer {...props}/>
     )
 };
 
