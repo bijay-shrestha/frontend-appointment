@@ -20,7 +20,6 @@ class SavePassword extends React.PureComponent {
         try {
             let passwordSaveData = {password: userPassword.password, token: this.state.token};
             await this.props.savePassword(SAVE_ADMIN_PASSWORD, passwordSaveData);
-            Cookies.remove('XSRF-TOKEN', {domain: process.env.REACT_APP_DOMAIN_NAME});
             localStorage.clear();
             await this.props.history.push('/');
             return null;

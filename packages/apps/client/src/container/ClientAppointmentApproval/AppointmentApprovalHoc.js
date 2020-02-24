@@ -195,8 +195,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             );
 
             this.props.fetchSpecializationForDropdown(
-                specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
-                hospitalId
+                specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL
             );
 
             this.props.fetchPatientMetaList(
