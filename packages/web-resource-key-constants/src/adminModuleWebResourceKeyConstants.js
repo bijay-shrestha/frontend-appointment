@@ -137,7 +137,7 @@ export const universitySetupAliasCode = {
 export const patientSetupApiConstant = {
     ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min"),
     ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE+ "/metaInfo/min"),
-    SEARCH_PATIENT_INFO:BASE.concat(PATIENT_BASE+"/patient/search"),
+    SEARCH_PATIENT_INFO:BASE.concat(PATIENT_BASE+"/search"),
     PREVIEW_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE+"/detail"),
     UPDATE_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE)
 };
@@ -150,6 +150,8 @@ export const appointmentSetupApiConstant ={
     APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
     APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
     APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval"),
+    APPOINTMENT_APPROVE:BASE.concat(APPOINTMENT_BASE+"/approve"),
+    APPOINTMENT_REJECT:BASE.concat(APPOINTMENT_BASE+"/reject"),
     SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log"))
 };
 
@@ -157,7 +159,8 @@ export const DashboardApiConstant = {
     OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + "/overAllAppointments"),
     REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
     REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
-    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics")
+    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics"),
+    APPOINTMENT_QUERY:BASE.concat(DASHBOARD_BASE + "/today-appointment")
 };
 
 

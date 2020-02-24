@@ -9,8 +9,8 @@ import {
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     EnterKeyPressUtils,
-    FileExportUtils,
-    AdminInfoUtils
+    // FileExportUtils,
+    // AdminInfoUtils
 } from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
 
@@ -186,7 +186,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData,
                 nameValid,
                 contactValid,
-                emailValid,
+              //  emailValid,
                 appointmentChargeValid
             } = this.state
             let formValidity =
@@ -203,7 +203,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData.genderCode &&
                 consultantData.email &&
                 consultantData.nmcNumber
-            // consultantData.doctorAvatar
 
             if (eventType === 'E')
                 formValidity = formValidity && consultantData.remarks

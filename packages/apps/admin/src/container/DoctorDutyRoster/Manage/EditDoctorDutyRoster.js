@@ -122,6 +122,7 @@ const EditDoctorDutyRoster = ({
                 <DoctorAvailabilityForm
                     doctorAvailabilityData={updateDoctorDutyRosterData.weekDaysDutyRosterUpdateRequestDTOS}
                     handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
+                    rosterGapDuration={updateDoctorDutyRosterData.rosterGapDuration}
                     type="MANAGE"
                 />
             </Row>

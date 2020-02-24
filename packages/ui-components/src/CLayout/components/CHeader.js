@@ -194,7 +194,7 @@ class CHeader extends Component {
     };
 
     searchUserMenus = (event) => {
-        let BASE_PATH = process.env.REACT_APP_BASE_PATH_CODE;
+        let BASE_PATH = process.env.REACT_APP_BASE_PATH_CODE ? process.env.REACT_APP_BASE_PATH_CODE : '';
         let keyWord = event.target.value;
         let menusMatchingKeyWord = [];
         let userMenus = JSON.parse(localStorage.getItem('userMenus'));

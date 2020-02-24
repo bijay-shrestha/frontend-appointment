@@ -1,0 +1,12 @@
+.form-control:focus{
+box-shadow: none;
+border-color:$cogent;
+}
+
+.form-control{
+    // border-color:$cogent;
+}
+
+.was-validated .form-control:invalid, .form-control.is-invalid{
+    background-image: none;
+}

@@ -26,7 +26,13 @@ const {
     SEARCH_RESCHEDULE_LOG_START,
     SEARCH_RESCHEDULE_LOG_SUCCESS,
     SEARCH_RESCHEDULE_LOG_ERROR,
-    CLEAR_RESCHEDULE_LOG_MESSAGE
+    CLEAR_RESCHEDULE_LOG_MESSAGE,
+    APPROVE_ERROR,
+    APPROVE_START,
+    APPROVE_SUCCESS,
+    REJECT_ERROR,
+    REJECT_START,
+    REJECT_SUCCESS
 } = appointmentDetailsConstants;
 
 export const appointmentRefundFetchingStart = () => {
@@ -212,5 +218,50 @@ export const searchRescheduleError = errorMessage => {
 export const clearRescheduleLogMessage = ()=>{
     return {
         type: CLEAR_RESCHEDULE_LOG_MESSAGE
+    }
+};
+
+
+export const appointmentApproveStart = () => {
+    return {
+        type: APPROVE_START
+    }
+};
+
+export const appointmentApproveSuccess = message => {
+    return {
+        type: APPROVE_SUCCESS,
+        payload: {data: message}
+    }
+};
+
+export const appointmentApproveError = message => {
+    return {
+        type: APPROVE_ERROR,
+        payload: {
+            data: message
+        }
+    }
+};
+
+export const appointmentRejectStart = () => {
+    return {
+        type: REJECT_START
+    }
+};
+
+export const appointmentRejectSuccess = message => {
+    return {
+        type: REJECT_SUCCESS,
+        payload: {data: message}
+    }
+};
+
+export const appointmentRejectError = message => {
+    return {
+        type: REJECT_ERROR,
+        payload: {
+            data: message
+        }
     }
 };

@@ -1,0 +1,46 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
+.btn {
+  // border-radius: 4px;
+  font-size    : 0.85rem;
+
+  &:focus {
+    box-shadow:none;
+    outline      : 1px;
+  }
+
+
+}
+
+button:disabled {
+  cursor        : not-allowed;
+  pointer-events: all !important;
+
+  &:hover {
+    cursor        : not-allowed;
+    pointer-events: all !important;
+
+  }
+}
+
+.btn-action{
+  padding:0.75rem 2rem;
+}
+
+.btn-small-action{
+  padding:0.75rem 2rem;
+  
+}
+
+.upload-button{
+  width:150px;
+}
+
+.btn-outline-secondary{
+  border-color:$gray-600;
+ color:$gray-700;
+}

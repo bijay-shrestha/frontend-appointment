@@ -1,3 +1,5 @@
+import {EnvironmentVariableGetter} from "./index";
+
 export const addRemoveMacAddressObject = (hasMacBinding, macIdList) => {
     let tempArray = [...macIdList];
     if (hasMacBinding) {
@@ -37,4 +39,11 @@ export const getMacAddresses = (macAddressInfoResponseDTOS) => {
         isNew: false,
         status: 'Y'
     }));
+};
+
+export const getBaseUrlForEmail = (hospitalList,hospital) => {
+    let selectedHospital = hospitalList.find(dropdownData => dropdownData.value === hospital.value);
+    return selectedHospital.isCogentAdmin === 'Y' ?
+        EnvironmentVariableGetter.ADMIN_SERVER_DOMAIN.concat(":".concat(EnvironmentVariableGetter.ADMIN_PORT)) :
+        EnvironmentVariableGetter.CLIENT_SERVER_DOMAIN.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT));
 };

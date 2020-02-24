@@ -1,11 +1,11 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 
 import {CFControl, CHybridInput} from "@frontend-appointment/ui-elements";
 import "./react-datepicker.scss";
 
-class CTimePicker extends PureComponent {
+class CTimePicker extends React.Component {
 
     subDays = (date, days) => {
         return date.setDate(date.getDate() - days);
@@ -16,7 +16,8 @@ class CTimePicker extends PureComponent {
     };
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return nextProps.selected.toLocaleString() !== this.props.selected.toLocaleString();
+        return (nextProps.selected.toLocaleString() !== this.props.selected.toLocaleString() ||
+            nextProps.timeIntervals !== this.props.timeIntervals);
     }
 
     render() {

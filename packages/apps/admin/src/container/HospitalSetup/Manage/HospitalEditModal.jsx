@@ -123,6 +123,7 @@ const HospitalEditModal = ({
                                     value={hospitalData.name}
                                     required={true}
                                     hasValidation={true}
+                                    max={100}
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     errorMessagePassed={errorMessageForHospitalName}
                                 />
@@ -140,6 +141,7 @@ const HospitalEditModal = ({
                                     placeholder="Hospital Code"
                                     value={hospitalData.hospitalCode}
                                     required={true}
+                                    disabled={true}
                                 />
                             </Col>
 
@@ -154,7 +156,12 @@ const HospitalEditModal = ({
                                     }
                                     placeholder="Pan Number"
                                     value={hospitalData.panNumber}
+                                    fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                    hasValidation={true}
+                                    max={9}
+                                    errorMessagePassed={'Pan number should only be alphanumber and of 9 max characters'}
                                     required={true}
+                                    
                                 />
                             </Col>
 
