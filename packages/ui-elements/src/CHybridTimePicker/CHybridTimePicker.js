@@ -1,12 +1,41 @@
-import React, {useState, useRef} from 'React';
+import React, {useState, useRef,useEffect} from 'react';
+import {Form} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
+import './hybrid-time.scss';
+const CHybridTimePicker = props => {
+  const {
+        id,
+        as,
+        autoComplete,
+        bsPrefix,
+        children,
+        className,
+        defaultValue,
+        disabled,
+        name,
+        onKeyDown,
+        pattern,
+        readOnly,
+        required,
+        rows,
+        size,
+        type,
+        value,
+        onChange,
+        duration,
+        fieldValuePattern,
+        errorMessagePassed,
+        hasValidation,
+        onClick,
+        placeholder,
+        errorMsg
+  } = props
 
-const CHybridDateTimePicker = props => {
   const timePickerRef = useRef();
   const fieldWrapperRef = useRef();
-  const fieldPlaceholderRef = userRef();
+  const fieldPlaceholderRef = useRef();
   const [errorMessage, setErrorMessage] = useState('');
-  const [isValid, setValid] = useState('')
+  const [isValid, setValid] = useState('');
 
   const toggleClassName = (ref, values) => {
     values.map(value => ReactDOM.findDOMNode(ref).classList.toggle(value))
@@ -31,7 +60,7 @@ const CHybridDateTimePicker = props => {
     setValid(validity)
   }
 
-  validateFieldAndToggleErrorClass = (
+  const validateFieldAndToggleErrorClass = (
     patternOfFieldValue,
     errorMessageToDisplay,
     value
@@ -40,7 +69,7 @@ const CHybridDateTimePicker = props => {
     let isValid = patternOfFieldValue.test(value)
     if (!isValid && (value === 0 || value)) {
       fieldWrapper.add('errorInput')
-      setErrorMessagesAndValidity(props.errorMessagePassed, false)
+      setErrorMessagesAndValidity(errorMessagePassed, false)
       return false
     } else {
       fieldWrapper.remove('errorInput')
@@ -49,33 +78,33 @@ const CHybridDateTimePicker = props => {
     }
   }
 
-  handleOnChange = e => {
+  const handleOnChange = e => {
     let validity = ''
     classAdditionWhenValueIsChanged(e.target.value)
-    if (this.props.hasValidation) {
-      validity = this.validateFieldAndToggleErrorClass(
-        props.fieldValuePattern,
-        rops.errorMessagePassed,
+    if (hasValidation) {
+       validity = validateFieldAndToggleErrorClass(
+        fieldValuePattern,
+        errorMessagePassed,
         e.target.value
       )
     }
-    props.onChange(e, validity)
+    onChange(e, validity)
   }
 
-  handleOnFocus = e => {
+ const handleOnFocus = e => {
     const a = ReactDOM.findDOMNode(fieldWrapperRef).className
     if (!a.includes('myInput') && !this.state.errorMsg) {
       ReactDOM.findDOMNode(fieldWrapperRef).className += ' myInput'
     }
   }
 
-  handleOnBlur = e => {
-    const a = ReactDOM.findDOMNode(fieldWrapper).className
-    const replaceString = a.replace(' myInput', '')
-    ReactDOM.findDOMNode(fieldWrapper).className = replaceString
+const handleOnBlur = e => {
+    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
+    const replaceString = a.replace('myInput', '')
+    ReactDOM.findDOMNode(fieldWrapperRef).className = replaceString
   }
 
-  handlePlaceholderClick = () => {
+const handlePlaceholderClick = () => {
     timePickerRef.current.focus()
   }
 
@@ -87,7 +116,6 @@ const CHybridDateTimePicker = props => {
       onClick={onClick}
     >
       <Form.Control
-        _ref={_ref}
         ref={timePickerRef}
         as={as}
         autoComplete={autoComplete}
@@ -100,12 +128,11 @@ const CHybridDateTimePicker = props => {
         isInvalid={isValid ? !isValid : isValid}
         isValid={isValid}
         maxLength={5}
-        minLenght={5}
+        minLength={5}
         name={name}
-        onBlur={this.handleOnBlur}
-        onChange={this.handleOnChange}
-        onFocus={this.handleOnFocus}
-        // onClick={onClick}
+        onBlur={handleOnBlur}
+        onChange={handleOnChange}
+        onFocus={handleOnFocus}
         onKeyDown={onKeyDown}
         pattern={pattern}
         readOnly={readOnly}
@@ -118,7 +145,7 @@ const CHybridDateTimePicker = props => {
       <div
         className="field-placeholder"
         ref={fieldPlaceholderRef}
-        onClick={this.handlePlaceholderClick}
+        onClick={handlePlaceholderClick}
       >
         <span>{placeholder ? placeholder : 'Enter Value'}</span>
       </div>
@@ -128,3 +155,4 @@ const CHybridDateTimePicker = props => {
     </div>
   )
 }
+export default CHybridTimePicker;
