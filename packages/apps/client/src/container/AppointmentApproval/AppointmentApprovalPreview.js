@@ -7,7 +7,7 @@ const PreviewRefund = props => {
     return (
         <>
             <CModal show={showModal}
-                    modalHeading="Appointment Approval Details"
+                    modalHeading="Appointment Checkin Details"
                     size="xl"
                     bodyChildren={<ApprovalContent approvalData={approvalData} />}
                     onHide={setShowModal}
