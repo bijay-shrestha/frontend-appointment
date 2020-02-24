@@ -34,12 +34,11 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
     }
 
     render() {
-        const {searchHandler} = this.props
+        const {searchHandler} = this.props;
         const {
             handleEnter,
             handleSearchFormChange,
             resetSearch,
-            hospitalsDropdown,
             doctorsDropdown,
             doctorDropdownErrorMessage,
             activeSpecializationList,
@@ -76,19 +75,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             name="appointmentNumber"
                                             placeholder="Select Appointment Number"
                                             value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="hospitalId"
-                                            name="hospitalId"
-                                            label="Select Hospital"
-                                            placeholder="Select Hospital"
-                                            options={hospitalsDropdown}
-                                            isDisabled={hospitalsDropdown.length ? false : true}
-                                            value={searchParameters.hospitalId}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
@@ -229,12 +215,12 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
                             </Container-fluid>
-                            <div className="search-toggle-btn"></div>
+                            <div className="search-toggle-btn"/>
                         </CForm>
                     </div>
                 ) : (
@@ -246,7 +232,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                             <li>
                                 <CButton id="spec-filter" variant="primary" name="">
                                     <>
-                                        <i className="fa fa-filter"></i>
+                                        <i className="fa fa-filter"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
@@ -262,22 +248,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     >
                                         <Button id="light-search-filters" variant="secondary">
                                             {searchParameters.appointmentNumber}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
-                            {searchParameters.hospitalId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Hospital Name</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.hospitalId.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

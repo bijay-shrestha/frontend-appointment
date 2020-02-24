@@ -44,8 +44,8 @@ const CFControl = props => {
             id={"fControl_".concat(id)}
             isInvalid={isInvalid}
             isValid={isValid}
-            max={max}
-            min={min}
+            maxLength={max}
+            minLenght={min}
             multiple={multiple}
             name={name}
             onClick={onClick}
