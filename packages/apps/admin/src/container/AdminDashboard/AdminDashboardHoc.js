@@ -369,7 +369,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchAppointment()
+      this.searchAppointmentQueue()
     }
 
     componentDidMount () {

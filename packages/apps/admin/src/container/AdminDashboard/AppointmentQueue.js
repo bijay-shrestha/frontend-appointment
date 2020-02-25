@@ -84,10 +84,7 @@ const AppointmentQueue = props => {
                   field: 'appointmentTime',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true,
-                  valueFormatter:function timeFormatter(params) {
-                    return new Date(params.value).getHours().toString()+":"+new Date(params.value).getMinutes().toString();
-                  }
+                  sizeColumnsToFit: true
                 },
                 
              
