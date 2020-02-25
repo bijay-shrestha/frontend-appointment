@@ -51,17 +51,17 @@ const AppointmentRefundListComponent = Loadable({
 });
 
 const AppointmentApprovalListComponent = Loadable({
-    loader: () => import('./container/AppointmentApproval/AppointmentApproval'),
+    loader: () => import('./container/ClientAppointmentApproval/AppointmentApproval'),
     loading: () => getLoader()
 });
 
 const AppointmentStatusComponent = Loadable({
-    loader: () => import('./container/AppointmentStatus/AppointmentStatus'),
+    loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
     loading: () => getLoader()
 });
 
 const AppointmentLogListComponent = Loadable({
-    loader: () => import('./container/AppointmentLog/AppointmentLog'),
+    loader: () => import('./container/ClientAppointmentLog/AppointmentLog'),
     loading: () => getLoader()
 });
 /* ****** B ***** */
@@ -76,7 +76,7 @@ const DashboardComponent = Loadable({
 });
 
 // const AppointmentLogComponent = Loadable({
-//   loader: () => import('./container/AppointmentVisitApproval/AppointmentLog'),
+//   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
 // })
 
@@ -155,7 +155,7 @@ const ProfileComponent = Loadable({
 /* ****** R ***** */
 
 const RescheduleLog = Loadable({
-    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
     loading: () => getLoader()
 });
 
@@ -426,7 +426,7 @@ export const routes = [
         name: 'Appointment Approval'
     },
     {
-        path: '/appointment/appointmentLog',
+        path: '/reports/appointmentLog',
         component: AppointmentLogListComponent,
         icon: '',
         hasTab: false,

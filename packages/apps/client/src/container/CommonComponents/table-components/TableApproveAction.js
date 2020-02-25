@@ -4,7 +4,7 @@ import * as Material from 'react-icons/md'
 import * as Feather from 'react-icons/fi'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
-const {checkIfRoleExists} = ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils;
 const ApproveTableAction = props => {
   return (
     <>
@@ -17,7 +17,7 @@ const ApproveTableAction = props => {
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
             <Dropdown.Item
-              onClick={e => this.props.onClick(e, this.props.node.data.id, 'E')}
+              onClick={e => props.onClick(e, props.node.data.id, 'E')}
             >
               <Material.MdVerifiedUser />  Approve{' '}
             </Dropdown.Item>
@@ -25,7 +25,7 @@ const ApproveTableAction = props => {
           {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item
-              onClick={e => this.props.onClick(e, this.props.node.data.id, 'D')}
+              onClick={e => props.onClick(e, props.node.data.id, 'D')}
             >
               <Material.MdBlock /> Reject
             </Dropdown.Item>
@@ -34,6 +34,6 @@ const ApproveTableAction = props => {
       </Dropdown>
     </>
   )
-}
+};
 
 export default ApproveTableAction;

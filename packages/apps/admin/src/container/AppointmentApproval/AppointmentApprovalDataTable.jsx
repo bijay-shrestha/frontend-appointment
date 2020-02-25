@@ -11,6 +11,7 @@ import {
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewDetails from './AppointmentApprovalPreview';
+import RejectModal from "./RejectModal";
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -35,7 +36,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Approval Details</h5>
+        <h5 className="title">Appointment Checkin Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentApprovalList.length ? (
@@ -113,7 +114,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-  
+
                 {
                   headerName: 'Mobile Number',
                   field: 'mobileNumber',
@@ -151,7 +152,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
-                  width:"100",
+                  width:"150",
                   cellRendererParams: {
                       onClick: function (e, id, type) {
                           type === 'D'
@@ -205,7 +206,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         ''
       )}
       {rejectModalShow ? (
-        <ConfirmDelete
+        <RejectModal
           confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
           modalHeader="Reject Appointment"
           showModal={rejectModalShow}
