@@ -191,7 +191,7 @@
         {
           "id": "12",
           "parentId": "10",
-          "name": "Pending Appointment Approval",
+          "name": "Appointment  Checkin",
           "path": "/appointment/appointmentApprovalRequest",
           "roles": [
             13,14,15

@@ -36,7 +36,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Approval Details</h5>
+        <h5 className="title">Appointment Checkin Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentApprovalList.length ? (
@@ -152,7 +152,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
-                  width:"100",
+                  width:"150",
                   cellRendererParams: {
                       onClick: function (e, id, type) {
                           type === 'D'
