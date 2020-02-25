@@ -169,7 +169,6 @@ class CHeader extends Component {
         this.clearCount()
       }
     }
-    debugger
   }
 
   componentDidMount () {
