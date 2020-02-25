@@ -78,7 +78,6 @@ const AppointmentQueue = props => {
                   sizeColumnsToFit: true,
                   cellRenderer:'mobileRender'
                 },
-
                 {
                   headerName: 'Appointment Time',
                   field: 'appointmentTime',
