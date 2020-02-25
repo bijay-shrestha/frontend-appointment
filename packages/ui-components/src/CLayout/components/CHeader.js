@@ -33,24 +33,20 @@ class CHeader extends Component {
     formControl = React.createRef();
     searchDropdown = React.createRef();
     dropdownToggler = React.createRef();
+    keyPressCount = 0;
 
-    // closeAlert = () => {
-    //     this.setState({
-    //         showAlert: !this.state.showAlert,
-    //         alertMessageInfo: {
-    //             variant: '',
-    //             message: ''
-    //         },
-    //     });
-    // };
+    setKeyPressCount = value => {
+        this.keyPressCount = value
+    };
 
-    setShowModal = () => this.setState({
-        showChangePasswordModal: false,
-        oldPassword: '',
-        errorOldPassword: ''
-    });
+    setShowModal = () =>
+        this.setState({
+            showChangePasswordModal: false,
+            oldPassword: '',
+            errorOldPassword: ''
+        });
 
-    onChangeHandler = (event) => {
+    onChangeHandler = event => {
         let {name, value} = event.target;
         this.setState({
             [name]: value
@@ -117,13 +113,23 @@ class CHeader extends Component {
     };
 
     clearCount = async () => {
-        await this.setState({
-            keyPressCount: 0
-        });
+        // await this.setState({
+        //     keyPressCount: 0
+        // });
+        this.setKeyPressCount(0)
     };
 
-    clearKeyPressCount = async () => {
-        await setTimeout(async () => await this.clearCount(), 300)
+    clearCountDom = () => {
+        let searchClass = ReactDOM.findDOMNode(this.formControl.current).className
+        if (!searchClass.includes('active')) {
+            this.formControl.current && this.formControl.current.focus()
+        } else {
+            this.formControl.current && this.blurAndHideResults()
+        }
+    };
+
+    clearKeyPressCount = () => {
+        setTimeout(() => this.clearCount(), 300)
     };
 
     blurAndHideResults = async () => {
@@ -133,38 +139,25 @@ class CHeader extends Component {
         })
     };
 
-    handleKeyPress = async (event) => {
-        let keypressCount = this.state.keyPressCount;
-        console.log("=========================", keypressCount);
+    handleKeyPress = event => {
+        let keyCount = this.keyPressCount;
         if (event.keyCode === 16) {
-            if (!keypressCount || keypressCount === 2) {
-                // console.log('i am double clicked');
-                await this.setState({
-                    keyPressCount: keypressCount + 1
-                });
-                await this.clearKeyPressCount();
-            } else if (keypressCount === 1) {
-                let searchClass = ReactDOM.findDOMNode(this.formControl.current).className;
-
-                !searchClass.includes('active') ?
-                    this.formControl.current && this.formControl.current.focus()
-                    // : this.formControl.current && this.formControl.current.blur();
-                    : this.formControl.current && this.blurAndHideResults();
-
-                keypressCount += 1;
-                await this.setState({
-                    keyPressCount: keypressCount
-                });
-                // await this.clearKeyPressCount();
-            } else if (keypressCount === 3) {
-                this.formControl.current && this.formControl.current.blur();
-                this.clearCount();
+            if (!keyCount || keyCount === 2) {
+                keyCount += 1;
+                this.setKeyPressCount(keyCount)
+                this.clearKeyPressCount()
+            } else if (keyCount === 1) {
+                keyCount += 1;
+                this.setKeyPressCount(keyCount)
+                this.clearKeyPressCount()
+                this.clearCountDom()
+            } else if (keyCount === 3) {
+                this.formControl.current && this.formControl.current.blur()
+                this.clearCount()
             }
-
         } else if (event.keyCode === 40) {
             this.dropdownToggler.current.click();
         }
-
     };
 
     componentDidMount() {
@@ -288,7 +281,7 @@ class CHeader extends Component {
                                     handleOnFocus={this.handleSearchOnFocus}
                                 />
                             </Dropdown.Toggle>
-                            <Dropdown.Menu  className="drop-down-list">
+                            <Dropdown.Menu className="drop-down-list">
                                 {this.state.showResults ?
                                     //<ul className="drop-down-list">
                                     // {
