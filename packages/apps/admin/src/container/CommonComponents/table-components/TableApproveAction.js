@@ -14,7 +14,7 @@ const ApproveTableAction = props => {
      variant="success"
               onClickHandler={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
-              <Material.MdVerifiedUser />  Checkin{' '}
+              <i className="fa fa-sign-in"></i>&nbsp;Check-in {' '}
               </CButton>
       {/* <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">

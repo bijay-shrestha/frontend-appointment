@@ -6,7 +6,7 @@ const ConfirmationModal = props => {
     <>
       <div>
         <CButton
-          variant="danger "
+          variant="success "
           size="lg"
           className="float-right  btn-action ml-2"
           name="Accept"
