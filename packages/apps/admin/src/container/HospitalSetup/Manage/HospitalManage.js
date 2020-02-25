@@ -3,9 +3,7 @@ import HospitalSetupSearchFilter from './HospitalSetupSearchFilter'
 import HospitalDetailsTable from './HospitalDetailsTable'
 import HospitalEditForm from './HospitalEditModal'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import HospitalHoc from '../HospitalHoc'
-import HospitalForm from "../Add/HospitalForm";
-
+import HospitalHoc from '../HospitalHoc';
 const HospitalManage = props => {
     const SPManage = HospitalHoc(
         ({

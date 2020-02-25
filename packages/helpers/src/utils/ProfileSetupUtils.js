@@ -1,4 +1,4 @@
-import {userMenusJson} from "../../index";
+import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
 export const prepareProfilePreviewData = (userMenusProfile) => {
@@ -11,7 +11,9 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
     userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
     Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
         // For each parent menu's selected menus
-        const userMenus = userMenusJson[process.env.REACT_APP_MODULE_CODE];
+        let moduleCode = EnvironmentVariableGetter.REACT_APP_MODULE_CODE;
+        const userMenus = moduleCode === "ADMIN" ?
+            adminUserMenusJson[moduleCode] : clientUserMenusJson[moduleCode];
         const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
         let selectedParentMenus = new Set();
         let selectedChildMenus = new Set();
@@ -81,4 +83,14 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
             status: profileResponseDTO.status
         };
     return filteredProfiles
+};
+
+export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList,selectedHospitalId)=>{
+    let isCogentAdmin = hospitalList.find(hosp =>
+        hosp.value === selectedHospitalId).isCogentAdmin;
+    let userMenus = isCogentAdmin === 'Y' ? adminUserMenusJson : clientUserMenusJson;
+    let moduleCode = isCogentAdmin === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
+    let menusForDept = Object.keys(userMenus).find(code => code === moduleCode)
+        ? [...userMenus[moduleCode]] : [];
+    return UserMenuUtils.sortUserMenuJson([...menusForDept]);
 };

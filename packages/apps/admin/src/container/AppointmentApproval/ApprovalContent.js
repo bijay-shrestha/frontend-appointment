@@ -12,7 +12,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="hospitalName"
                   placeholder="Hospital Name"
-                  value={approvalData.hospitalName}
+                  value={approvalData.hospitalName||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -20,7 +20,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="appointmentDate"
                   placeholder="Appointment Date"
-                  value={approvalData.appointmentDate}
+                  value={approvalData.appointmentDate||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -28,7 +28,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="AppointmentTime"
                   placeholder="Appointment Time"
-                  value={approvalData.appointmentTime}
+                  value={approvalData.appointmentTime||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -36,7 +36,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="esewaId"
                   placeholder="Esewa Id"
-                  value={approvalData.esewaId}
+                  value={approvalData.esewaId||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -44,15 +44,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="registrationNumber"
                   placeholder="Registration Number"
-                  value={approvalData.registrationNumber}
-                  disabled={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="patientName"
-                  placeholder="Patient Name"
-                  value={approvalData.patientName}
+                  value={approvalData.registrationNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -68,7 +60,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="Mobile Number"
                   placeholder="Mobile Number"
-                  value={approvalData.mobileNumber}
+                  value={approvalData.mobileNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -76,7 +68,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id=""
                   placeholder="Patient Name"
-                  value={approvalData.patientName}
+                  value={approvalData.patientName||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -86,9 +78,9 @@ const ApprovalContent = ({approvalData}) => {
                   placeholder="Doctor(Specialization)"
                   value={
                     'Dr.' +
-                    approvalData.doctorName.toUpperCase() +
+                    approvalData.doctorName+
                     '(' +
-                    approvalData.specializationName.toUpperCase() +
+                    approvalData.specializationName +
                     ')'
                   }
                   disabled={true}
@@ -98,7 +90,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="transactionNumber"
                   placeholder="Transaction Number"
-                  value={approvalData.transactionNumber}
+                  value={approvalData.transactionNumber||'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -106,7 +98,7 @@ const ApprovalContent = ({approvalData}) => {
                 <CHybridInput
                   id="refundAmount"
                   placeholder="Refund Amount"
-                  value={approvalData.refundAmount}
+                  value={approvalData.refundAmount||'N/A'}
                   disabled={true}
                 />
               </Col>

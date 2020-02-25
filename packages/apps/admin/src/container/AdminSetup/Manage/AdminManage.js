@@ -699,6 +699,7 @@ class AdminManage extends PureComponent {
                 }
             })
         }
+
         let adminUpdateRequestDTO = {
             id,
             fullName,

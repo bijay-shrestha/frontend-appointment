@@ -117,6 +117,20 @@ export const fetchActiveDoctorsHospitalWiseForDropdown = (path, id) => async dis
     }
 };
 
+export const fetchActiveDoctorsHospitalWiseForDropdownForClient = (path) => async dispatch => {
+    try {
+        const response = await Axios.get(path);
+        dispatch(DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(
+            DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownError(e.errorMessage ?
+                e.errorMessage : 'Error fetching doctors.')
+        );
+        throw e;
+    }
+};
+
 export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId) => async dispatch => {
     try {
         const response = await Axios.getWithPathVariables(path, specializationId);

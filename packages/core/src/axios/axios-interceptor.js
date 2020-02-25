@@ -1,8 +1,9 @@
 import axios from 'axios';
-import {LocalStorageSecurity} from '@frontend-appointment/helpers';
+import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
 import ApiError from './axios-helper/api-error';
-const SERVER_DOMAIN = process.env.REACT_APP_SERVER_DOMAIN || ''
-const APP_PORT = process.env.PORT || ''
+
+const SERVER_DOMAIN = EnvironmentVariableGetter.SERVER_DOMAIN || '';
+//const APP_PORT = process.env.PORT || ''
 
 let Axios = axios.create({
     baseURL: SERVER_DOMAIN,
@@ -17,12 +18,12 @@ let Axios = axios.create({
 
 Axios.interceptors.request.use(
     requestConfig => {
-        let token = LocalStorageSecurity.localStorageDecoder('auth-token') || '';
+        let token = LocalStorageSecurity.localStorageDecoder(EnvironmentVariableGetter.AUTH_TOKEN) || '';
         requestConfig.headers.Authorization = token ? token : '';
         return requestConfig
     },
     error => {
-         return ApiError.errorHandler(error);
+        return ApiError.errorHandler(error);
     }
 )
 
@@ -33,7 +34,7 @@ Axios.interceptors.response.use(
     },
     error => {
         return ApiError.errorHandler(error);
-        
+
     }
 )
 export default Axios

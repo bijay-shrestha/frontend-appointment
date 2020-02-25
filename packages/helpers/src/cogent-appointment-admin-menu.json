@@ -1,5 +1,5 @@
 {
-  "SUP": [
+  "ADMIN": [
     {
       "id": "1",
       "parentId": null,
@@ -293,6 +293,24 @@
           "childMenus": []
         }
       ]
+    },
+    {
+      "id": "17",
+      "parentId": null,
+      "name": "Patient Information",
+      "path": "/patientInformation",
+      "roles": [
+       23,
+       24
+      ],
+      "icon": "fa fa-bed",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "patientInformation",
+      "childMenus": []
     }
   ]
 }

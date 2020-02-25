@@ -1,11 +1,13 @@
 import React, {memo} from 'react'
-import {Col, Container, Row} from 'react-bootstrap'
+import {Col, Container, Row,Form } from 'react-bootstrap'
 import HospitalDropdown from './HospitalDropdown'
 import RevenueStatistics from './RevenueStatistics'
 import RevenueTrend from './RevenueTrend'
 import PatientStatistics from './PatientStatistics'
 import AppointmentStatistics from './AppointmentStatistics'
 import AdminDashboardHoc from './AdminDashboardHoc'
+import AppointmentQueue from './AppointmentQueue'
+import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
     memo(
@@ -19,7 +21,8 @@ const AdminDashboard = props => {
         onPillsClickHandler,
         appointmentList,
         revenueFilter,
-        appointmentFilter
+        appointmentFilter,
+        appointmentQueue,
       }) => (
         <div className="dashboard-wrapper">
           <Container fluid className="">
@@ -56,13 +59,19 @@ const AdminDashboard = props => {
             <RevenueStatistics generateRevenue={generateRevenue} />
 
             <Row className="mt-1">
-              <RevenueTrend
+              <Col lg={7}>
+                <RevenueTrend
                 revenueStatistics={revenueStatistics}
                 onPillsClickHandler={onPillsClickHandler}
                 revenueFilter={revenueFilter}
               />
 
-              <Col lg={5} className="pr-0">
+              <AppointmentQueue
+                appointmentQueue={appointmentQueue}
+                hospitalId ={hospitalId}
+              />  
+             </Col>
+            <Col lg={5} className="pr-0">
                 <PatientStatistics registeredPatients={registeredPatients} />
                 <AppointmentStatistics
                   onPillsClickHandler={onPillsClickHandler}

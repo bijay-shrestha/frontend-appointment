@@ -49,9 +49,9 @@ class CHeader extends Component {
   //         },
   //     });
   // };
-  keyPressCount = 0;
+  keyPressCount = 0
 
-  setKeyPressCount = (value) => {
+  setKeyPressCount = value => {
     this.keyPressCount = value
   }
   setShowModal = () =>
@@ -158,15 +158,13 @@ class CHeader extends Component {
       if (!keyCount || keyCount === 2) {
         keyCount += 1
         this.setKeyPressCount(keyCount)
-        this.clearKeyPressCount();
-      }
-      else if (keyCount === 1) {
+        this.clearKeyPressCount()
+      } else if (keyCount === 1) {
         keyCount += 1
         this.setKeyPressCount(keyCount)
-        this.clearKeyPressCount();
-        this.clearCountDom();
-      }
-      else if (keyCount === 3) {
+        this.clearKeyPressCount()
+        this.clearCountDom()
+      } else if (keyCount === 3) {
         this.formControl.current && this.formControl.current.blur()
         this.clearCount()
       }
@@ -263,7 +261,7 @@ class CHeader extends Component {
   }
 
   render () {
-   // this.clearKeyPressCount()
+    // this.clearKeyPressCount()
     return (
       <React.Fragment>
         <header className="main-header container-fluid d-flex justify-content-between align-items-center">

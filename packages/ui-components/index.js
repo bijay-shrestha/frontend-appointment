@@ -1,4 +1,5 @@
 export {default as Login} from './src/Login';
+export {default as ClientLogin} from './src/ClientLogin';
 export {default as CLayout} from './src/CLayout';
 export {default as ConfirmDelete} from './src/DeleteRemarksModal';
 export {default as CImageUploadAndCropModal} from './src/CImageUploadAndCrop';
