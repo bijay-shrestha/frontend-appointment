@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import {Badge, Button, Dropdown, FormControl, Image, InputGroup, Nav} from 'react-bootstrap';
+import {Badge, Button, Dropdown, Image} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CMenuSearch} from '@frontend-appointment/ui-elements';
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {Link} from "react-router-dom";
-import * as Material from 'react-icons/md';
 
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
@@ -33,6 +32,7 @@ class CHeader extends Component {
 
     formControl = React.createRef();
     searchDropdown = React.createRef();
+    dropdownToggler = React.createRef();
 
     // closeAlert = () => {
     //     this.setState({
@@ -161,18 +161,20 @@ class CHeader extends Component {
                 this.clearCount();
             }
 
+        } else if (event.keyCode === 40) {
+            this.dropdownToggler.current.click();
         }
 
     };
 
     componentDidMount() {
         this.setLoggedInUserInfo();
-        document.addEventListener('keydown', this.handleKeyPress);
+        document.addEventListener('keyup', this.handleKeyPress);
         // document.addEventListener('keyup', this.handleKeyPress);
     };
 
     componentWillUnmount() {
-        document.removeEventListener("keydown", this.handleKeyPress);
+        document.removeEventListener("keyup", this.handleKeyPress);
         // document.removeEventListener("keyup", this.handleKeyPress);
         clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
     }
@@ -190,10 +192,12 @@ class CHeader extends Component {
     };
 
     handleSearchOnBlur = (event) => {
-        // if (event.target.value) {
+        if (event.keyCode === 40) {
+            this.formControl.current.focus();
+        } else {
             this.clearStateOnTimeout();
-        // }
-        ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+            ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
+        }
     };
 
     handleSearchOnFocus = () => {
@@ -273,7 +277,8 @@ class CHeader extends Component {
                             show={this.state.showResults}
                         >
                             <Dropdown.Toggle variant="default" id="dropdown-basic"
-                                             className="search-button rounded-circle">
+                                             className="search-button rounded-circle"
+                                             ref={this.dropdownToggler}>
                                 <CMenuSearch
                                     id="searchMenu"
                                     setRef={this.formControl}
@@ -281,41 +286,53 @@ class CHeader extends Component {
                                     value={this.state.searchKeyword}
                                     handleOnBlur={this.handleSearchOnBlur}
                                     handleOnFocus={this.handleSearchOnFocus}
-                                    // handleOnKeyDown={}
                                 />
                             </Dropdown.Toggle>
-                            <Dropdown.Menu>
+                            <Dropdown.Menu  className="drop-down-list">
                                 {this.state.showResults ?
-                                    <ul className="drop-down-list">
-                                        {
-                                            this.state.searchResult.length ?
-                                                this.state.searchResult.map(value => (
-
-                                                    <li className="" key={'menu-li' + value.id}>
-                                                        <div className="" key={value.id}>
-                                                            <Link
-                                                                key={'menu-link' + value.id}
-                                                                to={value.path}
-                                                                className="menu-link">
-                                                                <div className="anchor-icon">
-                                                                    {value.iCharacter}
-                                                                </div>
-                                                                <div className="menu-box">
-                                                                    <div className="menu">{value.name}</div>
-                                                                    <div className="sub-menu">{value.breadcrumb}</div>
-                                                                </div>
-                                                            </Link>
-                                                        </div>
-                                                    </li>
-                                                ))
-                                                :
-                                                <li className="">
-                                                    <div className="">
-                                                        No result(s) found.
-                                                    </div>
-                                                </li>
-                                        }
-                                    </ul> : ''
+                                    //<ul className="drop-down-list">
+                                    // {
+                                    this.state.searchResult.length ?
+                                        this.state.searchResult.map(value => (
+                                            <Dropdown.Item
+                                                key={'menu-li' + value.id}
+                                                as={Link}
+                                                to={value.path}
+                                                className="menu-box">
+                                                <div className="anchor-icon">
+                                                    {value.iCharacter}
+                                                </div>
+                                                <div className="menu-box">
+                                                    <div className="menu">{value.name}</div>
+                                                    <div className="sub-menu">{value.breadcrumb}</div>
+                                                </div>
+                                            </Dropdown.Item>
+                                            // <li className="" key={'menu-li' + value.id}>
+                                            //     <div className="" key={value.id}>
+                                            //         <Link
+                                            //             key={'menu-link' + value.id}
+                                            //             to={value.path}
+                                            //             className="menu-link">
+                                            //             <div className="anchor-icon">
+                                            //                 {value.iCharacter}
+                                            //             </div>
+                                            //             <div className="menu-box">
+                                            //                 <div className="menu">{value.name}</div>
+                                            //                 <div className="sub-menu">{value.breadcrumb}</div>
+                                            //             </div>
+                                            //         </Link>
+                                            //     </div>
+                                            // </li>
+                                        ))
+                                        :
+                                        <li className="">
+                                            <div className="">
+                                                No result(s) found.
+                                            </div>
+                                        </li>
+                                    //     }
+                                    // </ul>
+                                    : ''
                                 }
                             </Dropdown.Menu>
                         </Dropdown>
