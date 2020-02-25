@@ -197,7 +197,7 @@ class CHeader extends Component {
 
   handleSearchOnBlur = event => {
     if (event.target.value) {
-      this.clearStateOnTimeout()
+      this.clearStateOnTimeout();
       // this.formControl.current.focus();
     }
     ReactDOM.findDOMNode(this.formControl.current).classList.remove('active')
