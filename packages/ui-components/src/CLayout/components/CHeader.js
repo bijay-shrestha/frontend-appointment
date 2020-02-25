@@ -116,55 +116,64 @@ class CHeader extends Component {
         }
     };
 
-    clearCount = () => {
-        this.setState({
+    clearCount = async () => {
+        await this.setState({
             keyPressCount: 0
         });
     };
 
-    clearKeyPressCount = () => {
-        setTimeout(() => this.clearCount(), 1000)
+    clearKeyPressCount = async () => {
+        await setTimeout(async () => await this.clearCount(), 300)
     };
 
-    handleKeyPress = (event) => {
+    blurAndHideResults = async () => {
+        this.formControl.current.blur();
+        await this.setState({
+            showResults: false
+        })
+    };
+
+    handleKeyPress = async (event) => {
         let keypressCount = this.state.keyPressCount;
+        console.log("=========================", keypressCount);
         if (event.keyCode === 16) {
             if (!keypressCount || keypressCount === 2) {
-                console.log('i am double clicked');
-                this.setState({
-                    keyPressCount: keypressCount +1
+                // console.log('i am double clicked');
+                await this.setState({
+                    keyPressCount: keypressCount + 1
                 });
-                this.clearKeyPressCount();
+                await this.clearKeyPressCount();
             } else if (keypressCount === 1) {
                 let searchClass = ReactDOM.findDOMNode(this.formControl.current).className;
-                if (!searchClass.includes('active')) {
-                    this.formControl.current && this.formControl.current.focus();
-                    // ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
-                } else {
-                    this.formControl.current && this.formControl.current.blur();
-                    // ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
-                }
+
+                !searchClass.includes('active') ?
+                    this.formControl.current && this.formControl.current.focus()
+                    // : this.formControl.current && this.formControl.current.blur();
+                    : this.formControl.current && this.blurAndHideResults();
+
                 keypressCount += 1;
-                this.setState({
+                await this.setState({
                     keyPressCount: keypressCount
                 });
-            }
-            else if (keypressCount === 3) {
+                // await this.clearKeyPressCount();
+            } else if (keypressCount === 3) {
                 this.formControl.current && this.formControl.current.blur();
-                // this.clearCount();
+                this.clearCount();
             }
+
         }
+
     };
 
     componentDidMount() {
         this.setLoggedInUserInfo();
         document.addEventListener('keydown', this.handleKeyPress);
-        document.addEventListener('keyup', this.handleKeyPress);
+        // document.addEventListener('keyup', this.handleKeyPress);
     };
 
     componentWillUnmount() {
         document.removeEventListener("keydown", this.handleKeyPress);
-        document.removeEventListener("keyup", this.handleKeyPress);
+        // document.removeEventListener("keyup", this.handleKeyPress);
         clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
     }
 
@@ -181,10 +190,9 @@ class CHeader extends Component {
     };
 
     handleSearchOnBlur = (event) => {
-        if (event.target.value) {
+        // if (event.target.value) {
             this.clearStateOnTimeout();
-            // this.formControl.current.focus();
-        }
+        // }
         ReactDOM.findDOMNode(this.formControl.current).classList.remove('active');
     };
 
