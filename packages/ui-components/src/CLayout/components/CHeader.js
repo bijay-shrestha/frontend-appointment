@@ -34,7 +34,7 @@ class CHeader extends Component {
     searchDropdown = React.createRef();
     dropdownToggler = React.createRef();
     keyPressCount = 0;
-    blur = '';
+    blur = 'none';
 
     setKeyPressCount = value => {
         this.keyPressCount = value
@@ -114,9 +114,6 @@ class CHeader extends Component {
     };
 
     clearCount = async () => {
-        // await this.setState({
-        //     keyPressCount: 0
-        // });
         this.setKeyPressCount(0)
     };
 
@@ -126,6 +123,7 @@ class CHeader extends Component {
             this.formControl.current && this.formControl.current.focus();
             this.dropdownToggler.current.click();
         } else {
+            this.blur='blur';
             this.formControl.current && this.blurAndHideResults()
         }
     };
@@ -135,7 +133,6 @@ class CHeader extends Component {
     };
 
     handleDropdownBlur = (event) => {
-        console.log("=====================DBLUR", event);
         if (this.blur !== 'none') {
             this.clearStateOnTimeout();
             this.dropdownToggler.current && this.dropdownToggler.current.blur();
@@ -146,10 +143,7 @@ class CHeader extends Component {
 
     blurAndHideResults = async () => {
         this.dropdownToggler.current.blur();
-        // this.formControl.current.blur();
-        await this.setState({
-            showResults: false
-        })
+        this.formControl.current.blur();
     };
 
     handleKeyPress = event => {
@@ -162,19 +156,19 @@ class CHeader extends Component {
             } else if (keyCount === 1) {
                 keyCount += 1;
                 this.setKeyPressCount(keyCount);
+                this.toggleSearchComponent();
                 this.clearKeyPressCount();
-                this.toggleSearchComponent()
             } else if (keyCount === 3) {
                 this.formControl.current && this.formControl.current.blur();
+                this.dropdownToggler.current.blur();
                 this.clearCount()
             }
         } else if (event.keyCode === 40 || event.keyCode === 38) {
-            console.log("KEY DOWN");
             this.blur = 'none';
         } else if (event.keyCode === 27) {
-            console.log("INSIDE KEY PRESSSS", this.blur);
             this.blur = 'blur';
             this.handleDropdownBlur();
+            this.formControl.current.blur();
         }
     };
 
@@ -202,7 +196,6 @@ class CHeader extends Component {
     resetState = () => {
         this.setState({
             searchKeyword: '',
-            // searchResult: [],
             showResults: false
         })
     };
@@ -226,7 +219,6 @@ class CHeader extends Component {
     handleSearchOnFocus = () => {
         ReactDOM.findDOMNode(this.formControl.current).classList.add('active');
         this.blur = 'none';
-        this.searchDropdown.current.focus();
     };
 
     searchUserMenus = (event) => {
@@ -307,26 +299,14 @@ class CHeader extends Component {
                                              className="search-button rounded-circle"
                                              ref={this.dropdownToggler}
                             >
-                                <div id="menu-search">
-                                    <Form.Control
-                                        id={'searchMenu'}
-                                        type="search"
-                                        ref={this.formControl}
-                                        onChange={this.searchUserMenus}
-                                        onFocus={this.handleSearchOnFocus}
-                                        // onBlur={this.handleSearchOnBlur}
-                                        placeholder='Search Menus'
-                                        value={this.state.searchKeyword}
-                                        autoComplete="off"/>
-                                </div>
-                                {/*<CMenuSearch*/}
-                                {/*    id="searchMenu"*/}
-                                {/*    setRef={this.formControl}*/}
-                                {/*    onChange={this.searchUserMenus}*/}
-                                {/*    value={this.state.searchKeyword}*/}
-                                {/*    // handleOnBlur={this.handleSearchOnBlur}*/}
-                                {/*    handleOnFocus={this.handleSearchOnFocus}*/}
-                                {/*/>*/}
+                                <CMenuSearch
+                                    id="searchMenu"
+                                    setRef={this.formControl}
+                                    onChange={this.searchUserMenus}
+                                    value={this.state.searchKeyword}
+                                    // handleOnBlur={this.handleSearchOnBlur}
+                                    handleOnFocus={this.handleSearchOnFocus}
+                                />
                             </Dropdown.Toggle>
                             <Dropdown.Menu
                                 className="drop-down-list"
