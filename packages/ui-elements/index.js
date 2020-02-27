@@ -1,5 +1,3 @@
-
-
 export {default as CButton} from './src/CButton';
 export {default as CDropdown} from './src/CDropdown';
 export {default as CInputGroup} from './src/CInputGroup';
@@ -22,7 +20,6 @@ export {default as CHybridInput} from './src/CHybridInput';
 export {default as CHybridSelect} from './src/CHybridSelect';
 export {default as CHybridTextArea} from './src/CHybridTextArea';
 export {default as CSearch} from './src/CSearch';
-export {default as CMenuSearch} from './src/CMenuSearch';
 export {default as CRadioButton} from './src/CRadioButton';
 export {default as CDataTable} from './src/CDataTable';
 export {default as CSideBar} from './src/CSideBar';
@@ -36,5 +33,6 @@ export {default as CPageNotFound} from './src/404error';
 export {default as CFullPageLoading} from './src/CFullPageLoading';
 export {default as CLoading} from './src/CLoading';
 export {default as CUnauthorized} from './src/Unauthorized';
-export {default as CDoughnutChart} from './src/CDoughnutChart'; 
+export {default as CDoughnutChart} from './src/CDoughnutChart';
 export {default as CLineChart} from './src/CLineChart';
+export {default as CDoubleShiftSearch} from './src/CDoubleShiftSearch';
