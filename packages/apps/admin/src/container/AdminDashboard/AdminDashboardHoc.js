@@ -6,7 +6,6 @@ import {
   DoctorMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {} from '@frontend-appointment/helpers'
 import './admin-dashboard.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 

@@ -79,9 +79,6 @@ const ParentMenu = props => {
           to={sideBase + props.parent.path}
           exact="true"
           className={!props.parent.parentId ? 'no-child' : ''}
-          // onClick={
-          
-          // }
         >
           <i className={props.parent.icon} />
           <span
