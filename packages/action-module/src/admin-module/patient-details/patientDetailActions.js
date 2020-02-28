@@ -4,6 +4,9 @@ const {
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR,
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_START,
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR_WITHOUT_HOSPITAL_ID,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_START_WITHOUT_HOSPITAL_ID,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS_WITHOUT_HOSPITAL_ID,
   PATIENT_CLEAR_DROPDOWN_META,
   PATIENT_EDIT_ERROR,
   PATIENT_EDIT_PENDING,
@@ -24,16 +27,36 @@ export const patientActiveDropdownFetchingStart = () => {
   }
 }
 
-export const patientActiveDropdownFetchingSuccess = data => {
+export const patientActiveDropdownFetchingSuccess= data => {
   return {
-    type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS,
+    type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_START,
     payload: {data}
   }
 }
 
-export const patientActiveDropdownFetchingError = message => {
+export const patientActiveDropdownFetchingError= data => {
   return {
     type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR,
+    payload: {data}
+  }
+}
+
+export const patientActiveDropdownFetchingStartWithoutHospitalId = () => {
+  return {
+    type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_START_WITHOUT_HOSPITAL_ID
+  }
+}
+
+export const patientActiveDropdownFetchingSuccessWithoutHospitalId = data => {
+  return {
+    type:PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS_WITHOUT_HOSPITAL_ID ,
+    payload: {data}
+  }
+}
+
+export const patientActiveDropdownFetchingErrorWithoutHospitalId = message => {
+  return {
+    type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR_WITHOUT_HOSPITAL_ID,
     payload: {
       data: message
     }

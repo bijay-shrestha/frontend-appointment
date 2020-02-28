@@ -10,6 +10,7 @@ import * as AdminSetupUtils from './AdminSetupUtils'
 import * as CommonUtils from '../utils/CommonUtils';
 import * as RolesUtils from '../utils/RolesUtils';
 import * as EnvironmentVariableGetter from '../utils/EnvironmentVariableGetter';
+import * as ObjectUtils from '../utils/ObjectUtils';
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
 export {default as LocalStorageSecurity} from '../utils/localStorageUtils';
@@ -26,5 +27,6 @@ export {
     DoctorDutyRosterUtils,
     DateTimeFormatterUtils,
     CommonUtils,
-    RolesUtils
+    RolesUtils,
+    ObjectUtils
 }

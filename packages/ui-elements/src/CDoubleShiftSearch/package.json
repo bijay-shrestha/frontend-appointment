@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-double-shift-search",
+  "version": "0.0.0",
+  "main": "CDoubleShiftSearch.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

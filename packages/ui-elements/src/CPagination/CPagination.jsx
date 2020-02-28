@@ -104,13 +104,13 @@ class CPagination extends PureComponent {
                         <Pagination size="sm" className="pull-right">
                             <Pagination.First
                                 onClick={this.handleFirstClick}
-                                disabled={this.state.paginationItems[0] === 1}
+                                disabled={this.props.currentPage === 1}
                             >
                                 First
                             </Pagination.First>
                             <Pagination.Prev
                                 onClick={this.handlePrevClick}
-                                disabled={this.state.paginationItems[0] - 1 <= 0}
+                                disabled={this.props.currentPage - 1 <= 0}
                             />
                             {this.state.paginationItems.map(item =>
                                 <Pagination.Item
@@ -123,10 +123,12 @@ class CPagination extends PureComponent {
                             )}
                             <Pagination.Next
                                 onClick={this.handleNextClick}
-                                disabled={this.state.paginationItems[this.state.totalPages - 1] + 1 > this.state.totalPages}/>
+                                // disabled={this.state.paginationItems[this.state.totalPages - 1] + 1 > this.state.totalPages}
+                                disabled={this.state.totalPages === this.props.currentPage}
+                                />
                             <Pagination.Last
                                 onClick={this.handleLastClick}
-                                disabled={this.state.paginationItems[this.state.totalPages - 1] === this.state.totalPages}>
+                                disabled={this.state.totalPages === this.props.currentPages}>
                                 Last</Pagination.Last>
                         </Pagination>
                     </Col>
