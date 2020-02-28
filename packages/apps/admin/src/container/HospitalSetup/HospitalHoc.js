@@ -268,7 +268,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     refundPercentage,
                     numberOfAdmins,
                     numberOfFreeFollowUps,
-                    followUpIntervalDays
+                    followUpIntervalDays,
+                    isCogentAdmin
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData;
                 let formValid = this.state.formValid;
                 if (remarks) formValid = true;
@@ -295,7 +296,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalImageCroppedUrl: hospitalLogo,
                         hospitalBanner: new File([5120], hospitalBanner),
                         hospitalBannerImage: new File([5120], hospitalBanner),
-                        hospitalBannerImageCroppedUrl: hospitalBanner
+                        hospitalBannerImageCroppedUrl: hospitalBanner,
+                        isCogentAdmin
                     },
                     formValid: formValid,
                     nameValid: true

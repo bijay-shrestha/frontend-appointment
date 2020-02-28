@@ -11,6 +11,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import { number } from 'prop-types'
 
 
 const HospitalForm = ({
@@ -134,6 +135,7 @@ const HospitalForm = ({
                                             value={hospitalInfoObj.name}
                                             required={true}
                                             hasValidation={true}
+                                            max={100}
                                             fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                             errorMessagePassed={errorMessageForHospitalName}
                                         />
@@ -149,7 +151,7 @@ const HospitalForm = ({
                                             value={hospitalInfoObj.hospitalCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
-                                            max={4}
+                                            max={10}
                                             min={2}
                                         />
                                     </Col>
@@ -162,6 +164,10 @@ const HospitalForm = ({
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Hospital PAN Number"
                                             value={hospitalInfoObj.panNumber}
+                                            fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                            hasValidation={true}
+                                            max={9}
+                                            errorMessagePassed={'Pan number should only be alphanumber and of 9 max characters'}
                                             required={true}
                                         />
                                     </Col>
@@ -174,6 +180,8 @@ const HospitalForm = ({
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Hospital Address"
                                             value={hospitalInfoObj.address}
+                                            max={200}
+                                            min={1}
                                             required={true}
                                         />
                                     </Col>
@@ -214,6 +222,9 @@ const HospitalForm = ({
                                                             placeholder="Hopsital Contact Number"
                                                             value={contNumber}
                                                             required={true}
+                                                            max={10}
+
+                                                        
                                                             // errorMessagePassed={errorMessageForHospitalCode}
                                                         />
                                                         {hospitalInfoObj.contactNumber.length !== 1 ? <CButton
@@ -255,6 +266,7 @@ const HospitalForm = ({
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Refund Percentage"
+                                            max={3}
                                             value={hospitalInfoObj.refundPercentage}
                                             required={true}
                                         />

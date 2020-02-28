@@ -59,20 +59,6 @@ class RescheduleLogSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="hospitalId"
-                                            name="hospitalId"
-                                            label="Select Hospital"
-                                            placeholder="Select Hospital"
-                                            options={hospitalList}
-                                            isDisabled={!hospitalList.length}
-                                            value={searchParameters.hospitalId}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-
-                                    <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="from-date-reschedule"
@@ -113,11 +99,9 @@ class RescheduleLogSearchFilter extends PureComponent {
                                             id="patient-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder={!searchParameters.hospitalId ? "Select Hospital first."
-                                                : "Name, Mobile no Or Reg. no"}
+                                            placeholder={"Name, Mobile no Or Reg. no"}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
-                                            isDisabled={!searchParameters.hospitalId}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                             noOptionsMessage={()=>patientDropdownErrorMessage}
@@ -132,7 +116,6 @@ class RescheduleLogSearchFilter extends PureComponent {
                                             onKeyDown={event => handleEnter(event)}
                                             options={specializationList}
                                             value={searchParameters.specializationId}
-                                            isDisabled={!searchParameters.hospitalId}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                             noOptionsMessage={()=>specializationDropdownErrorMessage}
@@ -143,14 +126,12 @@ class RescheduleLogSearchFilter extends PureComponent {
                                         <CHybridSelect
                                             id="doctorId"
                                             label="Doctor"
-                                            placeholder={!searchParameters.hospitalId ? "Select Hospital first."
-                                                : "Select doctor"}
+                                            placeholder={"Select doctor"}
                                             name="doctorId"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={handleSearchFormChange}
                                             options={doctorList}
                                             value={searchParameters.doctorId}
-                                            isDisabled={!searchParameters.hospitalId}
                                             onEnter={handleEnter}
                                             noOptionsMessage={()=>doctorDropdownErrorMessage}
                                         />

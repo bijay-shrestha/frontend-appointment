@@ -21,7 +21,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Approval Details</h5>
+        <h5 className="title">Appointment Checkin Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentApprovalList.length ? (

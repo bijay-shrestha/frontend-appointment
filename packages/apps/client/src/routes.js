@@ -51,7 +51,7 @@ const AppointmentRefundListComponent = Loadable({
 });
 
 const AppointmentApprovalListComponent = Loadable({
-    loader: () => import('./container/AppointmentApproval/AppointmentApproval'),
+    loader: () => import('./container/ClientAppointmentApproval/AppointmentApproval'),
     loading: () => getLoader()
 });
 
@@ -155,7 +155,7 @@ const ProfileComponent = Loadable({
 /* ****** R ***** */
 
 const RescheduleLog = Loadable({
-    loader: () => import('./container/RescheduleLog/RescheduleLog'),
+    loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
     loading: () => getLoader()
 });
 
