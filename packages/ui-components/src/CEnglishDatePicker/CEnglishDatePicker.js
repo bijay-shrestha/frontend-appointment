@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import {CHybridInput} from '@frontend-appointment/ui-elements'
 import './react-datepicker.scss'
+import {ObjectUtils} from "@frontend-appointment/helpers";
 
 class CEnglishDatePicker extends Component {
     subDays = (date, days) => {
@@ -15,15 +16,16 @@ class CEnglishDatePicker extends Component {
     };
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        let propsSelected = nextProps.selected;
-        let selected = this.props.selected;
-        if (!propsSelected) propsSelected = '';
-        else propsSelected = propsSelected.toLocaleString();
-        if (!selected)
-            selected = "";
-        else
-            selected = selected.toLocaleString();
-        return propsSelected !== selected;
+        // let propsSelected = nextProps.selected;
+        // let selected = this.props.selected;
+        // if (!propsSelected) propsSelected = '';
+        // else propsSelected = propsSelected.toLocaleString();
+        // if (!selected)
+        //     selected = "";
+        // else
+        //     selected = selected.toLocaleString();
+        // return (propsSelected !== selected || nextProps.invalid !== this.props.invalid);
+        return (!ObjectUtils.checkObjectEquality(nextProps,this.props));
     }
 
     render() {
@@ -126,7 +128,7 @@ class CEnglishDatePicker extends Component {
                 readOnly={true}
                 autoComplete="off"
                 disabled={disabled}
-                invalid={invalid}
+                isInvalid={invalid}
             />
         );
         return (

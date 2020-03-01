@@ -23,7 +23,7 @@ const AppointmentQueue = props => {
     <div className="app-log">
       <Row>
         <Col className="px-0">
-          <Form className="hospital-list">
+          <Form className="hospital-list float-left">
             <Form.Group as={Row} controlId="formPlaintextEmail">
               <Col sm="12">
                 <div className="hospital-list-input">
@@ -78,16 +78,12 @@ const AppointmentQueue = props => {
                   sizeColumnsToFit: true,
                   cellRenderer:'mobileRender'
                 },
-
                 {
                   headerName: 'Appointment Time',
                   field: 'appointmentTime',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true,
-                  valueFormatter:function timeFormatter(params) {
-                    return new Date(params.value).getHours().toString()+":"+new Date(params.value).getMinutes().toString();
-                  }
+                  sizeColumnsToFit: true
                 },
                 
              

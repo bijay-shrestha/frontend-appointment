@@ -70,6 +70,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
+                {
+                  headerName: 'Date of Birth',
+                  field: 'dateOfBirth',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true
+                },
                 // {
                 //   headerName: 'Email',
                 //   field: 'email',
@@ -129,13 +136,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                {
-                  headerName: 'Date of Birth',
-                  field: 'dateOfBirth',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+               
                 {
                   headerName: '',
                   action: 'action',

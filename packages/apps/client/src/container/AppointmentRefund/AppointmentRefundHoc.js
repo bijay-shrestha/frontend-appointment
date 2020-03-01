@@ -3,7 +3,6 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
-    HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
@@ -22,14 +21,13 @@ const {
     clearAppointmentRefundMessage,
     appointmentRefund,
     appointmentRejectRefund
-    //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
+//const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {
-    fetchSpecializationHospitalWiseForDropdown
+    fetchSpecializationForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdownWithoutHospitalId} = PatientDetailsMiddleware
 const AppointRefundHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -471,12 +469,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         {
             clearAppointmentRefundPending,
             fetchAppointmentRefundList,
-            fetchActiveHospitalsForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchSpecializationHospitalWiseForDropdown,
-            fetchPatientMetaList,
+            fetchActiveDoctorsForDropdown,
+            fetchSpecializationForDropdown,
             clearAppointmentRefundRejectMessage,
             clearAppointmentRefundMessage,
+            fetchPatientMetaDropdownWithoutHospitalId,
             appointmentRefund,
             appointmentRejectRefund
         }

@@ -82,7 +82,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: 140
+                  width: 100
                 },
                 {
                   headerName: 'App. No',
@@ -91,7 +91,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: 140
+                  width: 120
                 },
                 // {
                 //   headerName: 'Esewa Id',
@@ -101,11 +101,12 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                 //   sizeColumnsToFit: true
                 // },
                 {
-                  headerName: 'Registration No',
+                  headerName: 'Reg  No',
                   field: 'registrationNumber',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width: 140
                 },
                 {
                   headerName: 'Patient Name',
@@ -116,7 +117,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                 },
 
                 {
-                  headerName: 'Mobile Number',
+                  headerName: 'Mobile No',
                   field: 'mobileNumber',
                   resizable: true,
                   sortable: true,
