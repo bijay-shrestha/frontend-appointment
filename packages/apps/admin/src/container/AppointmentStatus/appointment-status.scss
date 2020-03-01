@@ -95,6 +95,7 @@
     font-size:0.8rem;
     text-transform: capitalize;
     letter-spacing: 0.02rem;
+    width:100%;
 
     //  &::before{
     //     content:"";
@@ -106,6 +107,8 @@
     //     background-color:$gray-600;
     // }
 
+   
+
     span{
         font-size: 0.9rem;
         font-weight: 600;
@@ -115,19 +118,24 @@
 }
 
 .patient-details{
-    display: inline-block;
+    display: block;
     margin-top:10px;
-    margin-bottom:20px;
+    margin-bottom:16px;
     color:$gray-700;
     font-size:0.8rem;
-    line-height: 1.6rem;
+    // line-height: 1.6rem;
     text-transform: capitalize;
     letter-spacing: 0.02rem;
+    font-weight: 500;
+    
 
-    i{
-       margin-right:4px;
-       color:$gray-900;
-    }
+   .label{
+       font-size:0.7rem;
+       font-weight:400;
+       line-height: 1rem;
+   }
+
+ 
 }
 
 .btn-checkin{
@@ -140,14 +148,43 @@
 }
 
 .time-container{
-    ul li{
-        display: inline-block;
-        margin-right:16px;
+
+    .time-details{
+        display:block;
+        margin-top:10px;
+        margin-bottom:20px;
+        color:$gray-700;
+        font-size:0.8rem;
+        line-height: 1.6rem;
+        text-transform: capitalize;
+        letter-spacing: 0.02rem;
+
+
+    }
+    .time{
+        float:right;
+    }
+
+    ul {
+        display:flex;
+        flex-direction:row;
+        width:100%;
+        flex-wrap:wrap;
+        justify-content: space-between;
+        li{
+        // display: inline-block;
+        // margin-right:16px;
         margin-bottom:16px;
+     
+  
 
         .btn{
-            width:116px;
+            // width:auto;
+            width:120px;
+            // padding:12px 20px;
             height: 36px;
+
+         
         }
 
         // .btn-success{
@@ -156,6 +193,7 @@
         //     }
         // }
     }
+}
 }
 
 .appointment-status-list{
