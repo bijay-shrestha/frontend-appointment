@@ -14,6 +14,7 @@ import {
 import './appointment-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
+import {Tooltip} from "react-bootstrap";
 
 const {
     fetchAppointmentStatusList,
@@ -66,7 +67,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             },
             showModal: false,
             appointmentStatusDetails: [],
+            doctorInfoList: [],
             appointmentStatusDetailsCopy: [],
+            selectedPatientData: {},
             errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
             showAlert: false,
             alertMessageInfo: {
@@ -74,7 +77,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 message: ''
             },
             activeStatus: 'ALL'
-        }
+        };
 
         fetchHospitalForDropDown = async () => {
             try {
@@ -134,23 +137,23 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label
+                let fieldName, value, label;
                 if (field) {
-                    fieldName = field
+                    fieldName = field;
                     value = event
                 } else {
-                    fieldName = event.target.name
-                    value = event.target.value
-                    label = event.target.label
+                    fieldName = event.target.name;
+                    value = event.target.value;
+                    label = event.target.label;
                     if (fieldName === 'hospitalId') {
                         this.callApiForHospitalChange(value)
                     }
                 }
-                let searchParams = {...this.state.searchParameters}
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-                await this.setStateValuesForSearch(searchParams)
+                let searchParams = {...this.state.searchParameters};
+                searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                await this.setStateValuesForSearch(searchParams);
 
-                let errorMsg = ''
+                let errorMsg = '';
                 if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
                     if (
                         isFirstDateGreaterThanSecondDate(
@@ -158,8 +161,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                             getDateWithTimeSetToGivenTime(searchParams.toDate, 0, 0, 0)
                         )
                     ) {
-                        errorMsg = 'From date cannot be greater than To date!'
-                        this.showWarningAlert(errorMsg)
+                        errorMsg = 'From date cannot be greater than To date!';
+                        this.showWarningAlert(errorMsg);
                         this.clearAlertTimeout()
                     } else if (
                         getNoOfDaysBetweenGivenDatesInclusive(
@@ -167,12 +170,16 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                             searchParams.toDate
                         ) > 7
                     ) {
-                        errorMsg = DATE_RANGE_ERROR_MESSAGE
-                        this.showWarningAlert(errorMsg)
+                        errorMsg = DATE_RANGE_ERROR_MESSAGE;
+                        this.showWarningAlert(errorMsg);
                         this.clearAlertTimeout()
                     }
                 }
             }
+        };
+
+        handleCheckIn = async (appointmentId) => {
+
         };
 
         setStateValuesForSearch = searchParams => {
@@ -224,7 +231,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 doctorId,
                 specializationId,
                 status
-            } = this.state.searchParameters
+            } = this.state.searchParameters;
 
             if (this.isSearchParametersValid()) {
                 let searchData = {
@@ -251,6 +258,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         ];
                 await this.setState({
                     appointmentStatusDetails: [...statusList],
+                    doctorInfoList: [...this.props.AppointmentStatusListReducer.statusList.doctorInfo],
                     appointmentStatusDetailsCopy: [...statusList]
                 })
             }
@@ -263,11 +271,11 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             if (status !== 'ALL') {
                 filteredStatus = appointmentStatus.map(appointment => {
-                    let appointmentCopy = {...appointment}
+                    let appointmentCopy = {...appointment};
                     if (appointment.doctorTimeSlots) {
                         let filteredTimeSlots = appointment.doctorTimeSlots.filter(
                             time => time.status === status
-                        )
+                        );
                         appointmentCopy.doctorTimeSlots = [...filteredTimeSlots]
                     }
                     return appointmentCopy
@@ -280,6 +288,23 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 appointmentStatusDetails: [...filteredStatus],
                 activeStatus: status
             })
+        };
+
+        getPatientDetails = (selectedTimeSlot, selectedDate) => {
+            let isFutureDate = DateTimeFormatterUtils.isFirstDateGreaterThanSecondDate(new Date(selectedDate), new Date());
+
+            let patientData = {
+                appointmentNumber: selectedTimeSlot.appointmentNumber,
+                patientName: selectedTimeSlot.patientName.concat(" (" + selectedTimeSlot.age
+                    + " / " + selectedTimeSlot.gender + ")"),
+                mobileNumber: selectedTimeSlot.mobileNumber || 'N/A',
+                address: selectedTimeSlot.address || 'N/A',
+                canCheckIn: !isFutureDate,
+                appointmentId:''
+            };
+            this.setState({
+                selectedPatientData: {...patientData}
+            });
         };
 
         isSearchParametersValid = () => {
@@ -339,10 +364,12 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             const {
                 searchParameters,
                 appointmentStatusDetails,
+                doctorInfoList,
                 errorMessageForStatusDetails,
+                selectedPatientData,
                 showAlert,
                 alertMessageInfo,
-                activeStatus
+                activeStatus,
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -382,10 +409,14 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                             }}
                             statusDetailsData={{
                                 appointmentStatusDetails,
+                                doctorInfoList,
+                                selectedPatientData,
                                 errorMessageForStatusDetails,
                                 searchErrorMessage: statusErrorMessage,
                                 isStatusListLoading,
                                 searchAppointmentStatus: this.searchAppointmentStatus,
+                                getPatientDetails: this.getPatientDetails,
+                                handleCheckIn: this.handleCheckIn,
                                 activeStatus: activeStatus,
                                 filterAppointmentDetailsByStatus: this
                                     .filterAppointmentDetailsByStatus
