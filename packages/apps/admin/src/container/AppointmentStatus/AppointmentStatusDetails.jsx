@@ -73,13 +73,13 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
 
                             <Col sm={12} md={8} lg={8} className="time-container">
-                                <h5 className="title">Appointment Slots</h5><br></br>
-                                <p className="doctor-details">
-                                    {appointmentStatusDetail.date} {appointmentStatusDetail.weekDayName}&nbsp;[
-                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                    {appointmentStatusDetail.doctorTimeSlots[
-                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}]
-                                </p>
+                            <h5 className="title">Appointment Slots</h5><br></br>
+                            <p className="time-details">
+                            {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                            <span className="time"> {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
+                                {appointmentStatusDetail.doctorTimeSlots[
+                                appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                            </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
@@ -132,29 +132,43 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     }
                                 </ul>
                             </Col>
-                            {
-                                Object.keys(selectedPatientData).length !== 0 && selectedPatientData.constructor === Object ?
-                                    <Col sm={12} md={2} lg={2}>
-                                        <h5 className="title">Patients Details</h5><br/>
-                                        <p className="patient-details">
-                                            <i className="fa fa-adn"/> {selectedPatientData.appointmentNumber}<br/>
-                                            <i className="fa fa-user-o"/>{selectedPatientData.patientName}<br/>
-                                            <i className="fa fa-phone"/> {selectedPatientData.mobileNumber}<br/>
-                                            <i className="fa fa-home"/> {selectedPatientData.address}<br/>
-                                            <CButton
-                                                name=""
-                                                vairant="primary "
-                                                size="sm"
-                                                className="btn-checkin"
-                                                disabled={!selectedPatientData.canCheckIn}
-                                                onClickHandler={() => handleCheckIn(selectedPatientData.appointmentId)}
-                                            >
-                                                <i className="fa fa-sign-in"/>Check-in
-                                            </CButton>
-                                        </p>
-                                    </Col> :
-                                    ''
-                            }
+
+                            <Col sm={12} md={2} lg={2}>
+                            <h5 className="title">Patients Details </h5><br></br>
+                            <div className="patient-details">
+                            <div className="label">Appointment No. </div>
+                             <div className="data">1231231</div>
+                            </div>
+
+
+                            <div className="patient-details">
+                            <div className="label">Name </div>
+                             <div className="data">Dhanusha Roka</div>
+                            </div>
+
+                            <div className="patient-details">
+                            <div className="label">Contact No. </div>
+                             <div className="data">1231231</div>
+                            </div>
+
+                            <div className="patient-details">
+                            <div className="label">Address </div>
+                             <div className="data">Kathmandu, Baneshwor</div>
+                            </div>
+                           <CButton
+                           name=""
+                           vairant="primary "
+                           size="sm"
+                           className="btn-checkin"
+                           >
+                             <i className="fa fa-sign-in"></i> &nbsp;Check-in
+                           </CButton>
+
+
+
+
+                      </Col>
+
                         </Row>
                     ))
                     :
