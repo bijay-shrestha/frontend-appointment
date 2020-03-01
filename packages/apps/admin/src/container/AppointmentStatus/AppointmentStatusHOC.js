@@ -258,7 +258,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         ];
                 await this.setState({
                     appointmentStatusDetails: [...statusList],
-                    doctorInfoList: [...this.props.AppointmentStatusListReducer.statusList.doctorInfo],
+                    doctorInfoList: this.props.AppointmentStatusListReducer.statusList ? [...this.props.AppointmentStatusListReducer.statusList.doctorInfo]:[],
                     appointmentStatusDetailsCopy: [...statusList]
                 })
             }

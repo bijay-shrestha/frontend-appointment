@@ -84,6 +84,13 @@
     background-color:$gray-500;
     @include border-radius(50%);
     // display: inline-block;
+
+    img{
+        width:100px;
+        height: 100px;
+        background-color:$gray-500;
+        @include border-radius(50%);
+    }
 }
 
 .doctor-details{
@@ -141,7 +148,8 @@
 .btn-checkin{
     width:100%;
     padding:6px 0  !important;
-    margin-top:20px;
+    margin-top:10px;
+    margin-bottom:20px;
     i{
         color:$white;
     }
