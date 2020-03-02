@@ -307,28 +307,27 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         getPatientDataByAppointmentId = async appointmentId => {
-            try {
-                await fetchPatientDetailByAppointmentId(FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID, appointmentId)
-            } catch (e) {
-                this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
-                this.clearAlertTimeout();
-            }
+            await this.props.fetchPatientDetailByAppointmentId(FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID, appointmentId)
         };
 
         getPatientDetails = async (timeSlot, appointmentDate, rowIndex, timeSlotIndex) => {
 
             let elementId = timeSlot.appointmentTime + "-" + rowIndex + timeSlotIndex;
-            document.getElementById(elementId).classList.add('active');
+            let selectedElement = document.getElementById(elementId);
+            selectedElement && selectedElement.classList.add('active');
             let statusDetails = [...this.state.appointmentStatusDetails];
             if (timeSlot.appointmentId) {
-                await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
-
-                let patientDetail = this.setPatientDataProps(appointmentDate, timeSlot);
-                statusDetails[rowIndex].patientDetails = {...patientDetail};
-
-                this.setState({
-                    appointmentStatusDetails: [...statusDetails],
-                });
+                try {
+                    const response = await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
+                    let patientDetail = this.setPatientDataProps(appointmentDate, timeSlot);
+                    statusDetails[rowIndex].patientDetails = {...patientDetail};
+                    this.setState({
+                        appointmentStatusDetails: [...statusDetails],
+                    });
+                } catch (e) {
+                    this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
+                    this.clearAlertTimeout();
+                }
             } else {
                 statusDetails[rowIndex].patientDetails = null;
                 await this.setState({
@@ -337,7 +336,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        setPatientDataProps=(appointmentDate, timeSlot)=> {
+        setPatientDataProps = (appointmentDate, timeSlot) => {
             let patientData = this.props.PatientDetailReducer.patientDetails;
 
             let isFutureDate = DateTimeFormatterUtils.isFirstDateGreaterThanSecondDate(new Date(appointmentDate), new Date());
@@ -494,7 +493,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             'AppointmentStatusListReducer',
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
-            'HospitalDropdownReducer'
+            'HospitalDropdownReducer',
+            'PatientDetailReducer'
         ],
         {
             fetchActiveHospitalsForDropdown,

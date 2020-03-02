@@ -219,21 +219,21 @@ export const PatientDetailReducer = (state = {...detailState}, action) => {
         case FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_START:
             return {
                 ...state,
-                patientDetails: [],
+                patientDetails: {},
                 isPatientDetailLoading: true,
                 patientDetailErrorMessage: ''
             };
         case FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_SUCCESS:
             return {
                 ...state,
-                patientDetails: action.payload.data,
+                patientDetails: {...action.payload.data},
                 isPatientDetailLoading: false,
                 patientDetailErrorMessage: ''
             };
         case FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_ERROR:
             return {
                 ...state,
-                patientDetails: [],
+                patientDetails: {},
                 isPatientDetailLoading: false,
                 patientDetailErrorMessage: action.payload.errorMessage
             };

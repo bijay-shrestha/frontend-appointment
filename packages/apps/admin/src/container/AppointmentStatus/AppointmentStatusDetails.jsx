@@ -117,12 +117,13 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                             </OverlayTrigger> :
                                                             (timeSlot.status === 'V') ?
                                                                 (<CButton
+                                                                    id={timeSlot.appointmentTime + "-" + rowIndex + index}
                                                                     variant={"success"}
                                                                     size="lg"
-                                                                    id="vacant"
+                                                                    // id="vacant"
                                                                     name=""
-                                                                    onClickHandler={() => getPatientDetails(timeSlot.appointmentId,
-                                                                        appointmentStatusDetail.date, rowIndex)}
+                                                                    onClickHandler={() => getPatientDetails(timeSlot,
+                                                                        appointmentStatusDetail.date, rowIndex, index)}
                                                                 >
                                                                     {timeSlot.appointmentTime}
                                                                 </CButton>)
@@ -161,14 +162,16 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         <div className="patient-details">
                                             <div className="label">Name</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.patientName}
+                                                {appointmentStatusDetail.patientDetails.name + " ("
+                                                + appointmentStatusDetail.patientDetails.age +" / "
+                                                + appointmentStatusDetail.patientDetails.gender + ")"}
                                             </div>
                                         </div>
 
                                         <div className="patient-details">
                                             <div className="label">Contact No.</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.name}
+                                                {appointmentStatusDetail.patientDetails.mobileNumber}
                                             </div>
                                         </div>
 
