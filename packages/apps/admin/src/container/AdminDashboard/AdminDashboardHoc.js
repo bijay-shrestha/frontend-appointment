@@ -187,15 +187,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             currentToDate: new Date(),
             currentFromDate: DateTimeFormatterUtils.subtractDate(
               new Date(),
-              365
+              366
             ),
             previousToDate: DateTimeFormatterUtils.subtractDate(
               new Date(),
-              366
+              367
             ),
             previousFromDate: DateTimeFormatterUtils.subtractDate(
               new Date(),
-              731
+              733
             ),
             hospitalId: hospitalId
               ? hospitalId.value === 'A'
@@ -237,7 +237,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           break
         case 'Y':
           searchParameterChange = {
-            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 365),
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 366),
             toDate: new Date(),
             hospitalId: searchParameterChange.hospitalId
           }
@@ -258,7 +258,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             },
             revenueFilter: dayFilter
           })
-          this.callApiForHospitalChange(type)
+          this.callApiForHospitalChange(type) 
         }
       } else {
         if (this.state.appointmentFilter !== dayFilter) {
