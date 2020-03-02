@@ -1,8 +1,7 @@
 import React from 'react';
 
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip, Badge} from "react-bootstrap";
-import {CLoading, CButton} from "@frontend-appointment/ui-elements";
-import * as Material from 'react-icons/md';
+import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
+import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
 import {appointmentStatusList} from "@frontend-appointment/helpers";
@@ -20,7 +19,6 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         filterAppointmentDetailsByStatus,
         activeStatus,
         getPatientDetails,
-        selectedPatientData,
         handleCheckIn
     } = statusDetailsData;
     return <>
@@ -51,35 +49,40 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                     : ''
                 }
                 {!isStatusListLoading && !searchErrorMessage && appointmentStatusDetails.length ?
-                    appointmentStatusDetails.map((appointmentStatusDetail, index) => (
-                        <Row className="appointment-status-list" key={"detail-" + index}>
-
+                    appointmentStatusDetails.map((appointmentStatusDetail, rowIndex) => (
+                        <Row className="appointment-status-list" key={"detail-" + rowIndex}>
                             <Col md={2} className="d-flex  flex-column justify-content-start">
                                 <h5 className="title">Doctor Details</h5>
                                 <div className="doctor-image">
                                     {doctorInfoList.map(doctorData => (
                                         doctorData.value === appointmentStatusDetail.doctorId ?
-                                            <img
-                                                src={doctorData.fileUri}
-                                                alt={"DOCTOR"}/> : ''
+                                            doctorData.fileUri ?
+                                                <img
+                                                    src={doctorData.fileUri}
+                                                    alt={"DOCTOR"}/>
+                                                : ''
+                                            // <img src={require("")}
+                                            //      alt={"DOCTOR"}/>
+                                            : ''
                                     ))}
                                     {/*<img src={""}/>*/}
                                 </div>
                                 <p className="doctor-details">
                                     <span>{appointmentStatusDetail.doctorName}</span>
-                                    <br></br>{appointmentStatusDetail.specializationName}
+                                    <br/>{appointmentStatusDetail.specializationName}
                                 </p>
                             </Col>
 
 
                             <Col sm={12} md={8} lg={8} className="time-container">
-                            <h5 className="title">Appointment Slots</h5><br></br>
-                            <p className="time-details">
-                            {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
-                            <span className="time"> {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                {appointmentStatusDetail.doctorTimeSlots[
-                                appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
-                            </p>
+                                <h5 className="title">Appointment Slots</h5><br></br>
+                                <p className="time-details">
+                                    {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <span
+                                        className="time"> {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
+                                        {appointmentStatusDetail.doctorTimeSlots[
+                                        appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
@@ -98,9 +101,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     </Tooltip>
                                                                 }>
                                                                 <Button
+                                                                    id={timeSlot.appointmentTime + "-" + rowIndex + index}
                                                                     onClick={() => getPatientDetails(timeSlot,
-                                                                        appointmentStatusDetail.date)}
-                                                                    variant={timeSlot.status === 'PA' ? 'primary'
+                                                                        appointmentStatusDetail.date, rowIndex, index)}
+                                                                    variant={timeSlot.status === 'PA' ? 'warning'
                                                                         : timeSlot.status === 'A' ? 'danger'
                                                                             : timeSlot.status === 'C' ? 'dark'
                                                                                 : 'info'}
@@ -114,6 +118,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     size="lg"
                                                                     id="vacant"
                                                                     name=""
+                                                                    onClickHandler={() => getPatientDetails(timeSlot.appointmentId,
+                                                                        appointmentStatusDetail.date, rowIndex)}
                                                                 >
                                                                     {timeSlot.appointmentTime}
                                                                 </CButton>)
@@ -132,43 +138,54 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     }
                                 </ul>
                             </Col>
-
-                            <Col sm={12} md={2} lg={2}>
-                            <h5 className="title">Patients Details </h5><br></br>
-                            <div className="patient-details">
-                            <div className="label">Appointment No. </div>
-                             <div className="data">1231231</div>
-                            </div>
-
-
-                            <div className="patient-details">
-                            <div className="label">Name </div>
-                             <div className="data">Dhanusha Roka</div>
-                            </div>
-
-                            <div className="patient-details">
-                            <div className="label">Contact No. </div>
-                             <div className="data">1231231</div>
-                            </div>
-
-                            <div className="patient-details">
-                            <div className="label">Address </div>
-                             <div className="data">Kathmandu, Baneshwor</div>
-                            </div>
-                           <CButton
-                           name=""
-                           vairant="primary "
-                           size="sm"
-                           className="btn-checkin"
-                           >
-                             <i className="fa fa-sign-in"></i> &nbsp;Check-in
-                           </CButton>
+                            {
+                                appointmentStatusDetail.patientDetails ?
+                                    <Col sm={12} md={2} lg={2}>
+                                        <h5 className="title">Patients Details </h5><br></br>
+                                        <div className="patient-details">
+                                            <div className="label">Appointment No.</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.appointmentNumber}
+                                            </div>
+                                        </div>
 
 
+                                        <div className="patient-details">
+                                            <div className="label">Name</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.patientName}
+                                            </div>
+                                        </div>
 
+                                        <div className="patient-details">
+                                            <div className="label">Contact No.</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.name}
+                                            </div>
+                                        </div>
 
-                      </Col>
+                                        <div className="patient-details">
+                                            <div className="label">Address</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.address}
+                                            </div>
+                                        </div>
+                                        {appointmentStatusDetail.patientDetails.showCheckInButton ?
+                                            <CButton
+                                                name=""
+                                                vairant="primary "
+                                                size="sm"
+                                                className="btn-checkin"
+                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn}
+                                            >
+                                                <i className="fa fa-sign-in"/> &nbsp;Check-in
+                                            </CButton>
+                                            : ''
+                                        }
 
+                                    </Col>
+                                    : ''
+                            }
                         </Row>
                     ))
                     :

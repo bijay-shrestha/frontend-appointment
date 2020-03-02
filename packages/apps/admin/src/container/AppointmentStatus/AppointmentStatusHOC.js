@@ -4,17 +4,14 @@ import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
     HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
-import {Tooltip} from "react-bootstrap";
 
 const {
     fetchAppointmentStatusList,
@@ -26,11 +23,14 @@ const {
     fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware;
 
+const {fetchPatientDetailByAppointmentId} = PatientDetailsMiddleware;
+
 const {
     appointmentSetupApiConstant,
     hospitalSetupApiConstants,
     doctorSetupApiConstants,
-    specializationSetupAPIConstants
+    specializationSetupAPIConstants,
+    patientSetupApiConstant
 } = AdminModuleAPIConstants;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants;
@@ -41,6 +41,8 @@ const {
     SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
 } = specializationSetupAPIConstants;
 const {APPOINTMENT_STATUS_LIST} = appointmentSetupApiConstant;
+
+const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant;
 
 const {
     isFirstDateGreaterThanSecondDate,
@@ -178,7 +180,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        handleCheckIn = async (appointmentId) => {
+        handleCheckIn = async appointmentId => {
 
         };
 
@@ -199,6 +201,16 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 showAlert: true,
                 alertMessageInfo: {
                     variant: 'warning',
+                    message: message
+                }
+            })
+        };
+
+        showErrorAlert = message => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'danger',
                     message: message
                 }
             })
@@ -248,7 +260,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     searchData
                 );
                 let statusList = [];
-                if (this.props.AppointmentStatusListReducer.statusList)
+                let doctorInfo = [];
+                if (this.props.AppointmentStatusListReducer.statusList) {
                     if (
                         this.props.AppointmentStatusListReducer.statusList.doctorDutyRosterInfo.length
                     )
@@ -256,11 +269,14 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                             ...this.props.AppointmentStatusListReducer.statusList
                                 .doctorDutyRosterInfo
                         ];
+                    doctorInfo = [...this.props.AppointmentStatusListReducer.statusList.doctorInfo];
+                }
                 await this.setState({
                     appointmentStatusDetails: [...statusList],
-                    doctorInfoList: [...this.props.AppointmentStatusListReducer.statusList.doctorInfo],
+                    doctorInfoList: [...doctorInfo],
                     appointmentStatusDetailsCopy: [...statusList]
                 })
+
             }
         };
 
@@ -290,21 +306,46 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        getPatientDetails = (selectedTimeSlot, selectedDate) => {
-            let isFutureDate = DateTimeFormatterUtils.isFirstDateGreaterThanSecondDate(new Date(selectedDate), new Date());
+        getPatientDataByAppointmentId = async appointmentId => {
+            try {
+                await fetchPatientDetailByAppointmentId(FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID, appointmentId)
+            } catch (e) {
+                this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
+                this.clearAlertTimeout();
+            }
+        };
 
-            let patientData = {
-                appointmentNumber: selectedTimeSlot.appointmentNumber,
-                patientName: selectedTimeSlot.patientName.concat(" (" + selectedTimeSlot.age
-                    + " / " + selectedTimeSlot.gender + ")"),
-                mobileNumber: selectedTimeSlot.mobileNumber || 'N/A',
-                address: selectedTimeSlot.address || 'N/A',
+        getPatientDetails = async (timeSlot, appointmentDate, rowIndex, timeSlotIndex) => {
+
+            let elementId = timeSlot.appointmentTime + "-" + rowIndex + timeSlotIndex;
+            document.getElementById(elementId).classList.add('active');
+            let statusDetails = [...this.state.appointmentStatusDetails];
+            if (timeSlot.appointmentId) {
+                await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
+
+                let patientDetail = this.setPatientDataProps(appointmentDate, timeSlot);
+                statusDetails[rowIndex].patientDetails = {...patientDetail};
+
+                this.setState({
+                    appointmentStatusDetails: [...statusDetails],
+                });
+            } else {
+                statusDetails[rowIndex].patientDetails = null;
+                await this.setState({
+                    appointmentStatusDetails: [...statusDetails],
+                });
+            }
+        };
+
+        setPatientDataProps=(appointmentDate, timeSlot)=> {
+            let patientData = this.props.PatientDetailReducer.patientDetails;
+
+            let isFutureDate = DateTimeFormatterUtils.isFirstDateGreaterThanSecondDate(new Date(appointmentDate), new Date());
+            return {
+                ...patientData,
                 canCheckIn: !isFutureDate,
-                appointmentId:''
+                showCheckInButton: ['A', 'C'].indexOf(timeSlot.status) >= 0 ? false : true
             };
-            this.setState({
-                selectedPatientData: {...patientData}
-            });
         };
 
         isSearchParametersValid = () => {
@@ -366,7 +407,6 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 appointmentStatusDetails,
                 doctorInfoList,
                 errorMessageForStatusDetails,
-                selectedPatientData,
                 showAlert,
                 alertMessageInfo,
                 activeStatus,
@@ -410,7 +450,6 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                             statusDetailsData={{
                                 appointmentStatusDetails,
                                 doctorInfoList,
-                                selectedPatientData,
                                 errorMessageForStatusDetails,
                                 searchErrorMessage: statusErrorMessage,
                                 isStatusListLoading,
@@ -462,7 +501,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             fetchActiveDoctorsHospitalWiseForDropdown,
             fetchSpecializationHospitalWiseForDropdown,
             fetchAppointmentStatusList,
-            clearAppointmentStatusMessage
+            clearAppointmentStatusMessage,
+            fetchPatientDetailByAppointmentId
         }
     )
 };
