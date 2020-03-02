@@ -4,6 +4,9 @@ const {
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR,
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS,
   PATIENT_ACTIVE_DROPDOWN_META_FETCH_START,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR_WITHOUT_HOSPITAL_ID,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_START_WITHOUT_HOSPITAL_ID,
+  PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS_WITHOUT_HOSPITAL_ID,
   PATIENT_CLEAR_DROPDOWN_META,
   CLEAR_PATIENT_EDIT_MESSAGE,
   CLEAR_PATIENT_PREVIEW_MESSAGE,
@@ -21,6 +24,11 @@ const {
 const initialState = {
   patientList: [],
   patientDropdownErrorMessage: ''
+}
+
+const dropdownWithoutHospital = {
+  patientListWithoutHospitalDropdown: [],
+  patientListWithoutHospitalDropdownErrorMessage: ''
 }
 
 const searchState = {
@@ -68,6 +76,34 @@ export const PatientDropdownListReducer = (
       return {
         ...state,
         patientDropdownErrorMessage: ''
+      }
+    default:
+      return {...state}
+  }
+}
+
+export const PatientDropdownWithoutHospitalListReducer = (
+  state = {...dropdownWithoutHospital},
+  action
+) => {
+  switch (action.type) {
+    case PATIENT_ACTIVE_DROPDOWN_META_FETCH_START_WITHOUT_HOSPITAL_ID:
+      return {
+        patientListWithoutHospitalDropdown: [],
+        patientListWithoutHospitalDropdownErrorMessage: '',
+        ...state
+      }
+    case PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS_WITHOUT_HOSPITAL_ID:
+      return {
+        patientListWithoutHospitalDropdown: action.payload.data,
+        patientListWithoutHospitalDropdownErrorMessage: '',
+        ...state
+      }
+    case PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR_WITHOUT_HOSPITAL_ID:
+      return {
+        ...state,
+        patientListWithoutHospitalDropdown: [],
+        patientListWithoutHospitalDropdownErrorMessage: action.payload.data
       }
     default:
       return {...state}

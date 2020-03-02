@@ -3,10 +3,9 @@ import {
     CFLabel,
     CForm,
     CHybridInput,
-    CRadioButton,
     CHybridTextArea,
-    CImageDisplayAndView
-    // CFControl
+    CImageDisplayAndView,
+    CRadioButton
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
@@ -20,7 +19,7 @@ const DetailsModal = ({type, hospitalData}) => {
         });
         return contacts
     };
-    let images, contactNumber,bannerImages;
+    let images, contactNumber, bannerImages;
     if (type !== 'A') {
         images = [
             {
@@ -174,6 +173,17 @@ const DetailsModal = ({type, hospitalData}) => {
                                             />
                                         </Col>
                                     )}
+
+                                    {hospitalData.isCogentAdmin &&
+                                    <Col sm={12} md={6} lg={6}>
+
+                                        {hospitalData.isCogentAdmin === 'Y' ? <i className="fa fa-check"/>
+                                            : <i className="fa fa-crosshairs"/>}&nbsp; Only for Cogent Admin
+
+                                    </Col>
+                                    }
+
+
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Hospital Status" id="status"/>
                                         <CRadioButton

@@ -56,7 +56,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       },
       queryParams: {
         page: 0,
-        size: 10
+        size: 6
       },
       totalRecords: 0
     }

@@ -13,7 +13,8 @@ import {
     RolesUtils,
     TryCatchHandler,
     UserMenusFilter,
-    UserMenuUtils
+    UserMenuUtils,
+    ObjectUtils
 } from "./src/utils";
 import * as adminUserMenusJson from './src/cogent-appointment-admin-menu';
 import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
@@ -42,5 +43,6 @@ export {
     CommonUtils,
     dateHelpers,
     appointmentStatusList,
-    clientUserMenusJson
+    clientUserMenusJson,
+    ObjectUtils
 }
