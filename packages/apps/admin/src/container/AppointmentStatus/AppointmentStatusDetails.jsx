@@ -56,16 +56,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 <div className="doctor-image">
                                     {doctorInfoList.map(doctorData => (
                                         doctorData.value === appointmentStatusDetail.doctorId ?
-                                            doctorData.fileUri ?
-                                                <img
-                                                    src={doctorData.fileUri}
-                                                    alt={"DOCTOR"}/>
-                                                : ''
-                                            // <img src={require("")}
-                                            //      alt={"DOCTOR"}/>
-                                            : ''
+                                        doctorData.fileUri ?
+                                        <img
+                                            src={doctorData.fileUri}
+                                            alt={"DOCTOR"}/>:
+                                        <img src={require("./img/picture.png")}
+                                                alt={"DOCTOR"}/>: ''
                                     ))}
-                                    {/*<img src={""}/>*/}
+
                                 </div>
                                 <p className="doctor-details">
                                     <span>{appointmentStatusDetail.doctorName}</span>
