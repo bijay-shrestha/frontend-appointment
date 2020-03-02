@@ -9,14 +9,14 @@ const {checkIfRoleExists} = ActionFilterUtils
 const ApproveTableAction = props => {
   return (
     <>
-     <CButton
+     {/* <CButton
      name=""
      variant="success"
               onClickHandler={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
               <i className="fa fa-sign-in"></i>&nbsp;Check-in {' '}
-              </CButton>
-      {/* <Dropdown className="table-action">
+              </CButton> */}
+      <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
           <Feather.FiMoreHorizontal />
         </Dropdown.Toggle>
@@ -27,19 +27,19 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
-              <Material.MdVerifiedUser />  Checkin{' '}
+                   <i className="fa fa-sign-in"></i>&nbsp; Checkin{' '}
             </Dropdown.Item>
           }
-          {
+          {/* {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'D')}
             >
               <Material.MdBlock /> Reject
             </Dropdown.Item>
-          }
+          } */}
         </Dropdown.Menu>
-      </Dropdown> */}
+      </Dropdown>
     </>
   )
 }

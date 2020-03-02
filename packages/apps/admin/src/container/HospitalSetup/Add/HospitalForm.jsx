@@ -48,68 +48,74 @@ const HospitalForm = ({
                 <CForm id="hospital-info" className="mt-2 profile-info">
                     <Container-fluid>
                         <Row>
-                            <Col lg={3} className=" order-md-first order-lg-last">
+                            <Col lg={12} 
+                            // className=" order-md-first order-lg-last"
+                            >
                                 <Row>
                                     <Col sm={12} md={12} lg={12}>
-                                        <div className="image-upload-container">
-                                            <CFLabel id='logo' labelName="Hospital Logo"/>
-                                            <div className="image-box">
+                                        
+                                        <div className="hospital-banner-container">
+                                            
+                                            <div className="">
                                                 <img
-                                                    alt="HOSPITAL IMAGE"
-                                                    src={hospitalInfoObj.hospitalLogo ? hospitalInfoObj.hospitalLogoUrl : DefaultLogo}
+                                                className="hospital-banner"
+                                                    alt="HOSPITAL BANNER"
+                                                    src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : ""}
                                                 />
+
+                                                <div className="image-upload-container">
+                                                    <CFLabel id='logo' labelName="Hospital Logo"/>
+                                                    
+                                                    <div className="image-box">
+                                                        <img
+                                                            alt="HOSPITAL IMAGE"
+                                                            src={hospitalInfoObj.hospitalLogo ? hospitalInfoObj.hospitalLogoUrl : DefaultLogo}
+                                                        />
+                                                        <CButton
+                                                            id="uploadAdminImage"
+                                                            name="Upload"
+                                                            size="lg"
+                                                            variant="primary"
+                                                            className=" mt-1 mb-4  upload-button"
+                                                            onClickHandler={setImageShow}
+                                                        />
+                                                        <CImageUploadAndCropModal
+                                                            id='hospital-logo'
+                                                            showModal={showImageUploadModal}
+                                                            setShowModal={setImageShow}
+                                                            ruleOfThirds={true}
+                                                            handleImageUpload={handleImageUpload}
+                                                            imageSrc={hospitalImage}
+                                                            croppedImageSrc={hospitalImageCroppedUrl}
+                                                            circularCrop={false}
+                                                            onImageSelect={onImageSelect}
+                                                            onImageCrop={data => handleCropImage(data)}
+                                                        />
+                                                    </div>
+                                                </div>
+
                                                 <CButton
-                                                    id="uploadAdminImage"
-                                                    name="Upload"
+                                                    id="uploadBanner"
+                                                    name="Upload Banner"
                                                     size="lg"
                                                     variant="primary"
-                                                    className=" mt-1 mb-4  upload-button"
-                                                    onClickHandler={setImageShow}
+                                                    className=" mt-1 mb-4 banner-upload-button"
+                                                    onClickHandler={setShowBannerUploadModal}
                                                 />
                                                 <CImageUploadAndCropModal
-                                                    id='hospital-logo'
-                                                    showModal={showImageUploadModal}
-                                                    setShowModal={setImageShow}
+                                                    id='hospital-banner'
                                                     ruleOfThirds={true}
-                                                    handleImageUpload={handleImageUpload}
-                                                    imageSrc={hospitalImage}
-                                                    croppedImageSrc={hospitalImageCroppedUrl}
                                                     circularCrop={false}
-                                                    onImageSelect={onImageSelect}
-                                                    onImageCrop={data => handleCropImage(data)}
+                                                    showModal={showBannerUploadModal}
+                                                    setShowModal={setShowBannerUploadModal}
+                                                    imageSrc={hospitalBannerImage}
+                                                    croppedImageSrc={hospitalBannerImageCroppedUrl}
+                                                    handleImageUpload={handleBannerImageUpload}
+                                                    onImageSelect={onBannerImageSelect}
+                                                    onImageCrop={data => handleCropBannerImage(data)}
                                                 />
                                             </div>
                                         </div>
-
-                                        {/*<div className="image-upload-container">*/}
-                                        {/*    <CFLabel id='banner' labelName="Hospital Banner"/>*/}
-                                        {/*    <div className="image-box">*/}
-                                        {/*        <img*/}
-                                        {/*            alt="HOSPITAL BANNER"*/}
-                                        {/*            src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : DefaultLogo}*/}
-                                        {/*        />*/}
-                                        {/*        <CButton*/}
-                                        {/*            id="uploadBanner"*/}
-                                        {/*            name="Upload"*/}
-                                        {/*            size="lg"*/}
-                                        {/*            variant="primary"*/}
-                                        {/*            className=" mt-1 mb-4  upload-button"*/}
-                                        {/*            onClickHandler={setShowBannerUploadModal}*/}
-                                        {/*        />*/}
-                                        {/*        <CImageUploadAndCropModal*/}
-                                        {/*            id='hospital-baner'*/}
-                                        {/*            ruleOfThirds={true}*/}
-                                        {/*            circularCrop={false}*/}
-                                        {/*            showModal={showBannerUploadModal}*/}
-                                        {/*            setShowModal={setShowBannerUploadModal}*/}
-                                        {/*            imageSrc={hospitalBannerImage}*/}
-                                        {/*            croppedImageSrc={hospitalBannerImageCroppedUrl}*/}
-                                        {/*            handleImageUpload={handleBannerImageUpload}*/}
-                                        {/*            onImageSelect={onBannerImageSelect}*/}
-                                        {/*            onImageCrop={data => handleCropBannerImage(data)}*/}
-                                        {/*        />*/}
-                                        {/*    </div>*/}
-                                        {/*</div>*/}
                                     </Col>
 
                                     <Col
@@ -123,7 +129,7 @@ const HospitalForm = ({
 
                             </Col>
 
-                            <Col lg={9}>
+                            <Col lg={12}>
                                 <Row>
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput

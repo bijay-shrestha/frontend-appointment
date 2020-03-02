@@ -27,9 +27,9 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                 {!isStatusListLoading && !searchErrorMessage &&
                 appointmentStatusDetails.length ?
                     <Row>
-                        <Col className="p-0"><h5 className="title">Appointment Status Details</h5></Col>
+                        <Col className="p-0" lg={4}><h5 className="title">Appointment Status Details</h5></Col>
 
-                        <Col>
+                        <Col lg={8}>
                             <div className="appointment-badge float-right">
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
@@ -56,12 +56,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 <div className="doctor-image">
                                     {doctorInfoList.map(doctorData => (
                                         doctorData.value === appointmentStatusDetail.doctorId ?
-                                        doctorData.fileUri ?
-                                        <img
-                                            src={doctorData.fileUri}
-                                            alt={"DOCTOR"}/>:
-                                        <img src={require("./img/picture.png")}
-                                                alt={"DOCTOR"}/>: ''
+                                            doctorData.fileUri ?
+                                                <img
+                                                    src={doctorData.fileUri}
+                                                    alt={"DOCTOR"}/> :
+                                                <img src={require("./img/picture.png")}
+                                                     alt={"DOCTOR"}/> : ''
                                     ))}
 
                                 </div>
@@ -76,10 +76,15 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
                                     {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
-                                    <span
-                                        className="time"> {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                        {appointmentStatusDetail.doctorTimeSlots[
-                                        appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                    {
+                                        appointmentStatusDetail.doctorTimeSlots ?
+                                            appointmentStatusDetail.doctorTimeSlots.length ?
+                                                <span className="time">
+                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
+                                                    {appointmentStatusDetail.doctorTimeSlots[
+                                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                : '' : ''
+                                    }
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -129,10 +134,15 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 : appointmentStatusDetail.dayOffStatus === 'Y' ?
                                                     <div className="day-off"><i
                                                         className='fa  fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
-                                                    : TIME_SLOT_EMPTY_ERROR_MESSAGE
+                                                    : <div className="day-off"><i
+                                                        className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                                    </div>
+
                                         ) : appointmentStatusDetail.dayOffStatus === 'Y' ? <div className="day-off"><i
                                                 className='fa fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
-                                            : TIME_SLOT_EMPTY_ERROR_MESSAGE
+                                            : <div className="day-off"><i
+                                                className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                            </div>
                                     }
                                 </ul>
                             </Col>
