@@ -52,3 +52,9 @@ export const getNoOfDaysBetweenGivenDatesInclusive = (fromDate, toDate) => {
     let milliSecondsInADay = (1000 * 3600 * 24);
     return (Math.round(differenceInTime / milliSecondsInADay)) + 1;
 };
+
+export const getOnlyDateFromDateAndTime = oldDate => {
+    const newDate =  new Date(oldDate).toLocaleDateString();
+    return newDate;
+} 
+

@@ -15,7 +15,10 @@ const {
     fetchDashboardRevenueWeekList,
     fetchDashboardRevenueYearList
 } = DashboardDetailsMiddleware;
-
+const {
+getOnlyDateFromDateAndTime,
+subtractDate
+}=DateTimeFormatterUtils
 const ClientDashboardHoc = (ComposedComponent, props, type) => {
     const {
         DashboardApiConstant
@@ -25,17 +28,17 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         state = {
             searchParameterForGenerateRevenue: {
                 currentToDate: new Date(),
-                currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-                previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
-                previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
+                currentFromDate:getOnlyDateFromDateAndTime(subtractDate(new Date(), 1)),
+                previousToDate: getOnlyDateFromDateAndTime(subtractDate(new Date(), 2)),
+                previousFromDate:getOnlyDateFromDateAndTime(subtractDate(new Date(), 3)),
             },
             searchParamsForOverallAppoinment: {
-                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
-                toDate: new Date(),
+                fromDate:getOnlyDateFromDateAndTime(subtractDate(new Date(), 7)),
+                toDate: getOnlyDateFromDateAndTime(new Date()),
             },
             searchParameterForRevenueTrend: {
-                revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
-                revToDate: new Date(),
+                revFromDate: getOnlyDateFromDateAndTime(subtractDate(new Date(), 7)),
+                revToDate: getOnlyDateFromDateAndTime(new Date()),
             },
             revenueFilter: 'W',
             appointmentFilter: 'W',
@@ -59,16 +62,16 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 this.props.fetchDashboardAppointmentStatisticsList(
                     DashboardApiConstant.OVERALL_APPOINTMENTS,
                     {
-                        fromDate,
-                        toDate
+                        fromDate:getOnlyDateFromDateAndTime(fromDate),
+                        toDate:getOnlyDateFromDateAndTime(toDate)
                     }
                 );
             if (!statsType || statsType === 'refund')
                 this.props.fetchDashboardRevenueRefundList(
                     DashboardApiConstant.REVENUE_STATISTICS,
                     {
-                        fromDate: revFromDate,
-                        toDate: revToDate
+                        fromDate: getOnlyDateFromDateAndTime(revFromDate),
+                        toDate: getOnlyDateFromDateAndTime(revToDate)
                     }
                 );
             if (!statsType) {
@@ -79,59 +82,59 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 this.props.fetchDashboardRevenueDayList(
                     DashboardApiConstant.REVENUE_GENERATED,
                     {
-                        currentToDate: new Date(),
-                        currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-                        previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
-                        previousFromDate: DateTimeFormatterUtils.subtractDate(
+                        currentToDate: getOnlyDateFromDateAndTime( new Date()),
+                        currentFromDate: getOnlyDateFromDateAndTime(subtractDate(new Date(), 1)),
+                        previousToDate:getOnlyDateFromDateAndTime(subtractDate(new Date(), 2)),
+                        previousFromDate:getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             3
-                        ),
+                        )),
                     }
                 );
                 this.props.fetchDashboardRevenueWeekList(
                     DashboardApiConstant.REVENUE_GENERATED,
                     {
-                        currentToDate: new Date(),
-                        currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
-                        previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 8),
-                        previousFromDate: DateTimeFormatterUtils.subtractDate(
+                        currentToDate: getOnlyDateFromDateAndTime( new Date()),
+                        currentFromDate: getOnlyDateFromDateAndTime(subtractDate(new Date(), 7)),
+                        previousToDate:getOnlyDateFromDateAndTime(subtractDate(new Date(), 8)),
+                        previousFromDate: getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             15
-                        ),
+                        )),
                     }
                 );
                 this.props.fetchDashboardRevenueMonthList(
                     DashboardApiConstant.REVENUE_GENERATED,
                     {
-                        currentToDate: new Date(),
-                        currentFromDate: DateTimeFormatterUtils.subtractDate(
+                        currentToDate: getOnlyDateFromDateAndTime(new Date()),
+                        currentFromDate: getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             30
-                        ),
-                        previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
-                        previousFromDate: DateTimeFormatterUtils.subtractDate(
+                        )),
+                        previousToDate: getOnlyDateFromDateAndTime(subtractDate(new Date(), 31).getDate()),
+                        previousFromDate:getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             61
-                        ),
+                        )),
                     }
                 );
 
                 this.props.fetchDashboardRevenueYearList(
                     DashboardApiConstant.REVENUE_GENERATED,
                     {
-                        currentToDate: new Date(),
-                        currentFromDate: DateTimeFormatterUtils.subtractDate(
+                        currentToDate: getOnlyDateFromDateAndTime(new Date()),
+                        currentFromDate: getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             365
-                        ),
-                        previousToDate: DateTimeFormatterUtils.subtractDate(
+                        )),
+                        previousToDate:  getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             366
-                        ),
-                        previousFromDate: DateTimeFormatterUtils.subtractDate(
+                        )),
+                        previousFromDate: getOnlyDateFromDateAndTime(subtractDate(
                             new Date(),
                             731
-                        ),
+                        )),
                     }
                 )
             }

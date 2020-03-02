@@ -49,11 +49,11 @@ const AppointmentStatistics = props => {
               />
               <Col className="date">
                 <div>
-                  <span>From :</span> {fromDate.fromDate.toDateString()}
+                  <span>From :</span> {new Date(fromDate.fromDate).toDateString()}
                  
                 </div>
                 <div>
-                  <span>To :</span> {toDate.toDate.toDateString()}
+                  <span>To :</span> {new Date(toDate.toDate).toDateString()}
                   
                 </div>
               </Col>
