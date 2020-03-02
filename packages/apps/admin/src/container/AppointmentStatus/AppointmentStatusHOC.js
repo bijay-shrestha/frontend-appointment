@@ -78,7 +78,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 variant: '',
                 message: ''
             },
-            activeStatus: 'ALL'
+            activeStatus: 'ALL',
+            previousSelectedTimeSlotId: '', // used for changing class of time slots, remove /add active class
+            previousSelectedTimeSlotRowIndex: '',
         };
 
         fetchHospitalForDropDown = async () => {
@@ -132,7 +134,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 statusDetails: [],
                 errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
                 appointmentStatusDetails: [],
-                appointmentStatusDetailsCopy: []
+                appointmentStatusDetailsCopy: [],
+                previousSelectedTimeSlotRowIndex: '',
+                previousSelectedTimeSlotId: ''
             });
             this.props.clearAppointmentStatusMessage()
         };
@@ -274,7 +278,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 await this.setState({
                     appointmentStatusDetails: [...statusList],
                     doctorInfoList: [...doctorInfo],
-                    appointmentStatusDetailsCopy: [...statusList]
+                    appointmentStatusDetailsCopy: [...statusList],
+                    previousSelectedTimeSlotRowIndex: '',
+                    previousSelectedTimeSlotId: ''
                 })
 
             }
@@ -302,7 +308,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             await this.setState({
                 appointmentStatusDetails: [...filteredStatus],
-                activeStatus: status
+                activeStatus: status,
+                previousSelectedTimeSlotRowIndex: '',
+                previousSelectedTimeSlotId: ''
             })
         };
 
@@ -311,18 +319,19 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         getPatientDetails = async (timeSlot, appointmentDate, rowIndex, timeSlotIndex) => {
-
             let elementId = timeSlot.appointmentTime + "-" + rowIndex + timeSlotIndex;
-            let selectedElement = document.getElementById(elementId);
-            selectedElement && selectedElement.classList.add('active');
             let statusDetails = [...this.state.appointmentStatusDetails];
+            this.addRemoveActiveClassFromTimeSlots(elementId, rowIndex);
             if (timeSlot.appointmentId) {
                 try {
                     const response = await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
+
                     let patientDetail = this.setPatientDataProps(appointmentDate, timeSlot);
                     statusDetails[rowIndex].patientDetails = {...patientDetail};
                     this.setState({
                         appointmentStatusDetails: [...statusDetails],
+                        previousSelectedTimeSlotId: elementId,
+                        previousSelectedTimeSlotRowIndex: rowIndex
                     });
                 } catch (e) {
                     this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
@@ -332,7 +341,19 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 statusDetails[rowIndex].patientDetails = null;
                 await this.setState({
                     appointmentStatusDetails: [...statusDetails],
+                    previousSelectedTimeSlotId: elementId,
+                    previousSelectedTimeSlotRowIndex: rowIndex
                 });
+            }
+        };
+
+        addRemoveActiveClassFromTimeSlots = (elementId, rowIndex) => {
+            let selectedElement = document.getElementById(elementId);
+            selectedElement && selectedElement.classList.add('active');
+
+            if (this.state.previousSelectedTimeSlotId && this.state.previousSelectedTimeSlotRowIndex === rowIndex) {
+                let previousElement = document.getElementById(this.state.previousSelectedTimeSlotId);
+                previousElement && previousElement.classList.remove('active')
             }
         };
 
