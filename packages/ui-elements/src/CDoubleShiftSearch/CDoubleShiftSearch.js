@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import ReactDOM from "react-dom";
 
 import './doubleShiftSearch.scss';
+import {Scrollbars} from "react-custom-scrollbars";
 
 class CDoubleShiftSearch extends PureComponent {
     state={
@@ -206,44 +207,47 @@ class CDoubleShiftSearch extends PureComponent {
                             value={this.state.searchKeyword}
                             autoComplete="off"/>
                     </div>
-  
+
                 </Dropdown.Toggle>
                 <Dropdown.Menu
                     className="drop-down-list"
                     show={this.state.showResults}
                 >
                     <div className="menu-list-container">
-                    {
 
-                        this.state.searchResult.length > 0 ?
-                            this.state.searchResult.map(value => (
-                                <Dropdown.Item
-                                    id={"search-dropdown".concat(value.id)}
-                                    key={'menu-li' + value.id}
-                                    as={Link}
-                                    to={value.path}
-                                    className="menu-link">
-                           
-                                    <div className="anchor-icon">
-                                        {value.iCharacter}
-                                    </div>
-                                    <div className="menu-box">
-                                        <div className="menu">{value.name}</div>
-                                        <div className="sub-menu">{value.breadcrumb}</div>
+                        {
+                            this.state.searchResult.length > 0 ?
+                                <Scrollbars style={{'height':'428px'}} autoHide={false}>
+                                    {this.state.searchResult.map(value => (
+                                        <Dropdown.Item
+                                            id={"search-dropdown".concat(value.id)}
+                                            key={'menu-li' + value.id}
+                                            as={Link}
+                                            to={value.path}
+                                            className="menu-link">
+
+                                            <div className="anchor-icon">
+                                                {value.iCharacter}
+                                            </div>
+                                            <div className="menu-box">
+                                                <div className="menu">{value.name}</div>
+                                                <div className="sub-menu">{value.breadcrumb}</div>
+                                            </div>
+                                        </Dropdown.Item>
+
+                                    ))
+                                    }
+                                </Scrollbars>
+                                :
+                                <Dropdown.Item>
+                                    <div className="my-4">
+                                        No result(s) found.
                                     </div>
                                 </Dropdown.Item>
-                            
-                            ))
-                            :
-                            <Dropdown.Item>
-                                <div className="my-4">
-                                    No result(s) found.
-                                </div>
-                             </Dropdown.Item>
-                    
-                    }
 
-                </div>
+                        }
+
+                    </div>
                 </Dropdown.Menu>
             </Dropdown>
         </>;

@@ -1,16 +1,16 @@
 import React from 'react';
 
-import {Button, Col, Container, OverlayTrigger, Row, Tooltip, Badge} from "react-bootstrap";
-import {CLoading, CButton} from "@frontend-appointment/ui-elements";
+import { Button, Col, Container, OverlayTrigger, Row, Tooltip, Badge } from "react-bootstrap";
+import { CLoading, CButton } from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 
 import "./appointment-status.scss";
-import {appointmentStatusList} from "@frontend-appointment/helpers";
+import { appointmentStatusList } from "@frontend-appointment/helpers";
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
 
-const AppointmentStatusDetails = ({statusDetailsData}) => {
+const AppointmentStatusDetails = ({ statusDetailsData }) => {
     const {
         appointmentStatusDetails,
         doctorInfoList,
@@ -27,19 +27,19 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         <div className="manage-details">
             <Container fluid>
                 {!isStatusListLoading && !searchErrorMessage &&
-                appointmentStatusDetails.length ?
+                    appointmentStatusDetails.length ?
                     <Row>
-                        <Col className="p-0"><h5 className="title">Appointment Status Details</h5></Col>
+                        <Col className="p-0" lg={4}><h5 className="title">Appointment Status Details</h5></Col>
 
-                        <Col>
+                        <Col lg={8}>
                             <div className="appointment-badge float-right">
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
                                         <div>
                                             <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
                                             <a href=""
-                                               className={activeStatus === appointmentStatus.value ? "active" : ''}
-                                               onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                 {appointmentStatus.label}
                                             </a>
                                         </div>
@@ -59,15 +59,15 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                 <div className="doctor-image">
                                     {doctorInfoList.map(doctorData => (
                                         doctorData.value === appointmentStatusDetail.doctorId ?
-                                      
-                                        doctorData.fileUri ? 
-                                        <img
-                                            src={doctorData.fileUri}
-                                            alt={"DOCTOR"}/>: 
-                                        <img src={require("./img/picture.png")}
-                                                alt={"DOCTOR"}/>: ''
+
+                                            doctorData.fileUri ?
+                                                <img
+                                                    src={doctorData.fileUri}
+                                                    alt={"DOCTOR"} /> :
+                                                <img src={require("./img/picture.png")}
+                                                    alt={"DOCTOR"} /> : ''
                                     ))}
-                                 
+
                                 </div>
                                 <p className="doctor-details">
                                     <span>{appointmentStatusDetail.doctorName}</span>
@@ -77,101 +77,113 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
 
                             <Col sm={12} md={8} lg={8} className="time-container">
-                            <h5 className="title">Appointment Slots</h5><br></br>
-                            <p className="time-details">
-                            {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
-                            <span className="time"> {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                {appointmentStatusDetail.doctorTimeSlots[
-                                appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
-                            </p>
+                                <h5 className="title">Appointment Slots</h5><br></br>
+                                <p className="time-details">
+                                    {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+            
+                                    {
+                                        appointmentStatusDetail.doctorTimeSlots ?
+                                            appointmentStatusDetail.doctorTimeSlots.length ?
+                                                <span className="time">
+                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
+                                                {appointmentStatusDetail.doctorTimeSlots[
+                                                        appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                : '' : ''
+                                    }
+
+
+                                </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
-                                                appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
-                                                    <li key={'timeSlot-' + index}>
-                                                        {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
-                                                            <OverlayTrigger
-                                                                placement='top'
-                                                                overlay={
-                                                                    <Tooltip id={timeSlot.status + "-" + index}>
-                                                                        App no: {timeSlot.appointmentNumber}<br>
+                                            appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+                                                <li key={'timeSlot-' + index}>
+                                                    {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
+                                                        <OverlayTrigger
+                                                            placement='top'
+                                                            overlay={
+                                                                <Tooltip id={timeSlot.status + "-" + index}>
+                                                                    App no: {timeSlot.appointmentNumber}<br>
                                                                     </br>
-                                                                        {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
+                                                                    {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
                                                                     </br>
-                                                                        Mobile No: {timeSlot.mobileNumber || 'N/A'}
-                                                                    </Tooltip>
-                                                                }>
-                                                                <Button
-                                                                    onClick={() => getPatientDetails(timeSlot,
-                                                                        appointmentStatusDetail.date)}
-                                                                    variant={timeSlot.status === 'PA' ? 'primary'
-                                                                        : timeSlot.status === 'A' ? 'danger'
-                                                                            : timeSlot.status === 'C' ? 'dark'
-                                                                                : 'info'}
-                                                                    size="lg block">
-                                                                    {timeSlot.appointmentTime}
-                                                                </Button>
-                                                            </OverlayTrigger> :
-                                                            (timeSlot.status === 'V') ?
-                                                                (<CButton
-                                                                    variant={"success"}
-                                                                    size="lg"
-                                                                    id="vacant"
-                                                                    name=""
-                                                                >
-                                                                    {timeSlot.appointmentTime}
-                                                                </CButton>)
-                                                                : ''
-                                                        }
-                                                    </li>
-                                                ))
+                                                                    Mobile No: {timeSlot.mobileNumber || 'N/A'}
+                                                                </Tooltip>
+                                                            }>
+                                                            <Button
+                                                                onClick={() => getPatientDetails(timeSlot,
+                                                                    appointmentStatusDetail.date)}
+                                                                variant={timeSlot.status === 'PA' ? 'primary'
+                                                                    : timeSlot.status === 'A' ? 'danger'
+                                                                        : timeSlot.status === 'C' ? 'dark'
+                                                                            : 'info'}
+                                                                size="lg block">
+                                                                {timeSlot.appointmentTime}
+                                                            </Button>
+                                                        </OverlayTrigger> :
+                                                        (timeSlot.status === 'V') ?
+                                                            (<CButton
+                                                                variant={"success"}
+                                                                size="lg"
+                                                                id="vacant"
+                                                                name=""
+                                                            >
+                                                                {timeSlot.appointmentTime}
+                                                            </CButton>)
+                                                            : ''
+                                                    }
+                                                </li>
+                                            ))
 
-                                                : appointmentStatusDetail.dayOffStatus === 'Y' ?
-                                                    <div className="day-off"><i
-                                                        className='fa  fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
-                                                    : TIME_SLOT_EMPTY_ERROR_MESSAGE
+                                            : appointmentStatusDetail.dayOffStatus === 'Y' ?
+                                                <div className="day-off"><i
+                                                    className='fa  fa-calendar-times-o' />{DAY_OFF_MESSAGE}</div>
+                                                :  <div className="day-off"><i
+                                                className='fa  fa-calendar-times-o' />{TIME_SLOT_EMPTY_ERROR_MESSAGE}</div>
+                                               
                                         ) : appointmentStatusDetail.dayOffStatus === 'Y' ? <div className="day-off"><i
-                                                className='fa fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
-                                            : TIME_SLOT_EMPTY_ERROR_MESSAGE
+                                            className='fa fa-calendar-times-o' />{DAY_OFF_MESSAGE}</div>
+                                            : <div className="day-off"><i
+                                            className='fa  fa-calendar-times-o' />{TIME_SLOT_EMPTY_ERROR_MESSAGE}</div>
                                     }
                                 </ul>
                             </Col>
 
                             <Col sm={12} md={2} lg={2}>
-                            <h5 className="title">Patients Details </h5><br></br>
-                            <div className="patient-details">
-                            <div className="label">Appointment No. </div>
-                             <div className="data">1231231</div>
-                            </div>
+                                <h5 className="title">Patients Details </h5><br></br>
+                                <div className="patient-details">
+                                    <div className="label">Appointment No. </div>
+                                    <div className="data">1231231</div>
+                                </div>
 
 
-                            <div className="patient-details">
-                            <div className="label">Name </div>
-                             <div className="data">Dhanusha Roka</div>
-                            </div>
+                                <div className="patient-details">
+                                    <div className="label">Name </div>
+                                    <div className="data">Dhanusha Roka</div>
+                                </div>
 
-                            <div className="patient-details">
-                            <div className="label">Contact No. </div>
-                             <div className="data">1231231</div>
-                            </div>
+                                <div className="patient-details">
+                                    <div className="label">Contact No. </div>
+                                    <div className="data">1231231</div>
+                                </div>
 
-                            <div className="patient-details">
-                            <div className="label">Address </div>
-                             <div className="data">Kathmandu, Baneshwor</div>
-                            </div>
-                           <CButton
-                           name=""
-                           vairant="primary "
-                           size="sm"
-                           className="btn-checkin"
-                           >
-                             <i className="fa fa-sign-in"></i> &nbsp;Check-in
+                                <div className="patient-details">
+                                    <div className="label">Address </div>
+                                    <div className="data">Kathmandu, Baneshwor</div>
+                                </div>
+                                <CButton
+                                    name=""
+                                    vairant="primary "
+                                    size="sm"
+                                    className="btn-checkin"
+                                >
+                                    <i className="fa fa-sign-in"></i> &nbsp;Check-in
                            </CButton>
 
 
 
 
-                      </Col>
+                            </Col>
 
                         </Row>
                     ))
@@ -183,7 +195,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     <Col>
                                         <div className="filter-message">
                                             <div className="no-data ">
-                                                <i className="fa fa-hand-o-up"/>
+                                                <i className="fa fa-hand-o-up" />
                                             </div>
                                             <div
                                                 className="message text-center">{errorMessageForStatusDetails}</div>
@@ -197,14 +209,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         <Col>
                                             <div className="filter-message">
                                                 <div className="no-data primary">
-                                                    <i className="fa fa-file-text-o"/>
+                                                    <i className="fa fa-file-text-o" />
                                                 </div>
                                                 <div className="message text-center">{searchErrorMessage}</div>
                                             </div>
                                         </Col>
                                     </Row>
                                 ) :
-                                <CLoading/>)}
+                                <CLoading />)}
                     </>
                 }
 

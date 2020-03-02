@@ -214,8 +214,8 @@
 
         .dropdown-toggle {
             @include border-radius(50px);
-            -webkit-transition: all .3s;
-            transition        : all .3s;
+            -webkit-transition: all 0.3s;
+            transition        : all 0.3s;
 
             &:hover {
                 background-color: lighten($cogent, 45%);
