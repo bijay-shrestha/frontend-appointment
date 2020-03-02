@@ -92,6 +92,7 @@ input::-webkit-input-placeholder {
 #menu-search input[type=search] {
 	width:40px;
 	cursor: pointer;
+	color:transparent;
 
 	background: transparent url(./search.svg) no-repeat left    center;
 	background-size:36px 18px;
@@ -105,9 +106,9 @@ input::-webkit-input-placeholder {
 	// -moz-border-radius: 2px;
 	// border-radius: 2px;
 
-	-webkit-transition: all .3s;
-	-moz-transition: all .3s;
-	transition: all .3s;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	transition: all .2s;
 }
 #menu-search input[type=search]:hover {
 	background-color: #fff;

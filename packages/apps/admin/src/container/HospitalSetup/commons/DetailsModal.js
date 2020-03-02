@@ -75,10 +75,13 @@ const DetailsModal = ({type, hospitalData}) => {
                     <Container-fluid>
                         <Row>
 
-                            <Col sm={12} md={12} lg={3} className="order-md-first order-lg-last">
+                            <Col sm={12} md={12} lg={12} className="">
+                                <div className="hospital-banner-container">
                                 <CImageDisplayAndView images={images}/>
-                                {/*<br/>*/}
-                                {/*<CImageDisplayAndView images={bannerImages}/>*/}
+                                <br/>
+                               <CImageDisplayAndView images={bannerImages} className="hospital-logo"/>
+                                </div>
+                                
                             </Col>
                             <Col lg={9}>
                                 <Row>
