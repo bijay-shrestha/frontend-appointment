@@ -150,6 +150,11 @@ const ProfileComponent = Loadable({
     loader: () => import('./container/ClientProfileSetup/ProfileSetup'),
     loading: () => getLoader()
 });
+
+const PatientComponent = Loadable({
+     loader: () => import('./container/ClientPatientSetup/ClientPatientDetails'),
+     loading: () => getLoader()
+})
 /* ****** Q ***** */
 
 /* ****** R ***** */
