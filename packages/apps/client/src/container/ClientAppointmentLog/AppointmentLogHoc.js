@@ -38,7 +38,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId: '',
                 patientType: '',
                 specializationId: '',
-                patientCategory: '',
+                appointmentCategory: '',
                 status: ''
             },
             queryParams: {
@@ -63,19 +63,19 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 patientType,
                 specializationId,
                 doctorId,
-                patientCategory,
+                appointmentCategory,
                 status
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
                 fromDate,
                 toDate,
-                patientMetaInfoId: patientMetaInfoId.value || 'N/A',
-                patientType: patientType.value || 'N/A',
-                specializationId: specializationId.value || 'N/A',
-                doctorId: doctorId.value || 'N/A',
-                patientCategory: patientCategory.value || 'N/A',
-                status: status.value || 'N/A'
+                patientMetaInfoId: patientMetaInfoId.value || '',
+                patientType: patientType.value || '',
+                specializationId: specializationId.value || '',
+                doctorId: doctorId.value || '',
+                appointmentCategory: appointmentCategory.value || '',
+                status: status.value || ''
             };
 
             let updatedPage =
@@ -134,7 +134,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     patientType: '',
                     specializationId: '',
                     doctorId: '',
-                    patientCategory: '',
+                    appointmentCategory: '',
                     status: ''
                 }
             });
@@ -162,7 +162,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     patientType: '',
                     specializationId: '',
                     doctorId: '',
-                    patientCategory: ''
+                    appointmentCategory: ''
                 }
             })
         };
