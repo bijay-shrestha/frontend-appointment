@@ -85,7 +85,7 @@ class PatientSearchFilter extends PureComponent {
                       placeholder="Name, Mobile no Or Reg. no"
                       options={patientListDropdown}
                       value={searchParameters.patientMetaInfoId}
-                      isDisabled={!patientListDropdown.length ? false : true}
+                      isDisabled={patientListDropdown.length ? false : true}
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}
                     />

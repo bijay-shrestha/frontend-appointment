@@ -73,7 +73,7 @@ export const PatientDropdownListReducer = (
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS:
             return {
                 ...state,
-                patientList: [...action.payload.data],
+                patientList: action.payload.data,
                 patientDropdownErrorMessage: ''
             }
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR:

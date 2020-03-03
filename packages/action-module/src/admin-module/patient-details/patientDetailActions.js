@@ -33,7 +33,7 @@ export const patientActiveDropdownFetchingStart = () => {
 
 export const patientActiveDropdownFetchingSuccess = data => {
     return {
-        type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_START,
+        type: PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS,
         payload: {data}
     }
 }
