@@ -47,7 +47,15 @@ const HospitalEditModal = ({
             {/* <h5 className="title">Edit Hospital Setup</h5> */}
             <CForm id="admin-info" className="mt-2 add-info">
                 <Row>
-                    <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
+                    <Col sm={12} md={12} lg={12} className="">
+                    <div className="hospital-banner-container">
+                    <div className="">
+                                <img
+                                    alt="HOSPITAL BANNER"
+                                    className="hospital-banner"
+                                    src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}
+                                />
+                               
                         <div className="image-upload-container">
                             <div className="image-box">
                                 <img
@@ -78,35 +86,34 @@ const HospitalEditModal = ({
                             </div>
                         </div>
 
-                        {/*<div className="image-upload-container">*/}
-                        {/*    <CFLabel id='banner' labelName="Hospital Banner"/>*/}
-                        {/*    <div className="image-box">*/}
-                        {/*        <img*/}
-                        {/*            alt="HOSPITAL BANNER"*/}
-                        {/*            src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}*/}
-                        {/*        />*/}
-                        {/*        <CButton*/}
-                        {/*            id="uploadBanner"*/}
-                        {/*            name="Upload"*/}
-                        {/*            size="lg"*/}
-                        {/*            variant="primary"*/}
-                        {/*            className=" mt-1 mb-4  upload-button"*/}
-                        {/*            onClickHandler={setShowBannerUploadModal}*/}
-                        {/*        />*/}
-                        {/*        <CImageUploadAndCropModal*/}
-                        {/*            id='hospital-baner'*/}
-                        {/*            ruleOfThirds={true}*/}
-                        {/*            circularCrop={false}*/}
-                        {/*            showModal={showBannerUploadModal}*/}
-                        {/*            setShowModal={setShowBannerUploadModal}*/}
-                        {/*            imageSrc={hospitalBannerImage}*/}
-                        {/*            croppedImageSrc={hospitalBannerImageCroppedUrl}*/}
-                        {/*            handleImageUpload={handleBannerImageUpload}*/}
-                        {/*            onImageSelect={onBannerImageSelect}*/}
-                        {/*            onImageCrop={data => handleCropBannerImage(data)}*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
+                     
+                           
+                          
+                                <CButton
+                                    id="uploadBanner"
+                                    name="Upload Banner"
+                                    size="lg"
+                                    variant="primary"
+                                    className=" mt-1 mb-4 banner-upload-button"
+                                    onClickHandler={setShowBannerUploadModal}
+                                />
+                                <CImageUploadAndCropModal
+                                    id='hospital-baner'
+                                    ruleOfThirds={true}
+                                    circularCrop={false}
+                                    showModal={showBannerUploadModal}
+                                    setShowModal={setShowBannerUploadModal}
+                                    imageSrc={hospitalBannerImage}
+                                    croppedImageSrc={hospitalBannerImageCroppedUrl}
+                                    handleImageUpload={handleBannerImageUpload}
+                                    onImageSelect={onBannerImageSelect}
+                                    onImageCrop={data => handleCropBannerImage(data)}
+                                    className="mt-1 mb-4 banner-upload-button"
+                                  
+                                />
+                            
+                            </div>
+                        </div>
                     </Col>
                     <Col sm={12} md={12} lg={9}>
                         <Row>
@@ -265,8 +272,7 @@ const HospitalEditModal = ({
                                                                         <CButton
                                                                             id="hospital-contact"
                                                                             key={'hospRemove' + index}
-                                                                            name=""
-
+                                                                            name="Upload Banner"
                                                                             variant="outline-danger"
                                                                             className="float-right remove-contact "
                                                                             onClickHandler={e =>

@@ -4,17 +4,15 @@ import {Axios} from '@frontend-appointment/core'
 export const createHospital = (
     path,
     hospitalData,
-    formDataLogo,
-    formDataBanner
+    formData,
 ) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalPending());
     try {
-        const response = await Axios.postForMultipleMultipart(
+        const response = await Axios.postForMultipart(
             path,
             'request',
             hospitalData,
-            formDataLogo,
-            formDataBanner
+            formData
         );
         dispatch(HospitalSetupActions.createHospitalSuccess());
         return response
