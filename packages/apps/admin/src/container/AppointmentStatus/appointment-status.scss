@@ -269,6 +269,20 @@
     margin:0 auto;
 }
 
+.time-button{
+    .fa{
+        display:none;
+        margin-right:4px;
+    }
+    &.active{
+       .fa{
+           display:inline;
+           margin-right:4px;
+           
+       }
+    }
+}
+
 
 
 @media (max-width: 1199px) { 
