@@ -160,7 +160,7 @@ export const PatientEditReducer = (state = {...editState}, action) => {
         case PATIENT_EDIT_SUCCESS:
             return {
                 ...state,
-                patientSuccessMessage: 'Patiend Updated Successfully!!',
+                patientSuccessMessage: 'Patient Updated Successfully!!',
                 isPatientEditLoading: false,
                 patientEditErrorMessage: ''
             }

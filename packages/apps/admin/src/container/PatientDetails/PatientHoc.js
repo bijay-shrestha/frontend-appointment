@@ -13,6 +13,7 @@ const {
   clearPatientDetails,
   clearPatientPreview,
   editPatient,
+  clearPatientEdit,
   fetchPatientMetaList,
   previewPatient,
   fetchPatientMetaDropdown
@@ -177,6 +178,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async id => {
+      this.props.clearPatientPreview();
       await this.props.previewPatient(
         patientSetupApiConstant.PREVIEW_PATIENT_DETAIL_BY_ID,
         id
@@ -313,6 +315,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     editHandler = async id => {
+      this.props.clearPatientEdit();
       await this.previewApiCall(id)
       if (this.props.PatientPreviewReducer.patientPreviewData) {
         const {
@@ -503,6 +506,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     ],
     {
       clearPatientDetails,
+      clearPatientEdit,
       clearPatientPreview,
       editPatient,
       fetchPatientMetaList,

@@ -117,7 +117,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.PatientSearchReducer.patientSearchList.length,
+        totalRecords: this.props.PatientSearchReducer.patientSearchList.length
+          ? this.props.PatientSearchReducer.patientSearchList[0].totalItems
+          : 0,
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
@@ -247,7 +249,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         dateOfBirth,
         email,
         gender,
-        hospitalId,
         hospitalNumber,
         id,
         mobileNumber,
@@ -260,7 +261,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         dateOfBirth &&
         email &&
         gender &&
-        hospitalId &&
         hospitalNumber &&
         id &&
         mobileNumber &&
