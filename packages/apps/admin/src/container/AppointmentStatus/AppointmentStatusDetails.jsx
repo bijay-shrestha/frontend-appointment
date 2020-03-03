@@ -159,11 +159,19 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </div>
                                         </div>
 
+                                        <div className="patient-details">
+                                            <div className="label">Appointment Category</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                            </div>
+                                        </div>
+
 
                                         <div className="patient-details">
                                             <div className="label">Name</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.name + " ("
+                                                {appointmentStatusDetail.patientDetails.name }<br/>
+                                                {" ("
                                                 + appointmentStatusDetail.patientDetails.age + " / "
                                                 + appointmentStatusDetail.patientDetails.gender + ")"}
                                             </div>
