@@ -79,7 +79,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 message: ''
             },
             activeStatus: 'ALL',
-            previousSelectedTimeSlotId: '', // used for changing class of time slots, remove /add active class
+            previousSelectedTimeSlotIds: '', // used for changing class of time slots, remove /add active class
             previousSelectedTimeSlotRowIndex: '',
         };
 
@@ -136,7 +136,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 appointmentStatusDetails: [],
                 appointmentStatusDetailsCopy: [],
                 previousSelectedTimeSlotRowIndex: '',
-                previousSelectedTimeSlotId: ''
+                previousSelectedTimeSlotIds: ''
             });
             this.props.clearAppointmentStatusMessage()
         };
@@ -279,8 +279,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     appointmentStatusDetails: [...statusList],
                     doctorInfoList: [...doctorInfo],
                     appointmentStatusDetailsCopy: [...statusList],
-                    previousSelectedTimeSlotRowIndex: '',
-                    previousSelectedTimeSlotId: ''
+                    previousSelectedTimeSlotIds: ''
                 })
 
             }
@@ -309,8 +308,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 appointmentStatusDetails: [...filteredStatus],
                 activeStatus: status,
-                previousSelectedTimeSlotRowIndex: '',
-                previousSelectedTimeSlotId: ''
+                previousSelectedTimeSlotIds: ''
             })
         };
 
@@ -321,7 +319,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         getPatientDetails = async (timeSlot, appointmentDate, rowIndex, timeSlotIndex) => {
             let elementId = timeSlot.appointmentTime + "-" + rowIndex + timeSlotIndex;
             let statusDetails = [...this.state.appointmentStatusDetails];
-            this.addRemoveActiveClassFromTimeSlots(elementId, rowIndex);
+
+            let selectedElementsArray = this.addRemoveActiveClassFromTimeSlots(elementId, rowIndex);
+
             if (timeSlot.appointmentId) {
                 try {
                     const response = await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
@@ -330,8 +330,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     statusDetails[rowIndex].patientDetails = {...patientDetail};
                     this.setState({
                         appointmentStatusDetails: [...statusDetails],
-                        previousSelectedTimeSlotId: elementId,
-                        previousSelectedTimeSlotRowIndex: rowIndex
+                        previousSelectedTimeSlotIds: selectedElementsArray
                     });
                 } catch (e) {
                     this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
@@ -341,8 +340,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 statusDetails[rowIndex].patientDetails = null;
                 await this.setState({
                     appointmentStatusDetails: [...statusDetails],
-                    previousSelectedTimeSlotId: elementId,
-                    previousSelectedTimeSlotRowIndex: rowIndex
+                    previousSelectedTimeSlotIds: selectedElementsArray,
                 });
             }
         };
@@ -351,10 +349,28 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             let selectedElement = document.getElementById(elementId);
             selectedElement && selectedElement.classList.add('active');
 
-            if (this.state.previousSelectedTimeSlotId && this.state.previousSelectedTimeSlotRowIndex === rowIndex) {
-                let previousElement = document.getElementById(this.state.previousSelectedTimeSlotId);
+            let previousElement = this.state.previousSelectedTimeSlotIds ? {...this.state.previousSelectedTimeSlotIds}
+                : '';
+            let selectedElementsArray;
+            if (previousElement !== '') {
+                selectedElementsArray = {
+                    ...previousElement,
+                    [rowIndex]: elementId
+                }
+            } else {
+                selectedElementsArray = {
+                    [rowIndex]: elementId
+                }
+            }
+
+            if (this.state.previousSelectedTimeSlotIds
+                && Object.keys(this.state.previousSelectedTimeSlotIds).includes(rowIndex.toString()) &&
+                this.state.previousSelectedTimeSlotIds[rowIndex] !== elementId) {
+                let previousElement = document.getElementById(this.state.previousSelectedTimeSlotIds[rowIndex]);
                 previousElement && previousElement.classList.remove('active')
             }
+
+            return selectedElementsArray;
         };
 
         setPatientDataProps = (appointmentDate, timeSlot) => {
