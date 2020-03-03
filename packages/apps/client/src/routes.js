@@ -152,7 +152,7 @@ const ProfileComponent = Loadable({
 });
 
 const PatientComponent = Loadable({
-     loader: () => import('./container/ClientPatientSetup/ClientPatientDetails'),
+     loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
      loading: () => getLoader()
 })
 /* ****** Q ***** */
@@ -456,6 +456,15 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Appointment'
+    },
+    {
+        path: '/patientInformation',
+        component: PatientComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Patient Information'
     },
     {
         path: '/reports',

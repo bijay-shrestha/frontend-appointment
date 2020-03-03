@@ -157,6 +157,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     esewaId: spec.esewaId || 'N/A',
                     remarks: spec.remarks || 'N/A',
                     appointmentDate: spec.appointmentDate || 'N/A',
+                    age:spec.age||'N/A',
+                    gender:spec.gender.split('')[0],
+                    mobileNumber:spec.mobileNumber,
                     sN: index + 1
                 }))
             return newRefundList
