@@ -112,8 +112,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                         : timeSlot.status === 'A' ? 'danger'
                                                                             : timeSlot.status === 'C' ? 'dark'
                                                                                 : 'info'}
-                                                                    size="lg block">
-                                                                    {timeSlot.appointmentTime}
+                                                                    size="lg block"
+                                                                    className="time-button">
+                                                                    <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
+
                                                                 </Button>
                                                             </OverlayTrigger> :
                                                             (timeSlot.status === 'V') ?
