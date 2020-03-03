@@ -587,13 +587,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 refundPercentage
             };
 
-            let formDataLogo = new FormData();
-            formDataLogo.append(
+            let formData = new FormData();
+            formData.append(
                 'logo',
                 new File([hospitalLogo], name.concat('-picture.jpeg'))
             );
-            let formDataBanner = new FormData();
-            formDataBanner.append('banner',
+            formData.append('banner',
                 new File([hospitalBanner], name.concat('-picture.jpeg'))
             );
 
@@ -601,8 +600,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 await this.props.createHospital(
                     hospitalSetupApiConstants.CREATE_HOSPITAL,
                     hospitalData,
-                    formDataLogo,
-                    formDataBanner
+                    formData
                 );
 
                 await this.setShowConfirmModal();
