@@ -30,10 +30,10 @@ export const clearHospitalCreateMessage = () => dispatch => {
     dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
 }
 
-export const editHospital = (path, data, formDataLogo, formDataBanner) => async dispatch => {
+export const editHospital = (path, data, formDataLogo) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalEditPending());
     try {
-        const response = await Axios.putForMultipleMultipart(path, 'request', data, formDataLogo, formDataBanner);
+        const response = await Axios.putWithMultiPart(path, 'request', data, formDataLogo);
         dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
         return response
     } catch (e) {
