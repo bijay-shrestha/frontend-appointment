@@ -95,7 +95,8 @@ import {
     PatientEditReducer,
     PatientPreviewReducer,
     PatientSearchReducer,
-    PatientDetailReducer
+    PatientDetailReducer,
+    PatientDropdownWithoutHospitalListReducer
 } from './admin-module/patientSetupReducer'
 
 export {
@@ -171,5 +172,6 @@ export {
     PatientEditReducer,
     PatientPreviewReducer,
     PatientSearchReducer,
-    PatientDetailReducer
+    PatientDetailReducer,
+    PatientDropdownWithoutHospitalListReducer
 }

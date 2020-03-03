@@ -1,7 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-  HospitalSetupMiddleware,
   PatientDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
@@ -16,14 +15,12 @@ const {
   fetchPatientMetaList,
   previewPatient,
   clearPatientEdit,
-  fetchPatientMetaDropdown
+  fetchPatientMetaDropdownWithoutHospitalId
 } = PatientDetailsMiddleware
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 
 const PatientDetailsHOC = (ComposedComponent, props, type) => {
   const {
-    hospitalSetupApiConstants,
     patientSetupApiConstant
   } = AdminModuleAPIConstants
 
@@ -77,16 +74,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
     handleEnterPress = event => {
       EnterKeyPressUtils.handleEnter(event)
-    }
-
-    searchHospitalForDropDown = async () => {
-      try {
-        await this.props.fetchActiveHospitalsForDropdown(
-          hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
-        )
-      } catch (e) {
-        console.log(e)
-      }
     }
 
     searchPatient = async page => {
@@ -251,7 +238,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         dateOfBirth,
         email,
         gender,
-        hospitalNumber,
         id,
         mobileNumber,
         name,
@@ -263,7 +249,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         dateOfBirth &&
         email &&
         gender &&
-        hospitalNumber &&
         id &&
         mobileNumber &&
         name &&
@@ -377,7 +362,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
 
     async componentDidMount () {
       await this.searchPatient()
-      await this.searchHospitalForDropDown()
+      await this.props.fetchPatientMetaDropdownWithoutHospitalId(
+        patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
+      )
     }
 
     render () {
@@ -413,11 +400,10 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         patientEditErrorMessage
       } = this.props.PatientEditReducer
 
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       const {
-        patientList,
-        patientDropdownErrorMessage
-      } = this.props.PatientDropdownListReducer
+        patientListWithoutHospitalDropdown,
+        patientListWithoutHospitalDropdownErrorMessage
+      } = this.props.PatientDropdownWithoutHospitalListReducer
       return (
         <>
           <ComposedComponent
@@ -428,10 +414,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               handleSearchFormChange: this.handleSearchFormChange,
               resetSearch: this.handleSearchFormReset,
               searchPatient: this.searchPatient,
-              hospitalsDropdown: hospitalsForDropdown,
               searchParameters: searchParameters,
-              patientListDropdown: patientList,
-              patientDropdownErrorMessage: patientDropdownErrorMessage
+              patientListDropdown: patientListWithoutHospitalDropdown,
+              patientDropdownErrorMessage: patientListWithoutHospitalDropdownErrorMessage
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -454,7 +439,6 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
               editHandler: this.editHandler,
               editModal: editModalShow,
               patientUpdate: patientUpdate,
-              hospitalsDropdown: hospitalsForDropdown,
               errorMessageForMobileNumber: errorMessageForMobileNumber,
               errorMessageForName: errorMessageForName,
               formValid: formValid,
@@ -497,10 +481,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       'PatientEditReducer',
       'PatientPreviewReducer',
       'PatientSearchReducer',
-      'SpecializationDropdownReducer',
-      'DoctorDropdownReducer',
-      'HospitalDropdownReducer',
-      'PatientDropdownListReducer'
+      'PatientDropdownWithoutHospitalListReducer'
     ],
     {
       clearPatientDetails,
@@ -508,9 +489,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       editPatient,
       clearPatientEdit,
       fetchPatientMetaList,
-      fetchPatientMetaDropdown,
       previewPatient,
-      fetchActiveHospitalsForDropdown
+      fetchPatientMetaDropdownWithoutHospitalId
     }
   )
 }

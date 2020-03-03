@@ -39,9 +39,6 @@ class PatientSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalsDropdown,
-      doctorsDropdown,
-      activeSpecializationList,
       searchParameters,
       patientListDropdown
     } = searchHandler
@@ -66,7 +63,7 @@ class PatientSearchFilter extends PureComponent {
             <CForm id="" className=" mt-4">
               <Container-fluid>
                 <Row>
-                  <Col sm={12} md={6} xl={4}>
+                  {/* <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="hospitalId"
                       name="hospitalId"
@@ -78,7 +75,7 @@ class PatientSearchFilter extends PureComponent {
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
-                  </Col>
+                  </Col> */}
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="admin-meta-info"

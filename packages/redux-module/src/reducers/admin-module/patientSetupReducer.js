@@ -99,15 +99,17 @@ export const PatientDropdownWithoutHospitalListReducer = (
     switch (action.type) {
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_START_WITHOUT_HOSPITAL_ID:
             return {
+                ...state,
                 patientListWithoutHospitalDropdown: [],
                 patientListWithoutHospitalDropdownErrorMessage: '',
-                ...state
+               
             }
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_SUCCESS_WITHOUT_HOSPITAL_ID:
             return {
+                ...state,
                 patientListWithoutHospitalDropdown: action.payload.data,
                 patientListWithoutHospitalDropdownErrorMessage: '',
-                ...state
+                
             }
         case PATIENT_ACTIVE_DROPDOWN_META_FETCH_ERROR_WITHOUT_HOSPITAL_ID:
             return {

@@ -71,6 +71,7 @@ import {
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
     SpecializationSearchReducer,
+    PatientDropdownWithoutHospitalListReducer,
     UniversitiesForDropdownReducer,
     WeekdaysReducer
 } from '../reducers'
@@ -148,5 +149,6 @@ export const rootReducers = combineReducers({
     SpecializationSaveReducer,
     SpecializationSearchReducer,
     UniversitiesForDropdownReducer,
+    PatientDropdownWithoutHospitalListReducer,
     WeekdaysReducer
 });
