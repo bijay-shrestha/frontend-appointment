@@ -164,7 +164,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     mobileNumber:spec.mobileNumber,
                     sN: index + 1
                 }))
-            return newRefundList
+            return newRefundList;
         }
 
         handlePageChange = async newPage => {
@@ -174,7 +174,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     page: newPage
                 }
             })
-            this.searchAppointment()
+            this.searchAppointment();
         }
 
         handleSearchFormReset = async () => {
