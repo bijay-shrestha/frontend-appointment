@@ -19,7 +19,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         filterAppointmentDetailsByStatus,
         activeStatus,
         getPatientDetails,
-        handleCheckIn
+        handleCheckIn,
+        showCheckInModal
     } = statusDetailsData;
     return <>
         <div className="manage-details">
@@ -163,7 +164,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             <div className="label">Name</div>
                                             <div className="data">
                                                 {appointmentStatusDetail.patientDetails.name + " ("
-                                                + appointmentStatusDetail.patientDetails.age +" / "
+                                                + appointmentStatusDetail.patientDetails.age + " / "
                                                 + appointmentStatusDetail.patientDetails.gender + ")"}
                                             </div>
                                         </div>
@@ -187,9 +188,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 vairant="primary "
                                                 size="sm"
                                                 className="btn-checkin"
-                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn}
+                                                onClickHandler={() => handleCheckIn(appointmentStatusDetail)}
+                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn
+                                                || showCheckInModal}
                                             >
-                                                <i className="fa fa-sign-in"/> &nbsp;Check-in
+                                                <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
+                                                'Checking-In' : 'Check-In'}
                                             </CButton>
                                             : ''
                                         }
