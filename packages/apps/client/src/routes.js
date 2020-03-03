@@ -493,4 +493,13 @@ export const routes = [
         isTab: false,
         name: 'Reschedule Log'
     },
+    {
+        path: '/patientInformation',
+        component: PatientComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Patient Information'
+    }
 ];
