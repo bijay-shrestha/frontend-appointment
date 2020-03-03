@@ -10,7 +10,9 @@ import {
 } from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
-
+import RejectModal from "./RejectModal";
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import PatientWithAge from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -32,6 +34,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     remarks
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
+
   return (
     <>
       <div className="manage-details">
@@ -47,6 +50,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               height="460px"
               enableSorting
               editType
+              rowHeight={50}
               columnDefs={[
                 {
                   headerName: 'SN',
@@ -56,39 +60,43 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
+                  width:140,
                   cellClass: 'first-class'
                   //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                 },
+                // {
+                //   headerName: 'Hospital Name',
+                //   field: 'hospitalName',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
-                  headerName: 'Hospital Name',
-                  field: 'hospitalName',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Appointment Date',
-                  field: 'appointmentDate',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Appointment Number',
+                  headerName: 'App. No',
                   field: 'appointmentNumber',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width:140,
                 },
                 {
-                  headerName: 'Appointment Time',
-                  field: 'appointmentTime',
+                  headerName: 'App. Date(Time)',
+                  field: 'appointmentDate',
+                  resizable: true,
+                  sortable: true,
+                  cellRenderer: 'appointmentDateAndTimeRenderer',
+                  sizeColumnsToFit: true,
+                  width:160,
+                },
+                {
+                  headerName: 'Cancel Date',
+                  field: 'cancelledDate',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Registration Number',
+                  headerName: 'Reg. No',
                   field: 'registrationNumber',
                   resizable: true,
                   sortable: true,
@@ -96,7 +104,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Patient Name',
-                  field: 'patientName',
+                  cellRenderer: 'patientWithAgeRenderer',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -116,41 +124,35 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
 
-                {
-                  headerName: 'Esewa Id',
-                  field: 'esewaId',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Transaction Number',
-                  field: 'transactionNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Cancelled Date',
-                  field: 'cancelledDate',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Amount',
-                  field: 'refundAmount',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Remarks',
-                  field: 'remarks',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Esewa Id',
+                //   field: 'esewaId',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Transaction Number',
+                //   field: 'transactionNumber',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+
+                // {
+                //   headerName: 'Amount',
+                //   field: 'refundAmount',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Remarks',
+                //   field: 'remarks',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
                   headerName: '',
                   action: 'action',
@@ -159,6 +161,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   cellRenderer: 'childActionRenderer',
                   cellClass: 'actions-button-cell',
+                  width: 140,
                   cellRendererParams: {
                     onClick: function (e, id, type) {
                       type === 'D'
@@ -172,7 +175,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 }
               ]}
               frameworkComponents={{
-                childActionRenderer: TableRefundStatus
+                childActionRenderer: TableRefundStatus,
+                appointmentDateAndTimeRenderer:AppointmentDateWithTime,
+                patientWithAgeRenderer:PatientWithAge
               }}
               defaultColDef={{resizable: true}}
               getSelectedRows={previewCall}
@@ -207,7 +212,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         ''
       )}
       {rejectModalShow ? (
-        <ConfirmDelete
+        <RejectModal
           confirmationMessage="Are you sure you want to reject the Refund?If yes please provide remarks."
           modalHeader="Reject Refund"
           showModal={rejectModalShow}
