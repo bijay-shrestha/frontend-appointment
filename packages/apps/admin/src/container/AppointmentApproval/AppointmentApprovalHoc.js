@@ -189,7 +189,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     patientType: '',
                     specializationId: '',
                     doctorId: '',
-                    patientCategory: ''
+                    patientCategory: '',
+                    appointmentDetails: '',
                 }
             })
             this.searchAppointment()
@@ -492,5 +493,5 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             clearAppointmentRejectMessage
         }
     )
-}
+};
 export default AppointApprovalHOC
