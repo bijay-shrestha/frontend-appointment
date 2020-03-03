@@ -129,13 +129,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
 
-                {
-                  headerName: 'Hospital Name',
-                  field: 'hospitalName',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Hospital Name',
+                //   field: 'hospitalName',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                
                 {
                   headerName: '',

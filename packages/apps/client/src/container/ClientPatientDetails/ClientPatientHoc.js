@@ -15,6 +15,7 @@ const {
   editPatient,
   fetchPatientMetaList,
   previewPatient,
+  clearPatientEdit,
   fetchPatientMetaDropdown
 } = PatientDetailsMiddleware
 
@@ -231,7 +232,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             ? {value, label}
             : ''
           : value
-        await this.setStateValuesForSearch(newSearchParams)
+        await this.setStateValuesForSearch(newSearchParams);
       }
     }
 
@@ -243,6 +244,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
+    
       const {patientUpdate, mobileNumberValid, nameValid} = this.state
       const {
         address,
@@ -311,6 +313,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     editHandler = async id => {
+      this.props.clearPatientEdit();
       await this.previewApiCall(id)
       if (this.props.PatientPreviewReducer.patientPreviewData) {
         const {
@@ -503,6 +506,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
       clearPatientDetails,
       clearPatientPreview,
       editPatient,
+      clearPatientEdit,
       fetchPatientMetaList,
       fetchPatientMetaDropdown,
       previewPatient,
