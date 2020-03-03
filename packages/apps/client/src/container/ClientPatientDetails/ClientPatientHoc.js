@@ -28,9 +28,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     state = {
       searchParameters: {
         esewaId: '',
-        hospitalId: '',
         patientMetaInfoId: '',
-        status: {value: '', label: 'All'}
+        status: {value:'',label:'All'}
       },
       patientUpdate: {
         id: '',
@@ -79,13 +78,11 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     searchPatient = async page => {
       const {
         esewaId,
-        hospitalId,
         patientMetaInfoId,
         status
       } = this.state.searchParameters
       let searchData = {
         esewaId,
-        hospitalId: hospitalId.value || '',
         patientMetaInfoId: patientMetaInfoId.value || '',
         status: status.value || ''
       }
@@ -152,7 +149,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           esewaId: '',
           hospitalId: '',
           patientMetaInfoId: '',
-          status: {value: '', label: 'All'}
+          status: {value:'',label:'All'}
         }
       })
       this.searchPatient()

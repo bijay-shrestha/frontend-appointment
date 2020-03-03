@@ -96,6 +96,7 @@ class PatientSearchFilter extends PureComponent {
                       placeholder="Esewa Id"
                       name="esewaId"
                       value={searchParameters.esewaId}
+                      onChange={handleSearchFormChange}
                     />
                   </Col>
 
@@ -104,10 +105,10 @@ class PatientSearchFilter extends PureComponent {
                       id="status"
                       label="Select Status"
                       name="status"
-                      value={searchParameters.patientType}
+                      value={searchParameters.status}
                       options={[
                         {value: 'N', label: 'Inactive'},
-                        {value: null, labe: 'All'},
+                        {value: '', label: 'All'},
                         {value: 'Y', label: 'Active'}
                       ]}
                       onChange={handleSearchFormChange}
@@ -171,7 +172,7 @@ class PatientSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.patienMetaInfoId && (
+              {searchParameters.patientMetaInfoId && (
                 <li>
                   <OverlayTrigger
                     placement="top"

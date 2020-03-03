@@ -33,7 +33,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         esewaId: '',
         hospitalId: '',
         patientMetaInfoId: '',
-        status: {value: '', label: 'All'}
+        status: {value:'', label: 'All'}
       },
       patientUpdate: {
         id: '',
