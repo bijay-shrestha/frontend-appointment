@@ -6,7 +6,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './patient-detail.scss'
+import './client-patient-detail.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
 const {
