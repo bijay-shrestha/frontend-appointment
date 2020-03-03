@@ -122,15 +122,15 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                         currentToDate: new Date(),
                         currentFromDate: DateTimeFormatterUtils.subtractDate(
                             new Date(),
-                            365
+                            366
                         ),
                         previousToDate: DateTimeFormatterUtils.subtractDate(
                             new Date(),
-                            366
+                            367
                         ),
                         previousFromDate: DateTimeFormatterUtils.subtractDate(
                             new Date(),
-                            731
+                            733
                         ),
                     }
                 )
@@ -167,7 +167,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     break;
                 case 'Y':
                     searchParameterChange = {
-                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 365),
+                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 366),
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     };
