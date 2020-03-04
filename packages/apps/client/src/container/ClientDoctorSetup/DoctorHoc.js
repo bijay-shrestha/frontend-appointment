@@ -308,9 +308,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             )
         };
 
-        onPreviewHandler = async data => {
+        onPreviewHandler = async id => {
             try {
-                await this.previewApiCall(data.doctorId);
+                await this.previewApiCall(id);
                 this.setState({
                     showDoctorModal: true
                 })
@@ -346,10 +346,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        onEditHandler = async data => {
+        onEditHandler = async id => {
             this.props.clearConsultantCreateMessage();
             try {
-                await this.editPreviewApiCall(data.doctorId);
+                await this.editPreviewApiCall(id);
                 const {
                     doctorId,
                     doctorName,
@@ -593,10 +593,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        onDeleteHandler = async data => {
+        onDeleteHandler = async id => {
             this.props.clearConsultantCreateMessage();
             let deleteRequestDTO = {...this.state.deleteRequestDTO};
-            deleteRequestDTO['id'] = data.doctorId;
+            deleteRequestDTO['id'] = id;
             await this.setState({
                 deleteRequestDTO: deleteRequestDTO,
                 deleteModalShow: true
