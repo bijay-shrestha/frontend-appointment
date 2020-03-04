@@ -10,13 +10,13 @@ import './admin-dashboard.scss'
 
 const {
   fetchDashboardAppointmentStatisticsList,
-  fetchDashboardRegisteredPatientList,
   fetchDashboardRevenueDayList,
   fetchDashboardRevenueMonthList,
   fetchDashboardRevenueRefundList,
   fetchDashboardRevenueWeekList,
   fetchDashboardRevenueYearList,
-  fetchAppointmentQueueList
+  fetchAppointmentQueueList,
+  fetchDashboardRegisteredPatientListForClient
 } = DashboardDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const ClientDashboardHoc = (ComposedComponent, props, type) => {
@@ -45,7 +45,11 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         doctorId: ''
       },
       revenueFilter: 'W',
-      appointmentFilter: 'W'
+      appointmentFilter: 'W',
+      queryParams: {
+        page: 0,
+        size: 6
+      }
     }
 
     fetchDashboardData = statsType => {
@@ -283,6 +287,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
 
     componentDidMount () {
       this.searchDoctor()
+      this.searchAppointmentQueue()
       this.fetchDashboardData()
     }
 
@@ -427,13 +432,13 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
     ],
     {
       fetchDashboardAppointmentStatisticsList,
-      fetchDashboardRegisteredPatientList,
       fetchDashboardRevenueDayList,
       fetchDashboardRevenueMonthList,
       fetchDashboardRevenueRefundList,
       fetchDashboardRevenueWeekList,
       fetchDashboardRevenueYearList,
       fetchAppointmentQueueList,
+      fetchDashboardRegisteredPatientListForClient,
       fetchActiveDoctorsForDropdown
     }
   )
