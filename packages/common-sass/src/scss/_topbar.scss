@@ -58,7 +58,7 @@
             margin-bottom      : 20px;
             text-align         : center;
 
-         
+
 
 
         }
@@ -97,7 +97,7 @@
 
         .dropdown-menu {
             width        : 300px;
-        
+
                 &:before {
                     content      : '';
                     width        : 0;
@@ -109,12 +109,19 @@
                     display      : block;
                     top          : -6px;
                     left           :110px;
-                    
+
                 }
-          
+
+
+            .dropdown-item{
+                &:focus{
+                    background-color:$gray-200;
+                }
+            }
+
 
             li{
-                padding:14px ; 
+                padding:14px ;
                 height: auto ;
             }
         }
@@ -126,7 +133,7 @@
             &:hover{
                 text-decoration: none;
             }
-          
+
             .anchor-icon{
               width:32px;
               height: 32px;
@@ -136,7 +143,7 @@
               border:1px solid $gray-100;
               background-color:$gray-200;
             }
-          
+
             .menu-box{
               margin-left:10px;
               .menu{
@@ -144,21 +151,21 @@
                 font-weight: 500;
                 color:$gray-800;
               }
-          
+
               .sub-menu{
                 font-size:12px;
                 font-weight: 400;
                 color:$gray-700;
               }
             }
-          
+
           }
-     
+
 
 
     }
 
-  
+
 
     // for profile details
 
@@ -197,7 +204,7 @@
 
         .dropdown-menu {
             width           : 220px;
-            
+
             min-width       : auto;
             border          : none;
             //box-shadow      : 1px 1px 8px 1px $gray-300;
@@ -229,7 +236,7 @@
                 font-weight  : 600;
                 margin-bottom: 0px;
                 text-transform:capitalize;
-            
+
             }
 
             .depart-name ,.profile-name{
@@ -241,8 +248,8 @@
                 span{
                     color:$gray-600;
                 }
-               
-             
+
+
             }
 
             .depart-name{
@@ -250,16 +257,16 @@
             }
 
             .profile-name {
-               
+
                 margin-bottom: 4px;
-               
+
             }
 
-           
+
 
             .reset-password {
                 display: none;
-          
+
             }
 
         }
@@ -267,7 +274,7 @@
         .user-logout {
             border-top: 1px solid $cogent-border;
             padding   : 5px 0 5px 15px;
-           
+
 
             .btn {
                 @include border-radius(5px);

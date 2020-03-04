@@ -57,7 +57,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       },
       queryParams: {
         page: 0,
-        size: 10
+        size: 6
       },
       totalRecords: 0
     }
@@ -369,7 +369,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchAppointment()
+      this.searchAppointmentQueue()
     }
 
     componentDidMount () {

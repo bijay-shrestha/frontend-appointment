@@ -92,9 +92,9 @@ export const DashboardAppointmentQueueReducer = (
       return {
         ...state,
         isAppointmentQueueLoading:false,
-        appointmentQueueData:action.payload.data.appointmentQueueByTimeDTOList,
+        appointmentQueueData:action.payload.data,
         appointmentQueueErrorMessage:'',
-        totalItems:action.payload.data.appointmentQueueByTimeDTOList.totalItems
+        totalItems:action.payload.data[0].totalItems
       }
     case DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR:
       return {
