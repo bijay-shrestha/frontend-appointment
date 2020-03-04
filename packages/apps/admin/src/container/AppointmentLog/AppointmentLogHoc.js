@@ -46,7 +46,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         doctorId: '',
         patientType: '',
         specializationId: '',
-        patientCategory: '',
+        appointmentCategory: '',
         status: ''
       },
       queryParams: {
@@ -82,7 +82,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientType,
         specializationId,
         doctorId,
-        patientCategory,
+        appointmentCategory,
         status
       } = this.state.searchParameters
       let searchData = {
@@ -94,7 +94,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientType: patientType.value || '',
         specializationId: specializationId.value || '',
         doctorId: doctorId.value || '',
-        patientCategory: patientCategory.value || '',
+        appointmentCategory: appointmentCategory.value || '',
         status: status.value || ''
       }
 
@@ -150,7 +150,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           appointmentAmount: spec.appointmentAmount || 'N/A',
           refundAmount: spec.refundAmount || '0',
         }))
-      
+
       return newLogList;
     }
 
@@ -175,7 +175,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           patientType: '',
           specializationId: '',
           doctorId: '',
-          patientCategory: '',
+          appointmentCategory: '',
           status: ''
         }
       })
@@ -203,13 +203,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           patientType: '',
           specializationId: '',
           doctorId: '',
-          patientCategory: ''
+          appointmentCategory: ''
         }
       })
     }
 
     callApiForHospitalChange = async hospitalId => {
-     
+
       this.props.fetchActiveDoctorsHospitalWiseForDropdown(
         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
         hospitalId
@@ -241,7 +241,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           await this.handleHospitalChangeReset(searchParams);
 
         let newSearchParams ={...this.state.searchParameters}
-       
+
         newSearchParams[fieldName] = label ? (value ? {value, label} : '') : value
         await this.setStateValuesForSearch(newSearchParams)
       }

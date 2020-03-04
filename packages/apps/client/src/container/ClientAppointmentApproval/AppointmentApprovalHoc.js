@@ -12,10 +12,15 @@ import {
 } from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {CAlert} from "@frontend-appointment/ui-elements";
 
 const {
     clearAppointmentRefundPending,
-    fetchAppointmentApprovalList
+    fetchAppointmentApprovalList,
+    appointmentApprove,
+    appointmentReject,
+    clearAppointmentApproveMessage,
+    clearAppointmentRejectMessage
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
 
@@ -50,7 +55,21 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {}
+            previewData: {},
+            rejectRequestDTO: {
+                appointmentId: '',
+                remarks: ''
+            },
+            alertMessageInfo: {
+                variant: '',
+                message: ''
+            },
+            rejectModalShow: false,
+            showAlert: false,
+            approveConfirmationModal: false,
+            approveAppointmentId: '',
+            appointmentDetails: '',
+            isConfirming: false
         };
 
         handleEnterPress = event => {
@@ -160,7 +179,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     patientType: '',
                     specializationId: '',
                     doctorId: '',
-                    patientCategory: ''
+                    patientCategory: '',
+                    appointmentDetails: '',
                 }
             });
             this.searchAppointment()
@@ -224,6 +244,95 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        approveHandler = data => {
+            this.props.clearAppointmentApproveMessage();
+            this.setState({
+                approveConfirmationModal: true,
+                approveAppointmentId: data.appointmentId,
+                appointmentDetails: {...data}
+            })
+        };
+
+        approveHandleApi = async () => {
+            this.setState({
+                isConfirming: true
+            });
+
+            try {
+                await this.props.appointmentApprove(
+                    appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+                    this.state.approveAppointmentId
+                );
+                this.setState({
+                    isConfirming: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.AppointmentApproveReducer.approveSuccessMessage
+                    }
+                })
+
+            } catch (e) {
+                this.setState({
+                    isConfirming: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentApproveReducer.approveErrorMessage
+                    }
+                })
+            } finally {
+                await this.searchAppointment();
+                this.setShowModal()
+            }
+        };
+
+        setShowAlert = () => {
+            this.setState(prevState => ({
+                showAlert: !prevState.showAlert
+            }))
+        }
+
+        rejectSubmitHandler = async () => {
+            try {
+                await this.props.appointmentReject(
+                    appointmentSetupApiConstant.APPOINTMENT_REJECT,
+                    this.state.rejectRequestDTO
+                )
+                this.setShowModal()
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.AppointmentRejectReducer
+                            .appointmentRejectSuccessMessage
+                    }
+                })
+                this.searchAppointment()
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        rejectRemarksHandler = event => {
+            const {name, value} = event.target
+            let rejectData = {...this.state.rejectRequestDTO}
+            rejectData[name] = value
+            this.setState({
+                rejectRequestDTO: rejectData
+            })
+        }
+
+        onRejectHandler = async data => {
+            this.props.clearAppointmentRejectMessage()
+            let rejectData = {...this.state.rejectRequestDTO}
+            rejectData['appointmentId'] = data.appointmentId
+            await this.setState({
+                rejectRequestDTO: rejectData,
+                rejectModalShow: true
+            })
+        }
+
         async componentDidMount() {
             await this.searchAppointment();
             await this.callApiForHospitalChange();
@@ -235,7 +344,15 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData
+                previewData,
+                rejectRequestDTO,
+                rejectModalShow,
+                approveAppointmentId,
+                approveConfirmationModal,
+                alertMessageInfo,
+                showAlert,
+                appointmentDetails,
+                isConfirming
             } = this.state;
 
             const {
@@ -248,6 +365,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 activeDoctorsForDropdown,
                 doctorDropdownErrorMessage
             } = this.props.DoctorDropdownReducer;
+
+            const {
+                isAppointmentRejectLoading,
+                appointmentRejectErrorMessage
+            } = this.props.AppointmentRejectReducer;
 
             const {
                 allActiveSpecializationList,
@@ -289,8 +411,42 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: previewData
+                            previewData: previewData,
+                            rejectSubmitHandler: this.rejectSubmitHandler,
+                            rejectRemarksHandler: this.rejectRemarksHandler,
+                            onRejectHandler: this.onRejectHandler,
+                            approveHandler: this.approveHandler,
+                            approveHandleApi: this.approveHandleApi,
+                            rejectError: appointmentRejectErrorMessage,
+                            isAppointmentRejectLoading: isAppointmentRejectLoading,
+                            approveConfirmationModal: approveConfirmationModal,
+                            rejectModalShow: rejectModalShow,
+                            remarks: rejectRequestDTO.remarks,
+                            appointmentDetails: appointmentDetails,
+                            isConfirming: isConfirming
                         }}
+                    />
+                    <CAlert
+                        id="profile-add"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.setShowAlert}
+                        alertType={
+                            alertMessageInfo.variant === 'success' ? (
+                                <>
+                                    <i className="fa fa-check-circle" aria-hidden="true">
+                                        {' '}
+                                    </i>
+                                </>
+                            ) : (
+                                <>
+                                    <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                                        {' '}
+                                    </i>
+                                </>
+                            )
+                        }
+                        message={alertMessageInfo.message}
                     />
                 </div>
             )
@@ -303,14 +459,20 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             'AppointmentApprovalListReducer',
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
-            'PatientDropdownListReducer'
+            'PatientDropdownListReducer',
+            'AppointmentApproveReducer',
+            'AppointmentRejectReducer'
         ],
         {
             clearAppointmentRefundPending,
             fetchActiveDoctorsForDropdown,
             fetchSpecializationForDropdown,
             fetchPatientMetaList,
-            fetchAppointmentApprovalList
+            fetchAppointmentApprovalList,
+            appointmentApprove,
+            appointmentReject,
+            clearAppointmentApproveMessage,
+            clearAppointmentRejectMessage
         }
     )
 };

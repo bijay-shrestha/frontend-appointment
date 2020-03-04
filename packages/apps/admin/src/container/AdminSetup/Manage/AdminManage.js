@@ -851,7 +851,7 @@ class AdminManage extends PureComponent {
                 mobileNumber: mobileNumber,
                 status: status,
                 genderCode: genderCode,
-                hasMacBinding: hasMacBinding === 'Y',
+                hasMacBinding: hasMacBinding,
                 macIdList: [...macIdList],
                 adminAvatar: adminAvatar,
                 adminAvatarUrl: adminAvatarUrl,

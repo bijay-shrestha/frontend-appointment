@@ -15,7 +15,8 @@ import * as Material from 'react-icons/md'
 
 const {
     fetchAppointmentStatusList,
-    clearAppointmentStatusMessage
+    clearAppointmentStatusMessage,
+    appointmentApprove
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
@@ -40,7 +41,7 @@ const {
 const {
     SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
 } = specializationSetupAPIConstants;
-const {APPOINTMENT_STATUS_LIST} = appointmentSetupApiConstant;
+const {APPOINTMENT_STATUS_LIST, APPOINTMENT_APPROVE} = appointmentSetupApiConstant;
 
 const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant;
 
@@ -79,8 +80,11 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 message: ''
             },
             activeStatus: 'ALL',
-            previousSelectedTimeSlotId: '', // used for changing class of time slots, remove /add active class
+            previousSelectedTimeSlotIds: '', // used for changing class of time slots, remove /add active class
             previousSelectedTimeSlotRowIndex: '',
+            appointmentDetails: '',
+            showCheckInModal: false,
+            isConfirming: false
         };
 
         fetchHospitalForDropDown = async () => {
@@ -136,7 +140,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 appointmentStatusDetails: [],
                 appointmentStatusDetailsCopy: [],
                 previousSelectedTimeSlotRowIndex: '',
-                previousSelectedTimeSlotId: ''
+                previousSelectedTimeSlotIds: ''
             });
             this.props.clearAppointmentStatusMessage()
         };
@@ -184,8 +188,28 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        handleCheckIn = async appointmentId => {
-
+        handleCheckIn = async appointmentStatusDetail => {
+            let appointmentData = {
+                hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
+                doctorName: appointmentStatusDetail.doctorName,
+                specializationName: appointmentStatusDetail.specializationName,
+                appointmentId: appointmentStatusDetail.patientDetails.appointmentId,
+                appointmentDate: appointmentStatusDetail.date,
+                appointmentTime: appointmentStatusDetail.patientDetails.appointmentTime || 'N/A',
+                appointmentNumber: appointmentStatusDetail.patientDetails.appointmentNumber,
+                patientName: appointmentStatusDetail.patientDetails.name + " ("
+                    + appointmentStatusDetail.patientDetails.age + " / "
+                    + appointmentStatusDetail.patientDetails.gender + ")",
+                patientMobileNumber: appointmentStatusDetail.patientDetails.mobileNumber,
+                patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
+                registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
+                esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',
+                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A'
+            };
+            this.setState({
+                showCheckInModal: true,
+                appointmentDetails: {...appointmentData}
+            })
         };
 
         setStateValuesForSearch = searchParams => {
@@ -196,7 +220,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         setShowModal = () => {
             this.setState(prevState => ({
-                showModal: !prevState.showModal
+                showCheckInModal: !prevState.showCheckInModal
             }))
         };
 
@@ -218,6 +242,36 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     message: message
                 }
             })
+        };
+
+        checkInAppointment = async appointmentId => {
+            try {
+                this.setState({
+                    isConfirming: true
+                });
+                await this.props.appointmentApprove(APPOINTMENT_APPROVE, appointmentId);
+                this.setState({
+                    showCheckInModal: false,
+                    showAlert: true,
+                    isConfirming:false,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.AppointmentApproveReducer.approveSuccessMessage
+                    }
+                });
+                await this.searchAppointmentStatus();
+
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    isConfirming:false,
+                    alertMessageInfo: {
+                        showCheckInModal: false,
+                        variant: 'danger',
+                        message: this.props.AppointmentApproveReducer.approveErrorMessage
+                    }
+                })
+            }
         };
 
         clearAlertTimeout = () => {
@@ -279,8 +333,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     appointmentStatusDetails: [...statusList],
                     doctorInfoList: [...doctorInfo],
                     appointmentStatusDetailsCopy: [...statusList],
-                    previousSelectedTimeSlotRowIndex: '',
-                    previousSelectedTimeSlotId: ''
+                    previousSelectedTimeSlotIds: ''
                 })
 
             }
@@ -309,8 +362,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 appointmentStatusDetails: [...filteredStatus],
                 activeStatus: status,
-                previousSelectedTimeSlotRowIndex: '',
-                previousSelectedTimeSlotId: ''
+                previousSelectedTimeSlotIds: ''
             })
         };
 
@@ -321,7 +373,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         getPatientDetails = async (timeSlot, appointmentDate, rowIndex, timeSlotIndex) => {
             let elementId = timeSlot.appointmentTime + "-" + rowIndex + timeSlotIndex;
             let statusDetails = [...this.state.appointmentStatusDetails];
-            this.addRemoveActiveClassFromTimeSlots(elementId, rowIndex);
+
+            let selectedElementsArray = this.addRemoveActiveClassFromTimeSlots(elementId, rowIndex);
+
             if (timeSlot.appointmentId) {
                 try {
                     const response = await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
@@ -330,8 +384,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     statusDetails[rowIndex].patientDetails = {...patientDetail};
                     this.setState({
                         appointmentStatusDetails: [...statusDetails],
-                        previousSelectedTimeSlotId: elementId,
-                        previousSelectedTimeSlotRowIndex: rowIndex
+                        previousSelectedTimeSlotIds: selectedElementsArray
                     });
                 } catch (e) {
                     this.showErrorAlert(this.props.PatientDetailReducer.patientDetailErrorMessage);
@@ -341,8 +394,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 statusDetails[rowIndex].patientDetails = null;
                 await this.setState({
                     appointmentStatusDetails: [...statusDetails],
-                    previousSelectedTimeSlotId: elementId,
-                    previousSelectedTimeSlotRowIndex: rowIndex
+                    previousSelectedTimeSlotIds: selectedElementsArray,
                 });
             }
         };
@@ -351,10 +403,28 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             let selectedElement = document.getElementById(elementId);
             selectedElement && selectedElement.classList.add('active');
 
-            if (this.state.previousSelectedTimeSlotId && this.state.previousSelectedTimeSlotRowIndex === rowIndex) {
-                let previousElement = document.getElementById(this.state.previousSelectedTimeSlotId);
+            let previousElement = this.state.previousSelectedTimeSlotIds ? {...this.state.previousSelectedTimeSlotIds}
+                : '';
+            let selectedElementsArray;
+            if (previousElement !== '') {
+                selectedElementsArray = {
+                    ...previousElement,
+                    [rowIndex]: elementId
+                }
+            } else {
+                selectedElementsArray = {
+                    [rowIndex]: elementId
+                }
+            }
+
+            if (this.state.previousSelectedTimeSlotIds
+                && Object.keys(this.state.previousSelectedTimeSlotIds).includes(rowIndex.toString()) &&
+                this.state.previousSelectedTimeSlotIds[rowIndex] !== elementId) {
+                let previousElement = document.getElementById(this.state.previousSelectedTimeSlotIds[rowIndex]);
                 previousElement && previousElement.classList.remove('active')
             }
+
+            return selectedElementsArray;
         };
 
         setPatientDataProps = (appointmentDate, timeSlot) => {
@@ -363,6 +433,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             let isFutureDate = DateTimeFormatterUtils.isFirstDateGreaterThanSecondDate(new Date(appointmentDate), new Date());
             return {
                 ...patientData,
+                appointmentTime: timeSlot.appointmentTime,
+                appointmentId: timeSlot.appointmentId,
                 canCheckIn: !isFutureDate,
                 showCheckInButton: ['A', 'C'].indexOf(timeSlot.status) >= 0 ? false : true
             };
@@ -430,6 +502,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 showAlert,
                 alertMessageInfo,
                 activeStatus,
+                showCheckInModal,
+                appointmentDetails,
+                isConfirming
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -478,7 +553,15 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 handleCheckIn: this.handleCheckIn,
                                 activeStatus: activeStatus,
                                 filterAppointmentDetailsByStatus: this
-                                    .filterAppointmentDetailsByStatus
+                                    .filterAppointmentDetailsByStatus,
+                                showCheckInModal: showCheckInModal,
+                            }}
+                            checkInModalData={{
+                                showCheckInModal: showCheckInModal,
+                                setShowModal: this.setShowModal,
+                                checkInAppointment: this.checkInAppointment,
+                                appointmentDetails: {...appointmentDetails},
+                                isConfirming: isConfirming
                             }}
                         />
                         <CAlert
@@ -512,6 +595,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         AppointmentStatusHOC,
         [
             'AppointmentStatusListReducer',
+            'AppointmentApproveReducer',
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
             'HospitalDropdownReducer',
@@ -523,7 +607,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             fetchSpecializationHospitalWiseForDropdown,
             fetchAppointmentStatusList,
             clearAppointmentStatusMessage,
-            fetchPatientDetailByAppointmentId
+            fetchPatientDetailByAppointmentId,
+            appointmentApprove
         }
     )
 };
