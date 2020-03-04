@@ -285,7 +285,7 @@ const HospitalForm = ({
                                     <Col sm={12} md={6} lg={6}>
                                         <CCheckbox id="cogent-admin"
                                             name="isCogentAdmin"
-                                            label="Only For Cogent Admin"
+                                            label="F1soft Group of Companies"
                                             className="module"
                                             checked={hospitalInfoObj.isCogentAdmin === 'Y'}
                                             onChange={(event) => onInputChange(event)}

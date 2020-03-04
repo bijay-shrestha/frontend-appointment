@@ -55,7 +55,7 @@ const HospitalEditModal = ({
                                     className="hospital-banner"
                                     src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}
                                 />
-                               
+
                         <div className="image-upload-container">
                             <div className="image-box">
                                 <img
@@ -86,9 +86,9 @@ const HospitalEditModal = ({
                             </div>
                         </div>
 
-                     
-                           
-                          
+
+
+
                                 <CButton
                                     id="uploadBanner"
                                     name="Upload Banner"
@@ -109,9 +109,9 @@ const HospitalEditModal = ({
                                     onImageSelect={onBannerImageSelect}
                                     onImageCrop={data => handleCropBannerImage(data)}
                                     className="mt-1 mb-4 banner-upload-button"
-                                  
+
                                 />
-                            
+
                             </div>
                         </div>
                     </Col>
@@ -168,7 +168,7 @@ const HospitalEditModal = ({
                                     max={9}
                                     errorMessagePassed={'Pan number should only be alphanumber and of 9 max characters'}
                                     required={true}
-                                    
+
                                 />
                             </Col>
 
@@ -313,7 +313,7 @@ const HospitalEditModal = ({
                             <Col sm={12} md={6} lg={6}>
                                 <CCheckbox id="cogent-admin"
                                            name="isCogentAdmin"
-                                           label="Only For Cogent Admin"
+                                           label="F1soft Group of Companies"
                                            className="module"
                                            checked={hospitalData.isCogentAdmin === 'Y'}
                                            onChange={(event) => onInputChange(event)}
