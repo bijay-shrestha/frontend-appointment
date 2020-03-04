@@ -18,7 +18,7 @@ const DetailsModal = ({type, doctorData}) => {
         images = [
             {
                 src: doctorData.fileUri ? doctorData.fileUri : DefaultProfileImage,
-                alt: 'hospital',
+                alt: 'Doctor Avatar',
                 width: 4,
                 height: 3
             }
