@@ -31,7 +31,7 @@ const RevenueTrend = props => {
     ? Object.keys(revenueStatsData)
     : {}
   return (
-    <Col lg={7}>
+    <>
       <Row>
         <h5 className="title">Revenue Trend</h5>
       </Row>
@@ -75,7 +75,7 @@ const RevenueTrend = props => {
         )}
         </div>
       </Row>
-    </Col>
+   </>
   )
 }
 export default memo(RevenueTrend)
