@@ -238,7 +238,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             return dataToSend
         }
 
-        handleOnChange = (event, fieldValid, eventType) => {
+        handleOnChange = async (event, fieldValid, eventType) => {
             let name, value, label, select, values
             values = event.target.values
             name = event.target.name
@@ -254,7 +254,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             }
             value = name === 'nmcNumber' ? value.toUpperCase() : value
             consultant[name] = !label ? value : value ? select : {value: null}
-            this.setTheState('consultantData', consultant, fieldValid, name)
+            await this.setTheState('consultantData', consultant, fieldValid, name)
             this.checkFormValidity(eventType)
         }
 
