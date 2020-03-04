@@ -102,7 +102,7 @@
   },
   {
     "id": 12,
-    "name": "Pending Appointment Approval",
+    "name": "Appointment Check-In",
     "status": "Y",
     "parent_role_id": null,
     "role_type": "tab",
