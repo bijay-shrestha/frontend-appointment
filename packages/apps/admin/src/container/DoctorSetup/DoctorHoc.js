@@ -530,7 +530,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
             });
-            this.checkFormValidity(eventType)
+            // this.checkFormValidity(eventType)
         };
 
         appendSNToTable = consultantList => {
