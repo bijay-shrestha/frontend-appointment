@@ -115,7 +115,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     size="lg block"
                                                                     className="time-button">
                                                                         <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
-                                                                
+
                                                                 </Button>
                                                             </OverlayTrigger> :
                                                             (timeSlot.status === 'V') ?
@@ -195,6 +195,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
                                             <CButton
                                                 name=""
+                                                // className={showCheckInModal ? 'btn-checkin':'btn-checkin'}
                                                 vairant="primary "
                                                 size="sm"
                                                 className="btn-checkin"
@@ -207,7 +208,6 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </CButton>
                                             : ''
                                         }
-
                                     </Col>
                                     : ''
                             }
