@@ -7,6 +7,11 @@ import {
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewDetails from './AppointmentApprovalPreview';
+
+import {CConfirmationModal} from "@frontend-appointment/ui-components";
+import CheckInModalContent from "../CommonComponents/CheckInModalContent";
+import RejectModal from "./RejectModal";
+
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -15,7 +20,19 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    rejectSubmitHandler,
+    rejectRemarksHandler,
+    onRejectHandler,
+    approveHandler,
+    approveHandleApi,
+    rejectError,
+    isAppointmentRejectLoading,
+    approveConfirmationModal,
+    rejectModalShow,
+    remarks,
+    appointmentDetails,
+    isConfirming
   } = tableHandler;
   const {queryParams, totalRecords, handlePageChange} = paginationProps;
   return (
@@ -94,7 +111,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-               
+
                 {
                   headerName: 'Specialization',
                   field: 'specializationName',
@@ -191,8 +208,36 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
       ) : (
         ''
       )}
+      {rejectModalShow ? (
+          <RejectModal
+              confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
+              modalHeader="Reject Appointment"
+              showModal={rejectModalShow}
+              setShowModal={setShowModal}
+              onDeleteRemarksChangeHandler={rejectRemarksHandler}
+              remarks={remarks}
+              onSubmitDelete={rejectSubmitHandler}
+              deleteErrorMessage={rejectError}
+          />
+      ) : (
+          ''
+      )}
+      {approveConfirmationModal ? (
+          <CConfirmationModal
+              modalHeader="Confirm Check-In?"
+              modalBody={<CheckInModalContent appointmentDetails={appointmentDetails}/>}
+              showModal={approveConfirmationModal}
+              setShowModal={setShowModal}
+              remarks={remarks}
+              onConfirm={approveHandleApi}
+              onCancel={setShowModal}
+              isConfirming={isConfirming}
+          />
+      ) : (
+          ''
+      )}
     </>
   )
-}
+};
 
 export default memo(AppointmentApprovalDataTable);

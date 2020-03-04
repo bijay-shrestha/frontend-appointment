@@ -19,7 +19,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         filterAppointmentDetailsByStatus,
         activeStatus,
         getPatientDetails,
-        handleCheckIn
+        handleCheckIn,
+        showCheckInModal
     } = statusDetailsData;
     return <>
         <div className="manage-details">
@@ -111,8 +112,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                         : timeSlot.status === 'A' ? 'danger'
                                                                             : timeSlot.status === 'C' ? 'dark'
                                                                                 : 'info'}
-                                                                    size="lg block">
-                                                                    {timeSlot.appointmentTime}
+                                                                    size="lg block"
+                                                                    className="time-button">
+                                                                        <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
+                                                                
                                                                 </Button>
                                                             </OverlayTrigger> :
                                                             (timeSlot.status === 'V') ?
@@ -158,12 +161,20 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </div>
                                         </div>
 
+                                        <div className="patient-details">
+                                            <div className="label">Appointment Category</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                            </div>
+                                        </div>
+
 
                                         <div className="patient-details">
                                             <div className="label">Name</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.name + " ("
-                                                + appointmentStatusDetail.patientDetails.age +" / "
+                                                {appointmentStatusDetail.patientDetails.name }<br/>
+                                                {" ("
+                                                + appointmentStatusDetail.patientDetails.age + " / "
                                                 + appointmentStatusDetail.patientDetails.gender + ")"}
                                             </div>
                                         </div>
@@ -187,9 +198,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 vairant="primary "
                                                 size="sm"
                                                 className="btn-checkin"
-                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn}
+                                                onClickHandler={() => handleCheckIn(appointmentStatusDetail)}
+                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn
+                                                || showCheckInModal}
                                             >
-                                                <i className="fa fa-sign-in"/> &nbsp;Check-in
+                                                <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
+                                                'Checking-In' : 'Check-In'}
                                             </CButton>
                                             : ''
                                         }

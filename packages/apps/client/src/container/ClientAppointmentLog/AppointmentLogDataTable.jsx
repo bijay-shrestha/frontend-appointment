@@ -47,14 +47,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 <Row>
                     <Col>
                         <div className="appointment-badge float-right">
-                            <span><Badge variant="primary">PA</Badge>  <span
-                                className="badge-data">Pending Approval</span></span>
-                            <span><Badge variant="success">A</Badge>  <span
-                                className="badge-data">Approved</span> </span>
-                            <span><Badge variant="danger">C</Badge>  <span className="badge-data">Canceled</span></span>
-                            <span><Badge variant="warning">RE</Badge>  <span
-                                className="badge-data">Rejected</span></span>
-                            <span><Badge variant="dark">R</Badge>  <span className="badge-data">Refunded</span></span>
+                            <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
+                            <span><Badge variant="danger">CI</Badge>  <span
+                                className="badge-data">Checked-In</span> </span>
+                            <span><Badge variant="dark">C</Badge>  <span className="badge-data">Canceled</span></span>
+                            {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
+                            <span><Badge variant="secondary">R</Badge>  <span
+                                className="badge-data">Refunded</span></span>
                         </div>
                     </Col>
                 </Row>
@@ -86,13 +85,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'statusRenderer'
-                                },
-                                {
-                                    headerName: 'Hospital Name',
-                                    field: 'hospitalName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
                                 },
                                 {
                                     headerName: 'Appointment Date',

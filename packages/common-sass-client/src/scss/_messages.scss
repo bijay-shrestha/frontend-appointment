@@ -28,6 +28,9 @@
         top      : 80%;
         left     : 50%;
         transform: translateX(-50%);
+        font-size:14px;
+       color:$gray-900;
+    //    font-style: italic;
     }
 
     .message-content {

@@ -5,7 +5,7 @@ import * as Material from 'react-icons/md'
 import * as Feather from 'react-icons/fi'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
-const {checkIfRoleExists} = ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils;
 const ApproveTableAction = props => {
   return (
     <>
@@ -27,7 +27,7 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
-                   <i className="fa fa-sign-in"></i>&nbsp; Checkin{' '}
+                   <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
           }
           {/* {

@@ -93,16 +93,6 @@ export default {
                 MULTIPART_HEADER
             )
         ),
-
-    postForMultipleMultipart: (path, paramVariable, data, formData1, formData2) =>
-        API_WRAPPER(
-            POST(
-                addObjectAsRequestParam(path, paramVariable, data),
-                formData1,
-                formData2,
-                MULTIPART_HEADER
-            )
-        ),
     // ********************************* END POST REQUESTS *******************************//
 
     // ********************************* PATCH REQUESTS **********************************//
@@ -151,17 +141,6 @@ export default {
                 MULTIPART_HEADER
             )
         ),
-
-    putForMultipleMultipart: (path, paramVariable, data, formData1, formData2) =>
-        API_WRAPPER(
-            PUT(
-                addObjectAsRequestParam(path, paramVariable, data),
-                formData1,
-                formData2,
-                MULTIPART_HEADER
-            )
-        ),
-
     // ********************************* END PUT REQUESTS *******************************//
 
     // ********************************* DELETE REQUESTS **********************************//

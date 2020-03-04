@@ -44,7 +44,7 @@ h5.title{
 
 .hospital-banner-container{
     width:100%;
-    height:240px;
+    height:230px;
     position: relative;
     display: block;
     background-color:lighten($cogent,46%);
@@ -62,8 +62,60 @@ h5.title{
         bottom:10px;
     }
 
+   
+
+    .image-upload-container{
+        margin-top:20px;
+
+        .react-photo-gallery--gallery{
+            width:100%;
+            height:230px;
+
+            
+        }
+    }
+}
+
+.preview-banner{
+    &:before{
+        content:"";
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height: 100%;
+         background-color:rgba($gray-400,0.3);
+        // filter: blur(8px);
+        // -webkit-filter: blur(8px);
+    }
     .react-photo-gallery--gallery{
-    
+        img{
+            width:100%;
+            height:230px;
+        }
+    }
+
+    .hospital-container{
+        z-index: 9999;
+        width: 140px;
+        height:160px;
+        border-radius: 10px;
+
+        img{
+            width:100%;
+            height: auto;
+        }
+    }
+
+    .image-upload-container{
+        margin-top:20px;
+
+        .react-photo-gallery--gallery{
+            width:100%;
+            height:230px;
+
+            
+        }
     }
 }
 

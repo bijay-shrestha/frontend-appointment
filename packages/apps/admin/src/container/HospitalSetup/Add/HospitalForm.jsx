@@ -1,5 +1,5 @@
-import React, {memo} from 'react'
-import {Col, Row} from 'react-bootstrap'
+import React, { memo } from 'react'
+import { Col, Row } from 'react-bootstrap'
 import {
     CFLabel,
     CForm,
@@ -10,62 +10,66 @@ import {
     CFControl, CCheckbox
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
-import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
+import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
 import { number } from 'prop-types'
 
 
 const HospitalForm = ({
-                          hospitalInfoObj,
-                          errorMessageForHospitalName,
-                          errorMessageForHospitalCode,
-                          onEnterKeyPress,
-                          onInputChange,
-                          addContactNumber,
-                          removeContactNumber,
-                          editContactNumber,
-                          contactLength,
-                          hospitalImage,
-                          hospitalImageCroppedUrl,
-                          showImageUploadModal,
-                          onImageSelect,
-                          handleCropImage,
-                          handleImageUpload,
-                          setImageShow,
-                          hospitalBannerImage,
-                          onBannerImageSelect,
-                          hospitalBannerImageCroppedUrl,
-                          showBannerUploadModal,
-                          handleCropBannerImage,
-                          handleBannerImageUpload,
-                          setShowBannerUploadModal
-                      }) => {
+    hospitalInfoObj,
+    errorMessageForHospitalName,
+    errorMessageForHospitalCode,
+    onEnterKeyPress,
+    onInputChange,
+    addContactNumber,
+    removeContactNumber,
+    editContactNumber,
+    contactLength,
+    hospitalImage,
+    hospitalImageCroppedUrl,
+    showImageUploadModal,
+    onImageSelect,
+    handleCropImage,
+    handleImageUpload,
+    setImageShow,
+    hospitalBannerImage,
+    onBannerImageSelect,
+    hospitalBannerImageCroppedUrl,
+    showBannerUploadModal,
+    handleCropBannerImage,
+    handleBannerImageUpload,
+    setShowBannerUploadModal
+}) => {
     return (
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
                     <h5 className="title">Hospital Info</h5>
                 </Row>
-                <CForm id="hospital-info" className="mt-2 profile-info">
+                <CForm id="hospital-info" className="mt-2 add-info">
                     <Container-fluid>
                         <Row>
-                            <Col lg={12} 
+                            <Col lg={12}
                             // className=" order-md-first order-lg-last"
                             >
                                 <Row>
                                     <Col sm={12} md={12} lg={12}>
-                                        
+
                                         <div className="hospital-banner-container">
-                                            
+
                                             <div className="">
-                                                <img
-                                                className="hospital-banner"
-                                                    alt="HOSPITAL BANNER"
-                                                    src={hospitalInfoObj.hospitalBanner ? hospitalInfoObj.hospitalBannerUrl : ""}
-                                                />
+                                                {
+                                                    hospitalInfoObj.hospitalBannerUrl ?
+                                                        <img
+                                                            className="hospital-banner"
+                                                            alt="HOSPITAL BANNER"
+                                                            src={hospitalInfoObj.hospitalBannerUrl}
+                                                        /> : ''
+                                                }
+
 
                                                 <div className="image-upload-container">
-                                                    <CFLabel id='logo' labelName="Hospital Logo"/>
-                                                    
+                                                    {/* <CFLabel id='logo' labelName="Hospital Logo" /> */}
+
                                                     <div className="image-box">
                                                         <img
                                                             alt="HOSPITAL IMAGE"
@@ -205,14 +209,14 @@ const HospitalForm = ({
                                                 name=""
                                                 size="sm"
                                                 className="pull-right"
-                                            ><i className="fa fa-plus"/> Add
+                                            ><i className="fa fa-plus" /> Add
                                             </CButton>
                                         )}
                                         <Row key={'contactForm'}>
                                             {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
                                                 return (
                                                     <Col md={12} lg={12} key={"contInputs" + idx}
-                                                         className="contact-box my-1">
+                                                        className="contact-box my-1">
                                                         <CFControl
                                                             key={'contactInput' + idx}
                                                             id={'contactInput' + idx}
@@ -230,8 +234,8 @@ const HospitalForm = ({
                                                             required={true}
                                                             max={10}
 
-                                                        
-                                                            // errorMessagePassed={errorMessageForHospitalCode}
+
+                                                        // errorMessagePassed={errorMessageForHospitalCode}
                                                         />
                                                         {hospitalInfoObj.contactNumber.length !== 1 ? <CButton
                                                             key={'removecontact' + idx}
@@ -243,7 +247,7 @@ const HospitalForm = ({
                                                             name=""
                                                             size="sm"
                                                             className="remove-contact "
-                                                        > <i className="fa fa-close"/></CButton> : ''}
+                                                        > <i className="fa fa-close" /></CButton> : ''}
                                                     </Col>
                                                 )
                                             })}
@@ -251,7 +255,7 @@ const HospitalForm = ({
                                     </Col>
 
                                     <Col sm={12} md={6} lg={6}>
-                                        <CFLabel labelName="Status" id="status"/>
+                                        <CFLabel labelName="Status" id="status" />
                                         <div>
                                             <CRadioButton
                                                 checked={Boolean(hospitalInfoObj.status)}
@@ -280,12 +284,12 @@ const HospitalForm = ({
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CCheckbox id="cogent-admin"
-                                                   name="isCogentAdmin"
-                                                   label="Only For Cogent Admin"
-                                                   className="module"
-                                                   checked={hospitalInfoObj.isCogentAdmin === 'Y'}
-                                                   onChange={(event) => onInputChange(event)}
-                                                   onKeyDown={(event) => onEnterKeyPress(event)}
+                                            name="isCogentAdmin"
+                                            label="F1soft Group of Companies"
+                                            className="module"
+                                            checked={hospitalInfoObj.isCogentAdmin === 'Y'}
+                                            onChange={(event) => onInputChange(event)}
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
                                         />
                                     </Col>
 
