@@ -113,30 +113,30 @@ const AdminEditForm = ({
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
-                                <div className="profile-list">
-                                    <CHybridSelect
-                                        id="admin-profile"
-                                        label="Profile"
-                                        name="profile"
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event)}
-                                        options={profileList}
-                                        value={adminInfoObj.profile}
-                                        isDisabled={!adminInfoObj.department}
-                                        placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
-                                    />
+                                    <div className="profile-list">
+                                        <CHybridSelect
+                                            id="admin-profile"
+                                            label="Profile"
+                                            name="profile"
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            options={profileList}
+                                            value={adminInfoObj.profile}
+                                            isDisabled={!adminInfoObj.department}
+                                            placeholder={adminInfoObj.hospital ? "Select department." : "Select hospital first."}
+                                        />
 
-                                    {adminInfoObj.profile &&
+                                        {adminInfoObj.profile &&
 
-                                    <CButton
-                                        id={"profile-details".concat(adminInfoObj.profile.value)}
-                                        variant=""
-                                        name=""
-                                        className="profile-info"
-                                        onClickHandler={() => viewProfileDetails(adminInfoObj.profile.value)}>
-                                        <i className="fa fa-info-circle"/>
-                                    </CButton>
-                                    }
+                                        <CButton
+                                            id={"profile-details".concat(adminInfoObj.profile.value)}
+                                            variant=""
+                                            name=""
+                                            className="profile-info"
+                                            onClickHandler={() => viewProfileDetails(adminInfoObj.profile.value)}>
+                                            <i className="fa fa-info-circle"/>
+                                        </CButton>
+                                        }
                                     </div>
                                 </Col>
 
@@ -198,41 +198,40 @@ const AdminEditForm = ({
                                 </Col>
 
 
-
                                 <Col sm={12} md={12} lg={6}>
                                     <CFLabel labelName="Gender" id="gender"/>
                                     <div>
-                                    <CRadioButton
-                                        checked={adminInfoObj.genderCode === "F"}
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event)}
-                                        id="female"
-                                        label="Female"
-                                        type="radio"
-                                        name="genderCode"
-                                        value="F"
-                                    />
-                                    <CRadioButton
-                                        checked={adminInfoObj.genderCode === "M"}
-                                        id="male"
-                                        label="Male"
-                                        type="radio"
-                                        name="genderCode"
-                                        value="M"
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event)}
-                                    />
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "F"}
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            id="female"
+                                            label="Female"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="F"
+                                        />
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "M"}
+                                            id="male"
+                                            label="Male"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="M"
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                        />
 
-                                    <CRadioButton
-                                        checked={adminInfoObj.genderCode === "O"}
-                                        id="other"
-                                        label="Other"
-                                        type="radio"
-                                        name="genderCode"
-                                        value="O"
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event)}
-                                    />
+                                        <CRadioButton
+                                            checked={adminInfoObj.genderCode === "O"}
+                                            id="other"
+                                            label="Other"
+                                            type="radio"
+                                            name="genderCode"
+                                            value="O"
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                        />
                                     </div>
                                 </Col>
 
@@ -261,12 +260,12 @@ const AdminEditForm = ({
                                 </Col>
 
 
-
                                 <Col sm={12} md={12} lg={6} className="mt-4">
                                     <Row>
                                         <Col lg={12} className="px-4">
                                             <Row>
                                                 <Col>
+                                                    {console.log(adminInfoObj.hasMacBinding)}
                                                     <CCheckbox id="hasMacBinding"
                                                                label="Device Filter"
                                                                name="hasMacBinding"
@@ -336,10 +335,9 @@ const AdminEditForm = ({
                                 </Col>
 
 
-
                                 <Col sm={12} md={12} lg={6}>
                                     <CHybridTextArea
-                                    className="mt-4"
+                                        className="mt-4"
                                         id="remarks"
                                         name="remarks"
                                         onKeyDown={(event) => onEnterKeyPress(event)}

@@ -8,6 +8,8 @@ import TableAction from '../CommonComponents/table-components/TableAction'
 import TableStatus from '../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
+import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'; 
+import AppointmentWithDateAndTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -51,7 +53,6 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   width: 130,
-              
                   sizeColumnsToFit: true,
                   cellClass: 'first-class'
                 },

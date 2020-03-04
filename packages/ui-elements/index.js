@@ -35,4 +35,5 @@ export {default as CLoading} from './src/CLoading';
 export {default as CUnauthorized} from './src/Unauthorized';
 export {default as CDoughnutChart} from './src/CDoughnutChart';
 export {default as CLineChart} from './src/CLineChart';
+export {default as CHybridTimePicker} from './src/CHybridTimePicker'
 export {default as CDoubleShiftSearch} from './src/CDoubleShiftSearch';

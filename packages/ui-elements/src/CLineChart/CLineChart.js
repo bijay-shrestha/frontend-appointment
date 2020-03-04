@@ -2,16 +2,32 @@ import React,{memo} from 'react';
 import {Line} from 'react-chartjs-2';
 
 const LineChart = props => {
- const {lineData,width,height,labels,revenueFilter} =props;
-
  
+
+ const{
+    label,
+    backgroundColor,
+    fillColor,
+    borderColor,
+    borderWidth,
+    pointColor,
+    pointStrokeColor,
+    pointHighlightFill,
+    pointHighlightStroke,
+    scaleGridLineColor,
+    lineData,
+    width,
+    height,
+    labels,
+    revenueFilter
+ }=props;
  const options = {
     animation: {
         duration: 300, // general animation time
     },
     responsive: true,
     scaleShowGridLines: true,
-    scaleGridLineColor: 'rgba(0,0,0,.05)',
+    scaleGridLineColor: scaleGridLineColor||'rgba(0,0,0,.05)',
     scaleGridLineWidth: 0,
     bezierCurve: false,
     bezierCurveTension: 0,
@@ -44,15 +60,15 @@ const chartFillData = {
     labels: labels,
     datasets: [
         {
-            label:'Revenue Refund',
-            backgroundColor:'rgba(0, 99, 255, 0.2)',
-            fillColor: 'rgba(0, 99, 255, 0.2)',
-            borderColor: '#0063ff',
-            borderWidth: 2,
-            pointColor: 'rgba(0, 99, 255, 1)',
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: 'rgba(0, 99, 255, 0.2)',
+            label:label||'Revenue Refund',
+            backgroundColor:backgroundColor||'rgba(0, 99, 255, 0.2)',
+            fillColor: fillColor||'rgba(0, 99, 255, 0.2)',
+            borderColor: borderColor||'#0063ff',
+            borderWidth: borderWidth||2,
+            pointColor: pointColor||'rgba(0, 99, 255, 1)',
+            pointStrokeColor:pointStrokeColor|| "#fff",
+            pointHighlightFill: pointHighlightFill||"#fff",
+            pointHighlightStroke: pointHighlightStroke||'rgba(0, 99, 255, 0.2)',
             data: lineData
         }
     ]

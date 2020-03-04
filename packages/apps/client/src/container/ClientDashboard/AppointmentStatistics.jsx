@@ -25,8 +25,8 @@ const AppointmentStatistics = props => {
       (registeredPatient / totalAppointment).toFixed(2) * 100
     data.push(newPatientPercent)
     data.push(registeredPatientPercent)
-    color.push('rgba(0, 99, 255, 0.2)')
-    color.push('#0063ff')
+    color.push('rgba(13, 97, 147, 0.2)')
+    color.push('#0d6193')
     label.push('New Patients')
     label.push('Registered Patients')
     chartData = {
@@ -49,11 +49,11 @@ const AppointmentStatistics = props => {
               />
               <Col className="date">
                 <div>
-                  <span>From :</span> {fromDate.fromDate.toDateString()}
+                  <span>From :</span> {new Date(fromDate.fromDate).toDateString()}
                  
                 </div>
                 <div>
-                  <span>To :</span> {toDate.toDate.toDateString()}
+                  <span>To :</span> {new Date(toDate.toDate).toDateString()}
                   
                 </div>
               </Col>

@@ -11,7 +11,8 @@ import {
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
-
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import PatientWithAge from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -33,6 +34,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     remarks
   } = tableHandler
   const {queryParams, totalRecords, handlePageChange} = paginationProps
+
   return (
     <>
       <div className="manage-details">
@@ -78,21 +80,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width:140,
                 },
                 {
-                  headerName: 'App. Date',
+                  headerName: 'App. Date(Time)',
                   field: 'appointmentDate',
                   resizable: true,
                   sortable: true,
+                  cellRenderer: 'appointmentDateAndTimeRenderer',
                   sizeColumnsToFit: true,
                   width:160,
-                },
-
-                {
-                  headerName: 'App Time',
-                  field: 'appointmentTime',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width:140,
                 },
                 {
                   headerName: 'Cancel Date',
@@ -110,7 +104,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 },
                 {
                   headerName: 'Patient Name',
-                  field: 'patientName',
+                  cellRenderer: 'patientWithAgeRenderer',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
@@ -181,7 +175,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 }
               ]}
               frameworkComponents={{
-                childActionRenderer: TableRefundStatus
+                childActionRenderer: TableRefundStatus,
+                appointmentDateAndTimeRenderer:AppointmentDateWithTime,
+                patientWithAgeRenderer:PatientWithAge
               }}
               defaultColDef={{resizable: true}}
               getSelectedRows={previewCall}

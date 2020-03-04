@@ -16,20 +16,20 @@ const ApproveTableAction = props => {
         <Dropdown.Menu>
           {
             // checkIfRoleExists(this.props.filteredAction, 3) &&
-            <Dropdown.Item
-              onClick={e => props.onClick(e, props.node.data.id, 'E')}
-            >
-              <Material.MdVerifiedUser />  Approve{' '}
-            </Dropdown.Item>
+              <Dropdown.Item
+                  onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
+              >
+                  <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
+              </Dropdown.Item>
           }
-          {
-            // checkIfRoleExists(this.props.filteredAction, 5) &&
-            <Dropdown.Item
-              onClick={e => props.onClick(e, props.node.data.id, 'D')}
-            >
-              <Material.MdBlock /> Reject
-            </Dropdown.Item>
-          }
+          {/*{*/}
+          {/*  // checkIfRoleExists(this.props.filteredAction, 5) &&*/}
+          {/*  <Dropdown.Item*/}
+          {/*    onClick={e => props.onClick(e, props.node.data.id, 'D')}*/}
+          {/*  >*/}
+          {/*    <Material.MdBlock /> Reject*/}
+          {/*  </Dropdown.Item>*/}
+          {/*}*/}
         </Dropdown.Menu>
       </Dropdown>
     </>

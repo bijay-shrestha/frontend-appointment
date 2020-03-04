@@ -13,6 +13,7 @@ const {
   clearPatientDetails,
   clearPatientPreview,
   editPatient,
+  clearPatientEdit,
   fetchPatientMetaList,
   previewPatient,
   fetchPatientMetaDropdown
@@ -32,7 +33,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         esewaId: '',
         hospitalId: '',
         patientMetaInfoId: '',
-        status: {value: '', label: 'All'}
+        status: {value:'', label: 'All'}
       },
       patientUpdate: {
         id: '',
@@ -117,7 +118,9 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         searchData
       )
       await this.setState({
-        totalRecords: this.props.PatientSearchReducer.patientSearchList.length,
+        totalRecords: this.props.PatientSearchReducer.patientSearchList.length
+          ? this.props.PatientSearchReducer.patientSearchList[0].totalItems
+          : 0,
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
@@ -175,6 +178,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async id => {
+      this.props.clearPatientPreview();
       await this.props.previewPatient(
         patientSetupApiConstant.PREVIEW_PATIENT_DETAIL_BY_ID,
         id
@@ -311,6 +315,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     }
 
     editHandler = async id => {
+      this.props.clearPatientEdit();
       await this.previewApiCall(id)
       if (this.props.PatientPreviewReducer.patientPreviewData) {
         const {
@@ -501,6 +506,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
     ],
     {
       clearPatientDetails,
+      clearPatientEdit,
       clearPatientPreview,
       editPatient,
       fetchPatientMetaList,

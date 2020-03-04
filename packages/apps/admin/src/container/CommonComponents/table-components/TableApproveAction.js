@@ -5,18 +5,18 @@ import * as Material from 'react-icons/md'
 import * as Feather from 'react-icons/fi'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
-const {checkIfRoleExists} = ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils;
 const ApproveTableAction = props => {
   return (
     <>
-     <CButton
+     {/* <CButton
      name=""
      variant="success"
               onClickHandler={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
-              <Material.MdVerifiedUser />  Checkin{' '}
-              </CButton>
-      {/* <Dropdown className="table-action">
+              <i className="fa fa-sign-in"></i>&nbsp;Check-in {' '}
+              </CButton> */}
+      <Dropdown className="table-action">
         <Dropdown.Toggle variant="default" id="dropdown-basic">
           <Feather.FiMoreHorizontal />
         </Dropdown.Toggle>
@@ -27,19 +27,19 @@ const ApproveTableAction = props => {
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'E')}
             >
-              <Material.MdVerifiedUser />  Checkin{' '}
+                   <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
           }
-          {
+          {/* {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item
               onClick={e => props.onClick(e, props.node.data.id||props.node.data, 'D')}
             >
               <Material.MdBlock /> Reject
             </Dropdown.Item>
-          }
+          } */}
         </Dropdown.Menu>
-      </Dropdown> */}
+      </Dropdown>
     </>
   )
 }

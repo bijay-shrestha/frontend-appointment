@@ -31,7 +31,7 @@ const RevenueTrend = props => {
     ? Object.keys(revenueStatsData)
     : {}
   return (
-    <Col lg={7}>
+    <>
       <Row>
         <h5 className="title">Revenue Trend</h5>
       </Row>
@@ -56,9 +56,19 @@ const RevenueTrend = props => {
             <Row>
               <CLineChart
                 lineData={newLineData}
+                revenueFilter={props.revenueFilter}
                 labels={newRevenueStatsData ? newRevenueStatsData : []}
                 width={600}
                 height={350}
+                backgroundColor='rgba(13, 97, 147, 0.2)'
+                fillColor= 'rgba(0, 99, 255, 0.2)'
+                borderColor= '#0d6193'
+                borderWidth= {2}
+                pointColor= 'rgba(13, 97, 147, 1)'
+                pointStrokeColor= "#fff"
+                pointHighlightFill="#fff"
+                pointHighlightStroke= 'rgba(0, 99, 255, 0.2)'
+                scaleGridLineColor= 'rgba(0,0,0,.05)'
               />
             </Row>
             </>
@@ -74,7 +84,7 @@ const RevenueTrend = props => {
         )}
         </div>
       </Row>
-    </Col>
+   </>
   )
 }
 export default memo(RevenueTrend)

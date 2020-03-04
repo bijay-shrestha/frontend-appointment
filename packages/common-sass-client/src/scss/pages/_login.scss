@@ -11,7 +11,7 @@
   background-color:#fafafa;
   border-radius: 5px;
 
-
+  
 }
 
 .login-left .app-detail{
@@ -24,7 +24,7 @@
 .login-right{
   background-color:#fff;
   border-radius: 5px;
-
+  
   h2{
     background-color:#fff;
   color:#444444 ;
@@ -46,7 +46,7 @@ height: auto;
 text-align: center;
 }
 
-.login-wrapper{
+.login-wrapper{   
 width:80%;
 margin:auto;
 text-align: left;
@@ -96,7 +96,7 @@ padding:10px;
 .header-login {
 position:relative;
 text-align:center;
-  background: linear-gradient(60deg,darken($cogent,20%) 0%, lighten($cogent,20%) 100%);
+background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
 color:white;
 }
 .logo {
@@ -129,7 +129,7 @@ flex-direction:column;
 }
 
 //////////////////
-//for new password
+//for new password 
 /////////////////
 
 .new-password{
@@ -151,7 +151,7 @@ flex-direction:column;
     font-size:19px;
     margin:4px 0 24px;
    }
-
+   
    .password-requirement{
      // display:none;
      margin-bottom:16px;
@@ -161,7 +161,7 @@ flex-direction:column;
        margin:0px 0;
      }
    ul{
-
+     
      li{
        list-style-type: disc;
        color:$gray-600;
@@ -170,7 +170,7 @@ flex-direction:column;
        font-weight: 300;
      }
    }
-
+     
    }
 
 }
@@ -179,12 +179,12 @@ flex-direction:column;
 .error{
   color:$danger;
   margin-bottom:6px;
-
+  
 }
 
 
 //////////////////
-//for change password modal
+//for change password modal  
 /////////////////
 
 .change-password{
@@ -251,7 +251,7 @@ animation-duration: 20s;
 0% {
  transform: translate3d(-90px,0,0);
 }
-100% {
+100% { 
   transform: translate3d(85px,0,0);
 }
 }
@@ -262,8 +262,8 @@ animation-duration: 20s;
     width:90% !important;
     margin:0 auto;
     min-height: 400px;
-
-
+  
+  
   }
 .waves {
   height:40px;

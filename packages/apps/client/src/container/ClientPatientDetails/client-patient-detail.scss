@@ -1,0 +1,17 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+ #form_patient-info{
+    .react-datepicker-wrapper{
+        width:100% !important;
+    }
+ }
+
+ 

@@ -47,6 +47,7 @@ import {
     loggedInAdminInfoReducer,
     loginReducers as login,
     logoutReducer,
+    PatientDetailReducer,
     PatientDropdownListReducer,
     PatientEditReducer,
     PatientPreviewReducer,
@@ -70,6 +71,7 @@ import {
     SpecializationPreviewReducer,
     SpecializationSaveReducer,
     SpecializationSearchReducer,
+    PatientDropdownWithoutHospitalListReducer,
     UniversitiesForDropdownReducer,
     WeekdaysReducer
 } from '../reducers'
@@ -122,6 +124,7 @@ export const rootReducers = combineReducers({
     loggedInAdminInfoReducer,
     loginReducers: login,
     logoutReducer,
+    PatientDetailReducer,
     PatientDropdownListReducer,
     PatientEditReducer,
     PatientPreviewReducer,
@@ -146,5 +149,6 @@ export const rootReducers = combineReducers({
     SpecializationSaveReducer,
     SpecializationSearchReducer,
     UniversitiesForDropdownReducer,
+    PatientDropdownWithoutHospitalListReducer,
     WeekdaysReducer
 });

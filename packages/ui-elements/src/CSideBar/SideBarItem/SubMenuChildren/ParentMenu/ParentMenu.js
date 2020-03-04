@@ -5,11 +5,19 @@ import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons'
 // import NavLink from 'react-bootstrap/NavLink'
 import classNames from 'classnames'
 import {Link} from 'react-router-dom'
-import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
+import {EnvironmentVariableGetter} from '@frontend-appointment/helpers'
 
 const ParentMenu = props => {
-  const baseDepartment = EnvironmentVariableGetter.REACT_APP_BASE_PATH_CODE;
+  const baseDepartment = EnvironmentVariableGetter.REACT_APP_BASE_PATH_CODE
   const sideBase = baseDepartment ? baseDepartment : ''
+  const clickHandler = (path,id,root) =>{
+    props.activeNavBar(path);
+    !root && props.toggleNavbar(
+      'nav-item' + id,
+          root
+      );
+  
+  }
   return props.childrenSize > 0 ? (
     <Accordion.Toggle
       as={Nav.Link}
@@ -63,7 +71,7 @@ const ParentMenu = props => {
             : ''
         }
         key={'nav-item-parent' + props.parent.id}
-        onClick={id => props.activeNavBar(props.parent.path)}
+        onClick={id => clickHandler(props.parent.path,props.parent.id,props.parent.parentId)} 
       >
         <Nav.Link
           as={Link}
@@ -72,21 +80,12 @@ const ParentMenu = props => {
           exact="true"
           className={!props.parent.parentId ? 'no-child' : ''}
         >
-          <i className={props.parent.icon}/>
+          <i className={props.parent.icon} />
           <span
             className={classNames(
               {text: props.isOpen || props.isHover},
               {closemenutext: !props.isOpen && !props.isHover}
             )}
-            onClick={
-              props.parent.parentId
-                ? () =>
-                    props.toggleNavbar(
-                      'nav-item' + props.parent.id,
-                      props.parent.parentId
-                    )
-                : () => {}
-            }
           >
             {/* <i className="fa fa-calendar-plus-o " /> */}
             {props.parent.name}

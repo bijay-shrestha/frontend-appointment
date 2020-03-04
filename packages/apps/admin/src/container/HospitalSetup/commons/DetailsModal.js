@@ -7,10 +7,10 @@ import {
     CImageDisplayAndView,
     CRadioButton
 } from '@frontend-appointment/ui-elements'
-import {Col, Row} from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
 
-const DetailsModal = ({type, hospitalData}) => {
+const DetailsModal = ({ type, hospitalData }) => {
     const getOnlyContactNumber = (contactsResponse) => {
         let contacts = [];
         contactsResponse.map(contactNumber => {
@@ -33,7 +33,7 @@ const DetailsModal = ({type, hospitalData}) => {
             {
                 src: hospitalData.hospitalBanner
                     ? hospitalData.hospitalBanner
-                    : DefaultProfileImage,
+                    : '',
                 alt: 'BANNER',
                 width: 4,
                 height: 3
@@ -55,7 +55,7 @@ const DetailsModal = ({type, hospitalData}) => {
             {
                 src: hospitalData.hospitalBannerUrl
                     ? hospitalData.hospitalBannerUrl
-                    : DefaultProfileImage,
+                    : '',
                 alt: 'BANNER',
                 width: 4,
                 height: 3
@@ -74,13 +74,25 @@ const DetailsModal = ({type, hospitalData}) => {
                 <CForm id="hospital-info" className="mt-2">
                     <Container-fluid>
                         <Row>
+                            <Col sm={12} md={12} lg={12} className="">
+                                <div className="hospital-banner-container preview-banner">
+                                    <div className="image-upload-container hospital-container">
+                                        <CImageDisplayAndView images={images} className="hospital-logo" />
+                                    </div>
+                                    {
+                                        type !== 'A' ? (
+                                            hospitalData.hospitalBanner ?
+                                                <CImageDisplayAndView images={bannerImages}  className="hospital-banner"/> : ''
+                                        ) :
+                                            (hospitalData.hospitalBannerUrl ?
+                                                <CImageDisplayAndView images={bannerImages} className="hospital-banner"/> :
+                                                ''
+                                            )
 
-                            <Col sm={12} md={12} lg={3} className="order-md-first order-lg-last">
-                                <CImageDisplayAndView images={images}/>
-                                {/*<br/>*/}
-                                {/*<CImageDisplayAndView images={bannerImages}/>*/}
+                                    }
+                                </div>
                             </Col>
-                            <Col lg={9}>
+                            <Col lg={12}>
                                 <Row>
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
@@ -175,17 +187,17 @@ const DetailsModal = ({type, hospitalData}) => {
                                     )}
 
                                     {hospitalData.isCogentAdmin &&
-                                    <Col sm={12} md={6} lg={6}>
+                                        <Col sm={12} md={6} lg={6}>
 
-                                        {hospitalData.isCogentAdmin === 'Y' ? <i className="fa fa-check"/>
-                                            : <i className="fa fa-crosshairs"/>}&nbsp; Only for Cogent Admin
+                                            {hospitalData.isCogentAdmin === 'Y' ? <i className="fa fa-check" />
+                                                : <i className="fa fa-crosshairs" />}&nbsp; Only for Cogent Admin
 
                                     </Col>
                                     }
 
 
                                     <Col sm={12} md={6} lg={6}>
-                                        <CFLabel labelName="Hospital Status" id="status"/>
+                                        <CFLabel labelName="Hospital Status" id="status" />
                                         <CRadioButton
                                             checked={hospitalData.status === 'Y'}
                                             disabled={true}
@@ -205,7 +217,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                             placeholder="Contact Number"
                                             value={contactNumber.join(", ")}
                                             required={true}
-                                            // errorMessagePassed={errorMessageForHospitalCode}
+                                        // errorMessagePassed={errorMessageForHospitalCode}
                                         />
                                     </Col>
                                 </Row>
