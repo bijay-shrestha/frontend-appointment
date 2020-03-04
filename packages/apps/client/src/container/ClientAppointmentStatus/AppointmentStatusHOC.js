@@ -39,7 +39,7 @@ const {
 const {
     ACTIVE_DROPDOWN_SPECIALIZATION
 } = specializationSetupAPIConstants;
-const {APPOINTMENT_STATUS_LIST,APPOINTMENT_APPROVE} = appointmentSetupApiConstant;
+const {APPOINTMENT_STATUS_LIST, APPOINTMENT_APPROVE} = appointmentSetupApiConstant;
 
 const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant;
 
@@ -125,6 +125,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 previousSelectedTimeSlotRowIndex: '',
                 previousSelectedTimeSlotIds: ''
             });
+            this.searchAppointmentStatus();
             this.props.clearAppointmentStatusMessage()
         };
 
@@ -233,7 +234,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     showCheckInModal: false,
                     showAlert: true,
-                    isConfirming:false,
+                    isConfirming: false,
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.AppointmentApproveReducer.approveSuccessMessage
@@ -244,7 +245,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 this.setState({
                     showAlert: true,
-                    isConfirming:false,
+                    isConfirming: false,
                     alertMessageInfo: {
                         showCheckInModal: false,
                         variant: 'danger',
@@ -481,7 +482,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 isConfirming
             } = this.state;
 
-           // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
             const {
                 activeDoctorsForDropdown,
