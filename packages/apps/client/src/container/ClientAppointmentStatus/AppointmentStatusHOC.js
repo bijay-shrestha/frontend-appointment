@@ -181,7 +181,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 patientName: appointmentStatusDetail.patientDetails.name + " ("
                     + appointmentStatusDetail.patientDetails.age + " / "
                     + appointmentStatusDetail.patientDetails.gender + ")",
-                patientMobileNumber: appointmentStatusDetail.patientDetails.mobileNumber,
+                mobileNumber: appointmentStatusDetail.patientDetails.mobileNumber,
                 patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
                 registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
                 esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',

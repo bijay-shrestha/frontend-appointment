@@ -9,14 +9,14 @@ const CheckInModalContent = ({appointmentDetails}) => {
                 <CForm id="refund-info" className="mt-2">
                     <Container-fluid>
                         <Row>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="hospitalName"
-                                    placeholder="Hospital Name"
-                                    value={appointmentDetails.hospitalName || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id="hospitalName"*/}
+                            {/*        placeholder="Hospital Name"*/}
+                            {/*        value={appointmentDetails.hospitalName || 'N/A'}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
