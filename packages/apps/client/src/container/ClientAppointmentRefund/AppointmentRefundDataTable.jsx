@@ -30,7 +30,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandler,
         refundHandleApi,
         refundRejectError,
-        isRefundLoading,
         refundConfirmationModal,
         remarks
     } = tableHandler
