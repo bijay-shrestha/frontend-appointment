@@ -117,6 +117,8 @@ class AdminManage extends PureComponent {
         errorMessage: ''
     };
 
+    timer = '';
+
     resetAdminUpdateDataFromState = () => {
         this.setState({
             adminUpdateData: {
@@ -316,7 +318,7 @@ class AdminManage extends PureComponent {
     };
 
     automaticLogoutUser = () => {
-        setTimeout(() => this.logoutUser(), 10000)
+        this.timer=setTimeout(() => this.logoutUser(), 10000)
     };
 
     logoutUser = async () => {
@@ -862,7 +864,7 @@ class AdminManage extends PureComponent {
 
 
     componentWillUnmount() {
-        clearTimeout(this.automaticLogoutUser);
+        clearTimeout(this.timer);
     }
 
     render() {
