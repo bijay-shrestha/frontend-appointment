@@ -10,7 +10,7 @@ import * as LoggedInAdminInfoActions from './loggedInAdminInfoAction';
 import * as LogoutActions from './logoutActions';
 import {weekdaysActionConstants} from '../common/weekdays/weekdaysActionConstants';
 import * as WeekdaysActions from '../common/weekdays/weekdaysActions';
-
+import * as ForgotPasswordActions from '../common/forgotPasswordAndVerificationAction';
 export {
     loginActionConstant,
     LoginActions,
@@ -21,5 +21,6 @@ export {
     logoutActionConstants,
     LogoutActions,
     weekdaysActionConstants,
-    WeekdaysActions
+    WeekdaysActions,
+    ForgotPasswordActions
 }
