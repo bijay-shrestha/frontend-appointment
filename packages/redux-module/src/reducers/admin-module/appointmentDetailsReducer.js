@@ -432,7 +432,7 @@ export const AppointmentApproveReducer = (
             return {
                 ...state,
                 isApproveLoading: true,
-                approveSuccessMessage: 'Appointment Approved Successfully',
+                approveSuccessMessage: 'Checked-In Successfully',
                 approveErrorMessage: ''
             }
         case APPROVE_ERROR:

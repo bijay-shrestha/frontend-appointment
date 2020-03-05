@@ -2,20 +2,15 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    HospitalSetupMiddleware,
     DoctorMiddleware,
-    SpecializationSetupMiddleware,
-    PatientDetailsMiddleware
+    HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    FileExportUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import {CConfirmationModal} from "@frontend-appointment/ui-components";
 
 const {
     clearAppointmentRefundPending,
@@ -25,13 +20,13 @@ const {
     clearAppointmentApproveMessage,
     clearAppointmentRejectMessage
     //downloadExcelForHospitals
-} = AppointmentDetailsMiddleware
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
+} = AppointmentDetailsMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {
     fetchSpecializationHospitalWiseForDropdown
-} = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+} = SpecializationSetupMiddleware;
+const {fetchPatientMetaList} = PatientDetailsMiddleware;
 const AppointApprovalHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -39,7 +34,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         doctorSetupApiConstants,
         specializationSetupAPIConstants,
         patientSetupApiConstant
-    } = AdminModuleAPIConstants
+    } = AdminModuleAPIConstants;
 
     class AppointmentApprovalDetails extends React.PureComponent {
         state = {
@@ -79,7 +74,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        }
+        };
 
         searchHospitalForDropDown = async () => {
             try {
@@ -89,14 +84,14 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         previewCall = data => {
             this.setState({
                 previewData: data,
                 showModal: true
             })
-        }
+        };
 
         setShowModal = () => {
             this.setState(prevState => ({
@@ -104,7 +99,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 rejectModalShow: false,
                 approveConfirmationModal: false
             }))
-        }
+        };
 
         searchAppointment = async page => {
             const {
