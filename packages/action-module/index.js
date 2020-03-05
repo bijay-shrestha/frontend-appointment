@@ -8,6 +8,7 @@ import {
     MenuActions,
     userMenusActionConstant,
     weekdaysActionConstants,
+    forgotPasswordAndVerificationConstants,
     WeekdaysActions,
     ForgotPasswordActions
 } from './src/common'
@@ -70,5 +71,6 @@ export {
     WeekdaysActions,
     PatientDetailsActions,
     patientDetailsConstants,
-    ForgotPasswordActions
+    ForgotPasswordActions,
+    forgotPasswordAndVerificationConstants
 }

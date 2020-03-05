@@ -2,7 +2,8 @@ import {
     loginActionConstant,
     userMenusActionConstant,
     loggedInAdminInfoActionConstants,
-    logoutActionConstants
+    logoutActionConstants,
+    forgotPasswordAndVerificationConstants
 } from './actionconstants'
 import * as LoginActions from './loginaction'
 import * as MenuActions from './menuactions'
@@ -22,5 +23,6 @@ export {
     LogoutActions,
     weekdaysActionConstants,
     WeekdaysActions,
-    ForgotPasswordActions
+    ForgotPasswordActions,
+    forgotPasswordAndVerificationConstants
 }
