@@ -5,7 +5,7 @@ const CLoading = props => {
   return (
     <div className="filter-message c-loading">
       <div className="message-content">
-        <Image src={require('./images/dot-loader-blue.svg')} className="loader" />
+        <Image src={require('./images/dot-loader-gray.svg')} className="loader" />
         <span>Loading....</span>
       </div>
     </div>
