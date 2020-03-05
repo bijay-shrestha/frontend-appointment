@@ -62,13 +62,6 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class'
                                 },
                                 {
-                                    headerName: 'Hospital Name',
-                                    field: 'hospitalName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
                                     headerName: 'Appointment Date',
                                     field: 'appointmentDate',
                                     resizable: true,
