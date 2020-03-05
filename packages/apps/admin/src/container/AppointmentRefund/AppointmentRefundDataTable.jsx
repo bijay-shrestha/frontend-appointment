@@ -80,7 +80,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   width:140,
                 },
                 {
-                  headerName: 'App. Date(Time)',
+                  headerName: 'App. DateTime',
                   field: 'appointmentDate',
                   resizable: true,
                   sortable: true,
@@ -103,11 +103,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 },
                 {
-                  headerName: 'Patient Name',
+                  headerName: 'Patient Details',
                   cellRenderer: 'patientWithAgeRenderer',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width:300,
                 },
                 {
                   headerName: 'Doctor',
