@@ -201,9 +201,9 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             placeholder="Select Status."
                                             name="status"
                                             options={[
-                                                {value: 'PA', label: 'Pending Approval'},
-                                                {value: 'A', label: 'Approved'},
-                                                {value: 'RE', label: 'Rejected'},
+                                                {value: 'PA', label: 'Booked'},
+                                                {value: 'A', label: 'Checked-In'},
+                                                // {value: 'RE', label: 'Rejected'},
                                                 {value: 'C', label: 'Cancelled'},
                                                 {value: 'R', label: 'Refunded'}
                                             ]}
