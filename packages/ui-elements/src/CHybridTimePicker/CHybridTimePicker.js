@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent,useRef} from 'react'
 import {Form} from 'react-bootstrap'
-import ReactDOM, {render} from 'react-dom'
+import ReactDOM from 'react-dom'
 import './hybrid-time.scss'
 class CHybridTimePicker extends PureComponent {
   state = {
@@ -17,15 +17,15 @@ class CHybridTimePicker extends PureComponent {
   // }
 
   classAdditionWhenValueIsChanged = value => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
+    const a = ReactDOM.findDOMNode(this.fieldWrapperRef).className
     if (!(value === 0 || value)) {
       if (a.includes('hasValue')) {
         const replaceString = a.replace(' hasValue', '')
-        ReactDOM.findDOMNode(fieldWrapperRef).className = replaceString
+        ReactDOM.findDOMNode(this.fieldWrapperRef).className = replaceString
       }
     } else {
       if (!a.includes('hasValue')) {
-        ReactDOM.findDOMNode(fieldWrapperRef).className += ' hasValue'
+        ReactDOM.findDOMNode(this.fieldWrapperRef).className += ' hasValue'
       }
     }
   }
@@ -38,15 +38,15 @@ class CHybridTimePicker extends PureComponent {
   }
 
   validateFieldAndToggleErrorClass = (patternOfFieldValue, value) => {
-    let fieldWrapper = ReactDOM.findDOMNode(fieldWrapperRef).classList
+    let fieldWrapper = ReactDOM.findDOMNode(this.fieldWrapperRef).classList
     let isValid = patternOfFieldValue.test(value)
     if (!isValid && (value === 0 || value)) {
       fieldWrapper.add('errorInput')
-      setErrorMessagesAndValidity(props.errorMessagePassed, false)
+      this.setErrorMessagesAndValidity(this.props.errorMessagePassed, false)
       return false
     } else {
       fieldWrapper.remove('errorInput')
-      setErrorMessagesAndValidity('', true)
+      this.setErrorMessagesAndValidity('', true)
       return true
     }
   }
@@ -54,31 +54,31 @@ class CHybridTimePicker extends PureComponent {
   handleOnChange = e => {
     let validity = ''
     classAdditionWhenValueIsChanged(e.target.value)
-    if (hasValidation) {
+    if (props.hasValidation) {
       validity = validateFieldAndToggleErrorClass(
-        fieldValuePattern,
-        errorMessagePassed,
+        props.fieldValuePattern,
+        props.errorMessagePassed,
         e.target.value
       )
     }
-    onChange(e, validity)
+    this.onChange(e, validity)
   }
 
   handleOnFocus = e => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
+    const a = ReactDOM.findDOMNode(this.fieldWrapperRef).className
     if (!a.includes('myInput') && !this.state.errorMsg) {
       ReactDOM.findDOMNode(fieldWrapperRef).className += ' myInput'
     }
   }
 
   handleOnBlur = e => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
+    const a = ReactDOM.findDOMNode(this.fieldWrapperRef).className
     const replaceString = a.replace('myInput', '')
-    ReactDOM.findDOMNode(fieldWrapperRef).className = replaceString
+    ReactDOM.findDOMNode(this.fieldWrapperRef).className = replaceString
   }
 
   handlePlaceholderClick = () => {
-    timePickerRef.current.focus()
+    this.timePickerRef.current.focus()
   }
 
   render () {
@@ -100,15 +100,14 @@ class CHybridTimePicker extends PureComponent {
       size,
       type,
       value,
-      onChange,
-      duration,
-      fieldValuePattern,
-      errorMessagePassed,
-      hasValidation,
+      handleOnChange,
+      // duration,
+      // errorMessagePassed,
+      // hasValidation,
       onClick,
       placeholder,
       errorMsg
-    } = props
+    } =this.props
     return (
       <div
         className="field-wrapper hinput"
@@ -151,7 +150,7 @@ class CHybridTimePicker extends PureComponent {
           <span>{placeholder ? placeholder : 'Enter Value'}</span>
         </div>
         <Form.Control.Feedback type="invalid" className="err-message">
-          {errorMsg ? errorMsg : errorMessage}
+          {errorMsg ? errorMsg : this.state.errorMessage}
         </Form.Control.Feedback>
       </div>
     )
