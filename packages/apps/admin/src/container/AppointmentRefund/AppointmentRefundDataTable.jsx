@@ -232,8 +232,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
           showModal={refundConfirmationModal}
           setShowModal={setShowModal}
           remarks={remarks}
-          onAccept={refundHandleApi}
-          onReject={setShowModal}
+          onConfirm={refundHandleApi}
+          onCancel={setShowModal}
         />
       ) : (
         ''

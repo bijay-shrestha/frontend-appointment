@@ -94,9 +94,10 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         };
 
         setShowModal = () => {
-            this.setState(prevState => ({
-                showModal: !prevState.showModal
-            }))
+            this.setState({
+                showModal: false,
+                approveConfirmationModal: false
+            })
         };
 
         searchAppointment = async page => {

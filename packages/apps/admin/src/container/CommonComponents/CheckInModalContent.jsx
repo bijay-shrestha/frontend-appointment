@@ -52,6 +52,15 @@ const CheckInModalContent = ({appointmentDetails}) => {
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="Appointment Amount"
+                                    placeholder="Appointment Amount"
+                                    value={appointmentDetails.appointmentAmount || '0'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id=""
                                     placeholder="Patient Name"
                                     value={appointmentDetails.patientName || 'N/A'}

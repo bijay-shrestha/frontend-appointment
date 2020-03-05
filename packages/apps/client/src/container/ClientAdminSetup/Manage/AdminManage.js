@@ -723,7 +723,10 @@ class AdminManage extends PureComponent {
             this.setMacIdListInState(tempArray, tempArray);
         } else {
             let currentSelectedMacIds = [...this.state.updatedMacIdList];
-            let updateMacIds = currentSelectedMacIds.map(currentSelectedMacId => currentSelectedMacId.status = 'N');
+            let updateMacIds = currentSelectedMacIds.map(currentSelectedMacId => {
+                currentSelectedMacId.status = 'N';
+                return currentSelectedMacId
+            });
             this.setMacIdListInState(tempArray, updateMacIds);
         }
     };
