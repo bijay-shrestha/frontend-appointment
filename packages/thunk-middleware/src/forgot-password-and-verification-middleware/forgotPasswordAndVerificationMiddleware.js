@@ -25,6 +25,6 @@ export const codeVerification = (path, data) => async dispatch => {
       )
     )
   } catch (e) {
-    dispatch(ForgotPasswordActions.isVerificationCodeSuccess(e.errorMessage))
+    dispatch(ForgotPasswordActions.isVerificationCodeError(e.errorMessage))
   }
 }
