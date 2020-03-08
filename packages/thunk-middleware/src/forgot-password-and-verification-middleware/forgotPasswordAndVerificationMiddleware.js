@@ -1,7 +1,7 @@
 import {Axios} from '@frontend-appointment/core'
 import {ForgotPasswordActions} from '@frontend-appointment/action-module'
 
-export const ForgotPassword = (path, data) => async dispatch => {
+export const forgotPassword = (path, data) => async dispatch => {
   dispatch(forgotPasswordActions.isForgotPasswordPending())
   try {
     await Axios.postWithRequestParams(path, data)

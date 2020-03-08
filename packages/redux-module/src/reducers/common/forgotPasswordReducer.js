@@ -50,6 +50,7 @@ export const VerificationCodeReducer = (state={...initialForgotPasswordAndVerifi
         }
 
         case PASSWORD_VERIFICATION_ERROR : return{
+          ...state,
           message:action.payload.data,
           status:'ERROR'
         }

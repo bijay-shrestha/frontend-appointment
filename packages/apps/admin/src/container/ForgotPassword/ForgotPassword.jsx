@@ -1,9 +1,18 @@
 import React, {PureComponent} from 'react'
 import {CForgotPassword} from '@frontend-appointment/ui-components'
+import {CAlert} from '@frontend-appointment/ui-elements'
+import {ConnectHoc} from '@frontend-appointment/commons'
+import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
+const {forgotPassword} = ForgotPasswordMiddleware
 class ForgotPassword extends PureComponent {
   state = {
     username: '',
-    isValid: false
+    isValid: false,
+    alertMessageInfo: {
+      variant: '',
+      message: ''
+    },
+    showAlert: false
   }
 
   checkFormValid = (name, value) => {
@@ -15,17 +24,22 @@ class ForgotPassword extends PureComponent {
     })
   }
 
+  closeAlert = () => {
+    this.setState({
+      showAlert: false
+    })
+  }
+
   onChangeHandler = event => {
     const {name, value} = event.target
     this.checkFormValid(name, value)
   }
 
   onSubmitFormHandler = event => {
-      try{
-
-      }catch(e){
-          console.log(e);
-      }
+    try {
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   render () {
@@ -38,8 +52,31 @@ class ForgotPassword extends PureComponent {
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
         />
+        <CAlert
+          id="profile-manage"
+          variant={alertMessageInfo.variant}
+          show={showAlert}
+          onClose={this.closeAlert}
+          alertType={
+            alertMessageInfo.variant === 'success' ? (
+              <>
+                <Material.MdDone />
+              </>
+            ) : (
+              <>
+                <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+              </>
+            )
+          }
+          message={alertMessageInfo.message}
+        />
       </>
     )
   }
 }
-export default ForgotPassword
+export default ConnectHoc(
+  ForgotPassword,
+  ['ForgotPasswordReducer'],
+  //'VerificationCodeReducer'
+  {forgotPassword}
+)
