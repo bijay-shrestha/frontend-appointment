@@ -5,3 +5,7 @@ export const WeekdaysApiConstants = {
     FETCH_WEEKDAYS: BASE.concat(WEEK_DAYS_BASE),
     FETCH_WEEKDAYS_DATA: BASE.concat(WEEK_DAYS_BASE.concat('/prepare-weekdays-data')),
 };
+
+export const ForgotPasswordAndVerification = {
+    
+}
