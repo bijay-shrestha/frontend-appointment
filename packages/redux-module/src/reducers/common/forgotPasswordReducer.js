@@ -8,6 +8,7 @@ const {
     PASSWORD_VERIFICATION_PENDING,
     PASSWORD_VERIFICATION_SUCCESS
 }=forgotPasswordAndVerificationConstants;
+
 let initialForgotPasswordAndVerification= {
    message:'',
    status:''
