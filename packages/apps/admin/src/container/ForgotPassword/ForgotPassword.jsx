@@ -3,7 +3,9 @@ import {CForgotPassword} from '@frontend-appointment/ui-components'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
+import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 const {forgotPassword} = ForgotPasswordMiddleware
+const {ForgotPasswordAndVerification} = CommonAPIConstants
 class ForgotPassword extends PureComponent {
   state = {
     username: '',
@@ -14,6 +16,7 @@ class ForgotPassword extends PureComponent {
     },
     showAlert: false
   }
+  intervalAlertClear
 
   checkFormValid = (name, value) => {
     const {username} = this.state
@@ -35,11 +38,30 @@ class ForgotPassword extends PureComponent {
     this.checkFormValid(name, value)
   }
 
-  onSubmitFormHandler = event => {
+  closeAlertAfterCertainInterval = () => {
+    this.intervalAlertClear = setTimeout(this.closeAlert, 4000)
+  }
+
+  onSubmitFormHandler = async event => {
     try {
+      await this.props.forgotPassword(
+        ForgotPasswordAndVerification.FORGOT_PASSWORD,
+        this.state.username
+      )
     } catch (e) {
-      console.log(e)
+      this.setState({
+        alertMessageInfo: {
+          variant: 'danger',
+          message: this.props.ForgotPasswordReducer.message
+        },
+        showAlert: true
+      })
+      this.closeAlertAfterCertainInterval()
     }
+  }
+
+  componentWillUnmount () {
+    this.intervalAlertClear && clearTimeout(this.intervalAlertClear)
   }
 
   render () {
@@ -74,9 +96,6 @@ class ForgotPassword extends PureComponent {
     )
   }
 }
-export default ConnectHoc(
-  ForgotPassword,
-  ['ForgotPasswordReducer'],
-  //'VerificationCodeReducer'
-  {forgotPassword}
-)
+export default ConnectHoc(ForgotPassword, ['ForgotPasswordReducer'], {
+  forgotPassword
+})
