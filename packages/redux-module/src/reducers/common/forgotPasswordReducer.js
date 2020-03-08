@@ -8,19 +8,51 @@ const {
     PASSWORD_VERIFICATION_PENDING,
     PASSWORD_VERIFICATION_SUCCESS
 }=forgotPasswordAndVerificationConstants;
-let initialForgotPassword = {
+let initialForgotPasswordAndVerification= {
    message:'',
    status:''
 }
 
-export const ForgotPasswordReducer= (state={...initialForgotPassword},action) => {
+
+export const ForgotPasswordReducer= (state={...initialForgotPasswordAndVerification},action) => {
    switch(action.type){
+       case FORGOT_PASSWORD_PENDING: return {
+             ...state,
+             status:'PENDING'
+       }
+       case FORGOT_PASSWORD_SUCCESS: return {
+           ...state,
+           message:action.payload.data,
+           status:'SUCCESS'
+       }
+       case FORGOT_PASSWORD_ERROR: return {
+           ...state,
+           message:action.payload.data,
+           status:'ERROR'
+       } 
+
        default: return state;
    }
 }
 
-export const VerificationCodeReducer = (state={...initialForgotPassword},action) => {
+export const VerificationCodeReducer = (state={...initialForgotPasswordAndVerification},action) => {
     switch(action.type){
+        case PASSWORD_VERIFICATION_PENDING: return {
+          ...state,
+          status:'PENDING'
+        }
+
+        case PASSWORD_VERIFICATION_SUCCESS: return {
+          ...state,
+          message:action.payload.data,
+          status:'SUCCESS'
+        }
+
+        case PASSWORD_VERIFICATION_ERROR : return{
+          message:action.payload.data,
+          status:'ERROR'
+        }
+
         default: return state;
     }
  }
