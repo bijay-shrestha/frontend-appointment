@@ -58,17 +58,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder=" Appointment Number"
-                                            value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
+                                <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="hospitalId"
                                             name="hospitalId"
@@ -120,33 +110,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             />
                                         </div>
                                     </Col>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="admin-meta-info"
-                                            name="patientMetaInfoId"
-                                            label="Patients Detail"
-                                            placeholder="Name, Mobile no Or Reg. no"
-                                            options={patientListDropdown}
-                                            value={searchParameters.patientMetaInfoId}
-                                            isDisabled={patientListDropdown.length ? false : true}
-                                            onChange={handleSearchFormChange}
-                                            onEnter={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="doctorId"
-                                            label="Doctor"
-                                            name="doctorId"
-                                            onKeyDown={event => handleEnter(event)}
-                                            onChange={event => handleSearchFormChange(event)}
-                                            options={doctorsDropdown}
-                                            value={searchParameters.doctorId}
-                                            isDisabled={doctorsDropdown.length ? false : true}
-                                            onEnter={handleEnter}
-                                            placeholder="Select doctor."
-                                        />
-                                    </Col>
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -162,6 +125,50 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             placeholder="Select specialization."
                                         />
                                     </Col>
+                                  
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="doctorId"
+                                            label="Doctor"
+                                            name="doctorId"
+                                            onKeyDown={event => handleEnter(event)}
+                                            onChange={event => handleSearchFormChange(event)}
+                                            options={doctorsDropdown}
+                                            value={searchParameters.doctorId}
+                                            isDisabled={doctorsDropdown.length ? false : true}
+                                            onEnter={handleEnter}
+                                            placeholder="Select doctor."
+                                        />
+                                    </Col>
+                                   
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder=" Appointment Number"
+                                            value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+                                    
+                                    
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="admin-meta-info"
+                                            name="patientMetaInfoId"
+                                            label="Patients Detail"
+                                            placeholder="Name, Mobile no Or Reg. no"
+                                            options={patientListDropdown}
+                                            value={searchParameters.patientMetaInfoId}
+                                            isDisabled={patientListDropdown.length ? false : true}
+                                            onChange={handleSearchFormChange}
+                                            onEnter={handleEnter}
+                                        />
+                                    </Col>
+
+                                   
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -179,7 +186,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
+                                    {/* <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="appointmentCategory"
                                             label="Appointment Category"
@@ -192,7 +199,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
-                                    </Col>
+                                    </Col> */}
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -201,9 +208,9 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             placeholder="Select Status."
                                             name="status"
                                             options={[
-                                                {value: 'PA', label: 'Pending Approval'},
-                                                {value: 'A', label: 'Approved'},
-                                                {value: 'RE', label: 'Rejected'},
+                                                {value: 'PA', label: 'Booked'},
+                                                {value: 'A', label: 'Checked-In'},
+                                                // {value: 'RE', label: 'Rejected'},
                                                 {value: 'C', label: 'Cancelled'},
                                                 {value: 'R', label: 'Refunded'}
                                             ]}

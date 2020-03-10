@@ -7,7 +7,9 @@ import {
 } from '@frontend-appointment/ui-elements'
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
+import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
+import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
 import {Row, Col, Badge} from 'react-bootstrap';
 
@@ -87,7 +89,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     supprestSizeToFit: false,
-                                    width: 140,
+                                    width: 120,
                                     cellRenderer: 'statusRenderer'
                                 },
                                 // {
@@ -98,62 +100,66 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 //   sizeColumnsToFit: true,
                                 // },
                                 {
-                                    headerName: 'Appointment Date',
+                                    headerName: 'App. DateTime',
                                     field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: "200",
+                                    cellRenderer : "AppointmentDateWithTime"
                                 },
+                                // {
+                                //     headerName: 'App. Time',
+                                //     field: 'appointmentTime',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: "140"
+                                // },
                                 {
-                                    headerName: 'Appointment Time',
-                                    field: 'appointmentTime',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Appointment No',
+                                    headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "150"
+                                    width: "140"
                                 },
                                 {
-                                    headerName: 'Registration No',
+                                    headerName: 'Reg. No',
                                     field: 'registrationNumber',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "160"
+                                    width: "180"
                                 },
                                 {
-                                    headerName: 'Patient Name',
+                                    headerName: 'Patient Details',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'patientRenderer',
-                                    autoSize: true
+                                    cellRenderer: 'PatientNameWitheAgeGenderPhone',
+                                    autoSize: true,
+                                    width: "300"
                                 },
 
-                                {
-                                    headerName: 'DOB',
-                                    field: 'patientDob',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: '180'
+                                // {
+                                //     headerName: 'DOB',
+                                //     field: 'patientDob',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: '180'
 
-                                },
-                                {
-                                    headerName: 'Mobile No.',
-                                    field: 'mobileNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: "140",
-                                },
+                                // },
+                                // {
+                                //     headerName: 'Mobile No.',
+                                //     field: 'mobileNumber',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: "140",
+                                // },
                                 {
                                     headerName: 'Address',
                                     field: 'patientAddress',
@@ -171,32 +177,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     autoWidth: true,
                                     width: "300"
                                 },
-                                // {
-                                //   headerName: 'Transaction Number',
-                                //   field: 'transactionNumber',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                // {
-                                //   headerName: 'Appointment Amount',
-                                //   field: 'appointmentAmount',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                // {
-                                //   headerName: 'Refund Amount',
-                                //   field: 'refundAmount',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // }
+                           
                             ]}
                             frameworkComponents={{
                                 doctorwithSpecializationRenderer: DoctorWithSpecialization,
                                 statusRenderer: AppointmentLogAction,
-                                patientRenderer: PatientWithAgeAndGender
+                                patientRenderer: PatientWithAgeAndGender,
+                                PatientNameWitheAgeGenderPhone: PatientNameWitheAgeGenderPhone,
+                                AppointmentDateWithTime : AppointmentDateWithTime
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

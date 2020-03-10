@@ -1,8 +1,8 @@
-import React, {memo} from 'react'
+import React from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const DetailsModal = ({previewData}) => {
+const DetailsModal = ({refundData}) => {
     return (
         <>
             <Container-fluid>
@@ -11,100 +11,97 @@ const DetailsModal = ({previewData}) => {
                         <Row>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="name"
-                                    placeholder="Name"
-                                    value={previewData.name || 'N/A'}
+                                    id="appointmentDate"
+                                    placeholder="Appointment Date"
+                                    value={refundData.appointmentDate}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="address"
-                                    placeholder="Address"
-                                    value={previewData.address || 'N/A'}
+                                    id="AppointmentTime"
+                                    placeholder="Appointment Time"
+                                    value={refundData.appointmentTime}
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="email"
-                                    placeholder="Email"
-                                    value={previewData.email || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="registrationNumber"
                                     placeholder="Registration Number"
-                                    value={previewData.registrationNumber || 'N/A'}
+                                    value={refundData.registrationNumber}
                                     disabled={true}
                                 />
                             </Col>
-
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="patientName"
+                                    placeholder="Patient Name"
+                                    value={refundData.patientName}
+                                    disabled={true}
+                                />
+                            </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="esewaId"
                                     placeholder="Esewa Id"
-                                    value={previewData.esewaId || 'N/A'}
+                                    value={refundData.esewaId}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="mobileNumber"
-                                    placeholder="Mobile Number"
-                                    value={previewData.mobileNumber || 'N/A'}
+                                    id=""
+                                    placeholder="Patient Name"
+                                    value={refundData.patientName}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="age"
-                                    placeholder="Age"
-                                    value={previewData.age || 'N/A'}
+                                    id=""
+                                    placeholder="Doctor Name"
+                                    value={refundData.doctorName}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="status"
-                                    placeholder="status"
-                                    value={previewData.status || 'N/A'}
+                                    id=""
+                                    placeholder="Specialization Name"
+                                    value={refundData.specializationName}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="hospitalNumber"
-                                    placeholder="Hospital Number"
-                                    value={previewData.hospitalNumber || 'N/A'}
+                                    id="transactionNumber"
+                                    placeholder="Transaction Number"
+                                    value={refundData.transactionNumber}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="DOB"
-                                    placeholder="Date of Birth"
-                                    value={previewData.dateOfBirth || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="category_appointment"
-                                    placeholder="Appointment Category"
-                                    value={previewData.isSelf ? 'Self' : 'Other'}
+                                    id="cancelledDate"
+                                    placeholder="Cancelled Date"
+                                    value={refundData.cancelledDate}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="type_patient"
-                                    placeholder="Patient Type"
-                                    value={previewData.isRegistered ? 'Registered' : 'Not Registered'}
+                                    id="refundAmount"
+                                    placeholder="Refund Amount"
+                                    value={refundData.refundAmount}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="remarks"
+                                    placeholder="Remarks"
+                                    value={refundData.remarks}
                                     disabled={true}
                                 />
                             </Col>
@@ -116,4 +113,4 @@ const DetailsModal = ({previewData}) => {
     )
 }
 
-export default memo(DetailsModal)
+export default DetailsModal
