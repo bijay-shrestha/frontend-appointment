@@ -44,8 +44,8 @@ class CodeVerification extends PureComponent {
 
   onSubmitFormHandler = async event => {
     try {
-      await this.props.codeVerification(ForgotPasswordAndVerification.code, {
-        code: this.state.code
+      await this.props.codeVerification(ForgotPasswordAndVerification.CODE_VERIFICATION, {
+        resetCode: this.state.code
       })
     } catch (e) {
       this.setState({

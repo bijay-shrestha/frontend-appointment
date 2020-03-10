@@ -1,16 +1,19 @@
 import React, {PureComponent} from 'react'
-import {CCodeVerification} from '@frontend-appointment/ui-components'
+import {CChangePasswordInForget} from '@frontend-appointment/ui-components'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {changePassword} from '@frontend-appointment/thunk-middleware'
+import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import * as Material from 'react-icons/md';
+import {LocalStorageSecurity} from '@frontend-appointment/helpers'
+import * as Material from 'react-icons/md'
 
 const {adminSetupAPIConstants} = AdminModuleAPIConstants
+const {localStorageDecoder, localStorageRemover} = LocalStorageSecurity
+const {changePasswordVerification} = ForgotPasswordMiddleware
 class NewPassword extends PureComponent {
   state = {
     password: '',
-    confirmPassword:'',
+    username: localStorageDecoder('forgotPasswordUsername') || '',
     isValid: false,
     alertMessageInfo: {
       variant: '',
@@ -20,11 +23,13 @@ class NewPassword extends PureComponent {
   }
   intervalAlertClear
 
-  checkFormValid = (name, value) => {
-    const isValidTrue = value.length
-    this.setState({
-      isValid: isValidTrue || false,
+  checkFormValid = async (name, value) => {
+    await this.setState({
       [name]: value
+    })
+    const isValidTrue = this.state.username.length && this.state.password.length
+    this.setState({
+      isValid: isValidTrue || false
     })
   }
 
@@ -45,9 +50,10 @@ class NewPassword extends PureComponent {
 
   onSubmitFormHandler = async event => {
     try {
-      await this.props.changePassword(ForgotPasswordAndVerification.code, {
+      await this.props.changePassword(adminSetupAPIConstants.CHANGE_PASSWORD, {
         code: this.state.code
       })
+      localStorageRemover()
     } catch (e) {
       this.setState({
         alertMessageInfo: {
@@ -65,11 +71,17 @@ class NewPassword extends PureComponent {
   }
 
   render () {
-    const {code, isValid, alertMessageInfo,showAlert} = this.state
+    const {
+      password,
+      username,
+      isValid,
+      alertMessageInfo,
+      showAlert
+    } = this.state
     return (
       <>
-        <CCodeVerification
-          codeVerificationData={{code}}
+        <CChangePasswordInForget
+          passwordChangeData={{password, username}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
@@ -97,5 +109,5 @@ class NewPassword extends PureComponent {
   }
 }
 export default ConnectHoc(NewPassword, [], {
-    changePassword
+  changePasswordVerification
 })

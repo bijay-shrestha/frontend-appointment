@@ -30,3 +30,18 @@ export const codeVerification = (path, data) => async dispatch => {
     throw e;
   }
 }
+
+export const changePasswordVerification = (path, data) => async dispatch => {
+  dispatch(ForgotPasswordActions.isChangePasswordPending())
+  try {
+    await Axios.put(path, data)
+    dispatch(
+      ForgotPasswordActions.isChangePasswordSuccess(
+        'Password Verified Successfully'
+      )
+    )
+  } catch (e) {
+    dispatch(ForgotPasswordActions.isChangePasswordError(e.errorMessage))
+    throw e;
+  }
+}

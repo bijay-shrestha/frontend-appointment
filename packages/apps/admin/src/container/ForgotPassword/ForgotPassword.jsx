@@ -5,8 +5,10 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
 import * as Material from 'react-icons/md';
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 const {forgotPassword} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
+const {localStorageEncoder}=LocalStorageSecurity
 class ForgotPassword extends PureComponent {
   state = {
     username: '',
@@ -44,6 +46,7 @@ class ForgotPassword extends PureComponent {
 
   onSubmitFormHandler = async () => {
     try {
+      localStorageEncoder('forgotPasswordUsername',this.state.username)
       await this.props.forgotPassword(
         ForgotPasswordAndVerification.FORGOT_PASSWORD,
         {username:this.state.username}
