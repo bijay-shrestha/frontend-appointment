@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import CodeVerification from './container/CodeVerification/CodeVerification'
 
 const getLoader = () => <CLoading />
 /* ****** A ***** */
@@ -161,6 +162,15 @@ const RescheduleLog = loadable(
   {fallback: () => getLoader()}
 )
 
+const ForgotPassword = loadable(
+    () => import('./container/ForgotPassword/ForgotPassword'),
+    {fallback: () => getLoader()}  
+)
+
+const VerifyToken = loadable(
+    () => import('./container/CodeVerification/CodeVerification'),
+    {fallback: () => getLoader()}  
+)
 /* ****** S ***** */
 
 /* ****** T ***** */
@@ -204,6 +214,24 @@ export const routes = [
     hasTab: true,
     isTab: false,
     name: 'Profile Setup'
+  },
+  {
+    path: '/forgotPassword',
+    name: '',
+    component: ForgotPassword,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false
+  },
+  {
+    path: '/verifyToken',
+    name: '',
+    component: CodeVerification,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false
   },
   {
     path: '/admin/generalSetup/profile/add',
