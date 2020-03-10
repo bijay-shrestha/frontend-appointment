@@ -10,3 +10,4 @@ export {default as CTimePicker} from './src/CTimePicker';
 export {default as CConfirmationModal} from './src/CConfirmationModal' ;
 export {default as CDateButtonPills} from './src/CDateButtonPills/CDateButtonPills';
 export {default as CForgotPassword} from './src/CForgotPassword/CForgotPassword';
+export {default as CCodeVerification} from './src/CCodeVerification/CCodeVerification';
