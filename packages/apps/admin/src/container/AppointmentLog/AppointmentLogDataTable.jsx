@@ -126,6 +126,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: "140"
                                 },
                                 {
+                                    headerName: 'Doctor(Specialization)',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'doctorwithSpecializationRenderer',
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: "300"
+                                },
+                           
+                                {
                                     headerName: 'Reg. No',
                                     field: 'registrationNumber',
                                     resizable: true,
@@ -167,17 +178,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                                {
-                                    headerName: 'Doctor(Specialization)',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer',
-                                    autoSize: true,
-                                    autoWidth: true,
-                                    width: "300"
-                                },
-                           
+                                
                             ]}
                             frameworkComponents={{
                                 doctorwithSpecializationRenderer: DoctorWithSpecialization,

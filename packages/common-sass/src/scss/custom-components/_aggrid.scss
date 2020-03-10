@@ -5,6 +5,7 @@
 $font-family: $font-family-sans-serif;
 
 
+
 // changes the default icon color
 $icon-color: $cogent;
 
@@ -20,7 +21,7 @@ $header-background-color: $white;
 $header-foreground-color: lighten($body-color, 10%);
 $odd-row-background-color: $white;
 $selected-color: lighten($cogent, 40%);
-$font-weight: 500;
+$font-weight: 600;
 $cell-horizontal-padding: 6px;
 //  $row-height :40px;
 
@@ -73,6 +74,10 @@ body {
 
 .ag-header-container .header-first-class {
   padding-left: 30px;
+}
+
+.ag-theme-balham .ag-body-viewport {
+  overflow-y: scroll !important;
 }
 
 

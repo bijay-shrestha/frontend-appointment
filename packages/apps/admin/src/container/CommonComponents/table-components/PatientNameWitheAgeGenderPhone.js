@@ -4,8 +4,8 @@ const PatientWithAge = props => {
   return (
     <>
       <ul className="doctor-column">
-        <li>{props.node.data.patientName.toUpperCase()} ({props.node.data.age}/{props.node.data.gender})</li>
-        <li>{props.node.data.mobileNumber} </li>
+        <li>{props.node.data.patientName} ({props.node.data.age}/{props.node.data.gender})</li>
+        <li><i className="fa fa-phone"></i>&nbsp;{props.node.data.mobileNumber} </li>
       </ul>
     </>
   )

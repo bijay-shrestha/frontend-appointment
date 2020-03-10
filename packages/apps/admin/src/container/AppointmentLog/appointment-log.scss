@@ -33,7 +33,7 @@
     }
 
     .badge {
-        width         : auto;
+        width         : 30px;
         height        : auto;
         // top        :50%;
         // left       :50%;
@@ -43,6 +43,7 @@
         font-size     : 0.65rem;
         line-height   : 0.8rem;
         padding       : 6px 8px;
+        
         text-transform: uppercase;
         @include border-radius(4px);
     }
