@@ -4,10 +4,10 @@ import {
   CHybridInput,
   CButton
 } from '@frontend-appointment/ui-elements'
-import {Col, Row} from 'react-bootstrap'
+import {Col, Row,Container,Image} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const ForgotPassword = ({
-  codeVerificationData,
+  passwordForgotData,
   onChangeHandler,
   onSubmitFormHandler,
   isValid
@@ -16,11 +16,13 @@ const ForgotPassword = ({
     <>
       <div className="header-login new-password">
         <div className="inner-header flex">
+        
           <Container className="container-login">
             <Row>
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
+                  <h1>Forgot Password</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
@@ -34,9 +36,9 @@ const ForgotPassword = ({
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
-                      type="submit"
+                      type="button"
                       disabled={!isValid ? true : false}
-                      onClick={onSubmitFormHandler}
+                      onClickHandler={onSubmitFormHandler}
                       name="Forgot Password"
                     />
                   </CForm>

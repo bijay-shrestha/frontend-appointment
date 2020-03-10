@@ -4,6 +4,7 @@ import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import * as Material from 'react-icons/md';
 const {codeVerification} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
 class CodeVerification extends PureComponent {
@@ -19,8 +20,7 @@ class CodeVerification extends PureComponent {
   intervalAlertClear
 
   checkFormValid = (name, value) => {
-    const {username} = this.state
-    const isValidTrue = username.length
+    const isValidTrue = value.length
     this.setState({
       isValid: isValidTrue || false,
       [name]: value
@@ -44,10 +44,9 @@ class CodeVerification extends PureComponent {
 
   onSubmitFormHandler = async event => {
     try {
-      await this.props.codeVerification(
-        ForgotPasswordAndVerification.code,
-        {code:this.state.code}
-      )
+      await this.props.codeVerification(ForgotPasswordAndVerification.code, {
+        code: this.state.code
+      })
     } catch (e) {
       this.setState({
         alertMessageInfo: {
@@ -65,7 +64,7 @@ class CodeVerification extends PureComponent {
   }
 
   render () {
-    const {code, isValid} = this.state
+    const {code, isValid, alertMessageInfo,showAlert} = this.state
     return (
       <>
         <CCodeVerification

@@ -1,10 +1,10 @@
 import {Axios} from '@frontend-appointment/core'
 import {ForgotPasswordActions} from '@frontend-appointment/action-module'
 
-export const forgotPassword = (path, data) => async dispatch => {
-  dispatch(forgotPasswordActions.isForgotPasswordPending())
+export const forgotPassword = (path, query) => async dispatch => {
+  dispatch(ForgotPasswordActions.isForgotPasswordPending())
   try {
-    await Axios.postWithRequestParams(path, data)
+    await Axios.getWithRequestParams(path,query)
     dispatch(
       ForgotPasswordActions.isForgotPasswordSuccess(
         'Password Forgot Successfully'
@@ -12,6 +12,7 @@ export const forgotPassword = (path, data) => async dispatch => {
     )
   } catch (e) {
     dispatch(ForgotPasswordActions.isForgotPasswordError(e.errorMessage))
+    throw e;
   }
 }
 
@@ -26,5 +27,6 @@ export const codeVerification = (path, data) => async dispatch => {
     )
   } catch (e) {
     dispatch(ForgotPasswordActions.isVerificationCodeError(e.errorMessage))
+    throw e;
   }
 }

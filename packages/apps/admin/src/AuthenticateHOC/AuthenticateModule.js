@@ -6,9 +6,19 @@ import {routes} from '../routes';
 import LoginPage from '../container/Login';
 import {ComponentHoc, LoginHoc} from '@frontend-appointment/commons';
 import SetPassword from '../container/SavePassword/SavePassword';
-import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements';
+import {CFullPageLoading, CPageNotFound, CLoading} from '@frontend-appointment/ui-elements';
+import loadable from '@loadable/component'
 import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
 
+const ForgotPassword = loadable(
+    () => import('../container/ForgotPassword/ForgotPassword'),
+    {fallback: () => <CLoading/>}
+  )
+  
+  const VerifyToken = loadable(
+    () => import('../container/CodeVerification/CodeVerification'),
+    {fallback: () => <CLoading/>}
+  )
 const AuthenticateModule = () => {
     const getTokenFormLocalStorage = () => {
         let storage = LocalStorageSecurity.localStorageDecoder(EnvironmentVariableGetter.AUTH_TOKEN);
@@ -31,6 +41,16 @@ const AuthenticateModule = () => {
                     path="/"
                     exact
                     component={LoginHoc(props => <LoginPage {...props} id="login-form"/>, '/admin/dashboard')}
+                />
+                <Route
+                    path="/forgotPassword"
+                    exact
+                    component={ForgotPassword}
+                />
+                <Route
+                    path="/verifyToken"
+                    exact
+                    component={VerifyToken}
                 />
                 {routes.map((route, idx) => (
                     <Route

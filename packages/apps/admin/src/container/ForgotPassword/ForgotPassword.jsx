@@ -3,6 +3,7 @@ import {CForgotPassword} from '@frontend-appointment/ui-components'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
+import * as Material from 'react-icons/md';
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 const {forgotPassword} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
@@ -19,8 +20,7 @@ class ForgotPassword extends PureComponent {
   intervalAlertClear
 
   checkFormValid = (name, value) => {
-    const {username} = this.state
-    const isValidTrue = username.length
+    const isValidTrue = value.length
     this.setState({
       isValid: isValidTrue || false,
       [name]: value
@@ -42,12 +42,13 @@ class ForgotPassword extends PureComponent {
     this.intervalAlertClear = setTimeout(this.closeAlert, 4000)
   }
 
-  onSubmitFormHandler = async event => {
+  onSubmitFormHandler = async () => {
     try {
       await this.props.forgotPassword(
         ForgotPasswordAndVerification.FORGOT_PASSWORD,
         {username:this.state.username}
       )
+      this.props.history.push("/verifyToken");
     } catch (e) {
       this.setState({
         alertMessageInfo: {
@@ -65,7 +66,7 @@ class ForgotPassword extends PureComponent {
   }
 
   render () {
-    const {username, isValid} = this.state
+    const {username, isValid, alertMessageInfo, showAlert} = this.state
     return (
       <>
         <CForgotPassword
