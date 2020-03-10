@@ -38,13 +38,6 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     cellClass: 'first-class'
                                 },
                                 {
-                                    headerName: 'Hospital Name',
-                                    field: 'hospitalName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                },
-                                {
                                     headerName: 'Previous Appointment Date',
                                     field: 'previousAppointmentDate',
                                     resizable: true,

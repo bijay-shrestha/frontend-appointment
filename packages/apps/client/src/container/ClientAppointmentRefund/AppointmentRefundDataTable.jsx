@@ -1,6 +1,13 @@
 import React, {memo} from 'react'
-import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CConfirmationModal} from '@frontend-appointment/ui-components'
+import {
+    CDataTable,
+    CLoading,
+    CPagination
+} from '@frontend-appointment/ui-elements'
+import {
+    ConfirmDelete,
+    CConfirmationModal
+} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
@@ -23,7 +30,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandler,
         refundHandleApi,
         refundRejectError,
-        isRefundLoading,
         refundConfirmationModal,
         remarks
     } = tableHandler
@@ -74,7 +80,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 140,
                                 },
                                 {
-                                    headerName: 'App. DateTime',
+                                    headerName: 'App. Date(Time)',
                                     field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
@@ -83,7 +89,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 160,
                                 },
                                 {
-                                   headerName: 'Cancel Date',
+                                    headerName: 'Cancel Date',
                                     field: 'cancelledDate',
                                     resizable: true,
                                     sortable: true,
@@ -97,12 +103,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Patient Details',
+                                    headerName: 'Patient Name',
                                     cellRenderer: 'patientWithAgeRenderer',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 300,
+                                    sizeColumnsToFit: true
                                 },
                                 {
                                     headerName: 'Doctor',
