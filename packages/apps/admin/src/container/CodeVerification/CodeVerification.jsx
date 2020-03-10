@@ -4,9 +4,11 @@ import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 import * as Material from 'react-icons/md';
 const {codeVerification} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
+const {localStorageEncoder} = LocalStorageSecurity
 class CodeVerification extends PureComponent {
   state = {
     code: '',
@@ -47,6 +49,7 @@ class CodeVerification extends PureComponent {
       await this.props.codeVerification(ForgotPasswordAndVerification.CODE_VERIFICATION, {
         resetCode: this.state.code
       })
+      localStorageEncoder("verificationToken",this.state.code);
     } catch (e) {
       this.setState({
         alertMessageInfo: {

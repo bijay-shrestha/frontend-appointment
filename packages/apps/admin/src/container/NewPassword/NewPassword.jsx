@@ -13,6 +13,7 @@ const {changePasswordVerification} = ForgotPasswordMiddleware
 class NewPassword extends PureComponent {
   state = {
     password: '',
+    verificationToken: localStorageDecoder('verificationToken'),
     username: localStorageDecoder('forgotPasswordUsername') || '',
     isValid: false,
     alertMessageInfo: {
@@ -27,7 +28,9 @@ class NewPassword extends PureComponent {
     await this.setState({
       [name]: value
     })
-    const isValidTrue = this.state.username.length && this.state.password.length
+    const {username, password, verificationToken} = this.state
+    const isValidTrue =
+      username.length && password.length && verificationToken.length
     this.setState({
       isValid: isValidTrue || false
     })
@@ -49,11 +52,15 @@ class NewPassword extends PureComponent {
   }
 
   onSubmitFormHandler = async event => {
+    const {username, password, verificationToken} = this.state
     try {
       await this.props.changePassword(adminSetupAPIConstants.CHANGE_PASSWORD, {
-        code: this.state.code
+        username,
+        password,
+        verificationToken
       })
       localStorageRemover()
+      this.props.history.push('/login')
     } catch (e) {
       this.setState({
         alertMessageInfo: {

@@ -1,13 +1,12 @@
 import React, {memo} from 'react'
 import {
   CForm,
-  CHybridInput,
   CButton,
   CHybridPassword
 } from '@frontend-appointment/ui-elements'
-import {Col, Row,Container,Image} from 'react-bootstrap'
+import {Col, Row, Container, Image} from 'react-bootstrap'
 import logo from './images/400x400.png'
-const ForgotPassword = ({
+const CChangePasswordInForget = ({
   passwordChangeData,
   onChangeHandler,
   onSubmitFormHandler,
@@ -17,29 +16,28 @@ const ForgotPassword = ({
     <>
       <div className="header-login new-password">
         <div className="inner-header flex">
-        
           <Container className="container-login">
             <Row>
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                  <h1>Forgot Password</h1>
+                    <h1>Change Password</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
-                    <CHybridInput
-                      id="username"
-                      name="username"
-                      placeholder="Username"
+                    <CHybridPassword
+                      id="password"
+                      name="password"
+                      placeholder="Password"
                       onChange={onChangeHandler}
-                      value={passwordChangeData.username}
+                      value={passwordChangeData.password}
                     />
                     <CHybridPassword
-                       id="password"
-                       name="password"
-                       placeholder="Password"
-                       onChange={onChangeHandler}
-                       value={passwordChangeData.password}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      onChange={onChangeHandler}
+                      value={passwordChangeData.confirmPassword}
                     />
                     <CButton
                       variant="primary"
@@ -47,7 +45,7 @@ const ForgotPassword = ({
                       type="button"
                       disabled={!isValid ? true : false}
                       onClickHandler={onSubmitFormHandler}
-                      name="Forgot Password"
+                      name="Change Password"
                     />
                   </CForm>
                 </div>
@@ -55,7 +53,6 @@ const ForgotPassword = ({
             </Row>
           </Container>
         </div>
-
         <div>
           <svg
             className="waves"
@@ -103,4 +100,4 @@ const ForgotPassword = ({
   )
 }
 
-export default memo(ForgotPassword)
+export default memo(CChangePasswordInForget)

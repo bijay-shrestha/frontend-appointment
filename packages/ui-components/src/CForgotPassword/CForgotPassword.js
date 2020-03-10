@@ -29,7 +29,7 @@ const ForgotPassword = ({
                     <CHybridInput
                       id="username"
                       name="username"
-                      placeholder="Username"
+                      placeholder="Username/Email"
                       onChange={onChangeHandler}
                       value={passwordForgotData.username}
                     />
