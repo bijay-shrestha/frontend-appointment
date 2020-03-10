@@ -4,7 +4,7 @@ import {
   CButton,
   CHybridPassword
 } from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image} from 'react-bootstrap'
+import {Col, Row, Container, Image,Form} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const CChangePasswordInForget = ({
   passwordChangeData,
