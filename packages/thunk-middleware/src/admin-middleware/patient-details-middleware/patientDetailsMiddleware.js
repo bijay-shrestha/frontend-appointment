@@ -18,6 +18,23 @@ export const fetchPatientMetaDropdown = (path, id) => async dispatch => {
     }
 }
 
+export const fetchPatientMetaDropdownForClient = path => async dispatch => {
+    dispatch(PatientDetailsActions.patientActiveDropdownFetchingStart());
+    try {
+        const response = await Axios.get(path);
+        dispatch(
+            PatientDetailsActions.patientActiveDropdownFetchingSuccess(response.data)
+        );
+        return response.data
+    } catch (e) {
+        dispatch(
+            PatientDetailsActions.patientActiveDropdownFetchingError(
+                e.errorMessage || 'Sorry Internal Server Problem'
+            )
+        )
+    }
+};
+
 export const fetchPatientMetaDropdownWithoutHospitalId = path => async dispatch => {
     dispatch(PatientDetailsActions.patientActiveDropdownFetchingStartWithoutHospitalId())
     try {

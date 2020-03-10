@@ -133,13 +133,13 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
         patientSearchList.length &&
         patientSearchList.map((patient, index) => ({
           id: patient.id || 'N/A',
-          name: patient.name || 'N/A',
+          patientName: patient.name || 'N/A',
           address: patient.address || 'N/A',
           email: patient.email || 'N/A',
           registrationNumber: patient.registrationNumber || 'N/A',
           mobileNumber: patient.mobileNumber || 'N/A',
           esewaId: patient.esewaId || 'N/A',
-          age: patient.age || 'N/A',
+          age: patient.age.slice(0,4)|| 'N/A',
           status: patient.status || 'N/A',
           hospitalNumber: patient.hospitalNumber || 'N/A',
           hospitalName: patient.hospitalName || 'N/A',
