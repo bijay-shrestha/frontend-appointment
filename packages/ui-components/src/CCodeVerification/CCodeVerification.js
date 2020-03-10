@@ -1,12 +1,8 @@
 import React, {memo} from 'react'
-import {
-  CForm,
-  CHybridInput,
-  CButton
-} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import logo from './images/400x400.png'
-const ForgotPassword = ({
+const CCodeVerification = ({
   codeVerificationData,
   onChangeHandler,
   onSubmitFormHandler,
@@ -25,11 +21,11 @@ const ForgotPassword = ({
                   </div>
                   <CForm id="save-password" className="login-form">
                     <CHybridInput
-                      id="username"
-                      name="username"
-                      placeholder="Username"
+                      id="code"
+                      name="code"
+                      placeholder="Enter the verification token"
                       onChange={onChangeHandler}
-                      value={passwordForgotData.username}
+                      value={codeVerificationData.username}
                     />
                     <CButton
                       variant="primary"
@@ -93,4 +89,4 @@ const ForgotPassword = ({
   )
 }
 
-export default memo(ForgotPassword)
+export default memo(CCodeVerification)
