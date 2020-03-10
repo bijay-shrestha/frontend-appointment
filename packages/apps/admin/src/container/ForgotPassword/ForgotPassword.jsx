@@ -46,7 +46,7 @@ class ForgotPassword extends PureComponent {
     try {
       await this.props.forgotPassword(
         ForgotPasswordAndVerification.FORGOT_PASSWORD,
-        this.state.username
+        {username:this.state.username}
       )
     } catch (e) {
       this.setState({

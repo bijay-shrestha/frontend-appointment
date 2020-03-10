@@ -65,11 +65,11 @@ class CodeVerification extends PureComponent {
   }
 
   render () {
-    const {username, isValid} = this.state
+    const {code, isValid} = this.state
     return (
       <>
         <CCodeVerification
-          codeVerificationData={{username}}
+          codeVerificationData={{code}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
