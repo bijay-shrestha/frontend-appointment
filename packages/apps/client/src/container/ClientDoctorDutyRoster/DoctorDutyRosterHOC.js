@@ -422,7 +422,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     : (event.target.type === 'checkbox' ? (event.target.checked === true ? 'Y' : 'N')
                         : event.target.value);
                 let overrideRequestDTO = {...this.state.overrideRequestDTO};
-                if (key === 'dayOffStatus' && event.target.checked) {
+                if (key === 'dayOffStatus') {
                     this.setDefaultStartAndEndTimeAndDayOffStatus(event.target.checked, overrideRequestDTO);
                 } else {
                     overrideRequestDTO[key] = value;

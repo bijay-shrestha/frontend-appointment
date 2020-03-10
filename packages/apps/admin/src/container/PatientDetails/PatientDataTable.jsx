@@ -45,6 +45,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
               height="460px"
               enableSorting
               editType
+              rowHeight={50}
               columnDefs={[
                 {
                   headerName: 'SN',
@@ -57,27 +58,36 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Name',
+                  headerName: 'Patient Details',
                   field: 'name',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
+                  cellRenderer: 'PatientNameWitheAgeGenderPhone',
                   width:"260"
                 },
-                {
-                  headerName: 'Address',
-                  field: 'address',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Date of Birth',
-                  field: 'dateOfBirth',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Name',
+                //   field: 'name',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                //   width:"260"
+                // },
+                // {
+                //   headerName: 'Address',
+                //   field: 'address',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Date of Birth',
+                //   field: 'dateOfBirth',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 // {
                 //   headerName: 'Email',
                 //   field: 'email',
@@ -93,13 +103,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   width:140,
                 },
-                {
-                  headerName: 'Mobile No',
-                  field: 'mobileNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Mobile No',
+                //   field: 'mobileNumber',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
@@ -164,7 +174,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
               }
               frameworkComponents={{
                 childActionRenderer: TableAction,
-                tableStatusRenderer: TableStatus
+                tableStatusRenderer: TableStatus,
+                PatientNameWitheAgeGenderPhone:PatientNameWithAgeGenderPhone
               }}
               rowSelection={'single'}
               rowData={patientSearchList}

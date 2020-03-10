@@ -181,13 +181,12 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="patientCategory"
-                                            label="Patient Category"
+                                            label="Appointment Category"
                                             name="patientCategory"
                                             options={[
                                                 {value: 'Y', label: 'Self'},
                                                 {value: 'N', label: 'Others'}
                                             ]}
-                                            label="Select Patient Category."
                                             value={searchParameters.patientCategory}
                                             placeholder="Select Patient Category."
                                             onChange={handleSearchFormChange}

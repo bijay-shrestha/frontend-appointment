@@ -178,23 +178,24 @@
     }
 
     ul {
-        display:flex;
-        flex-direction:row;
+        // display:flex;
+        // flex-direction:row;
         width:100%;
-        flex-wrap:wrap;
-        justify-content: space-between;
+        // flex-wrap:wrap;
+        // justify-content: space-between;
         li{
         // display: inline-block;
-        // margin-right:16px;
-        margin-bottom:16px;
+        margin-right:10px;
+        margin-bottom:12px;
+        float:left;
      
   
 
         .btn{
-            // width:auto;
             width:120px;
-            // padding:12px 20px;
-            height: 36px;
+            // width:120px;
+            //  margin-right:10px;
+            height: 46px;
 
          
         }
@@ -273,11 +274,13 @@
     .fa{
         display:none;
         margin-right:4px;
+    
     }
     &.active{
        .fa{
            display:inline;
            margin-right:4px;
+           color:white;
            
        }
     }

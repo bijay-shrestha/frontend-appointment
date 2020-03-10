@@ -62,43 +62,36 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class'
                                 },
                                 {
-                                    headerName: 'Hospital Name',
-                                    field: 'hospitalName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Appointment Date',
+                                    headerName: 'Date',
                                     field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Appointment Time',
+                                    headerName: 'Time',
                                     field: 'appointmentTime',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Appointment Number',
+                                    headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
+                                // {
+                                //     headerName: 'Esewa Id',
+                                //     field: 'esewaId',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
                                 {
-                                    headerName: 'Esewa Id',
-                                    field: 'esewaId',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Registration Number',
+                                    headerName: 'Reg No',
                                     field: 'registrationNumber',
                                     resizable: true,
                                     sortable: true,
@@ -111,16 +104,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-
                                 {
-                                    headerName: 'Specialization',
-                                    field: 'specializationName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Mobile Number',
+                                    headerName: 'Mobile No',
                                     field: 'mobileNumber',
                                     resizable: true,
                                     sortable: true,
@@ -133,20 +118,20 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer'
                                 },
-                                {
-                                    headerName: 'Transaction Number',
-                                    field: 'transactionNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Amount',
-                                    field: 'refundAmount',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
+                                // {
+                                //     headerName: 'Transaction Number',
+                                //     field: 'transactionNumber',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
+                                // {
+                                //     headerName: 'Amount',
+                                //     field: 'refundAmount',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
                                 {
                                     headerName: '',
                                     action: 'action',
