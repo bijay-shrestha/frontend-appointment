@@ -10,7 +10,8 @@ const CChangePasswordInForget = ({
   passwordChangeData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  errorMessage
 }) => {
   return (
     <>
@@ -39,6 +40,14 @@ const CChangePasswordInForget = ({
                       onChange={onChangeHandler}
                       value={passwordChangeData.confirmPassword}
                     />
+                    {errorMessage ? (
+                      <Form.Control.Feedback
+                        type="invalid"
+                        className="err-message"
+                      >
+                        {errorMessage}
+                      </Form.Control.Feedback>
+                    ) : null}
                     <CButton
                       variant="primary"
                       className="btn-action float-right"

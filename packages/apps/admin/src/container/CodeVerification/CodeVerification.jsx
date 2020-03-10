@@ -50,6 +50,7 @@ class CodeVerification extends PureComponent {
         resetCode: this.state.code
       })
       localStorageEncoder("verificationToken",this.state.code);
+      this.props.history.push("/changePassword");
     } catch (e) {
       this.setState({
         alertMessageInfo: {
