@@ -88,6 +88,7 @@ class ProfileManage extends PureComponent {
         showAlert: false,
         previewData: {}
     };
+    timer = '';
 
     closeAlert = () => {
         this.props.clearSuccessErrorMessagesFromStore();
@@ -177,6 +178,10 @@ class ProfileManage extends PureComponent {
 
     componentDidMount() {
         this.initialApiCall();
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timer);
     }
 
     appendSNToTable = profileList =>
@@ -281,7 +286,7 @@ class ProfileManage extends PureComponent {
     };
 
     automaticLogoutUser = () => {
-        setTimeout(() => this.logoutUser(), 10000)
+        this.timer = setTimeout(() => this.logoutUser(), 10000)
     };
 
     checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
