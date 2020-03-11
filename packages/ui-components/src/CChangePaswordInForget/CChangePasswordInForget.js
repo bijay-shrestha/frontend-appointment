@@ -4,7 +4,7 @@ import {
   CButton,
   CHybridPassword
 } from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image,Form} from 'react-bootstrap'
+import {Col, Row, Container, Image, Form} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const CChangePasswordInForget = ({
   passwordChangeData,
@@ -41,21 +41,29 @@ const CChangePasswordInForget = ({
                       onChange={onChangeHandler}
                       value={passwordChangeData.confirmPassword}
                     />
-                  
-                      <Form.Control.Feedback
-                        type="invalid"
-                        className="err-message"
-                      >
-                        {errorMessage||''}
-                      </Form.Control.Feedback>
-            
+
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="err-message"
+                    >
+                      {errorMessage || ''}
+                    </Form.Control.Feedback>
+
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
                       type="button"
-                      disabled={!isValid||status.toLowerCase()==="pending" ? true : false}
+                      disabled={
+                        !isValid || status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
                       onClickHandler={onSubmitFormHandler}
-                      name={status && status.toLowerCase()==="pending"?"Changing Password...":"Change Password"}
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Changing Password...'
+                          : 'Change Password'
+                      }
                     />
                   </CForm>
                 </div>
