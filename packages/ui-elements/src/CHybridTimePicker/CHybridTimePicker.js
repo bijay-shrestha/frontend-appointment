@@ -1,4 +1,4 @@
-import React, {PureComponent,useRef} from 'react'
+import React, {PureComponent, useRef} from 'react'
 import {Form} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import './hybrid-time.scss'
@@ -81,6 +81,33 @@ class CHybridTimePicker extends PureComponent {
     this.timePickerRef.current.focus()
   }
 
+  makeOptionsThroughDuration = () => {
+    const {duration} = this.props
+    let timeDuration = duration || 60
+
+    let options = []
+    for (let time = 0; time <= 24; time++) {
+      let hours = time.toString()
+      let minutes = '00'
+      let durationInHours = (timeDuration / 60).toFixed(2)
+      let splittedHours = durationInHours.split('.')
+      hours = Number(hours) + Number(splittedHours[0])
+      minutes = Number(minutes) + Number(splittedHours[1])
+      hours =
+        hours.toString().length < 1 ? '0' + hours.toString() : hours.toString()
+      minutes =
+        minutes.toString().length < 1
+          ? '0' + minutes.toString()
+          : minutes.toString()
+      options.push(hours + ':' + minutes)
+    }
+    return options
+  }
+
+  componentDidMount () {
+    this.makeOptionsThroughDuration()
+  }
+
   render () {
     const {
       id,
@@ -107,7 +134,7 @@ class CHybridTimePicker extends PureComponent {
       onClick,
       placeholder,
       errorMsg
-    } =this.props
+    } = this.props
     return (
       <div
         className="field-wrapper hinput"
