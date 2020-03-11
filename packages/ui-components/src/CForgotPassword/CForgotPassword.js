@@ -22,6 +22,8 @@ const ForgotPassword = ({
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
+                  <p className="login-page-title">Forgot Password</p>
+                  <p className="forgot-password-content">Enter you email or username to reset your password.</p>
                     <CHybridInput
                       id="username"
                       name="username"

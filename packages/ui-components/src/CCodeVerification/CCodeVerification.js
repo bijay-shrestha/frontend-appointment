@@ -18,10 +18,11 @@ const CCodeVerification = ({
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                    <h1>Verify Token</h1>
+                  
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
+                  <p className="login-page-title">Password Reset Code</p>
                     <CHybridInput
                       id="code"
                       name="code"
