@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
-import {Col, Row} from 'react-bootstrap'
+import {Col, Row,Container,Image} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const CCodeVerification = ({
   codeVerificationData,
