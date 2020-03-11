@@ -7,7 +7,8 @@ const ForgotPassword = ({
   onChangeHandler,
   onSubmitFormHandler,
   isValid,
-  forClient
+  forClient,
+  status
 }) => {
   return (
     <>
@@ -35,6 +36,7 @@ const ForgotPassword = ({
                         name="hospitalCode"
                         placeholder="Hospital Code"
                         onChange={onChangeHandler}
+
                         value={passwordForgotData.hospitalCode}
                       />
                     ) : null}
@@ -42,9 +44,17 @@ const ForgotPassword = ({
                       variant="primary"
                       className="btn-action float-right"
                       type="button"
-                      disabled={!isValid ? true : false}
+                      disabled={
+                        !isValid || status && status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
                       onClickHandler={onSubmitFormHandler}
-                      name="Forgot Password"
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Proceeding...'
+                          : 'Proceed'
+                      }
                     />
                   </CForm>
                 </div>
