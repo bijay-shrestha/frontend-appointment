@@ -36,7 +36,7 @@ const AuthenticateModule = () => {
     let storage = LocalStorageSecurity.localStorageDecoder(
       EnvironmentVariableGetter.AUTH_TOKEN
     )
-    return storage
+    return storage;
   }
 
   const getUserMenusFromLocalStorage = () => {

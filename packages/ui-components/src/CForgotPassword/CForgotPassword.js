@@ -1,10 +1,6 @@
 import React, {memo} from 'react'
-import {
-  CForm,
-  CHybridInput,
-  CButton
-} from '@frontend-appointment/ui-elements'
-import {Col, Row,Container,Image} from 'react-bootstrap'
+import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
+import {Col, Row, Container, Image} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const ForgotPassword = ({
   passwordForgotData,
@@ -16,13 +12,12 @@ const ForgotPassword = ({
     <>
       <div className="header-login new-password">
         <div className="inner-header flex">
-        
           <Container className="container-login">
             <Row>
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                  <h1>Forgot Password</h1>
+                    <h1>Forgot Password</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
@@ -33,6 +28,15 @@ const ForgotPassword = ({
                       onChange={onChangeHandler}
                       value={passwordForgotData.username}
                     />
+                    {forClient ? (
+                      <CHybridInput
+                        id="hospitalCode"
+                        name="hospitalCode"
+                        placeholder="Hospital Code"
+                        onChange={onChangeHandler}
+                        value={passwordForgotData.hospitalCode}
+                      />
+                    ) : null}
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
