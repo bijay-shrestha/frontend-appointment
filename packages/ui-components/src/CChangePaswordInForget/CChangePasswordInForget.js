@@ -1,13 +1,17 @@
 import React, {memo} from 'react'
-import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image} from 'react-bootstrap'
+import {
+  CForm,
+  CButton,
+  CHybridPassword
+} from '@frontend-appointment/ui-elements'
+import {Col, Row, Container, Image, Form} from 'react-bootstrap'
 import logo from './images/400x400.png'
-const ForgotPassword = ({
-  passwordForgotData,
+const CChangePasswordInForget = ({
+  passwordChangeData,
   onChangeHandler,
   onSubmitFormHandler,
   isValid,
-  forClient,
+  errorMessage,
   status
 }) => {
   return (
@@ -19,27 +23,32 @@ const ForgotPassword = ({
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                    <h1>Forgot Password</h1>
+                    <h1>Change Password</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
-                    <CHybridInput
-                      id="username"
-                      name="username"
-                      placeholder="Username/Email"
+                    <CHybridPassword
+                      id="password"
+                      name="password"
+                      placeholder="Password"
                       onChange={onChangeHandler}
-                      value={passwordForgotData.username}
+                      value={passwordChangeData.password}
                     />
-                    {forClient ? (
-                      <CHybridInput
-                        id="hospitalCode"
-                        name="hospitalCode"
-                        placeholder="Hospital Code"
-                        onChange={onChangeHandler}
+                    <CHybridPassword
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      onChange={onChangeHandler}
+                      value={passwordChangeData.confirmPassword}
+                    />
 
-                        value={passwordForgotData.hospitalCode}
-                      />
-                    ) : null}
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className="err-message"
+                    >
+                      {errorMessage || ''}
+                    </Form.Control.Feedback>
+
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
@@ -52,8 +61,8 @@ const ForgotPassword = ({
                       onClickHandler={onSubmitFormHandler}
                       name={
                         status && status.toLowerCase() === 'pending'
-                          ? 'Proceeding...'
-                          : 'Proceed'
+                          ? 'Changing Password...'
+                          : 'Change Password'
                       }
                     />
                   </CForm>
@@ -62,7 +71,6 @@ const ForgotPassword = ({
             </Row>
           </Container>
         </div>
-
         <div>
           <svg
             className="waves"
@@ -110,4 +118,4 @@ const ForgotPassword = ({
   )
 }
 
-export default memo(ForgotPassword)
+export default memo(CChangePasswordInForget)

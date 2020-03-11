@@ -13,10 +13,12 @@ const CCodeVerification = ({
       <div className="header-login new-password">
         <div className="inner-header flex">
           <Container className="container-login">
+       
             <Row>
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
+                    <h1>Verify Token</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
@@ -25,15 +27,15 @@ const CCodeVerification = ({
                       name="code"
                       placeholder="Enter the verification token"
                       onChange={onChangeHandler}
-                      value={codeVerificationData.username}
+                      value={codeVerificationData.code}
                     />
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
-                      type="submit"
+                      type="button"
                       disabled={!isValid ? true : false}
-                      onClick={onSubmitFormHandler}
-                      name="Forgot Password"
+                      onClickHandler={onSubmitFormHandler}
+                      name="Verify Token"
                     />
                   </CForm>
                 </div>

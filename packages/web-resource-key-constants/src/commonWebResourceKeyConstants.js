@@ -9,5 +9,6 @@ export const WeekdaysApiConstants = {
 const PASSWORD_BASE='/password'
 export const ForgotPasswordAndVerification = {
     FORGOT_PASSWORD:BASE.concat(PASSWORD_BASE.concat('/forgot')),
-    CODE_VERIFICATION:BASE.concat(PASSWORD_BASE.concat('/verify'))
+    CODE_VERIFICATION:BASE.concat(PASSWORD_BASE.concat('/verify')),
+    FORGOT_CHANGE_PASSWORD:BASE.concat(PASSWORD_BASE)
 }
