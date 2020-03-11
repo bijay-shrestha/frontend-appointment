@@ -1,5 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
+import loader from '@loadable/component'
 import {
     DoctorMiddleware,
     QualificationSetupMiddleware,

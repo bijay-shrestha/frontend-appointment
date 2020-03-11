@@ -38,6 +38,7 @@ import {
 import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware'
 import * as AppointmentDetailsMiddleware from './src/admin-middleware/appointment-details-middleware/appointmentDetailsMiddleware'
 import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboardMiddleware'
+import * as ForgotPasswordMiddleware from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware'
 export {
   AppointmentDetailsMiddleware,
   changePassword,
@@ -74,5 +75,6 @@ export {
   QualificationSetupMiddleware,
   verifyToken,
   WeekdaysMiddleware,
-  PatientDetailsMiddleware
+  PatientDetailsMiddleware,
+  ForgotPasswordMiddleware
 }
