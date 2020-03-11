@@ -11,7 +11,8 @@ const CChangePasswordInForget = ({
   onChangeHandler,
   onSubmitFormHandler,
   isValid,
-  errorMessage
+  errorMessage,
+  status
 }) => {
   return (
     <>
@@ -40,21 +41,21 @@ const CChangePasswordInForget = ({
                       onChange={onChangeHandler}
                       value={passwordChangeData.confirmPassword}
                     />
-                    {errorMessage ? (
+                  
                       <Form.Control.Feedback
                         type="invalid"
                         className="err-message"
                       >
-                        {errorMessage}
+                        {errorMessage||''}
                       </Form.Control.Feedback>
-                    ) : null}
+            
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
                       type="button"
-                      disabled={!isValid ? true : false}
+                      disabled={!isValid||status.toLowerCase()==="pending" ? true : false}
                       onClickHandler={onSubmitFormHandler}
-                      name="Change Password"
+                      name={status && status.toLowerCase()==="pending"?"Changing Password...":"Change Password"}
                     />
                   </CForm>
                 </div>

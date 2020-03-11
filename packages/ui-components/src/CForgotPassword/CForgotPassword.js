@@ -6,7 +6,8 @@ const ForgotPassword = ({
   passwordForgotData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  forClient
 }) => {
   return (
     <>

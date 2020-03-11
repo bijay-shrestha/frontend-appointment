@@ -70,6 +70,7 @@ class ForgotPassword extends PureComponent {
 
   render () {
     const {username, isValid, alertMessageInfo, showAlert} = this.state
+    const {status} =this.props.ForgotPasswordReducer
     return (
       <>
         <CForgotPassword
@@ -77,6 +78,7 @@ class ForgotPassword extends PureComponent {
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
+          status={status}
         />
         <CAlert
           id="profile-manage"

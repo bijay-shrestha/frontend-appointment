@@ -16,6 +16,7 @@ class NewPassword extends PureComponent {
     confirmPassword:'',
     verificationToken: localStorageDecoder('verificationToken'),
     username: localStorageDecoder('forgotPasswordUsername') || '',
+    hospitalCode:localStorageDecoder('hospitalCode')||'',
     isValid: false,
     alertMessageInfo: {
       variant: '',
@@ -30,13 +31,13 @@ class NewPassword extends PureComponent {
     await this.setState({
       [name]: value
     })
-    const {username, password, verificationToken,confirmPassword} = this.state
+    const {username, password, verificationToken,confirmPassword,hospitalCode} = this.state
     const isValidTrue =
-      username.length && password.length && verificationToken.length && confirmPassword.length
+      username.length && password.length && verificationToken.length && confirmPassword.length && hospitalCode.length
     let errorMessage= '';
-    if(password===confirmPassword)
+    if(password!==confirmPassword)
       errorMessage='Password Donot Match'
-      this.setState({
+      await this.setState({
       isValid: isValidTrue || false,
       errorMessage:errorMessage
     })
@@ -58,12 +59,13 @@ class NewPassword extends PureComponent {
   }
 
   onSubmitFormHandler = async event => {
-    const {username, password, verificationToken} = this.state
+    const {username, password, verificationToken,hospitalCode} = this.state
     try {
       await this.props.changePasswordVerification(ForgotPasswordAndVerification.FORGOT_CHANGE_PASSWORD, {
         username,
         password,
-        verificationToken
+        verificationToken,
+        hospitalCode
       })
       localStorageRemover()
       this.props.history.push('/')
@@ -87,6 +89,7 @@ class NewPassword extends PureComponent {
     const {
       password,
       username,
+      confirmPassword,
       isValid,
       alertMessageInfo,
       showAlert,
@@ -95,7 +98,7 @@ class NewPassword extends PureComponent {
     return (
       <>
         <CChangePasswordInForget
-          passwordChangeData={{password, username}}
+          passwordChangeData={{password, username,confirmPassword}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}

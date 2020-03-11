@@ -8,7 +8,8 @@ import {ComponentHoc} from '@frontend-appointment/commons'
 import SetPassword from '../container/ClientSavePassword/SavePassword'
 import {
   CFullPageLoading,
-  CPageNotFound
+  CPageNotFound,
+  CLoading
 } from '@frontend-appointment/ui-elements'
 import {
   EnvironmentVariableGetter,

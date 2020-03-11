@@ -34,7 +34,7 @@ class NewPassword extends PureComponent {
     const isValidTrue =
       username.length && password.length && verificationToken.length && confirmPassword.length
     let errorMessage= '';
-    if(password===confirmPassword)
+    if(password!==confirmPassword)
       errorMessage='Password Donot Match'
       this.setState({
       isValid: isValidTrue || false,
@@ -87,6 +87,7 @@ class NewPassword extends PureComponent {
     const {
       password,
       username,
+      confirmPassword,
       isValid,
       alertMessageInfo,
       showAlert,
@@ -95,7 +96,7 @@ class NewPassword extends PureComponent {
     return (
       <>
         <CChangePasswordInForget
-          passwordChangeData={{password, username}}
+          passwordChangeData={{password, username,confirmPassword}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
