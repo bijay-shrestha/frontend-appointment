@@ -1,14 +1,16 @@
 import React, {memo} from 'react'
-import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image} from 'react-bootstrap'
+import {
+  CForm,
+  CHybridInput,
+  CButton
+} from '@frontend-appointment/ui-elements'
+import {Col, Row,Container,Image} from 'react-bootstrap'
 import logo from './images/400x400.png'
 const ForgotPassword = ({
   passwordForgotData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid,
-  forClient,
-  status
+  isValid
 }) => {
   return (
     <>
@@ -19,42 +21,23 @@ const ForgotPassword = ({
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                    <h1>Forgot Password</h1>
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
                     <CHybridInput
                       id="username"
                       name="username"
-                      placeholder="Username/Email"
+                      placeholder="Username"
                       onChange={onChangeHandler}
                       value={passwordForgotData.username}
                     />
-                    {forClient ? (
-                      <CHybridInput
-                        id="hospitalCode"
-                        name="hospitalCode"
-                        placeholder="Hospital Code"
-                        onChange={onChangeHandler}
-
-                        value={passwordForgotData.hospitalCode}
-                      />
-                    ) : null}
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
-                      type="button"
-                      disabled={
-                        !isValid || status && status.toLowerCase() === 'pending'
-                          ? true
-                          : false
-                      }
-                      onClickHandler={onSubmitFormHandler}
-                      name={
-                        status && status.toLowerCase() === 'pending'
-                          ? 'Proceeding...'
-                          : 'Proceed'
-                      }
+                      type="submit"
+                      disabled={!isValid ? true : false}
+                      onClick={onSubmitFormHandler}
+                      name="Forgot Password"
                     />
                   </CForm>
                 </div>
