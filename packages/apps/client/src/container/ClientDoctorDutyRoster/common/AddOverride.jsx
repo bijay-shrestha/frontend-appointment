@@ -31,6 +31,7 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
+                            invalid={!!overrideData.dateErrorMessage}
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => handleOverrideFormInputChange(date, "fromDate")}
                         />
@@ -47,6 +48,7 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
+                            invalid={!!overrideData.dateErrorMessage}
                             onKeyDown={(event) => onEnterKeyPress(event)}
                             onChange={(date) => handleOverrideFormInputChange(date, "toDate")}
                         />
@@ -169,7 +171,7 @@ const AddOverrideModal = ({
     </>;
 
     return <>
-    
+
         <CModal show={showAddOverrideModal}
                 modalHeading={isModifyOverride ? "Modify Override" : "Add Override"}
                 size="md"

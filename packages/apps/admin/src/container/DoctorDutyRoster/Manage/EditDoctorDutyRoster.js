@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {CHybridInput, CHybridTextArea} from "@frontend-appointment/ui-elements";
+import {CHybridInput, CHybridSelect, CHybridTextArea} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
 import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
@@ -29,6 +29,11 @@ const EditDoctorDutyRoster = ({
                                   onRemoveOverride,
                                   deleteOverride,
                                   deleteOverrideErrorMessage,
+                                  hospitalList,
+                                  specializationList,
+                                  doctorList,
+                                  dateErrorMessage,
+                                  specializationDropdownError
                               }) => {
     return <>
         <Container className="p-0" fluid>
@@ -50,9 +55,9 @@ const EditDoctorDutyRoster = ({
                                     showMonthDropdown={true}
                                     showYearDropdown={true}
                                     dropdownMode="select"
-                                    disabled={true}
-                                    onChange={() => {
-                                    }}
+                                    invalid={!!dateErrorMessage}
+                                    disabled={!updateDoctorDutyRosterData.isCloneAndAdd}
+                                    onChange={(date) => onInputChange(date, "fromDate")}
                                 />
                                 &nbsp;&nbsp;
                                 <CEnglishDatePicker
@@ -67,37 +72,54 @@ const EditDoctorDutyRoster = ({
                                     showMonthDropdown={true}
                                     showYearDropdown={true}
                                     dropdownMode="select"
-                                    disabled={true}
-                                    onChange={() => {
-                                    }}
+                                    invalid={!!dateErrorMessage}
+                                    disabled={!updateDoctorDutyRosterData.isCloneAndAdd}
+                                    onChange={(date) => onInputChange(date, "toDate")}
                                 />
                             </div>
+                            <div>
+                                {dateErrorMessage ?
+                                    <p className="date-error">
+                                        {dateErrorMessage}</p> : ''}
+                            </div>
 
-                            <CHybridInput
+                            <CHybridSelect
                                 id="hospital"
                                 label="Hospital"
                                 name="hospital"
-                                placeholder="Hospital"
-                                value={updateDoctorDutyRosterData.hospital && updateDoctorDutyRosterData.hospital.label}
-                                disabled={true}
+                                options={hospitalList}
+                                placeholder="Select hospital."
+                                isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event, '')}
+                                value={updateDoctorDutyRosterData.hospital}
                             />
 
-                            <CHybridInput
+                            <CHybridSelect
                                 id="specialization"
                                 label="Specialization"
                                 name="specialization"
-                                placeholder="Specialization"
-                                value={updateDoctorDutyRosterData.specialization && updateDoctorDutyRosterData.specialization.label}
-                                disabled={true}
+                                isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.hospital}
+                                options={specializationList}
+                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Hospital First" : "Select specialization."}
+                                noOptionsMessage={() => specializationDropdownError}
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event, '')}
+                                value={updateDoctorDutyRosterData.specialization}
                             />
-                            <CHybridInput
+                            <CHybridSelect
                                 id="doctor"
                                 label="Doctor"
                                 name="doctor"
-                                placeholder="Doctor"
-                                value={updateDoctorDutyRosterData.doctor && updateDoctorDutyRosterData.doctor.label}
-                                disabled={true}
+                                isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.specialization}
+                                placeholder={!updateDoctorDutyRosterData.specialization ? "Select Specialization first" : "Select doctor."}
+                                options={doctorList}
+                                // noOptionsMessage={() => doctorDropdownErrorMessage}
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event, '')}
+                                value={updateDoctorDutyRosterData.doctor}
                             />
+
                             <CHybridInput
                                 id="duration"
                                 label="Duration"
@@ -109,13 +131,18 @@ const EditDoctorDutyRoster = ({
                                 onChange={(event) => onInputChange(event)}
                             />
 
-                            <CHybridTextArea
-                                onChange={onInputChange}
-                                id="remarks"
-                                name="remarks"
-                                placeholder="Remarks"
-                                value={updateDoctorDutyRosterData.remarks}
-                            />
+                            {
+                                updateDoctorDutyRosterData.isCloneAndAdd ?
+                                    '' :
+                                    <CHybridTextArea
+                                        onChange={onInputChange}
+                                        id="remarks"
+                                        name="remarks"
+                                        placeholder="Remarks"
+                                        value={updateDoctorDutyRosterData.remarks}
+                                    />
+                            }
+
                         </Form>
                     </div>
                 </Col>
