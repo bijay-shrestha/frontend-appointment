@@ -18,7 +18,6 @@ class CDataTable extends PureComponent {
     }
 
     onGridReady = params => {
-        // console.log(params);
         this.setState({
             gridApi: params
         });
@@ -59,7 +58,7 @@ class CDataTable extends PureComponent {
         }
     };
 
-    
+
 
     getRowHeight = params => {
         return params.node.rowHeight;
