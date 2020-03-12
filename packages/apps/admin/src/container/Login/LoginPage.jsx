@@ -22,7 +22,9 @@ class LoginPage extends React.PureComponent {
       return err;
     }
   };
-
+  componentDidMount(){
+    document.title="Cogent-Appointment-Admin"
+  }
   render() {
     return <Login {...this.props} onSubmitHandler={this.onSubmitHandler}/>;
   }
