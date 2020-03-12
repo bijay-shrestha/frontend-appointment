@@ -19,13 +19,14 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                 !searchErrorMessage &&
                 rescheduleLogList.length ? (
                     <>
-                        <CDataTable
+                           <CDataTable
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
                             height="460px"
                             enableSorting
                             editType
+                            rowHeight="50"
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -35,21 +36,30 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
-                                    cellClass: 'first-class'
+                                    cellClass: 'first-class',
+                                    width:'140'
                                 },
+                                // {
+                                //     headerName: 'Hospital Name',
+                                //     field: 'hospitalName',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                // },
                                 {
-                                    headerName: 'Previous Appointment Date',
+                                    headerName: 'App. Date',
                                     field: 'previousAppointmentDate',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Reschedule Appointment Date',
+                                    headerName: 'Reschedule Date',
                                     field: 'rescheduleAppointmentDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                  
                                 },
                                 // {
                                 //     headerName: 'Appointment Time',
@@ -59,7 +69,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 //     sizeColumnsToFit: true
                                 // },
                                 {
-                                    headerName: 'Appointment Number',
+                                    headerName: 'App. No.',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
                                     resizable: true,
@@ -67,7 +77,15 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Registration Number',
+                                    headerName: 'Patient Info',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'patientRenderer',
+                                    width:"260",
+                                },
+                                {
+                                    headerName: 'Reg. No.',
                                     field: 'registrationNumber',
                                     resizable: true,
                                     sortable: true,
@@ -80,41 +98,36 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                                {
-                                    headerName: 'Patient Info',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'patientRenderer'
-                                },
+                            
                                 {
                                     headerName: 'Doctor(Specialization)',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorWithSpecializationRenderer'
+                                    cellRenderer: 'doctorWithSpecializationRenderer',
+                                    width:"260",
                                 },
-                                {
-                                    headerName: 'Transaction Number',
-                                    field: 'transactionNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Appointment Amount',
-                                    field: 'appointmentAmount',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Remarks',
-                                    field: 'remarks',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                }
+                                // {
+                                //     headerName: 'Transaction Number',
+                                //     field: 'transactionNumber',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
+                                // {
+                                //     headerName: 'Appointment Amount',
+                                //     field: 'appointmentAmount',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
+                                // {
+                                //     headerName: 'Remarks',
+                                //     field: 'remarks',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // }
                             ]}
                             frameworkComponents={{
                                 doctorWithSpecializationRenderer: DoctorWithSpecialization,

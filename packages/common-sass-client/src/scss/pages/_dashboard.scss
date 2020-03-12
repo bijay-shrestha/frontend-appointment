@@ -203,9 +203,14 @@
         justify-content: space-between;
         @include border-radius(0.5rem);
         text-align: center;
+            // box-shadow:   -10px -10px 10px  $gray-200,
+            // 10px 10px 10px $gray-400; 
+       
 
         &:first-child{
             background-color:$cogent;
+            box-shadow:   -10px -10px 8px  #fff,
+            10px 10px 10px $gray-400; 
             p{
                 color:$white;
 
@@ -309,6 +314,8 @@
         padding:20px 40px;
         width:100%;
         @include border-radius(0.5rem);
+        // box-shadow:   -10px -10px 10px $gray-200,
+        // 10px 10px 10px $gray-400; 
         img{
             width:100%;
             height: auto;
@@ -326,6 +333,8 @@
         background-color:$white;
         padding:20px 40px;
         width:100%;
+        // box-shadow:   -10px -10px 10px $gray-200,
+        // 10px 10px 10px $gray-400; 
         @include border-radius(0.5rem);
     }
 
@@ -336,6 +345,8 @@
         margin:0px 0 15px;
         @include border-radius(0.5rem);
         text-align: center;
+        // box-shadow:   -10px -10px 10px $gray-200,
+        // 10px 10px 10px $gray-400; 
 
         img{
             width:30px;
@@ -364,6 +375,8 @@
         padding:30px;
         margin:0px 0 15px;
         text-align: center;
+        // box-shadow:   -10px -10px 10px $gray-200,
+        // 10px 10px 10px $gray-400; 
         @include border-radius(0.5rem);
 
 

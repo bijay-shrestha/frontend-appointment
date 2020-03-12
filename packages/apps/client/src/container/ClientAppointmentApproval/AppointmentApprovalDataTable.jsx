@@ -11,6 +11,8 @@ import PreviewDetails from './AppointmentApprovalPreview';
 import {CConfirmationModal} from "@frontend-appointment/ui-components";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import RejectModal from "./RejectModal";
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'; 
+import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'; 
 
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -43,13 +45,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                 !searchErrorMessage &&
                 appointmentApprovalList.length ? (
                     <>
-                        <CDataTable
+                          <CDataTable
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
                             height="460px"
                             enableSorting
                             editType
+                            rowHeight="50"
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -59,21 +62,34 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     editable: true,
                                     sizeColumnsToFit: true,
-                                    cellClass: 'first-class'
+                                    cellClass: 'first-class',
+                                    width: 100
                                 },
+                                // {
+                                //     headerName: 'Date & Time',
+                                //     field: 'name',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     cellRenderer: 'AppointmentDateWithTime',
+                                //     width:"260"
+                                //   },
+                           
                                 {
                                     headerName: 'Date',
                                     field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: 140
                                 },
                                 {
                                     headerName: 'Time',
                                     field: 'appointmentTime',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: 100
                                 },
                                 {
                                     headerName: 'App. No',
@@ -81,57 +97,49 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: 120
                                 },
                                 // {
-                                //     headerName: 'Esewa Id',
-                                //     field: 'esewaId',
+                                //   headerName: 'Esewa Id',
+                                //   field: 'esewaId',
+                                //   resizable: true,
+                                //   sortable: true,
+                                //   sizeColumnsToFit: true
+                                // },
+                                {
+                                    headerName: 'Reg  No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                // {
+                                //     headerName: 'Patient Name',
+                                //     field: 'patientName',
                                 //     resizable: true,
                                 //     sortable: true,
                                 //     sizeColumnsToFit: true
                                 // },
+
                                 {
-                                    headerName: 'Reg No',
-                                    field: 'registrationNumber',
+                                    headerName: 'Patient Detail ',
+                                    field: 'patientDetails',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: 140,
+                                    cellRenderer: 'PatientNameWithMobileNumber'
                                 },
                                 {
-                                    headerName: 'Patient Name',
-                                    field: 'patientName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Mobile No',
-                                    field: 'mobileNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: 'Doctor Detail',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer'
                                 },
-                                // {
-                                //     headerName: 'Transaction Number',
-                                //     field: 'transactionNumber',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
-                                // {
-                                //     headerName: 'Amount',
-                                //     field: 'refundAmount',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
+                           
                                 {
                                     headerName: '',
                                     action: 'action',
@@ -140,6 +148,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
+                                    width: "100",
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             type === 'D'
@@ -155,7 +164,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                doctorwithSpecializationRenderer: DoctorWithSpecialization
+                                doctorwithSpecializationRenderer: DoctorWithSpecialization,
+                                AppointmentDateWithTime: AppointmentDateWithTime,
+                                PatientNameWithMobileNumber:PatientNameWithMobileNumber
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

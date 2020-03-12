@@ -5,6 +5,7 @@
 $font-family: $font-family-sans-serif;
 
 
+
 // changes the default icon color
 $icon-color: $cogent;
 
@@ -73,6 +74,10 @@ body {
 
 .ag-header-container .header-first-class {
   padding-left: 30px;
+}
+
+.ag-theme-balham .ag-body-viewport {
+  overflow-y: scroll !important;
 }
 
 
