@@ -73,9 +73,10 @@ import {
     SpecializationSearchReducer,
     PatientDropdownWithoutHospitalListReducer,
     UniversitiesForDropdownReducer,
-    WeekdaysReducer
+    WeekdaysReducer,
+    ForgotPasswordVerification
 } from '../reducers'
-
+const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
 export const rootReducers = combineReducers({
     AdminDeleteReducer,
     AdminEditReducer,
@@ -91,6 +92,7 @@ export const rootReducers = combineReducers({
     AppointmentApproveReducer,
     AppointmentRejectReducer,
     CountryCodeDropdownReducer,
+    ChangePasswordForgotReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedDayReducer,
@@ -115,6 +117,7 @@ export const rootReducers = combineReducers({
     DoctorPreviewReducer,
     DoctorSaveReducer,
     DoctorSearchReducer,
+    ForgotPasswordReducer,
     HospitalDeleteReducer,
     HospitalDropdownReducer,
     HospitalEditReducer,
@@ -150,5 +153,6 @@ export const rootReducers = combineReducers({
     SpecializationSearchReducer,
     UniversitiesForDropdownReducer,
     PatientDropdownWithoutHospitalListReducer,
+    VerificationCodeReducer,
     WeekdaysReducer
 });

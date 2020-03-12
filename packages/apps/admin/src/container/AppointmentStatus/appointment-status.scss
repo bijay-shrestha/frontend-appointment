@@ -274,11 +274,13 @@
     .fa{
         display:none;
         margin-right:4px;
+    
     }
     &.active{
        .fa{
            display:inline;
            margin-right:4px;
+           color:white;
            
        }
     }

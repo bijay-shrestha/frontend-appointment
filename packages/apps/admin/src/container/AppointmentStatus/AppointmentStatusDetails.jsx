@@ -114,7 +114,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                                 : 'info'}
                                                                     size="lg block"
                                                                     className="time-button">
-                                                                        <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
+                                                                        <i className="fa fa-check-circle"></i>&nbsp;{timeSlot.appointmentTime}
 
                                                                 </Button>
                                                             </OverlayTrigger> :
@@ -192,6 +192,17 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 {appointmentStatusDetail.patientDetails.address}
                                             </div>
                                         </div>
+
+                                    
+                                        <CButton
+                                                name=""
+                                                variant="outline-primary"
+                                                size="sm" block
+                                                // className="btn-checkin"
+                                            >
+                                                <i className="fa fa-eye"/> &nbsp;View Details
+                                            </CButton>
+                                    
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
                                             <CButton
                                                 name=""
