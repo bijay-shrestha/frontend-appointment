@@ -6,7 +6,10 @@ const {
     FORGOT_PASSWORD_SUCCESS,
     PASSWORD_VERIFICATION_ERROR,
     PASSWORD_VERIFICATION_PENDING,
-    PASSWORD_VERIFICATION_SUCCESS
+    PASSWORD_VERIFICATION_SUCCESS,
+    CHANGE_PASSWORD_ERROR,
+    CHANGE_PASSWORD_PENDING,
+    CHANGE_PASSWORD_SUCCESS
 }=forgotPasswordAndVerificationConstants;
 
 let initialForgotPasswordAndVerification= {
@@ -58,3 +61,26 @@ export const VerificationCodeReducer = (state={...initialForgotPasswordAndVerifi
         default: return state;
     }
  }
+
+ export const ChangePasswordForgotReducer = (state={...initialForgotPasswordAndVerification},action) => {
+  switch(action.type){
+      case CHANGE_PASSWORD_PENDING: return {
+        ...state,
+        status:'PENDING'
+      }
+
+      case CHANGE_PASSWORD_SUCCESS: return {
+        ...state,
+        message:action.payload.data,
+        status:'SUCCESS'
+      }
+
+      case CHANGE_PASSWORD_ERROR : return{
+        ...state,
+        message:action.payload.data,
+        status:'ERROR'
+      }
+
+      default: return state;
+  }
+}

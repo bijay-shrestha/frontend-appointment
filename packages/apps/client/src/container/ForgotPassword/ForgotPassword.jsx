@@ -1,17 +1,18 @@
 import React, {PureComponent} from 'react'
 import {CForgotPassword} from '@frontend-appointment/ui-components'
-import {CAlert} from '@frontend-appointment/ui-elements'
+import {CAlert, CHybridInput} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
-import * as Material from 'react-icons/md';
+import * as Material from 'react-icons/md'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 const {forgotPassword} = ForgotPasswordMiddleware
 const {ForgotPasswordAndVerification} = CommonAPIConstants
-const {localStorageEncoder}=LocalStorageSecurity
+const {localStorageEncoder} = LocalStorageSecurity
 class ForgotPassword extends PureComponent {
   state = {
     username: '',
+    hospitalCode: '',
     isValid: false,
     alertMessageInfo: {
       variant: '',
@@ -46,12 +47,13 @@ class ForgotPassword extends PureComponent {
 
   onSubmitFormHandler = async () => {
     try {
-      localStorageEncoder('forgotPasswordUsername',this.state.username)
       await this.props.forgotPassword(
         ForgotPasswordAndVerification.FORGOT_PASSWORD,
-        {username:this.state.username}
+        {username: this.state.username, hospitalCode: this.state.hospitalCode}
       )
-      this.props.history.push("/verifyToken");
+      localStorageEncoder('forgotPasswordUsername', this.state.username)
+      localStorageEncoder('hospitalCode', this.state.hospitalCode)
+      this.props.history.push('/verifyToken')
     } catch (e) {
       this.setState({
         alertMessageInfo: {
@@ -69,15 +71,22 @@ class ForgotPassword extends PureComponent {
   }
 
   render () {
-    const {username, isValid, alertMessageInfo, showAlert} = this.state
+    const {
+      username,
+      isValid,
+      alertMessageInfo,
+      showAlert,
+      hospitalCode
+    } = this.state
     const {status} =this.props.ForgotPasswordReducer
     return (
       <>
         <CForgotPassword
-          passwordForgotData={{username}}
+          passwordForgotData={{username, hospitalCode}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
+          forClient={true}
           status={status}
         />
         <CAlert

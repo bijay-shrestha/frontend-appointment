@@ -137,13 +137,17 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 overridesUpdate: [],
                 originalOverrides: [],
                 updatedOverrides: [],
-                formValid: false
+                formValid: false,
+                isCloneAndAdd: false,
+                weekDaysDataOriginal: []
             },
             overrideUpdateErrorMessage: '',
             deleteOverrideErrorMessage: '',
             dateErrorMessage: '',
             hospitalId: ''
         };
+
+        alertTimer = '';
 
         resetAddForm = async (onSuccessData) => {
             const weekDays = await this.getWeekDaysDataForForm();
@@ -238,7 +242,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         }
 
         componentWillUnmount() {
-            clearTimeout(this.clearAlertTimeout);
+            clearTimeout(this.alertTimer);
         }
 
         fetchHospitalsForDropdown = async () => {
@@ -449,13 +453,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let currentOverride = {...this.state.overrideRequestDTO};
             switch (type) {
                 case 'ADD':
-                    if (isModifyOverride) {
-                        // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
-                        overrideList[currentOverride.id] = currentOverride;
-                    } else {
-                        // ELSE SIMPLY ADD
-                        overrideList.push(currentOverride);
-                    }
+                    this.addOrModifyOverride(isModifyOverride, overrideList, currentOverride);
                     await this.setState({
                         doctorDutyRosterOverrideRequestDTOS: [...overrideList],
                         overrideRequestDTO: {
@@ -490,43 +488,28 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             startTime: currentOverride.startTime,
                             status: 'Y',
                         };
-                        try {
-                            let response = await this.updateOverride(dataToSave);
-                            if (isModifyOverride) {
-                                overrideList[currentOverride.id] = currentOverride;
-                            } else {
-                                currentOverride.doctorDutyRosterOverrideId = response.savedOverrideId;
-                                currentOverride.isNew = true;
-                                overrideList.push(currentOverride);
-                            }
-                            updatedOverrides.push(currentOverride);
-                            this.setState({
-                                updateDoctorDutyRosterData: {
-                                    ...this.state.updateDoctorDutyRosterData,
-                                    overridesUpdate: [...overrideList],
-                                    updatedOverrides: [...updatedOverrides]
-                                },
-                                overrideRequestDTO: {
-                                    ...this.state.overrideRequestDTO,
-                                    fromDate: new Date(),
-                                    toDate: new Date(),
-                                    startTime: '',
-                                    endTime: '',
-                                    dayOffStatus: 'N',
-                                    remarks: '',
-                                    id: '',
-                                    dateErrorMessage: '',
-                                    timeErrorMessage: ''
-                                },
-                                isModifyOverride: false,
-                                showAddOverrideModal: isAddAnother,
-                                overrideUpdateErrorMessage: ''
-                            });
+                        if (this.state.updateDoctorDutyRosterData.isCloneAndAdd) {
+                            this.addOrModifyOverride(isModifyOverride, overrideList, currentOverride);
+                            await this.updateStateDataAfterAddingOrEditingOverride(overrideList, updatedOverrides, isAddAnother);
                             this.checkManageFormValidity();
-                        } catch (e) {
-                            await this.setState({
-                                overrideUpdateErrorMessage: e.errorMessage ? e.errorMessage : 'Error Occurred while adding/modifying override.'
-                            })
+                        } else {
+                            try {
+                                let response = await this.updateOverride(dataToSave);
+                                if (isModifyOverride) {
+                                    overrideList[currentOverride.id] = currentOverride;
+                                } else {
+                                    currentOverride.doctorDutyRosterOverrideId = response.savedOverrideId;
+                                    currentOverride.isNew = true;
+                                    overrideList.push(currentOverride);
+                                }
+                                updatedOverrides.push(currentOverride);
+                                this.updateStateDataAfterAddingOrEditingOverride(overrideList, updatedOverrides, isAddAnother);
+                                this.checkManageFormValidity();
+                            } catch (e) {
+                                await this.setState({
+                                    overrideUpdateErrorMessage: e.errorMessage ? e.errorMessage : 'Error Occurred while adding/modifying override.'
+                                })
+                            }
                         }
                     } catch (e) {
 
@@ -536,6 +519,42 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     break;
             }
 
+        };
+
+        updateStateDataAfterAddingOrEditingOverride = async (overrideList, updatedOverrides, isAddAnother) => {
+            await this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    overridesUpdate: [...overrideList],
+                    updatedOverrides: [...updatedOverrides]
+                },
+                overrideRequestDTO: {
+                    ...this.state.overrideRequestDTO,
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
+                },
+                isModifyOverride: false,
+                showAddOverrideModal: isAddAnother,
+                overrideUpdateErrorMessage: ''
+            });
+        };
+
+
+        addOrModifyOverride = (isModifyOverride, overrideList, currentOverride) => {
+            if (isModifyOverride) {
+                // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
+                overrideList[currentOverride.id] = currentOverride;
+            } else {
+                // ELSE SIMPLY ADD
+                overrideList.push(currentOverride);
+            }
         };
 
         handleModifyOverride = (data, index) => {
@@ -715,7 +734,25 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             try {
                 await this.fetchDoctorDutyRosterDetailsById(editId);
                 const doctorDutyRosterInfo = await this.prepareDataForPreview();
-                await this.prepareDataForEdit(doctorDutyRosterInfo);
+                await this.prepareDataForEdit(doctorDutyRosterInfo, false);
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: "danger",
+                        message: e.errorMessage ? e.errorMessage : 'Error occurred while fetching Doctor Duty Roster details.'
+                    },
+                });
+                this.clearAlertTimeout();
+            }
+        };
+
+        handleCloneAndAddNew = async id => {
+            try {
+                await this.fetchDoctorDutyRosterDetailsById(id);
+                const doctorDutyRosterInfo = await this.prepareDataForPreview();
+                await this.fetchActiveSpecializationByHospitalForDropdown(doctorDutyRosterInfo.hospital.value);
+                await this.prepareDataForEdit(doctorDutyRosterInfo, true);
             } catch (e) {
                 this.setState({
                     showAlert: true,
@@ -874,31 +911,84 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             await this.setStateValues(key, value, label, fieldValid);
 
             if (key === 'specialization') {
-                await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
-                await this.setState({
-                    doctor: null
-                })
-            }
-
-            if (key === 'fromDate' || key === 'toDate') {
-                let errorMessage = '';
-                let originalWeekDaysData = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
-                let weekDaysData = [];
-                if (isFirstDateGreaterThanSecondDate(
-                    getDateWithTimeSetToGivenTime(this.state.fromDate, 0, 0, 0),
-                    getDateWithTimeSetToGivenTime(this.state.toDate, 0, 0, 0))) {
-                    errorMessage = DATE_ERROR_MESSAGE;
-                    weekDaysData = [...originalWeekDaysData];
+                if (value) {
+                    await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
                 } else {
-                    weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
-                        this.state.fromDate, this.state.toDate, [...this.props.WeekdaysReducer.weekdaysDataList])
+                    await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, 0);
                 }
-                await this.setState({
-                    dateErrorMessage: errorMessage,
-                    doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
-                });
+                await this.resetDoctorOnSpecializationChange();
+            }
+            if (key === 'fromDate' || key === 'toDate') {
+                await this.validateAndSetWeekDaysDataOnDateChange(key);
             }
             type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity();
+        };
+
+        validateAndSetWeekDaysDataOnDateChange = async () => {
+            let errorMessage = '';
+            let originalWeekDaysData = [...this.state.doctorWeekDaysDutyRosterRequestDTOS];
+            let weekDaysData = [];
+            switch (type) {
+                case 'ADD':
+                    if (isFirstDateGreaterThanSecondDate(
+                        getDateWithTimeSetToGivenTime(this.state.fromDate, 0, 0, 0),
+                        getDateWithTimeSetToGivenTime(this.state.toDate, 0, 0, 0))) {
+                        errorMessage = DATE_ERROR_MESSAGE;
+                        weekDaysData = [...originalWeekDaysData];
+                    } else {
+                        weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
+                            this.state.fromDate, this.state.toDate, [...this.props.WeekdaysReducer.weekdaysDataList])
+                    }
+                    await this.setState({
+                        dateErrorMessage: errorMessage,
+                        doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
+                    });
+                    break;
+                case 'MANAGE':
+                    const {fromDate, toDate, weekDaysDataOriginal} = this.state.updateDoctorDutyRosterData;
+                    let weekDaysWithTime = [];
+                    if (isFirstDateGreaterThanSecondDate(
+                        getDateWithTimeSetToGivenTime(fromDate, 0, 0, 0),
+                        getDateWithTimeSetToGivenTime(toDate, 0, 0, 0))) {
+                        errorMessage = DATE_ERROR_MESSAGE;
+                        weekDaysWithTime = [...originalWeekDaysData];
+                    } else {
+                        weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
+                            fromDate,
+                            this.state.updateDoctorDutyRosterData.toDate, [...this.props.WeekdaysReducer.weekdaysDataList]);
+                        weekDaysWithTime = weekDaysData.map(weekDayData => {
+                            let originalDataWithTime = weekDaysDataOriginal.find(originalData =>
+                                originalData.weekDaysId === weekDayData.weekDaysId);
+                            weekDayData.startTime = originalDataWithTime.startTime;
+                            weekDayData.endTime = originalDataWithTime.endTime;
+                            weekDayData.dayOffStatus = originalDataWithTime.dayOffStatus;
+                            return weekDayData;
+                        });
+                    }
+
+                    await this.setState({
+                        dateErrorMessage: errorMessage,
+                        updateDoctorDutyRosterData: {
+                            ...this.state.updateDoctorDutyRosterData,
+                            weekDaysDutyRosterUpdateRequestDTOS: [...weekDaysWithTime]
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
+
+        };
+
+        resetDoctorOnSpecializationChange = async () => {
+            type === 'ADD' ? await this.setState({
+                doctor: null
+            }) : await this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    doctor: null
+                }
+            })
         };
 
         cancelCloseEditModal = async () => {
@@ -933,10 +1023,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         checkManageFormValidity = () => {
             const {
                 rosterGapDuration, remarks, hasOverrideDutyRoster, overridesUpdate,
-                weekDaysDutyRosterUpdateRequestDTOS
+                weekDaysDutyRosterUpdateRequestDTOS, isCloneAndAdd, specialization, doctor
             } = this.state.updateDoctorDutyRosterData;
 
-            let formValid = rosterGapDuration && remarks;
+            let formValid = isCloneAndAdd ? rosterGapDuration && specialization && doctor
+                : rosterGapDuration && remarks;
+
 
             if (hasOverrideDutyRoster === "Y") {
                 formValid = formValid && overridesUpdate.length;
@@ -964,7 +1056,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         clearAlertTimeout = () => {
-            setTimeout(() => this.closeAlert(), 5000)
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
         };
 
         closeAlert = () => {
@@ -1054,7 +1146,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             };
         };
 
-        prepareDataForEdit = async doctorDutyRosterInfo => {
+        prepareDataForEdit = async (doctorDutyRosterInfo, isCloneAndAdd) => {
             const {
                 id, hospital, specialization, doctor, rosterGapDuration,
                 fromDate, toDate, hasOverrideDutyRoster, doctorWeekDaysDutyRosterRequestDTOS,
@@ -1076,51 +1168,69 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     fromDate: new Date(fromDate),
                     toDate: new Date(toDate),
                     hospital: {...hospital},
-                    specialization: {...specialization},
-                    doctor: {...doctor},
-                    doctorDutyRosterId: id,
+                    specialization: isCloneAndAdd ? null : {...specialization},
+                    doctor: isCloneAndAdd ? null : {...doctor},
+                    doctorDutyRosterId: isCloneAndAdd ? null : id,
                     hasOverrideDutyRoster: hasOverrideDutyRoster,
                     remarks: '',
                     rosterGapDuration: rosterGapDuration,
                     status: status,
                     weekDaysDutyRosterUpdateRequestDTOS: [...weekDaysAvailabilityData],
+                    weekDaysDataOriginal: [...weekDaysAvailabilityData],
                     overridesUpdate: [...doctorDutyRosterOverrideRequestDTOS],
                     originalOverrides: [...doctorDutyRosterOverrideRequestDTOS],
-                    updatedOverrides: []
+                    updatedOverrides: [],
+                    isCloneAndAdd: isCloneAndAdd
                 },
-            })
+            });
+            this.checkManageFormValidity();
         };
 
-        saveDoctorDutyRoster = async (isClone) => {
-            const {
-                doctorDutyRosterOverrideRequestDTOS, doctor, doctorWeekDaysDutyRosterRequestDTOS, fromDate,
-                hasOverrideDutyRoster, rosterGapDuration, specialization, status, toDate, hospital
-            } = this.state;
-            let dataToSave = {
-                fromDate,
-                toDate,
-                specializationId: specialization ? specialization.value : '',
-                doctorId: doctor ? doctor.value : '',
-                hospitalId: hospital ? hospital.value : '',
-                rosterGapDuration,
-                doctorWeekDaysDutyRosterRequestDTOS,
-                hasOverrideDutyRoster,
-                doctorDutyRosterOverrideRequestDTOS,
-                status,
-            };
-            const {saveSuccessMessage, saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer;
+        saveDoctorDutyRoster = async (isClone,isSaveFromManageClone) => {
+            let dataToSave;
+            if (!isSaveFromManageClone) {
+                const {
+                    doctorDutyRosterOverrideRequestDTOS, doctor, doctorWeekDaysDutyRosterRequestDTOS, fromDate,
+                    hasOverrideDutyRoster, rosterGapDuration, specialization, status, toDate, hospital
+                } = this.state;
+                dataToSave = {
+                    fromDate,
+                    toDate,
+                    specializationId: specialization ? specialization.value : '',
+                    doctorId: doctor ? doctor.value : '',
+                    hospitalId: hospital ? hospital.value : '',
+                    rosterGapDuration,
+                    doctorWeekDaysDutyRosterRequestDTOS,
+                    hasOverrideDutyRoster,
+                    doctorDutyRosterOverrideRequestDTOS,
+                    status,
+                };
+            } else {
+                const {
+                    doctor, fromDate,
+                    hasOverrideDutyRoster, rosterGapDuration, specialization, status, toDate, hospital,
+                    weekDaysDutyRosterUpdateRequestDTOS, overridesUpdate
+                } = this.state.updateDoctorDutyRosterData;
+
+                dataToSave = {
+                    fromDate,
+                    toDate,
+                    specializationId: specialization ? specialization.value : '',
+                    doctorId: doctor ? doctor.value : '',
+                    hospitalId: hospital ? hospital.value : '',
+                    rosterGapDuration,
+                    doctorWeekDaysDutyRosterRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS,
+                    hasOverrideDutyRoster,
+                    doctorDutyRosterOverrideRequestDTOS: overridesUpdate,
+                    status,
+                };
+            }
             try {
                 await this.props.createDoctorDutyRoster(CREATE_DOCTOR_DUTY_ROSTER, dataToSave);
-                // this.setState({
-                //     showConfirmModal: false,
-                //     showAlert: true,
-                //     alertMessageInfo: {
-                //         variant: "success",
-                //         message: saveSuccessMessage ? saveSuccessMessage : 'Doctor Duty Roster saved successfully.'
-                //     },
-                // });
+                const {saveSuccessMessage} = this.props.DoctorDutyRosterSaveReducer;
                 let onSuccessData = {
                     showConfirmModal: false,
+                    showEditModal: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "success",
@@ -1129,10 +1239,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 };
                 this.clearAlertTimeout();
                 isClone ? this.partialResetAddForm(onSuccessData) : this.resetAddForm(onSuccessData);
+                type === "MANAGE" && this.searchDoctorDutyRoster(1);
             } catch (e) {
+                const {saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer;
                 this.setState({
                     showAlert: true,
                     showConfirmModal: false,
+                    showEditModal: false,
                     alertMessageInfo: {
                         variant: "danger",
                         message: saveErrorMessage ? saveErrorMessage : 'Error occurred while saving Doctor Duty Roster.'
@@ -1230,7 +1343,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     showAlert: true,
                     alertMessageInfo: {
                         variant: "success",
-                        message: editSuccessMessage ? editSuccessMessage : 'Doctor Duty Roster saved successfully.'
+                        message: editSuccessMessage ? editSuccessMessage : 'Doctor Duty Roster updated successfully.'
                     },
                 });
                 this.clearAlertTimeout();
@@ -1341,7 +1454,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
             const {deleteErrorMessage} = this.props.DoctorDutyRosterDeleteReducer;
-            const {editErrorMessage} = this.props.DoctorDutyRosterEditReducer;
+            const {editErrorMessage,isEditRosterPending} = this.props.DoctorDutyRosterEditReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
                 <div className="doctorDutyRoster-setup">
@@ -1392,6 +1505,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         isModifyOverride={isModifyOverride}
                         isSaveRosterLoading={isSaveRosterLoading}
                         isSearchRosterLoading={isSearchRosterLoading}
+                        isEditRosterPending={isEditRosterPending}
+                        onCloneAndAddNew={this.handleCloneAndAddNew}
                         onDeleteHandler={this.handleDelete}
                         onEditHandler={this.handleEdit}
                         onModifyOverride={this.handleModifyOverride}
@@ -1452,14 +1567,14 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     disabled={isSaveRosterLoading}
                                     size="lg"
                                     className="float-right btn-action mr-3"
-                                    onClickHandler={() => this.saveDoctorDutyRoster(true)}/>
+                                    onClickHandler={() => this.saveDoctorDutyRoster(true, false)}/>
                                 <CButton
                                     variant="primary"
                                     name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
                                     disabled={isSaveRosterLoading}
                                     size="lg"
                                     className="float-right btn-action mr-3"
-                                    onClickHandler={() => this.saveDoctorDutyRoster(false)}/>
+                                    onClickHandler={() => this.saveDoctorDutyRoster(false, false)}/>
                             </> : ''
                         }
                         onHide={this.setShowModal}

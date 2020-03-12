@@ -1,31 +1,44 @@
 import React, {PureComponent} from 'react'
-import {CForgotPassword} from '@frontend-appointment/ui-components'
+import {CChangePasswordInForget} from '@frontend-appointment/ui-components'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
-import * as Material from 'react-icons/md';
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {LocalStorageSecurity} from '@frontend-appointment/helpers'
-const {forgotPassword} = ForgotPasswordMiddleware
+import * as Material from 'react-icons/md'
+
 const {ForgotPasswordAndVerification} = CommonAPIConstants
-const {localStorageEncoder}=LocalStorageSecurity
-class ForgotPassword extends PureComponent {
+const {localStorageDecoder, localStorageRemover} = LocalStorageSecurity
+const {changePasswordVerification} = ForgotPasswordMiddleware
+class NewPassword extends PureComponent {
   state = {
-    username: '',
+    password: '',
+    confirmPassword:'',
+    verificationToken: localStorageDecoder('verificationToken'),
+    username: localStorageDecoder('forgotPasswordUsername') || '',
     isValid: false,
     alertMessageInfo: {
       variant: '',
       message: ''
     },
+    errorMessage:'',
     showAlert: false
   }
   intervalAlertClear
 
-  checkFormValid = (name, value) => {
-    const isValidTrue = value.length
-    this.setState({
-      isValid: isValidTrue || false,
+  checkFormValid = async (name, value) => {
+    await this.setState({
       [name]: value
+    })
+    const {username, password, verificationToken,confirmPassword} = this.state
+    const isValidTrue =
+      username.length && password.length && verificationToken.length && confirmPassword.length
+    let errorMessage= '';
+    if(password!==confirmPassword)
+      errorMessage='Password Donot Match'
+      this.setState({
+      isValid: isValidTrue || false,
+      errorMessage:errorMessage
     })
   }
 
@@ -44,19 +57,21 @@ class ForgotPassword extends PureComponent {
     this.intervalAlertClear = setTimeout(this.closeAlert, 4000)
   }
 
-  onSubmitFormHandler = async () => {
+  onSubmitFormHandler = async event => {
+    const {username, password, verificationToken} = this.state
     try {
-      localStorageEncoder('forgotPasswordUsername',this.state.username)
-      await this.props.forgotPassword(
-        ForgotPasswordAndVerification.FORGOT_PASSWORD,
-        {username:this.state.username}
-      )
-      this.props.history.push("/verifyToken");
+      await this.props.changePasswordVerification(ForgotPasswordAndVerification.FORGOT_CHANGE_PASSWORD, {
+        username,
+        password,
+        verificationToken
+      })
+      localStorageRemover()
+      this.props.history.push('/')
     } catch (e) {
       this.setState({
         alertMessageInfo: {
           variant: 'danger',
-          message: this.props.ForgotPasswordReducer.message
+          message: e.errorMessage
         },
         showAlert: true
       })
@@ -69,16 +84,23 @@ class ForgotPassword extends PureComponent {
   }
 
   render () {
-    const {username, isValid, alertMessageInfo, showAlert} = this.state
-    const {status} =this.props.ForgotPasswordReducer
+    const {
+      password,
+      username,
+      confirmPassword,
+      isValid,
+      alertMessageInfo,
+      showAlert,
+      errorMessage
+    } = this.state
     return (
       <>
-        <CForgotPassword
-          passwordForgotData={{username}}
+        <CChangePasswordInForget
+          passwordChangeData={{password, username,confirmPassword}}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
-          status={status}
+          errorMessage={errorMessage}
         />
         <CAlert
           id="profile-manage"
@@ -102,6 +124,6 @@ class ForgotPassword extends PureComponent {
     )
   }
 }
-export default ConnectHoc(ForgotPassword, ['ForgotPasswordReducer'], {
-  forgotPassword
+export default ConnectHoc(NewPassword, [], {
+  changePasswordVerification
 })

@@ -76,7 +76,7 @@ import {
     WeekdaysReducer,
     ForgotPasswordVerification
 } from '../reducers'
-const {ForgotPasswordReducer,VerificationCodeReducer} = ForgotPasswordVerification;
+const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
 export const rootReducers = combineReducers({
     AdminDeleteReducer,
     AdminEditReducer,
@@ -92,6 +92,7 @@ export const rootReducers = combineReducers({
     AppointmentApproveReducer,
     AppointmentRejectReducer,
     CountryCodeDropdownReducer,
+    ChangePasswordForgotReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedDayReducer,
