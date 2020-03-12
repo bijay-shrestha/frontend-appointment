@@ -79,7 +79,14 @@ class CDataTable extends PureComponent {
             floatingFilter,
             editType,
             cellMouseOver,
-            rowHeight
+            rowHeight,
+            rowSelection,
+            rowModelType,
+            paginationPageSize,
+            cacheOverflowSize,
+            maxConcurrentDatasourceRequests,
+            infiniteInitialRowCount,
+            maxBlocksInCache,
         } = this.props;
 
         return (
@@ -103,6 +110,12 @@ class CDataTable extends PureComponent {
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
                         rowHeight={rowHeight}
+                        rowModelType={rowModelType}
+                        paginationPageSize={paginationPageSize}
+                        cacheOverflowSize={cacheOverflowSize}
+                        maxConcurrentDatasourceRequests={maxConcurrentDatasourceRequests}
+                        infiniteInitialRowCount={infiniteInitialRowCount}
+                        maxBlocksInCache={maxBlocksInCache}
                     />
                 </div>
             </>
