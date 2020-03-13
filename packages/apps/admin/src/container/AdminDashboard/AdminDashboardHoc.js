@@ -331,6 +331,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
 
     searchAppointmentQueue = async page => {
       const {doctorId, hospitalId} = this.state.appointmentQueue
+      const response = '';
       if (hospitalId) {
         let updatedPage =
           this.state.queryParams.page === 0
@@ -338,7 +339,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             : page
             ? page
             : this.state.queryParams.page
-        await this.props.fetchAppointmentQueueList(
+      try{      
+      response = await this.props.fetchAppointmentQueueList(
           DashboardApiConstant.APPOINTMENT_QUERY,
           {
             page: updatedPage,
@@ -357,18 +359,28 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             ...this.state.queryParams,
             page: updatedPage
           }
-        })
+        });
+        return response;
+      }catch(e){
+        throw e;
+        console.log(e);
       }
     }
+  }
 
     handlePageChange = async newPage => {
+     try{
       await this.setState({
         queryParams: {
           ...this.state.queryParams,
           page: newPage
         }
       })
-      this.searchAppointmentQueue()
+      const response = await this.searchAppointmentQueue()
+      return response;
+    }catch(e){
+      throw e;
+    }
     }
 
     componentDidMount () {
