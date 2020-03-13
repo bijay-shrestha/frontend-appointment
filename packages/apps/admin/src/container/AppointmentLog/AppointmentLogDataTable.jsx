@@ -27,24 +27,25 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     return (
         <>
             <div className="manage-details">
-                {/* <Container fluid>
+                
           <Row>
-          */}
+          <Col>
                 <h5 className="title">Appointment Log Details</h5>
-                {/* </Col> */}
-                {/* <Col>
+            </Col>  
+              
+              {/* <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
-                onClickHandler={props.exportExcel}
+                // onClickHandler={props.exportExcel}
                 className="float-right"
                 variant="outline-secondary"
               >
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col> */}
-                {/* </Row> */}
+            </Col>  */}
+                </Row>
 
                 <Row>
                     <Col>
@@ -196,6 +197,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowData={appointmentLogList}
 
                         />
+                        <div className="my-4 ml-0 mr-4">
+                            Total Amount : Rs 40000
+                        </div>
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
