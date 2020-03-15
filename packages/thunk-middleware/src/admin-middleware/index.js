@@ -28,7 +28,9 @@ import * as DoctorMiddleware from './doctor-setup-middleware/doctorSetupMiddlewa
 import * as DepartmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
 import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doctorDutyRosterMiddleware";
 import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
-import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
+import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware';
+import * as QualificationAliasSetupMiddleware from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware';
+
 export {
     createProfile,
     fetchProfileList,
@@ -54,5 +56,6 @@ export {
     DepartmentSetupMiddleware,
     QualificationSetupMiddleware,
     DoctorDutyRosterMiddleware,
-    PatientDetailsMiddleware
+    PatientDetailsMiddleware,
+    QualificationAliasSetupMiddleware
 };

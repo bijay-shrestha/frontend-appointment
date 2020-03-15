@@ -20,6 +20,9 @@ import * as PatientDetailsActions from './patient-details/patientDetailActions';
 import {patientDetailsConstants} from "./patient-details/patientDetailActionConstants";
 import * as DashboardDetailsActions from './dashboard-details/dashboardDetailsActions';
 import {dashboardDetailsActionsConstant} from './dashboard-details/dashboardDetailsActionConstant';
+import * as QualificationAliasSetupActions from './qualification-alias-setup/qualificationAliasSetupActions';
+import {qualificationAliasSetupConstants} from './qualification-alias-setup/qualificationAliasSetupConstants'
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -42,5 +45,7 @@ export {
     QualificationSetupActions,
     qualificationSetupConstants,
     PatientDetailsActions,
-    patientDetailsConstants
+    patientDetailsConstants,
+    QualificationAliasSetupActions,
+    qualificationAliasSetupConstants
 }

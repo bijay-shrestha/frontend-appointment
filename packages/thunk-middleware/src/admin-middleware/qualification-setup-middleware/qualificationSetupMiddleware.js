@@ -96,15 +96,15 @@ export const fetchActiveCountryCodeForDropdown = (path) => async dispatch => {
   }
 };
 
-export const fetchActiveQualificationAliasForDropdown = (path) => async dispatch => {
-  try {
-    const response = await Axios.get(path);
-    dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownSuccess(response.data));
-    return response.data;
-  } catch (e) {
-    dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownError("Error fetching qualification alias"));
-  }
-};
+// export const fetchActiveQualificationAliasForDropdown = (path) => async dispatch => {
+//   try {
+//     const response = await Axios.get(path);
+//     dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownSuccess(response.data));
+//     return response.data;
+//   } catch (e) {
+//     dispatch(QualificationSetupActions.qualificationAliasFetchForDropdownError("Error fetching qualification alias"));
+//   }
+// };
 
 export const fetchActiveUniversityForDropdown = (path) => async dispatch => {
   try {

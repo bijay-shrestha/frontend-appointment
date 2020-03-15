@@ -1,5 +1,5 @@
 import {loginReducers} from './common/loginreducers';
-import * as ForgotPasswordVerification from './common/forgotPasswordReducer'; 
+import * as ForgotPasswordVerification from './common/forgotPasswordReducer';
 import {
     ProfileDeleteReducer,
     ProfileEditReducer,
@@ -67,7 +67,6 @@ import {
 
 import {
     CountryCodeDropdownReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -98,7 +97,15 @@ import {
     PatientSearchReducer,
     PatientDetailReducer,
     PatientDropdownWithoutHospitalListReducer
-} from './admin-module/patientSetupReducer'
+} from './admin-module/patientSetupReducer';
+
+import {
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer
+} from './admin-module/qualificationAliasSetupReducer';
 
 export {
     AppointmentApproveReducer,
@@ -165,7 +172,6 @@ export {
     QualificationSearchReducer,
     QualificationDeleteReducer,
     CountryCodeDropdownReducer,
-    QualificationAliasDropdownReducer,
     QualificationDropdownReducer,
     UniversitiesForDropdownReducer,
     PatientDropdownListReducer,
@@ -175,5 +181,10 @@ export {
     PatientSearchReducer,
     PatientDetailReducer,
     PatientDropdownWithoutHospitalListReducer,
-    ForgotPasswordVerification
+    ForgotPasswordVerification,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer
 }

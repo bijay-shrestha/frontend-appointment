@@ -57,7 +57,6 @@ import {
     ProfileListReducer,
     ProfilePreviewReducer,
     ProfileSetupReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -74,6 +73,11 @@ import {
     PatientDropdownWithoutHospitalListReducer,
     UniversitiesForDropdownReducer,
     WeekdaysReducer,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer,
     ForgotPasswordVerification
 } from '../reducers'
 const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
@@ -137,7 +141,6 @@ export const rootReducers = combineReducers({
     ProfileListReducer,
     ProfilePreviewReducer,
     ProfileSetupReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -154,5 +157,10 @@ export const rootReducers = combineReducers({
     UniversitiesForDropdownReducer,
     PatientDropdownWithoutHospitalListReducer,
     VerificationCodeReducer,
-    WeekdaysReducer
+    WeekdaysReducer,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer
 });
