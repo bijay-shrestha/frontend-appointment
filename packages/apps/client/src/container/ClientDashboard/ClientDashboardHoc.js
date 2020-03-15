@@ -42,7 +42,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         revToDate: new Date()
       },
       appointmentQueue: {
-        doctorId: ''
+        doctorId: '',
+        date: new Date()
       },
       revenueFilter: 'W',
       appointmentFilter: 'W',
@@ -404,6 +405,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             handlePageChange: this.handlePageChange,
             handleDoctorChange: this.handleDoctorChange,
             doctorId: this.state.appointmentQueue.doctorId,
+            date:this.state.appointmentQueue.date,
             doctorDropdown: activeDoctorsForDropdown
           }}
           onPillsClickHandler={this.onPillsClickHandler}

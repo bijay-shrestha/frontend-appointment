@@ -201,7 +201,7 @@
         }
 
         .avatar {
-            width         : 40px;
+            width         : 38px;
             height        : auto;
             // margin-left: 5px;
             @include border-radius(50px);
@@ -213,9 +213,12 @@
         }
 
         .dropdown-toggle {
-            @include border-radius(50px);
+            @include border-radius(50%);
             -webkit-transition: all 0.3s;
             transition        : all 0.3s;
+            padding:1px;
+            text-align: center;
+            width:44px;
 
             &:hover {
                 background-color: lighten($cogent, 45%);
