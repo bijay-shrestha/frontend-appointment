@@ -10,7 +10,7 @@ import '@ag-grid-community/all-modules/dist/styles/ag-theme-balham/sass/ag-theme
 
 class CDataTable extends PureComponent {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             gridApi: '',
             rowChanged: []
@@ -24,6 +24,18 @@ class CDataTable extends PureComponent {
         });
         params.api.sizeColumnsToFit()
     };
+
+    onBtStopEditing() {
+        this.state.gridApi.stopEditing();
+    }
+
+    onBtStartEditing() {
+        this.state.gridApi.api.setFocusedCell(0, "name");
+        this.state.gridApi.api.startEditingCell({
+            rowIndex: 0,
+            colKey: "name"
+        });
+    }
 
     checkDataAndFilterTheData = event => {
         let datum = [...this.state.rowChanged];
@@ -61,6 +73,12 @@ class CDataTable extends PureComponent {
 
     getRowHeight = params => {
         return params.node.rowHeight;
+    };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.startEditing) {
+            this.onBtStartEditing()
+        }
     }
 
     render() {
@@ -103,6 +121,7 @@ class CDataTable extends PureComponent {
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
                         rowHeight={rowHeight}
+                        suppressClickEdit={true}
                     />
                 </div>
             </>

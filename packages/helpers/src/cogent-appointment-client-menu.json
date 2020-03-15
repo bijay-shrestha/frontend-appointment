@@ -134,6 +134,46 @@
           "menuFor": "1",
           "description": "Qualification Setup",
           "childMenus": []
+        },
+        {
+          "id": "18",
+          "parentId": "1",
+          "name": "Qualification Alias Setup",
+          "path": "/generalSetup/qualificationAlias",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Alias Setup",
+          "childMenus": []
+        },
+        {
+          "id": "19",
+          "parentId": "1",
+          "name": "University Setup",
+          "path": "/generalSetup/universitySetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "University Setup",
+          "childMenus": []
         }
       ]
     },
