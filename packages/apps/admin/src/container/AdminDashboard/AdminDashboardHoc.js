@@ -58,7 +58,18 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 6
       },
-      totalRecords: 0
+      totalRecords: 0,
+      doctorRevenue: {
+        doctorId:'',
+        hospitalId:'',
+        fromDate:'',
+        toDate:''
+      },
+      doctorQueryParams:{
+        page:0,
+        size:6
+      },
+      doctorTotalRecords:0
     }
 
     searchHospitalForDropDown = async () => {
@@ -313,6 +324,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     handleDoctorChange = async (event, field) => {
       let searchParams = {
         ...this.state.appointmentQueue
+      }
+
+      let searchParamsForDoctor = {
+       ...this.state.doctorRevenue
       }
       let fieldName, value, label
       fieldName = event.target.name
