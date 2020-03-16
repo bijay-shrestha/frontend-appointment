@@ -334,7 +334,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
-      searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+      searchParams[fieldName] = label ? (value ? {value, label} : '') : value,
       await this.setState({
         appointmentQueue: searchParams,
         doctorRevenue:searchParamsForDoctor
