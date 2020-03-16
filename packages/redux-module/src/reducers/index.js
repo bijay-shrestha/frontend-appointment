@@ -1,4 +1,5 @@
-import {loginReducers} from './common/loginreducers'
+import {loginReducers} from './common/loginreducers';
+import * as ForgotPasswordVerification from './common/forgotPasswordReducer'; 
 import {
     ProfileDeleteReducer,
     ProfileEditReducer,
@@ -173,5 +174,6 @@ export {
     PatientPreviewReducer,
     PatientSearchReducer,
     PatientDetailReducer,
-    PatientDropdownWithoutHospitalListReducer
+    PatientDropdownWithoutHospitalListReducer,
+    ForgotPasswordVerification
 }

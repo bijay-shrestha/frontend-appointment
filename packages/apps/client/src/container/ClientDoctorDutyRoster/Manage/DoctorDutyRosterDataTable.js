@@ -17,7 +17,8 @@ const DoctorDutyRosterDataTable = ({
                                        handlePageChange,
                                        onPreviewHandler,
                                        onDeleteHandler,
-                                       onEditHandler
+                                       onEditHandler,
+                                       onCloneAndAddNew
                                    }) => {
     return (
         <>
@@ -100,7 +101,8 @@ const DoctorDutyRosterDataTable = ({
                                                     ? onDeleteHandler(data)
                                                     : type === 'E'
                                                     ? onEditHandler(id)
-                                                    : onPreviewHandler(id)
+                                                    : type === 'C' ? onCloneAndAddNew(id)
+                                                        : onPreviewHandler(id)
                                             },
                                             filteredAction: filteredAction
                                         },

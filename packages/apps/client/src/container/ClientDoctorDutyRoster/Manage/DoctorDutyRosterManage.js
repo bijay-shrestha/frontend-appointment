@@ -15,12 +15,14 @@ function DoctorDutyRosterManage(props) {
              resetSearchForm,
              onSearchInputChange,
              searchDoctorDutyRoster,
-             hospitalList,
+             doctorList,
              specializationList,
              specializationDropdownError,
              activeDoctorList,
              doctorDropdownErrorMessage,
              isSearchRosterLoading,
+             isSaveRosterLoading,
+             isEditRosterPending,
              searchErrorMessage,
              doctorDutyRosterList,
              filteredAction,
@@ -29,6 +31,7 @@ function DoctorDutyRosterManage(props) {
              onPreviewHandler,
              onDeleteHandler,
              onEditHandler,
+             onCloneAndAddNew,
              showDeleteModal,
              setShowDeleteModal,
              remarksHandler,
@@ -57,8 +60,10 @@ function DoctorDutyRosterManage(props) {
              deleteOverrideErrorMessage,
              deleteOverride,
              onRemoveOverride,
+             saveDoctorDutyRoster,
              activeDoctorsByHospitalForDropdown,
-             activeSpecializationListByHospital
+             activeSpecializationListByHospital,
+             dateErrorMessage
          }) => {
             const footerContent =
                 <Container fluid="true">
@@ -72,11 +77,14 @@ function DoctorDutyRosterManage(props) {
                         <div className="col-sm-12 col-md-6">
                             <CButton
                                 id="submit-update-button"
-                                disabled={!updateDoctorDutyRosterData.formValid}
-                                name="Update"
+                                disabled={!updateDoctorDutyRosterData.formValid || isSaveRosterLoading || isEditRosterPending}
+                                name={updateDoctorDutyRosterData.isCloneAndAdd ?
+                                    isSaveRosterLoading ? "Saving" : "Save"
+                                    : isEditRosterPending ? "Updating" : "Update"}
                                 size="lg"
                                 className="btn-action  float-right"
-                                onClickHandler={editDoctorDutyRoster}/>
+                                onClickHandler={() => updateDoctorDutyRosterData.isCloneAndAdd ? saveDoctorDutyRoster(false, true)
+                                    : editDoctorDutyRoster()}/>
                             <CButton id="cancel-update-profile"
                                      variant="light"
                                      size="lg"
@@ -110,6 +118,7 @@ function DoctorDutyRosterManage(props) {
                     onPreviewHandler={onPreviewHandler}
                     onDeleteHandler={onDeleteHandler}
                     onEditHandler={onEditHandler}
+                    onCloneAndAddNew={onCloneAndAddNew}
                 />
 
                 {showDeleteModal ? (
@@ -130,7 +139,8 @@ function DoctorDutyRosterManage(props) {
                     showEditModal ? (
                         <CModal
                             show={showEditModal}
-                            modalHeading="Edit Doctor Roster"
+                            modalHeading={updateDoctorDutyRosterData.isCloneAndAdd ? "Add Doctor Roster"
+                                : "Edit Doctor Roster"}
                             size="xl"
                             bodyChildren={
                                 <EditDoctorDutyRoster
@@ -153,7 +163,12 @@ function DoctorDutyRosterManage(props) {
                                     remarks={remarks}
                                     deleteOverrideErrorMessage={deleteOverrideErrorMessage}
                                     deleteOverride={deleteOverride}
-                                    onRemoveOverride={onRemoveOverride}/>
+                                    onRemoveOverride={onRemoveOverride}
+                                    specializationList={activeSpecializationListByHospital}
+                                    specializationDropdownError={specializationDropdownError}
+                                    doctorList={doctorList}
+                                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
+                                    dateErrorMessage={dateErrorMessage}/>
                             }
                             onHide={cancelCloseEditModal}
                             centered={false}

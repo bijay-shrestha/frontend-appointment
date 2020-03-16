@@ -6,6 +6,7 @@ import "./appointment-status.scss";
 import AppointmentStatusDetails from "./AppointmentStatusDetails";
 import {CConfirmationModal} from "@frontend-appointment/ui-components";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
+import {CModal} from "@frontend-appointment/ui-elements";
 
 const AppointmentStatus = props => {
     const AppointmentStatus = AppointmentStatusHOC(
@@ -28,10 +29,24 @@ const AppointmentStatus = props => {
                     modalBody={<CheckInModalContent appointmentDetails={checkInModalData.appointmentDetails}/>}
                     showModal={checkInModalData.showCheckInModal}
                     setShowModal={checkInModalData.setShowModal}
-                    onConfirm={()=>checkInModalData.checkInAppointment(checkInModalData.appointmentDetails.appointmentId)}
+                    onConfirm={() => checkInModalData.checkInAppointment(checkInModalData.appointmentDetails.appointmentId)}
                     onCancel={checkInModalData.setShowModal}
                     isConfirming={checkInModalData.isConfirming}
                 />
+
+                {
+                    checkInModalData.showAppointmentDetailModal ?
+                        <CModal
+                            modalHeading={"Appointment Details"}
+                            show={checkInModalData.showAppointmentDetailModal}
+                            size="lg"
+                            bodyChildren={<CheckInModalContent
+                                appointmentDetails={checkInModalData.appointmentDetails}/>}
+                            onHide={checkInModalData.closeAppointmentDetailModal}
+                            dialogClassName="cogent-modal"/>
+                        : ''
+                }
+
             </>,
         props, '');
     return <AppointmentStatus/>

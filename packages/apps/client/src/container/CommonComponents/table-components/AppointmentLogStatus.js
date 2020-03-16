@@ -1,17 +1,17 @@
-import React, {memo} from 'react'
+import React, {memo} from 'react';
 import {Badge} from 'react-bootstrap';
 
 const AppointmentLogAction = props => {
-    const {status} = props.node.data
+    const {status} = props.node.data;
     return (
         <>
             {status === 'PA' ? (
                 <span>
           <Badge variant="warning">B</Badge>
         </span>
-            ) : status === 'A' ? (
-                <span>
-          <Badge variant="danger">CI</Badge>
+        ) : status === 'A' ? (
+            <span>
+          <Badge variant="danger">CH</Badge>
         </span>
             ) : status === 'C' ? (
                     <span>
@@ -30,5 +30,5 @@ const AppointmentLogAction = props => {
                 )}
         </>
     )
-}
+};
 export default memo(AppointmentLogAction);

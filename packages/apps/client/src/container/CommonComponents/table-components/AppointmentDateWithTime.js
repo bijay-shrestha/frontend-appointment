@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 
-const AppointmentDateWithTime = (props) => {
+const AppointmentDateWithTime = props => {
     return (
         <>
             <ul className="doctor-column">

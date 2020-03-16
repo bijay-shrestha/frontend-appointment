@@ -79,7 +79,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             previousSelectedTimeSlotRowIndex: '',
             appointmentDetails: '',
             showCheckInModal: false,
-            isConfirming: false
+            isConfirming: false,
+            showAppointmentDetailModal: false,
         };
 
         fetchDoctorsByHospital = async () => {
@@ -194,6 +195,31 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             })
         };
 
+        handleViewAppointmentDetails = async appointmentStatusDetail => {
+            let appointmentData = {
+                hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
+                doctorName: appointmentStatusDetail.doctorName,
+                specializationName: appointmentStatusDetail.specializationName,
+                appointmentId: appointmentStatusDetail.patientDetails.appointmentId,
+                appointmentDate: appointmentStatusDetail.date,
+                appointmentTime: appointmentStatusDetail.patientDetails.appointmentTime || 'N/A',
+                appointmentNumber: appointmentStatusDetail.patientDetails.appointmentNumber,
+                appointmentAmount: appointmentStatusDetail.patientDetails.appointmentAmount,
+                patientName: appointmentStatusDetail.patientDetails.name + " ("
+                    + appointmentStatusDetail.patientDetails.age + " / "
+                    + appointmentStatusDetail.patientDetails.gender + ")",
+                mobileNumber: appointmentStatusDetail.patientDetails.mobileNumber,
+                patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
+                registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
+                esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',
+                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A'
+            };
+            this.setState({
+                showAppointmentDetailModal: true,
+                appointmentDetails: {...appointmentData}
+            })
+        };
+
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
@@ -263,6 +289,13 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         closeAlert = () => {
             this.setState({
                 showAlert: false
+            })
+        };
+
+        closeAppointmentDetailModal = () => {
+            this.setState({
+                showAppointmentDetailModal: false,
+                appointmentDetails: {}
             })
         };
 
@@ -485,7 +518,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 activeStatus,
                 showCheckInModal,
                 appointmentDetails,
-                isConfirming
+                isConfirming,
+                showAppointmentDetailModal
             } = this.state;
 
             // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -535,13 +569,16 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 filterAppointmentDetailsByStatus: this
                                     .filterAppointmentDetailsByStatus,
                                 showCheckInModal: showCheckInModal,
+                                handleViewAppointmentDetails: this.handleViewAppointmentDetails
                             }}
                             checkInModalData={{
                                 showCheckInModal: showCheckInModal,
+                                showAppointmentDetailModal: showAppointmentDetailModal,
                                 setShowModal: this.setShowModal,
                                 checkInAppointment: this.checkInAppointment,
                                 appointmentDetails: {...appointmentDetails},
-                                isConfirming: isConfirming
+                                isConfirming: isConfirming,
+                                closeAppointmentDetailModal:this.closeAppointmentDetailModal
                             }}
                         />
                         <CAlert

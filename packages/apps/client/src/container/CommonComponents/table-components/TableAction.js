@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import React, {PureComponent} from 'react';
+import {Dropdown} from 'react-bootstrap';
 
- import * as Material from 'react-icons/md';
- import * as Feather from 'react-icons/fi';
+import * as Material from 'react-icons/md';
+import * as Feather from 'react-icons/fi';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
 
 const {checkIfRoleExists} = ActionFilterUtils;
@@ -13,18 +13,27 @@ class TableAction extends PureComponent {
             <>
                 <Dropdown className="table-action">
                     <Dropdown.Toggle variant="default" id="dropdown-basic">
-                    <Feather.FiMoreHorizontal />
+                        <Feather.FiMoreHorizontal/>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
                         {
-                            checkIfRoleExists(this.props.filteredAction, 3) ||(this.props.byPass &&this.props.onlyEdit) ?
-                            <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'E',this.props.node.data)}>
-                                <Material.MdEdit/> Edit </Dropdown.Item>:''}
+                            checkIfRoleExists(this.props.filteredAction, 3) || (this.props.byPass && this.props.onlyEdit) ?
+                                <Dropdown.Item
+                                    onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'E', this.props.node.data)}>
+                                    <Material.MdEdit/> Edit </Dropdown.Item> : ''}
                         {
-                            checkIfRoleExists(this.props.filteredAction, 5) ||(this.props.byPass &&!this.props.onlyEdit)?
-                            <Dropdown.Item onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'D',this.props.node.data)}>
-                                <Material.MdDeleteForever/> Delete</Dropdown.Item>:''}
+                            checkIfRoleExists(this.props.filteredAction, 5) || (this.props.byPass && !this.props.onlyEdit) ?
+                                <Dropdown.Item
+                                    onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'D', this.props.node.data)}>
+                                    <Material.MdDeleteForever/> Delete</Dropdown.Item> : ''}
+
+                        {
+                            checkIfRoleExists(this.props.filteredAction, 25) ?
+                                <Dropdown.Item
+                                    onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'C', this.props.node.data)}>
+                                    <Material.MdContentCopy/>&nbsp;
+                                    Clone and Add New</Dropdown.Item> : ''}
                     </Dropdown.Menu>
                 </Dropdown>
             </>

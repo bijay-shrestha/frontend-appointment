@@ -8,7 +8,9 @@ import {
     MenuActions,
     userMenusActionConstant,
     weekdaysActionConstants,
-    WeekdaysActions
+    forgotPasswordAndVerificationConstants,
+    WeekdaysActions,
+    ForgotPasswordActions
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -68,5 +70,7 @@ export {
     weekdaysActionConstants,
     WeekdaysActions,
     PatientDetailsActions,
-    patientDetailsConstants
+    patientDetailsConstants,
+    ForgotPasswordActions,
+    forgotPasswordAndVerificationConstants
 }
