@@ -23,7 +23,10 @@ const {
   DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_START,
-  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_START,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -48,6 +51,14 @@ const revenueGeneratedDay = {
   isRevenueGeneratedDayLoading: true,
   revenueGeneratedDayData: {},
   revenueGeneratedDayErrorMessage: ''
+}
+
+const revenueGeneratedByDoctor = {
+  isDoctorRevenueGeneratedLoading:true,
+  doctorRevenueGenerated:{},
+  doctorRevenueGeneratedErrorMessage:'',
+  totalItems:0,
+  totalAmount:0
 }
 
 const revenueGeneratedMonth = {
@@ -313,6 +324,37 @@ export const DashboardRevenueGeneratedYearReducer = (
         isRevenueGeneratedYearLoading: false,
         revenueGeneratedYearData: action.payload.data,
         revenueGeneratedYearErrorMessage: ''
+      }
+    case DASHBOARD_REVENUE_YEAR_FETCH_ERROR:
+      return {
+        ...state,
+        isRevenueGeneratedYearLoading: false,
+        revenueGeneratedYearData: {},
+        revenueGeneratedYearErrorMessage: action.payload.data
+      }
+    default:
+      return {...state}
+  }
+}
+
+export const DashboardRevenueGeneratedByDoctorReducer = (
+  state = {...revenueGeneratedByDoctor},
+  action
+) => {
+  switch (action.type) {
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_START:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:true,
+        doctorRevenueGenerated:{},
+        doctorRevenueGeneratedErrorMessage:''
+      }
+    case DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:true,
+        doctorRevenueGenerated:action.payload.data.doctorRevenueGeneratedData,
+        doctorRevenueGeneratedErrorMessage:''
       }
     case DASHBOARD_REVENUE_YEAR_FETCH_ERROR:
       return {
