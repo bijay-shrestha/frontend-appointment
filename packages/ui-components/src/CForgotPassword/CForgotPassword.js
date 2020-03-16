@@ -10,7 +10,9 @@ const ForgotPassword = ({
   passwordForgotData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  status,
+  forClient
 }) => {
   return (
     <>
@@ -31,6 +33,13 @@ const ForgotPassword = ({
                       onChange={onChangeHandler}
                       value={passwordForgotData.username}
                     />
+                    {forClient?<CHybridInput
+                      id="hospitalCode"
+                      name="hospitalCode"
+                      placeholder="Hospital Code"
+                      onChange={onChangeHandler}
+                      value={passwordForgotData.hospitalCode}
+                    />:null}
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
@@ -40,7 +49,7 @@ const ForgotPassword = ({
                           ? true
                           : false
                       }
-                      onClick={onSubmitFormHandler}
+                      onClickHandler={onSubmitFormHandler}
                       name={
                         status && status.toLowerCase() === 'pending'
                           ? 'Proceeding...'
