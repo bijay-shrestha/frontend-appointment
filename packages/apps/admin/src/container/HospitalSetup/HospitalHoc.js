@@ -419,8 +419,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalList.length &&
                 hospitalList.map((spec, index) => ({
                     ...spec,
-                    sN: index + 1,
-                    name: spec.name.toUpperCase()
+                    sN: index + 1
+               
                 }));
             return newHospitalList
         };
