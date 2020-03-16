@@ -24,7 +24,10 @@ const {
   DASHBOARD_APPOINTMENT_STATISTICS_SUCCESS,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_START,
-  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_START,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS
 } = dashboardDetailsActionsConstant
 
 export const dashboardDayRevenueFetchingStart = () => {
@@ -194,9 +197,31 @@ export const dashboardAppointmentQueueFetchingSuccess = data => {
   }
 }
 
-export const dashboardAppointmentQueueFetchingError = message => {
+export const dashboardDoctorRevenueFetchingError = message => {
   return {
     type: DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
+    payload: {
+      data: message
+    }
+  }
+}
+
+export const dashboardDoctorRevenueFetchingStart = () => {
+  return {
+    type: DASHBOARD_DOCTOR_REVENUE_FETCH_START
+  }
+}
+
+export const dashboardDoctorRevenueFetchingSuccess = data => {
+  return {
+    type: DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS,
+    payload: {data}
+  }
+}
+
+export const dashboardAppointmentQueueFetchingError = message => {
+  return {
+    type: DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
     payload: {
       data: message
     }
