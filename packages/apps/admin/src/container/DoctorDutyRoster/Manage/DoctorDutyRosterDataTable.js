@@ -73,7 +73,7 @@ const DoctorDutyRosterDataTable = ({
                                         sizeColumnsToFit: true
                                     },
                                     {
-                                        headerName: 'Time Duration (minutes)',
+                                        headerName: 'Time Duration (In min)',
                                         field: 'rosterGapDuration',
                                         resizable: true,
                                         sortable: true,

@@ -32,6 +32,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
           <Col>
                 <h5 className="title">Appointment Log Details</h5>
             </Col>  
+
+            
               
               {/* <Col>
               <CButton
@@ -47,7 +49,10 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
             </Col>  */}
                 </Row>
 
+             
+
                 <Row>
+                 
                     <Col>
                         <div className="appointment-badge float-right">
                             <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
@@ -197,9 +202,18 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowData={appointmentLogList}
 
                         />
-                        <div className="my-4 ml-0 mr-4">
-                            Total Amount : Rs 40000
-                        </div>
+
+
+                    <div className="my-4 ml-0 mr-4">
+                        <span className="total-amount">
+                        Total Amount : Rs 40000
+                        </span>     
+                           
+                    </div>  
+                              
+                   
+                
+                     
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
@@ -218,6 +232,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     <CLoading/>
                 )}
             </div>
+
             {showModal ? (
                 <PreviewDetails
                     showModal={showModal}

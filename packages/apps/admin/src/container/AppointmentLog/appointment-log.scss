@@ -48,6 +48,14 @@
         @include border-radius(4px);
     }
 
+    .total-amount{
+        background-color:$gray-200;
+        padding:4px 2px;
+        font-weight: 500;
+        color:$gray-800;
+        @include border-radius(4px);
+    }
+
     .react-datepicker-wrapper {
         width          : 50%;
         // padding-left: 4px;
