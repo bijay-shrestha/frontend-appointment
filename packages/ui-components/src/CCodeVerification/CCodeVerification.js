@@ -6,7 +6,8 @@ const CCodeVerification = ({
   codeVerificationData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  status
 }) => {
   return (
     <>
@@ -33,9 +34,17 @@ const CCodeVerification = ({
                       variant="primary"
                       className="btn-action float-right"
                       type="button"
-                      disabled={!isValid ? true : false}
+                      disabled={
+                        !isValid || status && status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
                       onClickHandler={onSubmitFormHandler}
-                      name="Verify Token"
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Verifying Token...'
+                          : 'Verify'
+                      }
                     />
                   </CForm>
                 </div>

@@ -35,9 +35,17 @@ const ForgotPassword = ({
                       variant="primary"
                       className="btn-action float-right"
                       type="submit"
-                      disabled={!isValid ? true : false}
+                      disabled={
+                        !isValid || status && status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
                       onClick={onSubmitFormHandler}
-                      name="Forgot Password"
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Proceeding...'
+                          : 'Proceed'
+                      }
                     />
                   </CForm>
                 </div>
