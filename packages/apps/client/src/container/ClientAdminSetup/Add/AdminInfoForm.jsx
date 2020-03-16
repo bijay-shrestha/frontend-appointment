@@ -172,16 +172,7 @@ const AdminInfoForm = ({
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Gender" id="gender"/>
                                 <div>
-                                <CRadioButton
-                                    checked={adminInfoObj.genderCode === "F"}
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                    onChange={(event) => onInputChange(event)}
-                                    id="female"
-                                    label="Female"
-                                    type="radio"
-                                    name="genderCode"
-                                    value="F"
-                                />
+
                                 <CRadioButton
                                     checked={adminInfoObj.genderCode === "M"}
                                     id="male"
@@ -193,6 +184,17 @@ const AdminInfoForm = ({
                                     onChange={(event) => onInputChange(event)}
                                 />
 
+                                <CRadioButton
+                                    checked={adminInfoObj.genderCode === "F"}
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                    id="female"
+                                    label="Female"
+                                    type="radio"
+                                    name="genderCode"
+                                    value="F"
+                                />
+                               
                                 <CRadioButton
                                     checked={adminInfoObj.genderCode === "O"}
                                     id="other"
