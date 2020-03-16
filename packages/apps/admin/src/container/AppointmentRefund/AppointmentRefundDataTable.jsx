@@ -65,14 +65,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 //   sortable: true,
                                 //   sizeColumnsToFit: true
                                 // },
-                                {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140,
-                                },
+                                
                                 {
                                     headerName: 'App. DateTime',
                                     field: 'appointmentDate',
@@ -90,21 +83,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Patient Details',
-                                    cellRenderer: 'patientWithAgeRenderer',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 300,
-                                },
-                                {
                                     headerName: 'Doctor',
                                     field: 'doctorName',
                                     resizable: true,
@@ -118,14 +96,38 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
+                                {
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140,
+                                },
+                                {
+                                    headerName: 'Patient Details',
+                                    cellRenderer: 'patientWithAgeRenderer',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 300,
+                                },
+                            
 
-                                // {
-                                //   headerName: 'Esewa Id',
-                                //   field: 'esewaId',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
+                                {
+                                  headerName: 'Esewa Id',
+                                  field: 'esewaId',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true
+                                },
                                 // {
                                 //   headerName: 'Transaction Number',
                                 //   field: 'transactionNumber',

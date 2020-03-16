@@ -55,9 +55,9 @@ const CChangePasswordInForget = ({
                       className="btn-action float-right"
                       type="button"
                       disabled={
-                        !isValid || (status && status.toLowerCase() === 'pending'
+                        !isValid || status && status.toLowerCase() === 'pending'
                           ? true
-                          : false)
+                          : false
                       }
                       onClickHandler={onSubmitFormHandler}
                       name={

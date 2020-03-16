@@ -51,7 +51,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     name="Reset"
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>
+                                   &nbsp; <i className="fa fa-refresh"/>
                                 </CButton>
                             </div>
                         </div>

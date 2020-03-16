@@ -275,8 +275,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
             const newSpecializationList = specializationList.length &&
                 specializationList.map((spec, index) => ({
                     ...spec,
-                    sN: index + 1,
-                    name: spec.name.toUpperCase()
+                    sN: index + 1
+            
                 }));
             return newSpecializationList;
         };

@@ -216,5 +216,14 @@
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false
+  },
+  {
+    "id": 25,
+    "name": "Clone And Add New",
+    "status": "Y",
+    "parent_role_id": 6,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false
   }
 ]

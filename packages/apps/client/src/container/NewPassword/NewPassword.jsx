@@ -95,6 +95,7 @@ class NewPassword extends PureComponent {
       showAlert,
       errorMessage
     } = this.state
+    
     return (
       <>
         <CChangePasswordInForget

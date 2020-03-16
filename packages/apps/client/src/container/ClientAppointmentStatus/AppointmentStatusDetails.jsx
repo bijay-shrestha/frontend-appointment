@@ -20,7 +20,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
         activeStatus,
         getPatientDetails,
         handleCheckIn,
-        showCheckInModal
+        showCheckInModal,
+        handleViewAppointmentDetails
     } = statusDetailsData;
     return <>
         <div className="manage-details">
@@ -76,11 +77,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                    {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
+                                                     <i className="fa fa-clock-o"></i> &nbsp;
                                                     {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
                                                     {appointmentStatusDetail.doctorTimeSlots[
                                                     appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
@@ -192,6 +194,18 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 {appointmentStatusDetail.patientDetails.address}
                                             </div>
                                         </div>
+
+
+                                        <CButton
+                                            name=""
+                                            variant="outline-primary"
+                                            size="sm" block
+                                            onClickHandler={() => handleViewAppointmentDetails(appointmentStatusDetail)}
+                                            // className="btn-checkin"
+                                        >
+                                            <i className="fa fa-eye"/> &nbsp;View Details
+                                        </CButton>
+
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
                                             <CButton
                                                 name=""

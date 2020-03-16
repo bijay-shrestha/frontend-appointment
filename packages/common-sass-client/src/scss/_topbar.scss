@@ -191,21 +191,20 @@
     // for profile details
 
     .user-profile {
+        margin-top:-9px;
+        // padding:0 4px;   
         &.show{
             background-color: #e6efff;
-            @include border-radius(50%);        }
+            @include border-radius(50%);
+            
+             }
 
         &>.btn {
 
             // width: 45px;
         }
 
-        .avatar {
-            width         : 40px;
-            height        : auto;
-            // margin-left: 5px;
-            @include border-radius(50px);
-        }
+       
 
         i {
             margin-top: -5px;
@@ -213,12 +212,23 @@
         }
 
         .dropdown-toggle {
-            @include border-radius(50px);
+            @include border-radius(50%);
             -webkit-transition: all 0.3s;
             transition        : all 0.3s;
+            padding:2px;
+            text-align: center;
+            width:42px;
+            height: 42px;
 
-            &:hover {
-                background-color: lighten($cogent, 45%);
+            // &:hover {
+            //     background-color: lighten($cogent, 45%);
+            // }
+
+            .avatar {
+                width         : 40px;
+                height        : 40px;
+                // margin-left: 5px;
+                @include border-radius(50px);
             }
         }
 

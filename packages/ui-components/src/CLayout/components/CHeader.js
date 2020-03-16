@@ -46,17 +46,19 @@ class CHeader extends Component {
         this.props.history.push('/');
     };
 
-    setLoggedInUserInfo = () => {
+    setLoggedInUserInfo = async () => {
         let absoluteUrl = window.location.href;
         let base = absoluteUrl.split('#')[0];
         let adminInfo = JSON.parse(localStorage.getItem('adminInfo'));
         // let modules = JSON.parse(localStorage.getItem('assignedModules'));
         // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
-        this.setState({
+        
+        await this.setState({
             userInfo: {...adminInfo},
             // assignedModules: modules && [...modules],
             urlBase: base
         });
+        document.title=this.state.userInfo.hospitalName||'Cogent-Appointment-Admin';
     };
 
     handleChangePassword = () => {
@@ -144,6 +146,8 @@ class CHeader extends Component {
                                         className="avatar"/>
                                     <div
                                         className="user-name"> {this.state.userInfo && this.state.userInfo.fullName}</div>
+                                   {/* <div
+                                        className="user-name"> {this.state.userInfo && this.state.userInfo.hospitalName}</div> */}
                                     <div
                                         className="profile-name">
                                         {this.state.userInfo && this.state.userInfo.profileName}</div>
