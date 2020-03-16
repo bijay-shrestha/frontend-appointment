@@ -95,21 +95,21 @@ const AppointmentQueue = props => {
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={appointmentQueueData}
-              rowModelType= "infinite"
-              paginationPageSize={6}
-              cacheOverflowSize={2}
-              maxConcurrentDatasourceRequests={1}
-              infiniteInitialRowCount={6}
-              maxBlocksInCache={6}
-              dataSource={()=>handlePageChange(queryParams.page++)}
+              // rowModelType= "infinite"
+              // paginationPageSize={6}
+              // cacheOverflowSize={2}
+              // maxConcurrentDatasourceRequests={1}
+              // infiniteInitialRowCount={6}
+              // maxBlocksInCache={6}
+              // dataSource={()=>handlePageChange(queryParams.page++)}
             />
 
-            {/* <CPagination
+            <CPagination
               totalItems={totalRecords}
               maxSize={queryParams.size}
               currentPage={queryParams.page}
               onPageChanged={handlePageChange}
-            /> */}
+            />
           </>
         ) : !isAppointmentQueueLoading && appointmentQueueErrorMessage ? (
           <div className="filter-message">
