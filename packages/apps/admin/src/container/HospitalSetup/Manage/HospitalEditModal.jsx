@@ -272,7 +272,7 @@ const HospitalEditModal = ({
                                                                         <CButton
                                                                             id="hospital-contact"
                                                                             key={'hospRemove' + index}
-                                                                            name="Upload Banner"
+                                                                            name=""
                                                                             variant="outline-danger"
                                                                             className="float-right remove-contact "
                                                                             onClickHandler={e =>
