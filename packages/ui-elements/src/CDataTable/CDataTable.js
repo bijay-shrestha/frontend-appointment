@@ -20,33 +20,7 @@ class CDataTable extends PureComponent {
   onGridReady = params => {
     this.setState({
       gridApi: params
-    })
-    if(this.props.dataSource){
-    const updateData = data => {
-      var dataSource = {
-        rowCount: null,
-        getRows: function (params) {
-          console.log('asking for ' + params.startRow + ' to ' + params.endRow)
-          setTimeout(function () {
-            var rowsThisPage = data.slice(params.startRow, params.endRow)
-            var lastRow = -1
-            if (data.length <= params.endRow) {
-              lastRow = data.length
-            }
-            params.successCallback(rowsThisPage, lastRow)
-          }, 500)
-        }
-      }
-      params.api.setDatasource(dataSource)
-    }
-
-    try {
-      const response = this.props.dataSource()
-      updateData(response)
-    } catch (e) {
-        console.log(e);
-    }
-    }
+    });
     params.api.sizeColumnsToFit()
   }
 
