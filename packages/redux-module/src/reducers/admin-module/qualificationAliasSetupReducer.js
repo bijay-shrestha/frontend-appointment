@@ -156,6 +156,7 @@ export const QualificationAliasSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchQualificationAliasLoading: false,
                 qualificationAliasList: [...action.payload.data],
+                searchErrorMessage:''
             };
         case SEARCH_QUALIFICATION_ALIAS_ERROR:
             return {

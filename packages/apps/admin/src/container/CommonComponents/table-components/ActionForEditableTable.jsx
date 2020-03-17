@@ -13,22 +13,22 @@ const ActionForEditableTable = props => {
                     <CButton
                         id="save"
                         name="Add"
-                        onClickHandler={(e) => props.saveAlias(e, props.node.data, 'S')}/>
+                        onClickHandler={(e) => props.onClick(e, props.node.data, 'ADD')}/>
                     <CButton
                         id="cancel"
                         name="Cancel"
-                        onClickHandler={(e) => props.cancelAlias(e, props.node.data, 'C')}/>
+                        onClickHandler={(e) => props.onClick(e, props.node.data, 'CANCEL')}/>
                 </>
                 :
                 <>
                     <CButton
                         id="edit"
                         name="Edit"
-                        onClickHandler={(e) => props.editAlias(e, props.node.data, 'S')}/>
+                        onClickHandler={(e) => props.onClick(e, props.node.data, 'EDIT')}/>
                     <CButton
                         id="delete"
                         name="Delete"
-                        onClickHandler={(e) => props.deleteAlias(e, props.node.data, 'C')}/>
+                        onClickHandler={(e) => props.onClick(e, props.node.data, 'DELETE')}/>
                 </>
 
             }

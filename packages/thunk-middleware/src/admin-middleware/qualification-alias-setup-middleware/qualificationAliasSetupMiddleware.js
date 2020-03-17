@@ -43,10 +43,10 @@ export const deleteQualificationAlias = (path, data) => async dispatch => {
     }
 };
 
-export const searchQualificationAlias = (path, data) => async dispatch => {
+export const searchQualificationAlias = (path, data, paginationData) => async dispatch => {
     dispatch(QualificationAliasSetupActions.searchQualificationAliasPending());
     try {
-        const response = await Axios.del(path, data);
+        const response = await Axios.putWithPagination(path, paginationData, data);
         dispatch(QualificationAliasSetupActions.searchQualificationAliasSuccess(response.data));
         return response.data;
     } catch (e) {

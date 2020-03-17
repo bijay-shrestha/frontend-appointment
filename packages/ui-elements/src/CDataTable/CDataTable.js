@@ -26,13 +26,13 @@ class CDataTable extends PureComponent {
     };
 
     onBtStopEditing() {
-        this.state.gridApi.stopEditing();
+        this.state.gridApi.api.stopEditing();
     }
 
     onBtStartEditing() {
-        this.state.gridApi.api.setFocusedCell(0, "name");
+        this.state.gridApi.api.setFocusedCell(this.props.rowNumber, "name");
         this.state.gridApi.api.startEditingCell({
-            rowIndex: 0,
+            rowIndex: this.props.rowNumber,
             colKey: "name"
         });
     }
@@ -57,7 +57,8 @@ class CDataTable extends PureComponent {
         let data = this.checkDataAndFilterTheData(e);
         this.setState({
             rowChanged: data
-        })
+        });
+        this.props.onCellInputChange && this.props.onCellInputChange(e);
     };
 
     onSelectionChanged = row => {
@@ -76,8 +77,11 @@ class CDataTable extends PureComponent {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.startEditing) {
+        if (this.props.startEditing && !this.props.stopEditing) {
             this.onBtStartEditing()
+        }
+        if (this.props.stopEditing && !this.props.startEditing) {
+            this.onBtStopEditing();
         }
     }
 
@@ -97,7 +101,9 @@ class CDataTable extends PureComponent {
             floatingFilter,
             editType,
             cellMouseOver,
-            rowHeight
+            rowHeight,
+            suppressClickEdit,
+            components
         } = this.props;
 
         return (
@@ -113,6 +119,7 @@ class CDataTable extends PureComponent {
                         rowSelection={rowSelection}
                         // onSelectionChanged={rows => this.onSelectionChanged(rows)}
                         frameworkComponents={frameworkComponents}
+                        components={components}
                         floatingFilter={floatingFilter}
                         editType={editType}
                         enableColResize
@@ -121,7 +128,8 @@ class CDataTable extends PureComponent {
                         modules={AllCommunityModules}
                         onCellClicked={this.onCellClicked}
                         rowHeight={rowHeight}
-                        suppressClickEdit={true}
+                        suppressClickEdit={suppressClickEdit}
+                        onCellValueChanged={e => this.onCellValueChanged(e)}
                     />
                 </div>
             </>
