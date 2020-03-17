@@ -3,7 +3,8 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   HospitalSetupMiddleware,
   DashboardDetailsMiddleware,
-  DoctorMiddleware
+  DoctorMiddleware,
+  SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './admin-dashboard.scss'
@@ -28,7 +29,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     DashboardApiConstant,
     doctorSetupApiConstants
   } = AdminModuleAPIConstants
-
+  const {
+    fetchSpecializationHospitalWiseForDropdown
+ } = SpecializationSetupMiddleware
   class DashBoardDetails extends React.PureComponent {
     state = {
       searchParameterForGenerateRevenue: {
@@ -51,6 +54,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       revenueFilter: 'W',
       appointmentFilter: 'W',
       hospitalList: [],
+      specializationListHospitalWise:[],
       appointmentQueue: {
         doctorId: '',
         hospitalId: ''
@@ -326,6 +330,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           this.searchAppointmentQueue();
           this.searchDoctorRevenueList();
           this.searchDoctorForHospitalWise(value)
+          await this.props.fetchActiveDoctorsHospitalWiseForDropdown(value);
+          this.setState({
+            specializationListHospitalWise:this.props.SpecializationDropdownReducer.activeSpecializationListByHospital
+          })
         }
       }
     }
@@ -468,6 +476,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       doctorRevenueParam[fieldName] = e||'';
       await this.setState({
         doctorRevenue:doctorRevenueParam
+      })
+    }
+
+    handleSpecializationChange = e => {
+      let specializationParam = {...this.state.doctorRevenue};
+      const {name,value} = e.target
+      specializationParam[name] = value
+      this.setState({
+        doctorRevenue:specializationParam
       })
     }
 
@@ -637,7 +654,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             handleDateChange:this.handleDateChange,
             hospitalId:doctorRevenue.hospitalId,
             doctorTotalAppointments:doctorTotalAppointments,
-            doctorTotalRevenueAmount:doctorTotalRevenueAmount
+            doctorTotalRevenueAmount:doctorTotalRevenueAmount,
+            handleSpecializationChange:this.handleSpecializationChange
           }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}
@@ -663,7 +681,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       'DashboardRevenueStatisticsReducer',
       'DashboardAppointmentQueueReducer',
       'DashboardRevenueGeneratedByDoctorReducer',
-      'DoctorDropdownReducer'
+      'DoctorDropdownReducer',
+      'SpecializationDropdownReducer'
     ],
     {
       fetchDashboardAppointmentStatisticsList,
@@ -676,7 +695,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       fetchActiveHospitalsForDropdown,
       fetchAppointmentQueueList,
       fetchActiveDoctorsHospitalWiseForDropdown,
-      fetchDashboardDoctorRevenue
+      fetchDashboardDoctorRevenue,
+      fetchSpecializationHospitalWiseForDropdown
     }
   )
 }

@@ -3,11 +3,12 @@ import {Row, Col, Form} from 'react-bootstrap'
 import {
   CDataTable,
   CHybridSelect,
+  CHybridInput,
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
-import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
+//import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components';
 const DoctorRevenueList = props => {
   const {
@@ -23,7 +24,8 @@ const DoctorRevenueList = props => {
     fromDate,
     toDate,
     handleDateChange,
-    hospitalId
+    hospitalId,
+    handleSpecializationChange
   } = props.doctorRevenue
   return (
     <>
@@ -76,6 +78,13 @@ const DoctorRevenueList = props => {
                           showYearDropdown={true}
                           dropdownMode="select"
                           onChange={date => handleDateChange(date, 'toDate')}
+                        />
+                        <CHybridInput
+                          name="specializationId"
+                          placeholder="Select Doctor"
+                          onChange={handleDoctorChange}
+                          options={doctorDropdown}
+                          value={doctorId}
                         />
                       </div>
                     </Col>
