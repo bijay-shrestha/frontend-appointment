@@ -22,11 +22,12 @@ const DoctorRevenueList = props => {
     doctorDropdown,
     fromDate,
     toDate,
-    handleDateChange
+    handleDateChange,
+    hospitalId
   } = props.doctorRevenue
   return (
     <>
-      {props.hospitalId.value ? (
+      {hospitalId.value ? (
         <Row className="mt-4">
           <h5 className="title">Doctor Revenue</h5>
           <div className="app-log">

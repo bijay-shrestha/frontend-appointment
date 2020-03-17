@@ -85,8 +85,6 @@ const AppointmentQueue = props => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                
-             
               ]}
               frameworkComponents={{
                 doctorwithSpecializationRenderer:DoctorWithSpecializationAndImage,

@@ -63,8 +63,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       doctorRevenue: {
         doctorId: '',
         hospitalId: '',
-        fromDate: '',
-        toDate: ''
+        fromDate:DateTimeFormatterUtils.subtractDate(new Date(), 1),
+        toDate:new Date(),
+        specializationId:''
       },
       doctorQueryParams: {
         page: 0,
@@ -338,7 +339,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         ...this.state.doctorRevenue
       }
 
-      let fieldName, value, label
+      let fieldName, value, label;
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
@@ -502,7 +503,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         doctorTotalRecords,
         doctorQueryParams,
         appointmentQueue,
-        queryParams
+        appointmentFilter,
+        queryParams,
+        revenueFilter
       } = this.state
       const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
@@ -631,14 +634,17 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             doctorDropdown:activeDoctorsByHospitalForDropdown,
             fromDate:doctorRevenue.fromDate,
             toDate:doctorRevenue.toDate, 
-            handleDateChange:this.handleDateChange
+            handleDateChange:this.handleDateChange,
+            hospitalId:doctorRevenue.hospitalId,
+            doctorTotalAppointments:doctorTotalAppointments,
+            doctorTotalRevenueAmount:doctorTotalRevenueAmount
           }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}
           hospitalDropdown={hospitalList}
           hospitalId={hospitalId}
-          revenueFilter={this.state.revenueFilter}
-          appointmentFilter={this.state.appointmentFilter}
+          revenueFilter={revenueFilter}
+          appointmentFilter={appointmentFilter}
         />
       )
     }

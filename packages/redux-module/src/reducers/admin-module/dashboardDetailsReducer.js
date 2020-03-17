@@ -55,7 +55,7 @@ const revenueGeneratedDay = {
 
 const revenueGeneratedByDoctor = {
   isDoctorRevenueGeneratedLoading:true,
-  doctorRevenueGenerated:{},
+  doctorRevenueGenerated:[],
   doctorRevenueGeneratedErrorMessage:'',
   totalItems:0,
   totalAmount:0,
@@ -345,13 +345,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
   switch (action.type) {
     case DASHBOARD_DOCTOR_REVENUE_FETCH_START:
       return {
-        ...state,
-        isDoctorRevenueGeneratedLoading:true,
-        doctorRevenueGenerated:{},
-        doctorRevenueGeneratedErrorMessage:'',
-        totalItems:0,
-        totalAmount:0,
-        overallAppointment:0
+        ...state
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
       return {
@@ -367,8 +361,8 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
       return {
         ...state,
         isDoctorRevenueGeneratedLoading:false,
-        doctorRevenueGenerated:{},
-        doctorRevenueGeneratedErrorMessage:'',
+        doctorRevenueGenerated:[],
+        doctorRevenueGeneratedErrorMessage:action.payload.data, 
         totalItemsDoctorsRevenue:0,
         totalRevenueAmount:0,
         overallAppointment:0

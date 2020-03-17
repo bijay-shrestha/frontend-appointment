@@ -194,11 +194,11 @@ export const fetchDashboardRevenueWeekList = (path, data) => async dispatch => {
 }
 
 export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
-  dispatch(DashboardDetailsActions.dashboardDoctorRevenueFetchingStart())
+  dispatch(DashboardDetailsActions.dashboardYearRevenueFetchingStart())
   try {
     const response = await Axios.put(path, data)
     dispatch(
-      DashboardDetailsActions.dashboardDoctorRevenueFetchingSuccess(response.data)
+      DashboardDetailsActions.dashboardYearRevenueFetchingSuccess(response.data)
     )
     return response
   } catch (e) {
@@ -206,18 +206,18 @@ export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
       ? e.errorMessage
       : 'Sorry Something Error Occured!!'
     dispatch(
-      DashboardDetailsActions.dashboardDoctorRevenueFetchingSuccess(errorMessage)
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingError(errorMessage)
     )
     throw e;
   }
 }
 
 export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
-    dispatch(DashboardDetailsActions.dashboardYearRevenueFetchingStart())
+    dispatch(DashboardDetailsActions.dashboardDoctorRevenueFetchingStart())
     try {
       const response = await Axios.getWithRequestParams(path, data)
       dispatch(
-        DashboardDetailsActions.dashboardYearRevenueFetchingSuccess(response.data)
+        DashboardDetailsActions.dashboardDoctorRevenueFetchingSuccess(response.data)
       )
       return response
     } catch (e) {
@@ -225,7 +225,7 @@ export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
         ? e.errorMessage
         : 'Sorry Something Error Occured!!'
       dispatch(
-        DashboardDetailsActions.dashboardYearRevenueFetchingError(errorMessage)
+        DashboardDetailsActions.dashboardDoctorRevenueFetchingError(errorMessage)
       )
       throw e;
     }
