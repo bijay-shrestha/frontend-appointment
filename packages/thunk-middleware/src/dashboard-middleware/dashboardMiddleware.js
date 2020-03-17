@@ -215,7 +215,7 @@ export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
 export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
     dispatch(DashboardDetailsActions.dashboardYearRevenueFetchingStart())
     try {
-      const response = await Axios.put(path, data)
+      const response = await Axios.getWithRequestParams(path, data)
       dispatch(
         DashboardDetailsActions.dashboardYearRevenueFetchingSuccess(response.data)
       )

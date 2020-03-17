@@ -58,7 +58,8 @@ const revenueGeneratedByDoctor = {
   doctorRevenueGenerated:{},
   doctorRevenueGeneratedErrorMessage:'',
   totalItems:0,
-  totalAmount:0
+  totalAmount:0,
+  overallAppointment:0
 }
 
 const revenueGeneratedMonth = {
@@ -347,21 +348,30 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         ...state,
         isDoctorRevenueGeneratedLoading:true,
         doctorRevenueGenerated:{},
-        doctorRevenueGeneratedErrorMessage:''
+        doctorRevenueGeneratedErrorMessage:'',
+        totalItems:0,
+        totalAmount:0,
+        overallAppointment:0
       }
-    case DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS:
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
       return {
         ...state,
         isDoctorRevenueGeneratedLoading:false,
-        doctorRevenueGenerated:action.payload.data.doctorRevenueGeneratedData,
-        doctorRevenueGeneratedErrorMessage:''
+        doctorRevenueGenerated:action.payload.data.doctorRevenueResponseDTOList,
+        doctorRevenueGeneratedErrorMessage:'',
+        totalItemsDoctorsRevenue:action.payload.data.overallAppointmentCount,
+        totalRevenueAmount:action.payload.data.totalRevenueAmount,
+        overallAppointment:action.payload.data.overallAppointmentCount
       }
-    case DASHBOARD_REVENUE_YEAR_FETCH_ERROR:
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
         ...state,
         isRevenueGeneratedYearLoading: false,
         revenueGeneratedYearData: {},
-        revenueGeneratedYearErrorMessage: action.payload.data
+        revenueGeneratedYearErrorMessage: action.payload.data,
+        totalItemsDoctorsRevenue:0,
+        totalRevenueAmount:0,
+        overallAppointment:0
       }
     default:
       return {...state}
