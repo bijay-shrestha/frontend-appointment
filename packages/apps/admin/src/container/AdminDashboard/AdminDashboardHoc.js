@@ -70,7 +70,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 6
       },
-      doctorTotalRecords: 0
+      doctorTotalRecords: 0,
+      doctorTotalAppointments:0,
+      doctorTotalRevenueAmount:0,
     }
 
     searchHospitalForDropDown = async () => {
@@ -320,7 +322,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       if (fieldName === 'hospitalId') {
         this.callApiForHospitalChange()
         if (value) {
-          this.searchAppointmentQueue()
+          this.searchAppointmentQueue();
+          this.searchDoctorRevenueList();
           this.searchDoctorForHospitalWise(value)
         }
       }
@@ -389,6 +392,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             totalRecords: this.props.DashboardAppointmentQueueReducer.totalItems
               ? this.props.DashboardAppointmentQueueReducer.totalItems
               : 0,
+              
             queryParams: {
               ...this.state.queryParams,
               page: updatedPage
@@ -402,7 +406,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    searchDoctorRevenueList = async () => {
+    searchDoctorRevenueList = async page => {
       const {doctorId, hospitalId, fromDate, toDate} = this.state.doctorRevenue
       const response = ''
       if (hospitalId) {
@@ -427,11 +431,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             }
           )
           await this.setState({
-            totalRecords: this.props.DashboardRevenueGeneratedByDoctorReducer
-              .totalItems
-              ? this.props.DashboardRevenueGeneratedByDoctorReducer.totalItems
-              : 0,
-            queryParams: {
+            doctorTotalRecords:this.props.DashboardRevenueGeneratedByDoctorReducer.totalItemsDoctorsRevenue,
+            doctorTotalAppointments:this.props.DashboardRevenueGeneratedByDoctorReducer.overallAppointment,
+            doctorTotalRevenueAmount:this.props.DashboardRevenueGeneratedByDoctorReducer.totalRevenueAmount,  
+            doctorQueryParams: {
               ...this.state.doctorQueryParams,
               page: updatedPage
             }
@@ -447,16 +450,24 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     handleDoctorRevenuePageChange = async newPage => {
       try {
         await this.setState({
-          queryParams: {
-            ...this.state.queryParams,
+          doctorQueryParams: {
+            ...this.state.doctorQueryParams,
             page: newPage
           }
         })
-        const response = await this.searchAppointmentQueue()
+        const response = await this.searchDoctorRevenueList()
         return response
       } catch (e) {
         throw e
       }
+    }
+
+    handleDateChange = async(e,fieldName) => {
+      let doctorRevenueParam = {...this.state.doctorRevenue};
+      doctorRevenueParam[fieldName] = e||'';
+      await this.setState({
+        doctorRevenue:doctorRevenueParam
+      })
     }
 
     handlePageChange = async newPage => {
@@ -485,6 +496,12 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         searchParameterForRevenueTrend,
         hospitalList,
         totalRecords,
+        doctorRevenue,
+        doctorTotalAppointments,
+        doctorTotalRevenueAmount,
+        doctorTotalRecords,
+        doctorQueryParams,
+        appointmentQueue,
         queryParams
       } = this.state
       const {revFromDate, revToDate} = searchParameterForRevenueTrend
@@ -540,9 +557,17 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         revenueGeneratedYearData,
         revenueGeneratedYearErrorMessage
       } = this.props.DashboardRevenueGeneratedYearReducer
+
+      const {
+        isDoctorRevenueGeneratedLoading,
+        doctorRevenueGenerated,
+        doctorRevenueGeneratedErrorMessage,
+      } = this.props.DashboardRevenueGeneratedByDoctorReducer
+      
       const {
         activeDoctorsByHospitalForDropdown
       } = this.props.DoctorDropdownReducer
+      
       return (
         <ComposedComponent
           {...this.props}
@@ -591,8 +616,22 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             queryParams: queryParams,
             handlePageChange: this.handlePageChange,
             handleDoctorChange: this.handleDoctorChange,
-            doctorId: this.state.appointmentQueue.doctorId,
+            doctorId: appointmentQueue.doctorId,
             doctorDropdown: activeDoctorsByHospitalForDropdown
+          }}
+          doctorRevenue ={{
+            isDoctorRevenueLoading:isDoctorRevenueGeneratedLoading,
+            doctorRevenueData:doctorRevenueGenerated,
+            doctorRevenueErrorMessage:doctorRevenueGeneratedErrorMessage,
+            totalRecords:doctorTotalRecords,
+            queryParams:doctorQueryParams,
+            handlePageChange:this.handleDoctorRevenuePageChange,
+            doctorId:doctorRevenue.doctorId,
+            handleDoctorChange:this.handleDoctorChange,
+            doctorDropdown:activeDoctorsByHospitalForDropdown,
+            fromDate:doctorRevenue.fromDate,
+            toDate:doctorRevenue.toDate, 
+            handleDateChange:this.handleDateChange
           }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}

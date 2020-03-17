@@ -8,6 +8,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
 import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
+import {CEnglishDatePicker} from '@frontend-appointment/ui-components';
 const DoctorRevenueList = props => {
   const {
     isDoctorRevenueLoading,
@@ -20,7 +21,8 @@ const DoctorRevenueList = props => {
     handleDoctorChange,
     doctorDropdown,
     fromDate,
-    toDate
+    toDate,
+    handleDateChange
   } = props.doctorRevenue
   return (
     <>
@@ -57,7 +59,7 @@ const DoctorRevenueList = props => {
                           dropdownMode="select"
                           onKeyDown={event => this.handleEnter(event)}
                           onChange={date =>
-                            onSearchInputChange(date, 'fromDate')
+                            handleDateChange(date, 'fromDate')
                           }
                         />{' '}
                         &nbsp;&nbsp;
@@ -72,7 +74,7 @@ const DoctorRevenueList = props => {
                           showMonthDropdown={true}
                           showYearDropdown={true}
                           dropdownMode="select"
-                          onChange={date => onSearchInputChange(date, 'toDate')}
+                          onChange={date => handleDateChange(date, 'toDate')}
                         />
                       </div>
                     </Col>
@@ -108,17 +110,16 @@ const DoctorRevenueList = props => {
                           sizeColumnsToFit: true,
                           cellRenderer: 'doctorwithSpecializationRenderer'
                         },
-
                         {
-                          headerName: 'Patient(Mobile Number)',
+                          headerName: 'No of Appointments',
+                          field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true,
-                          cellRenderer: 'mobileRender'
+                          sizeColumnsToFit: true
                         },
                         {
-                          headerName: 'Appointment Time',
-                          field: 'appointmentTime',
+                          headerName: 'Revenue Amout',
+                          field: 'revenueAmount',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true
@@ -126,11 +127,10 @@ const DoctorRevenueList = props => {
                       ]}
                       frameworkComponents={{
                         doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage,
-                        mobileRender: PatientWithMobileNumber
                       }}
                       defaultColDef={{resizable: true}}
                       rowSelection={'single'}
-                      rowData={appointmentQueueData}
+                      rowData={doctorRevenueData}
                       // rowModelType= "infinite"
                       // paginationPageSize={6}
                       // cacheOverflowSize={2}
@@ -147,15 +147,15 @@ const DoctorRevenueList = props => {
                       onPageChanged={handlePageChange}
                     />
                   </>
-                ) : !isAppointmentQueueLoading &&
-                  appointmentQueueErrorMessage ? (
+                ) : !isDoctorRevenueLoading &&
+                    doctorRevenueErrorMessage ? (
                   <div className="filter-message">
                     <div className="no-data">
                       <i className="fa fa-file-text-o"></i>
                     </div>
                     <div className="message">
                       {' '}
-                      {appointmentQueueErrorMessage}
+                      {doctorRevenueErrorMessage}
                     </div>
                   </div>
                 ) : (

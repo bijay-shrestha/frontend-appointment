@@ -366,9 +366,9 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
         ...state,
-        isRevenueGeneratedYearLoading: false,
-        revenueGeneratedYearData: {},
-        revenueGeneratedYearErrorMessage: action.payload.data,
+        isDoctorRevenueGeneratedLoading:false,
+        doctorRevenueGenerated:{},
+        doctorRevenueGeneratedErrorMessage:'',
         totalItemsDoctorsRevenue:0,
         totalRevenueAmount:0,
         overallAppointment:0
