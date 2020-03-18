@@ -330,7 +330,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           this.searchAppointmentQueue();
           this.searchDoctorRevenueList();
           this.searchDoctorForHospitalWise(value)
-          this.props.fetchActiveDoctorsHospitalWiseForDropdown(AdminModuleAPIConstants.specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,value);
+          this.props.fetchSpecializationHospitalWiseForDropdown(AdminModuleAPIConstants.specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,value);
           // this.setState({
           //   specializationListHospitalWise:this.props.SpecializationDropdownReducer.activeSpecializationListByHospital
           // })
@@ -588,7 +588,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       const {
         activeDoctorsByHospitalForDropdown
       } = this.props.DoctorDropdownReducer
-      
+      console.log("===============",this.props.SpecializationDropdownReducer.activeSpecializationListByHospital)
       return (
         <ComposedComponent
           {...this.props}

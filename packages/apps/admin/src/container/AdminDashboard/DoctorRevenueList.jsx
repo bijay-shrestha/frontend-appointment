@@ -55,7 +55,6 @@ const DoctorRevenueList = props => {
                           name="fromDate"
                           label="From Date"
                           dateFormat="yyyy-MM-dd"
-                          // minDate={0}
                           showDisabledMonthNavigation={true}
                           selected={fromDate}
                           peekNextMonth={true}
