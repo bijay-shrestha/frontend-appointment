@@ -67,8 +67,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       doctorRevenue: {
         doctorId: '',
         hospitalId: '',
-        fromDate:DateTimeFormatterUtils.subtractDate(new Date(), 1),
-        toDate:new Date(),
+        fromDate:DateTimeFormatterUtils.subtractDate(new Date(), 1).toLocaleDateString(),
+        toDate:new Date().toLocaleDateString(),
         specializationId:''
       },
       doctorQueryParams: {
