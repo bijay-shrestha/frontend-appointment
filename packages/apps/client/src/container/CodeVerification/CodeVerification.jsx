@@ -69,6 +69,7 @@ class CodeVerification extends PureComponent {
 
   render () {
     const {code, isValid, alertMessageInfo,showAlert} = this.state
+    const {status} =this.props.VerificationCodeReducer
     return (
       <>
         <CCodeVerification
@@ -76,6 +77,7 @@ class CodeVerification extends PureComponent {
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
+          status={status}
         />
         <CAlert
           id="profile-manage"

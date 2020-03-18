@@ -6,7 +6,8 @@ const CCodeVerification = ({
   codeVerificationData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  status
 }) => {
   return (
     <>
@@ -18,10 +19,11 @@ const CCodeVerification = ({
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                    <h1>Verify Token</h1>
+                  
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
+                  <p className="login-page-title">Password Reset Code</p>
                     <CHybridInput
                       id="code"
                       name="code"
@@ -33,9 +35,17 @@ const CCodeVerification = ({
                       variant="primary"
                       className="btn-action float-right"
                       type="button"
-                      disabled={!isValid ? true : false}
+                      disabled={
+                        !isValid || status && status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
                       onClickHandler={onSubmitFormHandler}
-                      name="Verify Token"
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Verifying Token...'
+                          : 'Verify'
+                      }
                     />
                   </CForm>
                 </div>

@@ -127,7 +127,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 // },
 
                                 {
-                                    headerName: 'Patient (Mobile) ',
+                                    headerName: 'Patient Detail ',
                                     field: 'patientDetails',
                                     resizable: true,
                                     sortable: true,
@@ -136,7 +136,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },
                                 {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: 'Doctor Detail',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,

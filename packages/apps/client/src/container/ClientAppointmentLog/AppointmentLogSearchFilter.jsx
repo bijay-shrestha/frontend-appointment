@@ -50,23 +50,14 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     name="Reset"
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>
+                                    &nbsp;<i className="fa fa-refresh"/>
                                 </CButton>
                             </div>
                         </div>
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder=" Appointment Number"
-                                            value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
+                                  
                                     <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -106,19 +97,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             />
                                         </div>
                                     </Col>
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
-                                            id="admin-meta-info"
-                                            name="patientMetaInfoId"
-                                            label="Patients Detail"
-                                            placeholder="Name, Mobile no Or Reg. no"
-                                            options={patientListDropdown}
-                                            value={searchParameters.patientMetaInfoId}
-                                            // isDisabled={patientListDropdown.length ? false : true}
+                                            id="specializationId"
+                                            label="Specialization"
+                                            name="specializationId"
+                                            onKeyDown={event => handleEnter(event)}
+                                            options={activeSpecializationList}
+                                            value={searchParameters.specializationId}
+                                            // isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
+                                            placeholder="Select specialization."
                                         />
                                     </Col>
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="doctorId"
@@ -136,19 +130,32 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="specializationId"
-                                            label="Specialization"
-                                            name="specializationId"
-                                            onKeyDown={event => handleEnter(event)}
-                                            options={activeSpecializationList}
-                                            value={searchParameters.specializationId}
-                                            // isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
+                                        <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder=" Appointment Number"
+                                            value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
-                                            onEnter={handleEnter}
-                                            placeholder="Select specialization."
+                                            onKeyDown={handleEnter}
                                         />
                                     </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="admin-meta-info"
+                                            name="patientMetaInfoId"
+                                            label="Patients Detail"
+                                            placeholder="Name, Mobile no Or Reg. no"
+                                            options={patientListDropdown}
+                                            value={searchParameters.patientMetaInfoId}
+                                            // isDisabled={patientListDropdown.length ? false : true}
+                                            onChange={handleSearchFormChange}
+                                            onEnter={handleEnter}
+                                        />
+                                    </Col>
+                                
+
+                                   
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect

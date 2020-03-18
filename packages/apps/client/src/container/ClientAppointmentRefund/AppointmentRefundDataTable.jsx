@@ -43,7 +43,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
                     <>
-                        <CDataTable
+                         <CDataTable
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
@@ -71,16 +71,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 //   sortable: true,
                                 //   sizeColumnsToFit: true
                                 // },
+                                
                                 {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140,
-                                },
-                                {
-                                    headerName: 'App. Date(Time)',
+                                    headerName: 'App. DateTime',
                                     field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
@@ -89,22 +82,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 160,
                                 },
                                 {
-                                    headerName: 'Cancel Date',
+                                   headerName: 'Cancel Date',
                                     field: 'cancelledDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Patient Name',
-                                    cellRenderer: 'patientWithAgeRenderer',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
@@ -123,14 +102,38 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
+                                {
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140,
+                                },
+                                {
+                                    headerName: 'Patient Details',
+                                    cellRenderer: 'patientWithAgeRenderer',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 300,
+                                },
+                            
 
-                                // {
-                                //   headerName: 'Esewa Id',
-                                //   field: 'esewaId',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
+                                {
+                                  headerName: 'Esewa Id',
+                                  field: 'esewaId',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true
+                                },
                                 // {
                                 //   headerName: 'Transaction Number',
                                 //   field: 'transactionNumber',

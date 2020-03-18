@@ -10,7 +10,9 @@ const ForgotPassword = ({
   passwordForgotData,
   onChangeHandler,
   onSubmitFormHandler,
-  isValid
+  isValid,
+  status,
+  forClient
 }) => {
   return (
     <>
@@ -24,6 +26,8 @@ const ForgotPassword = ({
                     <Image src={logo} className="logo-image" />
                   </div>
                   <CForm id="save-password" className="login-form">
+                  <p className="login-page-title">Forgot Password</p>
+                  <p className="forgot-password-content">Enter you email or username to reset your password.</p>
                     <CHybridInput
                       id="username"
                       name="username"
@@ -31,13 +35,28 @@ const ForgotPassword = ({
                       onChange={onChangeHandler}
                       value={passwordForgotData.username}
                     />
+                    {forClient?<CHybridInput
+                      id="hospitalCode"
+                      name="hospitalCode"
+                      placeholder="Hospital Code"
+                      onChange={onChangeHandler}
+                      value={passwordForgotData.hospitalCode}
+                    />:null}
                     <CButton
                       variant="primary"
                       className="btn-action float-right"
                       type="submit"
-                      disabled={!isValid ? true : false}
-                      onClick={onSubmitFormHandler}
-                      name="Forgot Password"
+                      disabled={
+                        !isValid || status && status.toLowerCase() === 'pending'
+                          ? true
+                          : false
+                      }
+                      onClickHandler={onSubmitFormHandler}
+                      name={
+                        status && status.toLowerCase() === 'pending'
+                          ? 'Proceeding...'
+                          : 'Proceed'
+                      }
                     />
                   </CForm>
                 </div>

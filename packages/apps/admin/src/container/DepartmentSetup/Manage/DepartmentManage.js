@@ -179,7 +179,7 @@ class DepartmentManage extends PureComponent {
 
     appendSNToTable = departmentList =>
         departmentList.map((prof, index) => ({
-            ...prof, sN: index + 1, name: prof.name.toUpperCase()
+            ...prof, sN: index + 1
         }));
 
     handlePageChange = async newPage => {

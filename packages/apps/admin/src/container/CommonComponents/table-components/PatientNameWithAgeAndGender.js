@@ -4,7 +4,7 @@ const PatientWithAgeAndGender = props => {
   return (
     <>
       <ul>
-        <li>{props.node.data.patientName.toUpperCase()}</li>
+        <li>{props.node.data.patientName}</li>
         <li>
           ({props.node.data.patientAge}/
           {props.node.data.patientGender.split('')[0].toUpperCase()})

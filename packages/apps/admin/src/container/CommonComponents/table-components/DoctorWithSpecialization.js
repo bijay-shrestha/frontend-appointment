@@ -7,7 +7,7 @@ const DoctorWithSpecialization = (props) => {
         <>
             <ul className="doctor-column">
                 <li>
-                    {props.node.data.doctorName},
+                    {props.node.data.doctorName}
                 </li>
                 <li>
                     <span className="spec">

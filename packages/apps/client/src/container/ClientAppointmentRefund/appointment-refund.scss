@@ -2,10 +2,10 @@
 @import '~bootstrap/scss/functions';
 
 //custom colors
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
 #appointment-refund{

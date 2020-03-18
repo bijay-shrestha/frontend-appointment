@@ -1,4 +1,14 @@
 
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+
 .container-login{
   width:750px !important;
   margin:0 auto;
@@ -96,7 +106,7 @@ padding:10px;
 .header-login {
 position:relative;
 text-align:center;
-background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+background: linear-gradient(60deg, darken($cogent,15%) 0%, lighten($cogent,30%) 100%);
 color:white;
 }
 .logo {

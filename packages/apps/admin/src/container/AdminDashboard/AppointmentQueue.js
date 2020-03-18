@@ -3,6 +3,7 @@ import {Row,Col,Form} from 'react-bootstrap'
 import {CDataTable,CHybridSelect,CLoading,CPagination} from '@frontend-appointment/ui-elements'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage';
 import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
+import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 const AppointmentQueue = props => {
   const {
     isAppointmentQueueLoading,
@@ -12,6 +13,7 @@ const AppointmentQueue = props => {
     queryParams,
     handlePageChange,
     doctorId,
+    date,
     handleDoctorChange,
     doctorDropdown
   } = props.appointmentQueue;
@@ -41,9 +43,27 @@ const AppointmentQueue = props => {
         </Col>
 
         <Col className="date">
-          <div>
+
+        <CEnglishDatePicker
+            id="date"
+            name="date"
+            label="Date"
+            dateFormat="yyyy-MM-dd"
+            maxDate={0}
+            showDisabledMonthNavigation={true}
+            peekNextMonth={true}
+            showMonthDropdown={true}
+            showYearDropdown={true}
+            dropdownMode="select"
+            selected={date}
+            // onKeyDown={event => handleEnter(event)}
+            // onChange={date =>
+            //     handleSearchFormChange(date, 'fromDate')
+            // }
+        />
+          {/* <div>
             <span>Date :</span> {new Date().toDateString()}
-          </div>
+          </div> */}
         </Col>
       </Row>
       <Row>

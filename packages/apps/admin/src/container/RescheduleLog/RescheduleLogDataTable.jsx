@@ -69,27 +69,13 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 //     sizeColumnsToFit: true
                                 // },
                                 {
-                                    headerName: 'Appointment No.',
+                                    headerName: 'App. No.',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                                {
-                                    headerName: 'Reg. No.',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                // {
-                                //     headerName: 'Esewa Id',
-                                //     field: 'esewaId',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
                                 {
                                     headerName: 'Patient Info',
                                     resizable: true,
@@ -98,6 +84,21 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     cellRenderer: 'patientRenderer',
                                     width:"260",
                                 },
+                                {
+                                    headerName: 'Reg. No.',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'Esewa Id',
+                                    field: 'esewaId',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                            
                                 {
                                     headerName: 'Doctor(Specialization)',
                                     resizable: true,

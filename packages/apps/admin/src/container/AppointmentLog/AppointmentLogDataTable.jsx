@@ -27,24 +27,29 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     return (
         <>
             <div className="manage-details">
-                {/* <Container fluid>
+
           <Row>
-          */}
+          <Col>
                 <h5 className="title">Appointment Log Details</h5>
-                {/* </Col> */}
-                {/* <Col>
+            </Col>
+
+
+
+              {/* <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
-                onClickHandler={props.exportExcel}
+                // onClickHandler={props.exportExcel}
                 className="float-right"
                 variant="outline-secondary"
               >
                 {' '}
                 <i className="fa fa-download" />
               </CButton>
-            </Col> */}
-                {/* </Row> */}
+            </Col>  */}
+                </Row>
+
+
 
                 <Row>
                     <Col>
@@ -126,6 +131,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: "140"
                                 },
                                 {
+                                    headerName: 'Doctor(Specialization)',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'doctorwithSpecializationRenderer',
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: "300"
+                                },
+
+                                {
                                     headerName: 'Reg. No',
                                     field: 'registrationNumber',
                                     resizable: true,
@@ -167,16 +183,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                                {
-                                    headerName: 'Doctor(Specialization)',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer',
-                                    autoSize: true,
-                                    autoWidth: true,
-                                    width: "300"
-                                },
 
                             ]}
                             frameworkComponents={{
@@ -195,6 +201,18 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowData={appointmentLogList}
 
                         />
+
+
+                    <div className="my-4 ml-0 mr-4">
+                        <span className="total-amount">
+                        Total Amount : Rs 40000
+                        </span>
+
+                    </div>
+
+
+
+
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
@@ -213,6 +231,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     <CLoading/>
                 )}
             </div>
+
             {showModal ? (
                 <PreviewDetails
                     showModal={showModal}

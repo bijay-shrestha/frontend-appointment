@@ -539,8 +539,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantList.length &&
                 consultantList.map((spec, index) => ({
                     ...spec,
-                    sN: index + 1,
-                    name: spec.doctorName.toUpperCase()
+                    sN: index + 1
+                   
                 }));
             return newConsultantList
         };

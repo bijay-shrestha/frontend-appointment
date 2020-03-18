@@ -8,6 +8,8 @@ import TableAction from '../CommonComponents/table-components/TableAction'
 import TableStatus from '../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './ClientPatientPreview'
 import PatientEditModal from './ClientPatientEditModal'
+import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'; 
+
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -36,13 +38,14 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
         <h5 className="title">Patient Details</h5>
         {!isSearchLoading && !searchErrorMessage && patientSearchList.length ? (
           <>
-            <CDataTable
+          <CDataTable
               classes="ag-theme-balham"
               id="roles-table"
               width="100%"
               height="460px"
               enableSorting
               editType
+              rowHeight={50}
               columnDefs={[
                 {
                   headerName: 'SN',
@@ -51,32 +54,40 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   width: 130,
-              
                   sizeColumnsToFit: true,
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Name',
+                  headerName: 'Patient Details',
                   field: 'name',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
+                  cellRenderer: 'PatientNameWitheAgeGenderPhone',
                   width:"260"
                 },
-                {
-                  headerName: 'Address',
-                  field: 'address',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
-                {
-                  headerName: 'Date of Birth',
-                  field: 'dateOfBirth',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Name',
+                //   field: 'name',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                //   width:"260"
+                // },
+                // {
+                //   headerName: 'Address',
+                //   field: 'address',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
+                // {
+                //   headerName: 'Date of Birth',
+                //   field: 'dateOfBirth',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 // {
                 //   headerName: 'Email',
                 //   field: 'email',
@@ -92,13 +103,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   width:140,
                 },
-                {
-                  headerName: 'Mobile No',
-                  field: 'mobileNumber',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true
-                },
+                // {
+                //   headerName: 'Mobile No',
+                //   field: 'mobileNumber',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true
+                // },
                 {
                   headerName: 'Esewa Id',
                   field: 'esewaId',
@@ -163,7 +174,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
               }
               frameworkComponents={{
                 childActionRenderer: TableAction,
-                tableStatusRenderer: TableStatus
+                tableStatusRenderer: TableStatus,
+                PatientNameWitheAgeGenderPhone:PatientNameWithAgeGenderPhone
               }}
               rowSelection={'single'}
               rowData={patientSearchList}
