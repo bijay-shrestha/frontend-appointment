@@ -73,7 +73,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       },
       doctorQueryParams: {
         page: 0,
-        size: 6
+        size: 3
       },
       doctorTotalRecords: 0,
       doctorTotalAppointments:0,
@@ -417,18 +417,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
 
     searchDoctorRevenueList = async page => {
       const {doctorId, hospitalId, fromDate, toDate,specializationId} = this.state.doctorRevenue
-      const response = ''
+      let response = ''
       if (hospitalId) {
         let updatedPage =
           this.state.doctorQueryParams.page === 0
             ? 1
-            : page
+            :page
             ? page
             : this.state.doctorQueryParams.page
         try {
-          let modifiedFromDate=new Date(fromDate.toDateString()).toLocaleDateString().split("/");
-          let modifiedToDate=new Date(toDate.toDateString()).toLocaleDateString().split("/");
-
           response = await this.props.fetchDashboardDoctorRevenue(
             DashboardApiConstant.DOCTOR_REVENUE,
             {
@@ -485,7 +482,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     handleSpecializationChange = e => {
       let specializationParam = {...this.state.doctorRevenue};
       const {name,value,label} = e.target
-      specializationParam[name] = value?{value:label}:''
+      specializationParam[name] = value?{value:value,label:label}:''
       this.setState({
         doctorRevenue:specializationParam
       });

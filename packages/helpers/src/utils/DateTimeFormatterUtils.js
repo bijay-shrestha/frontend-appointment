@@ -9,6 +9,7 @@ export const convertDateToHourMinuteFormat = date => {
 export const getDateWithTimeSetToGivenTime = (date, hours, minutes, seconds) => {
     return date.setHours(hours, minutes, seconds, 0);
 };
+
 export const getFormattedDate = date =>  {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, '0');
@@ -16,6 +17,7 @@ export const getFormattedDate = date =>  {
   
     return year + '-' + month + '-' + day;
 }
+
 export const subtractDate = (date, daysToSubtract) => {
     date = date.setDate(date.getDate() - daysToSubtract);
     return new Date(date);

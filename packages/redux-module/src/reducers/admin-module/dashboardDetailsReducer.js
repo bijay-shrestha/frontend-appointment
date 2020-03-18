@@ -353,7 +353,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         isDoctorRevenueGeneratedLoading:false,
         doctorRevenueGenerated:action.payload.data.doctorRevenueResponseDTOList,
         doctorRevenueGeneratedErrorMessage:'',
-        totalItemsDoctorsRevenue:action.payload.data.overallAppointmentCount,
+        totalItemsDoctorsRevenue:action.payload.data.totalItems,
         totalRevenueAmount:action.payload.data.totalRevenueAmount,
         overallAppointment:action.payload.data.overallAppointmentCount
       }

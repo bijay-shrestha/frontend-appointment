@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
 //import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
-import {CEnglishDatePicker} from '@frontend-appointment/ui-components';
+import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 const DoctorRevenueList = props => {
   const {
     isDoctorRevenueLoading,
@@ -27,7 +27,9 @@ const DoctorRevenueList = props => {
     hospitalId,
     handleSpecializationChange,
     specializationId,
-    specializationListHospitalWise
+    specializationListHospitalWise,
+    doctorTotalAppointments,
+    doctorTotalRevenueAmount
   } = props.doctorRevenue
   return (
     <>
@@ -62,9 +64,7 @@ const DoctorRevenueList = props => {
                           showYearDropdown={true}
                           dropdownMode="select"
                           onKeyDown={event => this.handleEnter(event)}
-                          onChange={date =>
-                            handleDateChange(date, 'fromDate')
-                          }
+                          onChange={date => handleDateChange(date, 'fromDate')}
                         />{' '}
                         &nbsp;&nbsp;
                         <CEnglishDatePicker
@@ -82,7 +82,7 @@ const DoctorRevenueList = props => {
                         />
                         <CHybridSelect
                           name="specializationId"
-                          label='Select Specialization'
+                          label="Select Specialization"
                           onChange={handleSpecializationChange}
                           options={specializationListHospitalWise}
                           disabled={specializationListHospitalWise.length}
@@ -96,7 +96,10 @@ const DoctorRevenueList = props => {
 
               <Col className="date">
                 <div>
-                  <span>Date :</span> {new Date().toDateString()}
+                  <span>Date :</span> {fromDate.toDateString()} to{' '}
+                  {toDate.toDateString()}
+                  <span>Total Appointment::{doctorTotalAppointments}</span>
+                  <span>Total RevenueAmount::{doctorTotalRevenueAmount}</span>
                 </div>
               </Col>
             </Row>
@@ -138,7 +141,7 @@ const DoctorRevenueList = props => {
                         }
                       ]}
                       frameworkComponents={{
-                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage,
+                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage
                       }}
                       defaultColDef={{resizable: true}}
                       rowSelection={'single'}
@@ -159,16 +162,12 @@ const DoctorRevenueList = props => {
                       onPageChanged={handlePageChange}
                     />
                   </>
-                ) : !isDoctorRevenueLoading &&
-                    doctorRevenueErrorMessage ? (
+                ) : !isDoctorRevenueLoading && doctorRevenueErrorMessage ? (
                   <div className="filter-message">
                     <div className="no-data">
                       <i className="fa fa-file-text-o"></i>
                     </div>
-                    <div className="message">
-                      {' '}
-                      {doctorRevenueErrorMessage}
-                    </div>
+                    <div className="message"> {doctorRevenueErrorMessage}</div>
                   </div>
                 ) : (
                   <CLoading />
