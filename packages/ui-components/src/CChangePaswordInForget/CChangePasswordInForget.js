@@ -16,17 +16,18 @@ const CChangePasswordInForget = ({
 }) => {
   return (
     <>
-      <div className="header-login new-password">
+      <div className="header-login forgot-password">
         <div className="inner-header flex">
           <Container className="container-login">
             <Row>
               <Col md={{span: 6, offset: 3}} className="login-right">
                 <div className="login-wrapper">
                   <div className="login-header">
-                    <h1>Change Password</h1>
-                    <Image src={logo} className="logo-image" />
+                  <p className="login-page-title">Reset New Password</p>
+                    {/* // <Image src={logo} className="logo-image" /> */}
                   </div>
                   <CForm id="save-password" className="login-form">
+                 
                     <CHybridPassword
                       id="password"
                       name="password"

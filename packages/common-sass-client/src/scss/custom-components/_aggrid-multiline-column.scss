@@ -1,3 +1,14 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+
 .ag-root-wrapper{
     .patient-column, .doctor-column{
         margin-top:0.1rem;
@@ -5,7 +16,28 @@
 
          li{
             line-height: 1.4rem;
+            font-weight: 500;
             padding:0;
+
+            &:nth-child(2){
+                font-size: 0.7rem;
+                font-weight: 500;
+                // padding:0 3px;
+                font-weight: $gray-300;
+                color:$gray-600;
+                span{
+                    // border:1px solid $gray-400;
+                    // background-color:$gray-100;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    // padding:0 3px;
+                    font-weight: $gray-300;
+                    color:$gray-600;
+                    // @include border-radius(4px);
+                }
+
+            }
+            
         }
     }
 

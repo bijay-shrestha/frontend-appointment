@@ -109,7 +109,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 logList.length &&
                 logList.map((spec, index) => ({
                     ...spec,
-                    sN: index + 1
+                    sN: index + 1,
+                    age:spec.patientAge.slice(0,4),
+                    gender:spec.patientGender.slice(0,1),  
                 }));
             return newLogList
         };

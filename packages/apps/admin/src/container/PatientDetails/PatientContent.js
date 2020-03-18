@@ -19,17 +19,45 @@ const DetailsModal = ({previewData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="address"
-                                    placeholder="Address"
-                                    value={previewData.address || 'N/A'}
+                                    id="DOB"
+                                    placeholder="Date of Birth"
+                                    value={previewData.dateOfBirth || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="age"
+                                    placeholder="Age"
+                                    value={previewData.age || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                           
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="email"
                                     placeholder="Email"
                                     value={previewData.email || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="mobileNumber"
+                                    placeholder="Mobile Number"
+                                    value={previewData.mobileNumber || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="address"
+                                    placeholder="Address"
+                                    value={previewData.address || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
@@ -51,22 +79,8 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="mobileNumber"
-                                    placeholder="Mobile Number"
-                                    value={previewData.mobileNumber || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="age"
-                                    placeholder="Age"
-                                    value={previewData.age || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                            
+                         
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="status"
@@ -83,14 +97,7 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="DOB"
-                                    placeholder="Date of Birth"
-                                    value={previewData.dateOfBirth || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                            
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput

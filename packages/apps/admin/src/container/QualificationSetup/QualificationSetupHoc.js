@@ -2,11 +2,7 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    // FileExportUtils,
-    // AdminInfoUtils
-} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils,} from '@frontend-appointment/helpers'
 import './qualification.scss'
 import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 
@@ -69,12 +65,13 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 remarks: '',
                 status: 'D'
             },
-            totalRecords: 0
-        }
+            totalRecords: 0,
+            isLoading: false
+        };
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        }
+        };
 
         setShowModal = () => {
             this.setState({
@@ -82,7 +79,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 deleteModalShow: false,
                 showEditModal: false
             })
-        }
+        };
 
         resetQualificationStateValues = () => {
             this.setState({
@@ -99,20 +96,20 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 showEditModal: false,
 
             })
-        }
+        };
 
         checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
             let stateObj = {[fieldName]: valueToChange}
             if (eventName)
                 if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
             return {...stateObj}
-        }
+        };
 
         setTheState = async (fieldName, valueToChange, valid, eventName) => {
             await this.setState(
                 this.checkInputValidity(fieldName, valueToChange, valid, eventName)
             )
-        }
+        };
 
         closeAlert = () => {
             this.props.clearQualificationCreateMessage();
@@ -137,7 +134,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             this.setState({
                 formValid: formValidity
             })
-        }
+        };
 
         handleOnChange = async (event, fieldValid, eventType) => {
             let qualification = {...this.state.qualificationData}
@@ -146,19 +143,22 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 ? value
                 : value
                     ? {value: value, label: label}
-                    : {value: null}
+                    : {value: null};
             await this.setTheState(
                 'qualificationData',
                 qualification,
                 fieldValid,
                 name
-            )
+            );
             this.checkFormValidity(eventType)
-        }
+        };
 
         setShowConfirmModal = () => {
-            this.setState({showConfirmModal: !this.state.showConfirmModal})
-        }
+            this.setState({
+                showConfirmModal: !this.state.showConfirmModal,
+                isLoading: !this.state.isLoading
+            })
+        };
 
         handleConfirmClick = async () => {
             const {name, qualificationAliasId, status, universityId} = this.state.qualificationData
@@ -171,7 +171,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         universityId: universityId.value,
                         status
                     }
-                )
+                );
                 this.resetQualificationStateValues();
                 this.setShowConfirmModal();
                 this.setState({
@@ -192,14 +192,14 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         previewApiCall = async id => {
             await this.props.previewQualification(
                 qualificationSetupApiConstants.FETCH_QUALIFICATION_DETAIL,
                 id
             )
-        }
+        };
 
         onPreviewHandler = async id => {
             try {
@@ -217,7 +217,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         onEditHandler = async idx => {
             this.props.clearQualificationCreateMessage()
@@ -250,7 +250,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         searchQualification = async page => {
             const {name, status, universityId, qualificationAliasId} = this.state.searchParameters
@@ -274,7 +274,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     size: this.state.queryParams.size
                 },
                 searchData
-            )
+            );
             console.log('QualificationSearchReducer', this.props.QualificationSearchReducer);
             await this.setState({
                 totalRecords: this.props.QualificationSearchReducer.qualificationList
@@ -287,7 +287,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     page: updatedPage
                 }
             })
-        }
+        };
 
         appendSNToTable = qualificationList => {
             console.log('Specialization', qualificationList)
@@ -297,9 +297,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     ...spec,
                     sN: index + 1,
                     name: spec.name.toUpperCase()
-                }))
+                }));
             return newQualificationList;
-        }
+        };
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -307,9 +307,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     ...this.state.queryParams,
                     page: newPage
                 }
-            })
+            });
             this.searchQualification()
-        }
+        };
 
         editQualification = async () => {
             const {
@@ -454,7 +454,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 searchParameters,
                 queryParams,
                 deleteRequestDTO,
-                totalRecords
+                totalRecords,
+                isLoading
             } = this.state
 
             const {
@@ -523,7 +524,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationPreviewData={qualificationPreviewData}
                     qualificationsAliasForDropdown={activeQualificationAliasForDropdown}
                     qualificationsForDropdown={qualificationsForDropdown}
-                    universitiesDropdown={universitiesDropdown}/>
+                    universitiesDropdown={universitiesDropdown}
+                    isLoading={isLoading}/>
             )
         }
     }

@@ -3,21 +3,15 @@
   width:750px !important;
   margin:0 auto;
   height: 400px;
-
-
 }
 
 .login-left {
   background-color:#fafafa;
   border-radius: 5px;
-
-  
 }
 
 .login-left .app-detail{
   margin-top:20px;
-
-
 }
 
 
@@ -151,6 +145,17 @@ flex-direction:column;
     font-size:19px;
     margin:4px 0 24px;
    }
+
+   .forgot-password-content{
+     font-size: 0.85rem;
+     letter-spacing:0;
+     margin-bottom:20px;
+   }
+
+   p{
+    font-size:1rem;
+    letter-spacing: 0;
+   }
    
    .password-requirement{
      // display:none;
@@ -160,6 +165,7 @@ flex-direction:column;
        font-weight: 300;
        margin:0px 0;
      }
+     
    ul{
      
      li{
@@ -173,6 +179,22 @@ flex-direction:column;
      
    }
 
+}
+
+.forgot-password{
+  .login-header{
+    display: block;
+    .login-page-title{
+     
+      font-size: 1rem;
+      text-transform: capitalize;
+      color:$cogent;
+      text-align: center;
+      font-weight: 400;
+      font-size: 19px;
+      margin: 4px 0 24px;
+    }
+  }
 }
 
 
