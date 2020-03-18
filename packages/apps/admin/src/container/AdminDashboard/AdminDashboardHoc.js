@@ -65,11 +65,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0,
       doctorRevenue: {
-        doctorId: '',
-        hospitalId: '',
-        fromDate:DateTimeFormatterUtils.subtractDate(new Date(), 1).toLocaleDateString(),
-        toDate:new Date().toLocaleDateString(),
-        specializationId:''
+        doctorId:0,
+        hospitalId:0,
+        fromDate:DateTimeFormatterUtils.subtractDate(new Date(), 1),
+        toDate:new Date(),
+        specializationId:0
       },
       doctorQueryParams: {
         page: 0,
@@ -426,6 +426,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             ? page
             : this.state.doctorQueryParams.page
         try {
+          let modifiedFromDate=new Date(fromDate.toDateString()).toLocaleDateString().split("/");
+          let modifiedToDate=new Date(toDate.toDateString()).toLocaleDateString().split("/");
+
           response = await this.props.fetchDashboardDoctorRevenue(
             DashboardApiConstant.DOCTOR_REVENUE,
             {
@@ -433,8 +436,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
               size: this.state.doctorQueryParams.size,
               doctorId: doctorId.value || '',
               hospitalId: hospitalId.value,
-              fromDate: fromDate,
-              toDate: toDate
+              fromDate:new Date(modifiedFromDate[1]+'/'+modifiedFromDate[0]+"/"+modifiedFromDate[2]),
+              toDate:new Date(modifiedToDate[1]+'/'+modifiedToDate[0]+"/"+modifiedToDate[2])
             }
           )
           await this.setState({
