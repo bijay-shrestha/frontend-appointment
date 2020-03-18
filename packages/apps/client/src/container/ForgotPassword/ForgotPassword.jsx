@@ -1,14 +1,14 @@
-import React, {PureComponent} from 'react'
-import {CForgotPassword} from '@frontend-appointment/ui-components'
-import {CAlert, CHybridInput} from '@frontend-appointment/ui-elements'
-import {ConnectHoc} from '@frontend-appointment/commons'
-import {ForgotPasswordMiddleware} from '@frontend-appointment/thunk-middleware'
+import React, { PureComponent } from 'react'
+import { CForgotPassword } from '@frontend-appointment/ui-components'
+import { CAlert, CHybridInput } from '@frontend-appointment/ui-elements'
+import { ConnectHoc } from '@frontend-appointment/commons'
+import { ForgotPasswordMiddleware } from '@frontend-appointment/thunk-middleware'
 import * as Material from 'react-icons/md'
-import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {LocalStorageSecurity} from '@frontend-appointment/helpers'
-const {forgotPassword} = ForgotPasswordMiddleware
-const {ForgotPasswordAndVerification} = CommonAPIConstants
-const {localStorageEncoder} = LocalStorageSecurity
+import { CommonAPIConstants } from '@frontend-appointment/web-resource-key-constants'
+import { LocalStorageSecurity } from '@frontend-appointment/helpers'
+const { forgotPassword } = ForgotPasswordMiddleware
+const { ForgotPasswordAndVerification } = CommonAPIConstants
+const { localStorageEncoder } = LocalStorageSecurity
 class ForgotPassword extends PureComponent {
   state = {
     username: '',
@@ -26,7 +26,7 @@ class ForgotPassword extends PureComponent {
     const isValidTrue = value.length
     this.setState({
       isValid: isValidTrue || false,
-      [name]: value
+      [name]: name === "hospitalCode" ? value.toUpperCase() : value
     })
   }
 
@@ -37,7 +37,7 @@ class ForgotPassword extends PureComponent {
   }
 
   onChangeHandler = event => {
-    const {name, value} = event.target
+    const { name, value } = event.target
     this.checkFormValid(name, value)
   }
 
@@ -49,7 +49,7 @@ class ForgotPassword extends PureComponent {
     try {
       await this.props.forgotPassword(
         ForgotPasswordAndVerification.FORGOT_PASSWORD,
-        {username: this.state.username, hospitalCode: this.state.hospitalCode}
+        { username: this.state.username, hospitalCode: this.state.hospitalCode }
       )
       localStorageEncoder('forgotPasswordUsername', this.state.username)
       localStorageEncoder('hospitalCode', this.state.hospitalCode)
@@ -66,11 +66,11 @@ class ForgotPassword extends PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.intervalAlertClear && clearTimeout(this.intervalAlertClear)
   }
 
-  render () {
+  render() {
     const {
       username,
       isValid,
@@ -78,11 +78,11 @@ class ForgotPassword extends PureComponent {
       showAlert,
       hospitalCode
     } = this.state
-    const {status} =this.props.ForgotPasswordReducer
+    const { status } = this.props.ForgotPasswordReducer
     return (
       <>
         <CForgotPassword
-          passwordForgotData={{username, hospitalCode}}
+          passwordForgotData={{ username, hospitalCode }}
           onChangeHandler={this.onChangeHandler}
           isValid={isValid}
           onSubmitFormHandler={this.onSubmitFormHandler}
@@ -100,10 +100,10 @@ class ForgotPassword extends PureComponent {
                 <Material.MdDone />
               </>
             ) : (
-              <>
-                <i className="fa fa-exclamation-triangle" aria-hidden="true" />
-              </>
-            )
+                <>
+                  <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+                </>
+              )
           }
           message={alertMessageInfo.message}
         />

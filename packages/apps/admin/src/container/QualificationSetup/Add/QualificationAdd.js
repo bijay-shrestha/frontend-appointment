@@ -57,10 +57,13 @@ function QualificationAdd (props) {
               id="save-profile-add"
               variant="primary"
               className="float-right btn-action"
-              name={isLoading ? <span>'Saving' <img src=""/></span>:"Save"}
+              name={isLoading ? <span className="saving">Saving <img src={require("../../../images/three-dots.svg")} /></span>:"Save"}
+   
               disabled={!formValid || isLoading}
               onClickHandler={setShowConfirmModal}
-            ></CButton>
+            >
+
+            </CButton>
             <QualificationConfirmationModal
               showModal={showConfirmModal}
               setShowModal={setShowConfirmModal}
