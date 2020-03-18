@@ -53,11 +53,11 @@ class CHybridTimePicker extends PureComponent {
 
   handleOnChange = e => {
     let validity = ''
-    classAdditionWhenValueIsChanged(e.target.value)
-    if (props.hasValidation) {
-      validity = validateFieldAndToggleErrorClass(
-        props.fieldValuePattern,
-        props.errorMessagePassed,
+    this.classAdditionWhenValueIsChanged(e.target.value)
+    if (this.props.hasValidation) {
+      validity = this.validateFieldAndToggleErrorClass(
+        this.props.fieldValuePattern,
+        this.props.errorMessagePassed,
         e.target.value
       )
     }
@@ -67,7 +67,7 @@ class CHybridTimePicker extends PureComponent {
   handleOnFocus = e => {
     const a = ReactDOM.findDOMNode(this.fieldWrapperRef).className
     if (!a.includes('myInput') && !this.state.errorMsg) {
-      ReactDOM.findDOMNode(fieldWrapperRef).className += ' myInput'
+      ReactDOM.findDOMNode(this.fieldWrapperRef).className += ' myInput'
     }
   }
 
@@ -131,6 +131,7 @@ class CHybridTimePicker extends PureComponent {
       // duration,
       // errorMessagePassed,
       // hasValidation,
+      isValid,
       onClick,
       placeholder,
       errorMsg
@@ -139,11 +140,11 @@ class CHybridTimePicker extends PureComponent {
       <div
         className="field-wrapper hinput"
         id={'fieldWrapper'.concat(id)}
-        ref={fieldWrapperRef}
+        ref={this.fieldWrapperRef}
         onClick={onClick}
       >
         <Form.Control
-          ref={timePickerRef}
+          ref={this.timePickerRef}
           as={as}
           autoComplete={autoComplete}
           bsPrefix={bsPrefix}
@@ -157,9 +158,9 @@ class CHybridTimePicker extends PureComponent {
           maxLength={5}
           minLength={5}
           name={name}
-          onBlur={handleOnBlur}
-          onChange={handleOnChange}
-          onFocus={handleOnFocus}
+          onBlur={this.handleOnBlur}
+          onChange={this.handleOnChange}
+          onFocus={this.handleOnFocus}
           onKeyDown={onKeyDown}
           pattern={pattern}
           readOnly={readOnly}
@@ -171,8 +172,8 @@ class CHybridTimePicker extends PureComponent {
         />
         <div
           className="field-placeholder"
-          ref={fieldPlaceholderRef}
-          onClick={handlePlaceholderClick}
+          ref={this.fieldPlaceholderRef}
+          onClick={this.handlePlaceholderClick}
         >
           <span>{placeholder ? placeholder : 'Enter Value'}</span>
         </div>
