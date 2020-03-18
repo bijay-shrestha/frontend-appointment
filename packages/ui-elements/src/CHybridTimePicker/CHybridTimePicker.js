@@ -127,7 +127,7 @@ class CHybridTimePicker extends PureComponent {
       size,
       type,
       value,
-      handleOnChange,
+      // handleOnChange,
       // duration,
       // errorMessagePassed,
       // hasValidation,
