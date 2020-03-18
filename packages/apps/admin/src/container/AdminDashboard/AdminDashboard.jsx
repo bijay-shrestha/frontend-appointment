@@ -24,7 +24,8 @@ const AdminDashboard = props => {
         revenueFilter,
         appointmentFilter,
         appointmentQueue,
-        doctorRevenue
+        doctorRevenue,
+        specializationListHospitalWise
       }) => (
         <div className="dashboard-wrapper">
           <Container fluid className="">

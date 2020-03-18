@@ -25,7 +25,9 @@ const DoctorRevenueList = props => {
     toDate,
     handleDateChange,
     hospitalId,
-    handleSpecializationChange
+    handleSpecializationChange,
+    specializationId,
+    specializationListHospitalWise
   } = props.doctorRevenue
   return (
     <>
@@ -79,12 +81,13 @@ const DoctorRevenueList = props => {
                           dropdownMode="select"
                           onChange={date => handleDateChange(date, 'toDate')}
                         />
-                        <CHybridInput
+                        <CHybridSelect
                           name="specializationId"
-                          placeholder="Select Doctor"
-                          onChange={handleDoctorChange}
-                          options={doctorDropdown}
-                          value={doctorId}
+                          label='Select Specialization'
+                          onChange={handleSpecializationChange}
+                          options={specializationListHospitalWise}
+                          disabled={specializationListHospitalWise.length}
+                          value={specializationId}
                         />
                       </div>
                     </Col>

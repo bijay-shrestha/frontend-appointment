@@ -330,10 +330,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
           this.searchAppointmentQueue();
           this.searchDoctorRevenueList();
           this.searchDoctorForHospitalWise(value)
-          await this.props.fetchActiveDoctorsHospitalWiseForDropdown(value);
-          this.setState({
-            specializationListHospitalWise:this.props.SpecializationDropdownReducer.activeSpecializationListByHospital
-          })
+          this.props.fetchActiveDoctorsHospitalWiseForDropdown(AdminModuleAPIConstants.specializationSetupAPIConstants.SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,value);
+          // this.setState({
+          //   specializationListHospitalWise:this.props.SpecializationDropdownReducer.activeSpecializationListByHospital
+          // })
         }
       }
     }
@@ -430,9 +430,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             DashboardApiConstant.DOCTOR_REVENUE,
             {
               page: updatedPage,
-              size: this.state.doctorQueryParams.size
-            },
-            {
+              size: this.state.doctorQueryParams.size,
               doctorId: doctorId.value || '',
               hospitalId: hospitalId.value,
               fromDate: fromDate,
@@ -477,15 +475,17 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       await this.setState({
         doctorRevenue:doctorRevenueParam
       })
+      this.searchDoctorRevenueList();
     }
 
     handleSpecializationChange = e => {
       let specializationParam = {...this.state.doctorRevenue};
-      const {name,value} = e.target
-      specializationParam[name] = value
+      const {name,value,label} = e.target
+      specializationParam[name] = value?{value:label}:''
       this.setState({
         doctorRevenue:specializationParam
-      })
+      });
+      this.searchDoctorRevenueList()
     }
 
     handlePageChange = async newPage => {
@@ -522,7 +522,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         appointmentQueue,
         appointmentFilter,
         queryParams,
-        revenueFilter
+        revenueFilter,
+        specializationListHospitalWise
       } = this.state
       const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
@@ -655,7 +656,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             hospitalId:doctorRevenue.hospitalId,
             doctorTotalAppointments:doctorTotalAppointments,
             doctorTotalRevenueAmount:doctorTotalRevenueAmount,
-            handleSpecializationChange:this.handleSpecializationChange
+            handleSpecializationChange:this.handleSpecializationChange,
+            specializationListHospitalWise:this.props.SpecializationDropdownReducer.activeSpecializationListByHospital
           }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}
