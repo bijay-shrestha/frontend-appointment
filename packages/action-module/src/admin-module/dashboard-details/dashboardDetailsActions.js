@@ -197,9 +197,17 @@ export const dashboardAppointmentQueueFetchingSuccess = data => {
   }
 }
 
-export const dashboardDoctorRevenueFetchingError = message => {
+export const dashboardAppointmentQueueFetchingError = message => {
   return {
     type: DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
+    payload: {
+      data: message
+    }
+  }
+}
+export const dashboardDoctorRevenueFetchingError = message => {
+  return {
+    type: DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
     payload: {
       data: message
     }
@@ -219,11 +227,4 @@ export const dashboardDoctorRevenueFetchingSuccess = data => {
   }
 }
 
-export const dashboardAppointmentQueueFetchingError = message => {
-  return {
-    type: DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
-    payload: {
-      data: message
-    }
-  }
-}
+

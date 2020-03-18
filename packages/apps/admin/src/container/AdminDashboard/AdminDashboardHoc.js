@@ -416,7 +416,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     }
 
     searchDoctorRevenueList = async page => {
-      const {doctorId, hospitalId, fromDate, toDate} = this.state.doctorRevenue
+      const {doctorId, hospitalId, fromDate, toDate,specializationId} = this.state.doctorRevenue
       const response = ''
       if (hospitalId) {
         let updatedPage =
@@ -434,10 +434,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             {
               page: updatedPage,
               size: this.state.doctorQueryParams.size,
-              doctorId: doctorId.value || '',
+              doctorId: doctorId.value || 0,
               hospitalId: hospitalId.value,
-              fromDate:new Date(modifiedFromDate[1]+'/'+modifiedFromDate[0]+"/"+modifiedFromDate[2]),
-              toDate:new Date(modifiedToDate[1]+'/'+modifiedToDate[0]+"/"+modifiedToDate[2])
+              fromDate:DateTimeFormatterUtils.getFormattedDate(fromDate),
+              toDate:DateTimeFormatterUtils.getFormattedDate(toDate),
+              specializationId:specializationId.value||0
             }
           )
           await this.setState({
