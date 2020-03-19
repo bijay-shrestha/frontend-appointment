@@ -963,9 +963,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         weekDaysWithTime = weekDaysData.map(weekDayData => {
                             let originalDataWithTime = weekDaysDataOriginal.find(originalData =>
                                 originalData.weekDaysId === weekDayData.weekDaysId);
-                            weekDayData.startTime = originalDataWithTime.startTime;
-                            weekDayData.endTime = originalDataWithTime.endTime;
-                            weekDayData.dayOffStatus = originalDataWithTime.dayOffStatus;
+                            weekDayData.startTime = originalDataWithTime ? originalDataWithTime.startTime : '';
+                            weekDayData.endTime = originalDataWithTime ? originalDataWithTime.endTime : '';
+                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : '';
                             return weekDayData;
                         });
                     }
