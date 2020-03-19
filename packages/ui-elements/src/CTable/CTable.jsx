@@ -117,6 +117,23 @@ class CTable extends PureComponent {
                             striped={striped}
                             variant={variant}
                             bsPrefix={bsPrefix}>
+                            <tbody>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            </tbody>
                             <tfoot>
                             {
                                 footerData.map(footer =>

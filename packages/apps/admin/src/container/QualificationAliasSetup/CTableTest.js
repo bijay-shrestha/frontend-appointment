@@ -39,11 +39,12 @@ const CTableTest = props => {
                     {
                         col1: {
                             value: "Total",
-                            colSpan: "2"
+                            colSpan: "3"
                         },
                         col2:
                             {
                                 value: 1000,
+                                colSpan: "2"
                             }
                     }
                 ]}
