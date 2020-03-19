@@ -134,5 +134,6 @@
   "license": "MIT",
   "production": true,
   "development": true,
-  "package-entry": "main:src"
+  "package-entry": "main:src",
+  "homepage": "."
 }
