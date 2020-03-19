@@ -1,22 +1,22 @@
 import React from 'react';
-import {CFControl, CTable} from "@frontend-appointment/ui-elements";
+import { CFControl, CTable } from "@frontend-appointment/ui-elements";
 import ActionForEditableTable from "../CommonComponents/table-components/ActionForEditableTable";
 
 const CTableTest = props => {
     return <>
-        <div className="manage-details">
+        <div className="mt-3">
             <CTable
                 id="qualification-alias"
                 columnDefinition={[
                     {
                         headerName: 'SN',
                         field: 'sn',
-                        editComponent: prop => <CFControl id="SN"/>,
+                        editComponent: prop => <CFControl id="SN" />,
                     },
                     {
                         headerName: 'Name',
                         field: 'name',
-                        editComponent: prop => <CFControl id="SN"/>
+                        editComponent: prop => <CFControl id="SN" />
                     },
                     {
                         headerName: 'Action',
@@ -24,16 +24,16 @@ const CTableTest = props => {
                         displayComponent: ActionForEditableTable
                     }]}
                 rowData={[
-                    {name: "Sabu", sn: "1", isRowEditable: true},
-                    {name: "Sabu", sn: "2"},
-                    {name: "Sabu", sn: "3", isRowEditable: false},
-                    {name: "Sabu", sn: "4", isRowEditable: false},
-                    {name: "Sabu", sn: "5", isRowEditable: false},
-                    {name: "Sabu", sn: "6", isRowEditable: false},
-                    {name: "Sabu", sn: "7", isRowEditable: false},
-                    {name: "Sabu", sn: "8", isRowEditable: false},
-                    {name: "Sabu", sn: "9", isRowEditable: false},
-                    {name: "Sabu", sn: "10", isRowEditable: false}
+                    { name: "Sabu", sn: "1", isRowEditable: true },
+                    { name: "Sabu", sn: "2" },
+                    { name: "Sabu", sn: "3", isRowEditable: false },
+                    { name: "Sabu", sn: "4", isRowEditable: false },
+                    { name: "Sabu", sn: "5", isRowEditable: false },
+                    { name: "Sabu", sn: "6", isRowEditable: false },
+                    { name: "Sabu", sn: "7", isRowEditable: false },
+                    { name: "Sabu", sn: "8", isRowEditable: false },
+                    { name: "Sabu", sn: "9", isRowEditable: false },
+                    { name: "Sabu", sn: "10", isRowEditable: false }
                 ]}
                 footerData={[
                     {
@@ -42,12 +42,15 @@ const CTableTest = props => {
                             colSpan: "2"
                         },
                         col2:
-                            {
-                                value: 1000,
-                            }
+                        {
+                            value: 1000,
+                        }
                     }
                 ]}
                 headerBordered={true}
+                headerClassName="table-header"
+                bodyClassName="table-body"
+                footerClassName="table-footer"
             />
         </div>
 

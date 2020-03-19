@@ -1,6 +1,6 @@
-import React, {PureComponent} from 'react';
-import {Table} from "react-bootstrap";
-import {Scrollbars} from 'react-custom-scrollbars';
+import React, { PureComponent } from 'react';
+import { Table } from "react-bootstrap";
+import { Scrollbars } from 'react-custom-scrollbars';
 import PropTypes from 'prop-types';
 
 class CTable extends PureComponent {
@@ -38,11 +38,16 @@ class CTable extends PureComponent {
             size,
             striped,
             variant,
-            bsPrefix
+            bsPrefix,
+            headerClassName,
+            bodyClassName,
+            footerClassName
+
         } = this.props;
         return <>
             <div id={id}>
                 <Table
+                    className={headerClassName}
                     id={id}
                     bordered={headerBordered}
                     borderless={headerBorderless}
@@ -54,20 +59,21 @@ class CTable extends PureComponent {
                     bsPrefix={headerBsPrefix}
                 >
                     <thead>
-                    <tr>
-                        {columnDefinition.map(column => (
-                            <td>
-                                {column.headerName}
-                            </td>
-                        ))}
-                    </tr>
+                        <tr>
+                            {columnDefinition.map(column => (
+                                <td>
+                                    {column.headerName}
+                                </td>
+                            ))}
+                        </tr>
                     </thead>
                 </Table>
                 <Scrollbars
                     id="menus"
                     autoHide={true}
-                    style={{height: 400}}>
+                    style={{ height: 400 }}>
                     <Table
+                        className={bodyClassName}
                         id={id}
                         bordered={bordered}
                         borderless={borderless}
@@ -79,35 +85,36 @@ class CTable extends PureComponent {
                         bsPrefix={bsPrefix}
                     >
                         <tbody>
-                        {
-                            rowData.map((row, rowIndex) => (
-                                <tr key={"row" + rowIndex}>
-                                    {
-                                        columnDefinition.map((column, colIndex) => (
-                                            <td key={column.field + "-" + colIndex}>
-                                                {
-                                                    (row.isRowEditable && Object.keys(column).includes('editComponent')) ?
-                                                        <column.editComponent
-                                                            {...this.props}
-                                                            node={{data: row}}/> :
-                                                        Object.keys(column).includes('displayComponent') ?
-                                                            <column.displayComponent
+                            {
+                                rowData.map((row, rowIndex) => (
+                                    <tr key={"row" + rowIndex}>
+                                        {
+                                            columnDefinition.map((column, colIndex) => (
+                                                <td key={column.field + "-" + colIndex}>
+                                                    {
+                                                        (row.isRowEditable && Object.keys(column).includes('editComponent')) ?
+                                                            <column.editComponent
                                                                 {...this.props}
-                                                                node={{data: row}}/> : row[column.field]
+                                                                node={{ data: row }} /> :
+                                                            Object.keys(column).includes('displayComponent') ?
+                                                                <column.displayComponent
+                                                                    {...this.props}
+                                                                    node={{ data: row }} /> : row[column.field]
 
-                                                }
-                                            </td>
-                                        ))
-                                    }
-                                </tr>
-                            ))
-                        }
+                                                    }
+                                                </td>
+                                            ))
+                                        }
+                                    </tr>
+                                ))
+                            }
                         </tbody>
                     </Table>
                 </Scrollbars>
                 {
                     footerData ?
                         <Table
+                            className={footerClassName}
                             id={id}
                             bordered={true}
                             borderless={borderless}
@@ -118,14 +125,14 @@ class CTable extends PureComponent {
                             variant={variant}
                             bsPrefix={bsPrefix}>
                             <tfoot>
-                            {
-                                footerData.map(footer =>
-                                    <tr>
-                                        {
-                                            this.getFooterContent(footer)
-                                        }
-                                    </tr>)
-                            }
+                                {
+                                    footerData.map(footer =>
+                                        <tr>
+                                            {
+                                                this.getFooterContent(footer)
+                                            }
+                                        </tr>)
+                                }
                             </tfoot>
                         </Table>
                         : ''
