@@ -1017,7 +1017,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.revertOverrideUpdatesOnCancel();
             }
             this.setState({
-                showEditModal: false
+                showEditModal: false,
+                dateErrorMessage:''
             })
         };
 
