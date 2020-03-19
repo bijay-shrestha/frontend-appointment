@@ -1,4 +1,4 @@
-import React, {PureComponent, createRef} from 'react'
+import React, {PureComponent} from 'react'
 import {Form} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import './hybrid-time.scss'
@@ -9,9 +9,9 @@ class CHybridTimePicker extends PureComponent {
     options: []
   }
 
-  timePickerRef = createRef()
-  fieldWrapperRef = createRef()
-  fieldPlaceholderRef = createRef()
+  timePickerRef = React.createRef()
+  fieldWrapperRef = React.createRef()
+  fieldPlaceholderRef = React.createRef()
 
   // const toggleClassName = (ref, values) => {
   //   values.map(value => ReactDOM.findDOMNode(ref).classList.toggle(value))
@@ -66,9 +66,12 @@ class CHybridTimePicker extends PureComponent {
   }
 
   handleOnFocus = e => {
-    const a = ReactDOM.findDOMNode(this.fieldWrapperRef).className
+    const a = ReactDOM.findDOMNode(this.fieldWrapperRef.current)
+    console.log('hello',a)
+     a= a.className
+
     if (!a.includes('myInput') && !this.state.errorMsg) {
-      ReactDOM.findDOMNode(this.fieldWrapperRef).className += ' myInput'
+      ReactDOM.findDOMNode(this.fieldWrapperRef.current).className += ' myInput'
     }
   }
 
@@ -79,7 +82,8 @@ class CHybridTimePicker extends PureComponent {
   }
 
   handlePlaceholderClick = () => {
-    this.timePickerRef.current.focus()
+    console.log('+++++++this.timePickerRef.current',this.timePickerRef)
+    // this.timePickerRef.current.focus()
   }
 
   checkDurationIsGreaterThan1hours = (duration, hour) => {
@@ -192,7 +196,7 @@ class CHybridTimePicker extends PureComponent {
           minLength={5}
           name={name}
           // onBlur={this.handleOnBlur}
-          //onChange={this.handleOnChange}
+          // onChange={this.handleOnChange}
           // onFocus={this.handleOnFocus}
           // onKeyDown={onKeyDown}
           autocomplete={'off'}
@@ -208,18 +212,18 @@ class CHybridTimePicker extends PureComponent {
         <>
           <datalist id={'list' + id}>
             {this.state.options.map((opt, i) => {
-              return <option value={opt} label={opt.replace(':','')} />
+            return <option value={opt} label={opt}>{opt.replace(":",'')}</option>
             })}
           </datalist>
         </>
         <>
-          {/* <div
+          <div
             className="field-placeholder"
             ref={this.fieldPlaceholderRef}
             onClick={this.handlePlaceholderClick}
           >
             <span>{placeholder ? placeholder : 'Enter Value'}</span>
-          </div> */}
+          </div>
 
           <Form.Control.Feedback type="invalid" className="err-message">
             {errorMsg ? errorMsg : this.state.errorMessage}
