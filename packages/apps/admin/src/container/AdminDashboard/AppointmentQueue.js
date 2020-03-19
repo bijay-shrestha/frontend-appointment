@@ -88,7 +88,8 @@ const AppointmentQueue = props => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer:'doctorwithSpecializationRenderer'
+                  cellRenderer:'doctorwithSpecializationRenderer',
+                  width:"300"
                 },
                 
                 {
