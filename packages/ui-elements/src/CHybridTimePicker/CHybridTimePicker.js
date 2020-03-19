@@ -9,7 +9,7 @@ class CHybridTimePicker extends PureComponent {
     errorMessage: '',
     isValid: '',
     options: [],
-    pickedTime: this.props.value || '',
+    pickedTime: this.props.value || 0,
     inputValue: ''
   }
 
@@ -34,8 +34,8 @@ class CHybridTimePicker extends PureComponent {
   }
 
   getDateWithTimeSetToGivenTime = (date, hours, minutes) => {
-    let dataToreturn= date.setHours(hours, minutes, 0, 0);
-    return new Date(dataToreturn);
+    let dataToreturn = date.setHours(hours, minutes, 0, 0)
+    return new Date(dataToreturn)
   }
   makeOptionsThroughDuration = () => {
     const {duration} = this.props
@@ -103,23 +103,22 @@ class CHybridTimePicker extends PureComponent {
     label = event && event.label
     value = event && event.value
     name = event && event.name
-    let splittedTime = value.split(':')
-    let hour = Number(splittedTime[0])
-    let min = Number(splittedTime[1])
-    console.log('+++++++++', value)
-    console.log('splitHour', Number(splittedTime[0]))
-    console.log('splitMIns', Number(splittedTime[1]))
-    let date = this.getDateWithTimeSetToGivenTime(new Date(), hour, min)
-    console.log('++++++++new Date', date)
+
     if (event) {
+      let splittedTime = value.split(':')
+      let hour = Number(splittedTime[0])
+      let min = Number(splittedTime[1])
+
+      let date = this.getDateWithTimeSetToGivenTime(new Date(), hour, min)
       this.setState({
         pickedTime: {value: value, label: label, name: name},
         inputValue: value
       })
       this.props.onChange({
         target: {
-          name: this.props.name,
-          ...this.handleMultiOrSingleSelectedValue(event)
+          name: name,
+          value: date,
+          label: label
         }
       })
     } else {
@@ -168,7 +167,6 @@ class CHybridTimePicker extends PureComponent {
       minMenuHeight,
       name,
       noOptionsMessage,
-      onChange,
       onInputChange,
       onKeyDown,
       onMenuClose,
@@ -177,8 +175,7 @@ class CHybridTimePicker extends PureComponent {
       pageSize,
       placeholder,
       styles,
-      theme,
-      value
+      theme
     } = this.props
     return (
       <>

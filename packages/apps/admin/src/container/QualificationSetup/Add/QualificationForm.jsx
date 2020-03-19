@@ -64,7 +64,7 @@ const QualificationForm = ({
                       label="Select a qualification alias"
                     />
               </Col>
-              <Col sm={12} md={4} xl={4}>
+              {/* <Col sm={12} md={4} xl={4}>
                   <CHybridTimePicker
                       id="hybridTimePickerId"
                       name="hybridTimePickerId"
@@ -78,7 +78,7 @@ const QualificationForm = ({
                       label="Select Time"
                       isClearable={true}
                     />
-              </Col>
+              </Col> */}
               <Col sm={12} md={4} xl={4}>
                   <CHybridSelect
                       id="universityId"
