@@ -84,23 +84,40 @@ class CHybridTimePicker extends PureComponent {
   makeOptionsThroughDuration = () => {
     const {duration} = this.props
     let timeDuration = duration || 60
-
-    let options = []
-    for (let time = 0; time <= 24; time++) {
-      let hours = time.toString()
-      let minutes = '00'
-      let durationInHours = (timeDuration / 60).toFixed(2)
-      let splittedHours = durationInHours.split('.')
-      hours = Number(hours) + Number(splittedHours[0])
-      minutes = Number(minutes) + Number(splittedHours[1])
-      hours =
-        hours.toString().length < 1 ? '0' + hours.toString() : hours.toString()
-      minutes =
-        minutes.toString().length < 1
-          ? '0' + minutes.toString()
-          : minutes.toString()
-      options.push(hours + ':' + minutes)
+    let hours = 0
+    let minutes = duration
+    let newLoopTime = timeDuration
+    while (newLoopTime > 59) {
+      if (newLoopTime > 59) {
+        hours = hours + 1
+        newLoopTime = newLoopTime - 60
+      }
+      if (newLoopTime < 60) {
+        minutes = newLoopTime
+        break
+      }
     }
+    let options = []
+    options.push('00:00')
+
+    for (let time = 0; time <= 3600; time++) {
+      let splittedOption = options[time].split(':')
+      let appHours = splittedOption[0]
+      let appMinutes = splittedOption[1]
+
+      appHours = Number(appHours) + Number(hours)
+      appMinutes = Number(appMinutes) + Number(minutes)
+      appHours =
+        appHours.toString().length <= 1
+          ? '0' + appHours.toString()
+          : appHours.toString()
+      appMinutes =
+        appMinutes.toString().length <= 1
+          ? '0' + appMinutes.toString()
+          : appMinutes.toString()
+      options.push(appHours + ':' + appMinutes)
+    }
+    console.log(options)
     return options
   }
 
@@ -127,10 +144,6 @@ class CHybridTimePicker extends PureComponent {
       size,
       type,
       value,
-      // handleOnChange,
-      // duration,
-      // errorMessagePassed,
-      // hasValidation,
       isValid,
       onClick,
       placeholder,
