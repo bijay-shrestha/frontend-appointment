@@ -1,16 +1,17 @@
-import React, {PureComponent, useRef} from 'react'
+import React, {PureComponent, createRef} from 'react'
 import {Form} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import './hybrid-time.scss'
 class CHybridTimePicker extends PureComponent {
   state = {
     errorMessage: '',
-    isValid: ''
+    isValid: '',
+    options: []
   }
 
-  timePickerRef = useRef()
-  fieldWrapperRef = useRef()
-  fieldPlaceholderRef = useRef()
+  timePickerRef = createRef()
+  fieldWrapperRef = createRef()
+  fieldPlaceholderRef = createRef()
 
   // const toggleClassName = (ref, values) => {
   //   values.map(value => ReactDOM.findDOMNode(ref).classList.toggle(value))
@@ -81,14 +82,12 @@ class CHybridTimePicker extends PureComponent {
     this.timePickerRef.current.focus()
   }
 
-  makeOptionsThroughDuration = () => {
-    const {duration} = this.props
-    let timeDuration = duration || 60
-    let hours = 0
+  checkDurationIsGreaterThan1hours = (duration, hour) => {
+    let hours = hour
     let minutes = duration
-    let newLoopTime = timeDuration
-    while (newLoopTime > 59) {
-      if (newLoopTime > 59) {
+    let newLoopTime = minutes
+    while (newLoopTime >= 59) {
+      if (newLoopTime >= 59) {
         hours = hours + 1
         newLoopTime = newLoopTime - 60
       }
@@ -97,16 +96,33 @@ class CHybridTimePicker extends PureComponent {
         break
       }
     }
+    return {
+      hours: hours,
+      minutes: minutes
+    }
+  }
+  makeOptionsThroughDuration = () => {
+    const {duration} = this.props
+    let timeDuration = duration || 1
+    let hours = 0
+    let minutes = duration
+    let modHours = this.checkDurationIsGreaterThan1hours(timeDuration, hours)
+    hours = modHours.hours
+    minutes = modHours.minutes
     let options = []
     options.push('00:00')
-
     for (let time = 0; time <= 3600; time++) {
       let splittedOption = options[time].split(':')
       let appHours = splittedOption[0]
       let appMinutes = splittedOption[1]
-
       appHours = Number(appHours) + Number(hours)
       appMinutes = Number(appMinutes) + Number(minutes)
+      let newModTime = this.checkDurationIsGreaterThan1hours(
+        appMinutes,
+        appHours
+      )
+      appHours = newModTime.hours
+      appMinutes = newModTime.minutes
       appHours =
         appHours.toString().length <= 1
           ? '0' + appHours.toString()
@@ -115,10 +131,14 @@ class CHybridTimePicker extends PureComponent {
         appMinutes.toString().length <= 1
           ? '0' + appMinutes.toString()
           : appMinutes.toString()
-      options.push(appHours + ':' + appMinutes)
+      if (
+        (Number(appHours) <= 23 && Number(appMinutes) <= 59) ||
+        (appHours === '24' && appMinutes === '00')
+      )
+        options.push(appHours + ':' + appMinutes)
+      else break
     }
-    console.log(options)
-    return options
+    this.setState({options: options})
   }
 
   componentDidMount () {
@@ -171,10 +191,11 @@ class CHybridTimePicker extends PureComponent {
           maxLength={5}
           minLength={5}
           name={name}
-          onBlur={this.handleOnBlur}
-          onChange={this.handleOnChange}
-          onFocus={this.handleOnFocus}
-          onKeyDown={onKeyDown}
+          // onBlur={this.handleOnBlur}
+          //onChange={this.handleOnChange}
+          // onFocus={this.handleOnFocus}
+          // onKeyDown={onKeyDown}
+          autocomplete={'off'}
           pattern={pattern}
           readOnly={readOnly}
           required={required}
@@ -182,17 +203,28 @@ class CHybridTimePicker extends PureComponent {
           size={size}
           type={type}
           value={value}
+          list={'list' + id}
         />
-        <div
-          className="field-placeholder"
-          ref={this.fieldPlaceholderRef}
-          onClick={this.handlePlaceholderClick}
-        >
-          <span>{placeholder ? placeholder : 'Enter Value'}</span>
-        </div>
-        <Form.Control.Feedback type="invalid" className="err-message">
-          {errorMsg ? errorMsg : this.state.errorMessage}
-        </Form.Control.Feedback>
+        <>
+          <datalist id={'list' + id}>
+            {this.state.options.map((opt, i) => {
+              return <option value={opt} label={opt.replace(':','')} />
+            })}
+          </datalist>
+        </>
+        <>
+          {/* <div
+            className="field-placeholder"
+            ref={this.fieldPlaceholderRef}
+            onClick={this.handlePlaceholderClick}
+          >
+            <span>{placeholder ? placeholder : 'Enter Value'}</span>
+          </div> */}
+
+          <Form.Control.Feedback type="invalid" className="err-message">
+            {errorMsg ? errorMsg : this.state.errorMessage}
+          </Form.Control.Feedback>
+        </>
       </div>
     )
   }
