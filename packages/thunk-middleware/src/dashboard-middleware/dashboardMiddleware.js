@@ -19,7 +19,7 @@ export const fetchDashboardAppointmentStatisticsList = (
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardAppointmentStatisticsFetchingError(
                 errorMessage
@@ -44,7 +44,7 @@ export const fetchAppointmentQueueList = (path,paginationData,queueSearchData) =
   } catch (e) {
     const errorMessage = e.errorMessage
       ? e.errorMessage
-      : 'Sorry Something Error Occured!!'
+      : 'Sorry  Error Occured!!'
     dispatch(
       DashboardDetailsActions.dashboardAppointmentQueueFetchingError(
         errorMessage
@@ -70,7 +70,7 @@ export const fetchDashboardRegisteredPatientList = (
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry  Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardRegisteredPatientsFetchingError(
                 errorMessage
@@ -95,7 +95,7 @@ export const fetchDashboardRegisteredPatientListForClient = (
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!';
+            : 'Sorry  Error Occured!!';
         dispatch(
             DashboardDetailsActions.dashboardRegisteredPatientsFetchingError(
                 errorMessage
@@ -121,7 +121,7 @@ export const fetchDashboardRevenueRefundList = (
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry  Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardRevenueStatisticsFetchingError(
                 errorMessage
@@ -142,7 +142,7 @@ export const fetchDashboardRevenueDayList = (path, data) => async dispatch => {
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry  Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardDayRevenueFetchingError(errorMessage)
         )
@@ -166,7 +166,7 @@ export const fetchDashboardRevenueMonthList = (
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry  Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardMonthRevenueFetchingError(errorMessage)
         )
@@ -185,7 +185,7 @@ export const fetchDashboardRevenueWeekList = (path, data) => async dispatch => {
     } catch (e) {
         const errorMessage = e.errorMessage
             ? e.errorMessage
-            : 'Sorry Something Error Occured!!'
+            : 'Sorry  Error Occured!!'
         dispatch(
             DashboardDetailsActions.dashboardWeekRevenueFetchingError(errorMessage)
         )
@@ -204,7 +204,7 @@ export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
   } catch (e) {
     const errorMessage = e.errorMessage
       ? e.errorMessage
-      : 'Sorry Something Error Occured!!'
+      : 'Sorry  Error Occured!!'
     dispatch(
       DashboardDetailsActions.dashboardAppointmentQueueFetchingError(errorMessage)
     )
@@ -223,7 +223,7 @@ export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
     } catch (e) {
       const errorMessage = e.errorMessage
         ? e.errorMessage
-        : 'Sorry Something Error Occured!!'
+        : 'Sorry  Error Occured!!'
       dispatch(
         DashboardDetailsActions.dashboardDoctorRevenueFetchingError(errorMessage)
       )

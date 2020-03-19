@@ -378,7 +378,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
 
     searchAppointmentQueue = async page => {
       const {doctorId, hospitalId} = this.state.appointmentQueue
-      const response = ''
+      let response = ''
       if (hospitalId) {
         let updatedPage =
           this.state.queryParams.page === 0

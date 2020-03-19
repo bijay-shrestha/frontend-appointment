@@ -57,6 +57,7 @@ const AdminDashboard = props => {
                 hospitalDropdown={hospitalDropdown}
                 hospitalId={hospitalId}
                 handleHospitalChange={handleHospitalChange}
+                className="top-hospital-list"
               />
             </Row>
             <RevenueStatistics generateRevenue={generateRevenue} />
@@ -87,6 +88,12 @@ const AdminDashboard = props => {
                 />
               </Col>
             </Row>
+
+            {/* <Row>
+              <Col>
+              <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+              </Col>
+            </Row> */}
           </Container>
         </div>
       )
