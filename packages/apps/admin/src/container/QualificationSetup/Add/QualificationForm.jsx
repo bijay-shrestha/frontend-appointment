@@ -71,10 +71,12 @@ const QualificationForm = ({
                       onKeyDown={event => onEnterKeyPress(event)}
                       onChange={event => onInputChange(event)}
                       duration={135}
+                      onChange={event => onInputChange(event)}
                       // value={qualificationInfoObj.qualificationAliasId}
                       // options={qualificationsAliasForDropdown}
-                      // label="Select a qualification alias"
-                      placeholder={'Select Time'}
+                      isSearchable={true}
+                      label="Select Time"
+                      isClearable={true}
                     />
               </Col>
               <Col sm={12} md={4} xl={4}>
