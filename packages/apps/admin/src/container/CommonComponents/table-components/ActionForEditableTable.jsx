@@ -24,7 +24,7 @@ const ActionForEditableTable = props => {
                     <CButton
                         id="edit"
                         name="Edit"
-                        onClickHandler={(e) => props.onClick(e, props.node.data, 'EDIT')}/>
+                        onClickHandler={(e) => props.onClick('EDIT')}/>
                     <CButton
                         id="delete"
                         name="Delete"
