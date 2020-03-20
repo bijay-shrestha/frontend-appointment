@@ -1,14 +1,18 @@
-import React, {memo} from 'react'
+import React, {memo} from 'react';
+import {Badge} from 'react-bootstrap';
+
 
 const DoctorWithSpecialization = (props) => {
     return (
         <>
             <ul className="doctor-column">
                 <li>
-                    Dr. {props.node.data.doctorName.toUpperCase()}
+                    {props.node.data.doctorName}
                 </li>
                 <li>
-                    ({props.node.data.specializationName.toUpperCase()})
+                    <span className="spec">
+                    {props.node.data.specializationName}
+                    </span>
                 </li>
             </ul>
         </>

@@ -1,0 +1,56 @@
+
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+#appointment-refund{
+  .appointment-badge{
+    float: right;
+    margin:10px 0;
+
+    &>span{
+      margin-right:20px;
+      height: auto;
+      line-height: 40px;
+
+      &:last-child{
+        margin-right: 0;
+      }
+    }
+
+  }
+
+  .badge{
+    width:35px;
+    height: 35px;
+    // top:50%;
+    // left:50%;
+    // transform:translate(-50%,-50%);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 16px;
+    line-height: 22px;
+    padding:6px;
+    @include border-radius(50%);
+  }
+
+  .react-datepicker-wrapper{
+    width:50%;
+    // padding-left: 4px;
+  }
+
+  @media (max-width: 1199px) {
+    .hide-on-md{
+      display:none;
+    }
+  }
+
+
+}
+
+

@@ -2,64 +2,64 @@
 @import '~bootstrap/scss/functions';
 
 //custom colors
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
 #appointment-status{
   .filter-message{
-    .message{
-      width:200px;
-    }
+      .message{
+          width:200px;
+      }
   }
-
-
-
-  .appointment-badge{
-    float: right;
-    margin:10px 0;
-
-    &>div{
-      margin-right:20px;
-      height: auto;
-      display: inline-block;
-      //  line-height: 40px;
-
-      &:last-child{
-        margin-right: 0;
-      }
-
-      .badge{
-        margin-right:4px;
-        width:16px;
-        height: 16px;
-      }
-
-      a{
-
-        color:$gray-600;
-        font-weight: 500;
-        margin-left:4px;
-        padding:2px 6px;
-
-        &.active{
-          color:$gray-900;
-          background-color:lighten($cogent,45%);
-          @include border-radius(4px);
-          padding:2px 6px;
-        }
-      }
-    }
-
-    .btn{
-      margin-bottom:10px;
-    }
-
-
+  
+  
+  
+   .appointment-badge{
+      float: right;  
+      margin:10px 0;
+      
+          &>div{
+           margin-right:20px;
+           height: auto;
+           display: inline-block;
+          //  line-height: 40px;
+  
+           &:last-child{
+               margin-right: 0;
+           }
+  
+           .badge{
+               margin-right:4px;
+               width:16px;
+               height: 16px;
+           }
+  
+           a{
+              
+               color:$gray-600;
+               font-weight: 500;
+               margin-left:4px;
+               padding:2px 6px;
+  
+               &.active{
+                  color:$gray-900;
+                  background-color:lighten($cogent,45%);
+                  @include border-radius(4px);
+                  padding:2px 6px;
+               }
+           }
+       }
+  
+       .btn{
+          margin-bottom:10px;
+       }
+      
+  
   }
-
+  
   // .badge{
   //     width:35px;
   //     height: 35px;
@@ -73,221 +73,226 @@
   //     padding:6px;
   //     @include border-radius(50%);
   // }
-
+  
   .react-datepicker-wrapper{
-    width:50%;
-    // padding-left: 4px;
+      width:50%;
+      // padding-left: 4px;
   }
-
-}
-
-.doctor-image{
-  width:100px;
-  height:100px;
-  margin-top:10px;
-  background-color:$gray-500;
-  @include border-radius(50%);
-  // display: inline-block;
-
-  img{
-    width:100px;
-    height: 100px;
-    background-color:$gray-500;
-    @include border-radius(50%);
+  
   }
-}
-
-.doctor-details{
-  position: relative;
-  display: inline-block;
-  margin-top:10px;
-  margin-bottom:20px;
-  color:$gray-700;
-  font-size:0.8rem;
-  text-transform: capitalize;
-  letter-spacing: 0.01rem;
-  width:100%;
-
-  //  &::before{
-  //     content:"";
-  //     display: block;
-  //     position: absolute;
-  //     width:100%;
-  //     height:2px;
-  //     bottom:-5px;
-  //     background-color:$gray-600;
-  // }
-
-
-
-  span{
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.01rem;
-  }
-
-}
-
-.patient-details{
-  display: block;
-  margin-top:10px;
-  margin-bottom:16px;
-  color:$gray-700;
-  font-size:0.8rem;
-  // line-height: 1.6rem;
-  text-transform: capitalize;
-  letter-spacing: 0.02rem;
-  font-weight: 500;
-
-
-  .label{
-    font-size:0.65rem;
-    font-weight:400;
-    line-height: 1rem;
-  }
-
-
-}
-
-.btn-checkin{
-  width:100%;
-  padding:6px 0  !important;
-  margin-top:10px;
-  margin-bottom:20px;
-  i{
-    color:$white;
-  }
-}
-
-.time-container{
-
-  .time-details{
-    display:block;
-    margin-top:10px;
-    margin-bottom:20px;
-    color:$gray-700;
-    font-size:0.8rem;
-    line-height: 1.6rem;
-    text-transform: capitalize;
-    letter-spacing: 0.02rem;
-
-
-  }
-  .time{
-    float:right;
-  }
-
-  ul {
-    display:flex;
-    flex-direction:row;
-    width:100%;
-    flex-wrap:wrap;
-    justify-content: space-between;
-    li{
+  
+  .doctor-image{
+      width:100px;
+      height:100px;
+      margin-top:10px;
+      background-color:$gray-500;
+      @include border-radius(50%);
       // display: inline-block;
-      // margin-right:16px;
-      margin-bottom:16px;
-
-
-
-      .btn{
-        // width:auto;
-        width:120px;
-        // padding:12px 20px;
-        height: 36px;
-
-
+  
+      img{
+          width:100px;
+          height: 100px;
+          background-color:$gray-500;
+          @include border-radius(50%);
       }
-
-      // .btn-success{
-      //    &:hover{
-
-      //     }
+  }
+  
+  .doctor-details{
+      position: relative;
+      display: inline-block;
+      margin-top:10px;
+      margin-bottom:20px;
+      color:$gray-700;
+      font-size:0.8rem;
+      text-transform: capitalize;
+      letter-spacing: 0.01rem;
+      width:100%;
+  
+      //  &::before{
+      //     content:"";
+      //     display: block;
+      //     position: absolute;
+      //     width:100%;
+      //     height:2px;
+      //     bottom:-5px;
+      //     background-color:$gray-600;
       // }
-    }
+  
+     
+  
+      span{
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 0.01rem;
+      }
+     
   }
-}
-
-.appointment-status-list{
-  margin: 15px -30px 45px;
-  border-bottom:1px solid $gray-200;
-
-
-  .title{
-    position: relative;
-    display: inline-block;
-    margin-top:10px;
-    margin-bottom:20px;
-    color:$gray-700;
-    font-size:0.8rem;
-    text-transform: capitalize;
-
-    &::before{
-      content:"";
+  
+  .patient-details{
       display: block;
-      position: absolute;
-      width:25%;
-      height:1px;
-      bottom:-5px;
-      background-color:$gray-600;
-    }
-
-
-
-  }
-
-  .day-off{
-    // width:100%;
-    // text-align: center;
-    display: inline-block;
-
-    .fa{
-      font-size: 42px !important;
-      display: block;
-      color:$danger;
-
-    }
-  }
-
-  .appointment-status-list,.appointment-badge{
-    .btn-success{
-      // background-color: adjust-hue($success,20%);
-
-      background-color:$spotify;
-      color:$gray-800;
-      padding:8px 12px;
-      // margin: 0 0 12px;
-    }
-
-    .btn{
-      padding:10px 6px;
+      margin-top:10px;
+      margin-bottom:16px;
+      color:$gray-700;
+      font-size:0.8rem;
+      // line-height: 1.6rem;
+      text-transform: capitalize;
+      letter-spacing: 0.02rem;
       font-weight: 500;
-    }
+      
+  
+     .label{
+         font-size:0.65rem;
+         font-weight:400;
+         line-height: 1rem;
+     }
+  
+   
   }
-
-  .filter-message{
-    margin:0 auto;
+  
+  .btn-checkin{
+      width:100%;
+      padding:6px 0  !important;
+      margin-top:10px;
+      margin-bottom:20px;
+      i{
+          color:$white;
+      }
   }
-
-  .time-button{
-    .fa{
-      display:none;
-      margin-right:4px;
-    }
-    &.active{
+  
+  .time-container{
+  
+      .time-details{
+          display:block;
+          margin-top:10px;
+          margin-bottom:20px;
+          color:$gray-700;
+          font-size:0.8rem;
+          line-height: 1.6rem;
+          text-transform: capitalize;
+          letter-spacing: 0.02rem;
+  
+  
+      }
+      .time{
+        //   float:right;
+        margin-left:30px;   
+      }
+  
+      ul {
+          // display:flex;
+          // flex-direction:row;
+          width:100%;
+          // flex-wrap:wrap;
+          // justify-content: space-between;
+          li{
+          // display: inline-block;
+          margin-right:10px;
+          margin-bottom:12px;
+          float:left;
+       
+    
+  
+          .btn{
+              width:120px;
+              // width:120px;
+              //  margin-right:10px;
+              height: 46px;
+  
+           
+          }
+  
+          // .btn-success{
+          //    &:hover{
+  
+          //     }
+          // }
+      }
+  }
+  }
+  
+  .appointment-status-list{
+      margin: 15px -30px 45px;
+      border-bottom:1px solid $gray-200;
+  
+  
+  .title{
+      position: relative;
+      display: inline-block;
+      margin-top:10px;
+      margin-bottom:20px;
+      color:$gray-700;
+      font-size:0.8rem;
+      text-transform: capitalize;
+  
+       &::before{
+          content:"";
+          display: block;
+          position: absolute;
+          width:25%;
+          height:1px;
+          bottom:-5px;
+          background-color:$gray-600;
+      }
+  
+      
+      
+  }
+  
+  .day-off{
+      // width:100%;
+      // text-align: center;
+      display: inline-block;
+  
       .fa{
-        display:inline;
-        margin-right:4px;
-
+          font-size: 42px !important;
+         display: block;
+         color:$danger;
+  
+      }
+  }
+  
+  .appointment-status-list,.appointment-badge{
+      .btn-success{
+          // background-color: adjust-hue($success,20%);
+  
+          background-color:$spotify;
+          color:$gray-800;
+          padding:8px 12px;
+          // margin: 0 0 12px;
+      }
+  
+      .btn{
+          padding:10px 6px;
+          font-weight: 500;
+      }
+  }
+  
+  .filter-message{
+      margin:0 auto;
+  }
+  
+  .time-button{
+      .fa{
+          display:none;
+          margin-right:4px;
+      
+      }
+      &.active{
+         .fa{
+             display:inline;
+             margin-right:4px;
+             color:white;
+             
+         }
+      }
+  }
+  
+  
+  
+  @media (max-width: 1199px) { 
+      .hide-on-md{
+        display:none;
       }
     }
   }
-
-
-
-  @media (max-width: 1199px) {
-    .hide-on-md{
-      display:none;
-    }
-  }
-}
+  

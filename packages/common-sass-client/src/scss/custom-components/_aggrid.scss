@@ -5,6 +5,7 @@
 $font-family: $font-family-sans-serif;
 
 
+
 // changes the default icon color
 $icon-color: $cogent;
 
@@ -75,6 +76,10 @@ body {
   padding-left: 30px;
 }
 
+.ag-theme-balham .ag-body-viewport {
+  overflow-y: scroll !important;
+}
+
 
 .ag-row {
   .first-class {
@@ -114,9 +119,9 @@ body {
   outline: none;
 }
 
-.ag-cell {
-  text-transform: uppercase;
-}
+// .ag-cell {
+//   text-transform: capitalize;
+// }
 
 //   .ag-theme-balham .ag-ltr .ag-cell
 

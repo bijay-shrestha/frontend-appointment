@@ -9,14 +9,14 @@ const CheckInModalContent = ({appointmentDetails}) => {
                 <CForm id="refund-info" className="mt-2">
                     <Container-fluid>
                         <Row>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="hospitalName"
-                                    placeholder="Hospital Name"
-                                    value={appointmentDetails.hospitalName || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id="hospitalName"*/}
+                            {/*        placeholder="Hospital Name"*/}
+                            {/*        value={appointmentDetails.hospitalName || 'N/A'}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
@@ -49,10 +49,18 @@ const CheckInModalContent = ({appointmentDetails}) => {
                                     disabled={true}
                                 />
                             </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="Appointment Amount"
+                                    placeholder="Appointment Amount"
+                                    value={appointmentDetails.appointmentAmount || '0'}
+                                    disabled={true}
+                                />
+                            </Col>
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id=""
+                                    id="patientName"
                                     placeholder="Patient Name"
                                     value={appointmentDetails.patientName || 'N/A'}
                                     disabled={true}

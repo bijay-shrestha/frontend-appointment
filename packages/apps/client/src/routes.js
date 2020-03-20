@@ -46,7 +46,7 @@ const AddDoctorComponent = Loadable({
 });
 
 const AppointmentRefundListComponent = Loadable({
-    loader: () => import('./container/AppointmentRefund/AppointmentRefund'),
+    loader: () => import('./container/ClientAppointmentRefund/AppointmentRefund'),
     loading: () => getLoader()
 });
 
@@ -163,6 +163,8 @@ const RescheduleLog = Loadable({
     loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
     loading: () => getLoader()
 });
+
+
 
 /* ****** S ***** */
 

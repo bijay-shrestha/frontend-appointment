@@ -23,6 +23,7 @@ function QualificationAdd (props) {
     qualificationsAliasForDropdown,
     qualificationsForDropdown ,
     universitiesDropdown,
+    isLoading
   })=>
     <div className="">
       <Container className="bg-white add-container " fluid>
@@ -54,12 +55,15 @@ function QualificationAdd (props) {
           <Col sm={12} md={{span: 3, offset: 9}}>
             <CButton
               id="save-profile-add"
-              variant="primary "
+              variant="primary"
               className="float-right btn-action"
-              name="Save"
-              disabled={!formValid}
+              name={isLoading ? <span className="saving">Saving <img src={require("../../../images/three-dots.svg")} /></span>:"Save"}
+   
+              disabled={!formValid || isLoading}
               onClickHandler={setShowConfirmModal}
-            ></CButton>
+            >
+
+            </CButton>
             <QualificationConfirmationModal
               showModal={showConfirmModal}
               setShowModal={setShowConfirmModal}

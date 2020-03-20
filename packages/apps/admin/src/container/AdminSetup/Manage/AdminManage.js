@@ -119,6 +119,8 @@ class AdminManage extends PureComponent {
         errorMessage: ''
     };
 
+    timer='';
+
     resetAdminUpdateDataFromState = () => {
         this.setState({
             adminUpdateData: {
@@ -320,7 +322,7 @@ class AdminManage extends PureComponent {
     };
 
     automaticLogoutUser = () => {
-        setTimeout(() => this.logoutUser(), 10000)
+        this.timer = setTimeout(() => this.logoutUser(), 10000);
     };
 
     logoutUser = async () => {
@@ -738,7 +740,10 @@ class AdminManage extends PureComponent {
             this.setMacIdListInState(tempArray, tempArray);
         } else {
             let currentSelectedMacIds = [...this.state.updatedMacIdList];
-            let updateMacIds = currentSelectedMacIds.map(currentSelectedMacId => currentSelectedMacId.status = 'N');
+            let updateMacIds = currentSelectedMacIds.map(currentSelectedMacId => {
+                currentSelectedMacId.status = 'N';
+                return currentSelectedMacId
+            });
             this.setMacIdListInState(tempArray, updateMacIds);
         }
     };
@@ -876,9 +881,8 @@ class AdminManage extends PureComponent {
         this.initialAPICalls()
     }
 
-
     componentWillUnmount() {
-        clearTimeout(this.automaticLogoutUser);
+        clearTimeout(this.timer);
     }
 
     render() {

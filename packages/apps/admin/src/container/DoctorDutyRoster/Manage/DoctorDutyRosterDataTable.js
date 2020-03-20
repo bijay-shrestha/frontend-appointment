@@ -18,7 +18,8 @@ const DoctorDutyRosterDataTable = ({
                                        handlePageChange,
                                        onPreviewHandler,
                                        onDeleteHandler,
-                                       onEditHandler
+                                       onEditHandler,
+                                       onCloneAndAddNew
                                    }) => {
     return (
         <>
@@ -73,7 +74,7 @@ const DoctorDutyRosterDataTable = ({
                                         sizeColumnsToFit: true
                                     },
                                     {
-                                        headerName: 'Time Duration (minutes)',
+                                        headerName: 'Time Duration (In min)',
                                         field: 'rosterGapDuration',
                                         resizable: true,
                                         sortable: true,
@@ -101,7 +102,8 @@ const DoctorDutyRosterDataTable = ({
                                                     ? onDeleteHandler(data)
                                                     : type === 'E'
                                                     ? onEditHandler(id)
-                                                    : onPreviewHandler(id)
+                                                    : type === 'C' ? onCloneAndAddNew(id)
+                                                        : onPreviewHandler(id)
                                             },
                                             filteredAction: filteredAction
                                         },
