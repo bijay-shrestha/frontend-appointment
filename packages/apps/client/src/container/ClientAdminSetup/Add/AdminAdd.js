@@ -259,7 +259,8 @@ class AdminAdd extends PureComponent {
             macAddressInfo: macIdList.length ? macIdList.map(macId => {
                 return macId.macId
             }) : [],
-            baseUrl: EnvironmentVariableGetter.CLIENT_SERVER_DOMAIN.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT))
+            baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL
+            // baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT))
         };
 
         let formData = new FormData();

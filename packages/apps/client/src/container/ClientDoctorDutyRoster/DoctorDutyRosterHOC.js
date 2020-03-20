@@ -959,9 +959,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         weekDaysWithTime = weekDaysData.map(weekDayData => {
                             let originalDataWithTime = weekDaysDataOriginal.find(originalData =>
                                 originalData.weekDaysId === weekDayData.weekDaysId);
-                            weekDayData.startTime = originalDataWithTime.startTime;
-                            weekDayData.endTime = originalDataWithTime.endTime;
-                            weekDayData.dayOffStatus = originalDataWithTime.dayOffStatus;
+                            weekDayData.startTime = originalDataWithTime ? originalDataWithTime.startTime : '';
+                            weekDayData.endTime = originalDataWithTime ? originalDataWithTime.endTime : '';
+                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : '';
                             return weekDayData;
                         });
                     }
@@ -996,7 +996,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.revertOverrideUpdatesOnCancel();
             }
             this.setState({
-                showEditModal: false
+                showEditModal: false,
+                dateErrorMessage:''
             })
         };
 
@@ -1465,7 +1466,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         activeSpecializationListByHospital={activeSpecializationListByHospital}
                         addOverride={this.handleAddOverride}
                         cancelCloseEditModal={this.cancelCloseEditModal}
-                        dateErrorMessag e={dateErrorMessage}
+                        dateErrorMessage={dateErrorMessage}
                         deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
                         deleteErrorMessage={deleteErrorMessage}
                         deleteOverride={this.deleteOverride}
