@@ -209,7 +209,6 @@ class CHybridTimePicker extends PureComponent {
             isClearable={isClearable}
             isDisabled={isDisabled}
             isLoading={isLoading}
-            isMulti={isMulti}
             isOptionDisabled={isOptionDisabled}
             isOptionSelected={isOptionSelected}
             isRtl={isRtl}
