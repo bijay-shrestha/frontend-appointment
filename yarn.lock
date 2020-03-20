@@ -5782,6 +5782,11 @@ data-urls@^1.0.0, data-urls@^1.1.0:
     whatwg-mimetype "^2.2.0"
     whatwg-url "^7.0.0"
 
+datalist-polyfill@^1.24.1:
+  version "1.24.1"
+  resolved "https://registry.yarnpkg.com/datalist-polyfill/-/datalist-polyfill-1.24.1.tgz#51be51e70b633dcd6dafa5b8453d4cd374262254"
+  integrity sha512-yQ4kHCttKO+BVYmkx77vaQAWW0g9EN4XOFi5t1dmeL/9dIMccK6DAzSOc1ALpxeIVoKEJxdaxuEfo0FQmznkyg==
+
 date-fns@^2.0.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.8.1.tgz#2109362ccb6c87c3ca011e9e31f702bc09e4123b"

@@ -1,158 +1,243 @@
-import React, {useState, useRef,useEffect} from 'react';
-import {Form} from 'react-bootstrap';
-import ReactDOM from 'react-dom';
-import './hybrid-time.scss';
-const CHybridTimePicker = props => {
-  const {
-        id,
-        as,
-        autoComplete,
-        bsPrefix,
-        children,
-        className,
-        defaultValue,
-        disabled,
-        name,
-        onKeyDown,
-        pattern,
-        readOnly,
-        required,
-        rows,
-        size,
-        type,
-        value,
-        onChange,
-        duration,
-        fieldValuePattern,
-        errorMessagePassed,
-        hasValidation,
-        onClick,
-        placeholder,
-        errorMsg
-  } = props
+import React, {PureComponent} from 'react'
+import Select from 'react-select'
+import {Form} from 'react-bootstrap'
+import './hybrid-time.scss'
+import ReactDOM from 'react-dom'
 
-  const timePickerRef = useRef();
-  const fieldWrapperRef = useRef();
-  const fieldPlaceholderRef = useRef();
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isValid, setValid] = useState('');
-
-  const toggleClassName = (ref, values) => {
-    values.map(value => ReactDOM.findDOMNode(ref).classList.toggle(value))
+class CHybridTimePicker extends PureComponent {
+  state = {
+    errorMessage: '',
+    isValid: '',
+    options: [],
+    pickedTime: this.props.value || 0,
+    inputValue: ''
   }
 
-  const classAdditionWhenValueIsChanged = value => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
-    if (!(value === 0 || value)) {
-      if (a.includes('hasValue')) {
-        const replaceString = a.replace(' hasValue', '')
-        ReactDOM.findDOMNode(fieldWrapperRef).className = replaceString
+  checkDurationIsGreaterThan1hours = (duration, hour) => {
+    let hours = hour
+    let minutes = duration
+    let newLoopTime = minutes
+    while (newLoopTime >= 59) {
+      if (newLoopTime >= 59) {
+        hours = hours + 1
+        newLoopTime = newLoopTime - 60
       }
-    } else {
-      if (!a.includes('hasValue')) {
-        ReactDOM.findDOMNode(fieldWrapperRef).className += ' hasValue'
+      if (newLoopTime < 60) {
+        minutes = newLoopTime
+        break
       }
+    }
+    return {
+      hours: hours,
+      minutes: minutes
     }
   }
 
-  const setErrorMessagesAndValidity = (error, validity) => {
-    setErrorMessage(error)
-    setValid(validity)
+  getDateWithTimeSetToGivenTime = (date, hours, minutes) => {
+    let dataToreturn = date.setHours(hours, minutes, 0, 0)
+    return new Date(dataToreturn)
   }
-
-  const validateFieldAndToggleErrorClass = (
-    patternOfFieldValue,
-    errorMessageToDisplay,
-    value
-  ) => {
-    let fieldWrapper = ReactDOM.findDOMNode(fieldWrapperRef).classList
-    let isValid = patternOfFieldValue.test(value)
-    if (!isValid && (value === 0 || value)) {
-      fieldWrapper.add('errorInput')
-      setErrorMessagesAndValidity(errorMessagePassed, false)
-      return false
-    } else {
-      fieldWrapper.remove('errorInput')
-      setErrorMessagesAndValidity('', true)
-      return true
-    }
-  }
-
-  const handleOnChange = e => {
-    let validity = ''
-    classAdditionWhenValueIsChanged(e.target.value)
-    if (hasValidation) {
-       validity = validateFieldAndToggleErrorClass(
-        fieldValuePattern,
-        errorMessagePassed,
-        e.target.value
+  makeOptionsThroughDuration = () => {
+    const {duration} = this.props
+    let timeDuration = duration || 1
+    let hours = 0
+    let minutes = duration
+    let modHours = this.checkDurationIsGreaterThan1hours(timeDuration, hours)
+    hours = modHours.hours
+    minutes = modHours.minutes
+    let options = []
+    let optionForSelect = []
+    options.push('00:00')
+    optionForSelect.push({value: '00:00', label: '00:00'})
+    for (let time = 0; time <= 3600; time++) {
+      let splittedOption = options[time].split(':')
+      let appHours = splittedOption[0]
+      let appMinutes = splittedOption[1]
+      appHours = Number(appHours) + Number(hours)
+      appMinutes = Number(appMinutes) + Number(minutes)
+      let newModTime = this.checkDurationIsGreaterThan1hours(
+        appMinutes,
+        appHours
       )
+      appHours = newModTime.hours
+      appMinutes = newModTime.minutes
+      appHours =
+        appHours.toString().length <= 1
+          ? '0' + appHours.toString()
+          : appHours.toString()
+      appMinutes =
+        appMinutes.toString().length <= 1
+          ? '0' + appMinutes.toString()
+          : appMinutes.toString()
+      if (
+        (Number(appHours) <= 23 && Number(appMinutes) <= 59) ||
+        (appHours === '24' && appMinutes === '00')
+      ) {
+        options.push(appHours + ':' + appMinutes)
+        optionForSelect.push({
+          value: appHours + ':' + appMinutes,
+          label: appHours + ':' + appMinutes
+        })
+      } else break
     }
-    onChange(e, validity)
+    this.setState({options: optionForSelect})
   }
 
- const handleOnFocus = e => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
-    if (!a.includes('myInput') && !this.state.errorMsg) {
-      ReactDOM.findDOMNode(fieldWrapperRef).className += ' myInput'
+  handleOnBlur = event => {
+    ReactDOM.findDOMNode(
+      this.refs['select-label'.concat(this.props.id)]
+    ).classList.remove('active')
+  }
+
+  handleOnFocus = event => {
+    ReactDOM.findDOMNode(
+      this.refs['select-label'.concat(this.props.id)]
+    ).classList.add('active')
+  }
+
+  handleMultiOrSingleSelectedValue = event => {
+    return {value: event.value, label: event.label}
+  }
+  handleOnChange = event => {
+    let label, value, name
+    label = event && event.label
+    value = event && event.value
+    name = event && event.name
+
+    if (event) {
+      let splittedTime = value.split(':')
+      let hour = Number(splittedTime[0])
+      let min = Number(splittedTime[1])
+
+      let date = this.getDateWithTimeSetToGivenTime(new Date(), hour, min)
+      this.setState({
+        pickedTime: {value: value, label: label, name: name},
+        inputValue: value
+      })
+      this.props.onChange({
+        target: {
+          name: name,
+          value: date,
+          label: label
+        }
+      })
+    } else {
+      this.setState({
+        pickedTime: {value: '', label: '', name: this.props.name}
+      })
     }
   }
-
-const handleOnBlur = e => {
-    const a = ReactDOM.findDOMNode(fieldWrapperRef).className
-    const replaceString = a.replace('myInput', '')
-    ReactDOM.findDOMNode(fieldWrapperRef).className = replaceString
+  componentDidMount () {
+    this.makeOptionsThroughDuration()
   }
 
-const handlePlaceholderClick = () => {
-    timePickerRef.current.focus()
+  render () {
+    const {
+      autoFocus,
+      backspaceRemovesValue,
+      blurInputOnSelect,
+      captureMenuScroll,
+      className,
+      classNamePrefix,
+      closeMenuOnScroll,
+      closeMenuOnSelect,
+      components,
+      defaultInputValue,
+      defaultMenuIsOpen,
+      defaultValue,
+      delimiter,
+      escapeClearsValue,
+      hideSelectedOptions,
+      id,
+      inputId,
+      inputValue,
+      isClearable,
+      isDisabled,
+      isLoading,
+      isMulti,
+      isOptionDisabled,
+      isOptionSelected,
+      isRtl,
+      isSearchable,
+      label,
+      maxMenuHeight,
+      menuIsOpen,
+      menuPlacement,
+      menuPosition,
+      minMenuHeight,
+      name,
+      noOptionsMessage,
+      onInputChange,
+      onKeyDown,
+      onMenuClose,
+      onMenuOpen,
+      openMenuOnClick,
+      pageSize,
+      placeholder,
+      styles,
+      theme
+    } = this.props
+    return (
+      <>
+        <div
+          className="field-wrapper select-wrapper "
+          id={'select-wrapper'.concat(id)}
+          ref={'select-wrapper'.concat(id)}
+        >
+          <Form.Label ref={'select-label'.concat(id)} className="select-label">
+            {label}
+          </Form.Label>
+          <Select
+            autoFocus={autoFocus}
+            backspaceRemovesValue={backspaceRemovesValue}
+            blurInputOnSelect={blurInputOnSelect}
+            captureMenuScroll={captureMenuScroll}
+            className={className}
+            classNamePrefix={classNamePrefix}
+            closeMenuOnScroll={closeMenuOnScroll}
+            closeMenuOnSelect={closeMenuOnSelect}
+            components={components}
+            defaultInputValue={defaultInputValue}
+            defaultMenuIsOpen={defaultMenuIsOpen}
+            defaultValue={defaultValue}
+            delimiter={delimiter}
+            escapeClearsValue={escapeClearsValue}
+            hideSelectedOptions={hideSelectedOptions}
+            id={'select'.concat(id)}
+            inputId={inputId}
+            inputValue={inputValue}
+            isClearable={isClearable}
+            isDisabled={isDisabled}
+            isLoading={isLoading}
+            isOptionDisabled={isOptionDisabled}
+            isOptionSelected={isOptionSelected}
+            isRtl={isRtl}
+            isSearchable={isSearchable}
+            maxMenuHeight={maxMenuHeight}
+            menuIsOpen={menuIsOpen}
+            menuPlacement={menuPlacement}
+            menuPosition={menuPosition}
+            minMenuHeight={minMenuHeight}
+            name={name}
+            onBlur={this.handleOnBlur}
+            onFocus={this.handleOnFocus}
+            noOptionsMessage={noOptionsMessage}
+            onChange={event => this.handleOnChange(event)}
+            onInputChange={onInputChange}
+            onKeyDown={onKeyDown}
+            onMenuClose={onMenuClose}
+            onMenuOpen={onMenuOpen}
+            openMenuOnClick={openMenuOnClick}
+            options={this.state.options}
+            pageSize={pageSize}
+            placeholder={placeholder}
+            styles={styles}
+            theme={theme}
+            value={this.state.pickedTime}
+          />
+        </div>
+      </>
+    )
   }
-
-  return (
-    <div
-      className="field-wrapper hinput"
-      id={'fieldWrapper'.concat(id)}
-      ref={fieldWrapperRef}
-      onClick={onClick}
-    >
-      <Form.Control
-        ref={timePickerRef}
-        as={as}
-        autoComplete={autoComplete}
-        bsPrefix={bsPrefix}
-        children={children}
-        className={className}
-        defaultValue={defaultValue}
-        disabled={disabled}
-        id={'fControl_'.concat(id)}
-        isInvalid={isValid ? !isValid : isValid}
-        isValid={isValid}
-        maxLength={5}
-        minLength={5}
-        name={name}
-        onBlur={handleOnBlur}
-        onChange={handleOnChange}
-        onFocus={handleOnFocus}
-        onKeyDown={onKeyDown}
-        pattern={pattern}
-        readOnly={readOnly}
-        required={required}
-        rows={rows}
-        size={size}
-        type={type}
-        value={value}
-      />
-      <div
-        className="field-placeholder"
-        ref={fieldPlaceholderRef}
-        onClick={handlePlaceholderClick}
-      >
-        <span>{placeholder ? placeholder : 'Enter Value'}</span>
-      </div>
-      <Form.Control.Feedback type="invalid" className="err-message">
-        {errorMsg ? errorMsg : errorMessage}
-      </Form.Control.Feedback>
-    </div>
-  )
 }
-export default CHybridTimePicker;
+export default CHybridTimePicker
