@@ -4,7 +4,7 @@ import ActionForEditableTable from "../CommonComponents/table-components/ActionF
 
 const CTableTest = props => {
     return <>
-        <div className="manage-details">
+        <div className="mt-3">
             <CTable
                 id="qualification-alias"
                 columnDefinition={[
@@ -49,6 +49,9 @@ const CTableTest = props => {
                     }
                 ]}
                 headerBordered={true}
+                headerClassName="table-header"
+                bodyClassName="table-body"
+                footerClassName="table-footer"
             />
         </div>
 

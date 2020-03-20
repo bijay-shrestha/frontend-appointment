@@ -5,6 +5,7 @@ import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-mid
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
+import "./qualification-alias.scss";
 
 const {
     searchQualificationAlias,
