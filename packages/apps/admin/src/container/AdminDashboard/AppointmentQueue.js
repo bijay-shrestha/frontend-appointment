@@ -42,29 +42,29 @@ const AppointmentQueue = props => {
           </Form>
         </Col>
 
-        <Col className="date">
+        {/*<Col className="date">*/}
 
-        <CEnglishDatePicker
-            id="date"
-            name="date"
-            label="Date"
-            dateFormat="yyyy-MM-dd"
-            maxDate={0}
-            showDisabledMonthNavigation={true}
-            peekNextMonth={true}
-            showMonthDropdown={true}
-            showYearDropdown={true}
-            dropdownMode="select"
-            selected={date}
-            // onKeyDown={event => handleEnter(event)}
-            // onChange={date =>
-            //     handleSearchFormChange(date, 'fromDate')
-            // }
-        />
-          {/* <div>
-            <span>Date :</span> {new Date().toDateString()}
-          </div> */}
-        </Col>
+        {/*<CEnglishDatePicker*/}
+        {/*    id="date"*/}
+        {/*    name="date"*/}
+        {/*    label="Date"*/}
+        {/*    dateFormat="yyyy-MM-dd"*/}
+        {/*    maxDate={0}*/}
+        {/*    showDisabledMonthNavigation={true}*/}
+        {/*    peekNextMonth={true}*/}
+        {/*    showMonthDropdown={true}*/}
+        {/*    showYearDropdown={true}*/}
+        {/*    dropdownMode="select"*/}
+        {/*    selected={date}*/}
+        {/*    // onKeyDown={event => handleEnter(event)}*/}
+        {/*    // onChange={date =>*/}
+        {/*    //     handleSearchFormChange(date, 'fromDate')*/}
+        {/*    // }*/}
+        {/*/>*/}
+        {/*  /!* <div>*/}
+        {/*    <span>Date :</span> {new Date().toDateString()}*/}
+        {/*  </div> *!/*/}
+        {/*</Col>*/}
       </Row>
       <Row>
        
