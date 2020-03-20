@@ -41,7 +41,19 @@ const DoctorRevenueList = props => {
               <Col className="px-0">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
-                    <Col sm="12">
+                    <Col >
+                    <div className="hospital-list-input">
+                      <CHybridSelect
+                          name="specializationId"
+                          placeholder="Select Specialization"
+                          // label="Select Specialization"
+                          onChange={handleSpecializationChange}
+                          options={specializationListHospitalWise}
+                          disabled={specializationListHospitalWise.length}
+                          value={specializationId}
+                        />
+                      </div>
+                      <div className="separator-doc">Or</div>
                       <div className="hospital-list-input">
                         <CHybridSelect
                           name="doctorId"
@@ -51,7 +63,16 @@ const DoctorRevenueList = props => {
                           value={doctorId}
                         ></CHybridSelect>
                       </div>
-                      <div className="d-flex">
+                     
+                      </Col>
+
+                  </Form.Group>
+                </Form>
+              </Col>
+
+              <Col className="date">
+                      
+                      <div className="">
                         <CEnglishDatePicker
                           id="from-date"
                           name="fromDate"
@@ -66,7 +87,7 @@ const DoctorRevenueList = props => {
                           onKeyDown={event => this.handleEnter(event)}
                           onChange={date => handleDateChange(date, 'fromDate')}
                         />{' '}
-                        &nbsp;&nbsp;
+                      <div className="separator-date">To</div>
                         <CEnglishDatePicker
                           id="to-date"
                           name="toDate"
@@ -80,29 +101,14 @@ const DoctorRevenueList = props => {
                           dropdownMode="select"
                           onChange={date => handleDateChange(date, 'toDate')}
                         />
-                        <CHybridSelect
-                          name="specializationId"
-                          label="Select Specialization"
-                          onChange={handleSpecializationChange}
-                          options={specializationListHospitalWise}
-                          disabled={specializationListHospitalWise.length}
-                          value={specializationId}
-                        />
+
                       </div>
                     </Col>
-                  </Form.Group>
-                </Form>
-              </Col>
+              
 
-              <Col className="date">
-                <div>
-                  <span>Date :</span> {fromDate.toDateString()} to{' '}
-                  {toDate.toDateString()}
-                  <span>Total Appointment::{doctorTotalAppointments}</span>
-                  <span>Total RevenueAmount::{doctorTotalRevenueAmount}</span>
-                </div>
-              </Col>
             </Row>
+
+           
             <Row>
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
@@ -119,18 +125,20 @@ const DoctorRevenueList = props => {
                       rowHeight={50}
                       columnDefs={[
                         {
-                          headerName: 'Doctor(Specialization)',
+                          headerName: 'Doctor Details',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
-                          cellRenderer: 'doctorwithSpecializationRenderer'
+                          cellRenderer: 'doctorwithSpecializationRenderer',
+                          width:400,
                         },
                         {
                           headerName: 'No of Appointments',
                           field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true
+                          sizeColumnsToFit: true,
+                       
                         },
                         {
                           headerName: 'Revenue Amout',
@@ -154,6 +162,16 @@ const DoctorRevenueList = props => {
                       // maxBlocksInCache={6}
                       // dataSource={()=>handlePageChange(queryParams.page++)}
                     />
+
+            <Row>
+              <Col className="">
+                <div>
+                  {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
+                  {toDate.toDateString()} */}
+                  <span className="pull-left rev-total"> Total Appointment : {doctorTotalAppointments}</span>
+                  <span className="pull-right rev-total">Total RevenueAmount : Rs. {doctorTotalRevenueAmount}</span>
+                </div>
+              </Col></Row>
 
                     <CPagination
                       totalItems={totalRecords}
