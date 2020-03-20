@@ -230,3 +230,7 @@ export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
       throw e;
     }
   }
+
+export const clearDashboardDoctorRevenue = () => dispatch => {
+dispatch({type:'CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE'})
+}

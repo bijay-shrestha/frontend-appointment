@@ -26,7 +26,8 @@ const {
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS,
   DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
   DASHBOARD_DOCTOR_REVENUE_FETCH_START,
-  DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS
+  DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS,
+  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -367,6 +368,16 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         totalRevenueAmount:0,
         overallAppointment:0
       }
+    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:true,
+        doctorRevenueGenerated:[],
+        doctorRevenueGeneratedErrorMessage:'', 
+        totalItemsDoctorsRevenue:0,
+        totalRevenueAmount:0,
+        overallAppointment:0
+      }  
     default:
       return {...state}
   }

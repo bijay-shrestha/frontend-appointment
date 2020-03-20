@@ -19,7 +19,8 @@ const {
   fetchDashboardRevenueWeekList,
   fetchDashboardRevenueYearList,
   fetchAppointmentQueueList,
-  fetchDashboardDoctorRevenue
+  fetchDashboardDoctorRevenue,
+  clearDashboardDoctorRevenue
 } = DashboardDetailsMiddleware
 const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware
 const { fetchActiveDoctorsHospitalWiseForDropdown } = DoctorMiddleware
@@ -417,6 +418,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     }
 
     searchDoctorRevenueList = async page => {
+      this.props.clearDashboardDoctorRevenue();
       const {doctorId, hospitalId, fromDate, toDate,specializationId} = this.state.doctorRevenue
       let response = ''
       if (hospitalId) {
@@ -700,7 +702,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       fetchAppointmentQueueList,
       fetchActiveDoctorsHospitalWiseForDropdown,
       fetchDashboardDoctorRevenue,
-      fetchSpecializationHospitalWiseForDropdown
+      fetchSpecializationHospitalWiseForDropdown,
+      clearDashboardDoctorRevenue
     }
   )
 }
