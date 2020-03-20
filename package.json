@@ -78,6 +78,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "font-awesome": "^4.7.0",
+    "griddle-react": "^1.13.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
     "jest-haste-map": "^24.8.1",

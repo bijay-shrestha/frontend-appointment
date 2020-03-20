@@ -32,7 +32,7 @@ const AppointmentQueue = props => {
                   <CHybridSelect
                     name="doctorId"
                     placeholder="Select Doctor"
-                    onChange={handleDoctorChange}
+                    onChange={(e)=>handleDoctorChange(e,'Q')}
                     options={doctorDropdown}
                     value={doctorId}
                   ></CHybridSelect>
@@ -105,8 +105,6 @@ const AppointmentQueue = props => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                
-             
               ]}
               frameworkComponents={{
                 doctorwithSpecializationRenderer:DoctorWithSpecializationAndImage,
@@ -115,7 +113,15 @@ const AppointmentQueue = props => {
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={appointmentQueueData}
+              // rowModelType= "infinite"
+              // paginationPageSize={6}
+              // cacheOverflowSize={2}
+              // maxConcurrentDatasourceRequests={1}
+              // infiniteInitialRowCount={6}
+              // maxBlocksInCache={6}
+              // dataSource={()=>handlePageChange(queryParams.page++)}
             />
+
             <CPagination
               totalItems={totalRecords}
               maxSize={queryParams.size}

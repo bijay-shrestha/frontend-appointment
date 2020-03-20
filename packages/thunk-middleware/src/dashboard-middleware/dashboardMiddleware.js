@@ -206,8 +206,27 @@ export const fetchDashboardRevenueYearList = (path, data) => async dispatch => {
       ? e.errorMessage
       : 'Sorry Something Error Occured!!'
     dispatch(
-      DashboardDetailsActions.dashboardYearRevenueFetchingError(errorMessage)
+      DashboardDetailsActions.dashboardAppointmentQueueFetchingError(errorMessage)
     )
     throw e;
   }
 }
+
+export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
+    dispatch(DashboardDetailsActions.dashboardDoctorRevenueFetchingStart())
+    try {
+      const response = await Axios.getWithRequestParams(path, data)
+      dispatch(
+        DashboardDetailsActions.dashboardDoctorRevenueFetchingSuccess(response.data)
+      )
+      return response
+    } catch (e) {
+      const errorMessage = e.errorMessage
+        ? e.errorMessage
+        : 'Sorry Something Error Occured!!'
+      dispatch(
+        DashboardDetailsActions.dashboardDoctorRevenueFetchingError(errorMessage)
+      )
+      throw e;
+    }
+  }

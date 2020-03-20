@@ -1,13 +1,13 @@
 import React from 'react'
-import { ConnectHoc } from '@frontend-appointment/commons'
+import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   HospitalSetupMiddleware,
   DashboardDetailsMiddleware,
   DoctorMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './admin-dashboard.scss'
-import { DateTimeFormatterUtils } from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 const {
   fetchDashboardAppointmentStatisticsList,
@@ -19,8 +19,8 @@ const {
   fetchDashboardRevenueYearList,
   fetchAppointmentQueueList
 } = DashboardDetailsMiddleware
-const { fetchActiveHospitalsForDropdown } = HospitalSetupMiddleware
-const { fetchActiveDoctorsHospitalWiseForDropdown } = DoctorMiddleware
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const DashBoardHOC = (ComposedComponent, props, type) => {
   const {
     hospitalSetupApiConstants,
@@ -35,25 +35,24 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
         previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
         previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
-        hospitalId: { label: 'ALL', value: null }
+        hospitalId: {label: 'ALL', value: null}
       },
       searchParamsForOverallAppoinment: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        hospitalId: { label: 'ALL', value: null }
+        hospitalId: {label: 'ALL', value: null}
       },
       searchParameterForRevenueTrend: {
         revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         revToDate: new Date(),
-        revHospitalId: { label: 'ALL', value: null }
+        revHospitalId: {label: 'ALL', value: null}
       },
       revenueFilter: 'W',
       appointmentFilter: 'W',
       hospitalList: [],
       appointmentQueue: {
         doctorId: '',
-        hospitalId: '',
-        date: new Date()
+        hospitalId: ''
       },
       queryParams: {
         page: 0,
@@ -67,9 +66,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         await this.props.fetchActiveHospitalsForDropdown(
           hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
         )
-        const { hospitalsForDropdown } = { ...this.props.HospitalDropdownReducer }
+        const {hospitalsForDropdown} = {...this.props.HospitalDropdownReducer}
         let hospitals = [...hospitalsForDropdown]
-        hospitals.push({ label: 'ALL', value: 'A' })
+        hospitals.push({label: 'ALL', value: 'A'})
         this.setState({
           hospitalList: [...hospitals]
         })
@@ -259,7 +258,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             },
             revenueFilter: dayFilter
           })
-          this.callApiForHospitalChange(type)
+          this.callApiForHospitalChange(type) 
         }
       } else {
         if (this.state.appointmentFilter !== dayFilter) {
@@ -282,20 +281,20 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     }
 
     handleHospitalChange = async (event, field) => {
-      let searchParams1 = { ...this.state.searchParameterForGenerateRevenue }
+      let searchParams1 = {...this.state.searchParameterForGenerateRevenue}
       let searchParams = {
         ...this.state.searchParamsForOverallAppoinment
       }
-      let searchParams3 = { ...this.state.searchParameterForRevenueTrend }
-      let searchParams4 = { ...this.state.appointmentQueue }
+      let searchParams3 = {...this.state.searchParameterForRevenueTrend}
+      let searchParams4 = {...this.state.appointmentQueue}
       let fieldName, value, label
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
-      searchParams[fieldName] = label ? (value ? { value, label } : '') : value
-      searchParams1[fieldName] = label ? (value ? { value, label } : '') : value
-      searchParams3[fieldName] = label ? (value ? { value, label } : '') : value
-      searchParams4[fieldName] = label ? (value ? { value, label } : '') : value
+      searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+      searchParams1[fieldName] = label ? (value ? {value, label} : '') : value
+      searchParams3[fieldName] = label ? (value ? {value, label} : '') : value
+      searchParams4[fieldName] = label ? (value ? {value, label} : '') : value
       await this.setState({
         searchParamsForOverallAppoinment: searchParams,
         searchParameterForGenerateRevenue: searchParams1,
@@ -319,7 +318,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
-      searchParams[fieldName] = label ? (value ? { value, label } : '') : value
+      searchParams[fieldName] = label ? (value ? {value, label} : '') : value
       await this.setState({
         appointmentQueue: searchParams
       })
@@ -331,14 +330,14 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     }
 
     searchAppointmentQueue = async page => {
-      const { doctorId, hospitalId } = this.state.appointmentQueue
+      const {doctorId, hospitalId} = this.state.appointmentQueue
       if (hospitalId) {
         let updatedPage =
           this.state.queryParams.page === 0
             ? 1
             : page
-              ? page
-              : this.state.queryParams.page
+            ? page
+            : this.state.queryParams.page
         await this.props.fetchAppointmentQueueList(
           DashboardApiConstant.APPOINTMENT_QUERY,
           {
@@ -372,11 +371,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       this.searchAppointmentQueue()
     }
 
-    componentDidMount() {
+    componentDidMount () {
       this.callApiForHospitalChange()
       this.searchHospitalForDropDown()
     }
-    render() {
+    render () {
       const {
         searchParameterForGenerateRevenue,
         searchParamsForOverallAppoinment,
@@ -385,14 +384,14 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         totalRecords,
         queryParams
       } = this.state
-      const { revFromDate, revToDate } = searchParameterForRevenueTrend
+      const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
       const {
         currentToDate,
         previousFromDate,
         hospitalId
       } = searchParameterForGenerateRevenue
-      const { fromDate, toDate } = searchParamsForOverallAppoinment
+      const {fromDate, toDate} = searchParamsForOverallAppoinment
       //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       const {
         isAppointmentStatsLoading,
@@ -466,15 +465,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             isAppointmentStatsLoading: isAppointmentStatsLoading,
             appointmentStatsData: appointmentStatsData,
             appointmentStatsErrorMessage: appointmentStatsErrorMessage,
-            fromDate: { fromDate },
-            toDate: { toDate }
+            fromDate: {fromDate},
+            toDate: {toDate}
           }}
           revenueStatistics={{
             isRevenueStatsLoading: isRevenueStatsLoading,
             revenueStatsData: revenueStatsData,
             revenueStatsErrorMessage: revenueStatsErrorMessage,
-            fromDate: { revFromDate },
-            toDate: { revToDate }
+            fromDate: {revFromDate},
+            toDate: {revToDate}
           }}
           registeredPatients={{
             isRegisteredPatientLoading: isRegisteredPatientLoading,
@@ -490,7 +489,6 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             handlePageChange: this.handlePageChange,
             handleDoctorChange: this.handleDoctorChange,
             doctorId: this.state.appointmentQueue.doctorId,
-            date: this.state.appointmentQueue.date,
             doctorDropdown: activeDoctorsByHospitalForDropdown
           }}
           onPillsClickHandler={this.onPillsClickHandler}
