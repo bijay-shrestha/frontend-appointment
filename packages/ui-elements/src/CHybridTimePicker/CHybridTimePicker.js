@@ -14,7 +14,12 @@ class CHybridTimePicker extends PureComponent {
   }
   
   checkAndValidateValue = (objValue) => {
-    const{value,label} = objValue; 
+    let value,label;
+    if(objValue.value)
+    {
+      value=objValue.value
+      label=objValue.label
+    } 
     console.log("=================value",value);
     if(value && Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value))
     {
@@ -25,6 +30,9 @@ class CHybridTimePicker extends PureComponent {
     }
     if(value && (typeof value === 'number')){
       return this.convertDateToString({value:new Date(value),label:label})
+    }
+    if(!value && Object.prototype.toString.call(objValue) === "[object Date]" && !isNaN(objValue)){
+     return this.convertDateToString({value:objValue,label:""})
     }
    }
    convertDateToString = (date) => {
