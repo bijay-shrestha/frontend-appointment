@@ -20,7 +20,6 @@ class CHybridTimePicker extends PureComponent {
       value=objValue.value
       label=objValue.label
     } 
-    console.log("=================value",value);
     if(value && Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value))
     {
      return this.convertDateToString(objValue);
@@ -41,8 +40,6 @@ class CHybridTimePicker extends PureComponent {
      let minutes =value.getMinutes();
      hours= hours.toString().length<=1?'0'+hours:hours;
      minutes = minutes.toString().length<=1?'0'+minutes:minutes;
-     console.log("============hours",hours)
-     console.log("==============minutes",minutes)
      return {value:`${hours}:${minutes}`,label:`${hours}:${minutes}`}
    }
 
