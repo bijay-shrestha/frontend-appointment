@@ -7,14 +7,14 @@ export const convertDateToHourMinuteFormat = date => {
 };
 
 export const getDateWithTimeSetToGivenTime = (date, hours, minutes, seconds) => {
-    return date.setHours(hours, minutes, seconds, 0);
+    return new Date(date.setHours(hours, minutes, seconds, 0));
 };
 
 export const getFormattedDate = date =>  {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, '0');
     let day = date.getDate().toString().padStart(2, '0');
-  
+
     return year + '-' + month + '-' + day;
 }
 
@@ -64,5 +64,5 @@ export const getNoOfDaysBetweenGivenDatesInclusive = (fromDate, toDate) => {
 export const getOnlyDateFromDateAndTime = oldDate => {
     const newDate =  new Date(oldDate).toLocaleDateString();
     return newDate;
-} 
+}
 
