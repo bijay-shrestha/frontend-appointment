@@ -5,16 +5,6 @@ import './hybrid-time.scss'
 import ReactDOM from 'react-dom'
 
 class CHybridTimePicker extends PureComponent {
-  state = {
-    errorMessage: '',
-    isValid: '',
-    options: [],
-    pickedTime: this.props.value
-      ? this.checkAndValidateValue(this.props.value)
-      : 0,
-    inputValue: ''
-  }
-
   checkAndValidateValue = objValue => {
     let value, label
     if (objValue.value) {
@@ -50,6 +40,16 @@ class CHybridTimePicker extends PureComponent {
     hours = hours.toString().length <= 1 ? '0' + hours : hours
     minutes = minutes.toString().length <= 1 ? '0' + minutes : minutes
     return {value: `${hours}:${minutes}`, label: `${hours}:${minutes}`}
+  }
+
+  state = {
+    errorMessage: '',
+    isValid: '',
+    options: [],
+    pickedTime: this.props.value
+      ? this.checkAndValidateValue(this.props.value)
+      : 0,
+    inputValue: ''
   }
 
   checkDurationIsGreaterThan1hours = (duration, hour) => {
