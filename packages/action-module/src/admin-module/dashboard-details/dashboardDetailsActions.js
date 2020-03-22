@@ -28,7 +28,13 @@ const {
   DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
   DASHBOARD_DOCTOR_REVENUE_FETCH_START,
   DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS,
-  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE
+  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_PENDING,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS,
+  FETCH_DASHBOARD_FEATURES_ERROR,
+  FETCH_DASHBOARD_FEATURES_START,
+  FETCH_DASHBOARD_FEATURES_SUCCESS
 } = dashboardDetailsActionsConstant
 
 export const dashboardDayRevenueFetchingStart = () => {
@@ -228,4 +234,47 @@ export const dashboardDoctorRevenueFetchingSuccess = data => {
   }
 }
 
+export const fetchDashboardFeatureError = message => {
+  return {
+    type:FETCH_DASHBOARD_FEATURES_ERROR,
+    payload: {
+      data: message
+    }
+  }
+}
+
+export const fetchDashboardFeatureStart = () => {
+  return {
+    type: FETCH_DASHBOARD_FEATURES_START
+  }
+}
+
+export const fetchDashboardFeatureSuccess = data => {
+  return {
+    type: FETCH_DASHBOARD_FEATURES_SUCCESS,
+    payload: {data}
+  }
+}
+
+export const fetchDashboardFeatureByAdminError = message => {
+  return {
+    type:FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR,
+    payload: {
+      data: message
+    }
+  }
+}
+
+export const fetchDashboardFeatureByAdminStart = () => {
+  return {
+    type: FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_PENDING
+  }
+}
+
+export const fetchDashboardFeatureByAdminSuccess = data => {
+  return {
+    type: FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS,
+    payload: {data}
+  }
+}
 

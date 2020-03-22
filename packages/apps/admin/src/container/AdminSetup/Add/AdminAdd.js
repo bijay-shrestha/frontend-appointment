@@ -47,6 +47,7 @@ class AdminAdd extends PureComponent {
         genderCode: '',
         macIdList: [],
         departmentList: [],
+        dashboardRequestList:[],
         profileList: [],
         errorMessageForAdminName: 'Admin Name should not contain special characters.',
         errorMessageForAdminMobileNumber: 'Mobile number should be of 10 digits.',
