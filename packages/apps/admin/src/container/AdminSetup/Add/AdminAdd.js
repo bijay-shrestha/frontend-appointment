@@ -486,6 +486,7 @@ class AdminAdd extends PureComponent {
       isDashboardFeatureLoading,
       dashboardFeatureErrorMessage
     } = this.props.DashboardFeaturesReducer
+    console.log('=================this.props.DashboardFeaturesReducer',this.props.DashboardFeaturesReducer)
     return (
       <>
         <div className=" ">

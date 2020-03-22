@@ -405,14 +405,12 @@ export const DashboardFeaturesReducer = (
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
-        ...state,
         isDashboardFeatureLoading:false,
         dashboardFeatureData:action.payload.data,
         dashboardFeatureErrorMessage:''
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {
-        ...state,
         isDashboardFeatureLoading:false,
         dashboardFeatureData:[],
         dashboardFeatureErrorMessage:action.payload.message
@@ -433,14 +431,12 @@ export const DashboardFeaturesByAdminReducer = (
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
-        ...state,
         isDashboardFeatureAdminLoading:false,
         dasboardFeatureByAdminData:action.payload.data,
         dasboardFeatureByAdminErrorMessage:''
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {
-        ...state,
         isDashboardFeatureAdminLoading:false,
         dasboardFeatureByAdminData:[],
         dasboardFeatureByAdminErrorMessage:action.payload.message

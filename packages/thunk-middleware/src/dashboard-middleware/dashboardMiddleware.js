@@ -238,7 +238,7 @@ dispatch({type:'CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE'})
 export const fetchDashboardFeatures= (path) => async dispatch => {
     dispatch(DashboardDetailsActions.fetchDashboardFeatureStart())
     try {
-      const response = await Axios.get(path)
+      const response = await Axios.put(path)
       dispatch(
         DashboardDetailsActions.fetchDashboardFeatureSuccess(response.data)
       )
@@ -259,7 +259,7 @@ export const fetchDashboardFeatures= (path) => async dispatch => {
     try {
       const response = await Axios.getWithPathVariables(path,id)
       dispatch(
-        DashboardDetailsActions.fetchDashboardFeatureSuccess(response.data)
+        DashboardDetailsActions.fetchDashboardFeatureByAdminSuccess(response.data)
       )
       return response
     } catch (e) {
@@ -267,7 +267,7 @@ export const fetchDashboardFeatures= (path) => async dispatch => {
         ? e.errorMessage
         : 'Sorry  Error Occured!!'
       dispatch(
-        DashboardDetailsActions.fetchDashboardFeatureError(errorMessage)
+        DashboardDetailsActions.fetchDashboardFeatureByAdminError(errorMessage)
       )
       throw e;
     }
