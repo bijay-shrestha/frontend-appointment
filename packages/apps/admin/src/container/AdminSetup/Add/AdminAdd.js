@@ -294,6 +294,12 @@ class AdminAdd extends PureComponent {
     })
   }
 
+  onChangeDashBoardRole = (event, dash) => {
+    let adminDashboardList = [...this.state.adminDashboardRequestDTOS]
+    if (dash.status === 'Y') {
+    }
+  }
+
   handleConfirmClick = async () => {
     const {
       hospital,
@@ -412,8 +418,35 @@ class AdminAdd extends PureComponent {
       ))
   }
 
+  formDashBoardData = data => {
+    return (
+      data &&
+      data.length &&
+      data.map(datum => {
+        return {
+          ...datum,
+          status: 'N'
+        }
+      })
+    )
+  }
+
+  fetchDashBoardFeatures = async () => {
+    try {
+      const response = await this.props.fetchDashboardFeatures(
+        DASHBOARD_FEATURE
+      )
+      await this.setState({
+        adminDashboardRequestDTOS: this.formDashBoardData(response.data)
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   initialAPICalls = () => {
     this.fetchHospitals()
+    this.fetchDashBoardFeatures()
   }
 
   componentDidMount () {
@@ -451,7 +484,6 @@ class AdminAdd extends PureComponent {
     const {isCreateAdminLoading} = this.props.AdminSetupReducer
     const {
       isDashboardFeatureLoading,
-      dashboardFeatureData,
       dashboardFeatureErrorMessage
     } = this.props.DashboardFeaturesReducer
     return (
@@ -510,9 +542,10 @@ class AdminAdd extends PureComponent {
                 onImageCrop={this.handleCropImage}
                 viewProfileDetails={this.handleViewProfileDetails}
                 isCreateAdminLoading={isCreateAdminLoading}
-                isDashboardFeatureLoading
-                dashboardFeatureData
-                dashboardFeatureErrorMessage
+                isDashboardFeatureLoading={isDashboardFeatureLoading}
+                dashboardFeatureData={this.state.adminDashboardRequestDTOS}
+                dashboardFeatureErrorMessage={dashboardFeatureErrorMessage}
+                onChangeDashBoardRole={this.onChangeDashBoardRole}
               />
               <Row className="mt-4">
                 <Col sm={12} md={{span: 3, offset: 9}}>
