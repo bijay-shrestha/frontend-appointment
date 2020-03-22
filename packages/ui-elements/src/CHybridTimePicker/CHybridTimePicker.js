@@ -9,7 +9,7 @@ class CHybridTimePicker extends PureComponent {
     errorMessage: '',
     isValid: '',
     options: [],
-    pickedTime: this.props.value || 0,
+    pickedTime: this.props.value?this.checkAndValidateValue(this.props.value):0,
     inputValue: ''
   }
   
