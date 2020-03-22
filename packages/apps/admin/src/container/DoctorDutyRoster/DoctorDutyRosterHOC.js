@@ -307,7 +307,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         handleDoctorAvailabilityFormChange = async (event, fieldName, index) => {
-            let value = fieldName ? event : event.target.checked;
+            let value = fieldName ? event.target.value : event.target.checked;
             let doctorWeekDaysAvailability;
             switch (type) {
                 case 'ADD':
