@@ -9,39 +9,48 @@ class CHybridTimePicker extends PureComponent {
     errorMessage: '',
     isValid: '',
     options: [],
-    pickedTime: this.props.value?this.checkAndValidateValue(this.props.value):0,
+    pickedTime: this.props.value
+      ? this.checkAndValidateValue(this.props.value)
+      : 0,
     inputValue: ''
   }
-  
-  checkAndValidateValue = (objValue) => {
-    let value,label;
-    if(objValue.value)
-    {
-      value=objValue.value
-      label=objValue.label
-    } 
-    if(value && Object.prototype.toString.call(value) === "[object Date]" && !isNaN(value))
-    {
-     return this.convertDateToString(objValue);
+
+  checkAndValidateValue = objValue => {
+    let value, label
+    if (objValue.value) {
+      value = objValue.value
+      label = objValue.label
     }
-    if(value && (typeof value === 'string')){
+    if (
+      value &&
+      Object.prototype.toString.call(value) === '[object Date]' &&
+      !isNaN(value)
+    ) {
+      return this.convertDateToString(objValue)
+    }
+    if (value && typeof value === 'string') {
       return objValue
     }
-    if(value && (typeof value === 'number')){
-      return this.convertDateToString({value:new Date(value),label:label})
+    if (value && typeof value === 'number') {
+      return this.convertDateToString({value: new Date(value), label: label})
     }
-    if(!value && Object.prototype.toString.call(objValue) === "[object Date]" && !isNaN(objValue)){
-     return this.convertDateToString({value:objValue,label:""})
+    if (
+      !value &&
+      Object.prototype.toString.call(objValue) === '[object Date]' &&
+      !isNaN(objValue)
+    ) {
+      return this.convertDateToString({value: objValue, label: ''})
     }
-   }
-   convertDateToString = (date) => {
-     const {value,label} =date;
-     let hours = value.getHours();
-     let minutes =value.getMinutes();
-     hours= hours.toString().length<=1?'0'+hours:hours;
-     minutes = minutes.toString().length<=1?'0'+minutes:minutes;
-     return {value:`${hours}:${minutes}`,label:`${hours}:${minutes}`}
-   }
+  }
+
+  convertDateToString = date => {
+    const {value, label} = date
+    let hours = value.getHours()
+    let minutes = value.getMinutes()
+    hours = hours.toString().length <= 1 ? '0' + hours : hours
+    minutes = minutes.toString().length <= 1 ? '0' + minutes : minutes
+    return {value: `${hours}:${minutes}`, label: `${hours}:${minutes}`}
+  }
 
   checkDurationIsGreaterThan1hours = (duration, hour) => {
     let hours = hour
@@ -171,9 +180,9 @@ class CHybridTimePicker extends PureComponent {
     if (Number(prevProps.duration) !== Number(duration))
       this.makeOptionsThroughDuration()
     if (String(pickedTime1) !== String(pickedTime2)) {
-      let timeValue= this.checkAndValidateValue(this.props.value)
+      let timeValue = this.checkAndValidateValue(this.props.value)
       this.setState({
-        pickedTime:{...timeValue}
+        pickedTime: {...timeValue}
       })
     }
   }
