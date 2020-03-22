@@ -328,6 +328,37 @@ const AdminInfoForm = ({
                                     </Col>
                                 </Row>
                             </Col>
+                            {<Col sm={12} md={12} lg={6}>
+                                <CFLabel labelName="Status" id="status"/>
+                                <div>
+                                <CRadioButton
+                                    checked={adminInfoObj.status === "Y"}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    name="status"
+                                    value="Y"
+                                    disabled={true}
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                    readOnly={true}
+                                />
+                                <CRadioButton
+                                    checked={adminInfoObj.status === "N"}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    name="status"
+                                    value="N"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event) => onInputChange(event)}
+                                    className="sr-only"
+                                    disabled={true}
+                                    readOnly={true}
+                                />
+                                </div>
+
+                            </Col>}
                         </Row>
                     </Col>
                 </Row>
