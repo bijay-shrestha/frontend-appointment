@@ -88,6 +88,17 @@ const appointmentQueueDaily = {
   totalItems:''
 }
 
+const dashboardFeatures = {
+  isDashboardFeatureLoading:true,
+  dashboardFeatureData:[],
+  dashboardFeatureErrorMessage:''
+}
+const dasboardFeatureByAdmin = {
+  isDashboardFeatureAdminLoading:true,
+  dasboardFeatureByAdminData:[],
+  dasboardFeatureByAdminErrorMessage:''
+}
+
 export const DashboardAppointmentQueueReducer = (
   state = {...appointmentQueueDaily},
   action
@@ -377,6 +388,62 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         totalItemsDoctorsRevenue:0,
         totalRevenueAmount:0,
         overallAppointment:0
+      }  
+    default:
+      return {...state}
+  }
+}
+
+export const DashboardFeaturesReducer = (
+  state = {...dashboardFeatures},
+  action
+) => {
+  switch (action.type) {
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
+      return {
+        ...state
+      }
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
+      return {
+        ...state,
+        isDashboardFeatureLoading:false,
+        dashboardFeatureData:action.payload.data,
+        dashboardFeatureErrorMessage:''
+      }
+    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+      return {
+        ...state,
+        isDashboardFeatureLoading:false,
+        dashboardFeatureData:[],
+        dashboardFeatureErrorMessage:action.payload.message
+      }  
+    default:
+      return {...state}
+  }
+}
+
+export const DashboardFeaturesReducer = (
+  state = {...dasboardFeatureByAdmin},
+  action
+) => {
+  switch (action.type) {
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
+      return {
+        ...state
+      }
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
+      return {
+        ...state,
+        isDashboardFeatureAdminLoading:false,
+        dasboardFeatureByAdminData:action.payload.data,
+        dasboardFeatureByAdminErrorMessage:''
+      }
+    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+      return {
+        ...state,
+        isDashboardFeatureAdminLoading:false,
+        dasboardFeatureByAdminData:[],
+        dasboardFeatureByAdminErrorMessage:action.payload.message
       }  
     default:
       return {...state}
