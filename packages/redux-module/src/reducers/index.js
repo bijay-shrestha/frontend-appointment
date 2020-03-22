@@ -62,8 +62,9 @@ import {
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
     DashboardAppointmentQueueReducer,
-    DashboardRevenueGeneratedByDoctorReducer
-
+    DashboardRevenueGeneratedByDoctorReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer
 } from './admin-module/dashboardDetailsReducer'
 
 import {
@@ -119,6 +120,8 @@ export {
     DashboardRevenueStatisticsReducer,
     DashboardAppointmentQueueReducer,
     DashboardRevenueGeneratedByDoctorReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,

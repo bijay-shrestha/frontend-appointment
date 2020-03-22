@@ -422,7 +422,7 @@ export const DashboardFeaturesReducer = (
   }
 }
 
-export const DashboardFeaturesReducer = (
+export const DashboardFeaturesByAdminReducer = (
   state = {...dasboardFeatureByAdmin},
   action
 ) => {
