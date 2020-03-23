@@ -94,7 +94,7 @@ class AdminAdd extends PureComponent {
       macIdList: [],
       departmentList: [],
       profileList: [],
-      adminDashboardRequestDTOS: [],
+      adminDashboardRequestDTOS: [...this.props.DashboardFeaturesReducer.dashboardFeatureData],
       showImageUploadModal: false,
       showConfirmModal: false,
       adminImage: '',
@@ -295,15 +295,14 @@ class AdminAdd extends PureComponent {
   }
   findAndChangeStatusofDashBoardRole = (adminDashboardList, dash) => {
     return adminDashboardList.map(adminDash => {
-     if(dash.code === adminDash.code)
-      return {...adminDash,status:dash.status}
-     else
-      return {...adminDash}
+      if (dash.code === adminDash.code)
+        return {...adminDash, status: dash.status}
+      else return {...adminDash}
     })
   }
   onChangeDashBoardRole = (event, dash) => {
     let adminDashboardList = [...this.state.adminDashboardRequestDTOS]
-    let newDash ={...dash}
+    let newDash = {...dash}
     newDash.status = newDash.status === 'Y' ? 'N' : 'Y'
 
     adminDashboardList = this.findAndChangeStatusofDashBoardRole(
@@ -316,7 +315,13 @@ class AdminAdd extends PureComponent {
   }
 
   filterOnlyActiveStatusDashboardRole = dashList => {
-   return dashList && dashList.length && dashList.filter(dash => dash.status === "Y")
+    return (
+      dashList &&
+      dashList.length &&
+      dashList
+        .filter(dash => dash.status === 'Y')
+        .map(dashBoard => ({id: dashBoard.id, status: dashBoard.status}))
+    )
   }
 
   handleConfirmClick = async () => {
@@ -334,7 +339,9 @@ class AdminAdd extends PureComponent {
       adminAvatar,
       adminDashboardRequestDTOS
     } = this.state
-    const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(adminDashboardRequestDTOS)
+    const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(
+      adminDashboardRequestDTOS
+    )
     const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
     let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(
@@ -352,7 +359,7 @@ class AdminAdd extends PureComponent {
       status,
       genderCode: genderCode,
       profileId: profile.value,
-      adminDashboardRequestDTOS:[...newAdminDashboardRequest],
+      adminDashboardRequestDTOS: [...newAdminDashboardRequest],
       macAddressInfo: macIdList.length
         ? macIdList.map(macId => {
             return macId.macId
@@ -507,10 +514,6 @@ class AdminAdd extends PureComponent {
       isDashboardFeatureLoading,
       dashboardFeatureErrorMessage
     } = this.props.DashboardFeaturesReducer
-    console.log(
-      '=================this.props.DashboardFeaturesReducer',
-      this.props.DashboardFeaturesReducer
-    )
     return (
       <>
         <div className=" ">
