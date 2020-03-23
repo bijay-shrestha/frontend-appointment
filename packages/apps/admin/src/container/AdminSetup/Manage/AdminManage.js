@@ -14,7 +14,8 @@ import {
   logoutUser,
   previewAdmin,
   previewProfile,
-  resetPassword
+  resetPassword,
+  DashboardDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import AdminDetailsDataTable from './AdminDetailsDataTable'
@@ -62,6 +63,11 @@ const {
   fetchActiveDepartmentsForDropdown
 } = DepartmentSetupMiddleware
 
+const {
+  fetchDashboardFeatures,
+  fetchDashboardFeaturesByAdmin
+} = DashboardDetailsMiddleware
+const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 class AdminManage extends PureComponent {
   state = {
     showAdminModal: false,
@@ -255,7 +261,7 @@ class AdminManage extends PureComponent {
       updatedModulesAndProfiles: [...updatedModules]
     })
 
-  setDataForPreview = async adminData => {
+  setDataForPreview = async (adminData, value) => {
     const {
       id,
       hospital,
@@ -297,7 +303,10 @@ class AdminManage extends PureComponent {
         adminAvatar: adminAvatar,
         remarks: remarks,
         adminAvatarUrl: adminAvatarUrl,
-        adminAvatarUrlNew: ''
+        adminAvatarUrlNew: '',
+        adminDashboardRequestDTOS: [
+          ...value.map(val => ({...val, status: 'Y'}))
+        ]
       }
     })
   }
@@ -610,7 +619,11 @@ class AdminManage extends PureComponent {
       let adminData = this.prepareDataForPreview(
         this.props.AdminPreviewReducer.adminPreviewData
       )
-      this.setDataForPreview(adminData)
+      const response = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        adId
+      )
+      this.setDataForPreview(adminData, response.data)
     } catch (e) {
       this.setState({
         showAlert: true,
@@ -626,8 +639,13 @@ class AdminManage extends PureComponent {
   onEditHandler = async id => {
     try {
       await this.previewApiCall(id)
+      const response = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        id
+      )
       await this.prepareDataForEdit(
-        this.props.AdminPreviewReducer.adminPreviewData
+        this.props.AdminPreviewReducer.adminPreviewData,
+        response.data
       )
     } catch (e) {
       console.log(e)
@@ -807,10 +825,10 @@ class AdminManage extends PureComponent {
       adminAvatar,
       remarks,
       adminAvatarUrlNew,
-      genderCode
+      genderCode,
+      adminDashoardRequestDTOS
     } = this.state.adminUpdateData
     const {updatedMacIdList} = this.state
-
     let macAddressList = []
     if (updatedMacIdList.length) {
       macAddressList = updatedMacIdList.map(value => {
@@ -834,7 +852,8 @@ class AdminManage extends PureComponent {
       profileId: profile.value,
       remarks: remarks,
       macAddressUpdateInfo: [...macAddressList],
-      isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N'
+      isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
+      adminDashboardRequestDTOS:adminDashoardRequestDTOS
     }
 
     let formData = new FormData()
@@ -963,14 +982,36 @@ class AdminManage extends PureComponent {
         adminAvatar: '',
         remarks: remarks,
         adminAvatarUrl: fileUri,
-        adminAvatarUrlNew: ''
+        adminAvatarUrlNew: '',
+        adminDashoardRequestDTOS: this.state.adminUpdateData
+          .adminDashoardRequestDTOS
       }
     }
   }
 
-  prepareDataForEdit = async adminData => {
-    let adminInfoObj = this.prepareDataForPreview(adminData)
+  prepareDataForDashboardRole = (adminDashBoardRole, dashData) => {
+    let adminDashRole = []
 
+    adminDashBoardRole.map(adminDash => {
+      let flag = false
+      dashData.map(dash => {
+        if (dash.code === adminDash.code) {
+          flag = true
+        }
+      })
+      if (flag) adminDashRole.push({...adminDash, status: 'Y'})
+      else adminDashRole.push({...adminDash, status: 'N'})
+    })
+    return adminDashRole
+  }
+
+  prepareDataForEdit = async (adminData, dashData) => {
+    let adminInfoObj = this.prepareDataForPreview(adminData)
+    const {adminDashBoardRole} = this.state
+    let dashForAdmin = this.prepareDataForDashboardRole(
+      adminDashBoardRole,
+      dashData
+    )
     const {
       id,
       hospital,
@@ -1019,17 +1060,63 @@ class AdminManage extends PureComponent {
         profileList: [
           ...this.props.ProfileSetupReducer.activeProfilesByDepartmentId
         ],
-        remarks: ''
+        remarks: '',
+        adminDashboardRequestDTOS: dashForAdmin
       },
       updatedMacIdList: [...macIdList]
     })
   }
 
+  fetchDashBoardFeatures = async () => {
+    try {
+      const response = await this.props.fetchDashboardFeatures(
+        DASHBOARD_FEATURE
+      )
+      await this.setState({
+        adminDashBoardRole: response.data
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  findAndChangeStatusofDashBoardRole = (adminDashboardList, dash) => {
+    return adminDashboardList.map(adminDash => {
+      if (dash.code === adminDash.code)
+        return {...adminDash, status: dash.status}
+      else return {...adminDash}
+    })
+  }
+  onChangeDashBoardRole = (event, dash) => {
+    let adminDashboardList = {...this.state.adminUpdateData}
+    let newDash = {...dash}
+    newDash.status = newDash.status === 'Y' ? 'N' : 'Y'
+
+    adminDashboardList[
+      'adminDashboardRequestDTOS'
+    ] = this.findAndChangeStatusofDashBoardRole(
+      adminDashboardList.adminDashboardRequestDTOS,
+      newDash
+    )
+    this.setState({
+      adminUpdateData: adminDashboardList
+    })
+  }
+
+  filterOnlyActiveStatusDashboardRole = dashList => {
+    return (
+      dashList &&
+      dashList.length &&
+      dashList
+        .filter(dash => dash.status === 'Y')
+        .map(dashBoard => ({id: dashBoard.id, status: dashBoard.status}))
+    )
+  }
   initialAPICalls = () => {
     this.fetchAdminMetaInfosForDropdown()
     this.fetchActiveProfileLists()
     this.fetchHospitals()
     this.fetchDepartments()
+    this.fetchDashBoardFeatures()
     this.searchAdmins()
   }
 
@@ -1149,6 +1236,7 @@ class AdminManage extends PureComponent {
             errorMessage={adminErrorMessage || errorMessage}
             viewProfileDetails={this.handleViewProfileDetails}
             isAdminEditLoading={isAdminEditLoading}
+            onChangeDashBoardRole={this.onChangeDashBoardRole}
           />
         )}
         {showPasswordResetModal && (
@@ -1207,7 +1295,9 @@ export default ConnectHoc(
     'DepartmentSetupReducer',
     'ProfileSetupReducer',
     'ProfilePreviewReducer',
-    'logoutReducer'
+    'logoutReducer',
+    'DashboardFeaturesReducer',
+    'DashboardFeaturesByAdminReducer'
   ],
   {
     clearAdminSuccessErrorMessagesFromStore,
@@ -1223,6 +1313,8 @@ export default ConnectHoc(
     fetchAdminMetaInfo,
     resetPassword,
     logoutUser,
-    previewProfile
+    previewProfile,
+    fetchDashboardFeatures,
+    fetchDashboardFeaturesByAdmin
   }
 )

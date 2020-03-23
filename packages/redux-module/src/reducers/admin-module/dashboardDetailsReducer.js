@@ -61,12 +61,12 @@ const revenueGeneratedDay = {
 }
 
 const revenueGeneratedByDoctor = {
-  isDoctorRevenueGeneratedLoading:true,
-  doctorRevenueGenerated:[],
-  doctorRevenueGeneratedErrorMessage:'',
-  totalItems:0,
-  totalAmount:0,
-  overallAppointment:0
+  isDoctorRevenueGeneratedLoading: true,
+  doctorRevenueGenerated: [],
+  doctorRevenueGeneratedErrorMessage: '',
+  totalItems: 0,
+  totalAmount: 0,
+  overallAppointment: 0
 }
 
 const revenueGeneratedMonth = {
@@ -88,21 +88,21 @@ const revenueGeneratedWeek = {
 }
 
 const appointmentQueueDaily = {
-  isAppointmentQueueLoading:true,
-  appointmentQueueData:[],
-  appointmentQueueErrorMessage:'',
-  totalItems:''
+  isAppointmentQueueLoading: true,
+  appointmentQueueData: [],
+  appointmentQueueErrorMessage: '',
+  totalItems: ''
 }
 
 const dashboardFeatures = {
-  isDashboardFeatureLoading:true,
-  dashboardFeatureData:[],
-  dashboardFeatureErrorMessage:''
+  isDashboardFeatureLoading: true,
+  dashboardFeatureData: [],
+  dashboardFeatureErrorMessage: ''
 }
 const dasboardFeatureByAdmin = {
-  isDashboardFeatureAdminLoading:true,
-  dasboardFeatureByAdminData:[],
-  dasboardFeatureByAdminErrorMessage:''
+  isDashboardFeatureAdminLoading: true,
+  dasboardFeatureByAdminData: [],
+  dasboardFeatureByAdminErrorMessage: ''
 }
 
 export const DashboardAppointmentQueueReducer = (
@@ -113,26 +113,26 @@ export const DashboardAppointmentQueueReducer = (
     case DASHBOARD_APPOINTMENT_QUEUE_FETCH_START:
       return {
         ...state,
-        isAppointmentQueueLoading:true,
-        appointmentQueueData:[],
-        appointmentQueueErrorMessage:'',
-        totalItems:''
+        isAppointmentQueueLoading: true,
+        appointmentQueueData: [],
+        appointmentQueueErrorMessage: '',
+        totalItems: ''
       }
     case DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS:
       return {
         ...state,
-        isAppointmentQueueLoading:false,
-        appointmentQueueData:action.payload.data,
-        appointmentQueueErrorMessage:'',
-        totalItems:action.payload.data[0].totalItems
+        isAppointmentQueueLoading: false,
+        appointmentQueueData: action.payload.data,
+        appointmentQueueErrorMessage: '',
+        totalItems: action.payload.data[0].totalItems
       }
     case DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR:
       return {
         ...state,
-        isAppointmentQueueLoading:false,
-        appointmentQueueData:[],
-        appointmentQueueErrorMessage:action.payload.data,
-        totalItems:''
+        isAppointmentQueueLoading: false,
+        appointmentQueueData: [],
+        appointmentQueueErrorMessage: action.payload.data,
+        totalItems: ''
       }
     default:
       return {...state}
@@ -163,7 +163,7 @@ export const DashboardAppointmentStatisticsReducer = (
         ...state,
         isAppointmentStatsLoading: false,
         appointmentStatsData: null,
-        appointmentStatsErrorMessage:action.payload.data
+        appointmentStatsErrorMessage: action.payload.data
       }
     default:
       return {...state}
@@ -179,7 +179,7 @@ export const DashboardRegisteredPatientReducer = (
       return {
         ...state,
         isRegisteredPatientLoading: true,
-        registeredPatientsData:null,
+        registeredPatientsData: null,
         registeredPatientsErrorMessage: ''
       }
     case DASHBOARD_REGISTERED_PATIENTS_FETCH_SUCCESS:
@@ -368,33 +368,34 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
     case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
       return {
         ...state,
-        isDoctorRevenueGeneratedLoading:false,
-        doctorRevenueGenerated:action.payload.data.doctorRevenueResponseDTOList,
-        doctorRevenueGeneratedErrorMessage:'',
-        totalItemsDoctorsRevenue:action.payload.data.totalItems,
-        totalRevenueAmount:action.payload.data.totalRevenueAmount,
-        overallAppointment:action.payload.data.overallAppointmentCount
+        isDoctorRevenueGeneratedLoading: false,
+        doctorRevenueGenerated:
+          action.payload.data.doctorRevenueResponseDTOList,
+        doctorRevenueGeneratedErrorMessage: '',
+        totalItemsDoctorsRevenue: action.payload.data.totalItems,
+        totalRevenueAmount: action.payload.data.totalRevenueAmount,
+        overallAppointment: action.payload.data.overallAppointmentCount
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
         ...state,
-        isDoctorRevenueGeneratedLoading:false,
-        doctorRevenueGenerated:[],
-        doctorRevenueGeneratedErrorMessage:action.payload.data, 
-        totalItemsDoctorsRevenue:0,
-        totalRevenueAmount:0,
-        overallAppointment:0
+        isDoctorRevenueGeneratedLoading: false,
+        doctorRevenueGenerated: [],
+        doctorRevenueGeneratedErrorMessage: action.payload.data,
+        totalItemsDoctorsRevenue: 0,
+        totalRevenueAmount: 0,
+        overallAppointment: 0
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {
         ...state,
-        isDoctorRevenueGeneratedLoading:true,
-        doctorRevenueGenerated:[],
-        doctorRevenueGeneratedErrorMessage:'', 
-        totalItemsDoctorsRevenue:0,
-        totalRevenueAmount:0,
-        overallAppointment:0
-      }  
+        isDoctorRevenueGeneratedLoading: true,
+        doctorRevenueGenerated: [],
+        doctorRevenueGeneratedErrorMessage: '',
+        totalItemsDoctorsRevenue: 0,
+        totalRevenueAmount: 0,
+        overallAppointment: 0
+      }
     default:
       return {...state}
   }
@@ -412,17 +413,17 @@ export const DashboardFeaturesReducer = (
     case FETCH_DASHBOARD_FEATURES_SUCCESS:
       return {
         ...state,
-        isDashboardFeatureLoading:false,
-        dashboardFeatureData:action.payload.data,
-        dashboardFeatureErrorMessage:''
+        isDashboardFeatureLoading: false,
+        dashboardFeatureData: action.payload.data,
+        dashboardFeatureErrorMessage: ''
       }
     case FETCH_DASHBOARD_FEATURES_ERROR:
       return {
         ...state,
-        isDashboardFeatureLoading:false,
-        dashboardFeatureData:[],
-        dashboardFeatureErrorMessage:action.payload.message
-      }  
+        isDashboardFeatureLoading: false,
+        dashboardFeatureData: [],
+        dashboardFeatureErrorMessage: action.payload.message
+      }
     default:
       return {...state}
   }
@@ -439,16 +440,16 @@ export const DashboardFeaturesByAdminReducer = (
       }
     case FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS:
       return {
-        isDashboardFeatureAdminLoading:false,
-        dasboardFeatureByAdminData:action.payload.data,
-        dasboardFeatureByAdminErrorMessage:''
+        isDashboardFeatureAdminLoading: false,
+        dasboardFeatureByAdminData: action.payload.data,
+        dasboardFeatureByAdminErrorMessage: ''
       }
     case FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR:
       return {
-        isDashboardFeatureAdminLoading:false,
-        dasboardFeatureByAdminData:[],
-        dasboardFeatureByAdminErrorMessage:action.payload.message
-      }  
+        isDashboardFeatureAdminLoading: false,
+        dasboardFeatureByAdminData: [],
+        dasboardFeatureByAdminErrorMessage: action.payload.message
+      }
     default:
       return {...state}
   }

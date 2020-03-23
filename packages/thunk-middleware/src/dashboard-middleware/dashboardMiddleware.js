@@ -238,7 +238,7 @@ dispatch({type:'CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE'})
 export const fetchDashboardFeatures= (path) => async dispatch => {
     dispatch(DashboardDetailsActions.fetchDashboardFeatureStart())
     try {
-      const response = await Axios.put(path)
+      const response = await Axios.get(path)
       dispatch(
         DashboardDetailsActions.fetchDashboardFeatureSuccess(response.data)
       )
@@ -257,7 +257,7 @@ export const fetchDashboardFeatures= (path) => async dispatch => {
   export const fetchDashboardFeaturesByAdmin= (path,id) => async dispatch => {
     dispatch(DashboardDetailsActions.fetchDashboardFeatureByAdminStart())
     try {
-      const response = await Axios.getWithPathVariables(path,id)
+      const response = await Axios.putWithPathVariables(path,id)
       dispatch(
         DashboardDetailsActions.fetchDashboardFeatureByAdminSuccess(response.data)
       )

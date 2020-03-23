@@ -219,12 +219,12 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                     </Col>
                   )}
                   <Col sm={12} md={12} lg={6}>
-                    {adminInfoObj.adminDashboardRequestDTOS.length ? (
+                    {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
                       <CFLabel labelName="Dashboard Role" id="dashboard-role" />
                     ) : null}
                     <div>
                       {adminInfoObj &&
-                      adminInfoObj.adminDashboardRequestDTOS.length
+                       adminInfoObj.adminDashboardRequestDTOS.length
                         ? adminInfoObj.adminDashboardRequestDTOS.map(
                             (dash, ind) => {
                               return dash.status === 'Y' ? (
