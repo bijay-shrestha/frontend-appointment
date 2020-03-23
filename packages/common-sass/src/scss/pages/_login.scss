@@ -279,7 +279,9 @@ animation-duration: 20s;
 }
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
-
+.inner-header{
+  height:calc(100vh - 90px);
+}
   .container-login{
     width:90% !important;
     margin:0 auto;
