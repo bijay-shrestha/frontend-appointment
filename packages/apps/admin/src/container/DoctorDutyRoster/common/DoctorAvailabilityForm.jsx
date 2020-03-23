@@ -11,8 +11,6 @@ const DoctorAvailabilityForm = ({
                                     type,
                                     rosterGapDuration
                                 }) => {
-
-    console.log("Roster Gap Duration=====================>", rosterGapDuration);
     return <>
         <Col md={12} lg={7} className="">
             <div className="doctor-availability bg-white p-4">
@@ -51,6 +49,7 @@ const DoctorAvailabilityForm = ({
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
                                             value={day.startTime}
+                                            isClearable={true}
                                         />
                                         {/*<CTimePicker*/}
                                         {/*    id={"startTime".concat(day.weekDaysId)}*/}
@@ -79,6 +78,7 @@ const DoctorAvailabilityForm = ({
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
                                             value={day.endTime}
+                                            isClearable={true}
                                         />
                                         {/*<CTimePicker*/}
                                         {/*    id={"endTime".concat(day.weekDaysId)}*/}
