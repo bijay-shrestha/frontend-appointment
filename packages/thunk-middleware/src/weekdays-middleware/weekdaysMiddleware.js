@@ -16,7 +16,7 @@ export const fetchWeekdaysData = path => async dispatch => {
     try {
         const response = await Axios.get(path);
         dispatch(WeekdaysActions.fetchWeekdaysDataSuccess(response.data));
-        return response;
+        return response.data;
     } catch (e) {
         dispatch(WeekdaysActions.fetchWeekdaysDataError(e.errorMessage ? e.errorMessage : 'Error fetching weekdays data.'));
         throw e;

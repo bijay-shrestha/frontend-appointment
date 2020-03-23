@@ -1,5 +1,5 @@
 import React from 'react';
-import {CButton, CCheckbox, CHybridTextArea, CModal} from "@frontend-appointment/ui-elements";
+import {CButton, CCheckbox, CHybridTextArea, CHybridTimePicker, CModal} from "@frontend-appointment/ui-elements";
 import {Container, Form, Row, Col} from "react-bootstrap";
 import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
@@ -61,36 +61,58 @@ const AddOverrideModal = ({
 
                     <Col xs={12}>
                         <div className="time-picker">
-                            <CTimePicker
+                            <CHybridTimePicker
                                 id={"startTime-override"}
                                 name={"startTime"}
                                 label="Start Time"
                                 onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}
-                                selected={overrideData.startTime}
-                                showTimeSelect={true}
-                                showTimeSelectOnly={true}
-                                timeIntervals={15}
-                                timeCaption="Start Time"
-                                dateFormat="h:mm aa"
-                                disabled={overrideData.dayOffStatus === 'Y'}
-                                inputType="hybrid"
+                                placeholder="00:00"
+                                isDisabled={overrideData.dayOffStatus === 'Y'}
+                                value={overrideData.startTime}
+                                isClearable={true}
+                                duration={15}
                             />
+                            {/*<CTimePicker*/}
+                            {/*    id={"startTime-override"}*/}
+                            {/*    name={"startTime"}*/}
+                            {/*    label="Start Time"*/}
+                            {/*    onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}*/}
+                            {/*    selected={overrideData.startTime}*/}
+                            {/*    showTimeSelect={true}*/}
+                            {/*    showTimeSelectOnly={true}*/}
+                            {/*    timeIntervals={15}*/}
+                            {/*    timeCaption="Start Time"*/}
+                            {/*    dateFormat="h:mm aa"*/}
+                            {/*    disabled={overrideData.dayOffStatus === 'Y'}*/}
+                            {/*    inputType="hybrid"*/}
+                            {/*/>*/}
                         </div>
                         <div className="time-picker">
-                            <CTimePicker
+                            <CHybridTimePicker
                                 id={"endTime-override"}
                                 name={"endTime"}
                                 label="End Time"
-                                onChange={(val) => handleOverrideFormInputChange(val, 'endTime')}
-                                selected={overrideData.endTime}
-                                showTimeSelect={true}
-                                showTimeSelectOnly={true}
-                                timeIntervals={15}
-                                timeCaption="End Time"
-                                dateFormat="h:mm aa"
-                                disabled={overrideData.dayOffStatus === 'Y'}
-                                inputType="hybrid"
+                                onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}
+                                placeholder="00:00"
+                                isDisabled={overrideData.dayOffStatus === 'Y'}
+                                value={overrideData.endTime}
+                                isClearable={true}
+                                duration={15}
                             />
+                            {/*<CTimePicker*/}
+                            {/*    id={"endTime-override"}*/}
+                            {/*    name={"endTime"}*/}
+                            {/*    label="End Time"*/}
+                            {/*    onChange={(val) => handleOverrideFormInputChange(val, 'endTime')}*/}
+                            {/*    selected={overrideData.endTime}*/}
+                            {/*    showTimeSelect={true}*/}
+                            {/*    showTimeSelectOnly={true}*/}
+                            {/*    timeIntervals={15}*/}
+                            {/*    timeCaption="End Time"*/}
+                            {/*    dateFormat="h:mm aa"*/}
+                            {/*    disabled={overrideData.dayOffStatus === 'Y'}*/}
+                            {/*    inputType="hybrid"*/}
+                            {/*/>*/}
                         </div>
                         <div>
                             {overrideData.timeErrorMessage ?
