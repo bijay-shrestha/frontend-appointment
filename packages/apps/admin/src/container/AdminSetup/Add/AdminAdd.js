@@ -315,6 +315,10 @@ class AdminAdd extends PureComponent {
     })
   }
 
+  filterOnlyActiveStatusDashboardRole = dashList => {
+   return dashList && dashList.length && dashList.filter(dash => dash.status === "Y")
+  }
+
   handleConfirmClick = async () => {
     const {
       hospital,
@@ -327,9 +331,10 @@ class AdminAdd extends PureComponent {
       status,
       hasMacBinding,
       macIdList,
-      adminAvatar
+      adminAvatar,
+      adminDashboardRequestDTOS
     } = this.state
-
+    const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(adminDashboardRequestDTOS)
     const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
     let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(
@@ -347,6 +352,7 @@ class AdminAdd extends PureComponent {
       status,
       genderCode: genderCode,
       profileId: profile.value,
+      adminDashboardRequestDTOS:[...newAdminDashboardRequest],
       macAddressInfo: macIdList.length
         ? macIdList.map(macId => {
             return macId.macId
