@@ -504,7 +504,8 @@ class AdminAdd extends PureComponent {
       adminImage,
       adminImageCroppedUrl,
       showProfileDetailModal,
-      profileData
+      profileData,
+      adminDashboardRequestDTOS
     } = this.state
 
     const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
@@ -571,7 +572,7 @@ class AdminAdd extends PureComponent {
                 viewProfileDetails={this.handleViewProfileDetails}
                 isCreateAdminLoading={isCreateAdminLoading}
                 isDashboardFeatureLoading={isDashboardFeatureLoading}
-                dashboardFeatureData={this.state.adminDashboardRequestDTOS}
+                dashboardFeatureData={adminDashboardRequestDTOS}
                 dashboardFeatureErrorMessage={dashboardFeatureErrorMessage}
                 onChangeDashBoardRole={this.onChangeDashBoardRole}
               />
@@ -603,7 +604,8 @@ class AdminAdd extends PureComponent {
                       hasMacBinding: hasMacBinding,
                       macIdList: macIdList,
                       adminAvatar: adminAvatar,
-                      adminAvatarUrl: adminAvatarUrl
+                      adminAvatarUrl: adminAvatarUrl,
+                      adminDashboardRequestDTOS:[...adminDashboardRequestDTOS]
                     }}
                     adminImage={adminImageCroppedUrl}
                     isCreateAdminLoading={isCreateAdminLoading}
