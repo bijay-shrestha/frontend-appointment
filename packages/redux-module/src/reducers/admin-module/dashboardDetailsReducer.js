@@ -27,7 +27,13 @@ const {
   DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
   DASHBOARD_DOCTOR_REVENUE_FETCH_START,
   DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS,
-  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE
+  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_PENDING,
+  FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS,
+  FETCH_DASHBOARD_FEATURES_ERROR,
+  FETCH_DASHBOARD_FEATURES_START,
+  FETCH_DASHBOARD_FEATURES_SUCCESS
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -399,20 +405,20 @@ export const DashboardFeaturesReducer = (
   action
 ) => {
   switch (action.type) {
-    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
+    case FETCH_DASHBOARD_FEATURES_START:
       return {
         ...state
       }
-    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
+    case FETCH_DASHBOARD_FEATURES_SUCCESS:
       return {
         ...state,
         isDashboardFeatureLoading:false,
         dashboardFeatureData:action.payload.data,
         dashboardFeatureErrorMessage:''
       }
-    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+    case FETCH_DASHBOARD_FEATURES_ERROR:
       return {
-        state,
+        ...state,
         isDashboardFeatureLoading:false,
         dashboardFeatureData:[],
         dashboardFeatureErrorMessage:action.payload.message
@@ -427,17 +433,17 @@ export const DashboardFeaturesByAdminReducer = (
   action
 ) => {
   switch (action.type) {
-    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
+    case FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_PENDING:
       return {
         ...state
       }
-    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
+    case FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS:
       return {
         isDashboardFeatureAdminLoading:false,
         dasboardFeatureByAdminData:action.payload.data,
         dasboardFeatureByAdminErrorMessage:''
       }
-    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+    case FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR:
       return {
         isDashboardFeatureAdminLoading:false,
         dasboardFeatureByAdminData:[],

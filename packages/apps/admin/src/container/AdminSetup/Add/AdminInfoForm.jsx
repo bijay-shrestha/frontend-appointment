@@ -354,7 +354,7 @@ const AdminInfoForm = ({
                     )}
                   </Col>
                   <Col sm={12} md={12} lg={6}>
-                    {dashboardFeatureData.length?<CFLabel labelName="Dashboar Role" id="dashboard-role" />:null}
+                    {dashboardFeatureData.length?<CFLabel labelName="Dashboard Role" id="dashboard-role" />:null}
                     <div>
                       {!isDashboardFeatureLoading &&
                       !dashboardFeatureErrorMessage &&
@@ -362,10 +362,11 @@ const AdminInfoForm = ({
                         dashboardFeatureData.map((dash, ind) => {
                           return (
                             <CCheckbox
-                              checked={adminInfoObj.status === 'Y'}
-                              id={'dash-radio' + dash.id}
+                              checked={dash.status === 'Y'}
+                              id={'dash-radio' + dash.id+ind}
                               label={dash.name}
                               type="radio"
+                              value={dash.code}
                               name="role-dashboard"
                               onChange={event => onChangeDashBoardRole(event,dash)}
                             />

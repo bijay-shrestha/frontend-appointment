@@ -293,11 +293,26 @@ class AdminAdd extends PureComponent {
       showImageUploadModal: false
     })
   }
-
+  findAndChangeStatusofDashBoardRole = (adminDashboardList, dash) => {
+    return adminDashboardList.map(adminDash => {
+     if(dash.code === adminDash.code)
+      return {...adminDash,status:dash.status}
+     else
+      return {...adminDash}
+    })
+  }
   onChangeDashBoardRole = (event, dash) => {
     let adminDashboardList = [...this.state.adminDashboardRequestDTOS]
-    if (dash.status === 'Y') {
-    }
+    let newDash ={...dash}
+    newDash.status = newDash.status === 'Y' ? 'N' : 'Y'
+
+    adminDashboardList = this.findAndChangeStatusofDashBoardRole(
+      adminDashboardList,
+      newDash
+    )
+    this.setState({
+      adminDashboardRequestDTOS: [...adminDashboardList]
+    })
   }
 
   handleConfirmClick = async () => {
@@ -486,7 +501,10 @@ class AdminAdd extends PureComponent {
       isDashboardFeatureLoading,
       dashboardFeatureErrorMessage
     } = this.props.DashboardFeaturesReducer
-    console.log('=================this.props.DashboardFeaturesReducer',this.props.DashboardFeaturesReducer)
+    console.log(
+      '=================this.props.DashboardFeaturesReducer',
+      this.props.DashboardFeaturesReducer
+    )
     return (
       <>
         <div className=" ">
