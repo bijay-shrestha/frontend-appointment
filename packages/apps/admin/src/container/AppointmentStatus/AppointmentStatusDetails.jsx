@@ -83,9 +83,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
                                                     <i className="fa fa-clock-o"></i> &nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[
-                                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                    {appointmentStatusDetail.startTime} -&nbsp;
+                                                    {appointmentStatusDetail.endTime}
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[*/}
+                                                    {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
+                                                </span>
                                                 : '' : ''
                                     }
                                 </p>
@@ -93,6 +96,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
                                                 appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+
                                                     <li key={'timeSlot-' + index}>
                                                         {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
                                                             <OverlayTrigger

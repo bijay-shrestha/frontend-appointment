@@ -1,11 +1,6 @@
 import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
-import {
-    DateTimeFormatterUtils,
-    DoctorDutyRosterUtils,
-    EnterKeyPressUtils,
-    TryCatchHandler
-} from "@frontend-appointment/helpers";
+import {DateTimeFormatterUtils, EnterKeyPressUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {
     DoctorDutyRosterMiddleware,
     DoctorMiddleware,
@@ -156,7 +151,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 rosterGapDuration: '',
                 status: 'Y',
                 fromDate: new Date(),
-                toDate: new Date(),
+                toDate: addDate(new Date(), 6),
                 hasOverrideDutyRoster: 'N',
                 isWholeWeekOff: 'N',
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDays],
@@ -274,8 +269,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         fetchWeekdaysData = async () => {
             await TryCatchHandler.genericTryCatch(this.props.fetchWeekdaysData(FETCH_WEEKDAYS_DATA));
+            const weekDays = JSON.parse(JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList]));
             let weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(this.state.fromDate,
-                this.state.toDate, [...this.props.WeekdaysReducer.weekdaysDataList]);
+                this.state.toDate, [...weekDays]);
             this.setState({
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
             });
@@ -307,7 +303,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         handleDoctorAvailabilityFormChange = async (event, fieldName, index) => {
-            let value = fieldName ? event : event.target.checked;
+            let value = fieldName ? event.target.value : event.target.checked;
             let doctorWeekDaysAvailability;
             switch (type) {
                 case 'ADD':
@@ -888,9 +884,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             if (dayOff) {
                 doctorWeekDaysAvailability.dayOffStatus = 'Y';
                 doctorWeekDaysAvailability.startTime =
-                    getDateWithTimeSetToGivenTime(new Date(), 24, 0, 0);
+                    getDateWithTimeSetToGivenTime(new Date(), 0, 0, 0);
                 doctorWeekDaysAvailability.endTime =
-                    getDateWithTimeSetToGivenTime(new Date(), 12, 0, 0);
+                    getDateWithTimeSetToGivenTime(new Date(), 23, 59, 59);
                 doctorWeekDaysAvailability.errorMessage = '';
             } else {
                 doctorWeekDaysAvailability.dayOffStatus = 'N';
@@ -1018,7 +1014,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
             this.setState({
                 showEditModal: false,
-                dateErrorMessage:''
+                dateErrorMessage: ''
             })
         };
 
@@ -1088,7 +1084,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         getWeekDaysDataForForm = () => {
-            return DoctorDutyRosterUtils.prepareWeekdaysData([...this.props.WeekdaysReducer.weekdaysList]);
+            return JSON.parse(JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList]));
         };
 
         getExistingRoster = async () => {
