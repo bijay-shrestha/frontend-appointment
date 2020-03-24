@@ -83,9 +83,12 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
                                                      <i className="fa fa-clock-o"></i> &nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[
-                                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                    {appointmentStatusDetail.startTime} -&nbsp;
+                                                    {appointmentStatusDetail.endTime}
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[*/}
+                                                    {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
+                                                </span>
                                                 : '' : ''
                                     }
                                 </p>
@@ -125,6 +128,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     id={timeSlot.appointmentTime + "-" + rowIndex + index}
                                                                     variant={"success"}
                                                                     size="lg"
+                                                                    disabled={timeSlot.hasTimePassed}
                                                                     // id="vacant"
                                                                     name=""
                                                                     onClickHandler={() => getPatientDetails(timeSlot,

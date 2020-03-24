@@ -64,5 +64,11 @@ export const getNoOfDaysBetweenGivenDatesInclusive = (fromDate, toDate) => {
 export const getOnlyDateFromDateAndTime = oldDate => {
     const newDate = new Date(oldDate).toLocaleDateString();
     return newDate;
-}
+};
+
+export const convertStringTimeInHourMinuteFormatToDate = stringTime => {
+    let timeDataArray = stringTime.split(":");
+    console.log("Time array",timeDataArray);
+    return getDateWithTimeSetToGivenTime(new Date(),Number(timeDataArray[0]),Number(timeDataArray[1]),0);
+};
 
