@@ -77,7 +77,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
@@ -91,12 +91,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                         DateTimeFormatterUtils.convertDateToHourMinuteFormat(
                                                             DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.endTime))
                                                     }
-                                                    {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
-                                                    {/*{appointmentStatusDetail.doctorTimeSlots[*/}
-                                                    {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
                                                 </span>
                                                 : '' : ''
                                     }
+                                    &nbsp;
+                                    {(appointmentStatusDetail.dayOffStatus === 'Y'
+                                        && appointmentStatusDetail.doctorTimeSlots
+                                        && appointmentStatusDetail.doctorTimeSlots.length) ?
+                                        <div><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -184,7 +186,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         <div className="patient-details">
                                             <div className="label">Name</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.name }<br/>
+                                                {appointmentStatusDetail.patientDetails.name}<br/>
                                                 {" ("
                                                 + appointmentStatusDetail.patientDetails.age + " / "
                                                 + appointmentStatusDetail.patientDetails.gender + ")"}
