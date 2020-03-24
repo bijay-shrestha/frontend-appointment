@@ -61,7 +61,7 @@ width:80%;
 margin:auto;
 text-align: left;
 position: relative;
-padding:40px 10px;;
+padding:10px 10px 40px;
 top: 50%;
 transform: translateY(-50%);
 -webkit-transform: translateY(-50%);
@@ -267,6 +267,10 @@ animation-duration: 20s;
 }
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
+
+  .inner-header{
+    height:calc(100vh - 90px);
+  }
 
   .container-login{
     width:90% !important;
