@@ -4,7 +4,7 @@ import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react
 import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
-import {appointmentStatusList} from "@frontend-appointment/helpers";
+import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
@@ -83,8 +83,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
                                                      <i className="fa fa-clock-o"></i> &nbsp;
-                                                    {appointmentStatusDetail.startTime} -&nbsp;
-                                                    {appointmentStatusDetail.endTime}
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.startTime))
+                                                    } -&nbsp;
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.endTime))
+                                                    }
                                                     {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
                                                     {/*{appointmentStatusDetail.doctorTimeSlots[*/}
                                                     {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
