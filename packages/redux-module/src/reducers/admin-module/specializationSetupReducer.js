@@ -244,6 +244,7 @@ export const SpecializationDeleteReducer = (
 export const SpecializationDropdownReducer = (state = {...initialState}, action) => {
     switch (action.type) {
         case FETCH_ACTIVE_SPECIALIZATION_HOSPITAL_WISE_FOR_DROPDOWN_SUCCESS:
+            console.log("spect action.payload========",action.payload)
             return {
                 ...state,
                 activeSpecializationListByHospital: [...action.payload.data],

@@ -7,6 +7,7 @@ import PatientStatistics from './PatientStatistics'
 import AppointmentStatistics from './AppointmentStatistics'
 import AdminDashboardHoc from './AdminDashboardHoc'
 import AppointmentQueue from './AppointmentQueue'
+import DoctorRevenueList from './DoctorRevenueList'
 import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
@@ -23,6 +24,8 @@ const AdminDashboard = props => {
         revenueFilter,
         appointmentFilter,
         appointmentQueue,
+        doctorRevenue,
+        specializationListHospitalWise
       }) => (
         <div className="dashboard-wrapper">
           <Container fluid className="">
@@ -54,6 +57,7 @@ const AdminDashboard = props => {
                 hospitalDropdown={hospitalDropdown}
                 hospitalId={hospitalId}
                 handleHospitalChange={handleHospitalChange}
+                className="top-hospital-list"
               />
             </Row>
             <RevenueStatistics generateRevenue={generateRevenue} />
@@ -69,7 +73,10 @@ const AdminDashboard = props => {
               <AppointmentQueue
                 appointmentQueue={appointmentQueue}
                 hospitalId ={hospitalId}
-              />  
+              /> 
+
+              <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+
              </Col>
             <Col lg={5} className="pr-0">
                 <PatientStatistics registeredPatients={registeredPatients} />
@@ -81,6 +88,12 @@ const AdminDashboard = props => {
                 />
               </Col>
             </Row>
+
+            {/* <Row>
+              <Col>
+              <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+              </Col>
+            </Row> */}
           </Container>
         </div>
       )

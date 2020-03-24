@@ -5,7 +5,8 @@ import {
   CForm,
   CHybridInput,
   CRadioButton,
-  CHybridSelect
+  CHybridSelect,
+  CHybridTimePicker
 } from '@frontend-appointment/ui-elements'
 
 const QualificationForm = ({
@@ -63,6 +64,21 @@ const QualificationForm = ({
                       label="Select a qualification alias"
                     />
               </Col>
+              {/* <Col sm={12} md={4} xl={4}>
+                  <CHybridTimePicker
+                      id="hybridTimePickerId"
+                      name="hybridTimePickerId"
+                      onKeyDown={event => onEnterKeyPress(event)}
+                      onChange={event => onInputChange(event)}
+                      duration={135}
+                      onChange={event => onInputChange(event)}
+                      // value={qualificationInfoObj.qualificationAliasId}
+                      // options={qualificationsAliasForDropdown}
+                      isSearchable={true}
+                      label="Select Time"
+                      isClearable={true}
+                    />
+              </Col> */}
               <Col sm={12} md={4} xl={4}>
                   <CHybridSelect
                       id="universityId"

@@ -140,7 +140,7 @@ function DoctorDutyRosterManage(props) {
                     showEditModal ? (
                         <CModal
                             show={showEditModal}
-                            modalHeading={updateDoctorDutyRosterData.isCloneAndAdd ? "Add Doctor Roster"
+                            modalHeading={updateDoctorDutyRosterData.isCloneAndAdd ? "Clone and Add Doctor Roster"
                                 : "Edit Doctor Roster"}
                             size="xl"
                             bodyChildren={

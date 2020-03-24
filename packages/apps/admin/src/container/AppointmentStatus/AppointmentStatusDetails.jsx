@@ -4,7 +4,7 @@ import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react
 import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
-import {appointmentStatusList} from "@frontend-appointment/helpers";
+import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
@@ -77,15 +77,24 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
                                                     <i className="fa fa-clock-o"></i> &nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[
-                                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.startTime))
+                                                    } -&nbsp;
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.endTime))
+                                                    }
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
+                                                    {/*{appointmentStatusDetail.doctorTimeSlots[*/}
+                                                    {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
+                                                </span>
                                                 : '' : ''
                                     }
                                 </p>
@@ -93,6 +102,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
                                                 appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+
                                                     <li key={'timeSlot-' + index}>
                                                         {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
                                                             <OverlayTrigger
@@ -126,6 +136,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     variant={"success"}
                                                                     size="lg"
                                                                     // id="vacant"
+                                                                    disabled={timeSlot.hasTimePassed}
                                                                     name=""
                                                                     onClickHandler={() => getPatientDetails(timeSlot,
                                                                         appointmentStatusDetail.date, rowIndex, index)}

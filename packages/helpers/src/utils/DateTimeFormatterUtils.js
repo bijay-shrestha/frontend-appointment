@@ -7,8 +7,16 @@ export const convertDateToHourMinuteFormat = date => {
 };
 
 export const getDateWithTimeSetToGivenTime = (date, hours, minutes, seconds) => {
-    return date.setHours(hours, minutes, seconds, 0);
+    return new Date(date.setHours(hours, minutes, seconds, 0));
 };
+
+export const getFormattedDate = date => {
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, '0');
+    let day = date.getDate().toString().padStart(2, '0');
+
+    return year + '-' + month + '-' + day;
+}
 
 export const subtractDate = (date, daysToSubtract) => {
     date = date.setDate(date.getDate() - daysToSubtract);
@@ -54,7 +62,13 @@ export const getNoOfDaysBetweenGivenDatesInclusive = (fromDate, toDate) => {
 };
 
 export const getOnlyDateFromDateAndTime = oldDate => {
-    const newDate =  new Date(oldDate).toLocaleDateString();
+    const newDate = new Date(oldDate).toLocaleDateString();
     return newDate;
-} 
+};
+
+export const convertStringTimeInHourMinuteFormatToDate = stringTime => {
+    let timeDataArray = stringTime.split(":");
+    console.log("Time array",timeDataArray);
+    return getDateWithTimeSetToGivenTime(new Date(),Number(timeDataArray[0]),Number(timeDataArray[1]),0);
+};
 

@@ -92,10 +92,7 @@ const ExistingRooster = ({
                                     <Col> Days</Col>
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
-                                    <Col> <CCheckbox id="check-all-menu"
-                                                     label="Days Off"
-                                                     className="select-all check-all"/>
-                                    </Col>
+                                    <Col> Days Off </Col>
                                 </Row>
                                 {
                                     existingDoctorWeekDaysAvailability.map(weekDay => (
@@ -103,8 +100,8 @@ const ExistingRooster = ({
                                             <Col> {weekDay.weekDaysName}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
-                                            <Col> {weekDay.dayOffStatus === 'Y' ? <i className="fa fa-check"/> :
-                                                <i className="fa fa-close"/>}</Col>
+                                            <Col> {weekDay.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
+                                                ''}</Col>
                                         </Row>
                                     ))
                                 }

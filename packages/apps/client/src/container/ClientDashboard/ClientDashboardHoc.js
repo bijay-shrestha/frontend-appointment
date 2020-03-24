@@ -58,9 +58,6 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
 
       const {revFromDate, revToDate} = this.state.searchParameterForRevenueTrend
 
-      const adminInfo = JSON.parse(localStorage.getItem('adminInfo'))
-      const hospitalId = adminInfo.hospitalId
-
       if (!statsType || statsType !== 'refund')
         this.props.fetchDashboardAppointmentStatisticsList(
           DashboardApiConstant.OVERALL_APPOINTMENTS,

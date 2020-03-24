@@ -62,6 +62,7 @@
     "chart.js": "^2.9.3",
     "check-prop-types": "^1.1.2",
     "concurrently": "^5.0.2",
+    "datalist-polyfill": "^1.24.1",
     "dotenv": "^8.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -78,6 +79,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^2.3.0",
     "font-awesome": "^4.7.0",
+    "griddle-react": "^1.13.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.8.0",
     "jest-haste-map": "^24.8.1",
@@ -134,5 +136,6 @@
   "license": "MIT",
   "production": true,
   "development": true,
-  "package-entry": "main:src"
+  "package-entry": "main:src",
+  "homepage": "."
 }

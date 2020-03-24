@@ -32,7 +32,7 @@ const AppointmentQueue = props => {
                   <CHybridSelect
                     name="doctorId"
                     placeholder="Select Doctor"
-                    onChange={handleDoctorChange}
+                    onChange={(e)=>handleDoctorChange(e,'Q')}
                     options={doctorDropdown}
                     value={doctorId}
                   ></CHybridSelect>
@@ -42,29 +42,29 @@ const AppointmentQueue = props => {
           </Form>
         </Col>
 
-        <Col className="date">
+        {/*<Col className="date">*/}
 
-        <CEnglishDatePicker
-            id="date"
-            name="date"
-            label="Date"
-            dateFormat="yyyy-MM-dd"
-            maxDate={0}
-            showDisabledMonthNavigation={true}
-            peekNextMonth={true}
-            showMonthDropdown={true}
-            showYearDropdown={true}
-            dropdownMode="select"
-            selected={date}
-            // onKeyDown={event => handleEnter(event)}
-            // onChange={date =>
-            //     handleSearchFormChange(date, 'fromDate')
-            // }
-        />
-          {/* <div>
-            <span>Date :</span> {new Date().toDateString()}
-          </div> */}
-        </Col>
+        {/*<CEnglishDatePicker*/}
+        {/*    id="date"*/}
+        {/*    name="date"*/}
+        {/*    label="Date"*/}
+        {/*    dateFormat="yyyy-MM-dd"*/}
+        {/*    maxDate={0}*/}
+        {/*    showDisabledMonthNavigation={true}*/}
+        {/*    peekNextMonth={true}*/}
+        {/*    showMonthDropdown={true}*/}
+        {/*    showYearDropdown={true}*/}
+        {/*    dropdownMode="select"*/}
+        {/*    selected={date}*/}
+        {/*    // onKeyDown={event => handleEnter(event)}*/}
+        {/*    // onChange={date =>*/}
+        {/*    //     handleSearchFormChange(date, 'fromDate')*/}
+        {/*    // }*/}
+        {/*/>*/}
+        {/*  /!* <div>*/}
+        {/*    <span>Date :</span> {new Date().toDateString()}*/}
+        {/*  </div> *!/*/}
+        {/*</Col>*/}
       </Row>
       <Row>
        
@@ -88,7 +88,8 @@ const AppointmentQueue = props => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer:'doctorwithSpecializationRenderer'
+                  cellRenderer:'doctorwithSpecializationRenderer',
+                  width:"300"
                 },
                 
                 {
@@ -105,8 +106,6 @@ const AppointmentQueue = props => {
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-                
-             
               ]}
               frameworkComponents={{
                 doctorwithSpecializationRenderer:DoctorWithSpecializationAndImage,
@@ -115,7 +114,15 @@ const AppointmentQueue = props => {
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={appointmentQueueData}
+              // rowModelType= "infinite"
+              // paginationPageSize={6}
+              // cacheOverflowSize={2}
+              // maxConcurrentDatasourceRequests={1}
+              // infiniteInitialRowCount={6}
+              // maxBlocksInCache={6}
+              // dataSource={()=>handlePageChange(queryParams.page++)}
             />
+
             <CPagination
               totalItems={totalRecords}
               maxSize={queryParams.size}

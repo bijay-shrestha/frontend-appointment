@@ -24,6 +24,10 @@
     //     }
     // }
 
+    .react-datepicker-popper[data-placement^="bottom"] {
+        margin-top: -8px !important;
+    }
+
     .fiscal{
         font-size: 11px;
         font-weight: 500;
@@ -32,6 +36,14 @@
 
     .slash{
         font-size:8px;
+    }
+
+    .rev-total{
+        background-color:$gray-100;
+        color:$gray-900;
+        padding:4px;
+        margin-top:10px;
+        @include border-radius(4px);
     }
 
     .hospital-list{
@@ -47,14 +59,14 @@
                 bottom:26px;
                 padding-bottom:2px;
                 background-color: transparent;
-                margin-bottom:0px;
+                margin-bottom:2px;
                 font-size: 11px;
                 z-index: 99;
                 
             }
 
             .select-wrapper{
-                min-height: 34px;
+                min-height: 38px;
                 margin-left:4px;
                 
 
@@ -71,6 +83,7 @@
                     border-color:transparent !important;
                     border-bottom:1px solid $gray-500 !important;
                     //    min-height: 30px;
+            
                     @include border-radius(0);
             
                     &:hover{
@@ -80,6 +93,16 @@
                     }
 
             }
+
+            // .css-1hb7zxy-IndicatorsContainer{
+            //     padding:1px;
+            // }
+
+            // .css-tlfecz-indicatorContainer{
+            //     padding:1px;
+            // }
+
+          
 
             .css-1pahdxg-control{
                 border-color:transparent !important;
@@ -162,6 +185,10 @@
     //       }
 
     //     }
+    }
+
+    .react-datepicker-wrapper{
+        width:120px;
     }
 
     .react-datepicker__current-month{
@@ -474,9 +501,24 @@
 
     }
 
+    .separator-doc,.separator-date{
+        font-size: 14px;
+        font-weight: 500;
+
+    }
+
+    .separator-doc{
+        margin-top:10px;
+    }
+
     .date{
         padding:0;
         text-align:right;
+
+        .field-wrapper{
+        min-height:40px;   
+        }
+
         &>div{
             text-align:right;
             font-size: 10px;
@@ -515,6 +557,8 @@
           ul li{
               line-height: 22px;
           }
+
+
       }
 
 

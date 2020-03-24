@@ -23,7 +23,11 @@ const {
   DASHBOARD_REVENUE_YEAR_FETCH_SUCCESS,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_ERROR,
   DASHBOARD_APPOINTMENT_QUEUE_FETCH_START,
-  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS
+  DASHBOARD_APPOINTMENT_QUEUE_FETCH_SUCCESS,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_START,
+  DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS,
+  CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -48,6 +52,15 @@ const revenueGeneratedDay = {
   isRevenueGeneratedDayLoading: true,
   revenueGeneratedDayData: {},
   revenueGeneratedDayErrorMessage: ''
+}
+
+const revenueGeneratedByDoctor = {
+  isDoctorRevenueGeneratedLoading:true,
+  doctorRevenueGenerated:[],
+  doctorRevenueGeneratedErrorMessage:'',
+  totalItems:0,
+  totalAmount:0,
+  overallAppointment:0
 }
 
 const revenueGeneratedMonth = {
@@ -321,6 +334,50 @@ export const DashboardRevenueGeneratedYearReducer = (
         revenueGeneratedYearData: {},
         revenueGeneratedYearErrorMessage: action.payload.data
       }
+    default:
+      return {...state}
+  }
+}
+
+export const DashboardRevenueGeneratedByDoctorReducer = (
+  state = {...revenueGeneratedByDoctor},
+  action
+) => {
+  switch (action.type) {
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_START:
+      return {
+        ...state
+      }
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_SUCCESS:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:false,
+        doctorRevenueGenerated:action.payload.data.doctorRevenueResponseDTOList,
+        doctorRevenueGeneratedErrorMessage:'',
+        totalItemsDoctorsRevenue:action.payload.data.totalItems,
+        totalRevenueAmount:action.payload.data.totalRevenueAmount,
+        overallAppointment:action.payload.data.overallAppointmentCount
+      }
+    case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:false,
+        doctorRevenueGenerated:[],
+        doctorRevenueGeneratedErrorMessage:action.payload.data, 
+        totalItemsDoctorsRevenue:0,
+        totalRevenueAmount:0,
+        overallAppointment:0
+      }
+    case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
+      return {
+        ...state,
+        isDoctorRevenueGeneratedLoading:true,
+        doctorRevenueGenerated:[],
+        doctorRevenueGeneratedErrorMessage:'', 
+        totalItemsDoctorsRevenue:0,
+        totalRevenueAmount:0,
+        overallAppointment:0
+      }  
     default:
       return {...state}
   }
