@@ -1092,7 +1092,7 @@ class AdminManage extends PureComponent {
         adminDashboardRequestDTOS: dashForAdmin,
         formValid: false
       },
-     
+
       updatedMacIdList: [...macIdList]
     })
   }
