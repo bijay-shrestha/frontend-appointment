@@ -1095,7 +1095,6 @@ class AdminManage extends PureComponent {
      
       updatedMacIdList: [...macIdList]
     })
-    console.log("==============this.state",this.state);
   }
 
   fetchDashBoardFeatures = async () => {
