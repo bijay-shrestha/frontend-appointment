@@ -304,9 +304,10 @@ class AdminManage extends PureComponent {
         remarks: remarks,
         adminAvatarUrl: adminAvatarUrl,
         adminAvatarUrlNew: '',
-        adminDashboardRequestDTOS:value && value.length? [
-          ...value.map(val => ({...val, status: 'Y'}))
-        ]:[]
+        adminDashboardRequestDTOS:
+          value && value.length
+            ? [...value.map(val => ({...val, status: 'Y'}))]
+            : []
       }
     })
   }
@@ -614,15 +615,16 @@ class AdminManage extends PureComponent {
   }
 
   onPreviewHandler = async adId => {
+    const response = await this.props.fetchDashboardFeaturesByAdmin(
+      DASHBOARD_FEATURE,
+      adId
+    )
     try {
       await this.previewApiCall(adId)
       let adminData = this.prepareDataForPreview(
         this.props.AdminPreviewReducer.adminPreviewData
       )
-      const response = await this.props.fetchDashboardFeaturesByAdmin(
-        DASHBOARD_FEATURE,
-        adId
-      )
+
       this.setDataForPreview(adminData, response.data)
     } catch (e) {
       this.setState({
@@ -637,12 +639,13 @@ class AdminManage extends PureComponent {
   }
 
   onEditHandler = async id => {
+    const response = await this.props.fetchDashboardFeaturesByAdmin(
+      DASHBOARD_FEATURE,
+      id
+    )
     try {
       await this.previewApiCall(id)
-      const response = await this.props.fetchDashboardFeaturesByAdmin(
-        DASHBOARD_FEATURE,
-        id
-      )
+
       await this.prepareDataForEdit(
         this.props.AdminPreviewReducer.adminPreviewData,
         response.data
@@ -863,7 +866,9 @@ class AdminManage extends PureComponent {
       remarks: remarks,
       macAddressUpdateInfo: [...macAddressList],
       isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
-      adminDashboardRequestDTOS:this.filterOnlyActiveStatusDashboardRole(adminDashboardRequestDTOS)
+      adminDashboardRequestDTOS: this.filterOnlyActiveStatusDashboardRole(
+        adminDashboardRequestDTOS
+      )
     }
 
     let formData = new FormData()
