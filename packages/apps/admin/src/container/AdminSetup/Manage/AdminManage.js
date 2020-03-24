@@ -828,7 +828,6 @@ class AdminManage extends PureComponent {
       dashList &&
       dashList.length &&
       dashList
-        .filter(dash => dash.status === 'Y')
         .map(dashBoard => ({id: dashBoard.id, status: dashBoard.status}))
     )
   }

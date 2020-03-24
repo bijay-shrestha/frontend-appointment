@@ -12,6 +12,5 @@ export const fetchUserMenus = (path, code) => async dispatch => {
         return userMenus;
     } catch (error) {
        dispatch(MenuActions.isMenuError(error));
-
     }
 };
