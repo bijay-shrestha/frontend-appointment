@@ -41,7 +41,7 @@ export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
     let daysIncluded = new Set();
     while (dateValue <= toDate) {
         let day = getDayOfWeek(dateValue);
-        let weekDayData = {...weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase())};
+        let weekDayData = weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase());
         weekDayData.weekDaysName = day;
         daysIncluded.add(weekDayData);
         dateValue = addDate(dateValue, 1);
