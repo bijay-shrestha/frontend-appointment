@@ -823,14 +823,6 @@ class AdminManage extends PureComponent {
     })
   }
 
-  filterOnlyActiveStatusDashboardRole = dashList => {
-    return (
-      dashList &&
-      dashList.length &&
-      dashList
-        .map(dashBoard => ({id: dashBoard.id, status: dashBoard.status}))
-    )
-  }
 
   editApiCall = async () => {
     const {
@@ -874,9 +866,8 @@ class AdminManage extends PureComponent {
       remarks: remarks,
       macAddressUpdateInfo: [...macAddressList],
       isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
-      adminDashboardRequestDTOS: this.filterOnlyActiveStatusDashboardRole(
-        adminDashboardRequestDTOS
-      )
+      adminDashboardRequestDTOS:adminDashboardRequestDTOS.map(adminDash =>({id:adminDash.id,status:adminDash.status}))
+      
     }
 
     let formData = new FormData()
