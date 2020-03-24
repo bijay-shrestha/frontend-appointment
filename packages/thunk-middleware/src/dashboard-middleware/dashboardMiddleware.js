@@ -250,7 +250,7 @@ export const fetchDashboardFeatures= (path) => async dispatch => {
       dispatch(
         DashboardDetailsActions.fetchDashboardFeatureError(errorMessage)
       )
-      throw e;
+      return '';
     }
   }
 
@@ -269,6 +269,6 @@ export const fetchDashboardFeatures= (path) => async dispatch => {
       dispatch(
         DashboardDetailsActions.fetchDashboardFeatureByAdminError(errorMessage)
       )
-      throw e;
+      return '';
     }
   }

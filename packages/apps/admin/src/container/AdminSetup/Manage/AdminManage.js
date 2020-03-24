@@ -615,6 +615,7 @@ class AdminManage extends PureComponent {
   }
 
   onPreviewHandler = async adId => {
+    this.props.clearAdminSuccessErrorMessagesFromStore()
     const response = await this.props.fetchDashboardFeaturesByAdmin(
       DASHBOARD_FEATURE,
       adId
@@ -639,6 +640,7 @@ class AdminManage extends PureComponent {
   }
 
   onEditHandler = async id => {
+    this.props.clearAdminSuccessErrorMessagesFromStore()
     const response = await this.props.fetchDashboardFeaturesByAdmin(
       DASHBOARD_FEATURE,
       id
@@ -651,7 +653,14 @@ class AdminManage extends PureComponent {
         response.data
       )
     } catch (e) {
-      console.log(e)
+      this.setState({
+        showAlert: true,
+        alertMessageInfo: {
+          variant: 'danger',
+          message: this.props.AdminPreviewReducer.adminPreviewErrorMessage
+          // e.errorMessage ? e.errorMessage: e.message
+        }
+      })
     }
   }
 
@@ -1007,16 +1016,20 @@ class AdminManage extends PureComponent {
   prepareDataForDashboardRole = (adminDashBoardRole, dashData) => {
     let adminDashRole = []
 
-    adminDashBoardRole.map(adminDash => {
-      let flag = false
-      dashData.map(dash => {
-        if (dash.code === adminDash.code) {
-          flag = true
-        }
+    adminDashBoardRole &&
+      adminDashBoardRole.length &&
+      adminDashBoardRole.map(adminDash => {
+        let flag = false
+        dashData &&
+          dashData.length &&
+          dashData.map(dash => {
+            if (dash.code === adminDash.code) {
+              flag = true
+            }
+          })
+        if (flag) adminDashRole.push({...adminDash, status: 'Y'})
+        else adminDashRole.push({...adminDash, status: 'N'})
       })
-      if (flag) adminDashRole.push({...adminDash, status: 'Y'})
-      else adminDashRole.push({...adminDash, status: 'N'})
-    })
     return adminDashRole
   }
 
@@ -1076,10 +1089,13 @@ class AdminManage extends PureComponent {
           ...this.props.ProfileSetupReducer.activeProfilesByDepartmentId
         ],
         remarks: '',
-        adminDashboardRequestDTOS: dashForAdmin
+        adminDashboardRequestDTOS: dashForAdmin,
+        formValid: false
       },
+     
       updatedMacIdList: [...macIdList]
     })
+    console.log("==============this.state",this.state);
   }
 
   fetchDashBoardFeatures = async () => {
