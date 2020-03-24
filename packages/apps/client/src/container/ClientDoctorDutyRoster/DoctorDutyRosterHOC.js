@@ -56,7 +56,10 @@ const {
     REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE
 } = AdminModuleAPIConstants.doctorDutyRosterApiConstants;
 
-const {getDateWithTimeSetToGivenTime, addDate, isFirstTimeGreaterThanSecond, isFirstDateGreaterThanSecondDate} = DateTimeFormatterUtils;
+const {
+    getDateWithTimeSetToGivenTime, addDate, isFirstTimeGreaterThanSecond, isFirstDateGreaterThanSecondDate,
+    getNoOfDaysBetweenGivenDatesInclusive
+} = DateTimeFormatterUtils;
 
 const DATE_ERROR_MESSAGE = "From date must not be greater than to date!";
 const TIME_ERROR_MESSAGE = "Start time must not be greater than end time!";
@@ -664,6 +667,20 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.fetchActiveDoctorsByHospitalId(value);
                 await this.fetchActiveSpecializationByHospitalForDropdown(value);
             }
+            if (key === 'fromDate' || key === 'toDate') {
+                const {fromDate, toDate} = this.state.searchParameters;
+                if (isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
+                    getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1) {
+                    this.setState({
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: "danger",
+                            message: DATE_ERROR_MESSAGE
+                        },
+                    });
+                    this.clearAlertTimeout();
+                }
+            }
         };
 
         handlePageChange = async newPage => {
@@ -1259,7 +1276,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         searchDoctorDutyRoster = async page => {
             const {fromDate, toDate, specialization, doctor} = this.state.searchParameters;
-            if (isFirstDateGreaterThanSecondDate(fromDate, toDate)) {
+            if (isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
+                getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
+            ) {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
