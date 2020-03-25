@@ -73,3 +73,17 @@ export const dropdownCompanyError = message => ({
   type: COMPANY_DROPDOWN_ERROR,
   payload: {message}
 })
+
+export const updateCompanyPending = () => ({
+  type: UPDATE_COMPANY_PENDING
+})
+
+export const udpateCompanySuccess = data => ({
+  type: UPDATE_COMPANY_SUCCESS,
+  payload: {data}
+})
+
+export const dropdownCompanyError = message => ({
+  type: UPDATE_COMPANY_ERROR,
+  payload: {message}
+})
