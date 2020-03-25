@@ -14,7 +14,8 @@ import {
     TryCatchHandler,
     UserMenusFilter,
     UserMenuUtils,
-    ObjectUtils
+    ObjectUtils,
+    checkDashboardRole
 } from "./src/utils";
 import * as adminUserMenusJson from './src/cogent-appointment-admin-menu';
 import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
@@ -24,6 +25,7 @@ import {appointmentStatusList} from './src/appointment-status';
 
 
 export {
+    checkDashboardRole,
     UserMenusFilter,
     TryCatchHandler,
     UserMenuUtils,
