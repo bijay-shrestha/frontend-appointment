@@ -91,12 +91,14 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                         DateTimeFormatterUtils.convertDateToHourMinuteFormat(
                                                             DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.endTime))
                                                     }
-                                                    {/*{appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;*/}
-                                                    {/*{appointmentStatusDetail.doctorTimeSlots[*/}
-                                                    {/*appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}*/}
                                                 </span>
                                                 : '' : ''
                                     }
+                                    &nbsp;
+                                    {(appointmentStatusDetail.dayOffStatus === 'Y'
+                                        && appointmentStatusDetail.doctorTimeSlots
+                                        && appointmentStatusDetail.doctorTimeSlots.length) ?
+                                        <div><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -130,7 +132,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
                                                                 </Button>
                                                             </OverlayTrigger> :
-                                                            (timeSlot.status === 'V') ?
+                                                            (timeSlot.status === 'V' && appointmentStatusDetail.dayOffStatus !== 'Y') ?
                                                                 (<CButton
                                                                     id={timeSlot.appointmentTime + "-" + rowIndex + index}
                                                                     variant={"success"}
