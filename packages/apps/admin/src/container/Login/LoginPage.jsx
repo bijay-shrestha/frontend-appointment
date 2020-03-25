@@ -25,11 +25,14 @@ class LoginPage extends React.PureComponent {
           subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE
         }
       )
-      // const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
-      //   DASHBOARD_FEATURE,
-      //   userMenus.adminId
-      // )
-      // LocalStorageSecurity.localStorageEncoder('adminDashRole', featuresAdmin)
+      const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        userMenus.adminId
+      )
+      LocalStorageSecurity.localStorageEncoder(
+        'adminDashRole',
+        featuresAdmin.data
+      )
       const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
       const pathToRedirect = selectedPath
         ? '/admin' + selectedPath.replace('true', '')
