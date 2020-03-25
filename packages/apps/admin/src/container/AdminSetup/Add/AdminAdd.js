@@ -94,7 +94,9 @@ class AdminAdd extends PureComponent {
       macIdList: [],
       departmentList: [],
       profileList: [],
-      adminDashboardRequestDTOS: [...this.props.DashboardFeaturesReducer.dashboardFeatureData],
+      adminDashboardRequestDTOS: [
+        ...this.props.DashboardFeaturesReducer.dashboardFeatureData
+      ],
       showImageUploadModal: false,
       showConfirmModal: false,
       adminImage: '',
@@ -605,7 +607,11 @@ class AdminAdd extends PureComponent {
                       macIdList: macIdList,
                       adminAvatar: adminAvatar,
                       adminAvatarUrl: adminAvatarUrl,
-                      adminDashboardRequestDTOS:[...adminDashboardRequestDTOS]
+                      adminDashboardRequestDTOS: adminDashboardRequestDTOS
+                        ? adminDashboardRequestDTOS.length
+                          ? [...adminDashboardRequestDTOS]
+                          : []
+                        : []
                     }}
                     adminImage={adminImageCroppedUrl}
                     isCreateAdminLoading={isCreateAdminLoading}
