@@ -48,7 +48,7 @@ const DoctorAvailabilityForm = ({
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
-                                            value={day.dayOffStatus === "Y"?day.startTime:{value:"9:00",label:"9:00"}}
+                                            value={day.dayOffStatus !== "Y"?day.startTime:{value:"00:00",label:"00:00"}}
                                             isClearable={true}
                                         />
                                         {/*<CTimePicker*/}
@@ -77,7 +77,7 @@ const DoctorAvailabilityForm = ({
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
-                                            value={day.dayOffStatus === "Y"?day.endTime:{value:"12:00",label:"12:00"}}
+                                            value={day.dayOffStatus !== "Y"?day.endTime:{value:"23:59",label:"23:59"}}
                                             isClearable={true}
                                         />
                                         {/*<CTimePicker*/}
