@@ -17,7 +17,10 @@ const {
   UPDATE_COMPANY_SUCCESS,
   DELETE_COMPANY_ERROR,
   DELETE_COMPANY_PENDING,
-  DELETE_COMPANY_SUCCESS
+  DELETE_COMPANY_SUCCESS,
+  CLEAR_DELETE_MESSAGE,
+  CLEAR_EDIT_MESSAGE,
+  CLEAR_PREVIEW_MESSAGE
 } = companySetupConstants
 const intialSaveCompany = {
   isCompanySaveLoading: true,
@@ -98,6 +101,12 @@ export const companyUpdateReducer = (
         companyEditSuccessMessage: '',
         companyEditErrorMessage: action.payload.message
       }
+    case CLEAR_EDIT_MESSAGE:
+       return {
+        companyEditSuccessMessage: '',
+        companyEditErrorMessage: ''
+       }  
+      
   }
 }
 
@@ -122,6 +131,11 @@ export const companyPreviewReducer = (
         companyPreviewData: null,
         companyPreviewErrorMessage: action.payload.message
       }
+     case CLEAR_PREVIEW_MESSAGE:
+        return {
+          companyPreviewData: null,
+          companyPreviewErrorMessage:''
+        } 
   }
 }
 
@@ -191,5 +205,10 @@ export const companyDropdownReducer = (
           companyDeleteSuccessMessage: '',
           companyDeleteErrorMessage: action.payload.message
         }
+       case CLEAR_DELETE_MESSAGE:
+          return {
+            companyDeleteErrorMessage:'',
+            companyDeleteSuccessMessage:''
+          } 
     }
   }
