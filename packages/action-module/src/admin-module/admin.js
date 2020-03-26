@@ -20,6 +20,8 @@ import * as PatientDetailsActions from './patient-details/patientDetailActions';
 import {patientDetailsConstants} from "./patient-details/patientDetailActionConstants";
 import * as DashboardDetailsActions from './dashboard-details/dashboardDetailsActions';
 import {dashboardDetailsActionsConstant} from './dashboard-details/dashboardDetailsActionConstant';
+import * as CompanySetupActions from './company-setup/companySetupAction';
+import {companySetupConstants} from './company-setup/companySetupConstants';
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -42,5 +44,7 @@ export {
     QualificationSetupActions,
     qualificationSetupConstants,
     PatientDetailsActions,
-    patientDetailsConstants
+    patientDetailsConstants,
+    CompanySetupActions,
+    companySetupConstants
 }

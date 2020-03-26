@@ -15,7 +15,10 @@ const {
   SEARCH_COMPANY_SUCCESS,
   UPDATE_COMPANY_ERROR,
   UPDATE_COMPANY_PENDING,
-  UPDATE_COMPANY_SUCCESS
+  UPDATE_COMPANY_SUCCESS,
+  DELETE_COMPANY_ERROR,
+  DELETE_COMPANY_PENDING,
+  DELETE_COMPANY_SUCCESS
 } = companySetupConstants
 
 export const saveCompanyPending = () => ({
@@ -78,12 +81,26 @@ export const updateCompanyPending = () => ({
   type: UPDATE_COMPANY_PENDING
 })
 
-export const udpateCompanySuccess = data => ({
+export const udpateCompanySuccess = message => ({
   type: UPDATE_COMPANY_SUCCESS,
-  payload: {data}
+  payload: {message}
 })
 
-export const dropdownCompanyError = message => ({
+export const updateCompanyError = message => ({
   type: UPDATE_COMPANY_ERROR,
+  payload: {message}
+})
+
+export const deleteCompanyPending = () => ({
+  type: DELETE_COMPANY_PENDING
+})
+
+export const deleteCompanySuccess = message => ({
+  type: DELETE_COMPANY_SUCCESS,
+  payload: {message}
+})
+
+export const deleteCompanyError = message => ({
+  type: DELETE_COMPANY_ERROR,
   payload: {message}
 })
