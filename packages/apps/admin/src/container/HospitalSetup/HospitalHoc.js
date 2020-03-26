@@ -35,7 +35,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber: [''],
                 contactNumberUpdateRequestDTOS: [],
                 editContactNumberRequestDTOS: [],
-                isCogentAdmin: 'N',
+                isCompany: 'N',
                 refundPercentage: '',
                 numberOfAdmins: '',
                 numberOfFreeFollowUps: '',
@@ -98,7 +98,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     contactNumber: [''],
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
-                    isCogentAdmin: 'N',
+                    isCompany: 'N',
                     numberOfFreeFollowUps: '',
                     numberOfAdmins: '',
                     followUpIntervalDays: '',
@@ -173,7 +173,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, isCogentAdmin, refundPercentage, followUpIntervalDays,
+                name, status, hospitalCode, address, panNumber, isCompany, refundPercentage, followUpIntervalDays,
                 numberOfAdmins, numberOfFreeFollowUps
             } = hospitalData;
             let formValidity =
@@ -269,7 +269,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     numberOfAdmins,
                     numberOfFreeFollowUps,
                     followUpIntervalDays,
-                    isCogentAdmin
+                    isCompany
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData;
                 let formValid = this.state.formValid;
                 if (remarks) formValid = true;
@@ -297,7 +297,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBanner: new File([5120], hospitalBanner),
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
-                        isCogentAdmin
+                        isCompany
                     },
                     formValid: formValid,
                     nameValid: true
@@ -323,7 +323,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBanner,
                 numberOfAdmins,
                 numberOfFreeFollowUps,
-                isCogentAdmin,
+                isCompany,
             } = this.state.hospitalData;
             let hospitalData = {
                 id,
@@ -334,7 +334,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isHospital:isCogentAdmin,
+                isCompany,
                 numberOfFreeFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
@@ -420,7 +420,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1
-               
+
                 }));
             return newHospitalList
         };
@@ -563,7 +563,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCogentAdmin,
+                isCompany,
                 numberOfFreeFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
@@ -578,7 +578,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCogentAdmin,
+                isCompany,
                 numberOfFreeFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,

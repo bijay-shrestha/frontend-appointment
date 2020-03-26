@@ -41,11 +41,12 @@ export const getMacAddresses = (macAddressInfoResponseDTOS) => {
     }));
 };
 
-export const getBaseUrlForEmail = (hospitalList,hospital) => {
+export const getBaseUrlForEmail = (hospitalList, hospital) => {
     let selectedHospital = hospitalList.find(dropdownData => dropdownData.value === hospital.value);
-    return selectedHospital.isCogentAdmin === 'Y' ?
+    let isCompany = Object.keys(selectedHospital).includes('isCompany') ? selectedHospital.isCompany : 'N';
+    return isCompany === 'Y' ?
         EnvironmentVariableGetter.ADMIN_EMAIL_REDIRECT_URL :
         EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL
-        // EnvironmentVariableGetter.ADMIN_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.ADMIN_PORT)) :
-        // EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT));
+    // EnvironmentVariableGetter.ADMIN_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.ADMIN_PORT)) :
+    // EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT));
 };
