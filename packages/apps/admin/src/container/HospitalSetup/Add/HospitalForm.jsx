@@ -287,7 +287,7 @@ const HospitalForm = ({
                                             name="isCogentAdmin"
                                             label="F1soft Group of Companies"
                                             className="module"
-                                            checked={hospitalInfoObj.isCogentAdmin === 'Y'}
+                                            checked={hospitalInfoObj.isCompany === 'Y'}
                                             onChange={(event) => onInputChange(event)}
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                         />
