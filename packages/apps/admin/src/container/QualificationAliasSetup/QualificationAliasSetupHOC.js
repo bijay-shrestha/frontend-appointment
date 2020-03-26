@@ -33,9 +33,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 isNew: true
             },
             qualificationAlias: [],
-            startEditing: false,
-            stopEditing: false,
-            editRowNumber: 0,
             searchParameters: {
                 name: '',
                 status: {value: 'A', label: 'All'},
@@ -54,16 +51,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         };
 
         alertTimer = '';
-
-        handleAddNewRow = () => {
-            let aliasList = [...this.state.qualificationAlias];
-            aliasList.unshift(this.state.aliasData);
-            this.setState({
-                qualificationAlias: [...aliasList],
-                startEditing: true,
-                editRowNumber: 0
-            });
-        };
 
         handleEnter = (event) => {
             EnterKeyPressUtils.handleEnter(event);
@@ -140,36 +127,24 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        handleCellActionCompletion = event => {
-            console.log("CELL action", event)
+        handleCancel = () => {
+            let currentAliasData = {...this.state.aliasData};
+            currentAliasData.id = '';
+            currentAliasData.name = '';
+            currentAliasData.status = {value: 'Y', label: 'Active'};
+
+            this.setState({
+                aliasData: {...currentAliasData}
+            })
         };
 
-        handleActionButtonClick = (rowData, type) => {
-            let startEditing, stopEditing;
-            console.log("BUTTON CLICK",rowData,type);
-            switch (type) {
-                case 'ADD':
-                    startEditing = false;
-                    stopEditing = true;
-                    break;
-                case 'CANCEL':
-                    startEditing = false;
-                    stopEditing = true;
-                    break;
-                case 'EDIT':
-                    startEditing = true;
-                    stopEditing = false;
-                    break;
-                case 'DELETE':
-                    break;
-                default:
-                    break;
-
-            }
+        handleEdit = (editData) => {
+            let currentAliasData = {...this.state.aliasData};
+            currentAliasData.id = editData.id;
+            currentAliasData.name = editData.name;
+            currentAliasData.status = {value: 'Y', label: 'Active'};
             this.setState({
-                startEditing: startEditing,
-                stopEditing: stopEditing,
-                actionType: type
+                aliasData: {...currentAliasData}
             })
         };
 
@@ -249,8 +224,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 const response = await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasSaveReducer.saveSuccessMessage);
                 this.searchQualificationAlias();
+                return true
             } catch (e) {
                 this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage)
+                return false;
             }
         };
 
@@ -265,8 +242,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 const response = await this.props.editQualificationAlias(EDIT_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasEditReducer.editSuccessMessage);
                 this.searchQualificationAlias();
+                return true;
             } catch (e) {
                 this.showAlertMessage("danger", this.props.QualificationAliasEditReducer.editErrorMessage)
+                return false;
             }
         };
 
@@ -277,10 +256,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         render() {
 
             const {
+                aliasData,
                 qualificationAlias,
-                startEditing,
-                stopEditing,
-                editRowNumber,
                 searchParameters,
                 queryParams,
                 totalRecords,
@@ -299,18 +276,19 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 <ComposedComponent
                     tableData={{
                         qualificationAliasList: qualificationAlias,
-                        addNewRow: this.handleAddNewRow,
-                        startEditing: startEditing,
-                        stopEditing: stopEditing,
-                        editRowNumber,
                         isSearchQualificationAliasLoading,
                         searchErrorMessage,
                         currentPage: queryParams.page,
                         maxSize: queryParams.size,
                         totalItems: totalRecords,
                         handlePageChange: this.handlePageChange,
-                        handleActionButtonClick: this.handleActionButtonClick,
-                        handleCellActionCompletion: this.handleCellActionCompletion
+                        aliasData: aliasData,
+                        handleInputChange: this.handleInputChange,
+                        handleCancel: this.handleCancel,
+                        handleEdit: this.handleEdit,
+                        handleSave: this.saveQualificationAlias,
+                        handleUpdate: this.editQualificationAlias,
+                        // handleDelete: t
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,

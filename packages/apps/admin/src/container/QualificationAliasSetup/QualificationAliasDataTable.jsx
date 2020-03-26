@@ -1,135 +1,94 @@
 import React from 'react';
-import {
-    CButton,
-    CDataTable,
-    CFControl,
-    CLoading,
-    CPagination,
-    CSelect,
-    CTable
-} from "@frontend-appointment/ui-elements";
-import StatusSelect from "../CommonComponents/table-components/StatusSelect";
-import ActionForEditableTable from "../CommonComponents/table-components/ActionForEditableTable";
+import {CFControl, CPagination, CTable, CLoading, CSelect} from "@frontend-appointment/ui-elements";
 import StatusRenderer from "../CommonComponents/table-components/StatusRenderer";
-import InputFieldForTable from "../CommonComponents/table-components/InputFieldForTable";
-import CTableTest from "./CTableTest";
 
 const QualificationAliasDataTable = ({tableData}) => {
     const {
         qualificationAliasList,
-        addNewRow,
-        startEditing,
-        stopEditing,
-        editRowNumber,
         isSearchQualificationAliasLoading,
         searchErrorMessage,
         currentPage,
         maxSize,
         totalItems,
         handlePageChange,
-        handleActionButtonClick,
-        handleCellActionCompletion,
+        aliasData,
+        handleInputChange,
+        handleCancel,
+        handleEdit,
+        handleSave,
+        handleUpdate
     } = tableData;
-
     return <>
         <div className="manage-details">
             <h5 className="title">Qualification Alias Setup</h5>
-            <CButton
-                id="add-alias"
-                name="Add New"
-                disabled={startEditing}
-                onClickHandler={addNewRow}
-            />
-            {/*{!isSearchQualificationAliasLoading && !searchErrorMessage && qualificationAliasList.length ?*/}
-            {/*    (*/}
-            <>
-                <CTableTest/>
-                {/*<CDataTable*/}
-                {/*    classes="ag-theme-balham"*/}
-                {/*    id="roles-table"*/}
-                {/*    width="100%"*/}
-                {/*    height="460px"*/}
-                {/*    startEditing={startEditing}*/}
-                {/*    stopEditing={stopEditing}*/}
-                {/*    rowNumber={editRowNumber}*/}
-                {/*    // enableSorting*/}
-                {/*    editType="fullRow"*/}
-                {/*    columnDefs={[*/}
-                {/*        {*/}
-                {/*            headerName: 'Name',*/}
-                {/*            field: 'name',*/}
-                {/*            resizable: true,*/}
-                {/*            sizeColumnsToFit: false,*/}
-                {/*            editable: true,*/}
-                {/*            cellRenderer: 'nameEditor',*/}
-                {/*            cellRendererParams: {*/}
-                {/*                startEditing: startEditing*/}
-                {/*            },*/}
-                {/*        },*/}
-                {/*        {*/}
-                {/*            headerName: 'Status',*/}
-                {/*            field: 'status',*/}
-                {/*            resizable: true,*/}
-                {/*            sizeColumnsToFit: false,*/}
-                {/*            cellStyle: {overflow: 'visible', 'z-index': '99'},*/}
-                {/*            cellClass: 'actions-button-cell',*/}
-                {/*            cellRenderer: 'statusSelectRenderer',*/}
-                {/*            cellRendererParams: {*/}
-                {/*                options: [*/}
-                {/*                    {value: 'Y', label: 'Active'},*/}
-                {/*                    {value: 'N', label: 'Inactive'},*/}
-                {/*                ],*/}
-                {/*                startEditing: startEditing*/}
-                {/*            },*/}
-                {/*            editable: true,*/}
-                {/*        },*/}
-                {/*        {*/}
-                {/*            headerName: '',*/}
-                {/*            action: 'action',*/}
-                {/*            resizable: true,*/}
-                {/*            sortable: true,*/}
-                {/*            sizeColumnsToFit: false,*/}
-                {/*            cellRenderer: 'childActionRenderer',*/}
-                {/*            cellClass: 'actions-button-cell',*/}
-                {/*            editable: false,*/}
-                {/*            cellRendererParams: {*/}
-                {/*                onClick: function (e, data, type) {*/}
-                {/*                    handleActionButtonClick(data, type)*/}
-                {/*                },*/}
-                {/*                // filteredAction: filteredAction*/}
-                {/*            },*/}
-                {/*            cellStyle: {overflow: 'visible', 'z-index': '99'}*/}
-                {/*        },*/}
+            {!isSearchQualificationAliasLoading && !searchErrorMessage && qualificationAliasList.length ?
+                (
+                    <>
+                        <CTable
+                            id="qualification-alias"
+                            columnDefinition={[
+                                {
+                                    headerName: 'Name',
+                                    field: 'name',
+                                    editComponent: prop => <CFControl
+                                        id="name"
+                                        name='name'
+                                        onChange={handleInputChange}
+                                        value={aliasData.name}
+                                    />,
+                                },
+                                {
+                                    headerName: 'Status',
+                                    field: 'status',
+                                    editComponent: prop => <CSelect
+                                        {...prop}
+                                        id="status"
+                                        name='status'
+                                        options={[
+                                            {
+                                                label: 'Active', value: 'Y'
+                                            },
+                                            {
+                                                label: 'Inactive', value: 'N'
+                                            },
+                                        ]}
+                                        onChange={handleInputChange}
+                                        value={aliasData.status}
+                                    />,
+                                    displayComponent: prop => <StatusRenderer {...prop}/>
+                                },
+                            ]}
+                            rowData={qualificationAliasList}
+                            headerBordered={true}
+                            headerClassName="table-header"
+                            bodyClassName="table-body"
+                            footerClassName="table-footer"
+                            onCancel={handleCancel}
+                            onEdit={handleEdit}
+                            onSave={handleSave}
+                            onUpdate={handleUpdate}
+                            // onDelete={}
+                            // onPreview={}
+                        />
 
-                {/*    ]}*/}
-                {/*    frameworkComponents={{*/}
-                {/*        childActionRenderer: ActionForEditableTable,*/}
-                {/*        statusSelectRenderer: StatusSelect,*/}
-                {/*        statusRenderer: StatusRenderer,*/}
-                {/*        nameEditor: InputFieldForTable*/}
-                {/*    }}*/}
-                {/*    rowData={qualificationAliasList}*/}
-                {/*    suppressClickEdit={true}*/}
-                {/*    onCellInputChange={(e) => handleCellActionCompletion(e)}*/}
-                {/*/>*/}
-                <CPagination
-                    totalItems={totalItems}
-                    maxSize={maxSize}
-                    currentPage={currentPage}
-                    onPageChanged={handlePageChange}
-                />
-            </>
-            {/*)*/}
-            {/*: !isSearchQualificationAliasLoading && searchErrorMessage ? (*/}
-            {/*    <div className="filter-message">*/}
-            {/*        <div className="no-data">*/}
-            {/*            <i className="fa fa-file-text-o"/>*/}
-            {/*        </div>*/}
-            {/*        <div className="message"> {searchErrorMessage}</div>*/}
-            {/*    </div>*/}
-            {/*) : (*/}
-            {/*    <CLoading/>*/}
-            {/*)}*/}
+                        <CPagination
+                            totalItems={totalItems}
+                            maxSize={maxSize}
+                            currentPage={currentPage}
+                            onPageChanged={handlePageChange}
+                        />
+                    </>
+                )
+                : !isSearchQualificationAliasLoading && searchErrorMessage ? (
+                    <div className="filter-message">
+                        <div className="no-data">
+                            <i className="fa fa-file-text-o"/>
+                        </div>
+                        <div className="message"> {searchErrorMessage}</div>
+                    </div>
+                ) : (
+                    <CLoading/>
+                )}
         </div>
     </>;
 };

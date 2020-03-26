@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 
-class StatusSelect extends PureComponent {
+class StatusRenderer extends PureComponent {
     render() {
         return (
             <>
@@ -13,4 +13,4 @@ class StatusSelect extends PureComponent {
     };
 }
 
-export default StatusSelect;
+export default StatusRenderer;
