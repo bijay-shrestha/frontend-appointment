@@ -24,7 +24,8 @@ import {
   previewProfile,
   QualificationSetupMiddleware,
   SpecializationSetupMiddleware,
-  PatientDetailsMiddleware
+  PatientDetailsMiddleware,
+  CompanySetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -47,6 +48,7 @@ export {
   clearSuccessErrorMessagesFromStore,
   createAdmin,
   createProfile,
+  CompanySetupMiddleware,
   DashboardDetailsMiddleware,
   deleteAdmin,
   deleteProfile,

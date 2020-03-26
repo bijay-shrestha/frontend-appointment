@@ -29,6 +29,7 @@ import * as DepartmentSetupMiddleware from "./department-setup-middleware/depart
 import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doctorDutyRosterMiddleware";
 import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
 import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
+import * as CompanySetupMiddleware from './company-setup-middleware/companySetupMiddleware'
 export {
     createProfile,
     fetchProfileList,
@@ -50,6 +51,7 @@ export {
     fetchActiveProfilesByDepartmentId,
     SpecializationSetupMiddleware,
     HospitalSetupMiddleware,
+    CompanySetupMiddleware,
     DoctorMiddleware,
     DepartmentSetupMiddleware,
     QualificationSetupMiddleware,
