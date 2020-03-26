@@ -88,7 +88,7 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
 export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, selectedHospitalId) => {
     let selectedHospital = hospitalList.find(hosp =>
         hosp.value === selectedHospitalId);
-    let isCompany = Object.keys(selectedHospital).includes('isCompany') ? selectedHospital.isCompany : false;
+    let isCompany = Object.keys(selectedHospital).includes('isCompany') ? selectedHospital.isCompany : 'N';
     let userMenus = isCompany === 'Y' ? adminUserMenusJson : clientUserMenusJson;
     let moduleCode = isCompany === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
     let menusForDept = Object.keys(userMenus).find(code => code === moduleCode)

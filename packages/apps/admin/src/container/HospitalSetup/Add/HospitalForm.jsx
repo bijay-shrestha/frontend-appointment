@@ -284,7 +284,7 @@ const HospitalForm = ({
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CCheckbox id="cogent-admin"
-                                            name="isCogentAdmin"
+                                            name="isCompany"
                                             label="F1soft Group of Companies"
                                             className="module"
                                             checked={hospitalInfoObj.isCompany === 'Y'}

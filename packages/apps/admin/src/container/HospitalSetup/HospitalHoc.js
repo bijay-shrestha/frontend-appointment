@@ -35,7 +35,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber: [''],
                 contactNumberUpdateRequestDTOS: [],
                 editContactNumberRequestDTOS: [],
-                isCogentAdmin: 'N',
+                isCompany: 'N',
                 refundPercentage: '',
                 numberOfAdmins: '',
                 numberOfFreeFollowUps: '',
