@@ -73,6 +73,10 @@ class CTable extends PureComponent {
             case 'EDIT':
                 this.handleEditRow(e, data);
                 break;
+            case 'DELETE':
+                this.handleDelete(data);
+            case 'PREVIEW':
+                this.handlePreview(data);
             default:
                 break;
         }
@@ -102,16 +106,24 @@ class CTable extends PureComponent {
             rowNumberSaved = rowNumber;
 
         const isUpdated = await this.props.onUpdate(data);
-        if (isUpdated) {
-            isEditingRow = false;
-            rowNumberSaved = ''
-        } else {
-            isEditingRow = true;
-        }
-        this.setState({
-            isEditing: isEditingRow,
-            rowNumber: rowNumberSaved
-        })
+        // if (isUpdated) {
+        //     isEditingRow = false;
+        //     rowNumberSaved = ''
+        // } else {
+        //     isEditingRow = true;
+        // }
+        // this.setState({
+        //     isEditing: isEditingRow,
+        //     rowNumber: rowNumberSaved
+        // })
+    };
+
+    handleDelete = (deleteRow) => {
+      this.props.onDelete(deleteRow.data);
+    };
+
+    handlePreview = (previewData)=>{
+      this.props.onPreview(previewData.data);
     };
 
     handleCancel = (data, type) => {
@@ -239,9 +251,10 @@ class CTable extends PureComponent {
             bsPrefix,
             headerClassName,
             bodyClassName,
-            footerClassName
+            footerClassName,
+            rowValid
         } = this.props;
-        const {tableData, isEditing, rowNumber, rowDataUnderAction} = this.state;
+        const {tableData, isEditing, rowNumber} = this.state;
         return <>
             <div id={id}>
                 <CButton
@@ -331,6 +344,7 @@ class CTable extends PureComponent {
                                             }}
                                             rowNumber={rowNumber}
                                             isEditing={isEditing}
+                                            rowValid={rowValid}
                                             onClick={this.handleClick}/>
                                     </td>
                                 </tr>
@@ -393,6 +407,13 @@ CTable.propTypes = {
             colSpan: PropTypes.string
         }))
     })),
+    rowValid: PropTypes.bool,
+    onCancel: PropTypes.func,
+    onSave: PropTypes.func,
+    onEdit: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onDelete: PropTypes.func,
+    onPreview: PropTypes.func,
     bordered: PropTypes.bool,
     borderless: PropTypes.bool,
     hover: PropTypes.bool,

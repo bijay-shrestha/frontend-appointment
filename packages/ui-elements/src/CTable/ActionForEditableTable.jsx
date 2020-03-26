@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
 
-const ActionForEditableTable = ({isEditing, onClick, node, rowNumber}) => {
+const ActionForEditableTable = ({isEditing, onClick, node, rowNumber,rowValid}) => {
 
     return (
         <>
@@ -9,6 +9,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber}) => {
                 <>
                     <Button
                         id="save"
+                        disabled={!rowValid}
                         onClick={(e) => onClick(e, node, 'ADD')}>
                         Save
                     </Button>

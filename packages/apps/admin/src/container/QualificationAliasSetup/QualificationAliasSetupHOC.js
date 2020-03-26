@@ -30,8 +30,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 id: '',
                 name: '',
                 status: {value: 'Y', label: 'Active'},
+                remarks: '',
                 isNew: true
             },
+            formValid: false,
             qualificationAlias: [],
             searchParameters: {
                 name: '',
@@ -47,7 +49,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 variant: "",
                 message: ""
             },
-            actionType: ''
+            actionType: '',
+            showEditRemarksModal: false,
+            showDeleteModal: false
         };
 
         alertTimer = '';
@@ -105,46 +109,59 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                     })
             } else {
                 label ? value ?
-                    this.setState({
+                    await this.setState({
                         aliasData: {
                             ...this.state.aliasData,
                             [key]: {value, label}
                         }
                     })
-                    : this.setState({
+                    : await this.setState({
                         aliasData: {
                             ...this.state.aliasData,
                             [key]: null
                         }
                     })
-                    : this.setState({
+                    : await this.setState({
                         aliasData: {
                             ...this.state.aliasData,
                             [key]: value
                             // , [key + "Valid"]: fieldValid
                         }
-                    })
+                    });
+
+                this.checkFormValidity();
             }
         };
 
         handleCancel = () => {
-            let currentAliasData = {...this.state.aliasData};
-            currentAliasData.id = '';
-            currentAliasData.name = '';
-            currentAliasData.status = {value: 'Y', label: 'Active'};
-
-            this.setState({
-                aliasData: {...currentAliasData}
-            })
+            this.resetAliasData();
         };
 
-        handleEdit = (editData) => {
+        handleEdit = async (editData) => {
             let currentAliasData = {...this.state.aliasData};
             currentAliasData.id = editData.id;
             currentAliasData.name = editData.name;
             currentAliasData.status = {value: 'Y', label: 'Active'};
-            this.setState({
+            await this.setState({
                 aliasData: {...currentAliasData}
+            });
+            this.checkFormValidity();
+        };
+
+        handleDelete = async (deleteData) => {
+            let alias = {...this.state.aliasData};
+            alias.id = deleteData.id;
+            this.setState({
+                aliasData: {...alias},
+                showDeleteModal: true
+            })
+        };
+
+        checkFormValidity = () => {
+            const {name, status} = this.state.aliasData;
+            let formValid = name && status;
+            this.setState({
+                formValid: formValid
             })
         };
 
@@ -176,6 +193,23 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showAlert: false
             });
+        };
+
+        resetAliasData = () => {
+            let currentAliasData = {...this.state.aliasData};
+            currentAliasData.id = '';
+            currentAliasData.name = '';
+            currentAliasData.remarks = '';
+            currentAliasData.status = {value: 'Y', label: 'Active'};
+
+            this.setState({
+                aliasData: {...currentAliasData}
+            })
+        };
+
+        actionsOnOperationComplete = () => {
+            this.resetAliasData();
+            this.searchQualificationAlias();
         };
 
         searchQualificationAlias = async (page) => {
@@ -223,7 +257,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             try {
                 const response = await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasSaveReducer.saveSuccessMessage);
-                this.searchQualificationAlias();
+                this.actionsOnOperationComplete();
                 return true
             } catch (e) {
                 this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage)
@@ -231,21 +265,53 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        openEditRemarksModal = () => {
+            this.setState({
+                showEditRemarksModal: true
+            })
+        };
+
+        closeModal = () => {
+            this.setState({
+                showEditRemarksModal: false,
+                showDeleteModal: false
+            })
+        };
+
         editQualificationAlias = async () => {
-            const {id, name, status} = this.state.aliasData;
+            const {id, name, status, remarks} = this.state.aliasData;
             let requestDTO = {
                 id,
                 name: name,
-                status: status && status.value
+                status: status && status.value,
+                remarks
             };
             try {
                 const response = await this.props.editQualificationAlias(EDIT_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasEditReducer.editSuccessMessage);
-                this.searchQualificationAlias();
+                this.closeModal();
+                this.actionsOnOperationComplete();
                 return true;
             } catch (e) {
-                this.showAlertMessage("danger", this.props.QualificationAliasEditReducer.editErrorMessage)
+                // this.showAlertMessage("danger", this.props.QualificationAliasEditReducer.editErrorMessage);
                 return false;
+            }
+        };
+
+        deleteQualificationAlias = async () => {
+            const {id, remarks} = this.state.aliasData;
+            let deleteRequestDTO = {
+                id: id,
+                remarks,
+                status: 'D'
+            };
+            try {
+                const response = await this.props.deleteQualificationAlias(DELETE_QUALIFICATION_ALIAS, deleteRequestDTO);
+                this.showAlertMessage("success", this.props.QualificationAliasDeleteReducer.deleteSuccessMessage);
+                this.closeModal();
+                this.actionsOnOperationComplete();
+            } catch (e) {
+
             }
         };
 
@@ -262,7 +328,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 alertMessageInfo,
-                showAlert
+                showAlert,
+                showEditRemarksModal,
+                formValid,
+                showDeleteModal,
             } = this.state;
 
             const {activeQualificationAliasForDropdown, dropdownErrorMessage} = this.props.QualificationAliasDropdownReducer;
@@ -271,6 +340,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 isSearchQualificationAliasLoading,
                 searchErrorMessage
             } = this.props.QualificationAliasSearchReducer;
+
+            const {editErrorMessage} = this.props.QualificationAliasEditReducer;
+            const {deleteErrorMessage} = this.props.QualificationAliasDeleteReducer;
 
             return <>
                 <ComposedComponent
@@ -287,7 +359,16 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         handleCancel: this.handleCancel,
                         handleEdit: this.handleEdit,
                         handleSave: this.saveQualificationAlias,
-                        handleUpdate: this.editQualificationAlias,
+                        handleUpdate: this.openEditRemarksModal,
+                        handleUpdateConfirm: this.editQualificationAlias,
+                        handleDelete: this.handleDelete,
+                        showEditRemarksModal,
+                        handleDeleteSubmit: this.deleteQualificationAlias,
+                        onRemarksModalClose: this.closeModal,
+                        editErrorMessage,
+                        formValid,
+                        deleteErrorMessage,
+                        showDeleteModal
                         // handleDelete: t
                     }}
                     searchData={{
