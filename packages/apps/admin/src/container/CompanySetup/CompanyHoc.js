@@ -14,7 +14,8 @@ const {
   previewCompany,
   saveCompany,
   searchCompany,
-  updateCompany
+  updateCompany,
+  clearMessages
 } = CompanySetupMiddleware
 
 const {
@@ -41,8 +42,10 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         companyBanner: null,
         companyBannerUrl: '',
         contactNumber: [''],
+        isCompany: '',
+        alias: '',
         contactNumberUpdateRequestDTOS: [],
-        editContactNumberRequestDTOS: [],
+        editContactNumberRequestDTOS: []
       },
       formValid: false,
       nameValid: false,
@@ -63,8 +66,6 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       showEditModal: false,
       deleteModalShow: false,
       searchParameters: {
-        // code: '',
-        // id: null,
         name: '',
         companyCode: '',
         status: {value: '', label: 'All'}
@@ -92,27 +93,22 @@ const CompanyHOC = (ComposedComponent, props, type) => {
     resetCompanyStateValues = () => {
       this.setState({
         companyData: {
-            id: '',
-            name: '',
-            address: '',
-            panNumber: '',
-            status: 'Y',
-            companyCode: '',
-            companyLogo: null,
-            companyLogoUrl: '',
-            companyBanner: null,
-            companyBannerUrl: '',
-            contactNumber: [''],
-            contactNumberUpdateRequestDTOS: [],
-            editContactNumberRequestDTOS: [],
+          id: '',
+          name: '',
+          address: '',
+          panNumber: '',
+          status: 'Y',
+          companyCode: '',
+          companyLogo: null,
+          companyLogoUrl: '',
+          contactNumber: [''],
+          contactNumberUpdateRequestDTOS: [],
+          editContactNumberRequestDTOS: [],
+          alias: ''
         },
-        // hospitalLogo: '',
         companyImage: '',
         companyImageCroppedUrl: '',
         companyFileCropped: '',
-        companyBannerImage: '',
-        companyBannerImageCroppedUrl: '',
-        companyBannerFileCropped: '',
         formValid: false,
         nameValid: false,
         codeValid: false,
@@ -158,13 +154,15 @@ const CompanyHOC = (ComposedComponent, props, type) => {
 
     checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
       let stateObj = {[fieldName]: valueToChange}
+      if (eventName === 'companyCode')
+        stateObj = {[fieldName]: {alias: valueToChange}}
       if (eventName)
         if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
       return {...stateObj}
     }
 
     closeAlert = () => {
-      this.props.clearHospitalCreateMessage()
+      this.props.clearMessages()
       this.setState({
         showAlert: !this.state.showAlert,
         alertMessageInfo: ''
@@ -172,41 +170,22 @@ const CompanyHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {hospitalData, nameValid} = this.state
-      const {
-        name,
-        status,
-        hospitalCode,
-        address,
-        panNumber,
-        isCogentAdmin,
-        refundPercentage,
-        followUpIntervalDays,
-        numberOfAdmins,
-        numberOfFreeFollowUps
-      } = hospitalData
+      const {companyData, nameValid} = this.state
+      const {name, status, companyCode, address, panNumber} = companyData
       let formValidity =
-        nameValid &&
-        name &&
-        status &&
-        hospitalCode &&
-        address &&
-        panNumber &&
-        refundPercentage &&
-        followUpIntervalDays &&
-        numberOfAdmins &&
-        numberOfFreeFollowUps
+        nameValid && name && status && companyCode && address && panNumber
 
       if (eventType === 'E')
         formValidity =
           formValidity &&
-          hospitalData.remarks &&
-          hospitalData.contactNumberUpdateRequestDTOS &&
-            hospitalData.contactNumberUpdateRequestDTOS.length
+          companyData.remarks &&
+          companyData.contactNumberUpdateRequestDTOS &&
+          companyData.contactNumberUpdateRequestDTOS.length
       else
         formValidity =
           formValidity &&
-          hospitalData.contactNumber && hospitalData.contactNumber.length
+          companyData.contactNumber &&
+          companyData.contactNumber.length
 
       this.setState({
         formValid: formValidity
@@ -214,57 +193,53 @@ const CompanyHOC = (ComposedComponent, props, type) => {
     }
 
     addContactNumber = (fieldName, value, eventType) => {
-      let hospitalData = {...this.state.hospitalData}
-      hospitalData[fieldName].push(value)
-      hospitalData['editContactNumberRequestDTOS'].push(value)
-      this.setTheState('hospitalData', hospitalData)
+      let companyData = {...this.state.companyData}
+      companyData[fieldName].push(value)
+      companyData['editContactNumberRequestDTOS'].push(value)
+      this.setTheState('companyData', companyData)
       this.checkFormValidity(eventType)
     }
 
     removeContactNumber = (fieldName, idx, eventType) => {
-      let hospitalData = {...this.state.hospitalData}
-      hospitalData[fieldName].splice(idx, 1)
+      let companyData = {...this.state.companyData}
+      companyData[fieldName].splice(idx, 1)
       if (eventType === 'E')
-        hospitalData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
-      this.setTheState('hospitalData', hospitalData)
+        companyData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
+      this.setTheState('companyData', companyData)
       this.checkFormValidity(eventType)
     }
 
     editContactNumber = (fieldName, value, idx, eventType) => {
-      let hospitalData = {...this.state.hospitalData}
-      hospitalData[fieldName][idx] = value
-      hospitalData['editContactNumberRequestDTOS'][idx] = value
-      this.setTheState('hospitalData', hospitalData)
+      let companyData = {...this.state.companyData}
+      companyData[fieldName][idx] = value
+      companyData['editContactNumberRequestDTOS'][idx] = value
+      this.setTheState('companyData', companyData)
       this.checkFormValidity(eventType)
     }
 
     previewApiCall = async id => {
-      await this.props.previewHospital(
-        hospitalSetupApiConstants.FETCH_HOSPITAL_DETAILS,
-        id
-      )
+      await this.props.previewCompany(PREVIEW_COMPANY, id)
     }
 
     onPreviewHandler = async id => {
       try {
         await this.previewApiCall(id)
         this.setState({
-          showHospitalModal: true
+          showCompanyModal: true
         })
       } catch (e) {
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.HospitalPreviewReducer
-              .hospitalPreviewErrorMessage
+            message: this.props.companyPreviewReducer.companyPreviewErrorMessage
           }
         })
       }
     }
 
     onEditHandler = async idSelected => {
-      this.props.clearHospitalCreateMessage()
+      this.props.clearMessages()
       try {
         await this.previewApiCall(idSelected)
         const {
@@ -275,15 +250,10 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           panNumber,
           address,
           contactNumberResponseDTOS,
-          hospitalCode,
-          hospitalLogo,
-          hospitalBanner,
-          refundPercentage,
-          numberOfAdmins,
-          numberOfFreeFollowUps,
-          followUpIntervalDays,
-          isCogentAdmin
-        } = this.props.HospitalPreviewReducer.hospitalPreviewData
+          companyCode,
+          companyLogo
+          // hospitalBanner,
+        } = this.props.companyPreviewReducer.companyPreviewData
         let formValid = this.state.formValid
         if (remarks) formValid = true
         this.setState({
@@ -294,23 +264,14 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             status: status,
             panNumber: panNumber,
             address: address,
-            hospitalCode: hospitalCode,
+            companyCode: companyCode,
             remarks: remarks,
-            refundPercentage,
-            numberOfAdmins,
-            numberOfFreeFollowUps,
-            followUpIntervalDays,
             contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
             editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
-            hospitalLogoUrl: hospitalLogo,
-            hospitalBannerUrl: hospitalBanner,
-            hospitalLogo: new File([5120], hospitalLogo),
-            hospitalImage: new File([5120], hospitalLogo),
-            hospitalImageCroppedUrl: hospitalLogo,
-            hospitalBanner: new File([5120], hospitalBanner),
-            hospitalBannerImage: new File([5120], hospitalBanner),
-            hospitalBannerImageCroppedUrl: hospitalBanner,
-            isCogentAdmin
+            companyLogoUrl: companyLogo,
+            companyLogo: new File([5120], hospitalLogo),
+            companyImage: new File([5120], hospitalLogo),
+            companyImageCroppedUrl: hospitalLogo
           },
           formValid: formValid,
           nameValid: true
@@ -320,25 +281,20 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    editHospital = async () => {
+    editCompany = async () => {
       const {
         name,
         status,
-        hospitalLogo,
+        companyLogo,
         address,
         panNumber,
-        hospitalCode,
+        companyCode,
         editContactNumberRequestDTOS,
         remarks,
-        id,
-        refundPercentage,
-        followUpIntervalDays,
-        hospitalBanner,
-        numberOfAdmins,
-        numberOfFreeFollowUps,
-        isCogentAdmin
-      } = this.state.hospitalData
-      let hospitalData = {
+        alias,
+        id
+      } = this.state.companyData
+      let companyData = {
         id,
         name,
         status,
@@ -346,56 +302,45 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         remarks,
         address,
         panNumber,
-        hospitalCode,
-        isHospital: isCogentAdmin,
-        numberOfFreeFollowUps,
-        numberOfAdmins,
-        followUpIntervalDays,
-        refundPercentage
+        companyCode,
+        alias
       }
 
       let formData = new FormData()
       formData.append(
         'logo',
-        new File([hospitalLogo], name.concat('-picture.jpeg'))
+        new File([companyLogo], name.concat('-picture.jpeg'))
       )
-      formData.append(
-        'banner',
-        new File([hospitalBanner], name.concat('-picture.jpeg'))
-      )
+
       try {
-        await this.props.editHospital(
-          hospitalSetupApiConstants.EDIT_HOSPITAL,
-          hospitalData,
-          formData
-        )
-        this.resetHospitalStateValues()
+        await this.props.updateCompany(UPDATE_COMPANY, companyData, formData)
+        this.resetCompanyStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalEditReducer.hospitalEditSuccessMessage
+            message: this.props.companyUpdateReducer.companyEditSuccessMessage
           }
         })
-        await this.searchHospital()
+        await this.searchCompany()
       } catch (e) {}
     }
 
-    searchHospitalForDropDown = async () => {
-      try {
-        await this.props.fetchActiveHospitalsForDropdown(
-          hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
-        )
-      } catch (e) {
-        console.log(e)
-      }
-    }
+    // searchHospitalForDropDown = async () => {
+    //   try {
+    //     await this.props.fetchActiveHospitalsForDropdown(
+    //       hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
+    //     )
+    //   } catch (e) {
+    //     console.log(e)
+    //   }
+    // }
 
-    searchHospital = async page => {
-      const {hospitalCode, name, status, id} = this.state.searchParameters
+    searchCompany = async page => {
+      const {companyCode, name, status} = this.state.searchParameters
       let searchData = {
-        name: name.value ? name.label : name,
-        hospitalCode: hospitalCode,
+        name: name,
+        companyCode: companyCode,
         status: status.value,
         id: id
       }
@@ -406,8 +351,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.searchHospital(
-        hospitalSetupApiConstants.SEARCH_HOSPITAL,
+      await this.props.searchCompany(
+        SEARCH_COMPANY,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -416,8 +361,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       )
 
       await this.setState({
-        totalRecords: this.props.HospitalSearchReducer.hospitalList.length
-          ? this.props.HospitalSearchReducer.hospitalList[0].totalItems
+        totalRecords: this.props.companySearchReducer.companySearchData.length
+          ? this.props.companySearchReducer.companySearchData[0].totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -426,18 +371,18 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    appendSNToTable = hospitalList => {
-      const newHospitalList =
-        hospitalList.length &&
-        hospitalList.map((spec, index) => ({
+    appendSNToTable = companyList => {
+      const companyLists =
+        companyList.length &&
+        companyList.map((spec, index) => ({
           ...spec,
           sN: index + 1
         }))
-      return newHospitalList
+      return companyLists
     }
 
     onDeleteHandler = async id => {
-      this.props.clearHospitalCreateMessage()
+      this.props.clearMessages()
       let deleteRequestDTO = {...this.state.deleteRequestDTO}
       deleteRequestDTO['id'] = id
       await this.setState({
@@ -457,8 +402,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
 
     onSubmitDeleteHandler = async () => {
       try {
-        await this.props.deleteHospital(
-          hospitalSetupApiConstants.DELETE_HOSPITAL,
+        await this.props.companyDelete(
+          DELETE_COMPANY,
           this.state.deleteRequestDTO
         )
         await this.setState({
@@ -466,11 +411,11 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalDeleteReducer.deleteSuccessMessage
+            message: this.props.companyDeleteReducer.companyDeleteSuccessMessage
           },
           showAlert: true
         })
-        await this.searchHospital()
+        await this.searchCompany()
       } catch (e) {
         this.setState({
           deleteModalShow: true
@@ -499,10 +444,9 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           hospitalCode: '',
           status: {value: '', label: 'All'},
           name: ''
-          //id: null
         }
       })
-      this.searchHospital()
+      this.searchCompany()
     }
 
     handlePageChange = async newPage => {
@@ -512,114 +456,96 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchHospital()
+      this.searchCompany()
     }
 
     handleImageSelect = imageUrl => {
-      imageUrl && this.setState({hospitalImage: imageUrl})
+      imageUrl && this.setState({companyImage: imageUrl})
     }
 
     handleCropImage = croppedImageUrl => {
       croppedImageUrl &&
         this.setState({
-          hospitalImageCroppedUrl: croppedImageUrl
+          companyImageCroppedUrl: croppedImageUrl
         })
     }
 
     handleImageUpload = async croppedImageFile => {
-      let croppedImage = this.state.hospitalImageCroppedUrl
-      let hospitalImage = {...this.state.hospitalData}
-      hospitalImage.hospitalLogo = new File(
+      let croppedImage = this.state.companyImageCroppedUrl
+      let companyImage = {...this.state.companyData}
+      companyImage.companyLogo = new File(
         [croppedImageFile],
         'hospitalAvatar.jpeg'
       )
-      hospitalImage.hospitalLogoUrl = croppedImage
+      companyImage.companyLogoUrl = croppedImage
       await this.setState({
-        hospitalData: {...hospitalImage},
+        companyData: {...companyImage},
         showImageUploadModal: false
       })
     }
 
-    handleBannerSelect = imageUrl => {
-      imageUrl && this.setState({hospitalBannerImage: imageUrl})
-    }
+    // handleBannerSelect = imageUrl => {
+    //   imageUrl && this.setState({hospitalBannerImage: imageUrl})
+    // }
 
-    handleCropBannerImage = croppedImageUrl => {
-      croppedImageUrl &&
-        this.setState({
-          hospitalBannerImageCroppedUrl: croppedImageUrl
-        })
-    }
+    // handleCropBannerImage = croppedImageUrl => {
+    //   croppedImageUrl &&
+    //     this.setState({
+    //       hospitalBannerImageCroppedUrl: croppedImageUrl
+    //     })
+    // }
 
-    handleBannerImageUpload = async croppedImageFile => {
-      let croppedImage = this.state.hospitalBannerImageCroppedUrl
-      let hospitalImage = {...this.state.hospitalData}
-      hospitalImage.hospitalBanner = new File(
-        [croppedImageFile],
-        'hospitalBanner.jpeg'
-      )
-      hospitalImage.hospitalBannerUrl = croppedImage
-      await this.setState({
-        hospitalData: {...hospitalImage},
-        showBannerUploadModal: false
-      })
-    }
+    // handleBannerImageUpload = async croppedImageFile => {
+    //   let croppedImage = this.state.hospitalBannerImageCroppedUrl
+    //   let hospitalImage = {...this.state.hospitalData}
+    //   hospitalImage.hospitalBanner = new File(
+    //     [croppedImageFile],
+    //     'hospitalBanner.jpeg'
+    //   )
+    //   hospitalImage.hospitalBannerUrl = croppedImage
+    //   await this.setState({
+    //     hospitalData: {...hospitalImage},
+    //     showBannerUploadModal: false
+    //   })
+    // }
 
     handleConfirmClick = async () => {
       const {
         name,
         status,
         contactNumber,
-        hospitalLogo,
         address,
         panNumber,
-        hospitalCode,
-        isCogentAdmin,
-        numberOfFreeFollowUps,
-        numberOfAdmins,
-        followUpIntervalDays,
-        refundPercentage,
-        hospitalBanner
-      } = this.state.hospitalData
+        companyCode,
+        alias,
+        companyLogo
+      } = this.state.companyData
 
-      let hospitalData = {
+      let companyData = {
         name,
         status,
         contactNumber,
         address,
         panNumber,
-        hospitalCode,
-        isCogentAdmin,
-        numberOfFreeFollowUps,
-        numberOfAdmins,
-        followUpIntervalDays,
-        refundPercentage
+        companyCode
       }
 
       let formData = new FormData()
       formData.append(
         'logo',
-        new File([hospitalLogo], name.concat('-picture.jpeg'))
-      )
-      formData.append(
-        'banner',
-        new File([hospitalBanner], name.concat('-picture.jpeg'))
+        new File([companyLogo], name.concat('-picture.jpeg'))
       )
 
       try {
-        await this.props.createHospital(
-          hospitalSetupApiConstants.CREATE_HOSPITAL,
-          hospitalData,
-          formData
-        )
+        await this.props.saveCompany(SAVE_COMPANY, companyData, formData)
 
         await this.setShowConfirmModal()
-        this.resetHospitalStateValues()
+        this.resetCompanyStateValues()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.HospitalSaveReducer.createHospitalsuccessMessage
+            message: this.props.companySaveReducer.companySaveSuccessMessage
           }
         })
       } catch (e) {
@@ -634,11 +560,11 @@ const CompanyHOC = (ComposedComponent, props, type) => {
     }
 
     handleOnChange = async (event, fieldValid, eventType) => {
-      let hospital = {...this.state.hospitalData}
+      let company = {...this.state.companyData}
       let {name, value, label, type} = event.target
 
       value =
-        name === 'hospitalCode'
+        name === 'companyCode'
           ? value.toUpperCase()
           : type === 'checkbox'
           ? event.target.checked
@@ -646,34 +572,35 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             : 'N'
           : value
 
-      hospital[name] = !label
+      company[name] = !label
         ? value
         : value
         ? {value: value, label: label}
         : {value: null}
-      await this.setTheState('hospitalData', hospital, fieldValid, name)
+      await this.setTheState('companyData', company, fieldValid, name)
+
       this.checkFormValidity(eventType)
     }
 
     async componentDidMount () {
       if (type === 'M') {
-        await this.searchHospital()
-        await this.searchHospitalForDropDown()
+        await this.searchCompany()
+        //await this.searchHospitalForDropDown()
       }
     }
 
     render () {
       const {
-        hospitalData,
+        companyData,
         showAlert,
         showConfirmModal,
         formValid,
         codeValid,
         nameValid,
-        errorMessageForHospitalCode,
-        errorMessageForHospitalName,
+        errorMessageForCompanyCode,
+        errorMessageForCompanyName,
         alertMessageInfo,
-        showHospitalModal,
+        showCompanyModal,
         showEditModal,
         deleteModalShow,
         searchParameters,
@@ -681,49 +608,45 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         deleteRequestDTO,
         totalRecords,
         contactLength,
-        hospitalImage,
-        hospitalImageCroppedUrl,
-        hospitalFileCropped,
-        showImageUploadModal,
-        hospitalBannerFileCropped,
-        hospitalBannerImage,
-        hospitalBannerImageCroppedUrl,
-        showBannerUploadModal
+        companyImage,
+        companyImageCroppedUrl,
+        companyFileCropped,
+        showImageUploadModal
       } = this.state
 
       const {
-        isSearchLoading,
-        hospitalList,
-        searchErrorMessage
-      } = this.props.HospitalSearchReducer
+        isCompanySearchLoading,
+        companySearchData,
+        companySearchErrorMessage
+      } = this.props.companySearchReducer
 
       const {
-        hospitalPreviewData,
-        isPreviewLoading,
-        hospitalPreviewErrorMessage
-      } = this.props.HospitalPreviewReducer
+        isCompanyPreviewLoading,
+        companyPreviewData,
+        companyPreviewErrorMessage
+      } = this.props.companyPreviewReducer
 
-      const {hospitalEditErrorMessage} = this.props.HospitalEditReducer
+      const {companyEditErrorMessage} = this.props.companyUpdateReducer
 
-      const {deleteErrorMessage} = this.props.HospitalDeleteReducer
+      const {companyDeleteErrorMessage} = this.props.companyDeleteReducer
 
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+      //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       return (
         <ComposedComponent
           {...this.props}
           {...props}
           handleEnter={this.handleEnterPress}
-          hospitalData={hospitalData}
-          resetStateAddValues={this.resetHospitalStateValues}
+          companyData={companyData}
+          resetStateAddValues={this.resetCompanyStateValues}
           closeAlert={this.closeAlert}
           showConfirmModal={showConfirmModal}
           formValid={formValid}
           showAlert={showAlert}
           codeValid={codeValid}
           nameValid={nameValid}
-          errorMessageForHospitalCode={errorMessageForHospitalCode}
-          errorMessageForHospitalName={errorMessageForHospitalName}
+          errorMessageForHospitalCode={errorMessageForCompanyCode}
+          errorMessageForHospitalName={errorMessageForCompanyName}
           alertMessageInfo={alertMessageInfo}
           handleInputChange={this.handleOnChange}
           submitAddChanges={this.handleConfirmClick}
@@ -731,51 +654,41 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           handleSearchFormChange={this.handleSearchFormChange}
           deleteRemarksHandler={this.deleteRemarksHandler}
           resetSearch={this.handleSearchFormReset}
-          searchHospital={this.searchHospital}
+          searchCompany={this.searchCompany}
           handlePageChange={this.handlePageChange}
           onSubmitDeleteHandler={this.onSubmitDeleteHandler}
-          editHospital={this.editHospital}
+          editCompany={this.editCompany}
           onEditHandler={this.onEditHandler}
           onDeleteHandler={this.onDeleteHandler}
           onPreviewHandler={this.onPreviewHandler}
-          // appendSNToTable={this.appendSNToTable}
           setShowModal={this.setShowModal}
-          showHospitalModal={showHospitalModal}
+          showCompanyModal={showCompanyModal}
           showEditModal={showEditModal}
           deleteModalShow={deleteModalShow}
           searchParameters={searchParameters}
           queryParams={queryParams}
           deleteRequestDTO={deleteRequestDTO}
           totalRecords={totalRecords}
-          isSearchLoading={isSearchLoading}
-          hospitalList={this.appendSNToTable(hospitalList)}
-          searchErrorMessage={searchErrorMessage}
-          hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
-          deleteErrorMessage={deleteErrorMessage}
-          hospitalEditErrorMessage={hospitalEditErrorMessage}
-          isPreviewLoading={isPreviewLoading}
-          hospitalPreviewData={hospitalPreviewData}
+          isSearchLoading={isCompanySearchLoading}
+          hospitalList={this.appendSNToTable(companySearchData)}
+          searchErrorMessage={companySearchErrorMessage}
+          companyPreviewErrorMessage={companyPreviewErrorMessage}
+          deleteErrorMessage={companyDeleteErrorMessage}
+          companyEditErrorMessage={companyEditErrorMessage}
+          isPreviewLoading={isCompanyPreviewLoading}
+          companyPreviewData={companyPreviewData}
           addContactNumber={this.addContactNumber}
           removeContactNumber={this.removeContactNumber}
           editContactNumber={this.editContactNumber}
           contactLength={contactLength}
-          hospitalImage={hospitalImage}
+          companyImage={companyImage}
           onImageSelect={this.handleImageSelect}
-          hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-          hospitalFileCropped={hospitalFileCropped}
+          companyImageCroppedUrl={companyImageCroppedUrl}
+          companyFileCropped={companyFileCropped}
           showImageUploadModal={showImageUploadModal}
           handleCropImage={this.handleCropImage}
           handleImageUpload={this.handleImageUpload}
           setImageShow={this.setImageShowModal}
-          hospitalBannerImage={hospitalBannerImage}
-          hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
-          hospitalBannerFileCropped={hospitalBannerFileCropped}
-          showBannerUploadModal={showBannerUploadModal}
-          onBannerImageSelect={this.handleBannerSelect}
-          handleCropBannerImage={this.handleCropBannerImage}
-          handleBannerImageUpload={this.handleBannerImageUpload}
-          setShowBannerUploadModal={this.setShowBannerModal}
-          hospitalDropdown={hospitalsForDropdown}
         />
       )
     }
@@ -784,21 +697,21 @@ const CompanyHOC = (ComposedComponent, props, type) => {
   return ConnectHoc(
     CompanySetup,
     [
-      'HospitalSaveReducer',
-      'HospitalDeleteReducer',
-      'HospitalEditReducer',
-      'HospitalPreviewReducer',
-      'HospitalSearchReducer',
-      'HospitalDropdownReducer'
+      'companyDeleteReducer',
+      'companyDropdownReducer',
+      'companyPreviewReducer',
+      'companySaveReducer',
+      'companySearchReducer',
+      'companyUpdateReducer'
     ],
     {
-      clearHospitalCreateMessage,
-      createHospital,
-      deleteHospital,
-      editHospital,
-      previewHospital,
-      searchHospital,
-      fetchActiveHospitalsForDropdown
+      companyDelete,
+      companyDropdown,
+      previewCompany,
+      saveCompany,
+      searchCompany,
+      updateCompany,
+      clearMessages
     }
   )
 }

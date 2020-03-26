@@ -31,7 +31,7 @@ const intialSaveCompany = {
 const initialPreviewCompany = {
   isCompanyPreviewLoading: true,
   companyPreviewData: null,
-  companySaveErrorMessage: ''
+  companyPreviewErrorMessage: ''
 }
 
 const initialUpdateCompany = {
@@ -49,7 +49,6 @@ const initialDeleteCompany = {
 const initialSearchCompany = {
   isCompanySearchLoading: true,
   companySearchData: [],
-  totalItems: [],
   companySearchErrorMessage: ''
 }
 
