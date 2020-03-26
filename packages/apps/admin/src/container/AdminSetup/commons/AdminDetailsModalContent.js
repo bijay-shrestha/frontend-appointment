@@ -185,15 +185,40 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                     )}
                   </Col>
 
+               
+                  <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                    {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
+                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                    ) : null}
+                    <div>
+                      {adminInfoObj &&
+                       adminInfoObj.adminDashboardRequestDTOS.length
+                        ? adminInfoObj.adminDashboardRequestDTOS.map(
+                            (dash, ind) => {
+                              return dash.status === 'Y' ? (
+                                <div>
+                                <i className=" fa fa-check"></i> &nbsp; {dash.name} 
+                                </div>
+                              ) : (
+                                <div>
+                                <i className=" fa fa-close"></i>&nbsp; {dash.name}
+                                </div>
+                              )
+                            }
+                          )
+                        : null}
+                    </div>
+                  </Col>
+               
                   {adminInfoObj.hasMacBinding && (
                     <Col sm={12} md={12} lg={6}>
                       <>
-                        <Col className="mt-4 pl-0">
-                          {adminInfoObj.hasMacBinding ? (
+                        <Col className="mt-4 pl-0 mb-1 fw-500">
+                          {/* {adminInfoObj.hasMacBinding ? (
                             <i className=" fa fa-check"> </i>
                           ) : (
                             <i className=" fa fa-close"> </i>
-                          )}{' '}
+                          )}{' '} */}
                           Device Filter
                         </Col>
                         {adminInfoObj.hasMacBinding
@@ -201,6 +226,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                             ? adminInfoObj.macIdList.map((macId, index) => (
                                 <>
                                   <CFControl
+                                  className="mb-1"
                                     id="macId"
                                     key={'macId' + index}
                                     value={
@@ -218,25 +244,6 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                       </>
                     </Col>
                   )}
-                  <Col sm={12} md={12} lg={6}>
-                    {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
-                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
-                    ) : null}
-                    <div>
-                      {adminInfoObj &&
-                       adminInfoObj.adminDashboardRequestDTOS.length
-                        ? adminInfoObj.adminDashboardRequestDTOS.map(
-                            (dash, ind) => {
-                              return dash.status === 'Y' ? (
-                                <i className=" fa fa-check">{dash.name} </i>
-                              ) : (
-                                <i className=" fa fa-close">{dash.name}</i>
-                              )
-                            }
-                          )
-                        : null}
-                    </div>
-                  </Col>
                 </Row>
               </Col>
             </Row>

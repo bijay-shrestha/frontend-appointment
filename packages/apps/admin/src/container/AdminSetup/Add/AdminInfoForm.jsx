@@ -272,8 +272,38 @@ const AdminInfoForm = ({
                 </div>
               </Col>
 
-              {/* mac binding inputs */}
-              <Col sm={12} md={12} lg={6} className="py-4">
+             
+           
+              <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                    {dashboardFeatureData.length?<CFLabel labelName="Dashboard Role" id="dashboard-role" />:null}
+                    <div>
+                      {!isDashboardFeatureLoading &&
+                      !dashboardFeatureErrorMessage &&
+                      dashboardFeatureData.length ? (
+                        dashboardFeatureData.map((dash, ind) => {
+                          return (
+                            <CCheckbox
+                              checked={dash.status === 'Y'}
+                              id={'dash-radio' + dash.id+ind}
+                              label={dash.name}
+                              type="radio"
+                              value={dash.code}
+                              name="role-dashboard"
+                              onChange={event => onChangeDashBoardRole(event,dash)}
+                              className="module"
+                            />
+                          )
+                        })
+                      ) : dashboardFeatureErrorMessage &&
+                        !isDashboardFeatureLoading ? (
+                        <p>{dashboardFeatureErrorMessage}</p>
+                      ) : null}
+                    </div>
+                  </Col>
+                
+                
+               {/* mac binding inputs */}
+               <Col sm={12} md={12} lg={6} className="py-4">
                 <Row>
                   <Col>
                     {/* <label>Device Filter</label> */}
@@ -281,10 +311,11 @@ const AdminInfoForm = ({
                       id="admin-add-hasMacBinding"
                       name="hasMacBinding"
                       label="Device Filter"
-                      className="module"
+                     
                       checked={adminInfoObj.hasMacBinding}
                       onChange={event => onInputChange(event)}
                       onKeyDown={event => onEnterKeyPress(event)}
+                      className="module fw-500"
                     />
                   </Col>
                   {adminInfoObj.hasMacBinding ? (
@@ -353,34 +384,10 @@ const AdminInfoForm = ({
                       ''
                     )}
                   </Col>
-                  <Col sm={12} md={12} lg={6}>
-                    {dashboardFeatureData.length?<CFLabel labelName="Dashboard Role" id="dashboard-role" />:null}
-                    <div>
-                      {!isDashboardFeatureLoading &&
-                      !dashboardFeatureErrorMessage &&
-                      dashboardFeatureData.length ? (
-                        dashboardFeatureData.map((dash, ind) => {
-                          return (
-                            <CCheckbox
-                              checked={dash.status === 'Y'}
-                              id={'dash-radio' + dash.id+ind}
-                              label={dash.name}
-                              type="radio"
-                              value={dash.code}
-                              name="role-dashboard"
-                              onChange={event => onChangeDashBoardRole(event,dash)}
-                            />
-                          )
-                        })
-                      ) : dashboardFeatureErrorMessage &&
-                        !isDashboardFeatureLoading ? (
-                        <p>{dashboardFeatureErrorMessage}</p>
-                      ) : null}
-                    </div>
-                  </Col>
                 </Row>
               </Col>
-            </Row>
+             
+               </Row>
           </Col>
         </Row>
       </CForm>
