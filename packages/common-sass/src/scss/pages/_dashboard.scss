@@ -430,11 +430,11 @@
 
             .filter-message{
                 position: absolute;
-                top:40%;
                 left:50%;
+                top:30%;
                 width:100%;
                 height: 200px;
-                transform: translate(-50%,-40%);
+                transform: translate(-50%,-30%);
             }
         }
     }
