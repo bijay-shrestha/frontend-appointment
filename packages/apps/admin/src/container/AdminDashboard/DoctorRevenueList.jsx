@@ -33,12 +33,14 @@ const DoctorRevenueList = props => {
   } = props.doctorRevenue
   return (
     <>
-      {hospitalId.value ? (
-        <Row className="mt-4">
+      
+        <div className="doctor-revenue">
           <h5 className="title">Doctor Revenue</h5>
           <div className="app-log">
+          {hospitalId.value ? (
+            <>
             <Row>
-              <Col className="px-0">
+              <Col className="">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
                     <Col >
@@ -192,11 +194,20 @@ const DoctorRevenueList = props => {
                 )}
               </div>
             </Row>
-          </div>
-        </Row>
-      ) : (
-        ''
-      )}
+          
+          </>
+          ) : (
+            <div className="filter-message">
+            <div className="no-data">
+                <i class="fa fa-hand-o-up"></i>
+            </div>
+            <div className="message">Please select hosptial!.</div>
+        </div>
+            )}
+         </div>
+        </div>
+     
+   
     </>
   )
 }

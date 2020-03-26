@@ -88,6 +88,7 @@ const ProfileUpdateForm = ({
                 />
 
                 <CHybridTextArea
+                className="mt-3"
                     id="remarks"
                     name="remarks"
                     onChange={onInputChange}

@@ -34,6 +34,14 @@
         font-size:8px;
     }
 
+    .rev-total{
+        background-color:$gray-100;
+        color:$gray-900;
+        padding:4px;
+        margin-top:10px;
+        @include border-radius(4px);
+    }
+
     .hospital-list{
         width:300px;
         float:right;
@@ -47,14 +55,14 @@
                 bottom:26px;
                 padding-bottom:2px;
                 background-color: transparent;
-                margin-bottom:0px;
+                margin-bottom:2px;
                 font-size: 11px;
                 z-index: 99;
                 
             }
 
             .select-wrapper{
-                min-height: 34px;
+                min-height: 38px;
                 margin-left:4px;
                 
 
@@ -71,6 +79,7 @@
                     border-color:transparent !important;
                     border-bottom:1px solid $gray-500 !important;
                     //    min-height: 30px;
+            
                     @include border-radius(0);
             
                     &:hover{
@@ -80,6 +89,16 @@
                     }
 
             }
+
+            // .css-1hb7zxy-IndicatorsContainer{
+            //     padding:1px;
+            // }
+
+            // .css-tlfecz-indicatorContainer{
+            //     padding:1px;
+            // }
+
+          
 
             .css-1pahdxg-control{
                 border-color:transparent !important;
@@ -162,6 +181,10 @@
     //       }
 
     //     }
+    }
+
+    .react-datepicker-wrapper{
+        width:120px;
     }
 
     .react-datepicker__current-month{
@@ -346,9 +369,9 @@
 
     }
 
-    .chart {
+    .line-chart {
         background-color:$white;
-        padding:20px 40px;
+         padding:20px;
         width:100%;
         @include border-radius(0.5rem);
         // box-shadow:   -10px -10px 10px $gray-200,
@@ -366,14 +389,62 @@
         }
     }
 
-    .app-log{
-        background-color:$white;
-        padding:20px 40px;
-        width:100%;
-        // box-shadow:   -10px -10px 10px $gray-200,
-        // 10px 10px 10px $gray-400; 
-        @include border-radius(0.5rem);
+    .doctor-revenue{
+        height: 100%;
+        min-height: 300px;
+
+        .app-log{
+            background-color:$white;
+            padding:20px 40px;
+            width:100%;
+            height: calc(100% - 19px - 14px);
+            // box-shadow:   -10px -10px 10px $gray-200,
+            // 10px 10px 10px $gray-400; 
+            @include border-radius(0.5rem);
+
+            .filter-message{
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:100%;
+                height: 200px;
+                transform: translate(-50%,-50%);
+            }
+        }
     }
+
+    .appointment-queue{
+        height: 100%;
+        // margin-left:-15px;
+        //     margin-right:-15px;
+
+        .app-log{
+            
+            background-color:$white;
+            padding:20px 40px;
+            width:100%;
+            min-height: 500px;
+            // box-shadow:   -10px -10px 10px $gray-200,
+            // 10px 10px 10px $gray-400; 
+            @include border-radius(0.5rem);
+
+            .filter-message{
+                position: absolute;
+                top:40%;
+                left:50%;
+                width:100%;
+                height: 200px;
+                transform: translate(-50%,-40%);
+            }
+        }
+    }
+
+    .app-log{
+
+      
+    }
+
+  
 
 
     .overall-box{
@@ -474,9 +545,24 @@
 
     }
 
+    .separator-doc,.separator-date{
+        font-size: 14px;
+        font-weight: 500;
+
+    }
+
+    .separator-doc{
+        margin-top:10px;
+    }
+
     .date{
         padding:0;
         text-align:right;
+
+        .field-wrapper{
+        min-height:40px;   
+        }
+
         &>div{
             text-align:right;
             font-size: 10px;
@@ -490,7 +576,6 @@
         .form-control{
             border:0 solid transparent;
             border-bottom:1px solid $gray-500;
-            padding:0;
             @include border-radius(0);
            
         }
@@ -516,9 +601,18 @@
           ul li{
               line-height: 22px;
           }
+
+
       }
 
 
+}
+
+
+@include media-breakpoint-down(sm) {
+.doctor-revenue{
+    margin-top:1.5rem;
+}
 }
 
 // .dashboard-image{

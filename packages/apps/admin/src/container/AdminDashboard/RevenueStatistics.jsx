@@ -20,7 +20,7 @@ const RevenueStatistics = props => {
   } = props.generateRevenue
   return (
     <>
-      <Row>
+   
         <div className="revenue-box">
           {!isRevenueGeneratedYearLoading &&
           Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
@@ -112,7 +112,7 @@ const RevenueStatistics = props => {
             <span><p>{revenueGeneratedDayErrorMessage}</p></span>
           )}
         </div>
-      </Row>
+  
     </>
   )
 }

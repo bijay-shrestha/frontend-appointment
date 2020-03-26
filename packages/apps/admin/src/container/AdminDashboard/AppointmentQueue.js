@@ -19,11 +19,12 @@ const AppointmentQueue = props => {
   } = props.appointmentQueue;
  return ( 
 <>
-  {props.hospitalId.value?
-   <Row className="mt-4">
+ 
+   <div className="mt-4 appointment-queue">
     <h5 className="title">Appointment Queue</h5>
     <div className="app-log">
-      <Row>
+    {props.hospitalId.value?
+      <><Row>
         <Col className="px-0">
           <Form className="hospital-list float-left">
             <Form.Group as={Row} controlId="formPlaintextEmail">
@@ -142,8 +143,16 @@ const AppointmentQueue = props => {
         )}
       </div>
       </Row>
+    </>
+    :<div className="filter-message">
+    <div className="no-data">
+        <i class="fa fa-hand-o-up"></i>
     </div>
-  </Row>:''}
+    <div className="message">Please select hosptial!.</div>
+</div>
+}
+    </div>
+  </div>
  </> 
  )
 }

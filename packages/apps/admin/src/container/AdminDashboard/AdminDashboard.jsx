@@ -63,45 +63,64 @@ const AdminDashboard = props => {
                 className="top-hospital-list"
               />
             </Row>
+
+            <Row>
             {checkDashboardRole(generateRevenue.code) ? (
               <RevenueStatistics generateRevenue={generateRevenue} />
             ) : null}
-
+          </Row>
             <Row className="mt-1">
-              <Col lg={7}>
+           
                 {checkDashboardRole(revenueStatistics.code) ? (
+                   <Col md={6}>
                   <RevenueTrend
                     revenueStatistics={revenueStatistics}
                     onPillsClickHandler={onPillsClickHandler}
                     revenueFilter={revenueFilter}
                   />
+                  </Col>
                 ) : null}
 
-                {checkDashboardRole(appointmentQueue.code) ? (
+
+                {checkDashboardRole(doctorRevenue.code) ? (
+                  <Col md={6}>
+                  <DoctorRevenueList doctorRevenue={doctorRevenue} />
+                  </Col>
+                ) : null}
+           </Row>
+
+           <Row className="mt-1">
+
+              {checkDashboardRole(appointmentQueue.code) ? (
+                  <Col md={6}>
                   <AppointmentQueue
                     appointmentQueue={appointmentQueue}
                     hospitalId={hospitalId}
                   />
+                  </Col>
                 ) : null}
 
-                {checkDashboardRole(doctorRevenue.code) ? (
-                  <DoctorRevenueList doctorRevenue={doctorRevenue} />
-                ) : null}
-              </Col>
-              <Col lg={5} className="pr-0">
+              <Col  md={6}>
                 {checkDashboardRole(registeredPatients.code) ? (
+                    
                   <PatientStatistics registeredPatients={registeredPatients} />
+                  
                 ) : null}
+
                 {checkDashboardRole(appointmentList.code) ? (
+                  
                   <AppointmentStatistics
                     onPillsClickHandler={onPillsClickHandler}
                     type="appointment"
                     appointmentList={appointmentList}
                     appointmentFilter={appointmentFilter}
                   />
+                
                 ) : null}
-              </Col>
-            </Row>
+                  </Col>
+              </Row>
+            
+        
 
             {/* <Row>
               <Col>
