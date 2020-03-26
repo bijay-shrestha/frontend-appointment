@@ -1,20 +1,18 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {HospitalSetupMiddleware, CompanySetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './hospitalHoc.scss'
+import './companyHoc.scss'
 
 const {
-    clearHospitalCreateMessage,
-    createHospital,
-    deleteHospital,
-    editHospital,
-    previewHospital,
-    searchHospital,
-    fetchActiveHospitalsForDropdown
-    //downloadExcelForHospitals
-} = HospitalSetupMiddleware;
+     companyDelete,
+     companyDropdown,
+     previewCompany,
+     saveCompany,
+     searchCompany,
+     updateCompany
+} = CompanySetupMiddleware;
 
 const {hospitalSetupApiConstants} = AdminModuleAPIConstants;
 
