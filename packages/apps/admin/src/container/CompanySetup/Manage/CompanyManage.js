@@ -1,20 +1,20 @@
 import React, {memo} from 'react'
-import HospitalSetupSearchFilter from './HospitalSetupSearchFilter'
-import HospitalDetailsTable from './HospitalDetailsTable'
-import HospitalEditForm from './HospitalEditModal'
+import CompanySetupSearchFilter from './CompanySetupSearchFilter'
+import CompanyDetailsTable from './CompanyDetailsTable'
+import CompanyEditForm from './CompanyEditModal'
 import {CAlert} from '@frontend-appointment/ui-elements'
-import HospitalHoc from '../HospitalHoc';
-const HospitalManage = props => {
-    const SPManage = HospitalHoc(
+import CompanyHoc from '../CompanyHoc';
+const CompanyManage = props => {
+    const CompManage = CompanyHoc(
         ({
              searchParameters,
              handleSearchFormChange,
-             searchHospital,
+             searchCompany,
              resetSearch,
              handleEnter,
-             showHospitalModal,
+             showCompanyModal,
              isSearchLoading,
-             hospitalList,
+             companyList,
              searchErrorMessage,
              deleteModalShow,
              onEditHandler,
@@ -24,71 +24,71 @@ const HospitalManage = props => {
              onSubmitDeleteHandler,
              queryParams,
              totalRecords,
-             errorMessageForHospitalCode,
-             errorMessageForHospitalName,
+             errorMessageForCompanyCode,
+             errorMessageForCompanyName,
              alertMessageInfo,
              handleInputChange,
-             editHospital,
+             editCompany,
              downloadEXCEL,
              deleteRemarksHandler,
-             hospitalPreviewErrorMessage,
+             companyPreviewErrorMessage,
              deleteErrorMessage,
-             hospitalEditErrorMessage,
+             companyEditErrorMessage,
              isPreviewLoading,
-             hospitalPreviewData,
+             companyPreviewData,
              onPreviewHandler,
              showEditModal,
              formValid,
              deleteRequestDTO,
              showAlert,
              closeAlert,
-             hospitalData,
+             companyData,
              addContactNumber,
              removeContactNumber,
              editContactNumber,
-             hospitalImage,
-             hospitalImageCroppedUrl,
-             hospitalFileCropped,
+             companyImage,
+             companyImageCroppedUrl,
+             companyFileCropped,
              showImageUploadModal,
              onImageSelect,
              handleCropImage,
              handleImageUpload,
-             setImageShow,
-             hospitalDropdown,
-             hospitalBannerImage,
-             onBannerImageSelect,
-             hospitalBannerImageCroppedUrl,
-             hospitalBannerFileCropped,
-             showBannerUploadModal,
-             handleCropBannerImage,
-             handleBannerImageUpload,
-             setShowBannerUploadModal
+             setImageShow//,
+             //hospitalDropdown,
+            //  hospitalBannerImage,
+            //  onBannerImageSelect,
+            //  hospitalBannerImageCroppedUrl,
+            //  hospitalBannerFileCropped,
+            //  showBannerUploadModal,
+            //  handleCropBannerImage,
+            //  handleBannerImageUpload,
+            //  setShowBannerUploadModal
          }) => (
             <>
                 <div className="">
-                    <HospitalSetupSearchFilter
+                    <CompanySetupSearchFilter
                         searchParameters={searchParameters}
                         onInputChange={handleSearchFormChange}
-                        onSearchClick={() => searchHospital(1)}
+                        onSearchClick={() => searchCompany(1)}
                         resetSearchForm={resetSearch}
                         handleEnter={handleEnter}
-                        hospitalDropdown={hospitalDropdown}
+                       // hospitalDropdown={hospitalDropdown}
                     />
                 </div>
                 <div className=" mb-2">
-                    <HospitalDetailsTable
+                    <CompanyDetailsTable
                         filteredActions={props.filteredAction}
-                        showHospitalModal={showHospitalModal}
+                        showCompanyModal={showCompanyModal}
                         isSearchLoading={isSearchLoading}
-                        searchData={hospitalList}
+                        searchData={companyList}
                         searchErrorMessage={searchErrorMessage}
                         setShowModal={setShowModal}
                         onDeleteHandler={onDeleteHandler}
                         onEditHandler={onEditHandler}
                         isPreviewLoading={isPreviewLoading}
                         onPreviewHandler={onPreviewHandler}
-                        hospitalData={hospitalPreviewData}
-                        hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
+                        companyData={companyPreviewData}
+                        companyPreviewErrorMessage={companyPreviewErrorMessage}
                         totalItems={totalRecords}
                         maxSize={queryParams.size}
                         currentPage={queryParams.page}
@@ -103,40 +103,40 @@ const HospitalManage = props => {
                     />
                 </div>
                 {showEditModal && (
-                    <HospitalEditForm
+                    <CompanyEditForm
                         showModal={showEditModal}
                         setShowModal={setShowModal}
                         onEnterKeyPress={handleEnter}
-                        hospitalData={hospitalData}
+                        companyData={companyData}
                         onInputChange={handleInputChange}
-                        editApiCall={editHospital}
+                        editApiCall={editCompany}
                         formValid={formValid}
-                        errorMessageForHospitalCode={
-                            errorMessageForHospitalCode
+                        errorMessageForCompanyCode={
+                            errorMessageForCompanyCode
                         }
-                        errorMessageForSpecializationName={
-                            errorMessageForHospitalName
+                        errorMessageForCompanyName={
+                            errorMessageForCompanyName
                         }
-                        errorMessage={hospitalEditErrorMessage}
+                        errorMessage={companyEditErrorMessage}
                         addContactNumber={addContactNumber}
                         removeContactNumber={removeContactNumber}
                         editContactNumber={editContactNumber}
-                        hospitalImage={hospitalImage}
-                        hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-                        hospitalFileCropped={hospitalFileCropped}
+                        companyImage={companyImage}
+                        companyImageCroppedUrl={companyImageCroppedUrl}
+                        companyFileCropped={companyFileCropped}
                         showImageUploadModal={showImageUploadModal}
                         onImageSelect={onImageSelect}
                         handleCropImage={handleCropImage}
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
-                        hospitalBannerImage={hospitalBannerImage}
-                        hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
-                        hospitalBannerFileCropped={hospitalBannerFileCropped}
-                        showBannerUploadModal={showBannerUploadModal}
-                        onBannerImageSelect={onBannerImageSelect}
-                        handleCropBannerImage={handleCropBannerImage}
-                        handleBannerImageUpload={handleBannerImageUpload}
-                        setShowBannerUploadModal={setShowBannerUploadModal}
+                        // hospitalBannerImage={hospitalBannerImage}
+                        // hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                        // hospitalBannerFileCropped={hospitalBannerFileCropped}
+                        // showBannerUploadModal={showBannerUploadModal}
+                        // onBannerImageSelect={onBannerImageSelect}
+                        // handleCropBannerImage={handleCropBannerImage}
+                        // handleBannerImageUpload={handleBannerImageUpload}
+                        // setShowBannerUploadModal={setShowBannerUploadModal}
                     />
                 )}
                 <CAlert
@@ -165,6 +165,6 @@ const HospitalManage = props => {
         ),
         props, "M"
     )
-    return <SPManage/>
+    return <CompManage/>
 }
-export default memo(HospitalManage)
+export default memo(CompanyManage)

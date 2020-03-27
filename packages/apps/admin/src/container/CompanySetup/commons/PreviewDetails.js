@@ -1,16 +1,16 @@
-import React from 'react';
+import React,{memo} from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
 import DetailsModal from "./DetailsModal";
 
 const PreviewDetails = props => {
-    const {showModal, setShowModal, hospitalData} = props;
-    console.log('hospital Data::',hospitalData);
+    const {showModal, setShowModal, companyData} = props;
+    console.log('hospital Data::',companyData);
     return <>
         <CModal show={showModal}
-                modalHeading="Hospital Details"
+                modalHeading="Company Details"
                 size="lg"
                 bodyChildren={<DetailsModal
-                hospitalData={hospitalData}/>}
+                companyData={companyData}/>}
                 onHide={setShowModal}
                 centered={false}
                 dialogClassName="preview-modal"
@@ -20,4 +20,5 @@ const PreviewDetails = props => {
     </>
 };
 
-export default PreviewDetails;
+export default memo(PreviewDetails);
+

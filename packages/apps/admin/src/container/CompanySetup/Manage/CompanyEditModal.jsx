@@ -13,7 +13,7 @@ import {Col, Container, Row} from 'react-bootstrap'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 import DefaulHospitalImage from '../img/default-logo.png'
 
-const HospitalEditModal = ({
+const CompanyEditModal = ({
                                showModal,
                                setShowModal,
                                onEnterKeyPress,
@@ -433,4 +433,4 @@ const HospitalEditModal = ({
     )
 }
 
-export default memo(HospitalEditModal)
+export default memo(CompanyEditModal)

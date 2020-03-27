@@ -669,7 +669,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           deleteRequestDTO={deleteRequestDTO}
           totalRecords={totalRecords}
           isSearchLoading={isCompanySearchLoading}
-          hospitalList={this.appendSNToTable(companySearchData)}
+          companyList={this.appendSNToTable(companySearchData)}
           searchErrorMessage={companySearchErrorMessage}
           companyPreviewErrorMessage={companyPreviewErrorMessage}
           deleteErrorMessage={companyDeleteErrorMessage}

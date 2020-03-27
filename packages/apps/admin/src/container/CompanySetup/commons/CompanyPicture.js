@@ -1,7 +1,7 @@
 import React,{memo} from 'react';
 import DefaultPic from '../img/default-logo.png';
 
-const HospitalPicture = props => {
+const CompanyPicture = props => {
     return (
         <>
             {props.node.data.fileUri ? <div className="data-image"><img alt="PIC" src={props.node.data.fileUri}/> </div>:
@@ -14,4 +14,4 @@ const HospitalPicture = props => {
     );
 };
 
-export default memo(HospitalPicture);
+export default memo(CompanyPicture);
