@@ -268,9 +268,9 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
             editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
             companyLogoUrl: companyLogo,
-            companyLogo: new File([5120], hospitalLogo),
-            companyImage: new File([5120], hospitalLogo),
-            companyImageCroppedUrl: hospitalLogo
+            companyLogo: new File([5120], companyLogo),
+            companyImage: new File([5120], companyLogo),
+            companyImageCroppedUrl: companyLogo
           },
           formValid: formValid,
           nameValid: true
@@ -341,7 +341,6 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         name: name,
         companyCode: companyCode,
         status: status.value,
-        id: id
       }
 
       let updatedPage =

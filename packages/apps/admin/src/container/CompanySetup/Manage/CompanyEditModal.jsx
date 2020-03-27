@@ -55,7 +55,7 @@ const CompanyEditModal = ({
                   alt="COMPANY IMAGE"
                   src={
                     companyData.hospitalLogoUrl
-                      ? CompanyData.hospitalLogoUrl
+                      ? companyData.hospitalLogoUrl
                       : DefaulCompanyImage
                   }
                 />
@@ -96,7 +96,7 @@ const CompanyEditModal = ({
                   hasValidation={true}
                   max={100}
                   fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                  errorMessagePassed={errorMessageForHospitalName}
+                  errorMessagePassed={errorMessageForCompanyName}
                 />
               </Col>
 
@@ -108,7 +108,7 @@ const CompanyEditModal = ({
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Hospital Code"
+                  placeholder="Company Code"
                   value={companyData.companyCode}
                 />
               </Col>
@@ -121,7 +121,7 @@ const CompanyEditModal = ({
                     onInputChange(event, validity, 'E')
                   }
                   placeholder="Company Code"
-                  value={hospitalData.alias}
+                  value={companyData.alias}
                 />
               </Col>
 
@@ -154,7 +154,7 @@ const CompanyEditModal = ({
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Hospital Address"
+                  placeholder="Company Address"
                   value={companyData.address}
                   max={200}
                   required={true}
@@ -218,7 +218,7 @@ const CompanyEditModal = ({
 
                       <Col lg={12}>
                         <>
-                          {hospitalData.contactNumberUpdateRequestDTOS.map(
+                          {companyData.contactNumberUpdateRequestDTOS.map(
                             (phone, index) => (
                               <>
                                 <div className="contact-box mb-2">
@@ -232,7 +232,7 @@ const CompanyEditModal = ({
                                       editContactNumber(
                                         'contactNumberUpdateRequestDTOS',
                                         {
-                                          hospitalContactNumberId: phone.id,
+                                          companyContactNumberId: phone.id,
                                           contactNumber: event.target.value,
                                           status: 'Y'
                                         },
@@ -241,7 +241,7 @@ const CompanyEditModal = ({
                                       )
                                     }
                                   />
-                                  {hospitalData.contactNumberUpdateRequestDTOS
+                                  {companyData.contactNumberUpdateRequestDTOS
                                     .length >= 1 && (
                                     <CButton
                                       id="hospital-contact"
@@ -271,69 +271,14 @@ const CompanyEditModal = ({
                 </Row>
               </Col>
 
-              <Col sm={12} md={12} lg={6}>
-                <CHybridInput
-                  id="admin-refund-percentage"
-                  name="refundPercentage"
-                  type="number"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Refund Percentage"
-                  value={hospitalData.refundPercentage}
-                  required={true}
-                />
-              </Col>
+           
 
-              <Col sm={12} md={6} lg={6}>
-                <CCheckbox
-                  id="cogent-admin"
-                  name="isCogentAdmin"
-                  label="F1soft Group of Companies"
-                  className="module"
-                  checked={hospitalData.isCogentAdmin === 'Y'}
-                  onChange={event => onInputChange(event)}
-                  onKeyDown={event => onEnterKeyPress(event)}
-                />
-              </Col>
+            
+             
 
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="number-of-admins"
-                  name="numberOfAdmins"
-                  type="number"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Number Of Admins"
-                  value={hospitalData.numberOfAdmins}
-                  required={true}
-                />
-              </Col>
+          
 
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="number-of-free-followUps"
-                  name="numberOfFreeFollowUps"
-                  type="number"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Number Of Free Follow Ups"
-                  value={hospitalData.numberOfFreeFollowUps}
-                  required={true}
-                />
-              </Col>
-
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="follow-up-interval-days"
-                  name="followUpIntervalDays"
-                  type="number"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Follow Up Interval Days"
-                  value={hospitalData.followUpIntervalDays}
-                  required={true}
-                />
-              </Col>
+              
 
               <Col sm={12} md={12} lg={6}>
                 <CHybridTextArea
@@ -344,7 +289,7 @@ const CompanyEditModal = ({
                     onInputChange(event, validity, 'E')
                   }
                   placeholder="Remarks"
-                  value={hospitalData.remarks}
+                  value={companyData.remarks}
                   max={200}
                   required={true}
                 />
@@ -371,7 +316,7 @@ const CompanyEditModal = ({
           <div className="col-md-6">
             <CButton
               id="submit-update-button"
-              // disabled={!formValid}
+              disabled={!formValid}
               name="Update"
               variant="primary"
               size="lg"

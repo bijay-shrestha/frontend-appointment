@@ -166,7 +166,7 @@ const HospitalForm = ({
                         onInputChange(event, validity)
                       }
                       placeholder="Hospital Address"
-                      value={hospitalInfoObj.address}
+                      value={companyInfoObj.address}
                       max={200}
                       min={1}
                       required={true}
