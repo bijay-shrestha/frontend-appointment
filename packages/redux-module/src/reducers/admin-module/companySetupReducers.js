@@ -76,6 +76,7 @@ export const companySaveReducer = (state = {...intialSaveCompany}, action) => {
         companySaveSuccessMessage: '',
         companySaveErrorMessage: action.payload.message
       }
+      default:return {...state}
   }
 }
 
@@ -101,11 +102,11 @@ export const companyUpdateReducer = (
         companyEditErrorMessage: action.payload.message
       }
     case CLEAR_EDIT_MESSAGE:
-       return {
+      return {
         companyEditSuccessMessage: '',
         companyEditErrorMessage: ''
-       }  
-      
+      }
+      default:return {...state}
   }
 }
 
@@ -130,11 +131,12 @@ export const companyPreviewReducer = (
         companyPreviewData: null,
         companyPreviewErrorMessage: action.payload.message
       }
-     case CLEAR_PREVIEW_MESSAGE:
-        return {
-          companyPreviewData: null,
-          companyPreviewErrorMessage:''
-        } 
+    case CLEAR_PREVIEW_MESSAGE:
+      return {
+        companyPreviewData: null,
+        companyPreviewErrorMessage: ''
+      }
+      default:return {...state}
   }
 }
 
@@ -159,55 +161,66 @@ export const companySearchReducer = (
         companySearchData: null,
         companySearchErrorMessage: action.payload.message
       }
+      default:return {...state}
   }
+  
 }
 
 export const companyDropdownReducer = (
-    state = {...initialDropdownCompany},
-    action
-  ) => {
-    switch (action.type) {
-      case COMPANY_DROPDOWN_PENDING:
-        return {
-          ...state
-        }
-      case COMPANY_DROPDOWN_SUCCESS:
-        return {
-          isCompanyDropdownLoading: false,
-          companyDropdownData: action.payload.data,
-          companyDropdownErrorMessage: ''
-        }
-      case COMPANY_DROPDOWN_ERROR:
-        return {
-          isCompanyDropdownLoading: false,
-          companyDropdownData: null,
-          companyDropdownErrorMessage: action.payload.message
-        }
-    }
+  state = {...initialDropdownCompany},
+  action
+) => {
+  switch (action.type) {
+    case COMPANY_DROPDOWN_PENDING:
+      return {
+        ...state
+      }
+    case COMPANY_DROPDOWN_SUCCESS:
+      return {
+        isCompanyDropdownLoading: false,
+        companyDropdownData: action.payload.data,
+        companyDropdownErrorMessage: ''
+      }
+    case COMPANY_DROPDOWN_ERROR:
+      return {
+        isCompanyDropdownLoading: false,
+        companyDropdownData: null,
+        companyDropdownErrorMessage: action.payload.message
+      }
+    default:return {...state}  
   }
-  
-  export const companyDeleteReducer = (state = {...initialDeleteCompany}, action) => {
-    switch (action.type) {
-      case DELETE_COMPANY_PENDING:
-        return {
-          ...state
-        }
-      case DELETE_COMPANY_SUCCESS:
-        return {
-          isCompanyDeleteLoading: false,
-          companyDeleteSuccessMessage: action.payload.message,
-          companyDeleteErrorMessage: ''
-        }
-      case DELETE_COMPANY_ERROR:
-        return {
-          isCompanyDeleteLoading: false,
-          companyDeleteSuccessMessage: '',
-          companyDeleteErrorMessage: action.payload.message
-        }
-       case CLEAR_DELETE_MESSAGE:
-          return {
-            companyDeleteErrorMessage:'',
-            companyDeleteSuccessMessage:''
-          } 
-    }
+}
+
+export const companyDeleteReducer = (
+  state = {...initialDeleteCompany},
+  action
+) => {
+  switch (action.type) {
+    case DELETE_COMPANY_PENDING:
+      return {
+        ...state
+      }
+    case DELETE_COMPANY_SUCCESS:
+      return {
+        isCompanyDeleteLoading: false,
+        companyDeleteSuccessMessage: action.payload.message,
+        companyDeleteErrorMessage: ''
+      }
+    case DELETE_COMPANY_ERROR:
+      return {
+        isCompanyDeleteLoading: false,
+        companyDeleteSuccessMessage: '',
+        companyDeleteErrorMessage: action.payload.message
+      }
+    case CLEAR_DELETE_MESSAGE:
+      return {
+        companyDeleteErrorMessage: '',
+        companyDeleteSuccessMessage: ''
+      }
+
+    default:
+      return {
+        ...state
+      }
   }
+}
