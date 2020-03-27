@@ -1,20 +1,20 @@
 import React, {memo} from 'react'
 import * as Material from 'react-icons/md'
-import HospitalForm from './HospitalForm'
-import HospitalConfirmationModal from './HospitalConfirmModal'
+import CompanyForm from './CompanyForm'
+import CompanyConfirmationModal from './CompanyConfirmModal'
 import {Container, Row, Col} from 'react-bootstrap'
 import {CAlert, CButton} from '@frontend-appointment/ui-elements'
-import HospitalHoc from '../HospitalHoc'
+import CompanyHOC from '../CompanyHoc'
 
-function HospitalAdd(props) {
-    const HospitalAddSetup = HospitalHoc(
+function CompanyAdd(props) {
+    const CompanyAddSetup = CompanyHOC(
         ({
-             hospitalData,
+             companyData,
              handleEnter,
              formValid,
              resetStateAddValues,
-             errorMessageForHospitalCode,
-             errorMessageForHospitalName,
+             errorMessageForCompanyCode,
+             errorMessageForCompanyName,
              handleInputChange,
              setShowConfirmModal,
              showConfirmModal,
@@ -26,22 +26,14 @@ function HospitalAdd(props) {
              removeContactNumber,
              editContactNumber,
              contactLength,
-             hospitalImage,
-             hospitalImageCroppedUrl,
-             hospitalFileCropped,
+             companyImage,
+             companyImageCroppedUrl,
+             companyFileCropped,
              showImageUploadModal,
              onImageSelect,
              handleCropImage,
              handleImageUpload,
-             setImageShow,
-             hospitalBannerImage,
-             onBannerImageSelect,
-             hospitalBannerImageCroppedUrl,
-             hospitalBannerFileCropped,
-             showBannerUploadModal,
-             handleCropBannerImage,
-             handleBannerImageUpload,
-             setShowBannerUploadModal
+             setImageShow
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -58,32 +50,24 @@ function HospitalAdd(props) {
                             <i className="fa fa-refresh"/>
                         </>
                     </CButton>
-                    <HospitalForm
-                        hospitalInfoObj={hospitalData}
-                        errorMessageForHospitalName={errorMessageForHospitalName}
-                        errorMessageForHospitalCode={errorMessageForHospitalCode}
+                    <CompanyForm
+                        companyInfoObj={companyData}
+                        errorMessageForCompanyName={errorMessageForCompanyName}
+                        errorMessageForCompanyCode={errorMessageForCompanyCode}
                         onEnterKeyPress={handleEnter}
                         onInputChange={handleInputChange}
                         addContactNumber={addContactNumber}
                         removeContactNumber={removeContactNumber}
                         editContactNumber={editContactNumber}
                         contactLength={contactLength}
-                        hospitalImage={hospitalImage}
-                        hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-                        hospitalFileCropped={hospitalFileCropped}
+                        companyImage={companyImage}
+                        companyImageCroppedUrl={companyImageCroppedUrl}
+                        companyFileCropped={companyFileCropped}
                         showImageUploadModal={showImageUploadModal}
                         onImageSelect={onImageSelect}
                         handleCropImage={handleCropImage}
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
-                        hospitalBannerImage={hospitalBannerImage}
-                        hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
-                        hospitalBannerFileCropped={hospitalBannerFileCropped}
-                        showBannerUploadModal={showBannerUploadModal}
-                        onBannerImageSelect={onBannerImageSelect}
-                        handleCropBannerImage={handleCropBannerImage}
-                        handleBannerImageUpload={handleBannerImageUpload}
-                        setShowBannerUploadModal={setShowBannerUploadModal}
                     />
 
                     <Row className="mt-4">
@@ -96,14 +80,13 @@ function HospitalAdd(props) {
                                 disabled={!formValid}
                                 onClickHandler={setShowConfirmModal}
                             />
-                            <HospitalConfirmationModal
+                            <CompanyConfirmationModal
                                 showModal={showConfirmModal}
                                 setShowModal={setShowConfirmModal}
                                 onConfirmClick={submitAddChanges}
-                                hospitalData={hospitalData}
+                                companyData={companyData}
                                 type="A"
-                                hospitalImageCroppedUrl={hospitalImageCroppedUrl}
-                                hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                                companyImageCroppedUrl={companyImageCroppedUrl}
                             />
                         </Col>
                     </Row>
@@ -130,7 +113,7 @@ function HospitalAdd(props) {
         ),
         props
     );
-    return <HospitalAddSetup/>
+    return <CompanyAddSetup/>
 }
 
-export default HospitalAdd;
+export default CompanyAdd;

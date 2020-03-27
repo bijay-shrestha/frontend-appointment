@@ -1,7 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-  HospitalSetupMiddleware,
   CompanySetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
