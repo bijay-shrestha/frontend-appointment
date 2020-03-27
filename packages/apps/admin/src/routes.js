@@ -2,7 +2,6 @@ import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-
 const getLoader = () => <CLoading />
 /* ****** A ***** */
 
@@ -68,7 +67,14 @@ const AppointmentLogListComponent = loadable(
 /* ****** B ***** */
 
 /* ****** C ***** */
-
+const CompanyManageComponent = loadable(
+  () => import('./container/CompanySetup/Manage/CompanyManage'),
+  {fallback: () => getLoader()}
+)
+const CompanyAddComponent = loadable(
+  () => import('./container/CompanySetup/Add/CompanyAdd'),
+  {fallback: () => getLoader()}
+)
 /* ****** D ***** */
 
 const DashboardComponent = loadable(
@@ -162,7 +168,6 @@ const RescheduleLog = loadable(
   {fallback: () => getLoader()}
 )
 
-
 /* ****** S ***** */
 
 /* ****** T ***** */
@@ -207,24 +212,24 @@ export const routes = [
     isTab: false,
     name: 'Profile Setup'
   },
-//   {
-//     path: '/forgotPassword',
-//     name: '',
-//     component: ForgotPassword,
-//     icon: '',
-//     hasTab: false,
-//     isLink: false,
-//     isTab: false
-//   },
-//   {
-//     path: '/verifyToken',
-//     name: '',
-//     component: VerifyToken,
-//     icon: '',
-//     hasTab: false,
-//     isLink: false,
-//     isTab: false
-//   },
+  //   {
+  //     path: '/forgotPassword',
+  //     name: '',
+  //     component: ForgotPassword,
+  //     icon: '',
+  //     hasTab: false,
+  //     isLink: false,
+  //     isTab: false
+  //   },
+  //   {
+  //     path: '/verifyToken',
+  //     name: '',
+  //     component: VerifyToken,
+  //     icon: '',
+  //     hasTab: false,
+  //     isLink: false,
+  //     isTab: false
+  //   },
   {
     path: '/admin/generalSetup/profile/add',
     name: 'Add',
@@ -428,6 +433,24 @@ export const routes = [
     isLink: true,
     isTab: true,
     name: 'Manage'
+  },
+  {
+    path: '/admin/adminSetup/companySetup/add',
+    component: CompanyAddComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Add'
+  },
+  {
+    path: '/admin/adminSetup/companySetup/manage',
+    component: CompanyManageComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Add'
   },
   {
     path: '/admin/appointment/appointmentRefundRequest',
