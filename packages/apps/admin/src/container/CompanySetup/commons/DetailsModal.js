@@ -19,26 +19,26 @@ const DetailsModal = ({type, companyData}) => {
     })
     return contacts
   }
-  let images, contactNumber, bannerImages
+  let images, contactNumber
   if (type !== 'A') {
     images = [
       {
-        src: companyData.hospitalLogo
-          ? companyData.hospitalLogo
+        src: companyData.companyLogo
+          ? companyData.companyLogo
           : DefaultProfileImage,
         alt: 'LOGO',
         width: 4,
         height: 3
       }
     ]
-    bannerImages = [
-      {
-        src: companyData.hospitalBanner ? companyData.hospitalBanner : '',
-        alt: 'BANNER',
-        width: 4,
-        height: 3
-      }
-    ]
+    // bannerImages = [
+    //   {
+    //     src: companyData.hospitalBanner ? companyData.hospitalBanner : '',
+    //     alt: 'BANNER',
+    //     width: 4,
+    //     height: 3
+    //   }
+    // ]
     contactNumber = getOnlyContactNumber(companyData.contactNumberResponseDTOS)
   } else {
     images = [
@@ -51,14 +51,14 @@ const DetailsModal = ({type, companyData}) => {
         height: 3
       }
     ]
-    bannerImages = [
-      {
-        src: companyData.hospitalBannerUrl ? companyData.hospitalBannerUrl : '',
-        alt: 'BANNER',
-        width: 4,
-        height: 3
-      }
-    ]
+    // bannerImages = [
+    //   {
+    //     src: companyData.hospitalBannerUrl ? companyData.hospitalBannerUrl : '',
+    //     alt: 'BANNER',
+    //     width: 4,
+    //     height: 3
+    //   }
+    // ]
     contactNumber = companyData.contactNumber
   }
 
@@ -80,23 +80,6 @@ const DetailsModal = ({type, companyData}) => {
                       className="hospital-logo"
                     />
                   </div>
-                  {type !== 'A' ? (
-                    companyData.hospitalBanner ? (
-                      <CImageDisplayAndView
-                        images={bannerImages}
-                        className="hospital-banner"
-                      />
-                    ) : (
-                      ''
-                    )
-                  ) : companyData.hospitalBannerUrl ? (
-                    <CImageDisplayAndView
-                      images={bannerImages}
-                      className="hospital-banner"
-                    />
-                  ) : (
-                    ''
-                  )}
                 </div>
               </Col>
               <Col lg={12}>
@@ -105,7 +88,7 @@ const DetailsModal = ({type, companyData}) => {
                     <CHybridInput
                       id="hospital-name"
                       name="name"
-                      placeholder="Hospital Name"
+                      placeholder="Company Name"
                       value={companyData.name}
                       disabled={true}
                     />
@@ -115,8 +98,8 @@ const DetailsModal = ({type, companyData}) => {
                     <CHybridInput
                       id="hospital-code"
                       name="code"
-                      placeholder="Hospital Code"
-                      value={companyData.hospitalCode}
+                      placeholder="Company Code"
+                      value={companyData.compnanyCode}
                       disabled={true}
                     />
                   </Col>
@@ -125,7 +108,7 @@ const DetailsModal = ({type, companyData}) => {
                     <CHybridTextArea
                       id="Address"
                       name="address"
-                      placeholder="Hospital Address"
+                      placeholder="Company Address"
                       value={companyData.address}
                       disabled={true}
                     />
@@ -134,78 +117,26 @@ const DetailsModal = ({type, companyData}) => {
                     <CHybridInput
                       id="panNumber"
                       name="panNubmer"
-                      placeholder="Hospital PanNumber"
+                      placeholder="Company PanNumber"
                       value={companyData.panNumber}
                       disabled={true}
                     />
                   </Col>
 
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="refundPercentage"
-                      name="refundPercentage"
-                      placeholder="Refund Percentage"
-                      value={companyData.refundPercentage}
-                      disabled={true}
-                    />
-                  </Col>
-
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="numberOfAdmins"
-                      name="numberOfAdmins"
-                      placeholder="Number Of Admins"
-                      value={companyData.numberOfAdmins}
-                      disabled={true}
-                    />
-                  </Col>
-
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="numberOfFreeFollowUps"
-                      name="numberOfFreeFollowUps"
-                      placeholder="Number Of Free Follow Ups"
-                      value={companyData.numberOfFreeFollowUps}
-                      disabled={true}
-                    />
-                  </Col>
-
-                  <Col sm={12} md={6} lg={6}>
-                    <CHybridInput
-                      id="followUpIntervalDays"
-                      name="followUpIntervalDays"
-                      placeholder="Follow Up Interval Days"
-                      value={companyData.followUpIntervalDays}
-                      disabled={true}
-                    />
-                  </Col>
-
-                  {type !== 'A' &&
-                    companyData.remarks && (
-                      <Col sm={12} md={6} lg={6}>
-                        <CHybridInput
-                          id="hospital-remarks"
-                          name="remarks"
-                          placeholder="Hospital Remarks"
-                          value={companyData.remarks}
-                          disabled={true}
-                        />
-                      </Col>
-                    )}
-
-                  {companyData.isCogentAdmin && (
+                  {type !== 'A' && companyData.remarks && (
                     <Col sm={12} md={6} lg={6}>
-                      {companyData.isCogentAdmin === 'Y' ? (
-                        <i className="fa fa-check" />
-                      ) : (
-                        <i className="fa fa-crosshairs" />
-                      )}
-                      &nbsp; Only for Cogent Admin
+                      <CHybridInput
+                        id="hospital-remarks"
+                        name="remarks"
+                        placeholder="Company Remarks"
+                        value={companyData.remarks}
+                        disabled={true}
+                      />
                     </Col>
                   )}
 
                   <Col sm={12} md={6} lg={6}>
-                    <CFLabel labelName="Hospital Status" id="status" />
+                    <CFLabel labelName="Company Status" id="status" />
                     <CRadioButton
                       checked={companyData.status === 'Y'}
                       disabled={true}
