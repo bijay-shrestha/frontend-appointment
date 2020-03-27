@@ -312,10 +312,10 @@ const HospitalEditModal = ({
 
                             <Col sm={12} md={6} lg={6}>
                                 <CCheckbox id="cogent-admin"
-                                           name="isCogentAdmin"
+                                           name="isCompany"
                                            label="F1soft Group of Companies"
                                            className="module"
-                                           checked={hospitalData.isCogentAdmin === 'Y'}
+                                           checked={hospitalData.isCompany === 'Y'}
                                            onChange={(event) => onInputChange(event)}
                                            onKeyDown={(event) => onEnterKeyPress(event)}
                                 />

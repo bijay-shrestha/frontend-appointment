@@ -186,11 +186,11 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         </Col>
                                     )}
 
-                                    {hospitalData.isCogentAdmin &&
+                                    {hospitalData.isCompany &&
                                         <Col sm={12} md={6} lg={6}>
 
-                                            {hospitalData.isCogentAdmin === 'Y' ? <i className="fa fa-check" />
-                                                : <i className="fa fa-crosshairs" />}&nbsp; Only for Cogent Admin
+                                            {hospitalData.isCompany === 'Y' ? <i className="fa fa-check" />
+                                                : <i className="fa fa-crosshairs" />}&nbsp; F1soft Group of Companies
 
                                     </Col>
                                     }
