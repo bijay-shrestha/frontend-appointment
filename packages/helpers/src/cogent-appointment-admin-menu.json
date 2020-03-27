@@ -245,6 +245,7 @@
         }
       ]
     },
+    
     {
       "id": "14",
       "parentId": null,
@@ -312,6 +313,43 @@
       "menuFor": "6",
       "description": "patientInformation",
       "childMenus": []
+    },
+    {
+      "id": "18",
+      "parentId": null,
+      "name": "Admin Setup",
+      "path": "/adminSetup",
+      "roles": [],
+      "icon": "fa fa-calendar-plus-o ",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "adminsetup",
+      "childMenus": [
+        {
+          "id": "19",
+          "parentId": "18",
+          "name": "Company Setup",
+          "path": "/adminSetup/companySetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "companySetup",
+          "childMenus": []
+        }
+     
+      ]
     }
   ]
 }
