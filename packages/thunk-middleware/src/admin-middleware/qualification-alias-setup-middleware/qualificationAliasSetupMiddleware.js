@@ -68,3 +68,10 @@ export const fetchActiveQualificationAliasForDropdown = (path) => async dispatch
         throw e;
     }
 };
+
+export const clearSuccessErrorMessageFormStore = () => async dispatch => {
+  dispatch(QualificationAliasSetupActions.clearDeleteQualificationAliasMessage());
+  dispatch(QualificationAliasSetupActions.clearEditQualificationAliasMessage());
+  dispatch(QualificationAliasSetupActions.clearSaveQualificationAliasMessage());
+  dispatch(QualificationAliasSetupActions.clearSearchQualificationAliasMessage());
+};
