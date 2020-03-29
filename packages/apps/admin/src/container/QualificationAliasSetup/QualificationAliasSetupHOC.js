@@ -264,18 +264,24 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
 
         saveQualificationAlias = async (saveData) => {
             const {name, status} = saveData.data;
-            let requestDTO = {
-                name: name,
-                status: status && status.value
-            };
-            try {
-                const response = await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
-                this.showAlertMessage("success", this.props.QualificationAliasSaveReducer.saveSuccessMessage);
-                this.actionsOnOperationComplete();
-                return true
-            } catch (e) {
-                this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage);
-                return false;
+            if (!name || !status) {
+                if (!name && !status) this.showAlertMessage("warning", "Name and status must be not empty.");
+                else if (!name) this.showAlertMessage("warning", "Name should not  be empty.");
+                else if (!status) this.showAlertMessage("warning", "Status should not  be empty.")
+            } else {
+                let requestDTO = {
+                    name: name,
+                    status: status && status.value
+                };
+                try {
+                    const response = await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
+                    this.showAlertMessage("success", this.props.QualificationAliasSaveReducer.saveSuccessMessage);
+                    this.actionsOnOperationComplete();
+                    return true
+                } catch (e) {
+                    this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage);
+                    return false;
+                }
             }
         };
 
@@ -290,10 +296,16 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.defaultAliasValueForEdit.name = name;
             this.defaultAliasValueForEdit.status = status;
 
-            this.setState({
-                showEditRemarksModal: true,
-                aliasData: {...aliasData}
-            })
+            if (!name || !status) {
+                if (!name && !status) this.showAlertMessage("warning", "Name and status must be not empty.");
+                else if (!name) this.showAlertMessage("warning", "Name should not  be empty.");
+                else if (!status) this.showAlertMessage("warning", "Status should not  be empty.")
+            } else {
+                this.setState({
+                    showEditRemarksModal: true,
+                    aliasData: {...aliasData}
+                })
+            }
         };
 
         closeModal = () => {
