@@ -40,7 +40,8 @@ const HospitalEditModal = ({
                                showBannerUploadModal,
                                handleCropBannerImage,
                                handleBannerImageUpload,
-                               setShowBannerUploadModal
+                               setShowBannerUploadModal,
+                               isHospitalEditLoading
                            }) => {
     const bodyContent = (
         <>
@@ -51,7 +52,7 @@ const HospitalEditModal = ({
                     <div className="hospital-banner-container">
                     <div className="">
                                 <img
-                                    alt="HOSPITAL BANNER"
+                                    alt="CLIENT BANNER"
                                     className="hospital-banner"
                                     src={hospitalData.hospitalBannerUrl ? hospitalData.hospitalBannerUrl : DefaulHospitalImage}
                                 />
@@ -59,7 +60,7 @@ const HospitalEditModal = ({
                         <div className="image-upload-container">
                             <div className="image-box">
                                 <img
-                                    alt="HOSPITAL IMAGE"
+                                    alt="CLIENT IMAGE"
                                     src={
                                         hospitalData.hospitalLogoUrl
                                             ? hospitalData.hospitalLogoUrl
@@ -126,7 +127,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Name"
+                                    placeholder="Client Name"
                                     value={hospitalData.name}
                                     required={true}
                                     hasValidation={true}
@@ -145,10 +146,24 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Code"
+                                    placeholder="Client Code"
                                     value={hospitalData.hospitalCode}
                                     required={true}
                                     disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="alias"
+                                    name="alias"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    placeholder="Alias"
+                                    value={hospitalData.alias}
+                                    required={true}
+                                    max={10}
+                                    min={2}
                                 />
                             </Col>
 
@@ -161,12 +176,12 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Pan Number"
+                                    placeholder="Client PAN Number"
                                     value={hospitalData.panNumber}
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     hasValidation={true}
                                     max={9}
-                                    errorMessagePassed={'Pan number should only be alphanumber and of 9 max characters'}
+                                    errorMessagePassed={'Pan number should only be alpha-number and of 9 max characters'}
                                     required={true}
 
                                 />
@@ -180,37 +195,26 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Address"
+                                    placeholder="Client Address"
                                     value={hospitalData.address}
                                     max={200}
                                     required={true}
                                 />
                             </Col>
 
-
-                            <Col sm={12} md={12} lg={6}>
-                                <CFLabel labelName="Status" id="status"></CFLabel>
-                                <CRadioButton
-                                    checked={hospitalData.status === 'Y'}
-                                    onKeyDown={event => onEnterKeyPress(event)}
-                                    id="radio1"
-                                    label="Active"
-                                    type="radio"
-                                    name="status"
-                                    value="Y"
-                                    onChange={event => onInputChange(event, '', 'E')}
-                                />
-                                <CRadioButton
-                                    checked={hospitalData.status === 'N'}
-                                    onKeyDown={event => onEnterKeyPress(event)}
-                                    id="radio2"
-                                    label="Inactive"
-                                    type="radio"
-                                    name="status"
-                                    value="N"
-                                    onChange={event => onInputChange(event, '', 'E')}
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="number-of-admins"
+                                    name="numberOfAdmins"
+                                    type="number"
+                                    onKeyDown={(event) => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    placeholder="Number Of Admins"
+                                    value={hospitalData.numberOfAdmins}
+                                    required={true}
                                 />
                             </Col>
+
 
                             <Col sm={12} md={12} lg={6} className="py-4">
                                 <Row>
@@ -252,7 +256,7 @@ const HospitalEditModal = ({
                                                                         id="hospitalContactNumber"
                                                                         key={'phone' + index}
                                                                         value={phone.contactNumber}
-                                                                        placeholder="Enter Contact Number"
+                                                                        placeholder="Client Contact Number"
                                                                         // isInvalid={Boolean(macId.errorMessage)}
                                                                         onChange={event =>
                                                                             editContactNumber(
@@ -298,6 +302,30 @@ const HospitalEditModal = ({
                             </Col>
 
                             <Col sm={12} md={12} lg={6}>
+                                <CFLabel labelName="Status" id="status"/>
+                                <CRadioButton
+                                    checked={hospitalData.status === 'Y'}
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    name="status"
+                                    value="Y"
+                                    onChange={event => onInputChange(event, '', 'E')}
+                                />
+                                <CRadioButton
+                                    checked={hospitalData.status === 'N'}
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    name="status"
+                                    value="N"
+                                    onChange={event => onInputChange(event, '', 'E')}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
                                     id="admin-refund-percentage"
                                     name="refundPercentage"
@@ -310,29 +338,17 @@ const HospitalEditModal = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={6} lg={6}>
-                                <CCheckbox id="cogent-admin"
-                                           name="isCompany"
-                                           label="F1soft Group of Companies"
-                                           className="module"
-                                           checked={hospitalData.isCompany === 'Y'}
-                                           onChange={(event) => onInputChange(event)}
-                                           onKeyDown={(event) => onEnterKeyPress(event)}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CCheckbox id="cogent-admin"*/}
+                            {/*               name="isCompany"*/}
+                            {/*               label="F1soft Group of Companies"*/}
+                            {/*               className="module"*/}
+                            {/*               checked={hospitalData.isCompany === 'Y'}*/}
+                            {/*               onChange={(event) => onInputChange(event)}*/}
+                            {/*               onKeyDown={(event) => onEnterKeyPress(event)}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
 
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="number-of-admins"
-                                    name="numberOfAdmins"
-                                    type="number"
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
-                                    placeholder="Number Of Admins"
-                                    value={hospitalData.numberOfAdmins}
-                                    required={true}
-                                />
-                            </Col>
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
@@ -341,7 +357,7 @@ const HospitalEditModal = ({
                                     type="number"
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event, validity) => onInputChange(event, validity)}
-                                    placeholder="Number Of Free Follow Ups"
+                                    placeholder="Number Of Follow Ups"
                                     value={hospitalData.numberOfFreeFollowUps}
                                     required={true}
                                 />
@@ -396,8 +412,8 @@ const HospitalEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            // disabled={!formValid}
-                            name="Update"
+                            disabled={!formValid || isHospitalEditLoading}
+                            name={isHospitalEditLoading? "Updating":"Update"}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"
@@ -420,7 +436,7 @@ const HospitalEditModal = ({
         <>
             <CModal
                 show={showModal}
-                modalHeading="Hospital Details"
+                modalHeading="Client Details"
                 size="lg"
                 bodyChildren={bodyContent}
                 onHide={setShowModal}

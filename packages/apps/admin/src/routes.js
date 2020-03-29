@@ -354,7 +354,7 @@ export const routes = [
         isTab: true
     },
     {
-        path: '/admin/generalSetup/hospital/add',
+        path: '/admin/generalSetup/client/add',
         component: AddHospitalComponent,
         icon: '',
         hasTab: true,
@@ -363,7 +363,7 @@ export const routes = [
         name: 'Add'
     },
     {
-        path: '/admin/generalSetup/hospital/manage',
+        path: '/admin/generalSetup/client/manage',
         component: ManageHospitalComponent,
         icon: '',
         hasTab: true,
@@ -372,13 +372,13 @@ export const routes = [
         name: 'Manage'
     },
     {
-        path: '/admin/generalSetup/hospital',
+        path: '/admin/generalSetup/client',
         component: <></>,
         icon: '',
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Hospital Setup'
+        name: 'Client Setup'
     },
     {
         path: '/admin/generalSetup/qualification/add',

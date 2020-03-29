@@ -2,13 +2,19 @@ import React from 'react'
 import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
-const HospitalConfirmationModal = props => {
-    const {showModal, setShowModal, hospitalData, onConfirmClick, type,} = props;
+const HospitalConfirmationModal = ({
+                                       showModal,
+                                       setShowModal,
+                                       hospitalData,
+                                       onConfirmClick,
+                                       type,
+                                       createHospitalLoading
+                                   }) => {
     return (
         <>
             <CModal
                 show={showModal}
-                modalHeading="Hospital Details"
+                modalHeading="Client Details"
                 size="lg"
                 bodyChildren={
                     <DetailsModal
@@ -23,6 +29,8 @@ const HospitalConfirmationModal = props => {
                     <CButton
                         id="hospitalConfirm"
                         variant="primary"
+                        disabled={createHospitalLoading}
+                        name={createHospitalLoading ? 'Confirming' : "Confirm"}
                         size="lg"
                         className="float-right btn-action"
                         onClickHandler={onConfirmClick}

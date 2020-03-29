@@ -98,8 +98,8 @@
         {
           "id": "6",
           "parentId": "1",
-          "name": "Hospital Setup",
-          "path": "/generalSetup/hospital",
+          "name": "Client Setup",
+          "path": "/generalSetup/client",
           "roles": [
             2,
             3,
