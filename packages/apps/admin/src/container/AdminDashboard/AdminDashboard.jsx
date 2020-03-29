@@ -72,7 +72,7 @@ const AdminDashboard = props => {
             <Row className="mt-1">
            
                 {checkDashboardRole(revenueStatistics.code) ? (
-                   <Col md={6}>
+                   <Col md={6} className="p-0">
                   <RevenueTrend
                     revenueStatistics={revenueStatistics}
                     onPillsClickHandler={onPillsClickHandler}
@@ -83,7 +83,7 @@ const AdminDashboard = props => {
 
 
                 {checkDashboardRole(doctorRevenue.code) ? (
-                  <Col md={6}>
+                  <Col md={6} className="pr-0">
                   <DoctorRevenueList doctorRevenue={doctorRevenue} />
                   </Col>
                 ) : null}
@@ -92,7 +92,7 @@ const AdminDashboard = props => {
            <Row className="mt-1">
 
               {checkDashboardRole(appointmentQueue.code) ? (
-                  <Col md={6}>
+                  <Col md={6} className="p-0">
                   <AppointmentQueue
                     appointmentQueue={appointmentQueue}
                     hospitalId={hospitalId}
@@ -100,7 +100,7 @@ const AdminDashboard = props => {
                   </Col>
                 ) : null}
 
-              <Col  md={6}>
+              <Col  md={6} className="pr-0">
                 {checkDashboardRole(registeredPatients.code) ? (
                     
                   <PatientStatistics registeredPatients={registeredPatients} />

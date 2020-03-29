@@ -73,12 +73,13 @@
               .css-1hwfws3{
                   padding:0;
               }
+             
 
               .css-yk16xz-control{
                     background-color:transparent;
                     border-color:transparent !important;
                     border-bottom:1px solid $gray-500 !important;
-                    //    min-height: 30px;
+                //    min-height: 0px !important;
             
                     @include border-radius(0);
             
@@ -87,6 +88,11 @@
                         border-bottom:1px solid $gray-500 !important;
                     }
                     }
+
+               
+            //    .css-tlfecz-indicatorContainer{
+            //        padding:2px !important;
+            //    }
 
             }
 
