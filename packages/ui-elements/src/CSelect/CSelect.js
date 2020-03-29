@@ -68,11 +68,13 @@ class CSelect extends PureComponent {
             placeholder,
             styles,
             theme,
-            value
+            value,
+            innerRef
         } = this.props;
         return (
             <>
                 <Select
+                    ref={innerRef}
                     autoFocus={autoFocus}
                     backspaceRemovesValue={backspaceRemovesValue}
                     blurInputOnSelect={blurInputOnSelect}

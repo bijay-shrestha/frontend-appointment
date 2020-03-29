@@ -1,7 +1,9 @@
 import React from 'react';
-import {CFControl, CPagination, CTable, CLoading, CSelect} from "@frontend-appointment/ui-elements";
+import {CFControl, CLoading, CPagination, CSelect, CTable} from "@frontend-appointment/ui-elements";
 import StatusRenderer from "../CommonComponents/table-components/StatusRenderer";
-import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
+import {ActionFilterUtils} from "@frontend-appointment/helpers";
+
+const {checkIfRoleExists} = ActionFilterUtils;
 
 const QualificationAliasDataTable = ({tableData}) => {
     const {
@@ -13,20 +15,12 @@ const QualificationAliasDataTable = ({tableData}) => {
         totalItems,
         handlePageChange,
         aliasData,
-        handleInputChange,
         handleCancel,
         handleEdit,
         handleSave,
         handleUpdate,
-        handleUpdateConfirm,
         handleDelete,
-        handleDeleteSubmit,
-        showEditRemarksModal,
-        onRemarksModalClose,
-        editErrorMessage,
         formValid,
-        deleteErrorMessage,
-        showDeleteModal
     } = tableData;
     return <>
         <div className="manage-details">
@@ -43,8 +37,9 @@ const QualificationAliasDataTable = ({tableData}) => {
                                     editComponent: prop => <CFControl
                                         id="name"
                                         name='name'
-                                        onChange={handleInputChange}
-                                        value={aliasData.name}
+                                        type="text"
+                                        reference={prop.reff}
+                                        defaultValue={aliasData.name}
                                     />,
                                 },
                                 {
@@ -54,6 +49,7 @@ const QualificationAliasDataTable = ({tableData}) => {
                                         {...prop}
                                         id="status"
                                         name='status'
+                                        innerRef={prop.reff}
                                         options={[
                                             {
                                                 label: 'Active', value: 'Y'
@@ -62,11 +58,10 @@ const QualificationAliasDataTable = ({tableData}) => {
                                                 label: 'Inactive', value: 'N'
                                             },
                                         ]}
-                                        onChange={handleInputChange}
-                                        value={aliasData.status}
+                                        defaultValue={aliasData.status}
                                     />,
                                     displayComponent: prop => <StatusRenderer {...prop}/>
-                                },
+                                }
                             ]}
                             rowValid={formValid}
                             rowData={qualificationAliasList}
@@ -76,6 +71,9 @@ const QualificationAliasDataTable = ({tableData}) => {
                             footerClassName="table-footer"
                             onCancel={handleCancel}
                             onEdit={handleEdit}
+                            // onSave={checkIfRoleExists(filteredAction, 2) ? handleSave : ''}
+                            // onUpdate={checkIfRoleExists(filteredAction, 3) ? handleUpdate : ''}
+                            // onDelete={checkIfRoleExists(filteredAction, 5) ? handleDelete : ''}
                             onSave={handleSave}
                             onUpdate={handleUpdate}
                             onDelete={handleDelete}
@@ -101,34 +99,6 @@ const QualificationAliasDataTable = ({tableData}) => {
                     <CLoading/>
                 )}
         </div>
-
-        {showEditRemarksModal ?
-            <CRemarksModal
-                confirmationMessage="Provide remarks for edit."
-                modalHeader="Edit Qualification"
-                showModal={showEditRemarksModal}
-                onCancel={onRemarksModalClose}
-                onRemarksChangeHandler={handleInputChange}
-                remarks={aliasData.remarks}
-                onPrimaryAction={handleUpdateConfirm}
-                primaryActionName={"Confirm"}
-                errorMessage={editErrorMessage}
-            />
-            : ''
-        }
-        {showDeleteModal ?
-            <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Qualification Alias? If yes please provide remarks."
-                modalHeader="Delete Qualification Alias"
-                showModal={showDeleteModal}
-                setShowModal={onRemarksModalClose}
-                onDeleteRemarksChangeHandler={handleInputChange}
-                remarks={aliasData.remarks}
-                onSubmitDelete={handleDeleteSubmit}
-                deleteErrorMessage={deleteErrorMessage}
-            />
-            : ''
-        }
     </>;
 };
 

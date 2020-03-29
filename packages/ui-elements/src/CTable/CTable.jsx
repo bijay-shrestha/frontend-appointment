@@ -15,8 +15,25 @@ class CTable extends PureComponent {
         rowDataUnderAction: {}
     };
 
-    handleInputChange = (e) => {
+    refs = this.props.columnDefinition.map(column => {
+        this[`component${column.field}`] = React.createRef();
+    });
 
+    prepareData = () => {
+        let dataToSave = {...this.state.rowDataUnderAction};
+        this.props.columnDefinition.map(column => {
+            let currentElement = this[`component${column.field}`].current;
+            let currentElementProps = Object.keys(currentElement);
+            if (currentElementProps.includes('value')) {
+                dataToSave[column.field] = currentElement.value;
+            } else if (currentElementProps.includes('checked')) {
+                dataToSave[column.field] = currentElement.checked;
+            } else if (currentElementProps.includes('state')) {
+                dataToSave[column.field] = currentElement.state.value ? currentElement.state.value
+                    : currentElement.state.checked
+            }
+        });
+        return dataToSave;
     };
 
     handleAddNewRow = () => {
@@ -86,8 +103,9 @@ class CTable extends PureComponent {
         const {isEditing, rowNumber} = this.state;
         let isEditingRow = isEditing,
             rowNumberSaved = rowNumber;
+        let dataToSave = this.prepareData();
 
-        const isSaved = await this.props.onSave(data);
+        const isSaved = await this.props.onSave({data: dataToSave, rowIndex: data.rowIndex});
         if (isSaved) {
             isEditingRow = false;
             rowNumberSaved = ''
@@ -104,8 +122,9 @@ class CTable extends PureComponent {
         const {isEditing, rowNumber} = this.state;
         let isEditingRow = isEditing,
             rowNumberSaved = rowNumber;
+        let editData = this.prepareData();
 
-        const isUpdated = await this.props.onUpdate(data);
+        const isUpdated = await this.props.onUpdate({data: editData, rowIndex: data.rowIndex});
         // if (isUpdated) {
         //     isEditingRow = false;
         //     rowNumberSaved = ''
@@ -119,11 +138,11 @@ class CTable extends PureComponent {
     };
 
     handleDelete = (deleteRow) => {
-      this.props.onDelete(deleteRow.data);
+        this.props.onDelete(deleteRow.data);
     };
 
-    handlePreview = (previewData)=>{
-      this.props.onPreview(previewData.data);
+    handlePreview = (previewData) => {
+        this.props.onPreview && this.props.onPreview(previewData.data);
     };
 
     handleCancel = (data, type) => {
@@ -252,17 +271,23 @@ class CTable extends PureComponent {
             headerClassName,
             bodyClassName,
             footerClassName,
-            rowValid
+            rowValid,
+            onSave
         } = this.props;
-        const {tableData, isEditing, rowNumber} = this.state;
+        const {tableData, isEditing, rowNumber, rowDataUnderAction} = this.state;
         return <>
             <div id={id}>
-                <CButton
-                    id="add-new"
-                    name="Add"
-                    disabled={isEditing}
-                    onClickHandler={this.handleAddNewRow}
-                />
+                {
+                    onSave ?
+                        <CButton
+                            id="add-new"
+                            name="Add"
+                            disabled={isEditing}
+                            onClickHandler={this.handleAddNewRow}
+                        />
+                        : ''
+                }
+
                 <Table
                     className={headerClassName}
                     id={id}
@@ -289,7 +314,7 @@ class CTable extends PureComponent {
                     </thead>
                 </Table>
                 <Scrollbars
-                    id="menus"
+                    id="table-body"
                     autoHide={true}
                     style={{height: 400}}>
                     <Table
@@ -317,16 +342,20 @@ class CTable extends PureComponent {
                                                             <column.editComponent
                                                                 node={{
                                                                     data: row,
-                                                                    rowIndex: rowIndex
+                                                                    rowIndex: rowIndex,
+                                                                    columnIndex: colIndex
                                                                 }}
-                                                                onChange={this.handleInputChange}
+                                                                reff={this[`component${column.field}`]}
                                                             /> :
                                                             Object.keys(column).includes('displayComponent') ?
                                                                 <column.displayComponent
                                                                     node={{
                                                                         data: row,
-                                                                        rowIndex: rowIndex
-                                                                    }}/>
+                                                                        rowIndex: rowIndex,
+                                                                        columnIndex: colIndex
+                                                                    }}
+                                                                    reff={this[`component${column.field}`]}
+                                                                />
                                                                 : row[column.field]
 
                                                     }
@@ -338,9 +367,10 @@ class CTable extends PureComponent {
                                     }
                                     <td>
                                         <ActionForEditableTable
+                                            {...this.props}
                                             node={{
                                                 data: row,
-                                                rowIndex: rowIndex
+                                                rowIndex: rowIndex,
                                             }}
                                             rowNumber={rowNumber}
                                             isEditing={isEditing}

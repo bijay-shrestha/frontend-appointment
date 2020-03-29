@@ -7,11 +7,12 @@ const CCheckbox = props => {
     const {
         id,
         label,
-        ref,
+        reference,
         checked,
         children,
         className,
         custom,
+        defaultChecked,
         disabled,
         feedback,
         inline,
@@ -30,11 +31,12 @@ const CCheckbox = props => {
             id={'checkbox'.concat('_').concat(id)}
             label={label}
             type="checkbox"
-            _ref={ref}
+            ref={reference}
             checked={checked}
             children={children}
             className={className}
             custom={custom}
+            defaultChecked={defaultChecked}
             disabled={disabled}
             feedback={feedback}
             inline={inline}
@@ -61,7 +63,7 @@ CCheckbox.propTypes = {
         PropTypes.string.isRequired,
         PropTypes.node
     ]),
-    _ref: PropTypes.oneOfType([
+    ref: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({current: PropTypes.instanceOf(Element)})
     ]),
@@ -69,6 +71,7 @@ CCheckbox.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     custom: PropTypes.bool,
+    defaultChecked:PropTypes.bool,
     disabled: PropTypes.bool,
     feedback: PropTypes.node,
     inline: PropTypes.bool,

@@ -6,6 +6,7 @@ import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-co
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import "./qualification-alias.scss";
+import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 
 const {
     searchQualificationAlias,
@@ -51,7 +52,16 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             },
             actionType: '',
             showEditRemarksModal: false,
-            showDeleteModal: false
+            showDeleteModal: false,
+
+        };
+
+        defaultAliasValueForEdit = {
+            id: '',
+            name: '',
+            status: {value: 'Y', label: 'Active'},
+            remarks: '',
+            isNew: true
         };
 
         alertTimer = '';
@@ -138,13 +148,17 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         };
 
         handleEdit = async (editData) => {
-            let currentAliasData = {...this.state.aliasData};
-            currentAliasData.id = editData.id;
-            currentAliasData.name = editData.name;
-            currentAliasData.status = {value: 'Y', label: 'Active'};
-            await this.setState({
-                aliasData: {...currentAliasData}
-            });
+            // let currentAliasData = {...this.state.defaultAliasValueForEdit};
+            // currentAliasData.id = editData.id;
+            // currentAliasData.name = editData.name;
+            // currentAliasData.status = {value: 'Y', label: 'Active'};
+            // await this.setState({
+            //     defaultAliasValueForEdit: {...currentAliasData}
+            // });
+            this.defaultAliasValueForEdit.id = editData.id;
+            this.defaultAliasValueForEdit.name = editData.name;
+            this.defaultAliasValueForEdit.status = {value: 'Y', label: 'Active'};
+
             this.checkFormValidity();
         };
 
@@ -161,7 +175,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             const {name, status} = this.state.aliasData;
             let formValid = name && status;
             this.setState({
-                formValid: formValid
+                formValid: Boolean(formValid)
             })
         };
 
@@ -248,8 +262,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
 
         };
 
-        saveQualificationAlias = async () => {
-            const {name, status} = this.state.aliasData;
+        saveQualificationAlias = async (saveData) => {
+            const {name, status} = saveData.data;
             let requestDTO = {
                 name: name,
                 status: status && status.value
@@ -260,14 +274,25 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 this.actionsOnOperationComplete();
                 return true
             } catch (e) {
-                this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage)
+                this.showAlertMessage("danger", this.props.QualificationAliasSaveReducer.saveErrorMessage);
                 return false;
             }
         };
 
-        openEditRemarksModal = () => {
+        openEditRemarksModal = (updateData) => {
+            const {id, name, status} = updateData.data;
+            let aliasData = {...this.state.aliasData};
+            aliasData.id = id;
+            aliasData.name = name;
+            aliasData.status = status;
+
+            this.defaultAliasValueForEdit.id = id;
+            this.defaultAliasValueForEdit.name = name;
+            this.defaultAliasValueForEdit.status = status;
+
             this.setState({
-                showEditRemarksModal: true
+                showEditRemarksModal: true,
+                aliasData: {...aliasData}
             })
         };
 
@@ -275,7 +300,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showEditRemarksModal: false,
                 showDeleteModal: false
-            })
+            });
+            this.resetAliasData();
         };
 
         editQualificationAlias = async () => {
@@ -346,6 +372,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
 
             return <>
                 <ComposedComponent
+                    {...props}
                     tableData={{
                         qualificationAliasList: qualificationAlias,
                         isSearchQualificationAliasLoading,
@@ -354,7 +381,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         maxSize: queryParams.size,
                         totalItems: totalRecords,
                         handlePageChange: this.handlePageChange,
-                        aliasData: aliasData,
+                        aliasData: this.defaultAliasValueForEdit,
                         handleInputChange: this.handleInputChange,
                         handleCancel: this.handleCancel,
                         handleEdit: this.handleEdit,
@@ -369,7 +396,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         formValid,
                         deleteErrorMessage,
                         showDeleteModal
-                        // handleDelete: t
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,
@@ -381,6 +407,33 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         onSearchClick: this.searchQualificationAlias
                     }}
                 />
+                {showEditRemarksModal ?
+                    <CRemarksModal
+                        confirmationMessage="Provide remarks for edit."
+                        modalHeader="Edit Qualification"
+                        showModal={showEditRemarksModal}
+                        onCancel={this.closeModal}
+                        onRemarksChangeHandler={this.handleInputChange}
+                        remarks={aliasData.remarks}
+                        onPrimaryAction={this.editQualificationAlias}
+                        primaryActionName={"Confirm"}
+                        errorMessage={editErrorMessage}
+                    />
+                    : ''
+                }
+                {showDeleteModal ?
+                    <ConfirmDelete
+                        confirmationMessage="Are you sure you want to delete the Qualification Alias? If yes please provide remarks."
+                        modalHeader="Delete Qualification Alias"
+                        showModal={showDeleteModal}
+                        setShowModal={this.closeModal}
+                        onDeleteRemarksChangeHandler={this.handleInputChange}
+                        remarks={aliasData.remarks}
+                        onSubmitDelete={this.deleteQualificationAlias}
+                        deleteErrorMessage={deleteErrorMessage}
+                    />
+                    : ''
+                }
                 <CAlert
                     id="profile-manage"
                     variant={alertMessageInfo.variant}

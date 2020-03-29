@@ -6,12 +6,13 @@ import QualificationAliasSearchFilter from "./QualificationAliasSearchFilter";
 const QualificationAlias = (props) => {
     const QualificationAlias = QualificationAliasSetupHOC(
         ({
+             filteredAction,
              searchData,
              tableData,
          }) =>
             <>
                 <QualificationAliasSearchFilter searchData={searchData}/>
-                <QualificationAliasDataTable tableData={tableData}/>
+                <QualificationAliasDataTable filteredAction={filteredAction} tableData={tableData}/>
             </>, props, '');
     return <QualificationAlias/>
 };

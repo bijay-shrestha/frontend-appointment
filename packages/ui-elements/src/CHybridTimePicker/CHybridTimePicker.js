@@ -157,7 +157,7 @@ class CHybridTimePicker extends PureComponent {
                 pickedTime: {value: value, label: label, name: name},
                 inputValue: value
             })
-            this.props.onChange({
+            this.props.onChange && this.props.onChange({
                 target: {
                     name: name,
                     value: date,
@@ -240,8 +240,9 @@ class CHybridTimePicker extends PureComponent {
             pageSize,
             placeholder,
             styles,
-            theme
-        } = this.props
+            theme,
+            innerRef
+        } = this.props;
         return (
             <>
                 <div
@@ -296,6 +297,7 @@ class CHybridTimePicker extends PureComponent {
                         options={this.state.options}
                         pageSize={pageSize}
                         placeholder={placeholder}
+                        ref={innerRef}
                         styles={styles}
                         theme={theme}
                         value={this.state.pickedTime}
