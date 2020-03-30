@@ -20,7 +20,8 @@ const ConfirmDelete = props => {
                     variant='danger '
                     size='lg'
                     className="float-right  btn-action ml-2"
-                    name='Delete'
+                    disabled={props.isLoading}
+                    name={props.isLoading ? "Deleting" : 'Delete'}
                     onClickHandler={props.onSubmitDelete}
                 />
 

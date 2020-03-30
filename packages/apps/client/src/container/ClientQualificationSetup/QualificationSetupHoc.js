@@ -469,7 +469,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
             const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
             // const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
-            const {qualificationsAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
+            const {activeQualificationAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
             const {qualificationsForDropdown} = this.props.QualificationDropdownReducer;
             const {universitiesDropdown} = this.props.UniversitiesForDropdownReducer;
             return (
@@ -515,7 +515,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationEditErrorMessage={qualificationEditErrorMessage}
                     isPreviewLoading={isPreviewLoading}
                     qualificationPreviewData={qualificationPreviewData}
-                    qualificationsAliasForDropdown={qualificationsAliasForDropdown}
+                    qualificationsAliasForDropdown={activeQualificationAliasForDropdown}
                     qualificationsForDropdown={qualificationsForDropdown}
                     universitiesDropdown={universitiesDropdown}/>
             )

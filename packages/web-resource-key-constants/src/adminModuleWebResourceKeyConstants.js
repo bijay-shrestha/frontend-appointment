@@ -108,7 +108,12 @@ export const qualificationSetupApiConstants = {
 };
 
 export const qualificationSetupAliasCode = {
-    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE)
+    FETCH_QUALIFICATION_ALIAS_CODE: BASE.concat(QFA_BASE),
+    SAVE_QUALIFICATION_ALIAS: BASE.concat(QFA_BASE),
+    EDIT_QUALIFICATION_ALIAS: BASE.concat(QFA_BASE),
+    DELETE_QUALIFICATION_ALIAS: BASE.concat(QFA_BASE),
+    SEARCH_QUALIFICATION_ALIAS: BASE.concat(QFA_BASE.concat("/search")),
+
 };
 
 

@@ -98,7 +98,7 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         <CHybridInput
                                             id="hospital-name"
                                             name="name"
-                                            placeholder="Hospital Name"
+                                            placeholder="Client Name"
                                             value={hospitalData.name}
                                             disabled={true}
                                         />
@@ -108,8 +108,18 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         <CHybridInput
                                             id="hospital-code"
                                             name="code"
-                                            placeholder="Hospital Code"
+                                            placeholder="Access Key"
                                             value={hospitalData.hospitalCode}
+                                            disabled={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridInput
+                                            id="hospital-code"
+                                            name="code"
+                                            placeholder="Alias"
+                                            value={hospitalData.alias}
                                             disabled={true}
                                         />
                                     </Col>
@@ -118,7 +128,7 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         <CHybridTextArea
                                             id="Address"
                                             name="address"
-                                            placeholder="Hospital Address"
+                                            placeholder="Client Address"
                                             value={hospitalData.address}
                                             disabled={true}
                                         />
@@ -127,7 +137,7 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         <CHybridInput
                                             id="panNumber"
                                             name="panNubmer"
-                                            placeholder="Hospital PanNumber"
+                                            placeholder="Client PAN Number"
                                             value={hospitalData.panNumber}
                                             disabled={true}
                                         />
@@ -157,7 +167,7 @@ const DetailsModal = ({ type, hospitalData }) => {
                                         <CHybridInput
                                             id="numberOfFreeFollowUps"
                                             name="numberOfFreeFollowUps"
-                                            placeholder="Number Of Free Follow Ups"
+                                            placeholder="Number Of Follow Ups"
                                             value={hospitalData.numberOfFreeFollowUps}
                                             disabled={true}
                                         />
@@ -179,25 +189,25 @@ const DetailsModal = ({ type, hospitalData }) => {
                                             <CHybridInput
                                                 id="hospital-remarks"
                                                 name="remarks"
-                                                placeholder="Hospital Remarks"
+                                                placeholder="Remarks"
                                                 value={hospitalData.remarks}
                                                 disabled={true}
                                             />
                                         </Col>
                                     )}
 
-                                    {hospitalData.isCogentAdmin &&
-                                        <Col sm={12} md={6} lg={6}>
+                                    {/*{hospitalData.isCompany &&*/}
+                                    {/*    <Col sm={12} md={6} lg={6}>*/}
 
-                                            {hospitalData.isCogentAdmin === 'Y' ? <i className="fa fa-check" />
-                                                : <i className="fa fa-crosshairs" />}&nbsp; Only for Cogent Admin
+                                    {/*        {hospitalData.isCompany === 'Y' ? <i className="fa fa-check" />*/}
+                                    {/*            : <i className="fa fa-crosshairs" />}&nbsp; F1soft Group of Companies*/}
 
-                                    </Col>
-                                    }
+                                    {/*</Col>*/}
+                                    {/*}*/}
 
 
                                     <Col sm={12} md={6} lg={6}>
-                                        <CFLabel labelName="Hospital Status" id="status" />
+                                        <CFLabel labelName="Status" id="status" />
                                         <CRadioButton
                                             checked={hospitalData.status === 'Y'}
                                             disabled={true}

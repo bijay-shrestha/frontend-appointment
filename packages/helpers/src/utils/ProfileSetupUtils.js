@@ -85,11 +85,12 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
     return filteredProfiles
 };
 
-export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList,selectedHospitalId)=>{
-    let isCogentAdmin = hospitalList.find(hosp =>
-        hosp.value === selectedHospitalId).isCogentAdmin;
-    let userMenus = isCogentAdmin === 'Y' ? adminUserMenusJson : clientUserMenusJson;
-    let moduleCode = isCogentAdmin === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
+export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, selectedHospitalId) => {
+    let selectedHospital = hospitalList.find(hosp =>
+        hosp.value === selectedHospitalId);
+    let isCompany = (selectedHospital && Object.keys(selectedHospital).includes('isCompany')) ? selectedHospital.isCompany : 'N';
+    let userMenus = isCompany === 'Y' ? adminUserMenusJson : clientUserMenusJson;
+    let moduleCode = isCompany === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
     let menusForDept = Object.keys(userMenus).find(code => code === moduleCode)
         ? [...userMenus[moduleCode]] : [];
     return UserMenuUtils.sortUserMenuJson([...menusForDept]);

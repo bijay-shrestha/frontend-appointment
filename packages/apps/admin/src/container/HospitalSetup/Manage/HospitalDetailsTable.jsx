@@ -16,8 +16,8 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
     <div className="manage-details">
-        
-        <h5 className="title">Hospital Details</h5>
+
+        <h5 className="title">Client Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -42,14 +42,7 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Name',
-                            field: 'name',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-                        {
-                            headerName: 'Hospital Logo',
+                            headerName: 'Client Logo',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,
@@ -58,13 +51,20 @@ const HospitalDetailsDataTable = props => (
                             cellRenderer: 'imageRenderer'
                         },
                         {
-                            headerName: 'Hospital Address',
+                            headerName: 'Client Name',
+                            field: 'name',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
+                            headerName: 'Client Address',
                             field: 'address',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                       
+
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -141,14 +141,15 @@ const HospitalDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
-                modalHeader="Delete Specialization"
+                confirmationMessage="Are you sure you want to delete the Client? If yes please provide remarks."
+                modalHeader="Delete Client"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}
                 remarks={props.remarks}
                 onSubmitDelete={props.onSubmitDelete}
                 deleteErrorMessage={props.deleteErrorMsg}
+                isLoading={props.isDeleteLoading}
             />
         ) : (
             ''

@@ -6,7 +6,7 @@ const CRadioButton = props => {
     const {
         id,
         label,
-        ref,
+        reference,
         children,
         checked,
         className,
@@ -32,7 +32,7 @@ const CRadioButton = props => {
                 id={label.concat('_').concat(id)}
                 label={label}
                 type="radio"
-                _ref={ref}
+                // ref={reference}
                 checked={checked}
                 children={children}
                 className={className}
@@ -52,6 +52,7 @@ const CRadioButton = props => {
                     value={value}
                     checked={checked}
                     readOnly={readOnly}
+                    ref={reference}
                     defaultChecked={defaultChecked}
                     onChange={onChange}
                 >

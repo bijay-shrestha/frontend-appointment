@@ -1,6 +1,7 @@
 import Loadable from 'react-loadable'
 import React from 'react'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import loadable from "@loadable/component";
 
 const getLoader = () => <CLoading/>;
 /* ****** A ***** */
@@ -154,8 +155,13 @@ const ProfileComponent = Loadable({
 const PatientComponent = Loadable({
      loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
      loading: () => getLoader()
-})
+});
 /* ****** Q ***** */
+
+const QualificationAlias = loadable(
+    () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
+    {fallback: () => getLoader()}
+);
 
 /* ****** R ***** */
 
@@ -503,5 +509,14 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Patient Information'
+    },
+    {
+        path: '/generalSetup/qualificationAlias',
+        component: QualificationAlias,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Qualification Alias'
     }
 ];

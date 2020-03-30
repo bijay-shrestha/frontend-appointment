@@ -37,7 +37,7 @@ export const createHospitalSuccess = data => {
     type: CREATE_HP_SUCCESS,
     payload: {
       status: 'S',
-      message: 'Hospital Created Successfully'
+      message: 'Client Created Successfully'
     }
   }
 }
@@ -73,7 +73,7 @@ export const createHospitalEditSuccess = data => {
     type: HP_EDIT_SUCCESS,
     payload: {
       status: 'S',
-      message: 'Hospital Modified Successfully'
+      message: 'Client Updated Successfully'
     }
   }
 }
@@ -181,7 +181,7 @@ export const createHospitalDeleteSucess = () => {
     type: HP_DELETE_SUCCESS,
     payload: {
       status: 'S',
-      message: 'Hospital Deleted SucessFully'
+      message: 'Client Deleted Successfully'
     }
   }
 }

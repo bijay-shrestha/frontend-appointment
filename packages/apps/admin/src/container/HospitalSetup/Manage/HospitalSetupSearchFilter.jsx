@@ -26,7 +26,8 @@ class HospitalSetupSearchFilter extends PureComponent {
             searchParameters,
             resetSearchForm,
             handleEnter,
-            hospitalDropdown
+            hospitalDropdown,
+            isSearchLoading
         } = this.props;
         return (
             <>
@@ -34,7 +35,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                     // TODO: TO BE MADE DYNAMIC
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Hospital</h5>
+                            <h5 className="title">Search Client</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -58,7 +59,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.name}
                                             options={hospitalDropdown}
-                                            label="Hospital Name"
+                                            label="Client Name"
                                         />
                                     </Col>
 
@@ -66,7 +67,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="code"
                                             name="hospitalCode"
-                                            placeholder="Hospital Code"
+                                            placeholder="Client Code"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.hospitalCode}
@@ -107,9 +108,9 @@ class HospitalSetupSearchFilter extends PureComponent {
                                                 id="search-profiles"
                                                 variant="primary"
                                                 className="btn-action"
-                                                name="Search"
+                                                name={isSearchLoading ? "Searching":"Search"}
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
@@ -139,7 +140,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Hospital Name</Tooltip>
+                                            <Tooltip {...props}>Client Name</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
@@ -148,6 +149,24 @@ class HospitalSetupSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {
+                                searchParameters.hospitalCode && (
+                                    <li>
+                                        <OverlayTrigger
+                                            placement="top"
+                                            delay={{show: 250, hide: 400}}
+                                            overlay={props => (
+                                                <Tooltip {...props}>Client Code</Tooltip>
+                                            )}
+                                        >
+                                            <Button id="light-search-filters" variant="secondary">
+                                                {searchParameters.hospitalCode}
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </li>
+                                )
+                            }
 
                             {searchParameters.status && (
                                 <li>
