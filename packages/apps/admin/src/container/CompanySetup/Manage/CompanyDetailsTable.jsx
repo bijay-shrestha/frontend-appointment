@@ -58,7 +58,7 @@ const CompanyDetailsDataTable = props => (
                             cellRenderer: 'imageRenderer'
                         },
                         {
-                            headerName: 'Hospital Address',
+                            headerName: 'Company Address',
                             field: 'address',
                             resizable: true,
                             sortable: true,

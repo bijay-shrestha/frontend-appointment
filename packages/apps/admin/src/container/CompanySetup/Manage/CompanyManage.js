@@ -53,7 +53,9 @@ const CompanyManage = props => {
              onImageSelect,
              handleCropImage,
              handleImageUpload,
+             contactLength,
              setImageShow//,
+
              //hospitalDropdown,
             //  hospitalBannerImage,
             //  onBannerImageSelect,
@@ -129,6 +131,7 @@ const CompanyManage = props => {
                         handleCropImage={handleCropImage}
                         handleImageUpload={handleImageUpload}
                         setImageShow={setImageShow}
+                        contactLength={contactLength}
                         // hospitalBannerImage={hospitalBannerImage}
                         // hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
                         // hospitalBannerFileCropped={hospitalBannerFileCropped}

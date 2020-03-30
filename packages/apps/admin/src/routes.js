@@ -435,6 +435,15 @@ export const routes = [
     name: 'Manage'
   },
   {
+    path: '/admin/adminSetup/companySetup',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: false,
+    isTab: false,
+    name: 'Company Setup'
+  },
+  {
     path: '/admin/adminSetup/companySetup/add',
     component: CompanyAddComponent,
     icon: '',
@@ -450,7 +459,7 @@ export const routes = [
     hasTab: true,
     isLink: true,
     isTab: true,
-    name: 'Add'
+    name: 'Manage'
   },
   {
     path: '/admin/appointment/appointmentRefundRequest',

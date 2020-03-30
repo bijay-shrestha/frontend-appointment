@@ -123,9 +123,9 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    setTheState = async (fieldName, valueToChange, valid, eventName) => {
+    setTheState = async (fieldName, valueToChange, valid, eventName,value) => {
       await this.setState(
-        this.checkInputValidity(fieldName, valueToChange, valid, eventName)
+        this.checkInputValidity(fieldName, valueToChange, valid, eventName,value)
       )
     }
 
@@ -151,10 +151,10 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
+    checkInputValidity = (fieldName, valueToChange, valid, eventName,value) => {
       let stateObj = {[fieldName]: valueToChange}
       if (eventName === 'companyCode')
-        stateObj = {[fieldName]: {alias: valueToChange}}
+        stateObj[fieldName]['alias']=value
       if (eventName)
         if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
       return {...stateObj}
@@ -216,7 +216,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
       this.checkFormValidity(eventType)
     }
 
-    previewApiCall = async id => {
+    previewApiCall =  async id => {
       await this.props.previewCompany(PREVIEW_COMPANY, id)
     }
 
@@ -250,14 +250,15 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           address,
           contactNumberResponseDTOS,
           companyCode,
-          companyLogo
+          companyLogo,
+          alias
           // hospitalBanner,
         } = this.props.companyPreviewReducer.companyPreviewData
         let formValid = this.state.formValid
         if (remarks) formValid = true
         this.setState({
           showEditModal: true,
-          hospitalData: {
+          companyData: {
             id: id,
             name: name,
             status: status,
@@ -265,6 +266,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             address: address,
             companyCode: companyCode,
             remarks: remarks,
+            alias:alias,
             contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
             editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
             companyLogoUrl: companyLogo,
@@ -276,7 +278,13 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           nameValid: true
         })
       } catch (e) {
-        console.log(e)
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.companyPreviewReducer.companyPreviewErrorMessage
+          }
+        })
       }
     }
 
@@ -525,7 +533,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         contactNumber,
         address,
         panNumber,
-        companyCode
+        companyCode,
+        alias
       }
 
       let formData = new FormData()
@@ -575,7 +584,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         : value
         ? {value: value, label: label}
         : {value: null}
-      await this.setTheState('companyData', company, fieldValid, name)
+      await this.setTheState('companyData', company, fieldValid, name,value)
 
       this.checkFormValidity(eventType)
     }

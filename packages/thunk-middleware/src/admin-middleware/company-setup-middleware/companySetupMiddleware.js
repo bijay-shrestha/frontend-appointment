@@ -28,16 +28,18 @@ export const updateCompany = (path, data, formData) => async dispatch => {
     dispatch(
       CompanySetupActions.udpateCompanySuccess('Company Edited Successfully!')
     )
+    
   } catch (e) {
     const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
     dispatch(CompanySetupActions.updateCompanyError(error))
+    throw error;
   }
 }
 
-export const searchCompany = (path, data) => async dispatch => {
+export const searchCompany = (path, data,searchData) => async dispatch => {
   dispatch(CompanySetupActions.searchCompanyPending())
   try {
-    const response = await Axios.put(path, data)
+    const response = await Axios.putWithRequestParam(path,data, searchData)
     dispatch(CompanySetupActions.searchCompanySuccess(response.data))
   } catch (e) {
     const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
@@ -53,6 +55,7 @@ export const previewCompany = (path, id) => async dispatch => {
   } catch (e) {
     const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
     dispatch(CompanySetupActions.previewCompanyError(error))
+    throw e;
   }
 }
 
@@ -67,16 +70,18 @@ export const companyDropdown = path => async dispatch => {
   }
 }
 
-export const companyDelete = path => async dispatch => {
+export const companyDelete = (path,id)=> async dispatch => {
   dispatch(CompanySetupActions.deleteCompanyPending())
   try {
-    await Axios.delete(path)
+    await Axios.del(path,id)
     dispatch(
       CompanySetupActions.deleteCompanySuccess('Company Deleted Successfully')
     )
   } catch (e) {
+    console.log(e);
     const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
     dispatch(CompanySetupActions.deleteCompanyError(error))
+    throw error;
   }
 }
 

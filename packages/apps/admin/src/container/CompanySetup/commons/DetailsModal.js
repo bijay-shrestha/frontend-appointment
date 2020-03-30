@@ -73,13 +73,12 @@ const DetailsModal = ({type, companyData}) => {
           <Container-fluid>
             <Row>
               <Col sm={12} md={12} lg={12} className="">
-                <div className="hospital-banner-container preview-banner">
                   <div className="image-upload-container hospital-container">
                     <CImageDisplayAndView
                       images={images}
                       className="hospital-logo"
                     />
-                  </div>
+                 
                 </div>
               </Col>
               <Col lg={12}>
@@ -99,7 +98,7 @@ const DetailsModal = ({type, companyData}) => {
                       id="hospital-code"
                       name="code"
                       placeholder="Company Code"
-                      value={companyData.compnanyCode}
+                      value={companyData.companyCode}
                       disabled={true}
                     />
                   </Col>

@@ -34,7 +34,8 @@ const CompanyEditModal = ({
   onImageSelect,
   handleCropImage,
   handleImageUpload,
-  setImageShow
+  setImageShow,
+  contactLength
   //    hospitalBannerImage,
   //    onBannerImageSelect,
   //    hospitalBannerImageCroppedUrl,
@@ -120,7 +121,9 @@ const CompanyEditModal = ({
                   onChange={(event, validity) =>
                     onInputChange(event, validity, 'E')
                   }
-                  placeholder="Company Code"
+                  readOnly={true}
+                  disabled={true}
+                  placeholder="Company Alias"
                   value={companyData.alias}
                 />
               </Col>
@@ -194,7 +197,8 @@ const CompanyEditModal = ({
                           id="contact-label"
                           labelName="Contact Number"
                         />
-                        <CButton
+                        {companyData.contactNumberUpdateRequestDTOS
+                                    .length!==contactLength && <CButton
                           id="macBinding"
                           name=""
                           size="lg"
@@ -213,7 +217,7 @@ const CompanyEditModal = ({
                           }
                         >
                           <i className="fa fa-plus"></i> Add
-                        </CButton>
+                        </CButton>}
                       </Col>
 
                       <Col lg={12}>
@@ -223,7 +227,7 @@ const CompanyEditModal = ({
                               <>
                                 <div className="contact-box mb-2">
                                   <CFControl
-                                    id="hospitalContactNumber"
+                                    id="companyContactNumber"
                                     key={'phone' + index}
                                     value={phone.contactNumber}
                                     placeholder="Enter Contact Number"
@@ -242,10 +246,10 @@ const CompanyEditModal = ({
                                     }
                                   />
                                   {companyData.contactNumberUpdateRequestDTOS
-                                    .length >= 1 && (
+                                    .length?(
                                     <CButton
-                                      id="hospital-contact"
-                                      key={'hospRemove' + index}
+                                      id="company-contact"
+                                      key={'companyRemove' + index}
                                       name=""
                                       variant="outline-danger"
                                       className="float-right remove-contact "
@@ -259,7 +263,7 @@ const CompanyEditModal = ({
                                     >
                                       <i className="fa fa-close"></i>
                                     </CButton>
-                                  )}
+                                  ):null}
                                 </div>
                               </>
                             )
@@ -270,15 +274,6 @@ const CompanyEditModal = ({
                   </Col>
                 </Row>
               </Col>
-
-           
-
-            
-             
-
-          
-
-              
 
               <Col sm={12} md={12} lg={6}>
                 <CHybridTextArea
@@ -340,7 +335,7 @@ const CompanyEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Hospital Details"
+        modalHeading="Company Details"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}

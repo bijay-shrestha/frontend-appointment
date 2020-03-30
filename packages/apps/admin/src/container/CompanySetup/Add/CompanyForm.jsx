@@ -126,11 +126,10 @@ const HospitalForm = ({
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="company-alias"
-                      name="companyAlias"
+                      name="alias"
                       placeholder="Company Alias"
                       value={companyInfoObj.alias}
                       required={true}
-                      disabled={true}
                       readOnly={true}
                       max={10}
                       min={2}
@@ -159,13 +158,13 @@ const HospitalForm = ({
 
                   <Col sm={12} md={6} lg={6}>
                     <CHybridTextArea
-                      id="hospital-address"
+                      id="company-address"
                       name="address"
                       onKeyDown={event => onEnterKeyPress(event)}
                       onChange={(event, validity) =>
                         onInputChange(event, validity)
                       }
-                      placeholder="Hospital Address"
+                      placeholder="Company Address"
                       value={companyInfoObj.address}
                       max={200}
                       min={1}
@@ -175,7 +174,7 @@ const HospitalForm = ({
 
                   <Col sm={12} md={6} lg={6} className="mb-4">
                     <CFLabel labelName="Contact Number" id="contactNumber" />
-                    {contactLength != companyInfoObj.contactNumber.length && (
+                    {contactLength !== companyInfoObj.contactNumber.length && (
                       <CButton
                         id={'add-contact-numbers'}
                         variant="outline-secondary"

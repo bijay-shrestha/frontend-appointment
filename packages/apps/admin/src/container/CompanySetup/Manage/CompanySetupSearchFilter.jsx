@@ -39,7 +39,7 @@ class CompanySetupSearchFilter extends PureComponent {
           // TODO: TO BE MADE DYNAMIC
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Hospital</h5>
+              <h5 className="title">Search Company</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -63,6 +63,7 @@ class CompanySetupSearchFilter extends PureComponent {
                       onChange={event => onInputChange(event)}
                       value={searchParameters.name}
                       label="Company Name"
+                      placeholder="Enter Company Name"
                     />
                   </Col>
 
