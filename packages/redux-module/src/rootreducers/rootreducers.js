@@ -79,7 +79,13 @@ import {
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
     QualificationAliasSearchReducer,
-    ForgotPasswordVerification
+    ForgotPasswordVerification,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 } from '../reducers'
 const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
 export const rootReducers = combineReducers({
@@ -164,5 +170,11 @@ export const rootReducers = combineReducers({
     QualificationAliasDropdownReducer,
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
-    QualificationAliasSearchReducer
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreiewReducer: CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 });

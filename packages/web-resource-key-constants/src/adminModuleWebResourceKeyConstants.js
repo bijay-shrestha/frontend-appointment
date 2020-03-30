@@ -170,6 +170,15 @@ export const DashboardApiConstant = {
     DOCTOR_REVENUE:BASE.concat(DASHBOARD_BASE+"/doctorRevenue")
 };
 
+const COMPANY_PROFILE_SETUP_BASE='/company-profile';
+export const CompanyProfileSetupApiConstants = {
+    CREATE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    EDIT_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    DELETE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    SEARCH_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/search')),
+    PREVIEW_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/detail')),
+    FETCH_COMPANY_PROFILE_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
+};
 
 
 

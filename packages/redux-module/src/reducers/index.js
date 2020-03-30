@@ -108,6 +108,15 @@ import {
     QualificationAliasSearchReducer
 } from './admin-module/qualificationAliasSetupReducer';
 
+import {
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
+} from './admin-module/companyProfileSetupReducer';
+
 export {
     AppointmentApproveReducer,
     AppointmentRejectReducer,
@@ -188,5 +197,11 @@ export {
     QualificationAliasDropdownReducer,
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
-    QualificationAliasSearchReducer
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 }
