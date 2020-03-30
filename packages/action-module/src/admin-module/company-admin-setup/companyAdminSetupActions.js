@@ -1,232 +1,214 @@
-import {adminSetupActionConstants} from "./adminSetupActionConstant";
+import {companyAdminSetupActionConstants} from "./companyAdminSetupActionConstant";
 
 const {
-    CREATE_ADMIN_PENDING,
-    CREATE_ADMIN_SUCCESS,
-    CREATE_ADMIN_ERROR,
-    ADMIN_LIST_ERROR,
-    ADMIN_LIST_PENDING,
-    ADMIN_LIST_SUCCESS,
-    ADMIN_DELETE_ERROR,
-    ADMIN_EDIT_ERROR,
-    ADMIN_DELETE_SUCCESS,
-    ADMIN_EDIT_SUCCESS,
-    ADMIN_DELETE_PENDING,
-    ADMIN_EDIT_PENDING,
-    ADMIN_PREVIEW_ERROR,
-    ADMIN_PREVIEW_PENDING,
-    ADMIN_PREVIEW_SUCCESS,
-    CLEAR_ADMIN_CREATE_SUCCESS_MESSAGE,
-    CLEAR_ADMIN_CREATE_ERROR_MESSAGE,
-    CLEAR_ADMIN_LIST_FETCH_ERROR_MESSAGE,
-    CLEAR_ADMIN_EDIT_SUCCESS_MESSAGE,
-    CLEAR_ADMIN_EDIT_ERROR_MESSAGE,
-    CLEAR_ADMIN_PREVIEW_ERROR_MESSAGE,
-    CLEAR_ADMIN_DELETE_ERROR_MESSAGE,
-    CLEAR_ADMIN_DELETE_SUCCESS_MESSAGE,
-    FETCH_ADMIN_META_INFO_PENDING,
-    FETCH_ADMIN_META_INFO_SUCCESS,
-    FETCH_ADMIN_META_INFO_ERROR
-} = adminSetupActionConstants;
+  //COMPANY_ADMIN_CLEAR_MESSAGES,
+   COMPANY_ADMIN_CREATE_ERROR,
+   COMPANY_ADMIN_CREATE_SUCCESS,
+   COMPANY_ADMIN_CREATE_PENDING,
+   COMPANY_ADMIN_DELETE_ERROR,
+   COMPANY_ADMIN_DELETE_PENDING,
+   COMPANY_ADMIN_DELETE_SUCCESS,
+   COMPANY_ADMIN_EDIT_ERROR,
+   COMPANY_ADMIN_EDIT_PENDING,
+   COMPANY_ADMIN_EDIT_SUCCESS,
+   COMPANY_ADMIN_LIST_ERROR,
+   COMPANY_ADMIN_LIST_PENDING,
+   COMPANY_ADMIN_LIST_SUCCESS,
+   COMPANY_ADMIN_PREVIEW_ERROR,
+   COMPANY_ADMIN_PREVIEW_PENDING,
+   COMPANY_ADMIN_PREVIEW_SUCCESS,
+   FETCH_COMPANY_ADMIN_META_INFO_ERROR,  
+   FETCH_COMPANY_ADMIN_META_INFO_PENDING,
+   FETCH_COMPANY_ADMIN_META_INFO_SUCCESS
+} = companyAdminSetupActionConstants;
 
 
-export const createAdminPending = () => {
+export const createCompanyAdminPending = () => {
     return {
-        type: CREATE_ADMIN_PENDING
+        type: COMPANY_ADMIN_CREATE_PENDING
     }
 };
 
-export const creatingAdminSuccess = message => {
+export const creatingCompanyAdminSuccess = message => {
     return {
-        type: CREATE_ADMIN_SUCCESS,
+        type: COMPANY_ADMIN_CREATE_SUCCESS,
         payload: {
             successMessage: message
         }
     }
 };
 
-export const creatingAdminError = message => {
+export const creatingCompanyAdminError = message => {
     return {
-        type: CREATE_ADMIN_ERROR,
+        type: COMPANY_ADMIN_CREATE_ERROR,
         payload: {
             errorMessage: message
         }
     }
 };
 
-export const clearAdminCreateSuccessMessage = () => {
+export const companyAdminListSuccess = message => {
     return {
-        type: CLEAR_ADMIN_CREATE_SUCCESS_MESSAGE
-    }
-};
-
-export const clearAdminCreateErrorMessage = () => {
-    return {
-        type: CLEAR_ADMIN_CREATE_ERROR_MESSAGE
-    }
-};
-
-export const adminListSuccess = message => {
-    return {
-        type: ADMIN_LIST_SUCCESS,
+        type: COMPANY_ADMIN_LIST_SUCCESS,
         payload: {
             data: message
         }
     }
 };
 
-export const adminListError = message => {
+export const companyAdminListError = message => {
     return {
-        type: ADMIN_LIST_ERROR,
+        type: COMPANY_ADMIN_LIST_ERROR,
         payload: {
             data: message
         }
     }
 };
 
-export const adminListPending = () => {
+export const companyAdminListPending = () => {
     return {
-        type: ADMIN_LIST_PENDING,
+        type: COMPANY_ADMIN_LIST_PENDING,
         payload: {
             data: []
         }
     }
 };
 
-export const clearAdminListFetchErrorMessage = () => {
-    return {
-        type: CLEAR_ADMIN_LIST_FETCH_ERROR_MESSAGE
-    }
-};
+// export const clearCompanyAdminListFetchErrorMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_LIST_FETCH_ERROR_MESSAGE
+//     }
+// };
 
-export const adminDeletePending = () => {
+export const companyAdminDeletePending = () => {
     return {
-        type: ADMIN_DELETE_PENDING,
+        type: COMPANY_ADMIN_DELETE_PENDING,
         payload: {
             data: []
         }
     }
 };
 
-export const adminDeleteSuccess = success => {
+export const companyAdminDeleteSuccess = success => {
     return {
-        type: ADMIN_DELETE_SUCCESS,
+        type: COMPANY_ADMIN_DELETE_SUCCESS,
         payload: {
             data: success
         }
     }
 };
 
-export const adminDeleteError = errorMessage => {
+export const companyAdminDeleteError = errorMessage => {
     return {
-        type: ADMIN_DELETE_ERROR,
+        type: COMPANY_ADMIN_DELETE_ERROR,
         payload: {
             data: errorMessage
         }
     }
 };
 
-export const adminEditError = errorMessage => {
+export const companyAdminEditError = errorMessage => {
     return {
-        type: ADMIN_EDIT_ERROR,
+        type: COMPANY_ADMIN_EDIT_ERROR,
         payload: {
             data: errorMessage
         }
     }
 };
 
-export const adminEditSuccess = success => {
+export const companyAdminEditSuccess = success => {
     return {
-        type: ADMIN_EDIT_SUCCESS,
+        type: COMPANY_ADMIN_EDIT_SUCCESS,
         payload: {
             data: success
         }
     }
 };
 
-export const adminEditPending = () => {
+export const companyAdminEditPending = () => {
     return {
-        type: ADMIN_EDIT_PENDING,
+        type: COMPANY_ADMIN_EDIT_PENDING,
         payload: {
             data: ''
         }
     }
 };
 
-export const clearAdminEditSuccessMessage = () => {
-    return {
-        type: CLEAR_ADMIN_EDIT_SUCCESS_MESSAGE
-    }
-};
+// export const clearCompanyAdminEditSuccessMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_EDIT_SUCCESS_MESSAGE
+//     }
+// };
 
-export const clearAdminEditErrorMessage = () => {
-    return {
-        type: CLEAR_ADMIN_EDIT_ERROR_MESSAGE
-    }
-};
+// export const clearCompanyAdminEditErrorMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_EDIT_ERROR_MESSAGE
+//     }
+// };
 
-export const adminPreviewPending = () => {
+export const companyAdminPreviewPending = () => {
     return {
-        type: ADMIN_PREVIEW_PENDING,
+        type: COMPANY_ADMIN_PREVIEW_PENDING,
         payload: {
             data: ''
         }
     }
 };
 
-export const adminPreviewSuccess = success => {
+export const companyAdminPreviewSuccess = data => {
     return {
-        type: ADMIN_PREVIEW_SUCCESS,
-        payload: {
-            data: success
-        }
-    }
-};
-
-export const adminPreviewError = errorMsg => {
-    return {
-        type: ADMIN_PREVIEW_ERROR,
-        payload: {
-            errorMessage: errorMsg
-        }
-    }
-};
-
-export const clearAdminPreviewErrorMessage = () => {
-    return {
-        type: CLEAR_ADMIN_PREVIEW_ERROR_MESSAGE
-    }
-};
-
-export const clearAdminDeleteErrorMessage = () => {
-    return {
-        type: CLEAR_ADMIN_DELETE_ERROR_MESSAGE
-    }
-};
-export const clearAdminDeleteSuccessMessage = () => {
-    return {
-        type: CLEAR_ADMIN_DELETE_SUCCESS_MESSAGE
-    }
-};
-
-export const adminMetaInfoFetchPending = () => {
-    return {
-        type: FETCH_ADMIN_META_INFO_PENDING
-    }
-};
-
-export const adminMetaInfoFetchSuccess = data => {
-    return {
-        type: FETCH_ADMIN_META_INFO_SUCCESS,
+        type: COMPANY_ADMIN_PREVIEW_SUCCESS,
         payload: {
             data
         }
     }
 };
 
-export const adminMetaInfoFetchError = errorMsg => {
+export const companyAdminPreviewError = errorMsg => {
     return {
-        type: FETCH_ADMIN_META_INFO_ERROR,
+        type: COMPANY_ADMIN_PREVIEW_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
+    }
+};
+
+// export const clearCompanyAdminPreviewErrorMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_PREVIEW_ERROR_MESSAGE
+//     }
+// };
+
+// export const clearCompanyAdminDeleteErrorMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_DELETE_ERROR_MESSAGE
+//     }
+// };
+
+// export const clearCompanyAdminDeleteSuccessMessage = () => {
+//     return {
+//         type: CLEAR_COMPANY_ADMIN_DELETE_SUCCESS_MESSAGE
+//     }
+// };
+
+export const companyAdminMetaInfoFetchPending = () => {
+    return {
+        type: FETCH_COMPANY_ADMIN_META_INFO_PENDING
+    }
+};
+
+export const companyAdminMetaInfoFetchSuccess = data => {
+    return {
+        type: FETCH_COMPANY_ADMIN_META_INFO_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const companyAdminMetaInfoFetchError = errorMsg => {
+    return {
+        type: FETCH_COMPANY_ADMIN_META_INFO_ERROR,
         payload: {
             errorMessage: errorMsg
         }
