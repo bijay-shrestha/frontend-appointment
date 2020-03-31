@@ -74,11 +74,7 @@ export const companyAdminListPending = () => {
     }
 };
 
-// export const clearCompanyAdminListFetchErrorMessage = () => {
-//     return {
-//         type: CLEAR_COMPANY_ADMIN_LIST_FETCH_ERROR_MESSAGE
-//     }
-// };
+
 
 export const companyAdminDeletePending = () => {
     return {

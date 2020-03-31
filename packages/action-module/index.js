@@ -38,7 +38,7 @@ import {
     QualificationAliasSetupActions,
     qualificationAliasSetupConstants,
     companyAdminSetupActionConstants,
-    CompanySetupActions
+    CompanyAdminSetupActions
 } from './src/admin-module'
 
 export {
@@ -79,5 +79,5 @@ export {
     QualificationAliasSetupActions,
     qualificationAliasSetupConstants,
     companyAdminSetupActionConstants,
-    CompanySetupActions
+    CompanyAdminSetupActions
 }
