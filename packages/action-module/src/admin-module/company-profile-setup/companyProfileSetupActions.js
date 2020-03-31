@@ -18,6 +18,9 @@ const {
     FETCH_COMPANY_PROFILE_FOR_DROPDOWN_ERROR,
     FETCH_COMPANY_PROFILE_FOR_DROPDOWN_PENDING,
     FETCH_COMPANY_PROFILE_FOR_DROPDOWN_SUCCESS,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_ERROR,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_PENDING,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_SUCCESS,
     PREVIEW_COMPANY_PROFILE_ERROR,
     PREVIEW_COMPANY_PROFILE_PENDING,
     PREVIEW_COMPANY_PROFILE_SUCCESS,
@@ -202,4 +205,28 @@ export const fetchCompanyProfileForDropdownError = errorMessage => {
         }
     }
 };
+export const fetchCompanyProfileByCompanyIdForDropdownPending = () => {
+    return {
+        type: FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchCompanyProfileByCompanyIdForDropdownSuccess = data => {
+    return {
+        type: FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchCompanyProfileByComapanyIdForDropdownError = errorMessage => {
+    return {
+        type: FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+
 

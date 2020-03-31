@@ -23,7 +23,10 @@ const {
     CLEAR_COMPANY_PROFILE_SEARCH_SUCCESS_ERROR_MESSAGES,
     FETCH_COMPANY_PROFILE_FOR_DROPDOWN_SUCCESS,
     FETCH_COMPANY_PROFILE_FOR_DROPDOWN_PENDING,
-    FETCH_COMPANY_PROFILE_FOR_DROPDOWN_ERROR
+    FETCH_COMPANY_PROFILE_FOR_DROPDOWN_ERROR,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_SUCCESS,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_PENDING,
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_ERROR
 } = companyProfileSetupActionConstants;
 
 const initialState = {
@@ -41,10 +44,13 @@ const initialState = {
     searchCompanyProfileLoading: false,
     searchCompanyProfileErrorMessage: '',
     fetchCompanyProfileForDropdownLoading: false,
+    fetchCompanyProfileByCompanyForDropdownLoading: false,
     dropdownErrorMessage: '',
+    profileByCompanyIdDropdownErrorMessage: '',
     companyProfileDetail: {},
     companyProfileList: [],
-    activeCompanyProfileListForDropdown: []
+    activeCompanyProfileListForDropdown: [],
+    activeCompanyProfileListByCompanyIdForDropdown: []
 };
 
 export const CompanyProfileCreateReducer = (state = {...initialState}, action) => {
@@ -233,6 +239,27 @@ export const CompanyProfileDropdownReducer = (state = {...initialState}, action)
                 fetchCompanyProfileForDropdownLoading: false,
                 activeCompanyProfileListForDropdown: [],
                 dropdownErrorMessage: action.payload.errorMessage
+            };
+        case FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_PENDING :
+            return {
+                ...state,
+                fetchCompanyProfileByCompanyForDropdownLoading: true,
+                profileByCompanyIdDropdownErrorMessage: '',
+                activeCompanyProfileListByCompanyIdForDropdown: []
+            };
+        case FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                fetchCompanyProfileByCompanyForDropdownLoading: false,
+                activeCompanyProfileListByCompanyIdForDropdown: [...action.payload.data],
+                profileByCompanyIdDropdownErrorMessage: ''
+            };
+        case FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                fetchCompanyProfileByCompanyForDropdownLoading: false,
+                activeCompanyProfileListByCompanyIdForDropdown: [],
+                profileByCompanyIdDropdownErrorMessage: action.payload.errorMessage
             };
         default:
             return state

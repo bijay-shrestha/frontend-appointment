@@ -79,6 +79,19 @@ export const fetchCompanyProfileListForDropdown = (path) => async dispatch => {
     }
 };
 
+export const fetchActiveCompanyProfileListByCompanyIdForDropdown = (path) => async dispatch => {
+    dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownPending());
+    try {
+        let response = await Axios.get(path);
+        dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(CompanyProfileSetupActions.fetchCompanyProfileByComapanyIdForDropdownError(
+            e.errorMessage ? e.errorMessage : 'Sorry,Internal Server Error Occurred!'));
+        throw e;
+    }
+};
+
 // TODO remove this method after merging company setup
 export const fetchCompany = (path) => async dispatch => {
     try {
