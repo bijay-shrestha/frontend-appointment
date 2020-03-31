@@ -56,7 +56,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       hospitalList: [],
       appointmentQueue: {
         doctorId: '',
-        hospitalId: ''
+        hospitalId: '',
+        date:new Date()
       },
       queryParams: {
         page: 0,
@@ -305,7 +306,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       }
       let searchParams3 = {...this.state.searchParameterForRevenueTrend}
       let searchParams4 = { doctorId: 0,
-        hospitalId:searchParams3.revHospitalId}
+        hospitalId:searchParams3.revHospitalId,
+        date:new Date()}
       let fieldName, value, label
       fieldName = event.target.name
       value = event.target.value
@@ -379,7 +381,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     }
 
     searchAppointmentQueue = async page => {
-      const {doctorId, hospitalId} = this.state.appointmentQueue
+      const {doctorId, hospitalId,date} = this.state.appointmentQueue
       let response = ''
       if (hospitalId) {
         let updatedPage =
@@ -397,7 +399,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             },
             {
               doctorId: doctorId?doctorId.value : '',
-              hospitalId: hospitalId.value
+              hospitalId: hospitalId.value,
+              date:date
             }
           )
           await this.setState({
@@ -482,6 +485,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       })
       this.searchDoctorRevenueList();
     }
+    
+    handleDateChangeForAppointmentQueue = async(e,fieldName) => {
+      let appointmentQueueParam = {...this.state.appointmentQueue};
+      appointmentQueueParam[fieldName] = e||'';
+      await this.setState({
+        appointmentQueue:appointmentQueueParam
+      })
+      this.searchAppointmentQueue();
+    }
 
     handleSpecializationChange = async e => {
       let specializationParam = {...this.state.doctorRevenue};
@@ -507,7 +519,10 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         throw e
       }
     }
+    
+    onChangeDate = () =>{
 
+    }
     componentDidMount() {
       this.callApiForHospitalChange()
       this.searchHospitalForDropDown()
@@ -643,7 +658,9 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             handlePageChange: this.handlePageChange,
             handleDoctorChange: this.handleDoctorChange,
             doctorId: appointmentQueue.doctorId,
-            doctorDropdown: activeDoctorsByHospitalForDropdown
+            date:appointmentQueue.date,
+            doctorDropdown: activeDoctorsByHospitalForDropdown,
+            handleDateChangeForAppointmentQueue:this.handleDateChangeForAppointmentQueue
           }}
           doctorRevenue ={{
             isDoctorRevenueLoading:isDoctorRevenueGeneratedLoading,
