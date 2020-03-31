@@ -40,6 +40,7 @@ const AdminInfoForm = ({
   dashboardFeatureErrorMessage,
   onChangeDashBoardRole
 }) => {
+  const dashData = dashboardFeatureData?dashboardFeatureData.length?dashboardFeatureData:[]:[];
   return (
     <>
       <h5 className="title">Admin Setup</h5>
@@ -275,11 +276,11 @@ const AdminInfoForm = ({
              
            
               <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
-                    {dashboardFeatureData.length?<CFLabel labelName="Dashboard Role" id="dashboard-role" />:null}
+                    {dashData && dashData.length?<CFLabel labelName="Dashboard Role" id="dashboard-role" />:null}
                     <div>
                       {!isDashboardFeatureLoading &&
                       !dashboardFeatureErrorMessage &&
-                      dashboardFeatureData.length ? (
+                      dashData.length ? (
                         dashboardFeatureData.map((dash, ind) => {
                           return (
                             <CCheckbox
