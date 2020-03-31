@@ -288,7 +288,7 @@ class CTable extends PureComponent {
                             className="add-new"
                             size="lg"
                         >
-                        <i className="fa fa-plus" />&nbsp;  Add</CButton>  : ''
+                            <i className="fa fa-plus"/>&nbsp;  Add</CButton> : ''
                 }
 
                 <Table
@@ -335,7 +335,7 @@ class CTable extends PureComponent {
                         <tbody>
                         {
                             tableData.map((row, rowIndex) => (
-                                <tr key={"row" + rowIndex}>
+                                <tr key={"row" + rowIndex} className={row.onRowEdit ? "activeRow" : ""}>
                                     {
                                         columnDefinition.map((column, colIndex) => (
 
