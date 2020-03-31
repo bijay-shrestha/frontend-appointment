@@ -6,6 +6,7 @@ import PatientStatistics from './PatientStatistics'
 import AppointmentStatistics from './AppointmentStatistics'
 import ClientDashboardHoc from './ClientDashboardHoc'
 import AppointmentQueue from './AppointmentQueue'
+import DoctorRevenueList from './DoctorRevenueList'
 
 const ClientDashboard = props => {
   const ClientDashboard = ClientDashboardHoc(
@@ -18,7 +19,8 @@ const ClientDashboard = props => {
         appointmentList,
         revenueFilter,
         appointmentFilter,
-        appointmentQueue
+        appointmentQueue,
+        doctorRevenue
       }) => (
         <div className="dashboard-wrapper">
           <Container fluid className="">
@@ -47,28 +49,65 @@ const ClientDashboard = props => {
                 </div>
               </Col>
             </Row>
-            <RevenueStatistics generateRevenue={generateRevenue} />
 
+            <Row>
+              <RevenueStatistics generateRevenue={generateRevenue} />
+            </Row>
             <Row className="mt-1">
-              <Col lg={7}>
+              {/* <CheckDashboardRole
+                component={ */}
+              <Col md={6} className="p-0">
                 <RevenueTrend
                   revenueStatistics={revenueStatistics}
                   onPillsClickHandler={onPillsClickHandler}
                   revenueFilter={revenueFilter}
                 />
+              </Col>
+              {/* }
+                code={revenueStatistics.code}
+              /> */}
+              {/* 
+              <CheckDashboardRole
+                component={ */}
+              <Col md={6} className="pr-0">
+                <DoctorRevenueList doctorRevenue={doctorRevenue} />
+              </Col>
+              {/* }
+                code={doctorRevenue.code}
+              /> */}
+            </Row>
+
+            <Row className="mt-1">
+              {/* <CheckDashboardRole
+                component={ */}
+              <Col md={6} className="p-0">
                 <AppointmentQueue
                   appointmentQueue={appointmentQueue}
-                
                 />
               </Col>
-              <Col lg={5} className="pr-0">
+              {/* }
+                code={appointmentQueue.code}
+              /> */}
+
+              <Col md={6} className="pr-0">
+                {/* <CheckDashboardRole
+                  component={ */}
                 <PatientStatistics registeredPatients={registeredPatients} />
+                {/* }
+                  code={appointmentQueue.code}
+                /> */}
+
+                {/* <CheckDashboardRole
+                  component={ */}
                 <AppointmentStatistics
                   onPillsClickHandler={onPillsClickHandler}
                   type="appointment"
                   appointmentList={appointmentList}
                   appointmentFilter={appointmentFilter}
                 />
+                {/* }
+                  code={appointmentList.code}
+                /> */}
               </Col>
             </Row>
           </Container>

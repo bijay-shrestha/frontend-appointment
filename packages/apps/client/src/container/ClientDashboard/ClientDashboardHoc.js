@@ -2,12 +2,13 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   DashboardDetailsMiddleware,
-  DoctorMiddleware
+  DoctorMiddleware,
+  SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import './admin-dashboard.scss'
-
+const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {
   fetchDashboardAppointmentStatisticsList,
   fetchDashboardRevenueDayList,
@@ -17,13 +18,15 @@ const {
   fetchDashboardRevenueYearList,
   fetchAppointmentQueueList,
   clearDashboardDoctorRevenue,
+  fetchDashboardDoctorRevenue,
   fetchDashboardRegisteredPatientListForClient
 } = DashboardDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const ClientDashboardHoc = (ComposedComponent, props, type) => {
   const {
     DashboardApiConstant,
-    doctorSetupApiConstants
+    doctorSetupApiConstants,
+    specializationSetupAPIConstants
   } = AdminModuleAPIConstants
 
   class ClientDashboardHoc extends React.PureComponent {
@@ -241,9 +244,14 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    searchDoctor = async value => {
+    searchDoctor = async () => {
       await this.props.fetchActiveDoctorsForDropdown(
         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
+      )
+    }
+    searchSpecialization = async () => {
+      await this.props.fetchSpecializationForDropdown(
+        specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
       )
     }
     searchAppointmentQueue = async page => {
@@ -406,6 +414,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
 
     componentDidMount () {
       this.searchDoctor()
+      this.searchSpecialization()
       this.searchAppointmentQueue()
       this.searchDoctorRevenueList()
       this.fetchDashboardData()
@@ -418,7 +427,12 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         searchParameterForRevenueTrend,
         hospitalList,
         queryParams,
-        totalRecords
+        totalRecords,
+        doctorQueryParams,
+        doctorRevenue,
+        doctorTotalAppointments,
+        doctorTotalRecords,
+        doctorTotalRevenueAmount
       } = this.state
       const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
@@ -474,6 +488,12 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         revenueGeneratedYearErrorMessage
       } = this.props.DashboardRevenueGeneratedYearReducer
 
+      const {
+        isDoctorRevenueGeneratedLoading,
+        doctorRevenueGenerated,
+        doctorRevenueGeneratedErrorMessage
+      } = this.props.DashboardRevenueGeneratedByDoctorReducer
+
       const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
       return (
         <ComposedComponent
@@ -527,6 +547,28 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             date: this.state.appointmentQueue.date,
             doctorDropdown: activeDoctorsForDropdown
           }}
+          doctorRevenue={{
+            isDoctorRevenueLoading: isDoctorRevenueGeneratedLoading,
+            doctorRevenueData: doctorRevenueGenerated,
+            doctorRevenueErrorMessage: doctorRevenueGeneratedErrorMessage,
+            totalRecords: doctorTotalRecords,
+            queryParams: doctorQueryParams,
+            handlePageChange: this.handleDoctorRevenuePageChange,
+            doctorId: doctorRevenue.doctorId,
+            handleDoctorChange: this.handleDoctorChange,
+            doctorDropdown: activeDoctorsForDropdown,
+            fromDate: doctorRevenue.fromDate,
+            toDate: doctorRevenue.toDate,
+            handleDateChange: this.handleDateChange,
+            hospitalId: doctorRevenue.hospitalId,
+            doctorTotalAppointments: doctorTotalAppointments,
+            doctorTotalRevenueAmount: doctorTotalRevenueAmount,
+            handleSpecializationChange: this.handleSpecializationChange,
+            specializationId: doctorRevenue.specializationId,
+            specializationListHospitalWise: this.props
+              .SpecializationDropdownReducer.allActiveSpecializationList
+            // code:ACCESSCODE.REVENUE_STAT
+          }}
           onPillsClickHandler={this.onPillsClickHandler}
           handleHospitalChange={this.handleHospitalChange}
           hospitalDropdown={hospitalList}
@@ -541,6 +583,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
   return ConnectHoc(
     ClientDashboardHoc,
     [
+      'DashboardRevenueGeneratedByDoctorReducer',
       'DashboardAppointmentStatisticsReducer',
       'DashboardRegisteredPatientReducer',
       'DashboardRevenueGeneratedDayReducer',
@@ -549,7 +592,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       'DashboardRevenueGeneratedYearReducer',
       'DashboardRevenueStatisticsReducer',
       'DashboardAppointmentQueueReducer',
-      'DoctorDropdownReducer'
+      'DoctorDropdownReducer',
+      'SpecializationDropdownReducer'
     ],
     {
       fetchDashboardAppointmentStatisticsList,
@@ -561,7 +605,9 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       fetchAppointmentQueueList,
       fetchDashboardRegisteredPatientListForClient,
       fetchActiveDoctorsForDropdown,
-      clearDashboardDoctorRevenue
+      clearDashboardDoctorRevenue,
+      fetchDashboardDoctorRevenue,
+      fetchSpecializationForDropdown
     }
   )
 }
