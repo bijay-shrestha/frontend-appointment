@@ -80,6 +80,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 previewData: {},
                 totalRecords: 0,
                 newSelectedMenus: [],
+                companyProfileList: [],
                 //TODO remove it
                 companyList: []
             };
@@ -461,6 +462,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     searchData,
                 );
 
+                let dataWithSN = this.appendSNToTable(this.props.CompanyProfileSearchReducer.companyProfileList);
+
                 await this.setState({
                     totalRecords: this.props.CompanyProfileSearchReducer.companyProfileList.length
                         ? this.props.CompanyProfileSearchReducer.companyProfileList[0].totalItems
@@ -468,7 +471,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     queryParams: {
                         ...queryParams,
                         page: updatedPage
-                    }
+                    },
+                    companyProfileList: [...dataWithSN]
                 })
             };
 
@@ -649,6 +653,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 }, 10000)
             };
 
+            appendSNToTable = profileList =>
+                profileList.map((prof, index) => ({...prof, sN: index + 1}));
+
             bindValuesToState = async (event, fieldValid) => {
                 let fieldName = event.target.name;
                 let value = event.target.value;
@@ -760,14 +767,15 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     searchParameters, totalRecords, queryParams,
                     showPreviewModal, previewData,
                     showDeleteModal, deleteRequestDTO, showEditModal,
-                    newSelectedMenus
+                    newSelectedMenus,
+                    companyProfileList
                 } = this.state;
 
                 const {activeCompanyProfileListForDropdown, dropdownErrorMessage} = this.props.CompanyProfileDropdownReducer;
 
                 const {createCompanyProfileLoading} = this.props.CompanyProfileCreateReducer;
 
-                const {searchCompanyProfileLoading, searchCompanyProfileErrorMessage, companyProfileList} =
+                const {searchCompanyProfileLoading, searchCompanyProfileErrorMessage} =
                     this.props.CompanyProfileSearchReducer;
 
                 const {

@@ -47,17 +47,15 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
                         enableSorting
                         editType
                         columnDefs={[
-                            // {
-                            //     headerName: 'SN',
-                            //     field: 'sN',
-                            //     headerClass: 'resizable-header header-first-class',
-                            //     resizable: true,
-                            //     sortable: true,
-                            //     editable: true,
-                            //     sizeColumnsToFit: true,
-                            //     cellClass: 'first-class'
-                            //     //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
-                            // },
+                            {
+                                headerName: 'SN',
+                                field: 'sN',
+                                headerClass: 'resizable-header header-first-class',
+                                resizable: true,
+                                sortable: true,
+                                sizeColumnsToFit: true,
+                                cellClass: 'first-class'
+                            },
                             {
                                 headerName: 'Profile Name',
                                 field: 'name',

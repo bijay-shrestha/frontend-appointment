@@ -4,7 +4,8 @@ import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import {menuRoles as rolesFromJson, menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import CompanyProfilePreviewRoles from "../../CommonComponents/CompanyProfilePreviewRoles";
 
 class CompanyProfileMenuAssignment extends PureComponent {
     state = {
@@ -336,7 +337,8 @@ class CompanyProfileMenuAssignment extends PureComponent {
 
     render() {
         const {userMenus, profileData, defaultSelectedMenu, resetFormData} = this.props.profileMenuAssignmentData;
-        const showAssignRoles = (this.state.rolesForTabs.length && this.state.tabs.length && this.state.tabsCopyForSearch.length) > 0;
+        let showAssignRoles = (this.state.rolesForTabs.length && this.state.tabs.length && this.state.tabsCopyForSearch.length) > 0;
+        showAssignRoles = showAssignRoles || this.state.currentSelectedChildMenu;
 
         const noUserMenusMessage =
             <div className="filter-message">
@@ -455,7 +457,9 @@ class CompanyProfileMenuAssignment extends PureComponent {
                                     </CButton>
                                 </div>
                                 <h5 className="title">&nbsp;</h5>
-                                <PreviewRoles
+                                <CompanyProfilePreviewRoles
+                                    // profilePreviewErrorMessage={profilePreviewErrorMessage}
+                                    // profilePreviewLoading={profilePreviewLoading}
                                     showModal={this.state.showModal}
                                     setShowModal={this.setShowModal}
                                     profileData={profileData}
