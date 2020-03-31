@@ -5,7 +5,7 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {
     adminUserMenusJson,
     EnterKeyPressUtils,
-    EnvironmentVariableGetter,
+    EnvironmentVariableGetter, ProfileSetupUtils,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
 import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
@@ -59,9 +59,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 message: ""
             },
             departmentListByHospital: [],
-            showProfileModal: false,
+            showPreviewModal: false,
             showEditModal: false,
-            deleteModalShow: false,
+            showDeleteModal: false,
             subDepartmentsByDepartmentId: [],
             searchParameters: {
                 profile: null,
@@ -77,6 +77,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 remarks: '',
                 status: 'D'
             },
+            previewData: {},
             totalRecords: 0,
             //TODO remove it
             companyList: []
@@ -150,6 +151,14 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             this.setState({showConfirmModal: !this.state.showConfirmModal});
         };
 
+        closeModal = () => {
+            this.setState({
+                showPreviewModal: false,
+                showDeleteModal: false,
+                showEditModal: false
+            })
+        };
+
         resetStateValues = () => {
             this.setState({
                 profileDescription: '',
@@ -177,7 +186,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             event && await this.bindValuesToState(event, fieldValid);
         };
 
-        handleSearchFormChange = async (event)=>{
+        handleSearchFormChange = async (event) => {
             let key = event.target.name;
             let value = event.target.value;
             let label = event.target.label;
@@ -242,6 +251,64 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             this.searchCompanyProfile();
         };
 
+        handleCompanyProfilePreview = async id => {
+            try {
+                await this.previewCompanyProfile(id);
+                const previewDataDetail = {
+                    profileResponseDTO: this.props.CompanyProfilePreviewReducer.companyProfileDetail.companyProfileInfo,
+                    profileMenuResponseDTOS: this.props.CompanyProfilePreviewReducer.companyProfileDetail.companyProfileMenuInfo
+                };
+                let previewData = ProfileSetupUtils.prepareProfilePreviewData(previewDataDetail, 'COMPANY');
+                this.setState({
+                    showPreviewModal: true,
+                    previewData: previewData
+                })
+            } catch (e) {
+                const {profilePreviewErrorMessage} = this.props.CompanyProfilePreviewReducer;
+                this.showAlertMessage("danger", profilePreviewErrorMessage
+                    ? profilePreviewErrorMessage : "Error fetching profile Details.");
+            }
+        };
+
+        handleDeleteRemarksChange = event => {
+            const {name, value} = event.target;
+            let deleteRequest = {...this.state.deleteRequestDTO};
+            deleteRequest[name] = value;
+            this.setState({
+                deleteRequestDTO: deleteRequest
+            })
+        };
+
+        handleDeleteProfile = async id => {
+            this.props.clearSuccessErrorMessageFromStore();
+            let deleteRequestDTO = {...this.state.deleteRequestDTO};
+            deleteRequestDTO['id'] = id;
+            await this.setState({
+                deleteRequestDTO: deleteRequestDTO,
+                showDeleteModal: true
+            })
+        };
+
+        deleteCompanyProfile = async () => {
+            try {
+                await this.props.deleteCompanyProfile(DELETE_COMPANY_PROFILE, this.state.deleteRequestDTO);
+                await this.setState({
+                    showDeleteModal: false,
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
+                });
+                await this.showAlertMessage("success",
+                    this.props.CompanyProfileDeleteReducer.deleteCompanyProfileSuccessMessage);
+                await this.searchCompanyProfile();
+            } catch (e) {
+                this.setState({
+                    showDeleteModal: true,
+                });
+            }
+        };
+
+        previewCompanyProfile = async companyProfileId => {
+            await this.props.previewCompanyProfileById(PREVIEW_COMPANY_PROFILE, companyProfileId);
+        };
 
         saveCompanyProfile = async () => {
             const {profileName, profileDescription, status, company, selectedMenus} = this.state;
@@ -306,7 +373,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        fetchCompanyProfileListForDropdown = async ()=>{
+        fetchCompanyProfileListForDropdown = async () => {
             await this.props.fetchCompanyProfileListForDropdown(FETCH_COMPANY_PROFILE_FOR_DROPDOWN);
         };
 
@@ -421,7 +488,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
 
         initialApiCalls = async () => {
             await this.fetchCompanyListForDropdown();
-            if (type==="MANAGE"){
+            if (type === "MANAGE") {
                 this.fetchCompanyProfileListForDropdown();
                 this.searchCompanyProfile(1);
             }
@@ -442,11 +509,25 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 errorMessageForProfileDescription, errorMessageForProfileName,
                 userMenus, selectedMenus, defaultSelectedMenu, selectedUserMenusForModal, userMenuAvailabilityMessage,
                 alertMessageInfo, showAlert, showConfirmModal, formValid,
-                searchParameters,totalRecords,queryParams
+                searchParameters, totalRecords, queryParams,
+                showPreviewModal, previewData,
+                showDeleteModal, deleteRequestDTO, showEditModal
             } = this.state;
+
             const {activeCompanyProfileListForDropdown, dropdownErrorMessage} = this.props.CompanyProfileDropdownReducer;
+
             const {createCompanyProfileLoading} = this.props.CompanyProfileCreateReducer;
-            const {searchCompanyProfileLoading,searchCompanyProfileErrorMessage,companyProfileList} = this.props.CompanyProfileSearchReducer;
+
+            const {searchCompanyProfileLoading, searchCompanyProfileErrorMessage, companyProfileList} =
+                this.props.CompanyProfileSearchReducer;
+
+            const {
+                previewCompanyProfileLoading,
+                previewCompanyProfileErrorMessage
+            } = this.props.CompanyProfilePreviewReducer;
+
+            const {deleteCompanyProfileErrorMessage} = this.props.CompanyProfileDeleteReducer;
+
             return <>
                 <ComposedComponent
                     profileInfoFormData={{
@@ -494,21 +575,36 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     }}
                     searchData={{
                         searchParameters: searchParameters,
-                        companyProfileList:activeCompanyProfileListForDropdown,
-                        companyList:this.state.companyList,
-                        onInputChange:this.handleSearchFormChange,
+                        companyProfileList: activeCompanyProfileListForDropdown,
+                        companyList: this.state.companyList,
+                        onInputChange: this.handleSearchFormChange,
                         onSearchClick: this.searchCompanyProfile,
-                        resetSearchForm:this.handleSearchFormReset,
+                        resetSearchForm: this.handleSearchFormReset,
                     }}
                     tableData={{
-                        filteredActions:this.props.filteredAction,
-                        searchCompanyProfileLoading:searchCompanyProfileLoading,
-                        searchCompanyProfileErrorMessage:searchCompanyProfileErrorMessage,
-                        companyProfileList:companyProfileList,
-                        totalItems:totalRecords,
-                        maxSize:queryParams.size,
-                        currentPage:queryParams.page,
-                        handlePageChange:this.handlePageChange
+                        filteredActions: props.filteredAction,
+                        searchCompanyProfileLoading: searchCompanyProfileLoading,
+                        searchCompanyProfileErrorMessage: searchCompanyProfileErrorMessage,
+                        companyProfileList: companyProfileList,
+                        totalItems: totalRecords,
+                        maxSize: queryParams.size,
+                        currentPage: queryParams.page,
+                        handlePageChange: this.handlePageChange,
+                        // PREVIEW MODAL PROPS
+                        showPreviewModal,
+                        closeModal: this.closeModal,
+                        previewData: previewData,
+                        profilePreviewLoading: previewCompanyProfileLoading,
+                        profilePreviewErrorMessage: previewCompanyProfileErrorMessage,
+                        onPreviewHandler: this.handleCompanyProfilePreview,
+                        //
+                        // DELETE MODAL PROPS
+                        showDeleteModal: showDeleteModal,
+                        onDeleteHandler: this.handleDeleteProfile,
+                        remarksHandler: this.handleDeleteRemarksChange,
+                        remarks: deleteRequestDTO.remarks,
+                        onSubmitDelete: this.deleteCompanyProfile,
+                        deleteErrorMsg: deleteCompanyProfileErrorMessage
                     }}
                 />
                 <CAlert id="profile-manage"

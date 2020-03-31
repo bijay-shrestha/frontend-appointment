@@ -3,6 +3,9 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
 import TableAction from '../../CommonComponents/table-components/TableAction'
+import CompanyProfilePreviewRoles from "../../CommonComponents/CompanyProfilePreviewRoles";
+import {menuRoles as rolesFromJson} from "@frontend-appointment/helpers";
+import {ConfirmDelete} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -16,7 +19,21 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
         maxSize,
         currentPage,
         handlePageChange,
+        showPreviewModal,
+        closeModal,
+        profilePreviewErrorMessage,
+        previewData,
+        profilePreviewLoading,
+        onPreviewHandler,
+        onEditHandler,
+        showDeleteModal,
+        onDeleteHandler,
+        remarksHandler,
+        remarks,
+        onSubmitDelete,
+        deleteErrorMsg
     } = tableData;
+    console.log("roles",filteredActions);
     return (
         <div className="manage-details">
             <h5 className="title">Company Profile Details</h5>
@@ -72,13 +89,13 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
                                 cellRenderer: 'childActionRenderer',
                                 cellClass: 'actions-button-cell',
                                 cellRendererParams: {
-                                    // onClick: function (e, id, type) {
-                                    //     type === 'D'
-                                    //         ? props.onDeleteHandler(id)
-                                    //         : type === 'E'
-                                    //         ? props.onEditHandler(id)
-                                    //         : props.onPreviewHandler(id)
-                                    // },
+                                    onClick: function (e, id, type) {
+                                        type === 'D'
+                                            ? onDeleteHandler(id)
+                                            : type === 'E'
+                                            ? onEditHandler(id)
+                                            : onPreviewHandler(id)
+                                    },
                                     filteredAction: filteredActions
                                 },
                                 cellStyle: {overflow: 'visible', 'z-index': '99'}
@@ -89,11 +106,10 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
                             childLabelRenderer: Statuslabel
                         }}
                         defaultColDef={{resizable: true}}
-                        // getSelectedRows={
-                        //     checkIfRoleExists(props.filteredActions, 4) &&
-                        //     props.onPreviewHandler}
+                        getSelectedRows={
+                            checkIfRoleExists(filteredActions, 4) &&
+                            onPreviewHandler}
                         rowSelection={'single'}
-                        // setShowModal={props.setShowModal} // {this.showModal}
                         rowData={companyProfileList}
                     />
                     <CPagination
@@ -113,30 +129,32 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
             ) : (
                 <CLoading/>
             )}
-            {/*{props.deleteModalShow ? (*/}
-            {/*    <ConfirmDelete*/}
-            {/*        showModal={props.deleteModalShow}*/}
-            {/*        setShowModal={props.setShowModal}*/}
-            {/*        onDeleteRemarksChangeHandler={props.remarksHandler}*/}
-            {/*        remarks={props.remarks}*/}
-            {/*        onSubmitDelete={props.onSubmitDelete}*/}
-            {/*        deleteErrorMessage={props.deleteErrorMsg}*/}
-            {/*    />*/}
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
-            {/*{props.showProfileModal ? (*/}
-            {/*    <PreviewRoles*/}
-            {/*        showModal={props.showProfileModal}*/}
-            {/*        setShowModal={props.setShowModal}*/}
-            {/*        profileData={props.profileData}*/}
-            {/*        profilePreviewErrorMessage={props.profilePreviewErrorMessage}*/}
-            {/*        profilePreviewLoading={props.profilePreviewLoading}*/}
-            {/*        rolesJson={rolesFromJson}*/}
-            {/*    />*/}
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
+            {showDeleteModal ? (
+                <ConfirmDelete
+                    confirmationMessage="Are you sure you want to delete the Company Profile? If yes please provide remarks."
+                    modalHeader="Delete Company Profile"
+                    showModal={showDeleteModal}
+                    setShowModal={closeModal}
+                    onDeleteRemarksChangeHandler={remarksHandler}
+                    remarks={remarks}
+                    onSubmitDelete={onSubmitDelete}
+                    deleteErrorMessage={deleteErrorMsg}
+                />
+            ) : (
+                ''
+            )}
+            {showPreviewModal ? (
+                <CompanyProfilePreviewRoles
+                    showModal={showPreviewModal}
+                    setShowModal={closeModal}
+                    profileData={previewData}
+                    profilePreviewErrorMessage={profilePreviewErrorMessage}
+                    profilePreviewLoading={profilePreviewLoading}
+                    rolesJson={rolesFromJson}
+                />
+            ) : (
+                ''
+            )}
         </div>
     )
 };

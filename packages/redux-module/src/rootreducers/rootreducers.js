@@ -175,6 +175,6 @@ export const rootReducers = combineReducers({
     CompanyProfileDeleteReducer,
     CompanyProfileDropdownReducer,
     CompanyProfileEditReducer,
-    CompanyProfilePreiewReducer: CompanyProfilePreviewReducer,
+    CompanyProfilePreviewReducer,
     CompanyProfileSearchReducer
 });

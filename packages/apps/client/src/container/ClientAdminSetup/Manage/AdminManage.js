@@ -318,7 +318,7 @@ class AdminManage extends PureComponent {
     };
 
     automaticLogoutUser = () => {
-        this.timer=setTimeout(() => this.logoutUser(), 10000)
+        this.timer = setTimeout(() => this.logoutUser(), 10000)
     };
 
     logoutUser = async () => {
@@ -490,7 +490,8 @@ class AdminManage extends PureComponent {
                 profilePreviewData,
             } = this.props.ProfilePreviewReducer;
 
-            let profileData = profilePreviewData && await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData);
+            let profileData = profilePreviewData && await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,
+                'CLIENT');
             this.setState({
                 profileData,
                 showProfileDetailModal: true
