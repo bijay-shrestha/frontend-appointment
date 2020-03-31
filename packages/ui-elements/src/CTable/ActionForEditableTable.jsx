@@ -40,7 +40,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                                 id="delete"
                                 disabled={isEditing && rowNumber !== node.rowIndex}
                                 onClick={(e) => onClick(e, node, 'DELETE')}>
-                                         <i className="fa fa-trash" />&nbsp;
+                                         <i className="fa fa-trash-o" />&nbsp;
                                 Delete
                             </Button> : ''
                     }
