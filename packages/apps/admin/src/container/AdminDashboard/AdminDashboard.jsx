@@ -9,6 +9,7 @@ import AdminDashboardHoc from './AdminDashboardHoc'
 import AppointmentQueue from './AppointmentQueue'
 import DoctorRevenueList from './DoctorRevenueList'
 import {checkDashboardRole} from '@frontend-appointment/helpers'
+import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
 import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
@@ -32,7 +33,7 @@ const AdminDashboard = props => {
           <Container fluid className="">
             <Row className="">
               <Col className="px-0">
-                {checkDashboardRole(generateRevenue.code) ? (
+                {CheckDashboardRole(
                   <div className="revenue-title-box">
                     <div className="fiscal">
                       Fiscal Year{' '}
@@ -53,8 +54,9 @@ const AdminDashboard = props => {
                         : ''}
                     </div>
                     <h5 className="title">Revenue Statistics</h5>
-                  </div>
-                ) : null}
+                  </div>,
+                  generateRevenue.code
+                )}
               </Col>
               <HospitalDropdown
                 hospitalDropdown={hospitalDropdown}
@@ -65,68 +67,58 @@ const AdminDashboard = props => {
             </Row>
 
             <Row>
-            {checkDashboardRole(generateRevenue.code) ? (
-              <RevenueStatistics generateRevenue={generateRevenue} />
-            ) : null}
-          </Row>
+              {CheckDashboardRole(
+                <RevenueStatistics generateRevenue={generateRevenue} />,
+                generateRevenue.code
+              )}
+            </Row>
             <Row className="mt-1">
-           
-                {checkDashboardRole(revenueStatistics.code) ? (
-                   <Col md={6} className="p-0">
+              {checkDashboardRole(revenueStatistics.code) ? (
+                <Col md={6} className="p-0">
                   <RevenueTrend
                     revenueStatistics={revenueStatistics}
                     onPillsClickHandler={onPillsClickHandler}
                     revenueFilter={revenueFilter}
                   />
-                  </Col>
-                ) : null}
+                </Col>
+              ) : null}
 
-
-                {checkDashboardRole(doctorRevenue.code) ? (
-                  <Col md={6} className="pr-0">
+              {CheckDashboardRole(
+                <Col md={6} className="pr-0">
                   <DoctorRevenueList doctorRevenue={doctorRevenue} />
-                  </Col>
-                ) : null}
-           </Row>
+                </Col>,
+                doctorRevenue.code
+              )}
+            </Row>
 
-           <Row className="mt-1">
-
-              {checkDashboardRole(appointmentQueue.code) ? (
-                  <Col md={6} className="p-0">
+            <Row className="mt-1">
+              {CheckDashboardRole(
+                <Col md={6} className="p-0">
                   <AppointmentQueue
                     appointmentQueue={appointmentQueue}
                     hospitalId={hospitalId}
                   />
-                  </Col>
-                ) : null}
+                </Col>,
+                appointmentQueue.code
+              )}
 
-              <Col  md={6} className="pr-0">
-                {checkDashboardRole(registeredPatients.code) ? (
-                    
-                  <PatientStatistics registeredPatients={registeredPatients} />
-                  
-                ) : null}
+              <Col md={6} className="pr-0">
+                {CheckDashboardRole(
+                  <PatientStatistics registeredPatients={registeredPatients} />,
+                  appointmentQueue.code
+                )}
 
-                {checkDashboardRole(appointmentList.code) ? (
-                  
+                {CheckDashboardRole(
                   <AppointmentStatistics
                     onPillsClickHandler={onPillsClickHandler}
                     type="appointment"
                     appointmentList={appointmentList}
                     appointmentFilter={appointmentFilter}
-                  />
-                
-                ) : null}
-                  </Col>
-              </Row>
-            
-        
-
-            {/* <Row>
-              <Col>
-              <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+                  />,
+                  appointmentList.code
+                )}
               </Col>
-            </Row> */}
+            </Row>
           </Container>
         </div>
       )
