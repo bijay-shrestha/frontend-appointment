@@ -36,7 +36,7 @@ const AppointmentQueue = props => {
                       <CHybridSelect
                         name="doctorId"
                         placeholder="Select Doctor"
-                        onChange={handleDoctorChange}
+                        onChange={(e) =>handleDoctorChange(e,'Q')}
                         options={doctorDropdown}
                         value={doctorId}
                       ></CHybridSelect>

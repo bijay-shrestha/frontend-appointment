@@ -16,6 +16,7 @@ const {
   fetchDashboardRevenueWeekList,
   fetchDashboardRevenueYearList,
   fetchAppointmentQueueList,
+  clearDashboardDoctorRevenue,
   fetchDashboardRegisteredPatientListForClient
 } = DashboardDetailsMiddleware
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
@@ -50,7 +51,21 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       queryParams: {
         page: 0,
         size: 6
-      }
+      },
+      doctorRevenue: {
+        doctorId: 0,
+        hospitalId: 0,
+        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+        toDate: new Date(),
+        specializationId: 0
+      },
+      doctorQueryParams: {
+        page: 0,
+        size: 3
+      },
+      doctorTotalRecords: 0,
+      doctorTotalAppointments: 0,
+      doctorTotalRevenueAmount: 0
     }
 
     fetchDashboardData = statsType => {
@@ -271,24 +286,128 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       this.searchAppointmentQueue()
     }
 
-    handleDoctorChange = async (event, field) => {
+    handleDoctorChange = async (event, types) => {
       let searchParams = {
         ...this.state.appointmentQueue
       }
+
+      let searchParamsForDoctor = {
+        ...this.state.doctorRevenue
+      }
+
       let fieldName, value, label
       fieldName = event.target.name
       value = event.target.value
       label = event.target.label
-      searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+      if (types === 'Q') {
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        await this.setState({
+          appointmentQueue: searchParams
+        })
+      } else {
+        searchParamsForDoctor[fieldName] = label
+          ? value
+            ? {value, label}
+            : ''
+          : value
+        await this.setState({
+          doctorRevenue: searchParamsForDoctor
+        })
+      }
+
+      if (fieldName === 'doctorId')
+        if (types === 'Q') {
+          this.searchAppointmentQueue()
+        } else {
+          this.searchDoctorRevenueList()
+        }
+    }
+
+    searchDoctorRevenueList = async page => {
+      this.props.clearDashboardDoctorRevenue()
+      const {
+        doctorId,
+        fromDate,
+        toDate,
+        specializationId
+      } = this.state.doctorRevenue
+      let response = ''
+
+      let updatedPage =
+        this.state.doctorQueryParams.page === 0
+          ? 1
+          : page
+          ? page
+          : this.state.doctorQueryParams.page
+      try {
+        response = await this.props.fetchDashboardDoctorRevenue(
+          DashboardApiConstant.DOCTOR_REVENUE,
+          {
+            page: updatedPage,
+            size: this.state.doctorQueryParams.size,
+            doctorId: doctorId ? doctorId.value : 0,
+            fromDate: DateTimeFormatterUtils.getFormattedDate(fromDate),
+            toDate: DateTimeFormatterUtils.getFormattedDate(toDate),
+            specializationId: specializationId ? specializationId.value : 0
+          }
+        )
+        await this.setState({
+          doctorTotalRecords: this.props
+            .DashboardRevenueGeneratedByDoctorReducer.totalItemsDoctorsRevenue,
+          doctorTotalAppointments: this.props
+            .DashboardRevenueGeneratedByDoctorReducer.overallAppointment,
+          doctorTotalRevenueAmount: this.props
+            .DashboardRevenueGeneratedByDoctorReducer.totalRevenueAmount,
+          doctorQueryParams: {
+            ...this.state.doctorQueryParams,
+            page: updatedPage
+          }
+        })
+        return response
+      } catch (e) {
+        throw e
+        console.log(e)
+      }
+    }
+
+    handleDoctorRevenuePageChange = async newPage => {
+      try {
+        await this.setState({
+          doctorQueryParams: {
+            ...this.state.doctorQueryParams,
+            page: newPage
+          }
+        })
+        const response = await this.searchDoctorRevenueList()
+        return response
+      } catch (e) {
+        throw e
+      }
+    }
+
+    handleDateChange = async (e, fieldName) => {
+      let doctorRevenueParam = {...this.state.doctorRevenue}
+      doctorRevenueParam[fieldName] = e || ''
       await this.setState({
-        appointmentQueue: searchParams
+        doctorRevenue: doctorRevenueParam
       })
-      this.searchAppointmentQueue()
+      this.searchDoctorRevenueList()
+    }
+
+    handleSpecializationChange = async e => {
+      let specializationParam = {...this.state.doctorRevenue}
+      const {name, value, label} = e.target
+      specializationParam[name] = value ? {value: value, label: label} : ''
+      await this.setState({
+        doctorRevenue: specializationParam
+      })
+      this.searchDoctorRevenueList()
     }
 
     componentDidMount () {
       this.searchDoctor()
       this.searchAppointmentQueue()
+      this.searchDoctorRevenueList()
       this.fetchDashboardData()
     }
 
@@ -405,7 +524,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             handlePageChange: this.handlePageChange,
             handleDoctorChange: this.handleDoctorChange,
             doctorId: this.state.appointmentQueue.doctorId,
-            date:this.state.appointmentQueue.date,
+            date: this.state.appointmentQueue.date,
             doctorDropdown: activeDoctorsForDropdown
           }}
           onPillsClickHandler={this.onPillsClickHandler}
@@ -441,7 +560,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       fetchDashboardRevenueYearList,
       fetchAppointmentQueueList,
       fetchDashboardRegisteredPatientListForClient,
-      fetchActiveDoctorsForDropdown
+      fetchActiveDoctorsForDropdown,
+      clearDashboardDoctorRevenue
     }
   )
 }

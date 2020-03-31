@@ -1,8 +1,13 @@
-import React from 'react';
+import React,{memo} from 'react';
 import {checkDashboardRole} from '@frontend-appointment/helpers'
-const CheckDashBoardRole = (ComposedComponent,code) => props => {
+const CheckDashBoardRole = props => {
+    const {component,code}=props
+    const ComposedComponent = component;
+    const checkDashBoardWithCode =()=>{
+     return checkDashboardRole(code);
+    }
     return (
-    checkDashboardRole(code)?<ComposedComponent {...props}/>:null
+    checkDashBoardWithCode()?ComposedComponent:null
     )
 }
-export default CheckDashBoardRole;
+export default memo(CheckDashBoardRole);
