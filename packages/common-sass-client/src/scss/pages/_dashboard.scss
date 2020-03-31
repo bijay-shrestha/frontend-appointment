@@ -43,11 +43,12 @@
     }
 
     .hospital-list{
-        width:300px;
+        width:200px;
         float:right;
 
         .hospital-list-input{
             position: relative;
+          
 
             .form-label{
                 position: absolute;
@@ -73,12 +74,13 @@
               .css-1hwfws3{
                   padding:0;
               }
+             
 
               .css-yk16xz-control{
                     background-color:transparent;
                     border-color:transparent !important;
                     border-bottom:1px solid $gray-500 !important;
-                    //    min-height: 30px;
+                //    min-height: 0px !important;
             
                     @include border-radius(0);
             
@@ -87,6 +89,11 @@
                         border-bottom:1px solid $gray-500 !important;
                     }
                     }
+
+               
+            //    .css-tlfecz-indicatorContainer{
+            //        padding:2px !important;
+            //    }
 
             }
 
@@ -402,6 +409,18 @@
             // 10px 10px 10px $gray-400; 
             @include border-radius(0.5rem);
 
+            .app-queue-datatable{
+                margin-top:130px;
+                .filter-message{
+                    position: absolute;
+                    top:70%;
+                    left:50%;
+                    width:100%;
+                    height: 200px;
+                    transform: translate(-50%,-70%);
+                }
+            }
+
             .filter-message{
                 position: absolute;
                 top:50%;
@@ -410,7 +429,42 @@
                 height: 200px;
                 transform: translate(-50%,-50%);
             }
+          
+
+           
         }
+
+        .react-datepicker-popper[data-placement^="bottom"]{
+            margin-top:-8px !important;
+           
+
+        }
+
+        .react-datepicker-popper{
+      
+            margin-left:-100px;
+        }
+
+        .react-datepicker-popper[data-placement^="bottom"]  .react-datepicker__triangle,
+         .react-datepicker-popper[data-placement^="top"]  .react-datepicker__triangle::before {
+             margin-left:100px;
+         }
+
+         .doctor-revenue-revenue{
+            width:100%;
+  
+            .data-image{
+              //   width:25px;
+                margin-top: 4px;
+            }
+  
+            ul li{
+                line-height: 22px;
+            }
+  
+  
+        }
+
     }
 
     .appointment-queue{
@@ -430,11 +484,11 @@
 
             .filter-message{
                 position: absolute;
-                top:40%;
                 left:50%;
+                top:30%;
                 width:100%;
                 height: 200px;
-                transform: translate(-50%,-40%);
+                transform: translate(-50%,-30%);
             }
         }
     }
@@ -487,7 +541,14 @@
         // 10px 10px 10px $gray-400; 
         @include border-radius(0.5rem);
 
+        .date-group{
+            text-align: left;
+            padding-left:15px;
+        }
 
+        .date{
+            padding-right:15px;
+        }
 
         .doughnut-chart{
             width:60%;

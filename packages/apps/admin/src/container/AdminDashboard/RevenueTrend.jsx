@@ -53,12 +53,14 @@ const RevenueTrend = props => {
           {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
             <>
               <Row>
+                <Col>
                 <CDateButtonPills
                   onPillsClickHandler={props.onPillsClickHandler}
                   type="refund"
                   variant="outline-secondary"
                   data={props.revenueFilter}
                 />
+                </Col>
                 <Col xs={12} md={4} className="">
                   <Col className="date">
                     <div>

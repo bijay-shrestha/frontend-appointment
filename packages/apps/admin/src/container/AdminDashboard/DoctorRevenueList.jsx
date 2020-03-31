@@ -43,7 +43,7 @@ const DoctorRevenueList = props => {
               <Col className="">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
-                    <Col >
+                    <Col className="px-0">
                     <div className="hospital-list-input">
                       <CHybridSelect
                           name="specializationId"
