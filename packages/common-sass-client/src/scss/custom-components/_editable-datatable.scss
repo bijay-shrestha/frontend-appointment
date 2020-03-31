@@ -6,6 +6,9 @@
   .add-new{
       width:120px;
       margin:20px 0;
+      float:right;
+      margin-top:-30px;
+      
   }
 
     .table-header{
@@ -30,43 +33,45 @@
     }
 
     .table-body{
-        // changes the selected checkbox check mark color
-// $accent-color: $cogent;
-// $foreground-color: $gray-700;
-border-top:0;
-height: 40px;
-border-width: 1px;
-// $hover-color: lighten($cogent, 45%);
-border-color: $cogent-border;
-// // $header-background-color: $white;
-// $header-foreground-color: lighten($body-color, 10%);
-// $odd-row-background-color: $white;
-// $selected-color: lighten($cogent, 40%);
-// $font-weight: 500;
-// $cell-horizontal-padding: 6px;
-tr{
+   
+      border-top:0;
+      height: 40px;
+      border-width: 1px;
+      border-color: $cogent-border;
 
-    &:hover,&:focus{
-        height: 40px;
-        border-width: 1px;
-        background-color: lighten($cogent, 45%);
-        border-color: $cogent-border;
+      tr{
+          &:hover,&:focus{
+              height: 40px;
+              border-width: 1px;
+              background-color: lighten($cogent, 45%);
+              border-color: $cogent-border;
+
+              .table-action{
+                  display: block;
+              }
+          }
+      }
+      
+      td{
+          height: 40px;
+          border-width: 1px;
+          color:$gray-800;
+          border-color:$gray-100;
+          font-weight: 500;
+          min-height: 42px;
+          vertical-align: middle;
+      
+      }
     }
 
+  
 
-}
-
-td{
-    height: 40px;
-    border-width: 1px;
-    color:$gray-800;
-    border-color:$gray-100;
-    font-weight: 500;
-    min-height: 42px;
-    vertical-align: middle;
-
-}
+    .activeRow{
+      .table-action{
+          display: block;
+      }
     }
+   
 
     .css-yk16xz-control{
         border-color:$cogent-border;
@@ -90,8 +95,4 @@ td{
          border:1px solid $cogent;
        }
     }
-
-
-    
-
 }

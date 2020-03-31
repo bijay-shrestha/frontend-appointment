@@ -4,7 +4,7 @@ import {Scrollbars} from 'react-custom-scrollbars';
 import PropTypes from 'prop-types';
 import {CButton} from "../../index";
 import ActionForEditableTable from "./ActionForEditableTable";
-import "./editable-table.scss";
+
 
 class CTable extends PureComponent {
 
