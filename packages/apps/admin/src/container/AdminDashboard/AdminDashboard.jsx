@@ -73,15 +73,16 @@ const AdminDashboard = props => {
               )}
             </Row>
             <Row className="mt-1">
-              {checkDashboardRole(revenueStatistics.code) ? (
+              {CheckDashboardRole(
                 <Col md={6} className="p-0">
                   <RevenueTrend
                     revenueStatistics={revenueStatistics}
                     onPillsClickHandler={onPillsClickHandler}
                     revenueFilter={revenueFilter}
                   />
-                </Col>
-              ) : null}
+                </Col>,
+                revenueStatistics.code
+              )}
 
               {CheckDashboardRole(
                 <Col md={6} className="pr-0">
