@@ -79,10 +79,20 @@ export const fetchCompanyProfileListForDropdown = (path) => async dispatch => {
     }
 };
 
-export const clearSuccessErrorMessageFromStore = ()=> async dispatch=>{
-  dispatch(CompanyProfileSetupActions.clearProfileCreateMessages());
-  dispatch(CompanyProfileSetupActions.clearProfileDeleteMessages());
-  dispatch(CompanyProfileSetupActions.clearProfileEditMessages());
-  dispatch(CompanyProfileSetupActions.clearProfilePreviewMessages());
-  // dispatch(CompanyProfileSetupActions.clearProfileSearchMessages());
+// TODO remove this method after merging company setup
+export const fetchCompany = (path) => async dispatch => {
+    try {
+        let response = await Axios.get(path);
+        return response.data
+    } catch (e) {
+
+    }
+};
+
+export const clearSuccessErrorMessageFromStore = () => async dispatch => {
+    dispatch(CompanyProfileSetupActions.clearProfileCreateMessages());
+    dispatch(CompanyProfileSetupActions.clearProfileDeleteMessages());
+    dispatch(CompanyProfileSetupActions.clearProfileEditMessages());
+    dispatch(CompanyProfileSetupActions.clearProfilePreviewMessages());
+    // dispatch(CompanyProfileSetupActions.clearProfileSearchMessages());
 };

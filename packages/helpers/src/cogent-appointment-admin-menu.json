@@ -194,6 +194,26 @@
           "menuFor": "1",
           "description": "University Setup",
           "childMenus": []
+        },
+        {
+          "id": "20",
+          "parentId": "1",
+          "name": "Company Profile Setup",
+          "path": "/generalSetup/companyProfile",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Profile Setup",
+          "childMenus": []
         }
       ]
     },

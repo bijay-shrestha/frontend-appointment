@@ -171,7 +171,7 @@ export const DashboardApiConstant = {
 };
 
 const COMPANY_PROFILE_SETUP_BASE='/company-profile';
-export const CompanyProfileSetupApiConstants = {
+export const companyProfileSetupApiConstants = {
     CREATE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
     EDIT_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
     DELETE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),

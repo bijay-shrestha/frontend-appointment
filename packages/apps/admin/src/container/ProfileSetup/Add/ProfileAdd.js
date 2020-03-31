@@ -12,15 +12,7 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import {
-    EnterKeyPressUtils,
-    menuRoles,
-    adminUserMenusJson,
-    clientUserMenusJson,
-    UserMenuUtils,
-    TryCatchHandler,
-    EnvironmentVariableGetter, ProfileSetupUtils,
-} from "@frontend-appointment/helpers";
+import {EnterKeyPressUtils, menuRoles, ProfileSetupUtils, TryCatchHandler,} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
@@ -267,7 +259,7 @@ class ProfileAdd extends PureComponent {
             selectedMenus: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected
         });
-        console.log(this.state.selectedMenus);
+        // console.log(this.state.selectedMenus);
         this.checkFormValidity();
     };
 

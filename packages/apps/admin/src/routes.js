@@ -65,6 +65,11 @@ const AppointmentLogListComponent = loadable(
     () => import('./container/AppointmentLog/AppointmentLog'),
     {fallback: () => getLoader()}
 )
+
+const AddCompanyProfileComponent = loadable(
+    () => import('./container/CompanyProfileSetup/Add/CompanyProfileSetupAdd'),
+    {fallback: getLoader()}
+);
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -138,6 +143,11 @@ const ManageDoctorComponent = loadable(
     () => import('./container/DoctorSetup/Manage/DoctorManage'),
     {fallback: () => getLoader()}
 )
+
+const ManageCompanyProfileComponent = loadable(
+    () => import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
+    {fallback: getLoader()}
+);
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -523,5 +533,32 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Alias'
-    }
+    },
+    {
+        path: '/admin/generalSetup/companyProfile',
+        component: <></>,
+        isLink: false,
+        icon: '',
+        hasTab: true,
+        isTab: false,
+        name: 'Company Profile Setup'
+    },
+    {
+        path: '/admin/generalSetup/companyProfile/add',
+        name: 'Add',
+        component: AddCompanyProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true
+    },
+    {
+        path: '/admin/generalSetup/companyProfile/manage',
+        component: ManageCompanyProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+    },
 ];
