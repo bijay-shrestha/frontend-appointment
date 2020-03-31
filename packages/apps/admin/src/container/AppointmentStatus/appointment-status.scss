@@ -255,6 +255,18 @@
     }
 }
 
+.back-day-off{
+    display: block;
+    padding-top:20px;
+
+    .fa{
+        font-size: 42px !important;
+       display: block;
+       color:$danger;
+
+    }
+}
+
 .appointment-status-list,.appointment-badge{
     .btn-success{
         // background-color: adjust-hue($success,20%);
