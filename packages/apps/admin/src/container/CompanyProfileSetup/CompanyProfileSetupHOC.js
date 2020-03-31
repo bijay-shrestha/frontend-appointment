@@ -42,6 +42,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             company: null,
             selectedMenus: [],
             status: 'Y',
+            remarks: '',
             userMenus: [],
             defaultSelectedMenu: [],
             showConfirmModal: false,
@@ -58,6 +59,25 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 message: ""
             },
             departmentListByHospital: [],
+            showProfileModal: false,
+            showEditModal: false,
+            deleteModalShow: false,
+            subDepartmentsByDepartmentId: [],
+            searchParameters: {
+                profile: null,
+                status: {value: 'A', label: 'All'},
+                company: null
+            },
+            queryParams: {
+                page: 0,
+                size: 10
+            },
+            deleteRequestDTO: {
+                id: 0,
+                remarks: '',
+                status: 'D'
+            },
+            totalRecords: 0,
             //TODO remove it
             companyList: []
         };
@@ -157,6 +177,25 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             event && await this.bindValuesToState(event, fieldValid);
         };
 
+        handleSearchFormChange = async (event)=>{
+            let key = event.target.name;
+            let value = event.target.value;
+            let label = event.target.label;
+
+            label ? (value ? this.setState({
+                        searchParameters: {
+                            ...this.state.searchParameters,
+                            [key]: {value, label}
+                        }
+                    }) : this.setState({
+                        searchParameters: {...this.state.searchParameters, [key]: null}
+                    })
+                )
+                : this.setState({
+                    searchParameters: {...this.state.searchParameters, [key]: value}
+                });
+        };
+
         handleRolesCheck = async (roles, childMenu) => {
             let currentSelectedMenus = [...this.state.selectedMenus];
             for (let role of roles) {
@@ -181,6 +220,29 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             this.checkFormValidity();
         };
 
+        handleSearchFormReset = async () => {
+            await this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    profile: null,
+                    company: null,
+                    status: {value: 'A', label: 'All'},
+                }
+            });
+            this.searchCompanyProfile(1)
+        };
+
+        handlePageChange = async newPage => {
+            await this.setState({
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: newPage
+                }
+            });
+            this.searchCompanyProfile();
+        };
+
+
         saveCompanyProfile = async () => {
             const {profileName, profileDescription, status, company, selectedMenus} = this.state;
             let profileDetails = {
@@ -204,11 +266,48 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        searchCompanyProfile = async (page) => {
+            const {searchParameters, queryParams} = this.state;
+            const {profile, status, company} = searchParameters;
+            let searchData = {
+                name: profile ? profile.value : '',
+                status: status && status.value !== 'A'
+                    ? status.value
+                    : '',
+                companyId: company ? company.value : '',
+            };
+
+            let updatedPage =
+                queryParams.page === 0 ? 1 : (page ? page : queryParams.page);
+            await this.props.searchCompanyProfiles(
+                SEARCH_COMPANY_PROFILE,
+                {
+                    page: updatedPage,
+                    size: queryParams.size
+                },
+                searchData,
+            );
+
+            await this.setState({
+                totalRecords: this.props.CompanyProfileSearchReducer.companyProfileList.length
+                    ? this.props.CompanyProfileSearchReducer.companyProfileList[0].totalItems
+                    : 0,
+                queryParams: {
+                    ...queryParams,
+                    page: updatedPage
+                }
+            })
+        };
+
         fetchCompanyListForDropdown = async () => {
             const response = await this.props.fetchCompany('/api/v1/company/active/min');
             this.setState({
                 companyList: [...response]
             })
+        };
+
+        fetchCompanyProfileListForDropdown = async ()=>{
+            await this.props.fetchCompanyProfileListForDropdown(FETCH_COMPANY_PROFILE_FOR_DROPDOWN);
         };
 
         addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
@@ -322,6 +421,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
 
         initialApiCalls = async () => {
             await this.fetchCompanyListForDropdown();
+            if (type==="MANAGE"){
+                this.fetchCompanyProfileListForDropdown();
+                this.searchCompanyProfile(1);
+            }
             // await this.setUserMenusAlphabetically();
         };
 
@@ -338,16 +441,18 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 profileDescription, profileName, company, status,
                 errorMessageForProfileDescription, errorMessageForProfileName,
                 userMenus, selectedMenus, defaultSelectedMenu, selectedUserMenusForModal, userMenuAvailabilityMessage,
-                alertMessageInfo, showAlert, showConfirmModal, formValid
+                alertMessageInfo, showAlert, showConfirmModal, formValid,
+                searchParameters,totalRecords,queryParams
             } = this.state;
             const {activeCompanyProfileListForDropdown, dropdownErrorMessage} = this.props.CompanyProfileDropdownReducer;
             const {createCompanyProfileLoading} = this.props.CompanyProfileCreateReducer;
+            const {searchCompanyProfileLoading,searchCompanyProfileErrorMessage,companyProfileList} = this.props.CompanyProfileSearchReducer;
             return <>
                 <ComposedComponent
                     profileInfoFormData={{
                         handleEnter: this.handleEnter,
                         companyListForDropdown: this.state.companyList,
-                        dropdownErrorMessage:dropdownErrorMessage,
+                        dropdownErrorMessage: dropdownErrorMessage,
                         profileInfoObj: {
                             profileDescription,
                             profileName,
@@ -386,6 +491,24 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     }}
                     commonData={{
                         formValid: formValid
+                    }}
+                    searchData={{
+                        searchParameters: searchParameters,
+                        companyProfileList:activeCompanyProfileListForDropdown,
+                        companyList:this.state.companyList,
+                        onInputChange:this.handleSearchFormChange,
+                        onSearchClick: this.searchCompanyProfile,
+                        resetSearchForm:this.handleSearchFormReset,
+                    }}
+                    tableData={{
+                        filteredActions:this.props.filteredAction,
+                        searchCompanyProfileLoading:searchCompanyProfileLoading,
+                        searchCompanyProfileErrorMessage:searchCompanyProfileErrorMessage,
+                        companyProfileList:companyProfileList,
+                        totalItems:totalRecords,
+                        maxSize:queryParams.size,
+                        currentPage:queryParams.page,
+                        handlePageChange:this.handlePageChange
                     }}
                 />
                 <CAlert id="profile-manage"

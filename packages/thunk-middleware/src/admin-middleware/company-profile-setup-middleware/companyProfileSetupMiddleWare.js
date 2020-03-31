@@ -53,10 +53,10 @@ export const previewCompanyProfileById = (path, profileId) => async dispatch => 
     }
 };
 
-export const searchCompanyProfiles = (path, searchData, pageObj) => async dispatch => {
+export const searchCompanyProfiles = (path, pageObj, searchData,) => async dispatch => {
     dispatch(CompanyProfileSetupActions.searchProfilePending());
     try {
-        let response = await Axios.putWithPagination(path, searchData, pageObj);
+        let response = await Axios.putWithPagination(path, pageObj, searchData);
         dispatch(CompanyProfileSetupActions.searchProfileSuccess(response.data));
         return response;
     } catch (e) {
