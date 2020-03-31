@@ -12,14 +12,16 @@ const ConfirmationModal = props => {
                     <CompanyProfileModalContent
                         profileData={profileData}
                         rolesJson={rolesJson}/>}
-                        footerChildren={
-                            <CButton
-                                variant="primary"
-                                disabled={createCompanyProfileLoading}
-                                name={createCompanyProfileLoading ? "Confirming" : "Confirm"}
-                                size="lg"
-                                className="float-right"
-                                onClickHandler={onConfirmClick}/>
+                footerChildren={
+                    <CButton
+                        variant="primary"
+                        disabled={createCompanyProfileLoading}
+                        name={createCompanyProfileLoading ?
+                            <span className="saving">Confirming <img
+                            src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
+                        size="lg"
+                        className="float-right"
+                        onClickHandler={onConfirmClick}/>
                 }
                 onHide={setShowConfirmModal}
                 centered={false}

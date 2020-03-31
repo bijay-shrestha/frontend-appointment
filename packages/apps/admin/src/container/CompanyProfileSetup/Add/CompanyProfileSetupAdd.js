@@ -32,7 +32,8 @@ const CompanyProfileSetupAdd = props => {
                                 id="save-profile-add"
                                 variant="primary "
                                 className="float-right btn-action"
-                                name={addFormData.showConfirmModal ? "Saving" : "Save"}
+                                name={addFormData.showConfirmModal ? <span className="saving">Saving <img
+                                    src={require("../../../images/three-dots.svg")}/></span> : "Save"}
                                 disabled={!commonData.formValid || addFormData.showConfirmModal}
                                 onClickHandler={addFormData.setShowConfirmModal}>
 
