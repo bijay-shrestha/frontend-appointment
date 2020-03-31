@@ -4,7 +4,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import {CButton} from "@frontend-appointment/ui-elements";
 import ConfirmationModal from "../../CompanyProfileSetup/Add/ConfirmationModal";
 import {menuRoles} from "@frontend-appointment/helpers";
-import CompanyProfileInfoForm from "./CompanyProfileInfoForm";
+import CompanyProfileInfoForm from "../Common/CompanyProfileInfoForm";
 import CompanyProfileMenuAssignment from "./CompanyProfileMenuAssignment";
 
 const CompanyProfileSetupAdd = props => {
@@ -20,7 +20,7 @@ const CompanyProfileSetupAdd = props => {
 
                     <Row>
                         <CompanyProfileInfoForm
-                            profileInfoFormData={profileInfoFormData}/>
+                            profileInfoFormData={profileInfoFormData} type="ADD"/>
                         {profileMenuAssignmentData.profileData.company &&
                         <CompanyProfileMenuAssignment
                             profileMenuAssignmentData={profileMenuAssignmentData}/>

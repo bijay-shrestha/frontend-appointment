@@ -9,7 +9,7 @@ import {
     CRadioButton
 } from "@frontend-appointment/ui-elements";
 
-const CompanyProfileInfoForm = ({profileInfoFormData}) => {
+const CompanyProfileInfoForm = ({profileInfoFormData, type}) => {
     const {
         handleEnter,
         companyListForDropdown,
@@ -64,22 +64,46 @@ const CompanyProfileInfoForm = ({profileInfoFormData}) => {
                 <CFLabel labelName="Status" id="status"/>
                 <div>
                     <CRadioButton
-                        checked={Boolean(profileInfoObj.status)}
-                        disabled={true}
+                        checked={profileInfoObj.status === 'Y'}
+                        disabled={type === 'ADD'}
                         id="radio1"
                         label="Active"
                         type="radio"
-                        readOnly
+                        name="status"
+                        readOnly={type === 'ADD'}
+                        value="Y"
+                        onChange={(event) => handleInputChange(event)}
+                        onKeyDown={(event) => handleEnter(event)}
                     />
                     <CRadioButton
-                        checked={Boolean(!profileInfoObj.status)}
-                        disabled={true}
+                        checked={profileInfoObj.status === 'N'}
+                        disabled={type === 'ADD'}
                         id="radio2"
                         label="Inactive"
                         type="radio"
-                        className="sr-only"
+                        name="status"
+                        readOnly={type === 'ADD'}
+                        className={type === 'ADD' ? "sr-only" : ''}
+                        value="N"
+                        onChange={(event) => handleInputChange(event)}
+                        onKeyDown={(event) => handleEnter(event)}
                     />
                 </div>
+
+                {
+                    type === 'MANAGE' ?
+                        <CHybridTextArea
+                            id="remarks"
+                            name="remarks"
+                            onChange={handleInputChange}
+                            onKeyDown={(event) => handleEnter(event)}
+                            placeholder="Remarks"
+                            value={profileInfoObj.remarks}
+                            max={200}
+                            required={true}
+                        />
+                        : ''
+                }
             </CForm>
         </Col>
     );
