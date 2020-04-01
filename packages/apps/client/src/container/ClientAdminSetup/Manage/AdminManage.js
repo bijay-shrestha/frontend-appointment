@@ -22,7 +22,7 @@ import {CAlert} from "@frontend-appointment/ui-elements";
 import AdminEditModal from "./AdminEditModal";
 import {
     AdminSetupUtils,
-    EnterKeyPressUtils,
+    EnterKeyPressUtils, LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils,
     TryCatchHandler
@@ -287,7 +287,7 @@ class AdminManage extends PureComponent {
     };
 
     checkIfDeletingOwnProfile = async deletedAdminId => {
-        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
         if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
             await this.logoutUser();
             this.props.history.push('/');
@@ -297,7 +297,7 @@ class AdminManage extends PureComponent {
 
     checkIfSelfEditAndShowMessage = async editedAdminId => {
         let variantType = '', message = '';
-        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
         if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
             variantType = "warning";
             message = "You seem to have edited yourself. Please Logout and Login to see the changes or " +
