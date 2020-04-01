@@ -49,65 +49,25 @@ const ClientDashboard = props => {
                 </div>
               </Col>
             </Row>
-
-            <Row>
-              <RevenueStatistics generateRevenue={generateRevenue} />
-            </Row>
+            <RevenueStatistics generateRevenue={generateRevenue} />
             <Row className="mt-1">
-              {/* <CheckDashboardRole
-                component={ */}
-              <Col md={6} className="p-0">
+              <Col lg={7}>
                 <RevenueTrend
                   revenueStatistics={revenueStatistics}
                   onPillsClickHandler={onPillsClickHandler}
                   revenueFilter={revenueFilter}
                 />
-              </Col>
-              {/* }
-                code={revenueStatistics.code}
-              /> */}
-              {/* 
-              <CheckDashboardRole
-                component={ */}
-              <Col md={6} className="pr-0">
+                <AppointmentQueue appointmentQueue={appointmentQueue} />
                 <DoctorRevenueList doctorRevenue={doctorRevenue} />
               </Col>
-              {/* }
-                code={doctorRevenue.code}
-              /> */}
-            </Row>
-
-            <Row className="mt-1">
-              {/* <CheckDashboardRole
-                component={ */}
-              <Col md={6} className="p-0">
-                <AppointmentQueue
-                  appointmentQueue={appointmentQueue}
-                />
-              </Col>
-              {/* }
-                code={appointmentQueue.code}
-              /> */}
-
-              <Col md={6} className="pr-0">
-                {/* <CheckDashboardRole
-                  component={ */}
+              <Col lg={5} className="pr-0">
                 <PatientStatistics registeredPatients={registeredPatients} />
-                {/* }
-                  code={appointmentQueue.code}
-                /> */}
-
-                {/* <CheckDashboardRole
-                  component={ */}
                 <AppointmentStatistics
                   onPillsClickHandler={onPillsClickHandler}
                   type="appointment"
                   appointmentList={appointmentList}
                   appointmentFilter={appointmentFilter}
                 />
-                {/* }
-                  code={appointmentList.code}
-                /> */}
               </Col>
             </Row>
           </Container>

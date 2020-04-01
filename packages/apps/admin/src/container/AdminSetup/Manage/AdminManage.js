@@ -128,7 +128,7 @@ class AdminManage extends PureComponent {
       mobileNumberValid: true,
       departmentList: [],
       profileList: [],
-      adminDashoardRequestDTOS: []
+      adminDashboardRequestDTOS: []
     },
     errorMessageForAdminName:
       'Admin Name should not contain special characters.',
@@ -164,7 +164,7 @@ class AdminManage extends PureComponent {
         adminAvatar: null,
         adminAvatarUrl: '',
         adminAvatarUrlNew: '',
-        adminDashoardRequestDTOS: []
+        adminDashboardRequestDTOS: []
       },
       adminImage: '',
       adminImageCroppedUrl: '',
@@ -997,8 +997,8 @@ class AdminManage extends PureComponent {
         remarks: remarks,
         adminAvatarUrl: fileUri,
         adminAvatarUrlNew: '',
-        adminDashoardRequestDTOS: this.state.adminUpdateData
-          .adminDashoardRequestDTOS
+        adminDashboardRequestDTOS: this.state.adminUpdateData
+          .adminDashboardRequestDTOS
       }
     }
   }
