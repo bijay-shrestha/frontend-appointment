@@ -1,8 +1,8 @@
 import SecureLS from 'secure-ls';
 import {APP_SECRET_KEY} from './EnvironmentVariableGetter'
 const env =process.env.NODE_ENV;
-const encodingType='des'//env.toString() === "development"?'':'aes';
-const isCompression=true//env.toString() === "development"?false:true;
+const encodingType=env.toString() === "development"?'':'des';
+const isCompression=env.toString() === "development"?false:true;
 const encryptionSecret=APP_SECRET_KEY;
 const ls = new SecureLS({encodingType: encodingType, isCompression: isCompression, encryptionSecret: encryptionSecret})
 export const localStorageSecurity = {
