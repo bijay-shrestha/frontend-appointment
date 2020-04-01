@@ -636,7 +636,8 @@ class AdminManage extends PureComponent {
     try {
       await this.previewApiCall(id)
       await this.prepareDataForEdit(
-        this.props.AdminPreviewReducer.adminPreviewData
+        this.props.AdminPreviewReducer.adminPreviewData,
+        response.data
       )
     } catch (e) {
       console.log(e)

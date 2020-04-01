@@ -8,7 +8,7 @@ import AppointmentStatistics from './AppointmentStatistics'
 import AdminDashboardHoc from './AdminDashboardHoc'
 import AppointmentQueue from './AppointmentQueue'
 import DoctorRevenueList from './DoctorRevenueList'
-//import {checkDashboardRole} from '@frontend-appointment/helpers'
+import {checkDashboardRole} from '@frontend-appointment/helpers'
 import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
 //import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
@@ -62,12 +62,16 @@ const AdminDashboard = props => {
             <Container fluid className="">
               <Row className="">
                 <Col className="px-0">{RevenuStats}</Col>
-                <HospitalDropdown
-                  hospitalDropdown={hospitalDropdown}
-                  hospitalId={hospitalId}
-                  handleHospitalChange={handleHospitalChange}
-                  className="top-hospital-list"
-                />
+                {checkDashboardRole(generateRevenue.code) &&
+                  checkDashboardRole(appointmentQueue.code) &&
+                  checkDashboardRole(appointmentList.code) && (
+                    <HospitalDropdown
+                      hospitalDropdown={hospitalDropdown}
+                      hospitalId={hospitalId}
+                      handleHospitalChange={handleHospitalChange}
+                      className="top-hospital-list"
+                    />
+                  )}
               </Row>
 
               <Row>
