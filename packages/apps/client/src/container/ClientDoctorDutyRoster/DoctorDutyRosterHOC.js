@@ -3,7 +3,7 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {
     DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
-    EnterKeyPressUtils,
+    EnterKeyPressUtils, LocalStorageSecurity,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
 import {
@@ -1134,7 +1134,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         setHospitalIdOfLoggedInAdmin = () => {
-            const adminInfo = JSON.parse(localStorage.getItem('adminInfo'));
+            const adminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
             let hospitalId = adminInfo.hospitalId;
             this.setState({
                 hospitalId: hospitalId

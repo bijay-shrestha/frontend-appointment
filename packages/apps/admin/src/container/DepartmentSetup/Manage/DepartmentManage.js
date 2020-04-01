@@ -10,7 +10,7 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import DepartmentDetailsDataTable from "./DepartmentDetailsDataTable";
 import DepartmentEditForm from "./DepartmentEditModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {EnterKeyPressUtils, FileExportUtils} from "@frontend-appointment/helpers";
+import {EnterKeyPressUtils, FileExportUtils, LocalStorageSecurity} from "@frontend-appointment/helpers";
 import "./../department-setup.scss";
 
 const {
@@ -327,7 +327,7 @@ class DepartmentManage extends PureComponent {
 
     checkIfEditedOwnDepartmentAndShowMessage = editedDepartmentId => {
         let variantType = '', message = '';
-        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder("adminInfo");
         if (loggedInAdminInfo && editedDepartmentId === loggedInAdminInfo.departmentId) {
             variantType = "warning";
             message = "You seem to have edited your own department. Please Logout and Login to see the changes or " +
