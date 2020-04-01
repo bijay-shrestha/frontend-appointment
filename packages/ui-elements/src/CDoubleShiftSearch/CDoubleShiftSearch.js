@@ -122,7 +122,8 @@ class CDoubleShiftSearch extends PureComponent {
         let BASE_PATH = process.env.REACT_APP_BASE_PATH_CODE ? process.env.REACT_APP_BASE_PATH_CODE : '';
         let keyWord = event.target.value;
         let menusMatchingKeyWord = [];
-        let userMenus = JSON.parse(LocalStorageSecurity.localStorageDecoder('userMenus'));
+        let menusFromStorage = LocalStorageSecurity.localStorageDecoder('userMenus');
+        let userMenus = [...menusFromStorage];
 
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
