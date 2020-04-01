@@ -364,7 +364,7 @@
       "name": "Company Settings",
       "path": "/adminSetup",
       "roles": [],
-      "icon": "fa fa-calendar-plus-o ",
+      "icon": "fa fa-building-o",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
