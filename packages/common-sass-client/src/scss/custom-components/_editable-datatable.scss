@@ -1,0 +1,98 @@
+
+.editable-table{
+  border-bottom:1px solid $cogent-border;
+
+  
+  .add-new{
+      width:120px;
+      margin:20px 0;
+      float:right;
+      margin-top:-30px;
+      
+  }
+
+    .table-header{
+        margin-bottom:0;
+        border:none;
+        td{
+            font-weight: 500;
+            text-transform: capitalize;
+            font-size: 12px;
+            letter-spacing: 0.02rem;
+          
+            border: none;
+            border-bottom: 1px solid $gray-200;
+            border-left: 1px solid $gray-200;
+            height: 50px;
+
+            &:nth-child(1){
+                border-left: 1px solid transparent;
+            }
+        }
+      
+    }
+
+    .table-body{
+   
+      border-top:0;
+      height: 40px;
+      border-width: 1px;
+      border-color: $cogent-border;
+
+      tr{
+          &:hover,&:focus{
+              height: 40px;
+              border-width: 1px;
+              background-color: lighten($cogent, 45%);
+              border-color: $cogent-border;
+
+              .table-action{
+                  display: block;
+              }
+          }
+      }
+      
+      td{
+          height: 40px;
+          border-width: 1px;
+          color:$gray-800;
+          border-color:$gray-100;
+          font-weight: 500;
+          min-height: 42px;
+          vertical-align: middle;
+      
+      }
+    }
+
+  
+
+    .activeRow{
+      .table-action{
+          display: block;
+      }
+    }
+   
+
+    .css-yk16xz-control{
+        border-color:$cogent-border;
+        &:hover{
+          border:1px solid $gray-500;
+        }
+      }
+
+    .form-control{
+       min-height: 38px;
+       border: 1px solid $cogent-border;
+       // padding: 15px;
+       border-radius: 4px;
+       font-weight: 500;
+     
+       &:hover{
+         border:1px solid $gray-500;
+         
+       }
+       &:focus{
+         border:1px solid $cogent;
+       }
+    }
+}

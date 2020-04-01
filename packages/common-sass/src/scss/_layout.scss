@@ -14,6 +14,10 @@
     position           : fixed;
     @include border-radius($cogent-radius);
     // margin:1rem;
+
+    .view{
+    background:none;
+    }
   }
 
   #content-wrapper {

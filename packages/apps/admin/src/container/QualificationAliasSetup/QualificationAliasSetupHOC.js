@@ -213,6 +213,12 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             currentAliasData.remarks = '';
             currentAliasData.status = {value: 'Y', label: 'Active'};
 
+            this.defaultAliasValueForEdit.id = '';
+            this.defaultAliasValueForEdit.name = '';
+            this.defaultAliasValueForEdit.status = '';
+            this.defaultAliasValueForEdit.remarks = '';
+            this.defaultAliasValueForEdit.isNew = true;
+
             this.setState({
                 aliasData: {...currentAliasData}
             })

@@ -98,7 +98,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {(appointmentStatusDetail.dayOffStatus === 'Y'
                                         && appointmentStatusDetail.doctorTimeSlots
                                         && appointmentStatusDetail.doctorTimeSlots.length) ?
-                                        <div><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
+                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
