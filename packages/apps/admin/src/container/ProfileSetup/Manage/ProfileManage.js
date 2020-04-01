@@ -21,7 +21,7 @@ import {
     clientUserMenusJson,
     UserMenuUtils,
     TryCatchHandler,
-    EnvironmentVariableGetter
+    EnvironmentVariableGetter, LocalStorageSecurity
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
@@ -291,7 +291,7 @@ class ProfileManage extends PureComponent {
 
     checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
         let variantType = '', message = '';
-        let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
         if (editedProfileId === loggedInAdminInfo.profileId) {
             variantType = "warning";
             message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
