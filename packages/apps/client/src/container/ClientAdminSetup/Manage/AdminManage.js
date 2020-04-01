@@ -1257,7 +1257,8 @@ export default ConnectHoc(
     'ProfileSetupReducer',
     'ProfilePreviewReducer',
     'logoutReducer',
-    'DashboardFeaturesReducer'
+    'DashboardFeaturesReducer',
+    'DashboardFeaturesByAdminReducer'
   ],
   {
     clearAdminSuccessErrorMessagesFromStore,
