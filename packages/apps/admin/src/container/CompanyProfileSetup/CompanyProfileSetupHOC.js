@@ -1,12 +1,16 @@
 import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
-import {CompanyProfileSetupMiddleware, logoutUser} from '@frontend-appointment/thunk-middleware';
+import {
+    CompanyProfileSetupMiddleware,
+    CompanySetupMiddleware,
+    logoutUser
+} from '@frontend-appointment/thunk-middleware';
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     adminUserMenusJson,
     EnterKeyPressUtils,
-    EnvironmentVariableGetter, ProfileSetupUtils,
-    TryCatchHandler
+    EnvironmentVariableGetter,
+    ProfileSetupUtils
 } from "@frontend-appointment/helpers";
 import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from "@frontend-appointment/ui-elements";
@@ -20,9 +24,9 @@ const {
     fetchCompanyProfileListForDropdown,
     previewCompanyProfileById,
     searchCompanyProfiles,
-    //TODO REMOVE it
-    fetchCompany
 } = CompanyProfileSetupMiddleware;
+
+const {companyDropdown} = CompanySetupMiddleware;
 
 const {
     CREATE_COMPANY_PROFILE,
@@ -32,6 +36,10 @@ const {
     PREVIEW_COMPANY_PROFILE,
     SEARCH_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants;
+
+const {
+    DROPDOWN_COMPANY
+} = AdminModuleAPIConstants.CompanyApiConstant;
 
 const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         class CompanyProfileSetupHOC extends PureComponent {
@@ -477,10 +485,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             fetchCompanyListForDropdown = async () => {
-                const response = await this.props.fetchCompany('/api/v1/company/active/min');
-                this.setState({
-                    companyList: [...response]
-                })
+                const response = await this.props.companyDropdown(DROPDOWN_COMPANY);
             };
 
             fetchCompanyProfileListForDropdown = async () => {
@@ -751,7 +756,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             componentDidMount() {
-                TryCatchHandler.genericTryCatch(this.initialApiCalls());
+                this.initialApiCalls();
             }
 
             componentWillUnmount() {
@@ -786,11 +791,13 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 const {deleteCompanyProfileErrorMessage} = this.props.CompanyProfileDeleteReducer;
                 const {editCompanyProfileErrorMessage, editCompanyProfileLoading} = this.props.CompanyProfileEditReducer;
 
+                const {companyDropdownData} = this.props.companyDropdownReducer;
+
                 return <>
                     <ComposedComponent
                         profileInfoFormData={{
                             handleEnter: this.handleEnter,
-                            companyListForDropdown: this.state.companyList,
+                            companyListForDropdown: companyDropdownData,
                             dropdownErrorMessage: dropdownErrorMessage,
                             profileInfoObj: {
                                 profileDescription,
@@ -836,7 +843,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                         searchData={{
                             searchParameters: searchParameters,
                             companyProfileList: activeCompanyProfileListForDropdown,
-                            companyList: this.state.companyList,
+                            companyList: companyDropdownData,
                             onInputChange: this.handleSearchFormChange,
                             onSearchClick: this.searchCompanyProfile,
                             resetSearchForm: this.handleSearchFormReset,
@@ -896,7 +903,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 'CompanyProfileDeleteReducer',
                 'CompanyProfilePreviewReducer',
                 'CompanyProfileSearchReducer',
-                'CompanyProfileDropdownReducer'
+                'CompanyProfileDropdownReducer',
+                'companyDropdownReducer'
             ],
             {
                 clearSuccessErrorMessageFromStore,
@@ -906,7 +914,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 fetchCompanyProfileListForDropdown,
                 previewCompanyProfileById,
                 searchCompanyProfiles,
-                fetchCompany,
+                companyDropdown,
                 logoutUser
             }
         )

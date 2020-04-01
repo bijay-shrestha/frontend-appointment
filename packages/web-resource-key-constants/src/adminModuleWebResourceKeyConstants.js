@@ -184,8 +184,6 @@ export const companyProfileSetupApiConstants = {
     FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
 };
 
-
-
 export const CompanyApiConstant = {
   SAVE_COMPANY: BASE.concat(COMPANY_BASE),
   UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
@@ -193,4 +191,4 @@ export const CompanyApiConstant = {
   PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
   SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
   DELETE_COMPANY: BASE.concat(COMPANY_BASE)
-}
+};
