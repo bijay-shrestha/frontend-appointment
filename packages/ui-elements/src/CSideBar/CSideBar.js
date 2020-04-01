@@ -2,10 +2,13 @@ import React, {memo} from 'react'
 import classNames from 'classnames'
 import SideBarHeader from './SideBarHeader'
 import SideBarItem from './SideBarItem'
+import {CScrollbar} from "@frontend-appointment/ui-elements";
+
 
 const CSideBar = props => {
   console.log(props.isOpen);
   return (
+  
     <div
       id="sidebar-wrapper"
       className={classNames(
@@ -25,6 +28,7 @@ const CSideBar = props => {
       onMouseOver={props.onHoverSideBar}
       onMouseLeave={props.onLeaveHover}
     >
+        <CScrollbar>
       <SideBarHeader
         header="cogentEMR"
         toggle={props.toggle}
@@ -41,7 +45,9 @@ const CSideBar = props => {
         activeStateKey={props.activeStateKey}
         hasTab={props.hasTab}
       />
+      </CScrollbar>
     </div>
+  
   )
 }
 

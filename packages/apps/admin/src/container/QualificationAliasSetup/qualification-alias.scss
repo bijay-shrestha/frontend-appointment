@@ -1,0 +1,26 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+ #qualification-alias{
+     .table-header,.table-body{
+        tr td{
+            &:nth-child(1){
+                width:40%;
+            }
+
+            &:nth-child(2){
+                width:40%;
+            }
+            &:nth-child(3){
+                width:20%;
+            }
+        }
+     }
+ }

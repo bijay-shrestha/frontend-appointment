@@ -1,70 +1,72 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 import Form from "react-bootstrap/Form";
 import PropTypes from "prop-types";
 
-const CFControl = props => {
-    const {
-        _ref,
-        as,
-        autoComplete,
-        bsPrefix,
-        children,
-        className,
-        defaultValue,
-        disabled,
-        id,
-        isInvalid,
-        isValid,
-        max,
-        min,
-        multiple,
-        name,
-        onChange,
-        onClick,
-        pattern,
-        placeholder,
-        plaintext,
-        readOnly,
-        required,
-        rows,
-        size,
-        type,
-        value,
-    } = props;
-    return (
-        <Form.Control
-            _ref={_ref}
-            as={as}
-            autoComplete={autoComplete}
-            bsPrefix={bsPrefix}
-            children={children}
-            className={className}
-            defaultValue={defaultValue}
-            disabled={disabled}
-            id={"fControl_".concat(id)}
-            isInvalid={isInvalid}
-            isValid={isValid}
-            maxLength={max}
-            minLenght={min}
-            multiple={multiple}
-            name={name}
-            onClick={onClick}
-            onChange={onChange}
-            pattern={pattern}
-            placeholder={placeholder}
-            plaintext={plaintext}
-            readOnly={readOnly}
-            required={required}
-            rows={rows}
-            size={size}
-            type={type}
-            value={value}
-        />
-    )
-};
+class CFControl extends PureComponent {
+    render() {
+        const {
+            reference,
+            as,
+            autoComplete,
+            bsPrefix,
+            children,
+            className,
+            defaultValue,
+            disabled,
+            id,
+            isInvalid,
+            isValid,
+            max,
+            min,
+            multiple,
+            name,
+            onChange,
+            onClick,
+            pattern,
+            placeholder,
+            plaintext,
+            readOnly,
+            required,
+            rows,
+            size,
+            type,
+            value,
+        } = this.props;
+        return (
+            <Form.Control
+                ref={reference}
+                as={as}
+                autoComplete={autoComplete}
+                bsPrefix={bsPrefix}
+                children={children}
+                className={className}
+                defaultValue={defaultValue}
+                disabled={disabled}
+                id={"fControl_".concat(id)}
+                isInvalid={isInvalid}
+                isValid={isValid}
+                maxLength={max}
+                minLenght={min}
+                multiple={multiple}
+                name={name}
+                onClick={onClick}
+                onChange={onChange}
+                pattern={pattern}
+                placeholder={placeholder}
+                plaintext={plaintext}
+                readOnly={readOnly}
+                required={required}
+                rows={rows}
+                size={size}
+                type={type}
+                value={value}
+            />
+        )
+    }
+}
 
 CFControl.propTypes = {
-    _ref: PropTypes.oneOfType([
+    ref: PropTypes.oneOfType([
         PropTypes.func, // for legacy refs
         PropTypes.shape({current: PropTypes.instanceOf(Element)})
     ]),

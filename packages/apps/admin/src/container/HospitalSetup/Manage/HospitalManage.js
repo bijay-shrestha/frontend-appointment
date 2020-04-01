@@ -62,7 +62,9 @@ const HospitalManage = props => {
              showBannerUploadModal,
              handleCropBannerImage,
              handleBannerImageUpload,
-             setShowBannerUploadModal
+             setShowBannerUploadModal,
+             isHospitalEditLoading,
+             isDeleteLoading
          }) => (
             <>
                 <div className="">
@@ -73,6 +75,7 @@ const HospitalManage = props => {
                         resetSearchForm={resetSearch}
                         handleEnter={handleEnter}
                         hospitalDropdown={hospitalDropdown}
+                        isSearchLoading={isSearchLoading}
                     />
                 </div>
                 <div className=" mb-2">
@@ -98,6 +101,7 @@ const HospitalManage = props => {
                         remarksHandler={deleteRemarksHandler}
                         remarks={deleteRequestDTO.remarks}
                         deleteErrorMsg={deleteErrorMessage}
+                        isDeleteLoading={isDeleteLoading}
                         // exportExcel={downloadEXCEL}
 
                     />
@@ -137,6 +141,7 @@ const HospitalManage = props => {
                         handleCropBannerImage={handleCropBannerImage}
                         handleBannerImageUpload={handleBannerImageUpload}
                         setShowBannerUploadModal={setShowBannerUploadModal}
+                        isHospitalEditLoading={isHospitalEditLoading}
                     />
                 )}
                 <CAlert

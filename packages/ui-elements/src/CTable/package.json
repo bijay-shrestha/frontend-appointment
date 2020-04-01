@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-table",
+  "version": "1.0.0",
+  "main": "CTable.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

@@ -203,25 +203,25 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
       }
     }
 
-    handleHospitalChange = async (event, field) => {
-      let searchParams1 = {...this.state.searchParameterForGenerateRevenue}
-      let searchParams = {
-        ...this.state.searchParamsForOverallAppoinment
-      }
-      let searchParams3 = {...this.state.searchParameterForRevenueTrend}
-      let fieldName, value, label
-      fieldName = event.target.name
-      value = event.target.value
-      label = event.target.label
-      searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-      searchParams1[fieldName] = label ? (value ? {value, label} : '') : value
-      searchParams3[fieldName] = label ? (value ? {value, label} : '') : value
-      await this.setState({
-        searchParamsForOverallAppoinment: searchParams,
-        searchParameterForGenerateRevenue: searchParams1,
-        searchParameterForRevenueTrend: searchParams3
-      })
-    }
+    // handleHospitalChange = async (event, field) => {
+    //   let searchParams1 = {...this.state.searchParameterForGenerateRevenue}
+    //   let searchParams = {
+    //     ...this.state.searchParamsForOverallAppoinment
+    //   }
+    //   let searchParams3 = {...this.state.searchParameterForRevenueTrend}
+    //   let fieldName, value, label
+    //   fieldName = event.target.name
+    //   value = event.target.value
+    //   label = event.target.label
+    //   searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+    //   searchParams1[fieldName] = label ? (value ? {value, label} : '') : value
+    //   searchParams3[fieldName] = label ? (value ? {value, label} : '') : value
+    //   await this.setState({
+    //     searchParamsForOverallAppoinment: searchParams,
+    //     searchParameterForGenerateRevenue: searchParams1,
+    //     searchParameterForRevenueTrend: searchParams3
+    //   })
+    // }
 
     searchDoctor = async value => {
       await this.props.fetchActiveDoctorsForDropdown(
@@ -256,6 +256,15 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
           page: updatedPage
         }
       })
+    }
+
+    handleDateChangeForAppointmentQueue = async(e,fieldName) => {
+      let appointmentQueueParam = {...this.state.appointmentQueue};
+      appointmentQueueParam[fieldName] = e||'';
+      await this.setState({
+        appointmentQueue:appointmentQueueParam
+      })
+      this.searchAppointmentQueue();
     }
 
     handlePageChange = async newPage => {
@@ -403,10 +412,11 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             handleDoctorChange: this.handleDoctorChange,
             doctorId: this.state.appointmentQueue.doctorId,
             date:this.state.appointmentQueue.date,
+            handleDateChangeForAppointmentQueue:this.handleDateChangeForAppointmentQueue,
             doctorDropdown: activeDoctorsForDropdown
           }}
           onPillsClickHandler={this.onPillsClickHandler}
-          handleHospitalChange={this.handleHospitalChange}
+          //handleHospitalChange={this.handleHospitalChange}
           hospitalDropdown={hospitalList}
           hospitalId={hospitalId}
           revenueFilter={this.state.revenueFilter}

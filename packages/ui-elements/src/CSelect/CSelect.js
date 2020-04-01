@@ -4,6 +4,24 @@ import PropTypes from 'prop-types';
 
 class CSelect extends PureComponent {
 
+    handleMultiOrSingleSelectedValue = event => {
+        const {isMulti, name} = this.props;
+        return isMulti ? {values: [...event]} : {value: event.value, label: event.label};
+    };
+
+    handleOnChange = event => {
+        event
+            ? this.props.onChange({
+                target: {
+                    name: this.props.name,
+                    ...this.handleMultiOrSingleSelectedValue(event)
+                }
+            })
+            : this.props.onChange({
+                target: {name: this.props.name, value: '', label: ''}
+            });
+    };
+
     render() {
         const {
             autoFocus,
@@ -50,11 +68,13 @@ class CSelect extends PureComponent {
             placeholder,
             styles,
             theme,
-            value
+            value,
+            innerRef
         } = this.props;
         return (
             <>
                 <Select
+                    ref={innerRef}
                     autoFocus={autoFocus}
                     backspaceRemovesValue={backspaceRemovesValue}
                     blurInputOnSelect={blurInputOnSelect}
@@ -88,7 +108,7 @@ class CSelect extends PureComponent {
                     minMenuHeight={minMenuHeight}
                     name={name}
                     noOptionsMessage={noOptionsMessage}
-                    onChange={onChange}
+                    onChange={event => this.handleOnChange(event)}
                     onInputChange={onInputChange}
                     onKeyDown={onKeyDown}
                     onMenuClose={onMenuClose}
@@ -112,7 +132,8 @@ CSelect.defaultProps = {
     isClearable: true,
     isSearchable: true,
     isMulti: false,
-    onChange: () => {},
+    onChange: () => {
+    },
     onKeyDown: true,
     openMenuOnClick: true,
     options: [],

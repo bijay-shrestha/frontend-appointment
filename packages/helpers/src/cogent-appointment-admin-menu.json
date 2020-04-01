@@ -98,8 +98,8 @@
         {
           "id": "6",
           "parentId": "1",
-          "name": "Hospital Setup",
-          "path": "/generalSetup/hospital",
+          "name": "Client Setup",
+          "path": "/generalSetup/client",
           "roles": [
             2,
             3,
@@ -154,6 +154,46 @@
           "menuFor": "1",
           "description": "Qualification Setup",
           "childMenus": []
+        },
+        {
+          "id": "18",
+          "parentId": "1",
+          "name": "Qualification Alias Setup",
+          "path": "/generalSetup/qualificationAlias",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Alias Setup",
+          "childMenus": []
+        },
+        {
+          "id": "19",
+          "parentId": "1",
+          "name": "University Setup",
+          "path": "/generalSetup/universitySetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "University Setup",
+          "childMenus": []
         }
       ]
     },
@@ -198,7 +238,9 @@
           "name": "Pending Refund Approval",
           "path": "/appointment/appointmentRefundRequest",
           "roles": [
-           17,18,19
+            17,
+            18,
+            19
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -215,7 +257,9 @@
           "name": "Appointment Check-In",
           "path": "/appointment/appointmentApprovalRequest",
           "roles": [
-           13,14,15
+            13,
+            14,
+            15
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -245,7 +289,7 @@
         }
       ]
     },
-    
+
     {
       "id": "14",
       "parentId": null,
@@ -297,9 +341,27 @@
       ]
     },
     {
-      "id": "18",
+      "id": "17",
       "parentId": null,
-      "name": "Admin Setup",
+      "name": "Patient Information",
+      "path": "/patientInformation",
+      "roles": [
+        23,
+        24
+      ],
+      "icon": "fa fa-bed",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "patientInformation",
+      "childMenus": []
+    },
+    {
+      "id": "20",
+      "parentId": null,
+      "name": "Company Settings",
       "path": "/adminSetup",
       "roles": [],
       "icon": "fa fa-calendar-plus-o ",
@@ -308,13 +370,13 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "adminsetup",
+      "description": "Company Settings",
       "childMenus": [
         {
-          "id": "19",
-          "parentId": "18",
+          "id": "21",
+          "parentId": "20",
           "name": "Company Setup",
-          "path": "/adminSetup/companySetup",
+          "path": "/companySettings/companySetup",
           "roles": [
             2,
             3,
@@ -329,27 +391,28 @@
           "menuFor": "6",
           "description": "companySetup",
           "childMenus": []
+        },
+        {
+          "id": "22",
+          "parentId": "1",
+          "name": "Company Profile Setup",
+          "path": "/companySettings/companyProfile",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Profile Setup",
+          "childMenus": []
         }
-     
       ]
-    },
-    {
-      "id": "17",
-      "parentId": null,
-      "name": "Patient Information",
-      "path": "/patientInformation",
-      "roles": [
-       23,
-       24
-      ],
-      "icon": "fa fa-bed",
-      "leftNavigation": "Y",
-      "checked": false,
-      "order": 1,
-      "enabled": "Y",
-      "menuFor": "6",
-      "description": "patientInformation",
-      "childMenus": []
     }
   ]
 }
