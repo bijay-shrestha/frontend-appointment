@@ -64,7 +64,7 @@ import {
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer
 } from './admin-module/dashboardDetailsReducer'
-
+import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer';
 import {
     CountryCodeDropdownReducer,
     QualificationDeleteReducer,
@@ -140,6 +140,7 @@ export {
     companySaveReducer,
     companySearchReducer,
     companyUpdateReducer,
+    CompanyAdminReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedDayReducer,

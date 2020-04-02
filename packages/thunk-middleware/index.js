@@ -26,7 +26,8 @@ import {
     SpecializationSetupMiddleware,
     PatientDetailsMiddleware,
     CompanyProfileSetupMiddleware,
-    CompanySetupMiddleware
+    CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -43,7 +44,6 @@ import * as AppointmentDetailsMiddleware
 import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboardMiddleware'
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
-
 export {
     AppointmentDetailsMiddleware,
     changePassword,
@@ -84,4 +84,5 @@ export {
     ForgotPasswordMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware
 }
