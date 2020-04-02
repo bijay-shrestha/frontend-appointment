@@ -49,7 +49,7 @@ export const previewHospital = (path, id) => async dispatch => {
         dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
         return response;
     } catch (e) {
-        dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage));
+        dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage ? e.errorMessage : "Sorry Internal Server problem occurred!"));
         throw e
     }
 };

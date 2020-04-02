@@ -165,10 +165,10 @@ const DetailsModal = ({ type, hospitalData }) => {
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
-                                            id="numberOfFreeFollowUps"
-                                            name="numberOfFreeFollowUps"
+                                            id="numberOfFollowUps"
+                                            name="numberOfFollowUps"
                                             placeholder="Number Of Follow Ups"
-                                            value={hospitalData.numberOfFreeFollowUps}
+                                            value={hospitalData.numberOfFollowUps}
                                             disabled={true}
                                         />
                                     </Col>

@@ -52,6 +52,7 @@ const ProfileUpdateForm = ({
                     placeholder={!profileInfoObj.hospitalValue ? 'Select hospital first.' : 'Select Department'}
                 />
 
+            <div className="status-box">
                 <CFLabel labelName="Status" id="status"/>
                 <CRadioButton
                     checked={profileInfoObj.status === "Y"}
@@ -74,6 +75,7 @@ const ProfileUpdateForm = ({
                     onChange={(event) => onInputChange(event)}
                     onKeyDown={(event) => onEnterKeyPress(event)}
                 />
+               </div> 
 
                 <CHybridTextArea
                     id="remarks"
