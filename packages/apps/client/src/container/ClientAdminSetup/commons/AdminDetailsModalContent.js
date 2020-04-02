@@ -206,12 +206,12 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                   {adminInfoObj.hasMacBinding && (
                     <Col sm={12} md={12} lg={6}>
                       <>
-                        <Col className="mt-4 pl-0">
-                          {adminInfoObj.hasMacBinding ? (
+                        <Col className="mt-4 pl-0 mb-1 fw-500">
+                          {/* {adminInfoObj.hasMacBinding ? (
                             <i className=" fa fa-check"> </i>
                           ) : (
                             <i className=" fa fa-close"> </i>
-                          )}{' '}
+                          )}{' '} */}
                           Device Filter
                         </Col>
                         {adminInfoObj.hasMacBinding
@@ -219,6 +219,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                             ? adminInfoObj.macIdList.map((macId, index) => (
                                 <>
                                   <CFControl
+                                   className="mb-1"
                                     id="macId"
                                     key={'macId' + index}
                                     value={
