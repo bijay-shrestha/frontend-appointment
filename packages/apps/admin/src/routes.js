@@ -207,7 +207,8 @@ export const routes = [
         icon: '',
         isTab: 'false',
         hasTab: false,
-        name: 'Dashboard'
+        name: 'Dashboard',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup',
@@ -216,7 +217,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: false,
-        isTab: true
+        isTab: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/profile',
@@ -225,7 +227,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Profile Setup'
+        name: 'Profile Setup',
+        isSingleTab: false,
     },
 //   {
 //     path: '/forgotPassword',
@@ -252,7 +255,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/profile/manage',
@@ -261,7 +265,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/specialization/add',
@@ -270,7 +275,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/specialization/manage',
@@ -279,7 +285,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/specialization',
@@ -288,7 +295,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Specialization Setup'
+        name: 'Specialization Setup',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/department',
@@ -297,7 +305,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Department Setup'
+        name: 'Department Setup',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/department/add',
@@ -306,7 +315,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/department/manage',
@@ -323,7 +333,8 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/admin-setup/add',
@@ -331,7 +342,8 @@ export const routes = [
         component: AddAdminComponent,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/admin-setup/manage',
@@ -339,7 +351,8 @@ export const routes = [
         component: ManageAdminComponent,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/doctorDutyRoster',
@@ -348,7 +361,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: false,
-        isTab: false
+        isTab: false,
+        isSingleTab: false,
     },
     {
         path: '/admin/doctorDutyRoster/add',
@@ -357,7 +371,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/doctorDutyRoster/manage',
@@ -366,7 +381,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/client/add',
@@ -375,7 +391,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/client/manage',
@@ -384,7 +401,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/client',
@@ -393,7 +411,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Client Setup'
+        name: 'Client Setup',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/qualification/add',
@@ -402,7 +421,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/qualification/manage',
@@ -411,7 +431,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/qualification',
@@ -420,7 +441,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Qualification Setup'
+        name: 'Qualification Setup',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/doctor',
@@ -429,7 +451,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Doctor'
+        name: 'Doctor',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/doctor/add',
@@ -438,7 +461,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/doctor/manage',
@@ -447,7 +471,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab: false,
     },
     {
         path: '/admin/appointment/appointmentRefundRequest',
@@ -456,7 +481,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Pending Refund Approval'
+        name: 'Pending Refund Approval',
+        isSingleTab: true,
     },
     {
         path: '/admin/appointment/appointmentApprovalRequest',
@@ -465,7 +491,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Check-In'
+        name: 'Appointment Check-In',
+        isSingleTab: true,
     },
     {
         path: '/admin/reports/appointmentLog',
@@ -474,7 +501,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Log'
+        name: 'Appointment Log',
+        isSingleTab: true,
     },
     {
         path: '/admin/appointment/appointmentStatus',
@@ -483,7 +511,8 @@ export const routes = [
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Appointment Status'
+        name: 'Appointment Status',
+        isSingleTab: true,
     },
     {
         path: '/admin/appointment',
@@ -492,7 +521,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment'
+        name: 'Appointment',
+        isSingleTab: false,
     },
     {
         path: '/admin/patientInformation',
@@ -501,7 +531,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Patient Information'
+        name: 'Patient Information',
+        isSingleTab:true,
     },
     {
         path: '/admin/reports',
@@ -510,7 +541,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Reports'
+        name: 'Reports',
+        isSingleTab:false,
     },
     {
         path: '/unauthorized',
@@ -519,7 +551,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Unauthorized'
+        name: 'Unauthorized',
+        isSingleTab:false,
     },
     {
         path: '/admin/reports/rescheduleLog',
@@ -528,7 +561,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Reschedule Log'
+        name: 'Reschedule Log',
+        isSingleTab:true,
     },
     {
         path: '/admin/generalSetup/qualificationAlias',
@@ -537,7 +571,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Qualification Alias'
+        name: 'Qualification Alias',
+        isSingleTab:true,
     },
     {
         path: '/admin/companySettings/companyProfile',
@@ -546,7 +581,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Company Profile Setup'
+        name: 'Company Profile Setup',
+        isSingleTab:false,
     },
     {
         path: '/admin/companySettings/companyProfile/add',
@@ -555,7 +591,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
     {
         path: '/admin/companySettings/companyProfile/manage',
@@ -564,7 +601,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/admin/companySettings/companySetup',
@@ -573,7 +611,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Company Setup'
+        name: 'Company Setup',
+        isSingleTab:false,
     },
     {
         path: '/admin/companySettings/companySetup/add',
@@ -582,7 +621,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab:false,
     },
     {
         path: '/admin/companySettings/companySetup/manage',
@@ -591,7 +631,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
 
     {
@@ -601,6 +642,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: false,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
 ];

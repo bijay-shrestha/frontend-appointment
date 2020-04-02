@@ -5,7 +5,7 @@ import {ActionFilterUtils} from "@frontend-appointment/helpers";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
-const QualificationAliasDataTable = ({tableData}) => {
+const QualificationAliasDataTable = ({tableData,filteredAction}) => {
     const {
         qualificationAliasList,
         isSearchQualificationAliasLoading,
@@ -70,12 +70,12 @@ const QualificationAliasDataTable = ({tableData}) => {
                             footerClassName="table-footer"
                             onCancel={handleCancel}
                             onEdit={handleEdit}
-                            // onSave={checkIfRoleExists(filteredAction, 2) ? handleSave : ''}
-                            // onUpdate={checkIfRoleExists(filteredAction, 3) ? handleUpdate : ''}
-                            // onDelete={checkIfRoleExists(filteredAction, 5) ? handleDelete : ''}
-                            onSave={handleSave}
-                            onUpdate={handleUpdate}
-                            onDelete={handleDelete}
+                            onSave={checkIfRoleExists(filteredAction, 10) ? handleSave : ''}
+                            onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
+                            onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
+                            // onSave={handleSave}
+                            // onUpdate={handleUpdate}
+                            // onDelete={handleDelete}
                             // onPreview={}
                         />
 

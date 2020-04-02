@@ -11,6 +11,13 @@ const PATIENT_BASE = "/patient";
 const APPOINTMENT_BASE = "/appointment";
 const DASHBOARD_BASE = "/dashboard";
 const COMPANY_BASE = '/company';
+
+export const initialApiConstantsOfAdmin = {
+    LOGIN_API: BASE.concat("/login"),
+    GET_SIDEBAR_DATA: BASE.concat("/sidebar"),
+    GET_LOGGED_IN_ADMIN_INFO: BASE.concat("/companyAdmin/info"),
+    GET_LOGGED_IN_ADMIN_INFO_CLIENT: BASE.concat("/admin/info"),
+};
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -142,53 +149,53 @@ export const universitySetupAliasCode = {
 
 export const patientSetupApiConstant = {
     ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min"),
-    ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE+ "/metaInfo/min"),
-    SEARCH_PATIENT_INFO:BASE.concat(PATIENT_BASE+"/search"),
-    PREVIEW_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE+"/detail"),
-    UPDATE_PATIENT_DETAIL_BY_ID:BASE.concat(PATIENT_BASE),
-    FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID : BASE.concat(PATIENT_BASE.concat("/min/detail"))
+    ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE + "/metaInfo/min"),
+    SEARCH_PATIENT_INFO: BASE.concat(PATIENT_BASE + "/search"),
+    PREVIEW_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE + "/detail"),
+    UPDATE_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE),
+    FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID: BASE.concat(PATIENT_BASE.concat("/min/detail"))
 };
 
 
-export const appointmentSetupApiConstant ={
-    APPOINTMENT_REFUND_LIST:BASE.concat(APPOINTMENT_BASE+"/refund"),
-    APPOINTMENT_REFUND_BY_ID:BASE.concat(APPOINTMENT_BASE+"/refund/approve"),
-    APPOINTMENT_REJECT_REFUND:BASE.concat(APPOINTMENT_BASE+"/refund/reject"),
-    APPOINTMENT_LOG_LIST:BASE.concat(APPOINTMENT_BASE+"/log"),
-    APPOINTMENT_STATUS_LIST:BASE.concat(APPOINTMENT_BASE+"/status"),
-    APPOINTMENT_APPROVAL_LIST:BASE.concat(APPOINTMENT_BASE+"/pending-approval"),
-    APPOINTMENT_APPROVE:BASE.concat(APPOINTMENT_BASE+"/approve"),
-    APPOINTMENT_REJECT:BASE.concat(APPOINTMENT_BASE+"/reject"),
+export const appointmentSetupApiConstant = {
+    APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
+    APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
+    APPOINTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
+    APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
+    APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
+    APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval"),
+    APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
+    APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),
     SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log"))
 };
 
 export const DashboardApiConstant = {
-  OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + '/overAllAppointments'),
-  REGISTERED_PATIENTS: BASE.concat(
-    DASHBOARD_BASE + '/registeredPatients/count'
-  ),
-  REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + '/revenueGenerated'),
-  REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + '/revenueStatistics'),
-  APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + '/today-appointment'),
-  DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + '/doctorRevenue')
+    OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + '/overAllAppointments'),
+    REGISTERED_PATIENTS: BASE.concat(
+        DASHBOARD_BASE + '/registeredPatients/count'
+    ),
+    REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + '/revenueGenerated'),
+    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + '/revenueStatistics'),
+    APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + '/today-appointment'),
+    DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + '/doctorRevenue')
 };
 
-const COMPANY_PROFILE_SETUP_BASE='/company-profile';
+const COMPANY_PROFILE_SETUP_BASE = '/company-profile';
 export const companyProfileSetupApiConstants = {
-    CREATE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
-    EDIT_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
-    DELETE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
-    SEARCH_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/search')),
-    PREVIEW_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/detail')),
-    FETCH_COMPANY_PROFILE_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
-    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
+    CREATE_COMPANY_PROFILE: BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    EDIT_COMPANY_PROFILE: BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    DELETE_COMPANY_PROFILE: BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    SEARCH_COMPANY_PROFILE: BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/search')),
+    PREVIEW_COMPANY_PROFILE: BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/detail')),
+    FETCH_COMPANY_PROFILE_FOR_DROPDOWN: BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN: BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
 };
 
 export const CompanyApiConstant = {
-  SAVE_COMPANY: BASE.concat(COMPANY_BASE),
-  UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
-  DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
-  PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
-  SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
-  DELETE_COMPANY: BASE.concat(COMPANY_BASE)
+    SAVE_COMPANY: BASE.concat(COMPANY_BASE),
+    UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
+    DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
+    PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
+    SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
+    DELETE_COMPANY: BASE.concat(COMPANY_BASE)
 };
