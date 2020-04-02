@@ -362,7 +362,7 @@
       "id": "20",
       "parentId": null,
       "name": "Company Settings",
-      "path": "/adminSetup",
+      "path": "/companySettings",
       "roles": [],
       "icon": "fa fa-building-o",
       "leftNavigation": "Y",

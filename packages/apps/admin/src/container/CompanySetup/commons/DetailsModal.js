@@ -43,8 +43,8 @@ const DetailsModal = ({type, companyData}) => {
   } else {
     images = [
       {
-        src: companyData.hospitalLogoUrl
-          ? companyData.hospitalLogoUrl
+        src: companyData.companyLogoUrl
+          ? companyData.companyLogoUrl
           : DefaultProfileImage,
         alt: 'LOGO',
         width: 4,
