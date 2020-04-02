@@ -33,20 +33,14 @@ const HospitalForm = ({
 }) => {
   return (
     <>
-      <Container-fluid>
-        <Row sm="12 p-0">
-          <h5 className="title">Hospital Info</h5>
-        </Row>
+   
+       
+          <h5 className="title">Company Info</h5>
+       
         <CForm id="hospital-info" className="mt-2 add-info">
-          <Container-fluid>
-            <Row>
-              <Col
-                lg={12}
-                // className=" order-md-first order-lg-last"
-              >
                 <Row>
-                  <Col sm={12} md={12} lg={12}>
-                    <div className="image-upload-container">
+                <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
+                  <div className="image-upload-container">
                       {/* <CFLabel id='logo' labelName="Hospital Logo" /> */}
 
                       <div className="image-box">
@@ -80,15 +74,12 @@ const HospitalForm = ({
                         />
                       </div>
                     </div>
-                  </Col>
+                </Col>
 
-                  <Col sm={12} md={12} lg={6} className=" order-md-first"></Col>
-                </Row>
-              </Col>
-
-              <Col lg={12}>
-                <Row>
-                  <Col sm={12} md={6} lg={6}>
+                <Col md={12} lg={9}>
+                   <Row className="p-0">
+                  <Col sm={12} md={12} lg={6}>
+                  
                     <CHybridInput
                       id="company-name"
                       name="name"
@@ -104,8 +95,9 @@ const HospitalForm = ({
                       fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                       errorMessagePassed={errorMessageForCompanyName}
                     />
+                   
                   </Col>
-
+                
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
                       id="company-code"
@@ -253,12 +245,15 @@ const HospitalForm = ({
                       />
                     </div>
                   </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Container-fluid>
+               
+                  </Row>
+                </Col>
+
+               </Row>
+           
+
         </CForm>
-      </Container-fluid>
+   
     </>
   )
 }

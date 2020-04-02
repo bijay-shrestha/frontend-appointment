@@ -9,7 +9,7 @@ const CompanyConfirmationModal = props => {
             <CModal
                 show={showModal}
                 modalHeading="Company Details"
-                size="lg"
+                size="xl"
                 bodyChildren={
                     <DetailsModal
                         companyData={companyData}

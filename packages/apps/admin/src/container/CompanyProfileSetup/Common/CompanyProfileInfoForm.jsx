@@ -61,6 +61,7 @@ const CompanyProfileInfoForm = ({profileInfoFormData, type}) => {
                     placeholder={'Select Hospital.'}
                 />
 
+                <div  className="status-box">
                 <CFLabel labelName="Status" id="status"/>
                 <div>
                     <CRadioButton
@@ -88,6 +89,7 @@ const CompanyProfileInfoForm = ({profileInfoFormData, type}) => {
                         onChange={(event) => handleInputChange(event)}
                         onKeyDown={(event) => handleEnter(event)}
                     />
+                </div>
                 </div>
 
                 {

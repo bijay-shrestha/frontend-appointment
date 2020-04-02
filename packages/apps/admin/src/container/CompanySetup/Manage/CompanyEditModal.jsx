@@ -49,7 +49,7 @@ const CompanyEditModal = ({
       {/* <h5 className="title">Edit Hospital Setup</h5> */}
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
-          <Col sm={12} md={12} lg={12} className="">
+        <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
             <div className="image-upload-container">
               <div className="image-box">
                 <img
@@ -188,9 +188,8 @@ const CompanyEditModal = ({
                 />
               </Col>
 
-              <Col sm={12} md={12} lg={6} className="py-4">
-                <Row>
-                  <Col lg={12} className="px-4">
+              <Col sm={12} md={12} lg={6} className="">
+               
                     <Row>
                       <Col>
                         <CFLabel
@@ -271,8 +270,7 @@ const CompanyEditModal = ({
                         </>
                       </Col>
                     </Row>
-                  </Col>
-                </Row>
+                 
               </Col>
 
               <Col sm={12} md={12} lg={6}>
@@ -336,7 +334,7 @@ const CompanyEditModal = ({
       <CModal
         show={showModal}
         modalHeading="Company Details"
-        size="lg"
+        size="xl"
         bodyChildren={bodyContent}
         onHide={setShowModal}
         centered={false}

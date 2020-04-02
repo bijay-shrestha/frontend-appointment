@@ -106,6 +106,7 @@ const CompanyManage = props => {
                 </div>
                 {showEditModal && (
                     <CompanyEditForm
+                   
                         showModal={showEditModal}
                         setShowModal={setShowModal}
                         onEnterKeyPress={handleEnter}

@@ -49,7 +49,7 @@ const UpdateProfileModal = ({
 
     </>;
     let body = <>
-        <Container fluid="true">
+        <Container fluid="true" className="profile-edit-modal">
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}
