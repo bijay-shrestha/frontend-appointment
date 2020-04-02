@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {CButton} from "../../index";
 import ActionForEditableTable from "./ActionForEditableTable";
 
+
 class CTable extends PureComponent {
 
     state = {
@@ -276,20 +277,22 @@ class CTable extends PureComponent {
         } = this.props;
         const {tableData, isEditing, rowNumber, rowDataUnderAction} = this.state;
         return <>
-            <div id={id}>
+            <div id={id} className="editable-table">
                 {
                     onSave ?
                         <CButton
                             id="add-new"
-                            name="Add"
+                            name=""
                             disabled={isEditing}
                             onClickHandler={this.handleAddNewRow}
-                        />
-                        : ''
+                            className="add-new"
+                            size="lg"
+                        >
+                            <i className="fa fa-plus"/>&nbsp;  Add</CButton> : ''
                 }
 
                 <Table
-                    className={headerClassName}
+                    className="table-header"
                     id={id}
                     bordered={headerBordered}
                     borderless={headerBorderless}
@@ -318,7 +321,7 @@ class CTable extends PureComponent {
                     autoHide={true}
                     style={{height: 400}}>
                     <Table
-                        className={bodyClassName}
+                        className="table-body"
                         id={id}
                         bordered={bordered}
                         borderless={borderless}
@@ -332,7 +335,7 @@ class CTable extends PureComponent {
                         <tbody>
                         {
                             tableData.map((row, rowIndex) => (
-                                <tr key={"row" + rowIndex}>
+                                <tr key={"row" + rowIndex} className={row.onRowEdit ? "activeRow" : ""}>
                                     {
                                         columnDefinition.map((column, colIndex) => (
 

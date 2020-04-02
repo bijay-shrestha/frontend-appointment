@@ -7,6 +7,7 @@ import {CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {Link} from "react-router-dom";
+import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
@@ -49,7 +50,7 @@ class CHeader extends Component {
     setLoggedInUserInfo = async () => {
         let absoluteUrl = window.location.href;
         let base = absoluteUrl.split('#')[0];
-        let adminInfo = JSON.parse(localStorage.getItem('adminInfo'));
+        let adminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
         // let modules = JSON.parse(localStorage.getItem('assignedModules'));
         // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
 

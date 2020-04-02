@@ -5,9 +5,10 @@ import ReactDOM from "react-dom";
 
 import './doubleShiftSearch.scss';
 import {Scrollbars} from "react-custom-scrollbars";
+import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 class CDoubleShiftSearch extends PureComponent {
-    state={
+    state = {
         searchKeyword: '',
         searchResult: [],
         showResults: false
@@ -121,7 +122,8 @@ class CDoubleShiftSearch extends PureComponent {
         let BASE_PATH = process.env.REACT_APP_BASE_PATH_CODE ? process.env.REACT_APP_BASE_PATH_CODE : '';
         let keyWord = event.target.value;
         let menusMatchingKeyWord = [];
-        let userMenus = JSON.parse(localStorage.getItem('userMenus'));
+        let menusFromStorage = LocalStorageSecurity.localStorageDecoder('userMenus');
+        let userMenus = [...menusFromStorage];
 
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
@@ -217,7 +219,7 @@ class CDoubleShiftSearch extends PureComponent {
 
                         {
                             this.state.searchResult.length > 0 ?
-                                <Scrollbars style={{'height':'428px'}} autoHide={false}>
+                                <Scrollbars style={{'height': '428px'}} autoHide={false}>
                                     {this.state.searchResult.map(value => (
                                         <Dropdown.Item
                                             id={"search-dropdown".concat(value.id)}

@@ -128,6 +128,10 @@
    
 }
 
+.patient-container{
+    padding-bottom:20px;
+}
+
 .patient-details{
     display: block;
     margin-top:10px;
@@ -242,6 +246,18 @@
     // width:100%;
     // text-align: center;
     display: inline-block;
+
+    .fa{
+        font-size: 42px !important;
+       display: block;
+       color:$danger;
+
+    }
+}
+
+.back-day-off{
+    display: block;
+    padding-top:20px;
 
     .fa{
         font-size: 42px !important;

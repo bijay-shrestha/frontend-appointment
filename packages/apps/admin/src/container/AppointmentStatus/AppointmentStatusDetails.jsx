@@ -98,7 +98,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {(appointmentStatusDetail.dayOffStatus === 'Y'
                                         && appointmentStatusDetail.doctorTimeSlots
                                         && appointmentStatusDetail.doctorTimeSlots.length) ?
-                                        <div><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
+                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -168,6 +168,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             {
                                 appointmentStatusDetail.patientDetails ?
                                     <Col sm={12} md={2} lg={2}>
+                                       <div className="patient-container">
                                         <h5 className="title">Patients Details </h5><br></br>
                                         <div className="patient-details">
                                             <div className="label">Appointment No.</div>
@@ -235,6 +236,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </CButton>
                                             : ''
                                         }
+
+                                        </div>
                                     </Col>
                                     : ''
                             }
