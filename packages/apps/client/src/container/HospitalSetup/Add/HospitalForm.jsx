@@ -292,7 +292,7 @@ const HospitalForm = ({
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Number Of Free Follow Ups"
-                                            value={hospitalInfoObj.numberOfFreeFollowUps}
+                                            value={hospitalInfoObj.numberOfFollowUps}
                                             required={true}
                                         />
                                     </Col>

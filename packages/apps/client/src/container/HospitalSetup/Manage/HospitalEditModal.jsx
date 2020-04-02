@@ -329,7 +329,7 @@ const HospitalEditModal = ({
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event, validity) => onInputChange(event, validity)}
                                     placeholder="Number Of Free Follow Ups"
-                                    value={hospitalData.numberOfFreeFollowUps}
+                                    value={hospitalData.numberOfFollowUps}
                                     required={true}
                                 />
                             </Col>

@@ -38,7 +38,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 isCogentAdmin: 'N',
                 refundPercentage: '',
                 numberOfAdmins: '',
-                numberOfFreeFollowUps: '',
+                numberOfFollowUps: '',
                 followUpIntervalDays: ''
             },
             formValid: false,
@@ -99,7 +99,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
                     isCogentAdmin: 'N',
-                    numberOfFreeFollowUps: '',
+                    numberOfFollowUps: '',
                     numberOfAdmins: '',
                     followUpIntervalDays: '',
                     refundPercentage: '',
@@ -284,7 +284,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         remarks: remarks,
                         refundPercentage,
                         numberOfAdmins,
-                        numberOfFreeFollowUps,
+                        numberOfFreeFollowUps: numberOfFollowUps,
                         followUpIntervalDays,
                         contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
                         editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
@@ -333,7 +333,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 panNumber,
                 hospitalCode,
                 isHospital:isCogentAdmin,
-                numberOfFreeFollowUps,
+                numberOfFreeFollowUps: numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
@@ -420,7 +420,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1
-                  
+
                 }));
             return newHospitalList
         };
@@ -579,7 +579,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 panNumber,
                 hospitalCode,
                 isCogentAdmin,
-                numberOfFreeFollowUps,
+                numberOfFreeFollowUps: numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage

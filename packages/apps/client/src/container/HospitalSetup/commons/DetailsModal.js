@@ -146,7 +146,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                             id="numberOfFreeFollowUps"
                                             name="numberOfFreeFollowUps"
                                             placeholder="Number Of Free Follow Ups"
-                                            value={hospitalData.numberOfFreeFollowUps}
+                                            value={hospitalData.numberOfFollowUps}
                                             disabled={true}
                                         />
                                     </Col>

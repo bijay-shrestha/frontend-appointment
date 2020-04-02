@@ -322,13 +322,13 @@ const HospitalForm = ({
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
-                                            id="number-of-free-followUps"
-                                            name="numberOfFreeFollowUps"
+                                            id="number-of-followUps"
+                                            name="numberOfFollowUps"
                                             type="number"
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Number Of Follow Ups"
-                                            value={hospitalInfoObj.numberOfFreeFollowUps}
+                                            value={hospitalInfoObj.numberOfFollowUps}
                                             required={true}
                                         />
                                     </Col>
