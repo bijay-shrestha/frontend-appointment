@@ -184,7 +184,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         formValidity =
           formValidity &&
           companyData.contactNumber &&
-          companyData.contactNumber.length
+          companyData.contactNumber[0]
 
       this.setState({
         formValid: formValidity
@@ -332,16 +332,6 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         await this.searchCompany()
       } catch (e) {}
     }
-
-    // searchHospitalForDropDown = async () => {
-    //   try {
-    //     await this.props.fetchActiveHospitalsForDropdown(
-    //       hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
-    //     )
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
 
     searchCompany = async page => {
       const {companyCode, name, status} = this.state.searchParameters
@@ -556,6 +546,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
           }
         })
       } catch (e) {
+       await this.setShowConfirmModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
