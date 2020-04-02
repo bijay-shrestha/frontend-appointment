@@ -39,7 +39,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 isCompany: 'N',
                 refundPercentage: '',
                 numberOfAdmins: '',
-                numberOfFreeFollowUps: '',
+                numberOfFollowUps: '',
                 followUpIntervalDays: ''
             },
             formValid: false,
@@ -101,7 +101,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
                     isCompany: 'N',
-                    numberOfFreeFollowUps: '',
+                    numberOfFollowUps: '',
                     numberOfAdmins: '',
                     followUpIntervalDays: '',
                     refundPercentage: '',
@@ -177,7 +177,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             const {
                 name, status, hospitalCode, address, panNumber, isCompany, refundPercentage, followUpIntervalDays,
                 alias,
-                numberOfAdmins, numberOfFreeFollowUps
+                numberOfAdmins, numberOfFollowUps
             } = hospitalData;
             let formValidity =
                 nameValid &&
@@ -186,9 +186,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode &&
                 address &&
                 panNumber &&
-                refundPercentage>=0 &&
-                followUpIntervalDays>=0 &&
-                numberOfAdmins>=0 && numberOfFreeFollowUps>=0 && alias;
+                refundPercentage >= 0 &&
+                followUpIntervalDays >= 0 &&
+                numberOfAdmins >= 0 && numberOfFollowUps >= 0 && alias;
 
             if (eventType === 'E')
                 formValidity =
@@ -271,7 +271,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     hospitalBanner,
                     refundPercentage,
                     numberOfAdmins,
-                    numberOfFreeFollowUps,
+                    numberOfFollowUps,
                     followUpIntervalDays,
                     isCompany
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData;
@@ -290,7 +290,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         // remarks: remarks,
                         refundPercentage,
                         numberOfAdmins,
-                        numberOfFreeFollowUps,
+                        numberOfFollowUps,
                         followUpIntervalDays,
                         contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
                         editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
@@ -328,7 +328,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 followUpIntervalDays,
                 hospitalBanner,
                 numberOfAdmins,
-                numberOfFreeFollowUps,
+                numberOfFollowUps,
                 // isCompany,
                 alias
             } = this.state.hospitalData;
@@ -343,7 +343,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode,
                 alias,
                 // isCompany,
-                numberOfFreeFollowUps,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
@@ -572,7 +572,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 panNumber,
                 hospitalCode,
                 isCompany,
-                numberOfFreeFollowUps,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage,
@@ -589,7 +589,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode,
                 alias,
                 // isCompany,
-                numberOfFreeFollowUps,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
@@ -622,6 +622,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 this.setState({
+                    showConfirmModal:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -700,7 +701,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
             const {hospitalEditErrorMessage, isHospitalEditLoading} = this.props.HospitalEditReducer;
 
-            const {deleteErrorMessage,isDeleteLoading} = this.props.HospitalDeleteReducer;
+            const {deleteErrorMessage, isDeleteLoading} = this.props.HospitalDeleteReducer;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
