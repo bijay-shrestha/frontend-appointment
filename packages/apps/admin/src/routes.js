@@ -456,7 +456,7 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Refund'
+        name: 'Pending Refund Approval'
     },
     {
         path: '/admin/appointment/appointmentApprovalRequest',
@@ -465,7 +465,7 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Approval'
+        name: 'Appointment Check-In'
     },
     {
         path: '/admin/reports/appointmentLog',
