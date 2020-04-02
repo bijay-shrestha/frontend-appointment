@@ -169,24 +169,6 @@ export const companyAdminPreviewError = errorMsg => {
     }
 };
 
-// export const clearCompanyAdminPreviewErrorMessage = () => {
-//     return {
-//         type: CLEAR_COMPANY_ADMIN_PREVIEW_ERROR_MESSAGE
-//     }
-// };
-
-// export const clearCompanyAdminDeleteErrorMessage = () => {
-//     return {
-//         type: CLEAR_COMPANY_ADMIN_DELETE_ERROR_MESSAGE
-//     }
-// };
-
-// export const clearCompanyAdminDeleteSuccessMessage = () => {
-//     return {
-//         type: CLEAR_COMPANY_ADMIN_DELETE_SUCCESS_MESSAGE
-//     }
-// };
-
 export const companyAdminMetaInfoFetchPending = () => {
     return {
         type: FETCH_COMPANY_ADMIN_META_INFO_PENDING
