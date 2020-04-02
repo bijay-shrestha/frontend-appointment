@@ -305,7 +305,8 @@ class AdminAdd extends PureComponent {
                 profilePreviewData,
             } = this.props.ProfilePreviewReducer;
 
-            let profileData = profilePreviewData && await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData);
+            let profileData = profilePreviewData && await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,
+                'CLIENT');
             this.setState({
                 profileData,
                 showProfileDetailModal: true

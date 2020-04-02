@@ -2,8 +2,7 @@ import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
-
-const getLoader = () => <CLoading/>;
+const getLoader = () => <CLoading/>
 /* ****** A ***** */
 
 const AddProfileComponent = loadable(
@@ -65,10 +64,22 @@ const AppointmentLogListComponent = loadable(
     () => import('./container/AppointmentLog/AppointmentLog'),
     {fallback: () => getLoader()}
 )
+
+const AddCompanyProfileComponent = loadable(
+    () => import('./container/CompanyProfileSetup/Add/CompanyProfileSetupAdd'),
+    {fallback: getLoader()}
+);
 /* ****** B ***** */
 
 /* ****** C ***** */
-
+const CompanyManageComponent = loadable(
+    () => import('./container/CompanySetup/Manage/CompanyManage'),
+    {fallback: () => getLoader()}
+)
+const CompanyAddComponent = loadable(
+    () => import('./container/CompanySetup/Add/CompanyAdd'),
+    {fallback: () => getLoader()}
+)
 /* ****** D ***** */
 
 const DashboardComponent = loadable(
@@ -138,6 +149,11 @@ const ManageDoctorComponent = loadable(
     () => import('./container/DoctorSetup/Manage/DoctorManage'),
     {fallback: () => getLoader()}
 )
+
+const ManageCompanyProfileComponent = loadable(
+    () => import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
+    {fallback: getLoader()}
+);
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -166,7 +182,6 @@ const RescheduleLog = loadable(
     () => import('./container/RescheduleLog/RescheduleLog'),
     {fallback: () => getLoader()}
 )
-
 
 /* ****** S ***** */
 
@@ -523,5 +538,69 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Alias'
-    }
+    },
+    {
+        path: '/admin/companySettings/companyProfile',
+        component: <></>,
+        isLink: false,
+        icon: '',
+        hasTab: true,
+        isTab: false,
+        name: 'Company Profile Setup'
+    },
+    {
+        path: '/admin/companySettings/companyProfile/add',
+        name: 'Add',
+        component: AddCompanyProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true
+    },
+    {
+        path: '/admin/companySettings/companyProfile/manage',
+        component: ManageCompanyProfileComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+    },
+    {
+        path: '/admin/companySettings/companySetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: false,
+        name: 'Company Setup'
+    },
+    {
+        path: '/admin/companySettings/companySetup/add',
+        component: CompanyAddComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add'
+    },
+    {
+        path: '/admin/companySettings/companySetup/manage',
+        component: CompanyManageComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage'
+    },
+
+    {
+        path: '/admin/companySettings',
+        name: 'Company Settings',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: true
+    },
 ];

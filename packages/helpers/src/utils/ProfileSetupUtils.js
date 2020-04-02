@@ -1,7 +1,7 @@
 import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
-export const prepareProfilePreviewData = (userMenusProfile) => {
+export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
     let filteredProfiles = {};
     let selectedMenus = [],
         selectedUserMenusForModal = [];
@@ -67,21 +67,42 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
     });
     let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...selectedUserMenusForModal]);
     if (profileResponseDTO)
-        filteredProfiles = {
-            ...filteredProfiles,
-            selectedUserMenusForModal: [...alphabeticallySortedMenus],
-            profileName: profileResponseDTO.name,
-            hospitalValue: {
-                value: profileResponseDTO.hospitalId,
-                label: profileResponseDTO.hospitalName
-            },
-            profileDescription: profileResponseDTO.description,
-            departmentValue: {
-                value: profileResponseDTO.departmentId,
-                label: profileResponseDTO.departmentName
-            },
-            status: profileResponseDTO.status
-        };
+        switch (profileType) {
+            case 'CLIENT':
+                filteredProfiles = {
+                    ...filteredProfiles,
+                    selectedUserMenusForModal: [...alphabeticallySortedMenus],
+                    profileName: profileResponseDTO.name,
+                    hospitalValue: {
+                        value: profileResponseDTO.hospitalId,
+                        label: profileResponseDTO.hospitalName
+                    },
+                    profileDescription: profileResponseDTO.description,
+                    departmentValue: {
+                        value: profileResponseDTO.departmentId,
+                        label: profileResponseDTO.departmentName
+                    },
+                    status: profileResponseDTO.status
+                };
+                break;
+            case 'COMPANY':
+                filteredProfiles = {
+                    ...filteredProfiles,
+                    selectedUserMenusForModal: [...alphabeticallySortedMenus],
+                    profileName: profileResponseDTO.name,
+                    profileDescription: profileResponseDTO.description,
+                    company: {
+                        value: profileResponseDTO.companyId,
+                        label: profileResponseDTO.companyName
+                    },
+                    status: profileResponseDTO.status,
+                    remarks: profileResponseDTO.remarks
+                };
+                break;
+            default:
+                break;
+        }
+
     return filteredProfiles
 };
 

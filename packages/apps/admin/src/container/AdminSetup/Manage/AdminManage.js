@@ -55,7 +55,8 @@ class AdminManage extends PureComponent {
         passwordResetDTO: {
             username: '',
             password: '',
-            remarks: ''
+            remarks: '',
+            id:''
         },
         passwordResetError: '',
         searchParameters: {
@@ -582,6 +583,7 @@ class AdminManage extends PureComponent {
             passwordResetDTO: {
                 ...this.state.passwordResetDTO,
                 username: username,
+                id:id
             },
             showPasswordResetModal: true
         })
@@ -589,9 +591,10 @@ class AdminManage extends PureComponent {
 
     resetPassword = async passwordObj => {
         let passwordResetObj = {
-            username: this.state.passwordResetDTO.username,
+            // username: this.state.passwordResetDTO.username,
             password: passwordObj.password,
-            remarks: passwordObj.remarks
+            remarks: passwordObj.remarks,
+            id: this.state.passwordResetDTO.id
         };
 
         try {

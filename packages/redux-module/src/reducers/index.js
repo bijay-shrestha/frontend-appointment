@@ -54,16 +54,15 @@ import {
 } from './admin-module/doctorDutyRosterReducer'
 
 import {
+    DashboardAppointmentQueueReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
+    DashboardRevenueGeneratedByDoctorReducer,
     DashboardRevenueGeneratedDayReducer,
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer,
-    DashboardAppointmentQueueReducer,
-    DashboardRevenueGeneratedByDoctorReducer
-
+    DashboardRevenueStatisticsReducer
 } from './admin-module/dashboardDetailsReducer'
 
 import {
@@ -79,25 +78,25 @@ import {
 
 import {
     AppointmentApprovalListReducer,
+    AppointmentApproveReducer,
     AppointmentLogListReducer,
     AppointmentRefundListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
+    AppointmentRejectReducer,
     AppointmentStatusListReducer,
-    RescheduleLogReducer,
-    AppointmentApproveReducer,
-    AppointmentRejectReducer
+    RescheduleLogReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
 import {
+    PatientDetailReducer,
     PatientDropdownListReducer,
+    PatientDropdownWithoutHospitalListReducer,
     PatientEditReducer,
     PatientPreviewReducer,
-    PatientSearchReducer,
-    PatientDetailReducer,
-    PatientDropdownWithoutHospitalListReducer
+    PatientSearchReducer
 } from './admin-module/patientSetupReducer';
 
 import {
@@ -108,6 +107,24 @@ import {
     QualificationAliasSearchReducer
 } from './admin-module/qualificationAliasSetupReducer';
 
+import {
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
+} from './admin-module/companyProfileSetupReducer';
+
+import {
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer
+} from './admin-module/companySetupReducers';
+
 export {
     AppointmentApproveReducer,
     AppointmentRejectReducer,
@@ -117,6 +134,12 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRefundListReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedDayReducer,
@@ -188,5 +211,11 @@ export {
     QualificationAliasDropdownReducer,
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
-    QualificationAliasSearchReducer
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 }

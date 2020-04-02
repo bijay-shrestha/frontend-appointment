@@ -289,6 +289,7 @@
         }
       ]
     },
+
     {
       "id": "14",
       "parentId": null,
@@ -356,6 +357,62 @@
       "menuFor": "6",
       "description": "patientInformation",
       "childMenus": []
+    },
+    {
+      "id": "20",
+      "parentId": null,
+      "name": "Company Settings",
+      "path": "/adminSetup",
+      "roles": [],
+      "icon": "fa fa-building-o",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Company Settings",
+      "childMenus": [
+        {
+          "id": "21",
+          "parentId": "20",
+          "name": "Company Setup",
+          "path": "/companySettings/companySetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "companySetup",
+          "childMenus": []
+        },
+        {
+          "id": "22",
+          "parentId": "1",
+          "name": "Company Profile Setup",
+          "path": "/companySettings/companyProfile",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Profile Setup",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }

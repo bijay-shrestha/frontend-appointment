@@ -79,9 +79,25 @@ import {
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
     QualificationAliasSearchReducer,
-    ForgotPasswordVerification
+    ForgotPasswordVerification,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer
 } from '../reducers'
-const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
+const {
+  ForgotPasswordReducer,
+  VerificationCodeReducer,
+  ChangePasswordForgotReducer
+} = ForgotPasswordVerification
 export const rootReducers = combineReducers({
     AdminDeleteReducer,
     AdminEditReducer,
@@ -96,6 +112,12 @@ export const rootReducers = combineReducers({
     AppointmentStatusListReducer,
     AppointmentApproveReducer,
     AppointmentRejectReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer,
     CountryCodeDropdownReducer,
     ChangePasswordForgotReducer,
     DashboardAppointmentStatisticsReducer,
@@ -164,5 +186,11 @@ export const rootReducers = combineReducers({
     QualificationAliasDropdownReducer,
     QualificationAliasEditReducer,
     QualificationAliasSaveReducer,
-    QualificationAliasSearchReducer
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 });

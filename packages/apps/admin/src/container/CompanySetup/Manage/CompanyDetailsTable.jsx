@@ -10,14 +10,14 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from './tableComponents/TableAction'
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
-import HospitalPicture from '../commons/HospitalPicture'
+import CompanyPicture from '../commons/CompanyPicture'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
-const HospitalDetailsDataTable = props => (
+const CompanyDetailsDataTable = props => (
     <div className="manage-details">
         
-        <h5 className="title">Hospital Details</h5>
+        <h5 className="title">Company Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -42,14 +42,14 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Name',
+                            headerName: 'Company Name',
                             field: 'name',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Logo',
+                            headerName: 'Company Logo',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,
@@ -58,7 +58,7 @@ const HospitalDetailsDataTable = props => (
                             cellRenderer: 'imageRenderer'
                         },
                         {
-                            headerName: 'Hospital Address',
+                            headerName: 'Company Address',
                             field: 'address',
                             resizable: true,
                             sortable: true,
@@ -98,7 +98,7 @@ const HospitalDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
-                        imageRenderer:HospitalPicture
+                        imageRenderer:CompanyPicture
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
@@ -127,13 +127,13 @@ const HospitalDetailsDataTable = props => (
             <CLoading/>
         )}
         {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-        {props.showHospitalModal && !props.isPreviewLoading ? (
+        {props.showCompanyModal && !props.isPreviewLoading ? (
             <PreviewDetails
-                showModal={props.showHospitalModal}
+                showModal={props.showCompanyModal}
                 setShowModal={props.setShowModal}
-                hospitalData={props.hospitalData}
-                hospitalPreviewErrorMessage={
-                    props.hospitalPreviewErrorMessage
+                companyData={props.companyData}
+                companyPreviewErrorMessage={
+                    props.companyPreviewErrorMessage
                 }
             />
         ) : (
@@ -141,8 +141,8 @@ const HospitalDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
-                modalHeader="Delete Specialization"
+                confirmationMessage="Are you sure you want to delete the Company?If yes please provide remarks."
+                modalHeader="Delete Company"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}
@@ -155,4 +155,41 @@ const HospitalDetailsDataTable = props => (
         )}
     </div>
 )
-export default memo(HospitalDetailsDataTable)
+export default memo(CompanyDetailsDataTable)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

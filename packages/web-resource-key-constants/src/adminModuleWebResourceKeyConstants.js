@@ -10,6 +10,7 @@ const UN_BASE = '/university';
 const PATIENT_BASE = "/patient";
 const APPOINTMENT_BASE = "/appointment";
 const DASHBOARD_BASE = "/dashboard";
+const COMPANY_BASE = '/company';
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -162,15 +163,32 @@ export const appointmentSetupApiConstant ={
 };
 
 export const DashboardApiConstant = {
-    OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + "/overAllAppointments"),
-    REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
-    REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
-    REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics"),
-    APPOINTMENT_QUERY:BASE.concat(DASHBOARD_BASE + "/today-appointment"),
-    DOCTOR_REVENUE:BASE.concat(DASHBOARD_BASE+"/doctorRevenue")
+  OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + '/overAllAppointments'),
+  REGISTERED_PATIENTS: BASE.concat(
+    DASHBOARD_BASE + '/registeredPatients/count'
+  ),
+  REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + '/revenueGenerated'),
+  REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + '/revenueStatistics'),
+  APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + '/today-appointment'),
+  DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + '/doctorRevenue')
 };
 
+const COMPANY_PROFILE_SETUP_BASE='/company-profile';
+export const companyProfileSetupApiConstants = {
+    CREATE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    EDIT_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    DELETE_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE),
+    SEARCH_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/search')),
+    PREVIEW_COMPANY_PROFILE:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/detail')),
+    FETCH_COMPANY_PROFILE_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
+    FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN:BASE.concat(COMPANY_PROFILE_SETUP_BASE.concat('/active/min')),
+};
 
-
-
-
+export const CompanyApiConstant = {
+  SAVE_COMPANY: BASE.concat(COMPANY_BASE),
+  UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
+  DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
+  PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
+  SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
+  DELETE_COMPANY: BASE.concat(COMPANY_BASE)
+};
