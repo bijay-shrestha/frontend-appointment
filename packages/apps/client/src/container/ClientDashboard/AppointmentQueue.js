@@ -25,7 +25,7 @@ const AppointmentQueue = props => {
   } = props.appointmentQueue
   return (
     <>
-      <Row className="mt-4">
+      <div className="mt-4 appointment-queue">
         <h5 className="title">Appointment Queue</h5>
         <div className="app-log">
           <Row>
@@ -91,7 +91,8 @@ const AppointmentQueue = props => {
                         resizable: true,
                         sortable: true,
                         sizeColumnsToFit: true,
-                        cellRenderer: 'doctorwithSpecializationRenderer'
+                        cellRenderer: 'doctorwithSpecializationRenderer',
+                        width:"300"
                       },
 
                       {
@@ -137,7 +138,7 @@ const AppointmentQueue = props => {
             </div>
           </Row>
         </div>
-      </Row>
+      </div>
     </>
   )
 }

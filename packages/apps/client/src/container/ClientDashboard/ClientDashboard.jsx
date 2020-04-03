@@ -54,38 +54,54 @@ const ClientDashboard = props => {
                 />
               </Col>
             </Row>
+            <Row>
             <CheckDashboardRole
               component={
                 <RevenueStatistics generateRevenue={generateRevenue} />
               }
               code={generateRevenue.code}
             />
+            </Row>
+           
             <Row className="mt-1">
-              <Col lg={7}>
+            
                 <CheckDashboardRole
                   component={
+                    <Col lg={6} className="p-0">
                     <RevenueTrend
                       revenueStatistics={revenueStatistics}
                       onPillsClickHandler={onPillsClickHandler}
                       revenueFilter={revenueFilter}
                     />
+                     </Col>
                   }
                   code={revenueStatistics.code}
                 />
+               
+              
+               
                 <CheckDashboardRole
                   component={
-                    <AppointmentQueue appointmentQueue={appointmentQueue} />
-                  }
-                  code={appointmentQueue.code}
-                />
-                <CheckDashboardRole
-                  component={
+                    <Col md={6} className="pr-0">
                     <DoctorRevenueList doctorRevenue={doctorRevenue} />
+                    </Col>
                   }
                   code={doctorRevenue.code}
                 />
-              </Col>
-              <Col lg={5} className="pr-0">
+   
+               </Row>
+
+            <Row  className="mt-1">
+            <CheckDashboardRole
+                  component={
+                    <Col md={6} className="p-0">
+                    <AppointmentQueue appointmentQueue={appointmentQueue} />
+                    </Col>
+                  }
+                  code={appointmentQueue.code}
+                />
+           
+            <Col md={6} className="pr-0">
                 <CheckDashboardRole
                   component={
                     <PatientStatistics

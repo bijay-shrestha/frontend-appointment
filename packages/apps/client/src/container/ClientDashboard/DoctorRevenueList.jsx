@@ -37,7 +37,7 @@ const DoctorRevenueList = props => {
         <div className="app-log">
           <>
             <Row>
-              <Col className="">
+              <Col className="px-0">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
                     <Col>
