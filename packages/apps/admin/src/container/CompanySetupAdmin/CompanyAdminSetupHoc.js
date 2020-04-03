@@ -9,7 +9,8 @@ import {
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
-  EnvironmentVariableGetter
+  AdminSetupUtils,
+  ProfileSetupUtils
 } from '@frontend-appointment/helpers'
 // import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from '@frontend-appointment/ui-elements'
@@ -23,14 +24,30 @@ const {
   fetchCompanyAdminMetaInfo,
   previewCompanyAdmin
 } = CompanyAdminSetupMiddleware
-const {fetchCompanyProfileListForDropdown} = CompanyProfileSetupMiddleware
+const {fetchActiveCompanyProfileListByCompanyIdForDropdown,previewCompanyProfileById} = CompanyProfileSetupMiddleware
 
 const {companyDropdown} = CompanySetupMiddleware
 
 const {
-  FETCH_COMPANY_PROFILE_FOR_DROPDOWN
+  FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN,
+  PREVIEW_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
-
+const {
+CHANGE_PASSWORD,
+CREATE_COMPANY_ADMIN,
+DELETE_COMPANY_ADMIN,
+EDIT_COMPANY_ADMIN,
+FETCH_COMPANYADMIN_META_INFO,
+FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
+GET_LOGGED_IN_COMPANY_ADMIN_INFO,
+PREVIEW_COMPANY_ADMIN,
+RESET_PASSWORD,
+SAVE_COMPANY_ADMIN_PASSWORD,
+SEARCH_COMPANY_ADMIN,
+UPDATE_COMPANY_ADMIN_AVATAR,
+UPDATE_COMPANY_ADMIN_PASSWORD,
+VERIFY_COMPANY_ADMIN
+}=AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
 
 const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
@@ -83,8 +100,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       passwordResetError: '',
       searchParameters: {
         metaInfo: '',
-        hospital: '',
-        department: '',
+        company: '',
         profile: '',
         genderCode: '',
         status: {value: 'A', label: 'All'}
@@ -382,8 +398,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         searchParameters: {
           ...this.state.searchParameters,
           metaInfo: null,
-          hospital: null,
-          department: null,
+          company: null,
           profile: null,
           genderCode: null,
           status: {value: 'A', label: 'All'}
@@ -416,11 +431,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         let label = event.target.label
         await this.setUpdatedValuesInState(fieldName, value, label, fieldValid)
         switch (fieldName) {
-          case 'hospital':
+          case 'company':
             this.actionsOnHospitalChange(value)
-            break
-          case 'department':
-            this.actionsOnDepartmentChange(value)
             break
           case 'hasMacBinding':
             this.addMacIdObjectToMacIdList(value)
@@ -467,37 +479,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       this.setMacIdListInState(macIds, currentMacIds)
     }
 
-    handleModuleChange = async (subDepartmentId, index) => {
-      let modules = [...this.state.adminUpdateData.moduleList]
-      let currentUpdatedModules = [...this.state.updatedModulesAndProfiles]
-      modules[index].isChecked = !modules[index].isChecked
-      currentUpdatedModules[index].isChecked = !currentUpdatedModules[index]
-        .isChecked
-      if (modules[index].isChecked) {
-        if (!modules[index].isNew) {
-          currentUpdatedModules[index].status = 'Y'
-          modules[index].profileList = currentUpdatedModules[index].profileList
-          modules[index].profileSelected =
-            currentUpdatedModules[index].profileSelected
-        } else {
-          currentUpdatedModules[index].status = 'Y'
-          let profileList = currentUpdatedModules[index].profileList.length
-            ? currentUpdatedModules[index].profileList
-            : await this.fetchProfileListByModule(subDepartmentId)
-          modules[index].profileList = profileList ? [...profileList] : []
-          currentUpdatedModules[index].profileList = currentUpdatedModules[
-            index
-          ].profileList.length && [...profileList]
-        }
-      } else {
-        currentUpdatedModules[index].status = 'N'
-        modules[index].profileList = []
-        modules[index].profileSelected = null
-      }
-      await this.setModulesInState(modules, currentUpdatedModules)
-      this.checkFormValidity()
-    }
-
     handleProfileChange = (event, index) => {
       let modules = [...this.state.adminUpdateData.moduleList]
       let currentUpdatedModulesAndProfile = [
@@ -534,7 +515,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       await this.setState({
         adminUpdateData: {
           ...this.state.adminUpdateData,
-          adminAvatar: new File([croppedImageFile], 'adminAvatar.jpeg'),
+          adminAvatar: new File([croppedImageFile], 'companyAdminAvatar.jpeg'),
           adminAvatarUrlNew: croppedImage
         },
         showImageUploadModal: false
@@ -544,12 +525,12 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     handleViewProfileDetails = async profileId => {
       try {
         await this.fetchProfileDetails(profileId)
-        const {profilePreviewData} = this.props.ProfilePreviewReducer
+        const {companyProfileDetail} = this.props.CompanyProfilePreviewReducer
 
         let profileData =
-          profilePreviewData &&
+        companyProfileDetail &&
           (await ProfileSetupUtils.prepareProfilePreviewData(
-            profilePreviewData
+            companyProfileDetail
           ))
         this.setState({
           profileData,
@@ -565,7 +546,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     fetchProfileDetails = async profileId => {
-      await this.props.previewProfile(FETCH_PROFILE_DETAILS, profileId)
+      await this.props.previewCompanyProfileById(PREVIEW_COMPANY_PROFILE, profileId)
     }
 
     onDeleteHandler = async id => {
@@ -582,7 +563,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(adId)
         let adminData = this.prepareDataForPreview(
-          this.props.AdminPreviewReducer.adminPreviewData
+          this.props.CompanyAdminPreviewReducer.adminPreviewData
         )
         this.setDataForPreview(adminData)
       } catch (e) {
@@ -590,7 +571,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.AdminPreviewReducer.adminPreviewErrorMessage
+            message: this.props.CompanyAdminPreviewReducer.adminPreviewErrorMessage
             // e.errorMessage ? e.errorMessage: e.message
           }
         })
@@ -601,7 +582,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(id)
         await this.prepareDataForEdit(
-          this.props.AdminPreviewReducer.adminPreviewData
+          this.props.CompanyAdminPreviewReducer.adminPreviewData
         )
       } catch (e) {
         console.log(e)
@@ -722,22 +703,20 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async id => {
-      await this.props.previewAdmin(FETCH_ADMIN_DETAILS, id)
+      await this.props.previewCompanyAdmin(FETCH_COMPANY_ADMIN_DETAILS, id)
     }
 
     searchAdmins = async page => {
       const {
         metaInfo,
-        hospital,
-        department,
+        company,
         profile,
         genderCode,
         status
       } = this.state.searchParameters
       let searchData = {
         adminMetaInfoId: metaInfo && metaInfo.value,
-        hospitalId: hospital && hospital.value,
-        departmentId: department && department.value,
+        companyId: company && company.value,
         profileId: profile && profile.value,
         genderCode: genderCode && genderCode.value,
         status: status && status.value !== 'A' ? status.value : ''
@@ -750,7 +729,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.fetchAdminList(
-        SEARCH_ADMIN,
+        SEARCH_COMPANY_ADMIN,
         {
           page: updatedPage,
           size: this.state.queryParams.size
@@ -772,7 +751,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     editApiCall = async () => {
       const {
         id,
-        hospital,
+        company,
         profile,
         fullName,
         email,
@@ -846,33 +825,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    actionsOnHospitalChange = async value => {
-      if (value) {
-        await this.fetchDepartmentsByHospitalId(value)
-        const {departmentsByHospital} = this.props.DepartmentSetupReducer
-        this.setState({
-          adminUpdateData: {
-            ...this.state.adminUpdateData,
-            department: null,
-            profile: null,
-            departmentList: departmentsByHospital ? departmentsByHospital : [],
-            profileList: []
-          }
-        })
-      } else {
-        this.setState({
-          adminUpdateData: {
-            ...this.state.adminUpdateData,
-            department: null,
-            profile: null,
-            departmentList: [],
-            profileList: []
-          }
-        })
-      }
-    }
-
-    actionsOnDepartmentChange = async value => {
+    actionsOnCompanyChange = async value => {
       if (value) {
         await this.fetchProfilesByDepartmentId(value)
         const {activeProfilesByDepartmentId} = this.props.ProfileSetupReducer
@@ -1050,10 +1003,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       'CompanyAdminListReducer',
       'CompanyAdminPreviewReducer',
       'CompanyAdminSetupReducer',
-      'CompanyAdminMetaInfoReducer'
+      'CompanyAdminMetaInfoReducer',
+      'CompanyProfilePreviewReducer'
     ],
     {
-      fetchCompanyProfileListForDropdown,
+      fetchActiveCompanyProfileListByCompanyIdForDropdown,
       companyDropdown,
       logoutUser,
       clearAdminSuccessErrorMessagesFromStore,
@@ -1062,7 +1016,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       editCompanyAdmin,
       fetchCompanyAdminList,
       fetchCompanyAdminMetaInfo,
-      previewCompanyAdmin
+      previewCompanyAdmin,
+      previewCompanyProfileById
     }
   )
 }

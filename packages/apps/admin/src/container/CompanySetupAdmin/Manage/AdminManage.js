@@ -382,7 +382,7 @@ class AdminManage extends PureComponent {
             let label = event.target.label;
             await this.setUpdatedValuesInState(fieldName, value, label, fieldValid);
             switch (fieldName) {
-                case "hospital":
+                case "company":
                     this.actionsOnHospitalChange(value);
                     break;
                 case "department":

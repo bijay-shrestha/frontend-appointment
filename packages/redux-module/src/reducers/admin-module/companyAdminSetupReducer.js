@@ -45,7 +45,7 @@ const updateCompanyAdminState = {
 const previewCompanyAdminState = {
   isAdminPreviewLoading: true,
   adminPreviewErrorMessage: '',
-  adminPreviewSuccessMessage: ''
+  adminPreviewData:null
 }
 const deleteCompanyAdminState = {
   isDeleteCompanyLoading: true,
@@ -233,20 +233,19 @@ export const CompanyAdminPreviewReducer = (
         ...state,
         isAdminPreviewLoading: false,
         adminPreviewErrorMessage: '',
-        adminPreviewSuccessMessage: action.payload.message
+        adminPreviewData: action.payload.data
       }
     case COMPANY_ADMIN_PREVIEW_ERROR:
       return {
         ...state,
         isAdminPreviewLoading: false,
-        adminPreviewErrorMessage: action.payload.message,
-        adminPreviewSuccessMessage: ''
+        adminPreviewErrorMessage: action.payload.data,
+        adminPreviewData: ''
       }
     case COMPANY_ADMIN_CLEAR_PREVIEW_MESSAGES:
       return {
         ...state,
-        adminPreviewErrorMessage: '',
-        adminPreviewSuccessMessage: ''
+        adminPreviewErrorMessage: ''
       }
     default:
       return {...state}
