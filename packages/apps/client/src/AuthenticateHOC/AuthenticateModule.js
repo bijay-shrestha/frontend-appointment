@@ -98,7 +98,7 @@ const AuthenticateModule = () => {
                                 />
                             ),
                             getTokenFormLocalStorage
-                        )}Admin
+                        )}
                     />
                 ))}
                 <Route path="/loading" component={CFullPageLoading}/>
