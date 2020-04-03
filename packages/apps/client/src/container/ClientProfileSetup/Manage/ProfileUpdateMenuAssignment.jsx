@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import { menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
+import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 
@@ -408,7 +408,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                             'activeParent' : ''}
                                                         onClick={() => this.handleAccordionSelect(userMenu)}>
                                                         <i className={userMenu.icon}> </i>
-                                                       <span>{userMenu.name}</span>
+                                                        <span>{userMenu.name}</span>
                                                         {userMenu.childMenus.length > 0 ?
                                                             <i className='fa fa-sort-down'> </i> : ''}
                                                     </Accordion.Toggle>
@@ -496,7 +496,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                     className="assign-header">
                                                     <CCheckbox
                                                         id={tab.id}
-                                                        label={tab.name}
+                                                        label={tab.name ? tab.name : this.state.currentSelectedChildMenu.name}
                                                         checked={tab.isChecked}
                                                         className="check-all"
                                                         onChange={() => this.handleTabsAndRolesCheck(false, tab)}

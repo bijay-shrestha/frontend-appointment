@@ -43,7 +43,7 @@ const HospitalForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Hospital Info</h5>
+                    <h5 className="title">Client Info</h5>
                 </Row>
                 <CForm id="hospital-info" className="mt-2 add-info">
                     <Container-fluid>
@@ -61,7 +61,7 @@ const HospitalForm = ({
                                                     hospitalInfoObj.hospitalBannerUrl ?
                                                         <img
                                                             className="hospital-banner"
-                                                            alt="HOSPITAL BANNER"
+                                                            alt="CLIENT BANNER"
                                                             src={hospitalInfoObj.hospitalBannerUrl}
                                                         /> : ''
                                                 }
@@ -72,7 +72,7 @@ const HospitalForm = ({
 
                                                     <div className="image-box">
                                                         <img
-                                                            alt="HOSPITAL IMAGE"
+                                                            alt="CLIENT IMAGE"
                                                             src={hospitalInfoObj.hospitalLogo ? hospitalInfoObj.hospitalLogoUrl : DefaultLogo}
                                                         />
                                                         <CButton
@@ -141,7 +141,7 @@ const HospitalForm = ({
                                             name="name"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Name"
+                                            placeholder="Client Name"
                                             value={hospitalInfoObj.name}
                                             required={true}
                                             hasValidation={true}
@@ -157,10 +157,24 @@ const HospitalForm = ({
                                             name="hospitalCode"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Code"
+                                            placeholder="Access Key"
                                             value={hospitalInfoObj.hospitalCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
+                                            max={10}
+                                            min={2}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridInput
+                                            id="alias"
+                                            name="alias"
+                                            onKeyDown={event => onEnterKeyPress(event)}
+                                            onChange={(event, validity) => onInputChange(event, validity)}
+                                            placeholder="Alias"
+                                            value={hospitalInfoObj.alias}
+                                            required={true}
                                             max={10}
                                             min={2}
                                         />
@@ -172,12 +186,12 @@ const HospitalForm = ({
                                             name="panNumber"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital PAN Number"
+                                            placeholder="Client PAN Number"
                                             value={hospitalInfoObj.panNumber}
                                             fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                             hasValidation={true}
                                             max={9}
-                                            errorMessagePassed={'Pan number should only be alphanumber and of 9 max characters'}
+                                            errorMessagePassed={'Pan number should only be alpha-number and of 9 max characters'}
                                             required={true}
                                         />
                                     </Col>
@@ -188,10 +202,23 @@ const HospitalForm = ({
                                             name="address"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Address"
+                                            placeholder="Client Address"
                                             value={hospitalInfoObj.address}
                                             max={200}
                                             min={1}
+                                            required={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridInput
+                                            id="number-of-admins"
+                                            name="numberOfAdmins"
+                                            type="number"
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event, validity) => onInputChange(event, validity)}
+                                            placeholder="Number Of Admins"
+                                            value={hospitalInfoObj.numberOfAdmins}
                                             required={true}
                                         />
                                     </Col>
@@ -229,7 +256,7 @@ const HospitalForm = ({
                                                                     idx
                                                                 )
                                                             }
-                                                            placeholder="Hopsital Contact Number"
+                                                            placeholder="Client Contact Number"
                                                             value={contNumber}
                                                             required={true}
                                                             max={10}
@@ -282,39 +309,26 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
-                                        <CCheckbox id="cogent-admin"
-                                            name="isCogentAdmin"
-                                            label="F1soft Group of Companies"
-                                            className="module"
-                                            checked={hospitalInfoObj.isCogentAdmin === 'Y'}
-                                            onChange={(event) => onInputChange(event)}
-                                            onKeyDown={(event) => onEnterKeyPress(event)}
-                                        />
-                                    </Col>
+                                    {/*<Col sm={12} md={6} lg={6}>*/}
+                                    {/*    <CCheckbox id="cogent-admin"*/}
+                                    {/*        name="isCompany"*/}
+                                    {/*        label="F1soft Group of Companies"*/}
+                                    {/*        className="module"*/}
+                                    {/*        checked={hospitalInfoObj.isCompany === 'Y'}*/}
+                                    {/*        onChange={(event) => onInputChange(event)}*/}
+                                    {/*        onKeyDown={(event) => onEnterKeyPress(event)}*/}
+                                    {/*    />*/}
+                                    {/*</Col>*/}
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
-                                            id="number-of-admins"
-                                            name="numberOfAdmins"
+                                            id="number-of-followUps"
+                                            name="numberOfFollowUps"
                                             type="number"
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Number Of Admins"
-                                            value={hospitalInfoObj.numberOfAdmins}
-                                            required={true}
-                                        />
-                                    </Col>
-
-                                    <Col sm={12} md={6} lg={6}>
-                                        <CHybridInput
-                                            id="number-of-free-followUps"
-                                            name="numberOfFreeFollowUps"
-                                            type="number"
-                                            onKeyDown={(event) => onEnterKeyPress(event)}
-                                            onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Number Of Free Follow Ups"
-                                            value={hospitalInfoObj.numberOfFreeFollowUps}
+                                            placeholder="Number Of Follow Ups"
+                                            value={hospitalInfoObj.numberOfFollowUps}
                                             required={true}
                                         />
                                     </Col>

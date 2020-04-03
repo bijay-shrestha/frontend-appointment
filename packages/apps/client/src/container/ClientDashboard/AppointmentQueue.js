@@ -20,7 +20,8 @@ const AppointmentQueue = props => {
     doctorId,
     date,
     handleDoctorChange,
-    doctorDropdown
+    doctorDropdown,
+    handleDateChangeForAppointmentQueue
   } = props.appointmentQueue
   return (
     <>
@@ -47,27 +48,27 @@ const AppointmentQueue = props => {
             </Col>
 
             <Col className="date">
-            <CEnglishDatePicker
-            id="date"
-            name="date"
-            label="Date"
-            dateFormat="yyyy-MM-dd"
-            maxDate={0}
-            showDisabledMonthNavigation={true}
-            peekNextMonth={true}
-            showMonthDropdown={true}
-            showYearDropdown={true}
-            dropdownMode="select"
-            selected={date}
-            // onKeyDown={event => handleEnter(event)}
-            // onChange={date =>
-            //     handleSearchFormChange(date, 'fromDate')
-            // }
-        />
-              
-              {/* <div>
-                <span>Date :</span> {new Date().toDateString()}
-              </div> */}
+              <CEnglishDatePicker
+                id="date"
+                name="date"
+                label="Date"
+                dateFormat="yyyy-MM-dd"
+                minDate={0}
+                showDisabledMonthNavigation={true}
+                peekNextMonth={true}
+                showMonthDropdown={true}
+                showYearDropdown={true}
+                dropdownMode="select"
+                selected={date}
+                onChange={date =>
+                  handleDateChangeForAppointmentQueue(date, 'date')
+                }
+              />
+
+              <div>
+                <span>Date :</span>{' '}
+                {date ? date.toDateString() : new Date().toDateString()}
+              </div>
             </Col>
           </Row>
           <Row>

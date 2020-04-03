@@ -1,7 +1,7 @@
 import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
-export const prepareProfilePreviewData = (userMenusProfile) => {
+export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
     let filteredProfiles = {};
     let selectedMenus = [],
         selectedUserMenusForModal = [];
@@ -67,29 +67,51 @@ export const prepareProfilePreviewData = (userMenusProfile) => {
     });
     let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...selectedUserMenusForModal]);
     if (profileResponseDTO)
-        filteredProfiles = {
-            ...filteredProfiles,
-            selectedUserMenusForModal: [...alphabeticallySortedMenus],
-            profileName: profileResponseDTO.name,
-            hospitalValue: {
-                value: profileResponseDTO.hospitalId,
-                label: profileResponseDTO.hospitalName
-            },
-            profileDescription: profileResponseDTO.description,
-            departmentValue: {
-                value: profileResponseDTO.departmentId,
-                label: profileResponseDTO.departmentName
-            },
-            status: profileResponseDTO.status
-        };
+        switch (profileType) {
+            case 'CLIENT':
+                filteredProfiles = {
+                    ...filteredProfiles,
+                    selectedUserMenusForModal: [...alphabeticallySortedMenus],
+                    profileName: profileResponseDTO.name,
+                    hospitalValue: {
+                        value: profileResponseDTO.hospitalId,
+                        label: profileResponseDTO.hospitalName
+                    },
+                    profileDescription: profileResponseDTO.description,
+                    departmentValue: {
+                        value: profileResponseDTO.departmentId,
+                        label: profileResponseDTO.departmentName
+                    },
+                    status: profileResponseDTO.status
+                };
+                break;
+            case 'COMPANY':
+                filteredProfiles = {
+                    ...filteredProfiles,
+                    selectedUserMenusForModal: [...alphabeticallySortedMenus],
+                    profileName: profileResponseDTO.name,
+                    profileDescription: profileResponseDTO.description,
+                    company: {
+                        value: profileResponseDTO.companyId,
+                        label: profileResponseDTO.companyName
+                    },
+                    status: profileResponseDTO.status,
+                    remarks: profileResponseDTO.remarks
+                };
+                break;
+            default:
+                break;
+        }
+
     return filteredProfiles
 };
 
-export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList,selectedHospitalId)=>{
-    let isCogentAdmin = hospitalList.find(hosp =>
-        hosp.value === selectedHospitalId).isCogentAdmin;
-    let userMenus = isCogentAdmin === 'Y' ? adminUserMenusJson : clientUserMenusJson;
-    let moduleCode = isCogentAdmin === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
+export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, selectedHospitalId) => {
+    let selectedHospital = hospitalList.find(hosp =>
+        hosp.value === selectedHospitalId);
+    let isCompany = (selectedHospital && Object.keys(selectedHospital).includes('isCompany')) ? selectedHospital.isCompany : 'N';
+    let userMenus = isCompany === 'Y' ? adminUserMenusJson : clientUserMenusJson;
+    let moduleCode = isCompany === 'Y' ? EnvironmentVariableGetter.ADMIN_MODULE_CODE : EnvironmentVariableGetter.CLIENT_MODULE_CODE;
     let menusForDept = Object.keys(userMenus).find(code => code === moduleCode)
         ? [...userMenus[moduleCode]] : [];
     return UserMenuUtils.sortUserMenuJson([...menusForDept]);

@@ -7,7 +7,8 @@
     "parent_role_id": null,
     "role_type": "tab",
     "tabOrder": 1,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 2,
@@ -16,7 +17,8 @@
     "parent_role_id": 1,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 3,
@@ -25,7 +27,8 @@
     "parent_role_id": 6,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 4,
@@ -34,7 +37,8 @@
     "parent_role_id": 6,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 5,
@@ -43,7 +47,8 @@
     "parent_role_id": 6,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 6,
@@ -53,7 +58,8 @@
     "parent_role_id": null,
     "role_type": "tab",
     "tabOrder": 2,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 7,
@@ -62,168 +68,97 @@
     "parent_role_id": 6,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 8,
-    "name": "Appointment Log",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 9,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 8,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 10,
-    "name": "Appointment Status",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 11,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 10,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 12,
-    "name": "Appointment Check-In",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 13,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 12,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 14,
-    "name": "Approve",
-    "status": "Y",
-    "parent_role_id": 12,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 15,
-    "name": "Reject",
-    "status": "Y",
-    "parent_role_id": 12,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 16,
-    "name": "Pending Refund Approval",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 17,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 16,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 18,
-    "name": "Refund",
-    "status": "Y",
-    "parent_role_id": 16,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 19,
-    "name": "Reject",
-    "status": "Y",
-    "parent_role_id": 16,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 20,
-    "name": "Reschedule Log",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 21,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 20,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 22,
-    "name": "Patient Information",
-    "status": "Y",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 23,
-    "name": "Edit",
-    "status": "Y",
-    "parent_role_id": 22,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 24,
-    "name": "Preview",
-    "status": "Y",
-    "parent_role_id": 22,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false
-  },
-  {
-    "id": 25,
     "name": "Clone And Add New",
     "status": "Y",
     "parent_role_id": 6,
     "role_type": "action",
     "tabOrder": null,
-    "isChecked": false
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 9,
+    "name": "",
+    "status": "Y",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 10,
+    "name": "Create",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 11,
+    "name": "Edit",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 12,
+    "name": "View",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 13,
+    "name": "Delete",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 14,
+    "name": "Approve",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 15,
+    "name": "Reject",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
+  },
+  {
+    "id": 16,
+    "name": "Refund",
+    "status": "Y",
+    "parent_role_id": 9,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": true
   }
 ]

@@ -60,7 +60,6 @@ import {
     ProfileListReducer,
     ProfilePreviewReducer,
     ProfileSetupReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -77,9 +76,30 @@ import {
     PatientDropdownWithoutHospitalListReducer,
     UniversitiesForDropdownReducer,
     WeekdaysReducer,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer,
     ForgotPasswordVerification,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer
 } from '../reducers'
-const {ForgotPasswordReducer,VerificationCodeReducer,ChangePasswordForgotReducer} = ForgotPasswordVerification;
+const {
+  ForgotPasswordReducer,
+  VerificationCodeReducer,
+  ChangePasswordForgotReducer
+} = ForgotPasswordVerification
 export const rootReducers = combineReducers({
     AdminDeleteReducer,
     AdminEditReducer,
@@ -94,6 +114,12 @@ export const rootReducers = combineReducers({
     AppointmentStatusListReducer,
     AppointmentApproveReducer,
     AppointmentRejectReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer,
     CountryCodeDropdownReducer,
     ChangePasswordForgotReducer,
     DashboardAppointmentStatisticsReducer,
@@ -143,7 +169,6 @@ export const rootReducers = combineReducers({
     ProfileListReducer,
     ProfilePreviewReducer,
     ProfileSetupReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -160,5 +185,16 @@ export const rootReducers = combineReducers({
     UniversitiesForDropdownReducer,
     PatientDropdownWithoutHospitalListReducer,
     VerificationCodeReducer,
-    WeekdaysReducer
+    WeekdaysReducer,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 });

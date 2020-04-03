@@ -25,6 +25,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 id: '',
                 name: '',
                 address: '',
+                alias: '',
                 panNumber: '',
                 status: 'Y',
                 hospitalCode: '',
@@ -35,10 +36,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber: [''],
                 contactNumberUpdateRequestDTOS: [],
                 editContactNumberRequestDTOS: [],
-                isCogentAdmin: 'N',
+                isCompany: 'N',
                 refundPercentage: '',
                 numberOfAdmins: '',
-                numberOfFreeFollowUps: '',
+                numberOfFollowUps: '',
                 followUpIntervalDays: ''
             },
             formValid: false,
@@ -48,9 +49,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             contactLength: 5,
             showConfirmModal: false,
             errorMessageForHospitalName:
-                'Hospital Name should not contain special characters',
+                'Client Name should not contain special characters',
             errorMessageForHospitalCode:
-                'Hospital Code should not contain special characters',
+                'Client Code should not contain special characters',
             showAlert: false,
             alertMessageInfo: {
                 variant: '',
@@ -94,12 +95,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     address: '',
                     panNumber: '',
                     status: 'Y',
+                    alias: '',
                     hospitalCode: '',
                     contactNumber: [''],
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
-                    isCogentAdmin: 'N',
-                    numberOfFreeFollowUps: '',
+                    isCompany: 'N',
+                    numberOfFollowUps: '',
                     numberOfAdmins: '',
                     followUpIntervalDays: '',
                     refundPercentage: '',
@@ -173,8 +175,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, isCogentAdmin, refundPercentage, followUpIntervalDays,
-                numberOfAdmins, numberOfFreeFollowUps
+                name, status, hospitalCode, address, panNumber, isCompany, refundPercentage, followUpIntervalDays,
+                alias,
+                numberOfAdmins, numberOfFollowUps
             } = hospitalData;
             let formValidity =
                 nameValid &&
@@ -183,9 +186,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode &&
                 address &&
                 panNumber &&
-                refundPercentage &&
-                followUpIntervalDays &&
-                numberOfAdmins && numberOfFreeFollowUps;
+                refundPercentage >= 0 &&
+                followUpIntervalDays >= 0 &&
+                numberOfAdmins >= 0 && numberOfFollowUps >= 0 && alias;
 
             if (eventType === 'E')
                 formValidity =
@@ -248,7 +251,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         onEditHandler = async idSelected => {
             this.props.clearHospitalCreateMessage();
@@ -260,6 +263,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     status,
                     remarks,
                     panNumber,
+                    alias,
                     address,
                     contactNumberResponseDTOS,
                     hospitalCode,
@@ -267,9 +271,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     hospitalBanner,
                     refundPercentage,
                     numberOfAdmins,
-                    numberOfFreeFollowUps,
+                    numberOfFollowUps,
                     followUpIntervalDays,
-                    isCogentAdmin
+                    isCompany
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData;
                 let formValid = this.state.formValid;
                 if (remarks) formValid = true;
@@ -280,12 +284,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         name: name,
                         status: status,
                         panNumber: panNumber,
+                        alias,
                         address: address,
                         hospitalCode: hospitalCode,
-                        remarks: remarks,
+                        // remarks: remarks,
                         refundPercentage,
                         numberOfAdmins,
-                        numberOfFreeFollowUps,
+                        numberOfFollowUps,
                         followUpIntervalDays,
                         contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
                         editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
@@ -297,11 +302,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBanner: new File([5120], hospitalBanner),
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
-                        isCogentAdmin
+                        isCompany
                     },
                     formValid: formValid,
                     nameValid: true
-                })
+                });
+                this.checkFormValidity();
             } catch (e) {
                 console.log(e)
             }
@@ -322,8 +328,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 followUpIntervalDays,
                 hospitalBanner,
                 numberOfAdmins,
-                numberOfFreeFollowUps,
-                isCogentAdmin,
+                numberOfFollowUps,
+                // isCompany,
+                alias
             } = this.state.hospitalData;
             let hospitalData = {
                 id,
@@ -334,8 +341,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isHospital:isCogentAdmin,
-                numberOfFreeFollowUps,
+                alias,
+                // isCompany,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
@@ -344,10 +352,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             let formData = new FormData();
             formData.append(
                 'logo',
-                new File([hospitalLogo], name.concat('-picture.jpeg'))
+                hospitalLogo ? new File([hospitalLogo], name.concat('-picture.jpeg')) : null
             );
             formData.append('banner',
-                new File([hospitalBanner], name.concat('-picture.jpeg'))
+                hospitalBanner ? new File([hospitalBanner], name.concat('-picture.jpeg')) : null
             );
             try {
 
@@ -420,7 +428,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1
-               
+
                 }));
             return newHospitalList
         };
@@ -563,12 +571,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCogentAdmin,
-                numberOfFreeFollowUps,
+                isCompany,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage,
-                hospitalBanner
+                hospitalBanner,
+                alias
             } = this.state.hospitalData;
 
             let hospitalData = {
@@ -578,8 +587,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCogentAdmin,
-                numberOfFreeFollowUps,
+                alias,
+                // isCompany,
+                numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
@@ -588,10 +598,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             let formData = new FormData();
             formData.append(
                 'logo',
-                new File([hospitalLogo], name.concat('-picture.jpeg'))
+                hospitalLogo ? new File([hospitalLogo], name.concat('-picture.jpeg')) : null
             );
             formData.append('banner',
-                new File([hospitalBanner], name.concat('-picture.jpeg'))
+                hospitalBanner ? new File([hospitalBanner], name.concat('-picture.jpeg')) : null
             );
 
             try {
@@ -612,6 +622,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 this.setState({
+                    showConfirmModal:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -625,7 +636,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             let hospital = {...this.state.hospitalData};
             let {name, value, label, type} = event.target;
 
-            value = name === 'hospitalCode' ? value.toUpperCase()
+            value = name === 'hospitalCode' || name === 'alias' ? value.toUpperCase()
                 : (type === "checkbox" ? (event.target.checked ? 'Y' : 'N')
                     : value);
 
@@ -686,9 +697,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalPreviewErrorMessage
             } = this.props.HospitalPreviewReducer;
 
-            const {hospitalEditErrorMessage} = this.props.HospitalEditReducer;
+            const {createHospitalLoading} = this.props.HospitalSaveReducer;
 
-            const {deleteErrorMessage} = this.props.HospitalDeleteReducer;
+            const {hospitalEditErrorMessage, isHospitalEditLoading} = this.props.HospitalEditReducer;
+
+            const {deleteErrorMessage, isDeleteLoading} = this.props.HospitalDeleteReducer;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
@@ -759,6 +772,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     handleBannerImageUpload={this.handleBannerImageUpload}
                     setShowBannerUploadModal={this.setShowBannerModal}
                     hospitalDropdown={hospitalsForDropdown}
+                    createHospitalLoading={createHospitalLoading}
+                    isHospitalEditLoading={isHospitalEditLoading}
+                    isDeleteLoading={isDeleteLoading}
                 />
             )
         }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import ProfileUpdateForm from "../ProfileUpdateForm";
-import ProfileUpdateMenuAssignment from "../ProfileUpdateMenuAssignment";
+import ProfileUpdateMenuAssignment from "../../../CommonComponents/ProfileUpdateMenuAssignment";
 import {Container, Row} from "react-bootstrap";
 
 const UpdateProfileModal = ({
@@ -49,7 +49,7 @@ const UpdateProfileModal = ({
 
     </>;
     let body = <>
-        <Container fluid="true">
+        <Container fluid="true" className="profile-edit-modal">
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}

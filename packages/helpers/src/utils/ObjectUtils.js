@@ -21,3 +21,16 @@ export const checkObjectEquality = (object1, object2) => {
 
     return areObjectsEqual;
 };
+
+export const areArrayOfObjectsEqual = (array1, array2) => {
+    let isEqual = true;
+
+    if (array1.length !== array2.length) {
+        return !isEqual;
+    } else {
+        array1.map((array1Obj, index) => {
+            isEqual = checkObjectEquality(array1Obj, array2[index])
+        });
+        return isEqual;
+    }
+};

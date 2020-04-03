@@ -4,7 +4,7 @@ import {localStorageSecurity} from "./localStorageUtils";
 import {sortUserMenuJson} from "./UserMenuUtils";
 import {EnvironmentVariableGetter} from '../utils';
 
-const checkIfChildExist = child => (child.length > 1 ? true : false)
+const checkIfChildExist = child => (child.length? true : false)
 
 const getChildMenuFirst = (children, roleId, childMenus) => ({
     id: children.id,

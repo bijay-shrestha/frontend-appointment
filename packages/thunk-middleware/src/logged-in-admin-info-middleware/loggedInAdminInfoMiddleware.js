@@ -6,7 +6,7 @@ export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
     dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchPending());
     try {
         let adminInfoResponse = await Axios.put(path, data);
-        AdminInfoUtils.saveLoggedInAdminInfo(adminInfoResponse.data);
+        await AdminInfoUtils.saveLoggedInAdminInfo(adminInfoResponse.data);
         dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchSuccess(adminInfoResponse.data));
         return adminInfoResponse.data;
     } catch (e) {

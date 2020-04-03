@@ -1,13 +1,10 @@
 import React from 'react'
-import { ConnectHoc } from '@frontend-appointment/commons'
-import { QualificationSetupMiddleware } from '@frontend-appointment/thunk-middleware'
-import { AdminModuleAPIConstants } from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    // FileExportUtils,
-    // AdminInfoUtils
-} from '@frontend-appointment/helpers'
+import {ConnectHoc} from '@frontend-appointment/commons'
+import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {EnterKeyPressUtils,} from '@frontend-appointment/helpers'
 import './qualification.scss'
+import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 
 const {
     clearQualificationCreateMessage,
@@ -15,19 +12,20 @@ const {
     deleteQualification,
     editQualification,
     fetchActiveCountryCodeForDropdown,
-    fetchActiveQualificationAliasForDropdown,
     fetchActiveQualificationsForDropdown,
     fetchActiveUniversityForDropdown,
     previewQualification,
     searchQualification
-} = QualificationSetupMiddleware
+} = QualificationSetupMiddleware;
+
+const {fetchActiveQualificationAliasForDropdown} = QualificationAliasSetupMiddleware;
 const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
         countrySetupAliasCode,
         universitySetupAliasCode,
         qualificationSetupAliasCode
-    } = AdminModuleAPIConstants
+    } = AdminModuleAPIConstants;
 
     class QualificationSetup extends React.PureComponent {
         state = {
@@ -56,7 +54,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 name: '',
                 universityId: '',
                 qualificationAliasId: '',
-                status: { value: '', label: 'All' }
+                status: {value: '', label: 'All'}
             },
             queryParams: {
                 page: 0,
@@ -69,11 +67,11 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             isLoading: false
-        }
+        };
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        }
+        };
 
         setShowModal = () => {
             this.setState({
@@ -81,7 +79,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 deleteModalShow: false,
                 showEditModal: false
             })
-        }
+        };
 
         resetQualificationStateValues = () => {
             this.setState({
@@ -98,20 +96,20 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 showEditModal: false,
 
             })
-        }
+        };
 
         checkInputValidity = (fieldName, valueToChange, valid, eventName) => {
-            let stateObj = { [fieldName]: valueToChange }
+            let stateObj = {[fieldName]: valueToChange}
             if (eventName)
-                if (eventName === 'name') stateObj = { ...stateObj, nameValid: valid }
-            return { ...stateObj }
-        }
+                if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
+            return {...stateObj}
+        };
 
         setTheState = async (fieldName, valueToChange, valid, eventName) => {
             await this.setState(
                 this.checkInputValidity(fieldName, valueToChange, valid, eventName)
             )
-        }
+        };
 
         closeAlert = () => {
             this.props.clearQualificationCreateMessage();
@@ -122,7 +120,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         }
 
         checkFormValidity = eventType => {
-            const { qualificationData, nameValid } = this.state
+            const {qualificationData, nameValid} = this.state
             let formValidity =
                 nameValid &&
                 qualificationData.name &&
@@ -136,34 +134,34 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             this.setState({
                 formValid: formValidity
             })
-        }
+        };
 
         handleOnChange = async (event, fieldValid, eventType) => {
-            let qualification = { ...this.state.qualificationData }
-            let { name, value, label } = event.target
+            let qualification = {...this.state.qualificationData}
+            let {name, value, label} = event.target
             qualification[name] = !label
                 ? value
                 : value
-                    ? { value: value, label: label }
-                    : { value: null }
+                    ? {value: value, label: label}
+                    : {value: null};
             await this.setTheState(
                 'qualificationData',
                 qualification,
                 fieldValid,
                 name
-            )
+            );
             this.checkFormValidity(eventType)
-        }
+        };
 
         setShowConfirmModal = () => {
-            this.setState({ 
+            this.setState({
                 showConfirmModal: !this.state.showConfirmModal,
                 isLoading: !this.state.isLoading
-             })
-        }
+            })
+        };
 
         handleConfirmClick = async () => {
-            const { name, qualificationAliasId, status, universityId } = this.state.qualificationData
+            const {name, qualificationAliasId, status, universityId} = this.state.qualificationData
             try {
                 await this.props.createQualification(
                     qualificationSetupApiConstants.CREATE_QUALIFICATION,
@@ -173,7 +171,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         universityId: universityId.value,
                         status
                     }
-                )
+                );
                 this.resetQualificationStateValues();
                 this.setShowConfirmModal();
                 this.setState({
@@ -194,14 +192,14 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         previewApiCall = async id => {
             await this.props.previewQualification(
                 qualificationSetupApiConstants.FETCH_QUALIFICATION_DETAIL,
                 id
             )
-        }
+        };
 
         onPreviewHandler = async id => {
             try {
@@ -219,7 +217,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         onEditHandler = async idx => {
             this.props.clearQualificationCreateMessage()
@@ -241,8 +239,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationData: {
                         id: idx,
                         name: name,
-                        universityId: { value: universityId, label: universityName },
-                        qualificationAliasId: { value: qualificationAliasId, label: qualificationAliasName },
+                        universityId: {value: universityId, label: universityName},
+                        qualificationAliasId: {value: qualificationAliasId, label: qualificationAliasName},
                         status: status,
                         remarks: remarks
                     },
@@ -252,10 +250,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             } catch (e) {
                 console.log(e)
             }
-        }
+        };
 
         searchQualification = async page => {
-            const { name, status, universityId, qualificationAliasId } = this.state.searchParameters
+            const {name, status, universityId, qualificationAliasId} = this.state.searchParameters
             let searchData = {
                 qualificationId: name.value ? name.value : name,
                 universityId: universityId.value ? universityId.value : universityId,
@@ -267,8 +265,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 this.state.queryParams.page === 0
                     ? 1
                     : page
-                        ? page
-                        : this.state.queryParams.page
+                    ? page
+                    : this.state.queryParams.page
             await this.props.searchQualification(
                 qualificationSetupApiConstants.SEARCH_QUALIFICATION,
                 {
@@ -276,7 +274,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     size: this.state.queryParams.size
                 },
                 searchData
-            )
+            );
             console.log('QualificationSearchReducer', this.props.QualificationSearchReducer);
             await this.setState({
                 totalRecords: this.props.QualificationSearchReducer.qualificationList
@@ -289,7 +287,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     page: updatedPage
                 }
             })
-        }
+        };
 
         appendSNToTable = qualificationList => {
             console.log('Specialization', qualificationList)
@@ -299,9 +297,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     ...spec,
                     sN: index + 1,
                     name: spec.name.toUpperCase()
-                }))
+                }));
             return newQualificationList;
-        }
+        };
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -309,9 +307,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     ...this.state.queryParams,
                     page: newPage
                 }
-            })
+            });
             this.searchQualification()
-        }
+        };
 
         editQualification = async () => {
             const {
@@ -350,7 +348,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
         onDeleteHandler = async id => {
             this.props.clearQualificationCreateMessage()
-            let deleteRequestDTO = { ...this.state.deleteRequestDTO }
+            let deleteRequestDTO = {...this.state.deleteRequestDTO}
             deleteRequestDTO['id'] = id
             await this.setState({
                 deleteRequestDTO: deleteRequestDTO,
@@ -359,8 +357,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         }
 
         deleteRemarksHandler = event => {
-            const { name, value } = event.target
-            let deleteRequest = { ...this.state.deleteRequestDTO }
+            const {name, value} = event.target
+            let deleteRequest = {...this.state.deleteRequestDTO}
             deleteRequest[name] = value
             this.setState({
                 deleteRequestDTO: deleteRequest
@@ -375,7 +373,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 )
                 await this.setState({
                     deleteModalShow: false,
-                    deleteRequestDTO: { id: 0, remarks: '', status: 'D' },
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.QualificationDeleteReducer.deleteSuccessMessage
@@ -396,7 +394,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 searchParameters: {
                     universityId: '',
                     qualificationAliasId: '',
-                    status: { value: '', label: 'All' },
+                    status: {value: '', label: 'All'},
                     name: '',
                 }
             })
@@ -414,8 +412,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 let fieldName = event.target.name
                 let value = event.target.value
                 let label = event.target.label
-                let searchParams = { ...this.state.searchParameters }
-                searchParams[fieldName] = label ? (value ? { value, label } : '') : value
+                let searchParams = {...this.state.searchParameters}
+                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
                 await this.setStateValuesForSearch(searchParams)
             }
         }
@@ -476,11 +474,11 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 qualificationEditErrorMessage
             } = this.props.QualificationEditReducer
 
-            const { deleteErrorMessage } = this.props.QualificationDeleteReducer;
+            const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
             // const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
-            const { qualificationsAliasForDropdown } = this.props.QualificationAliasDropdownReducer;
-            const { qualificationsForDropdown } = this.props.QualificationDropdownReducer;
-            const { universitiesDropdown } = this.props.UniversitiesForDropdownReducer;
+            const {activeQualificationAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
+            const {qualificationsForDropdown} = this.props.QualificationDropdownReducer;
+            const {universitiesDropdown} = this.props.UniversitiesForDropdownReducer;
             return (
                 <ComposedComponent
                     {...props}
@@ -524,9 +522,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationEditErrorMessage={qualificationEditErrorMessage}
                     isPreviewLoading={isPreviewLoading}
                     qualificationPreviewData={qualificationPreviewData}
-                    qualificationsAliasForDropdown={qualificationsAliasForDropdown}
+                    qualificationsAliasForDropdown={activeQualificationAliasForDropdown}
                     qualificationsForDropdown={qualificationsForDropdown}
-                    universitiesDropdown={universitiesDropdown} 
+                    universitiesDropdown={universitiesDropdown}
                     isLoading={isLoading}/>
             )
         }

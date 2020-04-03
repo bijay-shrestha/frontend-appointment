@@ -7,6 +7,7 @@ import {CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {Link} from "react-router-dom";
+import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
@@ -49,10 +50,10 @@ class CHeader extends Component {
     setLoggedInUserInfo = async () => {
         let absoluteUrl = window.location.href;
         let base = absoluteUrl.split('#')[0];
-        let adminInfo = JSON.parse(localStorage.getItem('adminInfo'));
+        let adminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
         // let modules = JSON.parse(localStorage.getItem('assignedModules'));
         // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
-        
+
         await this.setState({
             userInfo: {...adminInfo},
             // assignedModules: modules && [...modules],
@@ -152,7 +153,7 @@ class CHeader extends Component {
                                         className="profile-name">
                                         {this.state.userInfo && this.state.userInfo.profileName}</div>
                                     {
-                                        this.state.userInfo.isCogentAdmin === 'Y' ?
+                                        this.state.userInfo.isCompany === 'Y' ?
                                             <div>
                                                 <Badge variant="primary">Cogent Admin</Badge>
                                             </div> :

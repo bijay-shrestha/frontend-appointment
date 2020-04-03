@@ -4,7 +4,7 @@ import {Badge, Button, Col, Container, OverlayTrigger, Row, Tooltip} from "react
 import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
-import {appointmentStatusList} from "@frontend-appointment/helpers";
+import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
@@ -77,22 +77,34 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
                                                 <span className="time">
                                                     <i className="fa fa-clock-o"></i> &nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[0].appointmentTime} -&nbsp;
-                                                    {appointmentStatusDetail.doctorTimeSlots[
-                                                    appointmentStatusDetail.doctorTimeSlots.length - 1].appointmentTime}</span>
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.startTime))
+                                                    } -&nbsp;
+                                                    {
+                                                        DateTimeFormatterUtils.convertDateToHourMinuteFormat(
+                                                            DateTimeFormatterUtils.convertStringTimeInHourMinuteFormatToDate(appointmentStatusDetail.endTime))
+                                                    }
+                                                </span>
                                                 : '' : ''
                                     }
+                                    &nbsp;
+                                    {(appointmentStatusDetail.dayOffStatus === 'Y'
+                                        && appointmentStatusDetail.doctorTimeSlots
+                                        && appointmentStatusDetail.doctorTimeSlots.length) ?
+                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
                                         (appointmentStatusDetail.doctorTimeSlots.length ?
                                                 appointmentStatusDetail.doctorTimeSlots.map((timeSlot, index) => (
+
                                                     <li key={'timeSlot-' + index}>
                                                         {['PA', 'A', 'C'].indexOf(timeSlot.status) >= 0 ?
                                                             <OverlayTrigger
@@ -120,12 +132,13 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
                                                                 </Button>
                                                             </OverlayTrigger> :
-                                                            (timeSlot.status === 'V') ?
+                                                            (timeSlot.status === 'V' && appointmentStatusDetail.dayOffStatus !== 'Y') ?
                                                                 (<CButton
                                                                     id={timeSlot.appointmentTime + "-" + rowIndex + index}
                                                                     variant={"success"}
                                                                     size="lg"
                                                                     // id="vacant"
+                                                                    disabled={timeSlot.hasTimePassed}
                                                                     name=""
                                                                     onClickHandler={() => getPatientDetails(timeSlot,
                                                                         appointmentStatusDetail.date, rowIndex, index)}
@@ -155,6 +168,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             {
                                 appointmentStatusDetail.patientDetails ?
                                     <Col sm={12} md={2} lg={2}>
+                                       <div className="patient-container">
                                         <h5 className="title">Patients Details </h5><br></br>
                                         <div className="patient-details">
                                             <div className="label">Appointment No.</div>
@@ -222,6 +236,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </CButton>
                                             : ''
                                         }
+
+                                        </div>
                                     </Col>
                                     : ''
                             }

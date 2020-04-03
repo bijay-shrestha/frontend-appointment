@@ -41,7 +41,8 @@ function HospitalAdd(props) {
              showBannerUploadModal,
              handleCropBannerImage,
              handleBannerImageUpload,
-             setShowBannerUploadModal
+             setShowBannerUploadModal,
+             createHospitalLoading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -92,8 +93,8 @@ function HospitalAdd(props) {
                                 id="save-profile-add"
                                 variant="primary "
                                 className="float-right btn-action"
-                                name="Save"
-                                disabled={!formValid}
+                                name={showConfirmModal? "Saving":"Save"}
+                                disabled={!formValid || showConfirmModal}
                                 onClickHandler={setShowConfirmModal}
                             />
                             <HospitalConfirmationModal
@@ -104,6 +105,7 @@ function HospitalAdd(props) {
                                 type="A"
                                 hospitalImageCroppedUrl={hospitalImageCroppedUrl}
                                 hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
+                                createHospitalLoading={createHospitalLoading}
                             />
                         </Col>
                     </Row>

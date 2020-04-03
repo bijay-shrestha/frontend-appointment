@@ -26,7 +26,7 @@ const {
 } = hospitalSetupConstants
 
 const initialState = {
-    createHospitalLoading: true,
+    createHospitalLoading: false,
     createHospitalerrorMessage: '', //departmentCreate error message
     createHospitalsuccessMessage: '',
     isSearchLoading: true,
@@ -34,8 +34,8 @@ const initialState = {
     searchErrorMessage: '',
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
-    isDeleteLoading: true,
-    isHospitalEditLoading: true,
+    isDeleteLoading: false,
+    isHospitalEditLoading: false,
     hospitalEditErrorMessage: '', //department edit error message
     hospitalEditSuccessMessage: '',
     hospitalPreviewData: null,

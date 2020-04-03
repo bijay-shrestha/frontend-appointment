@@ -1,6 +1,7 @@
 import Loadable from 'react-loadable'
 import React from 'react'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import loadable from "@loadable/component";
 
 const getLoader = () => <CLoading/>;
 /* ****** A ***** */
@@ -154,8 +155,13 @@ const ProfileComponent = Loadable({
 const PatientComponent = Loadable({
      loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
      loading: () => getLoader()
-})
+});
 /* ****** Q ***** */
+
+const QualificationAlias = loadable(
+    () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
+    {fallback: () => getLoader()}
+);
 
 /* ****** R ***** */
 
@@ -190,7 +196,8 @@ export const routes = [
         icon: '',
         isTab: 'false',
         hasTab: false,
-        name: 'Dashboard'
+        name: 'Dashboard',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup',
@@ -199,7 +206,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: false,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/profile',
@@ -208,7 +216,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Profile Setup'
+        name: 'Profile Setup',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/profile/add',
@@ -217,7 +226,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/profile/manage',
@@ -226,7 +236,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/specialization/add',
@@ -235,7 +246,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/specialization/manage',
@@ -244,7 +256,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/specialization',
@@ -253,7 +266,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Specialization Setup'
+        name: 'Specialization Setup',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/department',
@@ -262,7 +276,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Department Setup'
+        name: 'Department Setup',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/department/add',
@@ -271,7 +286,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/department/manage',
@@ -280,7 +296,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/admin-setup',
@@ -288,7 +305,8 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/admin-setup/add',
@@ -296,7 +314,8 @@ export const routes = [
         component: AddAdminComponent,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/admin-setup/manage',
@@ -304,7 +323,8 @@ export const routes = [
         component: ManageAdminComponent,
         icon: '',
         hasTab: true,
-        isLink: true
+        isLink: true,
+        isSingleTab:false,
     },
     {
         path: '/doctorDutyRoster',
@@ -313,7 +333,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: false,
-        isTab: false
+        isTab: false,
+        isSingleTab:false,
     },
     {
         path: '/doctorDutyRoster/add',
@@ -322,7 +343,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
     {
         path: '/doctorDutyRoster/manage',
@@ -331,7 +353,8 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isTab: true
+        isTab: true,
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/hospital/add',
@@ -340,7 +363,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/hospital/manage',
@@ -349,7 +373,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/hospital',
@@ -358,7 +383,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Hospital Setup'
+        name: 'Hospital Setup',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/qualification/add',
@@ -367,7 +393,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/qualification/manage',
@@ -376,7 +403,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/qualification',
@@ -385,7 +413,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Qualification Setup'
+        name: 'Qualification Setup',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/doctor',
@@ -394,7 +423,8 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Doctor'
+        name: 'Doctor',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/doctor/add',
@@ -403,7 +433,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Add'
+        name: 'Add',
+        isSingleTab:false,
     },
     {
         path: '/generalSetup/doctor/manage',
@@ -412,7 +443,8 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Manage'
+        name: 'Manage',
+        isSingleTab:false,
     },
     {
         path: '/appointment/appointmentRefundRequest',
@@ -421,7 +453,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Refund'
+        name: 'Pending Refund Approval',
+        isSingleTab:true,
     },
     {
         path: '/appointment/appointmentApprovalRequest',
@@ -430,7 +463,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Approval'
+        name: 'Appointment Check-In',
+        isSingleTab:true,
     },
     {
         path: '/reports/appointmentLog',
@@ -439,7 +473,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment Log'
+        name: 'Appointment Log',
+        isSingleTab:true,
     },
     {
         path: '/appointment/appointmentStatus',
@@ -448,7 +483,8 @@ export const routes = [
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Appointment Status'
+        name: 'Appointment Status',
+        isSingleTab:true,
     },
     {
         path: '/appointment',
@@ -457,7 +493,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Appointment'
+        name: 'Appointment',
+        isSingleTab:false,
     },
     {
         path: '/patientInformation',
@@ -466,7 +503,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Patient Information'
+        name: 'Patient Information',
+        isSingleTab:true,
     },
     {
         path: '/reports',
@@ -475,7 +513,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Reports'
+        name: 'Reports',
+        isSingleTab:false,
     },
     {
         path: '/unauthorized',
@@ -484,7 +523,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Unauthorized'
+        name: 'Unauthorized',
+        isSingleTab:false,
     },
     {
         path: '/reports/rescheduleLog',
@@ -493,7 +533,8 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Reschedule Log'
+        name: 'Reschedule Log',
+        isSingleTab:true,
     },
     {
         path: '/patientInformation',
@@ -502,6 +543,17 @@ export const routes = [
         hasTab: false,
         isLink: false,
         isTab: false,
-        name: 'Patient Information'
+        name: 'Patient Information',
+        isSingleTab:true,
+    },
+    {
+        path: '/generalSetup/qualificationAlias',
+        component: QualificationAlias,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Qualification Alias',
+        isSingleTab:true,
     }
 ];

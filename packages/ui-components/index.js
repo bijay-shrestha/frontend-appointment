@@ -12,3 +12,4 @@ export {default as CDateButtonPills} from './src/CDateButtonPills/CDateButtonPil
 export {default as CForgotPassword} from './src/CForgotPassword/CForgotPassword';
 export {default as CCodeVerification} from './src/CCodeVerification/CCodeVerification';
 export {default as CChangePasswordInForget} from './src/CChangePaswordInForget/CChangePasswordInForget';
+export {default as CRemarksModal} from './src/CRemarksModal/CRemarksModal';

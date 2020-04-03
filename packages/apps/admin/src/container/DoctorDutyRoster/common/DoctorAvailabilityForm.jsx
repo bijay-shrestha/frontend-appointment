@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import {CCheckbox} from "@frontend-appointment/ui-elements";
+import {CCheckbox, CHybridSelect, CHybridTimePicker} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityForm = ({
@@ -40,37 +40,59 @@ const DoctorAvailabilityForm = ({
                                 <Col>{day.weekDaysName}</Col>
                                 <Col>
                                     <div className="time-picker">
-                                        <CTimePicker
+                                        <CHybridTimePicker
                                             id={"startTime".concat(day.weekDaysId)}
                                             name={"startTime".concat(day.weekDaysId)}
-                                            label="00:00"
+                                            label=""
                                             onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}
-                                            selected={day.startTime}
-                                            showTimeSelect={true}
-                                            showTimeSelectOnly={true}
-                                            timeIntervals={rosterGapDuration ? rosterGapDuration : 15}
-                                            timeCaption="Start Time"
-                                            dateFormat="h:mm aa"
-                                            disabled={day.dayOffStatus === 'Y'}
-                                            inputType="normal"
+                                            duration={rosterGapDuration ? rosterGapDuration : 15}
+                                            placeholder="00:00"
+                                            isDisabled={day.dayOffStatus === 'Y'}
+                                            value={day.dayOffStatus !== "Y"?day.startTime:{value:"00:00",label:"00:00"}}
+                                            isClearable={true}
                                         />
+                                        {/*<CTimePicker*/}
+                                        {/*    id={"startTime".concat(day.weekDaysId)}*/}
+                                        {/*    name={"startTime".concat(day.weekDaysId)}*/}
+                                        {/*    label="00:00"*/}
+                                        {/*    onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}*/}
+                                        {/*    selected={day.startTime}*/}
+                                        {/*    showTimeSelect={true}*/}
+                                        {/*    showTimeSelectOnly={true}*/}
+                                        {/*    timeIntervals={rosterGapDuration ? rosterGapDuration : 15}*/}
+                                        {/*    timeCaption="Start Time"*/}
+                                        {/*    dateFormat="h:mm aa"*/}
+                                        {/*    disabled={day.dayOffStatus === 'Y'}*/}
+                                        {/*    inputType="normal"*/}
+                                        {/*/>*/}
                                     </div>
                                 </Col>
                                 <Col>
                                     <div className="time-picker">
-                                        <CTimePicker
+                                        <CHybridTimePicker
                                             id={"endTime".concat(day.weekDaysId)}
                                             name={"endTime".concat(day.weekDaysId)}
-                                            label="00:00"
+                                            label=""
                                             onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}
-                                            selected={day.endTime}
-                                            showTimeSelect={true}
-                                            showTimeSelectOnly={true}
-                                            timeIntervals={rosterGapDuration ? rosterGapDuration : 15}
-                                            timeCaption="End Time"
-                                            dateFormat="h:mm aa"
-                                            disabled={day.dayOffStatus === 'Y'}
+                                            duration={rosterGapDuration ? rosterGapDuration : 15}
+                                            placeholder="00:00"
+                                            isDisabled={day.dayOffStatus === 'Y'}
+                                            value={day.dayOffStatus !== "Y"?day.endTime:{value:"23:59",label:"23:59"}}
+                                            isClearable={true}
                                         />
+                                        {/*<CTimePicker*/}
+                                        {/*    id={"endTime".concat(day.weekDaysId)}*/}
+                                        {/*    name={"endTime".concat(day.weekDaysId)}*/}
+                                        {/*    label="00:00"*/}
+                                        {/*    onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}*/}
+                                        {/*    selected={day.endTime}*/}
+                                        {/*    showTimeSelect={true}*/}
+                                        {/*    showTimeSelectOnly={true}*/}
+                                        {/*    timeIntervals={rosterGapDuration ? rosterGapDuration : 15}*/}
+                                        {/*    timeCaption="End Time"*/}
+                                        {/*    dateFormat="h:mm aa"*/}
+                                        {/*    disabled={day.dayOffStatus === 'Y'}*/}
+                                        {/*/>*/}
                                     </div>
                                 </Col>
                                 <Col>

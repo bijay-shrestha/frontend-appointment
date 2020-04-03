@@ -34,8 +34,13 @@ import {
     QualificationSetupActions,
     qualificationSetupConstants,
     PatientDetailsActions,
-    patientDetailsConstants
-   
+    patientDetailsConstants,
+    CompanySetupActions,
+    companySetupConstants,
+    QualificationAliasSetupActions,
+    qualificationAliasSetupConstants,
+    CompanyProfileSetupActions,
+    companyProfileSetupActionConstants
 } from './src/admin-module'
 
 export {
@@ -72,5 +77,11 @@ export {
     PatientDetailsActions,
     patientDetailsConstants,
     ForgotPasswordActions,
-    forgotPasswordAndVerificationConstants
+    forgotPasswordAndVerificationConstants,
+    CompanySetupActions,
+    companySetupConstants,
+    QualificationAliasSetupActions,
+    qualificationAliasSetupConstants,
+    CompanyProfileSetupActions,
+    companyProfileSetupActionConstants
 }

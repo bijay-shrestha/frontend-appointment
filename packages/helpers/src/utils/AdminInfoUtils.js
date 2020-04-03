@@ -1,3 +1,5 @@
+import {LocalStorageSecurity} from "./index";
+
 export const saveLoggedInAdminInfo = (adminInfo) => {
-    localStorage.setItem("adminInfo", JSON.stringify(adminInfo));
+    LocalStorageSecurity.localStorageEncoder('adminInfo', adminInfo);
 };

@@ -8,11 +8,12 @@ const CToggle = props => {
         size, onStyle, offStyle,
         width, height, name,
         onChangeHandler, classes, required,
-        checked, style
+        checked, style,reference, defaultChecked
     } = props;
     return (
         <>
             <BootstrapSwitchButton
+                ref={reference}
                 id={id}
                 onlabel={onLabel}
                 offlabel={offLabel}
@@ -27,10 +28,11 @@ const CToggle = props => {
                 name={name}
                 checked={checked}
                 required={required}
+                defaultChecked={defaultChecked}
             />
         </>
     )
-}
+};
 
 export default memo(CToggle);
 
@@ -40,7 +42,7 @@ CToggle.defaultProps = {
     onChangeHandler: () => {
     },
     checked: false,
-}
+};
 
 CToggle.propTypes = {
     id: PropTypes.string || PropTypes.number,

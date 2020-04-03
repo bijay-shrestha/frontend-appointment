@@ -20,6 +20,13 @@ import * as PatientDetailsActions from './patient-details/patientDetailActions';
 import {patientDetailsConstants} from "./patient-details/patientDetailActionConstants";
 import * as DashboardDetailsActions from './dashboard-details/dashboardDetailsActions';
 import {dashboardDetailsActionsConstant} from './dashboard-details/dashboardDetailsActionConstant';
+import * as CompanySetupActions from './company-setup/companySetupAction';
+import {companySetupConstants} from './company-setup/companySetupConstants';
+import * as QualificationAliasSetupActions from './qualification-alias-setup/qualificationAliasSetupActions';
+import {qualificationAliasSetupConstants} from './qualification-alias-setup/qualificationAliasSetupConstants'
+import * as CompanyProfileSetupActions from './company-profile-setup/companyProfileSetupActions';
+import {companyProfileSetupActionConstants} from './company-profile-setup/companyProfileSetupActionConstants';
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -42,5 +49,11 @@ export {
     QualificationSetupActions,
     qualificationSetupConstants,
     PatientDetailsActions,
-    patientDetailsConstants
+    patientDetailsConstants,
+    CompanySetupActions,
+    companySetupConstants,
+    QualificationAliasSetupActions,
+    qualificationAliasSetupConstants,
+    companyProfileSetupActionConstants,
+    CompanyProfileSetupActions
 }

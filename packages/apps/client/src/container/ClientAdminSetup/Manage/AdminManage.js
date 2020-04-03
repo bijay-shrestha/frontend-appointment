@@ -22,15 +22,15 @@ import AdminDetailsDataTable from './AdminDetailsDataTable'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import AdminEditModal from './AdminEditModal'
 import {
-  AdminSetupUtils,
-  EnterKeyPressUtils,
-  menuRoles,
-  ProfileSetupUtils,
-  TryCatchHandler
-} from '@frontend-appointment/helpers'
-import PasswordResetModal from './PasswordResetModal'
-import './../admin-setup.scss'
-import PreviewRoles from '../../CommonComponents/PreviewRoles'
+    AdminSetupUtils,
+    EnterKeyPressUtils, LocalStorageSecurity,
+    menuRoles,
+    ProfileSetupUtils,
+    TryCatchHandler
+} from "@frontend-appointment/helpers";
+import PasswordResetModal from "./PasswordResetModal";
+import "./../admin-setup.scss";
+import PreviewRoles from "../../CommonComponents/PreviewRoles";
 
 const {
   SEARCH_ADMIN,
@@ -77,7 +77,7 @@ class AdminManage extends PureComponent {
     passwordResetDTO: {
       username: '',
       password: '',
-      remarks: ''
+      remarks: '',id:''
     },
     passwordResetError: '',
     searchParameters: {
@@ -142,7 +142,7 @@ class AdminManage extends PureComponent {
     errorMessage: ''
   }
 
-  timer = ''
+    timer = '';
 
   resetAdminUpdateDataFromState = () => {
     this.setState({
@@ -355,41 +355,40 @@ class AdminManage extends PureComponent {
     })
   }
 
-  checkIfDeletingOwnProfile = async deletedAdminId => {
-    let loggedInAdminInfo = JSON.parse(localStorage.getItem('adminInfo'))
-    if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
-      await this.logoutUser()
-      this.props.history.push('/')
-    }
-    return false
-  }
+    checkIfDeletingOwnProfile = async deletedAdminId => {
+        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
+        if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
+            await this.logoutUser();
+            this.props.history.push('/');
+        }
+        return false;
+    };
 
-  checkIfSelfEditAndShowMessage = async editedAdminId => {
-    let variantType = '',
-      message = ''
-    let loggedInAdminInfo = JSON.parse(localStorage.getItem('adminInfo'))
-    if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
-      variantType = 'warning'
-      message =
-        'You seem to have edited yourself. Please Logout and Login to see the changes or ' +
-        "you'll be automatically logged out in 10s"
-      this.automaticLogoutUser()
-    } else {
-      variantType = 'success'
-      message = this.props.AdminEditReducer.adminSuccessMessage
-    }
-    this.setState({
-      showAlert: true,
-      alertMessageInfo: {
-        variant: variantType,
-        message: message
-      }
-    })
-  }
+    checkIfSelfEditAndShowMessage = async editedAdminId => {
+        let variantType = '', message = '';
+        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
+        if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
+            variantType = "warning";
+            message = "You seem to have edited yourself. Please Logout and Login to see the changes or " +
+                "you'll be automatically logged out in 10s";
+            this.automaticLogoutUser();
+        } else {
+            variantType = "success";
+            message = this.props.AdminEditReducer.adminSuccessMessage;
+        }
+        this.setState({
+            showAlert: true,
+            alertMessageInfo: {
+                variant: variantType,
+                message: message
+            }
+        });
 
-  automaticLogoutUser = () => {
-    this.timer = setTimeout(() => this.logoutUser(), 10000)
-  }
+    };
+
+    automaticLogoutUser = () => {
+        this.timer = setTimeout(() => this.logoutUser(), 10000)
+    };
 
   logoutUser = async () => {
     try {
@@ -669,23 +668,25 @@ class AdminManage extends PureComponent {
     }
   }
 
-  onPasswordReset = async (id, username) => {
-    this.props.clearAdminSuccessErrorMessagesFromStore()
-    await this.setState({
-      passwordResetDTO: {
-        ...this.state.passwordResetDTO,
-        username: username
-      },
-      showPasswordResetModal: true
-    })
-  }
+    onPasswordReset = async (id, username) => {
+        this.props.clearAdminSuccessErrorMessagesFromStore();
+        await this.setState({
+            passwordResetDTO: {
+                ...this.state.passwordResetDTO,
+                username: username,
+                id:id
+            },
+            showPasswordResetModal: true
+        })
+    };
 
-  resetPassword = async passwordObj => {
-    let passwordResetObj = {
-      username: this.state.passwordResetDTO.username,
-      password: passwordObj.password,
-      remarks: passwordObj.remarks
-    }
+    resetPassword = async passwordObj => {
+        let passwordResetObj = {
+            // username: this.state.passwordResetDTO.username,
+            password: passwordObj.password,
+            remarks: passwordObj.remarks,
+            id: this.state.passwordResetDTO.id
+        };
 
     try {
       await this.props.resetPassword(RESET_PASSWORD, passwordResetObj)
@@ -940,7 +941,7 @@ class AdminManage extends PureComponent {
         fileUri,
         adminMacAddressInfo,
         remarks,
-        
+
       } = adminData
 
       if (adminMacAddressInfo && adminMacAddressInfo.length) {

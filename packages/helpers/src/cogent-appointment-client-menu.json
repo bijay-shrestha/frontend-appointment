@@ -134,6 +134,46 @@
           "menuFor": "1",
           "description": "Qualification Setup",
           "childMenus": []
+        },
+        {
+          "id": "18",
+          "parentId": "1",
+          "name": "Qualification Alias Setup",
+          "path": "/generalSetup/qualificationAlias",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Alias Setup",
+          "childMenus": []
+        },
+        {
+          "id": "19",
+          "parentId": "1",
+          "name": "University Setup",
+          "path": "/generalSetup/universitySetup",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "University Setup",
+          "childMenus": []
         }
       ]
     },
@@ -147,7 +187,7 @@
         3,
         4,
         5,
-        25
+        8
       ],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
@@ -178,7 +218,9 @@
           "name": "Pending Refund Approval",
           "path": "/appointment/appointmentRefundRequest",
           "roles": [
-            17,18,19
+            12,
+            15,
+            16
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -195,7 +237,9 @@
           "name": "Appointment Check-In",
           "path": "/appointment/appointmentApprovalRequest",
           "roles": [
-            13,14,15
+            12,
+            14,
+            15
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -212,7 +256,7 @@
           "name": "Appointment Status",
           "path": "/appointment/appointmentStatus",
           "roles": [
-            11
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -245,7 +289,7 @@
           "name": "Appointment Log",
           "path": "/reports/appointmentLog",
           "roles": [
-            9
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -262,7 +306,7 @@
           "name": "Reschedule Log",
           "path": "/reports/rescheduleLog",
           "roles": [
-            21
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -281,8 +325,8 @@
       "name": "Patient Information",
       "path": "/patientInformation",
       "roles": [
-        23,
-        24
+        11,
+        12
       ],
       "icon": "fa fa-bed",
       "leftNavigation": "Y",

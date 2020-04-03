@@ -251,7 +251,6 @@
             position: absolute;
             right   : 0;
             width   : 40px;
-         
 
             &.form-check .form-check-label:before {
                 margin-left: -4px;
@@ -271,7 +270,6 @@
 
         .form-check {
             margin-bottom: 5px;
-            
         }
 
         .row {
@@ -320,6 +318,14 @@
     }
 }
 
+.profile-edit-modal{
+    .assign-menu, .assign-previledge{
+        height:422px;
+    }
+
+   
+}
+
 
 .preview-modal {
     .modal-content {
@@ -350,6 +356,11 @@
         display: block;
     }
 
+    .status-box{
+        margin-top:-10px;
+        margin-bottom:26px;
+    }
+
     .form-check {
         display      : inline-block;
         padding-right: 10px;
@@ -368,21 +379,9 @@
             font-size: 12px;
         }
     }
-
-    // .assign-menu,.assign-previledge  {
-    //     height: 370px;
-    //     .am-header {
-    //         padding:8px ;
-    //     }
-
-    //     .am-title{
-    //         font-weight: 500;
-    //     }
-
-
-
-    // }
 }
+
+
 
 
 

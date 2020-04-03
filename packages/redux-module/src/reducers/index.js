@@ -1,5 +1,5 @@
 import {loginReducers} from './common/loginreducers';
-import * as ForgotPasswordVerification from './common/forgotPasswordReducer'; 
+import * as ForgotPasswordVerification from './common/forgotPasswordReducer';
 import {
     ProfileDeleteReducer,
     ProfileEditReducer,
@@ -54,8 +54,10 @@ import {
 } from './admin-module/doctorDutyRosterReducer'
 
 import {
+    DashboardAppointmentQueueReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
+    DashboardRevenueGeneratedByDoctorReducer,
     DashboardRevenueGeneratedDayReducer,
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
@@ -69,7 +71,6 @@ import {
 
 import {
     CountryCodeDropdownReducer,
-    QualificationAliasDropdownReducer,
     QualificationDeleteReducer,
     QualificationDropdownReducer,
     QualificationEditReducer,
@@ -81,26 +82,52 @@ import {
 
 import {
     AppointmentApprovalListReducer,
+    AppointmentApproveReducer,
     AppointmentLogListReducer,
     AppointmentRefundListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
+    AppointmentRejectReducer,
     AppointmentStatusListReducer,
-    RescheduleLogReducer,
-    AppointmentApproveReducer,
-    AppointmentRejectReducer
+    RescheduleLogReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
 import {
+    PatientDetailReducer,
     PatientDropdownListReducer,
+    PatientDropdownWithoutHospitalListReducer,
     PatientEditReducer,
     PatientPreviewReducer,
-    PatientSearchReducer,
-    PatientDetailReducer,
-    PatientDropdownWithoutHospitalListReducer
-} from './admin-module/patientSetupReducer'
+    PatientSearchReducer
+} from './admin-module/patientSetupReducer';
+
+import {
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer
+} from './admin-module/qualificationAliasSetupReducer';
+
+import {
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
+} from './admin-module/companyProfileSetupReducer';
+
+import {
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer
+} from './admin-module/companySetupReducers';
 
 export {
     AppointmentApproveReducer,
@@ -111,6 +138,12 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRefundListReducer,
+    companyDeleteReducer,
+    companyDropdownReducer,
+    companyPreviewReducer,
+    companySaveReducer,
+    companySearchReducer,
+    companyUpdateReducer,
     DashboardAppointmentStatisticsReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedDayReducer,
@@ -170,7 +203,6 @@ export {
     QualificationSearchReducer,
     QualificationDeleteReducer,
     CountryCodeDropdownReducer,
-    QualificationAliasDropdownReducer,
     QualificationDropdownReducer,
     UniversitiesForDropdownReducer,
     PatientDropdownListReducer,
@@ -180,5 +212,16 @@ export {
     PatientSearchReducer,
     PatientDetailReducer,
     PatientDropdownWithoutHospitalListReducer,
-    ForgotPasswordVerification
+    ForgotPasswordVerification,
+    QualificationAliasDeleteReducer,
+    QualificationAliasDropdownReducer,
+    QualificationAliasEditReducer,
+    QualificationAliasSaveReducer,
+    QualificationAliasSearchReducer,
+    CompanyProfileCreateReducer,
+    CompanyProfileDeleteReducer,
+    CompanyProfileDropdownReducer,
+    CompanyProfileEditReducer,
+    CompanyProfilePreviewReducer,
+    CompanyProfileSearchReducer
 }
