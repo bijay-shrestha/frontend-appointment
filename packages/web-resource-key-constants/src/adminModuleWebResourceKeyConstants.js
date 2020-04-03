@@ -250,7 +250,7 @@ export const companyAdminSetupApiConstants = {
   SAVE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
   UPDATE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
   VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
-  FETCH_COMPANYADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
+  FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
   RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
   CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
 }

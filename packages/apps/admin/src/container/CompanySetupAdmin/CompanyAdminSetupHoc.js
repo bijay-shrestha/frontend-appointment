@@ -4,7 +4,8 @@ import {
   CompanyProfileSetupMiddleware,
   CompanySetupMiddleware,
   CompanyAdminSetupMiddleware,
-  logoutUser
+  logoutUser,
+  resetPassword
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -15,6 +16,7 @@ import {
 // import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
+import PreviewRoles from '../../CommonComponents/PreviewRoles'
 const {
   clearAdminSuccessErrorMessagesFromStore,
   createCompanyAdmin,
@@ -24,31 +26,36 @@ const {
   fetchCompanyAdminMetaInfo,
   previewCompanyAdmin
 } = CompanyAdminSetupMiddleware
-const {fetchActiveCompanyProfileListByCompanyIdForDropdown,previewCompanyProfileById} = CompanyProfileSetupMiddleware
+const {
+  fetchActiveCompanyProfileListByCompanyIdForDropdown,
+  previewCompanyProfileById,
+  fetchCompanyProfileListForDropdown
+} = CompanyProfileSetupMiddleware
 
 const {companyDropdown} = CompanySetupMiddleware
 
 const {
   FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN,
-  PREVIEW_COMPANY_PROFILE
+  PREVIEW_COMPANY_PROFILE,
+  FETCH_COMPANY_PROFILE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
 
 const {
-CHANGE_PASSWORD,
-CREATE_COMPANY_ADMIN,
-DELETE_COMPANY_ADMIN,
-EDIT_COMPANY_ADMIN,
-FETCH_COMPANYADMIN_META_INFO,
-FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
-GET_LOGGED_IN_COMPANY_ADMIN_INFO,
-PREVIEW_COMPANY_ADMIN,
-RESET_PASSWORD,
-SAVE_COMPANY_ADMIN_PASSWORD,
-SEARCH_COMPANY_ADMIN,
-UPDATE_COMPANY_ADMIN_AVATAR,
-UPDATE_COMPANY_ADMIN_PASSWORD,
-VERIFY_COMPANY_ADMIN
-}=AdminModuleAPIConstants.companyAdminSetupApiConstants
+  CHANGE_PASSWORD,
+  CREATE_COMPANY_ADMIN,
+  DELETE_COMPANY_ADMIN,
+  EDIT_COMPANY_ADMIN,
+  FETCH_COMPANY_ADMIN_META_INFO,
+  FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
+  GET_LOGGED_IN_COMPANY_ADMIN_INFO,
+  PREVIEW_COMPANY_ADMIN,
+  RESET_PASSWORD,
+  SAVE_COMPANY_ADMIN_PASSWORD,
+  SEARCH_COMPANY_ADMIN,
+  UPDATE_COMPANY_ADMIN_AVATAR,
+  UPDATE_COMPANY_ADMIN_PASSWORD,
+  VERIFY_COMPANY_ADMIN
+} = AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
 
 const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
@@ -529,7 +536,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         const {companyProfileDetail} = this.props.CompanyProfilePreviewReducer
 
         let profileData =
-        companyProfileDetail &&
+          companyProfileDetail &&
           (await ProfileSetupUtils.prepareProfilePreviewData(
             companyProfileDetail
           ))
@@ -547,7 +554,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     fetchProfileDetails = async profileId => {
-      await this.props.previewCompanyProfileById(PREVIEW_COMPANY_PROFILE, profileId)
+      await this.props.previewCompanyProfileById(
+        PREVIEW_COMPANY_PROFILE,
+        profileId
+      )
     }
 
     onDeleteHandler = async id => {
@@ -572,7 +582,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.CompanyAdminPreviewReducer.adminPreviewErrorMessage
+            message: this.props.CompanyAdminPreviewReducer
+              .adminPreviewErrorMessage
             // e.errorMessage ? e.errorMessage: e.message
           }
         })
@@ -663,48 +674,30 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    fetchHospitals = async () => {
-      await this.props.fetchActiveHospitalsForDropdown(
-        FETCH_HOSPITALS_FOR_DROPDOWN
-      )
+    fetchCompany = async () => {
+      await this.props.fetchCompany(DROPDOWN_COMPANY)
     }
 
-    fetchDepartments = async () => {
-      await TryCatchHandler.genericTryCatch(
-        this.props.fetchActiveDepartmentsForDropdown(
-          FETCH_DEPARTMENTS_FOR_DROPDOWN
-        )
-      )
-    }
-
-    fetchDepartmentsByHospitalId = async value => {
+    fetchProfilesByCompanyId = async value => {
       value &&
-        (await this.props.fetchActiveDepartmentsByHospitalId(
-          FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL,
-          value
-        ))
-    }
-
-    fetchProfilesByDepartmentId = async value => {
-      value &&
-        (await this.props.fetchActiveProfilesByDepartmentId(
-          FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID,
+        (await this.props.fetchActiveCompanyProfileListByCompanyIdForDropdown(
+          FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN,
           value
         ))
     }
 
     fetchActiveProfileLists = async () => {
-      await this.props.fetchActiveProfileListForDropdown(
-        FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN
+      await this.props.fetchCompanyProfileListForDropdown(
+        FETCH_COMPANY_PROFILE_FOR_DROPDOWN
       )
     }
 
     fetchAdminMetaInfosForDropdown = async () => {
-      await this.props.fetchAdminMetaInfo(FETCH_ADMIN_META_INFO)
+      await this.props.fetchCompanyAdminMetaInfo(FETCH_COMPANY_ADMIN_META_INFO)
     }
 
     previewApiCall = async id => {
-      await this.props.previewCompanyAdmin(FETCH_COMPANY_ADMIN_DETAILS, id)
+      await this.props.previewCompanyAdmin(PREVIEW_COMPANY_ADMIN, id)
     }
 
     searchAdmins = async page => {
@@ -791,13 +784,17 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         remarks: remarks,
         macAddressUpdateInfo: [...macAddressList],
         isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
-        company:company?company.value:''
+        company: company ? company.value : ''
       }
 
       let formData = new FormData()
       adminAvatarUrlNew !== '' && formData.append('file', adminAvatar)
       try {
-        await this.props.editCompanyAdmin(EDIT_COMPANY_ADMIN, adminUpdateRequestDTO, formData)
+        await this.props.editCompanyAdmin(
+          EDIT_COMPANY_ADMIN,
+          adminUpdateRequestDTO,
+          formData
+        )
         this.resetAdminUpdateDataFromState()
         this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id)
         await this.searchAdmins()
@@ -829,7 +826,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
     actionsOnCompanyChange = async value => {
       if (value) {
-        await this.fetchProfilesByDepartmentId(value)
+        await this.fetchActiveProfileLists(value)
         const {activeProfilesByDepartmentId} = this.props.ProfileSetupReducer
         this.setState({
           adminUpdateData: {
@@ -856,8 +853,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       if (adminData) {
         const {
           id,
-          hospitalName,
-          hospitalId,
+          companyName,
+          companyId,
           departmentId,
           departmentName,
           profileId,
@@ -880,7 +877,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
         return {
           id: id,
-          hospital: {label: hospitalName, value: hospitalId},
+          company: {label: companyName, value: companyId},
           department: {label: departmentName, value: departmentId},
           profile: {label: profileName, value: profileId},
           fullName: fullName,
@@ -904,8 +901,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
       const {
         id,
-        c,
-        department,
+        company,
         profile,
         fullName,
         username,
@@ -920,8 +916,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminAvatarUrl
       } = adminInfoObj
 
-      await this.fetchDepartmentsByHospitalId(hospital.value)
-      await this.fetchProfilesByDepartmentId(department.value)
+      //await this.fetchDepartmentsByHospitalId(hospital.value)
+      await this.fetchProfilesByCompanyId(company.value)
 
       this.setState({
         showEditModal: true,
@@ -956,11 +952,87 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       })
     }
 
+    handleConfirmClick = async () => {
+      const {
+        company,
+        profile,
+        fullName,
+        username,
+        email,
+        mobileNumber,
+        genderCode,
+        status,
+        hasMacBinding,
+        macIdList,
+        adminAvatar
+      } = this.state.adminUpdateData
+
+      const {companyDropdownData} = this.props.companyDropdownReducer
+
+      let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(
+        companyDropdownData,
+        hospital
+      )
+
+      let adminRequestDTO = {
+        email,
+        fullName,
+        username,
+        hasMacBinding: hasMacBinding ? 'Y' : 'N',
+        companyId: company.value,
+        mobileNumber,
+        status,
+        genderCode: genderCode,
+        profileId: profile.value,
+        macAddressInfo: macIdList.length
+          ? macIdList.map(macId => {
+              return macId.macId
+            })
+          : [],
+        baseUrl: baseUrlForEmail
+      }
+
+      let formData = new FormData()
+      formData.append(
+        'file',
+        new File([adminAvatar], username.concat('-picture.jpeg'))
+      )
+      try {
+        await this.props.createCompanyAdmin(
+          CREATE_COMPANY_ADMIN,
+          adminRequestDTO,
+          formData
+        )
+        await this.resetAdminUpdateDataFromState()
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.CompanyAdminSetupReducer
+              .adminCreateSuccessMessage
+          }
+        })
+      } catch (e) {
+        await this.setShowConfirmModal()
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.CompanyAdminSetupReducer.adminCreateErrorMessage
+              ? this.props.CompanyAdminSetupReducer.adminCreateErrorMessage
+              : e.message
+          }
+        })
+      }
+    }
+
+    setShowConfirmModal = () =>
+      this.setState({showConfirmModal: !this.state.showConfirmModal})
+
     initialAPICalls = () => {
       this.fetchAdminMetaInfosForDropdown()
       this.fetchActiveProfileLists()
-      this.fetchHospitals()
-      this.fetchDepartments()
+      this.fetchCompany()
       this.searchAdmins()
     }
 
@@ -978,18 +1050,123 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         dropdownErrorMessage
       } = this.props.CompanyProfileDropdownReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
+      const {
+        companyAdminMetaInfoForDropdown
+      } = this.props.CompanyAdminMetaInfoReducer
+      const {
+        isAdminSearchLoading,
+        adminList,
+        adminSearchErrorMessage
+      } = this.props.CompanyAdminListReducer
+      const {
+        adminUpdateData,
+        errorMessageForAdminMobileNumber,
+        errorMessageForAdminName,
+        passwordResetError,
+        alertMessageInfo,
+        showAlert,
+        adminFileCropped,
+        adminImage,
+        adminImageCroppedUrl,
+        deleteModalShow,
+        deleteRequestDTO,
+        errorMessage,
+        passwordResetDTO,
+        profileData,
+        queryParams,
+        searchParameters,
+        showAdminModal,
+        showConfirmModal,
+        showEditModal,
+        showImageUploadModal,
+        showPasswordResetModal,
+        showProfileDetailModal,
+        totalRecords,
+        updatedModulesAndProfiles
+      } = this.state
 
       return (
         <>
-          <ComposedComponent />
-          {/* <CAlert id="profile-manage"
-                            variant={alertMessageInfo.variant}
-                            show={showAlert}
-                            onClose={this.closeAlert}
-                            alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
-                            </> : <i className="fa fa-exclamation-triangle" aria-hidden="true"/>}
-                            message={alertMessageInfo.message}
-                    /> */}
+          <ComposedComponent
+            adminCreateForm={{
+              adminCreateData: {...adminUpdateData},
+              isCreateAdminLoading: {isCreateAdminLoading},
+              showModal: showConfirmModal,
+              setShowModal: this.setShowConfirmModal,
+              onConfirmClick: this.handleConfirmClick
+            }}
+            commonInfo={{
+              onEnterKeyPress: this.handleEnter,
+              onInputChange: this.handleOnChange,
+              onMacIdChange: this.handleMacIdChange,
+              onAddMoreMacId: this.handleAddMoreMacId,
+              onRemoveMacId: this.handleRemoveMacId,
+              companyList: companyDropdownData,
+              profileList: activeCompanyProfileListForDropdown,
+              setShowModal: this.setShowModal,
+              profileData: profileData,
+              onImageUpload: this.handleImageUpload,
+              errorMessageForAdminName: errorMessageForAdminName,
+              errorMessageForAdminMobileNumber: errorMessageForAdminMobileNumber,
+              errorMessageForProfileDropdown: dropdownErrorMessage,
+              showImageUploadModal: showImageUploadModal,
+              adminImage: adminImage,
+              adminCroppedImage: adminImageCroppedUrl,
+              onImageSelect: this.handleImageSelect,
+              onImageCrop: this.handleCropImage,
+              viewProfileDetails: this.handleViewProfileDetails
+            }}
+            searchFilter={{
+              onInputChange: this.handleSearchFormChange,
+              searchParameters: searchParameters,
+              resetSearchForm: this.handleSearchFormReset,
+              companyList: companyDropdownData,
+              profileList: activeCompanyProfileListForDropdown,
+              adminMetaInfos: companyAdminMetaInfoForDropdown,
+              onSearchClick: () => this.searchAdmins(1)
+            }}
+            tableData={{
+              filteredActions: this.props.filteredAction,
+              isSearchLoading: isAdminSearchLoading,
+              searchData: this.appendSNToTable(adminList),
+              searchErrorMessage: adminSearchErrorMessage,
+              totalItems:totalRecords,
+              maxSize:queryParams.size,
+              currentPage:queryParams.page,
+              handlePageChange:this.handlePageChange
+            }}
+            deleteInfo={{
+              deleteModalShow:deleteModalShow,
+              onSubmitDelete:this.onSubmitDeleteHandler,
+              remarksHandler:this.deleteRemarksHandler,
+              remarks:deleteRequestDTO.remarks,
+              deleteErrorMsg:deleteErrorMessage
+            }}
+          />
+          {showProfileDetailModal && (
+            <PreviewRoles
+              showModal={showProfileDetailModal}
+              setShowModal={this.closeProfileDetailsViewModal}
+              profileData={profileData}
+              rolesJson={menuRoles}
+            />
+          )}
+          <CAlert
+            id="profile-manage"
+            variant={alertMessageInfo.variant}
+            show={showAlert}
+            onClose={this.closeAlert}
+            alertType={
+              alertMessageInfo.variant === 'success' ? (
+                <>
+                  <Material.MdDone />
+                </>
+              ) : (
+                <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+              )
+            }
+            message={alertMessageInfo.message}
+          />
         </>
       )
     }
@@ -1019,7 +1196,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       fetchCompanyAdminList,
       fetchCompanyAdminMetaInfo,
       previewCompanyAdmin,
-      previewCompanyProfileById
+      previewCompanyProfileById,
+      fetchCompanyProfileListForDropdown,
+      resetPassword
     }
   )
 }

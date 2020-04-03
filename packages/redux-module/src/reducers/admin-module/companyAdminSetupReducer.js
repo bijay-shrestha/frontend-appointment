@@ -105,14 +105,14 @@ export const CompanyAdminSetupReducer = (
       return {
         ...state,
         isCreateAdminLoading: false,
-        successMessage: action.payload.message
+        adminCreateSuccessMessage: action.payload.message
       }
 
     case COMPANY_ADMIN_CREATE_ERROR:
       return {
         ...state,
         isCreateAdminLoading: false,
-        errorMessage: action.payload.errorMessage
+        adminCreateErrorMessage: action.payload.message
       }
 
     default:
