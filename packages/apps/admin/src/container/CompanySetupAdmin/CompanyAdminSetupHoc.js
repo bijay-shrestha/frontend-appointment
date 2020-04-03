@@ -32,6 +32,7 @@ const {
   FETCH_COMPANY_PROFILE_BY_COMPANY_ID_FOR_DROPDOWN,
   PREVIEW_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
+
 const {
 CHANGE_PASSWORD,
 CREATE_COMPANY_ADMIN,
@@ -728,7 +729,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.queryParams.page
-      await this.props.fetchAdminList(
+      await this.props.fetchCompanyAdminList(
         SEARCH_COMPANY_ADMIN,
         {
           page: updatedPage,
@@ -789,13 +790,14 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         profileId: profile.value,
         remarks: remarks,
         macAddressUpdateInfo: [...macAddressList],
-        isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N'
+        isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
+        company:company?company.value:''
       }
 
       let formData = new FormData()
       adminAvatarUrlNew !== '' && formData.append('file', adminAvatar)
       try {
-        await this.props.editAdmin(EDIT_ADMIN, adminUpdateRequestDTO, formData)
+        await this.props.editCompanyAdmin(EDIT_COMPANY_ADMIN, adminUpdateRequestDTO, formData)
         this.resetAdminUpdateDataFromState()
         this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id)
         await this.searchAdmins()
