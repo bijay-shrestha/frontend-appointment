@@ -65,9 +65,9 @@ const AppointmentQueue = props => {
                                             selected={date}
                                             onChange={date => handleDateChangeForAppointmentQueue(date, 'date')}
                                         />
-                                        <div>
-                                            <span>Date :</span> {date ? date.toDateString() : new Date().toDateString()}
-                                        </div>
+                                        {/*<div>*/}
+                                        {/*    <span>Date :</span> {date ? date.toDateString() : new Date().toDateString()}*/}
+                                        {/*</div>*/}
                                     </Col>
                                 </Row>
                                 <Row>
