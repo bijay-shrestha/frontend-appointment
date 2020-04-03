@@ -93,7 +93,13 @@ import {
     companyPreviewReducer,
     companySaveReducer,
     companySearchReducer,
-    companyUpdateReducer
+    companyUpdateReducer,
+    UniversityDeleteReducer,
+    UniversityDropdownReducer,
+    UniversityEditReducer,
+    UniversitySaveReducer,
+    UniversitySearchReducer,
+    UniversityPreviewReducer
 } from '../reducers'
 const {
   ForgotPasswordReducer,
@@ -196,5 +202,11 @@ export const rootReducers = combineReducers({
     CompanyProfileDropdownReducer,
     CompanyProfileEditReducer,
     CompanyProfilePreviewReducer,
-    CompanyProfileSearchReducer
+    CompanyProfileSearchReducer,
+    UniversitySearchReducer,
+    UniversitySaveReducer,
+    UniversityEditReducer,
+    UniversityDropdownReducer,
+    UniversityDeleteReducer,
+    UniversityPreviewReducer
 });

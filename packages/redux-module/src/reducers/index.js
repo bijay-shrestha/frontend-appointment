@@ -127,6 +127,15 @@ import {
     companyUpdateReducer
 } from './admin-module/companySetupReducers';
 
+import {
+    UniversityDeleteReducer,
+    UniversityDropdownReducer,
+    UniversityEditReducer,
+    UniversitySaveReducer,
+    UniversitySearchReducer,
+    UniversityPreviewReducer
+} from './admin-module/universitySetupReducer';
+
 export {
     AppointmentApproveReducer,
     AppointmentRejectReducer,
@@ -221,5 +230,11 @@ export {
     CompanyProfileDropdownReducer,
     CompanyProfileEditReducer,
     CompanyProfilePreviewReducer,
-    CompanyProfileSearchReducer
+    CompanyProfileSearchReducer,
+    UniversitySearchReducer,
+    UniversitySaveReducer,
+    UniversityEditReducer,
+    UniversityDropdownReducer,
+    UniversityDeleteReducer,
+    UniversityPreviewReducer
 }

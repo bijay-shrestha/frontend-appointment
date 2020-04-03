@@ -26,6 +26,8 @@ import * as QualificationAliasSetupActions from './qualification-alias-setup/qua
 import {qualificationAliasSetupConstants} from './qualification-alias-setup/qualificationAliasSetupConstants'
 import * as CompanyProfileSetupActions from './company-profile-setup/companyProfileSetupActions';
 import {companyProfileSetupActionConstants} from './company-profile-setup/companyProfileSetupActionConstants';
+import * as  UniversitySetupActions from './university-setup/universitySetupActions';
+import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -55,5 +57,7 @@ export {
     QualificationAliasSetupActions,
     qualificationAliasSetupConstants,
     companyProfileSetupActionConstants,
-    CompanyProfileSetupActions
+    CompanyProfileSetupActions,
+    universitySetupActionConstants,
+    UniversitySetupActions
 }
