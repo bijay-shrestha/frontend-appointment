@@ -24,7 +24,7 @@ const AppointmentQueue = props => {
   } = props.appointmentQueue
   return (
     <>
-      <Row className="mt-4">
+      <div className="mt-4 appointment-queue">
         <h5 className="title">Appointment Queue</h5>
         <div className="app-log">
           <Row>
@@ -46,7 +46,7 @@ const AppointmentQueue = props => {
               </Form>
             </Col>
 
-            <Col className="date">
+            {/* <Col className="date">
             <CEnglishDatePicker
             id="date"
             name="date"
@@ -59,16 +59,16 @@ const AppointmentQueue = props => {
             showYearDropdown={true}
             dropdownMode="select"
             selected={date}
-            // onKeyDown={event => handleEnter(event)}
-            // onChange={date =>
-            //     handleSearchFormChange(date, 'fromDate')
-            // }
+            onKeyDown={event => handleEnter(event)}
+            onChange={date =>
+                handleSearchFormChange(date, 'fromDate')
+            }
         />
               
-              {/* <div>
+              <div>
                 <span>Date :</span> {new Date().toDateString()}
-              </div> */}
-            </Col>
+              </div> 
+            </Col> */}
           </Row>
           <Row>
             <div className="app-queue-datatable">
@@ -90,7 +90,8 @@ const AppointmentQueue = props => {
                         resizable: true,
                         sortable: true,
                         sizeColumnsToFit: true,
-                        cellRenderer: 'doctorwithSpecializationRenderer'
+                        cellRenderer: 'doctorwithSpecializationRenderer',
+                        width:"300"
                       },
 
                       {
@@ -136,7 +137,7 @@ const AppointmentQueue = props => {
             </div>
           </Row>
         </div>
-      </Row>
+      </div>
     </>
   )
 }
