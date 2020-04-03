@@ -63,8 +63,6 @@ import {
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
-    DashboardAppointmentQueueReducer,
-    DashboardRevenueGeneratedByDoctorReducer,
     DashboardFeaturesByAdminReducer,
     DashboardFeaturesReducer
 } from './admin-module/dashboardDetailsReducer'
