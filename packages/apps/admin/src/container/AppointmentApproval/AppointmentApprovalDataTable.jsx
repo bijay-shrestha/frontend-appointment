@@ -13,8 +13,8 @@ import DoctorWithSpecialization from '../CommonComponents/table-components/Docto
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
-import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'; 
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'; 
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber';
 
 
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
@@ -77,7 +77,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 //     cellRenderer: 'AppointmentDateWithTime',
                                 //     width:"260"
                                 //   },
-                           
+
                                 {
                                     headerName: 'Date',
                                     field: 'appointmentDate',
@@ -168,7 +168,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             type === 'D'
-                                                // ? props.filteredActions.find(action => action.id === 5) &&
+                                                // ? props.filteredActions.find (action => action.id === 5) &&
                                                 ? onRejectHandler(id)
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
