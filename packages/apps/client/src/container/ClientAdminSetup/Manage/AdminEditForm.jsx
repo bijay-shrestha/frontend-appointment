@@ -371,7 +371,7 @@ const AdminEditForm = ({
 
               <Col sm={12} md={12} lg={6}>
                 <CHybridTextArea
-                  className="mt-4"
+                  className=""
                   id="remarks"
                   name="remarks"
                   onKeyDown={event => onEnterKeyPress(event)}
