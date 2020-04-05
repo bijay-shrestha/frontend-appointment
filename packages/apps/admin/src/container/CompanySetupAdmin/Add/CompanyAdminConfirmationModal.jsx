@@ -1,14 +1,14 @@
 import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
-import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
+import CompanyAdminDetailsModalContent from "../commons/CompanyAdminDetailsModalContent";
 
-const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading}) => {
+const CompanyAdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading}) => {
     return <>
         <CModal
             show={showModal}
             modalHeading="Admin Details"
             size="lg"
-            bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
+            bodyChildren={<CompanyAdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}
             centered={false}
             dialogClassName="preview-modal"
@@ -17,7 +17,8 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                 variant="primary"
                 size="xl"
                 name="Confirm"
-                isLoading={isCreateAdminLoading}
+                disabled={isCreateAdminLoading.isCreateAdminLoading}
+                isLoading={isCreateAdminLoading.isCreateAdminLoading}
                 className="float-right btn-action"
                 onClickHandler={onConfirmClick}/>}
             closeButton={true}
@@ -25,4 +26,4 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
     </>;
 };
 
-export default AdminConfirmationModal;
+export default CompanyAdminConfirmationModal;

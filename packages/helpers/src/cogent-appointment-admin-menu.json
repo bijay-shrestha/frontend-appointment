@@ -394,7 +394,7 @@
         },
         {
           "id": "22",
-          "parentId": "1",
+          "parentId": "20",
           "name": "Company Profile Setup",
           "path": "/companySettings/companyProfile",
           "roles": [
@@ -410,6 +410,26 @@
           "enabled": "Y",
           "menuFor": "1",
           "description": "Company Profile Setup",
+          "childMenus": []
+        },
+        {
+          "id": "23",
+          "parentId": "20",
+          "name": "Company Admin Setup",
+          "path": "/companySettings/companyadmin",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Admin Setup",
           "childMenus": []
         }
       ]

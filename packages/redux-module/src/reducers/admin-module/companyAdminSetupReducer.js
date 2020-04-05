@@ -1,6 +1,4 @@
 import {companyAdminSetupActionConstants} from '@frontend-appointment/action-module'
-import {adminEditError} from '@frontend-appointment/action-module/src/admin-module/admin-setup/adminSetupActions'
-
 const {
   COMPANY_ADMIN_CLEAR_EDIT_MESSAGES,
   COMPANY_ADMIN_CLEAR_PREVIEW_MESSAGES,
@@ -26,7 +24,7 @@ const {
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
 const createCompanyAdminState = {
-  isCreateAdminLoading: false,
+  isCreateAdminLoading:false,
   adminCreateErrorMessage: '', //profileCreate error message
   adminCreateSuccessMessage: ''
 }
@@ -97,10 +95,10 @@ export const CompanyAdminSetupReducer = (
 ) => {
   switch (action.type) {
     case COMPANY_ADMIN_CREATE_PENDING:
-      return {
+      return ({
         ...state,
-        isCreateAdminLoading: true
-      }
+        isCreateAdminLoading:true
+      })
     case COMPANY_ADMIN_CREATE_SUCCESS:
       return {
         ...state,
@@ -116,7 +114,7 @@ export const CompanyAdminSetupReducer = (
       }
 
     default:
-      return state
+      return {...state}
   }
 }
 
@@ -175,8 +173,8 @@ export const CompanyAdminDeleteReducer = (
     case COMPANY_ADMIN_CLEAR_DELETE_MESSAGES:
       return {
         ...state,
-        deleteErrorMessage: '',
-        deleteSuccessMessage: ''
+        adminDeleteErrorMessage: '',
+        adminDeleteSuccessMessage: ''
       }
     default:
       return {

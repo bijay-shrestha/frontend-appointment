@@ -11,7 +11,7 @@ const PATIENT_BASE = '/patient'
 const APPOINTMENT_BASE = '/appointment'
 const DASHBOARD_BASE = '/dashboard'
 const COMPANY_BASE = '/company'
-const COMPANY_ADMIN_BASE = '/CompanyAdmin'
+const COMPANY_ADMIN_BASE = '/companyAdmin'
 export const profileSetupAPIConstants = {
   CREATE_PROFILE: BASE.concat(PROFILE_BASE),
   SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat('/search')),
