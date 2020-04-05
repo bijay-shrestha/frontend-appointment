@@ -189,6 +189,12 @@ const RescheduleLog = loadable(
 
 /* ****** U ***** */
 
+const UniversitySetupComponent = loadable(
+    () => import('./container/UniversitySetup/UniversitySetup'),
+    {fallback: () => getLoader()}
+);
+
+
 /* ****** V ***** */
 
 /* ****** W ***** */
@@ -644,5 +650,15 @@ export const routes = [
         isLink: false,
         isTab: true,
         isSingleTab:false,
+    },
+    {
+        path: '/admin/generalSetup/universitySetup',
+        component: UniversitySetupComponent,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'University Setup',
+        isSingleTab:true,
     },
 ];

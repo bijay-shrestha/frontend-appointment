@@ -30,8 +30,10 @@ import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doc
 import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
 import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
 import * as CompanySetupMiddleware from './company-setup-middleware/companySetupMiddleware'
-import * as QualificationAliasSetupMiddleware from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware';
+import * as QualificationAliasSetupMiddleware
+    from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware';
 import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare';
+import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 
 export {
     createProfile,
@@ -61,5 +63,6 @@ export {
     DoctorDutyRosterMiddleware,
     PatientDetailsMiddleware,
     QualificationAliasSetupMiddleware,
-    CompanyProfileSetupMiddleware
+    CompanyProfileSetupMiddleware,
+    UniversitySetupMiddleware
 };

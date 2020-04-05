@@ -199,3 +199,13 @@ export const CompanyApiConstant = {
     SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
     DELETE_COMPANY: BASE.concat(COMPANY_BASE)
 };
+
+const UNIVERSITY_BASE="/university";
+export const universitySetupApiConstants = {
+   SAVE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+   EDIT_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+   DELETE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+   FETCH_UNIVERSITY_FOR_DROPDOWN: BASE.concat(UNIVERSITY_BASE.concat("/active/min")),
+   FETCH_UNIVERSITY_DETAILS_BY_ID: BASE.concat(UNIVERSITY_BASE.concat("/detail")),
+   SEARCH_UNIVERSITY: BASE.concat(UNIVERSITY_BASE.concat("/search")),
+};
