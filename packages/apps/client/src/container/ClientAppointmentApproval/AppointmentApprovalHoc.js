@@ -28,7 +28,7 @@ const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
 const {
     fetchSpecializationForDropdown
 } = SpecializationSetupMiddleware;
-const {fetchPatientMetaList} = PatientDetailsMiddleware;
+const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware;
 const AppointApprovalHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -218,9 +218,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
             );
 
-            this.props.fetchPatientMetaList(
-                patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
-                0
+            this.props.fetchPatientMetaDropdownForClient(
+                patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
             )
         };
 
@@ -470,7 +469,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             clearAppointmentRefundPending,
             fetchActiveDoctorsForDropdown,
             fetchSpecializationForDropdown,
-            fetchPatientMetaList,
+            fetchPatientMetaDropdownForClient,
             fetchAppointmentApprovalList,
             appointmentApprove,
             appointmentReject,
