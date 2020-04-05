@@ -166,7 +166,8 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval"),
     APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
     APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),
-    SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log"))
+    SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log")),
+    APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval"))
 };
 
 export const DashboardApiConstant = {
@@ -174,9 +175,9 @@ export const DashboardApiConstant = {
     REGISTERED_PATIENTS: BASE.concat(DASHBOARD_BASE + "/registeredPatients/count"),
     REVENUE_GENERATED: BASE.concat(DASHBOARD_BASE + "/revenueGenerated"),
     REVENUE_STATISTICS: BASE.concat(DASHBOARD_BASE + "/revenueStatistics"),
-    APPOINTMENT_QUERY:BASE.concat(DASHBOARD_BASE + "/today-appointment"),
-    DOCTOR_REVENUE:BASE.concat(DASHBOARD_BASE+"/doctorRevenue"),
-    DASHBOARD_FEATURE:BASE.concat(DASHBOARD_BASE+"/features"),
+    APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + "/today-appointment"),
+    DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + "/doctorRevenue"),
+    DASHBOARD_FEATURE: BASE.concat(DASHBOARD_BASE + "/features"),
 };
 
 const COMPANY_PROFILE_SETUP_BASE = '/company-profile';

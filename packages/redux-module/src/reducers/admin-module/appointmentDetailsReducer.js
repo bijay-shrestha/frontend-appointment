@@ -32,8 +32,12 @@ const {
     REJECT_SUCCESS,
     APPROVE_ERROR,
     APPROVE_START,
-    APPROVE_SUCCESS
-} = appointmentDetailsConstants
+    APPROVE_SUCCESS,
+    APPROVAL_DETAIL_FETCH_SUCCESS,
+    APPROVAL_DETAIL_FETCH_ERROR,
+    APPROVAL_DETAIL_FETCH_START,
+    CLEAR_APPROVAL_DETAIL_MESSAGE
+} = appointmentDetailsConstants;
 
 const initialState = {
     refundList: [],
@@ -94,7 +98,13 @@ const appointmentRejectState = {
     isAppointmentRejectLoading: true,
     appointmentRejectSuccessMessage: '',
     appointmentRejectErrorMessage: ''
-}
+};
+
+const appointmentDetailState = {
+    isAppointmentDetailFetchLoading: false,
+    appointmentDetail: {},
+    appointmentDetailErrorMessage: ''
+};
 
 export const AppointmentRefundListReducer = (
     state = {...initialState},
@@ -451,4 +461,37 @@ export const AppointmentApproveReducer = (
         default:
             return {...state}
     }
-}
+};
+
+export const AppointmentDetailReducer = (state = {...appointmentDetailState}, action) => {
+    switch (action.type) {
+        case APPROVAL_DETAIL_FETCH_START:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: true,
+                appointmentDetail: {},
+                appointmentDetailErrorMessage: ''
+            };
+        case APPROVAL_DETAIL_FETCH_SUCCESS:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: false,
+                appointmentDetail: {...action.payload.data},
+                appointmentDetailErrorMessage: ''
+            };
+        case APPROVAL_DETAIL_FETCH_ERROR:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: false,
+                appointmentDetail: {},
+                appointmentDetailErrorMessage: action.payload.errorMessage
+            };
+        case CLEAR_APPROVAL_DETAIL_MESSAGE:
+            return {
+                ...state,
+                appointmentDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};

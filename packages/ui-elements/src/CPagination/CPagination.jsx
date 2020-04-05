@@ -128,7 +128,7 @@ class CPagination extends PureComponent {
                                 />
                             <Pagination.Last
                                 onClick={this.handleLastClick}
-                                disabled={this.state.totalPages === this.props.currentPages}>
+                                disabled={this.state.totalPages === this.props.currentPage}>
                                 Last</Pagination.Last>
                         </Pagination>
                     </Col>
