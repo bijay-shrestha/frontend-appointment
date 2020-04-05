@@ -5,7 +5,8 @@ import {
   CompanySetupMiddleware,
   CompanyAdminSetupMiddleware,
   logoutUser,
-  resetPassword
+  resetPassword,
+  menuRoles
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -1059,13 +1060,20 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminSearchErrorMessage
       } = this.props.CompanyAdminListReducer
       const {
+        isAdminEditLoading,
+        adminEditErrorMessage
+      } = this.props.CompanyAdminEditReducer
+      const {
+        isDeleteCompanyLoading,
+        adminDeleteErrorMessage
+      } = CompanyAdminDeleteReducer
+      const {
         adminUpdateData,
         errorMessageForAdminMobileNumber,
         errorMessageForAdminName,
         passwordResetError,
         alertMessageInfo,
         showAlert,
-        adminFileCropped,
         adminImage,
         adminImageCroppedUrl,
         deleteModalShow,
@@ -1081,8 +1089,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         showImageUploadModal,
         showPasswordResetModal,
         showProfileDetailModal,
-        totalRecords,
-        updatedModulesAndProfiles
+        totalRecords
       } = this.state
 
       return (
@@ -1114,7 +1121,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               adminCroppedImage: adminImageCroppedUrl,
               onImageSelect: this.handleImageSelect,
               onImageCrop: this.handleCropImage,
-              viewProfileDetails: this.handleViewProfileDetails
+              viewProfileDetails: this.handleViewProfileDetails,
+              onPasswordReset: this.onPasswordReset
             }}
             searchFilter={{
               onInputChange: this.handleSearchFormChange,
@@ -1130,19 +1138,42 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               isSearchLoading: isAdminSearchLoading,
               searchData: this.appendSNToTable(adminList),
               searchErrorMessage: adminSearchErrorMessage,
-              totalItems:totalRecords,
-              maxSize:queryParams.size,
-              currentPage:queryParams.page,
-              handlePageChange:this.handlePageChange
+              totalItems: totalRecords,
+              maxSize: queryParams.size,
+              currentPage: queryParams.page,
+              handlePageChange: this.handlePageChange
             }}
             deleteInfo={{
-              deleteModalShow:deleteModalShow,
-              onSubmitDelete:this.onSubmitDeleteHandler,
-              remarksHandler:this.deleteRemarksHandler,
-              remarks:deleteRequestDTO.remarks,
-              deleteErrorMsg:deleteErrorMessage
+              deleteModalShow: deleteModalShow,
+              onSubmitDelete: this.onSubmitDeleteHandler,
+              remarksHandler: this.deleteRemarksHandler,
+              remarks: deleteRequestDTO.remarks,
+              deleteErrorMsg: adminDeleteErrorMessage
+            }}
+            previewInfo={{
+              showAdminModal: showAdminModal,
+              onPreviewHandler: this.onPreviewHandler,
+              adminPreviewData: adminUpdateData
+            }}
+            editInfo={{
+              adminUpdateData: {...adminUpdateData},
+              showModal: showEditModal,
+              adminImage: adminImage,
+              adminCroppedImage: adminImageCroppedUrl,
+              editApiCall: this.editApiCall,
+              errorMessage: adminEditErrorMessage || errorMessage,
+              isAdminEditLoading: isAdminEditLoading
             }}
           />
+          {showPasswordResetModal && (
+            <PasswordResetModal
+              showPasswordResetModal={showPasswordResetModal}
+              setShowModal={this.setShowModal}
+              resetPassword={this.resetPassword}
+              passwordResetData={passwordResetDTO}
+              errorMessage={passwordResetError}
+            />
+          )}
           {showProfileDetailModal && (
             <PreviewRoles
               showModal={showProfileDetailModal}
