@@ -1,5 +1,6 @@
 import React, {memo} from 'react'
-import {ReactSelectize, SimpleSelect} from 'react-selectize'
+import {SimpleSelect} from 'react-selectize'
+import 'react-selectize/dist/index.min.css'
 
 const CNormalSelect = props => {
   const {
@@ -45,7 +46,6 @@ const CNormalSelect = props => {
   return (
     <SimpleSelect
       placeholder={placeholder}
-      options={options}
       onValueChange={onChange}
       theme={theme}
       className={classes}
@@ -58,9 +58,13 @@ const CNormalSelect = props => {
       createFormSearch={isFormSearch ? createFormSearch : () => {}}
       disabled={disabled}
       style={style}
-      renderOption={renderOption}
-      renderValue={renderValue}
-    />
+      // renderOption={renderOption}
+      // renderValue={renderValue}
+    >
+      {options && options.length && options.map(option =>{
+        return(<option key={option.label+'opt'} value={option.value}>{option.label}</option>)
+      })}
+    </SimpleSelect>  
   )
 }
 export default memo(CNormalSelect)

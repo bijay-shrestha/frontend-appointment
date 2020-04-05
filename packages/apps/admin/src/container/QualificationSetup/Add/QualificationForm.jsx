@@ -6,7 +6,8 @@ import {
   CHybridInput,
   CRadioButton,
   CHybridSelect,
-  CHybridTimePicker
+  CHybridTimePicker,
+  CNormalSelect
 } from '@frontend-appointment/ui-elements'
 
 const QualificationForm = ({
@@ -54,55 +55,50 @@ const QualificationForm = ({
                     />
               </Col> */}
               <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="qualificationAliasId"
-                      name="qualificationAliasId"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationInfoObj.qualificationAliasId}
-                      options={qualificationsAliasForDropdown}
-                      label="Select a qualification alias"
-                    />
+                <CHybridSelect
+                  id="qualificationAliasId"
+                  name="qualificationAliasId"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={event => onInputChange(event)}
+                  value={qualificationInfoObj.qualificationAliasId}
+                  options={qualificationsAliasForDropdown}
+                  label="Select a qualification alias"
+                />
               </Col>
-              {/* <Col sm={12} md={4} xl={4}>
-                  <CHybridTimePicker
-                      id="hybridTimePickerId"
-                      name="hybridTimePickerId"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={event => onInputChange(event)}
-                      duration={135}
-                      onChange={event => onInputChange(event)}
-                      // value={qualificationInfoObj.qualificationAliasId}
-                      // options={qualificationsAliasForDropdown}
-                      isSearchable={true}
-                      label="Select Time"
-                      isClearable={true}
-                    />
-              </Col> */}
+
               <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="universityId"
-                      name="universityId"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationInfoObj.universityId}
-                      options={universitiesDropdown}
-                      label="Select a University"
-                    />
+                <CHybridSelect
+                  id="universityId"
+                  name="universityId"
+                  onKeyDown={event => onEnterKeyPress(event)}
+                  onChange={event => onInputChange(event)}
+                  value={qualificationInfoObj.universityId}
+                  options={universitiesDropdown}
+                  label="Select a University"
+                />
               </Col>
               <Col sm={12} md={4} lg={4}>
                 <CFLabel labelName="Status" id="status"></CFLabel>
-                <div >
-                <CRadioButton
-                  checked={Boolean(qualificationInfoObj.status)}
-                  disabled={true}
-                  id="radio1"
-                  label="Active"
-                  type="radio"
-                  readOnly
-                />
+                <div>
+                  <CRadioButton
+                    checked={Boolean(qualificationInfoObj.status)}
+                    disabled={true}
+                    id="radio1"
+                    label="Active"
+                    type="radio"
+                    readOnly
+                  />
                 </div>
               </Col>
+              <CNormalSelect
+                value={''}
+                placeholder="please select the options"
+                options={[
+                  {value: 'a', label: 'A'},
+                  {value: 'b', label: 'B'}
+                ]}
+                onChangeHandler={e => console.log(e)}
+              />
             </Row>
           </Container-fluid>
         </CForm>

@@ -4,6 +4,7 @@ import AdminContainer from "./container/AdminContainer";
 import '@frontend-appointment/common-sass';
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/iconfont/material-icons.scss';
+import 'react-selectize/themes/index.css'
 
 const App = props => {
     return (
