@@ -378,7 +378,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.automaticLogoutUser()
       } else {
         variantType = 'success'
-        message = this.props.CompanyAdminEditReducer.adminEditSuccessMessage
+        message = this.props.CompanyAdminEditReducer.companyEditSuccessMessage
       }
       this.setState({
         showAlert: true,
@@ -766,7 +766,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     editApiCall = async () => {
-      this.props.clearAdminSuccessErrorMessagesFromStore()
+      this.props.clearAdminSuccessErrorMessagesFromStore();
       const {
         id,
         company,

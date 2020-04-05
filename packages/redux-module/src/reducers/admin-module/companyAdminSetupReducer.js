@@ -35,7 +35,7 @@ const searchCompanyAdminState = {
 }
 
 const updateCompanyAdminState = {
-  isAdminEditLoading: true,
+  isAdminEditLoading: false,
   adminEditErrorMessage: '',
   adminEditSuccessMessage: ''
 }
@@ -190,7 +190,8 @@ export const CompanyAdminEditReducer = (
   switch (action.type) {
     case COMPANY_ADMIN_EDIT_PENDING:
       return {
-        ...state
+        ...state,
+        isAdminEditLoading:true,
       }
     case COMPANY_ADMIN_EDIT_SUCCESS:
       return {
