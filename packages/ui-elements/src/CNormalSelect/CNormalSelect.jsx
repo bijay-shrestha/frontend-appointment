@@ -1,6 +1,5 @@
 import React, {memo} from 'react'
 import {SimpleSelect} from 'react-selectize'
-import 'react-selectize/dist/index.min.css'
 
 const CNormalSelect = props => {
   const {
