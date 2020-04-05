@@ -61,6 +61,7 @@ const CNormalSelect = props => {
       // renderValue={renderValue}
     >
       {options && options.length && options.map(option =>{
+        console.log('hello');
         return(<option key={option.label+'opt'} value={option.value}>{option.label}</option>)
       })}
     </SimpleSelect>  

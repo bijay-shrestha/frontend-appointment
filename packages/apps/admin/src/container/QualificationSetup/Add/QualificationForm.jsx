@@ -90,7 +90,7 @@ const QualificationForm = ({
                   />
                 </div>
               </Col>
-              <CNormalSelect
+              {/* <CNormalSelect
                 value={''}
                 placeholder="please select the options"
                 options={[
@@ -98,7 +98,7 @@ const QualificationForm = ({
                   {value: 'b', label: 'B'}
                 ]}
                 onChangeHandler={e => console.log(e)}
-              />
+              /> */}
             </Row>
           </Container-fluid>
         </CForm>
