@@ -84,7 +84,7 @@ export const editCompanyAdmin = (
       editData,
       formData
     )
-    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess(response.data))
+    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess('Admin Edited Successfully'))
     return response
   } catch (e) {
     dispatch(

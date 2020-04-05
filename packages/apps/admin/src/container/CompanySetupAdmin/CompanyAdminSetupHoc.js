@@ -378,7 +378,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.automaticLogoutUser()
       } else {
         variantType = 'success'
-        message = this.props.CompanyAdminEditReducer.companyEditSuccessMessage
+        message = this.props.CompanyAdminEditReducer.adminEditSuccessMessage
       }
       this.setState({
         showAlert: true,
@@ -821,7 +821,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.resetAdminUpdateDataFromState()
         this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id)
         await this.searchAdmins()
-      } catch (e) {}
+      } catch (e) {
+
+      }
     }
 
     appendSNToTable = adminList =>
@@ -1073,7 +1075,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     render () {
       const {
         activeCompanyProfileListByCompanyIdForDropdown,
-
+        activeCompanyProfileListForDropdown, 
         dropdownErrorMessage
       } = this.props.CompanyProfileDropdownReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
@@ -1158,7 +1160,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               searchParameters: searchParameters,
               resetSearchForm: this.handleSearchFormReset,
               companyList: companyDropdownData,
-              profileList: activeCompanyProfileListByCompanyIdForDropdown,
+              profileList: activeCompanyProfileListForDropdown,
               adminMetaInfos: companyAdminMetaInfoForDropdown,
               onSearchClick: () => this.searchAdmins(1)
             }}
