@@ -9,13 +9,12 @@ import AdminPicture from "./tableComponents/AdminPicture";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
-const AdminDetailsDataTable = ({
+const CompanyAdminDetailsDataTable = ({
                                    isSearchLoading,
                                    searchErrorMessage,
                                    searchData,
                                    setShowModal,
-                                   filteredActions,
-                                   onEditHandler,
+                                   filteredAction,
                                    onPreviewHandler,
                                    onDeleteHandler,
                                    totalItems,
@@ -29,10 +28,12 @@ const AdminDetailsDataTable = ({
                                    remarks,
                                    onSubmitDelete,
                                    deleteErrorMsg,
-                                   onPasswordReset
+                                   onPasswordReset,
+                                   onEditHandler
                                }) => (
     <div className="manage-details">
-        <h5 className="title">Admin Details</h5>
+        {console.log("=========",filteredAction)}
+        <h5 className="title">Company Admin Details</h5>
         {!isSearchLoading && !searchErrorMessage && searchData.length ? (
             <>
                 <CDataTable
@@ -56,8 +57,8 @@ const AdminDetailsDataTable = ({
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital',
-                            field: 'hospitalName',
+                            headerName: 'Company',
+                            field: 'companyName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
@@ -145,7 +146,7 @@ const AdminDetailsDataTable = ({
                                         : type === 'R' ? onPasswordReset(id, username)
                                             : onPreviewHandler(id)
                                 },
-                                filteredAction: filteredActions
+                                filteredAction: filteredAction
                             },
                             cellStyle: {overflow: 'visible', 'z-index': '99'}
                         }
@@ -157,7 +158,7 @@ const AdminDetailsDataTable = ({
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        checkIfRoleExists(filteredActions, 4) &&
+                        checkIfRoleExists(filteredAction, 4) &&
                         onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={setShowModal} // {this.showModal}
@@ -185,7 +186,7 @@ const AdminDetailsDataTable = ({
                 showModal={showAdminModal}
                 setShowModal={setShowModal}
                 adminInfoObj={adminPreviewData}
-                adminImage={adminPreviewData.adminAvatarUrl}
+               
             />
         ) : (
             ''
@@ -193,7 +194,7 @@ const AdminDetailsDataTable = ({
         {deleteModalShow ? (
             <ConfirmDelete
                 confirmationMessage="Are you sure you want to delete the Admin?If yes please provide remarks."
-                modalHeader="Delete Admin"
+                modalHeader="Delete Company Admin"
                 showModal={deleteModalShow}
                 setShowModal={setShowModal}
                 onDeleteRemarksChangeHandler={remarksHandler}
@@ -206,4 +207,4 @@ const AdminDetailsDataTable = ({
         )}
     </div>
 );
-export default memo(AdminDetailsDataTable);
+export default memo(CompanyAdminDetailsDataTable);

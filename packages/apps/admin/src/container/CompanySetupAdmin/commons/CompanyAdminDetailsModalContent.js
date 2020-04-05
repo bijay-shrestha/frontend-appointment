@@ -13,7 +13,7 @@ import * as DefaultProfileImage from '../Add/picture.png'
 const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
   const images = [
     {
-      src: adminInfoObj.adminAvatarUrlNew||DefaultProfileImage,
+      src: adminInfoObj.adminAvatarUrlNew||adminInfoObj.adminAvatarUrl||DefaultProfileImage,
       alt: 'ADMIN',
       width: 4,
       height: 3

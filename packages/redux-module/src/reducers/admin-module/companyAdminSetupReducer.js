@@ -130,7 +130,7 @@ export const CompanyAdminListReducer = (
     case COMPANY_ADMIN_LIST_SUCCESS:
       return {
         ...state,
-        isAdminSearchLoading: true,
+        isAdminSearchLoading: false,
         adminList: [...action.payload.data],
         adminSearchErrorMessage: ''
       }

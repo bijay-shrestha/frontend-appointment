@@ -92,6 +92,12 @@ const AddCompanyAdminComponent = loadable(
   {fallback: () => getLoader()}
 )
 
+const ManageCompanyAdminComponent = loadable(
+  () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+  {fallback: () => getLoader()}
+)
+
+
 /* ****** E ***** */
 
 /* ****** F ***** */
@@ -598,6 +604,15 @@ export const routes = [
   {
     path: '/admin/companySettings/companyadmin/add',
     component: AddCompanyAdminComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Add'
+  },
+  {
+    path: '/admin/companySettings/companyadmin/manage',
+    component: ManageCompanyAdminComponent,
     icon: '',
     hasTab: true,
     isLink: true,

@@ -1,14 +1,14 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
+import CompanyAdminDetailsModalContent from "../commons/CompanyAdminDetailsModalContent";
 
 const PreviewAdminDetails = ({showModal, setShowModal, adminInfoObj,adminImage}) => {
     return <>
         <CModal
             show={showModal}
-            modalHeading="Admin Details"
+            modalHeading="Company Admin Details"
             size="xl"
-            bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
+            bodyChildren={<CompanyAdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}
             centered={false}
             dialogClassName="preview-modal"

@@ -16,7 +16,7 @@ import {Row} from "reactstrap";
 import * as DefaultProfileImage from '../Add/picture.png';
 import {CImageUploadAndCropModal} from "@frontend-appointment/ui-components";
 
-const AdminEditForm = ({
+const CompanyAdminEditForm = ({
                            adminInfoObj,
                            onEnterKeyPress,
                            onInputChange,
@@ -356,4 +356,4 @@ const AdminEditForm = ({
     );
 };
 
-export default AdminEditForm;
+export default CompanyAdminEditForm;

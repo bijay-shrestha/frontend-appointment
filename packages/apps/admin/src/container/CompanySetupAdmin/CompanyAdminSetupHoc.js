@@ -342,8 +342,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         mobileNumberValid &&
         mobileNumber &&
         genderCode
-      if(type!=='A'){
-        formValidity=formValidity&&remarks
+      if (type !== 'A') {
+        formValidity = formValidity && remarks
       }
       this.setState({
         adminUpdateData: {
@@ -550,10 +550,13 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         } = companyProfileDetail
         let profileData =
           companyProfileDetail &&
-          (await ProfileSetupUtils.prepareProfilePreviewData({
-            profileResponseDTO: companyProfileInfo,
-            profileMenuResponseDTOS: companyProfileMenuInfo
-          },'COMPANY'))
+          (await ProfileSetupUtils.prepareProfilePreviewData(
+            {
+              profileResponseDTO: companyProfileInfo,
+              profileMenuResponseDTOS: companyProfileMenuInfo
+            },
+            'COMPANY'
+          ))
         this.setState({
           profileData,
           showProfileDetailModal: true
@@ -631,9 +634,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             showAlert: true,
             alertMessageInfo: {
               variant: 'success',
-              message: this.props.AdminDeleteReducer.deleteSuccessMessage
+              message: this.props.CompanyAdminDeleteReducer
+                .adminDeleteSuccessMessage
             }
           })
+          this.setShowModal()
           await this.searchAdmins()
         }
       } catch (e) {
@@ -657,7 +662,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
     resetPassword = async passwordObj => {
       let passwordResetObj = {
-        // username: this.state.passwordResetDTO.username,
+        username: this.state.passwordResetDTO.username,
         password: passwordObj.password,
         remarks: passwordObj.remarks,
         id: this.state.passwordResetDTO.id
@@ -714,6 +719,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async id => {
+      this.props.clearAdminSuccessErrorMessagesFromStore()
       await this.props.previewCompanyAdmin(PREVIEW_COMPANY_ADMIN, id)
     }
 
@@ -760,6 +766,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     editApiCall = async () => {
+      this.props.clearAdminSuccessErrorMessagesFromStore()
       const {
         id,
         company,
@@ -1066,6 +1073,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     render () {
       const {
         activeCompanyProfileListByCompanyIdForDropdown,
+
         dropdownErrorMessage
       } = this.props.CompanyProfileDropdownReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
@@ -1110,11 +1118,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         showProfileDetailModal,
         totalRecords
       } = this.state
-
+      console.log(props)
       return (
         <>
           <ComposedComponent
-            {...props}
             adminCreateForm={{
               adminCreateData: {...adminUpdateData},
               isCreateAdminLoading: {isCreateAdminLoading},
@@ -1153,7 +1160,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               companyList: companyDropdownData,
               profileList: activeCompanyProfileListByCompanyIdForDropdown,
               adminMetaInfos: companyAdminMetaInfoForDropdown,
-              onSearchClick: this.searchAdmins
+              onSearchClick: () => this.searchAdmins(1)
             }}
             tableData={{
               filteredActions: this.props.filteredAction,
@@ -1170,7 +1177,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               onSubmitDelete: this.onSubmitDeleteHandler,
               remarksHandler: this.deleteRemarksHandler,
               remarks: deleteRequestDTO.remarks,
-              deleteErrorMsg: adminDeleteErrorMessage
+              deleteErrorMsg: adminDeleteErrorMessage,
+              onDeleteHandler: this.onDeleteHandler
             }}
             previewInfo={{
               showAdminModal: showAdminModal,
@@ -1183,6 +1191,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               adminImage: adminImage,
               adminCroppedImage: adminImageCroppedUrl,
               editApiCall: this.editApiCall,
+              onEditHandler: this.onEditHandler,
               errorMessage: adminEditErrorMessage || errorMessage,
               isAdminEditLoading: isAdminEditLoading
             }}
@@ -1227,9 +1236,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
   return ConnectHoc(
     CompanyAdminSetup,
-    // [
-    //   ,
-    //
     [
       'CompanyProfileDropdownReducer',
       'companyDropdownReducer',
@@ -1241,8 +1247,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       'CompanyAdminMetaInfoReducer',
       'CompanyProfilePreviewReducer'
     ],
-    //
-    // ],
     {
       fetchActiveCompanyProfileListByCompanyIdForDropdown,
       companyDropdown,

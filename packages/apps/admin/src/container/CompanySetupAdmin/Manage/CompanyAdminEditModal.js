@@ -1,9 +1,9 @@
 import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import {Container, Row} from "react-bootstrap";
-import AdminEditForm from "./AdminEditForm";
+import AdminEditForm from "./CompanyAdminEditForm";
 
-const AdminEditModal = ({
+const CompanyAdminEditModal = ({
                             adminUpdateData,
                             onEnterKeyPress,
                             onInputChange,
@@ -95,4 +95,4 @@ const AdminEditModal = ({
     );
 };
 
-export default AdminEditModal;
+export default CompanyAdminEditModal;
