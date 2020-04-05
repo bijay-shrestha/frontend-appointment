@@ -18,7 +18,8 @@ const {
     appointmentApprove,
     appointmentReject,
     clearAppointmentApproveMessage,
-    clearAppointmentRejectMessage
+    clearAppointmentRejectMessage,
+    fetchAppointmentApprovalDetailByAppointmentId
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -55,7 +56,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {},
+            // previewData: {},
             rejectRequestDTO: {
                 appointmentId: '',
                 remarks: ''
@@ -86,11 +87,26 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        previewCall = data => {
-            this.setState({
-                previewData: data,
-                showModal: true
-            })
+        previewApiCall = async data => {
+            await this.props.fetchAppointmentApprovalDetailByAppointmentId(
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,data.appointmentId)
+        };
+
+        previewCall = async data => {
+            try {
+                await this.previewApiCall(data);
+                this.setState({
+                    showModal: true
+                })
+            }catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentDetailReducer.appointmentDetailErrorMessage
+                    }
+                })
+            }
         };
 
         setShowModal = () => {
@@ -356,7 +372,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData,
                 rejectRequestDTO,
                 rejectModalShow,
                 approveAppointmentId,
@@ -392,7 +407,10 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             const {
                 patientList,
                 patientDropdownErrorMessage
-            } = this.props.PatientDropdownListReducer
+            } = this.props.PatientDropdownListReducer;
+
+            const {appointmentDetail}= this.props.AppointmentDetailReducer;
+
             return (
                 <div id="appointment-approval">
                     <ComposedComponent
@@ -424,7 +442,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: previewData,
+                            previewData: appointmentDetail,
                             rejectSubmitHandler: this.rejectSubmitHandler,
                             rejectRemarksHandler: this.rejectRemarksHandler,
                             onRejectHandler: this.onRejectHandler,
@@ -475,7 +493,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             'HospitalDropdownReducer',
             'PatientDropdownListReducer',
             'AppointmentApproveReducer',
-            'AppointmentRejectReducer'
+            'AppointmentRejectReducer',
+            'AppointmentDetailReducer'
         ],
         {
             clearAppointmentRefundPending,
@@ -487,7 +506,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             appointmentApprove,
             appointmentReject,
             clearAppointmentApproveMessage,
-            clearAppointmentRejectMessage
+            clearAppointmentRejectMessage,
+            fetchAppointmentApprovalDetailByAppointmentId
         }
     )
 };

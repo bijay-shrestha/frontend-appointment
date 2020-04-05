@@ -87,7 +87,8 @@ import {
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
-    RescheduleLogReducer
+    RescheduleLogReducer,
+    AppointmentDetailReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
@@ -136,6 +137,7 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRefundListReducer,
+    AppointmentDetailReducer,
     companyDeleteReducer,
     companyDropdownReducer,
     companyPreviewReducer,
