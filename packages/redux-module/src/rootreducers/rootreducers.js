@@ -94,7 +94,8 @@ import {
   companySaveReducer,
   companySearchReducer,
   companyUpdateReducer,
-  CompanyAdminReducer
+  CompanyAdminReducer,
+  AppointmentDetailReducer
 } from '../reducers'
 const {
   ForgotPasswordReducer,
@@ -211,5 +212,6 @@ export const rootReducers = combineReducers({
   CompanyAdminListReducer,
   CompanyAdminPreviewReducer,
   CompanyAdminSetupReducer,
-  CompanyAdminMetaInfoReducer
+  CompanyAdminMetaInfoReducer,
+  AppointmentDetailReducer
 })
