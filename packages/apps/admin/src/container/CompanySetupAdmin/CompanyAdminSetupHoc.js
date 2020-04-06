@@ -36,7 +36,10 @@ const {
   previewCompanyProfileById,
   fetchCompanyProfileListForDropdown
 } = CompanyProfileSetupMiddleware
-const {fetchDashboardFeatures,fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
+const {
+  fetchDashboardFeatures,
+  fetchDashboardFeaturesByAdmin
+} = DashboardDetailsMiddleware
 const {companyDropdown} = CompanySetupMiddleware
 
 const {
@@ -45,7 +48,7 @@ const {
   FETCH_COMPANY_PROFILE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
 
-const {DASHBOARD_FEATURE} =AdminModuleAPIConstants.DashboardApiConstant
+const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 
 const {
   //CHANGE_PASSWORD,
@@ -58,7 +61,7 @@ const {
   PREVIEW_COMPANY_ADMIN,
   RESET_PASSWORD,
   //SAVE_COMPANY_ADMIN_PASSWORD,
-  SEARCH_COMPANY_ADMIN,
+  SEARCH_COMPANY_ADMIN
   // UPDATE_COMPANY_ADMIN_AVATAR,
   // UPDATE_COMPANY_ADMIN_PASSWORD,
   // VERIFY_COMPANY_ADMIN
@@ -91,7 +94,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         mobileNumberValid: true,
         profileList: [],
         moduleList: [],
-        adminDashboardRequestDTOS: [],
+        adminDashboardRequestDTOS: []
       },
       errorMessageForAdminName:
         'Admin Name should not contain special characters.',
@@ -266,7 +269,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         updatedModulesAndProfiles: [...updatedModules]
       })
 
-    setDataForPreview = async adminData => {
+    setDataForPreview = async (adminData, value) => {
       const {
         id,
         company,
@@ -306,7 +309,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           adminAvatar: adminAvatar,
           remarks: remarks,
           adminAvatarUrl: adminAvatarUrl,
-          adminAvatarUrlNew: ''
+          adminAvatarUrlNew: '',
+          adminDashboardRequestDTOS:
+            value && value.length
+              ? [...value.map(val => ({...val, status: 'Y'}))]
+              : []
         }
       })
     }
@@ -593,12 +600,16 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     onPreviewHandler = async adId => {
+      const response = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        adId
+      )
       try {
-        await this.previewApiCall(adId)
+       await this.previewApiCall(adId)
         let adminData = this.prepareDataForPreview(
           this.props.CompanyAdminPreviewReducer.adminPreviewData
         )
-        this.setDataForPreview(adminData)
+        this.setDataForPreview(adminData, response.data)
       } catch (e) {
         this.setState({
           showAlert: true,
@@ -785,7 +796,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminAvatar,
         remarks,
         adminAvatarUrlNew,
-        genderCode
+        genderCode,
+        adminDashboardRequestDTOS
       } = this.state.adminUpdateData
       const {updatedMacIdList} = this.state
 
@@ -812,7 +824,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         remarks: remarks,
         macAddressUpdateInfo: [...macAddressList],
         isAvatarUpdate: adminAvatarUrlNew ? 'Y' : 'N',
-        companyId: company ? company.value : ''
+        companyId: company ? company.value : '',
+        adminDashboardRequestDTOS: adminDashboardRequestDTOS.map(adminDash => ({
+          id: adminDash.id,
+          status: adminDash.status
+      }))
       }
 
       let formData = new FormData()
@@ -996,7 +1012,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       } = this.state.adminUpdateData
 
       const {companyDropdownData} = this.props.companyDropdownReducer
-      
+
       const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(
         adminDashboardRequestDTOS
       )
@@ -1070,7 +1086,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.searchAdmins()
       }
     }
-    
+
     findAndChangeStatusofDashBoardRole = (adminDashboardList, dash) => {
       return adminDashboardList.map(adminDash => {
         if (dash.code === adminDash.code)
@@ -1080,21 +1096,23 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     onChangeDashBoardRole = (event, dash) => {
-      let adminDashboardList = [...this.state.adminUpdateData.adminDashboardRequestDTOS]
+      let adminDashboardList = [
+        ...this.state.adminUpdateData.adminDashboardRequestDTOS
+      ]
       let newDash = {...dash}
       newDash.status = newDash.status === 'Y' ? 'N' : 'Y'
-  
+
       adminDashboardList = this.findAndChangeStatusofDashBoardRole(
         adminDashboardList,
         newDash
       )
-      let newAdminUpdate ={...this.state.adminUpdateData}
-      newAdminUpdate['adminDashboardRequestDTOS']=adminDashboardList
+      let newAdminUpdate = {...this.state.adminUpdateData}
+      newAdminUpdate['adminDashboardRequestDTOS'] = adminDashboardList
       this.setState({
         adminUpdateData: {...newAdminUpdate}
       })
     }
-  
+
     filterOnlyActiveStatusDashboardRole = dashList => {
       return (
         dashList &&
@@ -1116,16 +1134,18 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         })
       )
     }
-  
+
     fetchDashBoardFeatures = async () => {
       try {
         const response = await this.props.fetchDashboardFeatures(
           DASHBOARD_FEATURE
         )
         let adminUpdateData = {...this.state.adminUpdateData}
-        adminUpdateData['adminDashboardRequestDTOS']=this.formDashBoardData(response.data)
+        adminUpdateData['adminDashboardRequestDTOS'] = this.formDashBoardData(
+          response.data
+        )
         await this.setState({
-          adminUpdateData:{...adminUpdateData}
+          adminUpdateData: {...adminUpdateData}
         })
       } catch (e) {
         console.log(e)
@@ -1227,10 +1247,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               onPasswordReset: this.onPasswordReset,
               resetModalState: this.resetAdminUpdateDataFromState,
               setImageShowModal: this.setImageShowModal,
-              isDashboardFeatureLoading:isDashboardFeatureLoading,
-              dashboardFeatureData:adminUpdateData.adminDashboardRequestDTOS,
-              dashboardFeatureErrorMessage:dashboardFeatureErrorMessage,
-              onChangeDashBoardRole:this.onChangeDashBoardRole
+              isDashboardFeatureLoading: isDashboardFeatureLoading,
+              dashboardFeatureData: adminUpdateData.adminDashboardRequestDTOS,
+              dashboardFeatureErrorMessage: dashboardFeatureErrorMessage,
+              onChangeDashBoardRole: this.onChangeDashBoardRole
             }}
             searchFilter={{
               onInputChange: this.handleSearchFormChange,

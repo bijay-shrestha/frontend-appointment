@@ -24,7 +24,8 @@ const CompanyAdminEditModal = ({
                             errorMessage,
                             editApiCall,
                             viewProfileDetails,
-                            isAdminEditLoading
+                            isAdminEditLoading,
+                            onChangeDashBoardRole
                         }) => {
 
     let footerChildren = <>
@@ -84,6 +85,7 @@ const CompanyAdminEditModal = ({
                                        onImageCrop={onImageCrop}
                                        viewProfileDetails={viewProfileDetails}
                                        isAdminEditLoading={isAdminEditLoading}
+                                       onChangeDashBoardRole={onChangeDashBoardRole}
                         />}
                     onHide={setShowModal}
                     centered={false}

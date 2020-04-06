@@ -36,7 +36,8 @@ const CompanyAdminEditForm = ({
   showImageUploadModal,
   setImageShowModal,
   viewProfileDetails,
-  isAdminEditLoading
+  isAdminEditLoading,
+  onChangeDashBoardRole
 }) => {
   const images = [
     {
@@ -258,6 +259,34 @@ const CompanyAdminEditForm = ({
                   onKeyDown={event => onEnterKeyPress(event)}
                   onChange={event => onInputChange(event)}
                 />
+              </Col>
+
+              <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                {adminInfoObj.adminDashboardRequestDTOS.length ? (
+                  <CFLabel labelName="Dashboard Role" id="dash-role-edit" />
+                ) : null}
+                {adminInfoObj && adminInfoObj.adminDashboardRequestDTOS.length
+                  ? adminInfoObj.adminDashboardRequestDTOS.map(
+                      (adminDash, index) => {
+                        return (
+                          <div>
+                            <CCheckbox
+                              checked={adminDash.status === 'Y'}
+                              id={'checkbox-edit' + adminDash + index}
+                              label={adminDash.name}
+                              type="radio"
+                              name="adminDashboardRequestDTOS"
+                              value={adminDash.code}
+                              onChange={event =>
+                                onChangeDashBoardRole(event, adminDash)
+                              }
+                              className="module"
+                            />
+                          </div>
+                        )
+                      }
+                    )
+                  : null}
               </Col>
 
               <Col sm={12} md={12} lg={6} className="mt-4">
