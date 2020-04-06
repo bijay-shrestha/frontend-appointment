@@ -118,7 +118,7 @@ const DepartmentEditModal = ({
           <div className="col-md-6">
             {errorMessage ? (
               <p className="modal-error">
-                <i class="fa fa-exclamation-triangle" /> &nbsp; {errorMessage}
+                <i className="fa fa-exclamation-triangle" /> &nbsp; {errorMessage}
               </p>
             ) : (
               ''
