@@ -9,7 +9,7 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {
     adminUserMenusJson,
     EnterKeyPressUtils,
-    EnvironmentVariableGetter,
+    EnvironmentVariableGetter, LocalStorageSecurity,
     ProfileSetupUtils
 } from "@frontend-appointment/helpers";
 import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
@@ -704,7 +704,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
 
             checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
                 let message = '';
-                let loggedInAdminInfo = JSON.parse(localStorage.getItem("adminInfo"));
+                let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder("adminInfo");
                 if (editedProfileId === loggedInAdminInfo.profileId) {
                     message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
                         "you'll be automatically logged out in 10s";
