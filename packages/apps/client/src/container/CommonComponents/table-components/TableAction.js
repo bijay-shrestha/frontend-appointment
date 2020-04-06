@@ -29,7 +29,7 @@ class TableAction extends PureComponent {
                                     <Material.MdDeleteForever/> Delete</Dropdown.Item> : ''}
 
                         {
-                            checkIfRoleExists(this.props.filteredAction, 25) ?
+                            checkIfRoleExists(this.props.filteredAction, 8) ?
                                 <Dropdown.Item
                                     onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'C', this.props.node.data)}>
                                     <Material.MdContentCopy/>&nbsp;
