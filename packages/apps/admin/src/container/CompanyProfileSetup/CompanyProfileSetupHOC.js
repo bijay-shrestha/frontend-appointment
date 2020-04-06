@@ -9,8 +9,10 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {
     adminUserMenusJson,
     EnterKeyPressUtils,
-    EnvironmentVariableGetter, LocalStorageSecurity,
-    ProfileSetupUtils
+    EnvironmentVariableGetter,
+    ProfileSetupUtils,
+    UserMenusFilter,
+    LocalStorageSecurity
 } from "@frontend-appointment/helpers";
 import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from "@frontend-appointment/ui-elements";
@@ -103,8 +105,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     : this.setState({[key]: value, [key + "Valid"]: fieldValid});
 
             setUserMenusAlphabetically = async () => {
-                let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(adminUserMenusJson[
-                    EnvironmentVariableGetter.ADMIN_MODULE_CODE]);
+                let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')
 
                 alphabeticallySortedMenus ?
                     await this.setState({
