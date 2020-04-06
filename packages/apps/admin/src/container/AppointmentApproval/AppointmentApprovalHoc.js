@@ -89,7 +89,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         previewApiCall = async data => {
             await this.props.fetchAppointmentApprovalDetailByAppointmentId(
-                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,data.appointmentId)
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL, data.appointmentId)
         };
 
         previewCall = async data => {
@@ -98,7 +98,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     showModal: true
                 })
-            }catch (e) {
+            } catch (e) {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -131,8 +131,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
-                fromDate,
-                toDate,
+                fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                toDate: appointmentNumber ? '' : toDate,
                 hospitalId: hospitalId.value || '',
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
@@ -174,9 +174,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 refundList.length &&
                 refundList.map((spec, index) => ({
                     ...spec,
-                    patientMobileNumber:spec.mobileNumber,
+                    patientMobileNumber: spec.mobileNumber,
                     sN: index + 1,
-                    registrationNumber:spec.registrationNumber||'N/A'
+                    registrationNumber: spec.registrationNumber || 'N/A'
                 }));
             return newRefundList
         }
@@ -409,7 +409,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer;
 
-            const {appointmentDetail}= this.props.AppointmentDetailReducer;
+            const {appointmentDetail} = this.props.AppointmentDetailReducer;
 
             return (
                 <div id="appointment-approval">
