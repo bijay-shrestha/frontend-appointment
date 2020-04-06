@@ -154,12 +154,12 @@ class CHybridTimePicker extends PureComponent {
 
             let date = this.getDateWithTimeSetToGivenTime(new Date(), hour, min)
             this.setState({
-                pickedTime: {value: value, label: label, name: name},
+                pickedTime: {value: value, label: label, name: this.props.name},
                 inputValue: value
             })
             this.props.onChange && this.props.onChange({
                 target: {
-                    name: name,
+                    name: this.props.name,
                     value: date,
                     label: label
                 }
