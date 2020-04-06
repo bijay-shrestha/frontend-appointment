@@ -32,19 +32,19 @@ const DetailsModal = ({specializationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            {type !== 'A' ? (
-                                <Col sm={4} md={4} lg={4}>
-                                    <CHybridTextArea
-                                        id="specialization-remarks"
-                                        name="name"
-                                        placeholder="Specialization Remarks"
-                                        value={specializationData.remarks || 'N/A'}
-                                        disabled={true}
-                                    />
-                                </Col>
-                            ) : (
-                                ''
-                            )}
+                            {/*{type !== 'A' ? (*/}
+                            {/*    <Col sm={4} md={4} lg={4}>*/}
+                            {/*        <CHybridTextArea*/}
+                            {/*            id="specialization-remarks"*/}
+                            {/*            name="name"*/}
+                            {/*            placeholder="Specialization Remarks"*/}
+                            {/*            value={specializationData.remarks || 'N/A'}*/}
+                            {/*            disabled={true}*/}
+                            {/*        />*/}
+                            {/*    </Col>*/}
+                            {/*) : (*/}
+                            {/*    ''*/}
+                            {/*)}*/}
                             <Col sm={4} md={4} lg={4}>
                                 <CFLabel labelName="Specialization Status" id="status"/>
                                 <CRadioButton
@@ -55,15 +55,20 @@ const DetailsModal = ({specializationData, type}) => {
                                     label="Active"
                                     type="radio"
                                 />
+                                {
+                                    type !== 'A' ?
+                                        <CRadioButton
+                                            checked={specializationData.status === 'N'}
+                                            disabled={true}
+                                            readOnly={true}
+                                            id="radio2"
+                                            label="Inactive"
+                                            type="radio"
+                                        />
+                                        :
+                                        ''
+                                }
 
-                                {/* <CRadioButton
-                  checked={specializationData.status === 'N'}
-                  disabled={true}
-                  readOnly={true}
-                  id="radio2"
-                  label="Inactive"
-                  type="radio"
-                /> */}
                             </Col>
                         </Row>
                     </Container-fluid>
