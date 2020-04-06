@@ -304,7 +304,7 @@ const CompanyAdminInfoForm = ({
                       id="admin-add-hasMacBinding"
                       name="hasMacBinding"
                       label="Device Filter"
-                      className="module"
+                      className="module fw-500"
                       checked={adminInfoObj.hasMacBinding}
                       onChange={event => onInputChange(event)}
                       onKeyDown={event => onEnterKeyPress(event)}

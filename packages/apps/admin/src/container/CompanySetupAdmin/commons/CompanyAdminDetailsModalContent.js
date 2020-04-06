@@ -197,7 +197,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                   {adminInfoObj.hasMacBinding && (
                     <Col sm={12} md={12} lg={6}>
                       <>
-                        <Col className="mt-4 pl-0">
+                        <Col className="mt-4 pl-0 fw-500">
                           {adminInfoObj.hasMacBinding ? (
                             <i className=" fa fa-check"> </i>
                           ) : (

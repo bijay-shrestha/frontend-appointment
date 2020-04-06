@@ -299,7 +299,7 @@ const CompanyAdminEditForm = ({
                           id="hasMacBinding"
                           label="Device Filter"
                           name="hasMacBinding"
-                          className=""
+                          className="fw-500"
                           checked={adminInfoObj.hasMacBinding}
                           onChange={event => onInputChange(event)}
                           onKeyDown={event => onEnterKeyPress(event)}
@@ -374,7 +374,6 @@ const CompanyAdminEditForm = ({
 
               <Col sm={12} md={12} lg={6}>
                 <CHybridTextArea
-                  className="mt-4"
                   id="remarks"
                   name="remarks"
                   onKeyDown={event => onEnterKeyPress(event)}
