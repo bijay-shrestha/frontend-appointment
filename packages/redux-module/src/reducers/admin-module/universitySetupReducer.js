@@ -191,21 +191,21 @@ export const UniversityPreviewReducer = (state = {...initialState}, action) => {
                 previewUniversityErrorMessage:'',
                 universityDetails:{}
             };
-        case SEARCH_UNIVERSITY_SUCCESS:
+        case PREVIEW_UNIVERSITY_SUCCESS:
             return {
                 ...state,
                 isPreviewUniversityLoading:false,
                 previewUniversityErrorMessage:'',
                 universityDetails:{...action.payload.data}
             };
-        case SEARCH_UNIVERSITY_ERROR:
+        case PREVIEW_UNIVERSITY_ERROR:
             return {
                 ...state,
                 isPreviewUniversityLoading:false,
                 previewUniversityErrorMessage:action.payload.errorMessage,
                 universityDetails:{}
             };
-        case CLEAR_SEARCH_UNIVERSITY_MESSAGE:
+        case CLEAR_PREVIEW_UNIVERSITY_MESSAGE:
             return {
                 ...state,
                 previewUniversityErrorMessage: ''

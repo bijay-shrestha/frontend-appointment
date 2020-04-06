@@ -143,10 +143,6 @@ export const countrySetupAliasCode = {
     FETCH_COUNTRY_CODE: BASE.concat(CNTRY_BASE)
 };
 
-export const universitySetupAliasCode = {
-    FETCH_UNIVERSITY_CODE: BASE.concat(UN_BASE + '/active/min')
-};
-
 export const patientSetupApiConstant = {
     ACTIVE_PATIENT_META_INFO_DETAILS: BASE.concat(PATIENT_BASE + "/metaInfo/active/min"),
     ALL_PATIENT_META_INFO_HOSPITAL_ID: BASE.concat(PATIENT_BASE + "/metaInfo/min"),
@@ -200,12 +196,12 @@ export const CompanyApiConstant = {
     DELETE_COMPANY: BASE.concat(COMPANY_BASE)
 };
 
-const UNIVERSITY_BASE="/university";
+const UNIVERSITY_BASE = "/university";
 export const universitySetupApiConstants = {
-   SAVE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
-   EDIT_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
-   DELETE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
-   FETCH_UNIVERSITY_FOR_DROPDOWN: BASE.concat(UNIVERSITY_BASE.concat("/active/min")),
-   FETCH_UNIVERSITY_DETAILS_BY_ID: BASE.concat(UNIVERSITY_BASE.concat("/detail")),
-   SEARCH_UNIVERSITY: BASE.concat(UNIVERSITY_BASE.concat("/search")),
+    SAVE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+    EDIT_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+    DELETE_UNIVERSITY: BASE.concat(UNIVERSITY_BASE),
+    FETCH_UNIVERSITY_FOR_DROPDOWN: BASE.concat(UNIVERSITY_BASE.concat("/active/min")),
+    FETCH_UNIVERSITY_DETAILS_BY_ID: BASE.concat(UNIVERSITY_BASE.concat("/detail")),
+    SEARCH_UNIVERSITY: BASE.concat(UNIVERSITY_BASE.concat("/search")),
 };

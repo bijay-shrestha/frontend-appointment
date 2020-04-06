@@ -23,7 +23,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
         countrySetupAliasCode,
-        universitySetupAliasCode,
+        universitySetupApiConstants,
         qualificationSetupAliasCode
     } = AdminModuleAPIConstants;
 
@@ -435,7 +435,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 qualificationSetupAliasCode.FETCH_QUALIFICATION_ALIAS_CODE
             )
             await this.props.fetchActiveUniversityForDropdown(
-                universitySetupAliasCode.FETCH_UNIVERSITY_CODE
+                universitySetupApiConstants.FETCH_UNIVERSITY_FOR_DROPDOWN
             )
         }
 
