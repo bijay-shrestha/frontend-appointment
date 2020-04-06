@@ -79,10 +79,10 @@ export const fetchCompanyProfileListForDropdown = (path) => async dispatch => {
     }
 };
 
-export const fetchActiveCompanyProfileListByCompanyIdForDropdown = (path) => async dispatch => {
+export const fetchActiveCompanyProfileListByCompanyIdForDropdown = (path,id) => async dispatch => {
     dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownPending());
     try {
-        let response = await Axios.get(path);
+        let response = await Axios.get(path);//await Axios.getWithPathVariables(path,id);
         dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownSuccess(response.data));
         return response;
     } catch (e) {
