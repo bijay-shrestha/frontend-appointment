@@ -191,20 +191,17 @@ export const patientSetupApiConstant = {
 }
 
 export const appointmentSetupApiConstant = {
-  APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + '/refund'),
-  APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + '/refund/approve'),
-  APPOINTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + '/refund/reject'),
-  APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + '/log'),
-  APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + '/status'),
-  APPOINTMENT_APPROVAL_LIST: BASE.concat(
-    APPOINTMENT_BASE + '/pending-approval'
-  ),
-  APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + '/approve'),
-  APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + '/reject'),
-  SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(
-    APPOINTMENT_BASE.concat('/reschedule-log')
-  )
-}
+    APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
+    APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
+    APPOINTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
+    APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
+    APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
+    APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval"),
+    APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
+    APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),
+    SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log")),
+    APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval"))
+};
 
 export const DashboardApiConstant = {
   OVERALL_APPOINTMENTS: BASE.concat(DASHBOARD_BASE + '/overAllAppointments'),
