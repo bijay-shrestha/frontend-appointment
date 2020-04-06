@@ -159,7 +159,7 @@ class CHybridTimePicker extends PureComponent {
             })
             this.props.onChange && this.props.onChange({
                 target: {
-                    name: name,
+                    name: this.props.name,
                     value: date,
                     label: label
                 }
