@@ -31,13 +31,22 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
             pathWithoutBase = pathWithoutBase.join('/');
             pathWithoutBase = '/'.concat(pathWithoutBase);
 
-            let parentMenu = userMenuList.find(userMenu => pathWithoutBase.includes(userMenu.path));
-            let childMenu = parentMenu && parentMenu.childMenus.find(child => pathWithoutBase.includes(child.path));
+            let currentMenu = new Set();
+            userMenuList.map(
+                userMenu => {
+                    let childMenus = userMenu.childMenus;
+                    if (childMenus.length){
+                       let menu = childMenus.find(child => pathWithoutBase.includes(child.path));
+                       if (menu) currentMenu.add(menu);
+                    } else {
+                        if(pathWithoutBase.includes(userMenu.path)) currentMenu.add(userMenu);
+                    }
+                }
+            );
 
-            if (parentMenu && parentMenu.childMenus.length === 0) {
-                filteredAction = [...this.getFilteredRole(parentMenu.roles)]
-            }else {
-                filteredAction = childMenu && [...this.getFilteredRole(childMenu.roles)]
+            let menusMatchingPath = Array.from(currentMenu);
+            if (menusMatchingPath.length){
+                menusMatchingPath.map(menu=> filteredAction = [...this.getFilteredRole(menu.roles)])
             }
 
             this.setState({
