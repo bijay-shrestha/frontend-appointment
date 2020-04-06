@@ -5,7 +5,8 @@ import {
   CompanySetupMiddleware,
   CompanyAdminSetupMiddleware,
   logoutUser,
-  resetPassword
+  resetPassword,
+  DashboardDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -35,7 +36,7 @@ const {
   previewCompanyProfileById,
   fetchCompanyProfileListForDropdown
 } = CompanyProfileSetupMiddleware
-
+const {fetchDashboardFeatures,fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {companyDropdown} = CompanySetupMiddleware
 
 const {
@@ -43,6 +44,8 @@ const {
   PREVIEW_COMPANY_PROFILE,
   FETCH_COMPANY_PROFILE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
+
+const {DASHBOARD_FEATURE} =AdminModuleAPIConstants.DashboardApiConstant
 
 const {
   //CHANGE_PASSWORD,
@@ -87,7 +90,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         emailValid: true,
         mobileNumberValid: true,
         profileList: [],
-        moduleList: []
+        moduleList: [],
+        adminDashboardRequestDTOS: [],
       },
       errorMessageForAdminName:
         'Admin Name should not contain special characters.',
@@ -152,6 +156,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           genderCode: '',
           status: 'Y',
           hasMacBinding: '',
+          adminDashboardRequestDTOS: [
+            ...this.props.DashboardFeaturesReducer.dashboardFeatureData
+          ],
           macIdList: [],
           adminAvatar: null,
           adminAvatarUrl: '',
@@ -984,10 +991,15 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         status,
         hasMacBinding,
         macIdList,
-        adminAvatar
+        adminAvatar,
+        adminDashboardRequestDTOS
       } = this.state.adminUpdateData
 
       const {companyDropdownData} = this.props.companyDropdownReducer
+      
+      const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(
+        adminDashboardRequestDTOS
+      )
 
       let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(
         companyDropdownData,
@@ -1003,6 +1015,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         status,
         genderCode: genderCode,
         profileId: profile.value,
+        adminDashboardRequestDTOS: [...newAdminDashboardRequest],
         macAddressInfo: macIdList.length
           ? macIdList.map(macId => {
               return macId.macId
@@ -1057,9 +1070,71 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.searchAdmins()
       }
     }
+    
+    findAndChangeStatusofDashBoardRole = (adminDashboardList, dash) => {
+      return adminDashboardList.map(adminDash => {
+        if (dash.code === adminDash.code)
+          return {...adminDash, status: dash.status}
+        else return {...adminDash}
+      })
+    }
+
+    onChangeDashBoardRole = (event, dash) => {
+      let adminDashboardList = [...this.state.adminUpdateData.adminDashboardRequestDTOS]
+      let newDash = {...dash}
+      newDash.status = newDash.status === 'Y' ? 'N' : 'Y'
+  
+      adminDashboardList = this.findAndChangeStatusofDashBoardRole(
+        adminDashboardList,
+        newDash
+      )
+      let newAdminUpdate ={...this.state.adminUpdateData}
+      newAdminUpdate['adminDashboardRequestDTOS']=adminDashboardList
+      this.setState({
+        adminUpdateData: {...newAdminUpdate}
+      })
+    }
+  
+    filterOnlyActiveStatusDashboardRole = dashList => {
+      return (
+        dashList &&
+        dashList.length &&
+        dashList
+          .filter(dash => dash.status === 'Y')
+          .map(dashBoard => ({id: dashBoard.id, status: dashBoard.status}))
+      )
+    }
+    formDashBoardData = data => {
+      return (
+        data &&
+        data.length &&
+        data.map(datum => {
+          return {
+            ...datum,
+            status: 'N'
+          }
+        })
+      )
+    }
+  
+    fetchDashBoardFeatures = async () => {
+      try {
+        const response = await this.props.fetchDashboardFeatures(
+          DASHBOARD_FEATURE
+        )
+        let adminUpdateData = {...this.state.adminUpdateData}
+        adminUpdateData['adminDashboardRequestDTOS']=this.formDashBoardData(response.data)
+        await this.setState({
+          adminUpdateData:{...adminUpdateData}
+        })
+      } catch (e) {
+        console.log(e)
+      }
+    }
 
     componentDidMount () {
       this.initialAPICalls()
+      this.fetchDashBoardFeatures()
     }
 
     componentWillUnmount () {
@@ -1090,6 +1165,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminDeleteErrorMessage
       } = this.props.CompanyAdminDeleteReducer
       const {isCreateAdminLoading} = this.props.CompanyAdminSetupReducer
+      const {
+        isDashboardFeatureLoading,
+        dashboardFeatureErrorMessage
+      } = this.props.DashboardFeaturesReducer
       const {
         adminUpdateData,
         errorMessageForAdminMobileNumber,
@@ -1147,7 +1226,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               viewProfileDetails: this.handleViewProfileDetails,
               onPasswordReset: this.onPasswordReset,
               resetModalState: this.resetAdminUpdateDataFromState,
-              setImageShowModal: this.setImageShowModal
+              setImageShowModal: this.setImageShowModal,
+              isDashboardFeatureLoading:isDashboardFeatureLoading,
+              dashboardFeatureData:adminUpdateData.adminDashboardRequestDTOS,
+              dashboardFeatureErrorMessage:dashboardFeatureErrorMessage,
+              onChangeDashBoardRole:this.onChangeDashBoardRole
             }}
             searchFilter={{
               onInputChange: this.handleSearchFormChange,
@@ -1241,7 +1324,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       'CompanyAdminPreviewReducer',
       'CompanyAdminSetupReducer',
       'CompanyAdminMetaInfoReducer',
-      'CompanyProfilePreviewReducer'
+      'CompanyProfilePreviewReducer',
+      'DashboardFeaturesReducer'
     ],
     {
       fetchActiveCompanyProfileListByCompanyIdForDropdown,
@@ -1256,7 +1340,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       previewCompanyAdmin,
       previewCompanyProfileById,
       fetchCompanyProfileListForDropdown,
-      resetPassword
+      resetPassword,
+      fetchDashboardFeatures,
+      fetchDashboardFeaturesByAdmin
     }
   )
 }

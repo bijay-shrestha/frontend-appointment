@@ -35,8 +35,17 @@ const CompanyAdminInfoForm = ({
   viewProfileDetails,
   showImageUploadModal,
   setImageShowModal,
-  isCreateAdminLoading
+  isCreateAdminLoading,
+  isDashboardFeatureLoading,
+  dashboardFeatureData,
+  dashboardFeatureErrorMessage,
+  onChangeDashBoardRole
 }) => {
+  const dashData = dashboardFeatureData
+    ? dashboardFeatureData.length
+      ? dashboardFeatureData
+      : []
+    : []
 
   return (
     <>
@@ -279,7 +288,41 @@ const CompanyAdminInfoForm = ({
                   ) : (
                     ''
                   )}
-
+                  <Col
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    className="py-4 dash-roles-container"
+                  >
+                    {dashData && dashData.length ? (
+                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                    ) : null}
+                    <div>
+                      {!isDashboardFeatureLoading &&
+                      !dashboardFeatureErrorMessage &&
+                      dashData.length ? (
+                        dashboardFeatureData.map((dash, ind) => {
+                          return (
+                            <CCheckbox
+                              checked={dash.status === 'Y'}
+                              id={'dash-radio' + dash.id + ind}
+                              label={dash.name}
+                              type="radio"
+                              value={dash.code}
+                              name="role-dashboard"
+                              onChange={event =>
+                                onChangeDashBoardRole(event, dash)
+                              }
+                              className="module"
+                            />
+                          )
+                        })
+                      ) : dashboardFeatureErrorMessage &&
+                        !isDashboardFeatureLoading ? (
+                        <p>{dashboardFeatureErrorMessage}</p>
+                      ) : null}
+                    </div>
+                  </Col>
                   <Col lg={12}>
                     {adminInfoObj.hasMacBinding ? (
                       <>

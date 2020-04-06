@@ -170,6 +170,30 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                     )}
                   </Col>
 
+                  <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                    {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
+                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                    ) : null}
+                    <div>
+                      {adminInfoObj &&
+                       adminInfoObj.adminDashboardRequestDTOS.length
+                        ? adminInfoObj.adminDashboardRequestDTOS.map(
+                            (dash, ind) => {
+                              return dash.status === 'Y' ? (
+                                <div>
+                                <i className=" fa fa-check"></i> &nbsp; {dash.name} 
+                                </div>
+                              ) : (
+                                <div>
+                                <i className=" fa fa-close"></i>&nbsp; {dash.name}
+                                </div>
+                              )
+                            }
+                          )
+                        : null}
+                    </div>
+                  </Col>
+
                   {adminInfoObj.hasMacBinding && (
                     <Col sm={12} md={12} lg={6}>
                       <>
