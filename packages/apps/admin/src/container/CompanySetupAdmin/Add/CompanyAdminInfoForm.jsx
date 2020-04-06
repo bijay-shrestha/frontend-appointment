@@ -138,7 +138,7 @@ const CompanyAdminInfoForm = ({
                 />
               </Col>
 
-              <Col sm={12} md={12} lg={6}>
+              {/* <Col sm={12} md={12} lg={6}>
                 <CHybridInput
                   id="admin-username"
                   name="username"
@@ -148,7 +148,7 @@ const CompanyAdminInfoForm = ({
                   value={adminInfoObj.username}
                   required={true}
                 />
-              </Col>
+              </Col> */}
 
               <Col sm={12} md={12} lg={6}>
                 <CHybridInput

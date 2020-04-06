@@ -321,7 +321,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         company,
         profile,
         fullName,
-        username,
         email,
         mobileNumber,
         genderCode,
@@ -336,7 +335,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         profile &&
         fullNameValid &&
         fullName &&
-        username &&
         emailValid &&
         email &&
         mobileNumberValid &&
@@ -766,7 +764,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     editApiCall = async () => {
-      this.props.clearAdminSuccessErrorMessagesFromStore();
+      this.props.clearAdminSuccessErrorMessagesFromStore()
       const {
         id,
         company,
@@ -821,9 +819,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         this.resetAdminUpdateDataFromState()
         this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id)
         await this.searchAdmins()
-      } catch (e) {
-
-      }
+      } catch (e) {}
     }
 
     appendSNToTable = adminList =>
@@ -982,7 +978,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         company,
         profile,
         fullName,
-        username,
         email,
         mobileNumber,
         genderCode,
@@ -1002,7 +997,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       let adminRequestDTO = {
         email,
         fullName,
-        username,
         hasMacBinding: hasMacBinding ? 'Y' : 'N',
         companyId: company.value,
         mobileNumber,
@@ -1075,7 +1069,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     render () {
       const {
         activeCompanyProfileListByCompanyIdForDropdown,
-        activeCompanyProfileListForDropdown, 
+        activeCompanyProfileListForDropdown,
         dropdownErrorMessage
       } = this.props.CompanyProfileDropdownReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
