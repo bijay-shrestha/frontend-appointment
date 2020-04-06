@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Redirect} from "react-router-dom";
 import {menuRoles} from "@frontend-appointment/helpers";
+import {CLoading} from "@frontend-appointment/ui-elements";
 
 const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
     class SingleTabComponent extends PureComponent {
@@ -35,18 +36,18 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
             userMenuList.map(
                 userMenu => {
                     let childMenus = userMenu.childMenus;
-                    if (childMenus.length){
-                       let menu = childMenus.find(child => pathWithoutBase.includes(child.path));
-                       if (menu) currentMenu.add(menu);
+                    if (childMenus.length) {
+                        let menu = childMenus.find(child => pathWithoutBase.includes(child.path));
+                        if (menu) currentMenu.add(menu);
                     } else {
-                        if(pathWithoutBase.includes(userMenu.path)) currentMenu.add(userMenu);
+                        if (pathWithoutBase.includes(userMenu.path)) currentMenu.add(userMenu);
                     }
                 }
             );
 
             let menusMatchingPath = Array.from(currentMenu);
-            if (menusMatchingPath.length){
-                menusMatchingPath.map(menu=> filteredAction = [...this.getFilteredRole(menu.roles)])
+            if (menusMatchingPath.length) {
+                menusMatchingPath.map(menu => filteredAction = [...this.getFilteredRole(menu.roles)])
             }
 
             this.setState({
@@ -79,7 +80,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
                         </>
                     )
                     : isLoading && !unauthorized ? (
-                        <div>loading</div>
+                        <div><CLoading/></div>
                     )
                     : (
                         <Redirect to="/unauthorized"/>
