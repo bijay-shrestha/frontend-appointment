@@ -6,7 +6,7 @@ import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 import PatientWithAge from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
-
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
@@ -173,8 +173,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableRefundStatus,
-                                appointmentDateAndTimeRenderer: AppointmentDateWithTime,
-                                patientWithAgeRenderer: PatientWithAge
+                                appointmentDateAndTimeRenderer:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
+                                patientWithAgeRenderer: PreviewHandlerHoc(PatientWithAge,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}
