@@ -4,6 +4,7 @@ import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middlewa
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './qualification.scss'
+import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 
 const {
     clearQualificationCreateMessage,
@@ -11,12 +12,13 @@ const {
     deleteQualification,
     editQualification,
     fetchActiveCountryCodeForDropdown,
-    fetchActiveQualificationAliasForDropdown,
     fetchActiveQualificationsForDropdown,
     fetchActiveUniversityForDropdown,
     previewQualification,
     searchQualification
-} = QualificationSetupMiddleware
+} = QualificationSetupMiddleware;
+
+const {fetchActiveQualificationAliasForDropdown} = QualificationAliasSetupMiddleware;
 const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
