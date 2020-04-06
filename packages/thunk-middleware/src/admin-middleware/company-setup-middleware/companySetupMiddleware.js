@@ -18,7 +18,9 @@ export const saveCompany = (path, data, formData) => async dispatch => {
   } catch (e) {
     const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
     dispatch(CompanySetupActions.saveCompanyError(error))
+    throw e;
   }
+ 
 }
 
 export const updateCompany = (path, data, formData) => async dispatch => {

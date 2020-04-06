@@ -43,8 +43,8 @@ const DetailsModal = ({type, companyData}) => {
   } else {
     images = [
       {
-        src: companyData.hospitalLogoUrl
-          ? companyData.hospitalLogoUrl
+        src: companyData.companyLogoUrl
+          ? companyData.companyLogoUrl
           : DefaultProfileImage,
         alt: 'LOGO',
         width: 4,
@@ -72,8 +72,8 @@ const DetailsModal = ({type, companyData}) => {
         <CForm id="hospital-info" className="mt-2">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={12} lg={12} className="">
-                  <div className="image-upload-container hospital-container">
+              <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
+                  <div className="image-upload-container">
                     <CImageDisplayAndView
                       images={images}
                       className="hospital-logo"
@@ -81,7 +81,7 @@ const DetailsModal = ({type, companyData}) => {
                  
                 </div>
               </Col>
-              <Col lg={12}>
+              <Col sm={12} md={12} lg={9}>
                 <Row>
                   <Col sm={12} md={6} lg={6}>
                     <CHybridInput
@@ -135,17 +135,6 @@ const DetailsModal = ({type, companyData}) => {
                   )}
 
                   <Col sm={12} md={6} lg={6}>
-                    <CFLabel labelName="Company Status" id="status" />
-                    <CRadioButton
-                      checked={companyData.status === 'Y'}
-                      disabled={true}
-                      readOnly={true}
-                      id="radio1"
-                      label="Active"
-                      type="radio"
-                    />
-                  </Col>
-                  <Col sm={12} md={6} lg={6}>
                     <CHybridTextArea
                       key={'contactNumber'}
                       id="contactNumber"
@@ -158,6 +147,19 @@ const DetailsModal = ({type, companyData}) => {
                       // errorMessagePassed={errorMessageForHospitalCode}
                     />
                   </Col>
+
+                  <Col sm={12} md={6} lg={6}>
+                    <CFLabel labelName="Company Status" id="status" />
+                    <CRadioButton
+                      checked={companyData.status === 'Y'}
+                      disabled={true}
+                      readOnly={true}
+                      id="radio1"
+                      label="Active"
+                      type="radio"
+                    />
+                  </Col>
+                 
                 </Row>
               </Col>
             </Row>

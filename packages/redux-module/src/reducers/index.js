@@ -62,7 +62,9 @@ import {
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer
+    DashboardRevenueStatisticsReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer
 } from './admin-module/dashboardDetailsReducer'
 import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer';
 import {
@@ -150,6 +152,8 @@ export {
     DashboardRevenueStatisticsReducer,
     DashboardAppointmentQueueReducer,
     DashboardRevenueGeneratedByDoctorReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer,
     loginReducers,
     ProfileSetupReducer,
     ProfileListReducer,

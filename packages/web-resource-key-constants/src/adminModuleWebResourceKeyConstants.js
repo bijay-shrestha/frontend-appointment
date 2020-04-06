@@ -12,6 +12,14 @@ const APPOINTMENT_BASE = '/appointment'
 const DASHBOARD_BASE = '/dashboard'
 const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
+
+export const initialApiConstantsOfAdmin = {
+  LOGIN_API: BASE.concat("/login"),
+  GET_SIDEBAR_DATA: BASE.concat("/sidebar"),
+  GET_LOGGED_IN_ADMIN_INFO: BASE.concat("/companyAdmin/info"),
+  GET_LOGGED_IN_ADMIN_INFO_CLIENT: BASE.concat("/admin/info"),
+};
+
 export const profileSetupAPIConstants = {
   CREATE_PROFILE: BASE.concat(PROFILE_BASE),
   SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat('/search')),

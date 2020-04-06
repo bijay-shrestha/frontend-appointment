@@ -8,6 +8,7 @@ const PatientStatistics = props => {
   } = props.registeredPatients
   return (
     <>
+    <div className="mt-4">
       <h5 className="title">Patient Statistics</h5>
       <div className="overall-box">
         {!isRegisteredPatientLoading &&
@@ -26,6 +27,7 @@ const PatientStatistics = props => {
             <p>{registeredPatientsErrorMessage}</p>
           </span>
         )}
+      </div>
       </div>
     </>
   )

@@ -161,10 +161,10 @@
           "name": "Qualification Alias Setup",
           "path": "/generalSetup/qualificationAlias",
           "roles": [
-            2,
-            3,
-            4,
-            5
+            10,
+            11,
+            12,
+            13
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -181,10 +181,10 @@
           "name": "University Setup",
           "path": "/generalSetup/universitySetup",
           "roles": [
-            2,
-            3,
-            4,
-            5
+            10,
+            11,
+            12,
+            13
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -207,7 +207,7 @@
         3,
         4,
         5,
-        25
+        8
       ],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
@@ -238,9 +238,9 @@
           "name": "Pending Refund Approval",
           "path": "/appointment/appointmentRefundRequest",
           "roles": [
-            17,
-            18,
-            19
+            12,
+            15,
+            16
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -257,7 +257,7 @@
           "name": "Appointment Check-In",
           "path": "/appointment/appointmentApprovalRequest",
           "roles": [
-            13,
+            12,
             14,
             15
           ],
@@ -276,7 +276,7 @@
           "name": "Appointment Status",
           "path": "/appointment/appointmentStatus",
           "roles": [
-            11
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -310,7 +310,7 @@
           "name": "Appointment Log",
           "path": "/reports/appointmentLog",
           "roles": [
-            9
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -327,7 +327,7 @@
           "name": "Reschedule Log",
           "path": "/reports/rescheduleLog",
           "roles": [
-            21
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -346,8 +346,8 @@
       "name": "Patient Information",
       "path": "/patientInformation",
       "roles": [
-        23,
-        24
+        11,
+        12
       ],
       "icon": "fa fa-bed",
       "leftNavigation": "Y",
@@ -362,7 +362,7 @@
       "id": "20",
       "parentId": null,
       "name": "Company Settings",
-      "path": "/adminSetup",
+      "path": "/companySettings",
       "roles": [],
       "icon": "fa fa-building-o",
       "leftNavigation": "Y",

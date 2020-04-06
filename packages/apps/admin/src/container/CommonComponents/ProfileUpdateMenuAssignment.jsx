@@ -496,7 +496,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                     className="assign-header">
                                                     <CCheckbox
                                                         id={tab.id}
-                                                        label={tab.name}
+                                                        label={tab.name ? tab.name : this.state.currentSelectedChildMenu.name}
                                                         checked={tab.isChecked}
                                                         className="check-all"
                                                         onChange={() => this.handleTabsAndRolesCheck(false, tab)}

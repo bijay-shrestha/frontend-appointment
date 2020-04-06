@@ -24,7 +24,6 @@ const DoctorRevenueList = props => {
     fromDate,
     toDate,
     handleDateChange,
-    hospitalId,
     handleSpecializationChange,
     specializationId,
     specializationListHospitalWise,
@@ -33,19 +32,17 @@ const DoctorRevenueList = props => {
   } = props.doctorRevenue
   return (
     <>
-      
-        <div className="doctor-revenue">
-          <h5 className="title">Doctor Revenue</h5>
-          <div className="app-log">
-          {hospitalId.value ? (
-            <>
+      <div className="doctor-revenue">
+        <h5 className="title">Doctor Revenue</h5>
+        <div className="app-log">
+          <>
             <Row>
-              <Col className="">
+              <Col className="px-0">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
-                    <Col className="px-0">
-                    <div className="hospital-list-input">
-                      <CHybridSelect
+                    <Col>
+                      <div className="hospital-list-input">
+                        <CHybridSelect
                           name="specializationId"
                           placeholder="Select Specialization"
                           // label="Select Specialization"
@@ -65,52 +62,45 @@ const DoctorRevenueList = props => {
                           value={doctorId}
                         ></CHybridSelect>
                       </div>
-                     
-                      </Col>
-
+                    </Col>
                   </Form.Group>
                 </Form>
               </Col>
 
               <Col className="date">
-                      
-                      <div className="">
-                        <CEnglishDatePicker
-                          id="from-date"
-                          name="fromDate"
-                          label="From Date"
-                          dateFormat="yyyy-MM-dd"
-                          showDisabledMonthNavigation={true}
-                          selected={fromDate}
-                          peekNextMonth={true}
-                          showMonthDropdown={true}
-                          showYearDropdown={true}
-                          dropdownMode="select"
-                          onKeyDown={event => this.handleEnter(event)}
-                          onChange={date => handleDateChange(date, 'fromDate')}
-                        />{' '}
-                      <div className="separator-date">To</div>
-                        <CEnglishDatePicker
-                          id="to-date"
-                          name="toDate"
-                          label="To Date"
-                          dateFormat="yyyy-MM-dd"
-                          showDisabledMonthNavigation={true}
-                          selected={toDate}
-                          peekNextMonth={true}
-                          showMonthDropdown={true}
-                          showYearDropdown={true}
-                          dropdownMode="select"
-                          onChange={date => handleDateChange(date, 'toDate')}
-                        />
-
-                      </div>
-                    </Col>
-              
-
+                <div className="">
+                  <CEnglishDatePicker
+                    id="from-date"
+                    name="fromDate"
+                    label="From Date"
+                    dateFormat="yyyy-MM-dd"
+                    showDisabledMonthNavigation={true}
+                    selected={fromDate}
+                    peekNextMonth={true}
+                    showMonthDropdown={true}
+                    showYearDropdown={true}
+                    dropdownMode="select"
+                    onKeyDown={event => this.handleEnter(event)}
+                    onChange={date => handleDateChange(date, 'fromDate')}
+                  />{' '}
+                  <div className="separator-date">To</div>
+                  <CEnglishDatePicker
+                    id="to-date"
+                    name="toDate"
+                    label="To Date"
+                    dateFormat="yyyy-MM-dd"
+                    showDisabledMonthNavigation={true}
+                    selected={toDate}
+                    peekNextMonth={true}
+                    showMonthDropdown={true}
+                    showYearDropdown={true}
+                    dropdownMode="select"
+                    onChange={date => handleDateChange(date, 'toDate')}
+                  />
+                </div>
+              </Col>
             </Row>
 
-           
             <Row>
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
@@ -132,15 +122,14 @@ const DoctorRevenueList = props => {
                           sortable: true,
                           sizeColumnsToFit: true,
                           cellRenderer: 'doctorwithSpecializationRenderer',
-                          width:400,
+                          width: 400
                         },
                         {
                           headerName: 'No of Appointments',
                           field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true,
-                       
+                          sizeColumnsToFit: true
                         },
                         {
                           headerName: 'Revenue Amout',
@@ -165,15 +154,21 @@ const DoctorRevenueList = props => {
                       // dataSource={()=>handlePageChange(queryParams.page++)}
                     />
 
-            <Row>
-              <Col className="">
-                <div>
-                  {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
+                    <Row>
+                      <Col className="">
+                        <div>
+                          {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
                   {toDate.toDateString()} */}
-                  <span className="pull-left rev-total"> Total Appointment : {doctorTotalAppointments}</span>
-                  <span className="pull-right rev-total">Total RevenueAmount : Rs. {doctorTotalRevenueAmount}</span>
-                </div>
-              </Col></Row>
+                          <span className="pull-left rev-total">
+                            {' '}
+                            Total Appointment : {doctorTotalAppointments}
+                          </span>
+                          <span className="pull-right rev-total">
+                            Total RevenueAmount : Rs. {doctorTotalRevenueAmount}
+                          </span>
+                        </div>
+                      </Col>
+                    </Row>
 
                     <CPagination
                       totalItems={totalRecords}
@@ -194,20 +189,9 @@ const DoctorRevenueList = props => {
                 )}
               </div>
             </Row>
-          
           </>
-          ) : (
-            <div className="filter-message">
-            <div className="no-data">
-                <i class="fa fa-hand-o-up"></i>
-            </div>
-            <div className="message">Please select hosptial!.</div>
         </div>
-            )}
-         </div>
-        </div>
-     
-   
+      </div>
     </>
   )
 }

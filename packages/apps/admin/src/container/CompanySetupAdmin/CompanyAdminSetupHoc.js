@@ -45,20 +45,20 @@ const {
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
 
 const {
-  CHANGE_PASSWORD,
+  //CHANGE_PASSWORD,
   CREATE_COMPANY_ADMIN,
   DELETE_COMPANY_ADMIN,
   EDIT_COMPANY_ADMIN,
   FETCH_COMPANY_ADMIN_META_INFO,
-  FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
-  GET_LOGGED_IN_COMPANY_ADMIN_INFO,
+  // FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
+  // GET_LOGGED_IN_COMPANY_ADMIN_INFO,
   PREVIEW_COMPANY_ADMIN,
   RESET_PASSWORD,
-  SAVE_COMPANY_ADMIN_PASSWORD,
+  //SAVE_COMPANY_ADMIN_PASSWORD,
   SEARCH_COMPANY_ADMIN,
-  UPDATE_COMPANY_ADMIN_AVATAR,
-  UPDATE_COMPANY_ADMIN_PASSWORD,
-  VERIFY_COMPANY_ADMIN
+  // UPDATE_COMPANY_ADMIN_AVATAR,
+  // UPDATE_COMPANY_ADMIN_PASSWORD,
+  // VERIFY_COMPANY_ADMIN
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
 
@@ -1014,7 +1014,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       let formData = new FormData()
       formData.append(
         'file',
-        new File([adminAvatar], username.concat('-picture.jpeg'))
+        new File([adminAvatar], email.concat('-picture.jpeg'))
       )
       try {
         await this.props.createCompanyAdmin(

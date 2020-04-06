@@ -70,13 +70,13 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                  
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
-                                            id="hospitalId"
+                                            id="clientId"
                                             name="hospitalId"
-                                            label="Select Hospital"
-                                            placeholder="Select Hospital"
+                                            label="Client"
+                                            placeholder="Select Client"
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}
@@ -140,7 +140,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="doctorId"
@@ -156,7 +156,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                              
+
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput

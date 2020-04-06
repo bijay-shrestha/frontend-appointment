@@ -41,12 +41,14 @@ const AppointmentStatistics = props => {
           <>
             {' '}
             <Row>
+              <Col className="date-group">
               <CDateButtonPills
                 onPillsClickHandler={props.onPillsClickHandler}
                 type={props.type}
                 variant="outline-secondary"
                 data={props.appointmentFilter}
               />
+              </Col>
               <Col className="date">
                 <div>
                   <span>From :</span> {fromDate.fromDate.toDateString()}
