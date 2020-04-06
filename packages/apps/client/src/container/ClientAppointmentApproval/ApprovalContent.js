@@ -83,14 +83,6 @@ const ApprovalContent = ({approvalData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id=""
-                                    placeholder="Patient Name"
-                                    value={approvalData.patientName || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
                                     value={
