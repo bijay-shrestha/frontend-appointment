@@ -373,7 +373,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             const {
                 isRefundListLoading,
                 refundList,
-                refundErrorMessage
+                refundErrorMessage,
+                totalRefundAmount
             } = this.props.AppointmentRefundListReducer;
 
             const {
@@ -437,7 +438,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                             isRefundLoading: isRefundLoading,
                             refundConfirmationModal: refundConfirmationModal,
                             rejectModalShow: rejectModalShow,
-                            remarks: refundRejectRequestDTO.remarks
+                            remarks: refundRejectRequestDTO.remarks,
+                            totalRefundAmount
                         }}
                     />
                     <CAlert

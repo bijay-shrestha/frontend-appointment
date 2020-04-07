@@ -32,7 +32,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandleApi,
         refundRejectError,
         refundConfirmationModal,
-        remarks
+        remarks,
+        totalRefundAmount
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
 
@@ -156,6 +157,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowSelection={'single'}
                             rowData={appointmentRefundList}
                         />
+                        <div className="my-4 ml-0 mr-4">
+                            <span className="total-amount">
+                            Total Amount : Rs {totalRefundAmount}
+                            </span>
+                        </div>
                         <CPagination
                             totalItems={totalRecords}
                             maxSize={queryParams.size}
