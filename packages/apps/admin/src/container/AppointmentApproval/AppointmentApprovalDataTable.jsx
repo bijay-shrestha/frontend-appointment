@@ -182,9 +182,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization,()=>{},filteredActions,1,previewCall),
-                                AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,()=>{},filteredActions,1,previewCall),
-                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,()=>{},filteredActions,1,previewCall)
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization,null,null,null,previewCall),
+                                AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
+                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

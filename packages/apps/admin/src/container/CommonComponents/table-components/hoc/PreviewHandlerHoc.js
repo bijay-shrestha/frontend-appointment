@@ -11,10 +11,14 @@ const PreviewHandlerHoc = (
     const {node} = props;
   
     const previewClickHandler = (e)=>{
-    //  if(checkIfRoleExists(filteredActions,roleId)){
-        const data = node.data?node.data.id?node.data.id:node.data:null;
-         onPreviewHandler(data)
-     //}
+        const data = node.data ? (node.data.id ? node.data.id : node.data) : null
+        if (!checkIfRoleExists) {
+          onPreviewHandler(data)
+        } else {
+          if (checkIfRoleExists(filteredActions, roleId)) {
+            onPreviewHandler(data)
+          }
+        }
     }
     return (ComposedComponent ? (
       <div

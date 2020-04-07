@@ -79,7 +79,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         previewApiCall = async data => {
             await this.props.fetchAppointmentApprovalDetailByAppointmentId(
-                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,data.appointmentId)
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,data)
         };
 
         previewCall = async data => {
@@ -164,6 +164,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     ...spec,
                     patientMobileNumber:spec.mobileNumber,
                     sN: index + 1,
+                    id:spec.appointmentId,
                     registrationNumber:spec.registrationNumber||'N/A'
                 }));
             return newRefundList
