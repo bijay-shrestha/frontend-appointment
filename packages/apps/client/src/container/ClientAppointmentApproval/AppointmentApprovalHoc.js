@@ -79,7 +79,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         previewApiCall = async data => {
             await this.props.fetchAppointmentApprovalDetailByAppointmentId(
+<<<<<<< HEAD
                 appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,data)
+=======
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL, data.appointmentId)
+>>>>>>> 58e7c83604967479da2ae221293dc3e5a1f3f658
         };
 
         previewCall = async data => {
@@ -88,7 +92,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     showModal: true
                 })
-            }catch (e) {
+            } catch (e) {
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -162,10 +166,14 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 refundList.length &&
                 refundList.map((spec, index) => ({
                     ...spec,
-                    patientMobileNumber:spec.mobileNumber,
+                    patientMobileNumber: spec.mobileNumber,
                     sN: index + 1,
+<<<<<<< HEAD
                     id:spec.appointmentId,
                     registrationNumber:spec.registrationNumber||'N/A'
+=======
+                    registrationNumber: spec.registrationNumber || 'N/A'
+>>>>>>> 58e7c83604967479da2ae221293dc3e5a1f3f658
                 }));
             return newRefundList
         };
@@ -254,12 +262,13 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        approveHandler = data => {
+        approveHandler = async data => {
+            await this.previewApiCall(data);
             this.props.clearAppointmentApproveMessage();
             this.setState({
                 approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
-                appointmentDetails: {...data}
+                appointmentDetails: {...this.props.AppointmentDetailReducer.appointmentDetail}
             })
         };
 
@@ -391,7 +400,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer;
 
-            const {appointmentDetail}= this.props.AppointmentDetailReducer;
+            const {appointmentDetail} = this.props.AppointmentDetailReducer;
 
             return (
                 <div id="appointment-approval">
