@@ -97,14 +97,14 @@ const DetailsModal = ({refundData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="remarks"
-                                    placeholder="Remarks"
-                                    value={refundData.remarks}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id="remarks"*/}
+                            {/*        placeholder="Remarks"*/}
+                            {/*        value={refundData.remarks}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
                         </Row>
                     </Container-fluid>
                 </CForm>

@@ -36,7 +36,11 @@ const {
     APPROVAL_DETAIL_FETCH_SUCCESS,
     APPROVAL_DETAIL_FETCH_ERROR,
     APPROVAL_DETAIL_FETCH_START,
-    CLEAR_APPROVAL_DETAIL_MESSAGE
+    CLEAR_APPROVAL_DETAIL_MESSAGE,
+    REFUND_DETAIL_FETCH_SUCCESS,
+    REFUND_DETAIL_FETCH_START,
+    REFUND_DETAIL_FETCH_ERROR,
+    CLEAR_REFUND_DETAIL_MESSAGE
 } = appointmentDetailsConstants;
 
 const initialState = {
@@ -100,10 +104,16 @@ const appointmentRejectState = {
     appointmentRejectErrorMessage: ''
 };
 
-const appointmentDetailState = {
+const appointmentApprovalDetailState = {
     isAppointmentDetailFetchLoading: false,
     appointmentDetail: {},
     appointmentDetailErrorMessage: ''
+};
+
+const appointmentRefundDetailState = {
+    isRefundDetailFetchLoading: false,
+    refundDetail: {},
+    refundDetailErrorMessage: ''
 };
 
 export const AppointmentRefundListReducer = (
@@ -205,7 +215,7 @@ export const AppointmentRefundReducer = (state = {...refundState}, action) => {
             return {
                 ...state,
                 refundSuccess: '',
-                refundError: action.payload.data.message,
+                refundError: action.payload.data,
                 isRefundLoading: false
             }
         case 'CLEAR_REFUND_MESSAGE':
@@ -463,7 +473,7 @@ export const AppointmentApproveReducer = (
     }
 };
 
-export const AppointmentDetailReducer = (state = {...appointmentDetailState}, action) => {
+export const AppointmentDetailReducer = (state = {...appointmentApprovalDetailState}, action) => {
     switch (action.type) {
         case APPROVAL_DETAIL_FETCH_START:
             return {
@@ -495,3 +505,37 @@ export const AppointmentDetailReducer = (state = {...appointmentDetailState}, ac
             return {...state}
     }
 };
+
+export const AppointmentRefundDetailReducer = (state = {...appointmentRefundDetailState}, action) => {
+    switch (action.type) {
+        case REFUND_DETAIL_FETCH_START:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: true,
+                refundDetail: {},
+                refundDetailErrorMessage: ''
+            };
+        case REFUND_DETAIL_FETCH_SUCCESS:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: false,
+                refundDetail: {...action.payload.data},
+                refundDetailErrorMessage: ''
+            };
+        case REFUND_DETAIL_FETCH_ERROR:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: false,
+                refundDetail: {},
+                refundDetailErrorMessage: action.payload.errorMessage
+            };
+        case CLEAR_REFUND_LIST_MESSAGE:
+            return {
+                ...state,
+                refundDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+
