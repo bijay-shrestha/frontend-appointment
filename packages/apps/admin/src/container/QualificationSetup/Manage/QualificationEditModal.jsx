@@ -28,6 +28,23 @@ const DepartmentEditModal = ({
     <>
       <CForm id="qualification-info" className="mt-2">
         <Row>
+
+          <Col sm={12} md={12} lg={4}>
+            <CHybridSelect
+                id="University Id"
+                name="universityId"
+                label={"University"}
+                onKeyDown={event => onEnterKeyPress(event)}
+                onChange={(event) =>
+                    onInputChange(event, '', 'E')
+                }
+                placeholder="Select a University Id"
+                value={qualificationData.universityId}
+                options={universitiesDropdown}
+                required={true}
+            />
+          </Col>
+
           <Col sm={12} md={12} lg={4}>
             <CHybridInput
               id="qualification-name"
@@ -46,30 +63,16 @@ const DepartmentEditModal = ({
           </Col>
           <Col sm={12} md={12} lg={4}>
             <CHybridSelect
-              id="Qualificaiton Alias"
+              id="qualificationAlias"
               name="qualificationAliasId"
+              label={"Qualification Alias"}
               onKeyDown={event => onEnterKeyPress(event)}
               onChange={(event) =>
                 onInputChange(event, '', 'E')
               }
-              placeholder="Select a Qualification Alias"
+              placeholder="Select Qualification Alias"
               options={qualificationsAliasForDropdown}
               value={qualificationData.qualificationAliasId}
-              required={true}
-            />
-          </Col>
-
-          <Col sm={12} md={12} lg={4}>
-            <CHybridSelect
-              id="University Id"
-              name="universityId"
-              onKeyDown={event => onEnterKeyPress(event)}
-              onChange={(event) =>
-                onInputChange(event, '', 'E')
-              }
-              placeholder="Select a University Id"
-              value={qualificationData.universityId}
-              options={universitiesDropdown}
               required={true}
             />
           </Col>
@@ -150,7 +153,7 @@ const DepartmentEditModal = ({
     <>
       <CModal
         show={showModal}
-        modalHeading="Qualification Details"
+        modalHeading="Edit Qualification"
         size="lg"
         bodyChildren={bodyContent}
         onHide={setShowModal}
