@@ -3,6 +3,8 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {CountryMiddleware, UniversitySetupMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
+import {CAlert} from "@frontend-appointment/ui-elements";
+import * as Material from 'react-icons/md';
 
 const {
     clearSuccessErrorMessageFormStore,
@@ -58,19 +60,34 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         defaultUniversityData = {
             id: '',
             name: '',
-            status: {value: 'Y', label: 'Active'},
+            status: {label: 'Active', value: 'Y'},
             address: '',
             countryName: '',
             remarks: '',
             isNew: true
         };
 
-        checkFormValidity = () => {
-            const {name, address, country, status} = this.state;
-            let formValid = name && status && address && country && country.value;
+        actionsOnOperationComplete = () => {
+            this.resetUniversityData();
+            this.searchUniversities();
+        };
+
+        // checkFormValidity = () => {
+        //     const {name, address, country, status} = this.state;
+        //     let formValid = name && status && address && country && country.value;
+        //     this.setState({
+        //         formValid: Boolean(formValid)
+        //     })
+        // };
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        };
+
+        closeAlert = () => {
             this.setState({
-                formValid: Boolean(formValid)
-            })
+                showAlert: false
+            });
         };
 
         fetchUniversityListForDropDown = async () => {
@@ -125,8 +142,6 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                         [key]: value
                         // , [key + "Valid"]: fieldValid
                     });
-
-                this.checkFormValidity();
             }
         };
 
@@ -152,10 +167,59 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             await this.searchUniversities();
         };
 
+        handleCancel = () => {
+            this.resetUniversityData();
+        };
+
         initialApiCalls = async () => {
             await this.fetchUniversityListForDropDown();
             await this.fetchCountryListForDropDown();
             await this.searchUniversities();
+        };
+
+        resetUniversityData = () => {
+            this.defaultUniversityData.id = '';
+            this.defaultUniversityData.name = '';
+            this.defaultUniversityData.status = '';
+            this.defaultUniversityData.address = '';
+            this.defaultUniversityData.countryName = '';
+            this.defaultUniversityData.remarks = '';
+            this.defaultUniversityData.isNew = true;
+
+            // FOR EDIT
+            this.setState({
+                address: "",
+                countryName: null,
+                name: "",
+                status: "Y",
+                remarks: "",
+            })
+        };
+
+        saveUniversitySetup = async (saveData) => {
+            const {name, address, countryName, status} = saveData.data;
+
+            this.setDefaultValues(name, address, countryName, status, '');
+
+            if (!name || !status || !address || !countryName) {
+                this.validateUniversityData(name, address, countryName, status);
+            } else {
+                let requestDTO = {
+                    name: name,
+                    address: address,
+                    countryId: countryName && countryName.value,
+                    status: status && status.value
+                };
+                try {
+                    const response = await this.props.saveUniversity(SAVE_UNIVERSITY, requestDTO);
+                    this.showAlertMessage("success", this.props.UniversitySaveReducer.saveSuccessMessage);
+                    this.actionsOnOperationComplete();
+                    return true;
+                } catch (e) {
+                    this.showAlertMessage("danger", this.props.UniversitySaveReducer.saveErrorMessage);
+                    return false;
+                }
+            }
         };
 
         searchUniversities = async (page) => {
@@ -193,15 +257,55 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
         };
 
+        setDefaultValues = (name, address, countryName, status, id) => {
+            this.defaultUniversityData.name = name;
+            this.defaultUniversityData.address = address;
+            this.defaultUniversityData.countryName = countryName;
+            this.defaultUniversityData.status = status;
+            this.defaultUniversityData.id = id;
+        };
+
+        showAlertMessage = (type, message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
+                }
+            });
+            this.clearAlertTimeout();
+        };
+
+        validateUniversityData = (name, address, countryName, status) => {
+            if (!name && !address && !countryName && !status)
+                this.showAlertMessage("warning", "Name, Address, Country and Status must be not empty.");
+            else if (!name && !address && !countryName)
+                this.showAlertMessage("warning", "Name, Address and Country should not  be empty.");
+            else if (!name)
+                this.showAlertMessage("warning", "Name should not  be empty.");
+            else if (!address)
+                this.showAlertMessage("warning", "Address should not  be empty.");
+            else if (!countryName)
+                this.showAlertMessage("warning", "Country should not  be empty.");
+            else if (!status)
+                this.showAlertMessage("warning", "Status should not  be empty.")
+        };
+
         componentDidMount() {
             this.initialApiCalls();
         }
+
+        componentWillUnmount() {
+            clearTimeout(this.alertTimer);
+        }
+
 
         render() {
 
             const {
                 searchParameters, queryParams, totalRecords,
-                formValid
+                formValid,
+                alertMessageInfo, showAlert
             } = this.state;
 
             const {
@@ -242,13 +346,23 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                             handlePageChange: this.handlePageChange,
                             universityData: this.defaultUniversityData,
                             formValid: formValid,
-                            countryList
-                            // handleCancel,
+                            countryList,
+                            handleSave: this.saveUniversitySetup,
+                            handleCancel: this.handleCancel,
                             // handleEdit,
-                            // handleSave,
                             // handleUpdate,
                             // handleDelete,
                         }}
+                    />
+                    <CAlert
+                        id="profile-manage"
+                        variant={alertMessageInfo.variant}
+                        show={showAlert}
+                        onClose={this.closeAlert}
+                        alertType={alertMessageInfo.variant === "success" ? <><Material.MdDone/>
+                        </> : <><i className="fa fa-exclamation-triangle" aria-hidden="true"/>
+                        </>}
+                        message={alertMessageInfo.message}
                     />
                 </>
             </>

@@ -361,6 +361,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.initialApiCalls();
         }
 
+        componentWillUnmount() {
+            clearTimeout(this.alertTimer);
+        }
+
         render() {
 
             const {
