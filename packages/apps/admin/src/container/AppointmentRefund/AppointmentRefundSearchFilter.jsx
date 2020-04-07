@@ -6,7 +6,7 @@ import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 class AppointmentApprovalListSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
-    }
+    };
 
     toggleSearchForm = async () => {
         const searchFilter = document.getElementById('advanced-search')
@@ -14,15 +14,15 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
         })
-    }
+    };
 
     handleSearchButtonClick = () => {
-        this.props.searchHandler.searchAppointment(1)
+        this.props.searchHandler.searchAppointment(1);
         this.toggleSearchForm()
-    }
+    };
 
     render() {
-        const {searchHandler} = this.props
+        const {searchHandler} = this.props;
         const {
             handleEnter,
             handleSearchFormChange,
@@ -35,14 +35,14 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
             searchParameters,
             patientListDropdown,
             patientDropdownErrorMessage
-        } = searchHandler
+        } = searchHandler;
 
         return (
             <>
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Refund List</h5>
+                            <h5 className="title">Search Appointment Refund</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -63,8 +63,8 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         <CHybridSelect
                                             id="hospitalId"
                                             name="hospitalId"
-                                            label="Hospital"
-                                            placeholder={hospitalsDropdown.length ? "Select Hospital" : "No hospital(s)."}
+                                            label="Client"
+                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No Client(s)."}
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}

@@ -6,7 +6,7 @@ import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 class AppointmentApprovalListSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
-    }
+    };
 
     toggleSearchForm = async () => {
         const searchFilter = document.getElementById('advanced-search')
@@ -14,15 +14,15 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
         })
-    }
+    };
 
     handleSearchButtonClick = () => {
-        this.props.searchHandler.searchAppointment(1)
+        this.props.searchHandler.searchAppointment(1);
         this.toggleSearchForm()
-    }
+    };
 
     render() {
-        const {searchHandler} = this.props
+        const {searchHandler} = this.props;
         const {
             handleEnter,
             handleSearchFormChange,
@@ -41,7 +41,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Refund List</h5>
+                            <h5 className="title">Search Appointment Refund</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -170,24 +170,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Patient Category"
-                  label="Patient Category"
-                  name="Patient Category"
-                  placeholder="Select Patient Category."
-                />
-              </Col> */}
-
-                                    {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Status"
-                  label="Status"
-                  name="Status"
-                  placeholder="Select Status."
-                />
-              </Col> */}
-
                                     <Col
                                         sm={12}
                                         md={{span: 8, offset: 4}}
@@ -208,7 +190,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
