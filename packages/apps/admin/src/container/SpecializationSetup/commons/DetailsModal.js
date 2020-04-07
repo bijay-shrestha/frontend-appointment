@@ -23,7 +23,7 @@ const DetailsModal = ({specializationData, type}) => {
                                 <CHybridInput
                                     id="hospital"
                                     name="hospitalId"
-                                    placeholder="Hospital"
+                                    placeholder="Client Name"
                                     value={typeof specializationData.hospitalId === 'object' ?
                                         (specializationData.hospitalId && specializationData.hospitalId.label) : specializationData.hospitalName}
                                     disabled={true}
