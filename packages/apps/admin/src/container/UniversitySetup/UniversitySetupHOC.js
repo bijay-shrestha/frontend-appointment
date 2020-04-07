@@ -31,7 +31,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
         state = {
             address: "",
-            country: null,
+            countryName: null,
             name: "",
             status: "Y",
             remarks: "",
@@ -54,6 +54,16 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         };
 
         alertTimer = '';
+
+        defaultUniversityData = {
+            id: '',
+            name: '',
+            status: {value: 'Y', label: 'Active'},
+            address: '',
+            countryName: '',
+            remarks: '',
+            isNew: true
+        };
 
         checkFormValidity = () => {
             const {name, address, country, status} = this.state;
@@ -145,6 +155,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         initialApiCalls = async () => {
             await this.fetchUniversityListForDropDown();
             await this.fetchCountryListForDropDown();
+            await this.searchUniversities();
         };
 
         searchUniversities = async (page) => {
@@ -188,7 +199,10 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
         render() {
 
-            const {searchParameters} = this.state;
+            const {
+                searchParameters, queryParams, totalRecords,
+                formValid
+            } = this.state;
 
             const {
                 isCountryDropdownPending,
@@ -199,23 +213,44 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             const {isFetchUniversityLoading, activeUniversityForDropdown, dropdownErrorMessage}
                 = this.props.UniversityDropdownReducer;
 
+            const {universityList, isSearchUniversityLoading, searchErrorMessage} = this.props.UniversitySearchReducer;
+
             return <>
-                <ComposedComponent
-                    {...props}
-                    searchParams={{
-                        countryList,
-                        countryDropdownErrorMessage: countryDropdownMessage,
-                        searchParameters,
-                        universityList: activeUniversityForDropdown,
-                        universityDropdownErrorMessage: dropdownErrorMessage,
-                        isCountryDropdownPending,
-                        isFetchUniversityLoading,
-                        onInputChange: this.handleInputChange,
-                        resetSearchForm: this.handleResetSearchForm,
-                        handleEnter: this.handleEnter,
-                        onSearchClick: this.searchUniversities
-                    }}
-                />
+                <>
+                    <ComposedComponent
+                        {...props}
+                        searchParams={{
+                            countryList,
+                            countryDropdownErrorMessage: countryDropdownMessage,
+                            searchParameters,
+                            universityList: activeUniversityForDropdown,
+                            universityDropdownErrorMessage: dropdownErrorMessage,
+                            isCountryDropdownPending,
+                            isFetchUniversityLoading,
+                            onInputChange: this.handleInputChange,
+                            resetSearchForm: this.handleResetSearchForm,
+                            handleEnter: this.handleEnter,
+                            onSearchClick: this.searchUniversities
+                        }}
+                        tableData={{
+                            universityList,
+                            isSearchUniversityLoading,
+                            searchErrorMessage,
+                            currentPage: queryParams.page,
+                            maxSize: queryParams.size,
+                            totalItems: totalRecords,
+                            handlePageChange: this.handlePageChange,
+                            universityData: this.defaultUniversityData,
+                            formValid: formValid,
+                            countryList
+                            // handleCancel,
+                            // handleEdit,
+                            // handleSave,
+                            // handleUpdate,
+                            // handleDelete,
+                        }}
+                    />
+                </>
             </>
         }
     }

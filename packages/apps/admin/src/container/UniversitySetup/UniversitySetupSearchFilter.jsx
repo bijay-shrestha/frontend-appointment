@@ -1,9 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-    CButton,
-    CForm,
-    CHybridSelect
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridSelect} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
 class UniversitySetupSearchFilter extends PureComponent {

@@ -405,13 +405,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         handleUpdate: this.openEditRemarksModal,
                         handleUpdateConfirm: this.editQualificationAlias,
                         handleDelete: this.handleDelete,
-                        showEditRemarksModal,
                         handleDeleteSubmit: this.deleteQualificationAlias,
-                        onRemarksModalClose: this.closeModal,
-                        editErrorMessage,
                         formValid,
-                        deleteErrorMessage,
-                        showDeleteModal
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,
