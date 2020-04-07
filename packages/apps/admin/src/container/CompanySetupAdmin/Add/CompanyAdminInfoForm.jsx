@@ -256,6 +256,45 @@ const CompanyAdminInfoForm = ({
                 </div>
               </Col>
 
+              <Col
+                    sm={12}
+                    md={12}
+                    lg={6}
+                    className="py-4 "
+                  >
+                    {dashData && dashData.length ? (
+                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                    ) : null}
+                   
+                      {!isDashboardFeatureLoading &&
+                      !dashboardFeatureErrorMessage &&
+                      dashData.length ? (
+                        dashboardFeatureData.map((dash, ind) => {
+                          return (
+                            <div className="dash-roles-container">
+                            <CCheckbox
+                              checked={dash.status === 'Y'}
+                              id={'dash-radio' + dash.id + ind}
+                              label={dash.name}
+                              type="radio"
+                              value={dash.code}
+                              name="role-dashboard"
+                              onChange={event =>
+                                onChangeDashBoardRole(event, dash)
+                              }
+                              className="module"
+                            />
+                            </div>
+                          )
+                        })
+                      ) : dashboardFeatureErrorMessage &&
+                        !isDashboardFeatureLoading ? (
+                        <p>{dashboardFeatureErrorMessage}</p>
+                      ) : null}
+                   
+                  </Col>
+                 
+
               {/* mac binding inputs */}
               <Col sm={12} md={12} lg={6} className="py-4">
                 <Row>
@@ -265,7 +304,7 @@ const CompanyAdminInfoForm = ({
                       id="admin-add-hasMacBinding"
                       name="hasMacBinding"
                       label="Device Filter"
-                      className="module"
+                      className="module fw-500"
                       checked={adminInfoObj.hasMacBinding}
                       onChange={event => onInputChange(event)}
                       onKeyDown={event => onEnterKeyPress(event)}
@@ -288,42 +327,7 @@ const CompanyAdminInfoForm = ({
                   ) : (
                     ''
                   )}
-                  <Col
-                    sm={12}
-                    md={12}
-                    lg={6}
-                    className="py-4 dash-roles-container"
-                  >
-                    {dashData && dashData.length ? (
-                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
-                    ) : null}
-                    <div>
-                      {!isDashboardFeatureLoading &&
-                      !dashboardFeatureErrorMessage &&
-                      dashData.length ? (
-                        dashboardFeatureData.map((dash, ind) => {
-                          return (
-                            <CCheckbox
-                              checked={dash.status === 'Y'}
-                              id={'dash-radio' + dash.id + ind}
-                              label={dash.name}
-                              type="radio"
-                              value={dash.code}
-                              name="role-dashboard"
-                              onChange={event =>
-                                onChangeDashBoardRole(event, dash)
-                              }
-                              className="module"
-                            />
-                          )
-                        })
-                      ) : dashboardFeatureErrorMessage &&
-                        !isDashboardFeatureLoading ? (
-                        <p>{dashboardFeatureErrorMessage}</p>
-                      ) : null}
-                    </div>
-                  </Col>
-                  <Col lg={12}>
+                   <Col lg={12}>
                     {adminInfoObj.hasMacBinding ? (
                       <>
                         {adminInfoObj.macIdList &&

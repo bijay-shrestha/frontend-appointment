@@ -170,7 +170,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                     )}
                   </Col>
 
-                  <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                  <Col sm={12} md={12} lg={6} className="dash-roles-container">
                     {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
                       <CFLabel labelName="Dashboard Role" id="dashboard-role" />
                     ) : null}
@@ -197,7 +197,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                   {adminInfoObj.hasMacBinding && (
                     <Col sm={12} md={12} lg={6}>
                       <>
-                        <Col className="mt-4 pl-0">
+                        <Col className="mt-4 pl-0 fw-500">
                           {adminInfoObj.hasMacBinding ? (
                             <i className=" fa fa-check"> </i>
                           ) : (

@@ -426,7 +426,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         handleOverrideFormInputChange = (event, field) => {
             if (event) {
                 let key = field ? field : event.target.name;
-                let value = field ? event.target.value
+                let value = field ? event
                     : (event.target.type === 'checkbox' ? (event.target.checked === true ? 'Y' : 'N')
                         : event.target.value);
                 let overrideRequestDTO = {...this.state.overrideRequestDTO};

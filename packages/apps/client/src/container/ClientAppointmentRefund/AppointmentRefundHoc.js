@@ -102,8 +102,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
-                fromDate,
-                toDate,
+                fromDate: appointmentNumber ? '' : fromDate,
+                toDate: appointmentNumber ? '' : toDate,
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
                 specializationId: specializationId.value || '',

@@ -29,7 +29,7 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
     fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const AppointRefundHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -102,11 +102,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 patientType,
                 specializationId,
                 doctorId
-            } = this.state.searchParameters
+            } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
-                fromDate,
-                toDate,
+                fromDate: appointmentNumber ? '' : fromDate,
+                toDate: appointmentNumber ? '' : toDate,
                 hospitalId: hospitalId.value || '',
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
@@ -159,9 +159,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     esewaId: spec.esewaId || 'N/A',
                     remarks: spec.remarks || 'N/A',
                     appointmentDate: spec.appointmentDate || 'N/A',
-                    age:spec.age.slice(0,4)||'N/A',
-                    gender:spec.gender.split('')[0],
-                    mobileNumber:spec.mobileNumber,
+                    age: spec.age.slice(0, 4) || 'N/A',
+                    gender: spec.gender.split('')[0],
+                    mobileNumber: spec.mobileNumber,
                     sN: index + 1
                 }))
             return newRefundList;
@@ -229,7 +229,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
                 hospitalId
             )
-            this.props.fetchPatientMetaList(
+            this.props.fetchPatientMetaDropdown(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
                 hospitalId
             )
@@ -477,7 +477,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             fetchActiveHospitalsForDropdown,
             fetchActiveDoctorsHospitalWiseForDropdown,
             fetchSpecializationHospitalWiseForDropdown,
-            fetchPatientMetaList,
+            fetchPatientMetaDropdown,
             clearAppointmentRefundRejectMessage,
             clearAppointmentRefundMessage,
             appointmentRefund,

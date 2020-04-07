@@ -24,8 +24,8 @@ const DetailsModal = ({specializationData, type}) => {
                                     id="hospital"
                                     name="hospitalId"
                                     placeholder="Hospital"
-                                    value={typeof specializationData.hospitalId ==='object' ?
-                                    ( specializationData.hospitalId && specializationData.hospitalId.label ): specializationData.hospitalName}
+                                    value={typeof specializationData.hospitalId === 'object' ?
+                                        (specializationData.hospitalId && specializationData.hospitalId.label) : specializationData.hospitalName}
                                     disabled={true}
                                 />
                             </Col>
@@ -49,19 +49,19 @@ const DetailsModal = ({specializationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            {type !== 'A' ? (
-                                <Col sm={4} md={4} lg={4}>
-                                    <CHybridInput
-                                        id="specialization-remarks"
-                                        name="name"
-                                        placeholder="Specialization Remarks"
-                                        value={specializationData.remarks}
-                                        disabled={true}
-                                    />
-                                </Col>
-                            ) : (
-                                ''
-                            )}
+                            {/*{type !== 'A' ? (*/}
+                            {/*    <Col sm={4} md={4} lg={4}>*/}
+                            {/*        <CHybridInput*/}
+                            {/*            id="specialization-remarks"*/}
+                            {/*            name="name"*/}
+                            {/*            placeholder="Specialization Remarks"*/}
+                            {/*            value={specializationData.remarks}*/}
+                            {/*            disabled={true}*/}
+                            {/*        />*/}
+                            {/*    </Col>*/}
+                            {/*) : (*/}
+                            {/*    ''*/}
+                            {/*)}*/}
                             <Col sm={4} md={4} lg={4}>
                                 <CFLabel labelName="Specialization Status" id="status"/>
                                 <CRadioButton
@@ -72,15 +72,19 @@ const DetailsModal = ({specializationData, type}) => {
                                     label="Active"
                                     type="radio"
                                 />
-
-                                {/* <CRadioButton
-                  checked={specializationData.status === 'N'}
-                  disabled={true}
-                  readOnly={true}
-                  id="radio2"
-                  label="Inactive"
-                  type="radio"
-                /> */}
+                                {
+                                    type !== 'A' ?
+                                        <CRadioButton
+                                            checked={specializationData.status === 'N'}
+                                            disabled={true}
+                                            readOnly={true}
+                                            id="radio2"
+                                            label="Inactive"
+                                            type="radio"
+                                        />
+                                        :
+                                        ''
+                                }
                             </Col>
                         </Row>
                     </Container-fluid>
