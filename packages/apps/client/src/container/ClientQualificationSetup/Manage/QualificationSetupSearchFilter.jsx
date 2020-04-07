@@ -63,19 +63,21 @@ class SpecializationSetupSearchFilter extends PureComponent {
                       name="name"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      label="Select Qualification Name"
+                      label="Qualification"
+                      placeholder={"Select Qualification."}
                       value={searchParameters.name}
                       options={qualificationsForDropdown}
                     />
                   </Col>
-                  
+
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="university-id"
                       name="universityId"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      label="Select University Name"
+                      label="University"
+                      placeholder={"Select University."}
                       value={searchParameters.universityId}
                       options={universitiesDropdown}
                     />
@@ -86,7 +88,8 @@ class SpecializationSetupSearchFilter extends PureComponent {
                       name="qualificationAliasId"
                       onKeyDown={event => handleEnter(event)}
                       onChange={event => onInputChange(event)}
-                      label="Select Qualification Alias"
+                      label="Qualification Alias"
+                      placeholder={"Select Qualification Alias."}
                       value={searchParameters.qualificationAliasId}
                       options={qualificationsAliasForDropdown}
                     />
@@ -104,6 +107,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                         {value: 'N', label: 'Inactive'}
                       ]}
                       label="Status"
+                      placeholder={"Select status."}
                     />
                   </Col>
                   <Col
@@ -182,7 +186,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-               
+
                {searchParameters.qualificationAliasId && (
                 <li>
                   <OverlayTrigger
