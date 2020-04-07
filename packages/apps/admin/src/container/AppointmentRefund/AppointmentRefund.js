@@ -4,26 +4,26 @@ import AppointmentRefundDataTable from './AppointmentRefundDataTable';
 import AppointRefundApprovalHoc from './AppointmentRefundHoc';
 
 const AppointmentRefundLog = props => {
-  const AppoinmentRefund = AppointRefundApprovalHoc(
-    ({searchHandler, paginationProps, tableHandler}) => (
-      <>
-        <div>
-          <AppointmentLogSearchFilter searchHandler={searchHandler} />
-        </div>
+    const AppointmentRefund = AppointRefundApprovalHoc(
+        ({searchHandler, paginationProps, tableHandler}) => (
+            <>
+                <div>
+                    <AppointmentLogSearchFilter searchHandler={searchHandler}/>
+                </div>
 
-        <div className="">
-          <AppointmentRefundDataTable
-            tableHandler={tableHandler}
-            paginationProps={paginationProps}
-          />
-        </div>
-      </>
-    ),
-    props,
-    ''
-  )
+                <div className="">
+                    <AppointmentRefundDataTable
+                        tableHandler={tableHandler}
+                        paginationProps={paginationProps}
+                    />
+                </div>
+            </>
+        ),
+        props,
+        ''
+    );
 
-  return <AppoinmentRefund />
-}
+    return <AppointmentRefund/>
+};
 
 export default memo(AppointmentRefundLog)
