@@ -83,14 +83,6 @@ const ApprovalContent = ({approvalData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id=""
-                                    placeholder="Patient Name"
-                                    value={approvalData.patientName || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
                                     value={
@@ -111,14 +103,14 @@ const ApprovalContent = ({approvalData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="refundAmount"
-                                    placeholder="Refund Amount"
-                                    value={approvalData.refundAmount}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id="refundAmount"*/}
+                            {/*        placeholder="Refund Amount"*/}
+                            {/*        value={approvalData.refundAmount}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
                         </Row>
                     </Container-fluid>
                 </CForm>

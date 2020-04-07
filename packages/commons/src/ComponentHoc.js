@@ -168,7 +168,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             }
         }
 
-        async componentDidMount() {
+         async componentDidMount() {
             const filteredRolesTab = await this.checkRoles()
             this.checkIfPathIsTabPath(filteredRolesTab)
         }

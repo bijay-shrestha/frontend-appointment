@@ -87,10 +87,16 @@ const DashboardComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-// const AppointmentLogComponent = Loadable({
-//   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
-//   loading: () => getLoader()
-// })
+const AddCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+    {fallback: () => getLoader()}
+)
+
+const ManageCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+    {fallback: () => getLoader()}
+)
+
 
 /* ****** E ***** */
 
@@ -538,7 +544,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Patient Information',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/admin/reports',
@@ -548,7 +554,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Reports',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/unauthorized',
@@ -558,7 +564,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/reports/rescheduleLog',
@@ -568,7 +574,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Reschedule Log',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/admin/generalSetup/qualificationAlias',
@@ -578,7 +584,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Qualification Alias',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/admin/companySettings/companyProfile',
@@ -588,7 +594,7 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Company Profile Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/companySettings/companyProfile/add',
@@ -598,7 +604,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/companySettings/companyProfile/manage',
@@ -608,7 +614,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/companySettings/companySetup',
@@ -618,7 +624,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Company Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/companySettings/companySetup/add',
@@ -628,7 +634,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/companySettings/companySetup/manage',
@@ -638,9 +644,39 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
 
+    {
+        path: '/admin/companySettings/companyadmin/add',
+        component: AddCompanyAdminComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/companySettings/companyadmin/manage',
+        component: ManageCompanyAdminComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/companySettings/companyadmin',
+        name: 'Company Admin',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: false,
+        isTab: true,
+        isSingleTab: false,
+    },
     {
         path: '/admin/companySettings',
         name: 'Company Settings',
@@ -649,7 +685,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/admin/generalSetup/universitySetup',
@@ -659,6 +695,6 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'University Setup',
-        isSingleTab:true,
+        isSingleTab: true,
     },
 ];

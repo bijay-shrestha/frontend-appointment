@@ -923,15 +923,31 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             if (key === 'hospital') {
                 if (value) {
                     await this.fetchActiveSpecializationByHospitalForDropdown(value);
+                    this.setState({
+                        specialization: null,
+                        doctor: null,
+                    })
                 } else {
                     await this.fetchActiveSpecializationByHospitalForDropdown(0);
+                    this.setState({
+                        hospital: null,
+                        specialization: null,
+                        doctor: null,
+                    })
                 }
                 this.resetSpecializationAndDoctorOnHospitalChange();
             } else if (key === 'specialization') {
                 if (value) {
                     await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
+                    this.setState({
+                        doctor: null
+                    })
                 } else {
                     await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, 0);
+                    this.setState({
+                        specialization: null,
+                        doctor: null
+                    })
                 }
                 await this.resetDoctorOnSpecializationChange();
             }

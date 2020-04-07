@@ -20,6 +20,7 @@ const CButton = props => {
         bsPrefix,
         isLoading
     } = props;
+    console.log("============",isLoading)
     return (
         <>
             <Button
@@ -27,7 +28,7 @@ const CButton = props => {
                 variant={variant}
                 active={active}
                 className={className}
-                disabled={disabled || isLoading}
+                disabled={disabled}
                 as={as}
                 onClick={onClickHandler}
                 href={href}

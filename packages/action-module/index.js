@@ -41,6 +41,8 @@ import {
     qualificationAliasSetupConstants,
     CompanyProfileSetupActions,
     companyProfileSetupActionConstants,
+    companyAdminSetupActionConstants,
+    CompanyAdminSetupActions,
     UniversitySetupActions,
     universitySetupActionConstants
 } from './src/admin-module'
@@ -86,6 +88,8 @@ export {
     qualificationAliasSetupConstants,
     CompanyProfileSetupActions,
     companyProfileSetupActionConstants,
+    companyAdminSetupActionConstants,
+    CompanyAdminSetupActions,
     UniversitySetupActions,
     universitySetupActionConstants
 }

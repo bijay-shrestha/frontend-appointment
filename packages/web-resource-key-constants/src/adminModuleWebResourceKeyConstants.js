@@ -11,6 +11,7 @@ const PATIENT_BASE = "/patient";
 const APPOINTMENT_BASE = "/appointment";
 const DASHBOARD_BASE = "/dashboard";
 const COMPANY_BASE = '/company';
+const COMPANY_ADMIN_BASE = '/companyAdmin';
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -18,6 +19,7 @@ export const initialApiConstantsOfAdmin = {
     GET_LOGGED_IN_ADMIN_INFO: BASE.concat("/companyAdmin/info"),
     GET_LOGGED_IN_ADMIN_INFO_CLIENT: BASE.concat("/admin/info"),
 };
+
 export const profileSetupAPIConstants = {
     CREATE_PROFILE: BASE.concat(PROFILE_BASE),
     SEARCH_PROFILE: BASE.concat(PROFILE_BASE.concat("/search")),
@@ -188,12 +190,31 @@ export const companyProfileSetupApiConstants = {
 };
 
 export const CompanyApiConstant = {
-    SAVE_COMPANY: BASE.concat(COMPANY_BASE),
-    UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
-    DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
-    PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
-    SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
-    DELETE_COMPANY: BASE.concat(COMPANY_BASE)
+  SAVE_COMPANY: BASE.concat(COMPANY_BASE),
+  UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
+  DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
+  PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
+  SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
+  DELETE_COMPANY: BASE.concat(COMPANY_BASE)
+};
+
+export const companyAdminSetupApiConstants = {
+  CREATE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+  EDIT_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+  DELETE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+  SEARCH_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/search')),
+  PREVIEW_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/detail')),
+  FETCH_COMPANY_ADMIN_FOR_DROPDOWN: BASE.concat(
+    COMPANY_ADMIN_BASE.concat('/active/min')
+  ),
+  UPDATE_COMPANY_ADMIN_AVATAR: BASE.concat(COMPANY_ADMIN_BASE + '/avatar'),
+  GET_LOGGED_IN_COMPANY_ADMIN_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/info'),
+  SAVE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
+  UPDATE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
+  VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
+  FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
+  RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
+  CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
 };
 
 const UNIVERSITY_BASE = "/university";

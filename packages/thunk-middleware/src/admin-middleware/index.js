@@ -31,8 +31,9 @@ import * as QualificationSetupMiddleware from './qualification-setup-middleware/
 import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
 import * as CompanySetupMiddleware from './company-setup-middleware/companySetupMiddleware'
 import * as QualificationAliasSetupMiddleware
-    from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware';
-import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare';
+    from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware'
+import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare'
+import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/companyAdminSetupMiddleware'
 import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 
 export {
@@ -64,5 +65,6 @@ export {
     PatientDetailsMiddleware,
     QualificationAliasSetupMiddleware,
     CompanyProfileSetupMiddleware,
+    CompanyAdminSetupMiddleware,
     UniversitySetupMiddleware
-};
+}

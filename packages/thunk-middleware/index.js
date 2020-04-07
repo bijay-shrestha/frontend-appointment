@@ -27,6 +27,7 @@ import {
     PatientDetailsMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware,
     UniversitySetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
@@ -85,5 +86,6 @@ export {
     ForgotPasswordMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware,
     UniversitySetupMiddleware,
 }

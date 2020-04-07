@@ -61,7 +61,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder="Select Appointment Number"
+                                            placeholder="Appointment Number"
                                             value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
@@ -106,29 +106,18 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             />
                                         </div>
                                     </Col>
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
-                                            id="admin-meta-info"
-                                            name="patientMetaInfoId"
-                                            label="Patients Detail"
-                                            placeholder="Name, Mobile no Or Reg. no"
-                                            options={patientListDropdown}
-                                            value={searchParameters.patientMetaInfoId}
-                                            // isDisabled={patientListDropdown.length ? false : true}
-                                            onChange={handleSearchFormChange}
-                                            onEnter={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="doctorId"
-                                            label="Select a Doctor"
-                                            name="doctorId"
+                                            id="specializationId"
+                                            label="Specialization"
+                                            name="specializationId"
+                                            placeholder={doctorsDropdown.length ? "Select specialization."
+                                                : "No specialization(s)."}
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => handleSearchFormChange(event)}
-                                            options={doctorsDropdown}
-                                            value={searchParameters.doctorId}
-                                            // isDisabled={doctorsDropdown.length ? false : true}
+                                            options={activeSpecializationList}
+                                            value={searchParameters.specializationId}
+                                            isDisabled={activeSpecializationList.length ? false : true}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
@@ -136,13 +125,30 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
-                                            id="specializationId"
-                                            label="Select Specialization"
-                                            name="specializationId"
+                                            id="doctorId"
+                                            label="Doctor"
+                                            name="doctorId"
+                                            placeholder={doctorsDropdown.length ? "Select doctor."
+                                                : "No doctor(s)."}
                                             onKeyDown={event => handleEnter(event)}
-                                            options={activeSpecializationList}
-                                            value={searchParameters.specializationId}
-                                            // isDisabled={activeSpecializationList.length ? false : true}
+                                            onChange={event => handleSearchFormChange(event)}
+                                            options={doctorsDropdown}
+                                            value={searchParameters.doctorId}
+                                            isDisabled={!doctorsDropdown.length}
+                                            onEnter={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="admin-meta-info"
+                                            name="patientMetaInfoId"
+                                            label="Patients Detail"
+                                            placeholder={patientListDropdown.length ? "Name, Mobile no Or Reg. no"
+                                                : "No patient(s)."}
+                                            options={patientListDropdown}
+                                            value={searchParameters.patientMetaInfoId}
+                                            isDisabled={patientListDropdown.length ? false : true}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />

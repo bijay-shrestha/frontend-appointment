@@ -229,11 +229,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationAliasId,
                     universityName,
                     qualificationAliasName,
-                    status,
-                    remarks,
-                } = this.props.QualificationPreviewReducer.qualificationPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                    status
+                } = this.props.QualificationPreviewReducer.qualificationPreviewData;
+                let formValid = false;
+                // if (remarks) formValid = true
                 this.setState({
                     showEditModal: true,
                     qualificationData: {
@@ -242,7 +241,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         universityId: {value: universityId, label: universityName},
                         qualificationAliasId: {value: qualificationAliasId, label: qualificationAliasName},
                         status: status,
-                        remarks: remarks
+                        remarks: ''
                     },
                     formValid: formValid,
                     nameValid: true
@@ -340,7 +339,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         message: this.props.QualificationEditReducer
                             .qualificationEditSuccessMessage
                     }
-                })
+                });
                 await this.searchQualification()
             } catch (e) {
             }
@@ -472,7 +471,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
             const {
                 qualificationEditErrorMessage
-            } = this.props.QualificationEditReducer
+            } = this.props.QualificationEditReducer;
+
+            console.log("error",qualificationEditErrorMessage);
 
             const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
             // const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
