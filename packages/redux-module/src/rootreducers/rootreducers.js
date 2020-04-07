@@ -13,6 +13,7 @@ import {
   AppointmentStatusListReducer,
   AppointmentApproveReducer,
   AppointmentRejectReducer,
+  AppointmentRefundDetailReducer,
   CountryCodeDropdownReducer,
   DashboardAppointmentStatisticsReducer,
   DashboardRegisteredPatientReducer,
@@ -213,5 +214,6 @@ export const rootReducers = combineReducers({
   CompanyAdminPreviewReducer,
   CompanyAdminSetupReducer,
   CompanyAdminMetaInfoReducer,
-  AppointmentDetailReducer
+  AppointmentDetailReducer,
+  AppointmentRefundDetailReducer
 })

@@ -13,6 +13,7 @@ import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 import PatientWithAge from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
+import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -43,7 +44,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
                     <>
-                         <CDataTable
+                        <CDataTable
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
@@ -62,16 +63,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     width: 140,
                                     cellClass: 'first-class'
-                                    //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                                 },
-                                // {
-                                //   headerName: 'Hospital Name',
-                                //   field: 'hospitalName',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                
                                 {
                                     headerName: 'App. DateTime',
                                     field: 'appointmentDate',
@@ -82,22 +74,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 160,
                                 },
                                 {
-                                   headerName: 'Cancel Date',
+                                    headerName: 'Cancel Date',
                                     field: 'cancelledDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Doctor',
-                                    field: 'doctorName',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Specialization',
-                                    field: 'specializationName',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
@@ -125,37 +103,27 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     width: 300,
                                 },
-                            
-
                                 {
-                                  headerName: 'Esewa Id',
-                                  field: 'esewaId',
-                                  resizable: true,
-                                  sortable: true,
-                                  sizeColumnsToFit: true
+                                    headerName: 'Doctor Detail',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'doctorWithSpecializationRenderer'
                                 },
-                                // {
-                                //   headerName: 'Transaction Number',
-                                //   field: 'transactionNumber',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-
-                                // {
-                                //   headerName: 'Amount',
-                                //   field: 'refundAmount',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                // {
-                                //   headerName: 'Remarks',
-                                //   field: 'remarks',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
+                                {
+                                    headerName: 'Esewa Id',
+                                    field: 'esewaId',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: 'Amount',
+                                    field: 'refundAmount',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
                                 {
                                     headerName: '',
                                     action: 'action',
@@ -180,7 +148,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             frameworkComponents={{
                                 childActionRenderer: TableRefundStatus,
                                 appointmentDateAndTimeRenderer: AppointmentDateWithTime,
-                                patientWithAgeRenderer: PatientWithAge
+                                patientWithAgeRenderer: PatientWithAge,
+                                doctorWithSpecializationRenderer: DoctorWithSpecialization,
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}
