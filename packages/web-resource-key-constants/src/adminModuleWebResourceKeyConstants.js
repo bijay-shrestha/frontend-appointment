@@ -226,3 +226,7 @@ export const universitySetupApiConstants = {
     FETCH_UNIVERSITY_DETAILS_BY_ID: BASE.concat(UNIVERSITY_BASE.concat("/detail")),
     SEARCH_UNIVERSITY: BASE.concat(UNIVERSITY_BASE.concat("/search")),
 };
+
+export const countryApiConstants = {
+    FETCH_COUNTRY_FOR_DROPDOWN: BASE.concat('/country'),
+};

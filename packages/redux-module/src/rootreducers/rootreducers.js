@@ -101,7 +101,8 @@ import {
     UniversityPreviewReducer,
     UniversitySaveReducer,
     UniversitySearchReducer,
-    WeekdaysReducer
+    WeekdaysReducer,
+    CountryDropdownReducer
 } from '../reducers'
 
 const {
@@ -226,5 +227,6 @@ export const rootReducers = combineReducers({
     UniversityEditReducer,
     UniversityDropdownReducer,
     UniversityDeleteReducer,
-    UniversityPreviewReducer
+    UniversityPreviewReducer,
+    CountryDropdownReducer
 });

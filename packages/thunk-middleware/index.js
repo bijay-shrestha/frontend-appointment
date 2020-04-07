@@ -45,6 +45,7 @@ import * as AppointmentDetailsMiddleware
 import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboardMiddleware'
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
+import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
 
 export {
     AppointmentDetailsMiddleware,
@@ -88,4 +89,5 @@ export {
     CompanySetupMiddleware,
     CompanyAdminSetupMiddleware,
     UniversitySetupMiddleware,
+    CountryMiddleware
 }

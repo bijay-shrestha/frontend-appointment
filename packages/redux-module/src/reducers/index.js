@@ -137,6 +137,8 @@ import {
     UniversityPreviewReducer
 } from './admin-module/universitySetupReducer';
 
+import {CountryDropdownReducer} from './common/countryReducer';
+
 export {
     AppointmentApproveReducer,
     AppointmentRejectReducer,
@@ -239,5 +241,6 @@ export {
     UniversityEditReducer,
     UniversityDropdownReducer,
     UniversityDeleteReducer,
-    UniversityPreviewReducer
+    UniversityPreviewReducer,
+    CountryDropdownReducer
 }
