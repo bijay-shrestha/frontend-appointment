@@ -203,10 +203,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         />
 
 
-                    <div className="my-4 ml-0 mr-4">
-                        <span className="total-amount">
-                        Total Amount : Rs 40000
+                    <div className=" total-amount">
+                        <span >
+                        Total Amount :
+                        
                         </span>
+                        <span> Rs 40000</span>
 
                     </div>
 
