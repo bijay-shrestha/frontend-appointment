@@ -12,9 +12,13 @@ class SideBarItem extends PureComponent {
       propsActiveKey =this.props.activeStateKey;
     if (this.props.activeStateKey && this.props.hasTab) {
       propsActiveKey = props.activeStateKey.split('/')
-      propsActiveKey = propsActiveKey.slice(2)
+      let pathToBeAdded='';
+      if(propsActiveKey.includes("admin")||propsActiveKey.includes("client")){
+         propsActiveKey = propsActiveKey.slice(2)
+         pathToBeAdded ='/'
+      }   
       propsActiveKey.pop()
-      propsActiveKey = '/' + propsActiveKey.join('/') + true
+      propsActiveKey = pathToBeAdded + propsActiveKey.join('/') + true
     }
     else{
       propsActiveKey = propsActiveKey.replace("/admin","");
