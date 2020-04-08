@@ -17,10 +17,11 @@ const UniversitySetupDataTable = ({tableData,filteredAction}) => {
         universityData,
         countryList,
         handleCancel,
-        handleEdit,
         handleSave,
+        handleEdit,
         handleUpdate,
         handleDelete,
+        handlePreview,
         formValid,
     } = tableData;
     return <>
@@ -94,10 +95,10 @@ const UniversitySetupDataTable = ({tableData,filteredAction}) => {
                             footerClassName="table-footer"
                             onSave={checkIfRoleExists(filteredAction, 10) ? handleSave : ''}
                             onCancel={handleCancel}
-                            // onEdit={handleEdit}
-                            // onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
-                            // onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
-                            // onPreview={}
+                            onEdit={handleEdit}
+                            onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
+                            onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
+                            onPreview={checkIfRoleExists(filteredAction, 12) ? handlePreview : ''}
                         />
 
                         <CPagination

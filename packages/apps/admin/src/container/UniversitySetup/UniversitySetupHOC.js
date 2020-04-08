@@ -5,6 +5,7 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
+import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 
 const {
     clearSuccessErrorMessageFormStore,
@@ -32,6 +33,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
     class UniversitySetupHOC extends PureComponent {
 
         state = {
+            id: '',
             address: "",
             countryName: null,
             name: "",
@@ -53,6 +55,9 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 variant: "",
                 message: ""
             },
+            showEditRemarksModal: false,
+            showDeleteModal: false,
+            showPreviewModal: true
         };
 
         alertTimer = '';
@@ -88,6 +93,53 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             this.setState({
                 showAlert: false
             });
+        };
+
+        closeModal = () => {
+            this.setState({
+                showEditRemarksModal: false,
+                showDeleteModal: false
+            });
+            this.props.clearSuccessErrorMessageFormStore();
+        };
+
+        deleteUniversitySetup = async () => {
+            const {id, remarks} = this.state;
+            let deleteRequestDTO = {
+                id: id,
+                remarks,
+                status: 'D'
+            };
+            try {
+                const response = await this.props.deleteUniversity(DELETE_UNIVERSITY, deleteRequestDTO);
+                this.showAlertMessage("success", this.props.UniversityDeleteReducer.deleteSuccessMessage);
+                this.closeModal();
+                this.actionsOnOperationComplete();
+            } catch (e) {
+
+            }
+        };
+
+        editUniversitySetup = async () => {
+            const {id, name, address, countryName, status, remarks} = this.state;
+            let requestDTO = {
+                id,
+                name: name,
+                address: address,
+                countryId: countryName && countryName.value,
+                status: status && status.value,
+                remarks
+            };
+            try {
+                const response = await this.props.editUniversity(EDIT_UNIVERSITY, requestDTO);
+                this.showAlertMessage("success", this.props.UniversityEditReducer.editSuccessMessage);
+                this.closeModal();
+                this.actionsOnOperationComplete();
+                return true;
+            } catch (e) {
+                this.setDefaultValues(name, address, countryName, status, id);
+                return false;
+            }
         };
 
         fetchUniversityListForDropDown = async () => {
@@ -169,6 +221,51 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
         handleCancel = () => {
             this.resetUniversityData();
+        };
+
+        handleEdit = async (editData) => {
+            let country = {
+                    value: '',
+                    label: editData.countryName
+                },
+                status = {
+                    value: editData.status,
+                    label: editData.status === 'Y' ? 'Active' : 'Inactive'
+                };
+            this.setDefaultValues(editData.name, editData.address, country, status, editData.id)
+        };
+
+        handleOpenEditRemarksModal = (updateData) => {
+            const {id, name, address, countryName, status} = updateData.data;
+
+            // UPDATE THE DEFAULT VALUES WITH CURRENTLY UPDATED DATA.....
+            // WILL BE USED IN CASE REMARKS MODAL IS CLOSED
+            this.setDefaultValues(name, address, countryName, status, id);
+
+            if (!name || !status || !address || !countryName) {
+                this.validateUniversityData(name, address, countryName, status);
+            } else {
+                // IF ALL DATA IS VALID, SAVE THEM IN STATE FOR UPDATE AND OTHER PURPOSES
+                this.setState({
+                    showEditRemarksModal: true,
+                    id: id,
+                    name: name,
+                    address: address,
+                    countryName: countryName,
+                    status: status
+                })
+            }
+        };
+
+        handleDelete = async (deleteData) => {
+            this.setState({
+                id: deleteData.id,
+                showDeleteModal: true
+            })
+        };
+
+        handlePreview = (previewData)=>{
+
         };
 
         initialApiCalls = async () => {
@@ -305,7 +402,9 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             const {
                 searchParameters, queryParams, totalRecords,
                 formValid,
-                alertMessageInfo, showAlert
+                alertMessageInfo, showAlert,
+                showEditRemarksModal, remarks, showDeleteModal,
+                showPreviewModal
             } = this.state;
 
             const {
@@ -318,6 +417,10 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 = this.props.UniversityDropdownReducer;
 
             const {universityList, isSearchUniversityLoading, searchErrorMessage} = this.props.UniversitySearchReducer;
+
+            const {editErrorMessage, editSuccessMessage, isEditUniversityLoading} = this.props.UniversityEditReducer;
+
+            const {deleteErrorMessage, deleteSuccessMessage, isDeleteUniversityLoading} = this.props.UniversityDeleteReducer;
 
             return <>
                 <>
@@ -349,9 +452,10 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                             countryList,
                             handleSave: this.saveUniversitySetup,
                             handleCancel: this.handleCancel,
-                            // handleEdit,
-                            // handleUpdate,
-                            // handleDelete,
+                            handleEdit: this.handleEdit,
+                            handleUpdate: this.handleOpenEditRemarksModal,
+                            handleDelete: this.handleDelete,
+                            handlePreview:this.handlePreview
                         }}
                     />
                     <CAlert
@@ -364,6 +468,36 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                         </>}
                         message={alertMessageInfo.message}
                     />
+                    {showEditRemarksModal ?
+                        <CRemarksModal
+                            confirmationMessage="Provide remarks for edit."
+                            modalHeader="Edit University"
+                            showModal={showEditRemarksModal}
+                            onCancel={this.closeModal}
+                            onRemarksChangeHandler={this.handleInputChange}
+                            remarks={remarks}
+                            onPrimaryAction={this.editUniversitySetup}
+                            primaryActionName={isEditUniversityLoading ? "Confirming" : "Confirm"}
+                            actionDisabled={isEditUniversityLoading}
+                            errorMessage={editErrorMessage}
+                        />
+                        : ''
+                    }
+                    {showDeleteModal ?
+                        <ConfirmDelete
+                            confirmationMessage="Are you sure you want to delete the University? If yes please provide remarks."
+                            modalHeader="Delete University"
+                            showModal={showDeleteModal}
+                            isLoading={isDeleteUniversityLoading}
+                            setShowModal={this.closeModal}
+                            onDeleteRemarksChangeHandler={this.handleInputChange}
+                            remarks={remarks}
+                            onSubmitDelete={this.deleteUniversitySetup}
+                            deleteErrorMessage={deleteErrorMessage}
+                        />
+                        : ''
+                    }
+                    {showPreviewModal}
                 </>
             </>
         }
