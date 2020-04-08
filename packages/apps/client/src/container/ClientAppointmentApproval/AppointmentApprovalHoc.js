@@ -253,12 +253,13 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        approveHandler = data => {
+        approveHandler = async data => {
+            await this.previewApiCall(data);
             this.props.clearAppointmentApproveMessage();
             this.setState({
                 approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
-                appointmentDetails: {...data}
+                appointmentDetails: {...this.props.AppointmentDetailReducer.appointmentDetail}
             })
         };
 

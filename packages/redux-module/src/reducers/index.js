@@ -88,7 +88,8 @@ import {
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
     RescheduleLogReducer,
-    AppointmentDetailReducer
+    AppointmentDetailReducer,
+    AppointmentRefundDetailReducer,
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
@@ -149,6 +150,7 @@ export {
     AppointmentRefundRejectReducer,
     AppointmentRefundListReducer,
     AppointmentDetailReducer,
+    AppointmentRefundDetailReducer,
     companyDeleteReducer,
     companyDropdownReducer,
     companyPreviewReducer,

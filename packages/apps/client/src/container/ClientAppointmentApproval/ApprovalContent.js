@@ -86,11 +86,11 @@ const ApprovalContent = ({approvalData}) => {
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
                                     value={
-                                        'Dr.' +
+                                       approvalData.doctorName && approvalData.specialization? 'Dr.' +
                                         approvalData.doctorName.toUpperCase() +
                                         '(' +
                                         approvalData.specializationName.toUpperCase() +
-                                        ')'
+                                        ')':'N/A'
                                     }
                                     disabled={true}
                                 />

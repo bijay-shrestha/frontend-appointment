@@ -165,7 +165,8 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
     APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),
     SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log")),
-    APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval"))
+    APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval")),
+    APPOINTMENT_REFUND_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/refund/detail"))
 };
 
 export const DashboardApiConstant = {

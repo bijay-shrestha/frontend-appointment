@@ -212,21 +212,6 @@ class AppointmentLog extends PureComponent {
                         </li>
                         }
 
-                        {searchParameters && searchParameters.hospitalId &&
-                        <li>
-                            <OverlayTrigger
-                                placement="top"
-                                delay={{show: 250, hide: 400}}
-                                overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
-                            >
-                                <Button id="button-search-filters" variant="secondary">
-                                    {searchParameters.hospitalId.label}
-                                </Button>
-                            </OverlayTrigger>
-
-                        </li>
-                        }
-
                         {searchParameters && searchParameters.doctorId &&
                         <li>
                             <OverlayTrigger

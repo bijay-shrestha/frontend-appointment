@@ -9,7 +9,6 @@ import {
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
-
 const {
     clearConsultantCreateMessage,
     createConsultant,

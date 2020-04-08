@@ -10,6 +10,7 @@ import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
 import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'; 
 import AppointmentWithDateAndTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -174,8 +175,8 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
               }
               frameworkComponents={{
                 childActionRenderer: TableAction,
-                tableStatusRenderer: TableStatus,
-                PatientNameWitheAgeGenderPhone:PatientNameWithAgeGenderPhone
+                tableStatusRenderer: PreviewHandlerHoc(TableStatus,null,null,null,previewCall),
+                PatientNameWitheAgeGenderPhone:PreviewHandlerHoc(PatientNameWithAgeGenderPhone,null,null,null,previewCall)
               }}
               rowSelection={'single'}
               rowData={patientSearchList}

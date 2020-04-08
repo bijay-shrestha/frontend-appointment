@@ -6,7 +6,7 @@ import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 class AppointmentApprovalListSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
-    }
+    };
 
     toggleSearchForm = async () => {
         const searchFilter = document.getElementById('advanced-search')
@@ -14,15 +14,15 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
         })
-    }
+    };
 
     handleSearchButtonClick = () => {
-        this.props.searchHandler.searchAppointment(1)
+        this.props.searchHandler.searchAppointment(1);
         this.toggleSearchForm()
-    }
+    };
 
     render() {
-        const {searchHandler} = this.props
+        const {searchHandler} = this.props;
         const {
             handleEnter,
             handleSearchFormChange,
@@ -41,13 +41,13 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Refund List</h5>
+                            <h5 className="title">Search Appointment Refund</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
                                     variant="outline-secondary"
                                     size="sm"
-                                    name="Reset"
+                                    name="Reset "
                                     onClickHandler={resetSearch}
                                 >
                                     <i className="fa fa-refresh"/>
@@ -144,8 +144,8 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder={patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s)."}
+                                            placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
+                                                : "No patient(s).":"Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}
@@ -164,29 +164,11 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                                 {value: 'N', label: 'New'},
                                                 {value: 'Y', label: 'Registered'}
                                             ]}
-                                            placeholder="Select PatientType."
+                                            placeholder="Select Patient Type."
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
                                     </Col>
-
-                                    {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Patient Category"
-                  label="Patient Category"
-                  name="Patient Category"
-                  placeholder="Select Patient Category."
-                />
-              </Col> */}
-
-                                    {/* <Col sm={12} md={6} xl={4}>
-                <CHybridSelect
-                  id="Status"
-                  label="Status"
-                  name="Status"
-                  placeholder="Select Status."
-                />
-              </Col> */}
 
                                     <Col
                                         sm={12}
@@ -208,7 +190,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
@@ -246,21 +228,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {searchParameters.hospitalId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Hospital Name</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.hospitalId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
                             {searchParameters.fromDate && (
                                 <li>
                                     <OverlayTrigger
@@ -291,36 +258,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-                            {searchParameters.patienMetaInfoId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Patient Meta Info</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.patientMetaInfoId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-                            {searchParameters.doctorId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Doctor Name</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.doctorId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+
                             {searchParameters.specializationId && (
                                 <li>
                                     <OverlayTrigger
@@ -336,6 +274,39 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {searchParameters.doctorId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Doctor Name</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.doctorId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.patienMetaInfoId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Patient Meta Info</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.patientMetaInfoId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.patientType && (
                                 <li>
                                     <OverlayTrigger

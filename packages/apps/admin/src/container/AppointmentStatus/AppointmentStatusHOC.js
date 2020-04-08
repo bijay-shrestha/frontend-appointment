@@ -51,9 +51,9 @@ const {
     getNoOfDaysBetweenGivenDatesInclusive
 } = DateTimeFormatterUtils;
 
-const SELECT_HOSPITAL_MESSAGE = 'Select Hospital.';
+const SELECT_HOSPITAL_MESSAGE = 'Select Client.';
 const SELECT_DOCTOR_MESSAGE = 'Select Doctor.';
-const SELECT_HOSPITAL_AND_DOCTOR_MESSAGE = 'Select Hospital and Doctor.';
+const SELECT_HOSPITAL_AND_DOCTOR_MESSAGE = 'Select Client and Doctor.';
 const DATE_RANGE_ERROR_MESSAGE =
     'From date and to date must be within 7 days or less.';
 

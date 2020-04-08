@@ -5,7 +5,9 @@ import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from './tableComponents/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
-
+import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import {ActionFilterUtils} from '@frontend-appointment/helpers';
+const {checkIfRoleExists} = ActionFilterUtils;
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
         {console.log(props.searchData)}
@@ -103,11 +105,11 @@ const DoctorDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
-                        imageRenderer: HospitalPicture
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(props.filteredActions, 4) &&
+                         checkIfRoleExists(props.filteredActions, 4) &&
                         props.onPreviewHandler
                     }
                     rowSelection={'single'}

@@ -16,8 +16,8 @@ const AddDepartmentComponent = loadable(
 )
 
 const AddAdminComponent = loadable(
-    () => import('./container/AdminSetup/Add/AdminAdd'),
-    {fallback: getLoader()}
+  () => import('./container/AdminSetup/Add/AdminAdd'),
+  {fallback: getLoader()}
 )
 
 const AddHospitalComponent = loadable(
@@ -68,7 +68,7 @@ const AppointmentLogListComponent = loadable(
 const AddCompanyProfileComponent = loadable(
     () => import('./container/CompanyProfileSetup/Add/CompanyProfileSetupAdd'),
     {fallback: getLoader()}
-);
+)
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -157,9 +157,10 @@ const ManageDoctorComponent = loadable(
 )
 
 const ManageCompanyProfileComponent = loadable(
-    () => import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
+    () =>
+        import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
     {fallback: getLoader()}
-);
+)
 /* ****** N ***** */
 
 /* ****** O ***** */
