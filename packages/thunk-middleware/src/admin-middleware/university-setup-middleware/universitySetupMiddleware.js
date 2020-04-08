@@ -56,6 +56,19 @@ export const searchUniversity = (path, data, paginationData) => async dispatch =
     }
 };
 
+export const fetchUniversityDetailsByUniversityId = (path, universityId) => async dispatch => {
+    dispatch(UniversitySetupActions.previewUniversityPending());
+    try {
+        const response = await Axios.getWithPathVariables(path, universityId);
+        dispatch(UniversitySetupActions.previewUniversitySuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(UniversitySetupActions.previewUniversityError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
 export const fetchActiveUniversityForDropdown = (path) => async dispatch => {
     dispatch(UniversitySetupActions.fetchUniversityPending());
     try {

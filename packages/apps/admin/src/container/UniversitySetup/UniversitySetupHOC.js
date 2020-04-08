@@ -6,12 +6,14 @@ import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
+import UniversityDetails from "./UniversityDetails";
 
 const {
     clearSuccessErrorMessageFormStore,
     deleteUniversity,
     editUniversity,
     fetchActiveUniversityForDropdown,
+    fetchUniversityDetailsByUniversityId,
     saveUniversity,
     searchUniversity
 } = UniversitySetupMiddleware;
@@ -57,7 +59,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             },
             showEditRemarksModal: false,
             showDeleteModal: false,
-            showPreviewModal: true
+            showPreviewModal: false
         };
 
         alertTimer = '';
@@ -98,7 +100,8 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         closeModal = () => {
             this.setState({
                 showEditRemarksModal: false,
-                showDeleteModal: false
+                showDeleteModal: false,
+                showPreviewModal: false
             });
             this.props.clearSuccessErrorMessageFormStore();
         };
@@ -264,8 +267,15 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             })
         };
 
-        handlePreview = (previewData)=>{
-
+        handlePreview = async (previewData) => {
+            try {
+                await this.props.fetchUniversityDetailsByUniversityId(FETCH_UNIVERSITY_DETAILS_BY_ID, previewData.id);
+                this.setState({
+                    showPreviewModal: true
+                })
+            } catch (e) {
+                this.showAlertMessage("danger", this.UniversityPreviewReducer.previewUniversityErrorMessage);
+            }
         };
 
         initialApiCalls = async () => {
@@ -413,7 +423,9 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 countryDropdownMessage
             } = this.props.CountryDropdownReducer;
 
-            const {isFetchUniversityLoading, activeUniversityForDropdown, dropdownErrorMessage}
+            const {
+                isFetchUniversityLoading, activeUniversityForDropdown, dropdownErrorMessage
+            }
                 = this.props.UniversityDropdownReducer;
 
             const {universityList, isSearchUniversityLoading, searchErrorMessage} = this.props.UniversitySearchReducer;
@@ -421,6 +433,12 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             const {editErrorMessage, editSuccessMessage, isEditUniversityLoading} = this.props.UniversityEditReducer;
 
             const {deleteErrorMessage, deleteSuccessMessage, isDeleteUniversityLoading} = this.props.UniversityDeleteReducer;
+
+            const {
+                isPreviewUniversityLoading,
+                previewUniversityErrorMessage,
+                universityDetails
+            } = this.props.UniversityPreviewReducer;
 
             return <>
                 <>
@@ -455,7 +473,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                             handleEdit: this.handleEdit,
                             handleUpdate: this.handleOpenEditRemarksModal,
                             handleDelete: this.handleDelete,
-                            handlePreview:this.handlePreview
+                            handlePreview: this.handlePreview
                         }}
                     />
                     <CAlert
@@ -497,7 +515,12 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                         />
                         : ''
                     }
-                    {showPreviewModal}
+                    {showPreviewModal ?
+                        <UniversityDetails
+                            showPreviewModal={showPreviewModal}
+                            closeModal={this.closeModal}
+                            universityData={universityDetails}
+                        /> : ''}
                 </>
             </>
         }
@@ -518,6 +541,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             deleteUniversity,
             editUniversity,
             fetchActiveUniversityForDropdown,
+            fetchUniversityDetailsByUniversityId,
             saveUniversity,
             searchUniversity,
             fetchCountryForDropdown

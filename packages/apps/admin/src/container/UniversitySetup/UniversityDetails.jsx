@@ -1,9 +1,8 @@
 import React from 'react';
-import {CFLabel, CForm, CHybridInput, CModal, CRadioButton} from "@frontend-appointment/ui-elements";
-import RefundContent from "@frontend-appointment/client/src/container/ClientAppointmentRefund/RefundContent";
+import {CFLabel, CForm, CHybridInput, CHybridTextArea, CModal, CRadioButton} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 
-const UniversityDetails = ({closeModal, universityData}) => {
+const UniversityDetails = ({closeModal, universityData, showPreviewModal}) => {
     const detailContents = <>
         <Container-fluid>
             <CForm id="refund-info" className="mt-2">
@@ -33,6 +32,7 @@ const UniversityDetails = ({closeModal, universityData}) => {
                                 disabled={true}
                             />
                         </Col>
+
                         <Col sm="12" md="6">
                             <CFLabel labelName="Status" id="status"/>
                             <CRadioButton
@@ -53,6 +53,18 @@ const UniversityDetails = ({closeModal, universityData}) => {
                                 type="radio"
                             />
                         </Col>
+                        {
+                            universityData.remarks ?
+                                <Col sm={12} md={6} lg={6}>
+                                    <CHybridTextArea
+                                        id="remarks"
+                                        placeholder="Remarks"
+                                        value={universityData.remarks || 'N/A'}
+                                        disabled={true}
+                                    />
+                                </Col>
+                                : ''
+                        }
                     </Row>
                 </Container-fluid>
             </CForm>
@@ -63,6 +75,7 @@ const UniversityDetails = ({closeModal, universityData}) => {
         <CModal
             modalHeading={"University Details"}
             size="xl"
+            show={showPreviewModal}
             bodyChildren={detailContents}
             onHide={closeModal}
             centered={false}
