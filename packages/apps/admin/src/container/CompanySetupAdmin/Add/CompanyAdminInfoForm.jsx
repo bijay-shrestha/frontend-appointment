@@ -271,8 +271,9 @@ const CompanyAdminInfoForm = ({
                       dashData.length ? (
                         dashboardFeatureData.map((dash, ind) => {
                           return (
-                            <div className="dash-roles-container">
+                            <div key={'dash-radio' + dash.id + ind} className="dash-roles-container">
                             <CCheckbox
+                              key={'dash-radio' + dash.id + ind}
                               checked={dash.status === 'Y'}
                               id={'dash-radio' + dash.id + ind}
                               label={dash.name}
@@ -305,7 +306,7 @@ const CompanyAdminInfoForm = ({
                       name="hasMacBinding"
                       label="Device Filter"
                       className="module fw-500"
-                      checked={adminInfoObj.hasMacBinding}
+                      checked={adminInfoObj.hasMacBinding?true:false}
                       onChange={event => onInputChange(event)}
                       onKeyDown={event => onEnterKeyPress(event)}
                     />

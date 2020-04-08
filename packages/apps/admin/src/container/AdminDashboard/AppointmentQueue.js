@@ -29,7 +29,7 @@ const AppointmentQueue = props => {
             <div className="mt-4 appointment-queue">
                 <h5 className="title">Appointment Queue</h5>
                 <div className="app-log">
-                    {props.hospitalId.value ? (
+                    {props.hospitalId.value && props.hospitalId.value!=='A' ? (
                             <>
                                 <Row>
                                     <Col className="px-0">

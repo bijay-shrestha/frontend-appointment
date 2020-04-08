@@ -69,7 +69,7 @@ class CLayout extends PureComponent {
     };
 
     render() {
-        const {mainViewComponent, hasTab} = this.props
+        const {mainViewComponent,hasTab} = this.props
         const MainViewComponent = mainViewComponent
         return (
             <>
