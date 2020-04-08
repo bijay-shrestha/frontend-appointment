@@ -104,10 +104,10 @@ class AppointmentLog extends PureComponent {
                                 <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
                                         id="hospital"
-                                        label="Hospital"
+                                        label="Client"
                                         name="hospitalId"
                                         options={hospitalList}
-                                        placeholder="Select hospital."
+                                        placeholder="Select client."
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.hospitalId}
@@ -123,7 +123,7 @@ class AppointmentLog extends PureComponent {
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
-                                        placeholder={!searchParameters.hospitalId ? "Select hospital first." : "Select doctor."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first." : "Select doctor."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
@@ -139,7 +139,7 @@ class AppointmentLog extends PureComponent {
                                         label="Specialization"
                                         name="specializationId"
                                         options={specializationList}
-                                        placeholder={!searchParameters.hospitalId ? "Select hospital first." : "Select specialization."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first." : "Select specialization."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
@@ -232,7 +232,7 @@ class AppointmentLog extends PureComponent {
                             <OverlayTrigger
                                 placement="top"
                                 delay={{show: 250, hide: 400}}
-                                overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                             >
                                 <Button id="button-search-filters" variant="secondary">
                                     {searchParameters.hospitalId.label}
