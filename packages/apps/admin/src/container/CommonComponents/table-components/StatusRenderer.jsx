@@ -6,8 +6,8 @@ class StatusRenderer extends PureComponent {
         return (
             <>
                 {
-                    this.props.node.data.status === 'Y' ? <Badge variant="success">'Active'</Badge>
-                        : <Badge variant="danger">'Inactive'</Badge>
+                    this.props.node.data.status === 'Y' ? <Badge variant="success">Active</Badge>
+                        : <Badge variant="danger">Inactive</Badge>
                 }
 
             </>
