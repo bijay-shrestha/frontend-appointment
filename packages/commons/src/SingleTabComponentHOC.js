@@ -89,7 +89,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
         }
     }
 
-    return <SingleTabComponent/>;
+    return SingleTabComponent;
 };
 
 export default SingleTabComponentHOC;

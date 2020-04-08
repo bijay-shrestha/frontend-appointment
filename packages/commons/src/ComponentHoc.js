@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 import {CNavTabs} from '@frontend-appointment/ui-elements';
 
 const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
-    return class CheckTabs extends React.PureComponent {
+    class CheckTabs extends React.PureComponent {
         state = {
             isLoading: true,
             filteredAction: [],
@@ -195,6 +195,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
                     />
                     <ComposedComponent
                         {...this.props}
+                        {...props}
                         filteredAction={filteredAction}
                         roles={filteredRolesTab}
                         hasTabs={true}
@@ -207,6 +208,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             )
         }
     }
+ return CheckTabs;
 }
 
 export default ComponentHoc

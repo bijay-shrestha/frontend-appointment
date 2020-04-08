@@ -81,7 +81,7 @@ const AuthenticateModule = () => {
                   isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
                   isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
                   activeStateKey={route.path}
-                  mainViewComponent={
+                  MainViewComponent={
                     route.hasTab
                       ? ComponentHoc(
                           route.component,

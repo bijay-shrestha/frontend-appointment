@@ -69,8 +69,7 @@ class CLayout extends PureComponent {
     };
 
     render() {
-        const {mainViewComponent,hasTab} = this.props
-        const MainViewComponent = mainViewComponent
+        const {MainViewComponent,hasTab} = this.props
         return (
             <>
                 <div id="wrapper">
@@ -106,7 +105,8 @@ class CLayout extends PureComponent {
 
                         {/* Main Content  */}
                         <div id="main-content">
-                            {hasTab ? <MainViewComponent {...this.props}/> : MainViewComponent}
+                            {/* {hasTab ? <MainViewComponent {...this.props}/> : MainViewComponent} */}
+                            <MainViewComponent/>
                             {/*{clonedContentView}*/}
                         </div>
 
