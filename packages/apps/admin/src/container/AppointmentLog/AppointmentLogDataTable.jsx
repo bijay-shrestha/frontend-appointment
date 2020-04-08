@@ -12,7 +12,7 @@ import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
 import {Row, Col, Badge} from 'react-bootstrap';
-
+import  PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
@@ -186,11 +186,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
 
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer: DoctorWithSpecialization,
-                                statusRenderer: AppointmentLogAction,
-                                patientRenderer: PatientWithAgeAndGender,
-                                PatientNameWitheAgeGenderPhone: PatientNameWitheAgeGenderPhone,
-                                AppointmentDateWithTime : AppointmentDateWithTime
+                                doctorwithSpecializationRenderer:PreviewHandlerHoc (DoctorWithSpecialization,null,null,null,previewCall),
+                                statusRenderer: PreviewHandlerHoc(AppointmentLogAction,null,null,null,previewCall),
+                                patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender,null,null,null,previewCall),
+                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWitheAgeGenderPhone,null,null,null,previewCall),
+                                AppointmentDateWithTime : PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

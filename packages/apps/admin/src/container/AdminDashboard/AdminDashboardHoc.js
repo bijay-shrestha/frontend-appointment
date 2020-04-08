@@ -48,17 +48,17 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
         previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
         previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
-        hospitalId: {label: 'ALL', value: null}
+        hospitalId: {label: 'ALL', value: 'A'}
       },
       searchParamsForOverallAppoinment: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        hospitalId: {label: 'ALL', value: null}
+        hospitalId: {label: 'ALL', value: 'A'}
       },
       searchParameterForRevenueTrend: {
         revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         revToDate: new Date(),
-        revHospitalId: {label: 'ALL', value: null}
+        revHospitalId: {label: 'ALL', value: 'A'}
       },
       revenueFilter: 'W',
       appointmentFilter: 'W',
@@ -365,7 +365,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       })
       if (fieldName === 'hospitalId') {
         this.callApiForHospitalChange()
-        if (value) {
+        if (value && value!=='A') {
           if (checkDashboardRole(ACCESSCODE.APPOINTMENT_LOG))
             this.searchAppointmentQueue()
           if (checkDashboardRole(ACCESSCODE.REVENUE_STAT))

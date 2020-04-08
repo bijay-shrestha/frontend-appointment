@@ -117,20 +117,25 @@ class CEnglishDatePicker extends Component {
             yearDropdownItemNumber
         } = this.props;
 
-        const HybridInput = ({value, onClick}) => (
-            <CHybridInput
+        const HybridInput = class HybridInputText extends React.PureComponent{
+            render(){
+                return(
+                <CHybridInput
                 id={id}
                 className="example-custom-input"
-                onClick={onClick}
-                value={value}
+                onClick={this.props.onClick}
+                value={this.props.value}
                 placeholder={label}
                 onChange={onChange}
                 readOnly={true}
                 autoComplete="off"
                 disabled={disabled}
                 isInvalid={invalid}
-            />
-        );
+            />)
+            } 
+        }
+          
+    
         return (
             <>
                 <DatePicker

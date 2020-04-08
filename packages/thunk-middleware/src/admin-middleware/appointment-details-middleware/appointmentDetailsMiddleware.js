@@ -215,3 +215,19 @@ export const clearAppointmentRejectMessage = () => async dispatch => {
 export const clearAppointmentApproveMessage = () => async dispatch => {
     dispatch({type: 'CLEAR_APPOINTMENT_APPROVE_MESSAGE'})
 };
+
+export const fetchAppointmentRefundDetailByAppointmentId = (path, appointmentId) => async dispatch => {
+    dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingStart());
+    try {
+        const response = await Axios.getWithPathVariables(path, appointmentId);
+        dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingSuccess(response.data));
+    } catch (e) {
+        dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingError(e.errorMessage ?
+            e.errorMessage : "Sorry,Internal Server problem!"));
+
+    }
+};
+
+export const clearAppointmentRefundDetailMessage = () => async dispatch => {
+    dispatch(AppointmentDetailActions.clearAppointmentRefundDetailMessage())
+};

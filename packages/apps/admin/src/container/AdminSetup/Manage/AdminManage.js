@@ -1057,8 +1057,7 @@ class AdminManage extends PureComponent {
 
         await this.fetchDepartmentsByHospitalId(hospital.value)
         await this.fetchProfilesByDepartmentId(department.value)
-
-        this.setState({
+        await this.setState({
             showEditModal: true,
             adminUpdateData: {
                 ...this.state.adminUpdateData,
@@ -1071,6 +1070,9 @@ class AdminManage extends PureComponent {
                 email: email,
                 mobileNumber: mobileNumber,
                 status: status,
+                mobileNumberValid:mobileNumber.length===10?true:false,
+                emailValid:email||false,
+                fullNameValid:fullName||false,
                 genderCode: genderCode,
                 hasMacBinding: hasMacBinding,
                 macIdList: [...macIdList],
@@ -1087,11 +1089,11 @@ class AdminManage extends PureComponent {
                 ],
                 remarks: '',
                 adminDashboardRequestDTOS: dashForAdmin,
-                formValid: false
             },
 
             updatedMacIdList: [...macIdList]
         })
+        this.checkFormValidity();
     }
 
     fetchDashBoardFeatures = async () => {

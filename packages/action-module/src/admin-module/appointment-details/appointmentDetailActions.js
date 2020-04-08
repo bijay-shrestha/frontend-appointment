@@ -36,7 +36,11 @@ const {
     APPROVAL_DETAIL_FETCH_START,
     APPROVAL_DETAIL_FETCH_ERROR,
     APPROVAL_DETAIL_FETCH_SUCCESS,
-    CLEAR_APPROVAL_DETAIL_MESSAGE
+    CLEAR_APPROVAL_DETAIL_MESSAGE,
+    CLEAR_REFUND_DETAIL_MESSAGE,
+    REFUND_DETAIL_FETCH_ERROR,
+    REFUND_DETAIL_FETCH_START,
+    REFUND_DETAIL_FETCH_SUCCESS
 } = appointmentDetailsConstants;
 
 export const appointmentRefundFetchingStart = () => {
@@ -295,6 +299,37 @@ export const appointmentApprovalDetailFetchingError = message => {
 export const clearAppointmentApprovalDetailMessage = message => {
     return {
         type: CLEAR_APPROVAL_DETAIL_MESSAGE,
+        payload: {
+            errorMessage: message
+        }
+    }
+};
+
+export const appointmentRefundDetailFetchingStart = () => {
+    return {
+        type: REFUND_DETAIL_FETCH_START
+    }
+};
+
+export const appointmentRefundDetailFetchingSuccess = data => {
+    return {
+        type: REFUND_DETAIL_FETCH_SUCCESS,
+        payload: {data}
+    }
+};
+
+export const appointmentRefundDetailFetchingError = message => {
+    return {
+        type: REFUND_DETAIL_FETCH_ERROR,
+        payload: {
+            errorMessage: message
+        }
+    }
+};
+
+export const clearAppointmentRefundDetailMessage = message => {
+    return {
+        type: CLEAR_REFUND_LIST_MESSAGE,
         payload: {
             errorMessage: message
         }

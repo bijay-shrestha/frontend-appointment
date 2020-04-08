@@ -226,10 +226,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     universityName,
                     qualificationAliasName,
                     status,
-                    remarks,
-                } = this.props.QualificationPreviewReducer.qualificationPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                } = this.props.QualificationPreviewReducer.qualificationPreviewData;
+                let formValid = false;
+                // if (remarks) formValid =
                 this.setState({
                     showEditModal: true,
                     qualificationData: {
@@ -238,7 +237,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         universityId: {value: universityId, label: universityName},
                         qualificationAliasId: {value: qualificationAliasId, label: qualificationAliasName},
                         status: status,
-                        remarks: remarks
+                        remarks: ''
                     },
                     formValid: formValid,
                     nameValid: true

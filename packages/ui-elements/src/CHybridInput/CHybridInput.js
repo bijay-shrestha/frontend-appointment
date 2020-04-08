@@ -196,7 +196,7 @@ class CHybridInput extends React.PureComponent {
                     onClick={onClick}
                 >
                     <Form.Control
-                        _ref={_ref}
+                        //_ref={_ref}
                         ref={this.inputRef}
                         as={as}
                         autoComplete={autoComplete}

@@ -6,7 +6,7 @@ import TableAction from "./tableComponents/TableAction";
 import StatusLabel from "./tableComponents/StatusLabel";
 import PreviewAdminDetails from "./PreviewAdminDetails";
 import AdminPicture from "./tableComponents/AdminPicture";
-
+import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 const {checkIfRoleExists} = ActionFilterUtils;
 
 const CompanyAdminDetailsDataTable = ({
@@ -153,8 +153,8 @@ const CompanyAdminDetailsDataTable = ({
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: StatusLabel,
-                        imageRenderer: AdminPicture
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,filteredAction,4,onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(AdminPicture,checkIfRoleExists,filteredAction,4,onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

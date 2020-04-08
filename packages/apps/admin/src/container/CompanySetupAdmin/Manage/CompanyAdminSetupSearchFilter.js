@@ -47,10 +47,9 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
                   id="reset-form"
                   variant="outline-secondary"
                   size="sm"
-                  name="Reset"
+                  name="Reset "
                   onClickHandler={resetSearchForm}
                 >
-                  {' '}
                   <i className="fa fa-refresh" />
                 </CButton>
               </div>
@@ -173,8 +172,9 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
               <li>
                 <CButton id="filter" variant="primary" name="">
                   <>
-                    <i className="fa fa-filter" />
+                    <i className="fa fa-filter" >
                     &nbsp; Filter
+                    </i>
                   </>
                 </CButton>
               </li>

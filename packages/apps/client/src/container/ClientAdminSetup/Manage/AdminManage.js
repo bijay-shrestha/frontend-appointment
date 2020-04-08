@@ -1015,7 +1015,7 @@ class AdminManage extends PureComponent {
         adminDashBoardRole,
         dashData
       )
-    this.setState({
+   await this.setState({
       showEditModal: true,
       adminUpdateData: {
         ...this.state.adminUpdateData,
@@ -1026,6 +1026,9 @@ class AdminManage extends PureComponent {
         username: username,
         email: email,
         mobileNumber: mobileNumber,
+        emailValid:email||false,
+        fullNameValid:fullName||false,
+        mobileNumberValid:mobileNumber.length==10?true:false,
         status: status,
         genderCode: genderCode,
         hasMacBinding: hasMacBinding === 'Y',
@@ -1041,6 +1044,7 @@ class AdminManage extends PureComponent {
       },
       updatedMacIdList: [...macIdList]
     })
+    this.checkFormValidity();
   }
 
   fetchDashBoardFeatures = async () => {
