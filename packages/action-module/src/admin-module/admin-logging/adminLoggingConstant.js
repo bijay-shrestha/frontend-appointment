@@ -1,0 +1,6 @@
+export const appointmentDetailsConstants = {
+    USER_FETCH_START: 'USER-LOG-FETCH-START',
+    USER_FETCH_SUCCESS: 'USER-LOG-FETCH-SUCCESS',
+    USER_FETCH_ERROR: 'USER-LOG-FETCH-ERROR',
+
+};
