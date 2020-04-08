@@ -102,7 +102,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 showEditRemarksModal: false,
                 showDeleteModal: false,
                 showPreviewModal: false,
-                // remarks: ''
+                remarks: ''
             });
             this.props.clearSuccessErrorMessageFormStore();
         };
@@ -229,7 +229,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
         handleEdit = async (editData) => {
             let country = {
-                    value: '',
+                    value: editData.countryId,
                     label: editData.countryName
                 },
                 status = {

@@ -93,8 +93,10 @@ class CTable extends PureComponent {
                 break;
             case 'DELETE':
                 this.handleDelete(data);
+                break;
             case 'PREVIEW':
                 this.handlePreview(data);
+                break;
             default:
                 break;
         }
