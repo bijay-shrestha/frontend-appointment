@@ -158,7 +158,7 @@ export const companySearchReducer = (
     case SEARCH_COMPANY_ERROR:
       return {
         isCompanySearchLoading: false,
-        companySearchData: null,
+        companySearchData: [],
         companySearchErrorMessage: action.payload.message
       }
       default:return {...state}
