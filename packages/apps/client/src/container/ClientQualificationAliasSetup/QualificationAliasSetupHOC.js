@@ -313,7 +313,11 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         closeModal = () => {
             this.setState({
                 showEditRemarksModal: false,
-                showDeleteModal: false
+                showDeleteModal: false,
+                aliasData:{
+                    ...this.state.aliasData,
+                    remarks:''
+                }
             });
             this.props.clearSuccessErrorMessageFormStore();
         };

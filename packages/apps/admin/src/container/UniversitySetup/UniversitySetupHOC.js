@@ -101,7 +101,8 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             this.setState({
                 showEditRemarksModal: false,
                 showDeleteModal: false,
-                showPreviewModal: false
+                showPreviewModal: false,
+                // remarks: ''
             });
             this.props.clearSuccessErrorMessageFormStore();
         };
