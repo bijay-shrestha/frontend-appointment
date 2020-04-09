@@ -280,9 +280,9 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         };
 
         initialApiCalls = async () => {
-            await this.fetchUniversityListForDropDown();
-            await this.fetchCountryListForDropDown();
-            await this.searchUniversities();
+            this.fetchUniversityListForDropDown();
+            this.fetchCountryListForDropDown();
+            this.searchUniversities();
         };
 
         resetUniversityData = () => {

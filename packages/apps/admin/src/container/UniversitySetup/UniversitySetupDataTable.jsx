@@ -5,7 +5,7 @@ import {ActionFilterUtils} from "@frontend-appointment/helpers";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
-const UniversitySetupDataTable = ({tableData,filteredAction}) => {
+const UniversitySetupDataTable = ({tableData, filteredAction}) => {
     const {
         universityList,
         isSearchUniversityLoading,
@@ -27,98 +27,87 @@ const UniversitySetupDataTable = ({tableData,filteredAction}) => {
     return <>
         <div className="manage-details">
             <h5 className="title">University Details</h5>
-            {!isSearchUniversityLoading && !searchErrorMessage && universityList.length ?
-                (
-                    <>
-                        <CTable
-                            id="qualification-alias"
-                            columnDefinition={[
+            <CTable
+                id="qualification-alias"
+                columnDefinition={[
+                    {
+                        headerName: 'Name',
+                        field: 'name',
+                        editComponent: prop => <CFControl
+                            id="name"
+                            name='name'
+                            type="text"
+                            reference={prop.reff}
+                            defaultValue={universityData.name}
+                        />,
+                    },
+                    {
+                        headerName: 'Address',
+                        field: 'address',
+                        editComponent: prop => <CFControl
+                            id="address"
+                            name='address'
+                            type="text"
+                            reference={prop.reff}
+                            defaultValue={universityData.address}
+                        />,
+                    },
+                    {
+                        headerName: 'Country',
+                        field: 'countryName',
+                        editComponent: prop => <CSelect
+                            id="countryName"
+                            name='countryName'
+                            innerRef={prop.reff}
+                            options={countryList}
+                            defaultValue={universityData.countryName}
+                        />,
+                    },
+                    {
+                        headerName: 'Status',
+                        field: 'status',
+                        editComponent: prop => <CSelect
+                            {...prop}
+                            id="status"
+                            name='status'
+                            innerRef={prop.reff}
+                            options={[
                                 {
-                                    headerName: 'Name',
-                                    field: 'name',
-                                    editComponent: prop => <CFControl
-                                        id="name"
-                                        name='name'
-                                        type="text"
-                                        reference={prop.reff}
-                                        defaultValue={universityData.name}
-                                    />,
+                                    label: 'Active', value: 'Y'
                                 },
                                 {
-                                    headerName: 'Address',
-                                    field: 'address',
-                                    editComponent: prop => <CFControl
-                                        id="address"
-                                        name='address'
-                                        type="text"
-                                        reference={prop.reff}
-                                        defaultValue={universityData.address}
-                                    />,
+                                    label: 'Inactive', value: 'N'
                                 },
-                                {
-                                    headerName: 'Country',
-                                    field: 'countryName',
-                                    editComponent: prop => <CSelect
-                                        id="countryName"
-                                        name='countryName'
-                                        innerRef={prop.reff}
-                                        options={countryList}
-                                        defaultValue={universityData.countryName}
-                                    />,
-                                },
-                                {
-                                    headerName: 'Status',
-                                    field: 'status',
-                                    editComponent: prop => <CSelect
-                                        {...prop}
-                                        id="status"
-                                        name='status'
-                                        innerRef={prop.reff}
-                                        options={[
-                                            {
-                                                label: 'Active', value: 'Y'
-                                            },
-                                            {
-                                                label: 'Inactive', value: 'N'
-                                            },
-                                        ]}
-                                        defaultValue={universityData.status}
-                                    />,
-                                    displayComponent: prop => <StatusRenderer {...prop}/>
-                                }
                             ]}
-                            rowValid={formValid}
-                            rowData={universityList}
-                            headerBordered={true}
-                            headerClassName="table-header"
-                            bodyClassName="table-body"
-                            footerClassName="table-footer"
-                            onSave={checkIfRoleExists(filteredAction, 10) ? handleSave : ''}
-                            onCancel={handleCancel}
-                            onEdit={handleEdit}
-                            onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
-                            onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
-                            onPreview={checkIfRoleExists(filteredAction, 12) ? handlePreview : ''}
-                        />
+                            defaultValue={universityData.status}
+                        />,
+                        displayComponent: prop => <StatusRenderer {...prop}/>
+                    }
+                ]}
+                rowValid={formValid}
+                rowData={universityList}
+                headerBordered={true}
+                headerClassName="table-header"
+                bodyClassName="table-body"
+                footerClassName="table-footer"
+                onSave={checkIfRoleExists(filteredAction, 10) ? handleSave : ''}
+                onCancel={handleCancel}
+                onEdit={handleEdit}
+                onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
+                onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
+                onPreview={checkIfRoleExists(filteredAction, 12) ? handlePreview : ''}
+                isLoading={isSearchUniversityLoading}
+                errorMessage={searchErrorMessage}
+            />
+            {!isSearchUniversityLoading && !searchErrorMessage && universityList.length ?
+                <CPagination
+                    totalItems={totalItems}
+                    maxSize={maxSize}
+                    currentPage={currentPage}
+                    onPageChanged={handlePageChange}
+                />
+                : ''}
 
-                        <CPagination
-                            totalItems={totalItems}
-                            maxSize={maxSize}
-                            currentPage={currentPage}
-                            onPageChanged={handlePageChange}
-                        />
-                    </>
-                )
-                : !isSearchUniversityLoading && searchErrorMessage ? (
-                    <div className="filter-message">
-                        <div className="no-data">
-                            <i className="fa fa-file-text-o"/>
-                        </div>
-                        <div className="message"> {searchErrorMessage}</div>
-                    </div>
-                ) : (
-                    <CLoading/>
-                )}
         </div>
     </>;
 };
