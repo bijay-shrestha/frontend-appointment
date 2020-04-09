@@ -1,4 +1,5 @@
 import {AdminLoggingSetupActions} from '@frontend-appointment/action-module'
+import {Axios} from '@frontend-appointment/core'
 export const fetchAdminLog = (path, queryParams, searchData) => async dispatch => {
     dispatch(AdminLoggingSetupActions.logFetchStart());
     try {
