@@ -37,7 +37,6 @@ class SideBarItem extends PureComponent {
   filterAndSetCollapsibleElements = (id, alreadyClickedId, root, forWhich) => {
     let activeId = ''
     activeId = forWhich ? id.replace('nav-item', '') : id + 'true'
-
     if (alreadyClickedId.includes(activeId)) {
       alreadyClickedId = alreadyClickedId.filter(item => item !== activeId)
     } else {
