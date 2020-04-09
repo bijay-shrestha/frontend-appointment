@@ -3,7 +3,7 @@
     {
       "id": "1",
       "parentId": null,
-      "name": "General Setup",
+      "name": "Client Setting",
       "path": "/generalSetup",
       "roles": [],
       "icon": "fa fa-cogs",
@@ -12,7 +12,7 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "1",
-      "description": "Medicine",
+      "description": "This is a client setting",
       "childMenus": [
         {
           "id": "2",
@@ -289,7 +289,6 @@
         }
       ]
     },
-
     {
       "id": "14",
       "parentId": null,
