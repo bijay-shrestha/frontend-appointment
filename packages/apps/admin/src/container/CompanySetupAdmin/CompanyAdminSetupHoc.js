@@ -966,7 +966,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       //await this.fetchDepartmentsByHospitalId(hospital.value)
       await this.fetchProfilesByCompanyId(company.value)
 
-      this.setState({
+      await this.setState({
         showEditModal: true,
         adminUpdateData: {
           ...this.state.adminUpdateData,
@@ -978,6 +978,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           email: email,
           mobileNumber: mobileNumber,
           status: status,
+          mobileNumberValid:mobileNumber.length===10?true:false,
+          emailValid:email||false,
+          fullNameValid:fullName||false,
           genderCode: genderCode,
           hasMacBinding: hasMacBinding,
           macIdList: [...macIdList],
@@ -994,6 +997,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         },
         updatedMacIdList: [...macIdList]
       })
+      this.checkFormValidity();
     }
 
     handleConfirmClick = async () => {

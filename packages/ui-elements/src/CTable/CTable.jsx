@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Table} from "react-bootstrap";
+import {Image, Table} from "react-bootstrap";
 import {Scrollbars} from 'react-custom-scrollbars';
 import PropTypes from 'prop-types';
 import {CButton} from "../../index";
@@ -13,7 +13,8 @@ class CTable extends PureComponent {
         rowObject: {},
         isEditing: false,
         rowNumber: '',
-        rowDataUnderAction: {}
+        rowDataUnderAction: {},
+        noDataErrorMessage: ''
     };
 
     refs = this.props.columnDefinition.map(column => {
@@ -150,8 +151,10 @@ class CTable extends PureComponent {
 
     handleCancel = (data, type) => {
         let tableDataList = [...this.state.tableData];
+        let errorMessage = "";
         if (type === "ADD") {
             tableDataList.shift();
+            errorMessage = tableDataList.length ? "" : this.props.errorMessage;
         } else {
             tableDataList[data.rowIndex].onRowEdit = false;
         }
@@ -159,23 +162,33 @@ class CTable extends PureComponent {
             tableData: [...tableDataList],
             isEditing: false,
             rowNumber: '',
-            rowDataUnderAction: {}
+            rowDataUnderAction: {},
+            noDataErrorMessage: errorMessage
         });
         this.props.onCancel();
     };
 
     createRowObject = () => {
         let tableDataList = [...this.state.tableData];
-        let row = {...tableDataList[0]};
-        Object.keys(row).map(rowKey =>
-            row[rowKey] = "",
-        );
+        let row = {};
+        if (tableDataList.length) {
+            row = {...tableDataList[0]};
+            Object.keys(row).map(rowKey =>
+                row[rowKey] = "",
+            );
+        } else {
+            const {columnDefinition} = this.props;
+            columnDefinition.map(column =>
+                row[column.field] = "")
+        }
+
         this.setState({
             rowObject: {
                 ...row,
                 onRowEdit: true,
                 isNewRow: true,
-            }
+            },
+            noDataErrorMessage: tableDataList.length ? '' : this.props.errorMessage
         })
     };
 
@@ -243,9 +256,15 @@ class CTable extends PureComponent {
     componentDidUpdate(prevProps, prevState, snapshot) {
         const {tableData, isEditing} = this.state;
         const {rowData} = this.props;
-        if (!this.areArrayOfObjectsEqual(tableData, rowData)) {
+        if (!this.areArrayOfObjectsEqual(tableData, rowData)
+            || prevProps.errorMessage !== this.props.errorMessage
+            || prevProps.isLoading !== this.props.isLoading) {
             if (!isEditing) {
                 this.setTableDataAndCreateRowObject(rowData);
+            } else if (isEditing && !rowData.length) {
+                this.setState({
+                    noDataErrorMessage: ''
+                })
             }
         }
     }
@@ -275,9 +294,11 @@ class CTable extends PureComponent {
             bodyClassName,
             footerClassName,
             rowValid,
-            onSave
+            onSave,
+            isLoading,
+            errorMessage
         } = this.props;
-        const {tableData, isEditing, rowNumber, rowDataUnderAction} = this.state;
+        const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state;
         return <>
             <div id={id} className="editable-table">
                 {
@@ -292,135 +313,153 @@ class CTable extends PureComponent {
                         >
                             <i className="fa fa-plus"/>&nbsp;  Add</CButton> : ''
                 }
-
-                <Table
-                    className="table-header"
-                    id={id}
-                    bordered={headerBordered}
-                    borderless={headerBorderless}
-                    hover={headerHover}
-                    responsive={headerResponsive}
-                    size={size}
-                    striped={headerStriped}
-                    variant={headerVariant}
-                    bsPrefix={headerBsPrefix}
-                >
-                    <thead>
-                    <tr>
-                        {columnDefinition.map((column, index) => (
-                            <td key={column + index}>
-                                {column.headerName}
-                            </td>
-                        ))}
-                        <td>
-                            Actions
-                        </td>
-                    </tr>
-                    </thead>
-                </Table>
-                <Scrollbars
-                    id="table-body"
-                    autoHide={true}
-                    style={{height: 400}}>
-                    <Table
-                        className="table-body"
-                        id={id}
-                        bordered={bordered}
-                        borderless={borderless}
-                        hover={hover}
-                        responsive={responsive}
-                        size={size}
-                        striped={striped}
-                        variant={variant}
-                        bsPrefix={bsPrefix}
-                    >
-                        <tbody>
-                        {
-                            tableData.map((row, rowIndex) => (
-                                <tr key={"row" + rowIndex} className={row.onRowEdit ? "activeRow" : ""}>
-                                    {
-                                        columnDefinition.map((column, colIndex) => (
-
-                                                <td key={column.field + "-" + colIndex}>
-                                                    {
-                                                        (row.onRowEdit && Object.keys(column).includes('editComponent')) ?
-                                                            <column.editComponent
-                                                                node={{
-                                                                    data: row,
-                                                                    rowIndex: rowIndex,
-                                                                    columnIndex: colIndex
-                                                                }}
-                                                                reff={this[`component${column.field}`]}
-                                                            /> :
-                                                            Object.keys(column).includes('displayComponent') ?
-                                                                <column.displayComponent
-                                                                    node={{
-                                                                        data: row,
-                                                                        rowIndex: rowIndex,
-                                                                        columnIndex: colIndex
-                                                                    }}
-                                                                    reff={this[`component${column.field}`]}
-                                                                />
-                                                                : row[column.field]
-
-                                                    }
-                                                </td>
-
-                                            )
-                                        )
-
-                                    }
+                {
+                    !isLoading && !noDataErrorMessage && tableData.length ?
+                        <>
+                            <Table
+                                className="table-header"
+                                id={id}
+                                bordered={headerBordered}
+                                borderless={headerBorderless}
+                                hover={headerHover}
+                                responsive={headerResponsive}
+                                size={size}
+                                striped={headerStriped}
+                                variant={headerVariant}
+                                bsPrefix={headerBsPrefix}
+                            >
+                                <thead>
+                                <tr>
+                                    {columnDefinition.map((column, index) => (
+                                        <td key={column + index}>
+                                            {column.headerName}
+                                        </td>
+                                    ))}
                                     <td>
-                                        <ActionForEditableTable
-                                            {...this.props}
-                                            node={{
-                                                data: row,
-                                                rowIndex: rowIndex,
-                                            }}
-                                            rowNumber={rowNumber}
-                                            isEditing={isEditing}
-                                            rowValid={rowValid}
-                                            onClick={this.handleClick}/>
+                                        Actions
                                     </td>
                                 </tr>
-                            ))
-                        }
-                        </tbody>
-                    </Table>
-                </Scrollbars>
-                {
-                    footerData ?
-                        <Table
-                            className={footerClassName}
-                            id={id}
-                            bordered={true}
-                            borderless={borderless}
-                            hover={hover}
-                            responsive={responsive}
-                            size={size}
-                            striped={striped}
-                            variant={variant}
-                            bsPrefix={bsPrefix}>
-                            <tbody>
+                                </thead>
+                            </Table>
+                            <Scrollbars
+                                id="table-body"
+                                autoHide={true}
+                                style={{height: 400}}>
+                                <Table
+                                    className="table-body"
+                                    id={id}
+                                    bordered={bordered}
+                                    borderless={borderless}
+                                    hover={hover}
+                                    responsive={responsive}
+                                    size={size}
+                                    striped={striped}
+                                    variant={variant}
+                                    bsPrefix={bsPrefix}
+                                >
+                                    <tbody>
+                                    {
+                                        tableData.map((row, rowIndex) => (
+                                            <tr key={"row" + rowIndex} className={row.onRowEdit ? "activeRow" : ""}>
+                                                {
+                                                    columnDefinition.map((column, colIndex) => (
+
+                                                            <td key={column.field + "-" + colIndex}>
+                                                                {
+                                                                    (row.onRowEdit && Object.keys(column).includes('editComponent')) ?
+                                                                        <column.editComponent
+                                                                            node={{
+                                                                                data: row,
+                                                                                rowIndex: rowIndex,
+                                                                                columnIndex: colIndex
+                                                                            }}
+                                                                            reff={this[`component${column.field}`]}
+                                                                        /> :
+                                                                        Object.keys(column).includes('displayComponent') ?
+                                                                            <column.displayComponent
+                                                                                node={{
+                                                                                    data: row,
+                                                                                    rowIndex: rowIndex,
+                                                                                    columnIndex: colIndex
+                                                                                }}
+                                                                                reff={this[`component${column.field}`]}
+                                                                            />
+                                                                            : row[column.field]
+
+                                                                }
+                                                            </td>
+
+                                                        )
+                                                    )
+
+                                                }
+                                                <td>
+                                                    <ActionForEditableTable
+                                                        {...this.props}
+                                                        node={{
+                                                            data: row,
+                                                            rowIndex: rowIndex,
+                                                        }}
+                                                        rowNumber={rowNumber}
+                                                        isEditing={isEditing}
+                                                        rowValid={rowValid}
+                                                        onClick={this.handleClick}/>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
+                                    </tbody>
+                                </Table>
+                            </Scrollbars>
                             {
-                                rowData.map((row, rowIndex) => (
-                                    <td key={rowIndex}>
-                                    </td>
-                                ))
-                            }
-                            </tbody>
-                            <tfoot>
-                            {
-                                footerData.map(footer =>
-                                    <tr>
+                                footerData ?
+                                    <Table
+                                        className={footerClassName}
+                                        id={id}
+                                        bordered={true}
+                                        borderless={borderless}
+                                        hover={hover}
+                                        responsive={responsive}
+                                        size={size}
+                                        striped={striped}
+                                        variant={variant}
+                                        bsPrefix={bsPrefix}>
+                                        <tbody>
                                         {
-                                            this.getFooterContent(footer)
+                                            rowData.map((row, rowIndex) => (
+                                                <td key={rowIndex}>
+                                                </td>
+                                            ))
                                         }
-                                    </tr>)
+                                        </tbody>
+                                        <tfoot>
+                                        {
+                                            footerData.map(footer =>
+                                                <tr>
+                                                    {
+                                                        this.getFooterContent(footer)
+                                                    }
+                                                </tr>)
+                                        }
+                                        </tfoot>
+                                    </Table>
+                                    : ''
                             }
-                            </tfoot>
-                        </Table>
-                        : ''
+                        </> :
+                        (!isLoading && noDataErrorMessage ? (
+                                <div className="filter-message">
+                                    <div className="no-data">
+                                        <i className="fa fa-file-text-o"/>
+                                    </div>
+                                    <div className="message"> {noDataErrorMessage}</div>
+                                </div>
+                            ) :
+                            <div className="filter-message c-loading">
+                                <div className="message-content">
+                                    <Image src={require('./dot-loader-gray.svg')} className="loader"/>
+                                    <span>Loading....</span>
+                                </div>
+                            </div>)
                 }
             </div>
         </>;

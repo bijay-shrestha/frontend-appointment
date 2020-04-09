@@ -176,7 +176,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         // };
 
         initialApiCalls = async () => {
-            await this.fetchQualificationAliasForDropdown();
+            this.fetchQualificationAliasForDropdown();
             await this.searchQualificationAlias(1);
         };
 

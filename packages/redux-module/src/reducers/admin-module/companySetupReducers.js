@@ -54,7 +54,7 @@ const initialSearchCompany = {
 
 const initialDropdownCompany = {
   isCompanyDropdownLoading: true,
-  companyDropdownData: '',
+  companyDropdownData: [],
   companyDropdownErrorMessage: ''
 }
 
@@ -184,7 +184,7 @@ export const companyDropdownReducer = (
     case COMPANY_DROPDOWN_ERROR:
       return {
         isCompanyDropdownLoading: false,
-        companyDropdownData: null,
+        companyDropdownData: [],
         companyDropdownErrorMessage: action.payload.message
       }
     default:return {...state}  

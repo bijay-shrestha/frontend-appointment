@@ -24,7 +24,7 @@ const DepartmentEditModal = ({
                              }) => {
     const bodyContent = (
         <>
-            <CForm id="specialization-info" className="mt-2">
+            <CForm id="specialization-info" className="mt-2 specialization-form">
                 <Row>
                     <Col sm={12} md={12} lg={4}>
                         <CHybridInput

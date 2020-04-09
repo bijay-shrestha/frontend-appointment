@@ -37,7 +37,7 @@ const DoctorRevenueList = props => {
         <div className="doctor-revenue">
           <h5 className="title">Doctor Revenue</h5>
           <div className="app-log">
-          {hospitalId.value ? (
+          {hospitalId.value  && hospitalId.value!=='A'? (
             <>
             <Row>
               <Col className="">
@@ -199,7 +199,7 @@ const DoctorRevenueList = props => {
           ) : (
             <div className="filter-message">
             <div className="no-data">
-                <i class="fa fa-hand-o-up"></i>
+                <i className="fa fa-hand-o-up"></i>
             </div>
             <div className="message">Please select hosptial!.</div>
         </div>

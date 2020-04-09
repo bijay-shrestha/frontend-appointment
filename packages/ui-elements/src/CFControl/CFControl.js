@@ -46,7 +46,7 @@ class CFControl extends PureComponent {
                 isInvalid={isInvalid}
                 isValid={isValid}
                 maxLength={max}
-                minLenght={min}
+                minLength={min}
                 multiple={multiple}
                 name={name}
                 onClick={onClick}

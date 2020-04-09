@@ -235,6 +235,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               rowSelection={'single'}
               rowData={appointmentLogList}
             />
+
+            
+        <div className=" total-amount">
+                        <span >
+                        Total Amount :
+                        
+                        </span>
+                        <span> Rs 40000</span>
+
+                    </div>
             <CPagination
               totalItems={totalRecords}
               maxSize={queryParams.size}

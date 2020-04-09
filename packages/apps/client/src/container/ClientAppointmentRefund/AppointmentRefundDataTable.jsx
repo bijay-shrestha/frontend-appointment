@@ -148,7 +148,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: PreviewHandlerHoc(TableRefundStatus,null,null,null,previewCall),
+                                childActionRenderer: TableRefundStatus,
                                 appointmentDateAndTimeRenderer: PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
                                 patientWithAgeRenderer: PreviewHandlerHoc(PatientWithAge,null,null,null,previewCall),
                                 doctorWithSpecializationRenderer:PreviewHandlerHoc(DoctorWithSpecialization,null,null,null,previewCall),
