@@ -15,7 +15,7 @@ const SpecializationForm = ({
                 <Row sm="12 p-0">
                     <h5 className="title">Specialization Info</h5>
                 </Row>
-                <CForm id="profile-info" className="mt-2 profile-info">
+                <CForm id="profile-info" className="mt-2 profile-info specialization-form">
                     <Container-fluid>
                         <Row>
                             <Col sm={12} md={6} lg={4}>
