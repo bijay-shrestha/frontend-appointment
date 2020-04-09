@@ -5,12 +5,8 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
+//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
-import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
-import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'
-import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-// import PreviewDetails from './AdminActivityLogPreview';
 import {Row, Col, Badge} from 'react-bootstrap'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
