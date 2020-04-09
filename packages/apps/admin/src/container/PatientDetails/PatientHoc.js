@@ -331,7 +331,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           remarks
         } = this.props.PatientPreviewReducer.patientPreviewData
         let nameValid = false,
-          mobileNumberValid = fals
+          mobileNumberValid = false
         if (name) nameValid = true
         if (mobileNumber) mobileNumberValid = true
         this.setState({

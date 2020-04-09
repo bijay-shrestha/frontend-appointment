@@ -1,4 +1,5 @@
-import {combineReducers} from 'redux'
+import {combineReducers} from 'redux';
+// import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   AdminDeleteReducer,
   AdminEditReducer,
@@ -111,7 +112,7 @@ const {
   CompanyAdminSetupReducer,
   CompanyAdminMetaInfoReducer
 } = CompanyAdminReducer
-export const rootReducers = combineReducers({
+const appReducers = combineReducers({
   AdminDeleteReducer,
   AdminEditReducer,
   AdminListReducer,
@@ -216,4 +217,11 @@ export const rootReducers = combineReducers({
   CompanyAdminMetaInfoReducer,
   AppointmentDetailReducer,
   AppointmentRefundDetailReducer
-})
+});
+
+export const rootReducers =(state, action)=>{
+  if (action.type === 'LOCATION_CHANGE') {
+    state = {};
+  }
+  return appReducers(state, action);
+}

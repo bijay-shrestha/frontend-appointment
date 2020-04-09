@@ -1,5 +1,6 @@
 import {loginReducers} from './common/loginreducers';
 import * as ForgotPasswordVerification from './common/forgotPasswordReducer';
+import {clearStateValues} from './common/locationChangeReducer';
 import {
     ProfileDeleteReducer,
     ProfileEditReducer,
@@ -140,6 +141,7 @@ export {
     AppointmentRefundListReducer,
     AppointmentDetailReducer,
     AppointmentRefundDetailReducer,
+    clearStateValues,
     companyDeleteReducer,
     companyDropdownReducer,
     companyPreviewReducer,

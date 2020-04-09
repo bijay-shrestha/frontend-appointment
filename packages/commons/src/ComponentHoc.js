@@ -2,7 +2,7 @@ import React from 'react'
 import {CommonUtils, menuRoles as roless, RolesUtils} from '@frontend-appointment/helpers';
 import {Redirect} from 'react-router-dom'
 import {CNavTabs} from '@frontend-appointment/ui-elements';
-
+import connectHoc from './connectHoc'
 const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
     class CheckTabs extends React.PureComponent {
         state = {
@@ -171,6 +171,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
          async componentDidMount() {
             const filteredRolesTab = await this.checkRoles()
             this.checkIfPathIsTabPath(filteredRolesTab)
+            this.props.dispatch({type:'LOCATION_CHANGE'})
         }
 
         render() {
@@ -208,7 +209,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             )
         }
     }
- return CheckTabs;
+ return connectHoc(CheckTabs,[],null);
 }
 
 export default ComponentHoc
