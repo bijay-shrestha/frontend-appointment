@@ -168,10 +168,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        handleAddNew = () => {
-          this.props.clearSuccessErrorMessageFormStore();
-        };
-
         checkFormValidity = () => {
             const {name, status} = this.state.aliasData;
             let formValid = name && status;
@@ -416,7 +412,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         formValid,
                         deleteErrorMessage,
                         showDeleteModal,
-                        handleAddNew: this.handleAddNew
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,

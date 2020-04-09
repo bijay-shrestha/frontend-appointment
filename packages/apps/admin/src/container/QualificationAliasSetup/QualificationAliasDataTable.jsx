@@ -21,7 +21,6 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
         handleUpdate,
         handleDelete,
         formValid,
-        handleAddNew
     } = tableData;
     return <>
         <div className="manage-details">
@@ -73,7 +72,6 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
                 onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
                 onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
                 // onPreview={},
-                handleAddNew={handleAddNew}
                 isLoading={isSearchQualificationAliasLoading}
                 errorMessage={searchErrorMessage}
             />

@@ -48,7 +48,6 @@ class CTable extends PureComponent {
             rowNumber: 0,
             rowDataUnderAction: {...rowData}
         });
-        this.props.handleAddNew();
     };
 
     handleEditRow = (e, data) => {
@@ -150,8 +149,10 @@ class CTable extends PureComponent {
 
     handleCancel = (data, type) => {
         let tableDataList = [...this.state.tableData];
+        let errorMessage = "";
         if (type === "ADD") {
             tableDataList.shift();
+            errorMessage = tableDataList.length ? "" : this.props.errorMessage;
         } else {
             tableDataList[data.rowIndex].onRowEdit = false;
         }
@@ -159,7 +160,8 @@ class CTable extends PureComponent {
             tableData: [...tableDataList],
             isEditing: false,
             rowNumber: '',
-            rowDataUnderAction: {}
+            rowDataUnderAction: {},
+            noDataErrorMessage: errorMessage
         });
         this.props.onCancel();
     };
