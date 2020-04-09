@@ -128,12 +128,14 @@ import {
     companySearchReducer,
     companyUpdateReducer
 } from './admin-module/companySetupReducers';
-
+import {AdminLoggingSearchReducer,AdminLoggingStatsSearchReducer} from './admin-module/adminLoggingReducer';
 export {
     AppointmentApproveReducer,
     AppointmentRejectReducer,
     AppointmentApprovalListReducer,
     AppointmentLogListReducer,
+    AdminLoggingSearchReducer,
+    AdminLoggingStatsSearchReducer,
     AppointmentStatusListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,

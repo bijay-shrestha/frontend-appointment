@@ -27,7 +27,9 @@ import {
     PatientDetailsMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
-    CompanyAdminSetupMiddleware
+    CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -84,5 +86,7 @@ export {
     ForgotPasswordMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
-    CompanyAdminSetupMiddleware
+    CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware
 }

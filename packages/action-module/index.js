@@ -42,7 +42,9 @@ import {
     CompanyProfileSetupActions,
     companyProfileSetupActionConstants,
     companyAdminSetupActionConstants,
-    CompanyAdminSetupActions
+    CompanyAdminSetupActions,
+    AdminLoggingSetupActions,
+    adminLoggingConstant
 } from './src/admin-module'
 
 export {
@@ -87,5 +89,7 @@ export {
     CompanyProfileSetupActions,
     companyProfileSetupActionConstants,
     companyAdminSetupActionConstants,
-    CompanyAdminSetupActions
+    CompanyAdminSetupActions,
+    AdminLoggingSetupActions,
+    adminLoggingConstant
 }

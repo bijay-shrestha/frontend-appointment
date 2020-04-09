@@ -28,10 +28,13 @@ import * as CompanyProfileSetupActions from './company-profile-setup/companyProf
 import {companyProfileSetupActionConstants} from './company-profile-setup/companyProfileSetupActionConstants'
 import * as CompanyAdminSetupActions from './company-admin-setup/companyAdminSetupActions'
 import {companyAdminSetupActionConstants} from './company-admin-setup/companyAdminSetupActionConstant'
-
+import * as AdminLoggingSetupActions from './admin-logging/adminLoggingActions'
+import {adminLoggingConstant} from './admin-logging/adminLoggingConstant'
 export {
   AppointmentDetailActions,
   appointmentDetailsConstants,
+  AdminLoggingSetupActions,
+  adminLoggingConstant,
   DashboardDetailsActions,
   dashboardDetailsActionsConstant,
   profileSetupConstants,

@@ -12,6 +12,7 @@ const APPOINTMENT_BASE = '/appointment'
 const DASHBOARD_BASE = '/dashboard'
 const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
+const ADMIN_LOGGING='/admin-log'
 
 export const initialApiConstantsOfAdmin = {
   LOGIN_API: BASE.concat("/login"),
@@ -261,4 +262,9 @@ export const companyAdminSetupApiConstants = {
   FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
   RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
   CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
+}
+
+export const adminLoggingConstant ={
+  FETCH_ADMIN_LOG:BASE.concat(ADMIN_LOGGING+'/search'),
+  FETCH_ADMIN_LOG_STATS:BASE.concat(ADMIN_LOGGING+"/user-log-statics")
 }

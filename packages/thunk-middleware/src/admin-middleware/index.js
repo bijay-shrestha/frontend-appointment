@@ -33,6 +33,7 @@ import * as CompanySetupMiddleware from './company-setup-middleware/companySetup
 import * as QualificationAliasSetupMiddleware from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware'
 import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare'
 import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/companyAdminSetupMiddleware'
+import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLoggingMiddleware';
 export {
   createProfile,
   fetchProfileList,
@@ -62,5 +63,6 @@ export {
   PatientDetailsMiddleware,
   QualificationAliasSetupMiddleware,
   CompanyProfileSetupMiddleware,
-  CompanyAdminSetupMiddleware
+  CompanyAdminSetupMiddleware,
+  AdminLoggingMiddleware
 }
