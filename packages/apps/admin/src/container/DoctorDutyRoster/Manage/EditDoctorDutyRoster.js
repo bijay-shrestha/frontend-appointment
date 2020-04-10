@@ -85,10 +85,10 @@ const EditDoctorDutyRoster = ({
 
                             <CHybridSelect
                                 id="hospital"
-                                label="Hospital"
+                                label="Client"
                                 name="hospital"
                                 options={hospitalList}
-                                placeholder="Select hospital."
+                                placeholder="Select client."
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}

@@ -35,7 +35,8 @@ const DoctorEditModal = ({
                              setImageShow,
                              hospitalsForDropdown,
                              activeSpecializationList,
-                             qualificationDropdown
+                             qualificationDropdown,
+                             isConsultantEditLoading
                          }) => {
     const checkIfSpecializationIdAndHospitalIdMatch = (
         currSpec,
@@ -50,7 +51,7 @@ const DoctorEditModal = ({
                     if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                         flag = true
                 });
-                !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec,'doctorSpecializationId') && newArray.push(editSp)
+                !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec, editSpec, 'doctorSpecializationId') && newArray.push(editSp)
             })
         }
         return newArray
@@ -66,9 +67,11 @@ const DoctorEditModal = ({
                                 <img
                                     alt="DOCTOR IMAGE"
                                     src={
-                                        doctorData.doctorAvatarUrl
-                                            ? doctorData.doctorAvatarUrl
-                                            : DefaulHospitalImage
+                                        doctorData.doctorAvatarUrlNew
+                                            ? doctorData.doctorAvatarUrlNew :
+                                            (doctorData.doctorAvatarUrl
+                                                ? doctorData.doctorAvatarUrl
+                                                : DefaulHospitalImage)
                                     }
                                 />
                                 <CButton
@@ -304,7 +307,7 @@ const DoctorEditModal = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={12} lg={6}>
+                            <Col sm={12} md={12} lg={6} >
                                 <CHybridTextArea
                                     id="remarks"
                                     name="remarks"
@@ -340,8 +343,9 @@ const DoctorEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid}
-                            name="Update"
+                            disabled={!formValid || isConsultantEditLoading}
+                            name={isConsultantEditLoading ? <span className="saving">Updating <img
+                                src={require("../../../images/three-dots.svg")}/></span> : "Update"}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"

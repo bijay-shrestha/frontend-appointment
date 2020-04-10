@@ -16,7 +16,8 @@ const UpdateProfileModal = ({
                                 errorMessage,
                                 profileMenuAssignmentProps,
                                 editApiCall,
-                                formValid
+                                formValid,
+                                isProfileEditLoading
                             }) => {
 
     let footerChildren = <>
@@ -33,6 +34,8 @@ const UpdateProfileModal = ({
                         disabled={!formValid}
                         name="Update"
                         size="lg"
+                        isLoading={isProfileEditLoading}
+                        disabled={isProfileEditLoading}
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"

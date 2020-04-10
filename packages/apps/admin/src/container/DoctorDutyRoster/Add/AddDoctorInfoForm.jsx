@@ -65,10 +65,10 @@ const AddDoctorInfoForm = ({
 
                     <CHybridSelect
                         id="hospital"
-                        label="Hospital"
+                        label="Client"
                         name="hospital"
                         options={hospitalList}
-                        placeholder="Select hospital."
+                        placeholder="Select client."
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.hospital}

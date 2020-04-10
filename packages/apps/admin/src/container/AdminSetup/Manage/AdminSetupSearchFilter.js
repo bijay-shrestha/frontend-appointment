@@ -83,13 +83,13 @@ class AdminSetupSearchFilter extends PureComponent {
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="hospital"
-                                            label="Hospital"
+                                            label="Client"
                                             name="hospital"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                             options={hospitalList}
                                             value={searchParameters.hospital}
-                                            placeholder="Select hospital."
+                                            placeholder="Select client."
                                         />
                                     </Col>
 

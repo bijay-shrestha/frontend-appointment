@@ -14,7 +14,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
 import {
     clientUserMenusJson,
-    EnterKeyPressUtils,
+    EnterKeyPressUtils, LocalStorageSecurity,
     menuRoles,
     TryCatchHandler,
     UserMenuUtils
@@ -117,9 +117,10 @@ class ProfileAdd extends PureComponent {
     };
 
     filterMenuByDepartment = () => {
-        let menusForDept = Object.keys(clientUserMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
-            ? [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForDept]);
+        // let menusForDept = Object.keys(clientUserMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
+        //     ? [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
+        let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
+            // UserMenuUtils.sortUserMenuJson([...menusForDept]);
         alphabeticallySortedMenus ?
             this.setState({
                 userMenus: [...alphabeticallySortedMenus],
