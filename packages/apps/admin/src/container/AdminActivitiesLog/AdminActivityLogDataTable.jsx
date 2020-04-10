@@ -9,10 +9,9 @@ import {
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
 import {Row, Col, Badge} from 'react-bootstrap'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStatsData}) => {
   const {
     isSearchLoading,
-    logList,
     searchErrorMessage,
     previewCall,
     previewData,
@@ -108,18 +107,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true
                 }
               ]}
-              frameworkComponents={{
-                statusRenderer: PreviewHandlerHoc(
-                  AppointmentLogAction,
-                  null,
-                  null,
-                  null,
-                  previewCall
-                )
-              }}
               defaultColDef={{resizable: true}}
-              //getSelectedRows={
-              //}
               rowSelection={'single'}
               rowData={logList}
             />

@@ -41,7 +41,9 @@ export const AdminLoggingSearchReducer = (
         logSearchData: [],
         logSearchErrorMessage: action.payload.message
       }
+    default:return state;  
   }
+ 
 }
 
 export const AdminLoggingStatsSearchReducer = (
@@ -65,5 +67,6 @@ export const AdminLoggingStatsSearchReducer = (
           logStatsSearchData: [],
           logStatsSearchErrorMessage: action.payload.messages
         }
+        default:return state;  
     }
   }

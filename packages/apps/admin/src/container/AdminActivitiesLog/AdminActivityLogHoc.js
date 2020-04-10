@@ -1,15 +1,15 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {AdminLoggingMiddleware} from '@frontend-appointment/thunk-middleware'
+import {AdminLoggingMiddleware,HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils
-  //FileExportUtils
 } from '@frontend-appointment/helpers'
 import './activity-log.scss'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils,menuRoles,LocalStorageSecurity} from '@frontend-appointment/helpers'
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchAdminLog, fetchAdminLogStatistics} = AdminLoggingMiddleware
+
 const AdminActivityLogHOC = (ComposedComponent, props, type) => {
   const {
     hospitalSetupApiConstants,
@@ -32,7 +32,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0,
       showModal: false,
-      previewData: {}
+      previewData: {},
+      rolesList:[],
+      menuList:[]
     }
 
     handleEnterPress = event => {
@@ -59,7 +61,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         userName
       } = this.state.searchParameters
       let searchData = {
-        appointmentNumber,
         fromDate,
         toDate,
         userName,
@@ -164,7 +165,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         }
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-        await this.setStateValuesForSearch(newSearchParams)
+        await this.setStateValuesForSearch(searchParams)
       }
     }
 
@@ -173,10 +174,38 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         showModal: !prevState.showModal
       }))
     }
+     
+    makeRoleData =() => {
+    const roles= menuRoles && menuRoles.length?menuRoles.map(menu => ({value:menu.id,label:menu.name,isTab:menu.parent_role_id?true:false})).filter(filMenu =>filMenu.isTab):[]
+    this.setState({
+      rolesList:[...roles]
+    });
+    }
 
+    makeMenuData = () => {
+    const assignedMenus = LocalStorageSecurity.localStorageDecoder('userMenus');
+    const filterMenusDropdown=[]
+    if(assignedMenus && assignedMenus.length){
+    assignedMenus.map(assignMenus => {
+       if(assignMenus.childMenus.length){
+         assignMenus.childMenus.map(child =>{
+          filterMenusDropdown.push({value:child.id,label:child.name}) 
+         })
+       }
+       else{
+         filterMenusDropdown.push({value:assignMenus.id,label:assignMenus.name})
+       }
+    })
+    }
+    this.setState({
+      menuList:[...filterMenusDropdown]
+    })
+    }
     async componentDidMount () {
       await this.searchAdminActivityLog()
       await this.searchHospitalForDropDown()
+      this.makeRoleData();
+      this.makeMenuData();
     }
 
     render () {
@@ -185,7 +214,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         queryParams,
         totalRecords,
         showModal,
-        previewData
+        previewData,
+        rolesList,
+        menuList
       } = this.state
 
       const {
@@ -198,7 +229,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         isLogStatsSearchSearchLoading,
         logStatsSearchData,
         logStatsSearchErrorMessage
-      } = this.props.AdminLoggingStatSearchReducer
+      } = this.props.AdminLoggingStatsSearchReducer
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       return (
         <div id="admin-acitivity-log">
@@ -211,7 +242,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               resetSearch: this.handleSearchFormReset,
               searchAdminActivityLog: this.searchAdminActivityLog,
               hospitalsDropdown: hospitalsForDropdown,
-              searchParameters: searchParameters
+              searchParameters: searchParameters,
+              parentList:menuList,
+              roles:rolesList
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -242,7 +275,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     AdminActivityLogDetails,
     [
       'HospitalDropdownReducer',
-      'AdminLoggingStatSearchReducer',
+      'AdminLoggingStatsSearchReducer',
       'AdminLoggingSearchReducer'
     ],
     {

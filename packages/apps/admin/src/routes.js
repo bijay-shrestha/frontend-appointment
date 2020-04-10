@@ -4,6 +4,11 @@ import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
+const AdminActivityLog = loadable(
+    () => import('./container/AdminActivitiesLog/AdminActivityLog'),
+    {fallback: getLoader()}
+)
+
 
 const AddProfileComponent = loadable(
     () => import('./container/ProfileSetup/Add/ProfileAdd'),
@@ -670,6 +675,16 @@ export const routes = [
         isLink: false,
         isTab: true,
         isSingleTab: false,
+    },
+    {
+        path: '/admin/userActivityLog',
+        name: 'User Activity Log',
+        component: AdminActivityLog,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        isSingleTab: true,
     },
     {
         path: '/admin/companySettings',

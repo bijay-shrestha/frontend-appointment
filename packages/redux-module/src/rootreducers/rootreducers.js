@@ -96,7 +96,9 @@ import {
   companySearchReducer,
   companyUpdateReducer,
   CompanyAdminReducer,
-  AppointmentDetailReducer
+  AppointmentDetailReducer,
+  AdminLoggingSearchReducer,
+  AdminLoggingStatsSearchReducer
 } from '../reducers'
 const {
   ForgotPasswordReducer,
@@ -117,6 +119,8 @@ export const rootReducers = combineReducers({
   AdminListReducer,
   AdminPreviewReducer,
   AdminSetupReducer,
+  AdminLoggingSearchReducer,
+  AdminLoggingStatsSearchReducer,
   AppointmentApprovalListReducer,
   AppointmentLogListReducer,
   AppointmentRefundListReducer,

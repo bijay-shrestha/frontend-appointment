@@ -414,7 +414,7 @@
         },
         {
           "id": "23",
-          "parentId": "20",
+          "parentId": "null",
           "name": "Company Admin Setup",
           "path": "/companySettings/companyadmin",
           "roles": [
@@ -434,6 +434,21 @@
           "childMenus": []
         }
       ]
+    },
+    {
+      "id": "24",
+      "parentId": null,
+      "name": "User Activity Log",
+      "path": "/userActivityLog",
+      "roles": [2,3,4,5],
+      "icon": "fa fa-history",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "User Activity Log",
+      "childMenus": [] 
     }
   ]
 }
