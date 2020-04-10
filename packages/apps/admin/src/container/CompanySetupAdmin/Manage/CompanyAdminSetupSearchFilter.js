@@ -83,7 +83,7 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
                       onChange={event => onInputChange(event)}
                       options={companyList}
                       value={searchParameters.company}
-                      placeholder="Select hospital."
+                      placeholder="Select company."
                     />
                   </Col>
 

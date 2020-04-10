@@ -58,7 +58,7 @@ const CompanyProfileInfoForm = ({profileInfoFormData, type}) => {
                     onChange={(event) => handleInputChange(event)}
                     options={companyListForDropdown}
                     value={profileInfoObj.company}
-                    placeholder={'Select Hospital.'}
+                    placeholder={'Select Client.'}
                 />
 
                 <div  className="status-box">

@@ -31,13 +31,13 @@ const DepartmentEditModal = ({
                 <Col sm={12} md={6} >
                     <CHybridSelect
                         id="hospital"
-                        label="Hospital"
+                        label="Client"
                         name="hospital"
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event)}
                         options={hospitalList}
                         value={departmentData.hospital}
-                        placeholder="Select hospital."
+                        placeholder="Select client."
                         isDisabled={true}
                     />
                 </Col>
