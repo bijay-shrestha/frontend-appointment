@@ -25,7 +25,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         previewCall,
         previewData,
         showModal,
-        setShowModal
+        setShowModal,
+        totalAmount
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -263,7 +264,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         Total Amount :
 
                         </span>
-                            <span> Rs 40000</span>
+                            <span> Rs {totalAmount}</span>
 
                         </div>
                         <CPagination

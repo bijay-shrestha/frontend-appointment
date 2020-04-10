@@ -40,7 +40,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId: '',
                 appointmentCategory: '',
                 status: '',
-                transactionNumber:''
+                transactionNumber: ''
             },
             queryParams: {
                 page: 0,
@@ -113,8 +113,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 logList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1,
-                    age:spec.patientAge.slice(0,4),
-                    gender:spec.patientGender.slice(0,1),
+                    age: spec.patientAge.slice(0, 4),
+                    gender: spec.patientGender.slice(0, 1),
                 }));
             return newLogList
         };
@@ -229,7 +229,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             const {
                 isLogListLoading,
                 logList,
-                logErrorMessage
+                logErrorMessage,
+                totalAmount
             } = this.props.AppointmentLogListReducer;
 
             const {
@@ -276,7 +277,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: previewData
+                            previewData: previewData,
+                            totalAmount: totalAmount
                         }}
                     />
                 </div>
