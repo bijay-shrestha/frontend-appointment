@@ -39,7 +39,8 @@ const AdminEditModal = ({
                 <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!adminUpdateData.formValid}
+                        disabled={!adminUpdateData.formValid||isAdminEditLoading}
+                        isAdminEditLoading={isAdminEditLoading}
                         name="Update"
                         size="lg"
                         className="btn-action  float-right"
