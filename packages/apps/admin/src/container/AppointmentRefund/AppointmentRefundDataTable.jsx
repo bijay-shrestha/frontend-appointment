@@ -151,10 +151,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowSelection={'single'}
                             rowData={appointmentRefundList}
                         />
-                        <div className="my-4 ml-0 mr-4">
-                            <span className="total-amount">
-                            Total Amount : Rs {totalRefundAmount}
+                        <div className=" total-amount">
+                            <span>
+                            Total Amount :
                             </span>
+                            <span>Rs {totalRefundAmount}</span>
                         </div>
                         <CPagination
                             totalItems={totalRecords}

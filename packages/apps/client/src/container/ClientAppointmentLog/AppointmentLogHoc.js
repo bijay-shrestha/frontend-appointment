@@ -39,7 +39,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 patientType: '',
                 specializationId: '',
                 appointmentCategory: '',
-                status: ''
+                status: '',
+                transactionNumber:''
             },
             queryParams: {
                 page: 0,
@@ -64,7 +65,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId,
                 doctorId,
                 appointmentCategory,
-                status
+                status,
+                transactionNumber
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
@@ -75,7 +77,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId: specializationId.value || '',
                 doctorId: doctorId.value || '',
                 appointmentCategory: appointmentCategory.value || '',
-                status: status.value || ''
+                status: status.value || '',
+                transactionNumber
             };
 
             let updatedPage =
@@ -111,7 +114,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     ...spec,
                     sN: index + 1,
                     age:spec.patientAge.slice(0,4),
-                    gender:spec.patientGender.slice(0,1),  
+                    gender:spec.patientGender.slice(0,1),
                 }));
             return newLogList
         };
