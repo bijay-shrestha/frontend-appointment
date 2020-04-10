@@ -113,8 +113,29 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 logList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1,
-                    age: spec.patientAge.slice(0, 4),
-                    gender: spec.patientGender.slice(0, 1),
+                    status: spec.status || 'N/A',
+                    hospitalName: spec.hospitalName || 'N/A',
+                    appointmentDate: spec.appointmentDate || 'N/A',
+                    appointmentNumber: spec.appointmentNumber || 'N/A',
+                    appointmentTime: spec.appointmentTime || 'N/A',
+                    esewaId: spec.esewaId || 'N/A',
+                    registrationNumber: spec.registrationNumber || 'N/A',
+                    patientName: spec.patientName || 'N/A',
+                    patientAddress: spec.patientAddress || 'N/A',
+                    gender: spec.patientGender.split('')[0] || 'N/A',
+                    patientGender: spec.patientGender,
+                    age: spec.patientAge.slice(0, 4) || 'N/A',
+                    patientAge: spec.patientAge.slice(0, 4),
+                    patientDob: spec.patientDob || 'N/A',
+                    isSelf: spec.isSelf || 'N/A',
+                    isRegistered: spec.isRegistered || 'N/A',
+                    mobileNumber: spec.mobileNumber || 'N/A',
+                    doctorName: spec.doctorName || 'N/A',
+                    specializationName: spec.specializationName || 'N/A',
+                    transactionNumber: spec.transactionNumber || 'N/A',
+                    appointmentAmount: spec.appointmentAmount || 'N/A',
+                    refundAmount: spec.refundAmount || '0',
+                    transactionDate: spec.transactionDate || 'N/A'
                 }));
             return newLogList
         };
