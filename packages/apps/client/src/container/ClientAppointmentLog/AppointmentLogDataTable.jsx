@@ -15,7 +15,7 @@ import {Row, Col, Badge} from 'react-bootstrap'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {checkIfRoleExists} from '@frontend-appointment/helpers/src/utils/ActionFilterUtils'
 import AppointmentAmountWithTransactionNumber
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+    from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
