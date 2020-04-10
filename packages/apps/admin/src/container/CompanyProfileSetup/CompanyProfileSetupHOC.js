@@ -293,7 +293,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 }
                 await this.setState({
                     selectedMenus: currentSelectedMenus,
-                    selectedUserMenusForModal: [userMenusForModalDisplay]
+                    selectedUserMenusForModal: [...userMenusForModalDisplay]
                 });
                 this.checkFormValidity();
             };
