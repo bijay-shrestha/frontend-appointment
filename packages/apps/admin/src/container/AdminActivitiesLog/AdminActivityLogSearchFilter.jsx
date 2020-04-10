@@ -121,15 +121,15 @@ class AppointmentLogListSearchFilter extends PureComponent {
 
                   <Col sm={12} md={6} xl={4}>
                     <CHybridInput
-                      id="username"
-                      name="username"
+                      id="userName"
+                      name="userName"
                       placeholder="Username/Mobile/Email"
                       value={searchParameters.userName}
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
                   </Col>
-                  
+
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="parentId"
@@ -214,7 +214,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                     overlay={props => <Tooltip {...props}>Username</Tooltip>}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.username}
+                      {searchParameters.userName}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -280,7 +280,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.roles && (
+              {searchParameters.roleId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
