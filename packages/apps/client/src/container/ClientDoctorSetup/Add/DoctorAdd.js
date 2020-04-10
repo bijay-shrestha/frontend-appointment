@@ -35,8 +35,8 @@ function DoctorAdd(props) {
              activeSpecializationList,
              appointmentChargeValid,
              errorMessageForAppointmentCharge,
-             emailValid
-
+             emailValid,
+             createConsultantLoading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -81,10 +81,11 @@ function DoctorAdd(props) {
                                 id="save-profile-add"
                                 variant="primary "
                                 className="float-right btn-action"
-                                name="Save"
-                                disabled={!formValid}
+                                disabled={!formValid || showConfirmModal}
+                                name={showConfirmModal ? <span className="saving">Saving <img
+                                    src={require("../../../images/three-dots.svg")}/></span> : "Save"}
                                 onClickHandler={setShowConfirmModal}
-                            ></CButton>
+                            />
                             <DoctorConfirmationModal
                                 showModal={showConfirmModal}
                                 setShowModal={setShowConfirmModal}
@@ -92,6 +93,7 @@ function DoctorAdd(props) {
                                 doctorData={doctorData}
                                 type="A"
                                 doctorImageCroppedUrl={doctorImageCroppedUrl}
+                                createConsultantLoading={createConsultantLoading}
                             />
                         </Col>
                     </Row>

@@ -34,7 +34,8 @@ const DoctorEditModal = ({
                              handleImageUpload,
                              setImageShow,
                              activeSpecializationList,
-                             qualificationDropdown
+                             qualificationDropdown,
+                             isConsultantEditLoading
                          }) => {
 
     const checkIfSpecializationIdAndHospitalIdMatch = (
@@ -48,7 +49,7 @@ const DoctorEditModal = ({
                 if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                     flag = true
             });
-            !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec,editSpec,'doctorSpecializationId') && newArray.push(editSp)
+            !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec, editSpec, 'doctorSpecializationId') && newArray.push(editSp)
         });
         return newArray;
     };
@@ -64,9 +65,11 @@ const DoctorEditModal = ({
                                 <img
                                     alt="DOCTOR IMAGE"
                                     src={
-                                        doctorData.doctorAvatarUrl
-                                            ? doctorData.doctorAvatarUrl
-                                            : DefaulHospitalImage
+                                        doctorData.doctorAvatarUrlNew
+                                            ? doctorData.doctorAvatarUrlNew :
+                                            (doctorData.doctorAvatarUrl
+                                                ? doctorData.doctorAvatarUrl
+                                                : DefaulHospitalImage)
                                     }
                                 />
                                 <CButton
@@ -322,8 +325,9 @@ const DoctorEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid}
-                            name="Update"
+                            disabled={!formValid || isConsultantEditLoading}
+                            name={isConsultantEditLoading ? <span className="saving">Updating <img
+                                src={require("../../../images/three-dots.svg")}/></span> : "Update"}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"
