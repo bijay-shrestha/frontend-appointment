@@ -289,7 +289,7 @@ const DoctorEditModal = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={12} lg={6}>
+                            <Col sm={12} md={12} lg={6} className="mt-3">
                                 <CHybridTextArea
                                     id="remarks"
                                     name="remarks"
