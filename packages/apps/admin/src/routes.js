@@ -572,7 +572,7 @@ export const routes = [
         isSingleTab: true,
     },
     {
-        path: '/admin/generalSetup/qualificationAlias',
+        path: '/admin/companySettings/qualificationAlias',
         component: QualificationAlias,
         icon: '',
         hasTab: false,

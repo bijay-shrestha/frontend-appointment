@@ -3,7 +3,7 @@
     {
       "id": "1",
       "parentId": null,
-      "name": "General Setup",
+      "name": "Client Setting",
       "path": "/generalSetup",
       "roles": [],
       "icon": "fa fa-cogs",
@@ -12,7 +12,7 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "1",
-      "description": "Medicine",
+      "description": "This is a client setting",
       "childMenus": [
         {
           "id": "2",
@@ -156,26 +156,6 @@
           "childMenus": []
         },
         {
-          "id": "18",
-          "parentId": "1",
-          "name": "Qualification Alias Setup",
-          "path": "/generalSetup/qualificationAlias",
-          "roles": [
-            10,
-            11,
-            12,
-            13
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "Qualification Alias Setup",
-          "childMenus": []
-        },
-        {
           "id": "19",
           "parentId": "1",
           "name": "University Setup",
@@ -289,7 +269,6 @@
         }
       ]
     },
-
     {
       "id": "14",
       "parentId": null,
@@ -431,6 +410,26 @@
           "enabled": "Y",
           "menuFor": "1",
           "description": "Company Admin Setup",
+          "childMenus": []
+        },
+        {
+          "id": "18",
+          "parentId": "20",
+          "name": "Qualification Alias Setup",
+          "path": "/companySettings/qualificationAlias",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Alias Setup",
           "childMenus": []
         }
       ]

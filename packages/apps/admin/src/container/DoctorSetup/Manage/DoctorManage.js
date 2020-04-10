@@ -55,7 +55,8 @@ const DoctorManage = props => {
       doctorsForDropdown,
       hospitalsForDropdown,
       activeSpecializationList,
-      qualificationDropdown
+      qualificationDropdown,
+         isConsultantEditLoading
     }) => (
       <>
         <div className="">
@@ -92,7 +93,7 @@ const DoctorManage = props => {
             onSubmitDelete={onSubmitDeleteHandler}
             remarksHandler={deleteRemarksHandler}
             remarks={deleteRequestDTO.remarks}
-            deleteErrorMsg={deleteErrorMessage} 
+            deleteErrorMsg={deleteErrorMessage}
           />
         </div>
         {showEditModal && (
@@ -115,10 +116,11 @@ const DoctorManage = props => {
             onImageSelect={onImageSelect}
             handleCropImage={handleCropImage}
             handleImageUpload={handleImageUpload}
-            setImageShow={setImageShow}   
+            setImageShow={setImageShow}
             qualificationDropdown={qualificationDropdown}
             hospitalsForDropdown={hospitalsForDropdown}
             activeSpecializationList={activeSpecializationList}
+            isConsultantEditLoading={isConsultantEditLoading}
           />
         )}
         <CAlert
