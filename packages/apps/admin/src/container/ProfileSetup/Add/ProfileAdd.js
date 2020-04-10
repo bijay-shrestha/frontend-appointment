@@ -330,7 +330,7 @@ class ProfileAdd extends PureComponent {
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-
+        const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
         const {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
@@ -395,6 +395,7 @@ class ProfileAdd extends PureComponent {
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
+                                    isAddLoading={isCreateProfileLoading}
                                     profileData={{
                                         profileName: profileName,
                                         profileDescription: profileDescription,

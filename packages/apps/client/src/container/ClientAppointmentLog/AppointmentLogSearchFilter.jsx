@@ -57,7 +57,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                  
+
                                     <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -133,8 +133,19 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder=" Appointment Number"
+                                            placeholder="Appointment Number"
                                             value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
@@ -153,9 +164,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onEnter={handleEnter}
                                         />
                                     </Col>
-                                
 
-                                   
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -193,6 +202,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             id="status"
                                             label="Status"
                                             name="status"
+                                            value={searchParameters.status}
                                             placeholder="Select Status."
                                             options={[
                                                 {value: 'PA', label: 'Booked'},
@@ -258,6 +268,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     >
                                         <Button id="light-search-filters" variant="secondary">
                                             {searchParameters.appointmentNumber}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.transactionNumber && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.transactionNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

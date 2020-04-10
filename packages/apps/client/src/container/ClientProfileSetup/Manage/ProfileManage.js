@@ -229,8 +229,9 @@ class ProfileManage extends PureComponent {
             menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
+        // let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
+        let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
+            // UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {
             this.setState({

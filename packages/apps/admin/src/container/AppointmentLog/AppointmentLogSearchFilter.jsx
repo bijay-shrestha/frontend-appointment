@@ -149,8 +149,19 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder=" Appointment Number"
+                                            placeholder="Appointment Number"
                                             value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
@@ -210,6 +221,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             label="Status"
                                             placeholder="Select Status."
                                             name="status"
+                                            value={searchParameters.status}
                                             options={[
                                                 {value: 'PA', label: 'Booked'},
                                                 {value: 'A', label: 'Checked-In'},
@@ -274,6 +286,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     >
                                         <Button id="light-search-filters" variant="secondary">
                                             {searchParameters.appointmentNumber}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.transactionNumber && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.transactionNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

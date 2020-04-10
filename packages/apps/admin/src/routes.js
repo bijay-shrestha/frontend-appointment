@@ -282,7 +282,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/specialization/add',
+        path: '/admin/companySettings/specialization/add',
         component: AddSpecializationComponent,
         icon: '',
         hasTab: true,
@@ -292,7 +292,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/specialization/manage',
+        path: '/admin/companySettings/specialization/manage',
         component: ManageSpecializationComponent,
         icon: '',
         hasTab: true,
@@ -302,7 +302,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/specialization',
+        path: '/admin/companySettings/specialization',
         component: <></>,
         icon: '',
         hasTab: true,
@@ -428,7 +428,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/qualification/add',
+        path: '/admin/companySettings/qualification/add',
         component: AddQualificationComponent,
         icon: '',
         hasTab: true,
@@ -438,7 +438,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/qualification/manage',
+        path: '/admin/companySettings/qualification/manage',
         component: ManageQualificationComponent,
         icon: '',
         hasTab: true,
@@ -448,7 +448,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/qualification',
+        path: '/admin/companySettings/qualification',
         component: <></>,
         icon: '',
         hasTab: true,
@@ -578,7 +578,7 @@ export const routes = [
         isSingleTab: true,
     },
     {
-        path: '/admin/generalSetup/qualificationAlias',
+        path: '/admin/companySettings/qualificationAlias',
         component: QualificationAlias,
         icon: '',
         hasTab: false,

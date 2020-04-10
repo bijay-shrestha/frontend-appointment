@@ -369,7 +369,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     toDate: new Date(),
                                     startTime: '',
                                     endTime: '',
-                                    dayOffStatus: '',
+                                    dayOffStatus: 'N',
                                     remarks: '',
                                     id: '',
                                     status: 'Y'
@@ -399,7 +399,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     toDate: new Date(),
                                     startTime: '',
                                     endTime: '',
-                                    dayOffStatus: '',
+                                    dayOffStatus: 'N',
                                     remarks: '',
                                     id: '',
                                     status: 'Y'
@@ -994,7 +994,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 originalData.weekDaysId === weekDayData.weekDaysId);
                             weekDayData.startTime = originalDataWithTime ? originalDataWithTime.startTime : '';
                             weekDayData.endTime = originalDataWithTime ? originalDataWithTime.endTime : '';
-                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : '';
+                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : 'N';
                             return weekDayData;
                         });
                     }
