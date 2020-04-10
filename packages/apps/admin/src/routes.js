@@ -689,7 +689,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/universitySetup',
+        path: '/admin/companySettings/universitySetup',
         component: UniversitySetupComponent,
         icon: '',
         hasTab: false,
