@@ -221,6 +221,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             label="Status"
                                             placeholder="Select Status."
                                             name="status"
+                                            value={searchParameters.status}
                                             options={[
                                                 {value: 'PA', label: 'Booked'},
                                                 {value: 'A', label: 'Checked-In'},

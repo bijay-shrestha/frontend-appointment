@@ -161,7 +161,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: ''
+                    status: '',
+                    transactionNumber: ''
                 }
             });
             this.searchAppointment()

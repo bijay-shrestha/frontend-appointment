@@ -25,7 +25,7 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
     fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const AppointmentLogHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -183,7 +183,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: ''
+                    status: '',
+                    transactionNumber: ''
                 }
             })
             this.searchAppointment()
@@ -225,7 +226,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
                 hospitalId
             )
-            this.props.fetchPatientMetaList(
+            this.props.fetchPatientMetaDropdown(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
                 hospitalId
             )
@@ -351,7 +352,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             fetchActiveHospitalsForDropdown,
             fetchActiveDoctorsHospitalWiseForDropdown,
             fetchSpecializationHospitalWiseForDropdown,
-            fetchPatientMetaList
+            fetchPatientMetaDropdown
         }
     )
 }
