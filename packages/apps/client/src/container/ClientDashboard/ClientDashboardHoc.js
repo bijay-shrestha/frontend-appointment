@@ -289,7 +289,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         }
         searchAppointmentQueue = async page => {
             if (checkDashboardRole(ACCESSCODE.APPOINTMENT_LOG)) {
-                const {doctorId} = this.state.appointmentQueue
+                const {doctorId, date} = this.state.appointmentQueue
 
                 let updatedPage =
                     this.state.queryParams.page === 0
@@ -304,7 +304,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                         size: this.state.queryParams.size
                     },
                     {
-                        doctorId: doctorId.value || ''
+                        doctorId: doctorId.value || '',
+                        date: date || new Date()
                     }
                 )
                 await this.setState({
