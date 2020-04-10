@@ -23,7 +23,7 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
         formValid,
     } = tableData;
     return <>
-        <div className="manage-details">
+        <div className="manage-details editable-table-container">
             <h5 className="title">Qualification Alias Setup</h5>
             <CTable
                 id="qualification-alias"

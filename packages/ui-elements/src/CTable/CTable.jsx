@@ -300,8 +300,7 @@ class CTable extends PureComponent {
         } = this.props;
         const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state;
         return <>
-            <div id={id} className="editable-table">
-                {
+          {
                     onSave ?
                         <CButton
                             id="add-new"
@@ -313,9 +312,12 @@ class CTable extends PureComponent {
                         >
                             <i className="fa fa-plus"/>&nbsp;  Add</CButton> : ''
                 }
+            
+              
                 {
                     !isLoading && !noDataErrorMessage && tableData.length ?
                         <>
+                        <div id={id} className="editable-table">
                             <Table
                                 className="table-header"
                                 id={id}
@@ -445,6 +447,7 @@ class CTable extends PureComponent {
                                     </Table>
                                     : ''
                             }
+                            </div>
                         </> :
                         (!isLoading && noDataErrorMessage ? (
                                 <div className="filter-message">
@@ -461,7 +464,7 @@ class CTable extends PureComponent {
                                 </div>
                             </div>)
                 }
-            </div>
+            {/* </div> */}
         </>;
     }
 }

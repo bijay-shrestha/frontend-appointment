@@ -25,7 +25,7 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
         formValid,
     } = tableData;
     return <>
-        <div className="manage-details">
+        <div className="manage-details editable-table-container">
             <h5 className="title">University Details</h5>
             <CTable
                 id="university-setup"
