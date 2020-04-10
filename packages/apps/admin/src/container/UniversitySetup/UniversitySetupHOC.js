@@ -7,6 +7,7 @@ import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 import UniversityDetails from "./UniversityDetails";
+import "./university-setup.scss"
 
 const {
     clearSuccessErrorMessageFormStore,

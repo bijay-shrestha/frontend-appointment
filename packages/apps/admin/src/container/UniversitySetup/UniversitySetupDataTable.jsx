@@ -28,7 +28,7 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
         <div className="manage-details">
             <h5 className="title">University Details</h5>
             <CTable
-                id="qualification-alias"
+                id="university-setup"
                 columnDefinition={[
                     {
                         headerName: 'Name',

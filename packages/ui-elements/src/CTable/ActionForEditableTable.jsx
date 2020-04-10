@@ -12,16 +12,16 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                         variant="success"
                         // disabled={!rowValid}
                         onClick={(e) => onClick(e, node, 'ADD')}>
-                               <i className="fa fa-save" />&nbsp;
-                        Save
+                               <i className="fa fa-save" />
+                        {/* Save */}
                     </Button>
                     &nbsp;
                     <Button
                         id="cancel"
                         variant="outline-secondary"
                         onClick={(e) => onClick(e, node, 'CANCEL')}>
-                                 <i className="fa fa-times" />&nbsp;
-                        Cancel
+                                 <i className="fa fa-times" />
+                        {/* Cancel */}
                     </Button>
                 </>
                 :
@@ -32,8 +32,8 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                             variant="secondary"
                             disabled={isEditing && rowNumber !== node.rowIndex}
                             onClick={(e) => onClick(e, node, 'EDIT')}>
-                                     <i className="fa fa-edit" />&nbsp;
-                            Edit
+                                     <i className="fa fa-edit" />
+                            {/* Edit */}
                         </Button> : ''
                     }
                        &nbsp;
@@ -44,17 +44,19 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                                 variant="outline-danger"
                                 disabled={isEditing && rowNumber !== node.rowIndex}
                                 onClick={(e) => onClick(e, node, 'DELETE')}>
-                                         <i className="fa fa-trash-o" />&nbsp;
-                                Delete
+                                         <i className="fa fa-trash-o" />
+                                {/* Delete */}
                             </Button> : ''
                     }
+                      &nbsp;
                     {
                         onPreview ?
                             <Button
                                 id="delete"
                                 disabled={isEditing && rowNumber !== node.rowIndex}
                                 onClick={(e) => onClick(e, node, 'PREVIEW')}>
-                                Preview
+                                     <i className="fa fa-eye" />
+                                {/* Preview */}
                             </Button>
                             : ''
                     }
