@@ -18,6 +18,7 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                 size="xl"
                 name="Confirm"
                 isLoading={isCreateAdminLoading}
+                disabled={isCreateAdminLoading}
                 className="float-right btn-action"
                 onClickHandler={onConfirmClick}/>}
             closeButton={true}

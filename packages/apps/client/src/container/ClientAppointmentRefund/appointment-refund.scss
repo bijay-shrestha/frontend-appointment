@@ -39,6 +39,34 @@
     @include border-radius(50%);
   }
 
+  .total-amount {
+    display: block;
+    text-align: right;
+    padding: 16px 0px 4px;
+
+    span {
+      background-color: $gray-200;
+      padding: 2px 8px 2px 2px;
+      margin: 10px 0 10px;
+      font-weight: 500;
+      color: $gray-800;
+
+      border: 1px solid $gray-200;
+      @include border-radius(4px);
+
+      &:first-child {
+        background-color: #fff;
+        border: #fff;
+      }
+
+      &:nth-child(2) {
+        font-size: 0.9rem;
+      }
+    }
+
+
+  }
+
   .react-datepicker-wrapper{
     width:50%;
     // padding-left: 4px;

@@ -30,7 +30,7 @@ const {
 } = doctorSetupConstants;
 
 const initialState = {
-    createConsultantLoading: true,
+    createConsultantLoading: false,
     createConsultanterrorMessage: '', //departmentCreate error message
     createConsultantsuccessMessage: '',
     isSearchLoading: true,
@@ -39,7 +39,7 @@ const initialState = {
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
     isDeleteLoading: true,
-    isConsultantEditLoading: true,
+    isConsultantEditLoading: false,
     consultantEditErrorMessage: '', //department edit error message
     consultantEditSuccessMessage: '',
     consultantPreviewData: null,
