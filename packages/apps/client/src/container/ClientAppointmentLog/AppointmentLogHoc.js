@@ -40,7 +40,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId: '',
                 appointmentCategory: '',
                 status: '',
-                transactionNumber: ''
+                transactionNumber: '',
+                transactionFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                transactionToDate: new Date()
             },
             queryParams: {
                 page: 0,
@@ -66,7 +68,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId,
                 appointmentCategory,
                 status,
-                transactionNumber
+                transactionNumber,
+                transactionFromDate,
+                transactionToDate
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
@@ -78,7 +82,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId: doctorId.value || '',
                 appointmentCategory: appointmentCategory.value || '',
                 status: status.value || '',
-                transactionNumber
+                transactionNumber,
+                transactionFromDate,
+                transactionToDate
             };
 
             let updatedPage =
@@ -162,7 +168,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     doctorId: '',
                     appointmentCategory: '',
                     status: '',
-                    transactionNumber: ''
+                    transactionNumber: '',
+                    transactionFromDate: new Date(),
+                    transactionToDate: new Date()
                 }
             });
             this.searchAppointment()

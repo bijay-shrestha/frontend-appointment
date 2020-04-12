@@ -8,13 +8,13 @@ const HospitalDropdownList = props => {
     <Col className="px-0">
       <Form className="hospital-list">
         <Form.Group as={Row} controlId="formPlaintextEmail">
-         
+
           <Col sm="12">
-            <div className="hospital-list-input"> 
+            <div className="hospital-list-input">
              <Form.Label className="hospital-label">
-              Hospital
+              Client
             </Form.Label>
-            <CHybridSelect name="hospitalId" placeholder="Select hospital" onChange={handleHospitalChange} options={hospitalDropdown} value={hospitalId}></CHybridSelect>
+            <CHybridSelect name="hospitalId" placeholder="Select client" onChange={handleHospitalChange} options={hospitalDropdown} value={hospitalId}></CHybridSelect>
             </div>
           </Col>
         </Form.Group>

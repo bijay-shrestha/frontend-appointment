@@ -65,10 +65,10 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="hospital"
-                                            label="Hospital"
+                                            label="Client"
                                             name="hospital"
                                             options={hospitalList}
-                                            placeholder="Select hospital."
+                                            placeholder="Select client."
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.hospital}

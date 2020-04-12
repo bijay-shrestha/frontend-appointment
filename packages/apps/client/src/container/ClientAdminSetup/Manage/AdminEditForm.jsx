@@ -121,7 +121,7 @@ const AdminEditForm = ({
                     placeholder={
                       adminInfoObj.hospital
                         ? 'Select department.'
-                        : 'Select hospital first.'
+                        : 'Select client first.'
                     }
                   />
 
