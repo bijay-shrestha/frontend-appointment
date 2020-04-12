@@ -7,12 +7,14 @@ const AppointmentAmountWithTransactionNumber = (props) => {
         <>
             <ul className="doctor-column">
                 <li>
-                    {props.node.data.appointmentAmount}
+                 {props.node.data.transactionNumber}
                 </li>
                 <li>
                     <span className="spec">
                     <i className="fa fa-money "></i>&nbsp;
-                    {props.node.data.transactionNumber}
+                    {/* <span className="fa-money">NPR &nbsp;</span> */}
+                    
+                    {props.node.data.appointmentAmount}
                     </span>
                 </li>
             </ul>
