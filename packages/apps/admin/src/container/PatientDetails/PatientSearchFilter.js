@@ -68,8 +68,8 @@ class PatientSearchFilter extends PureComponent {
                     <CHybridSelect
                       id="hospitalId"
                       name="hospitalId"
-                      label="Select Hospital"
-                      placeholder="Select Hospital"
+                      label="Client"
+                      placeholder="Select Client"
                       options={hospitalsDropdown}
                       isDisabled={hospitalsDropdown.length ? false : true}
                       value={searchParameters.hospitalId}
@@ -162,7 +162,7 @@ class PatientSearchFilter extends PureComponent {
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                    overlay={<Tooltip id="name">Client Name</Tooltip>}
                   >
                     <Button
                       id="search-param-button-filters"

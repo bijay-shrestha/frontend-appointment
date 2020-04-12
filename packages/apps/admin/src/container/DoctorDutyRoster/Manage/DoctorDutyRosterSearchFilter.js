@@ -115,7 +115,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specialization"
                                             options={specializationList}
-                                            placeholder={!searchParameters.hospital ?"Select Hospital first":"Select specialization."}
+                                            placeholder={!searchParameters.hospital ?"Select Client first":"Select specialization."}
                                             isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => specializationDropdownError? specializationDropdownError: "No Specializatipon(s) found."}
                                             onKeyDown={this.handleEnter}
@@ -128,7 +128,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
-                                            placeholder={!searchParameters.hospital?"Select Hospital first":"Select doctor."}
+                                            placeholder={!searchParameters.hospital?"Select Client first":"Select doctor."}
                                             options={doctorList}
                                             isDisabled={!searchParameters.hospital}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
@@ -196,7 +196,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                                 >
                                     <Button id="button-search-filters" variant="secondary">
                                         {searchParameters.hospital.label}

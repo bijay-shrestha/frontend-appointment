@@ -42,7 +42,7 @@ const ProfileDetails = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Name',
+                            headerName: 'Client',
                             field: 'hospitalName',
                             resizable: true,
                             sortable: true,

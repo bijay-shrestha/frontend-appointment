@@ -67,7 +67,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             value={searchParameters.hospital}
                                             options={hospitalList}
-                                            label='Hospital'
+                                            label='Client'
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
@@ -185,7 +185,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                                 >
                                     <Button id="button-search-filters" variant="secondary">
                                         {searchParameters.hospital.label}

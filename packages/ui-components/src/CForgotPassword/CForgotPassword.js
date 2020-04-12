@@ -38,7 +38,7 @@ const ForgotPassword = ({
                     {forClient?<CHybridInput
                       id="hospitalCode"
                       name="hospitalCode"
-                      placeholder="Hospital Code"
+                      placeholder="Client Code"
                       onChange={onChangeHandler}
                       value={passwordForgotData.hospitalCode}
                     />:null}

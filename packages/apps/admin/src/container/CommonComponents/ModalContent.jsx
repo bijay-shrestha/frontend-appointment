@@ -122,7 +122,7 @@ class ModalContent extends React.PureComponent {
                                     <CHybridSelect
                                         id="hospital"
                                         isDisabled={true}
-                                        label="Hospital"
+                                        label="Client"
                                         name="selectedHospital"
                                         // options={subDepartmentList}
                                         value={

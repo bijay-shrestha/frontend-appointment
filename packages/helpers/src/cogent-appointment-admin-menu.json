@@ -37,7 +37,7 @@
         {
           "id": "4",
           "parentId": "1",
-          "name": "Profile Setup",
+          "name": "Client Profile Setup",
           "path": "/generalSetup/profile",
           "roles": [
             2,
@@ -51,7 +51,7 @@
           "order": 4,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Profile Setup",
+          "description": "Client Profile Setup",
           "childMenus": []
         },
         {

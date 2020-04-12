@@ -104,7 +104,7 @@ const DoctorEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    label="Select Hospital"
+                                    label="Select Client"
                                     options={hospitalsForDropdown}
                                     value={doctorData.hospitalId}
                                     required={true}

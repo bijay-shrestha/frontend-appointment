@@ -53,12 +53,12 @@ const ProfileInfoForm = ({
                 <CHybridSelect
                     id="hospital"
                     onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
+                    label="Client"
                     name="selectedHospital"
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Hospital.'}
+                    placeholder={'Select Client.'}
                 />
 
                 <CHybridSelect

@@ -56,7 +56,7 @@ const AdminEditForm = ({
     <CLoading />
   ) : (
     <>
-      <h5 className="title">Admin Setup</h5>
+      {/*<h5 className="title">Client Admin Setup</h5>*/}
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
           <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">

@@ -75,13 +75,13 @@ class ProfileSetupSearchFilter extends PureComponent {
                                     <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="hospital"
-                                            label="Hospital"
+                                            label="Client"
                                             name="hospital"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                             options={hospitalList}
                                             value={searchParameters.hospital}
-                                            placeholder={'Select Hospital.'}
+                                            placeholder={'Select Client.'}
                                         />
                                     </Col>
 
@@ -176,7 +176,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                                 >
                                     <Button id="button-searchs-filters" variant="secondary">
                                         {searchParameters.hospital && searchParameters.hospital.label}
