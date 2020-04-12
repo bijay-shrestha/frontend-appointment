@@ -230,7 +230,8 @@ class ProfileManage extends PureComponent {
         });
 
         let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
-        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
+        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[]
+         //UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {
             this.setState({

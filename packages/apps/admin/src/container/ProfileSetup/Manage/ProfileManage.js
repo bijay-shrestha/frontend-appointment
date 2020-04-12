@@ -235,8 +235,9 @@ class ProfileManage extends PureComponent {
         });
 
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-        let alphabeticallySortedMenus = ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
-            hospitalsForDropdown, profileResponseDTO.hospitalId);
+        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[] 
+        //ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
+          //  hospitalsForDropdown, profileResponseDTO.hospitalId);
 
         if (profileResponseDTO) {
             await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
