@@ -1,22 +1,25 @@
 import React, {memo} from 'react'
 import {
-  CButton,
   CDataTable,
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
-import {Row, Col, Badge} from 'react-bootstrap'
-import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStatsData}) => {
+//import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
+import {Row, Col} from 'react-bootstrap'
+//import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+const AppointmentRefundDataTable = ({
+  tableHandler,
+  paginationProps,
+  adminLogStatsData
+}) => {
   const {
     isSearchLoading,
     searchErrorMessage,
-    previewCall,
-    previewData,
-    showModal,
-    setShowModal,
+    // previewCall,
+    // previewData,
+    // showModal,
+    // setShowModal,
     logList
   } = tableHandler
   const {
@@ -57,7 +60,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStats
                 },
                 {
                   headerName: 'Log Date & Time',
-                  field: 'dateTime',
+                  field: 'logDateTime',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
@@ -84,7 +87,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStats
 
                 {
                   headerName: 'Features/Menu',
-                  field: 'features',
+                  field: 'feature',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
@@ -95,7 +98,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStats
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  field: 'action',
+                  field: 'actionType',
                   autoSize: true,
                   width: '300'
                 },
@@ -129,6 +132,63 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,adminLogStats
           <CLoading />
         )}
       </div>
+
+      {!isLogStatsSearchSearchLoading &&
+      !logStatsSearchErrorMessage &&
+      logStatsSearchData.length ? (
+        <CDataTable
+          classes="ag-theme-balham"
+          id="roles-table"
+          width="100%"
+          height="460px"
+          enableSorting
+          editType
+          rowHeight={50}
+          columnDefs={[
+            {
+              headerName: 'SN',
+              field: 'sN',
+              headerClass: 'resizable-header header-first-class',
+              resizable: true,
+              sortable: true,
+              editable: true,
+              sizeColumnsToFit: true,
+              width: '150',
+              cellClass: 'first-class'
+            },
+            {
+              headerName: 'Feature',
+              field: 'feature',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+              width: '200'
+            },
+            {
+              headerName: 'Count',
+              field: 'count',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+              width: '140'
+            }
+          
+          ]}
+          defaultColDef={{resizable: true}}
+          rowSelection={'single'}
+          rowData={logList}
+        />
+      ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
+        <div className="filter-message">
+          <div className="no-data">
+            <i className="fa fa-file-text-o"></i>
+          </div>
+          <div className="message"> {logStatsSearchErrorMessage}</div>
+        </div>
+      ) : (
+        ''
+      )}
+
       {/* 
             {showModal ? (
                 <PreviewDetails

@@ -262,7 +262,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
             }}
             adminLogStatsData={{
               isLogStatsSearchSearchLoading: isLogStatsSearchSearchLoading,
-              logStatsSearchData: logStatsSearchData,
+              logStatsSearchData: this.appendSNToTable(logStatsSearchData),
               logStatsSearchErrorMessage: logStatsSearchErrorMessage
             }}
           />

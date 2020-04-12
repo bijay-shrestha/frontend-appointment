@@ -265,6 +265,6 @@ export const companyAdminSetupApiConstants = {
 }
 
 export const adminLoggingConstant ={
-  FETCH_ADMIN_LOG:BASE.concat(ADMIN_LOGGING+'/search'),
-  FETCH_ADMIN_LOG_STATS:BASE.concat(ADMIN_LOGGING+"/user-log-statics")
+  FETCH_ADMIN_LOG:BASE.concat('/logging'+ADMIN_LOGGING+'/search'),
+  FETCH_ADMIN_LOG_STATS:BASE.concat('/logging'+ADMIN_LOGGING+"/user-log-statics")
 }
