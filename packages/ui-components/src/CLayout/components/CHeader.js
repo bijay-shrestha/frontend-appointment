@@ -134,7 +134,7 @@ class CHeader extends Component {
                         <Dropdown alignRight className="user-profile">
                             <Dropdown.Toggle variant="default" id="dropdown-basic">
                                 <Image src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
-                                    : require('../../img/sabu.jpg')} className="avatar"/>
+                                    : require('../../img/picture.png')} className="avatar"/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <div className="user-details">
