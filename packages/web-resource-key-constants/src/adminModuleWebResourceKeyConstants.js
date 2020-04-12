@@ -263,8 +263,8 @@ export const companyAdminSetupApiConstants = {
   RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
   CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
 }
-
+const LOG_BASE='/logging';
 export const adminLoggingConstant ={
-  FETCH_ADMIN_LOG:BASE.concat('/logging'+ADMIN_LOGGING+'/search'),
-  FETCH_ADMIN_LOG_STATS:BASE.concat('/logging'+ADMIN_LOGGING+"/user-log-statics")
+  FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
+  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/user-log-statics"))
 }
