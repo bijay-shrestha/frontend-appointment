@@ -11,6 +11,7 @@ const AppointmentAmountWithTransactionNumber = (props) => {
                 </li>
                 <li>
                     <span className="spec">
+                    <i className="fa fa-money "></i>&nbsp;
                     {props.node.data.transactionNumber}
                     </span>
                 </li>

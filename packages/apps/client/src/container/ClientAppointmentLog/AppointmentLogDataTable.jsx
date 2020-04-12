@@ -194,7 +194,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Transaction Detail (Amount/Number)',
+                                    headerName: 'Txn. Detail (Amount/No)',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
@@ -204,7 +204,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: "300"
                                 },
                                 {
-                                    headerName: 'Transaction Date',
+                                    headerName: 'Txn. Date',
                                     field: 'transactionDate',
                                     resizable: true,
                                     sortable: true,
