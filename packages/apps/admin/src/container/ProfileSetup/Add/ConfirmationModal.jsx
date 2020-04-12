@@ -6,7 +6,7 @@ const ConfirmationModal = props => {
     const {showConfirmModal, setShowConfirmModal, onConfirmClick, profileData, rolesJson,isAddLoading} = props;
     return <>
         <CModal show={showConfirmModal}
-                modalHeading="Profile Details"
+                modalHeading="Client Profile Details"
                 size="lg"
                 bodyChildren={
                     <ModalContent

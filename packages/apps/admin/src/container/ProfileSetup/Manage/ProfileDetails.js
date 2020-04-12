@@ -11,7 +11,7 @@ const {checkIfRoleExists} = ActionFilterUtils;
 
 const ProfileDetails = props => (
     <div className="manage-details">
-        <h5 className="title">Profile Details</h5>
+        <h5 className="title">Client Profile Details</h5>
         {!props.isSearchLoading && !props.searchErrorMessage && props.searchData.length ? (
             <>
                 <CDataTable

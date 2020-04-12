@@ -43,7 +43,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                     // TODO: TO BE MADE DYNAMIC
                     <div id="advanced-search" className='advanced-search'>
                         <div className='search-header d-flex justify-content-between'>
-                            <h5 className="title">Search Profiles</h5>
+                            <h5 className="title">Search Client Profiles</h5>
                             <div>
                                 <CButton
                                     id="reset-form"

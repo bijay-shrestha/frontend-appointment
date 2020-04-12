@@ -44,7 +44,7 @@ const ConfirmDelete = props => {
     <>
       <CModal
         show={props.showModal}
-        modalHeading="Delete Profile"
+        modalHeading="Delete Client Profile"
         size="lg"
         bodyChildren={body}
         onHide={props.setShowModal}

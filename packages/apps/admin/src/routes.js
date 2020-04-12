@@ -219,7 +219,7 @@ export const routes = [
     },
     {
         path: '/admin/generalSetup',
-        name: 'General Setup',
+        name: 'Client Setting',
         component: <></>,
         icon: '',
         hasTab: true,
@@ -234,7 +234,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Profile Setup',
+        name: 'Client Profile Setup',
         isSingleTab: false,
     },
 //   {
@@ -336,7 +336,7 @@ export const routes = [
     },
     {
         path: '/admin/generalSetup/admin-setup',
-        name: 'Admin Setup',
+        name: 'Client Admin Setup',
         component: <></>,
         icon: '',
         hasTab: true,
