@@ -51,7 +51,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             errorMessageForHospitalName:
                 'Client Name should not contain special characters',
             errorMessageForHospitalCode:
-                'Client Code should not contain special characters',
+                'Access Key should not contain special characters',
             showAlert: false,
             alertMessageInfo: {
                 variant: '',
