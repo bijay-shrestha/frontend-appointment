@@ -75,7 +75,7 @@ const UpdateProfileModal = ({
     return (
         <>
             <CModal show={showEditModal}
-                    modalHeading="Update Profile"
+                    modalHeading="Update Client Profile"
                     size="xl"
                     bodyChildren={body}
                     onHide={setShowEditModal}

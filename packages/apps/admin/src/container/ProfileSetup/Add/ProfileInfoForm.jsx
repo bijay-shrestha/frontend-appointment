@@ -20,7 +20,7 @@ const ProfileInfoForm = ({
                          }) => {
     return (
         <Col sm={12} md={12} lg={4}>
-            <h5 className="title">Profile Info</h5>
+            <h5 className="title">Client Profile Info</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
@@ -53,12 +53,12 @@ const ProfileInfoForm = ({
                 <CHybridSelect
                     id="hospital"
                     onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
+                    label="Client"
                     name="selectedHospital"
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Hospital.'}
+                    placeholder={'Select Client.'}
                 />
 
                 <CHybridSelect

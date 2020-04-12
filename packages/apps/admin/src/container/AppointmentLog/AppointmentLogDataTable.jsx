@@ -100,7 +100,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'statusRenderer'
                                 },
                                 // {
-                                //   headerName: 'Hospital Name',
+                                //   headerName: 'Client Name',
                                 //   field:'hospitalName',
                                 //   resizable: true,
                                 //   sortable: true,

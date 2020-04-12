@@ -63,14 +63,14 @@ const DetailsModal = ({type, doctorData}) => {
                                         {type === 'M' ? (
                                             <CHybridInput
                                                 id="hospital-id"
-                                                placeholder="Hospital Name"
+                                                placeholder="Client"
                                                 value={doctorData.hospitalName}
                                                 disabled={true}
                                             />
                                         ) : (
                                             <CHybridSelect
                                                 id="hospital-id"
-                                                label="Hospital Name"
+                                                label="Client"
                                                 value={doctorData.hospitalId}
                                                 isDisabled={true}
                                             />

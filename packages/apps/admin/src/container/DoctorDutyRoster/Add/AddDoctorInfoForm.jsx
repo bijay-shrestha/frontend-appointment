@@ -80,7 +80,7 @@ const AddDoctorInfoForm = ({
                         name="specialization"
                         isDisabled={!doctorInfoData.hospital}
                         options={specializationList}
-                        placeholder={!doctorInfoData.hospital ? "Select Hospital First" : "Select specialization."}
+                        placeholder={!doctorInfoData.hospital ? "Select Client First" : "Select specialization."}
                         noOptionsMessage={() => specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}

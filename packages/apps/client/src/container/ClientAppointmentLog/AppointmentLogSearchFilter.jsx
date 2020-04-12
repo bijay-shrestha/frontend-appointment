@@ -63,7 +63,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="from-date"
                                                 name="fromDate"
-                                                label="From Date"
+                                                label="Appointment From Date"
                                                 dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
@@ -81,7 +81,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="to-date"
                                                 name="toDate"
-                                                label="To Date"
+                                                label="Appointment To Date"
                                                 dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
@@ -93,6 +93,46 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 onKeyDown={event => handleEnter(event)}
                                                 onChange={date =>
                                                     handleSearchFormChange(date, 'toDate')
+                                                }
+                                            />
+                                        </div>
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <div className="d-flex">
+                                            <CEnglishDatePicker
+                                                id="transaction-from-date"
+                                                name="transactionFromDate"
+                                                label="Transaction From Date"
+                                                dateFormat="yyyy-MM-dd"
+                                                // maxDate={0}
+                                                showDisabledMonthNavigation={true}
+                                                peekNextMonth={true}
+                                                showMonthDropdown={true}
+                                                showYearDropdown={true}
+                                                dropdownMode="select"
+                                                selected={searchParameters.transactionFromDate}
+                                                onKeyDown={event => handleEnter(event)}
+                                                onChange={date =>
+                                                    handleSearchFormChange(date, 'transactionFromDate')
+                                                }
+                                            />
+                                            &nbsp;&nbsp;
+                                            <CEnglishDatePicker
+                                                id="transaction-to-date"
+                                                name="transactionToDate"
+                                                label="Transaction To Date"
+                                                dateFormat="yyyy-MM-dd"
+                                                // maxDate={0}
+                                                showDisabledMonthNavigation={true}
+                                                selected={searchParameters.transactionToDate}
+                                                peekNextMonth={true}
+                                                showMonthDropdown={true}
+                                                showYearDropdown={true}
+                                                dropdownMode="select"
+                                                onKeyDown={event => handleEnter(event)}
+                                                onChange={date =>
+                                                    handleSearchFormChange(date, 'transactionToDate')
                                                 }
                                             />
                                         </div>
@@ -293,7 +333,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                                        overlay={<Tooltip id="name">Client</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -308,7 +348,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">From Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment From Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -323,13 +363,43 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">To Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment To Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
                                             variant="secondary"
                                         >
                                             {searchParameters.toDate.toLocaleDateString()}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.transactionFromDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Transaction From Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.transactionFromDate.toLocaleDateString()}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.transactionToDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Transaction To Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.transactionToDate.toLocaleDateString()}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>

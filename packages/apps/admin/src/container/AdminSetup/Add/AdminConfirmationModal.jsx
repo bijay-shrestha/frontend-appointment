@@ -6,7 +6,7 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
     return <>
         <CModal
             show={showModal}
-            modalHeading="Admin Details"
+            modalHeading="Client Admin Details"
             size="lg"
             bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}

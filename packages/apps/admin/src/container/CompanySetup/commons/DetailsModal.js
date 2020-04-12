@@ -103,6 +103,17 @@ const DetailsModal = ({type, companyData}) => {
                     />
                   </Col>
 
+                  
+                  <Col sm={12} md={6} lg={6}>
+                    <CHybridInput
+                      id="company-alias"
+                      name="alias"
+                      placeholder="Company Alias"
+                      value={companyData.companyCode}
+                      disabled={true}
+                    />
+                  </Col>
+
                   <Col sm={12} md={6} lg={6}>
                     <CHybridTextArea
                       id="Address"

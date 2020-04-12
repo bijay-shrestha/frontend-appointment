@@ -161,7 +161,7 @@ class PatientSearchFilter extends PureComponent {
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                    overlay={<Tooltip id="name">Client</Tooltip>}
                   >
                     <Button
                       id="search-param-button-filters"

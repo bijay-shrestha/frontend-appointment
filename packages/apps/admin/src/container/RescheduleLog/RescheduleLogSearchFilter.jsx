@@ -62,8 +62,8 @@ class RescheduleLogSearchFilter extends PureComponent {
                                         <CHybridSelect
                                             id="hospitalId"
                                             name="hospitalId"
-                                            label="Select Hospital"
-                                            placeholder="Select Hospital"
+                                            label="Client"
+                                            placeholder="Select Client"
                                             options={hospitalList}
                                             isDisabled={!hospitalList.length}
                                             value={searchParameters.hospitalId}
@@ -113,7 +113,7 @@ class RescheduleLogSearchFilter extends PureComponent {
                                             id="patient-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder={!searchParameters.hospitalId ? "Select Hospital first."
+                                            placeholder={!searchParameters.hospitalId ? "Select Client first."
                                                 : "Name, Mobile no Or Reg. no"}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
@@ -143,7 +143,7 @@ class RescheduleLogSearchFilter extends PureComponent {
                                         <CHybridSelect
                                             id="doctorId"
                                             label="Doctor"
-                                            placeholder={!searchParameters.hospitalId ? "Select Hospital first."
+                                            placeholder={!searchParameters.hospitalId ? "Select Client first."
                                                 : "Select doctor"}
                                             name="doctorId"
                                             onKeyDown={event => handleEnter(event)}
@@ -271,7 +271,7 @@ class RescheduleLogSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                                        overlay={<Tooltip id="name">Client Name</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"

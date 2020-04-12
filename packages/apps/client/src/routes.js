@@ -383,7 +383,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: false,
-        name: 'Hospital Setup',
+        name: 'Client Setup',
         isSingleTab:false,
     },
     {
