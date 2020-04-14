@@ -33,7 +33,7 @@ const AppointmentRefundDataTable = ({
       <div className="manage-details">
         <Row>
           <Col>
-            <h5 className="title">Appointment Activity Details</h5>
+            <h5 className="title">Admin Activity Details</h5>
           </Col>
         </Row>
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
@@ -67,7 +67,7 @@ const AppointmentRefundDataTable = ({
                   width: '200'
                 },
                 {
-                  headerName: 'Log Username',
+                  headerName: 'Username',
                   field: 'userName',
                   resizable: true,
                   sortable: true,
@@ -131,8 +131,12 @@ const AppointmentRefundDataTable = ({
         ) : (
           <CLoading />
         )}
-      </div>
-
+     
+        <Row>
+          <Col>
+            <h5 className="title">Admin Activity Count</h5>
+          </Col>
+        </Row>
       {!isLogStatsSearchSearchLoading &&
       !logStatsSearchErrorMessage &&
       logStatsSearchData.length ? (
@@ -176,7 +180,7 @@ const AppointmentRefundDataTable = ({
           ]}
           defaultColDef={{resizable: true}}
           rowSelection={'single'}
-          rowData={logList}
+          rowData={logStatsSearchData}
         />
       ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
         <div className="filter-message">
@@ -188,6 +192,9 @@ const AppointmentRefundDataTable = ({
       ) : (
         ''
       )}
+      
+      </div>
+
 
       {/* 
             {showModal ? (

@@ -12,7 +12,8 @@ const {
 const initialLogSearchState = {
   isLogSearchSearchLoading: true,
   logSearchData: [],
-  logSearchErrorMessage: ''
+  logSearchErrorMessage: '',
+  totalItems:0
 }
 const initialLogStatsSearchState = {
     isLogStatsSearchSearchLoading: true,
@@ -31,8 +32,9 @@ export const AdminLoggingSearchReducer = (
       return {
         ...state,
         isLogSearchSearchLoading: false,
-        logSearchData: action.payload.data,
-        logSearchErrorMessage: ''
+        logSearchData: action.payload.data.userLogList,
+        logSearchErrorMessage: '',
+        totalItems:action.payload.data.totalItems
       }
     case USER_LOG_FETCH_ERROR:
       return {

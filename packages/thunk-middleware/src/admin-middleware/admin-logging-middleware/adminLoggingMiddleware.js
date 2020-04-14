@@ -26,7 +26,7 @@ export const fetchAdminLog = (
     dispatch(AdminLoggingSetupActions.logFetchSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(AdminLoggingSetupActions.logFetchError(e.errorMessage))
+    dispatch(AdminLoggingSetupActions.logFetchError(e.errorMessage||'Something Wrong In Server!!'))
   }
 }
 
@@ -44,6 +44,6 @@ export const fetchAdminLogStatistics = (path, searchData) => async dispatch => {
     dispatch(AdminLoggingSetupActions.logStatsFetchSuccess(response.data))
     return response
   } catch (e) {
-    dispatch(AdminLoggingSetupActions.logStatsFetchError(e.errorMessage))
+    dispatch(AdminLoggingSetupActions.logStatsFetchError(e.errorMessage||'Something Wrong In Server!!'))
   }
 }

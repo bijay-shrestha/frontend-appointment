@@ -86,7 +86,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
 
       await this.setState({
         totalRecords: this.props.AdminLoggingSearchReducer.logSearchData.length
-          ? this.props.AdminLoggingSearchReducer.logSearchData.totalItems
+          ? this.props.AdminLoggingSearchReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -104,12 +104,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
 
     appendSNToTable = logList => {
       let newLogList = []
-      newLogList =
-        logList.length &&
-        logList.map((spec, index) => ({
+      if(logList.length)
+         newLogList = logList.map((spec, index) => ({
           ...spec,
           sN: index + 1
-        }))
+         }))
 
       return newLogList
     }
