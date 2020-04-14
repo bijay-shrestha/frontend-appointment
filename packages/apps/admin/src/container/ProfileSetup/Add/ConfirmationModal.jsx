@@ -3,10 +3,10 @@ import ModalContent from "../../CommonComponents/ModalContent";
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 const ConfirmationModal = props => {
-    const {showConfirmModal, setShowConfirmModal, onConfirmClick, profileData, rolesJson} = props;
+    const {showConfirmModal, setShowConfirmModal, onConfirmClick, profileData, rolesJson,isAddLoading} = props;
     return <>
         <CModal show={showConfirmModal}
-                modalHeading="Profile Details"
+                modalHeading="Client Profile Details"
                 size="lg"
                 bodyChildren={
                     <ModalContent
@@ -16,6 +16,8 @@ const ConfirmationModal = props => {
                     variant="primary"
                     size="lg"
                     className="float-right"
+                    isLoading={isAddLoading}
+                    disabled={isAddLoading}
                     onClickHandler={onConfirmClick}/>
                 }
                 onHide={setShowConfirmModal}

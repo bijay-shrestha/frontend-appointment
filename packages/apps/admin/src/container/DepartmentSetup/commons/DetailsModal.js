@@ -17,7 +17,7 @@ const DetailsModal = ({departmentData}) => {
                                 <CHybridInput
                                     id="hospital"
                                     name="hospital"
-                                    placeholder="Hospital"
+                                    placeholder="Client"
                                     value={departmentData.hospitalName}
                                     disabled={true}
                                 />

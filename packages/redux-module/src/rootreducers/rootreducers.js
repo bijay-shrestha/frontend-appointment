@@ -98,8 +98,16 @@ import {
   CompanyAdminReducer,
   AppointmentDetailReducer,
   AdminLoggingSearchReducer,
-  AdminLoggingStatsSearchReducer
+  AdminLoggingStatsSearchReducer,
+  UniversityDeleteReducer,
+  UniversityDropdownReducer,
+  UniversityEditReducer,
+  UniversityPreviewReducer,
+  UniversitySaveReducer,
+  UniversitySearchReducer,
+  CountryDropdownReducer
 } from '../reducers'
+
 const {
   ForgotPasswordReducer,
   VerificationCodeReducer,
@@ -219,5 +227,12 @@ export const rootReducers = combineReducers({
   CompanyAdminSetupReducer,
   CompanyAdminMetaInfoReducer,
   AppointmentDetailReducer,
-  AppointmentRefundDetailReducer
+  AppointmentRefundDetailReducer,
+  UniversitySearchReducer,
+  UniversitySaveReducer,
+  UniversityEditReducer,
+  UniversityDropdownReducer,
+  UniversityDeleteReducer,
+  UniversityPreviewReducer,
+  CountryDropdownReducer
 })

@@ -8,7 +8,7 @@ import TableAction from '../CommonComponents/table-components/TableAction'
 import TableStatus from '../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
-import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'; 
+import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
 import AppointmentWithDateAndTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 const PatientDataList = ({tableHandler, paginationProps}) => {
@@ -142,13 +142,13 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                 },
 
                 {
-                  headerName: 'Hospital Name',
+                  headerName: 'Client',
                   field: 'hospitalName',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true
                 },
-               
+
                 {
                   headerName: '',
                   action: 'action',

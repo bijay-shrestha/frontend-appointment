@@ -85,7 +85,7 @@ const DetailsModal = ({previewData}) => {
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospitalName"
-                  placeholder="Hospital Name"
+                  placeholder="Client"
                   value={previewData.hospitalName||'N/A'}
                   disabled={true}
                 />

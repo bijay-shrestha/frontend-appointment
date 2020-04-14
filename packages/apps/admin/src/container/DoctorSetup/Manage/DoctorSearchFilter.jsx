@@ -65,7 +65,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                       onChange={event => onInputChange(event)}
                       value={searchParameters.hospitalId}
                       options={hospitalsForDropdown}
-                      label="Hospital Name"
+                      label="Client"
                     />
                   </Col>
                   <Col sm={12} md={6} xl={4}>
@@ -193,7 +193,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Hospital Name</Tooltip>
+                      <Tooltip {...props}>Client</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">

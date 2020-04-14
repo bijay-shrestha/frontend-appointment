@@ -131,8 +131,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
-                fromDate,
-                toDate,
+                fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                toDate: appointmentNumber ? '' : toDate,
                 hospitalId: hospitalId.value || '',
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',

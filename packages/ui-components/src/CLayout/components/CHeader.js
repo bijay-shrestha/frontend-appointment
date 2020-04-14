@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import {Badge, Button, Dropdown, Form, Image} from 'react-bootstrap';
+import {Badge, Button, Dropdown, Image} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements';
-
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
-import {Link} from "react-router-dom";
 import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
@@ -137,7 +134,7 @@ class CHeader extends Component {
                         <Dropdown alignRight className="user-profile">
                             <Dropdown.Toggle variant="default" id="dropdown-basic">
                                 <Image src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
-                                    : require('../../img/sabu.jpg')} className="avatar"/>
+                                    : require('../../img/picture.png')} className="avatar"/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <div className="user-details">

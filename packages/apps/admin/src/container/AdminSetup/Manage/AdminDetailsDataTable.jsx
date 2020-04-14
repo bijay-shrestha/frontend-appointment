@@ -33,7 +33,7 @@ const AdminDetailsDataTable = ({
                                    onPasswordReset
                                }) => (
     <div className="manage-details">
-        <h5 className="title">Admin Details</h5>
+        <h5 className="title">Client Admin Details</h5>
         {!isSearchLoading && !searchErrorMessage && searchData.length ? (
             <>
                 <CDataTable
@@ -57,7 +57,7 @@ const AdminDetailsDataTable = ({
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital',
+                            headerName: 'Client',
                             field: 'hospitalName',
                             resizable: true,
                             sortable: true,
@@ -196,7 +196,7 @@ const AdminDetailsDataTable = ({
         {deleteModalShow ? (
             <ConfirmDelete
                 confirmationMessage="Are you sure you want to delete the Admin?If yes please provide remarks."
-                modalHeader="Delete Admin"
+                modalHeader="Delete Client Admin"
                 showModal={deleteModalShow}
                 setShowModal={setShowModal}
                 onDeleteRemarksChangeHandler={remarksHandler}

@@ -70,17 +70,15 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
             return (
                 !isLoading && filteredAction.length ?
                     (
-                        <>
-                            <ComposedComponent
-                                {...this.props}
-                                {...props}
-                                filteredAction={filteredAction}
-                                hasTabs={false}
-                            />
-                        </>
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            filteredAction={filteredAction}
+                            hasTabs={false}
+                        />
                     )
                     : isLoading && !unauthorized ? (
-                        <div><CLoading/></div>
+                        <CLoading/>
                     )
                     : (
                         <Redirect to="/unauthorized"/>

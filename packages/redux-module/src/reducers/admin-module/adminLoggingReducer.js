@@ -67,7 +67,7 @@ export const AdminLoggingStatsSearchReducer = (
           ...state,
           isLogStatsSearchSearchLoading: false,
           logStatsSearchData: [],
-          logStatsSearchErrorMessage: action.payload.messages
+          logStatsSearchErrorMessage: action.payload.message
         }
         default:return state;  
     }

@@ -79,7 +79,7 @@ const DoctorDetailsDataTable = props => (
               sizeColumnsToFit: true
             },
             {
-              headerName: 'Hospital Name',
+              headerName: 'Client Name',
               field: 'hospitalName',
               resizable: true,
               sortable: true,

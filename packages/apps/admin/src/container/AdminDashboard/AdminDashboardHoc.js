@@ -45,20 +45,20 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
     state = {
       searchParameterForGenerateRevenue: {
         currentToDate: new Date(),
-        currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-        previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 2),
-        previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 3),
-        hospitalId: {label: 'ALL', value: null}
+        currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 0),
+        previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+        previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+        hospitalId: {label: 'ALL', value: 'A'}
       },
       searchParamsForOverallAppoinment: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        hospitalId: {label: 'ALL', value: null}
+        hospitalId: {label: 'ALL', value: 'A'}
       },
       searchParameterForRevenueTrend: {
         revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         revToDate: new Date(),
-        revHospitalId: {label: 'ALL', value: null}
+        revHospitalId: {label: 'ALL', value: 'A'}
       },
       revenueFilter: 'W',
       appointmentFilter: 'W',
@@ -166,15 +166,15 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
               currentToDate: new Date(),
               currentFromDate: DateTimeFormatterUtils.subtractDate(
                 new Date(),
-                1
+                0
               ),
               previousToDate: DateTimeFormatterUtils.subtractDate(
                 new Date(),
-                2
+                1
               ),
               previousFromDate: DateTimeFormatterUtils.subtractDate(
                 new Date(),
-                3
+                1
               ),
               hospitalId: hospitalId
                 ? hospitalId.value === 'A'
@@ -365,7 +365,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
       })
       if (fieldName === 'hospitalId') {
         this.callApiForHospitalChange()
-        if (value) {
+        if (value && value!=='A') {
           if (checkDashboardRole(ACCESSCODE.APPOINTMENT_LOG))
             this.searchAppointmentQueue()
           if (checkDashboardRole(ACCESSCODE.REVENUE_STAT))

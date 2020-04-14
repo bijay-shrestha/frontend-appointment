@@ -12,7 +12,10 @@ import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
 import {Row, Col, Badge} from 'react-bootstrap';
-import  PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import AppointmentAmountWithTransactionNumber
+    from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
@@ -21,21 +24,21 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         previewCall,
         previewData,
         showModal,
-        setShowModal
+        setShowModal,
+        totalAmount
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
         <>
             <div className="manage-details">
 
-          <Row>
-          <Col>
-                <h5 className="title">Appointment Log Details</h5>
-            </Col>
+                <Row>
+                    <Col>
+                        <h5 className="title">Appointment Log Details</h5>
+                    </Col>
 
 
-
-              {/* <Col>
+                    {/* <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
@@ -48,7 +51,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
               </CButton>
             </Col>  */}
                 </Row>
-
 
 
                 <Row>
@@ -98,7 +100,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'statusRenderer'
                                 },
                                 // {
-                                //   headerName: 'Hospital Name',
+                                //   headerName: 'Client Name',
                                 //   field:'hospitalName',
                                 //   resizable: true,
                                 //   sortable: true,
@@ -111,7 +113,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: "200",
-                                    cellRenderer : "AppointmentDateWithTime"
+                                    cellRenderer: "AppointmentDateWithTime"
                                 },
                                 // {
                                 //     headerName: 'App. Time',
@@ -183,14 +185,32 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
+                                {
+                                    headerName: 'Txn. Detail (Amount/No)',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'transactionDetail',
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: "300"
+                                },
+                                {
+                                    headerName: 'Tran. Date',
+                                    field: 'transactionDate',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
+                                },
 
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer:PreviewHandlerHoc (DoctorWithSpecialization,null,null,null,previewCall),
-                                statusRenderer: PreviewHandlerHoc(AppointmentLogAction,null,null,null,previewCall),
-                                patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender,null,null,null,previewCall),
-                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWitheAgeGenderPhone,null,null,null,previewCall),
-                                AppointmentDateWithTime : PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall)
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
+                                statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
+                                patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
+                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWitheAgeGenderPhone, null, null, null, previewCall),
+                                AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
+                                transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -203,14 +223,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         />
 
 
-                    <div className="my-4 ml-0 mr-4">
-                        <span className="total-amount">
-                        Total Amount : Rs 40000
+                        <div className=" total-amount">
+                        <span>
+                        Total Amount :
+
                         </span>
+                            <span> Rs {totalAmount}</span>
 
-                    </div>
-
-
+                        </div>
 
 
                         <CPagination

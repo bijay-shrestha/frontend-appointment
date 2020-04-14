@@ -29,7 +29,9 @@ import {companyProfileSetupActionConstants} from './company-profile-setup/compan
 import * as CompanyAdminSetupActions from './company-admin-setup/companyAdminSetupActions'
 import {companyAdminSetupActionConstants} from './company-admin-setup/companyAdminSetupActionConstant'
 import * as AdminLoggingSetupActions from './admin-logging/adminLoggingActions'
-import {adminLoggingConstant} from './admin-logging/adminLoggingConstant'
+import {adminLoggingConstant} from './admin-logging/adminLoggingConstant';
+import * as  UniversitySetupActions from './university-setup/universitySetupActions';
+import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
 export {
   AppointmentDetailActions,
   appointmentDetailsConstants,
@@ -62,5 +64,7 @@ export {
   QualificationAliasSetupActions,
   qualificationAliasSetupConstants,
   companyProfileSetupActionConstants,
-  CompanyProfileSetupActions
+  CompanyProfileSetupActions,
+  UniversitySetupActions,
+  universitySetupActionConstants
 }
