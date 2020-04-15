@@ -116,3 +116,18 @@ export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, sel
         ? [...userMenus[moduleCode]] : [];
     return UserMenuUtils.sortUserMenuJson([...menusForDept]);
 };
+
+
+export const countTotalNoOfMenusAndRoles = userMenus => {
+    let countOfMenus = 0;
+    userMenus && userMenus.length && userMenus.map(menu => {
+        if (menu.childMenus.length)
+            menu.childMenus.forEach(childMenu => {
+                countOfMenus += childMenu.roles.length;
+            });
+        else
+            countOfMenus += menu.roles.length;
+    });
+
+    return countOfMenus;
+};

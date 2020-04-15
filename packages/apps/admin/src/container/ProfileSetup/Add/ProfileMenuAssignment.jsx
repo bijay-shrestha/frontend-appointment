@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
-import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
+import {CButton, CCheckbox, CForm, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import {LocalStorageSecurity, menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -93,17 +93,11 @@ class ProfileMenuAssignment extends PureComponent {
 
     setTotalNumberOfMenusAndRoles = async () => {
         const {userMenus, profileData} = this.props;
-        let countOfMenus = 0;
-        userMenus.forEach(menu => {
-            menu.childMenus.forEach(childMenu => {
-                countOfMenus += childMenu.roles.length;
-            })
-        });
+        let countOfMenus = ProfileSetupUtils.countTotalNoOfMenusAndRoles(userMenus);
         await this.setState({
             userMenuByDepartment: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
             selectedDepartment: profileData.departmentValue.value,
-            checkedAllUserMenus: profileData.isAllRoleAssigned === 'Y'
         });
     };
 
@@ -151,8 +145,9 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleTabsAndRolesCheck = async (isRole, roleOrTabData) => {
-        let currentRoles = [...this.state.rolesForTabs],
-            currentTabs = [...this.state.tabs],
+        const {rolesForTabs, tabs, currentSelectedChildMenu} = this.state;
+        let currentRoles = [...rolesForTabs],
+            currentTabs = [...tabs],
             rolesToAddOrRemove = [];
 
         if (isRole) {
@@ -177,7 +172,7 @@ class ProfileMenuAssignment extends PureComponent {
             });
         }
         this.checkIfAllTabsOfChildMenuHasBeenChecked();
-        this.props.onTabAndRolesChange(rolesToAddOrRemove, this.state.currentSelectedChildMenu);
+        this.props.onTabAndRolesChange(rolesToAddOrRemove, currentSelectedChildMenu);
         await this.setState({
             tabs: [...currentTabs],
             rolesForTabs: [...currentRoles]
@@ -186,9 +181,10 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleCheckAllRolesAndTabs = async childMenu => {
-        let tabsForChildMenu = [...this.state.tabs],
-            rolesForChildMenu = [...this.state.rolesForTabs],
-            allTabsAndRolesChecked = !this.state.checkedAllRolesAndTabs;
+        const {tabs, rolesForTabs, checkedAllRolesAndTabs} = this.state;
+        let tabsForChildMenu = [...tabs],
+            rolesForChildMenu = [...rolesForTabs],
+            allTabsAndRolesChecked = !checkedAllRolesAndTabs;
 
         tabsForChildMenu.forEach(tab => {
             tab.isChecked = allTabsAndRolesChecked;
@@ -208,9 +204,10 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleCheckAllUserMenus = userMenus => {
-        let tabsForChildMenu = [...this.state.tabs],
-            rolesForChildMenu = [...this.state.rolesForTabs],
-            allUserMenusSelected = !this.state.checkedAllUserMenus;
+        const {tabs, rolesForTabs, checkedAllUserMenus} = this.state;
+        let tabsForChildMenu = [...tabs],
+            rolesForChildMenu = [...rolesForTabs],
+            allUserMenusSelected = !checkedAllUserMenus;
 
         tabsForChildMenu.forEach(tab => {
             tab.isChecked = allUserMenusSelected;
@@ -289,15 +286,6 @@ class ProfileMenuAssignment extends PureComponent {
                     rolesMatchingKeyword.filter(role => role.parent_role_id === tab.id).length > 0 && tabsMatchingKeyword.push(tab);
                 }
             });
-            // IF NONE TABS CONTAIN KEYWORD, SEARCH IN ROLES AND ANY MATCHES ADD THEIR PARENT TAB AS WELL
-            // JSON.parse(localStorage.getItem("rolesForTabs")).forEach(role => {
-            //     if ((role.name).toLowerCase().includes(keyWord)) {
-            //         rolesMatchingKeyword.push(role);
-            //         let tabForRole = JSON.parse(localStorage.getItem("tabsForSelectedMenu"))
-            //             .find(tab => tab.id === role.parent_role_id);
-            //         tabsMatchingKeyword.push(tabForRole);
-            //     }
-            // })
         } else {
             tabsMatchingKeyword = [...this.state.tabsCopyForSearch];
             rolesMatchingKeyword = [...this.state.rolesCopyForSearch];
@@ -314,14 +302,13 @@ class ProfileMenuAssignment extends PureComponent {
                 rolesForTabs: []
             });
         }
-        console.log(this.state.tabs)
+        // console.log(this.state.tabs)
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const {userMenus, profileData,defaultSelectedMenu} = this.props;
+        const {userMenus, profileData, defaultSelectedMenu} = this.props;
         if (userMenus.length > 0
-            && profileData.departmentValue.value !== prevState.selectedDepartment
-            || profileData.isAllRoleAssigned !== prevProps.profileData.isAllRoleAssigned) {
+            && profileData.departmentValue.value !== prevState.selectedDepartment) {
             this.setTotalNumberOfMenusAndRoles();
             defaultSelectedMenu.length !== 0 ?
                 TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
@@ -334,9 +321,6 @@ class ProfileMenuAssignment extends PureComponent {
                     rolesCopyForSearch: [],
                     checkedAllRolesAndTabs: false
                 });
-            if (profileData.isAllRoleAssigned !== prevProps.profileData.isAllRoleAssigned) {
-                this.handleCheckAllUserMenus(this.state.userMenuByDepartment);
-            }
         }
     }
 
@@ -347,6 +331,17 @@ class ProfileMenuAssignment extends PureComponent {
             <>
                 {/*Parent Menus*/}
                 <Col sm={12} md={6} lg={3} className="menu-list-wrapper">
+                    <div className='previledge-title'>
+                        {LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y' ?
+                            <CCheckbox
+                                id="isAllRoleAssigned"
+                                label="Assign All Role"
+                                name="isAllRoleAssigned"
+                                checked={this.state.checkedAllUserMenus}
+                                onChange={() => this.handleCheckAllUserMenus(this.state.userMenuByDepartment)}
+                            /> :
+                            ''}
+                    </div>
                     <h5 className="title">&nbsp;</h5>
                     <div className="assign-menu">
                         <div className="am-header">

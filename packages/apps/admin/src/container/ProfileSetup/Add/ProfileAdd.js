@@ -12,7 +12,13 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import {EnterKeyPressUtils, menuRoles, ProfileSetupUtils, TryCatchHandler,} from "@frontend-appointment/helpers";
+import {
+    clientUserMenusJson,
+    EnterKeyPressUtils, EnvironmentVariableGetter, LocalStorageSecurity,
+    menuRoles,
+    ProfileSetupUtils,
+    TryCatchHandler,
+} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
@@ -48,7 +54,9 @@ class ProfileAdd extends PureComponent {
             variant: "",
             message: ""
         },
-        departmentListByHospital: []
+        departmentListByHospital: [],
+        originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
+            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
     };
 
     closeAlert = () => {
@@ -225,6 +233,14 @@ class ProfileAdd extends PureComponent {
         return selectedUserMenus;
     };
 
+    checkIfAllRolesAndMenusAssigned = (selectedUserMenus) => {
+        let allRoleAssigned = false;
+        if (LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y') {
+            allRoleAssigned = Number(this.state.originalTotalNoOfMenusAndRoles) === Number(selectedUserMenus.length);
+        }
+        return allRoleAssigned;
+    };
+
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
         let currentSelectedMenus = [],
             userMenusSelected;
@@ -261,13 +277,13 @@ class ProfileAdd extends PureComponent {
         await this.setState({
             selectedMenus: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
-            isAllRoleAssigned: checkedAllUserMenus ? 'Y' : 'N'
+            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
         // console.log(this.state.selectedMenus);
         this.checkFormValidity();
     };
 
-    handleRolesCheck = async (roles, childMenu, checkedAllUserMenus) => {
+    handleRolesCheck = async (roles, childMenu) => {
         let currentSelectedMenus = [...this.state.selectedMenus];
         for (let role of roles) {
             role.isChecked ?
@@ -287,7 +303,7 @@ class ProfileAdd extends PureComponent {
         await this.setState({
             selectedMenus: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
-            isAllRoleAssigned: checkedAllUserMenus ? 'Y' : 'N'
+            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
         this.checkFormValidity();
     };
