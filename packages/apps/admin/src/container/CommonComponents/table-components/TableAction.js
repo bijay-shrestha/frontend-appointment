@@ -8,6 +8,13 @@ import {ActionFilterUtils} from "@frontend-appointment/helpers";
 const {checkIfRoleExists} = ActionFilterUtils;
 
 class TableAction extends PureComponent {
+    checkRoleExists = (actionId) => {
+        if(checkIfRoleExists(this.props.filteredAction, actionId) || (this.props.byPass && this.props.onlyEdit)){
+          sessionStorage.setItem('action',actionId)
+         return true
+        }
+        return false;
+    }
     render() {
         return (
             <>
@@ -18,17 +25,16 @@ class TableAction extends PureComponent {
 
                     <Dropdown.Menu>
                         {
-                            checkIfRoleExists(this.props.filteredAction, 3) || (this.props.byPass && this.props.onlyEdit) ?
+                           this.checkRoleExists(3)?
                                 <Dropdown.Item
                                     onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'E', this.props.node.data)}>
                                     <Material.MdEdit/> Edit </Dropdown.Item> : ''}
-                        {
-                            checkIfRoleExists(this.props.filteredAction, 5) || (this.props.byPass && !this.props.onlyEdit) ?
+                        {   this.checkRoleExists(5)?
                                 <Dropdown.Item
                                     onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'D', this.props.node.data)}>
                                     <Material.MdDeleteForever/> Delete</Dropdown.Item> : ''}
                         {
-                            checkIfRoleExists(this.props.filteredAction, 8) ?
+                             this.checkRoleExists(8) ?
                                 <Dropdown.Item
                                     onClick={(e) => this.props.onClick(e, this.props.node.data.id, 'C', this.props.node.data)}>
                                     <Material.MdContentCopy/>&nbsp;
