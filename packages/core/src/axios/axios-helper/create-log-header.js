@@ -4,7 +4,6 @@ export const createLogHeader = request => {
   const appStorageMenu = LocalStorageSecurity.localStorageDecoder('active')
   let getActMenu = ''
   let actionId, menuId
-  console.log(appStorageMenu)
   let logHeader = ''
   if (checkIfItIsNotAnAction(request.url)) {
     if (appStorageMenu) {
@@ -52,7 +51,7 @@ const checkIfItIsNotAnAction = url => {
   for (let j = 0; j < includeAppUrl.length; j++) {
     if (url.includes('/appointment'))
       if (!url.includes(includeAppUrl[j])) {
-        flag = false
+        flag = false;
         break
       }
   }
