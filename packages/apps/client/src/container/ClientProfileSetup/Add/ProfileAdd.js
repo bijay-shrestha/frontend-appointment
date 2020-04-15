@@ -36,6 +36,7 @@ class ProfileAdd extends PureComponent {
         selectedDepartment: null,
         selectedMenus: [],
         status: 'Y',
+        isAllRoleAssigned: 'N',
         // subDepartmentsByDepartmentId: [],
         userMenus: [],
         defaultSelectedMenu: [],
@@ -70,6 +71,7 @@ class ProfileAdd extends PureComponent {
             selectedHospital: null,
             selectedMenus: [],
             status: 'Y',
+            isAllRoleAssigned: 'N',
             userMenus: [],
             defaultSelectedMenu: [],
             showConfirmModal: false,
@@ -145,7 +147,7 @@ class ProfileAdd extends PureComponent {
 
     async bindValuesToState(event, fieldValid) {
         let fieldName = event.target.name;
-        let value = event.target.value;
+        let value = event.target.type === 'checkbox' ? (event.target.checked ? 'Y' : 'N') : event.target.value;
         let label = event.target.label;
         await this.setStateValues(fieldName, value, label, fieldValid);
         switch (fieldName) {
@@ -271,14 +273,18 @@ class ProfileAdd extends PureComponent {
     };
 
     handleConfirmClick = async () => {
+        const {
+            profileName, profileDescription, status, isAllRoleAssigned, selectedDepartment, selectedMenus
+        } = this.state;
         let profileDetails = {
             profileDTO: {
-                name: this.state.profileName,
-                description: this.state.profileDescription,
-                status: this.state.status,
-                departmentId: this.state.selectedDepartment && this.state.selectedDepartment.value
+                name: profileName,
+                description: profileDescription,
+                status: status,
+                departmentId: selectedDepartment && selectedDepartment.value,
+                isAllRoleAssigned
             },
-            profileMenuRequestDTO: this.state.selectedMenus
+            profileMenuRequestDTO: selectedMenus
         };
         try {
             await this.props.createProfile(CREATE_PROFILE, profileDetails);
@@ -313,7 +319,7 @@ class ProfileAdd extends PureComponent {
         const {departments} = this.props.DepartmentSetupReducer;
 
         const {
-            selectedDepartment, profileDescription, profileName, status,
+            selectedDepartment, profileDescription, profileName, status,isAllRoleAssigned,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
             departmentListByHospital
@@ -334,6 +340,7 @@ class ProfileAdd extends PureComponent {
                                     profileDescription: profileDescription,
                                     profileName: profileName,
                                     status: status,
+                                    isAllRoleAssigned
                                 }}
                                 errorMessageForProfileName={errorMessageForProfileName}
                                 errorMessageForProfileDescription={errorMessageForProfileDescription}
@@ -380,7 +387,8 @@ class ProfileAdd extends PureComponent {
                                         status: status,
                                         selectedMenus: selectedMenus,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
-                                        userMenus: userMenus
+                                        userMenus: userMenus,
+                                        isAllRoleAssigned
                                     }}
                                     rolesJson={menuRoles}
                                 />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col} from "react-bootstrap";
 import {
+    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -8,6 +9,7 @@ import {
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
+import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 const ProfileInfoForm = ({
                              onEnterKeyPress,
@@ -75,24 +77,35 @@ const ProfileInfoForm = ({
 
                 <CFLabel labelName="Status" id="status"></CFLabel>
                 <div>
-                <CRadioButton
-                    checked={Boolean(profileInfoObj.status)}
-                    disabled={true}
-                    id="radio1"
-                    label="Active"
-                    type="radio"
-                    readOnly
-                    // bsPrefix="form-radio"
-                />
-                <CRadioButton
-                    checked={Boolean(!profileInfoObj.status)}
-                    disabled={true}
-                    id="radio2"
-                    label="Inactive"
-                    type="radio"
-                    className="sr-only"
-                />
+                    <CRadioButton
+                        checked={Boolean(profileInfoObj.status)}
+                        disabled={true}
+                        id="radio1"
+                        label="Active"
+                        type="radio"
+                        readOnly
+                        // bsPrefix="form-radio"
+                    />
+                    <CRadioButton
+                        checked={Boolean(!profileInfoObj.status)}
+                        disabled={true}
+                        id="radio2"
+                        label="Inactive"
+                        type="radio"
+                        className="sr-only"
+                    />
                 </div>
+
+                {LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y' ?
+                    <CCheckbox
+                        id="isAllRoleAssigned"
+                        label="Is All Role Assigned"
+                        name="isAllRoleAssigned"
+                        checked={profileInfoObj.isAllRoleAssigned === 'Y'}
+                        onChange={(e) => onInputChange(e)}
+                    /> :
+                    ''}
+
             </CForm>
         </Col>
     );

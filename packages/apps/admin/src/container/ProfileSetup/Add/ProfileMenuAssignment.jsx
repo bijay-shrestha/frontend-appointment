@@ -4,7 +4,7 @@ import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
+import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -92,8 +92,9 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     setTotalNumberOfMenusAndRoles = async () => {
+        const {userMenus, profileData} = this.props;
         let countOfMenus = 0;
-        this.props.userMenus.forEach(menu => {
+        userMenus.forEach(menu => {
             menu.childMenus.forEach(childMenu => {
                 countOfMenus += childMenu.roles.length;
             })
@@ -101,7 +102,8 @@ class ProfileMenuAssignment extends PureComponent {
         await this.setState({
             userMenuByDepartment: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            selectedDepartment: this.props.profileData.departmentValue.value
+            selectedDepartment: profileData.departmentValue.value,
+            checkedAllUserMenus: profileData.isAllRoleAssigned === 'Y'
         });
     };
 
@@ -316,9 +318,12 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.userMenus.length > 0 && this.props.profileData.departmentValue.value !== prevState.selectedDepartment) {
+        const {userMenus, profileData,defaultSelectedMenu} = this.props;
+        if (userMenus.length > 0
+            && profileData.departmentValue.value !== prevState.selectedDepartment
+            || profileData.isAllRoleAssigned !== prevProps.profileData.isAllRoleAssigned) {
             this.setTotalNumberOfMenusAndRoles();
-            this.props.defaultSelectedMenu.length !== 0 ?
+            defaultSelectedMenu.length !== 0 ?
                 TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
                 :
                 this.setState({
@@ -329,6 +334,9 @@ class ProfileMenuAssignment extends PureComponent {
                     rolesCopyForSearch: [],
                     checkedAllRolesAndTabs: false
                 });
+            if (profileData.isAllRoleAssigned !== prevProps.profileData.isAllRoleAssigned) {
+                this.handleCheckAllUserMenus(this.state.userMenuByDepartment);
+            }
         }
     }
 

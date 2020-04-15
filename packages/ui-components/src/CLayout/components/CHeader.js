@@ -7,7 +7,7 @@ import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
-const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
+const {CHANGE_PASSWORD} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 
 class CHeader extends Component {
     state = {

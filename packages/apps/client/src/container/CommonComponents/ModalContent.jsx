@@ -1,6 +1,7 @@
 import React from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {
+    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -140,6 +141,15 @@ class ModalContent extends React.PureComponent {
                                     id="radio2"
                                     label="Inactive"
                                     type="radio"
+                                />
+                            </Col>
+                            <Col sm={4} md={4} lg={4}>
+                                <CCheckbox
+                                    id="isAllRoleAssigned"
+                                    label="Is All Role Assigned"
+                                    name="isAllRoleAssigned"
+                                    checked={profileData.isAllRoleAssigned === 'Y'}
+                                    disabled={true}
                                 />
                             </Col>
                         </Row>

@@ -6,7 +6,7 @@ import {savePassword, verifyToken} from "@frontend-appointment/thunk-middleware"
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import Cookies from "js-cookie";
 
-const {SAVE_ADMIN_PASSWORD, VERIFY_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants;
+const {SAVE_COMPANY_ADMIN_PASSWORD,VERIFY_ADMIN} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 
 class SavePassword extends React.PureComponent {
 
@@ -19,7 +19,7 @@ class SavePassword extends React.PureComponent {
     onSubmitHandler = async userPassword => {
         try {
             let passwordSaveData = {password: userPassword.password, token: this.state.token};
-            await this.props.savePassword(SAVE_ADMIN_PASSWORD, passwordSaveData);
+            await this.props.savePassword(SAVE_COMPANY_ADMIN_PASSWORD, passwordSaveData);
             localStorage.clear();
             await this.props.history.push('/');
             return null;
