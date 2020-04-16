@@ -18,7 +18,8 @@ const initialLogSearchState = {
 const initialLogStatsSearchState = {
     isLogStatsSearchSearchLoading: true,
     logStatsSearchData: [],
-    logStatsSearchErrorMessage: ''
+    logStatsSearchErrorMessage: '',
+    totalItems:0
   }
 
 export const AdminLoggingSearchReducer = (
@@ -59,8 +60,9 @@ export const AdminLoggingStatsSearchReducer = (
         return {
           ...state,
           isLogStatsSearchSearchLoading: false,
-          logStatsSearchData: action.payload.data,
-          logStatsSearchErrorMessage: ''
+          logStatsSearchData: action.payload.data.userMenuCountList,
+          logStatsSearchErrorMessage: '',
+          totalItems:action.payload.data.totalItems
         }
       case USER_LOG_STATS_FETCH_ERROR:
         return {

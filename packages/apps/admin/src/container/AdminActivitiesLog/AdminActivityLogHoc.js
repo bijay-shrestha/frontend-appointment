@@ -1,12 +1,17 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {AdminLoggingMiddleware,HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
-  EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+  AdminLoggingMiddleware,
+  HospitalSetupMiddleware
+} from '@frontend-appointment/thunk-middleware'
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './activity-log.scss'
-import {DateTimeFormatterUtils,menuRoles,LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {
+  DateTimeFormatterUtils,
+  menuRoles,
+  LocalStorageSecurity
+} from '@frontend-appointment/helpers'
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchAdminLog, fetchAdminLogStatistics} = AdminLoggingMiddleware
 
@@ -30,11 +35,16 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 10
       },
+      statsQueryParams: {
+        page: 0,
+        size: 10
+      },
+      statsTotalRecord: 0,
       totalRecords: 0,
       showModal: false,
       previewData: {},
-      rolesList:[],
-      menuList:[]
+      rolesList: [],
+      menuList: []
     }
 
     handleEnterPress = event => {
@@ -68,47 +78,68 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         parentId: parentId.value || '',
         roleId: roleId.value || ''
       }
-
-      let updatedPage =
-        this.state.queryParams.page === 0
-          ? 1
-          : page
-          ? page
-          : this.state.queryParams.page
-      await this.props.fetchAdminLog(
-        adminLoggingConstant.FETCH_ADMIN_LOG,
-        {
-          page: updatedPage,
-          size: this.state.queryParams.size
-        },
-        searchData
-      )
-
-      await this.setState({
-        totalRecords: this.props.AdminLoggingSearchReducer.logSearchData.length
-          ? this.props.AdminLoggingSearchReducer.totalItems
-          : 0,
-        queryParams: {
-          ...this.state.queryParams,
-          page: updatedPage
-        }
-      })
-
-      if (!pageChange) {
-        await this.props.fetchAdminLogStatistics(
-          adminLoggingConstant.FETCH_ADMIN_LOG_STATS,
+      if (pageChange === 'A') {
+        let updatedPage =
+          this.state.queryParams.page === 0
+            ? 1
+            : page
+            ? page
+            : this.state.queryParams.page
+        await this.props.fetchAdminLog(
+          adminLoggingConstant.FETCH_ADMIN_LOG,
+          {
+            page: updatedPage,
+            size: this.state.queryParams.size
+          },
           searchData
         )
+
+        await this.setState({
+          totalRecords: this.props.AdminLoggingSearchReducer.logSearchData
+            .length
+            ? this.props.AdminLoggingSearchReducer.totalItems
+            : 0,
+          queryParams: {
+            ...this.state.queryParams,
+            page: updatedPage
+          }
+        })
+      }
+      if (pageChange === 'B') {
+        let updatedPage =
+          this.state.statsQueryParams.page === 0
+            ? 1
+            : page
+            ? page
+            : this.state.statsQueryParams.page
+        await this.props.fetchAdminLogStatistics(
+          adminLoggingConstant.FETCH_ADMIN_LOG_STATS,
+          {
+            page: updatedPage,
+            size: this.state.queryParams.size
+          },
+          searchData
+        )
+        await this.setState({
+          statsTotalRecord: this.props.AdminLoggingStatsSearchReducer
+            .logStatsSearchData.length
+            ? this.props.AdminLoggingStatsSearchReducer.totalItems
+            : 0,
+          statsQueryParams: {
+            ...this.state.statsQueryParams,
+            page: updatedPage
+          }
+        })
       }
     }
 
     appendSNToTable = logList => {
       let newLogList = []
-      if(logList.length)
-         newLogList = logList.map((spec, index) => ({
+      if (logList.length)
+        newLogList = logList.map((spec, index) => ({
           ...spec,
           sN: index + 1
-         }))
+        }))
 
       return newLogList
     }
@@ -120,7 +151,17 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchAdminActivityLog('', true)
+      this.searchAdminActivityLog('', 'A')
+    }
+
+    handlePageChangeStats = async newPage => {
+      await this.setState({
+        statsQueryParams: {
+          ...this.state.statsQueryParams,
+          page: newPage
+        }
+      })
+      this.searchAdminActivityLog('', 'B')
     }
 
     handleSearchFormReset = async () => {
@@ -135,7 +176,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           userName: ''
         }
       })
-      this.searchAdminActivityLog()
+      this.searchAdminActivityLog('','A')
+      this.searchAdminActivityLog('','B')
+       
     }
 
     setStateValuesForSearch = searchParams => {
@@ -173,38 +216,52 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         showModal: !prevState.showModal
       }))
     }
-     
-    makeRoleData =() => {
-    const roles= menuRoles && menuRoles.length?menuRoles.map(menu => ({value:menu.id,label:menu.name,isTab:menu.parent_role_id?true:false})).filter(filMenu =>filMenu.isTab):[]
-    this.setState({
-      rolesList:[...roles]
-    });
+
+    makeRoleData = () => {
+      const roles =
+        menuRoles && menuRoles.length
+          ? menuRoles
+              .map(menu => ({
+                value: menu.id,
+                label: menu.name,
+                isTab: menu.parent_role_id ? true : false
+              }))
+              .filter(filMenu => filMenu.isTab)
+          : []
+      this.setState({
+        rolesList: [...roles]
+      })
     }
 
     makeMenuData = () => {
-    const assignedMenus = LocalStorageSecurity.localStorageDecoder('userMenus');
-    const filterMenusDropdown=[]
-    if(assignedMenus && assignedMenus.length){
-    assignedMenus.map(assignMenus => {
-       if(assignMenus.childMenus.length){
-         assignMenus.childMenus.map(child =>{
-          filterMenusDropdown.push({value:child.id,label:child.name}) 
-         })
-       }
-       else{
-         filterMenusDropdown.push({value:assignMenus.id,label:assignMenus.name})
-       }
-    })
-    }
-    this.setState({
-      menuList:[...filterMenusDropdown]
-    })
+      const assignedMenus = LocalStorageSecurity.localStorageDecoder(
+        'userMenus'
+      )
+      const filterMenusDropdown = []
+      if (assignedMenus && assignedMenus.length) {
+        assignedMenus.map(assignMenus => {
+          if (assignMenus.childMenus.length) {
+            assignMenus.childMenus.map(child => {
+              filterMenusDropdown.push({value: child.id, label: child.name})
+            })
+          } else {
+            filterMenusDropdown.push({
+              value: assignMenus.id,
+              label: assignMenus.name
+            })
+          }
+        })
+      }
+      this.setState({
+        menuList: [...filterMenusDropdown]
+      })
     }
     async componentDidMount () {
-      await this.searchAdminActivityLog()
+      await this.searchAdminActivityLog('','A')
+      await this.searchAdminActivityLog('','B')
       await this.searchHospitalForDropDown()
-      this.makeRoleData();
-      this.makeMenuData();
+      this.makeRoleData()
+      this.makeMenuData()
     }
 
     render () {
@@ -215,7 +272,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         showModal,
         previewData,
         rolesList,
-        menuList
+        menuList,
+        statsQueryParams,
+        statsTotalRecord
       } = this.state
 
       const {
@@ -242,13 +301,16 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               searchAdminActivityLog: this.searchAdminActivityLog,
               hospitalsDropdown: hospitalsForDropdown,
               searchParameters: searchParameters,
-              parentList:menuList,
-              roles:rolesList
+              parentList: menuList,
+              roles: rolesList
             }}
             paginationProps={{
               queryParams: queryParams,
               totalRecords: totalRecords,
-              handlePageChange: this.handlePageChange
+              handlePageChange: this.handlePageChange,
+              statsQueryParams:statsQueryParams,
+              statsTotalRecord:statsTotalRecord,
+              handlePageChangeStats:this.handlePageChangeStats
             }}
             adminLogData={{
               isSearchLoading: isLogSearchSearchLoading,
