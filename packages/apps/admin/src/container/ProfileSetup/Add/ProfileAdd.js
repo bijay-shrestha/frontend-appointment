@@ -246,29 +246,7 @@ class ProfileAdd extends PureComponent {
             userMenusSelected;
 
         if (checkedAllUserMenus) {
-            for (let menu of userMenus) {
-                if (menu.childMenus.length) {
-                    for (let child of menu.childMenus) {
-                        child.roles.map(role => {
-                            currentSelectedMenus.push({
-                                parentId: menu.id,
-                                userMenuId: child.id,
-                                roleId: role,
-                                status: 'Y'
-                            })
-                        })
-                    }
-                } else {
-                    menu.roles.map(role => {
-                        currentSelectedMenus.push({
-                            parentId: menu.id,
-                            userMenuId: menu.id,
-                            roleId: role,
-                            status: 'Y'
-                        })
-                    })
-                }
-            }
+            currentSelectedMenus = [...ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenus)];
         }
 
         userMenusSelected = currentSelectedMenus.length && this.setValuesForModalDisplay(

@@ -120,7 +120,7 @@ class ProfileAdd extends PureComponent {
         // let menusForDept = Object.keys(clientUserMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
         //     ? [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
         let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
-            // UserMenuUtils.sortUserMenuJson([...menusForDept]);
+        // UserMenuUtils.sortUserMenuJson([...menusForDept]);
         alphabeticallySortedMenus ?
             this.setState({
                 userMenus: [...alphabeticallySortedMenus],
@@ -217,29 +217,7 @@ class ProfileAdd extends PureComponent {
             userMenusSelected;
 
         if (checkedAllUserMenus) {
-            for (let menu of userMenus) {
-                if (menu.childMenus.length) {
-                    for (let child of menu.childMenus) {
-                        child.roles.map(role => {
-                            currentSelectedMenus.push({
-                                parentId: menu.id,
-                                userMenuId: child.id,
-                                roleId: role,
-                                status: 'Y'
-                            })
-                        })
-                    }
-                } else {
-                    menu.roles.map(role => {
-                        currentSelectedMenus.push({
-                            parentId: menu.id,
-                            userMenuId: menu.id,
-                            roleId: role,
-                            status: 'Y'
-                        })
-                    })
-                }
-            }
+            currentSelectedMenus = [...ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenus)];
         }
 
         userMenusSelected = currentSelectedMenus.length && this.setValuesForModalDisplay(
@@ -329,7 +307,7 @@ class ProfileAdd extends PureComponent {
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
 
         const {
-            selectedDepartment, profileDescription, profileName, status,isAllRoleAssigned,
+            selectedDepartment, profileDescription, profileName, status, isAllRoleAssigned,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
             departmentListByHospital

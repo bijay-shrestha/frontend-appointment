@@ -78,10 +78,19 @@ class ProfileManage extends PureComponent {
         },
         showAlert: false,
         previewData: {},
-        adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
+        adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo"),
+        loggedInAdminMenus: []
     };
 
     timer = '';
+
+    prepareLoggedInAdminUserMenusWithRoles = () => {
+        let userMenusFromStorage = LocalStorageSecurity.localStorageDecoder("userMenus");
+        let adminUserMenusAndRoles = ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenusFromStorage);
+        this.setState({
+            loggedInAdminMenus: [...adminUserMenusAndRoles]
+        })
+    };
 
     closeAlert = () => {
         this.props.clearSuccessErrorMessagesFromStore();
@@ -161,6 +170,7 @@ class ProfileManage extends PureComponent {
     };
 
     initialApiCall = async () => {
+        this.prepareLoggedInAdminUserMenusWithRoles();
         this.apiCall();
         this.fetchDepartments();
         this.fetchProfileListForDropdown();
@@ -213,6 +223,7 @@ class ProfileManage extends PureComponent {
     };
 
     setDataForProfileUpdate = async (profileData, id) => {
+        const {adminInfo, loggedInAdminMenus} = this.state;
         let menusSelected = [], menusSelectedWithFlag = [];
         const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
         profileMenuResponseDTOS &&
@@ -220,9 +231,20 @@ class ProfileManage extends PureComponent {
             menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
         });
 
-        menusSelected.forEach(menuSelected => {
-            menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
-        });
+        if (adminInfo.isAllRoleAssigned === 'Y') {
+            menusSelected.map(menuSelected => {
+                menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
+            });
+        } else {
+            menusSelected.map(menuSelected => {
+                let menuAssignedToAdmin = loggedInAdminMenus.find(adminMenu =>
+                    Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
+                    && Number(adminMenu.roleId) === Number(menuSelected.roleId));
+                if (menuAssignedToAdmin) {
+                    menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
+                }
+            });
+        }
 
         // let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
         let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
@@ -483,14 +505,6 @@ class ProfileManage extends PureComponent {
                 }
             });
 
-    changeStatusOfSelectedMenusOnDepartmentSubDepartmentChange = status => {
-        let updateInSelectedMenus = this.state.profileUpdateData.selectedMenus.filter(menu => !menu.isNew);
-        return updateInSelectedMenus.map(data => {
-            data.status = status === true ? 'Y' : 'N';
-            return data;
-        });
-    };
-
     bindUpdatedFormValuesToState = async (event, fieldValid) => {
         let fieldName = event.target.name;
         let value = event.target.value;
@@ -504,7 +518,8 @@ class ProfileManage extends PureComponent {
     };
 
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
-        let currentSelectedMenus = [...this.state.profileUpdateData.selectedMenus],
+        const {profileUpdateData} = this.state;
+        let currentSelectedMenus = [...profileUpdateData.selectedMenus],
             currentSelectedMenusWithStatusUpdated = [];
 
         if (checkedAllUserMenus) {
@@ -518,9 +533,9 @@ class ProfileManage extends PureComponent {
                 );
             }
             // FOR REMAINING CHECK IF THE ROLE AND MENU ALREADY EXISTS OR NOT AND THEN ADD NEW OBJECT TO ARRAY
-            for (let menu of userMenus) {
+            userMenus.map(menu => {
                 if (menu.childMenus.length) {
-                    for (let child of menu.childMenus) {
+                    menu.childMenus.map(child => {
                         child.roles.forEach(role => {
                             let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
                                 && Number(menu.userMenuId) === Number(child.id)));
@@ -534,7 +549,7 @@ class ProfileManage extends PureComponent {
                                 isUpdated: false
                             })
                         })
-                    }
+                    })
                 } else {
                     menu.roles.map(role => {
                         let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
@@ -552,7 +567,7 @@ class ProfileManage extends PureComponent {
                         })
                     })
                 }
-            }
+            });
             currentSelectedMenus = [...currentSelectedMenusWithStatusUpdated];
         } else {
             let menuToUpdate = [...currentSelectedMenus];
@@ -572,9 +587,8 @@ class ProfileManage extends PureComponent {
                     ...this.state.profileUpdateData,
                     selectedMenus: currentSelectedMenus,
                 }
-                // selectedUserMenusForModal: userMenusSelected
             });
-        // console.log("menusss all", this.state.profileUpdateData.selectedMenus);
+        console.log("menusss all", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 

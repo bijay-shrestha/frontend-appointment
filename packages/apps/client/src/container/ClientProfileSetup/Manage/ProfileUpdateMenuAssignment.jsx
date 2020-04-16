@@ -103,7 +103,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
         await this.setState({
             userMenus: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length,
+            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length || countOfMenus <= this.props.selectedMenus.length,
             adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
         });
     };
@@ -369,13 +369,13 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                             </span>
                             {/*{*/}
                             {/*    (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?*/}
-                                    <CCheckbox id="check-all-menu-update"
-                                               label="All"
-                                               className="select-all"
-                                               checked={checkedAllUserMenus}
-                                               disabled={this.state.userMenus.length === 0}
-                                               onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
-                                    {/*: ''}*/}
+                            <CCheckbox id="check-all-menu-update"
+                                       label="All"
+                                       className="select-all"
+                                       checked={checkedAllUserMenus}
+                                       disabled={this.state.userMenus.length === 0}
+                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
+                            {/*: ''}*/}
                         </div>
                         <CScrollbar
                             id="menus"
@@ -467,12 +467,12 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                             </span>
                             {/*{*/}
                             {/*    (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?*/}
-                                    <CCheckbox id="check-all-roles-update"
-                                               label="All"
-                                               className="select-all"
-                                               checked={checkedAllRolesAndTabs}
-                                               disabled={userMenus.length === 0}
-                                               onChange={() => this.handleCheckAllRolesAndTabs(currentSelectedChildMenu)}/>
+                            <CCheckbox id="check-all-roles-update"
+                                       label="All"
+                                       className="select-all"
+                                       checked={checkedAllRolesAndTabs}
+                                       disabled={userMenus.length === 0}
+                                       onChange={() => this.handleCheckAllRolesAndTabs(currentSelectedChildMenu)}/>
                             {/*        : ''*/}
                             {/*}*/}
 

@@ -131,3 +131,32 @@ export const countTotalNoOfMenusAndRoles = userMenus => {
 
     return countOfMenus;
 };
+
+
+export const prepareUserMenusAndRolesCombinationList = userMenus => {
+    let userMenuWithRoleList = [];
+    userMenus && userMenus.map(menu => {
+        if (menu.childMenus.length) {
+            menu.childMenus.map(child => {
+                child.roles.map(role => {
+                    userMenuWithRoleList.push({
+                        parentId: menu.id,
+                        userMenuId: child.id,
+                        roleId: role,
+                        status: 'Y'
+                    })
+                })
+            });
+        } else {
+            menu.roles.map(role => {
+                userMenuWithRoleList.push({
+                    parentId: menu.id,
+                    userMenuId: menu.id,
+                    roleId: role,
+                    status: 'Y'
+                })
+            })
+        }
+    });
+    return userMenuWithRoleList;
+};
