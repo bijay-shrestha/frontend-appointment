@@ -21,15 +21,30 @@ const RevenueStatistics = props => {
     return (
         <>
 
-            <OverlayTrigger
-                placement="top"
-                delay={{show: 250, hide: 400}}
-                overlay={
-                    (props) =>
-                        <Tooltip {...props}><p>{revenueGeneratedYearData.amount}<span>NPR</span></p>
-                        </Tooltip>}
-            >
+        {/* <OverlayTrigger
+          className="data-tooltip"
+          placement="top"
+          delay={{ show: 250, hide: 400 }}
+          overlay={
+            (props) =>
+              <Tooltip   {...props}>
+                <div className="tl-data">
+                  <span> Checked-In = <span className="amt">Rs 200</span></span>  <br></br>
+                  <span>Refund  =<span className="amt">Rs 200</span> of 12 app.</span><br></br>
+                  <span>Cancelled  = <span className="amt">Rs 200</span></span>  <br></br>
+                  <span> Booked  =<span className="amt">Rs 200</span> of 12 app.</span> <br></br>
+                </div>
+
+
+              </Tooltip>}
+        > */}
                 <div className="revenue-box">
+                {/* <div className="overlay-data">
+                  <span> Checked-In =<span className="amt">Rs 200</span> of 12 app.from 4 app.</span>  <br></br>
+                  <span> Refund  =<span className="amt">Rs 200</span> of 12 app. from 4 app. </span><br></br>
+                  <span> Cancelled  =<span className="amt">Rs 200</span> of 12 app. from 4 app.</span>  <br></br>
+                  <span> Booked  =<span className="amt">Rs 200</span> of 12 app. from 4 app.</span> <br></br>
+                </div> */}
                     {!isRevenueGeneratedYearLoading &&
                     Object.keys(revenueGeneratedYearData) && !revenueGeneratedYearErrorMessage ? (
                         <>
@@ -43,7 +58,13 @@ const RevenueStatistics = props => {
                   )}
                                     {revenueGeneratedYearData.growthPercent}% from last year
                 </span>
-                            </div>
+                    <div className="tb-data">
+                      <span> Checked-In = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span>Refund = <span className="amt">Rs 200</span> of 12 app.</span><br></br>
+                      <span>Cancelled  = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span> Booked  = <span className="amt">Rs 200</span> of 12 app.</span> <br></br>
+                    </div>
+                  </div>
                         </>
                     ) : isRevenueGeneratedYearLoading ? (
                         <CLoading/>
@@ -51,9 +72,12 @@ const RevenueStatistics = props => {
                         <span><p>{revenueGeneratedYearErrorMessage}</p></span>
                     )}
                 </div>
-            </OverlayTrigger>
+            {/* </OverlayTrigger> */}
+
+   
 
             <div className="revenue-box">
+            
                 {!isRevenueGeneratedMonthLoading &&
                 Object.keys(revenueGeneratedMonthData) && !revenueGeneratedMonthErrorMessage ? (
                     <>
@@ -67,6 +91,12 @@ const RevenueStatistics = props => {
                   )}
                                 {Math.abs(Number(revenueGeneratedMonthData.growthPercent))}% from last month
                 </span>
+                <div className="tb-data">
+                      <span> Checked-In = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span>Refund  =<span className="amt">Rs 200</span> of 12 app.</span><br></br>
+                      <span>Cancelled  = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span> Booked  =<span className="amt">Rs 200</span> of 12 app.</span> <br></br>
+                    </div>
                         </div>
                     </>
                 ) : isRevenueGeneratedMonthLoading ? (
@@ -75,7 +105,9 @@ const RevenueStatistics = props => {
                     <span><p>{revenueGeneratedMonthErrorMessage}</p></span>
                 )}
             </div>
+         
 
+ 
             <div className="revenue-box">
                 {!isRevenueGeneratedWeekLoading &&
                 Object.keys(revenueGeneratedWeekData) && !revenueGeneratedWeekErrorMessage ? (
@@ -90,6 +122,12 @@ const RevenueStatistics = props => {
                   )}
                                 {Math.abs(Number(revenueGeneratedWeekData.growthPercent))}% from last week
                 </span>
+                <div className="tb-data">
+                      <span> Checked-In = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span>Refund  = <span className="amt">Rs 200</span> of 12 app.</span><br></br>
+                      <span>Cancelled  = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span> Booked  = <span className="amt">Rs 200</span> of 12 app.</span> <br></br>
+                    </div>
                         </div>
                     </>
                 ) : isRevenueGeneratedWeekLoading ? (
@@ -98,7 +136,7 @@ const RevenueStatistics = props => {
                     <span><p>{revenueGeneratedWeekErrorMessage}</p></span>
                 )}
             </div>
-
+ 
             <div className="revenue-box">
                 {!isRevenueGeneratedDayLoading &&
                 Object.keys(revenueGeneratedDayData) && !revenueGeneratedDayErrorMessage ? (
@@ -113,6 +151,12 @@ const RevenueStatistics = props => {
                   )}
                                 {Math.abs(Number(revenueGeneratedDayData.growthPercent))}% from last day
                 </span>
+                <div className="tb-data">
+                      <span> Checked-In = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span>Refund  = <span className="amt">Rs 200</span> of 12 app.</span><br></br>
+                      <span>Cancelled  = <span className="amt">Rs 200</span> of 12 app.</span>  <br></br>
+                      <span> Booked  = <span className="amt">Rs 200</span> of 12 app. of 12 app.</span> <br></br>
+                    </div>
                         </div>
                     </>
                 ) : isRevenueGeneratedDayLoading ? (
@@ -121,6 +165,7 @@ const RevenueStatistics = props => {
                     <span><p>{revenueGeneratedDayErrorMessage}</p></span>
                 )}
             </div>
+          
 
         </>
     )

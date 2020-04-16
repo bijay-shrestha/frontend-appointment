@@ -39,12 +39,13 @@
     }
 
     .rev-total{
-        background-color:$gray-100;
+        // background-color:$gray-100;
         color:$gray-900;
-        padding:4px 10px;
-        margin-top:10px;
-        margin-left:10px;
-        @include border-radius(4px);
+        font-weight: 500;
+        // padding:4px 10px;
+        // margin-top:10px;
+        // margin-left:10px;
+        // @include border-radius(2px);
     }
 
     .hospital-list{
@@ -263,26 +264,144 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
+   
 
+   
     .revenue-box{
+        position: relative;
         background-color:$white;
-         padding:30px;
-        // width:23%;
-        // height:100%;
+         padding:50px 0;
         margin:0px 0 15px;
         flex-grow: 1;
         flex-basis: 0;
         justify-content: space-between;
         @include border-radius(0.5rem);
         text-align: center;
-            // box-shadow:   -10px -10px 10px  $gray-200,
-            // 10px 10px 10px $gray-400; 
-       
+
+     
+        .tb-data {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+          
+           
+           
+            background-color:$white;
+            -webkit-transition:.5 ease-in-out;
+            transition: .5s ease-in-out;
+            @include border-radius(8px);
+
+            span{
+            color:transparent;
+            font-size: 13px;
+            line-height: 15px;
+            display:none;
+            margin:1px 0;
+           .amt{
+               padding:2px 4px ;
+            //    border:1px solid green;
+               @include border-radius(2px);
+                color:green !important;
+           }
+            
+            }
+        }
+
+        &:hover{
+            .tb-data {
+                padding:30px;
+                opacity: 1;
+
+                span{
+                    text-align: left;
+                    display:inline-block;
+                    color:rgba($gray-900,1);
+              
+                }
+            }
+        }
+        // .overlay-data{
+        //     display:none;
+        //         position: absolute;
+        //         width:200px;
+        //         height: auto;
+        //         padding:10px;
+        //         top:-70px;
+        //         left:-50px;
+        //         transform: translate(50%,0);
+        //         background-color:$gray-900;
+        //         color:$white;
+        //         @include border-radius(4px);
+        //          display:none;
+
+        //          &::before{
+        //             content: '';
+        //             width: 0;
+        //             height: 0;
+        //             border-left: 8px solid transparent;
+        //             border-right: 8px solid transparent;
+        //             border-top: 6px solid $gray-900;
+        //             position: absolute;
+        //             display: block;
+        //             bottom: -6px;
+        //             left: 100px;
+        //          }
+               
+        //       span{
+        //         color:$white !important;
+        //           font-size: 10px;
+        //           line-height: 14px;
+        //           padding:4px 0;
+        //           font-weight: 400;
+
+        //       }
+    
+        //     }
+    //    &:hover {
+    //        .overlay-data{
+    //         display:block;
+    //         z-index: 999;
+    //        }
+    //    }
+        
 
         &:first-child{
             background-color:$cogent;
             box-shadow:   -10px -10px 8px  #fff,
             10px 10px 10px $gray-400; 
+            // .tb-data span{
+            //     color:rgba(255, 255, 255, 0.8);
+            //     font-size: 12px;
+            //     line-height: 10px;
+            // }
+
+            .tb-data {
+                background-color:darken($cogent,5%);
+            }
+    
+            &:hover{
+                .tb-data {
+                    span{
+                        display:inline-block;
+                        color:rgba($gray-400,1);
+                        .amt{
+                            padding:2px 4px ;
+                            font-weight: 500;
+                            //  border-bottom:1px solid $white;
+                            @include border-radius(0px);
+                             color:$gray-300 !important;
+                        }
+                    }
+                }
+            }
+
             p{
                 color:$white;
 
@@ -291,7 +410,7 @@
                 color:$black;
 
                 .up{
-                    color:rgba(255, 255, 255, 0.6);
+                    color:rgba(255, 255, 255, 0.7);
                 }
 
                 .down{
@@ -441,10 +560,18 @@
            
         }
 
+        .t-app-box,.t-amount-box{
+            padding:10px;
+            border:1px solid $gray-200;
+            @include border-radius(4px);
+        }
+
+        .t-amount-box{
+            text-align: right;
+        }
+
         .react-datepicker-popper[data-placement^="bottom"]{
             margin-top:-8px !important;
-           
-
         }
 
         .react-datepicker-popper{
