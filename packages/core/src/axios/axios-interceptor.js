@@ -25,6 +25,7 @@ Axios.interceptors.request.use(
       LocalStorageSecurity.localStorageDecoder(
         EnvironmentVariableGetter.AUTH_TOKEN
       ) || ''
+    if(!requestConfig.url.includes('login'))
     requestConfig.headers.Authorization = token ? token : ''
     let logHeader = createLogHeader(requestConfig)
     if (logHeader) requestConfig.headers['log-header'] = logHeader
