@@ -9,19 +9,13 @@ import {
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     HospitalSetupMiddleware,
-    previewProfile,
-    logoutUser
+    logoutUser,
+    previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {
-    ProfileSetupUtils,
-    clientUserMenusJson,
-    UserMenuUtils,
-    TryCatchHandler,
-    LocalStorageSecurity
-} from "@frontend-appointment/helpers";
+import {LocalStorageSecurity, ProfileSetupUtils, TryCatchHandler} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
@@ -31,7 +25,7 @@ const {
     EDIT_PROFILE,
     FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN
 } = AdminModuleAPIConstants.profileSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
+
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 
@@ -83,7 +77,8 @@ class ProfileManage extends PureComponent {
             message: ''
         },
         showAlert: false,
-        previewData: {}
+        previewData: {},
+        adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
     };
 
     timer = '';
@@ -231,7 +226,7 @@ class ProfileManage extends PureComponent {
 
         // let menusForSubDept = [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]];
         let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
-            // UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
+        // UserMenuUtils.sortUserMenuJson([...menusForSubDept]);
 
         if (profileResponseDTO) {
             this.setState({
@@ -365,7 +360,7 @@ class ProfileManage extends PureComponent {
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
-        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile,'CLIENT');
+        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile, 'CLIENT');
     };
 
     previewApiCall = async id => {
@@ -579,7 +574,7 @@ class ProfileManage extends PureComponent {
                 }
                 // selectedUserMenusForModal: userMenusSelected
             });
-        console.log("menusss all", this.state.profileUpdateData.selectedMenus);
+        // console.log("menusss all", this.state.profileUpdateData.selectedMenus);
         this.checkFormValidity();
     };
 
