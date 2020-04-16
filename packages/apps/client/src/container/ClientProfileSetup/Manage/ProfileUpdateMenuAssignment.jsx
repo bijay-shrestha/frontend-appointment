@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import {LocalStorageSecurity, menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import {LocalStorageSecurity, menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 
@@ -90,20 +90,12 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     };
 
     setTotalNumberOfMenusAndRoles = async () => {
-        let countOfMenus = 0;
-        this.props.userMenus.forEach(menu => {
-            if (menu.childMenus.length) {
-                menu.childMenus.forEach(childMenu => {
-                    countOfMenus += childMenu.roles.length;
-                })
-            } else {
-                countOfMenus += menu.roles.length;
-            }
-        });
+        const {userMenus} = this.props;
+        let countOfMenus = ProfileSetupUtils.countTotalNoOfMenusAndRoles(userMenus);
         await this.setState({
-            userMenus: [...this.props.userMenus],
+            userMenus: [...userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length || countOfMenus <= this.props.selectedMenus.length,
+            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length,
             adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
         });
     };

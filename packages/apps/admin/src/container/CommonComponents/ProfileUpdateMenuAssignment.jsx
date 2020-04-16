@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import {LocalStorageSecurity, menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import {LocalStorageSecurity, menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 
@@ -90,18 +90,10 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     };
 
     setTotalNumberOfMenusAndRoles = async () => {
-        let countOfMenus = 0;
-        this.props.userMenus.forEach(menu => {
-            if (menu.childMenus.length) {
-                menu.childMenus.forEach(childMenu => {
-                    countOfMenus += childMenu.roles.length;
-                })
-            } else {
-                countOfMenus += menu.roles.length;
-            }
-        });
+        const {userMenus} = this.props;
+        let countOfMenus = ProfileSetupUtils.countTotalNoOfMenusAndRoles(userMenus);
         await this.setState({
-            userMenus: [...this.props.userMenus],
+            userMenus: [...userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
             checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length,
             adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
@@ -367,15 +359,12 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                     // value={this.state.searchMenuValue}
                                     onChange={this.searchMenus}/>
                             </span>
-                            {
-                                (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?
-                                    <CCheckbox id="check-all-menu-update"
-                                               label="All"
-                                               className="select-all"
-                                               checked={checkedAllUserMenus}
-                                               disabled={this.state.userMenus.length === 0}
-                                               onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
-                                    : ''}
+                            <CCheckbox id="check-all-menu-update"
+                                       label="All"
+                                       className="select-all"
+                                       checked={checkedAllUserMenus}
+                                       disabled={this.state.userMenus.length === 0}
+                                       onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
                         </div>
                         <CScrollbar
                             id="menus"
@@ -465,16 +454,13 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                             <span className="searchMenu">
                                 <CSearch onChange={this.searchTabsAndRoles}/>
                             </span>
-                            {
-                                (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?
-                                    <CCheckbox id="check-all-roles-update"
-                                               label="All"
-                                               className="select-all"
-                                               checked={checkedAllRolesAndTabs}
-                                               disabled={userMenus.length === 0}
-                                               onChange={() => this.handleCheckAllRolesAndTabs(currentSelectedChildMenu)}/>
-                                    : ''
-                            }
+                            <CCheckbox id="check-all-roles-update"
+                                       label="All"
+                                       className="select-all"
+                                       checked={checkedAllRolesAndTabs}
+                                       disabled={userMenus.length === 0}
+                                       onChange={() => this.handleCheckAllRolesAndTabs(currentSelectedChildMenu)}/>
+
 
                         </div>
                         <CScrollbar
