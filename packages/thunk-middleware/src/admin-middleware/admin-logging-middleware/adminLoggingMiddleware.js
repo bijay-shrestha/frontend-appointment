@@ -30,11 +30,12 @@ export const fetchAdminLog = (
     dispatch(AdminLoggingSetupActions.logFetchSuccess(response.data))
     return response
   } catch (e) {
-    console.log('====log2', e)
-    const error = e.response
-      ? e.response.data
-        ? error.response.data.errorMessage
-          ? error.response.data.errorMessage
+    let errorData= e.response;
+    let error = ''
+    error = errorData
+      ? errorData.data
+        ? errorData.data.errorMessage
+          ? errorData.data.errorMessage
           : 'Sorry Something Error Occured In Server'
         : 'Network Error'
       : 'Network Error'
@@ -66,11 +67,12 @@ export const fetchAdminLogStatistics = (
     dispatch(AdminLoggingSetupActions.logStatsFetchSuccess(response.data))
     return response
   } catch (e) {
-    console.log('===log', e)
-    const error = e.respones
-      ? e.response.data
-        ? error.response.data.errorMessage
-          ? error.response.data.errorMessage
+    let errorData= e.response
+    let error = ''
+    error = errorData
+      ? errorData.data
+        ?errorData.data.errorMessage
+          ?errorData.data.errorMessage
           : 'Sorry Something Error Occured In Server'
         : 'Network Error'
       : 'Network Error'

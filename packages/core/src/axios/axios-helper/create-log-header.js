@@ -33,7 +33,7 @@ export const createLogHeader = request => {
         parentId: menuId,
         roleId: 2,
         feature: getActMenu,
-        actionType: 'Add',
+        actionType: 'Create',
         logDescription: ''
       }
     }
