@@ -132,20 +132,9 @@ class CHybridInput extends React.PureComponent {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (!(this.props.value === 0 || this.props.value)) {
-      const a = ReactDOM.findDOMNode(this.refs['fieldWrapper' + this.props.id])
-        .className
-      const replaceString = a.replace(' hasValue', '')
-      if (this.props.isInvalid === true) {
-        replaceString.concat(' errorInput')
-      }
-      ReactDOM.findDOMNode(
-        this.refs['fieldWrapper' + this.props.id]
-      ).className = replaceString
-      return true
-    }
-
-    return false
+   
+      this.classAdditionWhenValueIsChanged(this.props.value);
+  
   }
 
   componentDidMount () {
@@ -190,7 +179,7 @@ class CHybridInput extends React.PureComponent {
       value,
       onClick
     } = this.props
-    this.classAdditionWhenValueIsChanged(value)
+   
     return (
       <>
         <div
