@@ -19,7 +19,7 @@ class TableAction extends PureComponent {
   }
 
   saveActionInSession = (e, actionId) => {
-    sessionStorage.setItem('actionType', actionId)
+   
     const actionName =
       actionId === 3
         ? 'E'
@@ -45,6 +45,7 @@ class TableAction extends PureComponent {
         this.props.node.data.username
       )
     }
+    sessionStorage.setItem('actionType', actionId)
   }
 
   render () {

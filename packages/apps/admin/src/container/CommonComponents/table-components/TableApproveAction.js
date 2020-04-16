@@ -8,8 +8,8 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 const {checkIfRoleExists} = ActionFilterUtils
 const ApproveTableAction = props => {
   const saveActionInSession = (e, actionId, actionName) => {
-    sessionStorage.setItem('actionType', actionId)
     props.onClick(e, props.node.data.id || props.node.data, actionName)
+    sessionStorage.setItem('actionType', actionId)
   }
   return (
     <>

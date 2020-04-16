@@ -12,6 +12,7 @@ const PreviewHandlerHoc = (
   
     const previewClickHandler = (e)=>{
         const data = node.data ? (node.data.id ? node.data.id : node.data) : null
+        sessionStorage.setItem('actionType',4);
         if (!checkIfRoleExists) {
           
           onPreviewHandler(data)
@@ -20,7 +21,7 @@ const PreviewHandlerHoc = (
             onPreviewHandler(data)
           }
         }
-        sessionStorage.setItem('actionType',4);
+        
     }
     return (ComposedComponent ? (
       <div
