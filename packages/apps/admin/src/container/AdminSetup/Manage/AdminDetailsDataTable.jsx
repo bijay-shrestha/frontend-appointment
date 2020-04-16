@@ -2,8 +2,8 @@ import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
 import {CDataTable, CPagination, CLoading} from '@frontend-appointment/ui-elements';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import TableAction from "./tableComponents/TableAction";
-import StatusLabel from "./tableComponents/StatusLabel";
+import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction'
 import PreviewAdminDetails from "./PreviewAdminDetails";
 import AdminPicture from "./tableComponents/AdminPicture";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";

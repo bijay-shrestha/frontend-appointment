@@ -41,6 +41,7 @@ class CHeader extends Component {
 
     logoutUser = async () => {
         localStorage.clear();
+        sessionStorage.clear();
         this.props.history.push('/');
     };
 

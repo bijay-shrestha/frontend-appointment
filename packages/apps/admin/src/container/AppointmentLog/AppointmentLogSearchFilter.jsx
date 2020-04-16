@@ -267,7 +267,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 {value: 'A', label: 'Checked-In'},
                                                 // {value: 'RE', label: 'Rejected'},
                                                 {value: 'C', label: 'Cancelled'},
-                                                {value: 'R', label: 'Refunded'}
+                                                {value: 'RE', label: 'Refunded'}
                                             ]}
                                             onChange={handleSearchFormChange}
                                         />
