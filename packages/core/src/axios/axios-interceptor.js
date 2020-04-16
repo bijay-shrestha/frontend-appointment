@@ -26,9 +26,9 @@ Axios.interceptors.request.use(
         EnvironmentVariableGetter.AUTH_TOKEN
       ) || ''
     if(!requestConfig.url.includes('login'))
-    requestConfig.headers.Authorization = token ? token : ''
+       requestConfig.headers.Authorization = token ? token : ''
     let logHeader = createLogHeader(requestConfig)
-    if (logHeader) requestConfig.headers['log-header'] = logHeader
+    if (logHeader) requestConfig.headers['log-header'] = JSON.stringify(logHeader);
     return requestConfig
   },
   error => {

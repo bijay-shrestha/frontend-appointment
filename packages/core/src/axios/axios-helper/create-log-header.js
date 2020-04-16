@@ -4,7 +4,7 @@ export const createLogHeader = request => {
   const appStorageMenu = LocalStorageSecurity.localStorageDecoder('active')
   let getActMenu = ''
   let actionId, menuId
-  let logHeader = ''
+  let logHeader = null
   if (checkIfItIsNotAnAction(request.url)) {
     if (appStorageMenu) {
       getActMenu = appStorageMenu.replace('true', '')
@@ -19,22 +19,22 @@ export const createLogHeader = request => {
       let role, roleName
       if (menuId) role = RolesUtils.getOnlyGivenRole(actionId) || {}
       if (role) roleName = role.name
-      if (menuId && actionId && getActMenu && role)
-        logHeader = getActMenu
-          .concat(':')
-          .concat(menuId)
-          .concat(':')
-          .concat(roleName)
-          .concat(':')
-          .concat(actionId)
+      if (menuId && actionId && getActMenu && roleName)
+        logHeader = {
+          parentId: menuId,
+          roleId: actionId,
+          feature: getActMenu,
+          actionType: roleName,
+          description: ''
+        }
     } else {
-      logHeader = getActMenu
-        .concat(':')
-        .concat(menuId)
-        .concat(':')
-        .concat('Add')
-        .concat(':')
-        .concat(2)
+      logHeader = {
+        parentId: menuId,
+        roleId: 2,
+        feature: getActMenu,
+        actionType: 'Add',
+        description: ''
+      }
     }
   }
   return logHeader
@@ -51,7 +51,7 @@ const checkIfItIsNotAnAction = url => {
   for (let j = 0; j < includeAppUrl.length; j++) {
     if (url.includes('/appointment'))
       if (!url.includes(includeAppUrl[j])) {
-        flag = false;
+        flag = false
         break
       }
   }
