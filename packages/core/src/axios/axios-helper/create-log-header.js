@@ -28,6 +28,7 @@ export const createLogHeader = request => {
           logDescription: ''
         }
     } else {
+      if(request.method==='post')
       logHeader = {
         parentId: menuId,
         roleId: 2,
