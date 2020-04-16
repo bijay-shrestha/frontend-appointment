@@ -5,7 +5,7 @@ import {
   CPagination
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-//import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
+import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 //import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 const AppointmentRefundDataTable = ({
@@ -113,6 +113,15 @@ const AppointmentRefundDataTable = ({
                   width: '300'
                 },
                 {
+                  headerName: 'Status',
+                  field: 'status',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  cellRenderer: 'childLabelRenderer',
+                  width: '120'
+                },
+                {
                   headerName: 'Log Description',
                   field: 'logDescription',
                   resizable: true,
@@ -123,6 +132,9 @@ const AppointmentRefundDataTable = ({
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={logList}
+              frameworkComponents={{
+                childLabelRenderer: StatusLabel
+              }}
             />
             <CPagination
               totalItems={totalRecords}
