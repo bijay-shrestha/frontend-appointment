@@ -16,7 +16,8 @@ export const excludedUrl = [
     '/prepare-weekdays-data',
     '/features',
     '/dashboard',
-    '/detail'
+    '/detail',
+    '/country'
 ]
 export const includeAppUrl=[
     '/approve',
