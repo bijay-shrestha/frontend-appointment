@@ -13,7 +13,7 @@ export const excludedUrl = [
     '/dropdown',
     '/doctorDutyRosterOverride',
     '/existing',
-    '/prepare-weekdays-data',
+    '/weekDays',
     '/features',
     '/dashboard',
     '/detail',

@@ -25,7 +25,7 @@ export const createLogHeader = request => {
           roleId: actionId,
           feature: getActMenu,
           actionType: roleName,
-          description: ''
+          logDescription: ''
         }
     } else {
       logHeader = {
@@ -33,7 +33,7 @@ export const createLogHeader = request => {
         roleId: 2,
         feature: getActMenu,
         actionType: 'Add',
-        description: ''
+        logDescription: ''
       }
     }
   }
