@@ -27,7 +27,8 @@ export const fetchAdminLog = (
     return response
   } catch (e) {
     console.log("====log2",e);
-    dispatch(AdminLoggingSetupActions.logFetchError(e.response.data.errorMessage||'Something Wrong In Server!!'))
+    const error =e.response? e.response.data?error.response.data.errorMessage?error.response.data.errorMessage:'Sorry Something Error Occured In Server':'Network Error':'Network Error';
+    dispatch(AdminLoggingSetupActions.logFetchError(error))
   }
 }
 
@@ -46,6 +47,7 @@ export const fetchAdminLogStatistics = (path, searchData) => async dispatch => {
     return response
   } catch (e) {
     console.log('===log',e);
-    dispatch(AdminLoggingSetupActions.logStatsFetchError(e.response.data.errorMessage||'Something Wrong In Server!!'))
+    const error = e.respones?e.response.data?error.response.data.errorMessage?error.response.data.errorMessage:'Sorry Something Error Occured In Server':'Network Error':'Network Error'; 
+    dispatch(AdminLoggingSetupActions.logStatsFetchError(error))
   }
 }

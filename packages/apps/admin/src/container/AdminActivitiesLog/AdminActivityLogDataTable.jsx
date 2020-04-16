@@ -64,7 +64,11 @@ const AppointmentRefundDataTable = ({
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '200'
+                  width: '200',
+                  valueFormatter:function currencyFormatter(params) {
+                    return params.value.toDateString();
+                  }
+                  
                 },
                 {
                   headerName: 'Username',
