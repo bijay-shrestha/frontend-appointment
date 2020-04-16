@@ -14,8 +14,8 @@ import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
 import {
     clientUserMenusJson,
-    EnterKeyPressUtils, LocalStorageSecurity,
-    menuRoles,
+    EnterKeyPressUtils, EnvironmentVariableGetter, LocalStorageSecurity,
+    menuRoles, ProfileSetupUtils,
     TryCatchHandler,
     UserMenuUtils
 } from "@frontend-appointment/helpers";
@@ -53,7 +53,9 @@ class ProfileAdd extends PureComponent {
             variant: "",
             message: ""
         },
-        departmentListByHospital: []
+        departmentListByHospital: [],
+        originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
+            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
     };
 
     closeAlert = () => {
@@ -114,10 +116,6 @@ class ProfileAdd extends PureComponent {
         await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
     };
 
-    fetchHospitals = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
-    };
-
     filterMenuByDepartment = () => {
         // let menusForDept = Object.keys(clientUserMenusJson).find(code => code === process.env.REACT_APP_MODULE_CODE)
         //     ? [...clientUserMenusJson[process.env.REACT_APP_MODULE_CODE]] : [];
@@ -126,7 +124,8 @@ class ProfileAdd extends PureComponent {
         alphabeticallySortedMenus ?
             this.setState({
                 userMenus: [...alphabeticallySortedMenus],
-                selectedMenus: []
+                selectedMenus: [],
+                defaultSelectedMenu: alphabeticallySortedMenus[0]
             }) :
             this.setState({
                 userMenus: [],
@@ -205,6 +204,14 @@ class ProfileAdd extends PureComponent {
         return selectedUserMenus;
     };
 
+    checkIfAllRolesAndMenusAssigned = (selectedUserMenus) => {
+        let allRoleAssigned = false;
+        if (LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y') {
+            allRoleAssigned = Number(this.state.originalTotalNoOfMenusAndRoles) === Number(selectedUserMenus.length);
+        }
+        return allRoleAssigned;
+    };
+
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
         let currentSelectedMenus = [],
             userMenusSelected;
@@ -240,7 +247,8 @@ class ProfileAdd extends PureComponent {
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
-            selectedUserMenusForModal: userMenusSelected
+            selectedUserMenusForModal: userMenusSelected,
+            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
 
         this.checkFormValidity();
@@ -267,7 +275,8 @@ class ProfileAdd extends PureComponent {
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
-            selectedUserMenusForModal: userMenusSelected
+            selectedUserMenusForModal: userMenusSelected,
+            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
         this.checkFormValidity();
     };
@@ -317,6 +326,7 @@ class ProfileAdd extends PureComponent {
     render() {
 
         const {departments} = this.props.DepartmentSetupReducer;
+        const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
 
         const {
             selectedDepartment, profileDescription, profileName, status,isAllRoleAssigned,
@@ -339,8 +349,7 @@ class ProfileAdd extends PureComponent {
                                     departmentValue: selectedDepartment,
                                     profileDescription: profileDescription,
                                     profileName: profileName,
-                                    status: status,
-                                    isAllRoleAssigned
+                                    status: status
                                 }}
                                 errorMessageForProfileName={errorMessageForProfileName}
                                 errorMessageForProfileDescription={errorMessageForProfileDescription}
@@ -380,6 +389,7 @@ class ProfileAdd extends PureComponent {
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
+                                    isAddLoading={isCreateProfileLoading}
                                     profileData={{
                                         profileName: profileName,
                                         profileDescription: profileDescription,
@@ -387,8 +397,7 @@ class ProfileAdd extends PureComponent {
                                         status: status,
                                         selectedMenus: selectedMenus,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
-                                        userMenus: userMenus,
-                                        isAllRoleAssigned
+                                        userMenus: userMenus
                                     }}
                                     rolesJson={menuRoles}
                                 />

@@ -1,10 +1,10 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
-import {CButton, CCheckbox, CForm, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
+import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {LocalStorageSecurity, menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
+import {menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -331,17 +331,6 @@ class ProfileMenuAssignment extends PureComponent {
             <>
                 {/*Parent Menus*/}
                 <Col sm={12} md={6} lg={3} className="menu-list-wrapper">
-                    <div className='previledge-title'>
-                        {LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y' ?
-                            <CCheckbox
-                                id="isAllRoleAssigned"
-                                label="Assign All Role"
-                                name="isAllRoleAssigned"
-                                checked={this.state.checkedAllUserMenus}
-                                onChange={() => this.handleCheckAllUserMenus(this.state.userMenuByDepartment)}
-                            /> :
-                            ''}
-                    </div>
                     <h5 className="title">&nbsp;</h5>
                     <div className="assign-menu">
                         <div className="am-header">

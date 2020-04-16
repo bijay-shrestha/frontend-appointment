@@ -1,4 +1,4 @@
-import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
+import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter, LocalStorageSecurity} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
 export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
@@ -121,12 +121,12 @@ export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, sel
 export const countTotalNoOfMenusAndRoles = userMenus => {
     let countOfMenus = 0;
     userMenus && userMenus.length && userMenus.map(menu => {
-        if (menu.childMenus.length)
+        if (menu.childMenus.length && menu.enabled === 'Y')
             menu.childMenus.forEach(childMenu => {
-                countOfMenus += childMenu.roles.length;
+                countOfMenus += childMenu.enabled === 'Y' ? childMenu.roles.length : 0;
             });
         else
-            countOfMenus += menu.roles.length;
+            countOfMenus += menu.enabled === 'Y' ? menu.roles.length : 0;
     });
 
     return countOfMenus;

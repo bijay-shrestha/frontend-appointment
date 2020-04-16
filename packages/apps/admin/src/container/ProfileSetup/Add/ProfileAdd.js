@@ -380,8 +380,7 @@ class ProfileAdd extends PureComponent {
                                     hospitalValue: selectedHospital,
                                     profileDescription: profileDescription,
                                     profileName: profileName,
-                                    status: status,
-                                    isAllRoleAssigned
+                                    status: status
                                 }}
                                 errorMessageForProfileName={errorMessageForProfileName}
                                 errorMessageForProfileDescription={errorMessageForProfileDescription}
@@ -404,7 +403,6 @@ class ProfileAdd extends PureComponent {
                                     userMenus: userMenus,
                                     selectedUserMenusForModal: selectedUserMenusForModal,
                                     userMenuAvailabilityMessage: userMenuAvailabilityMessage,
-                                    isAllRoleAssigned
                                 }}/>
                             }
                         </Row>
@@ -432,8 +430,7 @@ class ProfileAdd extends PureComponent {
                                         status: status,
                                         selectedMenus: selectedMenus,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
-                                        userMenus: userMenus,
-                                        isAllRoleAssigned
+                                        userMenus: userMenus
                                     }}
                                     rolesJson={menuRoles}
                                 />

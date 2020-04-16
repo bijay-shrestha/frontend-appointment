@@ -82,16 +82,6 @@ const ProfileInfoForm = ({
                         className="sr-only"
                     />
                 </div>
-
-                {LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y' ?
-                    <CCheckbox
-                        id="isAllRoleAssigned"
-                        label="Is All Role Assigned"
-                        name="isAllRoleAssigned"
-                        checked={profileInfoObj.isAllRoleAssigned === 'Y'}
-                        onChange={(e) => onInputChange(e)}
-                    /> :
-                    ''}
             </CForm>
         </Col>
     );
