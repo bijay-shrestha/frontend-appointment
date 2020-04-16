@@ -8,7 +8,11 @@ import {
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction';
+<<<<<<< HEAD
 import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
+=======
+import StatusLabel from './tableComponents/StatusLabel'
+>>>>>>> develop
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
