@@ -162,8 +162,7 @@ const PatientDataList = ({tableHandler, paginationProps}) => {
                     onClick: function (e, id, type) {
                       editHandler(id)
                     },
-                    byPass: true,
-                    onlyEdit: true
+                    filteredAction:[{id:3,'name':"Edit"}]
                   },
                   cellStyle: {overflow: 'visible', 'z-index': '99'}
                 }

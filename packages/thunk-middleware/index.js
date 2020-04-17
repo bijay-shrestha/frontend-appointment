@@ -28,6 +28,8 @@ import {
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
     CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
@@ -88,6 +90,8 @@ export {
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
     CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware,
     CountryMiddleware
 }

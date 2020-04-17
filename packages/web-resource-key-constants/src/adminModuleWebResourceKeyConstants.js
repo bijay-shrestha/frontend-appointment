@@ -1,17 +1,18 @@
-const BASE = '/api/v1';
-const SP_BASE = '/specialization';
-const HP_BASE = '/hospital';
-const DOCTOR_BASE = '/doctor';
-const QF_BASE = '/qualification';
-const PROFILE_BASE = '/profile';
-const QFA_BASE = '/qualificationAlias';
-const CNTRY_BASE = '/country';
-const UN_BASE = '/university';
-const PATIENT_BASE = "/patient";
-const APPOINTMENT_BASE = "/appointment";
-const DASHBOARD_BASE = "/dashboard";
-const COMPANY_BASE = '/company';
-const COMPANY_ADMIN_BASE = '/companyAdmin';
+const BASE = '/api/v1'
+const SP_BASE = '/specialization'
+const HP_BASE = '/hospital'
+const DOCTOR_BASE = '/doctor'
+const QF_BASE = '/qualification'
+const PROFILE_BASE = '/profile'
+const QFA_BASE = '/qualificationAlias'
+const CNTRY_BASE = '/country'
+const UN_BASE = '/university'
+const PATIENT_BASE = '/patient'
+const APPOINTMENT_BASE = '/appointment'
+const DASHBOARD_BASE = '/dashboard'
+const COMPANY_BASE = '/company'
+const COMPANY_ADMIN_BASE = '/companyAdmin'
+const ADMIN_LOGGING='/admin-log'
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -217,6 +218,12 @@ export const companyAdminSetupApiConstants = {
   RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
   CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
 };
+
+const LOG_BASE='/logging';
+export const adminLoggingConstant ={
+  FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
+  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/user-log-statics"))
+}
 
 const UNIVERSITY_BASE = "/university";
 export const universitySetupApiConstants = {

@@ -36,6 +36,7 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                 Number(childMenu.id) === Number(selectedMenu.userMenuId)
             );
             child && selectedChildMenus.add(child)
+            return selectedMenu;
         });
         selectedUserMenusForModal = selectedUserMenusForModal.concat(Array.from(selectedParentMenus).map(
             // add filtered out child to their respective filtered out parent menu.
@@ -70,6 +71,7 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
             selectedMenus,
             selectedUserMenusForModal
         }
+        return parentMenuId;
     });
     let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...selectedUserMenusForModal]);
     if (profileResponseDTO)
