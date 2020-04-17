@@ -261,9 +261,11 @@ const AppointmentRefundDataTable = ({
         ) : (
           ''
         )}
+        <div>
         {chartData ? (
-          <CDoughnutChart chartData={chartData} width={200} height={200} />
+          <CDoughnutChart chartData={chartData} width={200} height={100} />
         ) : null}
+       </div> 
       </div>
 
       {/* 
