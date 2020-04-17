@@ -5,24 +5,9 @@
 
     h5.title{
         display: block;
-        // color:desaturate($cogent,60%);
-        // font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+        }
 
-    // .revenue-title-box{
-    //     position: relative;
 
-    //     .fiscal{
-    //         position: absolute;
-    //         top:0;
-    //         left:0;
-    //     }
-
-    //     .title{
-    //         position: absolute;
-    //         top:12px;
-    //     }
-    // }
 
     .react-datepicker-popper[data-placement^="bottom"] {
         margin-top: -8px !important;
@@ -39,14 +24,14 @@
     }
 
     .rev-total{
-        // background-color:$gray-100;
+        background-color:$gray-100;
         color:$gray-900;
-        font-weight: 500;
-        // padding:4px 10px;
-        // margin-top:10px;
-        // margin-left:10px;
-        // @include border-radius(2px);
+        padding:4px 10px;
+        margin-top:10px;
+        margin-left:10px;
+        @include border-radius(4px);
     }
+
 
     .hospital-list{
         width:200px;
@@ -103,13 +88,7 @@
 
             }
 
-            // .css-1hb7zxy-IndicatorsContainer{
-            //     padding:1px;
-            // }
 
-            // .css-tlfecz-indicatorContainer{
-            //     padding:1px;
-            // }
 
           
 
@@ -128,72 +107,7 @@
         }
 
 
-    //     .select-wrapper{
-    //         min-height: 34px;
-    //         margin-left:4px;
 
-    //         // .select-label.active {
-    //         //     color:$cogent;
-    //         //   }
-
-    //       .css-yk16xz-control{
-    //        background-color:transparent;
-    //     border-color:transparent !important;
-    //        border-bottom:1px solid $gray-500 !important;
-    //     //    min-height: 30px;
-    //        @include border-radius(0);
-
-    //        &:hover{
-    //            border:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //       }
-    //       }
-
-    //       .css-1uccc91-singleValue{
-    //           color:$gray-900;
-    //           letter-spacing: 0.5px !important;
-    //           text-transform: capitalize;
-    //           font-size:11px !important;
-    //       }
-
-    //       .css-1pahdxg-control{
-    //         border-color:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //         background-color:transparent;
-    //         @include border-radius(0);
-    //         &:hover{
-    //             border-color:transparent !important;
-    //             border-bottom:1px solid $gray-500 !important;
-    //         }
-    //       }
-
-    //         //for disabled select
-    //       .css-1fhf3k1-control{
-    //         background-color:$gray-100 !important;
-
-    //           // cursor: not-allowed;
-
-    //       }
-
-    //       .css-1hwfws3{
-    //           padding:0 0;
-    //       }
-
-    //       .css-1n7v3ny-option{
-    //         //background-color:#DEEBFF;
-    //         background-color: lighten($cogent,45%);
-    //       }
-
-    //       .css-1wa3eu0-placeholder{
-    //         color:$gray-600;
-    //         font-weight: 300;
-    //       }
-
-    //       .css-tlfecz-indicatorContainer{
-    //           padding:4px !important;
-    //       }
-
-    //     }
     }
 
     .react-datepicker-wrapper{
@@ -271,14 +185,129 @@
     .revenue-box{
         position: relative;
         background-color:$white;
-         padding:50px 0;
+         padding:52px 0;
         margin:0px 0 15px;
         flex-grow: 1;
         flex-basis: 0;
         justify-content: space-between;
         @include border-radius(0.5rem);
         text-align: center;
+        .rdb-container{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color:rgba($white,1);
+            -webkit-transition:.5 ease-in-out;
+            transition: .5s ease-in-out;
+            @include border-radius(0.5rem);
 
+            display:flex;
+            flex-direction: row;
+            align-content:space-between;
+            
+        }
+
+        &:hover{
+            .rdb-container{
+                opacity: 1;
+            }
+        }
+      
+
+       .rdb-total{
+           padding-left:10px;
+           padding-right:10px;
+            align-self: center;
+            flex:1 2 100px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 500;
+
+            span{
+                margin-left: 3px;
+                font-size: 10px;
+                font-weight: 400;
+            }
+         
+       }
+
+        .revenue-details-box{
+            flex:2 0 130px;
+    
+            width:100%;
+            padding-left:10px;
+       
+            display:flex;
+            flex-direction: column;
+            
+            // clear: both;
+           
+            .rd-row{
+                // float:left;
+                display:flex;
+                flex-direction: row;
+                // border:1px solid green;
+                align-items:center;
+                height:40px;
+                margin:0 ;
+            }
+        
+          
+        
+            .badge{
+                padding:0;
+                line-height: 22px;
+                // width:6px;
+                // height:6px;
+            }
+        
+            .rd-col{
+                flex-direction: column;
+                // border:1px solid green;
+        
+                p{
+                    font-size: 10px;
+                    line-height: 12px;
+                    margin:0;
+                    letter-spacing: 0;
+                    color:$gray-600;
+                    text-align: left;
+                }
+
+                .amount,.appt{
+                    color:$gray-900;
+                    font-size: 11px;
+                    margin-left:0;
+                }
+            }
+        
+            .rd-col-1{
+                width:2px;
+                margin-right:4px;
+               
+            }
+        
+            .rd-col-2{
+                // width:160px;
+
+                p:first-child{
+                    
+                    font-size: 10px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                }
+                p{
+                    align-self:center;
+                }
+                
+            }
+        }
      
         .tb-data {
             position: absolute;
@@ -327,49 +356,7 @@
                 }
             }
         }
-        // .overlay-data{
-        //     display:none;
-        //         position: absolute;
-        //         width:200px;
-        //         height: auto;
-        //         padding:10px;
-        //         top:-70px;
-        //         left:-50px;
-        //         transform: translate(50%,0);
-        //         background-color:$gray-900;
-        //         color:$white;
-        //         @include border-radius(4px);
-        //          display:none;
-
-        //          &::before{
-        //             content: '';
-        //             width: 0;
-        //             height: 0;
-        //             border-left: 8px solid transparent;
-        //             border-right: 8px solid transparent;
-        //             border-top: 6px solid $gray-900;
-        //             position: absolute;
-        //             display: block;
-        //             bottom: -6px;
-        //             left: 100px;
-        //          }
-               
-        //       span{
-        //         color:$white !important;
-        //           font-size: 10px;
-        //           line-height: 14px;
-        //           padding:4px 0;
-        //           font-weight: 400;
-
-        //       }
-    
-        //     }
-    //    &:hover {
-    //        .overlay-data{
-    //         display:block;
-    //         z-index: 999;
-    //        }
-    //    }
+        
         
 
         &:first-child{
@@ -382,24 +369,8 @@
             //     line-height: 10px;
             // }
 
-            .tb-data {
-                background-color:darken($cogent,5%);
-            }
-    
-            &:hover{
-                .tb-data {
-                    span{
-                        display:inline-block;
-                        color:rgba($gray-400,1);
-                        .amt{
-                            padding:2px 4px ;
-                            font-weight: 500;
-                            //  border-bottom:1px solid $white;
-                            @include border-radius(0px);
-                             color:$gray-300 !important;
-                        }
-                    }
-                }
+            .rdb-container{
+                background-color: $gray-100;
             }
 
             p{
@@ -802,6 +773,9 @@
 
 
 }
+
+
+
 
 
 @include media-breakpoint-down(sm) {
