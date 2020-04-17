@@ -76,6 +76,49 @@
         
     }
 
+    .revenue-details{
+        background-color:$white;
+        padding:24px;
+        @include border-radius(0.5rem);
+        .total{
+            font-weight: 700;
+        }
+        .table th{
+            font-weight: 300;
+            font-size: 12px;
+            margin-bottom:4px;
+            border-bottom: 1px solid transparent;
+        }
+
+        .table td{
+            font-weight:400;
+        }
+        .table th, .table td {
+            padding: 0.25rem;
+            vertical-align: top;
+            border-top: 1px solid transparent;
+        }
+    }
+
+    .revenue-breakdown{
+        background-color:$white;
+        padding:24px;
+        margin:1rem 0;
+        @include border-radius(0.5rem);
+
+        
+        h5{
+            margin-bottom:20px;
+            color:$gray-900;
+        }
+        p{
+            font-size:12px;
+            line-height: 16px;
+            letter-spacing: 0.01rem;
+            font-weight: 300;
+        }
+    }
+
     .react-datepicker-wrapper {
         width          : 50%;
         // padding-left: 4px;
