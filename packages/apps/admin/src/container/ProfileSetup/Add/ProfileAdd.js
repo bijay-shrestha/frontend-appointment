@@ -37,7 +37,6 @@ class ProfileAdd extends PureComponent {
         selectedHospital: null,
         selectedMenus: [],
         status: 'Y',
-        isAllRoleAssigned: 'N',
         // subDepartmentsByDepartmentId: [],
         userMenus: [],
         defaultSelectedMenu: [],
@@ -74,7 +73,6 @@ class ProfileAdd extends PureComponent {
             selectedHospital: null,
             selectedMenus: [],
             status: 'Y',
-            isAllRoleAssigned: 'N',
             userMenus: [],
             defaultSelectedMenu: [],
             showConfirmModal: false,
@@ -233,13 +231,6 @@ class ProfileAdd extends PureComponent {
         return selectedUserMenus;
     };
 
-    checkIfAllRolesAndMenusAssigned = (selectedUserMenus) => {
-        let allRoleAssigned = false;
-        if (LocalStorageSecurity.localStorageDecoder("adminInfo").isAllRoleAssigned === 'Y') {
-            allRoleAssigned = Number(this.state.originalTotalNoOfMenusAndRoles) === Number(selectedUserMenus.length);
-        }
-        return allRoleAssigned;
-    };
 
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
         let currentSelectedMenus = [],
@@ -255,7 +246,6 @@ class ProfileAdd extends PureComponent {
         await this.setState({
             selectedMenus: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
-            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
         // console.log(this.state.selectedMenus);
         this.checkFormValidity();
@@ -281,14 +271,13 @@ class ProfileAdd extends PureComponent {
         await this.setState({
             selectedMenus: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
-            isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
         this.checkFormValidity();
     };
 
     handleConfirmClick = async () => {
         const {
-            profileName, profileDescription, status, isAllRoleAssigned, selectedDepartment,
+            profileName, profileDescription, status, selectedDepartment,
             selectedHospital, selectedMenus
         } = this.state;
         let profileDetails = {
@@ -298,7 +287,6 @@ class ProfileAdd extends PureComponent {
                 status: status,
                 departmentId: selectedDepartment && selectedDepartment.value,
                 hospitalId: selectedHospital && selectedHospital.value,
-                isAllRoleAssigned
             },
             profileMenuRequestDTO: selectedMenus
         };
@@ -336,7 +324,7 @@ class ProfileAdd extends PureComponent {
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
         const {
-            selectedDepartment, selectedHospital, profileDescription, profileName, status, isAllRoleAssigned,
+            selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
             departmentListByHospital
