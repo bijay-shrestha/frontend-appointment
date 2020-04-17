@@ -11,7 +11,7 @@ import PatientWithAgeAndGender from '../CommonComponents/table-components/Patien
 import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
-import {Row, Col, Badge} from 'react-bootstrap';
+import {Row, Col, Badge, Table} from 'react-bootstrap';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
@@ -57,7 +57,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     <Col>
                         <div className="appointment-badge float-right">
                             <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
-                            <span><Badge variant="danger">CH</Badge>  <span
+                            <span><Badge variant="primary">CH</Badge>  <span
                                 className="badge-data">Checked-In</span> </span>
                             <span><Badge variant="dark">C</Badge>  <span className="badge-data">Canceled</span></span>
                             {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
@@ -223,14 +223,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         />
 
 
-                        <div className=" total-amount">
+                        {/* <div className=" total-amount">
                         <span>
                         Total Amount :
 
                         </span>
                             <span> Rs {totalAmount}</span>
 
-                        </div>
+                        </div> */}
 
 
                         <CPagination
@@ -239,7 +239,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             currentPage={queryParams.page}
                             onPageChanged={handlePageChange}
                         />
-                    </>
+
+                        </>
                 ) : !isSearchLoading && searchErrorMessage ? (
                     <div className="filter-message">
                         <div className="no-data">
