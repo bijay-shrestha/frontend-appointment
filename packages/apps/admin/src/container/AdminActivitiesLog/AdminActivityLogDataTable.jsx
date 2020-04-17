@@ -2,12 +2,13 @@ import React, {memo} from 'react'
 import {
   CDataTable,
   CLoading,
-  CPagination
+  CPagination,
+  CDoughnutChart
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
-import {CDoughnutChart} from '@frontend-appointment/ui-elements'
+import {LoggingStatus} from '@frontend-appointment/commons'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -173,7 +174,7 @@ const AppointmentRefundDataTable = ({
               rowSelection={'single'}
               rowData={logList}
               frameworkComponents={{
-                childLabelRenderer: StatusLabel
+                childLabelRenderer: LoggingStatus
               }}
             />
             <CPagination
