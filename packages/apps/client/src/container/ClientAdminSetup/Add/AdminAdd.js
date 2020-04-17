@@ -44,7 +44,7 @@ class AdminAdd extends PureComponent {
         department: null,
         profile: null,
         fullName: '',
-        username: '',
+        // username: '',
         email: '',
         mobileNumber: '',
         status: 'Y',
@@ -81,7 +81,7 @@ class AdminAdd extends PureComponent {
             department: null,
             profile: null,
             fullName: '',
-            username: '',
+            // username: '',
             email: '',
             password: '',
             mobileNumber: '',
@@ -141,7 +141,7 @@ class AdminAdd extends PureComponent {
             department,
             profile,
             fullName,
-            username,
+            // username,
             email,
             mobileNumber,
             genderCode,
@@ -155,7 +155,7 @@ class AdminAdd extends PureComponent {
             profile &&
             fullNameValid &&
             fullName &&
-            username &&
+            // username &&
             emailValid &&
             email &&
             mobileNumberValid &&
@@ -292,7 +292,7 @@ class AdminAdd extends PureComponent {
         const {
             profile,
             fullName,
-            username,
+            // username,
             email,
             mobileNumber,
             genderCode,
@@ -310,7 +310,7 @@ class AdminAdd extends PureComponent {
         let adminRequestDTO = {
             email,
             fullName,
-            username,
+            // username,
             hasMacBinding: hasMacBinding ? 'Y' : 'N',
             mobileNumber,
             status,
@@ -330,7 +330,7 @@ class AdminAdd extends PureComponent {
         adminAvatar &&
         formData.append(
             'file',
-            new File([adminAvatar], username.concat('-picture.jpeg'))
+            new File([adminAvatar], fullName.concat('-picture.jpeg'))
         )
         try {
             await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData)
@@ -469,7 +469,7 @@ class AdminAdd extends PureComponent {
             department,
             profile,
             fullName,
-            username,
+            // username,
             email,
             genderCode,
             mobileNumber,
@@ -521,7 +521,7 @@ class AdminAdd extends PureComponent {
                                     department: department,
                                     profile: profile,
                                     fullName: fullName,
-                                    username: username,
+                                    // username: username,
                                     email: email,
                                     genderCode: genderCode,
                                     mobileNumber: mobileNumber,
@@ -576,7 +576,7 @@ class AdminAdd extends PureComponent {
                                             department: department,
                                             profile: profile,
                                             fullName: fullName,
-                                            username: username,
+                                            // username: username,
                                             email: email,
                                             genderCode: genderCode,
                                             mobileNumber: mobileNumber,
@@ -619,7 +619,7 @@ class AdminAdd extends PureComponent {
                                 ) : (
                                     <>
                                         <i
-                                            class="fa fa-exclamation-triangle"
+                                            className="fa fa-exclamation-triangle"
                                             aria-hidden="true"
                                         ></i>
                                     </>
