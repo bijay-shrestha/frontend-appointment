@@ -14,10 +14,12 @@ import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
 import {
     clientUserMenusJson,
-    EnterKeyPressUtils, EnvironmentVariableGetter, LocalStorageSecurity,
-    menuRoles, ProfileSetupUtils,
-    TryCatchHandler,
-    UserMenuUtils
+    EnterKeyPressUtils,
+    EnvironmentVariableGetter,
+    LocalStorageSecurity,
+    menuRoles,
+    ProfileSetupUtils,
+    TryCatchHandler
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
@@ -34,7 +36,7 @@ class ProfileAdd extends PureComponent {
         profileDescription: '',
         profileName: '',
         selectedDepartment: null,
-        selectedMenus: [],
+        menusAssignedToProfileAndAllowedToChange: [],
         status: 'Y',
         isAllRoleAssigned: 'N',
         // subDepartmentsByDepartmentId: [],
@@ -71,7 +73,7 @@ class ProfileAdd extends PureComponent {
             profileName: '',
             selectedDepartment: null,
             selectedHospital: null,
-            selectedMenus: [],
+            menusAssignedToProfileAndAllowedToChange: [],
             status: 'Y',
             isAllRoleAssigned: 'N',
             userMenus: [],
@@ -124,20 +126,20 @@ class ProfileAdd extends PureComponent {
         alphabeticallySortedMenus ?
             this.setState({
                 userMenus: [...alphabeticallySortedMenus],
-                selectedMenus: [],
+                menusAssignedToProfileAndAllowedToChange: [],
                 defaultSelectedMenu: alphabeticallySortedMenus[0]
             }) :
             this.setState({
                 userMenus: [],
                 defaultSelectedMenu: [],
-                selectedMenus: [],
+                menusAssignedToProfileAndAllowedToChange: [],
                 userMenuAvailabilityMessage: 'No user menus available.'
             });
     };
 
     checkFormValidity = () => {
         let formValidity = this.state.profileNameValid && this.state.profileDescriptionValid && this.state.profileName
-            && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedMenus.length !== 0;
+            && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.menusAssignedToProfileAndAllowedToChange.length !== 0;
 
         this.setState({
             formValid: formValidity
@@ -156,7 +158,7 @@ class ProfileAdd extends PureComponent {
                     userMenus: [],
                     defaultSelectedMenu: [],
                     userMenuAvailabilityMessage: '',
-                    selectedMenus: []
+                    menusAssignedToProfileAndAllowedToChange: []
                 });
                 break;
             default:
@@ -224,7 +226,7 @@ class ProfileAdd extends PureComponent {
             this.state.userMenus, currentSelectedMenus);
 
         await this.setState({
-            selectedMenus: currentSelectedMenus,
+            menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
             isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
@@ -233,7 +235,7 @@ class ProfileAdd extends PureComponent {
     };
 
     handleRolesCheck = async (roles, childMenu) => {
-        let currentSelectedMenus = [...this.state.selectedMenus];
+        let currentSelectedMenus = [...this.state.menusAssignedToProfileAndAllowedToChange];
         for (let role of roles) {
             role.isChecked ?
                 !currentSelectedMenus.find(menu => menu.roleId === role.id && menu.userMenuId === childMenu.id)
@@ -252,7 +254,7 @@ class ProfileAdd extends PureComponent {
         let userMenusSelected = this.setValuesForModalDisplay(this.state.userMenus, currentSelectedMenus);
 
         await this.setState({
-            selectedMenus: currentSelectedMenus,
+            menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
             selectedUserMenusForModal: userMenusSelected,
             isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
         });
@@ -261,7 +263,7 @@ class ProfileAdd extends PureComponent {
 
     handleConfirmClick = async () => {
         const {
-            profileName, profileDescription, status, isAllRoleAssigned, selectedDepartment, selectedMenus
+            profileName, profileDescription, status, isAllRoleAssigned, selectedDepartment, menusAssignedToProfileAndAllowedToChange
         } = this.state;
         let profileDetails = {
             profileDTO: {
@@ -271,7 +273,7 @@ class ProfileAdd extends PureComponent {
                 departmentId: selectedDepartment && selectedDepartment.value,
                 isAllRoleAssigned
             },
-            profileMenuRequestDTO: selectedMenus
+            profileMenuRequestDTO: menusAssignedToProfileAndAllowedToChange
         };
         try {
             await this.props.createProfile(CREATE_PROFILE, profileDetails);
@@ -307,10 +309,11 @@ class ProfileAdd extends PureComponent {
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
 
         const {
-            selectedDepartment, profileDescription, profileName, status, isAllRoleAssigned,
-            errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
-            selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
-            departmentListByHospital
+            selectedDepartment, profileDescription, profileName, status,
+            errorMessageForProfileDescription, errorMessageForProfileName, userMenus,
+            menusAssignedToProfileAndAllowedToChange, defaultSelectedMenu,
+            selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal,
+            showAlert, alertMessageInfo, formValid,
         } = this.state;
 
         return (
@@ -335,7 +338,7 @@ class ProfileAdd extends PureComponent {
                             {selectedDepartment &&
                             <ProfileMenuAssignment
                                 userMenus={userMenus}
-                                selectedMenus={selectedMenus}
+                                selectedMenus={menusAssignedToProfileAndAllowedToChange}
                                 defaultSelectedMenu={defaultSelectedMenu}
                                 onCheckAllUserMenus={this.addAllMenusAndRoles}
                                 onTabAndRolesChange={this.handleRolesCheck}
@@ -345,7 +348,7 @@ class ProfileAdd extends PureComponent {
                                     profileDescription: profileDescription,
                                     departmentValue: selectedDepartment,
                                     status: status,
-                                    selectedMenus: selectedMenus,
+                                    selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                     userMenus: userMenus,
                                     selectedUserMenusForModal: selectedUserMenusForModal,
                                     userMenuAvailabilityMessage: userMenuAvailabilityMessage
@@ -373,7 +376,7 @@ class ProfileAdd extends PureComponent {
                                         profileDescription: profileDescription,
                                         departmentValue: selectedDepartment,
                                         status: status,
-                                        selectedMenus: selectedMenus,
+                                        selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
                                         userMenus: userMenus
                                     }}

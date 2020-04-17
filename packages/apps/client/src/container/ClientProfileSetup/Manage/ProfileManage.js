@@ -63,7 +63,7 @@ class ProfileManage extends PureComponent {
             profileName: '',
             profileDescription: '',
             selectedDepartment: null,
-            selectedMenus: [],
+            menusAssignedToProfileAndAllowedToChange: [],
             status: 'Y',
             isAllRoleAssigned: 'N',
             departmentListByHospital: [],
@@ -85,10 +85,10 @@ class ProfileManage extends PureComponent {
         showAlert: false,
         previewData: {},
         adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo"),
-        loggedInAdminMenus: [],
+        minifiedLoggedInAdminUserMenus: [],
         originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
             clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]),
-        unassignedMenusToLoggedInAdmin: []
+        menusAssignedToProfileButNotAllowedToChange: []
     };
 
     timer = '';
@@ -97,7 +97,7 @@ class ProfileManage extends PureComponent {
         let userMenusFromStorage = LocalStorageSecurity.localStorageDecoder("userMenus");
         let adminUserMenusAndRoles = ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenusFromStorage);
         this.setState({
-            loggedInAdminMenus: [...adminUserMenusAndRoles]
+            minifiedLoggedInAdminUserMenus: [...adminUserMenusAndRoles]
         })
     };
 
@@ -128,7 +128,7 @@ class ProfileManage extends PureComponent {
                 profileName: '',
                 profileDescription: '',
                 selectedDepartment: null,
-                selectedMenus: [],
+                menusAssignedToProfileAndAllowedToChange: [],
                 status: 'Y',
                 departmentListByHospital: [],
                 userMenus: [],
@@ -232,8 +232,8 @@ class ProfileManage extends PureComponent {
     };
 
     setDataForProfileUpdate = async (profileData, id) => {
-        const {adminInfo, loggedInAdminMenus} = this.state;
-        let menusSelected = [], menusSelectedWithFlag = [], unassignedMenusToAdmin = [];
+        const {adminInfo, minifiedLoggedInAdminUserMenus} = this.state;
+        let menusSelected = [], menusSelectedWithFlag = [], menusAssignedToProfileButNotToBeChanged = [];
         const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
         profileMenuResponseDTOS &&
         Object.keys(profileMenuResponseDTOS).map(key => {
@@ -246,13 +246,13 @@ class ProfileManage extends PureComponent {
             });
         } else {
             menusSelected.map(menuSelected => {
-                let menuAssignedToAdmin = loggedInAdminMenus.find(adminMenu =>
+                let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(adminMenu =>
                     Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
                     && Number(adminMenu.roleId) === Number(menuSelected.roleId));
                 if (menuAssignedToAdmin) {
                     menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
                 } else {
-                    unassignedMenusToAdmin.push({...menuSelected, isNew: false, isUpdated: false})
+                    menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
                 }
             });
         }
@@ -274,12 +274,12 @@ class ProfileManage extends PureComponent {
                     },
                     status: profileResponseDTO.status,
                     isAllRoleAssigned: profileResponseDTO.isAllRoleAssigned,
-                    selectedMenus: [...menusSelectedWithFlag],
+                    menusAssignedToProfileAndAllowedToChange: [...menusSelectedWithFlag],
                     departmentListByHospital: [...this.props.DepartmentSetupReducer.departments],
                     userMenus: [...alphabeticallySortedMenus],
                     defaultSelectedMenu: alphabeticallySortedMenus[0]
                 },
-                unassignedMenusToLoggedInAdmin: [...unassignedMenusToAdmin],
+                menusAssignedToProfileButNotAllowedToChange: [...menusAssignedToProfileButNotToBeChanged],
                 showEditModal: true
             })
         }
@@ -338,9 +338,9 @@ class ProfileManage extends PureComponent {
     };
 
     editApiCall = async () => {
-        const {id, selectedMenus, profileName, profileDescription, selectedDepartment, remarks, status, isAllRoleAssigned} = this.state.profileUpdateData;
+        const {id, menusAssignedToProfileAndAllowedToChange, profileName, profileDescription, selectedDepartment, remarks, status, isAllRoleAssigned} = this.state.profileUpdateData;
 
-        let menusToBeUpdated = selectedMenus.filter(menu => menu.isUpdated || menu.isNew);
+        let menusToBeUpdated = menusAssignedToProfileAndAllowedToChange.filter(menu => menu.isUpdated || menu.isNew);
         let editRequestDTO = {
             profileDTO: {
                 description: profileDescription,
@@ -351,7 +351,7 @@ class ProfileManage extends PureComponent {
                 departmentId: selectedDepartment && selectedDepartment.value,
                 isAllRoleAssigned
             },
-            profileMenuRequestDTO: menusToBeUpdated.length ? [...menusToBeUpdated] : [...selectedMenus]
+            profileMenuRequestDTO: menusToBeUpdated.length ? [...menusToBeUpdated] : [...menusAssignedToProfileAndAllowedToChange]
         };
         try {
             await this.props.editProfile(EDIT_PROFILE, editRequestDTO);
@@ -479,7 +479,7 @@ class ProfileManage extends PureComponent {
             profileNameValid,
             profileDescriptionValid,
             profileName,
-            profileDescription, selectedDepartment, selectedMenus,
+            profileDescription, selectedDepartment, menusAssignedToProfileAndAllowedToChange,
             remarks
         } = this.state.profileUpdateData;
         let formValidity = profileNameValid
@@ -488,7 +488,7 @@ class ProfileManage extends PureComponent {
             && profileDescription
             && remarks
             && selectedDepartment !== null
-            && selectedMenus.length !== 0;
+            && menusAssignedToProfileAndAllowedToChange.length !== 0;
 
         this.setState({
             profileUpdateData: {
@@ -532,12 +532,12 @@ class ProfileManage extends PureComponent {
     };
 
     checkIfAllRolesAndMenusAssigned = (selectedUserMenus) => {
-        const {originalTotalNoOfMenusAndRoles, unassignedMenusToLoggedInAdmin} = this.state;
+        const {originalTotalNoOfMenusAndRoles, menusAssignedToProfileButNotAllowedToChange} = this.state;
         let allRoleAssigned;
-        let selectedMenusWithStatusY = selectedUserMenus.filter(selectedMenu => selectedMenu.status === 'Y');
+        let menusAssignedAndAllowedToChange = selectedUserMenus.filter(selectedMenu => selectedMenu.status === 'Y');
 
-        allRoleAssigned = Number(originalTotalNoOfMenusAndRoles) === (Number(selectedMenusWithStatusY.length
-            + unassignedMenusToLoggedInAdmin.length));
+        allRoleAssigned = Number(originalTotalNoOfMenusAndRoles) === (Number(menusAssignedAndAllowedToChange.length
+            + menusAssignedToProfileButNotAllowedToChange.length));
 
         return allRoleAssigned;
     };
@@ -545,7 +545,7 @@ class ProfileManage extends PureComponent {
 
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
         const {profileUpdateData} = this.state;
-        let currentSelectedMenus = [...profileUpdateData.selectedMenus],
+        let currentSelectedMenus = [...profileUpdateData.menusAssignedToProfileAndAllowedToChange],
             currentSelectedMenusWithStatusUpdated = [];
 
         if (checkedAllUserMenus) {
@@ -611,16 +611,16 @@ class ProfileManage extends PureComponent {
             {
                 profileUpdateData: {
                     ...this.state.profileUpdateData,
-                    selectedMenus: currentSelectedMenus,
+                    menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
                     isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
                 }
             });
-        console.log("menusss all", this.state.profileUpdateData.selectedMenus);
+        console.log("menusss all", this.state.profileUpdateData.menusAssignedToProfileAndAllowedToChange);
         this.checkFormValidity();
     };
 
     handleRolesCheck = async (roles, childMenu) => {
-        let currentSelectedMenus = [...this.state.profileUpdateData.selectedMenus];
+        let currentSelectedMenus = [...this.state.profileUpdateData.menusAssignedToProfileAndAllowedToChange];
         for (let role of roles) {
             if (role.isChecked) {
                 // FIRST CHECK IF THE ROLE IS SELECTED ORIGINALLY, IF YES UPDATE THE STATUS ELSE ADD NEW OBJECT
@@ -656,11 +656,11 @@ class ProfileManage extends PureComponent {
         await this.setState({
             profileUpdateData: {
                 ...this.state.profileUpdateData,
-                selectedMenus: currentSelectedMenus,
+                menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
                 isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
             }
         });
-        console.log("menussss", this.state.profileUpdateData.selectedMenus);
+        console.log("menussss", this.state.profileUpdateData.menusAssignedToProfileAndAllowedToChange);
         this.checkFormValidity();
     };
 
@@ -690,7 +690,7 @@ class ProfileManage extends PureComponent {
             errorMessageForProfileName,
             errorMessageForProfileDescription,
             userMenus,
-            selectedMenus,
+            menusAssignedToProfileAndAllowedToChange,
             newSelectedMenus,
             defaultSelectedMenu,
             userMenuAvailabilityMessage,
@@ -756,7 +756,7 @@ class ProfileManage extends PureComponent {
                         profileMenuAssignmentProps={
                             {
                                 userMenus: userMenus,
-                                selectedMenus: selectedMenus,
+                                selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                 defaultSelectedMenu: defaultSelectedMenu,
                                 onCheckAllUserMenus: this.addAllMenusAndRoles,
                                 onTabAndRolesChange: this.handleRolesCheck,
@@ -765,7 +765,7 @@ class ProfileManage extends PureComponent {
                                     profileDescription: profileDescription,
                                     departmentValue: selectedDepartment,
                                     status: status,
-                                    selectedMenus: selectedMenus,
+                                    selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                     newSelectedMenus: newSelectedMenus,
                                     userMenus: userMenus,
                                     userMenuAvailabilityMessage: userMenuAvailabilityMessage

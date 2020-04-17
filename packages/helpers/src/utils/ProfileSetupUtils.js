@@ -12,8 +12,8 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
     Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
         // For each parent menu's selected menus
         let moduleCode = EnvironmentVariableGetter.REACT_APP_MODULE_CODE;
-        const userMenus = moduleCode === "ADMIN" ?
-            adminUserMenusJson[moduleCode] : clientUserMenusJson[moduleCode];
+        const userMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
+            // moduleCode === "ADMIN" ? adminUserMenusJson[moduleCode] : clientUserMenusJson[moduleCode];
         const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
         let selectedParentMenus = new Set();
         let selectedChildMenus = new Set();
