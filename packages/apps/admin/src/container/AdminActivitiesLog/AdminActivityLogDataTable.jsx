@@ -7,7 +7,7 @@ import {
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
-//import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import {CDoughnutChart} from '@frontend-appointment/ui-elements'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -35,6 +35,46 @@ const AppointmentRefundDataTable = ({
     statsTotalRecord,
     handlePageChangeStats
   } = paginationProps
+
+  const prepareDataForChart = datas => {
+    var getColor = [
+      '#C6F9D2',
+      '#CCCCB3',
+      '#CECEFF',
+      '#FFCAFF',
+      '#D0CCCD',
+      '#FFCC99',
+      '#FFCBB9',
+      '#EAEC93',
+      '#D7FBE6',
+      '#FFCACA',
+      '#00FF00'
+    ]
+
+    let chartData = {
+      data: [],
+      color: [],
+      label: []
+    }
+
+    datas.length &&
+      datas.map((datum, index) => {
+        chartData.data.push(datum.count)
+        chartData.label.push(datum.feature)
+        chartData.color.push(getColor[index])
+      })
+    return {
+      datasets: [
+        {data: [...chartData.data], backgroundColor: [...chartData.color]}
+      ],
+      labels: [...chartData.label]
+    }
+  }
+
+  let chartData = null
+  if (logStatsSearchData.length) {
+    chartData = prepareDataForChart(logStatsSearchData)
+  }
   return (
     <>
       <div className="manage-details">
@@ -221,6 +261,9 @@ const AppointmentRefundDataTable = ({
         ) : (
           ''
         )}
+        {chartData ? (
+          <CDoughnutChart chartData={chartData} width={200} height={200} />
+        ) : null}
       </div>
 
       {/* 
