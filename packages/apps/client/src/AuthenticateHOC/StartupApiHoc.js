@@ -17,6 +17,7 @@ import {
   fetchUserMenus,
   signinUser
 } from '@frontend-appointment/thunk-middleware'
+import {CLoading} from '@frontend-appointment/ui-elements'
 import localStorageSecurity from '@frontend-appointment/helpers/src/utils/localStorageUtils'
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
@@ -37,13 +38,15 @@ class StartupApiHoc extends PureComponent {
       )
       if (!localStorageSecurity.localStorageDecoder('userMenus')) {
         await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
-          username: user.username
+          username: user.username,
+          hospitalCode: user.hospitalCode
         })
         this.setState({fetch: true})
       }
       if (!localStorageSecurity.localStorageDecoder('adminInfo')) {
         await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
-          username: user.username
+          username: user.username,
+          hospitalCode: user.hospitalCode
         })
         this.setState({fetch: true})
       }
@@ -67,6 +70,7 @@ class StartupApiHoc extends PureComponent {
     const userMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
     return userMenus ? userMenus : []
   }
+
   async componentDidMount () {
     await this.startUpApiCall()
   }
@@ -93,7 +97,14 @@ class StartupApiHoc extends PureComponent {
               })
         }
       />
-    ) : null
+    ) : (
+      <ComposedComponent
+        {...otherProps}
+        {...layoutProps}
+        userMenus={userMenus}
+        MainViewComponent={CLoading}
+      />
+    )
   }
 }
 export default ConnectHoc(StartupApiHoc, [], {

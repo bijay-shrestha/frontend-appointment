@@ -20,6 +20,7 @@ import {
   LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import loadable from '@loadable/component'
+import StartupApiHoc from './StartupApiHoc'
 
 const AuthenticateModule = () => {
   const getTokenFormLocalStorage = () => {
@@ -27,11 +28,6 @@ const AuthenticateModule = () => {
       EnvironmentVariableGetter.AUTH_TOKEN
     )
     return storage
-  }
-
-  const getUserMenusFromLocalStorage = () => {
-    const userMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
-    return userMenus ? userMenus : []
   }
 
   const ForgotPassword = loadable(
@@ -68,36 +64,20 @@ const AuthenticateModule = () => {
             path={route.path}
             component={AuthenticateHOC(
               props => (
-                <CLayout
-                  {...props}
-                  dataForBreadCrumb={routes}
-                  userMenus={getUserMenusFromLocalStorage()}
-                  hasTab={route.hasTab}
-                  isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
-                  isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
-                  activeStateKey={route.path}
-                  MainViewComponent={
-                    route.hasTab
-                      ? ComponentHoc(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                      : route.isSingleTab
-                      ? SingleTabComponentHOC(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                      : NoRoleTabComponentHOC(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                  }
+                <StartupApiHoc
+                  ComposedComponent={CLayout}
+                  layoutProps={{...props}}
+                  otherProps={{
+                    dataForBreadCrumb: routes,
+                    hasTab: route.hasTab,
+                    isSingleTab: route.isSingleTab,
+                    isOpen: LocalStorageSecurity.localStorageDecoder('isOpen'),
+                    isHover: LocalStorageSecurity.localStorageDecoder(
+                      'isHover'
+                    ),
+                    component: route.component,
+                    activeStateKey: route.path
+                  }}
                 />
               ),
               getTokenFormLocalStorage

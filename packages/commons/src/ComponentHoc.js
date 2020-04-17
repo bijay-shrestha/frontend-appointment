@@ -105,7 +105,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             newPath = newPath.join('/')
             newPath = '/'.concat(newPath)
             let newUserMenus = []
-            if (userMenus.length) newUserMenus = userMenus
+            if (userMenus.length) newUserMenus = [...userMenus]
 
             newUserMenus &&
             newUserMenus.map(userMenu => {
@@ -169,6 +169,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
         }
 
          async componentDidMount() {
+             console.log("===usermenus",userMenus);
             const filteredRolesTab = await this.checkRoles()
             this.checkIfPathIsTabPath(filteredRolesTab)
             this.props.dispatch({type:'LOCATION_CHANGE'})

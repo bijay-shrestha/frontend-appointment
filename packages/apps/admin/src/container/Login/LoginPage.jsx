@@ -18,14 +18,14 @@ class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         try {
             await this.props.signinUser(LOGIN_API, {...user});
+            
             await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
                 username: user.username
             });
             const userMenus = await this.props.fetchLoggedInAdminUserInfo(
                 GET_LOGGED_IN_ADMIN_INFO,
                 {
-                    username: user.username,
-                    subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE
+                    username: user.username
                 }
             );
             const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(

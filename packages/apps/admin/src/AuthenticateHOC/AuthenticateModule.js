@@ -4,11 +4,9 @@ import {AuthenticateHOC} from '@frontend-appointment/authentication-module'
 import {CLayout} from '@frontend-appointment/ui-components'
 import {routes} from '../routes'
 import LoginPage from '../container/Login'
+import StartupApiHoc from './StartupApiHoc'
 import {
-  ComponentHoc,
-  LoginHoc,
-  SingleTabComponentHOC,
-  NoRoleTabComponentHOC
+  LoginHoc
 } from '@frontend-appointment/commons'
 import SetPassword from '../container/SavePassword/SavePassword'
 import {
@@ -44,11 +42,6 @@ const AuthenticateModule = () => {
     return storage
   }
 
-  const getUserMenusFromLocalStorage = () => {
-    const userMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
-    return userMenus ? userMenus : []
-  }
-
   return (
     <>
       <Switch>
@@ -73,36 +66,21 @@ const AuthenticateModule = () => {
             path={route.path}
             component={AuthenticateHOC(
               props => (
-                <CLayout
-                  {...props}
-                  dataForBreadCrumb={routes}
-                  userMenus={getUserMenusFromLocalStorage()}
-                  hasTab={route.hasTab}
-                  isOpen={LocalStorageSecurity.localStorageDecoder('isOpen')}
-                  isHover={LocalStorageSecurity.localStorageDecoder('isHover')}
-                  activeStateKey={route.path}
-                  MainViewComponent={
-                    route.hasTab
-                      ? ComponentHoc(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                      : route.isSingleTab
-                      ? SingleTabComponentHOC(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                      : NoRoleTabComponentHOC(
-                          route.component,
-                          getUserMenusFromLocalStorage(),
-                          route.path,
-                          props
-                        )
-                  }
+                <StartupApiHoc
+                  ComposedComponent={CLayout}
+                  layoutProps={{...props}}
+                  otherProps={{
+                    dataForBreadCrumb: routes,
+
+                    hasTab: route.hasTab,
+                    isSingleTab: route.isSingleTab,
+                    isOpen: LocalStorageSecurity.localStorageDecoder('isOpen'),
+                    isHover: LocalStorageSecurity.localStorageDecoder(
+                      'isHover'
+                    ),
+                    component: route.component,
+                    activeStateKey: route.path
+                  }}
                 />
               ),
               getTokenFormLocalStorage
