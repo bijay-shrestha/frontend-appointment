@@ -1,4 +1,4 @@
-import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter} from "../../index";
+import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter, LocalStorageSecurity} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
 export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
@@ -11,9 +11,15 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
     userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
     Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
         // For each parent menu's selected menus
-        let moduleCode = EnvironmentVariableGetter.REACT_APP_MODULE_CODE;
-        const userMenus = moduleCode === "ADMIN" ?
-            adminUserMenusJson[moduleCode] : clientUserMenusJson[moduleCode];
+        // IN CASE DETAILS OF CLIENT PROFILE FROM ADMIN MODULE IS VIEWED, TAKE ACTUAL MENU JSON
+        // ELSE TAKE USER MENU FROM STORAGE
+        const userMenus = (
+            profileType === 'CLIENT' && Object.is(
+                EnvironmentVariableGetter.REACT_APP_MODULE_CODE,
+                EnvironmentVariableGetter.ADMIN_MODULE_CODE)
+        ) ? clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]
+            : LocalStorageSecurity.localStorageDecoder("userMenus");
+
         const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
         let selectedParentMenus = new Set();
         let selectedChildMenus = new Set();
@@ -30,6 +36,7 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                 Number(childMenu.id) === Number(selectedMenu.userMenuId)
             );
             child && selectedChildMenus.add(child)
+            return selectedMenu;
         });
         selectedUserMenusForModal = selectedUserMenusForModal.concat(Array.from(selectedParentMenus).map(
             // add filtered out child to their respective filtered out parent menu.
@@ -64,6 +71,7 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
             selectedMenus,
             selectedUserMenusForModal
         }
+        return parentMenuId;
     });
     let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson([...selectedUserMenusForModal]);
     if (profileResponseDTO)
@@ -115,4 +123,48 @@ export const getAlphabeticallySortedUserMenusByHospitalType = (hospitalList, sel
     let menusForDept = Object.keys(userMenus).find(code => code === moduleCode)
         ? [...userMenus[moduleCode]] : [];
     return UserMenuUtils.sortUserMenuJson([...menusForDept]);
+};
+
+
+export const countTotalNoOfMenusAndRoles = userMenus => {
+    let countOfMenus = 0;
+    userMenus && userMenus.length && userMenus.map(menu => {
+        if (menu.childMenus.length && menu.enabled === 'Y')
+            menu.childMenus.forEach(childMenu => {
+                countOfMenus += childMenu.enabled === 'Y' ? childMenu.roles.length : 0;
+            });
+        else
+            countOfMenus += menu.enabled === 'Y' ? menu.roles.length : 0;
+    });
+
+    return countOfMenus;
+};
+
+
+export const prepareUserMenusAndRolesCombinationList = userMenus => {
+    let userMenuWithRoleList = [];
+    userMenus && userMenus.map(menu => {
+        if (menu.childMenus.length) {
+            menu.childMenus.map(child => {
+                child.roles.map(role => {
+                    userMenuWithRoleList.push({
+                        parentId: menu.id,
+                        userMenuId: child.id,
+                        roleId: role,
+                        status: 'Y'
+                    })
+                })
+            });
+        } else {
+            menu.roles.map(role => {
+                userMenuWithRoleList.push({
+                    parentId: menu.id,
+                    userMenuId: menu.id,
+                    roleId: role,
+                    status: 'Y'
+                })
+            })
+        }
+    });
+    return userMenuWithRoleList;
 };

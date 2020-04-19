@@ -64,7 +64,7 @@ const RevenueTrend = props => {
                 revenueFilter={props.revenueFilter}
                 labels={newRevenueStatsData ? newRevenueStatsData : []}
                 width={400}
-                  height={250}
+                  height={320}
                 backgroundColor='rgba(13, 97, 147, 0.2)'
                 fillColor= 'rgba(0, 99, 255, 0.2)'
                 borderColor= '#0d6193'

@@ -7,8 +7,8 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from './tableComponents/TableAction'
-import StatusLabel from './tableComponents/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction'
+import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc';
@@ -16,8 +16,8 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
     <div className="manage-details">
-        
-        <h5 className="title">Hospital Details</h5>
+
+        <h5 className="title">Client Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -42,14 +42,14 @@ const HospitalDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Hospital Name',
+                            headerName: 'Client Name',
                             field: 'name',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Hospital Logo',
+                            headerName: 'Client Logo',
                             field: 'fileUri',
                             // headerClass: "fi",
                             resizable: true,
@@ -58,13 +58,13 @@ const HospitalDetailsDataTable = props => (
                             cellRenderer: 'imageRenderer'
                         },
                         {
-                            headerName: 'Hospital Address',
+                            headerName: 'Client Address',
                             field: 'address',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                       
+
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -141,7 +141,7 @@ const HospitalDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Hospital?If yes please provide remarks."
+                confirmationMessage="Are you sure you want to delete the Client?If yes please provide remarks."
                 modalHeader="Delete Specialization"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}

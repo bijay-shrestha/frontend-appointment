@@ -7,8 +7,8 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from './tableComponents/TableAction'
-import StatusLabel from './tableComponents/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction';
+import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -79,7 +79,7 @@ const DoctorDetailsDataTable = props => (
               sizeColumnsToFit: true
             },
             {
-              headerName: 'Hospital Name',
+              headerName: 'Client Name',
               field: 'hospitalName',
               resizable: true,
               sortable: true,

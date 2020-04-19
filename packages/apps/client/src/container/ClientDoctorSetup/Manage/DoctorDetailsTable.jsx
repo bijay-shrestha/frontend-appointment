@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import TableAction from '../../CommonComponents/table-components/TableAction';
-import StatusLabel from './tableComponents/StatusLabel'
+import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'

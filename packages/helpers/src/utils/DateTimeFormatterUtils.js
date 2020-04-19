@@ -70,7 +70,7 @@ export const getOnlyDateFromDateAndTime = oldDate => {
 
 export const convertStringTimeInHourMinuteFormatToDate = stringTime => {
     let timeDataArray = stringTime.split(":");
-    console.log("Time array",timeDataArray);
-    return getDateWithTimeSetToGivenTime(new Date(),Number(timeDataArray[0]),Number(timeDataArray[1]),0);
+    console.log("Time array", timeDataArray);
+    return getDateWithTimeSetToGivenTime(new Date(), Number(timeDataArray[0]), Number(timeDataArray[1]), 0);
 };
 

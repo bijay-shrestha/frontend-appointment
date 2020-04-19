@@ -88,7 +88,7 @@ const EditDoctorDutyRoster = ({
                                 name="specialization"
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
                                 options={specializationList}
-                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Hospital First" : "Select specialization."}
+                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First" : "Select specialization."}
                                 noOptionsMessage={() => specializationDropdownError}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}

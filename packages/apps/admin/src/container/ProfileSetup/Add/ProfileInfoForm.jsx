@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col} from "react-bootstrap";
 import {
+    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -8,6 +9,7 @@ import {
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
+import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 const ProfileInfoForm = ({
                              onEnterKeyPress,
@@ -20,7 +22,7 @@ const ProfileInfoForm = ({
                          }) => {
     return (
         <Col sm={12} md={12} lg={4}>
-            <h5 className="title">Profile Info</h5>
+            <h5 className="title">Client Profile Info</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
@@ -53,12 +55,12 @@ const ProfileInfoForm = ({
                 <CHybridSelect
                     id="hospital"
                     onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
+                    label="Client"
                     name="selectedHospital"
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Hospital.'}
+                    placeholder={'Select Client.'}
                 />
 
                 <CHybridSelect
@@ -75,23 +77,23 @@ const ProfileInfoForm = ({
 
                 <CFLabel labelName="Status" id="status"></CFLabel>
                 <div>
-                <CRadioButton
-                    checked={Boolean(profileInfoObj.status)}
-                    disabled={true}
-                    id="radio1"
-                    label="Active"
-                    type="radio"
-                    readOnly
-                    // bsPrefix="form-radio"
-                />
-                <CRadioButton
-                    checked={Boolean(!profileInfoObj.status)}
-                    disabled={true}
-                    id="radio2"
-                    label="Inactive"
-                    type="radio"
-                    className="sr-only"
-                />
+                    <CRadioButton
+                        checked={Boolean(profileInfoObj.status)}
+                        disabled={true}
+                        id="radio1"
+                        label="Active"
+                        type="radio"
+                        readOnly
+                        // bsPrefix="form-radio"
+                    />
+                    <CRadioButton
+                        checked={Boolean(!profileInfoObj.status)}
+                        disabled={true}
+                        id="radio2"
+                        label="Inactive"
+                        type="radio"
+                        className="sr-only"
+                    />
                 </div>
             </CForm>
         </Col>

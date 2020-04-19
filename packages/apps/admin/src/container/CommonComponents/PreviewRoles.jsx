@@ -7,7 +7,7 @@ const PreviewRoles = props => {
     return (
         <>
             <CModal show={showModal}
-                    modalHeading="Profile Details"
+                    modalHeading="Client Profile Details"
                     size="xl"
                     bodyChildren={<ModalContent profileData={profileData} rolesJson={rolesJson}/>}
                     onHide={setShowModal}

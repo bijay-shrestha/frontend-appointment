@@ -11,6 +11,7 @@ const DoctorWithSpecialization = (props) => {
                 </li>
                 <li>
                     <span className="spec">
+                    <i className="fa fa-bookmark"></i>&nbsp;
                     {props.node.data.specializationName}
                     </span>
                 </li>

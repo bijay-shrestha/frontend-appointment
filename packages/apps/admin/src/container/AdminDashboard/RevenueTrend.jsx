@@ -49,7 +49,7 @@ const RevenueTrend = props => {
     
         <h5 className="title">Revenue Trend</h5>
     
-        <Col className="line-chart">
+        <div className="line-chart">
           {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
             <>
               <Row>
@@ -78,7 +78,7 @@ const RevenueTrend = props => {
                   lineData={newLineData}
                   labels={newRevenueStatsData ? newRevenueStatsData : []}
                   width={400}
-                  height={250}
+                  height={320}
                   options={{ maintainAspectRatio: true }}
                   revenueFilter={props.revenueFilter}
                 />
@@ -91,7 +91,7 @@ const RevenueTrend = props => {
               <p>{revenueStatsErrorMessage}</p>
             </span>
           )}
-        </Col>
+        </div>
      
       </>
     // </Col>

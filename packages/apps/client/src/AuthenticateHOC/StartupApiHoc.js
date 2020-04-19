@@ -46,8 +46,7 @@ class StartupApiHoc extends PureComponent {
       }
       if (!localStorageSecurity.localStorageDecoder('adminInfo')) {
         await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
-          username: user.username,
-          hospitalCode: user.hospitalCode
+          username: user.username
         })
       }
       if (!localStorageSecurity.localStorageDecoder('adminDashRole')) {

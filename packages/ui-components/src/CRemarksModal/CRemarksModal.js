@@ -1,27 +1,39 @@
 import React from 'react'
 import {CButton, CHybridTextArea, CModal} from '@frontend-appointment/ui-elements'
 
-const CRemarksModal = props => {
+const CRemarksModal = ({
+                           actionDisabled,
+                           confirmationMessage,
+                           errorMessage,
+                           modalHeader,
+                           onCancel,
+                           onPrimaryAction,
+                           onRemarksChangeHandler,
+                           primaryActionName,
+                           remarks,
+                           showModal,
+                       }) => {
     // let footerChildren = <CButton id="testModule-button" name="Footer Test button"/>;
     let body = (
         <>
             <div>
                 {/*<h5> Are you sure you want to delete the Profile?If yes please provide remarks.</h5>*/}
-                <h6> {props.confirmationMessage}</h6>
+                <h6> {confirmationMessage}</h6>
                 <CHybridTextArea
-                    onChange={props.onRemarksChangeHandler}
+                    onChange={onRemarksChangeHandler}
                     id="remarks"
                     name="remarks"
                     placeholder="Remarks"
-                    value={props.remarks}
+                    value={remarks}
                 />
 
                 <CButton
                     variant='primary '
                     size='lg'
                     className="float-right  btn-action ml-2"
-                    name={props.primaryActionName}
-                    onClickHandler={props.onPrimaryAction}
+                    disabled={actionDisabled}
+                    name={primaryActionName}
+                    onClickHandler={onPrimaryAction}
                 />
 
                 <CButton
@@ -29,13 +41,13 @@ const CRemarksModal = props => {
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'
-                    onClickHandler={props.onCancel}
+                    onClickHandler={onCancel}
                 />
 
             </div>
             <div>
-                {props.errorMessage ? <p className="error-message">
-                    <i className="fa fa-exclamation-triangle"/>&nbsp;{props.errorMessage}</p> : ''}
+                {errorMessage ? <p className="error-message">
+                    <i className="fa fa-exclamation-triangle"/>&nbsp;{errorMessage}</p> : ''}
             </div>
         </>
     );
@@ -43,11 +55,11 @@ const CRemarksModal = props => {
     return (
         <>
             <CModal
-                show={props.showModal}
-                modalHeading={props.modalHeader}
+                show={showModal}
+                modalHeading={modalHeader}
                 size="lg"
                 bodyChildren={body}
-                onHide={props.onCancel}
+                onHide={onCancel}
                 dialogClassName="cogent-modal"
             />
         </>

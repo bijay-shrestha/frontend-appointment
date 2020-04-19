@@ -146,7 +146,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Client Code"
+                                    placeholder="Access Key"
                                     value={hospitalData.hospitalCode}
                                     required={true}
                                     disabled={true}

@@ -107,6 +107,7 @@ class ProfileManage extends PureComponent {
             deleteModalShow: false,
             showEditModal: false
         })
+
     };
 
     resetProfileUpdateDataFromState = () => {
@@ -235,8 +236,9 @@ class ProfileManage extends PureComponent {
         });
 
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-        let alphabeticallySortedMenus = ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
-            hospitalsForDropdown, profileResponseDTO.hospitalId);
+        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[] 
+        //ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
+          //  hospitalsForDropdown, profileResponseDTO.hospitalId);
 
         if (profileResponseDTO) {
             await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
@@ -258,11 +260,13 @@ class ProfileManage extends PureComponent {
                     selectedMenus: [...menusSelectedWithFlag],
                     departmentListByHospital: [...this.props.DepartmentSetupReducer.departmentsByHospital],
                     userMenus: [...alphabeticallySortedMenus],
-                    defaultSelectedMenu: alphabeticallySortedMenus[0]
+                    defaultSelectedMenu: alphabeticallySortedMenus[0],
+                    remarks:''
                 },
                 showEditModal: true
             })
         }
+        this.checkFormValidity();
     };
 
     onEditHandler = async id => {
@@ -692,7 +696,7 @@ class ProfileManage extends PureComponent {
 
         const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
-        const {profileErrorMessage} = this.props.ProfileEditReducer;
+        const {profileErrorMessage,isProfileEditLoading} = this.props.ProfileEditReducer;
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 
@@ -774,6 +778,7 @@ class ProfileManage extends PureComponent {
                         errorMessageForProfileName={errorMessageForProfileName}
                         errorMessageForProfileDescription={errorMessageForProfileDescription}
                         errorMessage={profileErrorMessage}
+                        isProfileEditLoading={isProfileEditLoading}
                         profileMenuAssignmentProps={
                             {
                                 userMenus: userMenus,

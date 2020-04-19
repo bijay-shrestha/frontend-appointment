@@ -1,15 +1,16 @@
+.editable-table-container{
+  .add-new{
+    width:120px;
+    margin:0 0 20px;
+    float:right;
+ 
+    
+}
 
 .editable-table{
-    border-bottom:1px solid $cogent-border;
+   border-bottom:1px solid $cogent-border;
+
   
-    
-    .add-new{
-        width:120px;
-        margin:20px 0;
-        float:right;
-        margin-top:-30px;
-        
-    }
   
       .table-header{
           margin-bottom:0;
@@ -38,6 +39,7 @@
         height: 40px;
         border-width: 1px;
         border-color: $cogent-border;
+        
 
         tr{
             &:hover,&:focus{
@@ -96,4 +98,13 @@
          }
       }
   }
-  
+
+  // .table-footer
+  // {
+  //   padding-top:10px;
+  //   border-top:1px solid $cogent-border;
+  // }
+
+
+
+}

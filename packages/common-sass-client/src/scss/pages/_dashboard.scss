@@ -24,6 +24,10 @@
     //     }
     // }
 
+    .react-datepicker-popper[data-placement^="bottom"] {
+        margin-top: -8px !important;
+    }
+
     .fiscal{
         font-size: 11px;
         font-weight: 500;
@@ -37,8 +41,9 @@
     .rev-total{
         background-color:$gray-100;
         color:$gray-900;
-        padding:4px;
+        padding:4px 10px;
         margin-top:10px;
+        margin-left:10px;
         @include border-radius(4px);
     }
 
@@ -378,8 +383,9 @@
 
     .line-chart {
         background-color:$white;
-         padding:20px;
+        padding:20px;
         width:100%;
+        height:calc(100% - 20px);
         @include border-radius(0.5rem);
         // box-shadow:   -10px -10px 10px $gray-200,
         // 10px 10px 10px $gray-400; 
@@ -398,20 +404,21 @@
 
     .doctor-revenue{
         height: 100%;
-        min-height: 300px;
+        // min-height: 300px;
 
         .app-log{
             background-color:$white;
             padding:20px 40px;
             width:100%;
-            height: calc(100% - 19px - 14px);
+            height: calc(100% - 20px);
             // box-shadow:   -10px -10px 10px $gray-200,
             // 10px 10px 10px $gray-400; 
             @include border-radius(0.5rem);
 
             .app-queue-datatable{
-                margin-top:130px;
+              
                 .filter-message{
+                    // margin-top:130px;
                     position: absolute;
                     top:70%;
                     left:50%;

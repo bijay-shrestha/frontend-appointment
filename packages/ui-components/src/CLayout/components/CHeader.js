@@ -1,15 +1,13 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import {Badge, Button, Dropdown, Form, Image} from 'react-bootstrap';
+import {Badge, Button, Dropdown, Image} from 'react-bootstrap';
 import {Axios} from '@frontend-appointment/core';
 import {CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements';
-
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
 import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
-const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
+const {CHANGE_PASSWORD} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 
 class CHeader extends Component {
     state = {
@@ -43,6 +41,7 @@ class CHeader extends Component {
 
     logoutUser = async () => {
         localStorage.clear();
+        sessionStorage.clear();
         this.props.history.push('/');
     };
 
@@ -136,7 +135,7 @@ class CHeader extends Component {
                         <Dropdown alignRight className="user-profile">
                             <Dropdown.Toggle variant="default" id="dropdown-basic">
                                 <Image src={this.state.userInfo.fileUri ? this.state.userInfo.fileUri
-                                    : require('../../img/sabu.jpg')} className="avatar"/>
+                                    : require('../../img/picture.png')} className="avatar"/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <div className="user-details">

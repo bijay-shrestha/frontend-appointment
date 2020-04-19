@@ -10,11 +10,9 @@ import {
     adminUserMenusJson,
     EnterKeyPressUtils,
     EnvironmentVariableGetter,
-    ProfileSetupUtils,
-    UserMenusFilter,
-    LocalStorageSecurity
+    LocalStorageSecurity,
+    ProfileSetupUtils
 } from "@frontend-appointment/helpers";
-import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 
@@ -51,7 +49,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 profileDescription: '',
                 profileName: '',
                 company: null,
-                selectedMenus: [],
+                menusAssignedToProfileAndAllowedToChange: [],
                 status: 'Y',
                 remarks: '',
                 userMenus: [],
@@ -91,12 +89,24 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 totalRecords: 0,
                 newSelectedMenus: [],
                 companyProfileList: [],
-                //TODO remove it
-                companyList: []
+                isAllRoleAssigned: 'N',
+                originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
+                    adminUserMenusJson[EnvironmentVariableGetter.ADMIN_MODULE_CODE]),
+                adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo"),
+                minifiedLoggedInAdminUserMenus: [],
+                menusAssignedToProfileButNotAllowedToChange: []
             };
 
             alertTimer = '';
             logoutTimer = '';
+
+            prepareLoggedInAdminUserMenusWithRoles = () => {
+                let userMenusFromStorage = LocalStorageSecurity.localStorageDecoder("userMenus");
+                let adminUserMenusAndRoles = ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenusFromStorage);
+                this.setState({
+                    minifiedLoggedInAdminUserMenus: [...adminUserMenusAndRoles]
+                })
+            };
 
             setStateValues = (key, value, label, fieldValid) =>
                 label ? value ?
@@ -105,18 +115,18 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     : this.setState({[key]: value, [key + "Valid"]: fieldValid});
 
             setUserMenusAlphabetically = async () => {
-                let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')
+                let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
 
                 alphabeticallySortedMenus ?
                     await this.setState({
                         userMenus: [...alphabeticallySortedMenus],
-                        selectedMenus: [],
+                        menusAssignedToProfileAndAllowedToChange: [],
                         defaultSelectedMenu: {...alphabeticallySortedMenus[0]}
                     }) :
                     await this.setState({
                         userMenus: [],
                         defaultSelectedMenu: [],
-                        selectedMenus: [],
+                        menusAssignedToProfileAndAllowedToChange: [],
                         userMenuAvailabilityMessage: 'No user menus available.'
                     });
             };
@@ -164,19 +174,32 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             setDataForProfileUpdate = async (profileData, profileId) => {
-                let menusSelected = [], menusSelectedWithFlag = [];
+                const {adminInfo, loggedInAdminMenus} = this.state;
+                let menusSelected = [], menusAssignedAndAllowedToChange = [], menusAssignedToProfileButNotToBeChanged = [];
                 const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
                 profileMenuResponseDTOS &&
                 Object.keys(profileMenuResponseDTOS).map(key => {
                     menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
                 });
 
-                menusSelected.forEach(menuSelected => {
-                    menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
-                });
+                if (adminInfo.isAllRoleAssigned === 'Y') {
+                    menusSelected.map(menuSelected => {
+                        menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
+                    });
+                } else {
+                    menusSelected.map(menuSelected => {
+                        let menuAssignedToAdmin = loggedInAdminMenus.find(adminMenu =>
+                            Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
+                            && Number(adminMenu.roleId) === Number(menuSelected.roleId));
+                        if (menuAssignedToAdmin) {
+                            menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
+                        } else {
+                            menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
+                        }
+                    });
+                }
 
-                let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(
-                    [...adminUserMenusJson[EnvironmentVariableGetter.ADMIN_MODULE_CODE]]);
+                let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder("userMenus");
 
                 if (profileResponseDTO) {
                     this.setState({
@@ -189,12 +212,14 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                             label: profileResponseDTO.companyName
                         },
                         status: profileResponseDTO.status,
-                        selectedMenus: [...menusSelectedWithFlag],
+                        isAllRoleAssigned: profileResponseDTO.isAllRoleAssigned,
+                        menusAssignedToProfileAndAllowedToChange: [...menusAssignedAndAllowedToChange],
                         userMenus: [...alphabeticallySortedMenus],
                         defaultSelectedMenu: alphabeticallySortedMenus[0],
                         showEditModal: true,
                         profileNameValid: true,
                         profileDescriptionValid: true,
+                        menusAssignedToProfileButNotAllowedToChange: [...menusAssignedToProfileButNotToBeChanged]
                     })
                 }
             };
@@ -212,7 +237,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     profileDescription: '',
                     profileName: '',
                     company: null,
-                    selectedMenus: [],
+                    menusAssignedToProfileAndAllowedToChange: [],
                     status: 'Y',
                     userMenus: [],
                     defaultSelectedMenu: [],
@@ -269,15 +294,16 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 }
 
                 await this.setState({
-                    selectedMenus: currentSelectedMenus,
-                    selectedUserMenusForModal: userMenusSelected
+                    menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
+                    selectedUserMenusForModal: userMenusSelected,
+                    isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
                 });
 
                 this.checkFormValidity();
             };
 
             handleRolesCheck = async (roles, childMenu) => {
-                let currentSelectedMenus = [...this.state.selectedMenus];
+                let currentSelectedMenus = [...this.state.menusAssignedToProfileAndAllowedToChange];
                 let userMenusForModalDisplay = [];
 
                 switch (type) {
@@ -292,8 +318,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
 
                 }
                 await this.setState({
-                    selectedMenus: currentSelectedMenus,
-                    selectedUserMenusForModal: [userMenusForModalDisplay]
+                    menusAssignedToProfileAndAllowedToChange: currentSelectedMenus,
+                    selectedUserMenusForModal: [...userMenusForModalDisplay],
+                    isAllRoleAssigned: this.checkIfAllRolesAndMenusAssigned(currentSelectedMenus) ? 'Y' : 'N'
                 });
                 this.checkFormValidity();
             };
@@ -375,15 +402,16 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             editCompanyProfile = async () => {
                 const {
                     id,
-                    selectedMenus,
+                    menusAssignedToProfileAndAllowedToChange,
                     profileName,
                     profileDescription,
                     company,
                     remarks,
-                    status
+                    status,
+                    isAllRoleAssigned
                 } = this.state;
 
-                let menusToBeUpdated = selectedMenus.filter(menu => menu.isUpdated || menu.isNew);
+                let menusToBeUpdated = menusAssignedToProfileAndAllowedToChange.filter(menu => menu.isUpdated || menu.isNew);
                 let editRequestDTO = {
                     companyProfileInfo: {
                         description: profileDescription,
@@ -392,8 +420,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                         remarks: remarks,
                         status: status,
                         companyId: company && company.value,
+                        isAllRoleAssigned
                     },
-                    profileMenuInfo: menusToBeUpdated.length ? [...menusToBeUpdated] : [...selectedMenus]
+                    profileMenuInfo: menusToBeUpdated.length ? [...menusToBeUpdated] : [...menusAssignedToProfileAndAllowedToChange]
                 };
                 try {
                     await this.props.editCompanyProfile(EDIT_COMPANY_PROFILE, editRequestDTO);
@@ -427,15 +456,16 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             saveCompanyProfile = async () => {
-                const {profileName, profileDescription, status, company, selectedMenus} = this.state;
+                const {profileName, profileDescription, status, company, menusAssignedToProfileAndAllowedToChange, isAllRoleAssigned} = this.state;
                 let profileDetails = {
                     companyProfileInfo: {
                         name: profileName,
                         description: profileDescription,
                         status: status,
-                        companyId: company && company.value
+                        companyId: company && company.value,
+                        isAllRoleAssigned
                     },
-                    profileMenuInfo: selectedMenus
+                    profileMenuInfo: menusAssignedToProfileAndAllowedToChange
                 };
                 try {
                     await this.props.createCompanyProfile(CREATE_COMPANY_PROFILE, profileDetails);
@@ -494,7 +524,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             actionOnManageCheckAll = (checkedAllUserMenus, userMenus) => {
-                let currentSelectedMenus = [...this.state.selectedMenus];
+                let currentSelectedMenus = [...this.state.menusAssignedToProfileAndAllowedToChange];
                 let currentSelectedMenusWithStatusUpdated = [];
 
                 if (checkedAllUserMenus) {
@@ -508,9 +538,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                         );
                     }
                     // FOR REMAINING CHECK IF THE ROLE AND MENU ALREADY EXISTS OR NOT AND THEN ADD NEW OBJECT TO ARRAY
-                    for (let menu of userMenus) {
+                    userMenus.map(menu => {
                         if (menu.childMenus.length) {
-                            for (let child of menu.childMenus) {
+                            menu.childMenus.map(child => {
                                 child.roles.forEach(role => {
                                     let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(menu => Number(menu.roleId) === Number(role)
                                         && Number(menu.userMenuId) === Number(child.id)));
@@ -524,7 +554,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                                         isUpdated: false
                                     })
                                 })
-                            }
+                            });
                         } else {
                             menu.roles.map(role => {
                                 let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
@@ -542,7 +572,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                                 })
                             })
                         }
-                    }
+                    });
                     currentSelectedMenus = [...currentSelectedMenusWithStatusUpdated];
                 } else {
                     let menuToUpdate = [...currentSelectedMenus];
@@ -562,29 +592,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             actionOnAddCheckAll = (checkedAllUserMenus, userMenus) => {
                 let currentSelectedMenus = [], userMenusSelected;
                 if (checkedAllUserMenus) {
-                    for (let menu of userMenus) {
-                        if (menu.childMenus.length) {
-                            for (let child of menu.childMenus) {
-                                child.roles.map(role => {
-                                    currentSelectedMenus.push({
-                                        parentId: menu.id,
-                                        userMenuId: child.id,
-                                        roleId: role,
-                                        status: 'Y'
-                                    })
-                                })
-                            }
-                        } else {
-                            menu.roles.map(role => {
-                                currentSelectedMenus.push({
-                                    parentId: menu.id,
-                                    userMenuId: menu.id,
-                                    roleId: role,
-                                    status: 'Y'
-                                })
-                            })
-                        }
-                    }
+                    currentSelectedMenus = [...ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenus)]
                 }
                 userMenusSelected = currentSelectedMenus.length && this.setValuesForModalDisplay(
                     this.state.userMenus, currentSelectedMenus);
@@ -592,7 +600,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             actionOnManageRoleCheck = (currentSelectedMenus, roles, childMenu) => {
-                currentSelectedMenus = [...this.state.selectedMenus];
+                currentSelectedMenus = [...this.state.menusAssignedToProfileAndAllowedToChange];
                 for (let role of roles) {
                     if (role.isChecked) {
                         // FIRST CHECK IF THE ROLE IS SELECTED ORIGINALLY, IF YES UPDATE THE STATUS ELSE ADD NEW OBJECT
@@ -673,11 +681,27 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                             userMenus: [],
                             defaultSelectedMenu: [],
                             userMenuAvailabilityMessage: '',
-                            selectedMenus: []
+                            menusAssignedToProfileAndAllowedToChange: []
                         });
                 }
 
                 this.checkFormValidity();
+            };
+
+            checkIfAllRolesAndMenusAssigned = (selectedUserMenus) => {
+                const {originalTotalNoOfMenusAndRoles, menusAssignedToProfileButNotAllowedToChange} = this.state;
+                let allRoleAssigned, menusAssignedAndAllowedToChange = [];
+                if (type === "MANAGE") {
+                    let selectedMenusWithStatusY = selectedUserMenus.filter(selectedMenu => selectedMenu.status === 'Y');
+                    menusAssignedAndAllowedToChange = [...selectedMenusWithStatusY];
+                } else {
+                    menusAssignedAndAllowedToChange = [...selectedUserMenus];
+                }
+
+                allRoleAssigned = Number(originalTotalNoOfMenusAndRoles) === (Number(menusAssignedAndAllowedToChange.length
+                    + menusAssignedToProfileButNotAllowedToChange.length));
+
+                return allRoleAssigned;
             };
 
             checkFormValidity = () => {
@@ -687,14 +711,14 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     profileName,
                     profileDescription,
                     company,
-                    selectedMenus,
+                    menusAssignedToProfileAndAllowedToChange,
                     remarks
                 } = this.state;
                 let formValidity = profileNameValid
                     && profileDescriptionValid && profileName
                     && profileDescription
                     && company !== null
-                    && selectedMenus.length !== 0;
+                    && menusAssignedToProfileAndAllowedToChange.length !== 0;
 
                 formValidity = type === "MANAGE" ? (formValidity && remarks) : formValidity;
 
@@ -705,7 +729,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
 
             checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
                 let message = '';
-                let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder("adminInfo");
+                let loggedInAdminInfo = this.state.adminInfo;
                 if (editedProfileId === loggedInAdminInfo.profileId) {
                     message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
                         "you'll be automatically logged out in 10s";
@@ -748,8 +772,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             initialApiCalls = async () => {
-                await this.fetchCompanyListForDropdown();
+                this.fetchCompanyListForDropdown();
                 if (type === "MANAGE") {
+                    this.prepareLoggedInAdminUserMenusWithRoles();
                     this.fetchCompanyProfileListForDropdown();
                     this.searchCompanyProfile(1);
                 }
@@ -768,7 +793,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 const {
                     profileDescription, profileName, company, status, remarks,
                     errorMessageForProfileDescription, errorMessageForProfileName,
-                    userMenus, selectedMenus, defaultSelectedMenu, selectedUserMenusForModal, userMenuAvailabilityMessage,
+                    userMenus, menusAssignedToProfileAndAllowedToChange, defaultSelectedMenu, selectedUserMenusForModal, userMenuAvailabilityMessage,
                     alertMessageInfo, showAlert, showConfirmModal, formValid,
                     searchParameters, totalRecords, queryParams,
                     showPreviewModal, previewData,
@@ -814,7 +839,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                         profileMenuAssignmentData={
                             {
                                 userMenus: userMenus,
-                                selectedMenus: selectedMenus,
+                                selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                 defaultSelectedMenu: defaultSelectedMenu,
                                 onCheckAllUserMenus: this.handleAddAllMenusAndRoles,
                                 onTabAndRolesChange: this.handleRolesCheck,
@@ -824,7 +849,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                                     profileDescription: profileDescription,
                                     company: company,
                                     status: status,
-                                    selectedMenus: selectedMenus,
+                                    selectedMenus: menusAssignedToProfileAndAllowedToChange,
                                     newSelectedMenus: newSelectedMenus,
                                     userMenus: userMenus,
                                     selectedUserMenusForModal: selectedUserMenusForModal,

@@ -64,7 +64,7 @@ class QualificationAliasSearchFilter extends PureComponent {
                                             label="Qualification Alias"
                                             placeholder={"Select Qualification Alias"}
                                             value={searchParameters.name}
-                                            options={qualificationsAliasForDropdown}
+                                            options={()=>qualificationsAliasForDropdown}
                                             noOptionsMessage={dropdownErrorMessage}
                                         />
                                     </Col>

@@ -6,7 +6,7 @@ const PreviewAdminDetails = ({showModal, setShowModal, adminInfoObj,adminImage})
     return <>
         <CModal
             show={showModal}
-            modalHeading="Admin Details"
+            modalHeading="Client Admin Details"
             size="xl"
             bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}
