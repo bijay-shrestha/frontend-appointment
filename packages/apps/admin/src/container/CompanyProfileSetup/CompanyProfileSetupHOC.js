@@ -213,7 +213,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         })
       } else {
         menusSelected.map(menuSelected => {
-          let menuAssignedToAdmin = loggedInAdminMenus.find(
+          let menuAssignedToAdmin = loggedInAdminMenus && loggedInAdminMenus.find(
             adminMenu =>
               Object.is(
                 Number(adminMenu.userMenuId),

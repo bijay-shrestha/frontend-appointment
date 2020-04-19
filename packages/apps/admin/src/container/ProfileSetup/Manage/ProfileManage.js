@@ -10,7 +10,8 @@ import {
     fetchProfileList,
     HospitalSetupMiddleware,
     previewProfile,
-    logoutUser
+    logoutUser,
+    savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
@@ -23,7 +24,7 @@ import {
     TryCatchHandler,
     EnvironmentVariableGetter, LocalStorageSecurity
 } from "@frontend-appointment/helpers";
-import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
+import {AdminModuleAPIConstants,CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
     SEARCH_PROFILE,
@@ -38,7 +39,7 @@ const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITA
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
-
+const {ADMIN_FEATURE}=CommonAPIConstants
 class ProfileManage extends PureComponent {
     state = {
         showProfileModal: false,
@@ -134,6 +135,14 @@ class ProfileManage extends PureComponent {
             showEditModal: false
         })
     };
+    
+    savePinOrUnpinUserMenu = async () => {
+        await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
+          isSideBarCollapse: !(
+            Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+          )
+        })
+    }
 
     apiCall = async (page) => {
         const {profile, status, department, hospital} = this.state.searchParameters;
@@ -280,6 +289,7 @@ class ProfileManage extends PureComponent {
 
 
     logoutUser = async () => {
+        await this.savePinOrUnpinUserMenu()
         try {
             let logoutResponse = await this.props.logoutUser('/cogent/logout');
             if (logoutResponse) {
@@ -841,6 +851,7 @@ export default ConnectHoc(
         fetchActiveDepartmentsByHospitalId,
         fetchActiveDepartmentsForDropdown,
         fetchAllProfileListForSearchDropdown,
-        logoutUser
+        logoutUser,
+        savePinOrUnpinUserMenu
     }
 )
