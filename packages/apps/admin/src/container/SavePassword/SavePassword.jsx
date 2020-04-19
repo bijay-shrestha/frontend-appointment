@@ -6,7 +6,7 @@ import {savePassword, verifyToken} from "@frontend-appointment/thunk-middleware"
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import Cookies from "js-cookie";
 
-const {SAVE_COMPANY_ADMIN_PASSWORD,VERIFY_ADMIN} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
+const {SAVE_COMPANY_ADMIN_PASSWORD, VERIFY_COMPANY_ADMIN} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 
 class SavePassword extends React.PureComponent {
 
@@ -35,7 +35,7 @@ class SavePassword extends React.PureComponent {
     verifyIfTokenValid = async () => {
         let token = this.props.location.search.split('=')[1];
         try {
-            await this.props.verifyToken(VERIFY_ADMIN, token);
+            await this.props.verifyToken(VERIFY_COMPANY_ADMIN, token);
             this.setState({
                 isLoading: false,
                 isVerified: true,
