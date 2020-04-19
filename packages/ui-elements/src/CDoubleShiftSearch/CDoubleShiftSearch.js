@@ -199,6 +199,7 @@ class CDoubleShiftSearch extends PureComponent {
                                  ref={this.toggleDropdown}
                 >
                     <div id="menu-search">
+                       
                         <Form.Control
                             id={"searchMenu"}
                             type="search"
@@ -208,6 +209,8 @@ class CDoubleShiftSearch extends PureComponent {
                             placeholder='Search Menus'
                             value={this.state.searchKeyword}
                             autoComplete="off"/>
+
+<span className="search-text"> Place Double Shift Key To Search Menu </span>
                     </div>
 
                 </Dropdown.Toggle>

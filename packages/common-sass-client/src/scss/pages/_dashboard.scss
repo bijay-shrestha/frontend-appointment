@@ -126,73 +126,6 @@
           
         }
 
-
-    //     .select-wrapper{
-    //         min-height: 34px;
-    //         margin-left:4px;
-
-    //         // .select-label.active {
-    //         //     color:$cogent;
-    //         //   }
-
-    //       .css-yk16xz-control{
-    //        background-color:transparent;
-    //     border-color:transparent !important;
-    //        border-bottom:1px solid $gray-500 !important;
-    //     //    min-height: 30px;
-    //        @include border-radius(0);
-
-    //        &:hover{
-    //            border:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //       }
-    //       }
-
-    //       .css-1uccc91-singleValue{
-    //           color:$gray-900;
-    //           letter-spacing: 0.5px !important;
-    //           text-transform: capitalize;
-    //           font-size:11px !important;
-    //       }
-
-    //       .css-1pahdxg-control{
-    //         border-color:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //         background-color:transparent;
-    //         @include border-radius(0);
-    //         &:hover{
-    //             border-color:transparent !important;
-    //             border-bottom:1px solid $gray-500 !important;
-    //         }
-    //       }
-
-    //         //for disabled select
-    //       .css-1fhf3k1-control{
-    //         background-color:$gray-100 !important;
-
-    //           // cursor: not-allowed;
-
-    //       }
-
-    //       .css-1hwfws3{
-    //           padding:0 0;
-    //       }
-
-    //       .css-1n7v3ny-option{
-    //         //background-color:#DEEBFF;
-    //         background-color: lighten($cogent,45%);
-    //       }
-
-    //       .css-1wa3eu0-placeholder{
-    //         color:$gray-600;
-    //         font-weight: 300;
-    //       }
-
-    //       .css-tlfecz-indicatorContainer{
-    //           padding:4px !important;
-    //       }
-
-    //     }
     }
 
     .react-datepicker-wrapper{
@@ -281,8 +214,8 @@
 
         &:first-child{
             background-color:$cogent;
-            box-shadow:   -10px -10px 8px  #fff,
-            10px 10px 10px $gray-400; 
+            // box-shadow:   -10px -10px 8px  #fff,
+            // 10px 10px 10px $gray-400; 
             p{
                 color:$white;
 
