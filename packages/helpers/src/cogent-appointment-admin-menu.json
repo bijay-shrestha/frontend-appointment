@@ -433,6 +433,26 @@
           "menuFor": "1",
           "description": "Specialization",
           "childMenus": []
+        },
+        {
+          "id": "25",
+          "parentId": "20",
+          "name": "Appointment Mode Setup",
+          "path": "/companySettings/appointmentMode",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Appointment Mode Setup",
+          "childMenus": []
         }
       ]
     },
@@ -449,7 +469,7 @@
       "enabled": "Y",
       "menuFor": "6",
       "description": "User Activity Log",
-      "childMenus": [] 
+      "childMenus": []
     }
   ]
 }
