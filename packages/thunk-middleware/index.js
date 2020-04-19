@@ -29,7 +29,7 @@ import {
     CompanySetupMiddleware,
     CompanyAdminSetupMiddleware
 } from './src/admin-middleware'
-import {fetchUserMenus} from './src/menu-middleware'
+import {fetchUserMenus,fetchUserMenusNew} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {
@@ -84,5 +84,6 @@ export {
     ForgotPasswordMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
-    CompanyAdminSetupMiddleware
+    CompanyAdminSetupMiddleware,
+    fetchUserMenusNew
 }

@@ -42,9 +42,11 @@ export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
     while (dateValue <= toDate) {
         let day = getDayOfWeek(dateValue);
         let weekDayData = weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase());
+        if(weekDayData){
         weekDayData.weekDaysName = day;
         daysIncluded.add(weekDayData);
         dateValue = addDate(dateValue, 1);
+        } 
     }
     return Array.from(daysIncluded).sort((first, second) => first.weekDaysId - second.weekDaysId);
 };

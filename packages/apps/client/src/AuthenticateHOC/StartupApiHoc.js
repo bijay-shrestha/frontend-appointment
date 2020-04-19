@@ -14,12 +14,11 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {
   DashboardDetailsMiddleware,
   fetchLoggedInAdminUserInfo,
-  fetchUserMenus,
+  fetchUserMenusNew,
   signinUser
 } from '@frontend-appointment/thunk-middleware'
-import {CLoading,CUnauthorized} from '@frontend-appointment/ui-elements'
+import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 import localStorageSecurity from '@frontend-appointment/helpers/src/utils/localStorageUtils'
-import { Component } from '@ag-grid-community/all-modules'
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {
@@ -30,7 +29,7 @@ const {
 class StartupApiHoc extends PureComponent {
   state = {
     fetch: false,
-    loading:true
+    loading: true
   }
   startUpApiCall = async () => {
     const auth_token = EnvironmentVariableGetter.AUTH_TOKEN
@@ -39,18 +38,17 @@ class StartupApiHoc extends PureComponent {
         LocalStorageSecurity.localStorageDecoder(auth_token)
       )
       if (!localStorageSecurity.localStorageDecoder('userMenus')) {
-        await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
+        await this.props.fetchUserMenusNew(GET_SIDEBAR_DATA, {
           username: user.username,
           hospitalCode: user.hospitalCode
         })
-        this.setState({fetch: true,loading:false})
+        this.setState({fetch: true, loading: false})
       }
       if (!localStorageSecurity.localStorageDecoder('adminInfo')) {
         await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
           username: user.username,
           hospitalCode: user.hospitalCode
         })
-        this.setState({fetch: true})
       }
       if (!localStorageSecurity.localStorageDecoder('adminDashRole')) {
         const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
@@ -61,11 +59,10 @@ class StartupApiHoc extends PureComponent {
           'adminDashRole',
           featuresAdmin.data
         )
-        this.setState({fetch: true})
       }
     } catch (e) {
-      if(!this.getUserMenusFromLocalStorage().length)
-       this.setState({fetch:false,loading:false})
+      if (!this.getUserMenusFromLocalStorage().length)
+        this.setState({fetch: false, loading: false})
     }
   }
 
@@ -78,11 +75,11 @@ class StartupApiHoc extends PureComponent {
     await this.startUpApiCall()
   }
   render () {
-    const {fetch,loading}=this.state;
+    const {fetch, loading} = this.state
     const {ComposedComponent, otherProps, layoutProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
     let userMenus = this.getUserMenusFromLocalStorage()
-    return userMenus.length &&  fetch && !loading? (
+    return userMenus.length ? (
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
@@ -101,25 +98,25 @@ class StartupApiHoc extends PureComponent {
               })
         }
       />
-    ) :loading? (
+    ) : !loading && !fetch ? (
+      <ComposedComponent
+        {...otherProps}
+        {...layoutProps}
+        userMenus={userMenus}
+        MainViewComponent={CUnauthorized}
+      />
+    ) : (
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
         userMenus={userMenus}
         MainViewComponent={CLoading}
       />
-    ):(
-     <ComposedComponent
-      {...otherProps}
-      {...layoutProps}
-      userMenus={userMenus}
-      MainViewComponent={CUnauthorized}
-     />
     )
   }
 }
 export default ConnectHoc(StartupApiHoc, [], {
-  fetchUserMenus,
+  fetchUserMenusNew,
   signinUser,
   fetchLoggedInAdminUserInfo,
   fetchDashboardFeaturesByAdmin

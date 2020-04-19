@@ -6,7 +6,6 @@ import {CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal';
-import {Link} from "react-router-dom";
 import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 
