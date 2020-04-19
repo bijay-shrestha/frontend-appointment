@@ -30,7 +30,8 @@ import {
     CompanyAdminSetupMiddleware,
     AdminLoggingMiddleware,
     QualificationAliasSetupMiddleware,
-    UniversitySetupMiddleware
+    UniversitySetupMiddleware,
+    AppointmentModeMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -93,5 +94,6 @@ export {
     AdminLoggingMiddleware,
     QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware,
-    CountryMiddleware
+    CountryMiddleware,
+    AppointmentModeMiddleware
 }
