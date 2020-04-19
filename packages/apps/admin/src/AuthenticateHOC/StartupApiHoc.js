@@ -61,9 +61,8 @@ class StartupApiHoc extends PureComponent {
         )
       }
     } catch (e) {
-      let userMenus= this.getUserMenusFromLocalStorage();
-      if (!userMenus.length)
-        this.setState({fetch: false, loading: false})
+      let userMenus = this.getUserMenusFromLocalStorage()
+      if (!userMenus.length) this.setState({fetch: false, loading: false})
     }
   }
 
@@ -79,23 +78,38 @@ class StartupApiHoc extends PureComponent {
     const {fetch, loading} = this.state
     const {ComposedComponent, otherProps, layoutProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
-    return this.getUserMenusFromLocalStorage().length? (
+    return this.getUserMenusFromLocalStorage().length ? (
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={
           hasTab
-            ? ComponentHoc(component, this.getUserMenusFromLocalStorage(), activeStateKey, {
-                ...layoutProps
-              })
+            ? ComponentHoc(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                {
+                  ...layoutProps
+                }
+              )
             : isSingleTab
-            ? SingleTabComponentHOC(component, this.getUserMenusFromLocalStorage(), activeStateKey, {
-                ...layoutProps
-              })
-            : NoRoleTabComponentHOC(component, this.getUserMenusFromLocalStorage(), activeStateKey, {
-                ...layoutProps
-              })
+            ? SingleTabComponentHOC(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                {
+                  ...layoutProps
+                }
+              )
+            : NoRoleTabComponentHOC(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                {
+                  ...layoutProps
+                }
+              )
         }
       />
     ) : !loading && !fetch ? (
