@@ -220,17 +220,14 @@
                  
                 }
 
-               .amt{
+               .amt,.apt{
                     display: inline;
                     color: $gray-800;
                     font-weight: 500;
+                    font-size: 16px;
                }
 
-               .apt{
-                color: $gray-800;
-                display: inline;
-                font-weight: 500;
-               }
+            
 
                .inc{
                    font-weight:350;
