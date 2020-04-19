@@ -52,7 +52,7 @@ class StartupApiHoc extends PureComponent {
       }
       if (!localStorageSecurity.localStorageDecoder('adminDashRole')) {
         const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
-          DASHBOARD_FEATURE
+          DASHBOARD_FEATURE,
           user.id
         )
         LocalStorageSecurity.localStorageEncoder(
