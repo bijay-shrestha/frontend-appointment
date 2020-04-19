@@ -33,6 +33,7 @@ export const savePinOrUnpinUserMenu = (path,status) =>async () => {
     await Axios.putWithRequestParam(path, status);
   } catch (error) {
     console.log("=====SavePinnedor UnpinUser",error)
+    return error
   }
 
 }
