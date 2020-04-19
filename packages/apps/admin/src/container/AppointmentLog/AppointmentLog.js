@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import AppointmentLogSearchFilter from './AppointmentLogSearchFilter'
 import AppointmentLogDataTable from './AppointmentLogDataTable'
 import AppointmentLogHoc from './AppointmentLogHoc'
-import { Table} from 'react-bootstrap';
+import { Table,Container,Col} from 'react-bootstrap';
 
 const AppointmentRefundLog = props => {
   const AppoinmentRefund = AppointmentLogHoc(
@@ -18,66 +18,101 @@ const AppointmentRefundLog = props => {
             paginationProps={paginationProps}
           />
         </div>
-        <div className="revenue-details">
-          <h5 className="title">Revenue Details </h5>
-          <Table >
-            <thead>
-              <tr>
 
-                <th>Status</th>
-                <th>Revenue</th>
-                <th>App. Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
+        <Container className="revenue-details" fluid>
+         
+        <div className="row">
+          <h5 className="rd-title">Revenue Details</h5>
+          </div>
+          <div className="row rd-container">
+         
 
-                <td>Checked-In</td>
-                <td>NPR 2000</td>
-                <td>10</td>
-              </tr>
-              <tr>
+              
+            <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card book">
+              <div className="icon">
+                B
+              </div>
+              <div className="rd-content ">
+              <span>   <span className="label">Booked</span> </span>
+              <span> <span className="amt"> NPR 50000</span> from<span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
 
-                <td>Refunded Percentage</td>
-                <td>NPR 2000</td>
-                <td>10</td>
-              </tr>
+              <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card checkin">
+              <div className="icon">
+                CH
+              </div>
+              <div className="rd-content ">
+              <span>   <span className="label">Checked-In</span> </span>
+              <span> <span className="amt"> NPR 50000</span> from<span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
 
-              <tr>
+              <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card cancel">
+              <div className="icon">
+                C
+              </div>
+              <div className="rd-content ">
+              <span>   <span className="label">Cancel</span> </span>
+              <span> <span className="amt"> NPR 50000</span> from <span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
 
-                <td>Cancelled</td>
-                <td>NPR 2000</td>
-                <td>10</td>
-              </tr>
+              <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card refund">
+              <div className="icon">
+                R
+              </div>
+              <div className="rd-content ">
+              <span>   <span className="label">Refund</span></span> 
+              <span> <span className="amt"> NPR 50000</span> from
+              <span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
 
-              <tr>
-                <td>Booked</td>
-                <td>NPR 2000</td>
-                <td>10</td>
-              </tr>
+              <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card refund-client">
+              <div className="icon">
+                RF
+              </div>
+              <div className="rd-content">
+              <span>   <span className="label">Refunded Amount to Client </span> </span>
+              <span> <span className="amt"> NPR 50000</span> from
+              <span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
 
-              <tr>
-                <td>Refunded</td>
-                <td>- NPR 2000</td>
-                <td>10</td>
-              </tr>
+              <Col  md={4} className="p-0  mt-4">
+              <div className="rd-card total">
+              <div className="icon">
+                T
+              </div>
+              <div className="rd-content ">
+              <span>   <span className="label">Total Revenue Amount from Client <br></br><span className="inc">(Incl. Booked Appts. revenue)</span> </span> </span>
+              <span> <span className="amt"> NPR 50000</span> from
+               <span className="apt"> 200 </span>Appointments</span> 
+              </div>
+              </div>
+            
+              </Col>
+          </div>
+        </Container>
+       
 
-              <tr className="total">
-
-                <td >Total</td>
-                <td>NPR 300000</td>
-                <td>30</td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
-
-
-      <div className="revenue-breakdown">
-        <h5>Revenue Breakdown</h5>
-        <p>Client Revenue Amount = Revenue from Checked-In+ Revenue from Refund + Revenue from Cancelled </p>
-      <p>Client Revenue Amount (Including Booked Appointments) = Revenue from Checked-In+ Revenue from Refund + Revenue from Cancelled +Revenue from Booked</p>
-  </div>
+      
                    
       </>
     ),

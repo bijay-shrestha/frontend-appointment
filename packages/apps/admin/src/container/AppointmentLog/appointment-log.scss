@@ -7,6 +7,22 @@
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
+@mixin border-radii($topleft, $topright, $bottomright, $bottomleft) {
+	border-top-left-radius: $topleft;
+	border-top-right-radius: $topright;
+	border-bottom-right-radius: $bottomright;
+	border-bottom-left-radius: $bottomleft;
+	-webkit-border-top-left-radius: $topleft;
+	-webkit-border-top-right-radius: $topright;
+	-webkit-border-bottom-right-radius: $bottomright;
+	-webkit-border-bottom-left-radius: $bottomleft;
+	-moz-border-radius-topleft: $topleft;
+	-moz-border-radius-topright: $topright;
+	-moz-border-radius-bottomright: $bottomright;
+	-moz-border-radius-bottomleft: $bottomleft;
+}
+
+
 #appointment-log {
 
 
@@ -77,47 +93,202 @@
     }
 
     .revenue-details{
-        background-color:$white;
-        padding:24px;
-        @include border-radius(0.5rem);
-        .total{
-            font-weight: 700;
-        }
-        .table th{
-            font-weight: 300;
-            font-size: 12px;
-            margin-bottom:4px;
-            border-bottom: 1px solid transparent;
-        }
+        // background-color: #fff;
+        // padding: 24px;
+        margin: 1rem 0;
+       .rd-title{
+           margin-top:10px;
+           margin-bottom:-12px;
+       }
 
-        .table td{
-            font-weight:400;
+        .rd-container{
+        // padding: 24px;
         }
-        .table th, .table td {
-            padding: 0.25rem;
-            vertical-align: top;
-            border-top: 1px solid transparent;
-        }
-    }
+        .rd-card{
+            background-color:$white;
+            margin-right:1.5rem;
+            margin-bottom:15px;
+            min-height: 110px;
+            // padding:20px;
+            height: 100%;
+            // margin-right:10px;
+            @include border-radius(4px);
+            text-align: center;
+            display:flex;
+            flex-direction: row;
+            align-items : center;
+            justify-content: space-between;
 
-    .revenue-breakdown{
-        background-color:$white;
-        padding:24px;
-        margin:1rem 0;
-        @include border-radius(0.5rem);
+          
+
+            &.book{
+                .icon{
+                    background-color:$warning;
+                }
+            }
+
+            &.checkin{
+                .icon{
+                    background-color:$primary;
+                }
+            }
+
+            &.cancel{
+                margin-right:0;
+                .icon{
+                    background-color:$dark;
+                }
+            }
+
+            &.refund{
+                .icon{
+                    background-color:$secondary;
+                }
+            }
+
+            &.refund-client{
+             
+                .icon{
+                    background-color:$danger;
+                }
+            }
+
+            &.total{
+                margin-right:0;
+                .icon{
+                    background-color:darken(#008080,10%);
+                    color:white;
+                }
+                background-color: #008080;
+                color:darken(white,10%);
+
+                .amt,.apt{
+                    color:$white !important;
+                }
+            }
+           
+           
+           
+           
+           
+            .icon{
+               
+                width:50px;
+                height:100%;
+                background-color:#ccc;
+                @include border-radii (4px,0,0,4px);
+              
+                display : flex;
+                align-items : center;
+                justify-content: center;
+                font-size: 20px;
+               
+                color:white;
+                flex:0 0 50px;
+                
+                
+            }
+
+            .rd-content{
+                display : flex;
+                align-items : left;
+                justify-content: center;
+                flex-direction: column;
+                text-align: left;
+                font-size: 14px;
+                // width:calc(100% - 80px);
+               
+                flex:2 0 60px;
+                padding:16px 0;
+                padding-left:20px;
+
+
+                span{
+                    display: block;
+
+                  
+                }
+
+                .label{
+                   font-weight: 500;
+                   font-size: 14px;
+                //    background-color: $gray-100;
+                   display:inline-block;
+                   @include border-radius(4px);
+                   text-transform: uppercase;
+                //    padding:2px 4px;
+                 
+                }
+
+               .amt{
+                    display: inline;
+                    color: $gray-800;
+                    font-weight: 500;
+               }
+
+               .apt{
+                color: $gray-800;
+                display: inline;
+                font-weight: 500;
+               }
+
+               .inc{
+                   font-weight:350;
+                   text-transform: lowercase;
+               }
+               
+            }
+
+
+            
+        }
 
         
-        h5{
-            margin-bottom:20px;
-            color:$gray-900;
-        }
-        p{
-            font-size:12px;
-            line-height: 16px;
-            letter-spacing: 0.01rem;
-            font-weight: 300;
-        }
+           
     }
+
+    // .revenue-details{
+    //     background-color:$white;
+    //     padding:24px;
+    //     @include border-radius(0.5rem);
+    //     .total{
+    //         font-weight: 700;
+    //     }
+    //     .table th{
+    //         font-weight: 300;
+    //         font-size: 12px;
+    //         margin-bottom:4px;
+    //         border-bottom: 1px solid transparent;
+    //     }
+
+    //     .table td{
+    //         font-weight:400;
+    //     }
+    //     .table th, .table td {
+    //         padding: 0.25rem;
+    //         vertical-align: top;
+    //         border-top: 1px solid transparent;
+    //     }
+    // }
+
+    // .revenue-breakdown{
+    //     background-color:$white;
+    //     padding:24px;
+    //     margin:1rem 0;
+    //     @include border-radius(0.5rem);
+
+        
+    //     h5{
+    //         margin-bottom:20px;
+    //         color:$gray-900;
+    //     }
+    //     p{
+    //         font-size:12px;
+    //         line-height: 16px;
+    //         letter-spacing: 0.01rem;
+    //         font-weight: 300;
+    //     }
+    // }
 
     .react-datepicker-wrapper {
         width          : 50%;
