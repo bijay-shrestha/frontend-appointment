@@ -27,3 +27,12 @@ export const fetchUserMenusNew = (path, code) => async dispatch => {
       // dispatch(MenuActions.isMenuError(error));
     }
 };
+
+export const savePinOrUnpinUserMenu = (path,status) =>async () => {
+  try {
+    await Axios.putWithRequestParam(path, status);
+  } catch (error) {
+    console.log("=====SavePinnedor UnpinUser",error)
+  }
+
+}

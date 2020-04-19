@@ -32,7 +32,7 @@ import {
     QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware
 } from './src/admin-middleware'
-import {fetchUserMenus,fetchUserMenusNew} from './src/menu-middleware'
+import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {
@@ -94,5 +94,6 @@ export {
     QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware,
     CountryMiddleware,
-    fetchUserMenusNew
+    fetchUserMenusNew,
+    savePinOrUnpinUserMenu
 }

@@ -6,9 +6,10 @@ import {
   CompanyAdminSetupMiddleware,
   logoutUser,
   resetPassword,
-  DashboardDetailsMiddleware
+  DashboardDetailsMiddleware,
+  savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants,CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
   AdminSetupUtils,
@@ -67,7 +68,7 @@ const {
   // VERIFY_COMPANY_ADMIN
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
-
+const {ADMIN_FEATURE}=CommonAPIConstants
 const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
   class CompanyAdminSetup extends PureComponent {
     state = {
@@ -227,7 +228,15 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             searchParameters: {...this.state.searchParameters, [key]: value}
           })
     }
-
+    
+    savePinOrUnpinUserMenu = async () => {
+      await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
+        isSideBarCollapse: !(
+          Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+        )
+      })
+    }
+  
     setUpdatedValuesInState = (key, value, label, fieldValid) =>
       label
         ? value
@@ -407,6 +416,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
     logoutUser = async () => {
       try {
+        await this.savePinOrUnpinUserMenu()
         let logoutResponse = await this.props.logoutUser('/cogent/logout')
         if (logoutResponse) {
           this.props.history.push('/')
@@ -1366,7 +1376,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       fetchCompanyProfileListForDropdown,
       resetPassword,
       fetchDashboardFeatures,
-      fetchDashboardFeaturesByAdmin
+      fetchDashboardFeaturesByAdmin,
+      savePinOrUnpinUserMenu
     }
   )
 }
