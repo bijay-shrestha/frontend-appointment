@@ -81,7 +81,7 @@ class StartupApiHoc extends PureComponent {
     return userMenus.length ? (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
+        layoutProps={...layoutProps}
         {...this.props}
         userMenus={userMenus}
         MainViewComponent={
