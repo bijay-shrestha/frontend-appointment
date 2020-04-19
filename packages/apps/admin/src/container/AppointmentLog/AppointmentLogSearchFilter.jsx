@@ -77,7 +77,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 id="from-date"
                                                 name="fromDate"
                                                 label="Appointment From Date"
-                                                dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -95,7 +94,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 id="to-date"
                                                 name="toDate"
                                                 label="Appointment To Date"
-                                                dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
@@ -111,13 +109,13 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         </div>
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
+                                    {/* <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="transaction-from-date"
                                                 name="transactionFromDate"
                                                 label="Transaction From Date"
-                                                dateFormat="yyyy-MM-dd"
+                                    
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -149,7 +147,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 }
                                             />
                                         </div>
-                                    </Col>
+                                    </Col> */}
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
