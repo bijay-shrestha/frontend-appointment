@@ -8,7 +8,7 @@ const CToggle = props => {
         size, onStyle, offStyle,
         width, height, name,
         onChangeHandler, classes, required,
-        checked, style,reference, defaultChecked
+        checked, style, reference, defaultChecked, disabled
     } = props;
     return (
         <>
@@ -29,6 +29,7 @@ const CToggle = props => {
                 checked={checked}
                 required={required}
                 defaultChecked={defaultChecked}
+                disabled={disabled}
             />
         </>
     )
@@ -57,5 +58,6 @@ CToggle.propTypes = {
     onChange: PropTypes.func.isRequired,
     checked: PropTypes.bool.isRequired,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    disabled: PropTypes.bool
 }
