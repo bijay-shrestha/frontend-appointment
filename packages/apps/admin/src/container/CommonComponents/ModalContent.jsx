@@ -1,6 +1,7 @@
 import React from 'react'
 import {Accordion, Card, Col, Row} from 'react-bootstrap'
 import {
+    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
