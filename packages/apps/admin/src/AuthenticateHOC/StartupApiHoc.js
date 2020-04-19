@@ -77,10 +77,14 @@ class StartupApiHoc extends PureComponent {
     const {fetch, loading} = this.state
     const {ComposedComponent, otherProps, layoutProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
+    console.log('Other Props',otherProps);
+    console.log('Layout Props',layoutProps);
+    console.log('this.props',this.props);
     return this.getUserMenusFromLocalStorage().length ? (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
+        layoutProps={{...layoutProps}}
+        {...this.props}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={
           hasTab
@@ -88,26 +92,26 @@ class StartupApiHoc extends PureComponent {
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                {
-                  ...layoutProps
-                }
+                
+                  layoutProps
+                
               )
             : isSingleTab
             ? SingleTabComponentHOC(
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                {
-                  ...layoutProps
-                }
+                
+                  layoutProps
+                ,
               )
             : NoRoleTabComponentHOC(
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                {
-                  ...layoutProps
-                }
+                
+                  layoutProps
+                
               )
         }
       />
@@ -115,6 +119,7 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
+        {...this.props}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CUnauthorized}
       />
@@ -122,6 +127,7 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
+        {...this.props}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CLoading}
       />

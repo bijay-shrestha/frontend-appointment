@@ -47,7 +47,11 @@ class CHeader extends Component {
 
   savePinOrUnpinUserMenu = async (path, status) => {
       console.log("Status",status);
+   try{
    await Axios.put(path, {isSideBarCollapse: !status?'Y':'N'}) 
+   }catch(e){
+   return true
+   }
 }
 
   logoutUser = async () => {
@@ -57,6 +61,7 @@ class CHeader extends Component {
     )
     localStorage.clear()
     sessionStorage.clear()
+    console.log("Header Props",this.props)
     this.props.history.push('/')
   }
 

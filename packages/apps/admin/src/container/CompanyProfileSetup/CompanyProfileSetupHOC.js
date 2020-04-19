@@ -830,7 +830,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         try {
           let logoutResponse = await this.props.logoutUser('/cogent/logout')
           if (logoutResponse) {
-            this.props.history.push('/')
+            props.history.push('/')
           }
         } catch (e) {}
       }, 10000)
@@ -1035,10 +1035,11 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       } = this.props.CompanyProfileEditReducer
 
       const {companyDropdownData} = this.props.companyDropdownReducer
-
+      console.log("=====",props)
       return (
         <>
           <ComposedComponent
+            
             profileInfoFormData={{
               handleEnter: this.handleEnter,
               companyListForDropdown: companyDropdownData,

@@ -44,23 +44,22 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
         getUniquesElement = data => {
             let result = []
             let flag = false
+            if(data){
             if (data.length === 1) result.push(data[0])
             else {
-                for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < i; j++) {
-                        // console.log('dataId', data)
-                        if (result.length) {
-                            if (Number(data[i].id) == Number(result[j].id)) {
-                                flag = true
-                                break
-                            }
-                        }
+                const map = new Map();
+                for (const item of data) {
+                    if(!map.has(item.id)){
+                        map.set(item.id, true);    // set any value to Map
+                        result.push({
+                            ...item
+                        });
                     }
-                    if (!flag) result.push(data[i])
                 }
             }
             // console.log(result)
             return result
+          }
         }
 
         removeDuplicatePathInUrl = newFilteredTabs => {
@@ -176,6 +175,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
         }
 
         render() {
+            console.log("========componenthoc",props)
             const {
                 filteredAction,
                 filteredRolesTab,

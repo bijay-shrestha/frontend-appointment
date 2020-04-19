@@ -30,10 +30,10 @@ export const fetchUserMenusNew = (path, code) => async dispatch => {
 export const savePinOrUnpinUserMenu = (path, status) => async () => {
   try {
     await Axios.put(path, {
-      isSideBarCollapse: !status.isSideBarCollapse ? 'Y' : 'N'
+      isSideBarCollapse: status.isSideBarCollapse ? 'Y' : 'N'
     })
   } catch (error) {
     console.log('=====SavePinnedor UnpinUser', error)
-    return error
+    return ''
   }
 }

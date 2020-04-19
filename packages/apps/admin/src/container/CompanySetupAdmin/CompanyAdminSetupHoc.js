@@ -380,7 +380,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       )
       if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
         await this.logoutUser()
-        this.props.history.push('/')
+        props.history.push('/')
       }
       return false
     }
@@ -419,7 +419,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         await this.savePinOrUnpinUserMenu()
         let logoutResponse = await this.props.logoutUser('/cogent/logout')
         if (logoutResponse) {
-          this.props.history.push('/')
+          props.history.push('/')
         }
       } catch (e) {}
     }
@@ -1227,10 +1227,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         showProfileDetailModal,
         totalRecords
       } = this.state
-      console.log(props)
+      console.log("=======",props)
       return (
         <>
           <ComposedComponent
+            props
             adminCreateForm={{
               adminCreateData: {...adminUpdateData},
               isCreateAdminLoading: {isCreateAdminLoading},
