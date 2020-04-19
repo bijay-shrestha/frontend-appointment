@@ -17,8 +17,9 @@ import {
   fetchUserMenus,
   signinUser
 } from '@frontend-appointment/thunk-middleware'
-import {CLoading} from '@frontend-appointment/ui-elements'
+import {CLoading,CUnauthorized} from '@frontend-appointment/ui-elements'
 import localStorageSecurity from '@frontend-appointment/helpers/src/utils/localStorageUtils'
+import { Component } from '@ag-grid-community/all-modules'
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {
@@ -28,7 +29,8 @@ const {
 
 class StartupApiHoc extends PureComponent {
   state = {
-    fetch: false
+    fetch: false,
+    loading:true
   }
   startUpApiCall = async () => {
     const auth_token = EnvironmentVariableGetter.AUTH_TOKEN
@@ -41,7 +43,7 @@ class StartupApiHoc extends PureComponent {
           username: user.username,
           hospitalCode: user.hospitalCode
         })
-        this.setState({fetch: true})
+        this.setState({fetch: true,loading:false})
       }
       if (!localStorageSecurity.localStorageDecoder('adminInfo')) {
         await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
@@ -62,7 +64,8 @@ class StartupApiHoc extends PureComponent {
         this.setState({fetch: true})
       }
     } catch (e) {
-      console.log(e)
+      if(!this.getUserMenusFromLocalStorage().length)
+       this.setState({fetch:false,loading:false})
     }
   }
 
@@ -75,10 +78,11 @@ class StartupApiHoc extends PureComponent {
     await this.startUpApiCall()
   }
   render () {
+    const {fetch,loading}=this.state;
     const {ComposedComponent, otherProps, layoutProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
     let userMenus = this.getUserMenusFromLocalStorage()
-    return userMenus.length ? (
+    return userMenus.length &&  fetch && !loading? (
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
@@ -97,13 +101,20 @@ class StartupApiHoc extends PureComponent {
               })
         }
       />
-    ) : (
+    ) :loading? (
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
         userMenus={userMenus}
         MainViewComponent={CLoading}
       />
+    ):(
+     <ComposedComponent
+      {...otherProps}
+      {...layoutProps}
+      userMenus={userMenus}
+      MainViewComponent={CUnauthorized}
+     />
     )
   }
 }
