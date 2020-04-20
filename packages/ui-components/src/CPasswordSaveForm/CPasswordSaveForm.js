@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Button} from 'react-bootstrap'
-import {CHybridPassword, CHybridTextArea} from "@frontend-appointment/ui-elements";
+import {CForm, CHybridPassword, CHybridTextArea} from "@frontend-appointment/ui-elements";
 
 class CPasswordSaveForm extends PureComponent {
     state = {
@@ -36,7 +36,14 @@ class CPasswordSaveForm extends PureComponent {
     onChangeHandler = e => {
         const {name, value} = e.target;
         this.setTheState(name, value);
-        let errorMsg = {password: '', confirmPassword: '', passwordValid: true, confirmPasswordValid: true,};
+        let errorMsg = {
+            password: '',
+            confirmPassword: '',
+            passwordValid: true,
+            confirmPasswordValid: true,
+            remarks: '',
+            remarksValid: true
+        };
         if (name === 'confirmPassword' && !value.match(this.state.userPassword.password)) {
             errorMsg[name] = `PASSWORD doesn't match!`;
             errorMsg[name.concat('Valid')] = false;
@@ -147,8 +154,13 @@ class CPasswordSaveForm extends PureComponent {
                     variant="primary"
                     className="btn-action float-right"
                     type="submit"
+                    disbled={this.props.isLoading}
                     onClick={this.onSubmitFormHandler}>
-                    Save Password
+                    {this.props.isLoginPending ?
+                        <span className="saving">Saving Password<img
+                            src={require("../img/three-dots.svg")}/></span> :
+                        "Save Password"
+                    }
                 </Button>
             </>
         )

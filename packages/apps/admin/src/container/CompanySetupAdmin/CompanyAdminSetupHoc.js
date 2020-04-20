@@ -52,7 +52,7 @@ const {
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 
 const {
-  //CHANGE_PASSWORD,
+  //CHANGE_COMPANY_ADMIN_PASSWORD,
   CREATE_COMPANY_ADMIN,
   DELETE_COMPANY_ADMIN,
   EDIT_COMPANY_ADMIN,
@@ -164,7 +164,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           adminDashboardRequestDTOS: [
             ...this.props.DashboardFeaturesReducer.dashboardFeatureData
           ],
-        
+
           macIdList: [],
           adminAvatar: null,
           adminAvatarUrl: '',
@@ -231,7 +231,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             searchParameters: {...this.state.searchParameters, [key]: value}
           })
     }
-    
+
     savePinOrUnpinUserMenu = async () => {
       await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
         isSideBarCollapse: !(
@@ -239,7 +239,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         )
       })
     }
-  
+
     setUpdatedValuesInState = (key, value, label, fieldValid) =>
       label
         ? value
@@ -966,7 +966,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
     prepareDataForDashboardRole = (adminDashBoardRole, dashData) => {
       let adminDashRole = []
-  
+
       adminDashBoardRole &&
         adminDashBoardRole.length &&
         adminDashBoardRole.map(adminDash => {
@@ -1043,7 +1043,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           adminDashboardRequestDTOS:[...dashForAdmin]
         },
         updatedMacIdList: [...macIdList]
-        
+
       })
       this.checkFormValidity();
     }

@@ -65,6 +65,7 @@ class LoginPage extends React.PureComponent {
             const err = e.errorMessage
                 ? e.errorMessage
                 : 'Sorry Server Could not process data';
+            this.handleIsLoginPending(false);
             return err
         }
     };

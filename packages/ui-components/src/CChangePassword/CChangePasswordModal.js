@@ -10,7 +10,8 @@ const CChangePasswordModal = ({
                                   oldPassword,
                                   oldPasswordError,
                                   errorMessage,
-                                  onChangeHandler
+                                  onChangeHandler,
+                                  isPasswordChangePending
                               }) => {
 
     let bodyContent = <>
@@ -33,7 +34,8 @@ const CChangePasswordModal = ({
                     <CPasswordSaveForm
                         onSubmitHandler={(userPasswordObject) => changePassword(userPasswordObject)}
                         showRemarksField={true}
-                        errorMessage={errorMessage}/>
+                        errorMessage={errorMessage}
+                        isLoading={isPasswordChangePending}/>
                 </CForm>
             </Col>
         </Row>
@@ -59,7 +61,7 @@ const CChangePasswordModal = ({
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal change-password"
-                    // footerChildren={footerChildren}
+                // footerChildren={footerChildren}
                     closeButton={true}
             />
         </>
