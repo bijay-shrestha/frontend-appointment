@@ -77,13 +77,13 @@ class StartupApiHoc extends PureComponent {
     const {fetch, loading} = this.state
     const {ComposedComponent, otherProps, layoutProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
-    console.log('Other Props',otherProps);
-    console.log('Layout Props',layoutProps);
-    console.log('this.props',this.props);
+    console.log('Other Props', otherProps)
+    console.log('Layout Props', layoutProps)
+    console.log('this.props', this.props)
     return this.getUserMenusFromLocalStorage().length ? (
       <ComposedComponent
         {...otherProps}
-        layoutProps={{...layoutProps}}
+        history={this.props.history}
         {...this.props}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={
@@ -92,34 +92,29 @@ class StartupApiHoc extends PureComponent {
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                
-                  layoutProps
-                
+                this.props
               )
             : isSingleTab
             ? SingleTabComponentHOC(
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                
-                  layoutProps
-                ,
+
+                this.props
               )
             : NoRoleTabComponentHOC(
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-                
-                  layoutProps
-                
+                this.props
               )
         }
       />
     ) : !loading && !fetch ? (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
-        {...this.props}
+        history={this.props.history}
+        layoutProps={{...layoutProps}}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CUnauthorized}
       />
@@ -127,7 +122,7 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
-        {...this.props}
+        history={this.props.history}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CLoading}
       />

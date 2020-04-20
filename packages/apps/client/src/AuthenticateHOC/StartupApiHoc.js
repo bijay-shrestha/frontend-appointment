@@ -82,7 +82,6 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         layoutProps={...layoutProps}
-        {...this.props}
         userMenus={userMenus}
         MainViewComponent={
           hasTab
@@ -102,7 +101,6 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
-        {...this.props}
         userMenus={userMenus}
         MainViewComponent={CUnauthorized}
       />
@@ -110,7 +108,6 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         {...layoutProps}
-        {...this.props}
         userMenus={userMenus}
         MainViewComponent={CLoading}
       />
