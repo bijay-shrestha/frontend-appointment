@@ -348,9 +348,6 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             const {name, description, code, status, isEditable} = this.state;
 
             this.setDefaultValues(name, description, code, status, isEditable, '');
-            // if (!name || !status || !code) {
-            //     this.validateAppointmentModeData(name, code, status);
-            // } else {
             let requestDTO = {
                 name,
                 description,
@@ -369,7 +366,6 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 this.closeSaveModal();
                 return false;
             }
-            // }
         };
 
         searchAppointmentModes = async (page) => {
