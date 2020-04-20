@@ -5,7 +5,7 @@ const AuthenticateHOC = (ComposedComponent, condition) => {
     return (
       <>
         {condition() ? (
-          <ComposedComponent {...props} history={props.history} />
+          <ComposedComponent {...props}  />
         ) : (
           <Redirect to="/" />
         )}

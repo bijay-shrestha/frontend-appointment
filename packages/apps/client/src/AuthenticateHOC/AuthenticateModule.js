@@ -66,6 +66,7 @@ const AuthenticateModule = () => {
               props => (
                 <StartupApiHoc
                   ComposedComponent={CLayout}
+                  {...props}
                   layoutProps={{...props}}
                   otherProps={{
                     dataForBreadCrumb: routes,

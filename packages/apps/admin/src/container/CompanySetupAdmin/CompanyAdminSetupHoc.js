@@ -634,10 +634,15 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     onEditHandler = async id => {
+      const response = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        adId
+      )
       try {
         await this.previewApiCall(id)
         await this.prepareDataForEdit(
-          this.props.CompanyAdminPreviewReducer.adminPreviewData
+          this.props.CompanyAdminPreviewReducer.adminPreviewData,
+          response.data
         )
       } catch (e) {
         console.log(e)
