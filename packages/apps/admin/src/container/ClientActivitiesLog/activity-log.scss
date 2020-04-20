@@ -1,0 +1,70 @@
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+#appointment-log {
+
+
+    .appointment-badge {
+        float : right;
+        margin: 10px 0;
+
+        &>span {
+            margin-right: 20px;
+            height      : auto;
+            line-height : 40px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            .badge-data{
+                color:$gray-600;
+                font-weight: 500;
+                margin-left:4px;
+            }
+        }
+
+    }
+
+    .badge {
+        width         : 30px;
+        height        : auto;
+        // top        :50%;
+        // left       :50%;
+        // transform  :translate(-50%,-50%);
+        text-align    : center;
+        vertical-align: middle;
+        font-size     : 0.65rem;
+        line-height   : 0.8rem;
+        padding       : 6px 8px;
+        
+        text-transform: uppercase;
+        @include border-radius(4px);
+    }
+
+    .total-amount{
+        background-color:$gray-200;
+        padding:4px 2px;
+        font-weight: 500;
+        color:$gray-800;
+        @include border-radius(4px);
+    }
+
+    .react-datepicker-wrapper {
+        width          : 50%;
+        // padding-left: 4px;
+    }
+
+    @media (max-width: 1199px) {
+        .hide-on-md {
+            display: none;
+        }
+    }
+
+}

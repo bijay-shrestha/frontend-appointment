@@ -54,7 +54,7 @@ export const fetchAdminLogStatistics = (
 ) => async dispatch => {
   dispatch(AdminLoggingSetupActions.logStatsFetchStart())
   try {
-    const response = await axios.put(base_url + path, searchData, {
+    const response = await axios.put(base_url +convertObjectToRequestParam(path,queryParams), searchData, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

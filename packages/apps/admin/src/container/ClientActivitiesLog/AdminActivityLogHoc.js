@@ -257,7 +257,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       })
     }
     async componentDidMount () {
-      
       await this.searchAdminActivityLog('','A')
       await this.searchAdminActivityLog('','B')
       await this.searchHospitalForDropDown()

@@ -9,8 +9,6 @@ import {
 import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
-import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
-import './activity-log.scss'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -19,6 +17,10 @@ const AppointmentRefundDataTable = ({
   const {
     isSearchLoading,
     searchErrorMessage,
+    // previewCall,
+    // previewData,
+    // showModal,
+    // setShowModal,
     logList
   } = tableHandler
   const {
@@ -77,9 +79,11 @@ const AppointmentRefundDataTable = ({
   return (
     <>
       <div className="manage-details">
-      
-        <h5 className="title">Activity Details</h5>
-        
+        <Row>
+          <Col>
+            <h5 className="title">Admin Activity Details</h5>
+          </Col>
+        </Row>
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
           <>
             <CDataTable
@@ -99,24 +103,27 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: '80',
+                  width: '150',
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Log Date',
-                  field: 'logDate',
+                  headerName: 'Log Date & Time',
+                  field: 'logDateTime',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '150'
+                  width: '200',
+                  valueFormatter: function currencyFormatter (params) {
+                    return params.value.toString()
+                  }
                 },
                 {
-                  headerName: 'Log Time',
-                  field: 'logTime',
+                  headerName: 'Username',
+                  field: 'userName',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '200'
+                  width: '140'
                 },
                 {
                   headerName: 'IP Address',
@@ -126,7 +133,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   autoSize: true,
                   autoWidth: true,
-                  width: '150'
+                  width: '300'
                 },
 
                 {
@@ -144,43 +151,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   field: 'actionType',
                   autoSize: true,
-                  width: '100'
-                },
-                {
-                  headerName: 'OS',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'os',
-                  autoSize: true,
-                  width: '60',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }
-                },
-                {
-                  headerName: 'Browsers',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'browsers',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
-                },
-                {
-                  headerName: 'Location',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'location',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
+                  width: '300'
                 },
                 {
                   headerName: 'Status',
@@ -189,23 +160,21 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'childLabelRenderer',
-                  width: '100'
+                  width: '120'
                 },
                 {
                   headerName: 'Log Description',
                   field: 'logDescription',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '220'
+                  sizeColumnsToFit: true
                 }
               ]}
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={logList}
               frameworkComponents={{
-                childLabelRenderer: LoggingStatus,
-                EmailWithMobileNumber:EmailWithMobileNumber
+                childLabelRenderer: LoggingStatus
               }}
             />
             <CPagination
@@ -226,21 +195,11 @@ const AppointmentRefundDataTable = ({
           <CLoading />
         )}
 
-
-        </div>
-
-
-      <Row className="activity-container">
-        
-     <Col md={6}>
-        <div   className="activity-count ">
-      <Row>
-        <Col>
-        <h5 className="title"> Activity Statistics</h5>
-        
-        </Col>
-        </Row>    
-       
+        <Row>
+          <Col>
+            <h5 className="title">Admin Activity Count</h5>
+          </Col>
+        </Row>
         {!isLogStatsSearchSearchLoading &&
         !logStatsSearchErrorMessage &&
         logStatsSearchData.length ? (
@@ -266,7 +225,7 @@ const AppointmentRefundDataTable = ({
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Feature/Menu',
+                  headerName: 'Feature',
                   field: 'feature',
                   resizable: true,
                   sortable: true,
@@ -303,43 +262,23 @@ const AppointmentRefundDataTable = ({
         ) : (
           ''
         )}
-      
-        </div> 
-      
-
-        </Col> 
-
-        <Col md={6} className="pl-0">
-        <div className="activity-log" >
-        <Row>
-        <Col>
-        <h5 className="title"> Activity Statistics Diagram</h5>
-        
-        </Col>
-        </Row>
+        <div>
         {chartData ? (
-          <CDoughnutChart chartData={chartData} width={160} height={100} />
+          <CDoughnutChart chartData={chartData} width={200} height={100} />
         ) : null}
+       </div> 
+      </div>
 
-        <div className="legend-box clearfix">
-          <p>Top Features</p>
-            <ul>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-            </ul>
-          
-
-        </div>
-
-        </div>
-        </Col> 
-     
-
-        </Row>
+      {/* 
+            {showModal ? (
+                <PreviewDetails
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                    logData={previewData}
+                />
+            ) : (
+                ''
+            )} */}
     </>
   )
 }
