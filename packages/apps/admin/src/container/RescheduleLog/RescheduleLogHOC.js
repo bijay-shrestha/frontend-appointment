@@ -16,7 +16,7 @@ const {searchRescheduleLog, clearRescheduleLogMessage} = AppointmentDetailsMiddl
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
-const {fetchPatientMetaList} = PatientDetailsMiddleware;
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware;
 
 const {
     appointmentSetupApiConstant,
@@ -30,7 +30,7 @@ const {FETCH_HOSPITALS_FOR_DROPDOWN} = hospitalSetupApiConstants;
 const {FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN} = doctorSetupApiConstants;
 const {SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = specializationSetupAPIConstants;
 const {SEARCH_APPOINTMENT_RESCHEDULE} = appointmentSetupApiConstant;
-const {ACTIVE_PATIENT_META_INFO_DETAILS} = patientSetupApiConstant;
+const {ALL_PATIENT_META_INFO_HOSPITAL_ID} = patientSetupApiConstant;
 
 const {isFirstDateGreaterThanSecondDate, getDateWithTimeSetToGivenTime} = DateTimeFormatterUtils;
 
@@ -81,7 +81,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         };
 
         fetchPatientMetaInfo = async hospitalId => {
-            await this.props.fetchPatientMetaList(ACTIVE_PATIENT_META_INFO_DETAILS, hospitalId)
+            await this.props.fetchPatientMetaDropdown(ALL_PATIENT_META_INFO_HOSPITAL_ID, hospitalId)
         };
 
         handleEnterPress = event => {
@@ -372,7 +372,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             fetchSpecializationHospitalWiseForDropdown,
             searchRescheduleLog,
             clearRescheduleLogMessage,
-            fetchPatientMetaList
+            fetchPatientMetaDropdown
         }
     )
 };

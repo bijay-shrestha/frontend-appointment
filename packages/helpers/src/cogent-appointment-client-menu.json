@@ -154,26 +154,6 @@
           "menuFor": "1",
           "description": "Qualification Alias Setup",
           "childMenus": []
-        },
-        {
-          "id": "19",
-          "parentId": "1",
-          "name": "University Setup",
-          "path": "/generalSetup/universitySetup",
-          "roles": [
-            10,
-            11,
-            12,
-            13
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "University Setup",
-          "childMenus": []
         }
       ]
     },
