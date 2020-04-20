@@ -60,7 +60,8 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             showEditConfirmationModal: false,
             showDeleteModal: false,
             showPreviewModal: false,
-            isActionComplete: false
+            isActionComplete: false,
+            appointmentModeList: []
         };
 
         alertTimer = '';
@@ -391,6 +392,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         page: updatedPage,
                         size: queryParams.size
                     });
+                let appointmentModeList = this.setIsRowEditableFlag(this.props.AppointmentModeSearchReducer.appointmentModeList);
                 await this.setState({
                     totalRecords: this.props.AppointmentModeSearchReducer.appointmentModeList.length
                         ? this.props.AppointmentModeSearchReducer.appointmentModeList[0].totalItems
@@ -399,11 +401,25 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         ...queryParams,
                         page: updatedPage
                     },
-                })
+                    appointmentModeList: [...appointmentModeList]
+                });
             } catch (e) {
 
             }
 
+        };
+
+        setIsRowEditableFlag = (appointmentModeData) => {
+            return appointmentModeData && appointmentModeData.map(mode => {
+                let isRowEditable = false;
+                if (mode.isEditable) {
+                    isRowEditable = true;
+                }
+                return {
+                    ...mode,
+                    isRowEditable
+                }
+            })
         };
 
         setDefaultValues = (name, description, code, status, isEditable, id) => {
@@ -476,7 +492,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 showPreviewModal,
                 description, isEditable,
                 showSaveConfirmationModal,
-                isActionComplete
+                isActionComplete, appointmentModeList
             } = this.state;
 
             const {
@@ -489,7 +505,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 isFetchAppointmentModeLoading, activeAppointmentModeForDropdown, dropdownErrorMessage
             } = this.props.AppointmentModeDropdownReducer;
 
-            const {appointmentModeList, isSearchAppointmentModeLoading, searchErrorMessage} = this.props.AppointmentModeSearchReducer;
+            const {isSearchAppointmentModeLoading, searchErrorMessage} = this.props.AppointmentModeSearchReducer;
 
             const {editErrorMessage, isEditAppointmentModeLoading} = this.props.AppointmentModeEditReducer;
 

@@ -314,9 +314,10 @@ class CTable extends PureComponent {
             rowValid,
             onSave,
             isLoading,
-            errorMessage
+            errorMessage,
+            onPreview
         } = this.props
-        const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state
+        const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state;
         return (
             <>
                 {onSave ? (
@@ -376,10 +377,24 @@ class CTable extends PureComponent {
                                     {tableData.map((row, rowIndex) => (
                                         <tr
                                             key={'row' + rowIndex}
-                                            className={row.onRowEdit ? 'activeRow' : ''}
-                                        >
+                                            className={row.onRowEdit ? 'activeRow' : ''}>
                                             {columnDefinition.map((column, colIndex) => (
-                                                <td key={column.field + '-' + colIndex}>
+                                                <td
+                                                    key={column.field + '-' + colIndex}
+                                                    onClick={
+                                                        Object.keys(row).includes("isRowEditable")
+                                                            ? row.isRowEditable && onPreview
+                                                            ? (e) => this.handleClick(e, {
+                                                                data: row,
+                                                                rowIndex: rowIndex,
+                                                                columnIndex: colIndex
+                                                            }, 'PREVIEW') : ''
+                                                            : onPreview ? (e) => this.handleClick(e, {
+                                                                data: row,
+                                                                rowIndex: rowIndex,
+                                                                columnIndex: colIndex
+                                                            }, 'PREVIEW') : ''}
+                                                >
                                                     {row.onRowEdit &&
                                                     Object.keys(column).includes('editComponent') ? (
                                                         <column.editComponent
