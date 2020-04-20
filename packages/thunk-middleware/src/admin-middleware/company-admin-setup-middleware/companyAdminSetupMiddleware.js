@@ -26,7 +26,7 @@ export const createCompanyAdmin = (
     )
     dispatch(
       CompanyAdminSetupActions.creatingCompanyAdminSuccess(
-        'Company Created Successfully.'
+        'Company Admin Created Successfully.'
       )
     )
     return response
@@ -61,7 +61,7 @@ export const deleteCompanyAdmin = (path, deleteData) => async dispatch => {
     const response = await Axios.del(path, deleteData)
     dispatch(
       CompanyAdminSetupActions.companyAdminDeleteSuccess(
-        response.data ? response.data : 'Admin deleted successfully.'
+        response.data ? response.data : 'Company Admin deleted successfully.'
       )
     )
     return response
@@ -84,7 +84,7 @@ export const editCompanyAdmin = (
       editData,
       formData
     )
-    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess('Admin Edited Successfully'))
+    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess('Company Admin Edited Successfully'))
     return response
   } catch (e) {
     dispatch(

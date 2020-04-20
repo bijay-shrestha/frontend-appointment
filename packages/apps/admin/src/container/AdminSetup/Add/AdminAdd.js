@@ -1,25 +1,19 @@
 import React, {PureComponent} from 'react'
 import AdminInfoForm from './AdminInfoForm'
-import {
-    AdminSetupUtils,
-    EnterKeyPressUtils,
-    EnvironmentVariableGetter,
-    menuRoles,
-    ProfileSetupUtils
-} from '@frontend-appointment/helpers'
+import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
+    DashboardDetailsMiddleware,
     DepartmentSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
-    previewProfile,
-    DashboardDetailsMiddleware
+    previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
-import {CAlert, CButton, CLoading} from '@frontend-appointment/ui-elements'
+import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
 import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
@@ -350,7 +344,7 @@ class AdminAdd extends PureComponent {
         let baseUrlForEmail = AdminSetupUtils.getBaseUrlForEmail(
             hospitalsForDropdown,
             hospital
-        );
+        )
 
         let adminRequestDTO = {
             email,

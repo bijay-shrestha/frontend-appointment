@@ -6,9 +6,10 @@ import {
   CompanyAdminSetupMiddleware,
   logoutUser,
   resetPassword,
-  DashboardDetailsMiddleware
+  DashboardDetailsMiddleware,
+  savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants,CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   EnterKeyPressUtils,
   AdminSetupUtils,
@@ -67,7 +68,7 @@ const {
   // VERIFY_COMPANY_ADMIN
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
-
+const {ADMIN_FEATURE}=CommonAPIConstants
 const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
   class CompanyAdminSetup extends PureComponent {
     state = {
@@ -140,7 +141,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       profileData: {},
       showProfileDetailModal: false,
       errorMessage: '',
-      updatedModulesAndProfiles: []
+      updatedModulesAndProfiles: [],
+      adminDashBoardRole:[]
     }
 
     timer = ''
@@ -162,6 +164,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           adminDashboardRequestDTOS: [
             ...this.props.DashboardFeaturesReducer.dashboardFeatureData
           ],
+        
           macIdList: [],
           adminAvatar: null,
           adminAvatarUrl: '',
@@ -174,6 +177,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           profileList: [],
           moduleList: []
         },
+        adminDashBoardRole:[...this.props.DashboardFeaturesReducer.dashboardFeatureData],
         adminImage: '',
         adminImageCroppedUrl: '',
         adminFileCropped: '',
@@ -227,7 +231,15 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             searchParameters: {...this.state.searchParameters, [key]: value}
           })
     }
-
+    
+    savePinOrUnpinUserMenu = async () => {
+      await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
+        isSideBarCollapse: !(
+          Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+        )
+      })
+    }
+  
     setUpdatedValuesInState = (key, value, label, fieldValid) =>
       label
         ? value
@@ -293,7 +305,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         showAdminModal: true,
         showAlert: false,
         adminUpdateData: {
-          ...this.state.adminUpdateData,
           id: id,
           company: {...company},
           profile: {...profile},
@@ -371,7 +382,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       )
       if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
         await this.logoutUser()
-        this.props.history.push('/')
+        props.history.push('/')
       }
       return false
     }
@@ -407,9 +418,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
     logoutUser = async () => {
       try {
+        await this.savePinOrUnpinUserMenu()
         let logoutResponse = await this.props.logoutUser('/cogent/logout')
         if (logoutResponse) {
-          this.props.history.push('/')
+          props.history.push('/')
         }
       } catch (e) {}
     }
@@ -624,10 +636,15 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
     }
 
     onEditHandler = async id => {
+      const response = await this.props.fetchDashboardFeaturesByAdmin(
+        DASHBOARD_FEATURE,
+        id
+      )
       try {
         await this.previewApiCall(id)
         await this.prepareDataForEdit(
-          this.props.CompanyAdminPreviewReducer.adminPreviewData
+          this.props.CompanyAdminPreviewReducer.adminPreviewData,
+          response.data
         )
       } catch (e) {
         console.log(e)
@@ -895,7 +912,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    prepareDataForPreview = adminData => {
+    prepareDataForPreview = (adminData,value) => {
       let macIDs = []
       if (adminData) {
         const {
@@ -915,7 +932,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           hasMacBinding,
           fileUri,
           adminMacAddressInfo,
-          remarks
+          remarks,
         } = adminData
 
         if (adminMacAddressInfo && adminMacAddressInfo.length) {
@@ -938,13 +955,42 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           adminAvatar: '',
           remarks: remarks,
           adminAvatarUrl: fileUri,
-          adminAvatarUrlNew: ''
+          adminAvatarUrlNew: '',
+          adminDashboardRequestDTOS:
+          value && value.length
+            ? [...value.map(val => ({...val, status: 'Y'}))]
+            : []
         }
       }
     }
 
-    prepareDataForEdit = async adminData => {
+    prepareDataForDashboardRole = (adminDashBoardRole, dashData) => {
+      let adminDashRole = []
+  
+      adminDashBoardRole &&
+        adminDashBoardRole.length &&
+        adminDashBoardRole.map(adminDash => {
+          let flag = false
+          dashData &&
+            dashData.length &&
+            dashData.map(dash => {
+              if (dash.code === adminDash.code) {
+                flag = true
+              }
+            })
+          if (flag) adminDashRole.push({...adminDash, status: 'Y'})
+          else adminDashRole.push({...adminDash, status: 'N'})
+        })
+      return adminDashRole
+    }
+
+    prepareDataForEdit = async (adminData,dashData) => {
       let adminInfoObj = this.prepareDataForPreview(adminData)
+      const {adminDashBoardRole} = this.state
+      let dashForAdmin = this.prepareDataForDashboardRole(
+        adminDashBoardRole,
+        dashData
+      )
 
       const {
         id,
@@ -960,7 +1006,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         macIdList,
         adminAvatar,
         remarks,
-        adminAvatarUrl
+        adminAvatarUrl,
+        adminDashboardRequestDTOS
       } = adminInfoObj
 
       //await this.fetchDepartmentsByHospitalId(hospital.value)
@@ -969,7 +1016,6 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       await this.setState({
         showEditModal: true,
         adminUpdateData: {
-          ...this.state.adminUpdateData,
           id: id,
           company: company,
           profile: profile,
@@ -993,9 +1039,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             ...this.props.CompanyProfileDropdownReducer
               .activeCompanyProfileListByCompanyIdForDropdown
           ],
-          remarks: ''
+          remarks: '',
+          adminDashboardRequestDTOS:[...dashForAdmin]
         },
         updatedMacIdList: [...macIdList]
+        
       })
       this.checkFormValidity();
     }
@@ -1148,8 +1196,10 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminUpdateData['adminDashboardRequestDTOS'] = this.formDashBoardData(
           response.data
         )
+        let dashList = this.formDashBoardData(response.data);
         await this.setState({
-          adminUpdateData: {...adminUpdateData}
+          adminUpdateData: {...adminUpdateData},
+          adminDashBoardRole:[...dashList]
         })
       } catch (e) {
         console.log(e)
@@ -1217,10 +1267,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         showProfileDetailModal,
         totalRecords
       } = this.state
-      console.log(props)
+      console.log("=======",props)
       return (
         <>
           <ComposedComponent
+            props
             adminCreateForm={{
               adminCreateData: {...adminUpdateData},
               isCreateAdminLoading: {isCreateAdminLoading},
@@ -1366,7 +1417,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
       fetchCompanyProfileListForDropdown,
       resetPassword,
       fetchDashboardFeatures,
-      fetchDashboardFeaturesByAdmin
+      fetchDashboardFeaturesByAdmin,
+      savePinOrUnpinUserMenu
     }
   )
 }

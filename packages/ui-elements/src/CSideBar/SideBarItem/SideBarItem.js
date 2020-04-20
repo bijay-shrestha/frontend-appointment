@@ -12,9 +12,13 @@ class SideBarItem extends PureComponent {
       propsActiveKey =this.props.activeStateKey;
     if (this.props.activeStateKey && this.props.hasTab) {
       propsActiveKey = props.activeStateKey.split('/')
-      propsActiveKey = propsActiveKey.slice(2)
+      let pathToBeAdded='';
+      if(propsActiveKey.includes("admin")||propsActiveKey.includes("client")){
+         propsActiveKey = propsActiveKey.slice(2)
+         pathToBeAdded ='/'
+      }   
       propsActiveKey.pop()
-      propsActiveKey = '/' + propsActiveKey.join('/') + true
+      propsActiveKey = pathToBeAdded + propsActiveKey.join('/') + true
     }
     else{
       propsActiveKey = propsActiveKey.replace("/admin","");
@@ -33,7 +37,6 @@ class SideBarItem extends PureComponent {
   filterAndSetCollapsibleElements = (id, alreadyClickedId, root, forWhich) => {
     let activeId = ''
     activeId = forWhich ? id.replace('nav-item', '') : id + 'true'
-
     if (alreadyClickedId.includes(activeId)) {
       alreadyClickedId = alreadyClickedId.filter(item => item !== activeId)
     } else {

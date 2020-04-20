@@ -69,8 +69,8 @@ class CLayout extends PureComponent {
     };
 
     render() {
-        const {mainViewComponent,hasTab} = this.props
-        const MainViewComponent = mainViewComponent
+        const {MainViewComponent} = this.props
+        console.log("Layout",this.props);
         return (
             <>
                 <div id="wrapper">
@@ -84,6 +84,7 @@ class CLayout extends PureComponent {
                         localFunc={LocalStorageSecurity}
                         activeStateKey={this.props.activeStateKey}
                         hasTab={this.props.hasTab}
+                        // history={{...this.props.layoutProps.history}}
                     />
 
                     {/* Content Wrapper  */}
@@ -95,7 +96,7 @@ class CLayout extends PureComponent {
                         })}
                     >
                         <div id="topbar-wrapper">
-                            <CHeader {...this.props} />
+                            <CHeader {...this.props}/>
                         </div>
 
                         {/*  <div id="breadcrumb">
@@ -106,7 +107,8 @@ class CLayout extends PureComponent {
 
                         {/* Main Content  */}
                         <div id="main-content">
-                            {hasTab ? <MainViewComponent {...this.props}/> : MainViewComponent}
+                            {/* {hasTab ? <MainViewComponent {...this.props}/> : MainViewComponent} */}
+                            <MainViewComponent/>
                             {/*{clonedContentView}*/}
                         </div>
 
