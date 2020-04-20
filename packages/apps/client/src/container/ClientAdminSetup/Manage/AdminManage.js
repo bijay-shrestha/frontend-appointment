@@ -81,8 +81,9 @@ class AdminManage extends PureComponent {
         showEditModal: false,
         deleteModalShow: false,
         showPasswordResetModal: false,
+        isPasswordResetPending: false,
         passwordResetDTO: {
-            username: '',
+            email: '',
             password: '',
             remarks: '',
             id: ''
@@ -685,12 +686,12 @@ class AdminManage extends PureComponent {
         }
     }
 
-    onPasswordReset = async (id, username) => {
+    onPasswordReset = async (id, data) => {
         this.props.clearAdminSuccessErrorMessagesFromStore()
         await this.setState({
             passwordResetDTO: {
                 ...this.state.passwordResetDTO,
-                username: username,
+                email: data.email,
                 id: id
             },
             showPasswordResetModal: true
@@ -699,27 +700,32 @@ class AdminManage extends PureComponent {
 
     resetPassword = async passwordObj => {
         let passwordResetObj = {
-            // username: this.state.passwordResetDTO.username,
             password: passwordObj.password,
             remarks: passwordObj.remarks,
             id: this.state.passwordResetDTO.id
-        }
+        };
+
+        this.setState({
+            isPasswordResetPending: true
+        })
 
         try {
             await this.props.resetPassword(RESET_PASSWORD, passwordResetObj)
             this.setState({
                 alertMessageInfo: {
                     variant: 'success',
-                    message: `Reset password successfully for ${passwordResetObj.username}.`
+                    message: `Reset password successfully for ${passwordResetObj.email}.`
                 },
                 showPasswordResetModal: false,
-                showAlert: true
+                showAlert: true,
+                isPasswordResetPending: false
             })
         } catch (e) {
             this.setState({
                 passwordResetError: e.errorMessage
                     ? e.errorMessage
-                    : `Error resetting password for ${passwordResetObj.username}.`
+                    : `Error resetting password for ${passwordResetObj.email}.`,
+                isPasswordResetPending: false
             })
         }
     }
@@ -1131,7 +1137,8 @@ class AdminManage extends PureComponent {
             passwordResetError,
             showProfileDetailModal,
             profileData,
-            errorMessage
+            errorMessage,
+            isPasswordResetPending
         } = this.state
 
         const {activeProfilesForDropdown} = this.props.ProfileSetupReducer
@@ -1226,6 +1233,7 @@ class AdminManage extends PureComponent {
                         resetPassword={this.resetPassword}
                         passwordResetData={passwordResetDTO}
                         errorMessage={passwordResetError}
+                        isPasswordResetPending={isPasswordResetPending}
                     />
                 )}
                 {showProfileDetailModal && (

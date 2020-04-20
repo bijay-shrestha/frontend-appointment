@@ -8,30 +8,32 @@ const PasswordResetModal = ({
                                 setShowModal,
                                 resetPassword,
                                 errorMessage,
-                                passwordResetData
+                                passwordResetData,
+                                isPasswordResetPending
                             }) => {
 
     let bodyContent = <>
         <Row className="reset-password">
             <Col sm="12">
-            <CForm
-                id="save-password"
-                className="" >
+                <CForm
+                    id="save-password"
+                    className="">
 
-                <CHybridInput
-                    id="username"
-                    name="username"
-                    placeholder="Username"
-                    value={passwordResetData.username}
-                    disabled={true}
-                />
-                <CPasswordSaveForm
-                    onSubmitHandler={(userPasswordObject) =>
-                        resetPassword(userPasswordObject)}
-                    showRemarksField={true}
-                    errorMessage={errorMessage}/>
+                    <CHybridInput
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        value={passwordResetData.email}
+                        disabled={true}
+                    />
+                    <CPasswordSaveForm
+                        onSubmitHandler={(userPasswordObject) =>
+                            resetPassword(userPasswordObject)}
+                        showRemarksField={true}
+                        errorMessage={errorMessage}
+                        isLoading={isPasswordResetPending}/>
 
-            </CForm>
+                </CForm>
             </Col>
         </Row>
     </>;
@@ -57,7 +59,7 @@ const PasswordResetModal = ({
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
-                    // footerChildren={footerChildren}
+                // footerChildren={footerChildren}
                     closeButton={true}
             />
         </>

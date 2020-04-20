@@ -117,13 +117,13 @@ const AdminDetailsDataTable = ({
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
                             cellRendererParams: {
-                                onClick: function (e, id, type, username) {
+                                onClick: function (e, id, type, data) {
                                     type === 'D'
                                         ?
                                         onDeleteHandler(id)
                                         : type === 'E'
                                         ? onEditHandler(id)
-                                        : type === 'R' ? onPasswordReset(id, username)
+                                        : type === 'R' ? onPasswordReset(id, data)
                                             : onPreviewHandler(id)
                                 },
                                 filteredAction: filteredActions

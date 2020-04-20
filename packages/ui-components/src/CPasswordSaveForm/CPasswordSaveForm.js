@@ -154,9 +154,9 @@ class CPasswordSaveForm extends PureComponent {
                     variant="primary"
                     className="btn-action float-right"
                     type="submit"
-                    disbled={this.props.isLoading}
+                    disabled={this.props.isLoading}
                     onClick={this.onSubmitFormHandler}>
-                    {this.props.isLoginPending ?
+                    {this.props.isLoading ?
                         <span className="saving">Saving Password<img
                             src={require("../img/three-dots.svg")}/></span> :
                         "Save Password"
