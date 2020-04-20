@@ -6,8 +6,8 @@ import {CHybridInput, CHybridPassword} from '@frontend-appointment/ui-elements'
 
 class ClientLogin extends PureComponent {
     state = {
-        user: {username: '', password: '', hospitalCode: ''},
-        errorMsg: {username: '', password: '', passwordValid: true, usernameValid: true},
+        user: {email: '', password: '',},
+        errorMsg: {email: '', password: '', passwordValid: true, emailValid: true},
         formStatus: true,
         submitErrorMsg: ''
     };
@@ -21,11 +21,8 @@ class ClientLogin extends PureComponent {
             errorMsg[name] = '';
             if (name === 'password') {
                 errorMsg['passwordValid'] = true;
-            } else if (name === 'username') {
-                errorMsg['usernameValid'] = true;
-            }
-            if (name === 'hospitalCode') {
-                user.hospitalCode = (user.hospitalCode).toUpperCase();
+            } else if (name === 'email') {
+                errorMsg['emailValid'] = true;
             }
             other = false
         }
@@ -45,7 +42,7 @@ class ClientLogin extends PureComponent {
     };
 
     checkFormSubmitIsValid = () => {
-        let errorMsg = {username: '', password: '', passwordValid: true, usernameValid: true};
+        let errorMsg = {email: '', password: '', passwordValid: true, emailValid: true};
         let formStatus = true;
         Object.keys(this.state['user']).map((s, i) => {
             if (!Object.values(this.state['user'])[i]) {
@@ -62,7 +59,7 @@ class ClientLogin extends PureComponent {
                     errorMsg[s.concat('Valid')] = false;
                     formStatus = false
                 } else if (
-                    s === 'username' &&
+                    s === 'email' &&
                     value.includes('@') &&
                     !value.match(patt)
                 ) {
@@ -95,7 +92,7 @@ class ClientLogin extends PureComponent {
     };
 
     render() {
-        const {user, errorMsg} = this.state;
+        const {user, errorMsg, submitErrorMsg} = this.state;
         return (
             <>
                 <div className="header-login">
@@ -109,23 +106,14 @@ class ClientLogin extends PureComponent {
                                         </div>
 
                                         <Form className="login-form">
-
                                             <CHybridInput
-                                                id="hospitalCode"
-                                                name="hospitalCode"
-                                                placeholder="Access Key"
-                                                value={user.hospitalCode}
+                                                id="email"
+                                                name="email"
+                                                placeholder="Email or Mobile Number"
+                                                value={user.email}
                                                 onChange={this.onChangeHandler}
-                                            />
-
-                                            <CHybridInput
-                                                id="username"
-                                                name="username"
-                                                placeholder="Username"
-                                                value={user.username}
-                                                onChange={this.onChangeHandler}
-                                                isInvalid={!errorMsg.usernameValid}
-                                                errorMsg={errorMsg.username}
+                                                isInvalid={!errorMsg.emailValid}
+                                                errorMsg={errorMsg.email}
                                             />
 
                                             <CHybridPassword
@@ -139,23 +127,21 @@ class ClientLogin extends PureComponent {
                                                 avoidDefaultValidation={true}
                                             />
 
-                                            {/*<CHybridInput*/}
-                                            {/*    id="password"*/}
-                                            {/*    placeholder="Password"*/}
-                                            {/*    type="password"*/}
-                                            {/*    name="password"*/}
-                                            {/*    onChange={this.onChangeHandler}*/}
-                                            {/*/>*/}
-                                            <p className="error">{this.state.submitErrorMsg}</p>
-                                            <a href="#/forgotPassword">Forgot Password!</a>
+                                            <p className="error">{submitErrorMsg}</p>
+                                            <a href="#/forgotPassword">Forgot Password</a>
                                             <br></br>
 
                                             <Button
                                                 variant="primary"
                                                 type="submit"
+                                                disabled={this.props.isLoginPending}
                                                 onClick={this.onSubmitFormHandler}
                                             >
-                                                Login
+                                                {this.props.isLoginPending ?
+                                                    <span className="saving">Loging In <img
+                                                        src={require("../img/three-dots.svg")}/></span> :
+                                                    "Login"
+                                                }
                                             </Button>
                                         </Form>
                                     </div>

@@ -228,7 +228,6 @@ const appReducers = combineReducers({
   CompanyAdminSetupReducer,
   CompanyAdminMetaInfoReducer,
   AppointmentDetailReducer,
-  AppointmentRefundDetailReducer,
   UniversitySearchReducer,
   UniversitySaveReducer,
   UniversityEditReducer,

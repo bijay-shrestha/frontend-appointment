@@ -6,8 +6,8 @@ import {CHybridInput, CHybridPassword} from '@frontend-appointment/ui-elements'
 
 class Login2 extends PureComponent {
     state = {
-        user: {username: '', password: ''},
-        errorMsg: {username: '', password: '', passwordValid: true, usernameValid: true},
+        user: {email: '', password: ''},
+        errorMsg: {email: '', password: '', passwordValid: true, emailValid: true},
         formStatus: true,
         submitErrorMsg: ''
     };
@@ -21,8 +21,8 @@ class Login2 extends PureComponent {
             errorMsg[name] = '';
             if (name === 'password') {
                 errorMsg['passwordValid'] = true;
-            } else if (name === 'username') {
-                errorMsg['usernameValid'] = true;
+            } else if (name === 'email') {
+                errorMsg['emailValid'] = true;
             }
             other = false
         }
@@ -42,7 +42,7 @@ class Login2 extends PureComponent {
     };
 
     checkFormSubmitIsValid = () => {
-        let errorMsg = {username: '', password: '', passwordValid: true, usernameValid: true};
+        let errorMsg = {email: '', password: '', passwordValid: true, emailValid: true};
         let formStatus = true;
         Object.keys(this.state['user']).map((s, i) => {
             if (!Object.values(this.state['user'])[i]) {
@@ -59,7 +59,7 @@ class Login2 extends PureComponent {
                     errorMsg[s.concat('Valid')] = false;
                     formStatus = false
                 } else if (
-                    s === 'username' &&
+                    s === 'email' &&
                     value.includes('@') &&
                     !value.match(patt)
                 ) {
@@ -103,19 +103,16 @@ class Login2 extends PureComponent {
                                     <div className="login-wrapper">
                                         <div className="login-header">
                                             <Image src={logo} className="logo-image"/>
-                                            {/* <h2 style={{color: '#444444', textAlign: 'center'}}>
-                        cogentEMR
-                      </h2> */}
                                         </div>
 
                                         <Form className="login-form">
                                             <CHybridInput
-                                                id="username"
-                                                name="username"
-                                                placeholder="Username"
+                                                id="email"
+                                                name="email"
+                                                placeholder="Email or Mobile Number"
                                                 onChange={this.onChangeHandler}
-                                                isInvalid={!errorMsg.usernameValid}
-                                                errorMsg={errorMsg.username}
+                                                isInvalid={!errorMsg.emailValid}
+                                                errorMsg={errorMsg.email}
                                             />
 
                                             <CHybridPassword
@@ -129,23 +126,21 @@ class Login2 extends PureComponent {
                                                 avoidDefaultValidation={true}
                                             />
 
-                                            {/*<CHybridInput*/}
-                                            {/*    id="password"*/}
-                                            {/*    placeholder="Password"*/}
-                                            {/*    type="password"*/}
-                                            {/*    name="password"*/}
-                                            {/*    onChange={this.onChangeHandler}*/}
-                                            {/*/>*/}
                                             <p className="error">{this.state.submitErrorMsg}</p>
-                                            <a href="#/forgotPassword">Forgot Password!</a>
+                                            <a href="#/forgotPassword">Forgot Password</a>
                                             <br></br>
 
                                             <Button
                                                 variant="primary"
                                                 type="submit"
+                                                disabled={this.props.isLoginPending}
                                                 onClick={this.onSubmitFormHandler}
                                             >
-                                                Login
+                                                {this.props.isLoginPending ?
+                                                    <span className="saving">Loging In <img
+                                                        src={require("../img/three-dots.svg")}/></span> :
+                                                    "Login"
+                                                }
                                             </Button>
                                         </Form>
                                     </div>

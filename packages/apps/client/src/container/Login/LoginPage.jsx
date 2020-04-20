@@ -1,8 +1,8 @@
 import {
-  DashboardDetailsMiddleware,
-  fetchLoggedInAdminUserInfo,
-  fetchUserMenus,
-  signinUser
+    DashboardDetailsMiddleware,
+    fetchLoggedInAdminUserInfo,
+    fetchUserMenus,
+    signinUser
 } from '@frontend-appointment/thunk-middleware'
 import {ClientLogin} from '@frontend-appointment/ui-components'
 import React from 'react'
@@ -13,75 +13,90 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {
-  LOGIN_API,
-  GET_SIDEBAR_DATA,
-  GET_LOGGED_IN_ADMIN_INFO_CLIENT
-} = AdminModuleAPIConstants.initialApiConstantsOfAdmin
+    LOGIN_API,
+    GET_SIDEBAR_DATA,
+    GET_LOGGED_IN_ADMIN_INFO_CLIENT
+} = AdminModuleAPIConstants.initialApiConstantsOfAdmin;
 
 class LoginPage extends React.PureComponent {
-  onSubmitHandler = async user => {
-    try {
-      await this.props.signinUser(LOGIN_API, {...user})
-      await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
-        username: user.username,
-        hospitalCode: user.hospitalCode
-      })
-      const userMenus = await this.props.fetchLoggedInAdminUserInfo(
-        GET_LOGGED_IN_ADMIN_INFO_CLIENT,
-        {
-          username: user.username
+
+    state = {
+        isLoginPending: false
+    };
+
+    onSubmitHandler = async user => {
+        await this.handleIsLoginPending(true);
+        try {
+            await this.props.signinUser(LOGIN_API, {...user});
+
+            await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
+                email: user.email
+            });
+
+            const userMenus = await this.props.fetchLoggedInAdminUserInfo(
+                GET_LOGGED_IN_ADMIN_INFO_CLIENT,
+                {
+                    email: user.email
+                }
+            );
+            LocalStorageSecurity.localStorageEncoder(
+                'isOpen',
+                userMenus.isSideBarCollapse === 'Y' ||
+                userMenus.isSideBarCollapse === null ? false : true
+            );
+
+            const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
+                DASHBOARD_FEATURE,
+                userMenus.adminId
+            );
+            LocalStorageSecurity.localStorageEncoder(
+                'adminDashRole',
+                featuresAdmin.data
+            );
+            const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
+            const pathToRedirect = selectedPath
+                ? '' + selectedPath.replace('true', '')
+                : '/dashboard';
+            await this.props.history.push(pathToRedirect);
+            this.handleIsLoginPending(false);
+            return null
+        } catch (e) {
+            // console.log(e)
+            const err = e.errorMessage
+                ? e.errorMessage
+                : 'Sorry Server Could not process data';
+            return err
         }
-      )
-      LocalStorageSecurity.localStorageEncoder(
-        'isOpen',
-        userMenus.isSideBarCollapse === 'Y' ||
-          userMenus.isSideBarCollapse === null
-          ? false
-          : true
-      )
+    };
 
-      const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
-        DASHBOARD_FEATURE,
-        userMenus.adminId
-      )
-      LocalStorageSecurity.localStorageEncoder(
-        'adminDashRole',
-        featuresAdmin.data
-      )
-      const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
-      const pathToRedirect = selectedPath
-        ? '' + selectedPath.replace('true', '')
-        : '/dashboard'
-      await this.props.history.push(pathToRedirect)
-      return null
-    } catch (e) {
-      console.log(e)
-      const err = e.errorMessage
-        ? e.errorMessage
-        : 'Sorry Server Could not process data'
-      return err
+    handleIsLoginPending = async (val) => {
+        await this.setState({
+            isLoginPending: val
+        });
+    };
+
+    componentDidMount() {
+        document.title = 'Cogent-Appointment-Client'
     }
-  }
 
-  componentDidMount () {
-    document.title = 'Cogent-Appointment-Client'
-  }
-
-  render () {
-    return (
-      <ClientLogin {...this.props} onSubmitHandler={this.onSubmitHandler} />
-    )
-  }
+    render() {
+        return (
+            <ClientLogin {...this.props}
+                         onSubmitHandler={this.onSubmitHandler}
+                         isLoginPending={this.state.isLoginPending}
+            />
+        )
+    }
 }
 
 //Mapping the thunkActions to Dispatcher to props
 export default ConnectHoc(
-  LoginPage,
-  ['loginReducers', 'userMenuReducers', 'DashboardFeaturesByAdminReducer'],
-  {
-    fetchUserMenus,
-    signinUser,
-    fetchLoggedInAdminUserInfo,
-    fetchDashboardFeaturesByAdmin
-  }
+    LoginPage,
+    ['loginReducers', 'userMenuReducers', 'DashboardFeaturesByAdminReducer'],
+    {
+        fetchUserMenus,
+        signinUser,
+        fetchLoggedInAdminUserInfo,
+        fetchDashboardFeaturesByAdmin
+    }
 )
