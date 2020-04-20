@@ -20,10 +20,10 @@ const PasswordResetModal = ({
                     className="">
 
                     <CHybridInput
-                        id="username"
-                        name="username"
-                        placeholder="Username"
-                        value={passwordResetData.username}
+                        id="email"
+                        name="email"
+                        placeholder="Email"
+                        value={passwordResetData.email}
                         disabled={true}
                     />
                     <CPasswordSaveForm
