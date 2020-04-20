@@ -356,7 +356,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 description,
                 code: code,
                 status: status && status.value,
-                isEditable
+                isEditable: isEditable ? 'Y' : 'N'
             };
             try {
                 const response = await this.props.saveAppointmentMode(SAVE_APPOINTMENT_MODE, requestDTO);
@@ -412,7 +412,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
         setIsRowEditableFlag = (appointmentModeData) => {
             return appointmentModeData && appointmentModeData.map(mode => {
                 let isRowEditable = false;
-                if (mode.isEditable) {
+                if (mode.isEditable === 'Y') {
                     isRowEditable = true;
                 }
                 return {

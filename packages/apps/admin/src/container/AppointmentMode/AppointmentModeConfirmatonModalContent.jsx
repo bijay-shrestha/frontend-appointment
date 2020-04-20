@@ -38,7 +38,7 @@ const AppointmentModeConfirmationModalContent = ({
                         onLabel={"Yes"}
                         offLabel={"No"}
                         checked={modalData.isEditable === 'Y'}
-
+                        onChangeHandler={onChangeHandler}
                     />
                 </>
                 : ''
