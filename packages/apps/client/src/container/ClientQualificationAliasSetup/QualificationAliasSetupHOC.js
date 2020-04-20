@@ -54,7 +54,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             actionType: '',
             showEditRemarksModal: false,
             showDeleteModal: false,
-
+            isActionComplete: false
         };
 
         defaultAliasValueForEdit = {
@@ -66,6 +66,13 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         };
 
         alertTimer = '';
+
+        changeActionComplete = () => {
+            this.setState({
+                isActionComplete: false
+            })
+        };
+
 
         handleEnter = (event) => {
             EnterKeyPressUtils.handleEnter(event);
@@ -219,13 +226,14 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.defaultAliasValueForEdit.isNew = true;
 
             this.setState({
-                aliasData: {...currentAliasData}
+                aliasData: {...currentAliasData},
+                isActionComplete: true
             })
         };
 
         actionsOnOperationComplete = () => {
             this.resetAliasData();
-            this.searchQualificationAlias();
+            this.handleResetSearchForm();
         };
 
         searchQualificationAlias = async (page) => {
@@ -314,9 +322,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showEditRemarksModal: false,
                 showDeleteModal: false,
-                aliasData:{
+                aliasData: {
                     ...this.state.aliasData,
-                    remarks:''
+                    remarks: ''
                 }
             });
             this.props.clearSuccessErrorMessageFormStore();
@@ -383,6 +391,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 showEditRemarksModal,
                 formValid,
                 showDeleteModal,
+                isActionComplete
             } = this.state;
 
             const {activeQualificationAliasForDropdown, dropdownErrorMessage} = this.props.QualificationAliasDropdownReducer;
@@ -416,6 +425,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         handleDelete: this.handleDelete,
                         handleDeleteSubmit: this.deleteQualificationAlias,
                         formValid,
+                        isActionComplete,
+                        changeActionComplete: this.changeActionComplete
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,

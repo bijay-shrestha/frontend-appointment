@@ -22,7 +22,9 @@ const AppointmentModeDataTable = ({tableData, filteredAction}) => {
         handleUpdate,
         handleDelete,
         handlePreview,
-        formValid
+        formValid,
+        isActionComplete,
+        changeActionComplete
     } = tableData;
     return (
         <>
@@ -56,36 +58,6 @@ const AppointmentModeDataTable = ({tableData, filteredAction}) => {
                                     defaultValue={appointmentModeData.code}
                                 />
                             )
-                        },
-                        {
-                            headerName: 'Description',
-                            field: 'description',
-                            editComponent: prop => (
-                                <CFControl
-                                    id="description"
-                                    name="code"
-                                    type="text"
-                                    as="textarea"
-                                    reference={prop.reff}
-                                    defaultValue={appointmentModeData.code}
-                                />
-                            )
-                        },
-                        {
-                            headerName: 'Is Editable',
-                            field: 'isEditable',
-                            editComponent: prop => (
-                                <CToggle
-                                    id="sEditable"
-                                    name="isEditable"
-                                    type="text"
-                                    onLabel={"Yes"}
-                                    offLabel={"No"}
-                                    defaultChecked={appointmentModeData.isEditable === 'Y'}
-                                    reference={prop.reff}
-                                />
-                            ),
-                            displayComponent: prop => <IsEditableRenderer {...prop} />
                         },
                         {
                             headerName: 'Status',
@@ -130,6 +102,8 @@ const AppointmentModeDataTable = ({tableData, filteredAction}) => {
                     onPreview={checkIfRoleExists(filteredAction, 12) ? handlePreview : ''}
                     isLoading={isSearchAppointmentModeLoading}
                     errorMessage={searchErrorMessage}
+                    isActionComplete={isActionComplete}
+                    changeActionComplete={changeActionComplete}
                 />
                 {!isSearchAppointmentModeLoading &&
                 !searchErrorMessage &&

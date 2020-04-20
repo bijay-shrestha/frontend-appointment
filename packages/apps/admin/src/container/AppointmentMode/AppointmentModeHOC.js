@@ -3,11 +3,12 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {AppointmentModeMiddleware} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
-import {CAlert} from "@frontend-appointment/ui-elements";
+import {CAlert, CModal} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 import AppointmentModeDetails from "./AppointmentModeDetails";
 import "./appointment-mode.scss"
+import AppointmentModeConfirmationModalContent from "./AppointmentModeConfirmatonModalContent";
 
 const {
     clearSuccessErrorMessageFormStore,
@@ -55,9 +56,11 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 variant: "",
                 message: ""
             },
-            showEditRemarksModal: false,
+            showSaveConfirmationModal: false,
+            showEditConfirmationModal: false,
             showDeleteModal: false,
-            showPreviewModal: false
+            showPreviewModal: false,
+            isActionComplete: false
         };
 
         alertTimer = '';
@@ -75,7 +78,8 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
 
         actionsOnOperationComplete = () => {
             this.resetAppointmentModeData();
-            this.searchAppointmentModes();
+            this.handleResetSearchForm();
+            // this.searchAppointmentModes();
         };
 
         clearAlertTimeout = () => {
@@ -90,10 +94,19 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
 
         closeModal = () => {
             this.setState({
-                showEditRemarksModal: false,
+                showEditConfirmationModal: false,
                 showDeleteModal: false,
                 showPreviewModal: false,
-                remarks: ''
+                remarks: '',
+            });
+            this.props.clearSuccessErrorMessageFormStore();
+        };
+
+        closeSaveModal = () => {
+            this.setState({
+                showSaveConfirmationModal: false,
+                description: '',
+                isEditable: 'Y'
             });
             this.props.clearSuccessErrorMessageFormStore();
         };
@@ -216,32 +229,56 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
         };
 
         handleEdit = async (editData) => {
-            let status = {
-                value: editData.status,
-                label: editData.status === 'Y' ? 'Active' : 'Inactive'
-            };
-            this.setDefaultValues(editData.name, editData.description, editData.code, status, editData.isEditable, editData.id)
+            this.defaultAppointmentModeData.name = editData.name;
+            this.defaultAppointmentModeData.description = editData.address;
+            this.defaultAppointmentModeData.code = editData.code;
+            try {
+                await this.previewApiCall(editData);
+                const {name, description, code, isEditable, id, status} = this.props.AppointmentModePreviewReducer.appointmentModeDetails;
+                let statusObj = {
+                    value: status,
+                    label: status === 'Y' ? 'Active' : 'Inactive'
+                };
+                this.setDefaultValues(name, description, code, statusObj, isEditable, id);
+            } catch (e) {
+                this.showAlertMessage("danger", this.AppointmentModePreviewReducer.previewAppointmentModeErrorMessage);
+            }
+
         };
 
-        handleOpenEditRemarksModal = (updateData) => {
-            const {id, name, description, code, status, isEditable} = updateData.data;
+        handleSave = async (saveData) => {
+            const {name, description, code, status, isEditable} = saveData.data;
+            this.setDefaultValues(name, description, code, status, isEditable, '');
+            if (!name || !status || !code) {
+                this.validateAppointmentModeData(name, description, code, status, isEditable, '');
+            } else {
+                this.setState({
+                    showSaveConfirmationModal: true,
+                    name: name,
+                    code: code,
+                    status: status,
+                })
+            }
+        };
 
+        handleOpenEditConfirmationModal = (updateData) => {
+            const {id, name, code, status, isEditable} = updateData.data;
             // UPDATE THE DEFAULT VALUES WITH CURRENTLY UPDATED DATA.....
             // WILL BE USED IN CASE REMARKS MODAL IS CLOSED
-            this.setDefaultValues(name, description, code, status, isEditable, id);
+            this.setDefaultValues(name, this.defaultAppointmentModeData.description, code, status, isEditable, id);
 
-            if (!name || !status || !description || !code) {
-                this.validateAppointmentModeData(name, address, countryName, status);
+            if (!name || !status || !code) {
+                this.validateAppointmentModeData(name, code, status, isEditable, id);
             } else {
                 // IF ALL DATA IS VALID, SAVE THEM IN STATE FOR UPDATE AND OTHER PURPOSES
                 this.setState({
-                    showEditRemarksModal: true,
+                    showEditConfirmationModal: true,
                     id: id,
                     name: name,
-                    description: description,
+                    description: this.defaultAppointmentModeData.description,
                     code: code,
                     status: status,
-                    isEditable: isEditable
+                    isEditable: isEditable,
                 })
             }
         };
@@ -255,13 +292,17 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
 
         handlePreview = async (previewData) => {
             try {
-                await this.props.fetchAppointmentModeDetailsByAppointmentModeId(FETCH_APPOINTMENT_MODE_DETAILS_BY_ID, previewData.id);
+                await this.previewApiCall(previewData);
                 this.setState({
                     showPreviewModal: true
                 })
             } catch (e) {
-                this.showAlertMessage("danger", this.AppointmentModePreviewReducer.previewAppointmentModeErrorMessage);
+                this.showAlertMessage("danger", this.props.AppointmentModePreviewReducer.previewAppointmentModeErrorMessage);
             }
+        };
+
+        previewApiCall = async (previewData) => {
+            await this.props.fetchAppointmentModeDetailsByAppointmentModeId(FETCH_APPOINTMENT_MODE_DETAILS_BY_ID, previewData.id);
         };
 
         initialApiCalls = async () => {
@@ -287,34 +328,42 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 status: "Y",
                 isEditable: "Y",
                 remarks: "",
+                isActionComplete: true
             })
         };
 
-        saveAppointmentModeSetup = async (saveData) => {
-            const {name, description, code, status, isEditable} = saveData.data;
+        changeActionComplete = () => {
+            this.setState({
+                isActionComplete: false
+            })
+        };
+
+        saveAppointmentModeSetup = async () => {
+            const {name, description, code, status, isEditable} = this.state;
 
             this.setDefaultValues(name, description, code, status, isEditable, '');
-
-            if (!name || !status || !description || !code) {
-                this.validateAppointmentModeData(name, description, code, status);
-            } else {
-                let requestDTO = {
-                    name,
-                    description,
-                    code: code,
-                    status: status && status.value,
-                    isEditable
-                };
-                try {
-                    const response = await this.props.saveAppointmentMode(SAVE_APPOINTMENT_MODE, requestDTO);
-                    this.showAlertMessage("success", this.props.AppointmentModeSaveReducer.saveSuccessMessage);
-                    this.actionsOnOperationComplete();
-                    return true;
-                } catch (e) {
-                    this.showAlertMessage("danger", this.props.AppointmentModeSaveReducer.saveErrorMessage);
-                    return false;
-                }
+            // if (!name || !status || !code) {
+            //     this.validateAppointmentModeData(name, code, status);
+            // } else {
+            let requestDTO = {
+                name,
+                description,
+                code: code,
+                status: status && status.value,
+                isEditable
+            };
+            try {
+                const response = await this.props.saveAppointmentMode(SAVE_APPOINTMENT_MODE, requestDTO);
+                this.showAlertMessage("success", this.props.AppointmentModeSaveReducer.saveSuccessMessage);
+                this.closeSaveModal();
+                this.actionsOnOperationComplete();
+                return true;
+            } catch (e) {
+                this.showAlertMessage("danger", this.props.AppointmentModeSaveReducer.saveErrorMessage);
+                this.closeSaveModal();
+                return false;
             }
+            // }
         };
 
         searchAppointmentModes = async (page) => {
@@ -352,10 +401,10 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
 
         };
 
-        setDefaultValues = (name, address, countryName, status, isEditable, id) => {
+        setDefaultValues = (name, description, code, status, isEditable, id) => {
             this.defaultAppointmentModeData.name = name;
-            this.defaultAppointmentModeData.description = address;
-            this.defaultAppointmentModeData.code = countryName;
+            this.defaultAppointmentModeData.description = description;
+            this.defaultAppointmentModeData.code = code;
             this.defaultAppointmentModeData.status = status;
             this.defaultAppointmentModeData.isEditable = isEditable;
             this.defaultAppointmentModeData.id = id;
@@ -372,15 +421,13 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             this.clearAlertTimeout();
         };
 
-        validateAppointmentModeData = (name, description, code, status) => {
-            if (!name && !description && !code && !status)
-                this.showAlertMessage("warning", "Name, Description, Code and Status must be not empty.");
-            else if (!name && !description && !code)
-                this.showAlertMessage("warning", "Name, Description and Code should not  be empty.");
+        validateAppointmentModeData = (name, code, status) => {
+            if (!name && !code && !status)
+                this.showAlertMessage("warning", "Name, Code and Status must be not empty.");
+            else if (!name && !code)
+                this.showAlertMessage("warning", "Name and Code should not  be empty.");
             else if (!name)
                 this.showAlertMessage("warning", "Name should not  be empty.");
-            else if (!description)
-                this.showAlertMessage("warning", "Description should not  be empty.");
             else if (!code)
                 this.showAlertMessage("warning", "Code should not  be empty.");
             else if (!status)
@@ -402,9 +449,18 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 searchParameters, queryParams, totalRecords,
                 formValid,
                 alertMessageInfo, showAlert,
-                showEditRemarksModal, remarks, showDeleteModal,
-                showPreviewModal
+                showEditConfirmationModal, remarks, showDeleteModal,
+                showPreviewModal,
+                description, isEditable,
+                showSaveConfirmationModal,
+                isActionComplete
             } = this.state;
+
+            const {
+                isSaveAppointmentModeLoading,
+                saveSuccessMessage,
+                saveErrorMessage
+            } = this.props.AppointmentModeSaveReducer;
 
             const {
                 isFetchAppointmentModeLoading, activeAppointmentModeForDropdown, dropdownErrorMessage
@@ -419,7 +475,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             const {
                 isPreviewAppointmentModeLoading,
                 previewAppointmentModeErrorMessage,
-                universityDetails
+                appointmentModeDetails
             } = this.props.AppointmentModePreviewReducer;
 
             return <>
@@ -446,12 +502,14 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                             handlePageChange: this.handlePageChange,
                             appointmentModeData: this.defaultAppointmentModeData,
                             formValid: formValid,
-                            handleSave: this.saveAppointmentModeSetup,
+                            handleSave: this.handleSave,
                             handleCancel: this.handleCancel,
                             handleEdit: this.handleEdit,
-                            handleUpdate: this.handleOpenEditRemarksModal,
+                            handleUpdate: this.handleOpenEditConfirmationModal,
                             handleDelete: this.handleDelete,
-                            handlePreview: this.handlePreview
+                            handlePreview: this.handlePreview,
+                            changeActionComplete:this.changeActionComplete,
+                            isActionComplete
                         }}
                     />
                     <CAlert
@@ -464,18 +522,57 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         </>}
                         message={alertMessageInfo.message}
                     />
-                    {showEditRemarksModal ?
-                        <CRemarksModal
-                            confirmationMessage="Provide remarks for edit."
-                            modalHeader="Edit Appointment Mode"
-                            showModal={showEditRemarksModal}
-                            onCancel={this.closeModal}
-                            onRemarksChangeHandler={this.handleInputChange}
-                            remarks={remarks}
-                            onPrimaryAction={this.editAppointmentModeSetup}
-                            primaryActionName={isEditAppointmentModeLoading ? "Confirming" : "Confirm"}
-                            actionDisabled={isEditAppointmentModeLoading}
-                            errorMessage={editErrorMessage}
+
+                    {showSaveConfirmationModal ?
+                        <CModal
+                            show={showSaveConfirmationModal}
+                            modalHeading={"Save Appointment Mode"}
+                            size="lg"
+                            bodyChildren={
+                                <AppointmentModeConfirmationModalContent
+                                    errorMessage={""}
+                                    onChangeHandler={this.handleInputChange}
+                                    actionDisabled={isSaveAppointmentModeLoading || (!description && !remarks)}
+                                    onPrimaryAction={this.saveAppointmentModeSetup}
+                                    primaryActionName={"Confirm"}
+                                    onCancel={this.closeSaveModal}
+                                    confirmationMessage={"Provide Description and select if Appointment mode is editable."}
+                                    modalActionType={"SAVE"}
+                                    modalData={{
+                                        description,
+                                        isEditable
+                                    }}
+                                    isPrimaryActionLoading={isSaveAppointmentModeLoading}
+                                />}
+                            onHide={this.closeSaveModal}
+                            dialogClassName="cogent-modal"
+                        />
+                        : ''
+                    }
+
+                    {showEditConfirmationModal ?
+                        <CModal
+                            show={showEditConfirmationModal}
+                            modalHeading={"Edit Appointment Mode"}
+                            size="lg"
+                            bodyChildren={
+                                <AppointmentModeConfirmationModalContent
+                                    errorMessage={editErrorMessage}
+                                    onChangeHandler={this.handleInputChange}
+                                    actionDisabled={isEditAppointmentModeLoading || (!description && !remarks)}
+                                    onPrimaryAction={this.editAppointmentModeSetup}
+                                    primaryActionName={"Confirm"}
+                                    onCancel={this.closeModal}
+                                    confirmationMessage={"Provide Remarks and change description(if necessary)."}
+                                    modalActionType={"EDIT"}
+                                    modalData={{
+                                        remarks,
+                                        description
+                                    }}
+                                    isPrimaryActionLoading={isEditAppointmentModeLoading}
+                                />}
+                            onHide={this.closeModal}
+                            dialogClassName="cogent-modal"
                         />
                         : ''
                     }
@@ -497,7 +594,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         <AppointmentModeDetails
                             showPreviewModal={showPreviewModal}
                             closeModal={this.closeModal}
-                            universityData={universityDetails}
+                            appointmentModeData={appointmentModeDetails}
                         /> : ''}
                 </>
             </>

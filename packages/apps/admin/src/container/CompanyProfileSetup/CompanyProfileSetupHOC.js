@@ -174,7 +174,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             };
 
             setDataForProfileUpdate = async (profileData, profileId) => {
-                const {adminInfo, loggedInAdminMenus} = this.state;
+                const {adminInfo, minifiedLoggedInAdminUserMenus} = this.state;
                 let menusSelected = [], menusAssignedAndAllowedToChange = [], menusAssignedToProfileButNotToBeChanged = [];
                 const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
                 profileMenuResponseDTOS &&
@@ -188,7 +188,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     });
                 } else {
                     menusSelected.map(menuSelected => {
-                        let menuAssignedToAdmin = loggedInAdminMenus.find(adminMenu =>
+                        let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(adminMenu =>
                             Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
                             && Number(adminMenu.roleId) === Number(menuSelected.roleId));
                         if (menuAssignedToAdmin) {
