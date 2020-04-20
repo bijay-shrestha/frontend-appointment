@@ -308,7 +308,7 @@ class ProfileManage extends PureComponent {
     logoutUser = async () => {
         await this.savePinOrUnpinUserMenu()
         try {
-            this.props.logoutUser('/cogent/logout');
+            let logoutResponse = this.props.logoutUser('/cogent/logout');
             if (logoutResponse) {
                 this.props.history.push('/');
             }

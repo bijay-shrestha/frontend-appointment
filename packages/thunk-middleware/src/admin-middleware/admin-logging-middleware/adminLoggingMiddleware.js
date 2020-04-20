@@ -41,7 +41,7 @@ export const fetchAdminLog = (
       : 'Network Error'
     dispatch(
       AdminLoggingSetupActions.logFetchError(
-        e.response.data.errorMessage || 'Something Wrong In Server!!'
+        error || 'Something Wrong In Server!!'
       )
     )
   }
@@ -74,7 +74,7 @@ export const fetchAdminLogStatistics = (path, searchData) => async dispatch => {
       : 'Network Error'
     dispatch(
       AdminLoggingSetupActions.logStatsFetchError(
-        e.response.data.errorMessage || 'Something Wrong In Server!!'
+        error || 'Something Wrong In Server!!'
       )
     )
   }

@@ -75,11 +75,8 @@ class StartupApiHoc extends PureComponent {
   }
   render () {
     const {fetch, loading} = this.state
-    const {ComposedComponent, otherProps, layoutProps} = this.props
+    const {ComposedComponent, otherProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
-    console.log('Other Props', otherProps)
-    console.log('Layout Props', layoutProps)
-    console.log('this.props', this.props)
     return this.getUserMenusFromLocalStorage().length ? (
       <ComposedComponent
         {...otherProps}
@@ -99,7 +96,6 @@ class StartupApiHoc extends PureComponent {
                 component,
                 this.getUserMenusFromLocalStorage(),
                 activeStateKey,
-
                 this.props
               )
             : NoRoleTabComponentHOC(
@@ -114,14 +110,12 @@ class StartupApiHoc extends PureComponent {
       <ComposedComponent
         {...otherProps}
         history={this.props.history}
-        layoutProps={{...layoutProps}}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CUnauthorized}
       />
     ) : (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
         history={this.props.history}
         userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CLoading}

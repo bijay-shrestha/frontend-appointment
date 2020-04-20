@@ -60,8 +60,8 @@ class StartupApiHoc extends PureComponent {
         )
       }
     } catch (e) {
-      if (!this.getUserMenusFromLocalStorage().length)
-        this.setState({fetch: false, loading: false})
+      let userMenus = this.getUserMenusFromLocalStorage()
+      if (!userMenus.length) this.setState({fetch: false, loading: false})
     }
   }
 
@@ -75,40 +75,49 @@ class StartupApiHoc extends PureComponent {
   }
   render () {
     const {fetch, loading} = this.state
-    const {ComposedComponent, otherProps, layoutProps} = this.props
+    const {ComposedComponent, otherProps} = this.props
     const {component, activeStateKey, hasTab, isSingleTab} = otherProps
-    let userMenus = this.getUserMenusFromLocalStorage()
-    return userMenus.length ? (
+    return this.getUserMenusFromLocalStorage().length ? (
       <ComposedComponent
         {...otherProps}
-        layoutProps={...layoutProps}
-        userMenus={userMenus}
+        history={this.props.history}
+        {...this.props}
+        userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={
           hasTab
-            ? ComponentHoc(component, userMenus, activeStateKey, {
-                ...layoutProps
-              })
+            ? ComponentHoc(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                this.props
+              )
             : isSingleTab
-            ? SingleTabComponentHOC(component, userMenus, activeStateKey, {
-                ...layoutProps
-              })
-            : NoRoleTabComponentHOC(component, userMenus, activeStateKey, {
-                ...layoutProps
-              })
+            ? SingleTabComponentHOC(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                this.props
+              )
+            : NoRoleTabComponentHOC(
+                component,
+                this.getUserMenusFromLocalStorage(),
+                activeStateKey,
+                this.props
+              )
         }
       />
     ) : !loading && !fetch ? (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
-        userMenus={userMenus}
+        history={this.props.history}
+        userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CUnauthorized}
       />
     ) : (
       <ComposedComponent
         {...otherProps}
-        {...layoutProps}
-        userMenus={userMenus}
+        history={this.props.history}
+        userMenus={this.getUserMenusFromLocalStorage()}
         MainViewComponent={CLoading}
       />
     )

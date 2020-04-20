@@ -69,7 +69,7 @@ class CLayout extends PureComponent {
     };
 
     render() {
-        const {MainViewComponent,hasTab,layoutProps} = this.props
+        const {MainViewComponent} = this.props
         console.log("Layout",this.props);
         return (
             <>
@@ -96,7 +96,7 @@ class CLayout extends PureComponent {
                         })}
                     >
                         <div id="topbar-wrapper">
-                            <CHeader {...this.props} {...layoutProps}/>
+                            <CHeader {...this.props}/>
                         </div>
 
                         {/*  <div id="breadcrumb">
