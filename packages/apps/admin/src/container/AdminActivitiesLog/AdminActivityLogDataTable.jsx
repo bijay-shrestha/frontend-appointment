@@ -10,6 +10,7 @@ import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
+import './activity-log.scss'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -80,11 +81,9 @@ const AppointmentRefundDataTable = ({
   return (
     <>
       <div className="manage-details">
-        <Row>
-          <Col>
-            <h5 className="title">Admin Activity Details</h5>
-          </Col>
-        </Row>
+      
+        <h5 className="title">Activity Details</h5>
+        
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
           <>
             <CDataTable
@@ -121,15 +120,7 @@ const AppointmentRefundDataTable = ({
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '100'
-                },
-                {
-                  headerName: 'Email/Mobile',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '250',
-                  cellRenderer:'EmailWithMobileNumber'
+                  width: '200'
                 },
                 {
                   headerName: 'IP Address',
@@ -139,7 +130,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   autoSize: true,
                   autoWidth: true,
-                  width: '150'
+                  width: '200'
                 },
 
                 {
@@ -209,7 +200,8 @@ const AppointmentRefundDataTable = ({
                   field: 'logDescription',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width: '220'
                 }
               ]}
               defaultColDef={{resizable: true}}
@@ -238,11 +230,21 @@ const AppointmentRefundDataTable = ({
           <CLoading />
         )}
 
-        <Row>
-          <Col>
-            <h5 className="title">Admin Activity Count</h5>
-          </Col>
-        </Row>
+
+        </div>
+
+
+      <Row className="activity-container">
+        
+     <Col md={6}>
+        <div   className="activity-count ">
+      <Row>
+        <Col>
+        <h5 className="title"> Activity Statistics</h5>
+        
+        </Col>
+        </Row>    
+       
         {!isLogStatsSearchSearchLoading &&
         !logStatsSearchErrorMessage &&
         logStatsSearchData.length ? (
@@ -305,23 +307,29 @@ const AppointmentRefundDataTable = ({
         ) : (
           ''
         )}
-        <div>
-        {chartData ? (
-          <CDoughnutChart chartData={chartData} width={200} height={100} />
-        ) : null}
-       </div> 
-      </div>
+      
+        </div> 
+      
 
-      {/* 
-            {showModal ? (
-                <PreviewDetails
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    logData={previewData}
-                />
-            ) : (
-                ''
-            )} */}
+        </Col> 
+
+        <Col md={6} className="pl-0">
+        <div className="activity-log" >
+        <Row>
+        <Col>
+        <h5 className="title"> Activity Statistics Diagram</h5>
+        
+        </Col>
+        </Row>
+        {chartData ? (
+          <CDoughnutChart chartData={chartData} width={120} height={100} />
+        ) : null}
+
+        </div>
+        </Col> 
+     
+
+        </Row>
     </>
   )
 }

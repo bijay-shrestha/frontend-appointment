@@ -7,8 +7,8 @@
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
-#appointment-log {
-
+#admin-acitivity-log {
+   
 
     .appointment-badge {
         float : right;
@@ -33,7 +33,7 @@
     }
 
     .badge {
-        width         : 30px;
+        width         : auto;
         height        : auto;
         // top        :50%;
         // left       :50%;
@@ -60,6 +60,41 @@
         width          : 50%;
         // padding-left: 4px;
     }
+
+    .activity-container{
+        // padding: 15px;
+        //  margin: 1rem 15px;
+        border-radius: 0.5rem;
+        margin-bottom:15px;
+      
+    }
+
+    .activity-count{
+        padding: 10px;
+        background-color:$white;
+        height: 100%;
+        @include border-radius(0.5rem);
+        
+        .title{
+            margin-top:20px;
+            margin-left:20px
+        }
+    }
+
+    .activity-log{
+        padding: 10px;
+        background-color:$white;
+        height: 100%;
+        @include border-radius(0.5rem);
+
+        .title{
+            margin-top:20px;
+            margin-left:20px;
+        }
+    
+    }
+
+    
 
     @media (max-width: 1199px) {
         .hide-on-md {
