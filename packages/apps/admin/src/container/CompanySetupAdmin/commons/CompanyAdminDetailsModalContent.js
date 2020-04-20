@@ -70,18 +70,6 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         />
                                     </Col>
 
-                                    {
-                                        adminInfoObj.username ?
-                                            <Col sm={12} md={12} lg={6}>
-                                                <CHybridInput
-                                                    id="admin-username"
-                                                    name="username"
-                                                    placeholder="Username"
-                                                    value={adminInfoObj.username}
-                                                    disabled={true}
-                                                />
-                                            </Col> : ''}
-
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridInput
                                             id="admin-email"

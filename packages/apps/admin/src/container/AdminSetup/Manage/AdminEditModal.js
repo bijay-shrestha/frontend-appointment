@@ -39,10 +39,10 @@ const AdminEditModal = ({
                 <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!adminUpdateData.formValid||isAdminEditLoading}
-                        isAdminEditLoading={isAdminEditLoading}
+                        disabled={!adminUpdateData.formValid || isAdminEditLoading}
                         name="Update"
                         size="lg"
+                        isLoading={isAdminEditLoading}
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
@@ -51,6 +51,7 @@ const AdminEditModal = ({
                              variant="light"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
+                             disabled={isAdminEditLoading}
                              onClickHandler={setShowModal}
                     />
                 </div>
@@ -91,7 +92,7 @@ const AdminEditModal = ({
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
-                    footerChildren={isAdminEditLoading ? '' : footerChildren}
+                    footerChildren={footerChildren}
                     closeButton={true}
             />
         </>

@@ -12,15 +12,16 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
             onHide={setShowModal}
             centered={false}
             dialogClassName="preview-modal"
-            footerChildren={<CButton
-                id="adminConfirm"
-                variant="primary"
-                size="xl"
-                name="Confirm"
-                isLoading={isCreateAdminLoading}
-                disabled={isCreateAdminLoading}
-                className="float-right btn-action"
-                onClickHandler={onConfirmClick}/>}
+            footerChildren={
+                <CButton
+                    id="adminConfirm"
+                    variant="primary"
+                    size="xl"
+                    name="Confirm"
+                    disabled={isCreateAdminLoading}
+                    isLoading={isCreateAdminLoading}
+                    className="float-right btn-action"
+                    onClickHandler={onConfirmClick}/>}
             closeButton={true}
         />
     </>;

@@ -20,13 +20,13 @@ const CButton = props => {
         bsPrefix,
         isLoading
     } = props;
-   const checkAndRenameNameForLoading = ()=> {
-        const vowels =['a','e','i','o','u']
+    const checkAndRenameNameForLoading = () => {
+        const vowels = ['a', 'e', 'i', 'o', 'u']
         const splitName = name.split('')
-        if(vowels.includes(splitName[name.length-1])){
-            return name.slice(0,name.length-1)+"ing" 
-        }else{
-            return name+"ing"
+        if (vowels.includes(splitName[name.length - 1])) {
+            return name.slice(0, name.length - 1) + "ing"
+        } else {
+            return name + "ing"
         }
     }
     return (
@@ -45,7 +45,8 @@ const CButton = props => {
                 block={block}
                 bsPrefix={bsPrefix}
             >
-                {isLoading ? checkAndRenameNameForLoading() : name}
+                {isLoading ? <span className="saving">{checkAndRenameNameForLoading()} <img
+                    src={require("./three-dots.svg")}/></span> : name}
                 {children}
             </Button>
         </>

@@ -75,25 +75,10 @@ const AdminDetailsDataTable = ({
                         {
                             headerName: 'Name',
                             field: 'fullName',
-                            // headerClass: "fi",
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                        {
-                            headerName: 'Username',
-                            field: 'username',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-                        // {
-                        //     headerName: 'Email',
-                        //     field: 'email',
-                        //     resizable: true,
-                        //     sortable: true,
-                        //     sizeColumnsToFit: true,
-                        // },
                         {
                             headerName: 'Mobile No',
                             field: 'mobileNumber',

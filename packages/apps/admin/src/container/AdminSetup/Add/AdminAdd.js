@@ -581,8 +581,8 @@ class AdminAdd extends PureComponent {
                                         variant="primary "
                                         className="float-right btn-action"
                                         name="Save"
-                                        disabled={!this.state.formValid}
-                                        isLoading={isCreateAdminLoading}
+                                        disabled={!this.state.formValid || this.state.showConfirmModal}
+                                        isLoading={this.state.showConfirmModal}
                                         onClickHandler={this.setShowConfirmModal}
                                     />
                                     <AdminConfirmationModal

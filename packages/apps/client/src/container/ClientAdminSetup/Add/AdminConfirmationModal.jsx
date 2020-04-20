@@ -17,10 +17,11 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                 variant="primary"
                 size="xl"
                 name="Confirm"
+                disabled={isCreateAdminLoading}
                 isLoading={isCreateAdminLoading}
                 className="float-right btn-action"
                 onClickHandler={onConfirmClick}/>}
-                closeButton={true}
+            closeButton={true}
         />
     </>;
 };
