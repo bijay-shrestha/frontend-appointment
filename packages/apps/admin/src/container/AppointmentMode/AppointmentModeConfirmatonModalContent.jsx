@@ -22,6 +22,10 @@ const AppointmentModeConfirmationModalContent = ({
                 name="description"
                 placeholder="Description"
                 value={modalData.description}
+                required={true}
+                hasValidation={true}
+                maxLength={100}
+                errorMessagePassed="Description should contain 100 characters only."
             />
 
             {modalActionType === "SAVE" ?

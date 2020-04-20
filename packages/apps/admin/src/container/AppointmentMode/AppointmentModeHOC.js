@@ -229,6 +229,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
         };
 
         handleEdit = async (editData) => {
+            // if (editData.isEditable) {
             this.defaultAppointmentModeData.name = editData.name;
             this.defaultAppointmentModeData.description = editData.address;
             this.defaultAppointmentModeData.code = editData.code;
@@ -243,7 +244,10 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             } catch (e) {
                 this.showAlertMessage("danger", this.AppointmentModePreviewReducer.previewAppointmentModeErrorMessage);
             }
-
+            // } else {
+            //     this.showAlertMessage("warning", "You are not allowed to edit " + editData.name + " Appointment mode");
+            //     this.handleCancel();
+            // }
         };
 
         handleSave = async (saveData) => {
@@ -252,12 +256,13 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             if (!name || !status || !code) {
                 this.validateAppointmentModeData(name, description, code, status, isEditable, '');
             } else {
-                this.setState({
-                    showSaveConfirmationModal: true,
-                    name: name,
-                    code: code,
-                    status: status,
-                })
+                if (this.validateNameAndCodeLength(name, code))
+                    this.setState({
+                        showSaveConfirmationModal: true,
+                        name: name,
+                        code: code,
+                        status: status,
+                    })
             }
         };
 
@@ -421,17 +426,35 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             this.clearAlertTimeout();
         };
 
+        validateNameAndCodeLength = (name, code) => {
+            let nameMaxLength = 50, codeMaxLength = 6;
+            let alertType = "warning", message = "";
+            if (name.length > nameMaxLength)
+                message = "Name should contain 50 characters only.";
+            else if (code.length > codeMaxLength)
+                message = "Code should contain 6 characters only.";
+            if (message) {
+                this.showAlertMessage(alertType, message);
+                return false;
+            } else {
+                return true;
+            }
+        };
+
         validateAppointmentModeData = (name, code, status) => {
+            let alertType = "warning", message = "";
             if (!name && !code && !status)
-                this.showAlertMessage("warning", "Name, Code and Status must be not empty.");
+                message = "Name, Code and Status must be not empty.";
             else if (!name && !code)
-                this.showAlertMessage("warning", "Name and Code should not  be empty.");
+                message = "Name and Code should not  be empty.";
             else if (!name)
-                this.showAlertMessage("warning", "Name should not  be empty.");
+                message = "Name should not  be empty.";
             else if (!code)
-                this.showAlertMessage("warning", "Code should not  be empty.");
+                message = "Code should not  be empty.";
             else if (!status)
-                this.showAlertMessage("warning", "Status should not  be empty.")
+                message = "Status should not  be empty.";
+            if (message)
+                this.showAlertMessage(alertType, message);
         };
 
         componentDidMount() {
@@ -508,7 +531,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                             handleUpdate: this.handleOpenEditConfirmationModal,
                             handleDelete: this.handleDelete,
                             handlePreview: this.handlePreview,
-                            changeActionComplete:this.changeActionComplete,
+                            changeActionComplete: this.changeActionComplete,
                             isActionComplete
                         }}
                     />
