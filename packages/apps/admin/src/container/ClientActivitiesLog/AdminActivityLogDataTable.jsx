@@ -9,7 +9,6 @@ import {
 import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
-import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -104,32 +103,27 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: '80',
+                  width: '150',
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Log Date',
-                  field: 'logDate',
+                  headerName: 'Log Date & Time',
+                  field: 'logDateTime',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '150'
+                  width: '200',
+                  valueFormatter: function currencyFormatter (params) {
+                    return params.value.toString()
+                  }
                 },
                 {
-                  headerName: 'Log Time',
-                  field: 'logTime',
+                  headerName: 'Username',
+                  field: 'userName',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '100'
-                },
-                {
-                  headerName: 'Email/Mobile',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '250',
-                  cellRenderer:'EmailWithMobileNumber'
+                  width: '140'
                 },
                 {
                   headerName: 'IP Address',
@@ -139,7 +133,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   autoSize: true,
                   autoWidth: true,
-                  width: '150'
+                  width: '300'
                 },
 
                 {
@@ -157,43 +151,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   field: 'actionType',
                   autoSize: true,
-                  width: '100'
-                },
-                {
-                  headerName: 'OS',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'os',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }
-                },
-                {
-                  headerName: 'Browsers',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'browsers',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
-                },
-                {
-                  headerName: 'Location',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'location',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
+                  width: '300'
                 },
                 {
                   headerName: 'Status',
@@ -216,8 +174,7 @@ const AppointmentRefundDataTable = ({
               rowSelection={'single'}
               rowData={logList}
               frameworkComponents={{
-                childLabelRenderer: LoggingStatus,
-                EmailWithMobileNumber:EmailWithMobileNumber
+                childLabelRenderer: LoggingStatus
               }}
             />
             <CPagination
