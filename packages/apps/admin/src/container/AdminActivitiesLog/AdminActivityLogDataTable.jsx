@@ -81,7 +81,7 @@ const AppointmentRefundDataTable = ({
     <>
       <div className="manage-details">
       
-        <h5 className="title">Admin Activity Details</h5>
+        <h5 className="title">Activity Details</h5>
         
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
           <>
@@ -205,7 +205,7 @@ const AppointmentRefundDataTable = ({
         <div   className="activity-count ">
       <Row>
         <Col>
-        <h5 className="title">Admin Activity Count</h5>
+        <h5 className="title"> Activity Statistics</h5>
         
         </Col>
         </Row>    
@@ -282,7 +282,7 @@ const AppointmentRefundDataTable = ({
         <div className="activity-log" >
         <Row>
         <Col>
-        <h5 className="title">Admin Activity Chart</h5>
+        <h5 className="title"> Activity Statistics Diagram</h5>
         
         </Col>
         </Row>
