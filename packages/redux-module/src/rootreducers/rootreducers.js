@@ -120,7 +120,8 @@ const {
   CompanyAdminListReducer,
   CompanyAdminPreviewReducer,
   CompanyAdminSetupReducer,
-  CompanyAdminMetaInfoReducer
+  CompanyAdminMetaInfoReducer,
+  CompanyAdminMetaInfoByCompanyIdReducer
 } = CompanyAdminReducer
 const appReducers = combineReducers({
   AdminDeleteReducer,
@@ -143,6 +144,7 @@ const appReducers = combineReducers({
   companyPreviewReducer,
   companySaveReducer,
   companySearchReducer,
+  CompanyAdminMetaInfoByCompanyIdReducer,
   companyUpdateReducer,
   CountryCodeDropdownReducer,
   ChangePasswordForgotReducer,

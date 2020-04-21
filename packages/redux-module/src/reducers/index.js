@@ -127,6 +127,7 @@ import {
   companySaveReducer,
   companySearchReducer,
   companyUpdateReducer
+
 } from './admin-module/companySetupReducers'
 import {
   AdminLoggingSearchReducer,
