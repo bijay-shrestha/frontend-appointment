@@ -132,6 +132,17 @@ export const fetchCompanyAdminMetaInfo = path => async dispatch => {
   }
 }
 
+export const fetchCompanyAdminMetaInfoById = path => async dispatch => {
+dispatch(CompanyAdminSetupActions.companyAdminMetaInfoByCompanyIdFetchPending())
+try{
+  const response = await Axios.getWithPathVariables(path,id);
+  dispatch(CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchSuccess(response.data))
+}catch(e){
+  dispatch(CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchError(e.errorMessage||'Sorry, Internal Server Error'))
+}
+
+}
+
 export const clearAdminSuccessErrorMessagesFromStore = () => dispatch => {
   dispatch({type: COMPANY_ADMIN_CLEAR_DELETE_MESSAGES})
   dispatch({type: COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN})

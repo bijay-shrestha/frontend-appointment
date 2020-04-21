@@ -242,7 +242,7 @@ export const adminMetaInfoByHospitalIdFetchPending = () => {
     }
 };
 
-export const adminMetaInfoFetchHospitalIdFetchSuccess = data => {
+export const adminMetaInfoByFetchHospitalIdFetchSuccess = data => {
     return {
         type: FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS,
         payload: {
@@ -251,7 +251,7 @@ export const adminMetaInfoFetchHospitalIdFetchSuccess = data => {
     }
 };
 
-export const adminMetaInfoFetchHospitalIdError = errorMsg => {
+export const adminMetaInfoByFetchHospitalIdFetchError = errorMsg => {
     return {
         type: FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR,
         payload: {
