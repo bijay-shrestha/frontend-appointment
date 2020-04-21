@@ -13,3 +13,4 @@ export {default as CForgotPassword} from './src/CForgotPassword/CForgotPassword'
 export {default as CCodeVerification} from './src/CCodeVerification/CCodeVerification';
 export {default as CChangePasswordInForget} from './src/CChangePaswordInForget/CChangePasswordInForget';
 export {default as CRemarksModal} from './src/CRemarksModal/CRemarksModal';
+export {default as CNoDashboardRoleContent} from './src/CNoDashboardRoleContent/CNoDashboardRoleContent';
