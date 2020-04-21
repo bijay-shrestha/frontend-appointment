@@ -50,7 +50,7 @@ const AppointmentRefundDataTable = ({
       '#EAEC93',
       '#D7FBE6',
       '#D7FBE6',
-      '#34675C',
+      '#34675C'
     ]
 
     let chartData = {
@@ -321,18 +321,18 @@ const AppointmentRefundDataTable = ({
                   height={100}
                 />
                 <div className="legend-box clearfix">
+                  <p>Total Counts:{totalCounts}</p>
                   <p>Top Features</p>
                   <ul>
-                    {chartData.labels.length &&chartData.labels.map((datum,index) => {
-                     return (
-                      <li key={"datum"+index}>
-                      <span className="legend"></span>
-                      <span>{datum}</span>
-                    </li>
-                     )
-                    })}
-                    
-                  
+                    {chartData.labels.length &&
+                      chartData.labels.map((datum, index) => {
+                        return (
+                          <li key={'datum' + index}>
+                            <span className="legend"></span>
+                            <span>{datum}</span>
+                          </li>
+                        )
+                      })}
                   </ul>
                 </div>
               </>

@@ -97,7 +97,7 @@ export const AdminLoggingStatsSearchReducer = (
           isLogDiagramSearchLoading: false,
           logDiagramSearchData: action.payload.data.userMenuCountList,
           logDiagramSearchErrorMessage: '',
-          totalCounts:action.payload.data.totalCounts
+          totalCounts:action.payload.data.totalCount
         }
       case USER_LOG_DIAGRAM_FETCH_ERROR:
         return {
