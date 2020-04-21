@@ -11,13 +11,23 @@
             background-size: cover;
             background-position: center;
             position        : relative;
-            padding-top     : 20px;
+            padding-top     : 25px;
             margin-bottom   : 20px;
             text-align      : center;
              color:$white;
              border: none;
              opacity: 0.9;
+
+            
      
+         }
+
+         .close{
+            font-size: 2rem !important;
+        }
+
+         .modal-body{
+             padding:25px;
          }
 
         

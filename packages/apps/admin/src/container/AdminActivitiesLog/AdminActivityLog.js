@@ -5,10 +5,10 @@ import AdminActivityLogHoc from './AdminActivityLogHoc'
 
 const AdminActivityLog = props => {
   const AcitivityLog = AdminActivityLogHoc(
-    ({searchHandler, paginationProps, adminLogData,adminLogStatsData}) => (
+    ({searchHandler, paginationProps, adminLogData,adminLogStatsData,adminDiagramStatsData}) => (
       <>
         <div>
-          <AdminActivityLogSearchFilter searchHandler={searchHandler} />
+          <AdminActivityLogSearchFilter searchHandler={searchHandler}  />
         </div>
 
         <div className="">
@@ -16,6 +16,7 @@ const AdminActivityLog = props => {
             tableHandler={adminLogData}
             paginationProps={paginationProps}
             adminLogStatsData={adminLogStatsData}
+            adminDiagramStatsData={adminDiagramStatsData}
           />
         </div>
       </>

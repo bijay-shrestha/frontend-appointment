@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {Redirect} from "react-router-dom";
 import {menuRoles} from "@frontend-appointment/helpers";
 import {CLoading} from "@frontend-appointment/ui-elements";
-
+import connectHoc from './connectHoc';
 const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
     class SingleTabComponent extends PureComponent {
 
@@ -59,6 +59,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
 
         async componentDidMount() {
             await this.checkRolesAssigned();
+            this.props.dispatch({type:'LOCATION_CHANGE'})
         }
 
         render() {
@@ -87,7 +88,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
         }
     }
 
-    return <SingleTabComponent/>;
+    return connectHoc(SingleTabComponent,[],null);
 };
 
 export default SingleTabComponentHOC;

@@ -12,3 +12,5 @@ export const ForgotPasswordAndVerification = {
     CODE_VERIFICATION:BASE.concat(PASSWORD_BASE.concat('/verify')),
     FORGOT_CHANGE_PASSWORD:BASE.concat(PASSWORD_BASE)
 }
+
+export const ADMIN_FEATURE=BASE.concat("/adminFeature");

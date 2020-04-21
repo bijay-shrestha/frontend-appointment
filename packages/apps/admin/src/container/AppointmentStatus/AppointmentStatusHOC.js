@@ -190,6 +190,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         handleCheckIn = async appointmentStatusDetail => {
+            sessionStorage.setItem("actionType",14)
             let appointmentData = {
                 hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
                 doctorName: appointmentStatusDetail.doctorName,

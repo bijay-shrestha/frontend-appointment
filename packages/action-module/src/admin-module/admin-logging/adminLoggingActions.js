@@ -5,7 +5,10 @@ USER_LOG_FETCH_START,
 USER_LOG_FETCH_SUCCESS,
 USER_LOG_STATS_FETCH_ERROR,
 USER_LOG_STATS_FETCH_START,
-USER_LOG_STATS_FETCH_SUCCESS
+USER_LOG_STATS_FETCH_SUCCESS,
+USER_LOG_DIAGRAM_FETCH_ERROR,
+USER_LOG_DIAGRAM_FETCH_START,
+USER_LOG_DIAGRAM_FETCH_SUCCESS
 }=adminLoggingConstant
 
 export const logFetchStart = () => {
@@ -50,6 +53,30 @@ export const logStatsFetchSuccess = data => {
 export const logStatsFetchError = message => {
     return {
         type: USER_LOG_STATS_FETCH_ERROR,
+        payload: {
+            message:message
+        }
+    }
+};
+
+export const logDiagramFetchStart = () => {
+    return {
+        type: USER_LOG_DIAGRAM_FETCH_START
+    }
+};
+
+export const logDiagramFetchSuccess = data => {
+    return {
+        type: USER_LOG_DIAGRAM_FETCH_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const logDiagramFetchError = message => {
+    return {
+        type: USER_LOG_DIAGRAM_FETCH_ERROR,
         payload: {
             message:message
         }

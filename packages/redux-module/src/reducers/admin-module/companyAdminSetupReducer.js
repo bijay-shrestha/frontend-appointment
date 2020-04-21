@@ -21,8 +21,12 @@ const {
   FETCH_COMPANY_ADMIN_META_INFO_ERROR,
   FETCH_COMPANY_ADMIN_META_INFO_PENDING,
   FETCH_COMPANY_ADMIN_META_INFO_SUCCESS,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS,
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
+
 const createCompanyAdminState = {
   isCreateAdminLoading:false,
   adminCreateErrorMessage: '', //profileCreate error message
@@ -50,11 +54,19 @@ const deleteCompanyAdminState = {
   adminDeleteErrorMessage: '',
   adminDeleteSuccessMessage: ''
 }
+
 const companyAdminMetaInfoDropDown = {
   companyAdminMetaInfoForDropdown: [],
   errorMessageForCompanyAdminDropdown: '',
   isLoadingForCompanyAdminDropdown: true
 }
+
+const companyAdminMetaInfoCompanyIdDropDown = {
+  companyAdminMetaInfoByCompanyIdForDropdown: [],
+  errorMessageForCompanyAdminByCompanyIdDropdown: '',
+  isLoadingForCompanyAdminByCompanyIdDropdown: true
+}
+
 export const CompanyAdminMetaInfoReducer = (
   state = {...companyAdminMetaInfoDropDown},
   action
@@ -89,6 +101,40 @@ export const CompanyAdminMetaInfoReducer = (
       return state
   }
 }
+
+export const CompanyAdminMetaInfoByCompanyIdReducer = (
+  state = {...companyAdminMetaInfoCompanyIdDropDown},
+  action
+) => {
+  switch (action.type) {
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING:
+      return {
+        ...state
+      }
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS:
+      return {
+        ...state,
+        companyAdminMetaInfoByCompanyIdForDropdown:action.payload.data,
+        errorMessageForCompanyAdminByCompanyIdDropdown: '',
+        isLoadingForCompanyAdminByCompanyIdDropdown: false
+      }
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR:
+      return {
+        ...state,
+        companyAdminMetaInfoByCompanyIdForDropdown: [],
+        errorMessageForCompanyAdminByCompanyIdDropdown: action.payload.message,
+        isLoadingForCompanyAdminByCompanyIdDropdown: false
+      }
+    case 'CLEAR_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID':
+          return {
+            companyAdminMetaInfoByCompanyIdForDropdown: [],
+            errorMessageForCompanyAdminByCompanyIdDropdown:''
+          }
+    default:
+      return state
+  }
+}
+
 export const CompanyAdminSetupReducer = (
   state = {...createCompanyAdminState},
   action

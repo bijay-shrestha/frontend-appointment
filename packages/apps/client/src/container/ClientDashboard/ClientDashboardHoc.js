@@ -11,6 +11,7 @@ import {
     checkDashboardRole, LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import './admin-dashboard.scss'
+import {CNoDashboardRoleContent} from "@frontend-appointment/ui-components";
 
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {
@@ -543,93 +544,100 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             } = this.props.DashboardRevenueGeneratedByDoctorReducer
 
             const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
+
+            const dashBoardRoles = LocalStorageSecurity.localStorageDecoder("adminDashRole");
+
             return (
-                <ComposedComponent
-                    {...this.props}
-                    {...props}
-                    generateRevenue={{
-                        previousFromDate: previousFromDate,
-                        currentToDate: currentToDate,
-                        hospitalId: hospitalId,
-                        isRevenueGeneratedDayLoading: isRevenueGeneratedDayLoading,
-                        revenueGeneratedDayData: revenueGeneratedDayData,
-                        revenueGeneratedDayErrorMessage: revenueGeneratedDayErrorMessage,
-                        isRevenueGeneratedMonthLoading: isRevenueGeneratedMonthLoading,
-                        revenueGeneratedMonthData: revenueGeneratedMonthData,
-                        revenueGeneratedMonthErrorMessage: revenueGeneratedMonthErrorMessage,
-                        isRevenueGeneratedWeekLoading: isRevenueGeneratedWeekLoading,
-                        revenueGeneratedWeekData: revenueGeneratedWeekData,
-                        revenueGeneratedWeekErrorMessage: revenueGeneratedWeekErrorMessage,
-                        isRevenueGeneratedYearLoading: isRevenueGeneratedYearLoading,
-                        revenueGeneratedYearData: revenueGeneratedYearData,
-                        revenueGeneratedYearErrorMessage: revenueGeneratedYearErrorMessage,
-                        code: ACCESSCODE.REVENUE_STAT
-                    }}
-                    appointmentList={{
-                        isAppointmentStatsLoading: isAppointmentStatsLoading,
-                        appointmentStatsData: appointmentStatsData,
-                        appointmentStatsErrorMessage: appointmentStatsErrorMessage,
-                        fromDate: {fromDate},
-                        toDate: {toDate},
-                        code: ACCESSCODE.PATIENT_STAT
-                    }}
-                    revenueStatistics={{
-                        isRevenueStatsLoading: isRevenueStatsLoading,
-                        revenueStatsData: revenueStatsData,
-                        revenueStatsErrorMessage: revenueStatsErrorMessage,
-                        fromDate: {revFromDate},
-                        toDate: {revToDate},
-                        code: ACCESSCODE.REVENUE_STAT
-                    }}
-                    registeredPatients={{
-                        isRegisteredPatientLoading: isRegisteredPatientLoading,
-                        registeredPatientsData: registeredPatientsData,
-                        registeredPatientsErrorMessage: registeredPatientsErrorMessage,
-                        code: ACCESSCODE.PATIENT_STAT
-                    }}
-                    appointmentQueue={{
-                        isAppointmentQueueLoading: isAppointmentQueueLoading,
-                        appointmentQueueData: appointmentQueueData,
-                        appointmentQueueErrorMessage: appointmentQueueErrorMessage,
-                        totalRecords: totalRecords,
-                        queryParams: queryParams,
-                        handlePageChange: this.handlePageChange,
-                        handleDoctorChange: this.handleDoctorChange,
-                        doctorId: this.state.appointmentQueue.doctorId,
-                        date: this.state.appointmentQueue.date,
-                        doctorDropdown: activeDoctorsForDropdown,
-                        code: ACCESSCODE.APPOINTMENT_LOG,
-                        handleDateChangeForAppointmentQueue: this.handleDateChangeForAppointmentQueue
-                    }}
-                    doctorRevenue={{
-                        isDoctorRevenueLoading: isDoctorRevenueGeneratedLoading,
-                        doctorRevenueData: doctorRevenueGenerated,
-                        doctorRevenueErrorMessage: doctorRevenueGeneratedErrorMessage,
-                        totalRecords: doctorTotalRecords,
-                        queryParams: doctorQueryParams,
-                        handlePageChange: this.handleDoctorRevenuePageChange,
-                        doctorId: doctorRevenue.doctorId,
-                        handleDoctorChange: this.handleDoctorChange,
-                        doctorDropdown: activeDoctorsForDropdown,
-                        fromDate: doctorRevenue.fromDate,
-                        toDate: doctorRevenue.toDate,
-                        handleDateChange: this.handleDateChange,
-                        hospitalId: doctorRevenue.hospitalId,
-                        doctorTotalAppointments: doctorTotalAppointments,
-                        doctorTotalRevenueAmount: doctorTotalRevenueAmount,
-                        handleSpecializationChange: this.handleSpecializationChange,
-                        specializationId: doctorRevenue.specializationId,
-                        specializationListHospitalWise: this.props
-                            .SpecializationDropdownReducer.allActiveSpecializationList,
-                        code: ACCESSCODE.REVENUE_STAT
-                    }}
-                    onPillsClickHandler={this.onPillsClickHandler}
-                    //handleHospitalChange={this.handleHospitalChange}
-                    hospitalDropdown={hospitalList}
-                    hospitalId={hospitalId}
-                    revenueFilter={this.state.revenueFilter}
-                    appointmentFilter={this.state.appointmentFilter}
-                />
+                <>
+                    {dashBoardRoles && dashBoardRoles.length ?
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            generateRevenue={{
+                                previousFromDate: previousFromDate,
+                                currentToDate: currentToDate,
+                                hospitalId: hospitalId,
+                                isRevenueGeneratedDayLoading: isRevenueGeneratedDayLoading,
+                                revenueGeneratedDayData: revenueGeneratedDayData,
+                                revenueGeneratedDayErrorMessage: revenueGeneratedDayErrorMessage,
+                                isRevenueGeneratedMonthLoading: isRevenueGeneratedMonthLoading,
+                                revenueGeneratedMonthData: revenueGeneratedMonthData,
+                                revenueGeneratedMonthErrorMessage: revenueGeneratedMonthErrorMessage,
+                                isRevenueGeneratedWeekLoading: isRevenueGeneratedWeekLoading,
+                                revenueGeneratedWeekData: revenueGeneratedWeekData,
+                                revenueGeneratedWeekErrorMessage: revenueGeneratedWeekErrorMessage,
+                                isRevenueGeneratedYearLoading: isRevenueGeneratedYearLoading,
+                                revenueGeneratedYearData: revenueGeneratedYearData,
+                                revenueGeneratedYearErrorMessage: revenueGeneratedYearErrorMessage,
+                                code: ACCESSCODE.REVENUE_STAT
+                            }}
+                            appointmentList={{
+                                isAppointmentStatsLoading: isAppointmentStatsLoading,
+                                appointmentStatsData: appointmentStatsData,
+                                appointmentStatsErrorMessage: appointmentStatsErrorMessage,
+                                fromDate: {fromDate},
+                                toDate: {toDate},
+                                code: ACCESSCODE.PATIENT_STAT
+                            }}
+                            revenueStatistics={{
+                                isRevenueStatsLoading: isRevenueStatsLoading,
+                                revenueStatsData: revenueStatsData,
+                                revenueStatsErrorMessage: revenueStatsErrorMessage,
+                                fromDate: {revFromDate},
+                                toDate: {revToDate},
+                                code: ACCESSCODE.REVENUE_STAT
+                            }}
+                            registeredPatients={{
+                                isRegisteredPatientLoading: isRegisteredPatientLoading,
+                                registeredPatientsData: registeredPatientsData,
+                                registeredPatientsErrorMessage: registeredPatientsErrorMessage,
+                                code: ACCESSCODE.PATIENT_STAT
+                            }}
+                            appointmentQueue={{
+                                isAppointmentQueueLoading: isAppointmentQueueLoading,
+                                appointmentQueueData: appointmentQueueData,
+                                appointmentQueueErrorMessage: appointmentQueueErrorMessage,
+                                totalRecords: totalRecords,
+                                queryParams: queryParams,
+                                handlePageChange: this.handlePageChange,
+                                handleDoctorChange: this.handleDoctorChange,
+                                doctorId: this.state.appointmentQueue.doctorId,
+                                date: this.state.appointmentQueue.date,
+                                doctorDropdown: activeDoctorsForDropdown,
+                                code: ACCESSCODE.APPOINTMENT_LOG,
+                                handleDateChangeForAppointmentQueue: this.handleDateChangeForAppointmentQueue
+                            }}
+                            doctorRevenue={{
+                                isDoctorRevenueLoading: isDoctorRevenueGeneratedLoading,
+                                doctorRevenueData: doctorRevenueGenerated,
+                                doctorRevenueErrorMessage: doctorRevenueGeneratedErrorMessage,
+                                totalRecords: doctorTotalRecords,
+                                queryParams: doctorQueryParams,
+                                handlePageChange: this.handleDoctorRevenuePageChange,
+                                doctorId: doctorRevenue.doctorId,
+                                handleDoctorChange: this.handleDoctorChange,
+                                doctorDropdown: activeDoctorsForDropdown,
+                                fromDate: doctorRevenue.fromDate,
+                                toDate: doctorRevenue.toDate,
+                                handleDateChange: this.handleDateChange,
+                                hospitalId: doctorRevenue.hospitalId,
+                                doctorTotalAppointments: doctorTotalAppointments,
+                                doctorTotalRevenueAmount: doctorTotalRevenueAmount,
+                                handleSpecializationChange: this.handleSpecializationChange,
+                                specializationId: doctorRevenue.specializationId,
+                                specializationListHospitalWise: this.props
+                                    .SpecializationDropdownReducer.allActiveSpecializationList,
+                                code: ACCESSCODE.REVENUE_STAT
+                            }}
+                            onPillsClickHandler={this.onPillsClickHandler}
+                            //handleHospitalChange={this.handleHospitalChange}
+                            hospitalDropdown={hospitalList}
+                            hospitalId={hospitalId}
+                            revenueFilter={this.state.revenueFilter}
+                            appointmentFilter={this.state.appointmentFilter}
+                        />
+                        : <CNoDashboardRoleContent/>}
+                </>
             )
         }
     }

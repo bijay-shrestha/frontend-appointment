@@ -259,7 +259,7 @@ const AdminInfoForm = ({
               </Col>
               <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
                 {dashData && dashData.length ? (
-                  <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                  <CFLabel labelName="Dashboard Roles" id="dashboard-role" />
                 ) : null}
                 <div>
                   {!isDashboardFeatureLoading &&

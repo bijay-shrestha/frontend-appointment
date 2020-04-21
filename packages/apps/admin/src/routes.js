@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import ClientActivityLog from './container/ClientActivitiesLog/ClientActivityLog'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -9,6 +10,10 @@ const AdminActivityLog = loadable(
     {fallback: getLoader()}
 )
 
+const ClienActivityLog = loadable(
+    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+    {fallback: getLoader()}
+)
 
 const AddProfileComponent = loadable(
     () => import('./container/ProfileSetup/Add/ProfileAdd'),
@@ -21,8 +26,8 @@ const AddDepartmentComponent = loadable(
 )
 
 const AddAdminComponent = loadable(
-  () => import('./container/AdminSetup/Add/AdminAdd'),
-  {fallback: getLoader()}
+    () => import('./container/AdminSetup/Add/AdminAdd'),
+    {fallback: getLoader()}
 )
 
 const AddHospitalComponent = loadable(
@@ -106,7 +111,6 @@ const ManageCompanyAdminComponent = loadable(
     () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
     {fallback: () => getLoader()}
 )
-
 
 /* ****** E ***** */
 
@@ -209,8 +213,7 @@ const RescheduleLog = loadable(
 const UniversitySetupComponent = loadable(
     () => import('./container/UniversitySetup/UniversitySetup'),
     {fallback: () => getLoader()}
-);
-
+)
 
 /* ****** V ***** */
 
@@ -689,14 +692,34 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/userActivityLog',
-        name: 'User Activity Log',
+        path: '/admin/activityLog',
+        name: 'Activity Log',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/activityLog/adminLog',
+        name: 'Admin Log',
         component: AdminActivityLog,
         icon: '',
         hasTab: false,
         isLink: true,
         isTab: false,
-        isSingleTab: true,
+        isSingleTab: true
+    },
+    {
+        path: '/admin/activityLog/clientLog',
+        name: 'Client Log',
+        component: ClientActivityLog,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
     },
     {
         path: '/admin/companySettings',

@@ -19,7 +19,8 @@ import {
     editAdmin,
     fetchAdminList,
     fetchAdminMetaInfo,
-    previewAdmin
+    previewAdmin,
+    fetchAdminMetaInfoByHospitalId
 } from './admin-setup-middleware/adminSetupMiddleware';
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
@@ -70,5 +71,6 @@ export {
     CompanyAdminSetupMiddleware,
     AdminLoggingMiddleware,
     UniversitySetupMiddleware,
+    fetchAdminMetaInfoByHospitalId,
     AppointmentModeMiddleware
 }

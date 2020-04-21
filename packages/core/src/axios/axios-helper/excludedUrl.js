@@ -14,14 +14,15 @@ export const excludedUrl = [
     '/doctorDutyRosterOverride',
     '/existing',
     '/weekDays',
-    '/features',
     '/dashboard',
     '/detail',
     '/country',
     '/updateDetails',
-    '/min'
+    '/min',
+    '/adminFeature'
 ]
 export const includeAppUrl=[
-    '/approve',
-    '/reject'
+    '/approve/',
+    '/reject/',
+    
 ]

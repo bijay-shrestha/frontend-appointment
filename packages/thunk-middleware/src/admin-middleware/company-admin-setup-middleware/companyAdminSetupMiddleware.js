@@ -10,7 +10,6 @@ const {
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
 
-
 export const createCompanyAdmin = (
   path,
   adminData,
@@ -26,7 +25,7 @@ export const createCompanyAdmin = (
     )
     dispatch(
       CompanyAdminSetupActions.creatingCompanyAdminSuccess(
-        'Company Created Successfully.'
+        'Company Admin Created Successfully.'
       )
     )
     return response
@@ -61,7 +60,7 @@ export const deleteCompanyAdmin = (path, deleteData) => async dispatch => {
     const response = await Axios.del(path, deleteData)
     dispatch(
       CompanyAdminSetupActions.companyAdminDeleteSuccess(
-        response.data ? response.data : 'Admin deleted successfully.'
+        response.data ? response.data : 'Company Admin deleted successfully.'
       )
     )
     return response
@@ -84,7 +83,11 @@ export const editCompanyAdmin = (
       editData,
       formData
     )
-    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess('Admin Edited Successfully'))
+    dispatch(
+      CompanyAdminSetupActions.companyAdminEditSuccess(
+        'Company Admin Edited Successfully'
+      )
+    )
     return response
   } catch (e) {
     dispatch(
@@ -132,9 +135,30 @@ export const fetchCompanyAdminMetaInfo = path => async dispatch => {
   }
 }
 
+export const fetchCompanyAdminMetaInfoById = (path, id) => async dispatch => {
+  dispatch(
+    CompanyAdminSetupActions.companyAdminMetaInfoByCompanyIdFetchPending()
+  )
+  try {
+    const response = await Axios.getWithPathVariables(path, id)
+    dispatch(
+      CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchSuccess(
+        response.data
+      )
+    )
+  } catch (e) {
+    dispatch(
+      CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchError(
+        e.errorMessage || 'Sorry, Internal Server Error'
+      )
+    )
+  }
+}
+
 export const clearAdminSuccessErrorMessagesFromStore = () => dispatch => {
   dispatch({type: COMPANY_ADMIN_CLEAR_DELETE_MESSAGES})
   dispatch({type: COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN})
   dispatch({type: COMPANY_ADMIN_CLEAR_EDIT_MESSAGES})
   dispatch({type: COMPANY_ADMIN_CLEAR_PREVIEW_MESSAGES})
+  dispatch({type:'CLEAR_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID'})
 }

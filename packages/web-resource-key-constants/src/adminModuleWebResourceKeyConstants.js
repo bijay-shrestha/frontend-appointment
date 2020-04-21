@@ -61,7 +61,8 @@ export const adminSetupAPIConstants = {
     VERIFY_ADMIN: ADMIN_BASE_URL.concat('/verify'),
     FETCH_ADMIN_META_INFO: ADMIN_BASE_URL.concat('/metaInfo'),
     RESET_PASSWORD: ADMIN_BASE_URL.concat('/resetPassword'),
-    CHANGE_PASSWORD: ADMIN_BASE_URL.concat('/changePassword')
+    CHANGE_PASSWORD: ADMIN_BASE_URL.concat('/changePassword'),
+    FETCH_ADMIN_META_INFO_BY_HOSPITAL_ID:ADMIN_BASE_URL.concat('/client/metaInfo')
 };
 
 const PASSWORD_BASE = "/password";
@@ -216,13 +217,19 @@ export const companyAdminSetupApiConstants = {
   VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
   FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
   RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
-  CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
+  CHANGE_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword'),
+  FETCH_ADMIN_META_INFO_BY_COMPANY_ID:ADMIN_BASE_URL.concat('/company/metaInfo')
 };
 
 const LOG_BASE='/logging';
+
 export const adminLoggingConstant ={
   FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
-  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/user-log-statics"))
+  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics")),
+  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram")),
+  FETCH_CLIENT_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/client/search')),
+  FETCH_CLIENT_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-statics")),
+  FETCH_CLIENT_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-diagram"))
 }
 
 const UNIVERSITY_BASE = "/university";

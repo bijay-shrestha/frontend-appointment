@@ -135,7 +135,7 @@ const DoctorRevenueList = props => {
                           width:400,
                         },
                         {
-                          headerName: 'No of Appointments',
+                          headerName: 'No of Appt.',
                           field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
@@ -143,7 +143,7 @@ const DoctorRevenueList = props => {
                        
                         },
                         {
-                          headerName: 'Revenue Amout',
+                          headerName: 'Revenue Amt',
                           field: 'revenueAmount',
                           resizable: true,
                           sortable: true,
@@ -167,7 +167,7 @@ const DoctorRevenueList = props => {
 
             <Row>
               <Col className="">
-                <div>
+              <div>
                   {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
                   {toDate.toDateString()} */}
                   <span className="pull-left mt-3"> Total Appointment :<span className="rev-total"> {doctorTotalAppointments}</span></span>
