@@ -12,7 +12,7 @@ import {
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     AdminSetupUtils,
-    EnterKeyPressUtils,
+    EnterKeyPressUtils, EnvironmentVariableGetter,
     LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils
@@ -721,7 +721,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                     passwordResetError: e.errorMessage
                         ? e.errorMessage
                         : `Error resetting password for ${passwordResetObj.email}.`,
-                    isPasswordResetPending:false
+                    isPasswordResetPending: false
                 })
             }
         }
@@ -851,7 +851,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 adminDashboardRequestDTOS: adminDashboardRequestDTOS.map(adminDash => ({
                     id: adminDash.id,
                     status: adminDash.status
-                }))
+                })),
+                baseUrl: EnvironmentVariableGetter.ADMIN_EMAIL_REDIRECT_URL
             }
 
             let formData = new FormData()

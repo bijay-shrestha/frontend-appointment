@@ -27,7 +27,7 @@ import {CAlert} from '@frontend-appointment/ui-elements'
 import AdminEditModal from './AdminEditModal'
 import {
     AdminSetupUtils,
-    EnterKeyPressUtils,
+    EnterKeyPressUtils, EnvironmentVariableGetter,
     LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils,
@@ -859,8 +859,9 @@ class AdminManage extends PureComponent {
             adminDashboardRequestDTOS: adminDashboardRequestDTOS.map(adminDash => ({
                 id: adminDash.id,
                 status: adminDash.status
-            }))
-        }
+            })),
+            baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL
+        };
 
         let formData = new FormData()
         adminAvatarUrlNew !== '' && formData.append('file', adminAvatar)

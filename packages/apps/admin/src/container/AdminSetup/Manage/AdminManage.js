@@ -31,7 +31,7 @@ import {
     menuRoles,
     ProfileSetupUtils,
     TryCatchHandler,
-    LocalStorageSecurity
+    LocalStorageSecurity, EnvironmentVariableGetter
 } from '@frontend-appointment/helpers'
 import PasswordResetModal from './PasswordResetModal'
 import './../admin-setup.scss'
@@ -891,7 +891,8 @@ class AdminManage extends PureComponent {
             adminDashboardRequestDTOS: adminDashboardRequestDTOS.map(adminDash => ({
                 id: adminDash.id,
                 status: adminDash.status
-            }))
+            })),
+            baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL
         }
 
         let formData = new FormData()
