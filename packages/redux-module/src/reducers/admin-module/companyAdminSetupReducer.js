@@ -23,6 +23,7 @@ const {
   FETCH_COMPANY_ADMIN_META_INFO_SUCCESS,
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
+
 const createCompanyAdminState = {
   isCreateAdminLoading:false,
   adminCreateErrorMessage: '', //profileCreate error message
@@ -50,11 +51,19 @@ const deleteCompanyAdminState = {
   adminDeleteErrorMessage: '',
   adminDeleteSuccessMessage: ''
 }
+
 const companyAdminMetaInfoDropDown = {
   companyAdminMetaInfoForDropdown: [],
   errorMessageForCompanyAdminDropdown: '',
   isLoadingForCompanyAdminDropdown: true
 }
+
+const companyAdminMetaInfoCompanyIdDropDown = {
+  companyAdminMetaInfoByCompanyIdForDropdown: [],
+  errorMessageForCompanyAdminByCompanyIdDropdown: '',
+  isLoadingForCompanyAdminByCompanyIdDropdown: true
+}
+
 export const CompanyAdminMetaInfoReducer = (
   state = {...companyAdminMetaInfoDropDown},
   action
@@ -89,6 +98,42 @@ export const CompanyAdminMetaInfoReducer = (
       return state
   }
 }
+
+export const CompanyAdminMetaInfoByCompanyIdReducer = (
+  state = {...companyAdminMetaInfoCompanyIdDropDown},
+  action
+) => {
+  switch (action.type) {
+    case FETCH_COMPANY_ADMIN_META_INFO_PENDING:
+      return {
+        ...state
+      }
+    case FETCH_COMPANY_ADMIN_META_INFO_SUCCESS:
+      return {
+        ...state,
+        companyAdminMetaInfoByCompanyIdForDropdown:action.payload.data,
+        errorMessageForCompanyAdminByCompanyIdDropdown: '',
+        isLoadingForCompanyAdminByCompanyIdDropdown: false
+      }
+    case FETCH_COMPANY_ADMIN_META_INFO_ERROR:
+      return {
+        ...state,
+        companyAdminMetaInfoByCompanyIdForDropdown: [],
+        errorMessageForCompanyAdminByCompanyIdDropdown: action.payload.message,
+        isLoadingForCompanyAdminByCompanyIdDropdown: false
+      }
+    case COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN:
+      return {
+        ...state,
+        companyAdminMetaInfoDropDown: [],
+        errorMessageForCompanyAdminDropdown: '',
+        isLoadingForCompanyAdminDropdown: true
+      }
+    default:
+      return state
+  }
+}
+
 export const CompanyAdminSetupReducer = (
   state = {...createCompanyAdminState},
   action

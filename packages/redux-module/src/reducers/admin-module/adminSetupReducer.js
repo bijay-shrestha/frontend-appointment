@@ -26,7 +26,10 @@ const {
     CLEAR_ADMIN_DELETE_SUCCESS_MESSAGE,
     FETCH_ADMIN_META_INFO_PENDING,
     FETCH_ADMIN_META_INFO_SUCCESS,
-    FETCH_ADMIN_META_INFO_ERROR
+    FETCH_ADMIN_META_INFO_ERROR,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_PENDING,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS
 } = adminSetupActionConstants;
 
 const initialState = {
@@ -46,7 +49,9 @@ const initialState = {
     adminPreviewErrorMessage: '',
     adminPreviewOpen: false,
     adminMetaInfoForDropdown: [],
-    errorMessageForDropdown: ''
+    errorMessageForDropdown: '',
+    adminMetaInfoByHospitalIdForDropdown:[],
+    errorMessageByHospitalIdForDropdown:''
 };
 
 export const AdminSetupReducer = (state = {...initialState}, action) => {
@@ -93,6 +98,18 @@ export const AdminSetupReducer = (state = {...initialState}, action) => {
                 ...state,
                 errorMessageForDropdown: action.payload.errorMessage
             };
+        case FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_PENDING:
+             return {...state}
+        case FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS:
+          return {
+              ...state,
+              adminMetaInfoByHospitalIdForDropdown:[...action.payload.dta]
+          }     
+        case FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR:
+            return {
+                ...state,
+                errorMessageByHospitalIdForDropdown:action.payload.errorMessage
+            }      
         default:
             return state
     }
