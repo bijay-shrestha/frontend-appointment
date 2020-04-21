@@ -160,4 +160,5 @@ export const clearAdminSuccessErrorMessagesFromStore = () => dispatch => {
   dispatch({type: COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN})
   dispatch({type: COMPANY_ADMIN_CLEAR_EDIT_MESSAGES})
   dispatch({type: COMPANY_ADMIN_CLEAR_PREVIEW_MESSAGES})
+  dispatch({type:'CLEAR_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID'})
 }

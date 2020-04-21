@@ -29,8 +29,8 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchHandler.searchAdminActivityLog(1,'A');
-    this.props.searchHandler.searchAdminActivityLog(1,'B');
+    this.props.searchHandler.searchAdminActivityLog(1, 'A')
+    this.props.searchHandler.searchAdminActivityLog(1, 'B')
     this.toggleSearchForm()
   }
 
@@ -40,10 +40,11 @@ class AppointmentLogListSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalsDropdown,
+      companyDropdownData,
       searchParameters,
       parentList,
-      roles
+      roles,
+      companyAdminMetaInfoByCompanyIdForDropdown
     } = searchHandler
 
     return (
@@ -69,13 +70,34 @@ class AppointmentLogListSearchFilter extends PureComponent {
                 <Row>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
-                      id="hospitalId"
+                      id="companyId"
                       name="hospitalId"
-                      label="Hospital"
-                      placeholder="Select Hospital"
-                      options={hospitalsDropdown}
-                      isDisabled={hospitalsDropdown.length ? false : true}
+                      label="Company"
+                      placeholder="Select Company"
+                      options={companyDropdownData}
+                      isDisabled={companyDropdownData.length ? false : true}
                       value={searchParameters.hospitalId}
+                      onChange={handleSearchFormChange}
+                      onKeyDown={handleEnter}
+                    />
+                  </Col>
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="adminMetaInfoId"
+                      name="adminMetaInfoId"
+                      label="Admin Meta Info"
+                      placeholder={
+                        searchParameters.hospitalId
+                          ? 'Select Admin Meta Info'
+                          : 'Select Company First'
+                      }
+                      options={companyAdminMetaInfoByCompanyIdForDropdown}
+                      isDisabled={
+                        companyAdminMetaInfoByCompanyIdForDropdown.length
+                          ? false
+                          : true
+                      }
+                      value={searchParameters.adminMetaInfoId}
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
@@ -162,8 +184,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       placeholder="Select Action Type."
                     />
                   </Col>
-
-
 
                   <Col
                     sm={12}

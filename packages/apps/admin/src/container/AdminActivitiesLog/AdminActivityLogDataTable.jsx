@@ -10,6 +10,7 @@ import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
+import DateWithTime from '../CommonComponents/table-components/DateWithTime'
 import './activity-log.scss'
 const AppointmentRefundDataTable = ({
   tableHandler,
@@ -102,21 +103,14 @@ const AppointmentRefundDataTable = ({
                   width: '80',
                   cellClass: 'first-class'
                 },
+          
                 {
-                  headerName: 'Log Date',
-                  field: 'logDate',
+                  headerName: 'Log Date/Time',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '150'
-                },
-                {
-                  headerName: 'Log Time',
-                  field: 'logTime',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '200'
+                  width: '130',
+                  cellRenderer:'LogDateAndTime'
                 },
                 {
                   headerName: 'IP Address',
@@ -128,7 +122,14 @@ const AppointmentRefundDataTable = ({
                   autoWidth: true,
                   width: '150'
                 },
-
+                {
+                  headerName: 'Email/Mobile',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  cellRenderer: 'EmailWithMobileNumber',
+                  width: '200'
+                },
                 {
                   headerName: 'Features/Menu',
                   field: 'feature',
@@ -163,7 +164,7 @@ const AppointmentRefundDataTable = ({
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  field: 'browsers',
+                  field: 'browser',
                   autoSize: true,
                   width: '100',
                   valueFormatter:function(params){
@@ -205,7 +206,8 @@ const AppointmentRefundDataTable = ({
               rowData={logList}
               frameworkComponents={{
                 childLabelRenderer: LoggingStatus,
-                EmailWithMobileNumber:EmailWithMobileNumber
+                EmailWithMobileNumber:EmailWithMobileNumber,
+                LogDateAndTime:DateWithTime
               }}
             />
             <CPagination

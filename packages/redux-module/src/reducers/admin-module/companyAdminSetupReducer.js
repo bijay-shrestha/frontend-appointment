@@ -125,6 +125,11 @@ export const CompanyAdminMetaInfoByCompanyIdReducer = (
         errorMessageForCompanyAdminByCompanyIdDropdown: action.payload.message,
         isLoadingForCompanyAdminByCompanyIdDropdown: false
       }
+    case 'CLEAR_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID':
+          return {
+            companyAdminMetaInfoByCompanyIdForDropdown: [],
+            errorMessageForCompanyAdminByCompanyIdDropdown:''
+          }
     default:
       return state
   }
