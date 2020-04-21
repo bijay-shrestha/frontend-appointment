@@ -15,7 +15,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-class AppointmentLogListSearchFilter extends PureComponent {
+class ClientActivityLogSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -29,8 +29,10 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchHandler.searchAdminActivityLog(1,'A');
-    this.props.searchHandler.searchAdminActivityLog(1,'B');
+    this.props.searchHandler.searchAdminActivityLog(1, 'A')
+    this.props.searchHandler.searchAdminActivityLog(1, 'B')
+    this.props.searchHandler.searchAdminActivityLog(1, 'C')
+
     this.toggleSearchForm()
   }
 
@@ -185,8 +187,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                     />
                   </Col>
 
-
-
                   <Col
                     sm={12}
                     md={{span: 8, offset: 4}}
@@ -326,4 +326,4 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentLogListSearchFilter
+export default ClientActivityLogSearchFilter

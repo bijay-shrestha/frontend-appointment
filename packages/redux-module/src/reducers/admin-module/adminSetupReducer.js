@@ -82,7 +82,8 @@ export const AdminSetupReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 isCreateAdminLoading: false,
-                errorMessage: ''
+                errorMessage: '',
+                adminMetaInfoByHospitalIdForDropdown:[]
             };
         case FETCH_ADMIN_META_INFO_PENDING:
             return {
@@ -103,7 +104,7 @@ export const AdminSetupReducer = (state = {...initialState}, action) => {
         case FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS:
           return {
               ...state,
-              adminMetaInfoByHospitalIdForDropdown:[...action.payload.dta]
+              adminMetaInfoByHospitalIdForDropdown:[...action.payload.data]
           }     
         case FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR:
             return {

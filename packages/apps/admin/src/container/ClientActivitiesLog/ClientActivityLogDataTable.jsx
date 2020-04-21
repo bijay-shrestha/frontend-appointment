@@ -9,16 +9,16 @@ import {
 import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
-const AppointmentRefundDataTable = ({
+import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
+import DateWithTime from '../CommonComponents/table-components/DateWithTime'
+import './activity-log.scss'
+const ClientActivityLogDataTable = ({
   tableHandler,
   paginationProps,
-  adminLogStatsData
+  adminLogStatsData,
+  adminDiagramStatsData
 }) => {
-  const {
-    isSearchLoading,
-    searchErrorMessage,
-    logList
-  } = tableHandler
+  const {isSearchLoading, searchErrorMessage, logList} = tableHandler
   const {
     isLogStatsSearchSearchLoading,
     logStatsSearchData,
@@ -33,19 +33,24 @@ const AppointmentRefundDataTable = ({
     handlePageChangeStats
   } = paginationProps
 
+  const {
+    logDiagramSearchData,
+    isLogDiagramSearchLoading,
+    logDiagramSearchErrorMessage,
+    totalCounts
+  } = adminDiagramStatsData
   const prepareDataForChart = datas => {
     var getColor = [
-      '#C6F9D2',
+      '#0063ff',
       '#CCCCB3',
-      '#CECEFF',
+      '#003B46',
       '#FFCAFF',
-      '#D0CCCD',
-      '#FFCC99',
-      '#FFCBB9',
+      '#A2C523',
+      '#FFBB00',
       '#EAEC93',
       '#D7FBE6',
-      '#FFCACA',
-      '#00FF00'
+      '#D7FBE6',
+      '#34675C'
     ]
 
     let chartData = {
@@ -69,17 +74,14 @@ const AppointmentRefundDataTable = ({
   }
 
   let chartData = null
-  if (logStatsSearchData.length) {
-    chartData = prepareDataForChart(logStatsSearchData)
+  if (logDiagramSearchData.length) {
+    chartData = prepareDataForChart(logDiagramSearchData)
   }
   return (
     <>
       <div className="manage-details">
-        <Row>
-          <Col>
-            <h5 className="title">Admin Activity Details</h5>
-          </Col>
-        </Row>
+        <h5 className="title">Activity Details</h5>
+
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
           <>
             <CDataTable
@@ -99,27 +101,17 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   editable: true,
                   sizeColumnsToFit: true,
-                  width: '150',
+                  width: '80',
                   cellClass: 'first-class'
                 },
+
                 {
-                  headerName: 'Log Date & Time',
-                  field: 'logDateTime',
+                  headerName: 'Log Date/Time',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: '200',
-                  valueFormatter: function currencyFormatter (params) {
-                    return params.value.toString()
-                  }
-                },
-                {
-                  headerName: 'Username',
-                  field: 'userName',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '140'
+                  width: '130',
+                  cellRenderer: 'LogDateAndTime'
                 },
                 {
                   headerName: 'IP Address',
@@ -129,9 +121,16 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   autoSize: true,
                   autoWidth: true,
-                  width: '300'
+                  width: '150'
                 },
-
+                {
+                  headerName: 'Email/Mobile',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  cellRenderer: 'EmailWithMobileNumber',
+                  width: '200'
+                },
                 {
                   headerName: 'Features/Menu',
                   field: 'feature',
@@ -147,7 +146,43 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   field: 'actionType',
                   autoSize: true,
-                  width: '300'
+                  width: '100'
+                },
+                {
+                  headerName: 'OS',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  field: 'os',
+                  autoSize: true,
+                  width: '60',
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
+                  }
+                },
+                {
+                  headerName: 'Browsers',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  field: 'browser',
+                  autoSize: true,
+                  width: '100',
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
+                  }
+                },
+                {
+                  headerName: 'Location',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  field: 'location',
+                  autoSize: true,
+                  width: '100',
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
+                  }
                 },
                 {
                   headerName: 'Status',
@@ -156,21 +191,24 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'childLabelRenderer',
-                  width: '120'
+                  width: '100'
                 },
                 {
                   headerName: 'Log Description',
                   field: 'logDescription',
                   resizable: true,
                   sortable: true,
-                  sizeColumnsToFit: true
+                  sizeColumnsToFit: true,
+                  width: '220'
                 }
               ]}
               defaultColDef={{resizable: true}}
               rowSelection={'single'}
               rowData={logList}
               frameworkComponents={{
-                childLabelRenderer: LoggingStatus
+                childLabelRenderer: LoggingStatus,
+                EmailWithMobileNumber: EmailWithMobileNumber,
+                LogDateAndTime: DateWithTime
               }}
             />
             <CPagination
@@ -190,93 +228,129 @@ const AppointmentRefundDataTable = ({
         ) : (
           <CLoading />
         )}
-
-        <Row>
-          <Col>
-            <h5 className="title">Admin Activity Count</h5>
-          </Col>
-        </Row>
-        {!isLogStatsSearchSearchLoading &&
-        !logStatsSearchErrorMessage &&
-        logStatsSearchData.length ? (
-          <>
-            <CDataTable
-              classes="ag-theme-balham"
-              id="roles-table"
-              width="100%"
-              height="460px"
-              enableSorting
-              editType
-              rowHeight={50}
-              columnDefs={[
-                {
-                  headerName: 'SN',
-                  field: 'sN',
-                  headerClass: 'resizable-header header-first-class',
-                  resizable: true,
-                  sortable: true,
-                  editable: true,
-                  sizeColumnsToFit: true,
-                  width: '150',
-                  cellClass: 'first-class'
-                },
-                {
-                  headerName: 'Feature',
-                  field: 'feature',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '200'
-                },
-                {
-                  headerName: 'Count',
-                  field: 'count',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '140'
-                }
-              ]}
-              defaultColDef={{resizable: true}}
-              rowSelection={'single'}
-              rowData={logStatsSearchData}
-            />
-            <CPagination
-              maxSize={statsQueryParams.size}
-              totalItems={statsTotalRecord}
-              currentPage={statsQueryParams.page}
-              onPageChanged={handlePageChangeStats}
-            />
-          </>
-        ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
-          <div className="filter-message">
-            <div className="no-data">
-              <i className="fa fa-file-text-o"></i>
-            </div>
-            <div className="message"> {logStatsSearchErrorMessage}</div>
-          </div>
-        ) : (
-          ''
-        )}
-        <div>
-        {chartData ? (
-          <CDoughnutChart chartData={chartData} width={200} height={100} />
-        ) : null}
-       </div> 
       </div>
 
-      {/* 
-            {showModal ? (
-                <PreviewDetails
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    logData={previewData}
+      <Row className="activity-container">
+        <Col md={6}>
+          <div className="activity-count ">
+            <Row>
+              <Col>
+                <h5 className="title"> Activity Statistics</h5>
+              </Col>
+            </Row>
+
+            {!isLogStatsSearchSearchLoading &&
+            !logStatsSearchErrorMessage &&
+            logStatsSearchData.length ? (
+              <>
+                <CDataTable
+                  classes="ag-theme-balham"
+                  id="roles-table"
+                  width="100%"
+                  height="460px"
+                  enableSorting
+                  editType
+                  rowHeight={50}
+                  columnDefs={[
+                    {
+                      headerName: 'SN',
+                      field: 'sN',
+                      headerClass: 'resizable-header header-first-class',
+                      resizable: true,
+                      sortable: true,
+                      editable: true,
+                      sizeColumnsToFit: true,
+                      width: '150',
+                      cellClass: 'first-class'
+                    },
+                    {
+                      headerName: 'Feature/Menu',
+                      field: 'feature',
+                      resizable: true,
+                      sortable: true,
+                      sizeColumnsToFit: true,
+                      width: '200'
+                    },
+                    {
+                      headerName: 'Count',
+                      field: 'count',
+                      resizable: true,
+                      sortable: true,
+                      sizeColumnsToFit: true,
+                      width: '140'
+                    }
+                  ]}
+                  defaultColDef={{resizable: true}}
+                  rowSelection={'single'}
+                  rowData={logStatsSearchData}
                 />
+                <CPagination
+                  maxSize={statsQueryParams.size}
+                  totalItems={statsTotalRecord}
+                  currentPage={statsQueryParams.page}
+                  onPageChanged={handlePageChangeStats}
+                />
+              </>
+            ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
+              <div className="filter-message">
+                <div className="no-data">
+                  <i className="fa fa-file-text-o"></i>
+                </div>
+                <div className="message"> {logStatsSearchErrorMessage}</div>
+              </div>
             ) : (
-                ''
-            )} */}
+              ''
+            )}
+          </div>
+        </Col>
+
+        <Col md={6} className="pl-0">
+          <div className="activity-log">
+            <Row>
+              <Col>
+                <h5 className="title"> Activity Statistics Diagram</h5>
+              </Col>
+            </Row>
+            {logDiagramSearchData.length &&
+            !isLogDiagramSearchLoading &&
+            !logDiagramSearchErrorMessage ? (
+              <>
+                <CDoughnutChart
+                  chartData={chartData}
+                  width={160}
+                  height={100}
+                />
+                <div className="legend-box clearfix">
+                  <p>Total Counts:{totalCounts}</p>
+                  <p>Top Features</p>
+                  <ul>
+                    {chartData.labels.length &&
+                      chartData.labels.map((datum, index) => {
+                        return (
+                          <li key={'datum' + index}>
+                            <span className="legend"></span>
+                            <span>{datum}</span>
+                          </li>
+                        )
+                      })}
+                  </ul>
+                </div>
+              </>
+            ) : !isLogDiagramSearchLoading && logDiagramSearchErrorMessage ? (
+              <div className="filter-message">
+                <div className="no-data">
+                  <i className="fa fa-file-text-o"></i>
+                </div>
+                <div className="message"> {logDiagramSearchErrorMessage}</div>
+              </div>
+            ) : (
+              <CLoading />
+            )}
+          </div>
+        </Col>
+      </Row>
     </>
   )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default memo(ClientActivityLogDataTable)

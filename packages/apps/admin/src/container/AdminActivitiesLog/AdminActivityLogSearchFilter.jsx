@@ -15,7 +15,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-class AppointmentLogListSearchFilter extends PureComponent {
+class AdminActivityLogSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -247,7 +247,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                    overlay={<Tooltip id="name">Company Name</Tooltip>}
                   >
                     <Button
                       id="search-param-button-filters"
@@ -326,4 +326,4 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentLogListSearchFilter
+export default AdminActivityLogSearchFilter

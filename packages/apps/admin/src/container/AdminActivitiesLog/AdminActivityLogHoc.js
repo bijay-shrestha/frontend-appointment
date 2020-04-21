@@ -3,7 +3,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AdminLoggingMiddleware,
   CompanySetupMiddleware,
-  CompanyAdminSetupMiddleware
+  CompanyAdminSetupMiddleware,
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -17,7 +17,8 @@ const {companyDropdown} = CompanySetupMiddleware
 const {
   fetchAdminLog,
   fetchAdminLogStatistics,
-  fetchAdminDiagramStatistics
+  fetchAdminDiagramStatistics,
+  
 } = AdminLoggingMiddleware
 const {
   fetchCompanyAdminMetaInfoById,

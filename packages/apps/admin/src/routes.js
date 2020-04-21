@@ -9,6 +9,10 @@ const AdminActivityLog = loadable(
     {fallback: getLoader()}
 )
 
+const ClienActivityLog = loadable(
+    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+    {fallback: getLoader()}
+)
 
 const AddProfileComponent = loadable(
     () => import('./container/ProfileSetup/Add/ProfileAdd'),
@@ -686,7 +690,7 @@ export const routes = [
     {
         path: '/admin/userActivityLog',
         name: 'User Activity Log',
-        component: AdminActivityLog,
+        component: ClienActivityLog,
         icon: '',
         hasTab: false,
         isLink: false,

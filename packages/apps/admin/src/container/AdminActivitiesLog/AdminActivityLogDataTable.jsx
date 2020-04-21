@@ -12,7 +12,7 @@ import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
 import DateWithTime from '../CommonComponents/table-components/DateWithTime'
 import './activity-log.scss'
-const AppointmentRefundDataTable = ({
+const AdminActivityLogDataTable = ({
   tableHandler,
   paginationProps,
   adminLogStatsData,
@@ -353,4 +353,4 @@ const AppointmentRefundDataTable = ({
   )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default memo(AdminActivityLogDataTable)

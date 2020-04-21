@@ -1,14 +1,20 @@
 import React from 'react'
 import AdminActivityLogSearchFilter from './ClientActivityLogSearchFilter'
 import AdminActivityLogDataTable from './ClientActivityLogDataTable'
-import AdminActivityLogHoc from './AdminActivityLogHoc'
+import ClientActivityLogHoc from './ClientActivityLogHoc'
 
-const AdminActivityLog = props => {
-  const AcitivityLog = AdminActivityLogHoc(
-    ({searchHandler, paginationProps, adminLogData,adminLogStatsData}) => (
+const ClientActivityLog = props => {
+  const AcitivityLog = ClientActivityLogHoc(
+    ({
+      searchHandler,
+      paginationProps,
+      adminLogData,
+      adminLogStatsData,
+      adminDiagramStatsData
+    }) => (
       <>
         <div>
-          <AdminActivityLogSearchFilter searchHandler={searchHandler}  />
+          <AdminActivityLogSearchFilter searchHandler={searchHandler} />
         </div>
 
         <div className="">
@@ -16,6 +22,7 @@ const AdminActivityLog = props => {
             tableHandler={adminLogData}
             paginationProps={paginationProps}
             adminLogStatsData={adminLogStatsData}
+            adminDiagramStatsData={adminDiagramStatsData}
           />
         </div>
       </>
@@ -24,7 +31,7 @@ const AdminActivityLog = props => {
     ''
   )
 
-  return <AcitivityLog/>
+  return <AcitivityLog />
 }
 
-export default AdminActivityLog;
+export default ClientActivityLog;
