@@ -175,7 +175,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'transactionDetail',
                                     autoSize: true,
                                     autoWidth: true,
-                                    width: "300"
+                                    width: "180"
                                 },
                                 // {
                                 //     headerName: 'Tran. Date',
