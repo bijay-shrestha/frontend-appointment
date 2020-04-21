@@ -15,13 +15,10 @@ import './activity-log.scss'
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
-  adminLogStatsData
+  adminLogStatsData,
+  adminDiagramStatsData
 }) => {
-  const {
-    isSearchLoading,
-    searchErrorMessage,
-    logList
-  } = tableHandler
+  const {isSearchLoading, searchErrorMessage, logList} = tableHandler
   const {
     isLogStatsSearchSearchLoading,
     logStatsSearchData,
@@ -36,6 +33,11 @@ const AppointmentRefundDataTable = ({
     handlePageChangeStats
   } = paginationProps
 
+  const {
+    logDiagramSearchData,
+    isLogDiagramSearchLoading,
+    logDiagramSearchErrorMessage
+  } = adminDiagramStatsData
   const prepareDataForChart = datas => {
     var getColor = [
       '#0063ff',
@@ -72,15 +74,14 @@ const AppointmentRefundDataTable = ({
   }
 
   let chartData = null
-  if (logStatsSearchData.length) {
-    chartData = prepareDataForChart(logStatsSearchData)
+  if (logDiagramSearchData.length) {
+    chartData = prepareDataForChart(logDiagramSearchData)
   }
   return (
     <>
       <div className="manage-details">
-      
         <h5 className="title">Activity Details</h5>
-        
+
         {!isSearchLoading && !searchErrorMessage && logList.length ? (
           <>
             <CDataTable
@@ -103,14 +104,14 @@ const AppointmentRefundDataTable = ({
                   width: '80',
                   cellClass: 'first-class'
                 },
-          
+
                 {
                   headerName: 'Log Date/Time',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
                   width: '130',
-                  cellRenderer:'LogDateAndTime'
+                  cellRenderer: 'LogDateAndTime'
                 },
                 {
                   headerName: 'IP Address',
@@ -155,8 +156,8 @@ const AppointmentRefundDataTable = ({
                   field: 'os',
                   autoSize: true,
                   width: '60',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
                   }
                 },
                 {
@@ -167,9 +168,9 @@ const AppointmentRefundDataTable = ({
                   field: 'browser',
                   autoSize: true,
                   width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
+                  }
                 },
                 {
                   headerName: 'Location',
@@ -179,9 +180,9 @@ const AppointmentRefundDataTable = ({
                   field: 'location',
                   autoSize: true,
                   width: '100',
-                  valueFormatter:function(params){
-                    return params.value||'N/A'
-                  }  
+                  valueFormatter: function (params) {
+                    return params.value || 'N/A'
+                  }
                 },
                 {
                   headerName: 'Status',
@@ -206,8 +207,8 @@ const AppointmentRefundDataTable = ({
               rowData={logList}
               frameworkComponents={{
                 childLabelRenderer: LoggingStatus,
-                EmailWithMobileNumber:EmailWithMobileNumber,
-                LogDateAndTime:DateWithTime
+                EmailWithMobileNumber: EmailWithMobileNumber,
+                LogDateAndTime: DateWithTime
               }}
             />
             <CPagination
@@ -227,125 +228,155 @@ const AppointmentRefundDataTable = ({
         ) : (
           <CLoading />
         )}
-
-
-        </div>
-
+      </div>
 
       <Row className="activity-container">
-        
-     <Col md={6}>
-        <div   className="activity-count ">
-      <Row>
-        <Col>
-        <h5 className="title"> Activity Statistics</h5>
-        
-        </Col>
-        </Row>    
-       
-        {!isLogStatsSearchSearchLoading &&
-        !logStatsSearchErrorMessage &&
-        logStatsSearchData.length ? (
-          <>
-            <CDataTable
-              classes="ag-theme-balham"
-              id="roles-table"
-              width="100%"
-              height="460px"
-              enableSorting
-              editType
-              rowHeight={50}
-              columnDefs={[
-                {
-                  headerName: 'SN',
-                  field: 'sN',
-                  headerClass: 'resizable-header header-first-class',
-                  resizable: true,
-                  sortable: true,
-                  editable: true,
-                  sizeColumnsToFit: true,
-                  width: '150',
-                  cellClass: 'first-class'
-                },
-                {
-                  headerName: 'Feature/Menu',
-                  field: 'feature',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '200'
-                },
-                {
-                  headerName: 'Count',
-                  field: 'count',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  width: '140'
-                }
-              ]}
-              defaultColDef={{resizable: true}}
-              rowSelection={'single'}
-              rowData={logStatsSearchData}
-            />
-            <CPagination
-              maxSize={statsQueryParams.size}
-              totalItems={statsTotalRecord}
-              currentPage={statsQueryParams.page}
-              onPageChanged={handlePageChangeStats}
-            />
-          </>
-        ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
-          <div className="filter-message">
-            <div className="no-data">
-              <i className="fa fa-file-text-o"></i>
-            </div>
-            <div className="message"> {logStatsSearchErrorMessage}</div>
-          </div>
-        ) : (
-          ''
-        )}
-      
-        </div> 
-      
+        <Col md={6}>
+          <div className="activity-count ">
+            <Row>
+              <Col>
+                <h5 className="title"> Activity Statistics</h5>
+              </Col>
+            </Row>
 
-        </Col> 
+            {!isLogStatsSearchSearchLoading &&
+            !logStatsSearchErrorMessage &&
+            logStatsSearchData.length ? (
+              <>
+                <CDataTable
+                  classes="ag-theme-balham"
+                  id="roles-table"
+                  width="100%"
+                  height="460px"
+                  enableSorting
+                  editType
+                  rowHeight={50}
+                  columnDefs={[
+                    {
+                      headerName: 'SN',
+                      field: 'sN',
+                      headerClass: 'resizable-header header-first-class',
+                      resizable: true,
+                      sortable: true,
+                      editable: true,
+                      sizeColumnsToFit: true,
+                      width: '150',
+                      cellClass: 'first-class'
+                    },
+                    {
+                      headerName: 'Feature/Menu',
+                      field: 'feature',
+                      resizable: true,
+                      sortable: true,
+                      sizeColumnsToFit: true,
+                      width: '200'
+                    },
+                    {
+                      headerName: 'Count',
+                      field: 'count',
+                      resizable: true,
+                      sortable: true,
+                      sizeColumnsToFit: true,
+                      width: '140'
+                    }
+                  ]}
+                  defaultColDef={{resizable: true}}
+                  rowSelection={'single'}
+                  rowData={logStatsSearchData}
+                />
+                <CPagination
+                  maxSize={statsQueryParams.size}
+                  totalItems={statsTotalRecord}
+                  currentPage={statsQueryParams.page}
+                  onPageChanged={handlePageChangeStats}
+                />
+              </>
+            ) : !isLogStatsSearchSearchLoading && logStatsSearchErrorMessage ? (
+              <div className="filter-message">
+                <div className="no-data">
+                  <i className="fa fa-file-text-o"></i>
+                </div>
+                <div className="message"> {logStatsSearchErrorMessage}</div>
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
+        </Col>
 
         <Col md={6} className="pl-0">
-        <div className="activity-log" >
-        <Row>
-        <Col>
-        <h5 className="title"> Activity Statistics Diagram</h5>
-        
+          <div className="activity-log">
+            <Row>
+              <Col>
+                <h5 className="title"> Activity Statistics Diagram</h5>
+              </Col>
+            </Row>
+            {chartData &&
+            !isLogDiagramSearchLoading &&
+            !logDiagramSearchErrorMessage ? (
+              <>
+                <CDoughnutChart
+                  chartData={chartData}
+                  width={160}
+                  height={100}
+                />
+                <div className="legend-box clearfix">
+                  <p>Top Features</p>
+                  <ul>
+                    <li>
+                      <span className="legend"></span> <span>Feature 1 </span>
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span> <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                    <li>
+                      <span className="legend"></span>
+                      <span>Feature 1 </span>{' '}
+                    </li>
+                  </ul>
+                </div>
+              </>
+            ) : !isLogDiagramSearchLoading && logDiagramSearchErrorMessage ? (
+              <div className="filter-message">
+                <div className="no-data">
+                  <i className="fa fa-file-text-o"></i>
+                </div>
+                <div className="message"> {logDiagramSearchErrorMessage}</div>
+              </div>
+            ) : (
+              <CLoading />
+            )}
+          </div>
         </Col>
-        </Row>
-        {chartData ? (
-          <CDoughnutChart chartData={chartData} width={160} height={100} />
-        ) : null}
-
-        <div className="legend-box clearfix">
-          <p>Top Features</p>
-            <ul>
-              <li><span className="legend"></span> <span>Feature 1 </span></li>
-              <li><span className="legend"></span><span>Feature 1 </span></li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-              <li><span className="legend"></span> <span>Feature 1 </span> </li>
-              <li><span className="legend"></span><span>Feature 1 </span></li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-              <li><span className="legend"></span><span>Feature 1 </span> </li>
-            </ul>
-          
-
-        </div>
-
-        </div>
-        </Col> 
-     
-
-        </Row>
+      </Row>
     </>
   )
 }

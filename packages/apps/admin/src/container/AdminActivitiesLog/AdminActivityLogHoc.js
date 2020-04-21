@@ -14,7 +14,7 @@ import {
   LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 const {companyDropdown} = CompanySetupMiddleware
-const {fetchAdminLog, fetchAdminLogStatistics} = AdminLoggingMiddleware
+const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
 const {
   fetchCompanyAdminMetaInfoById,
   clearAdminSuccessErrorMessagesFromStore
@@ -145,6 +145,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           }
         })
       }
+      if(pageChange==='C'){
+       await this.props.fetchAdminDiagramStatistics(adminLoggingConstant.FETCH_ADMIN_CHART,searchData)
+      }
     }
 
     appendSNToTable = logList => {
@@ -187,11 +190,13 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           hospitalId: '',
           parentId: '',
           roleId: '',
-          userName: ''
+          userName: '',
+          adminMetaInfoId:''
         }
       })
       this.searchAdminActivityLog('', 'A')
       this.searchAdminActivityLog('', 'B')
+      this.searchAdminActivityLog('','C')
       this.props.clearAdminSuccessErrorMessagesFromStore()
     }
 
@@ -290,6 +295,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     async componentDidMount () {
       await this.searchAdminActivityLog('', 'A')
       await this.searchAdminActivityLog('', 'B')
+      await this.searchAdminActivityLog('', 'C')
       await this.searchCompanyForDropDown()
       this.makeRoleData()
       this.makeMenuData()
@@ -319,6 +325,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         logStatsSearchData,
         logStatsSearchErrorMessage
       } = this.props.AdminLoggingStatsSearchReducer
+      const {
+        isLogDiagramSearchLoading,
+        logDiagramSearchData,
+        logDiagramSearchErrorMessage 
+      }=this.props.AdminLoggingDiagramSearchReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
       const {
         companyAdminMetaInfoByCompanyIdForDropdown
@@ -363,6 +374,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               logStatsSearchData: this.appendSNToTable(logStatsSearchData),
               logStatsSearchErrorMessage: logStatsSearchErrorMessage
             }}
+            adminDiagramStatsData={{
+              isLogDiagramSearchLoading:isLogDiagramSearchLoading,
+              logDiagramSearchData:logDiagramSearchData,
+              logDiagramSearchErrorMessage:logDiagramSearchErrorMessage
+            }}
           />
         </div>
       )
@@ -375,13 +391,15 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       'companyDropdownReducer',
       'AdminLoggingStatsSearchReducer',
       'AdminLoggingSearchReducer',
-      'CompanyAdminMetaInfoByCompanyIdReducer'
+      'CompanyAdminMetaInfoByCompanyIdReducer',
+      'AdminLoggingDiagramSearchReducer'
     ],
     {
       companyDropdown,
       fetchCompanyAdminMetaInfoById,
       fetchAdminLog,
       fetchAdminLogStatistics,
+      fetchAdminDiagramStatistics,
       clearAdminSuccessErrorMessagesFromStore
     }
   )

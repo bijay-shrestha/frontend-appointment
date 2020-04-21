@@ -6,7 +6,10 @@ const {
   USER_LOG_FETCH_SUCCESS,
   USER_LOG_STATS_FETCH_ERROR,
   USER_LOG_STATS_FETCH_START,
-  USER_LOG_STATS_FETCH_SUCCESS
+  USER_LOG_STATS_FETCH_SUCCESS,
+  USER_LOG_DIAGRAM_FETCH_ERROR,
+  USER_LOG_DIAGRAM_FETCH_START,
+  USER_LOG_DIAGRAM_FETCH_SUCCESS
 } = adminLoggingConstant
 
 const initialLogSearchState = {
@@ -21,6 +24,11 @@ const initialLogStatsSearchState = {
     logStatsSearchErrorMessage: '',
     totalItems:0
   }
+ const initialLogDiagramSearchState = {
+    isLogDiagramSearchLoading: true,
+    logDiagramSearchData: [],
+    logDiagramSearchErrorMessage: '',
+  }  
 
 export const AdminLoggingSearchReducer = (
   state = {...initialLogSearchState},
@@ -70,6 +78,31 @@ export const AdminLoggingStatsSearchReducer = (
           isLogStatsSearchSearchLoading: false,
           logStatsSearchData: [],
           logStatsSearchErrorMessage: action.payload.message
+        }
+        default:return state;  
+    }
+  }
+
+  export const AdminLoggingDiagramSearchReducer = (
+    state = {...initialLogDiagramSearchState},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_LOG_DIAGRAM_FETCH_START:
+        return {...state}
+      case USER_LOG_DIAGRAM_FETCH_SUCCESS:
+        return {
+          ...state,
+          isLogDiagramSearchLoading: false,
+          logDiagramSearchData: action.payload.data,
+          logDiagramSearchErrorMessage: '',
+        }
+      case USER_LOG_DIAGRAM_FETCH_ERROR:
+        return {
+          ...state,
+          isLogDiagramSearchLoading: false,
+          logDiagramSearchData: [],
+          logDiagramSearchErrorMessage: action.payload.message,
         }
         default:return state;  
     }

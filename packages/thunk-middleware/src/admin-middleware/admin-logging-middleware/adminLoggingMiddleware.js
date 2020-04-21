@@ -83,3 +83,39 @@ export const fetchAdminLogStatistics = (
     )
   }
 }
+
+export const fetchAdminDiagramStatistics = (
+  path,
+  searchData
+) => async dispatch => {
+  dispatch(AdminLoggingSetupActions.logDiagramFetchStart())
+  try {
+    const response = await axios.put(base_url + path, searchData, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization:
+          LocalStorageSecurity.localStorageDecoder(
+            EnvironmentVariableGetter.AUTH_TOKEN
+          ) || ''
+      }
+    })
+    dispatch(AdminLoggingSetupActions.logDiagramFetchSuccess(response.data))
+    return response
+  } catch (e) {
+    let errorData = e.response
+    let error = ''
+    error = errorData
+      ? errorData.data
+        ? errorData.data.errorMessage
+          ? errorData.data.errorMessage
+          : 'Sorry Something Error Occured In Server'
+        : 'Network Error'
+      : 'Network Error'
+    dispatch(
+      AdminLoggingSetupActions.logDiagramFetchError(
+        error || 'Something Wrong In Server!!'
+      )
+    )
+  }
+}

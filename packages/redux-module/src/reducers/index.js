@@ -131,7 +131,8 @@ import {
 } from './admin-module/companySetupReducers'
 import {
   AdminLoggingSearchReducer,
-  AdminLoggingStatsSearchReducer
+  AdminLoggingStatsSearchReducer,
+  AdminLoggingDiagramSearchReducer
 } from './admin-module/adminLoggingReducer'
 import {
   UniversityDeleteReducer,
@@ -150,6 +151,7 @@ export {
   AppointmentApprovalListReducer,
   AppointmentLogListReducer,
   AdminLoggingSearchReducer,
+  AdminLoggingDiagramSearchReducer,
   AdminLoggingStatsSearchReducer,
   AppointmentStatusListReducer,
   AppointmentRefundReducer,

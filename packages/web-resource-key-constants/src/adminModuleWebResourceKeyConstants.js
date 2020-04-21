@@ -224,7 +224,8 @@ export const companyAdminSetupApiConstants = {
 const LOG_BASE='/logging';
 export const adminLoggingConstant ={
   FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
-  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics"))
+  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics")),
+  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram"))
 }
 
 const UNIVERSITY_BASE = "/university";

@@ -106,7 +106,8 @@ import {
   UniversityPreviewReducer,
   UniversitySaveReducer,
   UniversitySearchReducer,
-  CountryDropdownReducer
+  CountryDropdownReducer,
+  AdminLoggingDiagramSearchReducer
 } from '../reducers'
 
 const {
@@ -133,6 +134,7 @@ const appReducers = combineReducers({
   AdminLoggingStatsSearchReducer,
   AppointmentApprovalListReducer,
   AppointmentLogListReducer,
+  AdminLoggingDiagramSearchReducer,
   AppointmentRefundListReducer,
   AppointmentRefundReducer,
   AppointmentRefundRejectReducer,
