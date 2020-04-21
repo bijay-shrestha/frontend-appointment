@@ -439,8 +439,8 @@
     {
       "id": "24",
       "parentId": null,
-      "name": "User Activity Log",
-      "path": "/userActivityLog",
+      "name": "Acitivity Log",
+      "path": "/activityLog",
       "roles": [],
       "icon": "fa fa-history",
       "leftNavigation": "Y",
@@ -448,8 +448,39 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "User Activity Log",
-      "childMenus": [] 
+      "description": "activityLog",
+      "childMenus": [
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Admin Log",
+          "path": "/activityLog/adminLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "adminLog",
+          "childMenus": []
+        },
+        {
+          "id": "26",
+          "parentId": "24",
+          "name": "Client Log",
+          "path": "/activityLog/clientLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Client Log",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }
