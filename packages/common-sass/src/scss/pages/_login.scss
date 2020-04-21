@@ -146,10 +146,24 @@ flex-direction:column;
     margin:4px 0 24px;
    }
 
+   .verify-wrapper{
+     padding:90px 10px;
+   }
+
    .forgot-password-content{
-     font-size: 0.85rem;
+     font-size:1rem;
      letter-spacing:0;
      margin-bottom:20px;
+   }
+
+   #login-page-redirect{
+     line-height: 1.5;
+   }
+
+   .change-email-verify{
+    font-size: 1rem;
+    letter-spacing:0;
+    margin-bottom:20px;
    }
 
    p{

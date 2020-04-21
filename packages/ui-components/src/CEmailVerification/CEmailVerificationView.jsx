@@ -12,11 +12,11 @@ const CEmailVerificationView = () => {
                     <Container className="container-login">
                         <Row>
                             <Col md={{span: 6, offset: 3}} className="login-right">
-                                <div className="login-wrapper">
+                                <div className="login-wrapper verify-wrapper">
                                     <div className="login-header">
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <h2>Your email has been verified. Click below to Login.</h2>
+                                    <p className="change-email-verify">Your email has been verified. Click below to Login.</p>
                                     <CForm
                                         id="save-password"
                                         className="login-form">
