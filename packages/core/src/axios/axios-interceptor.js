@@ -6,12 +6,16 @@ import {
 import ApiError from './axios-helper/api-error'
 
 const SERVER_DOMAIN = EnvironmentVariableGetter.SERVER_DOMAIN || ''
-const BASE_DOMAIN = EnvironmentVariableGetter.REACT_APP_MODULE_CODE
-  ?"/"+EnvironmentVariableGetter.REACT_APP_MODULE_CODE.toString().toLowerCase()
-  : ''
+const BASE_DOMAIN =
+  process.env.NODE_ENV === 'production'
+    ? EnvironmentVariableGetter.REACT_APP_MODULE_CODE
+      ? '/' +
+        EnvironmentVariableGetter.REACT_APP_MODULE_CODE.toString().toLowerCase()
+      : ''
+    : ''
 //const APP_PORT = process.env.PORT || ''
 let Axios = axios.create({
-  baseURL: SERVER_DOMAIN+BASE_DOMAIN,
+  baseURL: SERVER_DOMAIN + BASE_DOMAIN,
   proxy: {
     host: 'localhost',
     port: 3301
