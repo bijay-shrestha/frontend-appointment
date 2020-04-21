@@ -51,9 +51,12 @@ const checkIfItIsNotAnAction = url => {
   }
   for (let j = 0; j < includeAppUrl.length; j++) {
     if (url.includes('/appointment'))
-      if (!url.includes(includeAppUrl[j])) {
+      if (url.includes(includeAppUrl[j])) {
         flag = false
         break
+      }
+      else{
+        flag=true;
       }
   }
   // console.log('======fag', flag)
