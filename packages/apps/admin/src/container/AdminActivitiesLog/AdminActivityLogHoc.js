@@ -40,11 +40,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       },
       queryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsQueryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsTotalRecord: 0,
       totalRecords: 0,
@@ -271,6 +271,17 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         menuList: [...filterMenusDropdown]
       })
     }
+    changeCompanyDropdownValue = (dropdownData) => {
+      let dropDataNew = []
+      dropDataNew = dropdownData.map(dropData => {
+        const {adminMetaInfoId,metaInfo}=dropData;
+        return {
+          value:adminMetaInfoId,
+          label:metaInfo
+        }
+      })
+      return dropDataNew;
+    }
     async componentDidMount () {
       await this.searchAdminActivityLog('', 'A')
       await this.searchAdminActivityLog('', 'B')
@@ -316,7 +327,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               resetSearch: this.handleSearchFormReset,
               searchAdminActivityLog: this.searchAdminActivityLog,
               companyDropdownData: companyDropdownData,
-              companyAdminMetaInfoByCompanyIdForDropdown:companyAdminMetaInfoByCompanyIdForDropdown,
+              companyAdminMetaInfoByCompanyIdForDropdown:this.changeCompanyDropdownValue(companyAdminMetaInfoByCompanyIdForDropdown),
               searchParameters: searchParameters,
               parentList: menuList,
               roles: rolesList
