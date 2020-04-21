@@ -330,11 +330,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           hospitalId,
           remarks
         } = this.props.PatientPreviewReducer.patientPreviewData
-        let formValidity = true,
-          nameValid = false,
+        let nameValid = false,
           mobileNumberValid = false
-        if (!remarks || !(mobileNumber && mobileNumber.length === 10) || !name)
-          formValidity = false
         if (name) nameValid = true
         if (mobileNumber) mobileNumberValid = true
         this.setState({
@@ -351,12 +348,12 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             remarks: remarks,
             hospitalId: hospitalId
           },
-          formValidity: formValidity,
           nameValid: nameValid,
           mobileNumberValid: mobileNumberValid,
           editModalShow: true
         })
       }
+      this.checkFormValidity()
     }
 
     editHandleApi = async () => {

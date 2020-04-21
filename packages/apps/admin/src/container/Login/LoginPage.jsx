@@ -10,6 +10,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 
+
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware;
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant;
 const {LOGIN_API, GET_LOGGED_IN_ADMIN_INFO, GET_SIDEBAR_DATA} = AdminModuleAPIConstants.initialApiConstantsOfAdmin;
@@ -18,16 +19,17 @@ class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         try {
             await this.props.signinUser(LOGIN_API, {...user});
+            
             await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
                 username: user.username
             });
             const userMenus = await this.props.fetchLoggedInAdminUserInfo(
                 GET_LOGGED_IN_ADMIN_INFO,
                 {
-                    username: user.username,
-                    subDepartmentCode: process.env.REACT_APP_SUB_DEPARTMENT_CODE
+                    username: user.username
                 }
             );
+            LocalStorageSecurity.localStorageEncoder('isOpen',userMenus.isSideBarCollapse==='Y'||userMenus.isSideBarCollapse===null?false:true);
             const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
                 DASHBOARD_FEATURE,
                 userMenus.adminId

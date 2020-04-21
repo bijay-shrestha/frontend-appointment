@@ -155,9 +155,11 @@ class CDoubleShiftSearch extends PureComponent {
                                     iCharacter: child.name.charAt(0).toUpperCase()
                                 };
                                 menusMatchingKeyWord.push(displayData);
+                                return child;
                             });
                         }
                     }
+                    return userMenu
                 }
             )
         } else {

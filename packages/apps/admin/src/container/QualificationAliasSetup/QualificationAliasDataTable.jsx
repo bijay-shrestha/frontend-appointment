@@ -68,6 +68,10 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
                 footerClassName="table-footer"
                 onCancel={handleCancel}
                 onEdit={handleEdit}
+                saveAction={10}
+                updateAction={11}
+                deleteAction={13}
+                previewAction=""
                 onSave={checkIfRoleExists(filteredAction, 10) ? handleSave : ''}
                 onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
                 onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}

@@ -2,18 +2,14 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
-    HospitalSetupMiddleware,
     DoctorMiddleware,
-    SpecializationSetupMiddleware,
-    PatientDetailsMiddleware
+    HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    FileExportUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-log.scss'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 const {
     clearAppointmentRefundPending,
@@ -156,7 +152,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     transactionDate: spec.transactionDate || 'N/A'
                 }))
 
-            return newLogList
+            return newLogList;
         }
 
         handlePageChange = async newPage => {
