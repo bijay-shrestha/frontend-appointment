@@ -12,7 +12,7 @@ const APPOINTMENT_BASE = '/appointment'
 const DASHBOARD_BASE = '/dashboard'
 const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
-const ADMIN_LOGGING='/admin-log'
+const ADMIN_LOGGING = '/admin-log'
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -61,7 +61,8 @@ export const adminSetupAPIConstants = {
     VERIFY_ADMIN: ADMIN_BASE_URL.concat('/verify'),
     FETCH_ADMIN_META_INFO: ADMIN_BASE_URL.concat('/metaInfo'),
     RESET_PASSWORD: ADMIN_BASE_URL.concat('/resetPassword'),
-    CHANGE_PASSWORD: ADMIN_BASE_URL.concat('/changePassword')
+    CHANGE_PASSWORD: ADMIN_BASE_URL.concat('/changePassword'),
+    VERIFY_ADMIN_EMAIL: ADMIN_BASE_URL.concat("/verify/email")
 };
 
 const PASSWORD_BASE = "/password";
@@ -192,37 +193,38 @@ export const companyProfileSetupApiConstants = {
 };
 
 export const CompanyApiConstant = {
-  SAVE_COMPANY: BASE.concat(COMPANY_BASE),
-  UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
-  DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
-  PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
-  SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
-  DELETE_COMPANY: BASE.concat(COMPANY_BASE)
+    SAVE_COMPANY: BASE.concat(COMPANY_BASE),
+    UPDATE_COMPANY: BASE.concat(COMPANY_BASE),
+    DROPDOWN_COMPANY: BASE.concat(COMPANY_BASE + '/active/min'),
+    PREVIEW_COMPANY: BASE.concat(COMPANY_BASE + '/detail'),
+    SEARCH_COMPANY: BASE.concat(COMPANY_BASE + '/search'),
+    DELETE_COMPANY: BASE.concat(COMPANY_BASE)
 };
 
 export const companyAdminSetupApiConstants = {
-  CREATE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
-  EDIT_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
-  DELETE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
-  SEARCH_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/search')),
-  PREVIEW_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/detail')),
-  FETCH_COMPANY_ADMIN_FOR_DROPDOWN: BASE.concat(
-    COMPANY_ADMIN_BASE.concat('/active/min')
-  ),
-  UPDATE_COMPANY_ADMIN_AVATAR: BASE.concat(COMPANY_ADMIN_BASE + '/avatar'),
-  GET_LOGGED_IN_COMPANY_ADMIN_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/info'),
-  SAVE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
-  UPDATE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
-  VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
-  FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
-  RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
-  CHANGE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword')
+    CREATE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+    EDIT_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+    DELETE_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE),
+    SEARCH_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/search')),
+    PREVIEW_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE.concat('/detail')),
+    FETCH_COMPANY_ADMIN_FOR_DROPDOWN: BASE.concat(
+        COMPANY_ADMIN_BASE.concat('/active/min')
+    ),
+    UPDATE_COMPANY_ADMIN_AVATAR: BASE.concat(COMPANY_ADMIN_BASE + '/avatar'),
+    GET_LOGGED_IN_COMPANY_ADMIN_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/info'),
+    SAVE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
+    UPDATE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/password'),
+    VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
+    FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
+    RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
+    CHANGE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword'),
+    VERIFY_COMPANY_ADMIN_EMAIL: BASE.concat(COMPANY_ADMIN_BASE + '/verify/email')
 };
 
-const LOG_BASE='/logging';
-export const adminLoggingConstant ={
-  FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
-  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/user-log-statics"))
+const LOG_BASE = '/logging';
+export const adminLoggingConstant = {
+    FETCH_ADMIN_LOG: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + '/search')),
+    FETCH_ADMIN_LOG_STATS: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/user-log-statics"))
 }
 
 const UNIVERSITY_BASE = "/university";
