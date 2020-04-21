@@ -441,7 +441,7 @@
       "parentId": null,
       "name": "User Activity Log",
       "path": "/userActivityLog",
-      "roles": [2,3,4,5],
+      "roles": [],
       "icon": "fa fa-history",
       "leftNavigation": "Y",
       "checked": false,
