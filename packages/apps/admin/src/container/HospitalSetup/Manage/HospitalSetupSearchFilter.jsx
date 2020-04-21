@@ -67,7 +67,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="code"
                                             name="hospitalCode"
-                                            placeholder="Client Code"
+                                            placeholder="Access Key"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.hospitalCode}
@@ -157,7 +157,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                             placement="top"
                                             delay={{show: 250, hide: 400}}
                                             overlay={props => (
-                                                <Tooltip {...props}>Client Code</Tooltip>
+                                                <Tooltip {...props}>Access Key</Tooltip>
                                             )}
                                         >
                                             <Button id="light-search-filters" variant="secondary">

@@ -65,7 +65,7 @@ const AddOverrideModal = ({
                                 id={"startTime-override"}
                                 name={"startTime"}
                                 label="Start Time"
-                                onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}
+                                onChange={(val) => handleOverrideFormInputChange(val)}
                                 placeholder="00:00"
                                 isDisabled={overrideData.dayOffStatus === 'Y'}
                                 value={overrideData.startTime}
@@ -92,7 +92,7 @@ const AddOverrideModal = ({
                                 id={"endTime-override"}
                                 name={"endTime"}
                                 label="End Time"
-                                onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}
+                                onChange={(val) => handleOverrideFormInputChange(val)}
                                 placeholder="00:00"
                                 isDisabled={overrideData.dayOffStatus === 'Y'}
                                 value={overrideData.endTime}

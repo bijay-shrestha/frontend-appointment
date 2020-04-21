@@ -3,7 +3,7 @@
     {
       "id": "1",
       "parentId": null,
-      "name": "General Setup",
+      "name": "Client Setting",
       "path": "/generalSetup",
       "roles": [],
       "icon": "fa fa-cogs",
@@ -12,7 +12,7 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "1",
-      "description": "Medicine",
+      "description": "This is a client setting",
       "childMenus": [
         {
           "id": "2",
@@ -35,29 +35,9 @@
           "childMenus": []
         },
         {
-          "id": "3",
-          "parentId": "1",
-          "name": "Specialization Setup",
-          "path": "/generalSetup/specialization",
-          "roles": [
-            2,
-            3,
-            4,
-            5
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "Specialization",
-          "childMenus": []
-        },
-        {
           "id": "4",
           "parentId": "1",
-          "name": "Profile Setup",
+          "name": "Client Profile Setup",
           "path": "/generalSetup/profile",
           "roles": [
             2,
@@ -71,13 +51,13 @@
           "order": 4,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Profile Setup",
+          "description": "Client Profile Setup",
           "childMenus": []
         },
         {
           "id": "5",
           "parentId": "1",
-          "name": "Admin Setup",
+          "name": "Client Admin Setup",
           "path": "/generalSetup/admin-setup",
           "roles": [
             2,
@@ -134,67 +114,9 @@
           "menuFor": "1",
           "description": "Doctor Setup",
           "childMenus": []
-        },
-        {
-          "id": "8",
-          "parentId": "1",
-          "name": "Qualification Setup",
-          "path": "/generalSetup/qualification",
-          "roles": [
-            2,
-            3,
-            4,
-            5
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "Qualification Setup",
-          "childMenus": []
-        },
-        {
-          "id": "18",
-          "parentId": "1",
-          "name": "Qualification Alias Setup",
-          "path": "/generalSetup/qualificationAlias",
-          "roles": [
-            2,
-            3,
-            4,
-            5
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "Qualification Alias Setup",
-          "childMenus": []
-        },
-        {
-          "id": "19",
-          "parentId": "1",
-          "name": "University Setup",
-          "path": "/generalSetup/universitySetup",
-          "roles": [
-            2,
-            3,
-            4,
-            5
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 3,
-          "enabled": "Y",
-          "menuFor": "1",
-          "description": "University Setup",
-          "childMenus": []
         }
+
+
       ]
     },
     {
@@ -207,7 +129,7 @@
         3,
         4,
         5,
-        25
+        8
       ],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
@@ -238,9 +160,9 @@
           "name": "Pending Refund Approval",
           "path": "/appointment/appointmentRefundRequest",
           "roles": [
-            17,
-            18,
-            19
+            12,
+            15,
+            16
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -257,7 +179,7 @@
           "name": "Appointment Check-In",
           "path": "/appointment/appointmentApprovalRequest",
           "roles": [
-            13,
+            12,
             14,
             15
           ],
@@ -276,7 +198,7 @@
           "name": "Appointment Status",
           "path": "/appointment/appointmentStatus",
           "roles": [
-            11
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -309,7 +231,7 @@
           "name": "Appointment Log",
           "path": "/reports/appointmentLog",
           "roles": [
-            9
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -326,7 +248,7 @@
           "name": "Reschedule Log",
           "path": "/reports/rescheduleLog",
           "roles": [
-            21
+            12
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -345,8 +267,8 @@
       "name": "Patient Information",
       "path": "/patientInformation",
       "roles": [
-        23,
-        24
+        11,
+        12
       ],
       "icon": "fa fa-bed",
       "leftNavigation": "Y",
@@ -356,6 +278,209 @@
       "menuFor": "6",
       "description": "patientInformation",
       "childMenus": []
+    },
+    {
+      "id": "20",
+      "parentId": null,
+      "name": "Company Settings",
+      "path": "/companySettings",
+      "roles": [],
+      "icon": "fa fa-building-o",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Company Settings",
+      "childMenus": [
+        {
+          "id": "21",
+          "parentId": "20",
+          "name": "Company Setup",
+          "path": "/companySettings/companySetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "companySetup",
+          "childMenus": []
+        },
+        {
+          "id": "22",
+          "parentId": "20",
+          "name": "Company Profile Setup",
+          "path": "/companySettings/companyProfile",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Profile Setup",
+          "childMenus": []
+        },
+        {
+          "id": "23",
+          "parentId": "null",
+          "name": "Company Admin Setup",
+          "path": "/companySettings/companyadmin",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            7
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Company Admin Setup",
+          "childMenus": []
+        },
+        {
+          "id": "18",
+          "parentId": "20",
+          "name": "Qualification Alias Setup",
+          "path": "/companySettings/qualificationAlias",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Alias Setup",
+          "childMenus": []
+        },
+        {
+          "id": "19",
+          "parentId": "20",
+          "name": "University Setup",
+          "path": "/companySettings/universitySetup",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "University Setup",
+          "childMenus": []
+        },
+        {
+          "id": "8",
+          "parentId": "20",
+          "name": "Qualification Setup",
+          "path": "/companySettings/qualification",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Qualification Setup",
+          "childMenus": []
+        },
+        {
+          "id": "3",
+          "parentId": "20",
+          "name": "Specialization Setup",
+          "path": "/companySettings/specialization",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Specialization",
+          "childMenus": []
+        }
+      ]
+    },
+    {
+      "id": "24",
+      "parentId": null,
+      "name": "Acitivity Log",
+      "path": "/activityLog",
+      "roles": [],
+      "icon": "fa fa-history",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "activityLog",
+      "childMenus": [
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Admin Log",
+          "path": "/activityLog/adminLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "adminLog",
+          "childMenus": []
+        },
+        {
+          "id": "26",
+          "parentId": "24",
+          "name": "Client Log",
+          "path": "/activityLog/clientLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Client Log",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }

@@ -119,7 +119,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Name"
+                                    placeholder="Client"
                                     value={hospitalData.name}
                                     required={true}
                                     hasValidation={true}
@@ -137,7 +137,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Code"
+                                    placeholder="Access Key Code"
                                     value={hospitalData.hospitalCode}
                                     required={true}
                                 />
@@ -166,7 +166,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Hospital Address"
+                                    placeholder="Client Address"
                                     value={hospitalData.address}
                                     max={200}
                                     required={true}
@@ -329,7 +329,7 @@ const HospitalEditModal = ({
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event, validity) => onInputChange(event, validity)}
                                     placeholder="Number Of Free Follow Ups"
-                                    value={hospitalData.numberOfFreeFollowUps}
+                                    value={hospitalData.numberOfFollowUps}
                                     required={true}
                                 />
                             </Col>
@@ -407,7 +407,7 @@ const HospitalEditModal = ({
         <>
             <CModal
                 show={showModal}
-                modalHeading="Hospital Details"
+                modalHeading="Client Details"
                 size="lg"
                 bodyChildren={bodyContent}
                 onHide={setShowModal}

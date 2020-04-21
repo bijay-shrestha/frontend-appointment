@@ -4,7 +4,7 @@ import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
 import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
+import {menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -92,16 +92,12 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     setTotalNumberOfMenusAndRoles = async () => {
-        let countOfMenus = 0;
-        this.props.userMenus.forEach(menu => {
-            menu.childMenus.forEach(childMenu => {
-                countOfMenus += childMenu.roles.length;
-            })
-        });
+        const {userMenus, profileData} = this.props;
+        let countOfMenus = ProfileSetupUtils.countTotalNoOfMenusAndRoles(userMenus);
         await this.setState({
             userMenuByDepartment: [...this.props.userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            selectedDepartment: this.props.profileData.departmentValue.value
+            selectedDepartment: profileData.departmentValue.value,
         });
     };
 
@@ -149,8 +145,9 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleTabsAndRolesCheck = async (isRole, roleOrTabData) => {
-        let currentRoles = [...this.state.rolesForTabs],
-            currentTabs = [...this.state.tabs],
+        const {rolesForTabs, tabs, currentSelectedChildMenu} = this.state;
+        let currentRoles = [...rolesForTabs],
+            currentTabs = [...tabs],
             rolesToAddOrRemove = [];
 
         if (isRole) {
@@ -175,7 +172,7 @@ class ProfileMenuAssignment extends PureComponent {
             });
         }
         this.checkIfAllTabsOfChildMenuHasBeenChecked();
-        this.props.onTabAndRolesChange(rolesToAddOrRemove, this.state.currentSelectedChildMenu);
+        this.props.onTabAndRolesChange(rolesToAddOrRemove, currentSelectedChildMenu);
         await this.setState({
             tabs: [...currentTabs],
             rolesForTabs: [...currentRoles]
@@ -184,9 +181,10 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleCheckAllRolesAndTabs = async childMenu => {
-        let tabsForChildMenu = [...this.state.tabs],
-            rolesForChildMenu = [...this.state.rolesForTabs],
-            allTabsAndRolesChecked = !this.state.checkedAllRolesAndTabs;
+        const {tabs, rolesForTabs, checkedAllRolesAndTabs} = this.state;
+        let tabsForChildMenu = [...tabs],
+            rolesForChildMenu = [...rolesForTabs],
+            allTabsAndRolesChecked = !checkedAllRolesAndTabs;
 
         tabsForChildMenu.forEach(tab => {
             tab.isChecked = allTabsAndRolesChecked;
@@ -206,9 +204,10 @@ class ProfileMenuAssignment extends PureComponent {
     };
 
     handleCheckAllUserMenus = userMenus => {
-        let tabsForChildMenu = [...this.state.tabs],
-            rolesForChildMenu = [...this.state.rolesForTabs],
-            allUserMenusSelected = !this.state.checkedAllUserMenus;
+        const {tabs, rolesForTabs, checkedAllUserMenus} = this.state;
+        let tabsForChildMenu = [...tabs],
+            rolesForChildMenu = [...rolesForTabs],
+            allUserMenusSelected = !checkedAllUserMenus;
 
         tabsForChildMenu.forEach(tab => {
             tab.isChecked = allUserMenusSelected;
@@ -287,15 +286,6 @@ class ProfileMenuAssignment extends PureComponent {
                     rolesMatchingKeyword.filter(role => role.parent_role_id === tab.id).length > 0 && tabsMatchingKeyword.push(tab);
                 }
             });
-            // IF NONE TABS CONTAIN KEYWORD, SEARCH IN ROLES AND ANY MATCHES ADD THEIR PARENT TAB AS WELL
-            // JSON.parse(localStorage.getItem("rolesForTabs")).forEach(role => {
-            //     if ((role.name).toLowerCase().includes(keyWord)) {
-            //         rolesMatchingKeyword.push(role);
-            //         let tabForRole = JSON.parse(localStorage.getItem("tabsForSelectedMenu"))
-            //             .find(tab => tab.id === role.parent_role_id);
-            //         tabsMatchingKeyword.push(tabForRole);
-            //     }
-            // })
         } else {
             tabsMatchingKeyword = [...this.state.tabsCopyForSearch];
             rolesMatchingKeyword = [...this.state.rolesCopyForSearch];
@@ -312,13 +302,15 @@ class ProfileMenuAssignment extends PureComponent {
                 rolesForTabs: []
             });
         }
-        console.log(this.state.tabs)
+        // console.log(this.state.tabs)
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.userMenus.length > 0 && this.props.profileData.departmentValue.value !== prevState.selectedDepartment) {
+        const {userMenus, profileData, defaultSelectedMenu} = this.props;
+        if (userMenus.length > 0
+            && profileData.departmentValue.value !== prevState.selectedDepartment) {
             this.setTotalNumberOfMenusAndRoles();
-            this.props.defaultSelectedMenu.length !== 0 ?
+            defaultSelectedMenu.length !== 0 ?
                 TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
                 :
                 this.setState({
@@ -516,7 +508,7 @@ class ProfileMenuAssignment extends PureComponent {
                                                             className="assign-header">
                                                             <CCheckbox
                                                                 id={tab.id}
-                                                                label={tab.name}
+                                                                label={tab.name ? tab.name : this.state.currentSelectedChildMenu.name}
                                                                 checked={tab.isChecked}
                                                                 className="check-all"
                                                                 onChange={() => this.handleTabsAndRolesCheck(false, tab)}

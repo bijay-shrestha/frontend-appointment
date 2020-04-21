@@ -53,7 +53,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Checkin List</h5>
+                            <h5 className="title">Search Appointment Check-In List</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -69,7 +69,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                    
+
                                     <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -113,8 +113,10 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="specializationId"
-                                            label="Select Specialization"
+                                            label="Specialization"
                                             name="specializationId"
+                                            placeholder={activeSpecializationList.length ? "Select specialization"
+                                                : "No specialization(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
@@ -129,14 +131,14 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="doctorId"
-                                            label="Select a Doctor"
+                                            label="Doctor"
                                             name="doctorId"
+                                            placeholder={doctorsDropdown.length ? "Select doctor." : "No doctor(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
                                             value={searchParameters.doctorId}
-                                            isDisabled={doctorsDropdown.length ? false : true}
-                                            onChange={handleSearchFormChange}
+                                            isDisabled={!doctorsDropdown.length}
                                             onEnter={handleEnter}
                                         />
                                     </Col>
@@ -145,7 +147,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder="Select Appointment Number"
+                                            placeholder="Appointment Number"
                                             value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
@@ -165,40 +167,39 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             onEnter={handleEnter}
                                         />
                                     </Col>
-                                   
 
-                                   
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="patientType"
-                                            label="Select Patient Type"
+                                            label="Patient Type"
                                             name="patientType"
                                             value={searchParameters.patientType}
                                             options={[
                                                 {value: 'N', label: 'New'},
                                                 {value: 'Y', label: 'Registered'}
                                             ]}
-                                            placeholder="Select PatientType."
+                                            placeholder="Select Patient Type."
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="patientCategory"
-                                            label="Appointment Category"
-                                            name="patientCategory"
-                                            options={[
-                                                {value: 'Y', label: 'Self'},
-                                                {value: 'N', label: 'Others'}
-                                            ]}
-                                            value={searchParameters.patientCategory}
-                                            placeholder="Select Patient Category."
-                                            onChange={handleSearchFormChange}
-                                            onEnter={handleEnter}
-                                        />
-                                    </Col>
+                                    {/*<Col sm={12} md={6} xl={4}>*/}
+                                    {/*    <CHybridSelect*/}
+                                    {/*        id="patientCategory"*/}
+                                    {/*        label="Appointment Category"*/}
+                                    {/*        name="patientCategory"*/}
+                                    {/*        options={[*/}
+                                    {/*            {value: 'Y', label: 'Self'},*/}
+                                    {/*            {value: 'N', label: 'Others'}*/}
+                                    {/*        ]}*/}
+                                    {/*        value={searchParameters.patientCategory}*/}
+                                    {/*        placeholder="Select Patient Category."*/}
+                                    {/*        onChange={handleSearchFormChange}*/}
+                                    {/*        onEnter={handleEnter}*/}
+                                    {/*    />*/}
+                                    {/*</Col>*/}
 
                                     <Col
                                         sm={12}

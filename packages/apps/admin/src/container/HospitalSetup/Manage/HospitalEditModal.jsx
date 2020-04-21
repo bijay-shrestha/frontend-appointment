@@ -146,7 +146,7 @@ const HospitalEditModal = ({
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Client Code"
+                                    placeholder="Access Key"
                                     value={hospitalData.hospitalCode}
                                     required={true}
                                     disabled={true}
@@ -352,13 +352,13 @@ const HospitalEditModal = ({
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="number-of-free-followUps"
-                                    name="numberOfFreeFollowUps"
+                                    id="number-of-followUps"
+                                    name="numberOfFollowUps"
                                     type="number"
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event, validity) => onInputChange(event, validity)}
                                     placeholder="Number Of Follow Ups"
-                                    value={hospitalData.numberOfFreeFollowUps}
+                                    value={hospitalData.numberOfFollowUps}
                                     required={true}
                                 />
                             </Col>

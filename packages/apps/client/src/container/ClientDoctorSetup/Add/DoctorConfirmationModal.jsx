@@ -3,7 +3,7 @@ import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
 const HospitalConfirmationModal = props => {
-    const {showModal, setShowModal, doctorData, onConfirmClick, type} = props
+    const {showModal, setShowModal, doctorData, onConfirmClick, type, createConsultantLoading} = props
     return (
         <>
             <CModal
@@ -26,6 +26,9 @@ const HospitalConfirmationModal = props => {
                         size="lg"
                         className="float-right btn-action"
                         onClickHandler={onConfirmClick}
+                        disabled={createConsultantLoading}
+                        name={createConsultantLoading ? <span className="saving">Confirming <img
+                            src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
                     />
                 }
                 closeButton={true}

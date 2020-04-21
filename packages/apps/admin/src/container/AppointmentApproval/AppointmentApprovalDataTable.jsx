@@ -13,8 +13,9 @@ import DoctorWithSpecialization from '../CommonComponents/table-components/Docto
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
-import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'; 
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'; 
+import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber';
+import PreviewHandlerHoc  from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 
 
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
@@ -37,7 +38,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         rejectModalShow,
         remarks,
         appointmentDetails,
-        isConfirming
+        isConfirming,
+        filteredActions
     } = tableHandler;
     const {queryParams, totalRecords, handlePageChange} = paginationProps;
     return (
@@ -77,7 +79,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 //     cellRenderer: 'AppointmentDateWithTime',
                                 //     width:"260"
                                 //   },
-                           
+
                                 {
                                     headerName: 'Date',
                                     field: 'appointmentDate',
@@ -168,7 +170,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             type === 'D'
-                                                // ? props.filteredActions.find(action => action.id === 5) &&
+                                                // ? props.filteredActions.find (action => action.id === 5) &&
                                                 ? onRejectHandler(id)
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
@@ -180,9 +182,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                doctorwithSpecializationRenderer: DoctorWithSpecialization,
-                                AppointmentDateWithTime: AppointmentDateWithTime,
-                                PatientNameWithMobileNumber:PatientNameWithMobileNumber
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization,null,null,null,previewCall),
+                                AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
+                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

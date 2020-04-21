@@ -5,10 +5,13 @@ const AppointmentDateWithTime = (props) => {
         <>
             <ul className="doctor-column">
                 <li>
-                 {props.node.data.appointmentDate},
+                    {props.node.data.appointmentDate},
                 </li>
                 <li>
-                 {props.node.data.appointmentTime}
+                    <span className="time">
+                          <i className="fa fa-clock-o"/> &nbsp;
+                        {props.node.data.appointmentTime}
+                     </span>
                 </li>
             </ul>
         </>

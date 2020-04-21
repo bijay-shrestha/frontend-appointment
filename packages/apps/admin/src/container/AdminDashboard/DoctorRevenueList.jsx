@@ -33,15 +33,17 @@ const DoctorRevenueList = props => {
   } = props.doctorRevenue
   return (
     <>
-      {hospitalId.value ? (
-        <Row className="mt-4">
+      
+        <div className="doctor-revenue">
           <h5 className="title">Doctor Revenue</h5>
           <div className="app-log">
+          {hospitalId.value  && hospitalId.value!=='A'? (
+            <>
             <Row>
-              <Col className="px-0">
+              <Col className="">
                 <Form className="hospital-list float-left">
                   <Form.Group as={Row} controlId="formPlaintextEmail">
-                    <Col >
+                    <Col className="px-0">
                     <div className="hospital-list-input">
                       <CHybridSelect
                           name="specializationId"
@@ -133,7 +135,7 @@ const DoctorRevenueList = props => {
                           width:400,
                         },
                         {
-                          headerName: 'No of Appointments',
+                          headerName: 'No of Appt.',
                           field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
@@ -141,7 +143,7 @@ const DoctorRevenueList = props => {
                        
                         },
                         {
-                          headerName: 'Revenue Amout',
+                          headerName: 'Revenue Amt',
                           field: 'revenueAmount',
                           resizable: true,
                           sortable: true,
@@ -165,11 +167,11 @@ const DoctorRevenueList = props => {
 
             <Row>
               <Col className="">
-                <div>
+              <div>
                   {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
                   {toDate.toDateString()} */}
-                  <span className="pull-left rev-total"> Total Appointment : {doctorTotalAppointments}</span>
-                  <span className="pull-right rev-total">Total RevenueAmount : Rs. {doctorTotalRevenueAmount}</span>
+                  <span className="pull-left mt-3"> Total Appointment :<span className="rev-total"> {doctorTotalAppointments}</span></span>
+                  <span className="pull-right mt-3">Total RevenueAmount :<span className="rev-total"> Rs. {doctorTotalRevenueAmount} </span></span>
                 </div>
               </Col></Row>
 
@@ -192,11 +194,20 @@ const DoctorRevenueList = props => {
                 )}
               </div>
             </Row>
-          </div>
-        </Row>
-      ) : (
-        ''
-      )}
+          
+          </>
+          ) : (
+            <div className="filter-message">
+            <div className="no-data">
+                <i className="fa fa-hand-o-up"></i>
+            </div>
+            <div className="message">Please select hosptial!.</div>
+        </div>
+            )}
+         </div>
+        </div>
+     
+   
     </>
   )
 }

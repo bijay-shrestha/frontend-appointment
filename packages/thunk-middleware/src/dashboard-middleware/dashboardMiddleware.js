@@ -234,3 +234,41 @@ export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
 export const clearDashboardDoctorRevenue = () => dispatch => {
 dispatch({type:'CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE'})
 }
+
+export const fetchDashboardFeatures= (path) => async dispatch => {
+    dispatch(DashboardDetailsActions.fetchDashboardFeatureStart())
+    try {
+      const response = await Axios.get(path)
+      dispatch(
+        DashboardDetailsActions.fetchDashboardFeatureSuccess(response.data)
+      )
+      return response
+    } catch (e) {
+      const errorMessage = e.errorMessage
+        ? e.errorMessage
+        : 'Sorry  Error Occured!!'
+      dispatch(
+        DashboardDetailsActions.fetchDashboardFeatureError(errorMessage)
+      )
+      return '';
+    }
+  }
+
+  export const fetchDashboardFeaturesByAdmin= (path,id) => async dispatch => {
+    dispatch(DashboardDetailsActions.fetchDashboardFeatureByAdminStart())
+    try {
+      const response = await Axios.putWithPathVariables(path,id)
+      dispatch(
+        DashboardDetailsActions.fetchDashboardFeatureByAdminSuccess(response.data)
+      )
+      return response
+    } catch (e) {
+      const errorMessage = e.errorMessage
+        ? e.errorMessage
+        : 'Sorry  Error Occured!!'
+      dispatch(
+        DashboardDetailsActions.fetchDashboardFeatureByAdminError(errorMessage)
+      )
+      return '';
+    }
+  }

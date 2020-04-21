@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
-import { menuRoles,TryCatchHandler} from '@frontend-appointment/helpers';
+import {LocalStorageSecurity, menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
 
 class ProfileUpdateMenuAssignment extends PureComponent {
 
@@ -16,7 +16,8 @@ class ProfileUpdateMenuAssignment extends PureComponent {
         checkedAllRolesAndTabs: false,
         checkedAllUserMenus: false,
         totalNoOfMenusAndRoles: 0,
-        userMenus: []// For displaying user menus ,value will be changing when searched.
+        userMenus: [],// For displaying user menus ,value will be changing when searched.
+        adminInfo: ''
     };
 
     setShowModal = () => {
@@ -89,20 +90,13 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     };
 
     setTotalNumberOfMenusAndRoles = async () => {
-        let countOfMenus = 0;
-        this.props.userMenus.forEach(menu => {
-            if (menu.childMenus.length) {
-                menu.childMenus.forEach(childMenu => {
-                    countOfMenus += childMenu.roles.length;
-                })
-            } else {
-                countOfMenus += menu.roles.length;
-            }
-        });
+        const {userMenus} = this.props;
+        let countOfMenus = ProfileSetupUtils.countTotalNoOfMenusAndRoles(userMenus);
         await this.setState({
-            userMenus: [...this.props.userMenus],
+            userMenus: [...userMenus],
             totalNoOfMenusAndRoles: countOfMenus,
-            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length
+            checkedAllUserMenus: countOfMenus === this.props.selectedMenus.length,
+            adminInfo: LocalStorageSecurity.localStorageDecoder("adminInfo")
         });
     };
 
@@ -339,7 +333,17 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     };
 
     render() {
-        const {userMenus, profileData} = this.props;
+        const {userMenus, profileData, defaultSelectedMenu} = this.props;
+        const {
+            adminInfo,
+            checkedAllUserMenus,
+            checkedAllRolesAndTabs,
+            currentSelectedChildMenu,
+            tabsCopyForSearch,
+            tabs,
+            rolesForTabs,
+            activeKey,
+        } = this.state;
         return (
             <>
                 {/*Parent Menus*/}
@@ -355,12 +359,15 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                     // value={this.state.searchMenuValue}
                                     onChange={this.searchMenus}/>
                             </span>
+                            {/*{*/}
+                            {/*    (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?*/}
                             <CCheckbox id="check-all-menu-update"
                                        label="All"
                                        className="select-all"
-                                       checked={this.state.checkedAllUserMenus}
+                                       checked={checkedAllUserMenus}
                                        disabled={this.state.userMenus.length === 0}
                                        onChange={() => this.handleCheckAllUserMenus(this.state.userMenus)}/>
+                            {/*: ''}*/}
                         </div>
                         <CScrollbar
                             id="menus"
@@ -395,7 +402,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                             <div className="message text-center"> No menus found.</div>
                                         </div> :
                                         <Accordion className="menu-accordion"
-                                                   activeKey={this.state.activeKey ? this.state.activeKey : this.props.defaultSelectedMenu.id}>
+                                                   activeKey={activeKey ? activeKey : defaultSelectedMenu.id}>
                                             {this.state.userMenus.map(userMenu =>
                                                 <Card
                                                     key={userMenu.id}>
@@ -403,12 +410,12 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                         eventKey={userMenu.id}
                                                         key={userMenu.id}
                                                         as={Card.Header}
-                                                        className={(this.state.activeKey ? this.state.activeKey
-                                                            : this.props.defaultSelectedMenu.id) === userMenu.id ?
+                                                        className={(activeKey ? activeKey
+                                                            : defaultSelectedMenu.id) === userMenu.id ?
                                                             'activeParent' : ''}
                                                         onClick={() => this.handleAccordionSelect(userMenu)}>
                                                         <i className={userMenu.icon}> </i>
-                                                       <span>{userMenu.name}</span>
+                                                        <span>{userMenu.name}</span>
                                                         {userMenu.childMenus.length > 0 ?
                                                             <i className='fa fa-sort-down'> </i> : ''}
                                                     </Accordion.Toggle>
@@ -416,7 +423,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                         <Accordion.Collapse
                                                             eventKey={userMenu.id}
                                                             id={"child" + child.id}
-                                                            className={this.state.currentSelectedChildMenu.id === child.id ? 'activeChild' : ''}
+                                                            className={currentSelectedChildMenu.id === child.id ? 'activeChild' : ''}
                                                             key={child.id}>
                                                             <Card.Header
                                                                 // key={child.id}
@@ -445,24 +452,29 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                     <div className="assign-previledge">
                         <div className="am-header">
                             <span className="am-title">
-                                {this.state.currentSelectedChildMenu.name ? this.state.currentSelectedChildMenu.name : "Roles"}
+                                {currentSelectedChildMenu.name ? currentSelectedChildMenu.name : "Roles"}
                             </span>
                             <span className="searchMenu">
                                 <CSearch onChange={this.searchTabsAndRoles}/>
                             </span>
+                            {/*{*/}
+                            {/*    (adminInfo && adminInfo.isAllRoleAssigned === 'Y') ?*/}
                             <CCheckbox id="check-all-roles-update"
                                        label="All"
                                        className="select-all"
-                                       checked={this.state.checkedAllRolesAndTabs}
+                                       checked={checkedAllRolesAndTabs}
                                        disabled={userMenus.length === 0}
-                                       onChange={() => this.handleCheckAllRolesAndTabs(this.state.currentSelectedChildMenu)}/>
+                                       onChange={() => this.handleCheckAllRolesAndTabs(currentSelectedChildMenu)}/>
+                            {/*        : ''*/}
+                            {/*}*/}
+
                         </div>
                         <CScrollbar
                             id="menus"
                             autoHide={true}
                             style={{height: 313}}>
                             <div className="assign-body">
-                                {this.state.tabsCopyForSearch.length === 0 ? (profileData.userMenuAvailabilityMessage
+                                {tabsCopyForSearch.length === 0 ? (profileData.userMenuAvailabilityMessage
                                         ? <div className="filter-message">
                                             <div className="no-data">
                                                 <i className="fa fa-file-text-o"></i>
@@ -480,14 +492,14 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                         </div>
                                     )
                                     :
-                                    this.state.tabs.length === 0 ?
+                                    tabs.length === 0 ?
                                         <div className="filter-message">
                                             <div className="no-data">
                                                 <i className="fa fa-file-text-o"> </i>
                                             </div>
                                             <div className="message text-center">No roles found.</div>
                                         </div>
-                                        : this.state.tabs.map(tab =>
+                                        : tabs.map(tab =>
                                             <div
                                                 className="assign-item"
                                                 key={tab.id}>
@@ -496,7 +508,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                     className="assign-header">
                                                     <CCheckbox
                                                         id={tab.id}
-                                                        label={tab.name}
+                                                        label={tab.name ? tab.name : currentSelectedChildMenu.name}
                                                         checked={tab.isChecked}
                                                         className="check-all"
                                                         onChange={() => this.handleTabsAndRolesCheck(false, tab)}
@@ -504,7 +516,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
                                                 </div>
                                                 {/*Roles of child menus*/}
                                                 <Row>
-                                                    {this.state.rolesForTabs.map(role =>
+                                                    {rolesForTabs.map(role =>
                                                         role.parent_role_id === tab.id && (
                                                             <Col
                                                                 key={role.id}

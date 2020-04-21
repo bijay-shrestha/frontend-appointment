@@ -32,8 +32,16 @@ const {
     REJECT_SUCCESS,
     APPROVE_ERROR,
     APPROVE_START,
-    APPROVE_SUCCESS
-} = appointmentDetailsConstants
+    APPROVE_SUCCESS,
+    APPROVAL_DETAIL_FETCH_SUCCESS,
+    APPROVAL_DETAIL_FETCH_ERROR,
+    APPROVAL_DETAIL_FETCH_START,
+    CLEAR_APPROVAL_DETAIL_MESSAGE,
+    REFUND_DETAIL_FETCH_SUCCESS,
+    REFUND_DETAIL_FETCH_START,
+    REFUND_DETAIL_FETCH_ERROR,
+    CLEAR_REFUND_DETAIL_MESSAGE
+} = appointmentDetailsConstants;
 
 const initialState = {
     refundList: [],
@@ -56,7 +64,7 @@ const appointmentLogState = {
     logList: [],
     isLogListLoading: true,
     logErrorMessage: '',
-    totalAmount: '',
+    appointmentStatistics: '',
     totalItems: ''
 }
 
@@ -94,7 +102,19 @@ const appointmentRejectState = {
     isAppointmentRejectLoading: true,
     appointmentRejectSuccessMessage: '',
     appointmentRejectErrorMessage: ''
-}
+};
+
+const appointmentApprovalDetailState = {
+    isAppointmentDetailFetchLoading: false,
+    appointmentDetail: {},
+    appointmentDetailErrorMessage: ''
+};
+
+const appointmentRefundDetailState = {
+    isRefundDetailFetchLoading: false,
+    refundDetail: {},
+    refundDetailErrorMessage: ''
+};
 
 export const AppointmentRefundListReducer = (
     state = {...initialState},
@@ -195,7 +215,7 @@ export const AppointmentRefundReducer = (state = {...refundState}, action) => {
             return {
                 ...state,
                 refundSuccess: '',
-                refundError: action.payload.data.message,
+                refundError: action.payload.data,
                 isRefundLoading: false
             }
         case 'CLEAR_REFUND_MESSAGE':
@@ -220,7 +240,7 @@ export const AppointmentLogListReducer = (
                 logList: [],
                 isLogListLoading: true,
                 logErrorMessage: '',
-                totalAmount: '',
+                appointmentStatistics: '',
                 totalItems: ''
             }
         case LOG_FETCH_SUCCESS:
@@ -229,7 +249,7 @@ export const AppointmentLogListReducer = (
                 logList: [...action.payload.data.appointmentLogs],
                 isLogListLoading: false,
                 logErrorMessage: '',
-                totalAmount: action.payload.data.totalAmount,
+                appointmentStatistics: action.payload.data.appointmentStatistics,
                 totalItems: action.payload.data.totalItems
             }
         case LOG_FETCH_ERROR:
@@ -238,7 +258,7 @@ export const AppointmentLogListReducer = (
                 logList: [],
                 isLogListLoading: false,
                 logErrorMessage: action.payload.data,
-                totalAmount: '',
+                appointmentStatistics: '',
                 totalItems: ''
             }
         case CLEAR_LOG_LIST_MESSAGE:
@@ -451,4 +471,71 @@ export const AppointmentApproveReducer = (
         default:
             return {...state}
     }
-}
+};
+
+export const AppointmentDetailReducer = (state = {...appointmentApprovalDetailState}, action) => {
+    switch (action.type) {
+        case APPROVAL_DETAIL_FETCH_START:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: true,
+                appointmentDetail: {},
+                appointmentDetailErrorMessage: ''
+            };
+        case APPROVAL_DETAIL_FETCH_SUCCESS:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: false,
+                appointmentDetail: {...action.payload.data},
+                appointmentDetailErrorMessage: ''
+            };
+        case APPROVAL_DETAIL_FETCH_ERROR:
+            return {
+                ...state,
+                isAppointmentDetailFetchLoading: false,
+                appointmentDetail: {},
+                appointmentDetailErrorMessage: action.payload.errorMessage
+            };
+        case CLEAR_APPROVAL_DETAIL_MESSAGE:
+            return {
+                ...state,
+                appointmentDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+
+export const AppointmentRefundDetailReducer = (state = {...appointmentRefundDetailState}, action) => {
+    switch (action.type) {
+        case REFUND_DETAIL_FETCH_START:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: true,
+                refundDetail: {},
+                refundDetailErrorMessage: ''
+            };
+        case REFUND_DETAIL_FETCH_SUCCESS:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: false,
+                refundDetail: {...action.payload.data},
+                refundDetailErrorMessage: ''
+            };
+        case REFUND_DETAIL_FETCH_ERROR:
+            return {
+                ...state,
+                isRefundDetailFetchLoading: false,
+                refundDetail: {},
+                refundDetailErrorMessage: action.payload.errorMessage
+            };
+        case CLEAR_REFUND_LIST_MESSAGE:
+            return {
+                ...state,
+                refundDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+

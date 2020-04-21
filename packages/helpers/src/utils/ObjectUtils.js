@@ -7,7 +7,7 @@ export const checkObjectEquality = (object1, object2) => {
         areObjectsEqual = false;
     }
 
-    object1Props.map(object1Prop => {
+    object1Props.map(object1Prop =>{
 
         let value1 = object1[object1Prop];
         let value2 = object2[object1Prop];
@@ -17,6 +17,7 @@ export const checkObjectEquality = (object1, object2) => {
                 areObjectsEqual = false;
             }
         }
+        return object1Prop;
     });
 
     return areObjectsEqual;

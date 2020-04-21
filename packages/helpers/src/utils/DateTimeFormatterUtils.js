@@ -42,9 +42,11 @@ export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
     while (dateValue <= toDate) {
         let day = getDayOfWeek(dateValue);
         let weekDayData = weekDaysData.find(weekDay => (weekDay.weekDaysName).toLowerCase() === day.toLowerCase());
+        if(weekDayData){
         weekDayData.weekDaysName = day;
         daysIncluded.add(weekDayData);
         dateValue = addDate(dateValue, 1);
+        } 
     }
     return Array.from(daysIncluded).sort((first, second) => first.weekDaysId - second.weekDaysId);
 };
@@ -68,7 +70,7 @@ export const getOnlyDateFromDateAndTime = oldDate => {
 
 export const convertStringTimeInHourMinuteFormatToDate = stringTime => {
     let timeDataArray = stringTime.split(":");
-    console.log("Time array",timeDataArray);
-    return getDateWithTimeSetToGivenTime(new Date(),Number(timeDataArray[0]),Number(timeDataArray[1]),0);
+    console.log("Time array", timeDataArray);
+    return getDateWithTimeSetToGivenTime(new Date(), Number(timeDataArray[0]), Number(timeDataArray[1]), 0);
 };
 

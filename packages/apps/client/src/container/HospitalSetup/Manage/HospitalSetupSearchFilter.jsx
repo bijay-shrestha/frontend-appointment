@@ -34,7 +34,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                     // TODO: TO BE MADE DYNAMIC
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Hospital</h5>
+                            <h5 className="title">Search Client</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -58,7 +58,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.name}
                                             options={hospitalDropdown}
-                                            label="Hospital Name"
+                                            label="Client Name"
                                         />
                                     </Col>
 
@@ -66,7 +66,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                         <CHybridInput
                                             id="code"
                                             name="hospitalCode"
-                                            placeholder="Hospital Code"
+                                            placeholder="Access Key Code"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.hospitalCode}
@@ -139,7 +139,7 @@ class HospitalSetupSearchFilter extends PureComponent {
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Hospital Name</Tooltip>
+                                            <Tooltip {...props}>Client Name</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">

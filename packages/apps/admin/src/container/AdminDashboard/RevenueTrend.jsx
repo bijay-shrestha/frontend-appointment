@@ -46,23 +46,22 @@ const RevenueTrend = props => {
   return (
     // <Col lg={7}>
     <>
-      <Row>
+    
         <h5 className="title">Revenue Trend</h5>
-      </Row>
-
-
-      <Row>
-        <div className="chart">
+    
+        <div className="line-chart">
           {!isRevenueStatsLoading && !revenueStatsErrorMessage ? (
             <>
               <Row>
+                <Col>
                 <CDateButtonPills
                   onPillsClickHandler={props.onPillsClickHandler}
                   type="refund"
                   variant="outline-secondary"
                   data={props.revenueFilter}
                 />
-                <Col xs={12} md={4} className="p-0">
+                </Col>
+                <Col xs={12} md={4} className="">
                   <Col className="date">
                     <div>
                       <span>From :</span> {fromDate.revFromDate.toDateString()}
@@ -78,8 +77,9 @@ const RevenueTrend = props => {
                 <CLineChart
                   lineData={newLineData}
                   labels={newRevenueStatsData ? newRevenueStatsData : []}
-                  width={600}
-                  height={350}
+                  width={400}
+                  height={320}
+                  options={{ maintainAspectRatio: true }}
                   revenueFilter={props.revenueFilter}
                 />
               </Row>
@@ -92,7 +92,7 @@ const RevenueTrend = props => {
             </span>
           )}
         </div>
-      </Row>
+     
       </>
     // </Col>
   )

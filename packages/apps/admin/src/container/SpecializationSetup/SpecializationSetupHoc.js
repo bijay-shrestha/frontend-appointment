@@ -216,13 +216,12 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                     name,
                     code,
                     status,
-                    remarks,
                     hospitalId,
                     hospitalName
                 } = this.props.SpecializationPreviewReducer.specializationPreviewData
-                let formValid = this.state.formValid
-                if (remarks)
-                    formValid = true;
+                // let formValid = this.state.formValid
+                // if (remarks)
+                //     formValid = true;
                 this.setState({
                     showEditModal: true,
                     specializationData: {
@@ -230,10 +229,10 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                         name: name,
                         code: code,
                         status: status,
-                        remarks: remarks,
+                        remarks: '',
                         hospitalId:{label: hospitalName,value: hospitalId}
                     },
-                    formValid: formValid,
+                    formValid: false,
                     nameValid: true
                 })
             } catch (e) {
@@ -285,7 +284,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 specializationList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1
-                   
+
                 }))
             return newSpecializationList;
         }

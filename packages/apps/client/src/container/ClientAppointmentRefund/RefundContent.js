@@ -19,6 +19,14 @@ const DetailsModal = ({refundData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="cancelledDate"
+                                    placeholder="Cancelled Date"
+                                    value={refundData.cancelledDate}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="AppointmentTime"
                                     placeholder="Appointment Time"
                                     value={refundData.appointmentTime}
@@ -52,14 +60,6 @@ const DetailsModal = ({refundData}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id=""
-                                    placeholder="Patient Name"
-                                    value={refundData.patientName}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id=""
                                     placeholder="Doctor Name"
                                     value={refundData.doctorName}
                                     disabled={true}
@@ -83,9 +83,9 @@ const DetailsModal = ({refundData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="cancelledDate"
-                                    placeholder="Cancelled Date"
-                                    value={refundData.cancelledDate}
+                                    id="appointmentCharge"
+                                    placeholder="Appointment Charge"
+                                    value={refundData.appointmentCharge}
                                     disabled={true}
                                 />
                             </Col>
@@ -97,14 +97,14 @@ const DetailsModal = ({refundData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="remarks"
-                                    placeholder="Remarks"
-                                    value={refundData.remarks}
-                                    disabled={true}
-                                />
-                            </Col>
+                            {/*<Col sm={12} md={6} lg={6}>*/}
+                            {/*    <CHybridInput*/}
+                            {/*        id="remarks"*/}
+                            {/*        placeholder="Remarks"*/}
+                            {/*        value={refundData.remarks}*/}
+                            {/*        disabled={true}*/}
+                            {/*    />*/}
+                            {/*</Col>*/}
                         </Row>
                     </Container-fluid>
                 </CForm>

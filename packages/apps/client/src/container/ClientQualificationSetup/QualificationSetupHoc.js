@@ -4,6 +4,7 @@ import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middlewa
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './qualification.scss'
+import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 
 const {
     clearQualificationCreateMessage,
@@ -11,17 +12,18 @@ const {
     deleteQualification,
     editQualification,
     fetchActiveCountryCodeForDropdown,
-    fetchActiveQualificationAliasForDropdown,
     fetchActiveQualificationsForDropdown,
     fetchActiveUniversityForDropdown,
     previewQualification,
     searchQualification
-} = QualificationSetupMiddleware
+} = QualificationSetupMiddleware;
+
+const {fetchActiveQualificationAliasForDropdown} = QualificationAliasSetupMiddleware;
 const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
         countrySetupAliasCode,
-        universitySetupAliasCode,
+        universitySetupApiConstants,
         qualificationSetupAliasCode
     } = AdminModuleAPIConstants
 
@@ -224,10 +226,9 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     universityName,
                     qualificationAliasName,
                     status,
-                    remarks,
-                } = this.props.QualificationPreviewReducer.qualificationPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                } = this.props.QualificationPreviewReducer.qualificationPreviewData;
+                let formValid = false;
+                // if (remarks) formValid =
                 this.setState({
                     showEditModal: true,
                     qualificationData: {
@@ -236,7 +237,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                         universityId: {value: universityId, label: universityName},
                         qualificationAliasId: {value: qualificationAliasId, label: qualificationAliasName},
                         status: status,
-                        remarks: remarks
+                        remarks: ''
                     },
                     formValid: formValid,
                     nameValid: true
@@ -429,7 +430,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 qualificationSetupAliasCode.FETCH_QUALIFICATION_ALIAS_CODE
             )
             await this.props.fetchActiveUniversityForDropdown(
-                universitySetupAliasCode.FETCH_UNIVERSITY_CODE
+                universitySetupApiConstants.FETCH_UNIVERSITY_FOR_DROPDOWN
             )
         }
 

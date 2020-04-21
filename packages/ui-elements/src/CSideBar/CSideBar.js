@@ -28,7 +28,7 @@ const CSideBar = props => {
       onMouseOver={props.onHoverSideBar}
       onMouseLeave={props.onLeaveHover}
     >
-        <CScrollbar>
+        <CScrollbar id="sidebar-scrollbar">
       <SideBarHeader
         header="cogentEMR"
         toggle={props.toggle}

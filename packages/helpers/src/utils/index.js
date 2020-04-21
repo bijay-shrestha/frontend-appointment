@@ -11,11 +11,12 @@ import * as CommonUtils from '../utils/CommonUtils';
 import * as RolesUtils from '../utils/RolesUtils';
 import * as EnvironmentVariableGetter from '../utils/EnvironmentVariableGetter';
 import * as ObjectUtils from '../utils/ObjectUtils';
+import {checkDashboardRole} from './DashboardRoleCheckUtils'
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
 export {default as LocalStorageSecurity} from '../utils/localStorageUtils';
-
 export {
+    checkDashboardRole,
     UserMenuUtils,
     AdminInfoUtils,
     EnterKeyPressUtils,

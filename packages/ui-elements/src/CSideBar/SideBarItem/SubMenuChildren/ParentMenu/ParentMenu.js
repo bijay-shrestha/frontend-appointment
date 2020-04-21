@@ -16,7 +16,7 @@ const ParentMenu = props => {
       'nav-item' + id,
           root
       );
-  
+    sessionStorage.setItem("activeMenu",id)
   }
   return props.childrenSize > 0 ? (
     <Accordion.Toggle

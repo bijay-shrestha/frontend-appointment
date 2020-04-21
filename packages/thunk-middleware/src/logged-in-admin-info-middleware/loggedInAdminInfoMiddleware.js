@@ -8,6 +8,7 @@ export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
         let adminInfoResponse = await Axios.put(path, data);
         await AdminInfoUtils.saveLoggedInAdminInfo(adminInfoResponse.data);
         dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchSuccess(adminInfoResponse.data));
+        return adminInfoResponse.data;
     } catch (e) {
         dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchError(e));
     }

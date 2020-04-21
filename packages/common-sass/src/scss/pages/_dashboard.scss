@@ -5,24 +5,9 @@
 
     h5.title{
         display: block;
-        // color:desaturate($cogent,60%);
-        // font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+        }
 
-    // .revenue-title-box{
-    //     position: relative;
 
-    //     .fiscal{
-    //         position: absolute;
-    //         top:0;
-    //         left:0;
-    //     }
-
-    //     .title{
-    //         position: absolute;
-    //         top:12px;
-    //     }
-    // }
 
     .react-datepicker-popper[data-placement^="bottom"] {
         margin-top: -8px !important;
@@ -41,17 +26,20 @@
     .rev-total{
         background-color:$gray-100;
         color:$gray-900;
-        padding:4px;
+        padding:4px 10px;
         margin-top:10px;
+        margin-left:10px;
         @include border-radius(4px);
     }
 
+
     .hospital-list{
-        width:300px;
+        width:200px;
         float:right;
 
         .hospital-list-input{
             position: relative;
+          
 
             .form-label{
                 position: absolute;
@@ -77,12 +65,13 @@
               .css-1hwfws3{
                   padding:0;
               }
+             
 
               .css-yk16xz-control{
                     background-color:transparent;
                     border-color:transparent !important;
                     border-bottom:1px solid $gray-500 !important;
-                    //    min-height: 30px;
+                //    min-height: 0px !important;
             
                     @include border-radius(0);
             
@@ -92,15 +81,14 @@
                     }
                     }
 
+               
+            //    .css-tlfecz-indicatorContainer{
+            //        padding:2px !important;
+            //    }
+
             }
 
-            // .css-1hb7zxy-IndicatorsContainer{
-            //     padding:1px;
-            // }
 
-            // .css-tlfecz-indicatorContainer{
-            //     padding:1px;
-            // }
 
           
 
@@ -119,72 +107,7 @@
         }
 
 
-    //     .select-wrapper{
-    //         min-height: 34px;
-    //         margin-left:4px;
 
-    //         // .select-label.active {
-    //         //     color:$cogent;
-    //         //   }
-
-    //       .css-yk16xz-control{
-    //        background-color:transparent;
-    //     border-color:transparent !important;
-    //        border-bottom:1px solid $gray-500 !important;
-    //     //    min-height: 30px;
-    //        @include border-radius(0);
-
-    //        &:hover{
-    //            border:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //       }
-    //       }
-
-    //       .css-1uccc91-singleValue{
-    //           color:$gray-900;
-    //           letter-spacing: 0.5px !important;
-    //           text-transform: capitalize;
-    //           font-size:11px !important;
-    //       }
-
-    //       .css-1pahdxg-control{
-    //         border-color:transparent !important;
-    //         border-bottom:1px solid $gray-500 !important;
-    //         background-color:transparent;
-    //         @include border-radius(0);
-    //         &:hover{
-    //             border-color:transparent !important;
-    //             border-bottom:1px solid $gray-500 !important;
-    //         }
-    //       }
-
-    //         //for disabled select
-    //       .css-1fhf3k1-control{
-    //         background-color:$gray-100 !important;
-
-    //           // cursor: not-allowed;
-
-    //       }
-
-    //       .css-1hwfws3{
-    //           padding:0 0;
-    //       }
-
-    //       .css-1n7v3ny-option{
-    //         //background-color:#DEEBFF;
-    //         background-color: lighten($cogent,45%);
-    //       }
-
-    //       .css-1wa3eu0-placeholder{
-    //         color:$gray-600;
-    //         font-weight: 300;
-    //       }
-
-    //       .css-tlfecz-indicatorContainer{
-    //           padding:4px !important;
-    //       }
-
-    //     }
     }
 
     .react-datepicker-wrapper{
@@ -255,26 +178,201 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
+   
 
+   
     .revenue-box{
+        position: relative;
         background-color:$white;
-         padding:30px;
-        // width:23%;
-        // height:100%;
+         padding:52px 0;
         margin:0px 0 15px;
         flex-grow: 1;
         flex-basis: 0;
         justify-content: space-between;
         @include border-radius(0.5rem);
         text-align: center;
-            // box-shadow:   -10px -10px 10px  $gray-200,
-            // 10px 10px 10px $gray-400; 
+        .rdb-container{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+            background-color:rgba($white,1);
+            -webkit-transition:.5 ease-in-out;
+            transition: .5s ease-in-out;
+            @include border-radius(0.5rem);
+
+            display:flex;
+            flex-direction: row;
+            align-content:space-between;
+            
+        }
+
+        &:hover{
+            .rdb-container{
+                opacity: 1;
+            }
+        }
+      
+
+       .rdb-total{
+           padding-left:10px;
+           padding-right:10px;
+            align-self: center;
+            flex:1 2 100px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 500;
+
+            span{
+                margin-left: 3px;
+                font-size: 10px;
+                font-weight: 400;
+            }
+         
+       }
+
+        .revenue-details-box{
+            flex:2 0 130px;
+    
+            width:100%;
+            padding-left:10px;
        
+            display:flex;
+            flex-direction: column;
+            
+            // clear: both;
+           
+            .rd-row{
+                // float:left;
+                display:flex;
+                flex-direction: row;
+                // border:1px solid green;
+                align-items:center;
+                height:40px;
+                margin:0 ;
+            }
+        
+          
+        
+            .badge{
+                padding:0;
+                line-height: 22px;
+                // width:6px;
+                // height:6px;
+            }
+        
+            .rd-col{
+                flex-direction: column;
+                // border:1px solid green;
+        
+                p{
+                    font-size: 10px;
+                    line-height: 12px;
+                    margin:0;
+                    letter-spacing: 0;
+                    color:$gray-600;
+                    text-align: left;
+                }
+
+                .amount,.appt{
+                    color:$gray-900;
+                    font-size: 11px;
+                    margin-left:0;
+                }
+            }
+        
+            .rd-col-1{
+                width:2px;
+                margin-right:4px;
+               
+            }
+        
+            .rd-col-2{
+                // width:160px;
+
+                p:first-child{
+                    
+                    font-size: 10px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+                }
+                p{
+                    align-self:center;
+                }
+                
+            }
+        }
+     
+        .tb-data {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0;
+            transition: .5s ease;
+          
+           
+           
+            background-color:$white;
+            -webkit-transition:.5 ease-in-out;
+            transition: .5s ease-in-out;
+            @include border-radius(8px);
+
+            span{
+            color:transparent;
+            font-size: 13px;
+            line-height: 15px;
+            display:none;
+            margin:1px 0;
+           .amt{
+               padding:2px 4px ;
+            //    border:1px solid green;
+               @include border-radius(2px);
+                color:green !important;
+           }
+            
+            }
+        }
+
+        &:hover{
+            .tb-data {
+                padding:30px;
+                opacity: 1;
+
+                span{
+                    text-align: left;
+                    display:inline-block;
+                    color:rgba($gray-900,1);
+              
+                }
+            }
+        }
+        
+        
 
         &:first-child{
             background-color:$cogent;
             box-shadow:   -10px -10px 8px  #fff,
             10px 10px 10px $gray-400; 
+            // .tb-data span{
+            //     color:rgba(255, 255, 255, 0.8);
+            //     font-size: 12px;
+            //     line-height: 10px;
+            // }
+
+            .rdb-container{
+                background-color: $gray-100;
+            }
+
             p{
                 color:$white;
 
@@ -283,7 +381,7 @@
                 color:$black;
 
                 .up{
-                    color:rgba(255, 255, 255, 0.6);
+                    color:rgba(255, 255, 255, 0.7);
                 }
 
                 .down{
@@ -373,10 +471,11 @@
 
     }
 
-    .chart {
+    .line-chart {
         background-color:$white;
-        padding:20px 40px;
+        padding:20px;
         width:100%;
+        height:calc(100% - 20px);
         @include border-radius(0.5rem);
         // box-shadow:   -10px -10px 10px $gray-200,
         // 10px 10px 10px $gray-400; 
@@ -393,14 +492,118 @@
         }
     }
 
-    .app-log{
-        background-color:$white;
-        padding:20px 40px;
-        width:100%;
-        // box-shadow:   -10px -10px 10px $gray-200,
-        // 10px 10px 10px $gray-400; 
-        @include border-radius(0.5rem);
+    .doctor-revenue{
+        height: 100%;
+        // min-height: 300px;
+
+        .app-log{
+            background-color:$white;
+            padding:20px 40px;
+            width:100%;
+            height: calc(100% - 20px);
+            // box-shadow:   -10px -10px 10px $gray-200,
+            // 10px 10px 10px $gray-400; 
+            @include border-radius(0.5rem);
+
+            .app-queue-datatable{
+              
+                .filter-message{
+                    // margin-top:130px;
+                    position: absolute;
+                    top:70%;
+                    left:50%;
+                    width:100%;
+                    height: 200px;
+                    transform: translate(-50%,-70%);
+                }
+            }
+
+            .filter-message{
+                position: absolute;
+                top:50%;
+                left:50%;
+                width:100%;
+                height: 200px;
+                transform: translate(-50%,-50%);
+            }
+          
+
+           
+        }
+
+        .t-app-box,.t-amount-box{
+            padding:10px;
+            border:1px solid $gray-200;
+            @include border-radius(4px);
+        }
+
+        .t-amount-box{
+            text-align: right;
+        }
+
+        .react-datepicker-popper[data-placement^="bottom"]{
+            margin-top:-8px !important;
+        }
+
+        .react-datepicker-popper{
+      
+            margin-left:-100px;
+        }
+
+        .react-datepicker-popper[data-placement^="bottom"]  .react-datepicker__triangle,
+         .react-datepicker-popper[data-placement^="top"]  .react-datepicker__triangle::before {
+             margin-left:100px;
+         }
+
+         .doctor-revenue-revenue{
+            width:100%;
+  
+            .data-image{
+              //   width:25px;
+                margin-top: 4px;
+            }
+  
+            ul li{
+                line-height: 22px;
+            }
+  
+  
+        }
+
     }
+
+    .appointment-queue{
+        height: 100%;
+        // margin-left:-15px;
+        //     margin-right:-15px;
+
+        .app-log{
+            
+            background-color:$white;
+            padding:20px 40px;
+            width:100%;
+            min-height: 500px;
+            // box-shadow:   -10px -10px 10px $gray-200,
+            // 10px 10px 10px $gray-400; 
+            @include border-radius(0.5rem);
+
+            .filter-message{
+                position: absolute;
+                left:50%;
+                top:30%;
+                width:100%;
+                height: 200px;
+                transform: translate(-50%,-30%);
+            }
+        }
+    }
+
+    .app-log{
+
+      
+    }
+
+  
 
 
     .overall-box{
@@ -443,7 +646,14 @@
         // 10px 10px 10px $gray-400; 
         @include border-radius(0.5rem);
 
+        .date-group{
+            text-align: left;
+            padding-left:15px;
+        }
 
+        .date{
+            padding-right:15px;
+        }
 
         .doughnut-chart{
             width:60%;
@@ -562,6 +772,16 @@
       }
 
 
+}
+
+
+
+
+
+@include media-breakpoint-down(sm) {
+.doctor-revenue{
+    margin-top:1.5rem;
+}
 }
 
 // .dashboard-image{

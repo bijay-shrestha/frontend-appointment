@@ -85,10 +85,10 @@ const EditDoctorDutyRoster = ({
 
                             <CHybridSelect
                                 id="hospital"
-                                label="Hospital"
+                                label="Client"
                                 name="hospital"
                                 options={hospitalList}
-                                placeholder="Select hospital."
+                                placeholder="Select client."
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
@@ -101,7 +101,7 @@ const EditDoctorDutyRoster = ({
                                 name="specialization"
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.hospital}
                                 options={specializationList}
-                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Hospital First" : "Select specialization."}
+                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First" : "Select specialization."}
                                 noOptionsMessage={() => specializationDropdownError}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}

@@ -20,6 +20,15 @@ const CButton = props => {
         bsPrefix,
         isLoading
     } = props;
+   const checkAndRenameNameForLoading = ()=> {
+        const vowels =['a','e','i','o','u']
+        const splitName = name.split('')
+        if(vowels.includes(splitName[name.length-1])){
+            return name.slice(0,name.length-1)+"ing" 
+        }else{
+            return name+"ing"
+        }
+    }
     return (
         <>
             <Button
@@ -27,7 +36,7 @@ const CButton = props => {
                 variant={variant}
                 active={active}
                 className={className}
-                disabled={disabled || isLoading}
+                disabled={disabled}
                 as={as}
                 onClick={onClickHandler}
                 href={href}
@@ -36,7 +45,7 @@ const CButton = props => {
                 block={block}
                 bsPrefix={bsPrefix}
             >
-                {isLoading ? name.concat('ing') : name}
+                {isLoading ? checkAndRenameNameForLoading() : name}
                 {children}
             </Button>
         </>

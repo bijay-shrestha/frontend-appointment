@@ -251,7 +251,6 @@
             position: absolute;
             right   : 0;
             width   : 40px;
-         
 
             &.form-check .form-check-label:before {
                 margin-left: -4px;
@@ -271,7 +270,6 @@
 
         .form-check {
             margin-bottom: 5px;
-            
         }
 
         .row {
@@ -320,6 +318,14 @@
     }
 }
 
+.profile-edit-modal{
+    .assign-menu, .assign-previledge{
+        height:422px;
+    }
+
+   
+}
+
 
 .preview-modal {
     .modal-content {
@@ -328,7 +334,7 @@
 
         .modal-header {
 
-            background-color         : darken($cogent, 5%);
+            // background-color         : darken($cogent, 5%);
             // background      : linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
             //background-image : url("../images/clinic5.png");
             justify-content    : center;
@@ -336,18 +342,53 @@
             background-size    : cover;
             background-position: center;
             position           : relative;
-            padding-top        : 20px;
-            margin-bottom      : 20px;
+            padding       : 25px;
+            // margin-bottom      : 20px;
             text-align         : center;
-            color              : $white;
+            color              : $gray-800;
             border             : none;
             opacity            : 0.9;
+            
+            .close{
+                color:$gray-800;
+                font-size: 1.6rem;
 
+                &:hover{
+                    color:$gray-900;
+                   
+                }
+            }
+
+            
+
+            .modal-title{
+                // text-decoration: underline;
+                // position: relative;
+                // &::before{
+                //     content: "";
+                // display: block;
+                // position: absolute;
+                // width: 25%;
+                // height: 1px;
+                // bottom: -2px;
+                // background-color: #6c757d;
+                // }
+            }
+
+        }
+
+        .modal-body{
+            padding:25px;
         }
     }
 
     #label_status {
         display: block;
+    }
+
+    .status-box{
+        margin-top:-10px;
+        margin-bottom:16px;
     }
 
     .form-check {
@@ -368,20 +409,14 @@
             font-size: 12px;
         }
     }
+}
 
-    // .assign-menu,.assign-previledge  {
-    //     height: 370px;
-    //     .am-header {
-    //         padding:8px ;
-    //     }
-
-    //     .am-title{
-    //         font-weight: 500;
-    //     }
-
-
-
-    // }
+.dash-roles-container{
+    .module{
+        display: block;
+        margin-bottom:6px;
+        text-transform: capitalize;
+    }
 }
 
 

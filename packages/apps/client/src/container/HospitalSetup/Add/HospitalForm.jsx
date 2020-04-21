@@ -42,7 +42,7 @@ const HospitalForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Hospital Info</h5>
+                    <h5 className="title">Client Info</h5>
                 </Row>
                 <CForm id="hospital-info" className="mt-2 profile-info">
                     <Container-fluid>
@@ -51,7 +51,7 @@ const HospitalForm = ({
                                 <Row>
                                     <Col sm={12} md={12} lg={12}>
                                         <div className="image-upload-container">
-                                            <CFLabel id='logo' labelName="Hospital Logo"/>
+                                            <CFLabel id='logo' labelName="Client Logo"/>
                                             <div className="image-box">
                                                 <img
                                                     alt="HOSPITAL IMAGE"
@@ -130,7 +130,7 @@ const HospitalForm = ({
                                             name="name"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Name"
+                                            placeholder="Client Name"
                                             value={hospitalInfoObj.name}
                                             required={true}
                                             hasValidation={true}
@@ -145,7 +145,7 @@ const HospitalForm = ({
                                             name="hospitalCode"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Code"
+                                            placeholder="Access Key Code"
                                             value={hospitalInfoObj.hospitalCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
@@ -160,7 +160,7 @@ const HospitalForm = ({
                                             name="panNumber"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital PAN Number"
+                                            placeholder="Client PAN Number"
                                             value={hospitalInfoObj.panNumber}
                                             required={true}
                                         />
@@ -172,7 +172,7 @@ const HospitalForm = ({
                                             name="address"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Hospital Address"
+                                            placeholder="Client Address"
                                             value={hospitalInfoObj.address}
                                             required={true}
                                         />
@@ -292,7 +292,7 @@ const HospitalForm = ({
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             placeholder="Number Of Free Follow Ups"
-                                            value={hospitalInfoObj.numberOfFreeFollowUps}
+                                            value={hospitalInfoObj.numberOfFollowUps}
                                             required={true}
                                         />
                                     </Col>

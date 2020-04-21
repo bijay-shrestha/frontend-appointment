@@ -11,7 +11,11 @@ import PatientWithAgeAndGender from '../CommonComponents/table-components/Patien
 import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
-import {Row, Col, Badge} from 'react-bootstrap';
+import {Row, Col, Badge, Table} from 'react-bootstrap';
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import AppointmentAmountWithTransactionNumber
+    from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+import TransactionDateWithTime from "../CommonComponents/table-components/TransactionDateWithTime";
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -21,21 +25,20 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         previewCall,
         previewData,
         showModal,
-        setShowModal
+        setShowModal,
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
         <>
             <div className="manage-details">
 
-          <Row>
-          <Col>
-                <h5 className="title">Appointment Log Details</h5>
-            </Col>
+                <Row>
+                    <Col>
+                        <h5 className="title">Appointment Log Details</h5>
+                    </Col>
 
 
-
-              {/* <Col>
+                    {/* <Col>
               <CButton
                 id="downloadExcel"
                 name="DownloadExcel"
@@ -50,12 +53,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                 </Row>
 
 
-
                 <Row>
                     <Col>
                         <div className="appointment-badge float-right">
                             <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
-                            <span><Badge variant="danger">CH</Badge>  <span
+                            <span><Badge variant="primary">CH</Badge>  <span
                                 className="badge-data">Checked-In</span> </span>
                             <span><Badge variant="dark">C</Badge>  <span className="badge-data">Canceled</span></span>
                             {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
@@ -98,7 +100,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'statusRenderer'
                                 },
                                 // {
-                                //   headerName: 'Hospital Name',
+                                //   headerName: 'Client Name',
                                 //   field:'hospitalName',
                                 //   resizable: true,
                                 //   sortable: true,
@@ -111,7 +113,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: "200",
-                                    cellRenderer : "AppointmentDateWithTime"
+                                    cellRenderer: "AppointmentDateWithTime"
                                 },
                                 // {
                                 //     headerName: 'App. Time',
@@ -158,24 +160,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     autoSize: true,
                                     width: "300"
                                 },
-
-                                // {
-                                //     headerName: 'DOB',
-                                //     field: 'patientDob',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: '180'
-
-                                // },
-                                // {
-                                //     headerName: 'Mobile No.',
-                                //     field: 'mobileNumber',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: "140",
-                                // },
                                 {
                                     headerName: 'Address',
                                     field: 'patientAddress',
@@ -183,14 +167,34 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
+                                {
+                                    headerName: 'Txn. Detail (No/Amount)',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'transactionDetail',
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: "180"
+                                },
+                                // {
+                                //     headerName: 'Tran. Date',
+                                //     field: 'transactionDate',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     cellRenderer: 'transactionDateWithTime',
+                                // },
 
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer: DoctorWithSpecialization,
-                                statusRenderer: AppointmentLogAction,
-                                patientRenderer: PatientWithAgeAndGender,
-                                PatientNameWitheAgeGenderPhone: PatientNameWitheAgeGenderPhone,
-                                AppointmentDateWithTime : AppointmentDateWithTime
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
+                                statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
+                                patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
+                                PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWitheAgeGenderPhone, null, null, null, previewCall),
+                                AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
+                                transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall),
+                                // transactionDateWithTime: PreviewHandlerHoc(TransactionDateWithTime, null, null, null, previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -203,14 +207,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         />
 
 
-                    <div className="my-4 ml-0 mr-4">
-                        <span className="total-amount">
-                        Total Amount : Rs 40000
+                        {/* <div className=" total-amount">
+                        <span>
+                        Total Amount :
+
                         </span>
+                            <span> Rs {totalAmount}</span>
 
-                    </div>
-
-
+                        </div> */}
 
 
                         <CPagination
@@ -219,6 +223,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             currentPage={queryParams.page}
                             onPageChanged={handlePageChange}
                         />
+
                     </>
                 ) : !isSearchLoading && searchErrorMessage ? (
                     <div className="filter-message">

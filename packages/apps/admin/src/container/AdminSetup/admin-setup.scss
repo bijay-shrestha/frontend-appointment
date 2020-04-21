@@ -11,11 +11,19 @@
 
 
  .module{
-
+  
     &.form-check{
         margin-left:15px;
         display: inline-block;
     }
+ }
+
+ .dash-roles-container{
+     .module{
+         display: block;
+         margin-bottom:6px;
+         text-transform: capitalize;
+     }
  }
 
  .upload-button{

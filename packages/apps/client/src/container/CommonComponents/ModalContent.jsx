@@ -1,6 +1,7 @@
 import React from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {
+    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -236,7 +237,8 @@ class ModalContent extends React.PureComponent {
                                                     <div
                                                         key={tabWithRoles.id}
                                                         className="assign-header">
-                                                        <i className=" fa fa-check"> </i> {tabWithRoles.name}
+                                                        <i className=" fa fa-check"> </i> {tabWithRoles.name ?
+                                                        tabWithRoles.name : this.state.selectedChildMenu.name}
 
                                                     </div>
                                                     {/*Roles of child menus*/}

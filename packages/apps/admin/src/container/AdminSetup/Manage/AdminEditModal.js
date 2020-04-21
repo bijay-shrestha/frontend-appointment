@@ -24,7 +24,8 @@ const AdminEditModal = ({
                             errorMessage,
                             editApiCall,
                             viewProfileDetails,
-                            isAdminEditLoading
+                            isAdminEditLoading,
+                            onChangeDashBoardRole
                         }) => {
 
     let footerChildren = <>
@@ -38,7 +39,8 @@ const AdminEditModal = ({
                 <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!adminUpdateData.formValid}
+                        disabled={!adminUpdateData.formValid||isAdminEditLoading}
+                        isAdminEditLoading={isAdminEditLoading}
                         name="Update"
                         size="lg"
                         className="btn-action  float-right"
@@ -59,7 +61,7 @@ const AdminEditModal = ({
     return (
         <>
             <CModal show={showModal}
-                    modalHeading="Update Admin"
+                    modalHeading="Update Client Admin"
                     size="xl"
                     bodyChildren={
                         <AdminEditForm adminInfoObj={adminUpdateData}
@@ -84,6 +86,7 @@ const AdminEditModal = ({
                                        onImageCrop={onImageCrop}
                                        viewProfileDetails={viewProfileDetails}
                                        isAdminEditLoading={isAdminEditLoading}
+                                       onChangeDashBoardRole={onChangeDashBoardRole}
                         />}
                     onHide={setShowModal}
                     centered={false}

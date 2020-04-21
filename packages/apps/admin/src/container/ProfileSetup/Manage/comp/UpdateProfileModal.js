@@ -1,7 +1,7 @@
 import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import ProfileUpdateForm from "../ProfileUpdateForm";
-import ProfileUpdateMenuAssignment from "../ProfileUpdateMenuAssignment";
+import ProfileUpdateMenuAssignment from "../../../CommonComponents/ProfileUpdateMenuAssignment";
 import {Container, Row} from "react-bootstrap";
 
 const UpdateProfileModal = ({
@@ -16,7 +16,8 @@ const UpdateProfileModal = ({
                                 errorMessage,
                                 profileMenuAssignmentProps,
                                 editApiCall,
-                                formValid
+                                formValid,
+                                isProfileEditLoading
                             }) => {
 
     let footerChildren = <>
@@ -33,6 +34,8 @@ const UpdateProfileModal = ({
                         disabled={!formValid}
                         name="Update"
                         size="lg"
+                        isLoading={isProfileEditLoading}
+                        disabled={isProfileEditLoading}
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
@@ -49,7 +52,7 @@ const UpdateProfileModal = ({
 
     </>;
     let body = <>
-        <Container fluid="true">
+        <Container fluid="true" className="profile-edit-modal">
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}
@@ -72,7 +75,7 @@ const UpdateProfileModal = ({
     return (
         <>
             <CModal show={showEditModal}
-                    modalHeading="Update Profile"
+                    modalHeading="Update Client Profile"
                     size="xl"
                     bodyChildren={body}
                     onHide={setShowEditModal}
