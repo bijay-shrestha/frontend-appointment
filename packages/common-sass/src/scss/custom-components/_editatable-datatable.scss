@@ -1,7 +1,8 @@
 .editable-table-container{
   .add-new{
-    width:120px;
+    width:90px;
     margin:0 0 20px;
+    padding:10px 0;
     float:right;
  
     
@@ -42,7 +43,7 @@
         
 
         tr{
-            &:hover,&:focus{
+            &:hover,&:focus,&.activeRow{
                 height: 40px;
                 border-width: 1px;
                 background-color: lighten($cogent, 45%);
@@ -50,8 +51,29 @@
 
                 .table-action{
                     display: block;
+
+                    .btn-outline-primary{
+                      width:32px;
+                      height: 32px;
+                      padding:7px;
+                      @include border-radius(50%);
+                      border:none;
+                      i{
+                        color:$gray-700;
+                        font-size: 18px;
+                      }
+
+                      &:hover{
+                        background-color:$white;
+                        i{
+                          color:$gray-900;
+                        }
+                      }
+                    }
                 }
             }
+
+           
         }
         
         td{

@@ -12,7 +12,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                 <>
                     <Button
                         id="save"
-                        variant="success"
+                        variant="outline-primary"
                         // disabled={!rowValid}
                         onClick={(e) => onClick(e, node, 'ADD')}>
                         <i className="fa fa-save"/>
@@ -21,7 +21,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                     &nbsp;
                     <Button
                         id="cancel"
-                        variant="outline-secondary"
+                        variant="outline-primary"
                         onClick={(e) => onClick(e, node, 'CANCEL')}>
                         <i className="fa fa-times"/>
                         {/* Cancel */}
@@ -32,7 +32,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                     {
                         onUpdate ? <Button
                             id="edit"
-                            variant="secondary"
+                            variant="outline-primary"
                             disabled={actionDisabled}
                             onClick={(e) => onClick(e, node, 'EDIT')}>
                             <i className="fa fa-edit"/>
@@ -44,7 +44,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
                         onDelete ?
                             <Button
                                 id="delete"
-                                variant="outline-danger"
+                                variant="outline-primary"
                                 disabled={actionDisabled}
                                 onClick={(e) => onClick(e, node, 'DELETE')}>
                                 <i className="fa fa-trash-o"/>

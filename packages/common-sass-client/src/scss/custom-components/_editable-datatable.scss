@@ -1,98 +1,124 @@
+.editable-table-container{
+  .add-new{
+    width:90px;
+    margin:0 0 20px;
+    padding:10px 0;
+    float:right;
+ 
+    
+}
 
 .editable-table{
-  border-bottom:1px solid $cogent-border;
+   border-bottom:1px solid $cogent-border;
 
   
-  .add-new{
-      width:120px;
-      margin:20px 0;
-      float:right;
-      margin-top:-30px;
-      
-  }
-
-    .table-header{
-        margin-bottom:0;
-        border:none;
-        td{
-            font-weight: 500;
-            text-transform: capitalize;
-            font-size: 12px;
-            letter-spacing: 0.02rem;
-          
-            border: none;
-            border-bottom: 1px solid $gray-200;
-            border-left: 1px solid $gray-200;
-            height: 50px;
-
-            &:nth-child(1){
-                border-left: 1px solid transparent;
-            }
-        }
-      
-    }
-
-    .table-body{
-   
-      border-top:0;
-      height: 40px;
-      border-width: 1px;
-      border-color: $cogent-border;
-
-      tr{
-          &:hover,&:focus{
-              height: 40px;
-              border-width: 1px;
-              background-color: lighten($cogent, 45%);
-              border-color: $cogent-border;
-
-              .table-action{
-                  display: block;
+  
+      .table-header{
+          margin-bottom:0;
+          border:none;
+          td{
+              font-weight: 500;
+              text-transform: capitalize;
+              font-size: 12px;
+              letter-spacing: 0.02rem;
+            
+              border: none;
+              border-bottom: 1px solid $gray-200;
+              border-left: 1px solid $gray-200;
+              height: 50px;
+  
+              &:nth-child(1){
+                  border-left: 1px solid transparent;
               }
           }
+        
       }
-      
-      td{
-          height: 40px;
-          border-width: 1px;
-          color:$gray-800;
-          border-color:$gray-100;
-          font-weight: 500;
-          min-height: 42px;
-          vertical-align: middle;
-      
-      }
-    }
-
   
+      .table-body{
+     
+        border-top:0;
+        height: 40px;
+        border-width: 1px;
+        border-color: $cogent-border;
+        
 
-    .activeRow{
-      .table-action{
-          display: block;
-      }
-    }
-   
+        tr{
+            &:hover,&:focus,&.activeRow{
+                height: 40px;
+                border-width: 1px;
+                background-color: lighten($cogent, 45%);
+                border-color: $cogent-border;
 
-    .css-yk16xz-control{
-        border-color:$cogent-border;
-        &:hover{
-          border:1px solid $gray-500;
+                .table-action{
+                    display: block;
+
+                    .btn-outline-primary{
+                      width:32px;
+                      height: 32px;
+                      padding:7px;
+                      @include border-radius(50%);
+                      border:none;
+                      i{
+                        color:$gray-700;
+                        font-size: 18px;
+                      }
+
+                      &:hover{
+                        background-color:$white;
+                        i{
+                          color:$gray-900;
+                        }
+                      }
+                    }
+                }
+            }
+
+           
+        }
+        
+        td{
+            height: 40px;
+            border-width: 1px;
+            color:$gray-800;
+            border-color:$gray-100;
+            font-weight: 500;
+            min-height: 42px;
+            vertical-align: middle;
+        
         }
       }
 
-    .form-control{
-       min-height: 38px;
-       border: 1px solid $cogent-border;
-       // padding: 15px;
-       border-radius: 4px;
-       font-weight: 500;
+  
+
+      .activeRow{
+        .table-action{
+            display: block;
+        }
+      }
      
-       &:hover{
-         border:1px solid $gray-500;
-         
-       }
-       &:focus{
-         border:1px solid $cogent;
-       }
-    }
+  
+      .css-yk16xz-control{
+          border-color:$cogent-border;
+          &:hover{
+            border:1px solid $gray-500;
+          }
+        }
+  
+      .form-control{
+         min-height: 38px;
+         border: 1px solid $cogent-border;
+         // padding: 15px;
+         border-radius: 4px;
+         font-weight: 500;
+       
+         &:hover{
+           border:1px solid $gray-500;
+           
+         }
+         &:focus{
+           border:1px solid $cogent;
+         }
+      }
+  }
+
 }
