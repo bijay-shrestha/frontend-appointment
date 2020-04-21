@@ -125,12 +125,6 @@ export const CompanyAdminMetaInfoByCompanyIdReducer = (
         errorMessageForCompanyAdminByCompanyIdDropdown: action.payload.message,
         isLoadingForCompanyAdminByCompanyIdDropdown: false
       }
-    case COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN_BY_ID:
-      return {
-        ...state,
-        companyAdminMetaInfoDropDown: [],
-        errorMessageForCompanyAdminDropdown: '',
-      }
     default:
       return state
   }

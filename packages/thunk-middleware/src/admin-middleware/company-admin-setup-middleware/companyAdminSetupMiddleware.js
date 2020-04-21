@@ -10,7 +10,6 @@ const {
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
 
-
 export const createCompanyAdmin = (
   path,
   adminData,
@@ -84,7 +83,11 @@ export const editCompanyAdmin = (
       editData,
       formData
     )
-    dispatch(CompanyAdminSetupActions.companyAdminEditSuccess('Company Admin Edited Successfully'))
+    dispatch(
+      CompanyAdminSetupActions.companyAdminEditSuccess(
+        'Company Admin Edited Successfully'
+      )
+    )
     return response
   } catch (e) {
     dispatch(
@@ -132,15 +135,24 @@ export const fetchCompanyAdminMetaInfo = path => async dispatch => {
   }
 }
 
-export const fetchCompanyAdminMetaInfoById = path => async dispatch => {
-dispatch(CompanyAdminSetupActions.companyAdminMetaInfoByCompanyIdFetchPending())
-try{
-  const response = await Axios.getWithPathVariables(path,id);
-  dispatch(CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchSuccess(response.data))
-}catch(e){
-  dispatch(CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchError(e.errorMessage||'Sorry, Internal Server Error'))
-}
-
+export const fetchCompanyAdminMetaInfoById = (path, id) => async dispatch => {
+  dispatch(
+    CompanyAdminSetupActions.companyAdminMetaInfoByCompanyIdFetchPending()
+  )
+  try {
+    const response = await Axios.getWithPathVariables(path, id)
+    dispatch(
+      CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchSuccess(
+        response.data
+      )
+    )
+  } catch (e) {
+    dispatch(
+      CompanyAdminSetupActions.companyAdminMetaInfoCompanyIdFetchError(
+        e.errorMessage || 'Sorry, Internal Server Error'
+      )
+    )
+  }
 }
 
 export const clearAdminSuccessErrorMessagesFromStore = () => dispatch => {
