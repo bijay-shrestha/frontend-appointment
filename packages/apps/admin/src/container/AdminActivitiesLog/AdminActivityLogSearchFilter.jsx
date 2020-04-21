@@ -31,6 +31,8 @@ class AppointmentLogListSearchFilter extends PureComponent {
   handleSearchButtonClick = () => {
     this.props.searchHandler.searchAdminActivityLog(1, 'A')
     this.props.searchHandler.searchAdminActivityLog(1, 'B')
+    this.props.searchHandler.searchAdminActivityLog('', 'C')
+    
     this.toggleSearchForm()
   }
 

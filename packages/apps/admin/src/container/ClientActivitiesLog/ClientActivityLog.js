@@ -1,6 +1,6 @@
 import React from 'react'
-import AdminActivityLogSearchFilter from './AdminActivityLogSearchFilter'
-import AdminActivityLogDataTable from './AdminActivityLogDataTable'
+import AdminActivityLogSearchFilter from './ClientActivityLogSearchFilter'
+import AdminActivityLogDataTable from './ClientActivityLogDataTable'
 import AdminActivityLogHoc from './AdminActivityLogHoc'
 
 const AdminActivityLog = props => {

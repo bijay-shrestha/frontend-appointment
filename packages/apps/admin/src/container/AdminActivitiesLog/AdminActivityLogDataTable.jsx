@@ -36,7 +36,8 @@ const AppointmentRefundDataTable = ({
   const {
     logDiagramSearchData,
     isLogDiagramSearchLoading,
-    logDiagramSearchErrorMessage
+    logDiagramSearchErrorMessage,
+    totalCounts
   } = adminDiagramStatsData
   const prepareDataForChart = datas => {
     var getColor = [
@@ -50,7 +51,6 @@ const AppointmentRefundDataTable = ({
       '#D7FBE6',
       '#D7FBE6',
       '#34675C',
-      '#00FF00'
     ]
 
     let chartData = {
@@ -311,7 +311,7 @@ const AppointmentRefundDataTable = ({
                 <h5 className="title"> Activity Statistics Diagram</h5>
               </Col>
             </Row>
-            {chartData &&
+            {logDiagramSearchData.length &&
             !isLogDiagramSearchLoading &&
             !logDiagramSearchErrorMessage ? (
               <>
@@ -323,44 +323,16 @@ const AppointmentRefundDataTable = ({
                 <div className="legend-box clearfix">
                   <p>Top Features</p>
                   <ul>
-                    <li>
-                      <span className="legend"></span> <span>Feature 1 </span>
-                    </li>
-                    <li>
+                    {chartData.labels.length &&chartData.labels.map((datum,index) => {
+                     return (
+                      <li key={"datum"+index}>
                       <span className="legend"></span>
-                      <span>Feature 1 </span>
+                      <span>{datum}</span>
                     </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span> <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
-                    <li>
-                      <span className="legend"></span>
-                      <span>Feature 1 </span>{' '}
-                    </li>
+                     )
+                    })}
+                    
+                  
                   </ul>
                 </div>
               </>

@@ -222,10 +222,14 @@ export const companyAdminSetupApiConstants = {
 };
 
 const LOG_BASE='/logging';
+
 export const adminLoggingConstant ={
   FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
   FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics")),
-  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram"))
+  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram")),
+  FETCH_CLIENT_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/client/search')),
+  FETCH_CLIENT_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-statics")),
+  FETCH_CLIENT_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-diagram"))
 }
 
 const UNIVERSITY_BASE = "/university";

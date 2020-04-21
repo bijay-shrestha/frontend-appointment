@@ -2,7 +2,8 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AdminLoggingMiddleware,
-  HospitalSetupMiddleware
+  HospitalSetupMiddleware,
+  fetchAdminMetaInfoByHospitalId
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -13,12 +14,13 @@ import {
   LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchAdminLog, fetchAdminLogStatistics} = AdminLoggingMiddleware
+const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
 
 const AdminActivityLogHOC = (ComposedComponent, props, type) => {
   const {
     hospitalSetupApiConstants,
-    adminLoggingConstant
+    adminLoggingConstant,
+    adminSetupAPIConstants
   } = AdminModuleAPIConstants
 
   class AdminActivityLogDetails extends React.PureComponent {
@@ -29,7 +31,8 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         hospitalId: '',
         parentId: '',
         roleId: '',
-        userName: ''
+        userName: '',
+        adminMetaInfoId:''
       },
       queryParams: {
         page: 0,
@@ -58,6 +61,13 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         )
       } catch (e) {
         console.log(e)
+      }
+    }
+    searchHospitalAdminDropDown = async (id)=> {
+      try{
+        await this.props.fetchAdminMetaInfoByHospitalId(adminSetupAPIConstants.FETCH_ADMIN_META_INFO_BY_HOSPITAL_ID,id)
+      }catch(e){
+        console.log(e);
       }
     }
 
@@ -173,7 +183,8 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           hospitalId: '',
           parentId: '',
           roleId: '',
-          userName: ''
+          userName: '',
+          adminMetaInfoId:''
         }
       })
       this.searchAdminActivityLog('','A')
@@ -207,6 +218,10 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         }
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        if(fieldName ==='hospitalId'){
+          this.searchHospitalAdminDropDown(value);
+          searchParams['adminMetaInfoId']=''
+        }
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -289,6 +304,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         logStatsSearchErrorMessage
       } = this.props.AdminLoggingStatsSearchReducer
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+      const {adminMetaInfoByHospitalIdForDropdown} = this.props.AdminSetupReducer
       return (
         <div id="admin-acitivity-log">
           <ComposedComponent
@@ -300,6 +316,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               resetSearch: this.handleSearchFormReset,
               searchAdminActivityLog: this.searchAdminActivityLog,
               hospitalsDropdown: hospitalsForDropdown,
+              adminMetaInfoByHospitalIdForDropdown:adminMetaInfoByHospitalIdForDropdown,
               searchParameters: searchParameters,
               parentList: menuList,
               roles: rolesList
@@ -337,12 +354,16 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     [
       'HospitalDropdownReducer',
       'AdminLoggingStatsSearchReducer',
-      'AdminLoggingSearchReducer'
+      'AdminLoggingSearchReducer',
+      'AdminLoggingDiagramSearchReducer',
+      'AdminSetupReducer'
     ],
     {
       fetchActiveHospitalsForDropdown,
       fetchAdminLog,
-      fetchAdminLogStatistics
+      fetchAdminDiagramStatistics,
+      fetchAdminLogStatistics,
+      fetchAdminMetaInfoByHospitalId
     }
   )
 }

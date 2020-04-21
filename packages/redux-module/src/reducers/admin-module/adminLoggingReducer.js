@@ -28,6 +28,7 @@ const initialLogStatsSearchState = {
     isLogDiagramSearchLoading: true,
     logDiagramSearchData: [],
     logDiagramSearchErrorMessage: '',
+    totalCounts:0,
   }  
 
 export const AdminLoggingSearchReducer = (
@@ -94,8 +95,9 @@ export const AdminLoggingStatsSearchReducer = (
         return {
           ...state,
           isLogDiagramSearchLoading: false,
-          logDiagramSearchData: action.payload.data,
+          logDiagramSearchData: action.payload.data.userMenuCountList,
           logDiagramSearchErrorMessage: '',
+          totalCounts:action.payload.data.totalCounts
         }
       case USER_LOG_DIAGRAM_FETCH_ERROR:
         return {

@@ -17,10 +17,6 @@ const AppointmentRefundDataTable = ({
   const {
     isSearchLoading,
     searchErrorMessage,
-    // previewCall,
-    // previewData,
-    // showModal,
-    // setShowModal,
     logList
   } = tableHandler
   const {

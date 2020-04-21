@@ -43,7 +43,8 @@ class AppointmentLogListSearchFilter extends PureComponent {
       hospitalsDropdown,
       searchParameters,
       parentList,
-      roles
+      roles,
+      adminMetaInfoByHospitalIdForDropdown
     } = searchHandler
 
     return (
@@ -76,6 +77,27 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       options={hospitalsDropdown}
                       isDisabled={hospitalsDropdown.length ? false : true}
                       value={searchParameters.hospitalId}
+                      onChange={handleSearchFormChange}
+                      onKeyDown={handleEnter}
+                    />
+                  </Col>
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="adminMetaInfoId"
+                      name="adminMetaInfoId"
+                      label="Admin Meta Info"
+                      placeholder={
+                        searchParameters.hospitalId
+                          ? 'Select Admin Meta Info'
+                          : 'Select Hospital First'
+                      }
+                      options={adminMetaInfoByHospitalIdForDropdown}
+                      isDisabled={
+                        adminMetaInfoByHospitalIdForDropdown.length
+                          ? false
+                          : true
+                      }
+                      value={searchParameters.adminMetaInfoId}
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />

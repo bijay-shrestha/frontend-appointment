@@ -14,7 +14,11 @@ import {
   LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 const {companyDropdown} = CompanySetupMiddleware
-const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
+const {
+  fetchAdminLog,
+  fetchAdminLogStatistics,
+  fetchAdminDiagramStatistics
+} = AdminLoggingMiddleware
 const {
   fetchCompanyAdminMetaInfoById,
   clearAdminSuccessErrorMessagesFromStore
@@ -145,8 +149,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           }
         })
       }
-      if(pageChange==='C'){
-       await this.props.fetchAdminDiagramStatistics(adminLoggingConstant.FETCH_ADMIN_CHART,searchData)
+      if (pageChange === 'C') {
+        await this.props.fetchAdminDiagramStatistics(
+          adminLoggingConstant.FETCH_ADMIN_CHART,
+          searchData
+        )
       }
     }
 
@@ -191,12 +198,12 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           parentId: '',
           roleId: '',
           userName: '',
-          adminMetaInfoId:''
+          adminMetaInfoId: ''
         }
       })
       this.searchAdminActivityLog('', 'A')
       this.searchAdminActivityLog('', 'B')
-      this.searchAdminActivityLog('','C')
+      this.searchAdminActivityLog('', 'C')
       this.props.clearAdminSuccessErrorMessagesFromStore()
     }
 
@@ -328,8 +335,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       const {
         isLogDiagramSearchLoading,
         logDiagramSearchData,
-        logDiagramSearchErrorMessage 
-      }=this.props.AdminLoggingDiagramSearchReducer
+        logDiagramSearchErrorMessage,
+        totalCounts
+      } = this.props.AdminLoggingDiagramSearchReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
       const {
         companyAdminMetaInfoByCompanyIdForDropdown
@@ -375,9 +383,10 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               logStatsSearchErrorMessage: logStatsSearchErrorMessage
             }}
             adminDiagramStatsData={{
-              isLogDiagramSearchLoading:isLogDiagramSearchLoading,
-              logDiagramSearchData:logDiagramSearchData,
-              logDiagramSearchErrorMessage:logDiagramSearchErrorMessage
+              isLogDiagramSearchLoading: isLogDiagramSearchLoading,
+              logDiagramSearchData: logDiagramSearchData,
+              logDiagramSearchErrorMessage: logDiagramSearchErrorMessage,
+              totalCounts: totalCounts
             }}
           />
         </div>

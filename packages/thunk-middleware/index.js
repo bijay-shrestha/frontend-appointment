@@ -30,7 +30,8 @@ import {
     CompanyAdminSetupMiddleware,
     AdminLoggingMiddleware,
     QualificationAliasSetupMiddleware,
-    UniversitySetupMiddleware
+    UniversitySetupMiddleware,
+    fetchAdminMetaInfoByHospitalId
 } from './src/admin-middleware'
 import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -95,5 +96,6 @@ export {
     UniversitySetupMiddleware,
     CountryMiddleware,
     fetchUserMenusNew,
-    savePinOrUnpinUserMenu
+    savePinOrUnpinUserMenu,
+    fetchAdminMetaInfoByHospitalId
 }
