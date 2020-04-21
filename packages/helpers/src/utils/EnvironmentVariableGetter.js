@@ -13,7 +13,7 @@ export const CLIENT_EMAIL_REDIRECT_URL = process.env.REACT_APP_CLIENT_FRONTEND_E
 export const ADMIN_PORT = process.env.REACT_APP_FRONTEND_ADMIN_PORT || '';
 export const CLIENT_PORT = process.env.REACT_APP_FRONTEND_CLIENT_PORT || '';
 
-export const ADMIN_MODULE_CODE = process.env.REACT_APP_MODULE_CODE || '';
+export const ADMIN_MODULE_CODE = process.env.REACT_APP_ADMIN_MODULE_CODE || '';
 export const CLIENT_MODULE_CODE = process.env.REACT_APP_CLIENT_MODULE_CODE || '';
 
 export const APP_SECRET_KEY= process.env.REACT_APP_SECRET_KEY||'';

@@ -163,7 +163,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                                 >
                                     <Button id="button-searchs-filters" variant="secondary">
                                         {searchParameters.hospital && searchParameters.hospital.label}

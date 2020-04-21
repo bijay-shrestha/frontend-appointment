@@ -60,7 +60,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newSpecializationList: [],
                 newQualificationList: [],
                 doctorAvatar: null,
-                doctorAvatarUrl: ''
+                doctorAvatarUrl: '',
+                doctorAvatarUrlNew: ''
             },
             formValid: false,
             nameValid: false,
@@ -187,7 +188,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData,
                 nameValid,
                 contactValid,
-              //  emailValid,
+                //  emailValid,
                 appointmentChargeValid
             } = this.state
             let formValidity =
@@ -431,6 +432,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             )
                         ],
                         doctorAvatarUrl: fileUri,
+                        doctorAvatarUrlNew: '',
                         doctorAvatar: new File([5120], fileUri),
                         appointmentCharge: appointmentCharge,
                         appointmentFollowUpCharge: appointmentFollowUpCharge
@@ -526,7 +528,11 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 [croppedImageFile],
                 'doctorAvatar.jpeg'
             );
-            doctorImage.doctorAvatarUrl = croppedImage;
+            if (type === 'M') {
+                doctorImage.doctorAvatarUrlNew = croppedImage;
+            } else {
+                doctorImage.doctorAvatarUrl = croppedImage;
+            }
             await this.setState({
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
@@ -540,7 +546,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1
-                   
+
                 }));
             return newConsultantList
         };
@@ -601,13 +607,16 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds,
                 doctorAvatar,
                 appointmentCharge,
-                appointmentFollowUpCharge
+                appointmentFollowUpCharge,
+                doctorAvatarUrlNew
             } = this.state.consultantData;
             let formData = new FormData();
-            formData.append(
-                'avatar',
-                new File([doctorAvatar], name.concat('-picture.jpeg'))
-            );
+            if (doctorAvatarUrlNew !== '')
+                formData.append(
+                    'avatar',
+                    new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
+                );
+
             try {
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
@@ -623,7 +632,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             appointmentFollowUpCharge,
                             remarks,
                             email,
-                            id
+                            id,
+                            isAvatarUpdate: doctorAvatarUrlNew ? 'Y' : 'N',
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
@@ -787,7 +797,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantPreviewErrorMessage
             } = this.props.DoctorPreviewReducer
 
-            const {consultantEditErrorMessage} = this.props.DoctorEditReducer
+            const {consultantEditErrorMessage, isConsultantEditLoading} = this.props.DoctorEditReducer
+
+            const {createConsultantLoading} = this.props.DoctorSaveReducer;
 
             const {deleteErrorMessage} = this.props.DoctorDeleteReducer
 
@@ -866,6 +878,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     appointmentChargeValid={appointmentChargeValid}
                     errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
                     emailValid={emailValid}
+                    isConsultantEditLoading={isConsultantEditLoading}
+                    createConsultantLoading={createConsultantLoading}
                 />
             )
         }

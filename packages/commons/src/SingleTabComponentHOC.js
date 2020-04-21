@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {Redirect} from "react-router-dom";
 import {menuRoles} from "@frontend-appointment/helpers";
-
+import {CLoading} from "@frontend-appointment/ui-elements";
+import connectHoc from './connectHoc';
 const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
     class SingleTabComponent extends PureComponent {
 
@@ -31,13 +32,22 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
             pathWithoutBase = pathWithoutBase.join('/');
             pathWithoutBase = '/'.concat(pathWithoutBase);
 
-            let parentMenu = userMenuList.find(userMenu => pathWithoutBase.includes(userMenu.path));
-            let childMenu = parentMenu && parentMenu.childMenus.find(child => pathWithoutBase.includes(child.path));
+            let currentMenu = new Set();
+            userMenuList.map(
+                userMenu => {
+                    let childMenus = userMenu.childMenus;
+                    if (childMenus.length) {
+                        let menu = childMenus.find(child => pathWithoutBase.includes(child.path));
+                        if (menu) currentMenu.add(menu);
+                    } else {
+                        if (pathWithoutBase.includes(userMenu.path)) currentMenu.add(userMenu);
+                    }
+                }
+            );
 
-            if (parentMenu && parentMenu.childMenus.length === 0) {
-                filteredAction = [...this.getFilteredRole(parentMenu.roles)]
-            }else {
-                filteredAction = childMenu && [...this.getFilteredRole(childMenu.roles)]
+            let menusMatchingPath = Array.from(currentMenu);
+            if (menusMatchingPath.length) {
+                menusMatchingPath.map(menu => filteredAction = [...this.getFilteredRole(menu.roles)])
             }
 
             this.setState({
@@ -49,6 +59,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
 
         async componentDidMount() {
             await this.checkRolesAssigned();
+            this.props.dispatch({type:'LOCATION_CHANGE'})
         }
 
         render() {
@@ -60,17 +71,15 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
             return (
                 !isLoading && filteredAction.length ?
                     (
-                        <>
-                            <ComposedComponent
-                                {...this.props}
-                                {...props}
-                                filteredAction={filteredAction}
-                                hasTabs={false}
-                            />
-                        </>
+                        <ComposedComponent
+                            {...this.props}
+                            {...props}
+                            filteredAction={filteredAction}
+                            hasTabs={false}
+                        />
                     )
                     : isLoading && !unauthorized ? (
-                        <div>loading</div>
+                        <CLoading/>
                     )
                     : (
                         <Redirect to="/unauthorized"/>
@@ -79,7 +88,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
         }
     }
 
-    return <SingleTabComponent/>;
+    return connectHoc(SingleTabComponent,[],null);
 };
 
 export default SingleTabComponentHOC;

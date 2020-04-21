@@ -42,7 +42,7 @@ const {
 const initialState = {
     departments: [],
     subDepartments: [],
-    isCreateProfileLoading: true,
+    isCreateProfileLoading: false,
     errorMessage: '',//profileCreate error message
     successMessage: '',
     isSearchLoading: true,
@@ -51,7 +51,7 @@ const initialState = {
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
     isDeleteLoading: true,
-    isProfileEditLoading: true,
+    isProfileEditLoading: false,
     profileErrorMessage: '',//profile edit error message
     profileSuccessMessage: '',
     profilePreviewData: {},
@@ -95,7 +95,8 @@ export const ProfileSetupReducer = (state = {...initialState}, action) => {
         case CREATE_PROFILE_ERROR:
             return {
                 ...state,
-                errorMessage: action.payload.errorMessage
+                errorMessage: action.payload.errorMessage,
+                isCreateProfileLoading:false,
             };
         case CLEAR_PROFILE_CREATE_ERROR_MESSAGE:
             return {

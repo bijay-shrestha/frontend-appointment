@@ -51,19 +51,19 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     name="Reset"
                                     onClickHandler={resetSearch}
                                 >
-                                   &nbsp; <i className="fa fa-refresh"/>
+                                    &nbsp; <i className="fa fa-refresh"/>
                                 </CButton>
                             </div>
                         </div>
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-                                <Col sm={12} md={6} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="hospitalId"
                                             name="hospitalId"
-                                            label="Hospital"
-                                            placeholder="Select Hospital"
+                                            label="Client"
+                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No client(s)."}
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}
@@ -76,7 +76,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="from-date"
                                                 name="fromDate"
-                                                label="From Date"
+                                                label="Appointment From Date"
                                                 dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
@@ -94,7 +94,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="to-date"
                                                 name="toDate"
-                                                label="To Date"
+                                                label="Appointment To Date"
                                                 dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
@@ -112,6 +112,46 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
+                                        <div className="d-flex">
+                                            <CEnglishDatePicker
+                                                id="transaction-from-date"
+                                                name="transactionFromDate"
+                                                label="Transaction From Date"
+                                                dateFormat="yyyy-MM-dd"
+                                                // maxDate={0}
+                                                showDisabledMonthNavigation={true}
+                                                peekNextMonth={true}
+                                                showMonthDropdown={true}
+                                                showYearDropdown={true}
+                                                dropdownMode="select"
+                                                selected={searchParameters.transactionFromDate}
+                                                onKeyDown={event => handleEnter(event)}
+                                                onChange={date =>
+                                                    handleSearchFormChange(date, 'transactionFromDate')
+                                                }
+                                            />
+                                            &nbsp;&nbsp;
+                                            <CEnglishDatePicker
+                                                id="transaction-to-date"
+                                                name="transactionToDate"
+                                                label="Transaction To Date"
+                                                dateFormat="yyyy-MM-dd"
+                                                // maxDate={0}
+                                                showDisabledMonthNavigation={true}
+                                                selected={searchParameters.transactionToDate}
+                                                peekNextMonth={true}
+                                                showMonthDropdown={true}
+                                                showYearDropdown={true}
+                                                dropdownMode="select"
+                                                onKeyDown={event => handleEnter(event)}
+                                                onChange={date =>
+                                                    handleSearchFormChange(date, 'transactionToDate')
+                                                }
+                                            />
+                                        </div>
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="specializationId"
                                             label="Specialization"
@@ -119,13 +159,15 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
-                                            isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
+                                            isDisabled={searchParameters.hospitalId ? (!activeSpecializationList.length)
+                                                : true}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
-                                            placeholder="Select specialization."
+                                            placeholder={searchParameters.hospitalId ? (activeSpecializationList.length ? "Select Specialization."
+                                                : "No specialization(s).") : "Select client first."}
                                         />
                                     </Col>
-                                  
+
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -136,30 +178,43 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
                                             value={searchParameters.doctorId}
-                                            isDisabled={doctorsDropdown.length ? false : true}
+                                            isDisabled={searchParameters.hospitalId ? !doctorsDropdown.length : true}
                                             onEnter={handleEnter}
-                                            placeholder="Select doctor."
+                                            placeholder={searchParameters.hospitalId ? (doctorsDropdown.length ? "Select doctor."
+                                                : "No doctor(s).") : "Select client first."}
                                         />
                                     </Col>
-                                   
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput
                                             id="appointmentNumber"
                                             name="appointmentNumber"
-                                            placeholder=" Appointment Number"
+                                            placeholder="Appointment Number"
                                             value={searchParameters.appointmentNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
                                     </Col>
-                                    
-                                    
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder="Name, Mobile no Or Reg. no"
+                                            placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
+                                                : "No patient(s)." : "Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}
@@ -168,7 +223,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                   
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -207,12 +261,13 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             label="Status"
                                             placeholder="Select Status."
                                             name="status"
+                                            value={searchParameters.status}
                                             options={[
                                                 {value: 'PA', label: 'Booked'},
                                                 {value: 'A', label: 'Checked-In'},
                                                 // {value: 'RE', label: 'Rejected'},
                                                 {value: 'C', label: 'Cancelled'},
-                                                {value: 'R', label: 'Refunded'}
+                                                {value: 'RE', label: 'Refunded'}
                                             ]}
                                             onChange={handleSearchFormChange}
                                         />
@@ -276,11 +331,27 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
+                            {searchParameters.transactionNumber && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.transactionNumber}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.hospitalId && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                                        overlay={<Tooltip id="name">Client</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -295,7 +366,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">From Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment From Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -310,7 +381,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">To Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment To Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -321,6 +392,38 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {searchParameters.transactionFromDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Transaction From Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.transactionFromDate.toLocaleDateString()}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.transactionToDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Transaction To Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.transactionToDate.toLocaleDateString()}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.patienMetaInfoId && (
                                 <li>
                                     <OverlayTrigger

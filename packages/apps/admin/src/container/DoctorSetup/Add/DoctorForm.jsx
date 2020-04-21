@@ -92,7 +92,7 @@ const DoctorForm = ({
                       onChange={(event, validity) =>
                         onInputChange(event, validity)
                       }
-                      label="Select Hospital"
+                      label="Select Client"
                       options={hospitalsForDropdown}
                       value={doctorInfoObj.hospitalId}
                       required={true}

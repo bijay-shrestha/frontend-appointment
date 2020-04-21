@@ -7,11 +7,11 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from './tableComponents/TableAction'
-import StatusLabel from './tableComponents/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction';
+import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
 import PreviewDetails from '../commons/PreviewDetails'
 
-//const {checkIfRoleExists} = ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils
 
 const QualificationDetailsDataTable = props => (
     <div className="manage-details">
@@ -90,7 +90,7 @@ const QualificationDetailsDataTable = props => (
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(props.filteredActions, 4) &&
+                        checkIfRoleExists(props.filteredActions, 4) &&
                         props.onPreviewHandler
                     }
                     rowSelection={'single'}

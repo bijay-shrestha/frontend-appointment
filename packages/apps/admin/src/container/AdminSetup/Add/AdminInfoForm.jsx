@@ -43,7 +43,7 @@ const AdminInfoForm = ({
   const dashData = dashboardFeatureData?dashboardFeatureData.length?dashboardFeatureData:[]:[];
   return (
     <>
-      <h5 className="title">Admin Setup</h5>
+      <h5 className="title">Client Admin Setup</h5>
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
           <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
@@ -86,13 +86,13 @@ const AdminInfoForm = ({
               <Col sm={12} md={12} lg={6}>
                 <CHybridSelect
                   id="admin-hospital"
-                  label="Hospital"
+                  label="Client"
                   name="hospital"
                   onKeyDown={event => onEnterKeyPress(event)}
                   onChange={event => onInputChange(event)}
                   options={hospitalList}
                   value={adminInfoObj.hospital}
-                  placeholder="Select hospital."
+                  placeholder="Select client."
                 />
               </Col>
               <Col sm={12} md={12} lg={6}></Col>
@@ -110,7 +110,7 @@ const AdminInfoForm = ({
                   placeholder={
                     adminInfoObj.hospital
                       ? 'Select department.'
-                      : 'Select hospital first.'
+                      : 'Select client first.'
                   }
                 />
               </Col>
@@ -298,8 +298,8 @@ const AdminInfoForm = ({
                       ) : null}
                     </div>
                   </Col>
-                
-                
+
+
                {/* mac binding inputs */}
                <Col sm={12} md={12} lg={6} className="py-4">
                 <Row>
@@ -309,7 +309,7 @@ const AdminInfoForm = ({
                       id="admin-add-hasMacBinding"
                       name="hasMacBinding"
                       label="Device Filter"
-                     
+
                       checked={adminInfoObj.hasMacBinding}
                       onChange={event => onInputChange(event)}
                       onKeyDown={event => onEnterKeyPress(event)}
@@ -384,7 +384,7 @@ const AdminInfoForm = ({
                   </Col>
                 </Row>
               </Col>
-             
+
                </Row>
           </Col>
         </Row>

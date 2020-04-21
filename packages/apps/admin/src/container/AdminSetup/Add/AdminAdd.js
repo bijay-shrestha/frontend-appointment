@@ -17,7 +17,9 @@ import {
   previewProfile,
   DashboardDetailsMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {
+  AdminModuleAPIConstants
+} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CAlert, CButton, CLoading} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
@@ -371,10 +373,11 @@ class AdminAdd extends PureComponent {
     }
 
     let formData = new FormData()
-    formData.append(
-      'file',
-      new File([adminAvatar], username.concat('-picture.jpeg'))
-    )
+    adminAvatar &&
+      formData.append(
+        'file',
+        new File([adminAvatar], username.concat('-picture.jpeg'))
+      )
     try {
       await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData)
       await this.resetStateValues()
@@ -588,7 +591,7 @@ class AdminAdd extends PureComponent {
                     disabled={!this.state.formValid}
                     isLoading={isCreateAdminLoading}
                     onClickHandler={this.setShowConfirmModal}
-                  ></CButton>
+                  />
                   <AdminConfirmationModal
                     showModal={this.state.showConfirmModal}
                     setShowModal={this.setShowConfirmModal}

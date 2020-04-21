@@ -22,13 +22,13 @@ const DepartmentInfoForm = ({
                         <Col sm={12} md={4} lg={4}>
                             <CHybridSelect
                                 id="hospital"
-                                label="Hospital"
+                                label="Client"
                                 name="hospital"
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event)}
                                 options={hospitalList}
                                 value={departmentInfoObj.hospital}
-                                placeholder="Select hospital."
+                                placeholder="Select client."
                             />
                         </Col>
                         <Col sm={12} md={4} lg={4}>

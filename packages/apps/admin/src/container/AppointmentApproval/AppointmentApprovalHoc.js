@@ -18,7 +18,8 @@ const {
     appointmentApprove,
     appointmentReject,
     clearAppointmentApproveMessage,
-    clearAppointmentRejectMessage
+    clearAppointmentRejectMessage,
+    fetchAppointmentApprovalDetailByAppointmentId
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -26,7 +27,7 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {
     fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware;
-const {fetchPatientMetaList} = PatientDetailsMiddleware;
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware;
 const AppointApprovalHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
@@ -55,7 +56,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {},
+            // previewData: {},
             rejectRequestDTO: {
                 appointmentId: '',
                 remarks: ''
@@ -86,11 +87,26 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        previewCall = data => {
-            this.setState({
-                previewData: data,
-                showModal: true
-            })
+        previewApiCall = async data => {
+            await this.props.fetchAppointmentApprovalDetailByAppointmentId(
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL, data.appointmentId)
+        };
+
+        previewCall = async data => {
+            try {
+                await this.previewApiCall(data);
+                this.setState({
+                    showModal: true
+                })
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentDetailReducer.appointmentDetailErrorMessage
+                    }
+                })
+            }
         };
 
         setShowModal = () => {
@@ -115,8 +131,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
-                fromDate,
-                toDate,
+                fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                toDate: appointmentNumber ? '' : toDate,
                 hospitalId: hospitalId.value || '',
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
@@ -158,9 +174,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 refundList.length &&
                 refundList.map((spec, index) => ({
                     ...spec,
-                    patientMobileNumber:spec.mobileNumber,
+                    patientMobileNumber: spec.mobileNumber,
                     sN: index + 1,
-                    registrationNumber:spec.registrationNumber||'N/A'
+                    registrationNumber: spec.registrationNumber || 'N/A'
                 }));
             return newRefundList
         }
@@ -223,7 +239,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
                 hospitalId
             )
-            this.props.fetchPatientMetaList(
+            this.props.fetchPatientMetaDropdown(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
                 hospitalId
             )
@@ -256,12 +272,13 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        approveHandler = data => {
+        approveHandler = async data => {
+            await this.previewApiCall(data);
             this.props.clearAppointmentApproveMessage();
             this.setState({
                 approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
-                appointmentDetails: {...data}
+                appointmentDetails: {...this.props.AppointmentDetailReducer.appointmentDetail}
             })
         };
 
@@ -356,7 +373,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData,
                 rejectRequestDTO,
                 rejectModalShow,
                 approveAppointmentId,
@@ -392,7 +408,10 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             const {
                 patientList,
                 patientDropdownErrorMessage
-            } = this.props.PatientDropdownListReducer
+            } = this.props.PatientDropdownListReducer;
+
+            const {appointmentDetail} = this.props.AppointmentDetailReducer;
+
             return (
                 <div id="appointment-approval">
                     <ComposedComponent
@@ -424,7 +443,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
-                            previewData: previewData,
+                            previewData: appointmentDetail,
                             rejectSubmitHandler: this.rejectSubmitHandler,
                             rejectRemarksHandler: this.rejectRemarksHandler,
                             onRejectHandler: this.onRejectHandler,
@@ -475,19 +494,21 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             'HospitalDropdownReducer',
             'PatientDropdownListReducer',
             'AppointmentApproveReducer',
-            'AppointmentRejectReducer'
+            'AppointmentRejectReducer',
+            'AppointmentDetailReducer'
         ],
         {
             clearAppointmentRefundPending,
             fetchActiveHospitalsForDropdown,
             fetchActiveDoctorsHospitalWiseForDropdown,
             fetchSpecializationHospitalWiseForDropdown,
-            fetchPatientMetaList,
+            fetchPatientMetaDropdown,
             fetchAppointmentApprovalList,
             appointmentApprove,
             appointmentReject,
             clearAppointmentApproveMessage,
-            clearAppointmentRejectMessage
+            clearAppointmentRejectMessage,
+            fetchAppointmentApprovalDetailByAppointmentId
         }
     )
 };

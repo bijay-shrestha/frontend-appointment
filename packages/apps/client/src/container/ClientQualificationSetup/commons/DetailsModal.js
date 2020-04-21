@@ -5,8 +5,7 @@ import {Col, Row} from 'react-bootstrap'
 const DetailsModal = ({qualificationData, type}) => {
     let universityId, qualificationAliasId, universityName;
     if (type !== 'M') {
-        universityId = qualificationData.universityId;
-        universityName = qualificationData.universityName;
+        universityName = qualificationData.universityId.label;
         qualificationAliasId = qualificationData.qualificationAliasId;
     } else {
         universityId = {value: qualificationData.universityId, label: qualificationData.universityName}
@@ -39,18 +38,18 @@ const DetailsModal = ({qualificationData, type}) => {
                                 <CHybridInput
                                     id="qualificationAliasId"
                                     name="qualificationAliasName"
-                                    placeholder="Qualification Alias Id"
+                                    placeholder="Qualification Alias"
                                     value={qualificationAliasId.label}
-                                    isDisabled={true}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={4} xl={4}>
                                 <CHybridInput
                                     id="universityId"
                                     name="universityName"
-                                    placeholder="University Id"
+                                    placeholder="University"
                                     value={universityName ? universityName : 'N/A'}
-                                    isDisabled={true}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={4} lg={4}>
@@ -63,6 +62,17 @@ const DetailsModal = ({qualificationData, type}) => {
                                     type="radio"
                                     readOnly
                                 />
+                                {
+                                    type !== 'A' ?
+                                        <CRadioButton
+                                            checked={qualificationData.status === 'N'}
+                                            disabled={true}
+                                            id="radio1"
+                                            label="Inactive"
+                                            type="radio"
+                                            readOnly
+                                        /> : ''
+                                }
                             </Col>
                         </Row>
                     </Container-fluid>

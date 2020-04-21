@@ -12,7 +12,13 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
-import {EnterKeyPressUtils, menuRoles, ProfileSetupUtils, TryCatchHandler,} from "@frontend-appointment/helpers";
+import {
+    clientUserMenusJson,
+    EnterKeyPressUtils, EnvironmentVariableGetter, LocalStorageSecurity,
+    menuRoles,
+    ProfileSetupUtils,
+    TryCatchHandler,
+} from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
@@ -47,7 +53,9 @@ class ProfileAdd extends PureComponent {
             variant: "",
             message: ""
         },
-        departmentListByHospital: []
+        departmentListByHospital: [],
+        originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
+            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
     };
 
     closeAlert = () => {
@@ -132,7 +140,8 @@ class ProfileAdd extends PureComponent {
         alphabeticallySortedMenus ?
             this.setState({
                 userMenus: [...alphabeticallySortedMenus],
-                selectedMenus: []
+                selectedMenus: [],
+                defaultSelectedMenu: alphabeticallySortedMenus[0]
             }) :
             this.setState({
                 userMenus: [],
@@ -154,7 +163,7 @@ class ProfileAdd extends PureComponent {
 
     async bindValuesToState(event, fieldValid) {
         let fieldName = event.target.name;
-        let value = event.target.value;
+        let value = event.target.type === 'checkbox' ? (event.target.checked ? 'Y' : 'N') : event.target.value;
         let label = event.target.label;
         await this.setStateValues(fieldName, value, label, fieldValid);
         switch (fieldName) {
@@ -222,34 +231,13 @@ class ProfileAdd extends PureComponent {
         return selectedUserMenus;
     };
 
+
     addAllMenusAndRoles = async (userMenus, checkedAllUserMenus) => {
         let currentSelectedMenus = [],
             userMenusSelected;
 
         if (checkedAllUserMenus) {
-            for (let menu of userMenus) {
-                if (menu.childMenus.length) {
-                    for (let child of menu.childMenus) {
-                        child.roles.map(role => {
-                            currentSelectedMenus.push({
-                                parentId: menu.id,
-                                userMenuId: child.id,
-                                roleId: role,
-                                status: 'Y'
-                            })
-                        })
-                    }
-                } else {
-                    menu.roles.map(role => {
-                        currentSelectedMenus.push({
-                            parentId: menu.id,
-                            userMenuId: menu.id,
-                            roleId: role,
-                            status: 'Y'
-                        })
-                    })
-                }
-            }
+            currentSelectedMenus = [...ProfileSetupUtils.prepareUserMenusAndRolesCombinationList(userMenus)];
         }
 
         userMenusSelected = currentSelectedMenus.length && this.setValuesForModalDisplay(
@@ -257,7 +245,7 @@ class ProfileAdd extends PureComponent {
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
-            selectedUserMenusForModal: userMenusSelected
+            selectedUserMenusForModal: userMenusSelected,
         });
         // console.log(this.state.selectedMenus);
         this.checkFormValidity();
@@ -282,21 +270,25 @@ class ProfileAdd extends PureComponent {
 
         await this.setState({
             selectedMenus: currentSelectedMenus,
-            selectedUserMenusForModal: userMenusSelected
+            selectedUserMenusForModal: userMenusSelected,
         });
         this.checkFormValidity();
     };
 
     handleConfirmClick = async () => {
+        const {
+            profileName, profileDescription, status, selectedDepartment,
+            selectedHospital, selectedMenus
+        } = this.state;
         let profileDetails = {
             profileDTO: {
-                name: this.state.profileName,
-                description: this.state.profileDescription,
-                status: this.state.status,
-                departmentId: this.state.selectedDepartment && this.state.selectedDepartment.value,
-                hospitalId: this.state.selectedHospital && this.state.selectedHospital.value
+                name: profileName,
+                description: profileDescription,
+                status: status,
+                departmentId: selectedDepartment && selectedDepartment.value,
+                hospitalId: selectedHospital && selectedHospital.value,
             },
-            profileMenuRequestDTO: this.state.selectedMenus
+            profileMenuRequestDTO: selectedMenus
         };
         try {
             await this.props.createProfile(CREATE_PROFILE, profileDetails);
@@ -330,7 +322,7 @@ class ProfileAdd extends PureComponent {
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-
+        const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
         const {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
@@ -354,7 +346,7 @@ class ProfileAdd extends PureComponent {
                                     hospitalValue: selectedHospital,
                                     profileDescription: profileDescription,
                                     profileName: profileName,
-                                    status: status,
+                                    status: status
                                 }}
                                 errorMessageForProfileName={errorMessageForProfileName}
                                 errorMessageForProfileDescription={errorMessageForProfileDescription}
@@ -376,7 +368,7 @@ class ProfileAdd extends PureComponent {
                                     selectedMenus: selectedMenus,
                                     userMenus: userMenus,
                                     selectedUserMenusForModal: selectedUserMenusForModal,
-                                    userMenuAvailabilityMessage: userMenuAvailabilityMessage
+                                    userMenuAvailabilityMessage: userMenuAvailabilityMessage,
                                 }}/>
                             }
                         </Row>
@@ -395,6 +387,7 @@ class ProfileAdd extends PureComponent {
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
+                                    isAddLoading={isCreateProfileLoading}
                                     profileData={{
                                         profileName: profileName,
                                         profileDescription: profileDescription,

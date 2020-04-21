@@ -26,9 +26,13 @@ import {
     SpecializationSetupMiddleware,
     PatientDetailsMiddleware,
     CompanyProfileSetupMiddleware,
-    CompanySetupMiddleware
+    CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware,
+    UniversitySetupMiddleware
 } from './src/admin-middleware'
-import {fetchUserMenus} from './src/menu-middleware'
+import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {
@@ -43,6 +47,7 @@ import * as AppointmentDetailsMiddleware
 import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboardMiddleware'
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
+import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
 
 export {
     AppointmentDetailsMiddleware,
@@ -84,4 +89,11 @@ export {
     ForgotPasswordMiddleware,
     CompanyProfileSetupMiddleware,
     CompanySetupMiddleware,
+    CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    QualificationAliasSetupMiddleware,
+    UniversitySetupMiddleware,
+    CountryMiddleware,
+    fetchUserMenusNew,
+    savePinOrUnpinUserMenu
 }

@@ -12,7 +12,7 @@ const ProfileUpdateForm = ({
                            }) => {
     return <>
         <Col sm={12} md={12} lg={4}>
-            <h5>Profile Info</h5>
+            <h5>Client Profile Info</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
@@ -45,12 +45,12 @@ const ProfileUpdateForm = ({
                 <CHybridSelect
                     id="hospital"
                     onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Hospital"
+                    label="Client"
                     name="selectedHospital"
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={'Select hospital.'}
+                    placeholder={'Select client.'}
                 />
 
                 <CHybridSelect
@@ -61,7 +61,7 @@ const ProfileUpdateForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={profileInfoObj.departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder={!profileInfoObj.hospitalValue ? 'Select hospital first.' : 'Select Department'}
+                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Department'}
                 />
                 <div className="status-box">
                 <CFLabel labelName="Status" id="status"></CFLabel>

@@ -15,22 +15,27 @@ import {
   previewAdmin,
   previewProfile,
   resetPassword,
-  DashboardDetailsMiddleware
+  DashboardDetailsMiddleware,
+  savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {
+  AdminModuleAPIConstants,
+  CommonAPIConstants
+} from '@frontend-appointment/web-resource-key-constants'
 import AdminDetailsDataTable from './AdminDetailsDataTable'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import AdminEditModal from './AdminEditModal'
 import {
-    AdminSetupUtils,
-    EnterKeyPressUtils, LocalStorageSecurity,
-    menuRoles,
-    ProfileSetupUtils,
-    TryCatchHandler
-} from "@frontend-appointment/helpers";
-import PasswordResetModal from "./PasswordResetModal";
-import "./../admin-setup.scss";
-import PreviewRoles from "../../CommonComponents/PreviewRoles";
+  AdminSetupUtils,
+  EnterKeyPressUtils,
+  LocalStorageSecurity,
+  menuRoles,
+  ProfileSetupUtils,
+  TryCatchHandler
+} from '@frontend-appointment/helpers'
+import PasswordResetModal from './PasswordResetModal'
+import './../admin-setup.scss'
+import PreviewRoles from '../../CommonComponents/PreviewRoles'
 
 const {
   SEARCH_ADMIN,
@@ -68,6 +73,7 @@ const {
   fetchDashboardFeaturesByAdmin
 } = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
+const {ADMIN_FEATURE} = CommonAPIConstants
 class AdminManage extends PureComponent {
   state = {
     showAdminModal: false,
@@ -77,7 +83,8 @@ class AdminManage extends PureComponent {
     passwordResetDTO: {
       username: '',
       password: '',
-      remarks: '',id:''
+      remarks: '',
+      id: ''
     },
     passwordResetError: '',
     searchParameters: {
@@ -127,7 +134,7 @@ class AdminManage extends PureComponent {
       profileList: [],
       adminDashboardRequestDTOS: []
     },
-    adminDashBoardRole:[],
+    adminDashBoardRole: [],
     errorMessageForAdminName:
       'Admin Name should not contain special characters.',
     errorMessageForAdminMobileNumber: 'Mobile number should be of 10 digits.',
@@ -142,7 +149,7 @@ class AdminManage extends PureComponent {
     errorMessage: ''
   }
 
-    timer = '';
+  timer = ''
 
   resetAdminUpdateDataFromState = () => {
     this.setState({
@@ -215,6 +222,14 @@ class AdminManage extends PureComponent {
       : this.setState({
           searchParameters: {...this.state.searchParameters, [key]: value}
         })
+  }
+
+  savePinOrUnpinUserMenu = async () => {
+    await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
+      isSideBarCollapse: !(
+        Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+      )
+    })
   }
 
   setUpdatedValuesInState = (key, value, label, fieldValid) =>
@@ -355,43 +370,49 @@ class AdminManage extends PureComponent {
     })
   }
 
-    checkIfDeletingOwnProfile = async deletedAdminId => {
-        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
-        if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
-            await this.logoutUser();
-            this.props.history.push('/');
-        }
-        return false;
-    };
+  checkIfDeletingOwnProfile = async deletedAdminId => {
+    let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder(
+      'adminInfo'
+    )
+    if (loggedInAdminInfo && deletedAdminId === loggedInAdminInfo.adminId) {
+      await this.logoutUser()
+      this.props.history.push('/')
+    }
+    return false
+  }
 
-    checkIfSelfEditAndShowMessage = async editedAdminId => {
-        let variantType = '', message = '';
-        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
-        if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
-            variantType = "warning";
-            message = "You seem to have edited yourself. Please Logout and Login to see the changes or " +
-                "you'll be automatically logged out in 10s";
-            this.automaticLogoutUser();
-        } else {
-            variantType = "success";
-            message = this.props.AdminEditReducer.adminSuccessMessage;
-        }
-        this.setState({
-            showAlert: true,
-            alertMessageInfo: {
-                variant: variantType,
-                message: message
-            }
-        });
+  checkIfSelfEditAndShowMessage = async editedAdminId => {
+    let variantType = '',
+      message = ''
+    let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder(
+      'adminInfo'
+    )
+    if (loggedInAdminInfo && editedAdminId === loggedInAdminInfo.adminId) {
+      variantType = 'warning'
+      message =
+        'You seem to have edited yourself. Please Logout and Login to see the changes or ' +
+        "you'll be automatically logged out in 10s"
+      this.automaticLogoutUser()
+    } else {
+      variantType = 'success'
+      message = this.props.AdminEditReducer.adminSuccessMessage
+    }
+    this.setState({
+      showAlert: true,
+      alertMessageInfo: {
+        variant: variantType,
+        message: message
+      }
+    })
+  }
 
-    };
-
-    automaticLogoutUser = () => {
-        this.timer = setTimeout(() => this.logoutUser(), 10000)
-    };
+  automaticLogoutUser = () => {
+    this.timer = setTimeout(() => this.logoutUser(), 10000)
+  }
 
   logoutUser = async () => {
     try {
+      await this.savePinOrUnpinUserMenu()
       let logoutResponse = await this.props.logoutUser('/cogent/logout')
       if (logoutResponse) {
         this.props.history.push('/')
@@ -668,25 +689,25 @@ class AdminManage extends PureComponent {
     }
   }
 
-    onPasswordReset = async (id, username) => {
-        this.props.clearAdminSuccessErrorMessagesFromStore();
-        await this.setState({
-            passwordResetDTO: {
-                ...this.state.passwordResetDTO,
-                username: username,
-                id:id
-            },
-            showPasswordResetModal: true
-        })
-    };
+  onPasswordReset = async (id, username) => {
+    this.props.clearAdminSuccessErrorMessagesFromStore()
+    await this.setState({
+      passwordResetDTO: {
+        ...this.state.passwordResetDTO,
+        username: username,
+        id: id
+      },
+      showPasswordResetModal: true
+    })
+  }
 
-    resetPassword = async passwordObj => {
-        let passwordResetObj = {
-            // username: this.state.passwordResetDTO.username,
-            password: passwordObj.password,
-            remarks: passwordObj.remarks,
-            id: this.state.passwordResetDTO.id
-        };
+  resetPassword = async passwordObj => {
+    let passwordResetObj = {
+      // username: this.state.passwordResetDTO.username,
+      password: passwordObj.password,
+      remarks: passwordObj.remarks,
+      id: this.state.passwordResetDTO.id
+    }
 
     try {
       await this.props.resetPassword(RESET_PASSWORD, passwordResetObj)
@@ -922,7 +943,7 @@ class AdminManage extends PureComponent {
     }
   }
 
-  prepareDataForPreview = (adminData,value) => {
+  prepareDataForPreview = (adminData, value) => {
     let macIDs = []
     if (adminData) {
       const {
@@ -940,8 +961,7 @@ class AdminManage extends PureComponent {
         hasMacBinding,
         fileUri,
         adminMacAddressInfo,
-        remarks,
-
+        remarks
       } = adminData
 
       if (adminMacAddressInfo && adminMacAddressInfo.length) {
@@ -965,7 +985,7 @@ class AdminManage extends PureComponent {
         adminAvatarUrl: fileUri,
         adminAvatarUrlNew: '',
         adminDashboardRequestDTOS: this.state.adminUpdateData
-        .adminDashboardRequestDTOS
+          .adminDashboardRequestDTOS
       }
     }
   }
@@ -987,10 +1007,10 @@ class AdminManage extends PureComponent {
         if (flag) adminDashRole.push({...adminDash, status: 'Y'})
         else adminDashRole.push({...adminDash, status: 'N'})
       })
-    return adminDashRole;
+    return adminDashRole
   }
 
-  prepareDataForEdit = async (adminData,dashData) => {
+  prepareDataForEdit = async (adminData, dashData) => {
     let adminInfoObj = this.prepareDataForPreview(adminData)
     const {
       id,
@@ -1012,10 +1032,10 @@ class AdminManage extends PureComponent {
     const {adminDashBoardRole} = this.state
     await this.fetchProfilesByDepartmentId(department.value)
     let dashForAdmin = this.prepareDataForDashboardRole(
-        adminDashBoardRole,
-        dashData
-      )
-    this.setState({
+      adminDashBoardRole,
+      dashData
+    )
+    await this.setState({
       showEditModal: true,
       adminUpdateData: {
         ...this.state.adminUpdateData,
@@ -1026,6 +1046,9 @@ class AdminManage extends PureComponent {
         username: username,
         email: email,
         mobileNumber: mobileNumber,
+        emailValid: email || false,
+        fullNameValid: fullName || false,
+        mobileNumberValid: mobileNumber.length == 10 ? true : false,
         status: status,
         genderCode: genderCode,
         hasMacBinding: hasMacBinding === 'Y',
@@ -1041,6 +1064,7 @@ class AdminManage extends PureComponent {
       },
       updatedMacIdList: [...macIdList]
     })
+    this.checkFormValidity()
   }
 
   fetchDashBoardFeatures = async () => {
@@ -1278,6 +1302,7 @@ export default ConnectHoc(
     logoutUser,
     previewProfile,
     fetchDashboardFeaturesByAdmin,
-    fetchDashboardFeatures
+    fetchDashboardFeatures,
+    savePinOrUnpinUserMenu
   }
 )

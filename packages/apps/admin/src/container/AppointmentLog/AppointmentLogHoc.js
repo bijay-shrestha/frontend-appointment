@@ -25,7 +25,7 @@ const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
 const {
   fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
-const {fetchPatientMetaList} = PatientDetailsMiddleware
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
 const AppointmentLogHOC = (ComposedComponent, props, type) => {
   const {
     appointmentSetupApiConstant,
@@ -47,7 +47,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientType: '',
         specializationId: '',
         appointmentCategory: '',
-        status: ''
+        status: '',
+        transactionNumber: '',
+        transactionFromDate: new Date(),
+        transactionToDate: new Date()
       },
       queryParams: {
         page: 0,
@@ -83,7 +86,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         specializationId,
         doctorId,
         appointmentCategory,
-        status
+        status,
+        transactionNumber,
+        transactionFromDate,
+        transactionToDate
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -95,7 +101,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         specializationId: specializationId.value || '',
         doctorId: doctorId.value || '',
         appointmentCategory: appointmentCategory.value || '',
-        status: status.value || ''
+        status: status.value || '',
+        transactionNumber,
+        transactionFromDate,
+        transactionToDate
       }
 
       let updatedPage =
@@ -128,20 +137,21 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       newLogList =
         logList.length &&
         logList.map((spec, index) => ({
+          ...spec,
           sN: index + 1,
-          status: spec.status|| 'N/A',
+          status: spec.status || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           appointmentDate: spec.appointmentDate || 'N/A',
           appointmentNumber: spec.appointmentNumber || 'N/A',
           appointmentTime: spec.appointmentTime || 'N/A',
           esewaId: spec.esewaId || 'N/A',
-          registrationNumber:  spec.registrationNumber || 'N/A',
+          registrationNumber: spec.registrationNumber || 'N/A',
           patientName: spec.patientName || 'N/A',
           patientAddress: spec.patientAddress || 'N/A',
           gender: spec.patientGender.split('')[0] || 'N/A',
-          patientGender:spec.patientGender,
-          age: spec.patientAge.slice(0,4) || 'N/A',
-          patientAge:spec.patientAge.slice(0,4),
+          patientGender: spec.patientGender,
+          age: spec.patientAge.slice(0, 4) || 'N/A',
+          patientAge: spec.patientAge.slice(0, 4),
           patientDob: spec.patientDob || 'N/A',
           isSelf: spec.isSelf || 'N/A',
           isRegistered: spec.isRegistered || 'N/A',
@@ -151,9 +161,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           transactionNumber: spec.transactionNumber || 'N/A',
           appointmentAmount: spec.appointmentAmount || 'N/A',
           refundAmount: spec.refundAmount || '0',
+          transactionDate: spec.transactionDate || 'N/A'
         }))
 
-      return newLogList;
+      return newLogList
     }
 
     handlePageChange = async newPage => {
@@ -178,7 +189,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           specializationId: '',
           doctorId: '',
           appointmentCategory: '',
-          status: ''
+          status: '',
+          transactionNumber: '',
+          transactionFromDate: new Date(),
+          transactionToDate: new Date()
         }
       })
       this.searchAppointment()
@@ -211,7 +225,6 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
     }
 
     callApiForHospitalChange = async hospitalId => {
-
       this.props.fetchActiveDoctorsHospitalWiseForDropdown(
         doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
         hospitalId
@@ -220,7 +233,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         specializationSetupAPIConstants.SPECIALIZATION_BY_HOSPITAL,
         hospitalId
       )
-      this.props.fetchPatientMetaList(
+      this.props.fetchPatientMetaDropdown(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS,
         hospitalId
       )
@@ -239,12 +252,16 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
         }
         let searchParams = {...this.state.searchParameters}
-        if(fieldName ==='hospitalId')
-          await this.handleHospitalChangeReset(searchParams);
+        if (fieldName === 'hospitalId')
+          await this.handleHospitalChangeReset(searchParams)
 
-        let newSearchParams ={...this.state.searchParameters}
+        let newSearchParams = {...this.state.searchParameters}
 
-        newSearchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        newSearchParams[fieldName] = label
+          ? value
+            ? {value, label}
+            : ''
+          : value
         await this.setStateValuesForSearch(newSearchParams)
       }
     }
@@ -272,7 +289,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       const {
         isLogListLoading,
         logList,
-        logErrorMessage
+        logErrorMessage,
+        totalAmount
       } = this.props.AppointmentLogListReducer
 
       const {
@@ -321,7 +339,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
-              previewData: previewData
+              previewData: previewData,
+              totalAmount: totalAmount
             }}
           />
         </div>
@@ -344,7 +363,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       fetchActiveHospitalsForDropdown,
       fetchActiveDoctorsHospitalWiseForDropdown,
       fetchSpecializationHospitalWiseForDropdown,
-      fetchPatientMetaList
+      fetchPatientMetaDropdown
     }
   )
 }

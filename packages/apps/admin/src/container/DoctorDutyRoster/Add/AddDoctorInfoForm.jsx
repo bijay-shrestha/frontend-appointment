@@ -65,10 +65,10 @@ const AddDoctorInfoForm = ({
 
                     <CHybridSelect
                         id="hospital"
-                        label="Hospital"
+                        label="Client"
                         name="hospital"
                         options={hospitalList}
-                        placeholder="Select hospital."
+                        placeholder="Select client."
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.hospital}
@@ -80,7 +80,7 @@ const AddDoctorInfoForm = ({
                         name="specialization"
                         isDisabled={!doctorInfoData.hospital}
                         options={specializationList}
-                        placeholder={!doctorInfoData.hospital ? "Select Hospital First" : "Select specialization."}
+                        placeholder={!doctorInfoData.hospital ? "Select Client First" : "Select specialization."}
                         noOptionsMessage={() => specializationDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}

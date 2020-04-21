@@ -15,7 +15,6 @@ import {checkDashboardRole} from './DashboardRoleCheckUtils'
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
 export {default as LocalStorageSecurity} from '../utils/localStorageUtils';
-
 export {
     checkDashboardRole,
     UserMenuUtils,

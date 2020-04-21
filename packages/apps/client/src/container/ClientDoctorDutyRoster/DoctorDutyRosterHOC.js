@@ -376,7 +376,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     toDate: new Date(),
                                     startTime: '',
                                     endTime: '',
-                                    dayOffStatus: '',
+                                    dayOffStatus: 'N',
                                     remarks: '',
                                     id: '',
                                     status: 'Y'
@@ -406,7 +406,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     toDate: new Date(),
                                     startTime: '',
                                     endTime: '',
-                                    dayOffStatus: '',
+                                    dayOffStatus: 'N',
                                     remarks: '',
                                     id: '',
                                     status: 'Y'
@@ -931,8 +931,15 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             if (key === 'specialization') {
                 if (value) {
                     await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, value);
+                    this.setState({
+                        doctor: null,
+                    })
                 } else {
                     await this.props.fetchDoctorsBySpecializationIdForDropdown(FETCH_DOCTOR_BY_SPECIALIZATION_ID, 0);
+                    this.setState({
+                        specialization: null,
+                        doctor: null,
+                    })
                 }
                 await this.resetDoctorOnSpecializationChange();
             }
@@ -979,7 +986,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 originalData.weekDaysId === weekDayData.weekDaysId);
                             weekDayData.startTime = originalDataWithTime ? originalDataWithTime.startTime : '';
                             weekDayData.endTime = originalDataWithTime ? originalDataWithTime.endTime : '';
-                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : '';
+                            weekDayData.dayOffStatus = originalDataWithTime ? originalDataWithTime.dayOffStatus : 'N';
                             return weekDayData;
                         });
                     }

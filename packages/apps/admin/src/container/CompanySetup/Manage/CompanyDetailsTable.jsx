@@ -7,13 +7,12 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import TableAction from './tableComponents/TableAction'
-import StatusLabel from './tableComponents/StatusLabel'
+import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
+import TableAction from '../../CommonComponents/table-components/TableAction'
 import PreviewDetails from '../commons/PreviewDetails'
 import CompanyPicture from '../commons/CompanyPicture'
-
+import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 const {checkIfRoleExists} = ActionFilterUtils
-
 const CompanyDetailsDataTable = props => (
     <div className="manage-details">
         
@@ -97,12 +96,12 @@ const CompanyDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: StatusLabel,
-                        imageRenderer:CompanyPicture
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler),
+                        imageRenderer:PreviewHandlerHoc(CompanyPicture,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                        // checkIfRoleExists(props.filteredActions, 4) &&
+                        checkIfRoleExists(props.filteredActions, 4) &&
                         props.onPreviewHandler
                     }
                     rowSelection={'single'}

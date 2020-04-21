@@ -158,7 +158,7 @@ const HospitalForm = ({
                       }
                       placeholder="Company Address"
                       value={companyInfoObj.address}
-                      max={200}
+                      max={300}
                       min={1}
                       required={true}
                     />

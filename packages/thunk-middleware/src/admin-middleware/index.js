@@ -30,36 +30,42 @@ import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doc
 import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
 import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
 import * as CompanySetupMiddleware from './company-setup-middleware/companySetupMiddleware'
-import * as QualificationAliasSetupMiddleware from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware';
-import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare';
-
+import * as QualificationAliasSetupMiddleware
+    from './qualification-alias-setup-middleware/qualificationAliasSetupMiddleware'
+import * as CompanyProfileSetupMiddleware from './company-profile-setup-middleware/companyProfileSetupMiddleWare'
+import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/companyAdminSetupMiddleware'
+import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLoggingMiddleware';
+import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 export {
-    createProfile,
-    fetchProfileList,
-    deleteProfile,
-    editProfile,
-    previewProfile,
-    fetchAllProfileListForSearchDropdown,
-    clearSuccessErrorMessagesFromStore,
-    fetchActiveProfileListForDropdown,
-    fetchProfileListBySubDepartmentId,
-    clearErrorMessageForDropdown,
-    clearAdminSuccessErrorMessagesFromStore,
-    createAdmin,
-    deleteAdmin,
-    editAdmin,
-    fetchAdminList,
-    previewAdmin,
-    fetchAdminMetaInfo,
-    fetchActiveProfilesByDepartmentId,
-    SpecializationSetupMiddleware,
-    HospitalSetupMiddleware,
-    CompanySetupMiddleware,
-    DoctorMiddleware,
-    DepartmentSetupMiddleware,
-    QualificationSetupMiddleware,
-    DoctorDutyRosterMiddleware,
-    PatientDetailsMiddleware,
-    QualificationAliasSetupMiddleware,
-    CompanyProfileSetupMiddleware
-};
+  createProfile,
+  fetchProfileList,
+  deleteProfile,
+  editProfile,
+  previewProfile,
+  fetchAllProfileListForSearchDropdown,
+  clearSuccessErrorMessagesFromStore,
+  fetchActiveProfileListForDropdown,
+  fetchProfileListBySubDepartmentId,
+  clearErrorMessageForDropdown,
+  clearAdminSuccessErrorMessagesFromStore,
+  createAdmin,
+  deleteAdmin,
+  editAdmin,
+  fetchAdminList,
+  previewAdmin,
+  fetchAdminMetaInfo,
+  fetchActiveProfilesByDepartmentId,
+  SpecializationSetupMiddleware,
+  HospitalSetupMiddleware,
+  CompanySetupMiddleware,
+  DoctorMiddleware,
+  DepartmentSetupMiddleware,
+  QualificationSetupMiddleware,
+  DoctorDutyRosterMiddleware,
+  PatientDetailsMiddleware,
+  QualificationAliasSetupMiddleware,
+  CompanyProfileSetupMiddleware,
+  CompanyAdminSetupMiddleware,
+  AdminLoggingMiddleware,
+  UniversitySetupMiddleware
+}

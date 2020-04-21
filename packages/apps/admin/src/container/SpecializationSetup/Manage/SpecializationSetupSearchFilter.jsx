@@ -60,13 +60,13 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="hospital"
-                                            label="Hospital"
+                                            label="Client"
                                             name="hospitalId"
                                             onKeyDown={handleEnter}
                                             onChange={(event, validity) => onInputChange(event, validity)}
                                             options={hospitalList}
                                             value={searchParameters.hospitalId}
-                                            placeholder={'Select Hospital.'}
+                                            placeholder={'Select Client.'}
                                         />
                                     </Col>
 
@@ -126,7 +126,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
@@ -150,6 +150,22 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                     </>
                                 </CButton>
                             </li>
+                            {searchParameters.hospitalId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Client</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.hospitalId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.name && (
                                 <li>
                                     <OverlayTrigger

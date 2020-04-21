@@ -16,19 +16,19 @@ const SpecializationForm = ({
                 <Row sm="12 p-0">
                     <h5 className="title">Specialization Info</h5>
                 </Row>
-                <CForm id="profile-info" className="mt-2 profile-info">
+                <CForm id="profile-info spec" className="mt-2 profile-info">
                     <Container-fluid>
                         <Row>
                             <Col sm={12} md={6} lg={4}>
                                 <CHybridSelect
-                                    id="hospital"
-                                    label="Hospital"
+                                    id="client"
+                                    label="Client"
                                     name="hospitalId"
                                     onKeyDown={onEnterKeyPress}
                                     onChange={(event, validity) => onInputChange(event, validity)}
                                     options={hospitalList}
                                     value={specializationInfoObj.hospitalId}
-                                    placeholder={'Select Hospital.'}
+                                    placeholder={'Select Client.'}
                                 />
                             </Col>
 

@@ -13,142 +13,140 @@ import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
 //import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
   const AdminDash = AdminDashboardHoc(
-    memo(
-      ({
-        generateRevenue,
-        revenueStatistics,
-        registeredPatients,
-        hospitalDropdown,
-        hospitalId,
-        handleHospitalChange,
-        onPillsClickHandler,
-        appointmentList,
-        revenueFilter,
-        appointmentFilter,
-        appointmentQueue,
-        doctorRevenue,
-        specializationListHospitalWise
-      }) => {
-        const RevenuStats = (
-          <CheckDashboardRole
-            component={
-              <div className="revenue-title-box">
-                <div className="fiscal">
-                  Fiscal Year{' '}
-                  {generateRevenue &&
-                  generateRevenue.revenueGeneratedDayData &&
-                  generateRevenue.revenueGeneratedDayData.fiscalYear
-                    ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
-                        '/'
-                      )[0]
-                    : ''}
-                  <span className="slash">/</span>
-                  {generateRevenue &&
-                  generateRevenue.revenueGeneratedDayData &&
-                  generateRevenue.revenueGeneratedDayData.fiscalYear
-                    ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
-                        '/'
-                      )[1]
-                    : ''}
-                </div>
-                <h5 className="title">Revenue Statistics</h5>
+    ({
+      generateRevenue,
+      revenueStatistics,
+      registeredPatients,
+      hospitalDropdown,
+      hospitalId,
+      handleHospitalChange,
+      onPillsClickHandler,
+      appointmentList,
+      revenueFilter,
+      appointmentFilter,
+      appointmentQueue,
+      doctorRevenue,
+      specializationListHospitalWise
+    }) => {
+      const RevenuStats = (
+        <CheckDashboardRole
+          component={
+            <div className="revenue-title-box">
+              <div className="fiscal">
+                Fiscal Year{' '}
+                {generateRevenue &&
+                generateRevenue.revenueGeneratedDayData &&
+                generateRevenue.revenueGeneratedDayData.fiscalYear
+                  ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                      '/'
+                    )[0]
+                  : ''}
+                <span className="slash">/</span>
+                {generateRevenue &&
+                generateRevenue.revenueGeneratedDayData &&
+                generateRevenue.revenueGeneratedDayData.fiscalYear
+                  ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                      '/'
+                    )[1]
+                  : ''}
               </div>
-            }
-            code={generateRevenue.code}
-          />
-        )
-        return (
-          <div className="dashboard-wrapper">
-            <Container fluid className="">
-              <Row className="">
-                <Col className="px-0">{RevenuStats}</Col>
-                {checkDashboardRole(generateRevenue.code) &&
-                  checkDashboardRole(appointmentQueue.code) &&
-                  checkDashboardRole(appointmentList.code) && (
-                    <HospitalDropdown
-                      hospitalDropdown={hospitalDropdown}
-                      hospitalId={hospitalId}
-                      handleHospitalChange={handleHospitalChange}
-                      className="top-hospital-list"
+              <h5 className="title">Revenue Statistics</h5>
+            </div>
+          }
+          code={generateRevenue.code}
+        />
+      )
+      return (
+        <div className="dashboard-wrapper">
+          <Container fluid className="">
+            <Row className="">
+              <Col className="px-0">{RevenuStats}</Col>
+              {checkDashboardRole(generateRevenue.code) ||
+                checkDashboardRole(appointmentQueue.code) ||
+                checkDashboardRole(appointmentList.code) ? (
+                  <HospitalDropdown
+                    hospitalDropdown={hospitalDropdown}
+                    hospitalId={hospitalId}
+                    handleHospitalChange={handleHospitalChange}
+                    className="top-hospital-list"
+                  />
+                ):null}
+            </Row>
+
+            <Row>
+              {
+                <CheckDashboardRole
+                  component={
+                    <RevenueStatistics generateRevenue={generateRevenue} />
+                  }
+                  code={generateRevenue.code}
+                />
+              }
+            </Row>
+            <Row className="mt-1">
+              <CheckDashboardRole
+                component={
+                  <Col md={6} className="p-0">
+                    <RevenueTrend
+                      revenueStatistics={revenueStatistics}
+                      onPillsClickHandler={onPillsClickHandler}
+                      revenueFilter={revenueFilter}
                     />
-                  )}
-              </Row>
-
-              <Row>
-                {
-                  <CheckDashboardRole
-                    component={
-                      <RevenueStatistics generateRevenue={generateRevenue} />
-                    }
-                    code={generateRevenue.code}
-                  />
+                  </Col>
                 }
-              </Row>
-              <Row className="mt-1">
+                code={revenueStatistics.code}
+              />
+
+              <CheckDashboardRole
+                component={
+                  <Col md={6} className="pr-0">
+                    <DoctorRevenueList doctorRevenue={doctorRevenue} />
+                  </Col>
+                }
+                code={doctorRevenue.code}
+              />
+            </Row>
+
+            <Row className="mt-1">
+              <CheckDashboardRole
+                component={
+                  <Col md={6} className="p-0">
+                    <AppointmentQueue
+                      appointmentQueue={appointmentQueue}
+                      hospitalId={hospitalId}
+                    />
+                  </Col>
+                }
+                code={appointmentQueue.code}
+              />
+
+              <Col md={6} className="pr-0">
                 <CheckDashboardRole
                   component={
-                    <Col md={6} className="p-0">
-                      <RevenueTrend
-                        revenueStatistics={revenueStatistics}
-                        onPillsClickHandler={onPillsClickHandler}
-                        revenueFilter={revenueFilter}
-                      />
-                    </Col>
+                    <PatientStatistics
+                      registeredPatients={registeredPatients}
+                    />
                   }
-                  code={revenueStatistics.code}
+                  code={registeredPatients.code}
                 />
 
                 <CheckDashboardRole
                   component={
-                    <Col md={6} className="pr-0">
-                      <DoctorRevenueList doctorRevenue={doctorRevenue} />
-                    </Col>
+                    <AppointmentStatistics
+                      onPillsClickHandler={onPillsClickHandler}
+                      type="appointment"
+                      appointmentList={appointmentList}
+                      appointmentFilter={appointmentFilter}
+                    />
                   }
-                  code={doctorRevenue.code}
+                  code={appointmentList.code}
                 />
-              </Row>
-
-              <Row className="mt-1">
-                <CheckDashboardRole
-                  component={
-                    <Col md={6} className="p-0">
-                      <AppointmentQueue
-                        appointmentQueue={appointmentQueue}
-                        hospitalId={hospitalId}
-                      />
-                    </Col>
-                  }
-                  code={appointmentQueue.code}
-                />
-
-                <Col md={6} className="pr-0">
-                  <CheckDashboardRole
-                    component={
-                      <PatientStatistics
-                        registeredPatients={registeredPatients}
-                      />
-                    }
-                    code={appointmentQueue.code}
-                  />
-
-                  <CheckDashboardRole
-                    component={
-                      <AppointmentStatistics
-                        onPillsClickHandler={onPillsClickHandler}
-                        type="appointment"
-                        appointmentList={appointmentList}
-                        appointmentFilter={appointmentFilter}
-                      />
-                    }
-                    code={appointmentList.code}
-                  />
-                </Col>
-              </Row>
-            </Container>
-          </div>
-        )
-      }
-    ),
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )
+    },
     props,
     ''
   )

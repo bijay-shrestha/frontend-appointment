@@ -140,7 +140,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         }
                     });
 
-                this.checkFormValidity();
+                // this.checkFormValidity();
             }
         };
 
@@ -155,8 +155,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 value: editData.status,
                 label: editData.status === 'Y' ? 'Active' : 'Inactive'
             };
-
-            this.checkFormValidity();
+            // this.checkFormValidity();
         };
 
         handleDelete = async (deleteData) => {
@@ -168,16 +167,16 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        checkFormValidity = () => {
-            const {name, status} = this.state.aliasData;
-            let formValid = name && status;
-            this.setState({
-                formValid: Boolean(formValid)
-            })
-        };
+        // checkFormValidity = () => {
+        //     const {name, status} = this.state.aliasData;
+        //     let formValid = name && status;
+        //     this.setState({
+        //         formValid: Boolean(formValid)
+        //     })
+        // };
 
         initialApiCalls = async () => {
-            await this.fetchQualificationAliasForDropdown();
+            this.fetchQualificationAliasForDropdown();
             await this.searchQualificationAlias(1);
         };
 
@@ -212,6 +211,12 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             currentAliasData.name = '';
             currentAliasData.remarks = '';
             currentAliasData.status = {value: 'Y', label: 'Active'};
+
+            this.defaultAliasValueForEdit.id = '';
+            this.defaultAliasValueForEdit.name = '';
+            this.defaultAliasValueForEdit.status = '';
+            this.defaultAliasValueForEdit.remarks = '';
+            this.defaultAliasValueForEdit.isNew = true;
 
             this.setState({
                 aliasData: {...currentAliasData}
@@ -308,9 +313,12 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
         closeModal = () => {
             this.setState({
                 showEditRemarksModal: false,
-                showDeleteModal: false
+                showDeleteModal: false,
+                aliasData:{
+                    ...this.state.aliasData,
+                    remarks:''
+                }
             });
-            this.resetAliasData();
             this.props.clearSuccessErrorMessageFormStore();
         };
 
@@ -329,6 +337,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 this.actionsOnOperationComplete();
                 return true;
             } catch (e) {
+                this.defaultAliasValueForEdit.id = id;
+                this.defaultAliasValueForEdit.name = name;
+                this.defaultAliasValueForEdit.status = status;
                 // this.showAlertMessage("danger", this.props.QualificationAliasEditReducer.editErrorMessage);
                 return false;
             }
@@ -355,6 +366,10 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             this.initialApiCalls();
         }
 
+        componentWillUnmount() {
+            clearTimeout(this.alertTimer);
+        }
+
         render() {
 
             const {
@@ -377,8 +392,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 searchErrorMessage
             } = this.props.QualificationAliasSearchReducer;
 
-            const {editErrorMessage} = this.props.QualificationAliasEditReducer;
-            const {deleteErrorMessage} = this.props.QualificationAliasDeleteReducer;
+            const {editErrorMessage, isEditQualificationAliasLoading} = this.props.QualificationAliasEditReducer;
+            const {deleteErrorMessage, isDeleteQualificationAliasLoading} = this.props.QualificationAliasDeleteReducer;
 
             return <>
                 <ComposedComponent
@@ -399,13 +414,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         handleUpdate: this.openEditRemarksModal,
                         handleUpdateConfirm: this.editQualificationAlias,
                         handleDelete: this.handleDelete,
-                        showEditRemarksModal,
                         handleDeleteSubmit: this.deleteQualificationAlias,
-                        onRemarksModalClose: this.closeModal,
-                        editErrorMessage,
                         formValid,
-                        deleteErrorMessage,
-                        showDeleteModal
                     }}
                     searchData={{
                         onInputChange: this.handleInputChange,
@@ -426,7 +436,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         onRemarksChangeHandler={this.handleInputChange}
                         remarks={aliasData.remarks}
                         onPrimaryAction={this.editQualificationAlias}
-                        primaryActionName={"Confirm"}
+                        primaryActionName={isEditQualificationAliasLoading ? "Confirming" : "Confirm"}
+                        actionDisabled={isEditQualificationAliasLoading}
                         errorMessage={editErrorMessage}
                     />
                     : ''
@@ -441,6 +452,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         remarks={aliasData.remarks}
                         onSubmitDelete={this.deleteQualificationAlias}
                         deleteErrorMessage={deleteErrorMessage}
+                        isLoading={isDeleteQualificationAliasLoading}
                     />
                     : ''
                 }
