@@ -260,7 +260,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 isLogListLoading,
                 logList,
                 logErrorMessage,
-                totalAmount
+                appointmentStatistics
             } = this.props.AppointmentLogListReducer;
 
             const {
@@ -308,8 +308,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
-                            totalAmount: totalAmount
                         }}
+                        appointmentStatistics={appointmentStatistics}
                     />
                 </div>
             )

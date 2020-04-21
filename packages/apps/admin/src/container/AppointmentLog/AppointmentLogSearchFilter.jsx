@@ -77,7 +77,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 id="from-date"
                                                 name="fromDate"
                                                 label="Appointment From Date"
-                                                dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -95,7 +94,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 id="to-date"
                                                 name="toDate"
                                                 label="Appointment To Date"
-                                                dateFormat="yyyy-MM-dd"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
@@ -111,13 +109,13 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         </div>
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
+                                    {/* <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="transaction-from-date"
                                                 name="transactionFromDate"
                                                 label="Transaction From Date"
-                                                dateFormat="yyyy-MM-dd"
+
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -149,7 +147,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                                 }
                                             />
                                         </div>
-                                    </Col>
+                                    </Col> */}
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -196,16 +194,16 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="transactionNumber"
-                                            name="transactionNumber"
-                                            placeholder="Transaction Number"
-                                            value={searchParameters.transactionNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
+                                    {/*<Col sm={12} md={6} xl={4}>*/}
+                                    {/*    <CHybridInput*/}
+                                    {/*        id="transactionNumber"*/}
+                                    {/*        name="transactionNumber"*/}
+                                    {/*        placeholder="Transaction Number"*/}
+                                    {/*        value={searchParameters.transactionNumber}*/}
+                                    {/*        onChange={handleSearchFormChange}*/}
+                                    {/*        onKeyDown={handleEnter}*/}
+                                    {/*    />*/}
+                                    {/*</Col>*/}
 
 
                                     <Col sm={12} md={6} xl={4}>
@@ -331,21 +329,21 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {searchParameters.transactionNumber && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => (
-                                            <Tooltip {...props}>Transaction Number</Tooltip>
-                                        )}
-                                    >
-                                        <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.transactionNumber}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+                            {/*{searchParameters.transactionNumber && (*/}
+                            {/*    <li>*/}
+                            {/*        <OverlayTrigger*/}
+                            {/*            placement="top"*/}
+                            {/*            delay={{show: 250, hide: 400}}*/}
+                            {/*            overlay={props => (*/}
+                            {/*                <Tooltip {...props}>Transaction Number</Tooltip>*/}
+                            {/*            )}*/}
+                            {/*        >*/}
+                            {/*            <Button id="light-search-filters" variant="secondary">*/}
+                            {/*                {searchParameters.transactionNumber}*/}
+                            {/*            </Button>*/}
+                            {/*        </OverlayTrigger>*/}
+                            {/*    </li>*/}
+                            {/*)}*/}
 
                             {searchParameters.hospitalId && (
                                 <li>
@@ -393,36 +391,36 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {searchParameters.transactionFromDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Transaction From Date</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.transactionFromDate.toLocaleDateString()}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-                            {searchParameters.transactionToDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Transaction To Date</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.transactionToDate.toLocaleDateString()}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+                            {/*{searchParameters.transactionFromDate && (*/}
+                            {/*    <li>*/}
+                            {/*        <OverlayTrigger*/}
+                            {/*            placement="top"*/}
+                            {/*            overlay={<Tooltip id="name">Transaction From Date</Tooltip>}*/}
+                            {/*        >*/}
+                            {/*            <Button*/}
+                            {/*                id="search-param-button-filters"*/}
+                            {/*                variant="secondary"*/}
+                            {/*            >*/}
+                            {/*                {searchParameters.transactionFromDate.toLocaleDateString()}*/}
+                            {/*            </Button>*/}
+                            {/*        </OverlayTrigger>*/}
+                            {/*    </li>*/}
+                            {/*)}*/}
+                            {/*{searchParameters.transactionToDate && (*/}
+                            {/*    <li>*/}
+                            {/*        <OverlayTrigger*/}
+                            {/*            placement="top"*/}
+                            {/*            overlay={<Tooltip id="name">Transaction To Date</Tooltip>}*/}
+                            {/*        >*/}
+                            {/*            <Button*/}
+                            {/*                id="search-param-button-filters"*/}
+                            {/*                variant="secondary"*/}
+                            {/*            >*/}
+                            {/*                {searchParameters.transactionToDate.toLocaleDateString()}*/}
+                            {/*            </Button>*/}
+                            {/*        </OverlayTrigger>*/}
+                            {/*    </li>*/}
+                            {/*)}*/}
 
                             {searchParameters.patienMetaInfoId && (
                                 <li>
