@@ -37,16 +37,16 @@ const AppointmentRefundDataTable = ({
 
   const prepareDataForChart = datas => {
     var getColor = [
-      '#C6F9D2',
+      '#0063ff',
       '#CCCCB3',
-      '#CECEFF',
+      '#003B46',
       '#FFCAFF',
-      '#D0CCCD',
-      '#FFCC99',
-      '#FFCBB9',
+      '#A2C523',
+      '#FFBB00',
       '#EAEC93',
       '#D7FBE6',
-      '#FFCACA',
+      '#D7FBE6',
+      '#34675C',
       '#00FF00'
     ]
 
@@ -324,12 +324,16 @@ const AppointmentRefundDataTable = ({
         <div className="legend-box clearfix">
           <p>Top Features</p>
             <ul>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
-              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><span className="legend"></span> <span>Feature 1 </span></li>
+              <li><span className="legend"></span><span>Feature 1 </span></li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
+              <li><span className="legend"></span> <span>Feature 1 </span> </li>
+              <li><span className="legend"></span><span>Feature 1 </span></li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
+              <li><span className="legend"></span><span>Feature 1 </span> </li>
             </ul>
           
 
