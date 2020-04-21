@@ -38,3 +38,4 @@ export {default as CLineChart} from './src/CLineChart';
 export {default as CHybridTimePicker} from './src/CHybridTimePicker'
 export {default as CDoubleShiftSearch} from './src/CDoubleShiftSearch';
 export {default as CTable} from './src/CTable';
+export {default as CNormalSelect} from './src/CNormalSelect';

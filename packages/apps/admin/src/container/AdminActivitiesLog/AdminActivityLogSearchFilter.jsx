@@ -110,7 +110,6 @@ class AdminActivityLogSearchFilter extends PureComponent {
                         id="from-date"
                         name="fromDate"
                         label="From Date"
-                        dateFormat="yyyy-MM-dd"
                         // maxDate={0}
                         showDisabledMonthNavigation={true}
                         peekNextMonth={true}
@@ -128,7 +127,6 @@ class AdminActivityLogSearchFilter extends PureComponent {
                         id="to-date"
                         name="toDate"
                         label="To Date"
-                        dateFormat="yyyy-MM-dd"
                         // maxDate={0}
                         showDisabledMonthNavigation={true}
                         selected={searchParameters.toDate}

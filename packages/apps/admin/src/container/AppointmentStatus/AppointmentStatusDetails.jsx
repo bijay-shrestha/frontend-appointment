@@ -123,7 +123,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                                     onClick={() => getPatientDetails(timeSlot,
                                                                         appointmentStatusDetail.date, rowIndex, index)}
                                                                     variant={timeSlot.status === 'PA' ? 'warning'
-                                                                        : timeSlot.status === 'A' ? 'danger'
+                                                                        : timeSlot.status === 'A' ? 'primary'
                                                                             : timeSlot.status === 'C' ? 'dark'
                                                                                 : 'info'}
                                                                     size="lg block"

@@ -263,7 +263,7 @@ const CompanyAdminEditForm = ({
 
               <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
                 {adminInfoObj.adminDashboardRequestDTOS.length ? (
-                  <CFLabel labelName="Dashboard Role" id="dash-role-edit" />
+                  <CFLabel labelName="Dashboard Roles" id="dash-role-edit" />
                 ) : null}
                 {adminInfoObj && adminInfoObj.adminDashboardRequestDTOS.length
                   ? adminInfoObj.adminDashboardRequestDTOS.map(

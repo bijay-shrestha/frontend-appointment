@@ -174,7 +174,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
 
                                     <Col sm={12} md={12} lg={6} className="dash-roles-container">
                                         {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
-                                            <CFLabel labelName="Dashboard Role" id="dashboard-role"/>
+                                            <CFLabel labelName="Dashboard Roles" id="dashboard-role"/>
                                         ) : null}
                                         <div>
                                             {adminInfoObj &&

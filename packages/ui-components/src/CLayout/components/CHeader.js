@@ -61,7 +61,7 @@ class CHeader extends Component {
     )
     localStorage.clear()
     sessionStorage.clear()
-    console.log("Header Props",this.props)
+    
     this.props.history.push('/')
   }
 
