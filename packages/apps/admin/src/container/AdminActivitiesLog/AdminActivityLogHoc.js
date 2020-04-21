@@ -219,9 +219,14 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           value = event.target.value
           label = event.target.label
         }
-        if (fieldName === 'hospitalId') this.searchCompanyAdminInfoForDropDown(value);
+        if (fieldName === 'hospitalId')
+          this.searchCompanyAdminInfoForDropDown(value)
         let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : ''
+        if (fieldName === 'hospitalId') {
+          this.searchCompanyAdminInfoForDropDown(value)
+          searchParams['adminMetaInfoId'] = ''
+        }
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -271,16 +276,16 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         menuList: [...filterMenusDropdown]
       })
     }
-    changeCompanyDropdownValue = (dropdownData) => {
+    changeCompanyDropdownValue = dropdownData => {
       let dropDataNew = []
       dropDataNew = dropdownData.map(dropData => {
-        const {adminMetaInfoId,metaInfo}=dropData;
+        const {adminMetaInfoId, metaInfo} = dropData
         return {
-          value:adminMetaInfoId,
-          label:metaInfo
+          value: adminMetaInfoId,
+          label: metaInfo
         }
       })
-      return dropDataNew;
+      return dropDataNew
     }
     async componentDidMount () {
       await this.searchAdminActivityLog('', 'A')
@@ -315,7 +320,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         logStatsSearchErrorMessage
       } = this.props.AdminLoggingStatsSearchReducer
       const {companyDropdownData} = this.props.companyDropdownReducer
-      const {companyAdminMetaInfoByCompanyIdForDropdown}=this.props.CompanyAdminMetaInfoByCompanyIdReducer
+      const {
+        companyAdminMetaInfoByCompanyIdForDropdown
+      } = this.props.CompanyAdminMetaInfoByCompanyIdReducer
       return (
         <div id="admin-acitivity-log">
           <ComposedComponent
@@ -327,7 +334,9 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               resetSearch: this.handleSearchFormReset,
               searchAdminActivityLog: this.searchAdminActivityLog,
               companyDropdownData: companyDropdownData,
-              companyAdminMetaInfoByCompanyIdForDropdown:this.changeCompanyDropdownValue(companyAdminMetaInfoByCompanyIdForDropdown),
+              companyAdminMetaInfoByCompanyIdForDropdown: this.changeCompanyDropdownValue(
+                companyAdminMetaInfoByCompanyIdForDropdown
+              ),
               searchParameters: searchParameters,
               parentList: menuList,
               roles: rolesList
