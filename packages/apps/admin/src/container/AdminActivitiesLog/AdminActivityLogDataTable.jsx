@@ -126,7 +126,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   autoSize: true,
                   autoWidth: true,
-                  width: '200'
+                  width: '150'
                 },
 
                 {
@@ -153,7 +153,7 @@ const AppointmentRefundDataTable = ({
                   sizeColumnsToFit: true,
                   field: 'os',
                   autoSize: true,
-                  width: '100',
+                  width: '60',
                   valueFormatter:function(params){
                     return params.value||'N/A'
                   }
@@ -189,7 +189,7 @@ const AppointmentRefundDataTable = ({
                   sortable: true,
                   sizeColumnsToFit: true,
                   cellRenderer: 'childLabelRenderer',
-                  width: '120'
+                  width: '100'
                 },
                 {
                   headerName: 'Log Description',
@@ -266,7 +266,7 @@ const AppointmentRefundDataTable = ({
                   cellClass: 'first-class'
                 },
                 {
-                  headerName: 'Feature',
+                  headerName: 'Feature/Menu',
                   field: 'feature',
                   resizable: true,
                   sortable: true,
@@ -318,8 +318,22 @@ const AppointmentRefundDataTable = ({
         </Col>
         </Row>
         {chartData ? (
-          <CDoughnutChart chartData={chartData} width={120} height={100} />
+          <CDoughnutChart chartData={chartData} width={160} height={100} />
         ) : null}
+
+        <div className="legend-box clearfix">
+          <p>Top Features</p>
+            <ul>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+              <li><i className="fa  fa-pie-chart "></i> Feature 1 </li>
+            </ul>
+          
+
+        </div>
 
         </div>
         </Col> 
