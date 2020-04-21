@@ -21,7 +21,8 @@ const ConfirmDelete = props => {
                     size='lg'
                     className="float-right  btn-action ml-2"
                     disabled={props.isLoading}
-                    name={props.isLoading ? "Deleting" : 'Delete'}
+                    isLoading={props.isLoading}
+                    name={'Delete'}
                     onClickHandler={props.onSubmitDelete}
                 />
 
@@ -30,6 +31,7 @@ const ConfirmDelete = props => {
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'
+                    disabled={props.isLoading}
                     onClickHandler={props.setShowModal}
                 />
 

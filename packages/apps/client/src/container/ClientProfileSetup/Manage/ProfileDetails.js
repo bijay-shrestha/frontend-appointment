@@ -2,10 +2,10 @@ import {menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import React, {memo} from 'react'
 import PreviewRoles from '../../CommonComponents/PreviewRoles'
-import ConfirmDelete from './comp/ConfirmDelete'
 import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
+import {ConfirmDelete} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -72,7 +72,8 @@ const ProfileDetails = props => (
                                         ? props.onEditHandler(id)
                                         : props.onPreviewHandler(id)
                                 },
-                                filteredAction:props.filteredActions},
+                                filteredAction: props.filteredActions
+                            },
                             cellStyle: {overflow: 'visible', 'z-index': '99'}
                         }
                     ]}
@@ -83,7 +84,7 @@ const ProfileDetails = props => (
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
                         checkIfRoleExists(props.filteredActions, 4) &&
-                         props.onPreviewHandler}
+                        props.onPreviewHandler}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}
@@ -107,12 +108,15 @@ const ProfileDetails = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
+                confirmationMessage="Are you sure you want to delete this Profile? If yes please provide remarks."
+                modalHeader="Delete Profile"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
                 onDeleteRemarksChangeHandler={props.remarksHandler}
                 remarks={props.remarks}
                 onSubmitDelete={props.onSubmitDelete}
                 deleteErrorMessage={props.deleteErrorMsg}
+                isLoading={props.isDeleteLoading}
             />
         ) : (
             ''

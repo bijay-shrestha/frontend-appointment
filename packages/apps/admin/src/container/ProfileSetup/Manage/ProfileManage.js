@@ -135,7 +135,7 @@ class ProfileManage extends PureComponent {
             showEditModal: false
         })
     };
-    
+
     savePinOrUnpinUserMenu = async () => {
         await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
           isSideBarCollapse: !(
@@ -245,7 +245,7 @@ class ProfileManage extends PureComponent {
         });
 
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[] 
+        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[]
         //ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
           //  hospitalsForDropdown, profileResponseDTO.hospitalId);
 
@@ -702,7 +702,7 @@ class ProfileManage extends PureComponent {
 
         const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
 
-        const {deleteErrorMessage} = this.props.ProfileDeleteReducer;
+        const {deleteErrorMessage,isDeleteLoading} = this.props.ProfileDeleteReducer;
 
         const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
@@ -765,6 +765,7 @@ class ProfileManage extends PureComponent {
                         remarksHandler={this.deleteRemarksHandler}
                         remarks={this.state.deleteRequestDTO.remarks}
                         deleteErrorMsg={deleteErrorMessage}
+                        isDeleteLoading={isDeleteLoading}
                     />
                 </div>
                 {this.state.showEditModal && (

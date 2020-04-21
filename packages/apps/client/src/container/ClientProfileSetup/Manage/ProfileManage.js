@@ -232,7 +232,7 @@ class ProfileManage extends PureComponent {
             deleteModalShow: true
         })
     };
-    
+
     savePinOrUnpinUserMenu = async () => {
         await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
           isSideBarCollapse: !(
@@ -684,11 +684,11 @@ class ProfileManage extends PureComponent {
 
         const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
 
-        const {deleteErrorMessage} = this.props.ProfileDeleteReducer;
+        const {deleteErrorMessage,isDeleteLoading} = this.props.ProfileDeleteReducer;
 
         const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
-        const {profileErrorMessage} = this.props.ProfileEditReducer;
+        const {profileErrorMessage,isProfileEditLoading} = this.props.ProfileEditReducer;
 
         const {departments} = this.props.DepartmentSetupReducer;
 
@@ -743,6 +743,7 @@ class ProfileManage extends PureComponent {
                         remarksHandler={this.deleteRemarksHandler}
                         remarks={this.state.deleteRequestDTO.remarks}
                         deleteErrorMsg={deleteErrorMessage}
+                        isDeleteLoading={isDeleteLoading}
                     />
                 </div>
                 {this.state.showEditModal && (
@@ -764,6 +765,7 @@ class ProfileManage extends PureComponent {
                         errorMessageForProfileName={errorMessageForProfileName}
                         errorMessageForProfileDescription={errorMessageForProfileDescription}
                         errorMessage={profileErrorMessage}
+                        isProfileEditLoading={isProfileEditLoading}
                         profileMenuAssignmentProps={
                             {
                                 userMenus: userMenus,

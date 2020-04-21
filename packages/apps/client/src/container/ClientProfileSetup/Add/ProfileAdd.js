@@ -23,8 +23,8 @@ import {
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
-const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
+const {FETCH_DEPARTMENTS_FOR_DROPDOWN} = AdminModuleAPIConstants.departmentSetupAPIConstants;
+
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -362,10 +362,9 @@ class ProfileAdd extends PureComponent {
                                     variant="primary "
                                     className="float-right btn-action"
                                     name="Save"
-                                    disabled={!formValid}
-                                    onClickHandler={this.setShowConfirmModal}>
-
-                                </CButton>
+                                    disabled={!formValid || showConfirmModal}
+                                    isLoading={showConfirmModal}
+                                    onClickHandler={this.setShowConfirmModal}/>
                                 <ConfirmationModal
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}

@@ -50,7 +50,7 @@ const initialState = {
     searchErrorMessage: '',
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
-    isDeleteLoading: true,
+    isDeleteLoading: false,
     isProfileEditLoading: false,
     profileErrorMessage: '',//profile edit error message
     profileSuccessMessage: '',

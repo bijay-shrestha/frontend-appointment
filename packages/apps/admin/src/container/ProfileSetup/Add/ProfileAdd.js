@@ -14,7 +14,8 @@ import ConfirmationModal from "./ConfirmationModal";
 import * as Material from 'react-icons/md';
 import {
     clientUserMenusJson,
-    EnterKeyPressUtils, EnvironmentVariableGetter, LocalStorageSecurity,
+    EnterKeyPressUtils,
+    EnvironmentVariableGetter,
     menuRoles,
     ProfileSetupUtils,
     TryCatchHandler,
@@ -379,10 +380,9 @@ class ProfileAdd extends PureComponent {
                                     variant="primary "
                                     className="float-right btn-action"
                                     name="Save"
-                                    disabled={!formValid}
-                                    onClickHandler={this.setShowConfirmModal}>
-
-                                </CButton>
+                                    disabled={!formValid || showConfirmModal}
+                                    isLoading={showConfirmModal}
+                                    onClickHandler={this.setShowConfirmModal}/>
                                 <ConfirmationModal
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}

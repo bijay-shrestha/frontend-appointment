@@ -15,6 +15,7 @@ const ConfirmationModal = props => {
                 footerChildren={<CButton
                     variant="primary"
                     size="lg"
+                    name={"Confirm"}
                     className="float-right"
                     isLoading={isAddLoading}
                     disabled={isAddLoading}
