@@ -15,6 +15,7 @@ import {Row, Col, Badge, Table} from 'react-bootstrap';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+import TransactionDateWithTime from "../CommonComponents/table-components/TransactionDateWithTime";
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -25,7 +26,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         previewData,
         showModal,
         setShowModal,
-        totalAmount
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -160,24 +160,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     autoSize: true,
                                     width: "300"
                                 },
-
-                                // {
-                                //     headerName: 'DOB',
-                                //     field: 'patientDob',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: '180'
-
-                                // },
-                                // {
-                                //     headerName: 'Mobile No.',
-                                //     field: 'mobileNumber',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: "140",
-                                // },
                                 {
                                     headerName: 'Address',
                                     field: 'patientAddress',
@@ -186,7 +168,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'Txn. Detail (Amount/No)',
+                                    headerName: 'Txn. Detail (No/Amount)',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
@@ -195,13 +177,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     autoWidth: true,
                                     width: "300"
                                 },
-                                {
-                                    headerName: 'Tran. Date',
-                                    field: 'transactionDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
+                                // {
+                                //     headerName: 'Tran. Date',
+                                //     field: 'transactionDate',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     cellRenderer: 'transactionDateWithTime',
+                                // },
 
                             ]}
                             frameworkComponents={{
@@ -210,7 +193,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWitheAgeGenderPhone, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
-                                transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall)
+                                transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall),
+                                // transactionDateWithTime: PreviewHandlerHoc(TransactionDateWithTime, null, null, null, previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -240,7 +224,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             onPageChanged={handlePageChange}
                         />
 
-                        </>
+                    </>
                 ) : !isSearchLoading && searchErrorMessage ? (
                     <div className="filter-message">
                         <div className="no-data">
