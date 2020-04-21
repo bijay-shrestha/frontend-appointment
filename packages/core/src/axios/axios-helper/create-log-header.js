@@ -28,14 +28,14 @@ export const createLogHeader = request => {
           logDescription: ''
         }
     } else {
-      if(request.method==='post')
-      logHeader = {
-        parentId: menuId,
-        roleId: 2,
-        feature: getActMenu,
-        actionType: 'Create',
-        logDescription: ''
-      }
+      if (request.method === 'post')
+        logHeader = {
+          parentId: menuId,
+          roleId: 2,
+          feature: getActMenu,
+          actionType: 'Create',
+          logDescription: ''
+        }
     }
   }
   return logHeader
@@ -48,15 +48,23 @@ const checkIfItIsNotAnAction = url => {
       flag = true
       break
     }
+    if (url.includes('/profile') || url.includes('/department')) {
+      if (!url.includes(excludedUrl[i])) {
+        let splitUrl = url.split('/')
+        if (Number(splitUrl[splitUrl.length - 1])) {
+          flag = true
+          break
+        }
+      }
+    }
   }
   for (let j = 0; j < includeAppUrl.length; j++) {
     if (url.includes('/appointment'))
       if (url.includes(includeAppUrl[j])) {
         flag = false
         break
-      }
-      else{
-        flag=true;
+      } else {
+        flag = true
       }
   }
   // console.log('======fag', flag)
