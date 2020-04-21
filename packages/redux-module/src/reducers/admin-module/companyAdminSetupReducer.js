@@ -21,6 +21,9 @@ const {
   FETCH_COMPANY_ADMIN_META_INFO_ERROR,
   FETCH_COMPANY_ADMIN_META_INFO_PENDING,
   FETCH_COMPANY_ADMIN_META_INFO_SUCCESS,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS,
   COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN
 } = companyAdminSetupActionConstants
 
@@ -104,30 +107,29 @@ export const CompanyAdminMetaInfoByCompanyIdReducer = (
   action
 ) => {
   switch (action.type) {
-    case FETCH_COMPANY_ADMIN_META_INFO_PENDING:
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING:
       return {
         ...state
       }
-    case FETCH_COMPANY_ADMIN_META_INFO_SUCCESS:
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS:
       return {
         ...state,
         companyAdminMetaInfoByCompanyIdForDropdown:action.payload.data,
         errorMessageForCompanyAdminByCompanyIdDropdown: '',
         isLoadingForCompanyAdminByCompanyIdDropdown: false
       }
-    case FETCH_COMPANY_ADMIN_META_INFO_ERROR:
+    case FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR:
       return {
         ...state,
         companyAdminMetaInfoByCompanyIdForDropdown: [],
         errorMessageForCompanyAdminByCompanyIdDropdown: action.payload.message,
         isLoadingForCompanyAdminByCompanyIdDropdown: false
       }
-    case COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN:
+    case COMPANY_ADMIN_CLEAR_ADMIN_METADROPDOWN_BY_ID:
       return {
         ...state,
         companyAdminMetaInfoDropDown: [],
         errorMessageForCompanyAdminDropdown: '',
-        isLoadingForCompanyAdminDropdown: true
       }
     default:
       return state
