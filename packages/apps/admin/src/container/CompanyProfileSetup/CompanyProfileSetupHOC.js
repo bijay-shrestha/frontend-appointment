@@ -192,49 +192,31 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       this.setState({showConfirmModal: !this.state.showConfirmModal})
     }
 
-    setDataForProfileUpdate = async (profileData, profileId) => {
-      const {adminInfo, loggedInAdminMenus} = this.state
-      let menusSelected = [],
-        menusAssignedAndAllowedToChange = [],
-        menusAssignedToProfileButNotToBeChanged = []
-      const {profileMenuResponseDTOS, profileResponseDTO} = profileData
-      profileMenuResponseDTOS &&
-        Object.keys(profileMenuResponseDTOS).map(key => {
-          menusSelected = menusSelected.concat(profileMenuResponseDTOS[key])
-        })
+            setDataForProfileUpdate = async (profileData, profileId) => {
+                const {adminInfo, minifiedLoggedInAdminUserMenus} = this.state;
+                let menusSelected = [], menusAssignedAndAllowedToChange = [], menusAssignedToProfileButNotToBeChanged = [];
+                const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
+                profileMenuResponseDTOS &&
+                Object.keys(profileMenuResponseDTOS).map(key => {
+                    menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
+                });
 
-      if (adminInfo.isAllRoleAssigned === 'Y') {
-        menusSelected.map(menuSelected => {
-          menusAssignedAndAllowedToChange.push({
-            ...menuSelected,
-            isNew: false,
-            isUpdated: false
-          })
-        })
-      } else {
-        menusSelected.map(menuSelected => {
-          let menuAssignedToAdmin = loggedInAdminMenus && loggedInAdminMenus.find(
-            adminMenu =>
-              Object.is(
-                Number(adminMenu.userMenuId),
-                Number(menuSelected.userMenuId)
-              ) && Number(adminMenu.roleId) === Number(menuSelected.roleId)
-          )
-          if (menuAssignedToAdmin) {
-            menusAssignedAndAllowedToChange.push({
-              ...menuSelected,
-              isNew: false,
-              isUpdated: false
-            })
-          } else {
-            menusAssignedToProfileButNotToBeChanged.push({
-              ...menuSelected,
-              isNew: false,
-              isUpdated: false
-            })
-          }
-        })
-      }
+                if (adminInfo.isAllRoleAssigned === 'Y') {
+                    menusSelected.map(menuSelected => {
+                        menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
+                    });
+                } else {
+                    menusSelected.map(menuSelected => {
+                        let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(adminMenu =>
+                            Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
+                            && Number(adminMenu.roleId) === Number(menuSelected.roleId));
+                        if (menuAssignedToAdmin) {
+                            menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
+                        } else {
+                            menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
+                        }
+                    });
+                }
 
       let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder(
         'userMenus'
@@ -1039,7 +1021,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       return (
         <>
           <ComposedComponent
-            
+
             profileInfoFormData={{
               handleEnter: this.handleEnter,
               companyListForDropdown: companyDropdownData,

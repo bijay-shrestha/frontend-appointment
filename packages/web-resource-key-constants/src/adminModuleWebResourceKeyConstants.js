@@ -245,3 +245,13 @@ export const universitySetupApiConstants = {
 export const countryApiConstants = {
     FETCH_COUNTRY_FOR_DROPDOWN: BASE.concat('/country'),
 };
+
+const APPOINTMENT_MODE_BASE = "/appointmentMode";
+export const appointmentModeApiConstants = {
+    SAVE_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    EDIT_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    DELETE_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    FETCH_APPOINTMENT_MODE_FOR_DROPDOWN: BASE.concat(APPOINTMENT_MODE_BASE.concat("/active/min")),
+    FETCH_APPOINTMENT_MODE_DETAILS_BY_ID: BASE.concat(APPOINTMENT_MODE_BASE.concat("/detail")),
+    SEARCH_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE.concat("/search")),
+};

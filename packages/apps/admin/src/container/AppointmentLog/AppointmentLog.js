@@ -35,8 +35,8 @@ const AppointmentRefundLog = props => {
                                 <div className="rd-content ">
                                     <span>   <span className="label">Booked</span> </span>
                                     <span> <span
-                                        className="amt"> NPR {appointmentStatistics.bookedAmount}</span> from<span
-                                        className="apt"> {appointmentStatistics.bookedAppointmentsCount} </span>Appointments</span>
+                                        className="amt"> NPR {appointmentStatistics.bookedAmount || 0}</span> from<span
+                                        className="apt"> {appointmentStatistics.bookedAppointmentsCount || 0} </span>Appointments</span>
                                 </div>
                             </div>
 
@@ -49,8 +49,9 @@ const AppointmentRefundLog = props => {
                                 </div>
                                 <div className="rd-content ">
                                     <span>   <span className="label">Checked-In</span> </span>
-                                    <span> <span className="amt"> NPR {appointmentStatistics.checkedInAmount}</span> from<span
-                                        className="apt"> {appointmentStatistics.checkedInAppointmentsCount} </span>Appointments</span>
+                                    <span> <span
+                                        className="amt"> NPR {appointmentStatistics.checkedInAmount || 0}</span> from<span
+                                        className="apt"> {appointmentStatistics.checkedInAppointmentsCount || 0} </span>Appointments</span>
                                 </div>
                             </div>
 
@@ -64,8 +65,8 @@ const AppointmentRefundLog = props => {
                                 <div className="rd-content ">
                                     <span>   <span className="label">Cancel</span> </span>
                                     <span> <span
-                                        className="amt"> NPR {appointmentStatistics.cancelAmount}</span> from <span
-                                        className="apt"> {appointmentStatistics.cancelAppointmentsCount} </span>Appointments</span>
+                                        className="amt"> NPR {appointmentStatistics.cancelAmount || 0}</span> from <span
+                                        className="apt"> {appointmentStatistics.cancelAppointmentsCount || 0} </span>Appointments</span>
                                 </div>
                             </div>
 
@@ -79,9 +80,9 @@ const AppointmentRefundLog = props => {
                                 <div className="rd-content ">
                                     <span>   <span className="label">Refund</span></span>
                                     <span> <span
-                                        className="amt"> NPR {appointmentStatistics.revenueFromRefundedAmount}</span> from
+                                        className="amt"> NPR {appointmentStatistics.revenueFromRefundedAmount || 0}</span> from
                                     <span
-                                        className="apt"> {appointmentStatistics.revenueFromRefundedAppointmentsCount} </span>Appointments</span>
+                                        className="apt"> {appointmentStatistics.revenueFromRefundedAppointmentsCount || 0} </span>Appointments</span>
                                 </div>
                             </div>
 
@@ -94,8 +95,9 @@ const AppointmentRefundLog = props => {
                                 </div>
                                 <div className="rd-content">
                                     <span>   <span className="label">Refunded Amount to Client </span> </span>
-                                    <span> <span className="amt"> NPR {appointmentStatistics.refundedAmount}</span> from
-                                    <span className="apt"> {appointmentStatistics.refundedAppointmentsCount} </span>Appointments</span>
+                                    <span> <span className="amt"> NPR {appointmentStatistics.refundedAmount || 0}</span> from
+                                    <span
+                                        className="apt"> {appointmentStatistics.refundedAppointmentsCount || 0} </span>Appointments</span>
                                 </div>
                             </div>
 
@@ -109,12 +111,12 @@ const AppointmentRefundLog = props => {
                                 <div className="rd-content ">
                                     <span>   <span className="label">Total Revenue Amount from Client <br></br><span
                                         className="inc">(Incl. Booked Appts. revenue)</span> </span> </span>
-                                    <span> <span className="amt"> NPR {appointmentStatistics.totalAmount}</span> from
+                                    <span> <span className="amt"> NPR {appointmentStatistics.totalAmount || 0}</span> from
                                     <span className="apt"> {
-                                        appointmentStatistics.bookedAppointmentsCount +
-                                        appointmentStatistics.checkedInAppointmentsCount +
-                                        appointmentStatistics.cancelAppointmentsCount +
-                                        appointmentStatistics.revenueFromRefundedAppointmentsCount
+                                        (appointmentStatistics.bookedAppointmentsCount +
+                                            appointmentStatistics.checkedInAppointmentsCount +
+                                            appointmentStatistics.cancelAppointmentsCount +
+                                            appointmentStatistics.revenueFromRefundedAppointmentsCount) || 0
                                     } </span>Appointments</span>
                                 </div>
                             </div>

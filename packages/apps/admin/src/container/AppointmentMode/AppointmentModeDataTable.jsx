@@ -1,27 +1,21 @@
 import React from 'react'
-import {
-    CFControl,
-    CLoading,
-    CPagination,
-    CSelect,
-    CTable
-} from '@frontend-appointment/ui-elements'
+import {CFControl, CPagination, CSelect, CTable, CToggle} from '@frontend-appointment/ui-elements'
 import StatusRenderer from '../CommonComponents/table-components/StatusRenderer'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import IsEditableRenderer from "./IsEditableRenderer";
 
-const {checkIfRoleExists} = ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils;
 
-const UniversitySetupDataTable = ({tableData, filteredAction}) => {
+const AppointmentModeDataTable = ({tableData, filteredAction}) => {
     const {
-        universityList,
-        isSearchUniversityLoading,
+        appointmentModeList,
+        isSearchAppointmentModeLoading,
         searchErrorMessage,
         currentPage,
         maxSize,
         totalItems,
         handlePageChange,
-        universityData,
-        countryList,
+        appointmentModeData,
         handleCancel,
         handleSave,
         handleEdit,
@@ -31,11 +25,11 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
         formValid,
         isActionComplete,
         changeActionComplete
-    } = tableData
+    } = tableData;
     return (
         <>
             <div className="manage-details editable-table-container">
-                <h5 className="title">University Details</h5>
+                <h5 className="title">Appointment Mode Details</h5>
                 <CTable
                     id="university-setup"
                     columnDefinition={[
@@ -48,33 +42,20 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
                                     name="name"
                                     type="text"
                                     reference={prop.reff}
-                                    defaultValue={universityData.name}
+                                    defaultValue={appointmentModeData.name}
                                 />
                             )
                         },
                         {
-                            headerName: 'Address',
-                            field: 'address',
+                            headerName: 'Code',
+                            field: 'code',
                             editComponent: prop => (
                                 <CFControl
-                                    id="address"
-                                    name="address"
+                                    id="code"
+                                    name="code"
                                     type="text"
                                     reference={prop.reff}
-                                    defaultValue={universityData.address}
-                                />
-                            )
-                        },
-                        {
-                            headerName: 'Country',
-                            field: 'countryName',
-                            editComponent: prop => (
-                                <CSelect
-                                    id="countryName"
-                                    name="countryName"
-                                    innerRef={prop.reff}
-                                    options={countryList}
-                                    defaultValue={universityData.countryName}
+                                    defaultValue={appointmentModeData.code}
                                 />
                             )
                         },
@@ -97,14 +78,14 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
                                             value: 'N'
                                         }
                                     ]}
-                                    defaultValue={universityData.status}
+                                    defaultValue={appointmentModeData.status}
                                 />
                             ),
                             displayComponent: prop => <StatusRenderer {...prop} />
                         }
                     ]}
                     rowValid={formValid}
-                    rowData={universityList}
+                    rowData={appointmentModeList}
                     headerBordered={true}
                     headerClassName="table-header"
                     bodyClassName="table-body"
@@ -119,14 +100,14 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
                     onUpdate={checkIfRoleExists(filteredAction, 11) ? handleUpdate : ''}
                     onDelete={checkIfRoleExists(filteredAction, 13) ? handleDelete : ''}
                     onPreview={checkIfRoleExists(filteredAction, 12) ? handlePreview : ''}
-                    isLoading={isSearchUniversityLoading}
+                    isLoading={isSearchAppointmentModeLoading}
                     errorMessage={searchErrorMessage}
                     isActionComplete={isActionComplete}
                     changeActionComplete={changeActionComplete}
                 />
-                {!isSearchUniversityLoading &&
+                {!isSearchAppointmentModeLoading &&
                 !searchErrorMessage &&
-                universityList.length ? (
+                appointmentModeList.length ? (
                     <CPagination
                         totalItems={totalItems}
                         maxSize={maxSize}
@@ -141,4 +122,4 @@ const UniversitySetupDataTable = ({tableData, filteredAction}) => {
     )
 }
 
-export default UniversitySetupDataTable
+export default AppointmentModeDataTable

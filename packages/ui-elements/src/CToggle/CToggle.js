@@ -3,12 +3,21 @@ import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import PropTypes from 'prop-types';
 
 const CToggle = props => {
+
+    const handleChange = (value) => {
+        props.onChangeHandler({
+            target: {
+                value: value,
+                name: props.name,
+            }
+        })
+    };
     const {
         id, onLabel, offLabel,
         size, onStyle, offStyle,
         width, height, name,
         onChangeHandler, classes, required,
-        checked, style,reference, defaultChecked
+        checked, style, reference, defaultChecked, disabled
     } = props;
     return (
         <>
@@ -24,11 +33,12 @@ const CToggle = props => {
                 width={width}
                 height={height}
                 className={classes}
-                onChange={onChangeHandler}
+                onChange={handleChange}
                 name={name}
                 checked={checked}
                 required={required}
                 defaultChecked={defaultChecked}
+                disabled={disabled}
             />
         </>
     )
@@ -57,5 +67,6 @@ CToggle.propTypes = {
     onChange: PropTypes.func.isRequired,
     checked: PropTypes.bool.isRequired,
     width: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    disabled: PropTypes.bool
 }
