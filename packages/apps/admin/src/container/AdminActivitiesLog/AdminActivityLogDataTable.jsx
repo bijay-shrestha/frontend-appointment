@@ -172,18 +172,18 @@ const AdminActivityLogDataTable = ({
                     return params.value || 'N/A'
                   }
                 },
-                {
-                  headerName: 'Location',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  field: 'location',
-                  autoSize: true,
-                  width: '100',
-                  valueFormatter: function (params) {
-                    return params.value || 'N/A'
-                  }
-                },
+                // {
+                //   headerName: 'Location',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                //   field: 'location',
+                //   autoSize: true,
+                //   width: '100',
+                //   valueFormatter: function (params) {
+                //     return params.value || 'N/A'
+                //   }
+                // },
                 {
                   headerName: 'Status',
                   field: 'status',
