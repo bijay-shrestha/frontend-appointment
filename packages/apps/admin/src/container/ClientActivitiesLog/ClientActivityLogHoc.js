@@ -32,7 +32,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         hospitalId: '',
         parentId: '',
         roleId: '',
-        userName: '',
         adminMetaInfoId:''
       },
       queryParams: {
@@ -79,15 +78,15 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         parentId,
         roleId,
         toDate,
-        userName
+        adminMetaInfoId
       } = this.state.searchParameters
       let searchData = {
         fromDate,
         toDate,
-        userName,
         hospitalId: hospitalId.value || '',
         parentId: parentId.value || '',
-        roleId: roleId.value || ''
+        roleId: roleId.value || '',
+        adminMetaInfoId:adminMetaInfoId.value||''
       }
       if (pageChange === 'A') {
         let updatedPage =
@@ -190,7 +189,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           hospitalId: '',
           parentId: '',
           roleId: '',
-          userName: '',
           adminMetaInfoId:''
         }
       })
@@ -284,7 +282,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       await this.searchAdminActivityLog('','B')
       await this.searchAdminActivityLog('','C')
       await this.searchHospitalForDropDown()
-      await this.searchHospitalAdminDropDown();
       this.makeRoleData()
       this.makeMenuData()
     }
