@@ -36,7 +36,8 @@ import {
     DepartmentEditReducer,
     DepartmentListReducer,
     DepartmentPreviewReducer,
-    DepartmentSetupReducer
+    DepartmentSetupReducer,
+    DepartmentDropdownReducer
 } from './admin-module/departmentSetupReducer'
 import {
     AdminDeleteReducer,
@@ -213,6 +214,7 @@ export {
     DepartmentListReducer,
     DepartmentPreviewReducer,
     DepartmentSetupReducer,
+    DepartmentDropdownReducer,
     DoctorDutyRosterSaveReducer,
     DoctorDutyRosterEditReducer,
     DoctorDutyRosterDeleteReducer,
