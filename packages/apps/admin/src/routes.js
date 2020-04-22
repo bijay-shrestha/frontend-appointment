@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import ClientActivityLog from './container/ClientActivitiesLog/ClientActivityLog'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -9,6 +10,10 @@ const AdminActivityLog = loadable(
     {fallback: getLoader()}
 )
 
+const ClienActivityLog = loadable(
+    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+    {fallback: getLoader()}
+)
 
 const AddProfileComponent = loadable(
     () => import('./container/ProfileSetup/Add/ProfileAdd'),
@@ -21,8 +26,8 @@ const AddDepartmentComponent = loadable(
 )
 
 const AddAdminComponent = loadable(
-  () => import('./container/AdminSetup/Add/AdminAdd'),
-  {fallback: getLoader()}
+    () => import('./container/AdminSetup/Add/AdminAdd'),
+    {fallback: getLoader()}
 )
 
 const AddHospitalComponent = loadable(
@@ -74,6 +79,11 @@ const AddCompanyProfileComponent = loadable(
     () => import('./container/CompanyProfileSetup/Add/CompanyProfileSetupAdd'),
     {fallback: getLoader()}
 )
+
+const AppointmentModeComponent = loadable(
+    () => import('./container/AppointmentMode/AppointmentMode'),
+    {fallback: getLoader()}
+)
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -101,7 +111,6 @@ const ManageCompanyAdminComponent = loadable(
     () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
     {fallback: () => getLoader()}
 )
-
 
 /* ****** E ***** */
 
@@ -204,8 +213,7 @@ const RescheduleLog = loadable(
 const UniversitySetupComponent = loadable(
     () => import('./container/UniversitySetup/UniversitySetup'),
     {fallback: () => getLoader()}
-);
-
+)
 
 /* ****** V ***** */
 
@@ -241,7 +249,7 @@ export const routes = [
     {
         path: '/admin/generalSetup/profile',
         component: ProfileComponent,
-        isLink: false,
+        isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
@@ -311,7 +319,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Specialization Setup',
         isSingleTab: false,
@@ -319,7 +327,7 @@ export const routes = [
     {
         path: '/admin/generalSetup/department',
         component: <></>,
-        isLink: false,
+        isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
@@ -378,7 +386,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         isSingleTab: false,
     },
@@ -427,7 +435,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Client Setup',
         isSingleTab: false,
@@ -457,7 +465,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Qualification Setup',
         isSingleTab: false,
@@ -467,7 +475,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Doctor',
         isSingleTab: false,
@@ -497,7 +505,7 @@ export const routes = [
         component: AppointmentRefundListComponent,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Pending Refund Approval',
         isSingleTab: true,
@@ -507,7 +515,7 @@ export const routes = [
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
         isSingleTab: true,
@@ -517,7 +525,7 @@ export const routes = [
         component: AppointmentLogListComponent,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Appointment Log',
         isSingleTab: true,
@@ -547,7 +555,7 @@ export const routes = [
         component: PatientInformationComponent,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Patient Information',
         isSingleTab: true,
@@ -577,7 +585,7 @@ export const routes = [
         component: RescheduleLog,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Reschedule Log',
         isSingleTab: true,
@@ -587,7 +595,7 @@ export const routes = [
         component: QualificationAlias,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Qualification Alias',
         isSingleTab: true,
@@ -595,7 +603,7 @@ export const routes = [
     {
         path: '/admin/companySettings/companyProfile',
         component: <></>,
-        isLink: false,
+        isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
@@ -627,7 +635,7 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'Company Setup',
         isSingleTab: false,
@@ -679,19 +687,39 @@ export const routes = [
         component: <></>,
         icon: '',
         hasTab: true,
-        isLink: false,
+        isLink: true,
         isTab: true,
         isSingleTab: false,
     },
     {
-        path: '/admin/userActivityLog',
-        name: 'User Activity Log',
-        component: AdminActivityLog,
+        path: '/admin/activityLog',
+        name: 'Activity Log',
+        component: <></>,
         icon: '',
         hasTab: false,
         isLink: false,
         isTab: false,
-        isSingleTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/activityLog/adminLog',
+        name: 'Admin Log',
+        component: AdminActivityLog,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
+    },
+    {
+        path: '/admin/activityLog/clientLog',
+        name: 'Client Log',
+        component: ClientActivityLog,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
     },
     {
         path: '/admin/companySettings',
@@ -708,9 +736,19 @@ export const routes = [
         component: UniversitySetupComponent,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
         name: 'University Setup',
+        isSingleTab: true,
+    },
+    {
+        path: '/admin/companySettings/appointmentMode',
+        component: AppointmentModeComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Appointment Mode Setup',
         isSingleTab: true,
     },
 ];

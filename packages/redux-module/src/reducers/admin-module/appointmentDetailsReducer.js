@@ -64,7 +64,7 @@ const appointmentLogState = {
     logList: [],
     isLogListLoading: true,
     logErrorMessage: '',
-    totalAmount: '',
+    appointmentStatistics: '',
     totalItems: ''
 }
 
@@ -240,7 +240,7 @@ export const AppointmentLogListReducer = (
                 logList: [],
                 isLogListLoading: true,
                 logErrorMessage: '',
-                totalAmount: '',
+                appointmentStatistics: '',
                 totalItems: ''
             }
         case LOG_FETCH_SUCCESS:
@@ -249,7 +249,7 @@ export const AppointmentLogListReducer = (
                 logList: [...action.payload.data.appointmentLogs],
                 isLogListLoading: false,
                 logErrorMessage: '',
-                totalAmount: action.payload.data.totalAmount,
+                appointmentStatistics: action.payload.data.appointmentStatistics,
                 totalItems: action.payload.data.totalItems
             }
         case LOG_FETCH_ERROR:
@@ -258,7 +258,7 @@ export const AppointmentLogListReducer = (
                 logList: [],
                 isLogListLoading: false,
                 logErrorMessage: action.payload.data,
-                totalAmount: '',
+                appointmentStatistics: '',
                 totalItems: ''
             }
         case CLEAR_LOG_LIST_MESSAGE:

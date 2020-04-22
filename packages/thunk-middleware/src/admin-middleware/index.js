@@ -19,7 +19,8 @@ import {
     editAdmin,
     fetchAdminList,
     fetchAdminMetaInfo,
-    previewAdmin
+    previewAdmin,
+    fetchAdminMetaInfoByHospitalId
 } from './admin-setup-middleware/adminSetupMiddleware';
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
@@ -36,36 +37,40 @@ import * as CompanyProfileSetupMiddleware from './company-profile-setup-middlewa
 import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/companyAdminSetupMiddleware'
 import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLoggingMiddleware';
 import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
+import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
+
 export {
-  createProfile,
-  fetchProfileList,
-  deleteProfile,
-  editProfile,
-  previewProfile,
-  fetchAllProfileListForSearchDropdown,
-  clearSuccessErrorMessagesFromStore,
-  fetchActiveProfileListForDropdown,
-  fetchProfileListBySubDepartmentId,
-  clearErrorMessageForDropdown,
-  clearAdminSuccessErrorMessagesFromStore,
-  createAdmin,
-  deleteAdmin,
-  editAdmin,
-  fetchAdminList,
-  previewAdmin,
-  fetchAdminMetaInfo,
-  fetchActiveProfilesByDepartmentId,
-  SpecializationSetupMiddleware,
-  HospitalSetupMiddleware,
-  CompanySetupMiddleware,
-  DoctorMiddleware,
-  DepartmentSetupMiddleware,
-  QualificationSetupMiddleware,
-  DoctorDutyRosterMiddleware,
-  PatientDetailsMiddleware,
-  QualificationAliasSetupMiddleware,
-  CompanyProfileSetupMiddleware,
-  CompanyAdminSetupMiddleware,
-  AdminLoggingMiddleware,
-  UniversitySetupMiddleware
+    createProfile,
+    fetchProfileList,
+    deleteProfile,
+    editProfile,
+    previewProfile,
+    fetchAllProfileListForSearchDropdown,
+    clearSuccessErrorMessagesFromStore,
+    fetchActiveProfileListForDropdown,
+    fetchProfileListBySubDepartmentId,
+    clearErrorMessageForDropdown,
+    clearAdminSuccessErrorMessagesFromStore,
+    createAdmin,
+    deleteAdmin,
+    editAdmin,
+    fetchAdminList,
+    previewAdmin,
+    fetchAdminMetaInfo,
+    fetchActiveProfilesByDepartmentId,
+    SpecializationSetupMiddleware,
+    HospitalSetupMiddleware,
+    CompanySetupMiddleware,
+    DoctorMiddleware,
+    DepartmentSetupMiddleware,
+    QualificationSetupMiddleware,
+    DoctorDutyRosterMiddleware,
+    PatientDetailsMiddleware,
+    QualificationAliasSetupMiddleware,
+    CompanyProfileSetupMiddleware,
+    CompanyAdminSetupMiddleware,
+    AdminLoggingMiddleware,
+    UniversitySetupMiddleware,
+    fetchAdminMetaInfoByHospitalId,
+    AppointmentModeMiddleware
 }

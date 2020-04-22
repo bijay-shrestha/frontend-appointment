@@ -36,7 +36,7 @@ const CButton = props => {
                 variant={variant}
                 active={active}
                 className={className}
-                disabled={disabled}
+                disabled={disabled || isLoading}
                 as={as}
                 onClick={onClickHandler}
                 href={href}

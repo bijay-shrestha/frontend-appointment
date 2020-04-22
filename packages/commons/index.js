@@ -6,6 +6,7 @@ export {default as ComponentHoc} from './src/ComponentHoc';
 export {default as ConnectHoc} from './src/connectHoc';
 export {default as SingleTabComponentHOC} from './src/SingleTabComponentHOC';
 export {default as NoRoleTabComponentHOC} from './src/NoRoleTabComponentHOC'
+export {default as LoggingStatus} from './src/LoggingStatus';
 export {
 
     ApiError,

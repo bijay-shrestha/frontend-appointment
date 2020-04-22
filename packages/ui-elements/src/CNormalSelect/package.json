@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointment/c-normal-select",
+    "version": "0.0.0",
+    "main": "CNormalSelect.jsx",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+  }
+  

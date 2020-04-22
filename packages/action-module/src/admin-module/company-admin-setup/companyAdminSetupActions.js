@@ -19,7 +19,11 @@ const {
   COMPANY_ADMIN_PREVIEW_SUCCESS,
   FETCH_COMPANY_ADMIN_META_INFO_ERROR,
   FETCH_COMPANY_ADMIN_META_INFO_PENDING,
-  FETCH_COMPANY_ADMIN_META_INFO_SUCCESS
+  FETCH_COMPANY_ADMIN_META_INFO_SUCCESS,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING,
+  FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS
+  
 } = companyAdminSetupActionConstants
 
 export const createCompanyAdminPending = () => {
@@ -172,6 +176,30 @@ export const companyAdminMetaInfoFetchSuccess = data => {
 export const companyAdminMetaInfoFetchError = message => {
   return {
     type: FETCH_COMPANY_ADMIN_META_INFO_ERROR,
+    payload: {
+      message: message
+    }
+  }
+}
+
+export const companyAdminMetaInfoByCompanyIdFetchPending = () => {
+  return {
+    type: FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_PENDING
+  }
+}
+
+export const companyAdminMetaInfoCompanyIdFetchSuccess = data => {
+  return {
+    type: FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_SUCCESS,
+    payload: {
+      data
+    }
+  }
+}
+
+export const companyAdminMetaInfoCompanyIdFetchError = message => {
+  return {
+    type: FETCH_COMPANY_ADMIN_META_INFO_WITH_COMPANY_ID_ERROR,
     payload: {
       message: message
     }

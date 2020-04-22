@@ -6,7 +6,10 @@ const {
   USER_LOG_FETCH_SUCCESS,
   USER_LOG_STATS_FETCH_ERROR,
   USER_LOG_STATS_FETCH_START,
-  USER_LOG_STATS_FETCH_SUCCESS
+  USER_LOG_STATS_FETCH_SUCCESS,
+  USER_LOG_DIAGRAM_FETCH_ERROR,
+  USER_LOG_DIAGRAM_FETCH_START,
+  USER_LOG_DIAGRAM_FETCH_SUCCESS
 } = adminLoggingConstant
 
 const initialLogSearchState = {
@@ -18,8 +21,15 @@ const initialLogSearchState = {
 const initialLogStatsSearchState = {
     isLogStatsSearchSearchLoading: true,
     logStatsSearchData: [],
-    logStatsSearchErrorMessage: ''
+    logStatsSearchErrorMessage: '',
+    totalItems:0
   }
+ const initialLogDiagramSearchState = {
+    isLogDiagramSearchLoading: true,
+    logDiagramSearchData: [],
+    logDiagramSearchErrorMessage: '',
+    totalCounts:0,
+  }  
 
 export const AdminLoggingSearchReducer = (
   state = {...initialLogSearchState},
@@ -59,8 +69,9 @@ export const AdminLoggingStatsSearchReducer = (
         return {
           ...state,
           isLogStatsSearchSearchLoading: false,
-          logStatsSearchData: action.payload.data,
-          logStatsSearchErrorMessage: ''
+          logStatsSearchData: action.payload.data.userMenuCountList,
+          logStatsSearchErrorMessage: '',
+          totalItems:action.payload.data.totalItems
         }
       case USER_LOG_STATS_FETCH_ERROR:
         return {
@@ -68,6 +79,32 @@ export const AdminLoggingStatsSearchReducer = (
           isLogStatsSearchSearchLoading: false,
           logStatsSearchData: [],
           logStatsSearchErrorMessage: action.payload.message
+        }
+        default:return state;  
+    }
+  }
+
+  export const AdminLoggingDiagramSearchReducer = (
+    state = {...initialLogDiagramSearchState},
+    action
+  ) => {
+    switch (action.type) {
+      case USER_LOG_DIAGRAM_FETCH_START:
+        return {...state}
+      case USER_LOG_DIAGRAM_FETCH_SUCCESS:
+        return {
+          ...state,
+          isLogDiagramSearchLoading: false,
+          logDiagramSearchData: action.payload.data.userMenuCountList,
+          logDiagramSearchErrorMessage: '',
+          totalCounts:action.payload.data.totalCount
+        }
+      case USER_LOG_DIAGRAM_FETCH_ERROR:
+        return {
+          ...state,
+          isLogDiagramSearchLoading: false,
+          logDiagramSearchData: [],
+          logDiagramSearchErrorMessage: action.payload.message,
         }
         default:return state;  
     }

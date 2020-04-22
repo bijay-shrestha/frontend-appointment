@@ -15,7 +15,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-class AppointmentLogListSearchFilter extends PureComponent {
+class AdminActivityLogSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -29,7 +29,10 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchHandler.searchAdminActivityLog(1)
+    this.props.searchHandler.searchAdminActivityLog(1, 'A')
+    this.props.searchHandler.searchAdminActivityLog(1, 'B')
+    this.props.searchHandler.searchAdminActivityLog('', 'C')
+    
     this.toggleSearchForm()
   }
 
@@ -39,10 +42,11 @@ class AppointmentLogListSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalsDropdown,
+      companyDropdownData,
       searchParameters,
       parentList,
-      roles
+      roles,
+      companyAdminMetaInfoByCompanyIdForDropdown
     } = searchHandler
 
     return (
@@ -68,13 +72,34 @@ class AppointmentLogListSearchFilter extends PureComponent {
                 <Row>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
-                      id="hospitalId"
+                      id="companyId"
                       name="hospitalId"
-                      label="Hospital"
-                      placeholder="Select Hospital"
-                      options={hospitalsDropdown}
-                      isDisabled={hospitalsDropdown.length ? false : true}
+                      label="Company"
+                      placeholder="Select Company"
+                      options={companyDropdownData}
+                      isDisabled={companyDropdownData.length ? false : true}
                       value={searchParameters.hospitalId}
+                      onChange={handleSearchFormChange}
+                      onKeyDown={handleEnter}
+                    />
+                  </Col>
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="adminMetaInfoId"
+                      name="adminMetaInfoId"
+                      label="Admin Meta Info"
+                      placeholder={
+                        searchParameters.hospitalId
+                          ? 'Select Admin Meta Info'
+                          : 'Select Company First'
+                      }
+                      options={companyAdminMetaInfoByCompanyIdForDropdown}
+                      isDisabled={
+                        companyAdminMetaInfoByCompanyIdForDropdown.length
+                          ? false
+                          : true
+                      }
+                      value={searchParameters.adminMetaInfoId}
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
@@ -85,7 +110,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                         id="from-date"
                         name="fromDate"
                         label="From Date"
-                        dateFormat="yyyy-MM-dd"
                         // maxDate={0}
                         showDisabledMonthNavigation={true}
                         peekNextMonth={true}
@@ -103,7 +127,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                         id="to-date"
                         name="toDate"
                         label="To Date"
-                        dateFormat="yyyy-MM-dd"
                         // maxDate={0}
                         showDisabledMonthNavigation={true}
                         selected={searchParameters.toDate}
@@ -119,7 +142,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                     </div>
                   </Col>
 
-                  <Col sm={12} md={6} xl={4}>
+                  {/* <Col sm={12} md={6} xl={4}>
                     <CHybridInput
                       id="userName"
                       name="userName"
@@ -128,7 +151,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
-                  </Col>
+                  </Col> */}
 
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
@@ -161,8 +184,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       placeholder="Select Action Type."
                     />
                   </Col>
-
-
 
                   <Col
                     sm={12}
@@ -224,7 +245,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Hospital Name</Tooltip>}
+                    overlay={<Tooltip id="name">Company Name</Tooltip>}
                   >
                     <Button
                       id="search-param-button-filters"
@@ -303,4 +324,4 @@ class AppointmentLogListSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentLogListSearchFilter
+export default AdminActivityLogSearchFilter

@@ -60,7 +60,8 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             },
             showEditRemarksModal: false,
             showDeleteModal: false,
-            showPreviewModal: false
+            showPreviewModal: false,
+            isActionComplete: false
         };
 
         alertTimer = '';
@@ -75,9 +76,16 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
             isNew: true
         };
 
+        changeActionComplete = () => {
+            this.setState({
+                isActionComplete: false
+            })
+        };
+
+
         actionsOnOperationComplete = () => {
             this.resetUniversityData();
-            this.searchUniversities();
+            this.handleResetSearchForm();
         };
 
         // checkFormValidity = () => {
@@ -276,7 +284,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                     showPreviewModal: true
                 })
             } catch (e) {
-                this.showAlertMessage("danger", this.UniversityPreviewReducer.previewUniversityErrorMessage);
+                this.showAlertMessage("danger", this.props.UniversityPreviewReducer.previewUniversityErrorMessage);
             }
         };
 
@@ -302,6 +310,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 name: "",
                 status: "Y",
                 remarks: "",
+                isActionComplete: true
             })
         };
 
@@ -416,7 +425,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 formValid,
                 alertMessageInfo, showAlert,
                 showEditRemarksModal, remarks, showDeleteModal,
-                showPreviewModal
+                showPreviewModal, isActionComplete
             } = this.state;
 
             const {
@@ -475,7 +484,9 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                             handleEdit: this.handleEdit,
                             handleUpdate: this.handleOpenEditRemarksModal,
                             handleDelete: this.handleDelete,
-                            handlePreview: this.handlePreview
+                            handlePreview: this.handlePreview,
+                            isActionComplete,
+                            changeActionComplete: this.changeActionComplete
                         }}
                     />
                     <CAlert

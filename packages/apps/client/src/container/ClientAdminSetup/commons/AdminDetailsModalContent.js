@@ -169,7 +169,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                     >
                                         {adminInfoObj.adminDashboardRequestDTOS &&
                                         adminInfoObj.adminDashboardRequestDTOS.length ? (
-                                            <CFLabel labelName="Dashboard Role" id="dashboard-role"/>
+                                            <CFLabel labelName="Dashboard Roles" id="dashboard-role"/>
                                         ) : null}
                                         <div>
                                             {adminInfoObj &&

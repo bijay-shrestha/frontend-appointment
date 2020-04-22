@@ -62,6 +62,7 @@ export const adminSetupAPIConstants = {
     FETCH_ADMIN_META_INFO: ADMIN_BASE_URL.concat('/metaInfo'),
     RESET_PASSWORD: ADMIN_BASE_URL.concat('/resetPassword'),
     CHANGE_PASSWORD: ADMIN_BASE_URL.concat('/changePassword'),
+    FETCH_ADMIN_META_INFO_BY_HOSPITAL_ID: ADMIN_BASE_URL.concat('/client/metaInfo'),
     VERIFY_ADMIN_EMAIL: ADMIN_BASE_URL.concat("/verify/email")
 };
 
@@ -217,14 +218,20 @@ export const companyAdminSetupApiConstants = {
     VERIFY_COMPANY_ADMIN: BASE.concat(COMPANY_ADMIN_BASE + '/verify'),
     FETCH_COMPANY_ADMIN_META_INFO: BASE.concat(COMPANY_ADMIN_BASE + '/metaInfo'),
     RESET_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/resetPassword'),
+    FETCH_ADMIN_META_INFO_BY_COMPANY_ID: ADMIN_BASE_URL.concat('/company/metaInfo'),
     CHANGE_COMPANY_ADMIN_PASSWORD: BASE.concat(COMPANY_ADMIN_BASE + '/changePassword'),
     VERIFY_COMPANY_ADMIN_EMAIL: BASE.concat(COMPANY_ADMIN_BASE + '/verify/email')
 };
 
-const LOG_BASE = '/logging';
-export const adminLoggingConstant = {
-    FETCH_ADMIN_LOG: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + '/search')),
-    FETCH_ADMIN_LOG_STATS: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/user-log-statics"))
+const LOG_BASE='/logging';
+
+export const adminLoggingConstant ={
+  FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
+  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics")),
+  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram")),
+  FETCH_CLIENT_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/client/search')),
+  FETCH_CLIENT_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-statics")),
+  FETCH_CLIENT_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-diagram"))
 }
 
 const UNIVERSITY_BASE = "/university";
@@ -239,4 +246,14 @@ export const universitySetupApiConstants = {
 
 export const countryApiConstants = {
     FETCH_COUNTRY_FOR_DROPDOWN: BASE.concat('/country'),
+};
+
+const APPOINTMENT_MODE_BASE = "/appointmentMode";
+export const appointmentModeApiConstants = {
+    SAVE_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    EDIT_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    DELETE_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE),
+    FETCH_APPOINTMENT_MODE_FOR_DROPDOWN: BASE.concat(APPOINTMENT_MODE_BASE.concat("/active/min")),
+    FETCH_APPOINTMENT_MODE_DETAILS_BY_ID: BASE.concat(APPOINTMENT_MODE_BASE.concat("/detail")),
+    SEARCH_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE.concat("/search")),
 };

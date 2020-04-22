@@ -26,7 +26,10 @@ const {
     CLEAR_ADMIN_DELETE_SUCCESS_MESSAGE,
     FETCH_ADMIN_META_INFO_PENDING,
     FETCH_ADMIN_META_INFO_SUCCESS,
-    FETCH_ADMIN_META_INFO_ERROR
+    FETCH_ADMIN_META_INFO_ERROR,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_PENDING,
+    FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS
 } = adminSetupActionConstants;
 
 
@@ -227,6 +230,30 @@ export const adminMetaInfoFetchSuccess = data => {
 export const adminMetaInfoFetchError = errorMsg => {
     return {
         type: FETCH_ADMIN_META_INFO_ERROR,
+        payload: {
+            errorMessage: errorMsg
+        }
+    }
+};
+
+export const adminMetaInfoByHospitalIdFetchPending = () => {
+    return {
+        type: FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_PENDING
+    }
+};
+
+export const adminMetaInfoByFetchHospitalIdFetchSuccess = data => {
+    return {
+        type: FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const adminMetaInfoByFetchHospitalIdFetchError = errorMsg => {
+    return {
+        type: FETCH_ADMIN_META_INFO_WITH_HOSPITAL_ID_ERROR,
         payload: {
             errorMessage: errorMsg
         }

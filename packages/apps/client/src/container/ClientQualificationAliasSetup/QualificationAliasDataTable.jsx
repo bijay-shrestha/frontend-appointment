@@ -21,9 +21,11 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
         handleUpdate,
         handleDelete,
         formValid,
+        isActionComplete,
+        changeActionComplete
     } = tableData;
     return <>
-        <div className="manage-details">
+        <div className="manage-details editable-table-container">
             <h5 className="title">Qualification Alias Setup</h5>
             <CTable
                 id="qualification-alias"
@@ -78,6 +80,8 @@ const QualificationAliasDataTable = ({tableData, filteredAction}) => {
                 // onPreview={},
                 isLoading={isSearchQualificationAliasLoading}
                 errorMessage={searchErrorMessage}
+                isActionComplete={isActionComplete}
+                changeActionComplete={changeActionComplete}
             />
             {!isSearchQualificationAliasLoading && !searchErrorMessage && qualificationAliasList.length ?
                 (

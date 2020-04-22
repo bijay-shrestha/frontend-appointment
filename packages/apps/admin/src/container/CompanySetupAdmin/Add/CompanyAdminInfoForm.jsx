@@ -263,9 +263,9 @@ const CompanyAdminInfoForm = ({
                     className="py-4 "
                   >
                     {dashData && dashData.length ? (
-                      <CFLabel labelName="Dashboard Role" id="dashboard-role" />
+                      <CFLabel labelName="Dashboard Roles" id="dashboard-role" />
                     ) : null}
-                   
+
                       {!isDashboardFeatureLoading &&
                       !dashboardFeatureErrorMessage &&
                       dashData.length ? (
@@ -292,9 +292,9 @@ const CompanyAdminInfoForm = ({
                         !isDashboardFeatureLoading ? (
                         <p>{dashboardFeatureErrorMessage}</p>
                       ) : null}
-                   
+
                   </Col>
-                 
+
 
               {/* mac binding inputs */}
               <Col sm={12} md={12} lg={6} className="py-4">

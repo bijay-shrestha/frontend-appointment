@@ -433,23 +433,74 @@
           "menuFor": "1",
           "description": "Specialization",
           "childMenus": []
+        },
+        {
+          "id": "27",
+          "parentId": "20",
+          "name": "Appointment Mode Setup",
+          "path": "/companySettings/appointmentMode",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Appointment Mode Setup",
+          "childMenus": []
         }
       ]
     },
     {
       "id": "24",
       "parentId": null,
-      "name": "User Activity Log",
-      "path": "/userActivityLog",
-      "roles": [2,3,4,5],
+      "name": "Activity Log",
+      "path": "/activityLog",
+      "roles": [],
       "icon": "fa fa-history",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "User Activity Log",
-      "childMenus": [] 
+      "description": "activityLog",
+      "childMenus": [
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Admin Log",
+          "path": "/activityLog/adminLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "adminLog",
+          "childMenus": []
+        },
+        {
+          "id": "26",
+          "parentId": "24",
+          "name": "Client Log",
+          "path": "/activityLog/clientLog",
+          "roles": [12],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Client Log",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }

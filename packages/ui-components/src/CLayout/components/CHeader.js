@@ -57,16 +57,16 @@ class CHeader extends Component {
         }
     }
 
-    logoutUser = async () => {
-        await this.savePinOrUnpinUserMenu(
-            ADMIN_FEATURE,
-            Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
-        )
-        localStorage.clear()
-        sessionStorage.clear()
-        console.log("Header Props", this.props)
-        this.props.history.push('/')
-    }
+  logoutUser = async () => {
+  await this.savePinOrUnpinUserMenu(
+      ADMIN_FEATURE,
+      Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+    )
+    localStorage.clear()
+    sessionStorage.clear()
+
+    this.props.history.push('/')
+  }
 
     setLoggedInUserInfo = async () => {
         let absoluteUrl = window.location.href
