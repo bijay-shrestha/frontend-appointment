@@ -12,23 +12,27 @@ import {
   DateTimeFormatterUtils,
   menuRoles,
   LocalStorageSecurity,
+  EnvironmentVariableGetter,
   CommonUtils
 } from '@frontend-appointment/helpers'
 const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
-//const {getUserNameHospitalIdAndAdminId}=CommonUtils
-const clientAdmin = LocalStorageSecurity.localStorageDecoder('adminInfo')
+const {getUserNameHospitalIdAndAdminId}=CommonUtils
+
 const ClientActivityLogHOC = (ComposedComponent, props, type) => {
   const {
     clientLoggingConstant,
     adminSetupAPIConstants
   } = AdminModuleAPIConstants
-
+  const client=getUserNameHospitalIdAndAdminId(LocalStorageSecurity.localStorageDecoder('c-auth-token'))
+  const clientId=client.hospitalId;
+  const clients=LocalStorageSecurity.localStorageDecoder('adminInfo');
+  const clientName=clients.hospitalName
   class ClientActivityLogDetails extends React.PureComponent {
     state = {
       searchParameters: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        clientId:clientAdmin.hospitalId,
+        clientId:clientId,
         parentId: '',
         roleId: '',
         adminMetaInfoId:''
@@ -64,7 +68,6 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
     searchAdminActivityLog = async (page, pageChange) => {
       const {
         fromDate,
-        clientId,
         parentId,
         roleId,
         toDate,
@@ -76,7 +79,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
         clientId:clientId,
         parentId: parentId.value || '',
         roleId: roleId.value || '',
-        adminMetaInfoId:''
+        adminMetaInfoId:adminMetaInfoId.value||''
       }
       if (pageChange === 'A') {
         let updatedPage =
@@ -176,7 +179,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
           appointmentNumber: '',
           fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
           toDate: new Date(),
-          clientId: clientAdmin.hospitalId,
+          clientId: clientId,
           parentId: '',
           roleId: '',
           adminMetaInfoId:''
@@ -267,7 +270,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
       await this.searchAdminActivityLog('','A')
       await this.searchAdminActivityLog('','B')
       await this.searchAdminActivityLog('','C')
-      await this.searchHospitalAdminDropDown(clientAdmin.hospitalId)
+      await this.searchHospitalAdminDropDown(clientId)
       this.makeRoleData()
       this.makeMenuData()
     }
@@ -328,6 +331,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
               searchAdminActivityLog: this.searchAdminActivityLog,
               searchParameters: searchParameters,
               parentList: menuList,
+              clientName:clientName,
               roles: rolesList
             }}
             paginationProps={{

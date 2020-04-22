@@ -46,6 +46,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
       searchParameters,
       parentList,
       roles,
+      clientName,
       adminMetaInfoByHospitalIdForDropdown
     } = searchHandler
 
@@ -236,7 +237,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.clientId}
+                      {clientName}
                     </Button>
                   </OverlayTrigger>
                 </li>
