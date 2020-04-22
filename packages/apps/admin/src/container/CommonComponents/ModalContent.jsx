@@ -103,9 +103,9 @@ class ModalContent extends React.PureComponent {
             <>
                 {/* <Col sm={12} md={12} > */}
                 <Container-fluid>
-                    <Row className="pl-4 pr-4">
-                        <h5>Client Profile Info</h5>
-                    </Row>
+                    {/*<Row className="pl-4 pr-4">*/}
+                    {/*    <h5>Client Profile Info</h5>*/}
+                    {/*</Row>*/}
 
                     <CForm id="profile-info" className="mt-2 add-info">
                         <Container-fluid>

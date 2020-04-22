@@ -35,7 +35,7 @@ const ProfileInfoForm = ({
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
                     placeholder={departmentList.length ? "Select department." : "No department(s)."}
-                    isDisabled={departmentList.length}
+                    isDisabled={!departmentList.length}
                 />
 
                 <CHybridInput
