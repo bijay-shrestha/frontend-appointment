@@ -97,6 +97,7 @@ const CompanyAdminInfoForm = ({
                   onKeyDown={event => onEnterKeyPress(event)}
                   onChange={event => onInputChange(event)}
                   options={companyList}
+                  isDisabled={!companyList.length}
                   value={adminInfoObj.company}
                   placeholder="Select Company."
                 />
@@ -112,8 +113,9 @@ const CompanyAdminInfoForm = ({
                     onKeyDown={event => onEnterKeyPress(event)}
                     onChange={event => onInputChange(event)}
                     options={profileList}
+                    isDisabled={!profileList.length}
                     value={adminInfoObj.profile}
-                    placeholder={'Select profile.'}
+                    placeholder={adminInfoObj.company?'Select profile.':'Select Company First.'}
                   />
                   {adminInfoObj.profile && (
                     <CButton

@@ -106,7 +106,7 @@ const AdminInfoForm = ({
                                     onChange={event => onInputChange(event)}
                                     options={departmentList}
                                     value={adminInfoObj.department}
-                                    isDisabled={!adminInfoObj.hospital}
+                                    isDisabled={!departmentList.length}
                                     placeholder={
                                         adminInfoObj.hospital
                                             ? 'Select department.'
@@ -125,7 +125,7 @@ const AdminInfoForm = ({
                                         onChange={event => onInputChange(event)}
                                         options={profileList}
                                         value={adminInfoObj.profile}
-                                        isDisabled={!adminInfoObj.department}
+                                        isDisabled={!profileList.length}
                                         placeholder={
                                             adminInfoObj.department
                                                 ? 'Select profile.'
