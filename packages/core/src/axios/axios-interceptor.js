@@ -11,10 +11,6 @@ const BASE_DOMAIN = EnvironmentVariableGetter.REACT_APP_MODULE_CODE
 //const APP_PORT = process.env.PORT || ''
 let Axios = axios.create({
     baseURL: SERVER_DOMAIN + BASE_DOMAIN,
-    proxy: {
-        host: 'localhost',
-        port: 3301
-    },
     withCredentials: false,
     crossDomain: true,
     crossOrigin: true
@@ -26,7 +22,7 @@ Axios.interceptors.request.use(
             LocalStorageSecurity.localStorageDecoder(
                 EnvironmentVariableGetter.AUTH_TOKEN
             ) || ''
-        if (!requestConfig.url.includes('login'))
+        if (!requestConfig.url.includes('/login'))
             requestConfig.headers.Authorization = token ? token : ''
         let logHeader = createLogHeader(requestConfig)
         if (logHeader) requestConfig.headers['log-header'] = JSON.stringify(logHeader);

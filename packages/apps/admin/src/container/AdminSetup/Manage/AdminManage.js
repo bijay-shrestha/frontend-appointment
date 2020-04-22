@@ -1160,7 +1160,8 @@ class AdminManage extends PureComponent {
         this.fetchActiveProfileLists()
         this.fetchHospitals()
         this.fetchDepartments()
-        this.fetchDashBoardFeatures()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+          this.fetchDashBoardFeatures()
         this.searchAdmins()
     }
 
