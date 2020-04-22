@@ -1,4 +1,4 @@
-import {CButton, CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
@@ -90,7 +90,8 @@ const DepartmentDetailsDataTable = props => (
                         childLabelRenderer: StatusLabel
                     }}
                     defaultColDef={{resizable: true}}
-                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) ? props.onPreviewHandler : () => {}}
+                    getSelectedRows={checkIfRoleExists(props.filteredActions, 4) ? props.onPreviewHandler : () => {
+                    }}
                     rowSelection={'single'}
                     setShowModal={props.setShowModal} // {this.showModal}
                     rowData={props.searchData}
@@ -132,6 +133,7 @@ const DepartmentDetailsDataTable = props => (
                 remarks={props.remarks}
                 onSubmitDelete={props.onSubmitDelete}
                 deleteErrorMessage={props.deleteErrorMsg}
+                isLoading={props.isDeleteLoading}
             />
         ) : (
             ''

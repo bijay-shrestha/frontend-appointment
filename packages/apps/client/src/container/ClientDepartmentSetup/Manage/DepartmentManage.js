@@ -412,9 +412,10 @@ class DepartmentManage extends PureComponent {
 
         const {departmentPreviewData, departmentPreviewErrorMessage} = this.props.DepartmentPreviewReducer;
 
-        const {departmentErrorMessage} = this.props.DepartmentEditReducer;
+        const {departmentErrorMessage, isDepartmentEditLoading} = this.props.DepartmentEditReducer;
 
-        const {deleteErrorMessage} = this.props.DepartmentDeleteReducer;
+        const {deleteErrorMessage, isDeleteLoading} = this.props.DepartmentDeleteReducer;
+
 
         return <>
         <div className="department-setup">
@@ -449,6 +450,7 @@ class DepartmentManage extends PureComponent {
                     remarks={this.state.deleteRequestDTO.remarks}
                     deleteErrorMsg={deleteErrorMessage}
                     exportExcel={this.downloadEXCEL}
+                    isDeleteLoading={isDeleteLoading}
                 />
             </div>
             {this.state.showEditModal && (
@@ -463,6 +465,7 @@ class DepartmentManage extends PureComponent {
                     errorMessageForDepartmentName={departmentUpdateData.errorMessageForDepartmentName}
                     errorMessageForDepartmentCode={departmentUpdateData.errorMessageForDepartmentCode}
                     errorMessage={departmentErrorMessage}
+                    isDepartmentEditLoading={isDepartmentEditLoading}
                 />
             )}
             <CAlert id="profile-add"

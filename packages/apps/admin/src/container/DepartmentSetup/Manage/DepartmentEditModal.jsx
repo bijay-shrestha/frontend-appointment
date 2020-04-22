@@ -124,11 +124,10 @@ const DepartmentEditModal = ({
                 <div className="col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!departmentData.formValid}
+                        disabled={!departmentData.formValid || isDepartmentEditLoading}
+                        isLoading={isDepartmentEditLoading}
                         name="Update"
                         size="lg"
-                        isLoading={isDepartmentEditLoading}
-                        disabled={isDepartmentEditLoading}
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"

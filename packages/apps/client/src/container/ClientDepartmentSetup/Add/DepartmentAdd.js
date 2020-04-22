@@ -77,7 +77,7 @@ class DepartmentAdd extends PureComponent {
     };
 
     handleConfirmClick = async () => {
-        const {name,code,status,hospital} = this.state;
+        const {name, code, status, hospital} = this.state;
         let departmentDTO = {
             name: name,
             departmentCode: code,
@@ -136,6 +136,7 @@ class DepartmentAdd extends PureComponent {
             errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal
         } = this.state;
 
+        const {isCreateDepartmentLoading} = this.props.DepartmentSetupReducer;
         return <>
             <div className="department-setup">
                 <Container className="bg-white add-container " fluid>
@@ -168,7 +169,8 @@ class DepartmentAdd extends PureComponent {
                                 variant="primary "
                                 className="float-right btn-action"
                                 name="Save"
-                                disabled={!formValid}
+                                disabled={!formValid || showConfirmModal}
+                                isLoading={showConfirmModal}
                                 onClickHandler={this.setShowConfirmModal}>
 
                             </CButton>
@@ -181,6 +183,7 @@ class DepartmentAdd extends PureComponent {
                                     code: code,
                                     status: status
                                 }}
+                                isCreateDepartmentLoading={isCreateDepartmentLoading}
                             />
                         </Col>
                     </Row>

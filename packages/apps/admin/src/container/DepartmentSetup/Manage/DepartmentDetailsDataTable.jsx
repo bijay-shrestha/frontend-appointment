@@ -1,4 +1,4 @@
-import {CButton, CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React, {memo} from 'react';
 import {ConfirmDelete} from '@frontend-appointment/ui-components';
 import {ActionFilterUtils} from "@frontend-appointment/helpers";
