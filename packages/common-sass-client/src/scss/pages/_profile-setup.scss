@@ -1,5 +1,5 @@
 .add-container {
-    padding: 24px;
+    padding: 15px;
     margin : 1rem 0;
 
     @include border-radius($cogent-radius);
@@ -63,8 +63,25 @@
             width   : 40px;
             margin-top:0;
             margin-right:0;
-
-
+            ::-webkit-input-placeholder {
+        /* WebKit browsers */
+         color: transparent;
+    }
+     :-moz-placeholder {
+        /* Mozilla Firefox 4 to 18 */
+         color: transparent;
+    }
+     ::-moz-placeholder {
+        /* Mozilla Firefox 19+ */
+         color: transparent;
+    }
+     :-ms-input-placeholder {
+        /* Internet Explorer 10+ */
+         color: transparent;
+    }
+     input::placeholder {
+         color: transparent;
+    }
 
             &.form-check .form-check-label:before {
                 margin-left: -4px;
@@ -246,6 +263,10 @@
 
             #expandible-search input[type=search] {
                 border: none;
+                
+              
+                
+                
             }
 
         }
@@ -313,7 +334,7 @@
 
 .manage-details {
     background-color: $white;
-    padding: 24px;
+    padding: 15px;
     margin          : 1rem 0;
     @include border-radius($cogent-radius);
 
