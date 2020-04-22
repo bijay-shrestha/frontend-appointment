@@ -299,7 +299,7 @@ const ClientActivityLogDataTable = ({
                 <div className="message"> {logStatsSearchErrorMessage}</div>
               </div>
             ) : (
-              ''
+              <CLoading/>
             )}
           </div>
         </Col>
