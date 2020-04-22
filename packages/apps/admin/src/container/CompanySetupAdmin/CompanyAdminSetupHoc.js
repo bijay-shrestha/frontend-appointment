@@ -1226,7 +1226,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
 
         componentDidMount() {
             this.initialAPICalls()
-            this.fetchDashBoardFeatures()
+            if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+              this.fetchDashBoardFeatures()
         }
 
         componentWillUnmount() {

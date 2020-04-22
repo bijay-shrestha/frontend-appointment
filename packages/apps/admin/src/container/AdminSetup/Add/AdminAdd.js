@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import AdminInfoForm from './AdminInfoForm'
-import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from '@frontend-appointment/helpers'
+import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
@@ -472,7 +472,8 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchHospitals()
-        this.fetchDashBoardFeatures()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+          this.fetchDashBoardFeatures()
     }
 
     componentDidMount() {

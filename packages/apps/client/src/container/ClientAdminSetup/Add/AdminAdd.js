@@ -5,7 +5,8 @@ import {
     EnterKeyPressUtils,
     EnvironmentVariableGetter,
     menuRoles,
-    ProfileSetupUtils
+    ProfileSetupUtils,
+    LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
@@ -457,6 +458,7 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchDepartmentsByHospitalId()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
         this.fetchDashBoardFeatures()
     }
 
