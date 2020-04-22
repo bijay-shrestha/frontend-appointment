@@ -710,7 +710,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     alertMessageInfo: {
                         variant: 'success',
-                        message: `Reset password successfully for ${passwordResetObj.email}.`
+                        message: `Reset password successfully for ${this.state.passwordResetDTO.email}.`
                     },
                     showPasswordResetModal: false,
                     showAlert: true,
@@ -720,7 +720,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     passwordResetError: e.errorMessage
                         ? e.errorMessage
-                        : `Error resetting password for ${passwordResetObj.email}.`,
+                        : `Error resetting password for ${this.state.passwordResetDTO.email}.`,
                     isPasswordResetPending: false
                 })
             }

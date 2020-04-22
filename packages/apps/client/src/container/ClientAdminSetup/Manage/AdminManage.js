@@ -714,7 +714,7 @@ class AdminManage extends PureComponent {
             this.setState({
                 alertMessageInfo: {
                     variant: 'success',
-                    message: `Reset password successfully for ${passwordResetObj.email}.`
+                    message: `Reset password successfully for ${this.state.passwordResetDTO.email}.`
                 },
                 showPasswordResetModal: false,
                 showAlert: true,
@@ -724,7 +724,7 @@ class AdminManage extends PureComponent {
             this.setState({
                 passwordResetError: e.errorMessage
                     ? e.errorMessage
-                    : `Error resetting password for ${passwordResetObj.email}.`,
+                    : `Error resetting password for ${this.state.passwordResetDTO.email}.`,
                 isPasswordResetPending: false
             })
         }
