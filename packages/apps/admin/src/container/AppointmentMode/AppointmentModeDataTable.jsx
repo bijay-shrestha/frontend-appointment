@@ -31,7 +31,7 @@ const AppointmentModeDataTable = ({tableData, filteredAction}) => {
             <div className="manage-details editable-table-container">
                 <h5 className="title">Appointment Mode Details</h5>
                 <CTable
-                    id="university-setup"
+                    id="appointment-mode-setup"
                     columnDefinition={[
                         {
                             headerName: 'Name',
