@@ -15,7 +15,7 @@ const {
     searchCompany,
     updateCompany,
     clearMessages
-} = CompanySetupMiddleware
+} = CompanySetupMiddleware;
 
 const {
     DELETE_COMPANY,
@@ -339,7 +339,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             let searchData = {
                 name: name,
                 companyCode: companyCode,
-                status: status.value,
+                status: status.value === 'A' ? '' : status.value,
             }
 
             let updatedPage =
@@ -581,8 +581,13 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             this.checkFormValidity(eventType)
         }
 
+        fetchCompanyForDropdown = async () => {
+            await this.props.companyDropdown(DROPDOWN_COMPANY);
+        }
+
         async componentDidMount() {
             if (type === 'M') {
+                this.fetchCompanyForDropdown();
                 await this.searchCompany()
                 //await this.searchHospitalForDropDown()
             }
@@ -628,6 +633,11 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             const {companyEditErrorMessage} = this.props.companyUpdateReducer
 
             const {companyDeleteErrorMessage} = this.props.companyDeleteReducer
+            const {
+                isCompanyDropdownLoading,
+                companyDropdownData,
+                companyDropdownErrorMessage
+            } = this.props.companyDropdownReducer;
 
             //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
@@ -688,6 +698,9 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     handleCropImage={this.handleCropImage}
                     handleImageUpload={this.handleImageUpload}
                     setImageShow={this.setImageShowModal}
+                    isCompanyDropdownLoading={isCompanyDropdownLoading}
+                    companyDropdownData={companyDropdownData}
+                    companyDropdownErrorMessage={companyDropdownErrorMessage}
                 />
             )
         }
