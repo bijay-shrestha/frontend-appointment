@@ -97,5 +97,6 @@ export const clearSuccessErrorMessageFromStore = () => async dispatch => {
     dispatch(CompanyProfileSetupActions.clearProfileDeleteMessages());
     dispatch(CompanyProfileSetupActions.clearProfileEditMessages());
     dispatch(CompanyProfileSetupActions.clearProfilePreviewMessages());
+    dispatch({type:'CLEAR_COMPANY_PROFILE_DROPDOWN'});
     // dispatch(CompanyProfileSetupActions.clearProfileSearchMessages());
 };

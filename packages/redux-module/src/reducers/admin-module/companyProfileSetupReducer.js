@@ -261,6 +261,11 @@ export const CompanyProfileDropdownReducer = (state = {...initialState}, action)
                 activeCompanyProfileListByCompanyIdForDropdown: [],
                 profileByCompanyIdDropdownErrorMessage: action.payload.errorMessage
             };
+        case 'CLEAR_COMPANY_PROFILE_DROPDOWN':return {
+            ...state,
+            activeCompanyProfileListByCompanyIdForDropdown:[],
+            profileByCompanyIdDropdownErrorMessage:''
+        }    
         default:
             return state
     }
