@@ -83,7 +83,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       let searchData = {
         fromDate,
         toDate,
-        client: clientId.value || '',
+        clientId: clientId.value || '',
         parentId: parentId.value || '',
         roleId: roleId.value || '',
         adminMetaInfoId:adminMetaInfoId.value||''
