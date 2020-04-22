@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import {Col, Container, Row, Form} from 'react-bootstrap'
+import {Col, Container, Row} from 'react-bootstrap'
 import HospitalDropdown from './HospitalDropdown'
 import RevenueStatistics from './RevenueStatistics'
 import RevenueTrend from './RevenueTrend'
@@ -12,146 +12,146 @@ import {checkDashboardRole} from '@frontend-appointment/helpers'
 import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
 //import {CHybridSelect} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
-  const AdminDash = AdminDashboardHoc(
-    ({
-      generateRevenue,
-      revenueStatistics,
-      registeredPatients,
-      hospitalDropdown,
-      hospitalId,
-      handleHospitalChange,
-      onPillsClickHandler,
-      appointmentList,
-      revenueFilter,
-      appointmentFilter,
-      appointmentQueue,
-      doctorRevenue,
-      specializationListHospitalWise
-    }) => {
-      const RevenuStats = (
-        <CheckDashboardRole
-          component={
-            <div className="revenue-title-box">
-              <div className="fiscal">
-                Fiscal Year{' '}
-                {generateRevenue &&
-                generateRevenue.revenueGeneratedDayData &&
-                generateRevenue.revenueGeneratedDayData.fiscalYear
-                  ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
-                      '/'
-                    )[0]
-                  : ''}
-                <span className="slash">/</span>
-                {generateRevenue &&
-                generateRevenue.revenueGeneratedDayData &&
-                generateRevenue.revenueGeneratedDayData.fiscalYear
-                  ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
-                      '/'
-                    )[1]
-                  : ''}
-              </div>
-              <h5 className="title">Revenue Statistics</h5>
-            </div>
-          }
-          code={generateRevenue.code}
-        />
-      )
-      return (
-        <div className="dashboard-wrapper">
-          <Container fluid className="">
-            <Row className="">
-              <Col className="px-0">{RevenuStats}</Col>
-              {checkDashboardRole(generateRevenue.code) ||
-                checkDashboardRole(appointmentQueue.code) ||
-                checkDashboardRole(appointmentList.code) ? (
-                  <HospitalDropdown
-                    hospitalDropdown={hospitalDropdown}
-                    hospitalId={hospitalId}
-                    handleHospitalChange={handleHospitalChange}
-                    className="top-hospital-list"
-                  />
-                ):null}
-            </Row>
-
-            <Row>
-              {
+    const AdminDash = AdminDashboardHoc(
+        ({
+             generateRevenue,
+             revenueStatistics,
+             registeredPatients,
+             hospitalDropdown,
+             hospitalId,
+             handleHospitalChange,
+             onPillsClickHandler,
+             appointmentList,
+             revenueFilter,
+             appointmentFilter,
+             appointmentQueue,
+             doctorRevenue,
+             specializationListHospitalWise
+         }) => {
+            const RevenuStats = (
                 <CheckDashboardRole
-                  component={
-                    <RevenueStatistics generateRevenue={generateRevenue} />
-                  }
-                  code={generateRevenue.code}
+                    component={
+                        <div className="revenue-title-box">
+                            <div className="fiscal">
+                                Fiscal Year{' '}
+                                {generateRevenue &&
+                                generateRevenue.revenueGeneratedDayData &&
+                                generateRevenue.revenueGeneratedDayData.fiscalYear
+                                    ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                                        '/'
+                                    )[0]
+                                    : ''}
+                                <span className="slash">/</span>
+                                {generateRevenue &&
+                                generateRevenue.revenueGeneratedDayData &&
+                                generateRevenue.revenueGeneratedDayData.fiscalYear
+                                    ? generateRevenue.revenueGeneratedDayData.fiscalYear.split(
+                                        '/'
+                                    )[1]
+                                    : ''}
+                            </div>
+                            <h5 className="title">Revenue Statistics</h5>
+                        </div>
+                    }
+                    code={generateRevenue.code}
                 />
-              }
-            </Row>
-            <Row className="mt-1">
-              <CheckDashboardRole
-                component={
-                  <Col md={6} className="p-0">
-                    <RevenueTrend
-                      revenueStatistics={revenueStatistics}
-                      onPillsClickHandler={onPillsClickHandler}
-                      revenueFilter={revenueFilter}
-                    />
-                  </Col>
-                }
-                code={revenueStatistics.code}
-              />
+            )
+            return (
+                <div className="dashboard-wrapper">
+                    <Container fluid className="">
+                        <Row className="">
+                            <Col className="px-0">{RevenuStats}</Col>
+                            {checkDashboardRole(generateRevenue.code) ||
+                            checkDashboardRole(appointmentQueue.code) ||
+                            checkDashboardRole(appointmentList.code) ? (
+                                <HospitalDropdown
+                                    hospitalDropdown={hospitalDropdown}
+                                    hospitalId={hospitalId}
+                                    handleHospitalChange={handleHospitalChange}
+                                    className="top-hospital-list"
+                                />
+                            ) : null}
+                        </Row>
 
-              <CheckDashboardRole
-                component={
-                  <Col md={6} className="pr-0">
-                    <DoctorRevenueList doctorRevenue={doctorRevenue} />
-                  </Col>
-                }
-                code={doctorRevenue.code}
-              />
-            </Row>
+                        <Row>
+                            {
+                                <CheckDashboardRole
+                                    component={
+                                        <RevenueStatistics generateRevenue={generateRevenue}/>
+                                    }
+                                    code={generateRevenue.code}
+                                />
+                            }
+                        </Row>
+                        <Row className="mt-1">
+                            <CheckDashboardRole
+                                component={
+                                    <Col md={6} className="p-0">
+                                        <RevenueTrend
+                                            revenueStatistics={revenueStatistics}
+                                            onPillsClickHandler={onPillsClickHandler}
+                                            revenueFilter={revenueFilter}
+                                        />
+                                    </Col>
+                                }
+                                code={revenueStatistics.code}
+                            />
 
-            <Row className="mt-1">
-              <CheckDashboardRole
-                component={
-                  <Col md={6} className="p-0">
-                    <AppointmentQueue
-                      appointmentQueue={appointmentQueue}
-                      hospitalId={hospitalId}
-                    />
-                  </Col>
-                }
-                code={appointmentQueue.code}
-              />
+                            <CheckDashboardRole
+                                component={
+                                    <Col md={6} className="pr-0">
+                                        <DoctorRevenueList doctorRevenue={doctorRevenue}/>
+                                    </Col>
+                                }
+                                code={doctorRevenue.code}
+                            />
+                        </Row>
 
-              <Col md={6} className="pr-0">
-                <CheckDashboardRole
-                  component={
-                    <PatientStatistics
-                      registeredPatients={registeredPatients}
-                    />
-                  }
-                  code={registeredPatients.code}
-                />
+                        <Row className="mt-1">
+                            <CheckDashboardRole
+                                component={
+                                    <Col md={6} className="p-0">
+                                        <AppointmentQueue
+                                            appointmentQueue={appointmentQueue}
+                                            hospitalId={hospitalId}
+                                        />
+                                    </Col>
+                                }
+                                code={appointmentQueue.code}
+                            />
 
-                <CheckDashboardRole
-                  component={
-                    <AppointmentStatistics
-                      onPillsClickHandler={onPillsClickHandler}
-                      type="appointment"
-                      appointmentList={appointmentList}
-                      appointmentFilter={appointmentFilter}
-                    />
-                  }
-                  code={appointmentList.code}
-                />
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      )
-    },
-    props,
-    ''
-  )
+                            <Col md={6} className="pr-0">
+                                <CheckDashboardRole
+                                    component={
+                                        <PatientStatistics
+                                            registeredPatients={registeredPatients}
+                                        />
+                                    }
+                                    code={registeredPatients.code}
+                                />
 
-  return <AdminDash />
+                                <CheckDashboardRole
+                                    component={
+                                        <AppointmentStatistics
+                                            onPillsClickHandler={onPillsClickHandler}
+                                            type="appointment"
+                                            appointmentList={appointmentList}
+                                            appointmentFilter={appointmentFilter}
+                                        />
+                                    }
+                                    code={appointmentList.code}
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            )
+        },
+        props,
+        ''
+    )
+
+    return <AdminDash/>
 }
 
 export default memo(AdminDashboard)
