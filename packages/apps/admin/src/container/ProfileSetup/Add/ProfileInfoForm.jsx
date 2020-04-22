@@ -36,7 +36,7 @@ const ProfileInfoForm = ({
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
                     placeholder={hospitalList.length ? 'Select Client.' : "No client(s)."}
-                    isDisabled={hospitalList.length}
+                    isDisabled={!hospitalList.length}
                 />
 
                 <CHybridSelect
@@ -49,7 +49,7 @@ const ProfileInfoForm = ({
                     value={profileInfoObj.departmentValue}
                     placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select department."
                         : "No department(s)." : "Select Client first."}
-                    isDisabled={!profileInfoObj.hospitalValue || departmentList.length}
+                    isDisabled={!profileInfoObj.hospitalValue || !departmentList.length}
                 />
 
                 <CHybridInput
