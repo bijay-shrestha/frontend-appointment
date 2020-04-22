@@ -465,6 +465,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         }
 
         handleOnChange = async (event, fieldValid) => {
+            console.log("==comp",event)
             if (event) {
                 let fieldName = event.target.name
                 let value =
@@ -1294,7 +1295,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                             onAddMoreMacId: this.handleAddMoreMacId,
                             onRemoveMacId: this.handleRemoveMacId,
                             companyList: companyDropdownData,
-                            profileList: activeCompanyProfileListByCompanyIdForDropdown,
+                            profileList:this.state.adminUpdateData.profileList,
                             setShowModal: this.setShowModal,
                             profileData: profileData,
                             onImageUpload: this.handleImageUpload,

@@ -95,7 +95,7 @@ const CompanyAdminInfoForm = ({
                   label="Company"
                   name="company"
                   onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={event => onInputChange(event)}
+                  onChange={event => onInputChange(event,'company')}
                   options={companyList}
                   isDisabled={!companyList.length}
                   value={adminInfoObj.company}
