@@ -146,10 +146,10 @@ class DepartmentAdd extends PureComponent {
                         id="resetProfileForm"
                         variant='outline-secondary'
                         size='sm'
-                        name='Reset'
+                        name=''
                         className="mb-2  float-right"
                         onClickHandler={this.resetStateValues}>
-                        <>&nbsp;<i className='fa fa-refresh'/></>
+                        <>  <i className="fa fa-refresh"/>  &nbsp;Reset</>
                     </CButton>
                     <DepartmentInfoForm
                         departmentInfoObj={{

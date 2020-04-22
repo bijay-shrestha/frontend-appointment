@@ -2,6 +2,14 @@
     background-color: $cogent;
 }
 
+.unauthorized{
+    @include border-radius(1rem);
+    margin-bottom:1rem;
+    .filter-message{
+    @include border-radius(0.5rem);
+    }
+}
+
 .search-filter-item {
     margin:0;
     
