@@ -330,7 +330,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     ) {
                         filteredContactNumber.push(contactEdit)
                         flag = true
-                        console.log("========", filteredContactNumber)
                         break;
                     }
 
