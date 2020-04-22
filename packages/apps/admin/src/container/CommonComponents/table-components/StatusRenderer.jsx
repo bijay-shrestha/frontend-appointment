@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {Badge} from "reactstrap";
+import {Badge} from "react-bootstrap";
 
 class StatusRenderer extends PureComponent {
     render() {

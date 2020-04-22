@@ -157,10 +157,23 @@
                 margin-right:0;
                 box-shadow: -6px -6px 9px 0px rgba(0, 0, 0, 0.2), 
                 6px 6px 9px rgba(0, 0, 0, 0.4);
-  
+                
+                .rd-content{
+                    align-items:center ;
+                    padding-left:0;
+
+                    & >span{
+                        align-items: center;
+                    }
+
+                    .inc{
+                        text-align: center;
+                    }
+                }
                 .icon{
                     background-color:darken(#008080,10%);
                     color:white;
+                    display:none;
                 }
                 background-color: #008080;
                 color:darken(white,10%);
