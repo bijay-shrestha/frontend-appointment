@@ -11,15 +11,15 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
-    fetchActiveProfilesByDepartmentId,
+    DashboardDetailsMiddleware,
     DepartmentSetupMiddleware,
+    fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
-    previewProfile,
-    DashboardDetailsMiddleware
+    previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
-import {CAlert, CButton, CLoading} from '@frontend-appointment/ui-elements'
+import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
 import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
