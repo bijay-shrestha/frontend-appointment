@@ -28,7 +28,8 @@ const DepartmentInfoForm = ({
                                 onChange={(event) => onInputChange(event)}
                                 options={hospitalList}
                                 value={departmentInfoObj.hospital}
-                                placeholder="Select client."
+                                isDisabled={!hospitalList.length}
+                                placeholder={hospitalList.length ? "Select client." : "No client(s)."}
                             />
                         </Col>
                         <Col sm={12} md={4} lg={4}>
@@ -65,23 +66,23 @@ const DepartmentInfoForm = ({
                         <Col sm={12} md={4} lg={4}>
                             <CFLabel labelName="Status" id="status"/>
                             <div>
-                            <CRadioButton
-                                checked={Boolean(departmentInfoObj.status)}
-                                disabled={true}
-                                id="radio1"
-                                label="Active"
-                                type="radio"
-                                readOnly
-                            />
-                            <CRadioButton
-                                checked={Boolean(!departmentInfoObj.status)}
-                                disabled={true}
-                                id="radio2"
-                                label="Inactive"
-                                type="radio"
-                                className="sr-only"
-                                readOnly
-                            />
+                                <CRadioButton
+                                    checked={Boolean(departmentInfoObj.status)}
+                                    disabled={true}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    readOnly
+                                />
+                                <CRadioButton
+                                    checked={Boolean(!departmentInfoObj.status)}
+                                    disabled={true}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    className="sr-only"
+                                    readOnly
+                                />
                             </div>
                         </Col>
                     </Row>

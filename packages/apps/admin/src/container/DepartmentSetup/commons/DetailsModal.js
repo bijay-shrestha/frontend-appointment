@@ -13,7 +13,7 @@ const DetailsModal = ({departmentData}) => {
                     className="mt-2 department-info">
                     <Container-fluid>
                         <Row>
-                            <Col sm="12" md="6" >
+                            <Col sm="12" md="6">
                                 <CHybridInput
                                     id="hospital"
                                     name="hospital"
@@ -23,17 +23,17 @@ const DetailsModal = ({departmentData}) => {
                                 />
                             </Col>
 
-                            <Col sm="12" md="6" >
+                            <Col sm="12" md="6">
                                 <CHybridInput
                                     id="department-name"
                                     name="name"
                                     placeholder="Department Name"
-                                    value={departmentData.name}
+                                    value={departmentData.hospitalAlias + "-" + departmentData.name}
                                     disabled={true}
                                 />
                             </Col>
 
-                            <Col sm="12" md="6" >
+                            <Col sm="12" md="6">
                                 <CHybridInput
                                     id="department-code"
                                     name="code"
@@ -43,7 +43,7 @@ const DetailsModal = ({departmentData}) => {
                                 />
                             </Col>
 
-                            <Col sm="12" md="6" >
+                            <Col sm="12" md="6">
                                 <CFLabel labelName="Status" id="status"/>
                                 <CRadioButton
                                     checked={departmentData.status === "Y"}

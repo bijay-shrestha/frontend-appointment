@@ -34,16 +34,16 @@ const {
 
 const initialState = {
     departments: [],
-    isCreateDepartmentLoading: true,
+    isCreateDepartmentLoading: false,
     errorMessage: '',//departmentCreate error message
     successMessage: '',
-    isSearchLoading: true,
+    isSearchLoading: false,
     departmentList: [],
     searchErrorMessage: '',
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
-    isDeleteLoading: true,
-    isDepartmentEditLoading: true,
+    isDeleteLoading: false,
+    isDepartmentEditLoading: false,
     departmentErrorMessage: '',//department edit error message
     departmentSuccessMessage: '',
     departmentPreviewData: {},
@@ -84,6 +84,7 @@ export const DepartmentSetupReducer = (state = {...initialState}, action) => {
         case CREATE_DEPARTMENT_ERROR:
             return {
                 ...state,
+                isCreateDepartmentLoading:false,
                 errorMessage: action.payload.errorMessage
             };
         case CLEAR_DEPARTMENT_CREATE_ERROR_MESSAGE:

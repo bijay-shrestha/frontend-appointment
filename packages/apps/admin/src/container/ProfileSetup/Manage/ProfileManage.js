@@ -24,7 +24,7 @@ import {
     TryCatchHandler,
     EnvironmentVariableGetter, LocalStorageSecurity
 } from "@frontend-appointment/helpers";
-import {AdminModuleAPIConstants,CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
+import {AdminModuleAPIConstants, CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
     SEARCH_PROFILE,
@@ -39,7 +39,8 @@ const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITA
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
-const {ADMIN_FEATURE}=CommonAPIConstants
+const {ADMIN_FEATURE} = CommonAPIConstants
+
 class ProfileManage extends PureComponent {
     state = {
         showProfileModal: false,
@@ -138,9 +139,9 @@ class ProfileManage extends PureComponent {
 
     savePinOrUnpinUserMenu = async () => {
         await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
-          isSideBarCollapse: !(
-            Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
-          )
+            isSideBarCollapse: !(
+                Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+            )
         })
     }
 
@@ -244,10 +245,7 @@ class ProfileManage extends PureComponent {
             menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
         });
 
-        const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-        let alphabeticallySortedMenus =LocalStorageSecurity.localStorageDecoder('userMenus')||[]
-        //ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
-          //  hospitalsForDropdown, profileResponseDTO.hospitalId);
+        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]);
 
         if (profileResponseDTO) {
             await this.fetchDepartmentsByHospitalId(profileResponseDTO.hospitalId);
@@ -270,7 +268,7 @@ class ProfileManage extends PureComponent {
                     departmentListByHospital: [...this.props.DepartmentSetupReducer.departmentsByHospital],
                     userMenus: [...alphabeticallySortedMenus],
                     defaultSelectedMenu: alphabeticallySortedMenus[0],
-                    remarks:''
+                    remarks: ''
                 },
                 showEditModal: true
             })
@@ -305,7 +303,7 @@ class ProfileManage extends PureComponent {
 
     checkIfEditedOwnProfileAndShowMessage = editedProfileId => {
         let variantType = '', message = '';
-        let loggedInAdminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
+        let loggedInAdminInfo = LocalStorageSecurity.localStorageDecoder("adminInfo");
         if (editedProfileId === loggedInAdminInfo.profileId) {
             variantType = "warning";
             message = "You seem to have edited your own profile. Please Logout and Login to see the changes or " +
@@ -401,7 +399,7 @@ class ProfileManage extends PureComponent {
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
-        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile,'CLIENT');
+        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile, 'CLIENT');
     };
 
     previewApiCall = async id => {
@@ -702,11 +700,11 @@ class ProfileManage extends PureComponent {
 
         const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
 
-        const {deleteErrorMessage,isDeleteLoading} = this.props.ProfileDeleteReducer;
+        const {deleteErrorMessage, isDeleteLoading} = this.props.ProfileDeleteReducer;
 
         const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
-        const {profileErrorMessage,isProfileEditLoading} = this.props.ProfileEditReducer;
+        const {profileErrorMessage, isProfileEditLoading} = this.props.ProfileEditReducer;
 
         const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
 

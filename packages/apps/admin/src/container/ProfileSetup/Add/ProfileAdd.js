@@ -134,7 +134,7 @@ class ProfileAdd extends PureComponent {
             defaultSelectedMenu: [],
             selectedMenus: [],
             departmentListByHospital: [...departmentsByHospital],
-            aliasOfHospital: selectedHospital && selectedHospital.alias,
+            aliasOfHospital: selectedHospital.alias || '',
         });
     };
 

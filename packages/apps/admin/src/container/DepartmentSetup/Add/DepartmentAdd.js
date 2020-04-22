@@ -33,7 +33,8 @@ class DepartmentAdd extends PureComponent {
         alertMessageInfo: {
             variant: "",
             message: ""
-        }
+        },
+        hospitalAlias: ''
     };
 
     resetStateValues = () => {
@@ -66,6 +67,13 @@ class DepartmentAdd extends PureComponent {
         value = fieldName === 'code' ? value.toUpperCase() : value;
 
         await this.setStateValues(fieldName, value, label, fieldValid);
+        if (fieldName === "hospital") {
+            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            let selectedHospital = hospitalsForDropdown.find(hospital => hospital.value === value);
+            this.setState({
+                hospitalAlias: selectedHospital.alias || ''
+            })
+        }
         this.checkFormValidity();
     }
 
@@ -78,7 +86,7 @@ class DepartmentAdd extends PureComponent {
     };
 
     handleConfirmClick = async () => {
-        const {name,code,status,hospital} = this.state;
+        const {name, code, status, hospital} = this.state;
         let departmentDTO = {
             name: name,
             departmentCode: code,
@@ -134,10 +142,12 @@ class DepartmentAdd extends PureComponent {
     render() {
         const {
             name, code, status, hospital, errorMessageForDepartmentName,
-            errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal
+            errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal,
+            hospitalAlias
         } = this.state;
 
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+        const {isCreateDepartmentLoading} = this.props.DepartmentSetupReducer;
 
         return <>
             <div className="department-setup">
@@ -173,19 +183,22 @@ class DepartmentAdd extends PureComponent {
                                 variant="primary "
                                 className="float-right btn-action"
                                 name="Save"
-                                disabled={!formValid}
+                                disabled={!formValid || showConfirmModal}
+                                isLoading={showConfirmModal}
                                 onClickHandler={this.setShowConfirmModal}>
 
                             </CButton>
                             <DepartmentConfirmationModal
                                 showModal={showConfirmModal}
+                                isCreateDepartmentLoading={isCreateDepartmentLoading}
                                 setShowModal={this.setShowConfirmModal}
                                 onConfirmClick={this.handleConfirmClick}
                                 departmentData={{
                                     name: name,
                                     code: code,
                                     status: status,
-                                    hospitalName: typeof hospital == "object" ? hospital.label : hospital
+                                    hospitalName: typeof hospital == "object" ? hospital.label : hospital,
+                                    hospitalAlias: hospitalAlias
                                 }}
                             />
                         </Col>
