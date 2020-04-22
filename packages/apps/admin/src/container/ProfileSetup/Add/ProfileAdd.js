@@ -57,7 +57,7 @@ class ProfileAdd extends PureComponent {
         departmentListByHospital: [],
         originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
             clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]),
-        aliasOfHospital:''
+        aliasOfHospital: ''
     };
 
     closeAlert = () => {
@@ -83,7 +83,7 @@ class ProfileAdd extends PureComponent {
             formValid: false,
             profileNameValid: false,
             profileDescriptionValid: false,
-            aliasOfHospital:''
+            aliasOfHospital: ''
         })
     };
 
@@ -333,7 +333,7 @@ class ProfileAdd extends PureComponent {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
-            departmentListByHospital
+            departmentListByHospital, aliasOfHospital
         } = this.state;
 
         return (
@@ -401,7 +401,8 @@ class ProfileAdd extends PureComponent {
                                         status: status,
                                         selectedMenus: selectedMenus,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
-                                        userMenus: userMenus
+                                        userMenus: userMenus,
+                                        hospitalAlias: aliasOfHospital
                                     }}
                                     rolesJson={menuRoles}
                                 />

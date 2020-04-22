@@ -35,7 +35,8 @@ const ProfileInfoForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Client.'}
+                    placeholder={hospitalList.length ? 'Select Client.' : "No client(s)."}
+                    isDisabled={hospitalList.length}
                 />
 
                 <CHybridSelect
@@ -46,8 +47,9 @@ const ProfileInfoForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder="Select department"
-                    isDisabled={!profileInfoObj.hospitalValue}
+                    placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select department."
+                        : "No department(s)." : "Select Client first."}
+                    isDisabled={!profileInfoObj.hospitalValue || departmentList.length}
                 />
 
                 <CHybridInput

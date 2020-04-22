@@ -1,5 +1,12 @@
 import React from 'react';
-import {CFLabel, CForm, CHybridInput, CHybridSelect, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CFLabel,
+    CForm,
+    CHybridInput,
+    CHybridSelect,
+    CHybridTextArea,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {Col} from "react-bootstrap";
 
 const ProfileUpdateForm = ({
@@ -15,6 +22,18 @@ const ProfileUpdateForm = ({
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
+
+                <CHybridSelect
+                    id="department"
+                    label="Department"
+                    name="selectedDepartment"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    onChange={(event) => onInputChange(event)}
+                    options={profileInfoObj.departmentList}
+                    value={profileInfoObj.departmentValue}
+                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Department'}
+                />
+
                 <CHybridInput
                     id="profile-name"
                     name="profileName"
@@ -41,41 +60,30 @@ const ProfileUpdateForm = ({
                     errorMessagePassed={errorMessageForProfileDescription}
                 />
 
-                <CHybridSelect
-                    id="department"
-                    label="Department"
-                    name="selectedDepartment"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    onChange={(event) => onInputChange(event)}
-                    options={profileInfoObj.departmentList}
-                    value={profileInfoObj.departmentValue}
-                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Department'}
-                />
-
-            <div className="status-box">
-                <CFLabel labelName="Status" id="status"/>
-                <CRadioButton
-                    checked={profileInfoObj.status === "Y"}
-                    id="radio1"
-                    label="Active"
-                    type="radio"
-                    name="status"
-                    value="Y"
-                    onChange={(event) => onInputChange(event)}
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    // bsPrefix="form-radio"
-                />
-                <CRadioButton
-                    checked={profileInfoObj.status === "N"}
-                    id="radio2"
-                    label="Inactive"
-                    type="radio"
-                    name="status"
-                    value="N"
-                    onChange={(event) => onInputChange(event)}
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                />
-               </div>
+                <div className="status-box">
+                    <CFLabel labelName="Status" id="status"/>
+                    <CRadioButton
+                        checked={profileInfoObj.status === "Y"}
+                        id="radio1"
+                        label="Active"
+                        type="radio"
+                        name="status"
+                        value="Y"
+                        onChange={(event) => onInputChange(event)}
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                        // bsPrefix="form-radio"
+                    />
+                    <CRadioButton
+                        checked={profileInfoObj.status === "N"}
+                        id="radio2"
+                        label="Inactive"
+                        type="radio"
+                        name="status"
+                        value="N"
+                        onChange={(event) => onInputChange(event)}
+                        onKeyDown={(event) => onEnterKeyPress(event)}
+                    />
+                </div>
 
                 <CHybridTextArea
                     id="remarks"

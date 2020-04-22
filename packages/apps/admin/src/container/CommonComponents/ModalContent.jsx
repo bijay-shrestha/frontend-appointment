@@ -111,15 +111,6 @@ class ModalContent extends React.PureComponent {
                         <Container-fluid>
                             <Row>
                                 <Col sm={4} md={4} lg={4}>
-                                    <CHybridInput
-                                        id="profile-name"
-                                        name="profileName"
-                                        placeholder="Profile Name"
-                                        value={profileData.profileName}
-                                        disabled={true}
-                                    />
-                                </Col>
-                                <Col sm={4} md={4} lg={4}>
                                     <CHybridSelect
                                         id="hospital"
                                         isDisabled={true}
@@ -145,6 +136,15 @@ class ModalContent extends React.PureComponent {
                                         />
                                     </Col>
                                 ) : null}
+                                <Col sm={4} md={4} lg={4}>
+                                    <CHybridInput
+                                        id="profile-name"
+                                        name="profileName"
+                                        placeholder="Profile Name"
+                                        value={profileData.hospitalAlias + "-" + profileData.profileName}
+                                        disabled={true}
+                                    />
+                                </Col>
                                 <Col sm={4} md={4} lg={4}>
                                     <CHybridTextArea
                                         id="profile-description"
