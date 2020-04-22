@@ -316,6 +316,23 @@
       "menuFor": "6",
       "description": "patientInformation",
       "childMenus": []
+    },
+    {
+      "id": "18",
+      "parentId": null,
+      "name": "Activity Log",
+      "path": "/activityLog",
+      "roles": [
+        12
+      ],
+      "icon": "fa fa-history",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "activityLog",
+      "childMenus": []
     }
   ]
 }

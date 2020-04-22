@@ -170,7 +170,10 @@ const RescheduleLog = Loadable({
     loading: () => getLoader()
 });
 
-
+const ActivityLog = loadable(
+    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+    {fallback: () => getLoader()}
+);
 
 /* ****** S ***** */
 
@@ -517,15 +520,16 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/unauthorized',
-        component: CUnauthorized,
+        path: '/acitivityLog',
+        component: ActivityLog,
         icon: '',
         hasTab: false,
-        isLink: false,
+        isLink: true,
         isTab: false,
-        name: 'Unauthorized',
-        isSingleTab:false,
+        name: 'Activity Log',
+        isSingleTab:true,
     },
+    
     {
         path: '/reports/rescheduleLog',
         component: RescheduleLog,
@@ -545,5 +549,16 @@ export const routes = [
         isTab: false,
         name: 'Qualification Alias',
         isSingleTab:true,
+    },
+
+    {
+        path: '/unauthorized',
+        component: CUnauthorized,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Unauthorized',
+        isSingleTab:false,
     }
 ];

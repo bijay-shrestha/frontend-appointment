@@ -3,7 +3,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AdminLoggingMiddleware,
   fetchAdminMetaInfoByHospitalId,
-  clearAdminSuccessErrorMessagesFromStore
+
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -14,13 +14,13 @@ import {
   LocalStorageSecurity,
   CommonUtils
 } from '@frontend-appointment/helpers'
-// const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
-const {getUserNameHospitalIdAndAdminId}=CommonUtils
+//const {getUserNameHospitalIdAndAdminId}=CommonUtils
 const clientAdmin = LocalStorageSecurity.localStorageDecoder('adminInfo')
 const ClientActivityLogHOC = (ComposedComponent, props, type) => {
   const {
-    clientLoggingConstant
+    clientLoggingConstant,
+    adminSetupAPIConstants
   } = AdminModuleAPIConstants
 
   class ClientActivityLogDetails extends React.PureComponent {
