@@ -31,12 +31,14 @@ const {
     editCompanyAdmin,
     fetchCompanyAdminList,
     fetchCompanyAdminMetaInfo,
-    previewCompanyAdmin
+    previewCompanyAdmin,
+    fetchCompanyAdminMetaInfoById
 } = CompanyAdminSetupMiddleware
 const {
     fetchActiveCompanyProfileListByCompanyIdForDropdown,
     previewCompanyProfileById,
-    fetchCompanyProfileListForDropdown
+    fetchCompanyProfileListForDropdown,
+    clearSuccessErrorMessageFromStore
 } = CompanyProfileSetupMiddleware
 const {
     fetchDashboardFeatures,
@@ -63,10 +65,11 @@ const {
     PREVIEW_COMPANY_ADMIN,
     RESET_PASSWORD,
     //SAVE_COMPANY_ADMIN_PASSWORD,
-    SEARCH_COMPANY_ADMIN
+    SEARCH_COMPANY_ADMIN,
     // UPDATE_COMPANY_ADMIN_AVATAR,
     // UPDATE_COMPANY_ADMIN_PASSWORD,
     // VERIFY_COMPANY_ADMIN
+    FETCH_ADMIN_META_INFO_BY_COMPANY_ID
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
 const {DROPDOWN_COMPANY} = AdminModuleAPIConstants.CompanyApiConstant
 const {ADMIN_FEATURE} = CommonAPIConstants
@@ -432,6 +435,12 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 let fieldName = event.target.name
                 let value = event.target.value
                 let label = event.target.label
+                if(fieldName="company"){
+                    this.props.clearAdminSuccessErrorMessagesFromStore();
+                    this.props.clearSuccessErrorMessageFromStore();
+                    this.fetchProfilesByCompanyId(value);
+                    this.fetchAdminMetaInfosForDropdown(value);
+                }
                 await this.setStateValuesForSearch(fieldName, value, label)
             }
         }
@@ -754,8 +763,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             )
         }
 
-        fetchAdminMetaInfosForDropdown = async () => {
-            await this.props.fetchCompanyAdminMetaInfo(FETCH_COMPANY_ADMIN_META_INFO)
+        fetchAdminMetaInfosForDropdown = async (value) => {
+            await this.props.fetchCompanyAdminMetaInfoById(FETCH_ADMIN_META_INFO_BY_COMPANY_ID,value)
         }
 
         previewApiCall = async id => {
@@ -1143,7 +1152,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             this.fetchCompany()
             if (type !== 'A') {
                 this.fetchActiveProfileLists()
-                this.fetchAdminMetaInfosForDropdown()
+              //  this.fetchAdminMetaInfosForDropdown()
                 this.searchAdmins()
             }
         }
@@ -1227,13 +1236,13 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         render() {
             const {
                 activeCompanyProfileListByCompanyIdForDropdown,
-                activeCompanyProfileListForDropdown,
+                // activeCompanyProfileListForDropdown,
                 dropdownErrorMessage
             } = this.props.CompanyProfileDropdownReducer
             const {companyDropdownData} = this.props.companyDropdownReducer
             const {
-                companyAdminMetaInfoForDropdown
-            } = this.props.CompanyAdminMetaInfoReducer
+                companyAdminMetaInfoByCompanyIdForDropdown
+            } = this.props.CompanyAdminMetaInfoByCompanyIdReducer
             const {
                 isAdminSearchLoading,
                 adminList,
@@ -1321,8 +1330,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                             searchParameters: searchParameters,
                             resetSearchForm: this.handleSearchFormReset,
                             companyList: companyDropdownData,
-                            profileList: activeCompanyProfileListForDropdown,
-                            adminMetaInfos: companyAdminMetaInfoForDropdown,
+                            profileList: activeCompanyProfileListByCompanyIdForDropdown,
+                            adminMetaInfos: companyAdminMetaInfoByCompanyIdForDropdown,
                             onSearchClick: () => this.searchAdmins(1)
                         }}
                         tableData={{
@@ -1408,7 +1417,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             'CompanyAdminListReducer',
             'CompanyAdminPreviewReducer',
             'CompanyAdminSetupReducer',
-            'CompanyAdminMetaInfoReducer',
+            'CompanyAdminMetaInfoByCompanyIdReducer',
             'CompanyProfilePreviewReducer',
             'DashboardFeaturesReducer'
         ],
@@ -1428,7 +1437,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             resetPassword,
             fetchDashboardFeatures,
             fetchDashboardFeaturesByAdmin,
-            savePinOrUnpinUserMenu
+            savePinOrUnpinUserMenu,
+            fetchCompanyAdminMetaInfoById,
+            clearSuccessErrorMessageFromStore
         }
     )
 }

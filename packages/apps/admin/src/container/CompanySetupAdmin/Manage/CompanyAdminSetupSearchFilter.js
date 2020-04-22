@@ -57,6 +57,21 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
             <CForm id="department-info" className="add-info mt-4">
               <Container-fluid>
                 <Row>
+               
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="company"
+                      label="Company"
+                      name="company"
+                      onKeyDown={event => this.handleEnter(event)}
+                      onChange={event => onInputChange(event)}
+                      options={companyList}
+                      isDisable={!companyList.length}
+                      value={searchParameters.company}
+                      placeholder="Select Company."
+                    />
+                  </Col>
+
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="admin-meta-info"
@@ -64,29 +79,17 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
                       label="Admin Meta Info"
                       onKeyDown={event => this.handleEnter(event)}
                       onChange={event => onInputChange(event)}
+                      isDisabled={!adminMetaInfos.length}
                       options={adminMetaInfos.map(metaInfo => {
                         return {
                           value: metaInfo.adminMetaInfoId,
                           label: metaInfo.metaInfo
                         }
                       })}
-                      placeholder="Select Admin Meta Info"
+                      placeholder={searchParameters.company?"Select Admin Meta Info.":"Select Company First."}
                       value={searchParameters.metaInfo}
                     />
                   </Col>
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelect
-                      id="company"
-                      label="Company"
-                      name="Company"
-                      onKeyDown={event => this.handleEnter(event)}
-                      onChange={event => onInputChange(event)}
-                      options={companyList}
-                      value={searchParameters.company}
-                      placeholder="Select Company."
-                    />
-                  </Col>
-
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="adminProfile"
@@ -95,8 +98,9 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
                       onKeyDown={event => this.handleEnter(event)}
                       onChange={event => onInputChange(event)}
                       options={profileList}
+                      isDisabled={!profileList.length}
                       value={searchParameters.profile}
-                      placeholder="Select Admin Category."
+                      placeholder={searchParameters.company?"Select Profile.":"Select Company First."}
                     />
                   </Col>
 
