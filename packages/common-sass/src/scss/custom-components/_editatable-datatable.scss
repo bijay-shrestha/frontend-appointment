@@ -1,8 +1,8 @@
 .editable-table-container{
   .add-new{
-    width:90px;
+    width:80px;
     margin:0 0 20px;
-    padding:10px 0;
+    padding:7px 0;
     float:right;
  
     
@@ -10,8 +10,6 @@
 
 .editable-table{
    border-bottom:1px solid $cogent-border;
-
-  
   
       .table-header{
           margin-bottom:0;
@@ -52,7 +50,42 @@
                 .table-action{
                     display: block;
 
-                    .btn-outline-primary{
+                    .action-box{
+                      display: inline-block;
+                      position: relative;
+                      .tip{
+                        position: absolute;
+                        width:auto;
+                        height: auto;
+                        display:inline-block;
+                        background-color: $gray-800;
+                        left:-42px;
+                        top:-10px;
+                        text-align: center;
+                        color:$white;
+                        @include border-radius(2px);
+                        margin-right:20px;
+                        opacity: 0;
+                        font-size: 12px;
+                        padding:4px;
+                        font-weight: 300;
+                        transition:1.5s ease-in;
+
+                      }
+
+                      &:hover{
+                        .tip{
+                          opacity: 1;
+                          z-index: 99999;
+                        }
+                      }
+
+
+                    }
+
+
+
+                    .btn-outline-primary, .btn-outline-danger, .btn-outline-success{
                       width:32px;
                       height: 32px;
                       padding:7px;
@@ -70,6 +103,32 @@
                         }
                       }
                     }
+
+                    .btn-outline-success{
+                      &:hover{
+                        i{
+                          color:$success;
+                        }
+                      }
+                    }
+
+                    .btn-outline-primary{
+                      &:hover{
+                        i{
+                          color:$primary;
+                        }
+                      }
+                    }
+
+
+                    .btn-outline-danger{
+                      &:hover{
+                        i{
+                          color:$danger;
+                        }
+                      }
+                    }
+
                 }
             }
 

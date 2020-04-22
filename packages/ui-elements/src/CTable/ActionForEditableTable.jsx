@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "react-bootstrap";
+import {Button,OverlayTrigger,Tooltip} from "react-bootstrap";
 
 const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, onUpdate, onDelete, onPreview}) => {
 
@@ -10,46 +10,64 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, rowValid, 
         <div className="table-action">
             {isEditing && rowNumber === node.rowIndex ?
                 <>
-                    <Button
+                     <div className="action-box">
+                            <div className="tip add">Save</div>
+    
+                      <Button style={{ pointerEvents: 'none' }}
                         id="save"
-                        variant="outline-primary"
+                        variant="outline-success"
                         // disabled={!rowValid}
                         onClick={(e) => onClick(e, node, 'ADD')}>
                         <i className="fa fa-save"/>
                         {/* Save */}
                     </Button>
+                    </div>
+                   
                     &nbsp;
+                    <div className="action-box">
+                            <div className="tip cancel">Cancel</div>
                     <Button
                         id="cancel"
-                        variant="outline-primary"
+                        variant="outline-danger"
                         onClick={(e) => onClick(e, node, 'CANCEL')}>
                         <i className="fa fa-times"/>
                         {/* Cancel */}
                     </Button>
+                    </div>
                 </>
                 :
                 <>
                     {
-                        onUpdate ? <Button
+                        onUpdate ? 
+                        <div className="action-box">
+                            <div className="tip edit">Edit</div>
+                        <Button
                             id="edit"
                             variant="outline-primary"
                             disabled={actionDisabled}
                             onClick={(e) => onClick(e, node, 'EDIT')}>
                             <i className="fa fa-edit"/>
                             {/* Edit */}
-                        </Button> : ''
+                        </Button>
+                        </div>
+                         : ''
                     }
                     &nbsp;
                     {
                         onDelete ?
+                        <div className="action-box">
+                        <div className="tip delete">delete</div>
                             <Button
                                 id="delete"
-                                variant="outline-primary"
+                                variant="outline-danger"
                                 disabled={actionDisabled}
                                 onClick={(e) => onClick(e, node, 'DELETE')}>
                                 <i className="fa fa-trash-o"/>
                                 {/* Delete */}
-                            </Button> : ''
+                            </Button> 
+                        </div>
+                       
+                            : ''
                     }
                     {/*&nbsp;*/}
                     {/*{*/}
