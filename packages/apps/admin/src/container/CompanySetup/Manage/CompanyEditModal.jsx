@@ -49,7 +49,7 @@ const CompanyEditModal = ({
       {/* <h5 className="title">Edit Hospital Setup</h5> */}
       <CForm id="admin-info" className="mt-2 add-info">
         <Row>
-        <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
+          <Col sm={12} md={12} lg={3} className="order-lg-last order-md-first">
             <div className="image-upload-container">
               <div className="image-box">
                 <img
@@ -189,88 +189,82 @@ const CompanyEditModal = ({
               </Col>
 
               <Col sm={12} md={12} lg={6} className="">
-               
-                    <Row>
-                      <Col>
-                        <CFLabel
-                          id="contact-label"
-                          labelName="Contact Number"
-                        />
-                        {companyData.contactNumberUpdateRequestDTOS
-                                    .length !== contactLength && <CButton
-                          id="macBinding"
-                          name=""
-                          size="lg"
-                          variant="outline-secondary"
-                          className="float-right mb-2"
-                          onClickHandler={event =>
-                            addContactNumber(
-                              'contactNumberUpdateRequestDTOS',
-                              {
-                                companyContactNumberId: null,
-                                contactNumber: '',
-                                status: 'Y'
-                              },
-                              'E'
-                            )
-                          }
-                        >
-                          <i className="fa fa-plus"></i> Add
-                        </CButton>}
-                      </Col>
+                <Row>
+                  <Col>
+                    <CFLabel id="contact-label" labelName="Contact Number" />
+                    {companyData.contactNumberUpdateRequestDTOS.length !==
+                      contactLength && (
+                      <CButton
+                        id="macBinding"
+                        name=""
+                        size="lg"
+                        variant="outline-secondary"
+                        className="float-right mb-2"
+                        onClickHandler={event =>
+                          addContactNumber(
+                            'contactNumberUpdateRequestDTOS',
+                            {
+                              companyContactNumberId: null,
+                              contactNumber: '',
+                              status: 'Y'
+                            },
+                            'E'
+                          )
+                        }
+                      >
+                        <i className="fa fa-plus"></i> Add
+                      </CButton>
+                    )}
+                  </Col>
 
-                      <Col lg={12}>
-                        <>
-                          {companyData.contactNumberUpdateRequestDTOS.map(
-                            (phone, index) => (
-                              <>
-                                <div className="contact-box mb-2">
-                                  <CFControl
-                                    id="companyContactNumber"
-                                    key={'phone' + index}
-                                    value={phone.contactNumber}
-                                    placeholder="Enter Contact Number"
-                                    // isInvalid={Boolean(macId.errorMessage)}
-                                    onChange={event =>
-                                      editContactNumber(
-                                        'contactNumberUpdateRequestDTOS',
-                                        {
-                                          companyContactNumberId: phone.id,
-                                          contactNumber: event.target.value,
-                                          status: 'Y'
-                                        },
-                                        index,
-                                        'E'
-                                      )
-                                    }
-                                  />
-                                  {companyData.contactNumberUpdateRequestDTOS
-                                    .length?(
-                                    <CButton
-                                      id="company-contact"
-                                      key={'companyRemove' + index}
-                                      name=""
-                                      variant="outline-danger"
-                                      className="float-right remove-contact "
-                                      onClickHandler={e =>
-                                        removeContactNumber(
-                                          'contactNumberUpdateRequestDTOS',
-                                          index,
-                                          'E'
-                                        )
-                                      }
-                                    >
-                                      <i className="fa fa-close"></i>
-                                    </CButton>
-                                  ):null}
-                                </div>
-                              </>
-                            )
-                          )}
-                        </>
-                      </Col>
-                    </Row>
-                 
+                  <Col lg={12}>
+                    <>
+                      {companyData.contactNumberUpdateRequestDTOS.map(
+                        (phone, index) => (
+                          <>
+                            <div className="contact-box mb-2">
+                              <CFControl
+                                id="companyContactNumber"
+                                key={'phone' + index}
+                                value={phone.contactNumber}
+                                placeholder="Enter Contact Number"
+                                // isInvalid={Boolean(macId.errorMessage)}
+                                onChange={event =>
+                                  editContactNumber(
+                                    'contactNumberUpdateRequestDTOS',
+                                    {
+                                      companyContactNumberId: phone.id,
+                                      contactNumber: event.target.value,
+                                      status: 'Y'
+                                    },
+                                    index,
+                                    'E'
+                                  )
+                                }
+                              />
+                              <CButton
+                                id="company-contact"
+                                key={'companyRemove' + index}
+                                name=""
+                                variant="outline-danger"
+                                className="float-right remove-contact "
+                                onClickHandler={e =>
+                                  removeContactNumber(
+                                    'contactNumberUpdateRequestDTOS',
+                                    index,
+                                    'E'
+                                  )
+                                }
+                              >
+                                <i className="fa fa-close"></i>
+                              </CButton>
+                            </div>
+                          </>
+                        )
+                      )}
+                    </>
+                  </Col>
+                </Row>
               </Col>
 
               <Col sm={12} md={12} lg={6}>
