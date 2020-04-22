@@ -90,7 +90,8 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         value: profileResponseDTO.departmentId,
                         label: profileResponseDTO.departmentName
                     },
-                    status: profileResponseDTO.status
+                    status: profileResponseDTO.status,
+                    hospitalAlias: profileResponseDTO.hospitalAlias
                 };
                 break;
             case 'COMPANY':
