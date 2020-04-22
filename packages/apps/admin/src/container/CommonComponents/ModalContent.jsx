@@ -274,7 +274,7 @@ class ModalContent extends React.PureComponent {
                                         <CScrollbar
                                             id="menus"
                                             autoHide={true}
-                                            style={{height: 313, width: 300}}
+                                          
                                         >
                                             <div className="assign-body">
                                                 {this.state.tabsWithRolesForSelectedMenu.map(
