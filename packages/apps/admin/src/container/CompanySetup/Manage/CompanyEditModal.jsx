@@ -197,7 +197,7 @@ const CompanyEditModal = ({
                           labelName="Contact Number"
                         />
                         {companyData.contactNumberUpdateRequestDTOS
-                                    .length!==contactLength && <CButton
+                                    .length !== contactLength && <CButton
                           id="macBinding"
                           name=""
                           size="lg"
