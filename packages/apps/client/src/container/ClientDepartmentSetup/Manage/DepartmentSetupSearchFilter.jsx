@@ -34,7 +34,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             resetSearchForm,
-            hospitalList
+            departments
         } = this.props;
         return (
             <>
@@ -60,13 +60,15 @@ class DepartmentSetupSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     <Col sm={12} md={4} xl={4}>
-                                        <CHybridInput
-                                            id="department-name"
+                                        <CHybridSelect
+                                            id="departmentName"
                                             name="departmentName"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            placeholder="Department Name"
                                             value={searchParameters.departmentName}
+                                            options={departments}
+                                            label='Department'
+                                            placeholder={departments.length ? "Select department." : "No department(s)."}
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
@@ -147,7 +149,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                     overlay={(props) => <Tooltip {...props}>Department Name</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.departmentName}
+                                        {searchParameters.departmentName ? searchParameters.departmentName.label : ''}
                                     </Button>
                                 </OverlayTrigger>
 

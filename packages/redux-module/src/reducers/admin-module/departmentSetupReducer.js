@@ -29,7 +29,10 @@ const {
     CLEAR_DEPARTMENT_DELETE_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE,
     FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS,
-    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_PENDING,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_SUCCESS
 } = departmentSetupConstants;
 
 const initialState = {
@@ -50,7 +53,10 @@ const initialState = {
     departmentPreviewErrorMessage: '',
     departmentPreviewOpen: false,
     departmentsByHospital: [],
-    errorMessageForDropdown: ''
+    errorMessageForDropdown: '',
+    isFetchActiveDepartmentsForDropdownPending: false,
+    activeDepartmentsForDropdown: [],
+    dropdownErrorMessage: ''
 };
 
 export const DepartmentSetupReducer = (state = {...initialState}, action) => {
@@ -84,7 +90,7 @@ export const DepartmentSetupReducer = (state = {...initialState}, action) => {
         case CREATE_DEPARTMENT_ERROR:
             return {
                 ...state,
-                isCreateDepartmentLoading:false,
+                isCreateDepartmentLoading: false,
                 errorMessage: action.payload.errorMessage
             };
         case CLEAR_DEPARTMENT_CREATE_ERROR_MESSAGE:
@@ -101,7 +107,7 @@ export const DepartmentSetupReducer = (state = {...initialState}, action) => {
         case FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR:
             return {
                 ...state,
-                departmentsByHospital:[],
+                departmentsByHospital: [],
                 errorMessageForDropdown: action.payload.errorMessage
             };
         default:
@@ -249,5 +255,34 @@ export const DepartmentPreviewReducer = (state = {...initialState}, action) => {
             };
         default:
             return {...state}
+    }
+};
+
+// todo to be used after refactoring department setup
+export const DepartmentDropdownReducer = (state = {...initialState}, action) => {
+    switch (action.type) {
+        case FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_PENDING:
+            return {
+                ...state,
+                isFetchActiveDepartmentsForDropdownPending: true,
+                activeDepartmentsForDropdown: [],
+                dropdownErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isFetchActiveDepartmentsForDropdownPending: false,
+                activeDepartmentsForDropdown: [...action.payload.data],
+                dropdownErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isFetchActiveDepartmentsForDropdownPending: false,
+                activeDepartmentsForDropdown: [],
+                dropdownErrorMessage: action.payload.errorMessage
+            };
+        default:
+            return state
     }
 };
