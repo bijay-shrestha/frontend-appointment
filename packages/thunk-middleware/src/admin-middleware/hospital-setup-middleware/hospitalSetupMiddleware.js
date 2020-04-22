@@ -37,7 +37,7 @@ export const editHospital = (path, data, formDataLogo) => async dispatch => {
         dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
         return response
     } catch (e) {
-        dispatch(HospitalSetupActions.createHospitalEditError(e.message));
+        dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage? e.errorMessage : "Sorry! Internal Server Problem occurred."));
         throw e
     }
 };

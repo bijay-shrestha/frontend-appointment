@@ -4,6 +4,7 @@ import CompanyDetailsTable from './CompanyDetailsTable'
 import CompanyEditForm from './CompanyEditModal'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import CompanyHoc from '../CompanyHoc';
+
 const CompanyManage = props => {
     const CompManage = CompanyHoc(
         ({
@@ -54,17 +55,21 @@ const CompanyManage = props => {
              handleCropImage,
              handleImageUpload,
              contactLength,
-             setImageShow//,
+             setImageShow,
+             isCompanyDropdownLoading,
+             companyDropdownData,
+             companyDropdownErrorMessage
+             //,
 
              //hospitalDropdown,
-            //  hospitalBannerImage,
-            //  onBannerImageSelect,
-            //  hospitalBannerImageCroppedUrl,
-            //  hospitalBannerFileCropped,
-            //  showBannerUploadModal,
-            //  handleCropBannerImage,
-            //  handleBannerImageUpload,
-            //  setShowBannerUploadModal
+             //  hospitalBannerImage,
+             //  onBannerImageSelect,
+             //  hospitalBannerImageCroppedUrl,
+             //  hospitalBannerFileCropped,
+             //  showBannerUploadModal,
+             //  handleCropBannerImage,
+             //  handleBannerImageUpload,
+             //  setShowBannerUploadModal
          }) => (
             <>
                 <div className="">
@@ -74,7 +79,10 @@ const CompanyManage = props => {
                         onSearchClick={() => searchCompany(1)}
                         resetSearchForm={resetSearch}
                         handleEnter={handleEnter}
-                       // hospitalDropdown={hospitalDropdown}
+                        isCompanyDropdownLoading={isCompanyDropdownLoading}
+                        companyDropdownData={companyDropdownData}
+                        companyDropdownErrorMessage={companyDropdownErrorMessage}
+                        // hospitalDropdown={hospitalDropdown}
                     />
                 </div>
                 <div className=" mb-2">
@@ -106,7 +114,7 @@ const CompanyManage = props => {
                 </div>
                 {showEditModal && (
                     <CompanyEditForm
-                   
+
                         showModal={showEditModal}
                         setShowModal={setShowModal}
                         onEnterKeyPress={handleEnter}
