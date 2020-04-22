@@ -72,13 +72,13 @@ class ClientActivityLogSearchFilter extends PureComponent {
                 <Row>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
-                      id="hospitalId"
-                      name="hospitalId"
+                      id="clientId"
+                      name="clientId"
                       label="Hospital"
                       placeholder="Select Hospital"
                       options={hospitalsDropdown}
                       isDisabled={hospitalsDropdown.length ? false : true}
-                      value={searchParameters.hospitalId}
+                      value={searchParameters.clientId}
                       onChange={handleSearchFormChange}
                       onKeyDown={handleEnter}
                     />
@@ -243,7 +243,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                 </li>
               )}
 
-              {searchParameters.hospitalId && (
+              {searchParameters.clientId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -253,7 +253,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.hospitalId.label}
+                      {searchParameters.clientId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

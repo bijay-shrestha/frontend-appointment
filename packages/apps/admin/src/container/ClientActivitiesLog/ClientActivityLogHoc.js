@@ -29,7 +29,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       searchParameters: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        hospitalId: '',
+        clientId: '',
         parentId: '',
         roleId: '',
         adminMetaInfoId:''
@@ -74,7 +74,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     searchAdminActivityLog = async (page, pageChange) => {
       const {
         fromDate,
-        hospitalId,
+        clientId,
         parentId,
         roleId,
         toDate,
@@ -83,7 +83,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       let searchData = {
         fromDate,
         toDate,
-        hospitalId: hospitalId.value || '',
+        client: clientId.value || '',
         parentId: parentId.value || '',
         roleId: roleId.value || '',
         adminMetaInfoId:adminMetaInfoId.value||''
@@ -186,7 +186,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           appointmentNumber: '',
           fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
           toDate: new Date(),
-          hospitalId: '',
+          clientId: '',
           parentId: '',
           roleId: '',
           adminMetaInfoId:''
@@ -224,7 +224,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         }
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-        if(fieldName ==='hospitalId'){
+        if(fieldName ==='clientId'){
           this.searchHospitalAdminDropDown(value);
           searchParams['adminMetaInfoId']=''
         }
