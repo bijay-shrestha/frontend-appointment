@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import AdminInfoForm from './AdminInfoForm'
-import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils} from '@frontend-appointment/helpers'
+import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
@@ -472,7 +472,8 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchHospitals()
-        this.fetchDashBoardFeatures()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+          this.fetchDashBoardFeatures()
     }
 
     componentDidMount() {
@@ -522,13 +523,13 @@ class AdminAdd extends PureComponent {
                                 id="resetAdminForm"
                                 variant="outline-secondary"
                                 size="sm"
-                                name="Reset"
+                                name=""
                                 className="mb-2  float-right"
                                 onClickHandler={this.resetStateValues}
                             >
                                 <>
-                                    &nbsp;
-                                    <i className="fa fa-refresh"/>
+                                  
+                                    <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </>
                             </CButton>
                             <AdminInfoForm

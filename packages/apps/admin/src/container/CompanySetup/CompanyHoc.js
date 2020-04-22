@@ -1,8 +1,6 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {
-    CompanySetupMiddleware
-} from '@frontend-appointment/thunk-middleware'
+import {CompanySetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './companyHoc.scss'
@@ -15,7 +13,7 @@ const {
     searchCompany,
     updateCompany,
     clearMessages
-} = CompanySetupMiddleware
+} = CompanySetupMiddleware;
 
 const {
     DELETE_COMPANY,
@@ -125,7 +123,13 @@ const CompanyHOC = (ComposedComponent, props, type) => {
 
         setTheState = async (fieldName, valueToChange, valid, eventName, value) => {
             await this.setState(
-                this.checkInputValidity(fieldName, valueToChange, valid, eventName, value)
+                this.checkInputValidity(
+                    fieldName,
+                    valueToChange,
+                    valid,
+                    eventName,
+                    value
+                )
             )
         }
 
@@ -151,10 +155,15 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             })
         }
 
-        checkInputValidity = (fieldName, valueToChange, valid, eventName, value) => {
+        checkInputValidity = (
+            fieldName,
+            valueToChange,
+            valid,
+            eventName,
+            value
+        ) => {
             let stateObj = {[fieldName]: valueToChange}
-            if (eventName === 'companyCode')
-                stateObj[fieldName]['alias'] = value
+            if (eventName === 'companyCode') stateObj[fieldName]['alias'] = value
             if (eventName)
                 if (eventName === 'name') stateObj = {...stateObj, nameValid: valid}
             return {...stateObj}
@@ -194,7 +203,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         addContactNumber = (fieldName, value, eventType) => {
             let companyData = {...this.state.companyData}
             companyData[fieldName].push(value)
-            companyData['editContactNumberRequestDTOS'].push(value)
+            //ompanyData['editContactNumberRequestDTOS'].push(value)
             this.setTheState('companyData', companyData)
             this.checkFormValidity(eventType)
         }
@@ -202,8 +211,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         removeContactNumber = (fieldName, idx, eventType) => {
             let companyData = {...this.state.companyData}
             companyData[fieldName].splice(idx, 1)
-            if (eventType === 'E')
-                companyData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
+            //   if (eventType === 'E')
+            //     companyData['editContactNumberRequestDTOS'][idx]['status'] = 'N'
             this.setTheState('companyData', companyData)
             this.checkFormValidity(eventType)
         }
@@ -211,7 +220,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
         editContactNumber = (fieldName, value, idx, eventType) => {
             let companyData = {...this.state.companyData}
             companyData[fieldName][idx] = value
-            companyData['editContactNumberRequestDTOS'][idx] = value
+            // companyData['editContactNumberRequestDTOS'][idx] = value
             this.setTheState('companyData', companyData)
             this.checkFormValidity(eventType)
         }
@@ -288,6 +297,36 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             }
         }
 
+        filterOutContactNumber = contactNumber => {
+            let filteredContactNumber = []
+
+            const newContactNumber = [
+                ...this.state.companyData.editContactNumberRequestDTOS
+            ]
+            newContactNumber.map(contactEdit => {
+                let flag = false;
+                for (let i = 0; i < contactNumber.length; i++) {
+
+                    if (
+                        Number(contactEdit.companyContactNumberId) ===
+                        Number(contactNumber[i].companyContactNumberId)
+                    ) {
+                        filteredContactNumber.push(contactEdit)
+                        flag = true
+                        break
+                    }
+                }
+                if (!flag) {
+                    filteredContactNumber.push({...contactEdit, status: 'N'})
+                }
+            })
+            contactNumber.map(cont => {
+                if (!cont.companyContactNumberId && cont.contactNumber.length)
+                    filteredContactNumber.push(cont)
+            })
+            return filteredContactNumber
+        }
+
         editCompany = async () => {
             const {
                 name,
@@ -296,6 +335,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 companyCode,
+                contactNumberUpdateRequestDTOS,
                 editContactNumberRequestDTOS,
                 remarks,
                 alias,
@@ -305,7 +345,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 id,
                 name,
                 status,
-                contactNumberUpdateRequestDTOS: editContactNumberRequestDTOS,
+                contactNumberUpdateRequestDTOS: this.filterOutContactNumber(contactNumberUpdateRequestDTOS),
                 remarks,
                 address,
                 panNumber,
@@ -339,7 +379,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             let searchData = {
                 name: name,
                 companyCode: companyCode,
-                status: status.value,
+                status: status.value === 'A' ? '' : status.value,
             }
 
             let updatedPage =
@@ -581,8 +621,13 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             this.checkFormValidity(eventType)
         }
 
+        fetchCompanyForDropdown = async () => {
+            await this.props.companyDropdown(DROPDOWN_COMPANY);
+        }
+
         async componentDidMount() {
             if (type === 'M') {
+                this.fetchCompanyForDropdown();
                 await this.searchCompany()
                 //await this.searchHospitalForDropDown()
             }
@@ -628,6 +673,11 @@ const CompanyHOC = (ComposedComponent, props, type) => {
             const {companyEditErrorMessage} = this.props.companyUpdateReducer
 
             const {companyDeleteErrorMessage} = this.props.companyDeleteReducer
+            const {
+                isCompanyDropdownLoading,
+                companyDropdownData,
+                companyDropdownErrorMessage
+            } = this.props.companyDropdownReducer;
 
             //   const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
@@ -688,6 +738,9 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     handleCropImage={this.handleCropImage}
                     handleImageUpload={this.handleImageUpload}
                     setImageShow={this.setImageShowModal}
+                    isCompanyDropdownLoading={isCompanyDropdownLoading}
+                    companyDropdownData={companyDropdownData}
+                    companyDropdownErrorMessage={companyDropdownErrorMessage}
                 />
             )
         }

@@ -26,6 +26,32 @@ const ProfileInfoForm = ({
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
+
+                <CHybridSelect
+                    id="hospital"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    label="Client"
+                    name="selectedHospital"
+                    onChange={(event) => onInputChange(event)}
+                    options={hospitalList}
+                    value={profileInfoObj.hospitalValue}
+                    placeholder={hospitalList.length ? 'Select Client.' : "No client(s)."}
+                    isDisabled={!hospitalList.length}
+                />
+
+                <CHybridSelect
+                    id="department"
+                    label="Department"
+                    name="selectedDepartment"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    onChange={(event) => onInputChange(event)}
+                    options={departmentList}
+                    value={profileInfoObj.departmentValue}
+                    placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select department."
+                        : "No department(s)." : "Select Client first."}
+                    isDisabled={!profileInfoObj.hospitalValue || !departmentList.length}
+                />
+
                 <CHybridInput
                     id="profile-name"
                     name="profileName"
@@ -50,29 +76,6 @@ const ProfileInfoForm = ({
                     hasValidation={true}
                     maxLength={200}
                     errorMessagePassed={errorMessageForProfileDescription}
-                />
-
-                <CHybridSelect
-                    id="hospital"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    label="Client"
-                    name="selectedHospital"
-                    onChange={(event) => onInputChange(event)}
-                    options={hospitalList}
-                    value={profileInfoObj.hospitalValue}
-                    placeholder={'Select Client.'}
-                />
-
-                <CHybridSelect
-                    id="department"
-                    label="Department"
-                    name="selectedDepartment"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    onChange={(event) => onInputChange(event)}
-                    options={departmentList}
-                    value={profileInfoObj.departmentValue}
-                    placeholder="Select department"
-                    isDisabled={!profileInfoObj.hospitalValue}
                 />
 
                 <CFLabel labelName="Status" id="status"></CFLabel>

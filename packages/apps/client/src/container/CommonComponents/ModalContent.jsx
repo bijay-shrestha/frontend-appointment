@@ -88,22 +88,13 @@ class ModalContent extends React.PureComponent {
         return <>
             {/* <Col sm={12} md={12} > */}
             <Container-fluid>
-                <Row className="pl-4 pr-4"><h5>Profile Info</h5></Row>
+                {/*<Row className="pl-4 pr-4"><h5>Profile Info</h5></Row>*/}
 
                 <CForm
                     id="profile-info"
                     className="mt-2 add-info">
                     <Container-fluid>
                         <Row>
-                            <Col sm={4} md={4} lg={4}>
-                                <CHybridInput
-                                    id="profile-name"
-                                    name="profileName"
-                                    placeholder="Profile Name"
-                                    value={profileData.profileName}
-                                    disabled={true}
-                                />
-                            </Col>
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridSelect
                                     id="department"
@@ -112,6 +103,15 @@ class ModalContent extends React.PureComponent {
                                     // options={departmentList}
                                     value={profileData.departmentValue}
                                     isDisabled={true}
+                                />
+                            </Col>
+                            <Col sm={4} md={4} lg={4}>
+                                <CHybridInput
+                                    id="profile-name"
+                                    name="profileName"
+                                    placeholder="Profile Name"
+                                    value={profileData.profileName}
+                                    disabled={true}
                                 />
                             </Col>
                             <Col sm={4} md={4} lg={4}>

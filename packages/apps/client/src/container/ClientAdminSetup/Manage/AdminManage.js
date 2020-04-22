@@ -1105,6 +1105,7 @@ class AdminManage extends PureComponent {
     initialAPICalls = () => {
         this.fetchAdminMetaInfosForDropdown()
         this.fetchActiveProfileLists()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
         this.fetchDashBoardFeatures()
         this.fetchDepartments()
         this.searchAdmins()

@@ -71,8 +71,6 @@ class ClientActivityLogSearchFilter extends PureComponent {
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={6} xl={4}>
-                  </Col>
-                  <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="adminMetaInfoId"
                       name="adminMetaInfoId"

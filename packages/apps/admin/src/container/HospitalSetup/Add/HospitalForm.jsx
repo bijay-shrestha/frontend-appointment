@@ -157,7 +157,7 @@ const HospitalForm = ({
                                             name="hospitalCode"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Access Key"
+                                            placeholder="Merchant Code"
                                             value={hospitalInfoObj.hospitalCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}

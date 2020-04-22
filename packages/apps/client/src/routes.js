@@ -1,6 +1,6 @@
 import Loadable from 'react-loadable'
 import React from 'react'
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 import loadable from "@loadable/component";
 
 const getLoader = () => <CLoading/>;
@@ -18,11 +18,6 @@ const AddDepartmentComponent = Loadable({
 
 const AddAdminComponent = Loadable({
     loader: () => import('./container/ClientAdminSetup/Add/AdminAdd'),
-    loading: () => getLoader()
-});
-
-const AddHospitalComponent = Loadable({
-    loader: () => import('./container/HospitalSetup/Add/HospitalAdd'),
     loading: () => getLoader()
 });
 
@@ -116,11 +111,6 @@ const ManageSpecializationComponent = Loadable({
 
 const ManageAdminComponent = Loadable({
     loader: () => import('./container/ClientAdminSetup/Manage/AdminManage'),
-    loading: () => getLoader()
-});
-
-const ManageHospitalComponent = Loadable({
-    loader: () => import('./container/HospitalSetup/Manage/HospitalManage'),
     loading: () => getLoader()
 });
 
@@ -360,36 +350,6 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/hospital/add',
-        component: AddHospitalComponent,
-        icon: '',
-        hasTab: true,
-        isLink: true,
-        isTab: true,
-        name: 'Add',
-        isSingleTab:false,
-    },
-    {
-        path: '/generalSetup/hospital/manage',
-        component: ManageHospitalComponent,
-        icon: '',
-        hasTab: true,
-        isLink: true,
-        isTab: true,
-        name: 'Manage',
-        isSingleTab:false,
-    },
-    {
-        path: '/generalSetup/hospital',
-        component: <></>,
-        icon: '',
-        hasTab: true,
-        isLink: true,
-        isTab: false,
-        name: 'Client Setup',
-        isSingleTab:false,
-    },
-    {
         path: '/generalSetup/qualification/add',
         component: AddQualificationComponent,
         icon: '',
@@ -520,7 +480,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/acitivityLog',
+        path: '/activityLog',
         component: ActivityLog,
         icon: '',
         hasTab: false,

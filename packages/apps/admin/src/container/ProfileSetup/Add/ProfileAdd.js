@@ -56,7 +56,8 @@ class ProfileAdd extends PureComponent {
         },
         departmentListByHospital: [],
         originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
-            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
+            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]),
+        aliasOfHospital: ''
     };
 
     closeAlert = () => {
@@ -82,6 +83,7 @@ class ProfileAdd extends PureComponent {
             formValid: false,
             profileNameValid: false,
             profileDescriptionValid: false,
+            aliasOfHospital: ''
         })
     };
 
@@ -124,12 +126,15 @@ class ProfileAdd extends PureComponent {
         value &&
         await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
         const {departmentsByHospital} = {...this.props.DepartmentSetupReducer};
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+        let selectedHospital = hospitalsForDropdown.find(hospital => hospital.value === value);
         await this.setState({
             selectedDepartment: null,
             userMenus: [],
             defaultSelectedMenu: [],
             selectedMenus: [],
-            departmentListByHospital: [...departmentsByHospital]
+            departmentListByHospital: [...departmentsByHospital],
+            aliasOfHospital: selectedHospital && selectedHospital.alias,
         });
     };
 
@@ -328,7 +333,7 @@ class ProfileAdd extends PureComponent {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
-            departmentListByHospital
+            departmentListByHospital, aliasOfHospital
         } = this.state;
 
         return (
@@ -396,7 +401,8 @@ class ProfileAdd extends PureComponent {
                                         status: status,
                                         selectedMenus: selectedMenus,
                                         selectedUserMenusForModal: selectedUserMenusForModal,
-                                        userMenus: userMenus
+                                        userMenus: userMenus,
+                                        hospitalAlias: aliasOfHospital
                                     }}
                                     rolesJson={menuRoles}
                                 />

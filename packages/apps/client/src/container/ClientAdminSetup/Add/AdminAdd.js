@@ -5,21 +5,22 @@ import {
     EnterKeyPressUtils,
     EnvironmentVariableGetter,
     menuRoles,
-    ProfileSetupUtils
+    ProfileSetupUtils,
+    LocalStorageSecurity
 } from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
-    fetchActiveProfilesByDepartmentId,
+    DashboardDetailsMiddleware,
     DepartmentSetupMiddleware,
+    fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
-    previewProfile,
-    DashboardDetailsMiddleware
+    previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
-import {CAlert, CButton, CLoading} from '@frontend-appointment/ui-elements'
+import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
 import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
@@ -322,7 +323,7 @@ class AdminAdd extends PureComponent {
                 })
                 : [],
             baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL,
-            adminDashboardRequestDTOS: [...newAdminDashboardRequest]
+            adminDashboardRequestDTOS: newAdminDashboardRequest.length?[...newAdminDashboardRequest]:[]
             // baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT))
         }
 
@@ -457,6 +458,7 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchDepartmentsByHospitalId()
+        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
         this.fetchDashBoardFeatures()
     }
 
@@ -507,13 +509,12 @@ class AdminAdd extends PureComponent {
                                 id="resetAdminForm"
                                 variant="outline-secondary"
                                 size="sm"
-                                name="Reset"
+                                name=""
                                 className="mb-2  float-right"
                                 onClickHandler={this.resetStateValues}
                             >
                                 <>
-                                    &nbsp;
-                                    <i className="fa fa-refresh"/>
+                                     <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </>
                             </CButton>
                             <AdminInfoForm
