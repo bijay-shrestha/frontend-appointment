@@ -42,7 +42,7 @@ export const departmentSetupAPIConstants = {
     DELETE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
     EXPORT_DEPARTMENT_EXCEL: BASE.concat(DEPARTMENT_BASE.concat("/excel")),
     FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat(DEPARTMENT_BASE.concat("/active/min")),
-    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL: BASE.concat(DEPARTMENT_BASE),
+    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL: BASE.concat(DEPARTMENT_BASE.concat("/active/min")),
 };
 
 const ADMIN_BASE = "/admin";
@@ -223,15 +223,15 @@ export const companyAdminSetupApiConstants = {
     VERIFY_COMPANY_ADMIN_EMAIL: BASE.concat(COMPANY_ADMIN_BASE + '/verify/email')
 };
 
-const LOG_BASE='/logging';
+const LOG_BASE = '/logging';
 
-export const adminLoggingConstant ={
-  FETCH_ADMIN_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/search')),
-  FETCH_ADMIN_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-statics")),
-  FETCH_ADMIN_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/log-diagram")),
-  FETCH_CLIENT_LOG:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+'/client/search')),
-  FETCH_CLIENT_LOG_STATS:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-statics")),
-  FETCH_CLIENT_CHART:LOG_BASE.concat(BASE.concat(ADMIN_LOGGING+"/client/log-diagram"))
+export const adminLoggingConstant = {
+    FETCH_ADMIN_LOG: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + '/search')),
+    FETCH_ADMIN_LOG_STATS: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/log-statics")),
+    FETCH_ADMIN_CHART: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/log-diagram")),
+    FETCH_CLIENT_LOG: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + '/client/search')),
+    FETCH_CLIENT_LOG_STATS: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/client/log-statics")),
+    FETCH_CLIENT_CHART: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/client/log-diagram"))
 }
 
 const UNIVERSITY_BASE = "/university";
