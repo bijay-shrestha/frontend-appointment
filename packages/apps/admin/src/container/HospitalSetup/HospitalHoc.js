@@ -51,7 +51,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             errorMessageForHospitalName:
                 'Client Name should not contain special characters',
             errorMessageForHospitalCode:
-                'Access Key should not contain special characters',
+                'Merchant Code should not contain special characters',
             showAlert: false,
             alertMessageInfo: {
                 variant: '',
@@ -392,7 +392,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             let searchData = {
                 name: name.value ? name.label : name,
                 hospitalCode: hospitalCode,
-                status: status.value,
+                status: status.value === 'A' ? '' : status.value,
                 id: id
             };
 
@@ -622,7 +622,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 this.setState({
-                    showConfirmModal:false,
+                    showConfirmModal: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
