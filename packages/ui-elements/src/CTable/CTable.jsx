@@ -330,7 +330,7 @@ class CTable extends PureComponent {
                         size="lg"
                     >
                         <i className="fa fa-plus"/> &nbsp;New
-                        
+
                     </CButton>
                 ) : (
                     ''
@@ -382,18 +382,21 @@ class CTable extends PureComponent {
                                                 <td
                                                     key={column.field + '-' + colIndex}
                                                     onClick={
-                                                        Object.keys(row).includes("isRowEditable")
+                                                        !row.onRowEdit ? (Object.keys(row).includes("isRowEditable")
                                                             ? row.isRowEditable && onPreview
-                                                            ? (e) => this.handleClick(e, {
-                                                                data: row,
-                                                                rowIndex: rowIndex,
-                                                                columnIndex: colIndex
-                                                            }, 'PREVIEW') : ''
+                                                                ? (e) => this.handleClick(e, {
+                                                                    data: row,
+                                                                    rowIndex: rowIndex,
+                                                                    columnIndex: colIndex
+                                                                }, 'PREVIEW') : ''
                                                             : onPreview ? (e) => this.handleClick(e, {
                                                                 data: row,
                                                                 rowIndex: rowIndex,
                                                                 columnIndex: colIndex
-                                                            }, 'PREVIEW') : ''}
+                                                            }, 'PREVIEW') : '')
+                                                            : () => {
+                                                            }
+                                                    }
                                                 >
                                                     {row.onRowEdit &&
                                                     Object.keys(column).includes('editComponent') ? (
