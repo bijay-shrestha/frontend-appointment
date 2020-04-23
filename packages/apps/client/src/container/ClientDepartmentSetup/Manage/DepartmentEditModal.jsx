@@ -20,6 +20,7 @@ const DepartmentEditModal = ({
                                  errorMessageForDepartmentCode,
                                  errorMessage,
                                  editApiCall,
+                                 isDepartmentEditLoading
                              }) => {
 
     const bodyContent = <>
@@ -27,7 +28,7 @@ const DepartmentEditModal = ({
             id="department-info"
             className="mt-2">
             <Row>
-                <Col sm={12} md={6} >
+                <Col sm={12} md={6}>
                     <CHybridInput
                         id="department-name"
                         name="name"
@@ -41,7 +42,7 @@ const DepartmentEditModal = ({
                         errorMessagePassed={errorMessageForDepartmentName}
                     />
                 </Col>
-                <Col sm={12} md={6} >
+                <Col sm={12} md={6}>
                     <CHybridInput
                         id="department-code"
                         name="code"
@@ -109,13 +110,15 @@ const DepartmentEditModal = ({
                 <div className="col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!departmentData.formValid}
+                        disabled={!departmentData.formValid || isDepartmentEditLoading}
+                        isLoading={isDepartmentEditLoading}
                         name="Update"
                         size="lg"
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
                              variant="light"
+                             disabled={isDepartmentEditLoading}
                              size="lg"
                              className="btn-action  float-right mr-2"
                              name="Cancel"

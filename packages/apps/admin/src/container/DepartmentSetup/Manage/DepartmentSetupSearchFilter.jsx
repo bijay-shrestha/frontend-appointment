@@ -34,7 +34,8 @@ class DepartmentSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             resetSearchForm,
-            hospitalList
+            hospitalList,
+            departments
         } = this.props;
         return (
             <>
@@ -59,7 +60,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                         <CForm id='department-info' className='add-info mt-4'>
                             <Container-fluid>
                                 <Row>
-                                <Col sm={12} md={4} xl={4}>
+                                    <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="hospital"
                                             name="hospital"
@@ -67,17 +68,21 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             value={searchParameters.hospital}
                                             options={hospitalList}
+                                            isDisabled={!hospitalList.length}
                                             label='Client'
+                                            placeholder={!hospitalList.length ? "No client(s)." : "Select Client."}
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
-                                        <CHybridInput
-                                            id="department-name"
-                                            name="departmentName"
+                                        <CHybridSelect
+                                            id="departmentId"
+                                            name="departmentId"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            placeholder="Department Name"
-                                            value={searchParameters.departmentName}
+                                            value={searchParameters.departmentId}
+                                            options={departments}
+                                            label='Department'
+                                            placeholder={departments.length ? "Select department." : "No department(s)."}
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
@@ -150,7 +155,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                 </CButton>
 
                             </li>
-                            {searchParameters.departmentName &&
+                            {searchParameters.departmentId &&
                             <li>
                                 <OverlayTrigger
                                     placement="top"
@@ -158,7 +163,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                     overlay={(props) => <Tooltip {...props}>Department Name</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.departmentName}
+                                        {searchParameters.departmentId ? searchParameters.departmentId.label : ''}
                                     </Button>
                                 </OverlayTrigger>
 

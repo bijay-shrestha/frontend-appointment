@@ -17,7 +17,7 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
             profileType === 'CLIENT' && Object.is(
                 EnvironmentVariableGetter.REACT_APP_MODULE_CODE,
                 EnvironmentVariableGetter.ADMIN_MODULE_CODE)
-        ) ? clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]
+        ) ? UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
             : LocalStorageSecurity.localStorageDecoder("userMenus");
 
         const selectedUserMenus = profileMenuResponseDTOS[parentMenuId];
@@ -90,7 +90,8 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         value: profileResponseDTO.departmentId,
                         label: profileResponseDTO.departmentName
                     },
-                    status: profileResponseDTO.status
+                    status: profileResponseDTO.status,
+                    hospitalAlias: profileResponseDTO.hospitalAlias
                 };
                 break;
             case 'COMPANY':

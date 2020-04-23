@@ -2,9 +2,8 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AdminLoggingMiddleware,
-  HospitalSetupMiddleware,
   fetchAdminMetaInfoByHospitalId,
-  clearAdminSuccessErrorMessagesFromStore
+
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -12,24 +11,28 @@ import './activity-log.scss'
 import {
   DateTimeFormatterUtils,
   menuRoles,
-  LocalStorageSecurity
+  LocalStorageSecurity,
+  EnvironmentVariableGetter,
+  CommonUtils
 } from '@frontend-appointment/helpers'
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
+const {getUserNameHospitalIdAndAdminId}=CommonUtils
 
-const AdminActivityLogHOC = (ComposedComponent, props, type) => {
+const ClientActivityLogHOC = (ComposedComponent, props, type) => {
   const {
-    hospitalSetupApiConstants,
-    adminLoggingConstant,
+    clientLoggingConstant,
     adminSetupAPIConstants
   } = AdminModuleAPIConstants
-
-  class AdminActivityLogDetails extends React.PureComponent {
+  const client=getUserNameHospitalIdAndAdminId(LocalStorageSecurity.localStorageDecoder('c-auth-token'))
+  const clientId=client.hospitalId;
+  const clients=LocalStorageSecurity.localStorageDecoder('adminInfo');
+  const clientName=clients.hospitalName
+  class ClientActivityLogDetails extends React.PureComponent {
     state = {
       searchParameters: {
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
-        clientId: '',
+        clientId:clientId,
         parentId: '',
         roleId: '',
         adminMetaInfoId:''
@@ -53,16 +56,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     handleEnterPress = event => {
       EnterKeyPressUtils.handleEnter(event)
     }
-
-    searchHospitalForDropDown = async () => {
-      try {
-        await this.props.fetchActiveHospitalsForDropdown(
-          hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
-        )
-      } catch (e) {
-        console.log(e)
-      }
-    }
+    
     searchHospitalAdminDropDown = async (id)=> {
       try{
         await this.props.fetchAdminMetaInfoByHospitalId(adminSetupAPIConstants.FETCH_ADMIN_META_INFO_BY_HOSPITAL_ID,id)
@@ -74,7 +68,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
     searchAdminActivityLog = async (page, pageChange) => {
       const {
         fromDate,
-        clientId,
         parentId,
         roleId,
         toDate,
@@ -83,7 +76,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       let searchData = {
         fromDate,
         toDate,
-        clientId: clientId.value || '',
+        clientId:clientId,
         parentId: parentId.value || '',
         roleId: roleId.value || '',
         adminMetaInfoId:adminMetaInfoId.value||''
@@ -96,7 +89,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
             ? page
             : this.state.queryParams.page
         await this.props.fetchAdminLog(
-          adminLoggingConstant.FETCH_CLIENT_LOG,
+          clientLoggingConstant.FETCH_CLIENT_LOG,
           {
             page: updatedPage,
             size: this.state.queryParams.size
@@ -123,7 +116,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
             ? page
             : this.state.statsQueryParams.page
         await this.props.fetchAdminLogStatistics(
-          adminLoggingConstant.FETCH_CLIENT_LOG_STATS,
+          clientLoggingConstant.FETCH_CLIENT_LOG_STATS,
           {
             page: updatedPage,
             size: this.state.queryParams.size
@@ -143,7 +136,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       }
       if (pageChange === 'C') {
         await this.props.fetchAdminDiagramStatistics(
-          adminLoggingConstant.FETCH_CLIENT_CHART,
+          clientLoggingConstant.FETCH_CLIENT_CHART,
           searchData
         )
       }
@@ -186,7 +179,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           appointmentNumber: '',
           fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
           toDate: new Date(),
-          clientId: '',
+          clientId: clientId,
           parentId: '',
           roleId: '',
           adminMetaInfoId:''
@@ -224,10 +217,6 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         }
         let searchParams = {...this.state.searchParameters}
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
-        if(fieldName ==='clientId'){
-          this.searchHospitalAdminDropDown(value);
-          searchParams['adminMetaInfoId']=''
-        }
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -281,7 +270,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       await this.searchAdminActivityLog('','A')
       await this.searchAdminActivityLog('','B')
       await this.searchAdminActivityLog('','C')
-      await this.searchHospitalForDropDown()
+      await this.searchHospitalAdminDropDown(clientId)
       this.makeRoleData()
       this.makeMenuData()
     }
@@ -328,9 +317,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         logDiagramSearchErrorMessage,
         totalCounts
       } = this.props.AdminLoggingDiagramSearchReducer
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
       const {adminMetaInfoByHospitalIdForDropdown} = this.props.AdminSetupReducer
-      console.log("====",adminMetaInfoByHospitalIdForDropdown)
       return (
         <div id="admin-acitivity-log">
           <ComposedComponent
@@ -340,11 +327,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               handleEnter: this.handleEnterPress,
               handleSearchFormChange: this.handleSearchFormChange,
               resetSearch: this.handleSearchFormReset,
-              searchAdminActivityLog: this.searchAdminActivityLog,
-              hospitalsDropdown: hospitalsForDropdown,
               adminMetaInfoByHospitalIdForDropdown:this.changeHospitalAdminDropdownValue(adminMetaInfoByHospitalIdForDropdown),
+              searchAdminActivityLog: this.searchAdminActivityLog,
               searchParameters: searchParameters,
               parentList: menuList,
+              clientName:clientName,
               roles: rolesList
             }}
             paginationProps={{
@@ -382,7 +369,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
   }
 
   return ConnectHoc(
-    AdminActivityLogDetails,
+    ClientActivityLogDetails,
     [
       'HospitalDropdownReducer',
       'AdminLoggingStatsSearchReducer',
@@ -391,13 +378,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       'AdminSetupReducer'
     ],
     {
-      fetchActiveHospitalsForDropdown,
       fetchAdminLog,
       fetchAdminDiagramStatistics,
       fetchAdminLogStatistics,
-      fetchAdminMetaInfoByHospitalId,
-      clearAdminSuccessErrorMessagesFromStore
+      fetchAdminMetaInfoByHospitalId
     }
   )
 }
-export default AdminActivityLogHOC
+export default ClientActivityLogHOC

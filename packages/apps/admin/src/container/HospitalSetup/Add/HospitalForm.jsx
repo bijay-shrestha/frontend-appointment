@@ -148,8 +148,11 @@ const HospitalForm = ({
                                             required={true}
                                             hasValidation={true}
                                             max={100}
+                                            min={3}
                                             fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                             errorMessagePassed={errorMessageForHospitalName}
+                                            errorMsg={hospitalInfoObj.nameLengthErrorMsg}
+                                            isInvalid={hospitalInfoObj.nameLengthErrorMsg}
                                         />
                                     </Col>
 

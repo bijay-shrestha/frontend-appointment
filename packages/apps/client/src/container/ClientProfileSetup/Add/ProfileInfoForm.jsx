@@ -25,6 +25,19 @@ const ProfileInfoForm = ({
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">
+
+                <CHybridSelect
+                    id="department"
+                    label="Department"
+                    name="selectedDepartment"
+                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    onChange={(event) => onInputChange(event)}
+                    options={departmentList}
+                    value={profileInfoObj.departmentValue}
+                    placeholder={departmentList.length ? "Select department." : "No department(s)."}
+                    isDisabled={!departmentList.length}
+                />
+
                 <CHybridInput
                     id="profile-name"
                     name="profileName"
@@ -49,17 +62,6 @@ const ProfileInfoForm = ({
                     hasValidation={true}
                     maxLength={200}
                     errorMessagePassed={errorMessageForProfileDescription}
-                />
-
-                <CHybridSelect
-                    id="department"
-                    label="Department"
-                    name="selectedDepartment"
-                    onKeyDown={(event) => onEnterKeyPress(event)}
-                    onChange={(event) => onInputChange(event)}
-                    options={departmentList}
-                    value={profileInfoObj.departmentValue}
-                    placeholder="Select department"
                 />
 
                 <CFLabel labelName="Status" id="status"/>

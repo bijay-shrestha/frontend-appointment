@@ -82,7 +82,7 @@ export const fetchCompanyProfileListForDropdown = (path) => async dispatch => {
 export const fetchActiveCompanyProfileListByCompanyIdForDropdown = (path,id) => async dispatch => {
     dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownPending());
     try {
-        let response = await Axios.get(path);//await Axios.getWithPathVariables(path,id);
+        let response =await Axios.getWithPathVariables(path,id);
         dispatch(CompanyProfileSetupActions.fetchCompanyProfileByCompanyIdForDropdownSuccess(response.data));
         return response;
     } catch (e) {
@@ -97,5 +97,6 @@ export const clearSuccessErrorMessageFromStore = () => async dispatch => {
     dispatch(CompanyProfileSetupActions.clearProfileDeleteMessages());
     dispatch(CompanyProfileSetupActions.clearProfileEditMessages());
     dispatch(CompanyProfileSetupActions.clearProfilePreviewMessages());
+    dispatch({type:'CLEAR_COMPANY_PROFILE_DROPDOWN'});
     // dispatch(CompanyProfileSetupActions.clearProfileSearchMessages());
 };

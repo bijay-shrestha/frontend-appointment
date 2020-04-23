@@ -10,7 +10,12 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import DepartmentDetailsDataTable from "./DepartmentDetailsDataTable";
 import DepartmentEditForm from "./DepartmentEditModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
-import {EnterKeyPressUtils, FileExportUtils, LocalStorageSecurity} from "@frontend-appointment/helpers";
+import {
+    EnterKeyPressUtils,
+    FileExportUtils,
+    LocalStorageSecurity,
+    TryCatchHandler
+} from "@frontend-appointment/helpers";
 import "./../department-setup.scss";
 
 const {
@@ -19,7 +24,8 @@ const {
     editDepartment,
     deleteDepartment,
     downloadExcelForDepartments,
-    clearDepartmentSuccessErrorMessagesFromStore
+    clearDepartmentSuccessErrorMessagesFromStore,
+    fetchActiveDepartmentsForDropdown
 } = DepartmentSetupMiddleware;
 
 const {
@@ -27,7 +33,8 @@ const {
     FETCH_DEPARTMENT_DETAILS,
     EDIT_DEPARTMENT,
     DELETE_DEPARTMENT,
-    EXPORT_DEPARTMENT_EXCEL
+    EXPORT_DEPARTMENT_EXCEL,
+    FETCH_DEPARTMENTS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.departmentSetupAPIConstants;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
@@ -40,7 +47,7 @@ class DepartmentManage extends PureComponent {
         showEditModal: false,
         deleteModalShow: false,
         searchParameters: {
-            departmentName: '',
+            departmentId: '',
             departmentCode: '',
             hospital: '',
             status: {value: 'A', label: 'All'}
@@ -135,7 +142,7 @@ class DepartmentManage extends PureComponent {
         await this.setState({
             searchParameters: {
                 ...this.state.searchParameters,
-                departmentName: '',
+                departmentId: '',
                 departmentCode: '',
                 hospital: '',
                 status: {value: 'A', label: 'All'}
@@ -145,9 +152,9 @@ class DepartmentManage extends PureComponent {
     };
 
     searchDepartments = async (page) => {
-        const {departmentName, departmentCode, status, hospital} = this.state.searchParameters;
+        const {departmentId, departmentCode, status, hospital} = this.state.searchParameters;
         let searchData = {
-            name: departmentName,
+            id: departmentId ? departmentId.value : '',
             departmentCode: departmentCode,
             hospitalId: hospital ? hospital.value : '',
             status: status && status.value !== 'A'
@@ -412,7 +419,13 @@ class DepartmentManage extends PureComponent {
         await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
     };
 
+
+    fetchDepartments = async () => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+    };
+
     componentDidMount() {
+        this.fetchDepartments();
         this.searchDepartments();
         this.fetchHospitals();
     }
@@ -428,73 +441,78 @@ class DepartmentManage extends PureComponent {
 
         const {departmentPreviewData, departmentPreviewErrorMessage} = this.props.DepartmentPreviewReducer;
 
-        const {departmentErrorMessage} = this.props.DepartmentEditReducer;
+        const {departmentErrorMessage, isDepartmentEditLoading} = this.props.DepartmentEditReducer;
 
-        const {deleteErrorMessage} = this.props.DepartmentDeleteReducer;
+        const {deleteErrorMessage, isDeleteLoading} = this.props.DepartmentDeleteReducer;
 
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
+        const {departments} = this.props.DepartmentSetupReducer;
+
         return <>
-        <div className="department-setup">
-            <div className="">
-                <DepartmentSetupSearchFilter
-                    searchParameters={this.state.searchParameters}
-                    hospitalList={hospitalsForDropdown}
-                    onInputChange={this.handleSearchFormChange}
-                    onSearchClick={() => this.searchDepartments(1)}
-                    resetSearchForm={this.handleSearchFormReset}
+            <div className="department-setup">
+                <div className="">
+                    <DepartmentSetupSearchFilter
+                        searchParameters={this.state.searchParameters}
+                        hospitalList={hospitalsForDropdown}
+                        departments={departments}
+                        onInputChange={this.handleSearchFormChange}
+                        onSearchClick={() => this.searchDepartments(1)}
+                        resetSearchForm={this.handleSearchFormReset}
+                    />
+                </div>
+                <div className=" mb-2">
+                    <DepartmentDetailsDataTable
+                        filteredActions={this.props.filteredAction}
+                        showDepartmentModal={this.state.showDepartmentModal}
+                        isSearchLoading={isSearchLoading}
+                        searchData={this.appendSNToTable(departmentList)}
+                        searchErrorMessage={searchErrorMessage}
+                        setShowModal={this.setShowModal}
+                        onDeleteHandler={this.onDeleteHandler}
+                        onEditHandler={this.onEditHandler}
+                        onPreviewHandler={this.onPreviewHandler}
+                        departmentPreviewData={departmentPreviewData}
+                        departmentPreviewErrorMessage={departmentPreviewErrorMessage}
+                        totalItems={this.state.totalRecords}
+                        maxSize={this.state.queryParams.size}
+                        currentPage={this.state.queryParams.page}
+                        handlePageChange={this.handlePageChange}
+                        deleteModalShow={this.state.deleteModalShow}
+                        onSubmitDelete={this.onSubmitDeleteHandler}
+                        remarksHandler={this.deleteRemarksHandler}
+                        remarks={this.state.deleteRequestDTO.remarks}
+                        deleteErrorMsg={deleteErrorMessage}
+                        exportExcel={this.downloadEXCEL}
+                        isDeleteLoading={isDeleteLoading}
+                    />
+                </div>
+                {this.state.showEditModal && (
+                    <DepartmentEditForm
+                        showModal={this.state.showEditModal}
+                        setShowModal={this.setShowModal}
+                        onEnterKeyPress={this.handleEnter}
+                        departmentData={this.state.departmentUpdateData}
+                        hospitalList={hospitalsForDropdown}
+                        onInputChange={this.handleUpdateFormChange}
+                        editApiCall={this.editDepartment}
+                        formValid={departmentUpdateData.formValid}
+                        errorMessageForDepartmentName={departmentUpdateData.errorMessageForDepartmentName}
+                        errorMessageForDepartmentCode={departmentUpdateData.errorMessageForDepartmentCode}
+                        errorMessage={departmentErrorMessage}
+                        isDepartmentEditLoading={isDepartmentEditLoading}
+                    />
+                )}
+                <CAlert id="profile-add"
+                        variant={this.state.alertMessageInfo.variant}
+                        show={this.state.showAlert}
+                        onClose={this.closeAlert}
+                        alertType={this.state.alertMessageInfo.variant === "success" ?
+                            <><i className="fa fa-check-circle" aria-hidden="true"> </i></>
+                            : <><i className="fa fa-exclamation-triangle" aria-hidden="true"> </i>
+                            </>}
+                        message={this.state.alertMessageInfo.message}
                 />
-            </div>
-            <div className=" mb-2">
-                <DepartmentDetailsDataTable
-                    filteredActions={this.props.filteredAction}
-                    showDepartmentModal={this.state.showDepartmentModal}
-                    isSearchLoading={isSearchLoading}
-                    searchData={this.appendSNToTable(departmentList)}
-                    searchErrorMessage={searchErrorMessage}
-                    setShowModal={this.setShowModal}
-                    onDeleteHandler={this.onDeleteHandler}
-                    onEditHandler={this.onEditHandler}
-                    onPreviewHandler={this.onPreviewHandler}
-                    departmentPreviewData={departmentPreviewData}
-                    departmentPreviewErrorMessage={departmentPreviewErrorMessage}
-                    totalItems={this.state.totalRecords}
-                    maxSize={this.state.queryParams.size}
-                    currentPage={this.state.queryParams.page}
-                    handlePageChange={this.handlePageChange}
-                    deleteModalShow={this.state.deleteModalShow}
-                    onSubmitDelete={this.onSubmitDeleteHandler}
-                    remarksHandler={this.deleteRemarksHandler}
-                    remarks={this.state.deleteRequestDTO.remarks}
-                    deleteErrorMsg={deleteErrorMessage}
-                    exportExcel={this.downloadEXCEL}
-                />
-            </div>
-            {this.state.showEditModal && (
-                <DepartmentEditForm
-                    showModal={this.state.showEditModal}
-                    setShowModal={this.setShowModal}
-                    onEnterKeyPress={this.handleEnter}
-                    departmentData={this.state.departmentUpdateData}
-                    hospitalList={hospitalsForDropdown}
-                    onInputChange={this.handleUpdateFormChange}
-                    editApiCall={this.editDepartment}
-                    formValid={departmentUpdateData.formValid}
-                    errorMessageForDepartmentName={departmentUpdateData.errorMessageForDepartmentName}
-                    errorMessageForDepartmentCode={departmentUpdateData.errorMessageForDepartmentCode}
-                    errorMessage={departmentErrorMessage}
-                />
-            )}
-            <CAlert id="profile-add"
-                    variant={this.state.alertMessageInfo.variant}
-                    show={this.state.showAlert}
-                    onClose={this.closeAlert}
-                    alertType={this.state.alertMessageInfo.variant === "success" ?
-                        <><i className="fa fa-check-circle" aria-hidden="true"> </i></>
-                        : <><i className="fa fa-exclamation-triangle" aria-hidden="true"> </i>
-                        </>}
-                    message={this.state.alertMessageInfo.message}
-            />
             </div>
         </>;
     }
@@ -518,6 +536,6 @@ export default ConnectHoc(
         downloadExcelForDepartments,
         clearDepartmentSuccessErrorMessagesFromStore,
         logoutUser,
-        fetchActiveHospitalsForDropdown
-
+        fetchActiveHospitalsForDropdown,
+        fetchActiveDepartmentsForDropdown
     });

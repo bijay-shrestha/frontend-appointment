@@ -29,7 +29,10 @@ const {
     CLEAR_DEPARTMENT_DELETE_ERROR_MESSAGE,
     CLEAR_DEPARTMENT_DELETE_SUCCESS_MESSAGE,
     FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR,
-    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS
+    FETCH_DEPARTMENTS_BY_HOSPITAL_ID_SUCCESS,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_PENDING,
+    FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_ERROR
 } = departmentSetupConstants;
 
 export const departmentFetchingStart = () => {
@@ -255,6 +258,30 @@ export const fetchDepartmentByHospitalIdError = errorMsg => {
         type: FETCH_DEPARTMENTS_BY_HOSPITAL_ID_ERROR,
         payload: {
             errorMessage: errorMsg
+        }
+    }
+};
+
+export const fetchActiveDepartmentsForDropdownPending = data => {
+    return {
+        type: FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchActiveDepartmentsForDropdownSuccess = data => {
+    return {
+        type: FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchActiveDepartmentsForDropdownError = errorMessage => {
+    return {
+        type: FETCH_ACTIVE_DEPARTMENTS_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
         }
     }
 };

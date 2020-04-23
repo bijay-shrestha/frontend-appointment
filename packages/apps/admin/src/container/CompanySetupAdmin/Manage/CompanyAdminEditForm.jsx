@@ -98,7 +98,7 @@ const CompanyAdminEditForm = ({
               <Col sm={12} md={12} lg={6}>
                 <CHybridSelect
                   id="company"
-                  label="company"
+                  label="Company"
                   name="company"
                   onKeyDown={event => onEnterKeyPress(event)}
                   onChange={event => onInputChange(event)}
