@@ -238,7 +238,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                             <li>
                                 <CButton id="spec-filter" variant="primary" name="">
                                     <>
-                                        <i className="fa fa-filter"/>
+                                        <i className="fa fa-sliders"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>

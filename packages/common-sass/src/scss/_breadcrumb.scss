@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     padding:0;
+    height:36px;
     //padding:0.5rem;
   
     margin-bottom: 1px;
@@ -12,6 +13,7 @@
 
   .breadcrumb-item {
     font-size:0.8rem;
+
 
     // The separator between breadcrumbs (by default, a forward-slash: "/")
     + .breadcrumb-item {
@@ -41,6 +43,10 @@
 
     &.active {
     //   color: $breadcrumb-active-color;
+    }
+
+   a,span{
+      line-height:2rem;
     }
 
 

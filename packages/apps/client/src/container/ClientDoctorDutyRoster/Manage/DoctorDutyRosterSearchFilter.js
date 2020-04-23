@@ -155,7 +155,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                         <ul id="" className="search-filter-item">
                             <li>
                                 <CButton id="filter" variant="primary" name="">
-                                    <><i className="fa fa-filter"/>
+                                    <><i className="fa fa-sliders"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
