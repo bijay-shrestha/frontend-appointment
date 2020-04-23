@@ -75,11 +75,11 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
-                                            id="departmentName"
-                                            name="departmentName"
+                                            id="departmentId"
+                                            name="departmentId"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            value={searchParameters.departmentName}
+                                            value={searchParameters.departmentId}
                                             options={departments}
                                             label='Department'
                                             placeholder={departments.length ? "Select department." : "No department(s)."}
@@ -149,13 +149,13 @@ class DepartmentSetupSearchFilter extends PureComponent {
                         <ul id="" className="search-filter-item">
                             <li>
                                 <CButton variant="primary" name="">
-                                    <><i className="fa fa-filter"></i>
+                                    <><i className="fa fa-sliders"></i>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
 
                             </li>
-                            {searchParameters.departmentName &&
+                            {searchParameters.departmentId &&
                             <li>
                                 <OverlayTrigger
                                     placement="top"
@@ -163,7 +163,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                     overlay={(props) => <Tooltip {...props}>Department Name</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
-                                        {searchParameters.departmentName ? searchParameters.departmentName.label : ''}
+                                        {searchParameters.departmentId ? searchParameters.departmentId.label : ''}
                                     </Button>
                                 </OverlayTrigger>
 

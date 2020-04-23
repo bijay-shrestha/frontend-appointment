@@ -4,7 +4,7 @@ import DetailsModal from "./DetailsModal";
 
 const PreviewDetails = props => {
     const {showModal, setShowModal, hospitalData} = props;
-    console.log('hospital Data::',hospitalData);
+    // console.log('hospital Data::',hospitalData);
     return <>
         <CModal show={showModal}
                 modalHeading="Client Details"

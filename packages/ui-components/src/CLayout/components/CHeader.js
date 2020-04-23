@@ -203,13 +203,13 @@ class CHeader extends Component {
                                     <div className="profile-name">
                                         {this.state.userInfo && this.state.userInfo.profileName}
                                     </div>
-                                    {this.state.userInfo.isCompany === 'Y' ? (
-                                        <div>
-                                            <Badge variant="primary">Cogent Admin</Badge>
-                                        </div>
-                                    ) : (
-                                        ''
-                                    )}
+                                    {/*{this.state.userInfo.isCompany === 'Y' ? (*/}
+                                    {/*    <div>*/}
+                                    {/*        <Badge variant="primary">Cogent Admin</Badge>*/}
+                                    {/*    </div>*/}
+                                    {/*) : (*/}
+                                    {/*    ''*/}
+                                    {/*)}*/}
                                     <Button
                                         variant="outline-light"
                                         className="mb-2 reset-password"

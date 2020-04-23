@@ -18,7 +18,7 @@ import {
     EnvironmentVariableGetter,
     menuRoles,
     ProfileSetupUtils,
-    TryCatchHandler,
+    TryCatchHandler, UserMenuUtils,
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
@@ -140,8 +140,7 @@ class ProfileAdd extends PureComponent {
 
     filterMenuByDepartment = () => {
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
-        let alphabeticallySortedMenus = ProfileSetupUtils.getAlphabeticallySortedUserMenusByHospitalType(
-            hospitalsForDropdown, this.state.selectedHospital.value);
+        let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]);
 
         alphabeticallySortedMenus ?
             this.setState({

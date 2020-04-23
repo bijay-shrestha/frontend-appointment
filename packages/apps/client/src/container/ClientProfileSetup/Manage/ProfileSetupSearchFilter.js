@@ -138,7 +138,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                         <ul id="" className="search-filter-item">
                             <li>
                                 <CButton variant="primary" name="">
-                                    <><i className="fa fa-filter"></i>
+                                    <><i className="fa fa-sliders"></i>
                                         &nbsp; Filter
                                     </>
                                 </CButton>

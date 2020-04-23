@@ -178,7 +178,7 @@ class CImageUploadAndCropModal extends PureComponent {
         const bodyContent = (<>
             <Container fluid="true">
                 <Row>
-                    <Col md={12} lg={8} >
+                    <Col md={12} lg={8}>
                         <div className="image-container">
 
                             {imageSrc ?
@@ -215,28 +215,30 @@ class CImageUploadAndCropModal extends PureComponent {
 
                         </div>
                         {errorMessage ?
-                        <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
-                        </p> : ''}
-                    <input id="imageUpload" type="file" accept="image/*" onChange={this.handleImageSelect} className=""/>
+                            <p className="modal-error"><i
+                                className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+                            </p> : ''}
+                        <input id="imageUpload" type="file" accept="image/*" onChange={this.handleImageSelect}
+                               className=""/>
 
                     </Col>
                     <Col md={12} lg="4">
                         <div className="cropped-image-container">
-                        <div className="cropped-image">
-                            <p className="text-center">Preview Final Image</p>
-                            {croppedImageSrc && (
-                                <img alt="Crop" style={{maxWidth: '100%'}}
-                                     src={croppedImageSrc}
-                                />
-                            )}
+                            <div className="cropped-image">
+                                <p className="text-center">Preview Final Image</p>
+                                {croppedImageSrc && (
+                                    <img alt="Crop" style={{maxWidth: '100%'}}
+                                         src={croppedImageSrc}
+                                    />
+                                )}
+                            </div>
                         </div>
-                        </div>
-                       
+
                     </Col>
                 </Row>
 
             </Container>
-           
+
         </>);
 
         let footerContent = <>
@@ -244,7 +246,7 @@ class CImageUploadAndCropModal extends PureComponent {
                 <Row>
                     <div className="col-md-12">
                         <CButton
-                            name="Upload"
+                            name="Confirm"
                             variant="primary"
                             size="xl"
                             className="float-right btn-action"

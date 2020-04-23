@@ -176,7 +176,7 @@ class CompanyAdminSetupSearchFilter extends PureComponent {
               <li>
                 <CButton id="filter" variant="primary" name="">
                   <>
-                    <i className="fa fa-filter" >
+                    <i className="fa fa-sliders" >
                     &nbsp; Filter
                     </i>
                   </>
