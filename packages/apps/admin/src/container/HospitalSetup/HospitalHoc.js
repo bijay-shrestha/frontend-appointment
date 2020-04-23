@@ -40,7 +40,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 refundPercentage: '',
                 numberOfAdmins: '',
                 numberOfFollowUps: '',
-                followUpIntervalDays: ''
+                followUpIntervalDays: '',
+                nameLengthErrorMsg: ''
             },
             formValid: false,
             nameValid: false,
@@ -330,7 +331,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     ) {
                         filteredContactNumber.push(contactEdit)
                         flag = true
-                        console.log("========", filteredContactNumber)
+                        // console.log("========", filteredContactNumber)
                         break;
                     }
 
@@ -341,7 +342,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
 
             });
-            console.log(filteredContactNumber)
+            // console.log(filteredContactNumber)
             contactNumber.map(cont => {
                 if (!cont.hospitalContactNumberId && cont.contactNumber.length) filteredContactNumber.push(cont)
             })
@@ -634,28 +635,30 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage
-            }
+            };
 
-            let formData = new FormData()
+            let formData = new FormData();
+            hospitalLogo &&
             formData.append(
                 'logo',
                 hospitalLogo
                     ? new File([hospitalLogo], name.concat('-picture.jpeg'))
                     : null
-            )
+            );
+            hospitalBanner &&
             formData.append(
                 'banner',
                 hospitalBanner
                     ? new File([hospitalBanner], name.concat('-picture.jpeg'))
                     : null
-            )
+            );
 
             try {
                 await this.props.createHospital(
                     hospitalSetupApiConstants.CREATE_HOSPITAL,
                     hospitalData,
                     formData
-                )
+                );
 
                 await this.setShowConfirmModal();
                 this.resetHospitalStateValues();
@@ -697,8 +700,28 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     ? {value: value, label: label}
                     : {value: null}
             await this.setTheState('hospitalData', hospital, fieldValid, name)
+            if (name === 'name') {
+                if (value.length >= 3) {
+                    let alias = value.substring(0, 3).toUpperCase();
+                    this.setState({
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            alias: alias,
+                            nameLengthErrorMsg: ''
+                        }
+                    })
+                } else {
+                    this.setState({
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            nameLengthErrorMsg: "Name should contain more that 3 character.",
+                            alias: ''
+                        }
+                    })
+                }
+            }
             this.checkFormValidity(eventType)
-        }
+        };
 
         async componentDidMount() {
             if (type === 'M') {

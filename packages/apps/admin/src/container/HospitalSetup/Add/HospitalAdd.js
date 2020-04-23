@@ -93,7 +93,8 @@ function HospitalAdd(props) {
                                 id="save-profile-add"
                                 variant="primary "
                                 className="float-right btn-action"
-                                name={showConfirmModal? "Saving":"Save"}
+                                name={"Save"}
+                                isLoading={showConfirmModal}
                                 disabled={!formValid || showConfirmModal}
                                 onClickHandler={setShowConfirmModal}
                             />
