@@ -16,12 +16,12 @@ const CEmailVerificationView = () => {
                                     <div className="login-header">
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <p className="change-email-verify">Your email has been verified. Click below to Login.</p>
+                                    <p className="change-email-verify">Your email has been verified. Please click below.</p>
                                     <CForm
                                         id="save-password"
                                         className="login-form">
                                         <CButton id="login-page-redirect"
-                                                 name={"Go to Login"}
+                                                 name={"Go Back To Login"}
                                                  href={"#/"}
                                         />
                                     </CForm>

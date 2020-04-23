@@ -67,7 +67,7 @@ class NewPassword extends PureComponent {
                 verificationToken,
             })
             localStorageRemover()
-            this.props.history.push('/')
+            this.props.history.push('/password/save/verify')
         } catch (e) {
             this.setState({
                 alertMessageInfo: {

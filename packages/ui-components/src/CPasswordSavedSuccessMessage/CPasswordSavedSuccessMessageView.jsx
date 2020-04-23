@@ -1,49 +1,28 @@
-import React, {memo} from 'react'
-import {CForm, CHybridInput, CButton} from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image} from 'react-bootstrap'
+import React from 'react'
+import {Col, Container, Image, Row} from 'react-bootstrap'
 import logo from './images/400x400.png'
+import {CButton, CForm} from '@frontend-appointment/ui-elements'
 
-const CCodeVerification = ({
-                               codeVerificationData,
-                               onChangeHandler,
-                               onSubmitFormHandler,
-                               isValid,
-                               status
-                           }) => {
+const CPasswordSavedSuccessMessageView = () => {
+
     return (
         <>
             <div className="header-login new-password">
                 <div className="inner-header flex">
                     <Container className="container-login">
-
                         <Row>
                             <Col md={{span: 6, offset: 3}} className="login-right">
-                                <div className="login-wrapper">
+                                <div className="login-wrapper verify-wrapper">
                                     <div className="login-header">
-
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <CForm id="save-password" className="login-form">
-                                        <p className="login-page-title">Verify Password Reset</p>
-                                        <CHybridInput
-                                            id="code"
-                                            name="code"
-                                            placeholder="Enter the verification token"
-                                            onChange={onChangeHandler}
-                                            value={codeVerificationData.code}
-                                        />
-                                        <CButton
-                                            variant="primary"
-                                            className="btn-action float-right"
-                                            type="button"
-                                            disabled={
-                                                !isValid || status && status.toLowerCase() === 'pending'
-                                                    ? true
-                                                    : false
-                                            }
-                                            isLoading={ status && status.toLowerCase() === 'pending'}
-                                            onClickHandler={onSubmitFormHandler}
-                                            name={'Send'}
+                                    <p className="change-email-verify">Your password has been saved successfully. Please click below.</p>
+                                    <CForm
+                                        id="save-password"
+                                        className="login-form">
+                                        <CButton id="login-page-redirect"
+                                                 name={"Go Back To Login"}
+                                                 href={"#/"}
                                         />
                                     </CForm>
                                 </div>
@@ -97,6 +76,6 @@ const CCodeVerification = ({
             </div>
         </>
     )
-}
+};
 
-export default memo(CCodeVerification)
+export default CPasswordSavedSuccessMessageView;

@@ -15,3 +15,6 @@ export {default as CChangePasswordInForget} from './src/CChangePaswordInForget/C
 export {default as CRemarksModal} from './src/CRemarksModal/CRemarksModal';
 export {default as CNoDashboardRoleContent} from './src/CNoDashboardRoleContent/CNoDashboardRoleContent';
 export {default as CEmailVerification} from './src/CEmailVerification/CEmailVerification';
+export {
+    default as CPasswordSavedSuccessMessageView
+}from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
