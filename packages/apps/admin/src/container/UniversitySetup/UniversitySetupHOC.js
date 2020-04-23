@@ -297,7 +297,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
         resetUniversityData = () => {
             this.defaultUniversityData.id = '';
             this.defaultUniversityData.name = '';
-            this.defaultUniversityData.status = '';
+            this.defaultUniversityData.status = {label: 'Active', value: 'Y'};
             this.defaultUniversityData.address = '';
             this.defaultUniversityData.countryName = '';
             this.defaultUniversityData.remarks = '';
