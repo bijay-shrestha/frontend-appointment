@@ -389,7 +389,7 @@ const HospitalEditModal = ({
                                 <CHybridTextArea
                                     id="remarks"
                                     name="remarks"
-                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    // onKeyDown={event => onEnterKeyPress(event)}
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
