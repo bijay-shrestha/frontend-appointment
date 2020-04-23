@@ -39,7 +39,7 @@ class DepartmentManage extends PureComponent {
         showEditModal: false,
         deleteModalShow: false,
         searchParameters: {
-            departmentName: '',
+            departmentId: '',
             departmentCode: '',
             status: {value: 'A', label: 'All'}
         },
@@ -132,7 +132,7 @@ class DepartmentManage extends PureComponent {
         await this.setState({
             searchParameters: {
                 ...this.state.searchParameters,
-                departmentName: '',
+                departmentId: '',
                 departmentCode: '',
                 status: {value: 'A', label: 'All'}
             },
@@ -141,9 +141,9 @@ class DepartmentManage extends PureComponent {
     };
 
     searchDepartments = async (page) => {
-        const {departmentName, departmentCode, status, hospital} = this.state.searchParameters;
+        const {departmentId, departmentCode, status, hospital} = this.state.searchParameters;
         let searchData = {
-            name: departmentName && departmentName.value,
+            id: departmentId && departmentId.value,
             departmentCode: departmentCode,
             status: status && status.value !== 'A'
                 ? status.value

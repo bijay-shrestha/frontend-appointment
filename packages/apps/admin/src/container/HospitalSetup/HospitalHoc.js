@@ -31,8 +31,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalCode: '',
                 hospitalLogo: null,
                 hospitalLogoUrl: '',
+                hospitalLogoUrlNew: '',
                 hospitalBanner: null,
                 hospitalBannerUrl: '',
+                hospitalBannerUrlNew: '',
                 contactNumber: [''],
                 contactNumberUpdateRequestDTOS: [],
                 editContactNumberRequestDTOS: [],
@@ -300,7 +302,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         contactNumberUpdateRequestDTOS: [...contactNumberResponseDTOS],
                         editContactNumberRequestDTOS: [...contactNumberResponseDTOS],
                         hospitalLogoUrl: hospitalLogo,
+                        hospitalLogoUrlNew: '',
                         hospitalBannerUrl: hospitalBanner,
+                        hospitalBannerUrlNew: '',
                         hospitalLogo: new File([5120], hospitalLogo),
                         hospitalImage: new File([5120], hospitalLogo),
                         hospitalImageCroppedUrl: hospitalLogo,
@@ -366,7 +370,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfAdmins,
                 numberOfFollowUps,
                 // isCompany,
-                alias
+                alias,
+                hospitalLogoUrlNew,
+                hospitalBannerUrlNew
             } = this.state.hospitalData
             let hospitalData = {
                 id,
@@ -380,20 +386,25 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 panNumber,
                 hospitalCode,
                 alias,
-                // isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
-                refundPercentage
-            }
+                refundPercentage,
+                isLogoUpdate: hospitalLogoUrlNew ? 'Y' : 'N',
+                isBannerUpdate: hospitalBannerUrlNew ? 'Y' : 'N'
+            };
 
-            let formData = new FormData()
+            let formData = new FormData();
+
+            hospitalLogoUrlNew &&
             formData.append(
                 'logo',
                 hospitalLogo
                     ? new File([hospitalLogo], name.concat('-picture.jpeg'))
                     : null
-            )
+            );
+
+            hospitalBannerUrlNew &&
             formData.append(
                 'banner',
                 hospitalBanner
@@ -565,18 +576,23 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         }
 
         handleImageUpload = async croppedImageFile => {
-            let croppedImage = this.state.hospitalImageCroppedUrl
-            let hospitalImage = {...this.state.hospitalData}
+            let croppedImage = this.state.hospitalImageCroppedUrl;
+            let hospitalImage = {...this.state.hospitalData};
             hospitalImage.hospitalLogo = new File(
                 [croppedImageFile],
                 'hospitalAvatar.jpeg'
-            )
-            hospitalImage.hospitalLogoUrl = croppedImage
+            );
+            if (type === 'M') {
+                hospitalImage.hospitalLogoUrlNew = croppedImage;
+            } else {
+                hospitalImage.hospitalLogoUrl = croppedImage;
+            }
+
             await this.setState({
                 hospitalData: {...hospitalImage},
                 showImageUploadModal: false
             })
-        }
+        };
 
         handleBannerSelect = imageUrl => {
             imageUrl && this.setState({hospitalBannerImage: imageUrl})
@@ -590,18 +606,22 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         }
 
         handleBannerImageUpload = async croppedImageFile => {
-            let croppedImage = this.state.hospitalBannerImageCroppedUrl
-            let hospitalImage = {...this.state.hospitalData}
+            let croppedImage = this.state.hospitalBannerImageCroppedUrl;
+            let hospitalImage = {...this.state.hospitalData};
             hospitalImage.hospitalBanner = new File(
                 [croppedImageFile],
                 'hospitalBanner.jpeg'
-            )
-            hospitalImage.hospitalBannerUrl = croppedImage
+            );
+            if (type === 'M') {
+                hospitalImage.hospitalBannerUrlNew = croppedImage;
+            } else {
+                hospitalImage.hospitalBannerUrl = croppedImage;
+            }
             await this.setState({
                 hospitalData: {...hospitalImage},
                 showBannerUploadModal: false
             })
-        }
+        };
 
         handleConfirmClick = async () => {
             const {

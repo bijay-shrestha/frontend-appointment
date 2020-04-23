@@ -56,9 +56,11 @@ const HospitalEditModal = ({
                                     alt="CLIENT BANNER"
                                     className="hospital-banner"
                                     src={
-                                        hospitalData.hospitalBannerUrl
-                                            ? hospitalData.hospitalBannerUrl
-                                            : DefaulHospitalImage
+                                        hospitalData.hospitalBannerUrlNew
+                                            ? hospitalData.hospitalBannerUrlNew :
+                                            (hospitalData.hospitalBannerUrl
+                                                ? hospitalData.hospitalBannerUrl
+                                                : DefaulHospitalImage)
                                     }
                                 />
 
@@ -67,9 +69,11 @@ const HospitalEditModal = ({
                                         <img
                                             alt="CLIENT IMAGE"
                                             src={
-                                                hospitalData.hospitalLogoUrl
-                                                    ? hospitalData.hospitalLogoUrl
-                                                    : DefaulHospitalImage
+                                                hospitalData.hospitalLogoUrlNew ?
+                                                    hospitalData.hospitalLogoUrlNew :
+                                                    (hospitalData.hospitalLogoUrl
+                                                        ? hospitalData.hospitalLogoUrl
+                                                        : DefaulHospitalImage)
                                             }
                                         />
                                         <CButton
