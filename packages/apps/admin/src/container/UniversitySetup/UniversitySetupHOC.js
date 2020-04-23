@@ -368,6 +368,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                         ...queryParams,
                         page: updatedPage
                     },
+                    isActionComplete: true
                 })
             } catch (e) {
 
