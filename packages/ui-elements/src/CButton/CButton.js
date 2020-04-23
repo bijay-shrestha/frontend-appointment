@@ -20,14 +20,24 @@ const CButton = props => {
         bsPrefix,
         isLoading
     } = props;
-    const checkAndRenameNameForLoading = () => {
+    const checkVowelsCondition =splitName =>{
         const vowels = ['a', 'e', 'i', 'o', 'u']
-        const splitName = name.split('')
         if (vowels.includes(splitName[name.length - 1])) {
-            return name.slice(0, name.length - 1) + "ing"
+            return splitName.slice(0, name.length - 1).join('') + "ing"
         } else {
-            return name + "ing"
+            return splitName.join('') + "ing"
         }
+       
+
+    }
+    const checkAndRenameNameForLoading = () => {
+      
+        const splitNameCheck =name.split(' ');
+        const splitName = splitNameCheck[0].split('') 
+        const newName = checkVowelsCondition(splitName)
+        if(splitNameCheck>1)
+         return newName+' '+splitNameCheck[1] 
+        return newName;
     }
     return (
         <>
