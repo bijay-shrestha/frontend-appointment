@@ -17,12 +17,12 @@ const CChangePasswordInForget = ({
                                  }) => {
     return (
         <>
-            <div className="header-login forgot-password">
+            <div className="header-login">
                 <div className="inner-header flex">
                     <Container className="container-login">
                         <Row>
                             <Col md={{span: 6, offset: 3}} className="login-right">
-                                <div className="login-wrapper">
+                                <div className="login-wrapper  forgot-password">
                                     <div className="login-header">
                                         <p className="login-page-title">Password Reset</p>
                                         {/* // <Image src={logo} className="logo-image" /> */}

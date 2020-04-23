@@ -369,7 +369,7 @@ const DoctorEditModal = ({
             <CModal
                 show={showModal}
                 modalHeading="Doctor Details"
-                size="lg"
+                size="xl"
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}
