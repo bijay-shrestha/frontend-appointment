@@ -24,7 +24,7 @@ const CChangePasswordInForget = ({
                             <Col md={{span: 6, offset: 3}} className="login-right">
                                 <div className="login-wrapper">
                                     <div className="login-header">
-                                        <p className="login-page-title">Reset New Password</p>
+                                        <p className="login-page-title">Password Reset</p>
                                         {/* // <Image src={logo} className="logo-image" /> */}
                                     </div>
                                     <CForm id="save-password" className="login-form">
