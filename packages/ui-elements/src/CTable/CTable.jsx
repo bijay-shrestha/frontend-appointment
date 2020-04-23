@@ -329,7 +329,7 @@ class CTable extends PureComponent {
                         className="add-new"
                         size="lg"
                     >
-                        <i className="fa fa-plus"/> &nbsp;New
+                        <i className="fa fa-plus-circle"/> &nbsp;New
 
                     </CButton>
                 ) : (

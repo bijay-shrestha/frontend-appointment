@@ -9,7 +9,7 @@ const HospitalConfirmationModal = props => {
             <CModal
                 show={showModal}
                 modalHeading="Doctor Details"
-                size="lg"
+                size="xl"
                 bodyChildren={
                     <DetailsModal
                         doctorData={doctorData}

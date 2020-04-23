@@ -262,7 +262,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         ...this.state.queryParams,
                         page: updatedPage
                     },
-                    qualificationAlias: [...this.props.QualificationAliasSearchReducer.qualificationAliasList]
+                    qualificationAlias: [...this.props.QualificationAliasSearchReducer.qualificationAliasList],
+                    isActionComplete: true
                 })
             } catch (e) {
                 await this.setState({

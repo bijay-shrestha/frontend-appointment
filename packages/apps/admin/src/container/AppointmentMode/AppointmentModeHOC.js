@@ -397,7 +397,8 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                         ...queryParams,
                         page: updatedPage
                     },
-                    appointmentModeList: [...appointmentModeList]
+                    appointmentModeList: [...appointmentModeList],
+                    isActionComplete: true
                 });
             } catch (e) {
 

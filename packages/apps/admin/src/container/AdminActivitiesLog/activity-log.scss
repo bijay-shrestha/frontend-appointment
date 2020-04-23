@@ -97,14 +97,21 @@
     
     }
 
+    .total-count{
+       margin-top:10px;
+        text-align: center;
+        font-weight:500;
+        font-size:0.9rem;
+    }
+
     .legend-box{
         display: block;
-       
-        width:280px;
+    //    min-width: 320px;
+        width:400px;
         height: auto;
-        // border:1px solid #ccc;
+         border:1px solid #ccc;
         margin:20px auto;
-        padding:8px;
+        padding:12px;
        
         
         @include border-radius(0.5rem);
@@ -115,8 +122,8 @@
             height: 30px;
             display: flex;
             flex-direction: row;
-            justify-content: center;
-            align-items: center;
+            justify-content: left;
+            // align-items: center;
 
             // span{
             //     // border:1px solid #ccc;
@@ -132,29 +139,34 @@
                 margin-right:6px;
                 background-color:$primary;
                 line-height: 1;
-                text-align: center;
+                // text-align: center;
                 border-radius: 0.25rem;
             
             }
 
+            .data{
+                font-weight: 500;
+                font-size: 12px;
+                color:$gray-900
+            }
             
 
             &:nth-child(1){
                .legend{
-                    background-color:lighten($primary,0);
+                    background-color:lighten($primary, 25%);
                 }
             }
 
             &:nth-child(2){
                 .legend{
-                    background-color:#CCCCB3;
+                    background-color:#0277BD;
                 }
             }
 
             
             &:nth-child(3){
                 .legend{
-                    background-color:#003B46;
+                    background-color:#fff26b;
                 }
             }
 
@@ -198,7 +210,7 @@
 
             &:nth-child(10){
                 .legend{
-                    background-color:#00FF00;
+                    background-color:#34675C;
                 }
             }
         }
@@ -206,6 +218,7 @@
         p{
             text-align: center;
             font-weight:500;
+            font-size:0.9rem;
         }
     }
 
