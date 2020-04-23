@@ -60,12 +60,13 @@ const AdminInfoForm = ({
                                 />
                                 <CButton
                                     id="uploadAdminImage"
-                                    name="Upload"
+                                    name=""
                                     size="lg"
                                     variant="primary"
                                     className=" mt-1 mb-4  upload-button"
                                     onClickHandler={setShowModal}
-                                />
+                              > <i className="fa fa-upload"></i>&nbsp;Upload
+                              </CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showModal}
                                     setShowModal={setShowModal}

@@ -224,6 +224,19 @@ flex-direction:column;
   }
 }
 
+.forgot-password{
+  padding: 60px 10px;
+  .login-page-title{
+    text-transform: capitalize;
+    color: #0059e6;
+    text-align: center;
+    font-weight: 400;
+    font-size: 19px;
+    margin: 4px 0 24px;
+    display:block;
+  }
+}
+
 // .logo-wrapper{
 // background-color:$gray-100;
 // width:48px;

@@ -76,8 +76,9 @@ input::-webkit-input-placeholder {
 	width:40px;
 	cursor: pointer;
 	color:transparent;
-
-	background: transparent url(./search.svg) no-repeat left    center;
+	position: relative;
+	
+	 background: transparent url(./search.svg) no-repeat left    center;
 	background-size:36px 18px;
 	border:1px solid transparent;
 	padding: 9px 6px;
@@ -92,6 +93,16 @@ input::-webkit-input-placeholder {
 	-webkit-transition: all .2s;
 	-moz-transition: all .2s;
 	transition: all .2s;
+
+	// &::before{
+	// 	position: absolute;
+	// 	font-family: 'FontAwesome';
+	// 	top: 0;
+	// 	left: 10px;
+	// 	content: "\f002";
+	// 	background-color: $gray-400;
+	// 	color:$gray-900;
+	// }
 }
 #menu-search input[type=search]:hover {
 	background-color: #fff;

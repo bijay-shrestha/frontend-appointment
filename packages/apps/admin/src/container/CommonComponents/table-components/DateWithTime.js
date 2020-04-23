@@ -6,10 +6,11 @@ const DateWithTime = (props) => {
         <>
             <ul className="doctor-column">
                 <li>
-                 {props.node.data.logDate}
+                  {props.node.data.logDate}
+                
                 </li>
                 <li>
-                 {props.node.data.logTime}
+                <i className="fa fa-clock-o"></i>&nbsp;{props.node.data.logTime}
                 </li>
             </ul>
         </>

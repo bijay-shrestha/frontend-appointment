@@ -8,7 +8,7 @@ const PreviewDetails = props => {
     return <>
         <CModal show={showModal}
                 modalHeading="Doctor Details"
-                size="lg"
+                size="xl"
                 bodyChildren={<DetailsModal
                 doctorData={doctorData}
                 type="M"

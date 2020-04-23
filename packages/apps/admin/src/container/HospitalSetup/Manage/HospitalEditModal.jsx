@@ -78,11 +78,12 @@ const HospitalEditModal = ({
                                         />
                                         <CButton
                                             id="uploadAdminImage"
-                                            name="Upload"
+                                            name=""
                                             size="lg"
                                             className="upload-button my-1"
                                             onClickHandler={setImageShow}
-                                        />
+                                        ><i className="fa fa-upload"></i>&nbsp;Upload
+                                        </CButton>
                                         <CImageUploadAndCropModal
                                             showModal={showImageUploadModal}
                                             ruleOfThirds={true}
@@ -98,12 +99,13 @@ const HospitalEditModal = ({
 
                                 <CButton
                                     id="uploadBanner"
-                                    name="Upload Banner"
+                                    name=""
                                     size="lg"
                                     variant="primary"
                                     className=" mt-1 mb-4 banner-upload-button"
                                     onClickHandler={setShowBannerUploadModal}
-                                />
+                                > <i className="fa fa-upload"></i>&nbsp;Upload Banner
+                                </CButton>
                                 <CImageUploadAndCropModal
                                     id="hospital-baner"
                                     ruleOfThirds={true}

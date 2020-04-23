@@ -74,11 +74,11 @@ const DoctorEditModal = ({
                                 />
                                 <CButton
                                     id="uploadAdminImage"
-                                    name="Upload"
+                                    name=""
                                     size="lg"
                                     className="upload-button my-1"
                                     onClickHandler={setImageShow}
-                                />
+                                ><i className="fa fa-upload"></i>&nbsp;Upload</CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showImageUploadModal}
                                     ruleOfThirds={true}
@@ -351,7 +351,7 @@ const DoctorEditModal = ({
             <CModal
                 show={showModal}
                 modalHeading="Doctor Details"
-                size="lg"
+                size="xl"
                 backdrop={true}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
