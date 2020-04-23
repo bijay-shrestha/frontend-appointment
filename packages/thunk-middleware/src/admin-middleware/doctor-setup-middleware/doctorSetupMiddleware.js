@@ -62,7 +62,6 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage || 'Sorry Internal Server Error'));
-        throw e;
     }
 };
 
@@ -99,7 +98,7 @@ export const fetchActiveDoctorsForDropdown = path => async dispatch => {
                 e.errorMessage ? e.errorMessage : 'Error fetching doctors.'
             )
         );
-        throw e;
+       
     }
 };
 

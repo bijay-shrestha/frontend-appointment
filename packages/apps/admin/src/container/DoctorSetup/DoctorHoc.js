@@ -680,8 +680,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     doctorSetupApiConstants.DELETE_DOCTOR,
                     this.state.deleteRequestDTO
                 );
+                this.setShowModal();
                 await this.setState({
-                    deleteModalShow: false,
                     deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
                     alertMessageInfo: {
                         variant: 'success',
@@ -740,9 +740,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
         async componentDidMount() {
             try {
-                if (type === 'M') {
-                    await this.searchDoctor()
-                }
 
                 this.props.fetchActiveQualificationsForDropdown(
                     qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE
@@ -750,6 +747,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 this.props.fetchActiveHospitalsForDropdown(
                     hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
                 )
+                if (type === 'M') {
+                    await this.searchDoctor()
+                }
+            
             } catch (e) {
                 console.log(e)
             }
