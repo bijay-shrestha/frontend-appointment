@@ -2,22 +2,20 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
   AdminLoggingMiddleware,
-  fetchAdminMetaInfoByHospitalId,
+  fetchAdminMetaInfo,
 
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './activity-log.scss'
 import {
+  EnterKeyPressUtils,
   DateTimeFormatterUtils,
   menuRoles,
   LocalStorageSecurity,
-  EnvironmentVariableGetter,
   CommonUtils
 } from '@frontend-appointment/helpers'
 const {fetchAdminLog, fetchAdminLogStatistics,fetchAdminDiagramStatistics} = AdminLoggingMiddleware
-const {getUserNameHospitalIdAndAdminId}=CommonUtils
-
+const {getUserNameHospitalIdAndAdminId}=CommonUtils;
 const ClientActivityLogHOC = (ComposedComponent, props, type) => {
   const {
     clientLoggingConstant,
@@ -39,11 +37,11 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
       },
       queryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsQueryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsTotalRecord: 0,
       totalRecords: 0,
@@ -59,7 +57,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
     
     searchHospitalAdminDropDown = async (id)=> {
       try{
-        await this.props.fetchAdminMetaInfoByHospitalId(adminSetupAPIConstants.FETCH_ADMIN_META_INFO_BY_HOSPITAL_ID,id)
+        await this.props.fetchAdminMetaInfo(adminSetupAPIConstants.FETCH_ADMIN_META_INFO)
       }catch(e){
         console.log(e);
       }
@@ -317,7 +315,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
         logDiagramSearchErrorMessage,
         totalCounts
       } = this.props.AdminLoggingDiagramSearchReducer
-      const {adminMetaInfoByHospitalIdForDropdown} = this.props.AdminSetupReducer
+      const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer
       return (
         <div id="admin-acitivity-log">
           <ComposedComponent
@@ -327,7 +325,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
               handleEnter: this.handleEnterPress,
               handleSearchFormChange: this.handleSearchFormChange,
               resetSearch: this.handleSearchFormReset,
-              adminMetaInfoByHospitalIdForDropdown:this.changeHospitalAdminDropdownValue(adminMetaInfoByHospitalIdForDropdown),
+              adminMetaInfoByHospitalIdForDropdown:this.changeHospitalAdminDropdownValue(adminMetaInfoForDropdown),
               searchAdminActivityLog: this.searchAdminActivityLog,
               searchParameters: searchParameters,
               parentList: menuList,
@@ -381,7 +379,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
       fetchAdminLog,
       fetchAdminDiagramStatistics,
       fetchAdminLogStatistics,
-      fetchAdminMetaInfoByHospitalId
+      fetchAdminMetaInfo
     }
   )
 }
