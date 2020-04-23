@@ -216,7 +216,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 // let formValid = this.state.formValid;
                 // if (remarks)
                 //     formValid = true;
-                this.setState({
+                await this.setState({
                     showEditModal: true,
                     specializationData: {
                         id: id,
@@ -225,9 +225,9 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                         status: status,
                         remarks: ''
                     },
-                    formValid: false,
-                    nameValid: true
+                    nameValid: name.length||false
                 })
+                this.checkFormValidity('E')
             } catch (e) {
                 console.log(e)
             }

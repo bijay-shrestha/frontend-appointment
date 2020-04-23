@@ -88,7 +88,7 @@ const DepartmentEditModal = ({
                             id="Specialization Remarks"
                             name="remarks"
                             //onKeyDown={event => onEnterKeyPress(event)}
-                            onChange={(event, validity) => onInputChange(event, validity)}
+                            onChange={(event, validity) => onInputChange(event, validity,'E')}
                             placeholder="Specialization Remarks"
                             value={specializationData.remarks}
                             required={true}
