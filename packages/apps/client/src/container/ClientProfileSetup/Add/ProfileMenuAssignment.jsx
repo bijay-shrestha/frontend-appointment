@@ -311,7 +311,9 @@ class ProfileMenuAssignment extends PureComponent {
             && profileData.departmentValue.value !== prevState.selectedDepartment) {
             this.setTotalNumberOfMenusAndRoles();
             defaultSelectedMenu.length !== 0 ?
-                TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
+                (defaultSelectedMenu.childMenus.length ?
+                    TryCatchHandler.genericTryCatch(this.handleChildMenuClick(defaultSelectedMenu.childMenus[0]))
+                    : this.handleAccordionSelect(defaultSelectedMenu))
                 :
                 this.setState({
                     currentSelectedChildMenu: [],

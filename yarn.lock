@@ -13133,14 +13133,14 @@ rc@^1.0.1, rc@^1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-css-transition-group@^15.6.2:
+react-addons-css-transition-group@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-css-transition-group/-/react-addons-css-transition-group-15.6.2.tgz#9e4376bcf40b5217d14ec68553081cee4b08a6d6"
   integrity sha1-nkN2vPQLUhfRTsaFUwgc7ksIptY=
   dependencies:
     react-transition-group "^1.2.0"
 
-react-addons-shallow-compare@^15.6.2:
+react-addons-shallow-compare@^15.6.0:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.6.2.tgz#198a00b91fc37623db64a28fd17b596ba362702f"
   integrity sha1-GYoAuR/DdiPbZKKP0XtZa6NicC8=
@@ -13482,7 +13482,7 @@ react-test-renderer@^16.0.0-0, react-test-renderer@^16.8.6:
     react-is "^16.8.6"
     scheduler "^0.18.0"
 
-react-transition-group@^1, react-transition-group@^1.2.0:
+react-transition-group@^1.2.0, react-transition-group@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"
   integrity sha512-CWaL3laCmgAFdxdKbhhps+c0HRGF4c+hdM4H23+FI1QBNUyx/AMeIJGWorehPNSaKnQNOAxL7PQmqMu78CDj3Q==

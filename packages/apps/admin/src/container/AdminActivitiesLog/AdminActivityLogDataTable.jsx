@@ -11,6 +11,7 @@ import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
 import DateWithTime from '../CommonComponents/table-components/DateWithTime'
+import BrowserIconComponent from '../CommonComponents/table-components/BrowserIconComponent'
 import './activity-log.scss'
 const AdminActivityLogDataTable = ({
   tableHandler,
@@ -165,13 +166,11 @@ const AdminActivityLogDataTable = ({
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  field: 'browser',
                   autoSize: true,
-                  width: '100',
-                  valueFormatter: function (params) {
-                    return params.value || 'N/A'
-                  }
+                  cellRenderer: 'browserIcon',
+                  width: '100'
                 },
+               
                 // {
                 //   headerName: 'Location',
                 //   resizable: true,
@@ -208,7 +207,8 @@ const AdminActivityLogDataTable = ({
               frameworkComponents={{
                 childLabelRenderer: LoggingStatus,
                 EmailWithMobileNumber: EmailWithMobileNumber,
-                LogDateAndTime: DateWithTime
+                LogDateAndTime: DateWithTime,
+                browserIcon:BrowserIconComponent
               }}
             />
             <CPagination
