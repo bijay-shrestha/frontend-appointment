@@ -13,6 +13,7 @@ const DASHBOARD_BASE = '/dashboard'
 const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
+const CLIENT_LOGGING='/client-log'
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -233,6 +234,12 @@ export const adminLoggingConstant = {
     FETCH_CLIENT_LOG_STATS: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/client/log-statics")),
     FETCH_CLIENT_CHART: LOG_BASE.concat(BASE.concat(ADMIN_LOGGING + "/client/log-diagram"))
 }
+export const clientLoggingConstant ={
+   FETCH_CLIENT_LOG:LOG_BASE.concat(BASE.concat(CLIENT_LOGGING+'/search')),
+   FETCH_CLIENT_LOG_STATS:LOG_BASE.concat(BASE.concat(CLIENT_LOGGING+"/log-statics")),
+   FETCH_CLIENT_CHART:LOG_BASE.concat(BASE.concat(CLIENT_LOGGING+"/log-diagram"))
+}
+
 
 const UNIVERSITY_BASE = "/university";
 export const universitySetupApiConstants = {

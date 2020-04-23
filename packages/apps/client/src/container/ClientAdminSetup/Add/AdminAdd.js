@@ -323,7 +323,7 @@ class AdminAdd extends PureComponent {
                 })
                 : [],
             baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL,
-            adminDashboardRequestDTOS: [...newAdminDashboardRequest]
+            adminDashboardRequestDTOS: newAdminDashboardRequest.length?[...newAdminDashboardRequest]:[]
             // baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT))
         }
 

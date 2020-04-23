@@ -42,10 +42,11 @@ class ClientActivityLogSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalsDropdown,
+      //hospitalsDropdown,
       searchParameters,
       parentList,
       roles,
+      clientName,
       adminMetaInfoByHospitalIdForDropdown
     } = searchHandler
 
@@ -72,27 +73,10 @@ class ClientActivityLogSearchFilter extends PureComponent {
                 <Row>
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
-                      id="clientId"
-                      name="clientId"
-                      label="Hospital"
-                      placeholder="Select Hospital"
-                      options={hospitalsDropdown}
-                      isDisabled={hospitalsDropdown.length ? false : true}
-                      value={searchParameters.clientId}
-                      onChange={handleSearchFormChange}
-                      onKeyDown={handleEnter}
-                    />
-                  </Col>
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelect
                       id="adminMetaInfoId"
                       name="adminMetaInfoId"
                       label="Admin Meta Info"
-                      placeholder={
-                        searchParameters.hospitalId
-                          ? 'Select Admin Meta Info'
-                          : 'Select Hospital First'
-                      }
+                      placeholder={'Select Admin Meta Info'}
                       options={adminMetaInfoByHospitalIdForDropdown}
                       isDisabled={
                         adminMetaInfoByHospitalIdForDropdown.length
@@ -253,7 +237,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.clientId.label}
+                      {clientName}
                     </Button>
                   </OverlayTrigger>
                 </li>
