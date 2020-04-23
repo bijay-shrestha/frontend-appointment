@@ -335,7 +335,7 @@
         },
         {
           "id": "23",
-          "parentId": "null",
+          "parentId": "20",
           "name": "Company Admin Setup",
           "path": "/companySettings/companyadmin",
           "roles": [
@@ -356,7 +356,7 @@
         },
         {
           "id": "18",
-          "parentId": "23",
+          "parentId": "20",
           "name": "Qualification Alias Setup",
           "path": "/companySettings/qualificationAlias",
           "roles": [
@@ -376,7 +376,7 @@
         },
         {
           "id": "19",
-          "parentId": "23",
+          "parentId": "20",
           "name": "University Setup",
           "path": "/companySettings/universitySetup",
           "roles": [
@@ -396,7 +396,7 @@
         },
         {
           "id": "8",
-          "parentId": "23",
+          "parentId": "20",
           "name": "Qualification Setup",
           "path": "/companySettings/qualification",
           "roles": [
@@ -416,7 +416,7 @@
         },
         {
           "id": "3",
-          "parentId": "23",
+          "parentId": "20",
           "name": "Specialization Setup",
           "path": "/companySettings/specialization",
           "roles": [
@@ -436,7 +436,7 @@
         },
         {
           "id": "27",
-          "parentId": "23",
+          "parentId": "20",
           "name": "Appointment Mode Setup",
           "path": "/companySettings/appointmentMode",
           "roles": [
