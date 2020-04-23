@@ -16,7 +16,7 @@ const CPasswordSavedSuccessMessageView = () => {
                                     <div className="login-header">
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <p className="change-email-verify">Your password has been saved successfully. Please click below.</p>
+                                    <p className="change-email-verify">Your password has been saved successfully.</p>
                                     <CForm
                                         id="save-password"
                                         className="login-form">

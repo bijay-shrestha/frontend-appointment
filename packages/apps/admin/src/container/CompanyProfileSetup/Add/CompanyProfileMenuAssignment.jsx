@@ -322,7 +322,9 @@ class CompanyProfileMenuAssignment extends PureComponent {
         if (userMenus.length > 0 && profileData.company.value !== prevState.selectedCompany) {
             this.setTotalNumberOfMenusAndRoles();
             defaultSelectedMenu.length !== 0 ?
-                TryCatchHandler.genericTryCatch(this.handleChildMenuClick(defaultSelectedMenu.childMenus[0]))
+                (defaultSelectedMenu.childMenus.length ?
+                    TryCatchHandler.genericTryCatch(this.handleChildMenuClick(defaultSelectedMenu.childMenus[0]))
+                    : this.handleAccordionSelect(defaultSelectedMenu))
                 :
                 this.setState({
                     currentSelectedChildMenu: [],

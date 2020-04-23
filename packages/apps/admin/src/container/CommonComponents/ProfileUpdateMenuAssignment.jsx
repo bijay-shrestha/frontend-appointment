@@ -316,9 +316,12 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     }
 
     prepareValuesForMenuAssignment = () => {
+        const {defaultSelectedMenu} = this.props;
         this.setTotalNumberOfMenusAndRoles();
-        this.props.defaultSelectedMenu.length !== 0 ?
-            TryCatchHandler.genericTryCatch(this.handleChildMenuClick(this.props.defaultSelectedMenu.childMenus[0]))
+        defaultSelectedMenu.length !== 0 ?
+            (defaultSelectedMenu.childMenus.length ?
+                TryCatchHandler.genericTryCatch(this.handleChildMenuClick(defaultSelectedMenu.childMenus[0]))
+                : this.handleAccordionSelect(defaultSelectedMenu))
             :
             this.setState({
                 currentSelectedChildMenu: [],

@@ -16,7 +16,7 @@ const CEmailVerificationView = () => {
                                     <div className="login-header">
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <p className="change-email-verify">Your email has been verified. Please click below.</p>
+                                    <p className="change-email-verify">Your email has been verified.</p>
                                     <CForm
                                         id="save-password"
                                         className="login-form">
