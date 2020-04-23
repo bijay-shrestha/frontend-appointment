@@ -41,15 +41,15 @@ const AdminActivityLogDataTable = ({
   } = adminDiagramStatsData
   const prepareDataForChart = datas => {
     var getColor = [
-      '#0063ff',
-      '#CCCCB3',
-      '#003B46',
+      '#80b1ff',
+      '#0277BD',
+      '#fff26b',
       '#FFCAFF',
       '#A2C523',
       '#FFBB00',
       '#EAEC93',
       '#D7FBE6',
-      '#D7FBE6',
+      '#34675C',
       '#34675C'
     ]
 
@@ -320,8 +320,9 @@ const AdminActivityLogDataTable = ({
                   width={160}
                   height={100}
                 />
+                  <p className="total-count">Total Counts:{totalCounts}</p>
                 <div className="legend-box clearfix">
-                  <p>Total Counts:{totalCounts}</p>
+                
                   <p>Top Features</p>
                   <ul>
                     {chartData.labels.length &&
@@ -330,6 +331,7 @@ const AdminActivityLogDataTable = ({
                           <li key={'datum' + index}>
                             <span className="legend"></span>
                             <span>{datum}</span>
+                            <span className="data">-10%</span>
                           </li>
                         )
                       })}
