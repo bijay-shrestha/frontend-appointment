@@ -232,9 +232,10 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                         remarks: '',
                         hospitalId:{label: hospitalName,value: hospitalId}
                     },
-                    formValid: false,
+                 
                     nameValid: true
-                })
+                });
+                this.checkFormValidity("E")
             } catch (e) {
                 console.log(e)
             }
