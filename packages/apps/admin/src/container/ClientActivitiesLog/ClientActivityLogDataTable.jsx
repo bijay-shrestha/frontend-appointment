@@ -217,6 +217,7 @@ const ClientActivityLogDataTable = ({
               onPageChanged={handlePageChange}
             />
           </>
+          
         ) : !isSearchLoading && searchErrorMessage ? (
           <div className="filter-message">
             <div className="no-data">
