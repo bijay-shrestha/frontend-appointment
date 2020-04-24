@@ -212,31 +212,37 @@
         }
 
         .dropdown-toggle {
+            text-align: center;
+            width:40px;
+            height: 40px;
+            // padding:2px;
             @include border-radius(50%);
+            position: relative;
             -webkit-transition: all 0.3s;
             transition        : all 0.3s;
-            padding:2px;
-            text-align: center;
-            width:42px;
-            height: 42px;
 
-            // &:hover {
-            //     background-color: lighten($cogent, 45%);
-            // }
+            &:hover {
+                background-color:lighten($primary,42%);
+                @include border-radius(50%);
+            }
 
             .avatar {
-                width         : 40px;
-                height        : 40px;
-                // margin-left: 5px;
-                @include border-radius(50px);
+                position: absolute;
+                left:50%;
+                top:50%;
+                transform: translate(-50%,-50%);
+                width         : 34px;
+                height        : 34px;
+                display:inline-block;
+                @include border-radius(50%);
             }
         }
 
 
         .dropdown-menu {
-            width           : 220px;
+            width           : auto;
+            min-width: 220px;
             margin-top:10px;
-            min-width       : auto;
             border          : none;
             //box-shadow      : 1px 1px 8px 1px $gray-300;
             box-shadow      : 0px 4px 2px 0px $gray-400;
@@ -288,8 +294,12 @@
             }
 
             .profile-name {
-
+              padding:2px 9px;
+              @include border-radius(2px);
                 margin-bottom: 4px;
+                &:hover{
+                    background-color:$gray-200;
+                }
 
             }
 
