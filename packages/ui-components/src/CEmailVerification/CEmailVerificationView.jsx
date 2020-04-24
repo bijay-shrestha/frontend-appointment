@@ -21,9 +21,10 @@ const CEmailVerificationView = () => {
                                         id="save-password"
                                         className="login-form">
                                         <CButton id="login-page-redirect"
-                                                 name={"Go Back To Login"}
+                                                 name={""}
                                                  href={"#/"}
-                                        />
+                                        ><i className="fa fa-long-arrow-left"></i>&nbsp;Go Back To Login
+                                            </CButton>
                                     </CForm>
                                 </div>
                             </Col>

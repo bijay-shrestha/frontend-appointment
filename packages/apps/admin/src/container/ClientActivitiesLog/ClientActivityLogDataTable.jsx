@@ -320,8 +320,9 @@ const ClientActivityLogDataTable = ({
                   width={160}
                   height={100}
                 />
+                 <p className="total-count">Total Counts:{totalCounts}</p>
                 <div className="legend-box clearfix">
-                  <p>Total Counts:{totalCounts}</p>
+               
                   <p>Top Features</p>
                   <ul>
                     {chartData.labels.length &&
