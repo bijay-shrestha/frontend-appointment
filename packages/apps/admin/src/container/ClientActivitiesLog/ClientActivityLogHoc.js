@@ -36,11 +36,11 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
       },
       queryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsQueryParams: {
         page: 0,
-        size: 4
+        size: 10
       },
       statsTotalRecord: 0,
       totalRecords: 0,
