@@ -8,7 +8,7 @@ const DepartmentConfirmationModal = ({showModal, setShowModal, departmentData, o
         <CModal show={showModal}
                 modalHeading="Department Details"
                 size="lg"
-                bodyChildren={<DetailsModal departmentData={departmentData}/>}
+                bodyChildren={<DetailsModal departmentData={{...departmentData, type: "ADD"}}/>}
                 onHide={setShowModal}
                 centered={false}
                 dialogClassName="preview-modal"
