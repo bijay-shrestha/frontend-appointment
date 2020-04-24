@@ -125,7 +125,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             checked={
                                                 type === 'A'
                                                     ? doctorData.genderCode === 'O'
-                                                    : doctorData.gender === 'OTHER'
+                                                    : doctorData.gender === 'OTHERS'
                                             }
                                             name="genderCode"
                                             id="radio3"
@@ -257,7 +257,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             <CHybridInput
                                                 id="doctor-remarks"
                                                 placeholder="Doctor Remarks"
-                                                value={doctorData.remarks}
+                                                value={doctorData.remarks || 'N/A'}
                                                 disabled={true}
                                             />
                                         </Col>

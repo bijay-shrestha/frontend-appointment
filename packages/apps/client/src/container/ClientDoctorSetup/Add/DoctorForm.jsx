@@ -116,9 +116,11 @@ const DoctorForm = ({
                                             onChange={(event, validity) =>
                                                 onInputChange(event, validity)
                                             }
-                                            label="Select Specialization"
+                                            label="Specialization"
+                                            placeholder={activeSpecializationList.length ? "Select Specialization."
+                                                : "No Specialization(s)."}
                                             options={activeSpecializationList}
-                                            // isDisabled={!activeSpecializationList.length ?true:false}
+                                            isDisabled={!activeSpecializationList.length}
                                             value={doctorInfoObj.specializationIds}
                                             required={true}
                                             isMulti={true}
@@ -134,7 +136,10 @@ const DoctorForm = ({
                                             onChange={(event, validity) =>
                                                 onInputChange(event, validity)
                                             }
-                                            label="Select Qualifications"
+                                            label="Qualifications"
+                                            placeholder={qualificationDropdown.length ? "Select Qualification."
+                                                : "No Qualification(s)."}
+                                            isDisabled={!qualificationDropdown.length}
                                             options={qualificationDropdown}
                                             value={doctorInfoObj.qualificationIds}
                                             required={true}

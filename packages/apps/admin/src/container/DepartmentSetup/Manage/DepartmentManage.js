@@ -25,7 +25,8 @@ const {
     deleteDepartment,
     downloadExcelForDepartments,
     clearDepartmentSuccessErrorMessagesFromStore,
-    fetchActiveDepartmentsForDropdown
+    fetchActiveDepartmentsForDropdown,
+    fetchActiveDepartmentsByHospitalId
 } = DepartmentSetupMiddleware;
 
 const {
@@ -34,7 +35,8 @@ const {
     EDIT_DEPARTMENT,
     DELETE_DEPARTMENT,
     EXPORT_DEPARTMENT_EXCEL,
-    FETCH_DEPARTMENTS_FOR_DROPDOWN
+    FETCH_DEPARTMENTS_FOR_DROPDOWN,
+    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
@@ -135,6 +137,9 @@ class DepartmentManage extends PureComponent {
             let value = event.target.value;
             let label = event.target.label;
             await this.setStateValuesForSearch(fieldName, value, label);
+            if (fieldName==="hospital"){
+                this.fetchDepartments(value);
+            }
         }
     };
 
@@ -420,12 +425,12 @@ class DepartmentManage extends PureComponent {
     };
 
 
-    fetchDepartments = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+    fetchDepartments = async (id) => {
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL,id));
     };
 
     componentDidMount() {
-        this.fetchDepartments();
+        // this.fetchDepartments();
         this.searchDepartments();
         this.fetchHospitals();
     }
@@ -447,7 +452,7 @@ class DepartmentManage extends PureComponent {
 
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
-        const {departments} = this.props.DepartmentSetupReducer;
+        const {departmentsByHospital} = this.props.DepartmentSetupReducer;
 
         return <>
             <div className="department-setup">
@@ -455,7 +460,7 @@ class DepartmentManage extends PureComponent {
                     <DepartmentSetupSearchFilter
                         searchParameters={this.state.searchParameters}
                         hospitalList={hospitalsForDropdown}
-                        departments={departments}
+                        departments={departmentsByHospital}
                         onInputChange={this.handleSearchFormChange}
                         onSearchClick={() => this.searchDepartments(1)}
                         resetSearchForm={this.handleSearchFormReset}
@@ -537,5 +542,6 @@ export default ConnectHoc(
         clearDepartmentSuccessErrorMessagesFromStore,
         logoutUser,
         fetchActiveHospitalsForDropdown,
-        fetchActiveDepartmentsForDropdown
+        fetchActiveDepartmentsForDropdown,
+        fetchActiveDepartmentsByHospitalId
     });

@@ -65,10 +65,9 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.specializationId}
                                             options={activeSpecializationList}
-                                            isDisabled={
-                                                !activeSpecializationList.length ? true : false
-                                            }
-                                            label="Doctors Specialization"
+                                            isDisabled={!activeSpecializationList.length}
+                                            label="Specialization"
+                                            placeholder={activeSpecializationList.length ? "Select Specialization." : "No Specialization(s)."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
@@ -79,8 +78,9 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.name}
                                             options={doctorsForDropdown}
-                                            // isDisabled={!doctorsForDropdown.length ? true : false}
-                                            label="Doctors Name"
+                                            isDisabled={!doctorsForDropdown.length}
+                                            label="Doctor"
+                                            placeholder={activeSpecializationList.length ? "Select Doctor." : "No Doctor(s)."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
@@ -116,6 +116,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                                 {value: 'N', label: 'Inactive'}
                                             ]}
                                             label="Status"
+                                            placeholder={"Select Status."}
                                         />
                                     </Col>
                                     <Col
@@ -139,7 +140,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                                 className="btn-action"
                                                 name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
-                                            ></CButton>
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
@@ -168,7 +169,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                     <OverlayTrigger
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
-                                        overlay={props => <Tooltip {...props}>Doctor Name</Tooltip>}
+                                        overlay={props => <Tooltip {...props}>Doctor</Tooltip>}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
                                             {searchParameters.name.label}
@@ -176,28 +177,14 @@ class DoctorSetupSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-                            {searchParameters.hospitalId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => (
-                                            <Tooltip {...props}>Client Name</Tooltip>
-                                        )}
-                                    >
-                                        <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.hospitalId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+
                             {searchParameters.specializationId && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Doctor Specialization</Tooltip>
+                                            <Tooltip {...props}>Specialization</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">

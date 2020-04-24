@@ -125,7 +125,7 @@ const DepartmentDetailsDataTable = props => (
             <PreviewDetails
                 showModal={props.showDepartmentModal}
                 setShowModal={props.setShowModal}
-                departmentData={{...props.departmentPreviewData, code: props.departmentPreviewData.departmentCode}}
+                departmentData={{...props.departmentPreviewData, code: props.departmentPreviewData.departmentCode,type:"MANAGE"}}
                 profilePreviewErrorMessage={props.profilePreviewErrorMessage}
             />
         ) : (
