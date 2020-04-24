@@ -330,8 +330,8 @@ const AdminActivityLogDataTable = ({
                         return (
                           <li key={'datum' + index}>
                             <span className="legend"></span>
-                            <span>{datum}</span>
-                            <span className="data">-10%</span>
+                            <span>{datum} <span className="data"> - {parseFloat(Math.round((chartData.datasets[0].data[index]*100)/totalCounts))}%</span></span>
+                            {/* <span className="data">-{parseFloat(Math.round((chartData.datasets[0].data[index]*100)/totalCounts))}%</span> */}
                           </li>
                         )
                       })}

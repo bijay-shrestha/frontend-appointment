@@ -207,7 +207,7 @@ const ClientActivityLogDataTable = ({
                 childLabelRenderer: LoggingStatus,
                 EmailWithMobileNumber: EmailWithMobileNumber,
                 LogDateAndTime: DateWithTime,
-                browserIcon:BrowserIconComponent
+                browserIcon: BrowserIconComponent
               }}
             />
             <CPagination
@@ -217,7 +217,6 @@ const ClientActivityLogDataTable = ({
               onPageChanged={handlePageChange}
             />
           </>
-          
         ) : !isSearchLoading && searchErrorMessage ? (
           <div className="filter-message">
             <div className="no-data">
@@ -299,7 +298,7 @@ const ClientActivityLogDataTable = ({
                 <div className="message"> {logStatsSearchErrorMessage}</div>
               </div>
             ) : (
-              <CLoading/>
+              <CLoading />
             )}
           </div>
         </Col>
@@ -330,7 +329,20 @@ const ClientActivityLogDataTable = ({
                         return (
                           <li key={'datum' + index}>
                             <span className="legend"></span>
-                            <span>{datum}</span>
+                            <span>
+                              {datum}{' '}
+                              <span className="data">
+                                {' '}
+                                -{' '}
+                                {parseFloat(
+                                  Math.round(
+                                    (chartData.datasets[0].data[index] * 100) /
+                                      totalCounts
+                                  )
+                                )}
+                                %
+                              </span>
+                            </span>
                           </li>
                         )
                       })}
