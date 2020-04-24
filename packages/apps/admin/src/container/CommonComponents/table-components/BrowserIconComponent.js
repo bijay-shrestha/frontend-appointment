@@ -1,7 +1,9 @@
 import React, {memo} from 'react'
 
 const BrowserIconComponent = props => {
-  const {browser} = props.node.data
+  let {browser} = props.node.data
+  browser =browser||'';
+  console.log("=====",props.node.data.browser)
   return (
     <>
       <ul className="browser">
@@ -10,7 +12,7 @@ const BrowserIconComponent = props => {
             <img src={require('../../../images/chrome.svg')} /> <span>Chrome</span>
           </li>
 
-        ) :browser().includes('Firefox')|| 
+        ) :browser.includes('Firefox')|| 
           browser.includes('mozilla') ||
           browser.includes('Mozilla') ||
           browser.includes('firefox') 

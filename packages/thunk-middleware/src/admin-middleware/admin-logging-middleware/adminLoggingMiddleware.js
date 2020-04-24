@@ -7,7 +7,7 @@ import {
 import axios from 'axios'
 const LOGGING_DOMAIN = EnvironmentVariableGetter.LOGGING_SERVER_DOMAIN || ''
 const LOG_BASE = EnvironmentVariableGetter.LOGGING_BASE || ''
-const BASE_DOMAIN = LOGGING_DOMAIN + '/' + LOG_BASE
+const BASE_DOMAIN = LOGGING_DOMAIN + LOG_BASE
 export const fetchAdminLog = (
   path,
   queryParams,
