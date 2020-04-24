@@ -1,10 +1,5 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CPagination,
-    CButton,
-    CLoading
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction';
@@ -15,7 +10,7 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const QualificationDetailsDataTable = props => (
     <div className="manage-details">
-        <h5 className="title">Quailfication Details</h5>
+        <h5 className="title">Qualification Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -130,7 +125,7 @@ const QualificationDetailsDataTable = props => (
         )}
         {props.deleteModalShow ? (
             <ConfirmDelete
-                confirmationMessage="Are you sure you want to delete the Qualification?If yes please provide remarks."
+                confirmationMessage="Are you sure you want to delete the Qualification? If yes please provide remarks."
                 modalHeader="Delete Qualification"
                 showModal={props.deleteModalShow}
                 setShowModal={props.setShowModal}
@@ -138,6 +133,7 @@ const QualificationDetailsDataTable = props => (
                 remarks={props.remarks}
                 onSubmitDelete={props.onSubmitDelete}
                 deleteErrorMessage={props.deleteErrorMsg}
+                isLoading={props.isDeleteLoading}
             />
         ) : (
             ''

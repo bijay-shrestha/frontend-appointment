@@ -4,10 +4,10 @@ import {
     CFLabel,
     CForm,
     CHybridInput,
-    CModal,
-    CRadioButton,
+    CHybridSelect,
     CHybridTextArea,
-    CHybridSelect
+    CModal,
+    CRadioButton
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -22,7 +22,8 @@ const DepartmentEditModal = ({
                                  editApiCall,
                                  formValid,
                                  qualificationsAliasForDropdown,
-                                 universitiesDropdown
+                                 universitiesDropdown,
+                                 isQualificationEditLoading
                              }) => {
     const bodyContent = (
         <>
@@ -37,7 +38,8 @@ const DepartmentEditModal = ({
                             onChange={(event) =>
                                 onInputChange(event, '', 'E')
                             }
-                            placeholder="Select a University Id"
+                            placeholder={universitiesDropdown.length ? "Select a University." : "No University."}
+                            isDisabled={!universitiesDropdown.length}
                             value={qualificationData.universityId}
                             options={universitiesDropdown}
                             required={true}
@@ -68,7 +70,8 @@ const DepartmentEditModal = ({
                             onChange={(event) =>
                                 onInputChange(event, '', 'E')
                             }
-                            placeholder="Select Qualification Alias"
+                            placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias."}
+                            isDisabled={!qualificationsAliasForDropdown.length}
                             options={qualificationsAliasForDropdown}
                             value={qualificationData.qualificationAliasId}
                             required={true}
@@ -76,7 +79,7 @@ const DepartmentEditModal = ({
                     </Col>
 
                     <Col sm={12} md={12} lg={4}>
-                        <CFLabel labelName="Status" id="status"></CFLabel>
+                        <CFLabel labelName="Status" id="status"/>
                         <CRadioButton
                             checked={qualificationData.status === 'Y'}
                             name="status"
@@ -128,7 +131,8 @@ const DepartmentEditModal = ({
                     <div className="col-md-6">
                         <CButton
                             id="submit-update-button"
-                            disabled={!formValid}
+                            disabled={!formValid || isQualificationEditLoading}
+                            isLoading={isQualificationEditLoading}
                             name="Update"
                             size="lg"
                             className="btn-action  float-right"
@@ -138,6 +142,7 @@ const DepartmentEditModal = ({
                             id="cancel-update-profile"
                             variant="light"
                             size="lg"
+                            disabled={isQualificationEditLoading}
                             className="btn-action  float-right mr-2"
                             name="Cancel"
                             onClickHandler={setShowModal}

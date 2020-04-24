@@ -168,14 +168,14 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
         }
 
          async componentDidMount() {
-             console.log("===usermenus",userMenus);
+             // console.log("===usermenus",userMenus);
             const filteredRolesTab = await this.checkRoles()
             this.checkIfPathIsTabPath(filteredRolesTab)
             this.props.dispatch({type:'LOCATION_CHANGE'})
         }
 
         render() {
-            console.log("========componenthoc",props)
+            // console.log("========componenthoc",props)
             const {
                 filteredAction,
                 filteredRolesTab,

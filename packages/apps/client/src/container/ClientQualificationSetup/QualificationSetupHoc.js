@@ -126,10 +126,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 qualificationData.status &&
                 qualificationData.qualificationAliasId &&
                 qualificationData.universityId
-            console.log('Add formValidiy', formValidity);
+
             if (eventType === 'E')
                 formValidity = formValidity && qualificationData.remarks
-            console.log('Edit Form Validity', formValidity);
+
             this.setState({
                 formValid: formValidity
             })
@@ -285,7 +285,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         }
 
         appendSNToTable = qualificationList => {
-            console.log('Specialization', qualificationList)
             const newQualificationList =
                 qualificationList.length &&
                 qualificationList.map((spec, index) => ({
@@ -465,14 +464,19 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             } = this.props.QualificationPreviewReducer
 
             const {
-                qualificationEditErrorMessage
+                qualificationEditErrorMessage,isQualificationEditLoading
             } = this.props.QualificationEditReducer
 
-            const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
-            // const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
+            const {deleteErrorMessage,isDeleteLoading} = this.props.QualificationDeleteReducer;
+
             const {activeQualificationAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
+
             const {qualificationsForDropdown} = this.props.QualificationDropdownReducer;
+
             const {universitiesDropdown} = this.props.UniversitiesForDropdownReducer;
+
+            const {createQualificationLoading} = this.props.QualificationSaveReducer;
+
             return (
                 <ComposedComponent
                     {...props}
@@ -494,7 +498,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     resetSearch={this.handleSearchFormReset}
                     searchQualification={this.searchQualification}
                     handlePageChange={this.handlePageChange}
-                    handleSearchFormChange={this.handleSearchFormChange}
                     onSubmitDeleteHandler={this.onSubmitDeleteHandler}
                     editQualification={this.editQualification}
                     onEditHandler={this.onEditHandler}
@@ -518,7 +521,11 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationPreviewData={qualificationPreviewData}
                     qualificationsAliasForDropdown={activeQualificationAliasForDropdown}
                     qualificationsForDropdown={qualificationsForDropdown}
-                    universitiesDropdown={universitiesDropdown}/>
+                    universitiesDropdown={universitiesDropdown}
+                    createQualificationLoading={createQualificationLoading}
+                    isQualificationEditLoading={isQualificationEditLoading}
+                    isDeleteLoading={isDeleteLoading}
+                />
             )
         }
     }

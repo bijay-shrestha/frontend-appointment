@@ -70,7 +70,7 @@ class CLayout extends PureComponent {
 
     render() {
         const {MainViewComponent} = this.props
-        console.log("Layout",this.props);
+        // console.log("Layout",this.props);
         return (
             <>
                 <div id="wrapper">

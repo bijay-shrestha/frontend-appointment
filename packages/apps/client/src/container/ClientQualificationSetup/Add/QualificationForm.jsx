@@ -13,9 +13,7 @@ const QualificationForm = ({
                                errorMessageForQualificationName,
                                onEnterKeyPress,
                                onInputChange,
-                               countryCodeForDropdown,
                                qualificationsAliasForDropdown,
-                               // qualificationsForDropdown,
                                universitiesDropdown
                            }) => {
     return (
@@ -37,7 +35,8 @@ const QualificationForm = ({
                                     value={qualificationInfoObj.universityId}
                                     options={universitiesDropdown}
                                     label="University"
-                                    placeholder="Select University"
+                                    placeholder={universitiesDropdown.length ? "Select University" : "No University."}
+                                    isDisabled={!universitiesDropdown.length}
                                 />
                             </Col>
 
@@ -55,17 +54,7 @@ const QualificationForm = ({
                                     errorMessagePassed={errorMessageForQualificationName}
                                 />
                             </Col>
-                            {/* <Col sm={12} md={4} xl={4}>
-                  <CHybridSelect
-                      id="countryId"
-                      name="countryId"
-                      onKeyDown={event => onEnterKeyPress(event)}
-                      onChange={event => onInputChange(event)}
-                      value={qualificationInfoObj.countryId}
-                      options={countryCodeForDropdown}
-                      label="Select a Country"
-                    />
-              </Col> */}
+
                             <Col sm={12} md={4} xl={4}>
                                 <CHybridSelect
                                     id="qualificationAliasId"
@@ -75,7 +64,8 @@ const QualificationForm = ({
                                     value={qualificationInfoObj.qualificationAliasId}
                                     options={qualificationsAliasForDropdown}
                                     label="Qualification alias"
-                                    placeholder="Select qualification alias."
+                                    placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias."}
+                                    isDisabled={!qualificationsAliasForDropdown.length}
                                 />
                             </Col>
 

@@ -66,7 +66,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 status: 'D'
             },
             totalRecords: 0,
-            isLoading: false
         };
 
         handleEnterPress = event => {
@@ -127,10 +126,8 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 qualificationData.status &&
                 qualificationData.qualificationAliasId &&
                 qualificationData.universityId
-            console.log('Add formValidiy', formValidity);
             if (eventType === 'E')
                 formValidity = formValidity && qualificationData.remarks
-            console.log('Edit Form Validity', formValidity);
             this.setState({
                 formValid: formValidity
             })
@@ -156,7 +153,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         setShowConfirmModal = () => {
             this.setState({
                 showConfirmModal: !this.state.showConfirmModal,
-                isLoading: !this.state.isLoading
             })
         };
 
@@ -274,7 +270,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 },
                 searchData
             );
-            console.log('QualificationSearchReducer', this.props.QualificationSearchReducer);
             await this.setState({
                 totalRecords: this.props.QualificationSearchReducer.qualificationList
                     .length
@@ -289,7 +284,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         };
 
         appendSNToTable = qualificationList => {
-            console.log('Specialization', qualificationList)
             const newQualificationList =
                 qualificationList.length &&
                 qualificationList.map((spec, index) => ({
@@ -454,7 +448,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                 queryParams,
                 deleteRequestDTO,
                 totalRecords,
-                isLoading
             } = this.state
 
             const {
@@ -470,16 +463,19 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             } = this.props.QualificationPreviewReducer
 
             const {
-                qualificationEditErrorMessage
+                qualificationEditErrorMessage,isQualificationEditLoading
             } = this.props.QualificationEditReducer;
 
-            console.log("error",qualificationEditErrorMessage);
+            const {deleteErrorMessage,isDeleteLoading} = this.props.QualificationDeleteReducer;
 
-            const {deleteErrorMessage} = this.props.QualificationDeleteReducer;
-            // const {countryCodeForDropdown} = this.props.CountryCodeDropdownReducer;
             const {activeQualificationAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
+
             const {qualificationsForDropdown} = this.props.QualificationDropdownReducer;
+
             const {universitiesDropdown} = this.props.UniversitiesForDropdownReducer;
+
+            const {createQualificationLoading} = this.props.QualificationSaveReducer;
+
             return (
                 <ComposedComponent
                     {...props}
@@ -501,7 +497,6 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     resetSearch={this.handleSearchFormReset}
                     searchQualification={this.searchQualification}
                     handlePageChange={this.handlePageChange}
-                    handleSearchFormChange={this.handleSearchFormChange}
                     onSubmitDeleteHandler={this.onSubmitDeleteHandler}
                     editQualification={this.editQualification}
                     onEditHandler={this.onEditHandler}
@@ -526,7 +521,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
                     qualificationsAliasForDropdown={activeQualificationAliasForDropdown}
                     qualificationsForDropdown={qualificationsForDropdown}
                     universitiesDropdown={universitiesDropdown}
-                    isLoading={isLoading}/>
+                    createQualificationLoading={createQualificationLoading}
+                    isQualificationEditLoading={isQualificationEditLoading}
+                    isDeleteLoading={isDeleteLoading}
+                />
             )
         }
     }

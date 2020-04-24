@@ -15,8 +15,7 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const SpecializationDetailsDataTable = props => (
     <div className="manage-details">
-        {console.log(props.searchData)}
-        <h5 className="title">Quailfication Details</h5>
+        <h5 className="title">Qualification Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
         props.searchData.length ? (
@@ -139,6 +138,7 @@ const SpecializationDetailsDataTable = props => (
                 remarks={props.remarks}
                 onSubmitDelete={props.onSubmitDelete}
                 deleteErrorMessage={props.deleteErrorMsg}
+                isLoading={props.isDeleteLoading}
             />
         ) : (
             ''
