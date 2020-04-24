@@ -21,7 +21,7 @@ class SavePassword extends React.PureComponent {
             let passwordSaveData = {password: userPassword.password, token: this.state.token};
             await this.props.savePassword(SAVE_ADMIN_PASSWORD, passwordSaveData);
             localStorage.clear();
-            await this.props.history.push('/');
+            await this.props.history.push('/password/save/success');
             return null;
         } catch (e) {
             console.log(e);

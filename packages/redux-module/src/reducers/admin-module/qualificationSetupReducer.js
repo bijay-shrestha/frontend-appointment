@@ -30,7 +30,7 @@ const {
 } = qualificationSetupConstants
 
 const initialState = {
-    createQualificationLoading: true,
+    createQualificationLoading: false,
     createQualificationErrorMessage: '', //departmentCreate error message
     createQualificationSuccessMessage: '',
     isSearchLoading: true,
@@ -38,8 +38,8 @@ const initialState = {
     searchErrorMessage: '',
     deleteErrorMessage: '',
     deleteSuccessMessage: '',
-    isDeleteLoading: true,
-    isQualificationEditLoading: true,
+    isDeleteLoading: false,
+    isQualificationEditLoading: false,
     qualificationEditErrorMessage: '', //department edit error message
     qualificationEditSuccessMessage: '',
     qualificationPreviewData: null,
