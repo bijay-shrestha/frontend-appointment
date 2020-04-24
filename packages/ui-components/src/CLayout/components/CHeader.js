@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Badge, Button, Dropdown, Image} from 'react-bootstrap'
+import {Badge, Button, Dropdown, Image,Tooltip,OverlayTrigger} from 'react-bootstrap'
 import {Axios} from '@frontend-appointment/core'
 import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
@@ -200,9 +200,15 @@ class CHeader extends Component {
                                     </div>
                                     {/* <div
                                         className="user-name"> {this.state.userInfo && this.state.userInfo.hospitalName}</div> */}
-                                    <div className="profile-name">
-                                        {this.state.userInfo && this.state.userInfo.profileName}
-                                    </div>
+                                    <OverlayTrigger  placement="left" overlay={<Tooltip id="tooltip-disabled">Profile</Tooltip>}>
+                                        <span className="d-inline-block">
+                                            <div className="profile-name">
+                                                <i className="fa fa-id-badge"></i> {this.state.userInfo && this.state.userInfo.profileName}
+                                            </div>
+                                            {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+                                        </span>
+                                    </OverlayTrigger>
+                                   
                                     {/*{this.state.userInfo.isCompany === 'Y' ? (*/}
                                     {/*    <div>*/}
                                     {/*        <Badge variant="primary">Cogent Admin</Badge>*/}

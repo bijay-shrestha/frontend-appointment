@@ -19,6 +19,8 @@
             font-weight: 500;
             padding:0;
 
+            
+
             &:nth-child(2){
                 font-size: 0.7rem;
                 font-weight: 500;
@@ -38,6 +40,13 @@
 
             }
             
+        }
+    }
+
+    .browser{
+        img{
+            width:11px;
+            height: auto;
         }
     }
     .fa{
