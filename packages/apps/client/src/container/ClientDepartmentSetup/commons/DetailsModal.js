@@ -1,5 +1,5 @@
 import React from 'react';
-import {CFLabel, CForm, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CFLabel, CForm, CHybridInput, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 
 const DetailsModal = ({departmentData}) => {
@@ -53,6 +53,18 @@ const DetailsModal = ({departmentData}) => {
                                     type="radio"
                                 />
                             </Col>
+                            {
+                                departmentData.type === "MANAGE" ?
+                                    <Col sm={12} md={6}>
+                                        <CHybridTextArea
+                                            id="department-remarks"
+                                            placeholder="Remarks"
+                                            value={departmentData.remarks || 'N/A'}
+                                            disabled={true}
+                                        />
+                                    </Col>
+                                    : ''
+                            }
                         </Row>
                     </Container-fluid>
                 </CForm>

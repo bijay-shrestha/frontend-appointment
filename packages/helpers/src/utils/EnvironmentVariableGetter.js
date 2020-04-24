@@ -17,3 +17,5 @@ export const ADMIN_MODULE_CODE = process.env.REACT_APP_ADMIN_MODULE_CODE || '';
 export const CLIENT_MODULE_CODE = process.env.REACT_APP_CLIENT_MODULE_CODE || '';
 
 export const APP_SECRET_KEY= process.env.REACT_APP_SECRET_KEY||'';
+export const LOGGING_SERVER_DOMAIN=process.env.REACT_APP_LOGGING_SERVER_DOMAIN||'';
+export const LOGGING_BASE = process.env.LOGGING_BASE||'';

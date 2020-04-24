@@ -255,6 +255,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds
             } = this.state.consultantData;
             let formData = new FormData();
+            doctorAvatar &&
             formData.append(
                 'avatar',
                 new File([doctorAvatar], name.concat('-picture.jpeg'))
@@ -328,10 +329,21 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         };
 
         editPreviewApiCall = async id => {
-            await this.props.previewConsultant(
-                doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
-                id
-            )
+            try {
+                await this.props.previewConsultant(
+                    doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
+                    id
+                )
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.DoctorPreviewReducer
+                            .consultantPreviewErrorMessage
+                    }
+                })
+            }
         };
 
         makeValueForMultipleSelect = (key, datas) => {
@@ -376,7 +388,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         status: status,
                         nmcNumber: nmcNumber,
                         contactNumber: mobileNumber,
-                        remarks: remarks || '',
+                        remarks: '',
                         email: email,
                         genderCode: gender.charAt(0),
                         specializationIds: [
@@ -429,7 +441,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             let searchData = {
                 doctorId: name.value || '',
                 code: code,
-                status: status.value || '',
+                status: status.value === 'A' ? "" : status.value,
                 mobileNumber: mobileNumber,
                 specializationId: specializationId.value || ''
             };
@@ -704,7 +716,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 }
                 await this.fetchSpecializationByHospitalId();
                 await this.props.fetchActiveQualificationsForDropdown(
-                    qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE);
+                    qualificationSetupApiConstants.FETCH_ACTIVE_QUALIFICATIONS_FOR_DROPDOWN);
             } catch (e) {
                 console.log(e)
             }
@@ -752,7 +764,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantPreviewErrorMessage
             } = this.props.DoctorPreviewReducer
 
-            const {consultantEditErrorMessage,isConsultantEditLoading} = this.props.DoctorEditReducer
+            const {consultantEditErrorMessage, isConsultantEditLoading} = this.props.DoctorEditReducer
 
             const {createConsultantLoading} = this.props.DoctorSaveReducer;
 
