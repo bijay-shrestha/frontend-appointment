@@ -3,7 +3,7 @@ import {Col, Container, Image, Row} from 'react-bootstrap'
 import logo from './images/400x400.png'
 import {CButton, CForm} from '@frontend-appointment/ui-elements'
 
-const CEmailVerificationView = () => {
+const CPasswordSavedSuccessMessageView = () => {
 
     return (
         <>
@@ -16,7 +16,7 @@ const CEmailVerificationView = () => {
                                     <div className="login-header">
                                         <Image src={logo} className="logo-image"/>
                                     </div>
-                                    <p className="change-email-verify">Your email has been verified.</p>
+                                    <p className="change-email-verify">Your password has been saved successfully.</p>
                                     <CForm
                                         id="save-password"
                                         className="login-form">
@@ -78,4 +78,4 @@ const CEmailVerificationView = () => {
     )
 };
 
-export default CEmailVerificationView;
+export default CPasswordSavedSuccessMessageView;

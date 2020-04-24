@@ -3,6 +3,7 @@ import {SimpleSelect} from 'react-selectize'
 
 const CNormalSelect = props => {
   const {
+    name,
     value,
     placeholder,
     classes,
@@ -44,6 +45,7 @@ const CNormalSelect = props => {
 
   return (
     <SimpleSelect
+       name={name||'normalSelect'}
       placeholder={placeholder}
       onValueChange={onChange}
       theme={theme}

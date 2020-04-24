@@ -24,7 +24,7 @@ class QualificationAliasSearchFilter extends PureComponent {
         this.toggleSearchForm()
     };
 
-    render () {
+    render() {
         const {
             onInputChange,
             searchParameters,
@@ -48,7 +48,7 @@ class QualificationAliasSearchFilter extends PureComponent {
                                     onClickHandler={resetSearchForm}
                                 >
                                     {' '}
-                                    <i className="fa fa-refresh" />
+                                    <i className="fa fa-refresh"/>
                                 </CButton>
                             </div>
                         </div>
@@ -60,12 +60,12 @@ class QualificationAliasSearchFilter extends PureComponent {
                                             id="qualification-alias-name"
                                             name="name"
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event,'SEARCH')}
+                                            onChange={event => onInputChange(event, 'SEARCH')}
                                             label="Qualification Alias"
                                             placeholder={"Select Qualification Alias"}
                                             value={searchParameters.name}
-                                            options={()=>qualificationsAliasForDropdown}
-                                            noOptionsMessage={dropdownErrorMessage}
+                                            options={qualificationsAliasForDropdown}
+                                            noOptionsMessage={() => dropdownErrorMessage}
                                         />
                                     </Col>
 
@@ -74,7 +74,7 @@ class QualificationAliasSearchFilter extends PureComponent {
                                             id="status"
                                             name="status"
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event,'SEARCH')}
+                                            onChange={event => onInputChange(event, 'SEARCH')}
                                             value={searchParameters.status}
                                             options={[
                                                 {value: 'A', label: 'All'},

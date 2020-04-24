@@ -1,7 +1,7 @@
 import React, {memo} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import {AuthenticateHOC} from '@frontend-appointment/authentication-module'
-import {CEmailVerification, CLayout} from '@frontend-appointment/ui-components'
+import {CEmailVerification, CLayout, CPasswordSavedSuccessMessageView} from '@frontend-appointment/ui-components'
 import {routes} from '../routes'
 import LoginPage from '../container/Login'
 import SetPassword from '../container/ClientSavePassword/SavePassword'
@@ -45,6 +45,11 @@ const AuthenticateModule = () => {
                 <Route
                     path="/verify/email"
                     component={props => <CEmailVerification {...props}/>}
+                />
+                <Route
+                    path="/password/save/success"
+                    exact
+                    component={props => <CPasswordSavedSuccessMessageView {...props}/>}
                 />
                 <Route path="/forgotPassword" exact component={ForgotPassword}/>
                 <Route path="/verifyToken" exact component={VerifyToken}/>

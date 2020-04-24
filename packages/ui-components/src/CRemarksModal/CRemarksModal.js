@@ -41,6 +41,7 @@ const CRemarksModal = ({
                     size='lg'
                     className="float-right btn-action "
                     name='Cancel'
+                    disabled={actionDisabled}
                     onClickHandler={onCancel}
                 />
 
