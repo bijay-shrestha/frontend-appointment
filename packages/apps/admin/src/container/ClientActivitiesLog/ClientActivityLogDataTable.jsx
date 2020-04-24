@@ -6,7 +6,7 @@ import {
   CDoughnutChart
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import StatusLabel from '../CommonComponents/table-components/StatusLabel'
+// import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'

@@ -10,7 +10,7 @@ const BrowserIconComponent = props => {
             <i className="fa fa-chrome"></i>&nbsp; <span>Chrome</span>
           </li>
 
-        ) :browser.includes('Firefox')|| 
+        ) :browser().includes('Firefox')|| 
           browser.includes('mozilla') ||
           browser.includes('Mozilla') ||
           browser.includes('firefox') 
