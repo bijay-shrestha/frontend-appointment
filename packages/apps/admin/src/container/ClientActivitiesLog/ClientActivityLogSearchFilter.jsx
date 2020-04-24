@@ -229,7 +229,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                   </>
                 </CButton>
               </li>
-              {searchParameters.userName && (
+              {searchParameters.adminMetaInfoId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -237,7 +237,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                     overlay={props => <Tooltip {...props}>Username</Tooltip>}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParameters.userName}
+                      {searchParameters.adminMetaInfoId.value}
                     </Button>
                   </OverlayTrigger>
                 </li>
