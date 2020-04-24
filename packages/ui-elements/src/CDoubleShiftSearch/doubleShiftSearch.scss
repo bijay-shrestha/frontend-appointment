@@ -70,6 +70,10 @@ input::-webkit-input-placeholder {
   position: relative;
   @include border-radius(50%);
   margin-right:8px;
+
+//   &::before{
+// before 
+// 	}
 }
 
 #menu-search input[type=search] {
@@ -78,7 +82,7 @@ input::-webkit-input-placeholder {
 	color:transparent;
 	position: relative;
 	
-	 background: transparent url(./search.svg) no-repeat left    center;
+	background: transparent url(./search.svg) no-repeat left    center;
 	background-size:36px 18px;
 	border:1px solid transparent;
 	padding: 9px 6px;
@@ -94,25 +98,23 @@ input::-webkit-input-placeholder {
 	-moz-transition: all .2s;
 	transition: all .2s;
 
-	// &::before{
-	// 	position: absolute;
-	// 	font-family: 'FontAwesome';
-	// 	top: 0;
-	// 	left: 10px;
-	// 	content: "\f002";
-	// 	background-color: $gray-400;
-	// 	color:$gray-900;
-	// }
+	
 }
 #menu-search input[type=search]:hover {
+	background: transparent url(./search-active.svg) no-repeat left center;
+	background-size:36px 18px;
 	background-color: #fff;
 	-webkit-border-radius: 22px;
 	-moz-border-radius: 22px;
-	border-radius: 22px;
+	border-radius: 22px;	
+
+
 }
 #menu-search input[type=search]:focus ,
 #menu-search input.active{
 	width: 100%;
+	background: transparent url(./search-active.svg) no-repeat left center;
+	background-size:36px 18px;
 	background-color: #fff;
 	border: 1px solid  #e9ecef !important;
 	padding: 8px 4px;
@@ -122,6 +124,7 @@ input::-webkit-input-placeholder {
 	-webkit-border-radius: 22px;
 	-moz-border-radius: 22px;
 	border-radius: 22px;
+	
 
 
 }

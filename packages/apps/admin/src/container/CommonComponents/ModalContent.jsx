@@ -284,15 +284,18 @@ class ModalContent extends React.PureComponent {
                                                                 key={tabWithRoles.id}
                                                                 className="assign-header"
                                                             >
+                                                                 <span>
                                                                 <i className=" fa fa-check"> </i>{' '}
                                                                 {tabWithRoles.name ? tabWithRoles.name : this.state.selectedChildMenu.name}
+                                                                </span>
                                                             </div>
                                                             {/*Roles of child menus*/}
                                                             <Row>
                                                                 {tabWithRoles.roles.map(role => (
                                                                     <Col key={role.id} sm={6}>
+                                                                        <span className="assign-children">
                                                                         <i className=" fa fa-check"> </i>{' '}
-                                                                        {role.name}
+                                                                        {role.name}</span>
                                                                     </Col>
                                                                 ))}
                                                             </Row>
