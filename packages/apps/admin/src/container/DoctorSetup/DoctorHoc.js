@@ -1,18 +1,13 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import loader from '@loadable/component'
 import {
     DoctorMiddleware,
-    QualificationSetupMiddleware,
     HospitalSetupMiddleware,
+    QualificationSetupMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    EnterKeyPressUtils,
-    // FileExportUtils,
-    // AdminInfoUtils
-} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils,} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
 
 const {
@@ -282,6 +277,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds
             } = this.state.consultantData;
             let formData = new FormData();
+            doctorAvatar &&
             formData.append(
                 'avatar',
                 new File([doctorAvatar], name.concat('-picture.jpeg'))
@@ -319,7 +315,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     }
                 })
             } catch (e) {
-                await this.setShowConfirmModal()
+                await this.setShowConfirmModal();
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -356,10 +352,21 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         };
 
         editPreviewApiCall = async id => {
-            await this.props.previewConsultant(
-                doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
-                id
-            )
+            try {
+                await this.props.previewConsultant(
+                    doctorSetupApiConstants.FETCH_DOCTOR_DETAILS_FOR_UPDATE,
+                    id
+                )
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.DoctorPreviewReducer
+                            .consultantPreviewErrorMessage
+                    }
+                })
+            }
         };
 
         makeValueForMultipleSelect = (key, datas) => {
@@ -407,7 +414,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         nmcNumber: nmcNumber,
                         contactNumber: mobileNumber,
                         hospitalId: {value: hospitalId, label: hospitalName},
-                        remarks: remarks || '',
+                        remarks: '',
                         email: email,
                         editHospitalId: {value: hospitalId, label: hospitalName},
                         genderCode: gender.charAt(0),
@@ -476,9 +483,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 hospitalId
             } = this.state.searchParameters;
             let searchData = {
-                name: name.value || 0,
+                doctorId: name.value || 0,
                 code: code,
-                status: status.value || '',
+                status: status.value === 'A' ? "" : status.value,
                 mobileNumber: mobileNumber,
                 hospitalId: hospitalId.value || '',
                 specializationId: specializationId.value || ''
@@ -732,6 +739,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 await this.setStateValuesForSearch(searchParams)
             }
         };
+
         setFormValidManage = () => {
             this.setState({
                 formValid: true
@@ -740,9 +748,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
         async componentDidMount() {
             try {
-
                 this.props.fetchActiveQualificationsForDropdown(
-                    qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE
+                    qualificationSetupApiConstants.FETCH_ACTIVE_QUALIFICATIONS_FOR_DROPDOWN
                 )
                 this.props.fetchActiveHospitalsForDropdown(
                     hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
@@ -750,7 +757,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 if (type === 'M') {
                     await this.searchDoctor()
                 }
-            
+
             } catch (e) {
                 console.log(e)
             }

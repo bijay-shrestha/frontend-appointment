@@ -99,7 +99,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             checked={
                                                 type === 'A'
                                                     ? doctorData.genderCode === 'O'
-                                                    : doctorData.gender === 'OTHER'
+                                                    : doctorData.gender === 'OTHERS'
                                             }
                                             name="genderCode"
                                             id="radio3"
