@@ -483,7 +483,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 hospitalId
             } = this.state.searchParameters;
             let searchData = {
-                doctorId: name.value || 0,
+                doctorId: name.value || '',
                 code: code,
                 status: status.value === 'A' ? "" : status.value,
                 mobileNumber: mobileNumber,

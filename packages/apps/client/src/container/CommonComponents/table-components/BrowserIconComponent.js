@@ -4,7 +4,7 @@ const BrowserIconComponent = props => {
   const {browser} = props.node.data
   return (
     <>
-      <ul className="patient-column">
+      <ul className="browser">
         {browser.includes('chrome') || browser.includes('Chrome') ? (
           <li>
            <img src={require('../../../images/chrome.svg')} /><span>Chrome</span>
