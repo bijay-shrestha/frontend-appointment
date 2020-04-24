@@ -424,15 +424,24 @@
 
     .assign-item{
         .assign-header{
+            margin-bottom:10px;
             i{
                 font-weight: 700;
                 color:$gray-700;
+                margin-right:8px;
             }
         }
+
+        .assign-children{
+            margin-bottom:4px;
+            display:inline-block;
+        }
+
         i{
             font-weight: 400;
             color:$gray-600;
             font-size: 12px;
+            margin-right:8px;
         }
     }
 }
