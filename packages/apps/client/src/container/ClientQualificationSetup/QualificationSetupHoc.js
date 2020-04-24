@@ -420,15 +420,15 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
 
         async componentDidMount() {
             if (type === 'M') {
-                await this.searchQualification();
-                await this.props.fetchActiveQualificationsForDropdown(
+                this.searchQualification();
+                this.props.fetchActiveQualificationsForDropdown(
                     qualificationSetupApiConstants.SPECIFIC_DROPDOWN_QUALIFICATION_ACTIVE
                 )
             }
-            await this.props.fetchActiveQualificationAliasForDropdown(
+            this.props.fetchActiveQualificationAliasForDropdown(
                 qualificationSetupAliasCode.FETCH_QUALIFICATION_ALIAS_CODE
             )
-            await this.props.fetchActiveUniversityForDropdown(
+            this.props.fetchActiveUniversityForDropdown(
                 universitySetupApiConstants.FETCH_UNIVERSITY_FOR_DROPDOWN
             )
         }
@@ -464,10 +464,10 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
             } = this.props.QualificationPreviewReducer
 
             const {
-                qualificationEditErrorMessage,isQualificationEditLoading
+                qualificationEditErrorMessage, isQualificationEditLoading
             } = this.props.QualificationEditReducer
 
-            const {deleteErrorMessage,isDeleteLoading} = this.props.QualificationDeleteReducer;
+            const {deleteErrorMessage, isDeleteLoading} = this.props.QualificationDeleteReducer;
 
             const {activeQualificationAliasForDropdown} = this.props.QualificationAliasDropdownReducer;
 
