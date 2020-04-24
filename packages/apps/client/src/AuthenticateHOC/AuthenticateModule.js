@@ -2,6 +2,9 @@ import React, {memo} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import {AuthenticateHOC} from '@frontend-appointment/authentication-module'
 import {CEmailVerification, CLayout, CPasswordSavedSuccessMessageView} from '@frontend-appointment/ui-components'
+import {
+  LoginHoc
+} from '@frontend-appointment/commons'
 import {routes} from '../routes'
 import LoginPage from '../container/Login'
 import SetPassword from '../container/ClientSavePassword/SavePassword'
@@ -40,7 +43,12 @@ const AuthenticateModule = () => {
                 <Route
                     path="/"
                     exact
-                    component={props => <LoginPage {...props} id="login-form"/>}
+                    component={LoginHoc(
+                        props => (
+                            <LoginPage {...props} id="login-form"/>
+                        ),
+                        '/dashboard'
+                    )}
                 />
                 <Route
                     path="/verify/email"

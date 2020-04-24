@@ -55,7 +55,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Admin Activity Log List</h5>
+              <h5 className="title">Search Client Activity Log List</h5>
               <div>
                 <CButton
                   id="reset-form"
