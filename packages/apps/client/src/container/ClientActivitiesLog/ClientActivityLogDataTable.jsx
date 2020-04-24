@@ -329,7 +329,7 @@ const ClientActivityLogDataTable = ({
                         return (
                           <li key={'datum' + index}>
                             <span className="legend"></span>
-                            <span>{datum}</span>
+                            <span>{datum} <span className="data"> - {parseFloat(Math.round((chartData.datasets[0].data[index]*100)/totalCounts))}%</span></span>
                           </li>
                         )
                       })}
