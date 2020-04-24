@@ -5,7 +5,9 @@ import {
   EnvironmentVariableGetter
 } from '@frontend-appointment/helpers'
 import axios from 'axios'
-const base_url = 'http://localhost:9093'
+const LOGGING_DOMAIN = EnvironmentVariableGetter.LOGGING_SERVER_DOMAIN || ''
+const LOG_BASE = EnvironmentVariableGetter.LOGGING_BASE || ''
+const BASE_DOMAIN = LOGGING_DOMAIN + '/' + LOG_BASE
 export const fetchAdminLog = (
   path,
   queryParams,
@@ -14,7 +16,7 @@ export const fetchAdminLog = (
   dispatch(AdminLoggingSetupActions.logFetchStart())
   try {
     const response = await axios.put(
-      base_url + convertObjectToRequestParam(path, queryParams),
+      BASE_DOMAIN + convertObjectToRequestParam(path, queryParams),
       searchData,
       {
         headers: {
@@ -54,16 +56,20 @@ export const fetchAdminLogStatistics = (
 ) => async dispatch => {
   dispatch(AdminLoggingSetupActions.logStatsFetchStart())
   try {
-    const response = await axios.put(base_url +convertObjectToRequestParam(path,queryParams), searchData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization:
-          LocalStorageSecurity.localStorageDecoder(
-            EnvironmentVariableGetter.AUTH_TOKEN
-          ) || ''
+    const response = await axios.put(
+      base_url + convertObjectToRequestParam(path, queryParams),
+      searchData,
+      {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization:
+            LocalStorageSecurity.localStorageDecoder(
+              EnvironmentVariableGetter.AUTH_TOKEN
+            ) || ''
+        }
       }
-    })
+    )
     dispatch(AdminLoggingSetupActions.logStatsFetchSuccess(response.data))
     return response
   } catch (e) {
