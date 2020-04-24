@@ -198,7 +198,7 @@ const DetailsModal = ({type, doctorData}) => {
                                         <CHybridInput
                                             id="appointment-charge"
                                             placeholder="Doctor Appointment Charge"
-                                            value={doctorData.appointmentCharge}
+                                            value={doctorData.appointmentCharge || '0'}
                                             disabled={true}
                                             readOnly={true}
                                         />
@@ -209,7 +209,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             id="appointment-follow-up-charge"
                                             placeholder="Doctor Appointment Follow Up Charge"
                                             value={doctorData.appointmentFollowUpCharge ?
-                                                doctorData.appointmentFollowUpCharge : 'N/A'}
+                                                doctorData.appointmentFollowUpCharge : '0'}
                                             disabled={true}
                                             readOnly={true}
                                         />
