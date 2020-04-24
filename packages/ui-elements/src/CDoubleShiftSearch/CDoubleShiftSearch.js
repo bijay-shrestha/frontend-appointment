@@ -211,6 +211,9 @@ class CDoubleShiftSearch extends PureComponent {
                             placeholder='Search Menus'
                             value={this.state.searchKeyword}
                             autoComplete="off"/>
+                                {/* <i className= "fa fa-search" > </i>
+                         </Form.Control> */}
+                            
 
                         <span className="search-text"> Press Double Shift Key To Search Menu </span>
                     </div>
