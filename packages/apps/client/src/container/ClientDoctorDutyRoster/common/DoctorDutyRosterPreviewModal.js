@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
-import {CDataTable, CHybridInput} from "@frontend-appointment/ui-elements";
+import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
@@ -85,6 +85,30 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />
+
+                            <CFLabel labelName="Status" id="status"/>
+                            <div>
+                                <CRadioButton
+                                    checked={doctorInfoData.status === 'Y'}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    name="status"
+                                    value="Y"
+                                    readOnly={true}
+                                    disabled={true}
+                                />
+                                <CRadioButton
+                                    checked={doctorInfoData.status === 'N'}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    name="status"
+                                    value="N"
+                                    readOnly={true}
+                                    disabled={true}
+                                />
+                            </div>
                         </Form>
                     </div>
                 </Col>
@@ -144,7 +168,7 @@ const DoctorDutyRosterPreviewModal = ({
                                         {
                                             headerName: 'From Date',
                                             field: 'fromDate',
-                                            cellRenderer:'fromDateRenderer',
+                                            cellRenderer: 'fromDateRenderer',
                                             resizable: true,
                                             sortable: true,
                                             sizeColumnsToFit: true
@@ -152,7 +176,7 @@ const DoctorDutyRosterPreviewModal = ({
                                         {
                                             headerName: 'To Date',
                                             field: 'toDate',
-                                            cellRenderer:'toDateRenderer',
+                                            cellRenderer: 'toDateRenderer',
                                             resizable: true,
                                             sortable: true,
                                             sizeColumnsToFit: true
@@ -195,8 +219,8 @@ const DoctorDutyRosterPreviewModal = ({
                                         startTimeRenderer: StartTimeDisplayForTable,
                                         endTimeRenderer: EndTimeDisplayForTable,
                                         childLabelRenderer: DayOffStatusLabel,
-                                        fromDateRenderer:FromDateDisplayForTable,
-                                        toDateRenderer:ToDateDisplayForTable
+                                        fromDateRenderer: FromDateDisplayForTable,
+                                        toDateRenderer: ToDateDisplayForTable
                                     }}
                                     defaultColDef={{resizable: true}}
                                     rowSelection={'single'}

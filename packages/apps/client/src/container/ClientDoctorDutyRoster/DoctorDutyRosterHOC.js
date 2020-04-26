@@ -1608,7 +1608,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     doctor: doctor,
                                     rosterGapDuration: rosterGapDuration,
                                     fromDate: fromDate,
-                                    toDate: toDate
+                                    toDate: toDate,
+                                    status:status
                                 }}
                                 doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
                                 hasOverrideDutyRoster={hasOverrideDutyRoster}
