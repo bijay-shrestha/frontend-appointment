@@ -59,7 +59,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             name="name"
                                             placeholder="Doctor Name"
                                             value={
-                                                type === 'A' ? doctorData.name : doctorData.doctorName
+                                                type === 'A' ? "Dr. " + doctorData.name : "Dr. " + doctorData.doctorName
                                             }
                                             disabled={true}
                                         />

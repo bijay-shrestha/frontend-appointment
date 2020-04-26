@@ -68,7 +68,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
 
                                 </div>
                                 <p className="doctor-details">
-                                    <span>{appointmentStatusDetail.doctorName}</span>
+                                    <span>Dr. {appointmentStatusDetail.doctorName}</span>
                                     <br/>{appointmentStatusDetail.specializationName}
                                 </p>
                             </Col>
