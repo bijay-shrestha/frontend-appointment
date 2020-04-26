@@ -32,7 +32,8 @@ const EditDoctorDutyRoster = ({
                                   specializationList,
                                   doctorList,
                                   dateErrorMessage,
-                                  specializationDropdownError
+                                  specializationDropdownError,
+                                  overrideFormValid
                               }) => {
     return <>
         <Container className="p-0" fluid>
@@ -155,6 +156,7 @@ const EditDoctorDutyRoster = ({
                     isModifyOverride={isModifyOverride}
                     onRemove={onRemoveOverride}
                     doctorInfoData={updateDoctorDutyRosterData}
+                    overrideFormValid={overrideFormValid}
                 />
                 {showDeleteOverrideModal ? (
                     <ConfirmDelete
