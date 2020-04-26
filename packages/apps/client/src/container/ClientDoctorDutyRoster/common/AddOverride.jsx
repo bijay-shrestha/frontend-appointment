@@ -13,7 +13,8 @@ const AddOverrideModal = ({
                               onEnterKeyPress,
                               addOverride,
                               overrideUpdateErrorMessage,
-                              doctorInfoData
+                              doctorInfoData,
+                              overrideFormValid
                           }) => {
     const body = <>
         <div className="" fluid>
@@ -40,7 +41,8 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
-                            onChange={() =>{}}
+                            onChange={() => {
+                            }}
                             disabled={true}
                         />
 
@@ -55,7 +57,8 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
-                            onChange={() => {}}
+                            onChange={() => {
+                            }}
                             disabled={true}
                         /> */}
                     </Col>
@@ -176,7 +179,7 @@ const AddOverrideModal = ({
                             id="remarks"
                             name="remarks"
                             onChange={(e) => handleOverrideFormInputChange(e, '')}
-                            onKeyDown={(event) => onEnterKeyPress(event)}
+                            // onKeyDown={(event) => onEnterKeyPress(event)}
                             placeholder="Remarks"
                             value={overrideData.remarks}
                             max={200}
@@ -213,17 +216,17 @@ const AddOverrideModal = ({
                         <div className="col-md-12">
                             <CButton
                                 id="submit-update-button"
-                                disabled={!overrideData.remarks}
-                                name="Add"
+                                disabled={!overrideFormValid}
+                                name="Save And Exit"
                                 size="lg"
                                 className="btn-action  float-right"
                                 onClickHandler={() => addOverride(false, false)}/>
                             <CButton id="submit-update-button"
                                      variant="outline-primary"
-                                     disabled={!overrideData.remarks}
+                                     disabled={!overrideFormValid}
                                      size="lg"
                                      className="btn-action  float-right mr-2"
-                                     name="Add and Create Another"
+                                     name="Save and Create Another"
                                      onClickHandler={() => addOverride(true, false)}
                             />
 

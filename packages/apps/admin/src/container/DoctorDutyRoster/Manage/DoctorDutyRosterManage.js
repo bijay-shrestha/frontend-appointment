@@ -63,7 +63,8 @@ function DoctorDutyRosterManage(props) {
              saveDoctorDutyRoster,
              activeDoctorsByHospitalForDropdown,
              activeSpecializationListByHospital,
-             dateErrorMessage
+             dateErrorMessage,
+             overrideFormValid
          }) => {
             const footerContent =
                 <Container fluid="true">
@@ -171,6 +172,7 @@ function DoctorDutyRosterManage(props) {
                                     doctorList={doctorList}
                                     doctorDropdownErrorMessage={doctorDropdownErrorMessage}
                                     dateErrorMessage={dateErrorMessage}
+                                    overrideFormValid={overrideFormValid}
                                 />
                             }
                             onHide={cancelCloseEditModal}

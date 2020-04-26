@@ -5,7 +5,7 @@ import {
     CButton,
     CLoading
 } from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {CDoctorNameDisplayForTable, ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
@@ -47,7 +47,8 @@ const DoctorDetailsDataTable = props => (
                             field: 'doctorName',
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'doctorNameRenderer'
                         },
                         {
                             headerName: 'Picture',
@@ -132,7 +133,8 @@ const DoctorDetailsDataTable = props => (
                             props.filteredActions,
                             4,
                             props.onPreviewHandler
-                        )
+                        ),
+                        doctorNameRenderer: PreviewHandlerHoc(CDoctorNameDisplayForTable, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

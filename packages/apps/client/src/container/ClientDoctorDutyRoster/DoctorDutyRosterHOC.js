@@ -3,7 +3,7 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {
     DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
-    EnterKeyPressUtils, LocalStorageSecurity,
+    EnterKeyPressUtils, LocalStorageSecurity, StringUtils,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
 import {
@@ -101,6 +101,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 dateErrorMessage: '',
                 timeErrorMessage: ''
             },
+            overrideFormValid: false,
             alertMessageInfo: {
                 variant: "",
                 message: ""
@@ -423,7 +424,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         };
 
-        handleOverrideFormInputChange = (event, field) => {
+        handleOverrideFormInputChange = async (event, field) => {
             if (event) {
                 let key = field ? field : event.target.name;
                 let value = field ? event
@@ -445,9 +446,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             overrideRequestDTO.endTime) ? TIME_ERROR_MESSAGE : ''
                     }
                 }
-                this.setState({
+                await this.setState({
                     overrideRequestDTO: {...overrideRequestDTO}
-                })
+                });
+                this.checkOverrideFormValidity();
             }
         };
 
@@ -561,10 +563,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        handleModifyOverride = (data, index) => {
+        handleModifyOverride = async (data, index) => {
             switch (type) {
                 case 'ADD':
-                    this.setState({
+                    await this.setState({
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
                             fromDate: data.fromDate,
@@ -578,9 +580,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         isModifyOverride: true,
                         showAddOverrideModal: true
                     });
+                    this.checkOverrideFormValidity();
                     break;
                 case 'MANAGE':
-                    this.setState({
+                    await this.setState({
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
                             fromDate: new Date(data.fromDate),
@@ -595,6 +598,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         isModifyOverride: true,
                         showAddOverrideModal: true
                     });
+                    this.checkOverrideFormValidity();
                     break;
             }
         };
@@ -829,13 +833,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        setShowAddOverrideModal = () => {
+        setShowAddOverrideModal = async () => {
             let hasOverride;
             switch (type) {
                 case 'ADD':
                     hasOverride = this.state.doctorDutyRosterOverrideRequestDTOS.length <= 0 ? 'N'
                         : this.state.hasOverrideDutyRoster;
-                    this.setState({
+                    await this.setState({
                         showAddOverrideModal: !this.state.showAddOverrideModal,
                         isModifyOverride: false,
                         overrideUpdateErrorMessage: '',
@@ -855,11 +859,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             timeErrorMessage: ''
                         }
                     });
+                    this.checkOverrideFormValidity();
                     break;
                 case 'MANAGE':
                     hasOverride = this.state.updateDoctorDutyRosterData.overridesUpdate.length <= 0 ? 'N'
                         : this.state.updateDoctorDutyRosterData.hasOverrideDutyRoster;
-                    this.setState({
+                    await this.setState({
                         showAddOverrideModal: !this.state.showAddOverrideModal,
                         isModifyOverride: false,
                         overrideUpdateErrorMessage: '',
@@ -882,6 +887,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             timeErrorMessage: ''
                         }
                     });
+                    this.checkOverrideFormValidity()
                     break;
             }
 
@@ -1071,6 +1077,22 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
             })
 
+        };
+
+        checkOverrideFormValidity = () => {
+            const {fromDate, toDate, startTime, endTime, dayOffStatus, remarks} = this.state.overrideRequestDTO;
+
+            const validForm = fromDate
+                && toDate
+                && startTime
+                && endTime
+                && dayOffStatus
+                && remarks
+                && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
+
+            this.setState({
+                overrideFormValid: Boolean(validForm)
+            })
         };
 
         checkIfWholeWeekOff = (doctorWeekDaysAvailability) => {
@@ -1473,7 +1495,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
                 searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO,
                 showEditModal, updateDoctorDutyRosterData, overrideUpdateErrorMessage, showDeleteOverrideModal,
-                deleteOverrideErrorMessage, dateErrorMessage
+                deleteOverrideErrorMessage, dateErrorMessage,overrideFormValid
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -1544,6 +1566,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         onSearchInputChange={this.handleSearchInputChange}
                         onViewDetailsExisting={this.handleViewDetailsExisting}
                         overrideData={{...overrideRequestDTO}}
+                        overrideFormValid={overrideFormValid}
                         overrideUpdateErrorMessage={overrideUpdateErrorMessage}
                         paginationData={{...queryParams, totalRecords}}
                         remarks={deleteRequestDTO.remarks}

@@ -114,7 +114,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => onInputChange(event)}
                                             value={searchParameters.mobileNumber}
-                                            placeholder="Doctor Number"
+                                            placeholder="Mobile Number"
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>

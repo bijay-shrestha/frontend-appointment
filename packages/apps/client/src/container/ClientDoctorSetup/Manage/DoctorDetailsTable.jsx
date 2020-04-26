@@ -1,12 +1,13 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {CDoctorNameDisplayForTable, ConfirmDelete} from '@frontend-appointment/ui-components'
 import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
+
 const {checkIfRoleExists} = ActionFilterUtils;
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
@@ -40,7 +41,8 @@ const DoctorDetailsDataTable = props => (
                             field: 'doctorName',
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'doctorNameRenderer'
                         },
                         {
                             headerName: 'Picture',
@@ -105,11 +107,12 @@ const DoctorDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
-                        imageRenderer: PreviewHandlerHoc(HospitalPicture,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler)
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        doctorNameRenderer: PreviewHandlerHoc(CDoctorNameDisplayForTable, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
-                         checkIfRoleExists(props.filteredActions, 4) &&
+                        checkIfRoleExists(props.filteredActions, 4) &&
                         props.onPreviewHandler
                     }
                     rowSelection={'single'}
