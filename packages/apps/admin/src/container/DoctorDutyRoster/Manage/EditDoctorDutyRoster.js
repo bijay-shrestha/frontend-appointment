@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {CHybridInput, CHybridSelect, CHybridTextArea} from "@frontend-appointment/ui-elements";
+import {CFLabel, CHybridInput, CHybridSelect, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
 import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
@@ -131,6 +131,33 @@ const EditDoctorDutyRoster = ({
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event)}
                             />
+
+                            <CFLabel labelName="Status" id="status"/>
+                            <div>
+                                <CRadioButton
+                                    checked={updateDoctorDutyRosterData.status === 'Y'}
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    name="status"
+                                    value="Y"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={event => onInputChange(event)}
+                                />
+
+                                <CRadioButton
+                                    checked={updateDoctorDutyRosterData.status === 'N'}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    name="status"
+                                    value="N"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={event => onInputChange(event)}
+                                />
+
+                            </div>
+
 
                             {
                                 updateDoctorDutyRosterData.isCloneAndAdd ?

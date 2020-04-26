@@ -270,6 +270,7 @@ class CTable extends PureComponent {
                 isEditing: false,
                 rowNumber: ''
             });
+            console.log("=========props changed")
             this.props.changeActionComplete && this.props.changeActionComplete();
         }
         if (
@@ -277,6 +278,7 @@ class CTable extends PureComponent {
             prevProps.errorMessage !== this.props.errorMessage ||
             prevProps.isLoading !== this.props.isLoading
         ) {
+            console.log("======props changed")
             if (!isEditing) {
                 this.setTableDataAndCreateRowObject(rowData)
             } else if (isEditing && !rowData.length) {
@@ -317,6 +319,7 @@ class CTable extends PureComponent {
             errorMessage,
             onPreview
         } = this.props
+        console.log("===========",this.props)
         const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state;
         return (
             <>
@@ -353,6 +356,7 @@ class CTable extends PureComponent {
                             >
                                 <thead>
                                 <tr>
+                               
                                     {columnDefinition.map((column, index) => (
                                         <td key={column + index}>{column.headerName}</td>
                                     ))}
@@ -398,6 +402,7 @@ class CTable extends PureComponent {
                                                             }
                                                     }
                                                 >
+                                                 {console.log("row",row)}
                                                     {row.onRowEdit &&
                                                     Object.keys(column).includes('editComponent') ? (
                                                         <column.editComponent
