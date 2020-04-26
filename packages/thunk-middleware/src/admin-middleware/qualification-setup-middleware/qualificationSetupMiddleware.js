@@ -59,7 +59,7 @@ export const searchQualification = (path, queryParams, data) => async dispatch =
         return response;
     } catch (e) {
         dispatch(QualificationSetupActions.createQualificationListError(e.errorMessage ? e.errorMessage : "Sorry,Internal Server Problem!"));
-        throw e
+     
     }
 };
 
