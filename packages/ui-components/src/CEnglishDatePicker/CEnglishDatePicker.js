@@ -135,7 +135,7 @@ class CEnglishDatePicker extends Component {
         )
       }
     }
-    console.log('=========', formatDate)
+
     return (
       <>
         <DatePicker

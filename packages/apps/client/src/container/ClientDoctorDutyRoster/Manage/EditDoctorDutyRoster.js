@@ -46,7 +46,6 @@ const EditDoctorDutyRoster = ({
                                     id="from-date"
                                     name="fromDate"
                                     label="From Date"
-                                    dateFormat="yyyy-MM-dd"
                                     minDate={0}
                                     showDisabledMonthNavigation={true}
                                     selected={updateDoctorDutyRosterData.fromDate}
@@ -63,7 +62,6 @@ const EditDoctorDutyRoster = ({
                                     id="to-date"
                                     name="toDate"
                                     label="To Date"
-                                    dateFormat="yyyy-MM-dd"
                                     minDate={0}
                                     showDisabledMonthNavigation={true}
                                     selected={updateDoctorDutyRosterData.toDate}
@@ -156,6 +154,7 @@ const EditDoctorDutyRoster = ({
                     onModify={onModifyOverride}
                     isModifyOverride={isModifyOverride}
                     onRemove={onRemoveOverride}
+                    doctorInfoData={updateDoctorDutyRosterData}
                 />
                 {showDeleteOverrideModal ? (
                     <ConfirmDelete

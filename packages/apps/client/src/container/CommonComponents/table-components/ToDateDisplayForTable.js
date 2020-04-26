@@ -5,7 +5,7 @@ import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 const ToDateDisplayForTable = props => {
     return (
         <>
-            {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(props.node.data.toDate ? new Date(props.node.data.toDate) : '')}
+            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(props.node.data.toDate ? new Date(props.node.data.toDate) : '')}
         </>
     );
 };

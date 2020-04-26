@@ -169,6 +169,7 @@ const EditDoctorDutyRoster = ({
                     onModify={onModifyOverride}
                     isModifyOverride={isModifyOverride}
                     onRemove={onRemoveOverride}
+                    doctorInfoData={updateDoctorDutyRosterData}
                 />
                 {showDeleteOverrideModal ? (
                     <ConfirmDelete

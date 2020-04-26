@@ -44,7 +44,6 @@ function DoctorDutyRosterAdd(props) {
                                                               showConfirmModal,
                                                               showExistingRosterModal,
                                                               specializationDropdownError,
-                                                              specializationList,
                                                               activeSpecializationListByHospital,
                                                               wholeWeekOff,
                                                           }) =>
@@ -89,6 +88,7 @@ function DoctorDutyRosterAdd(props) {
                         onRemove={onRemoveOverride}
                         onModify={onModifyOverride}
                         isModifyOverride={isModifyOverride}
+                        doctorInfoData={doctorInfoData}
                     />
                 </Row>
             </Container>

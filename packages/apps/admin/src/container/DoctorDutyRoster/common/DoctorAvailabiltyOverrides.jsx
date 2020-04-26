@@ -22,7 +22,8 @@ const DoctorAvailabilityOverrides = ({
                                          onEnterKeyPress,
                                          addOverride,
                                          isModifyOverride,
-                                         overrideUpdateErrorMessage
+                                         overrideUpdateErrorMessage,
+                                         doctorInfoData
                                      }) => {
     return <>
         <Col>
@@ -61,6 +62,7 @@ const DoctorAvailabilityOverrides = ({
                             onEnterKeyPress={onEnterKeyPress}
                             addOverride={addOverride}
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
+                            doctorInfoData={doctorInfoData}
                         />
                     </Col>
                     }

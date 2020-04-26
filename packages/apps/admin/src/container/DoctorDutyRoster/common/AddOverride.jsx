@@ -11,7 +11,8 @@ const AddOverrideModal = ({
                               handleOverrideFormInputChange,
                               onEnterKeyPress,
                               addOverride,
-                              overrideUpdateErrorMessage
+                              overrideUpdateErrorMessage,
+                              doctorInfoData
                           }) => {
     const body = <>
         <Container className="" fluid>
@@ -20,10 +21,43 @@ const AddOverrideModal = ({
                     {/*<Form.Label>Date</Form.Label>*/}
                     <Col xs={12}>
                         <CEnglishDatePicker
+                            id="roster-from-date-override"
+                            name="rosterFromDate"
+                            label="Roster From Date"
+                            minDate={0}
+                            showDisabledMonthNavigation={true}
+                            selected={doctorInfoData.fromDate}
+                            peekNextMonth={true}
+                            showMonthDropdown={true}
+                            showYearDropdown={true}
+                            dropdownMode="select"
+                            invalid={!!overrideData.dateErrorMessage}
+                            onChange={() =>{}}
+                            disabled={true}
+                        />
+
+                        <CEnglishDatePicker
+                            id="roster-to-date-override"
+                            name="rosterToDate"
+                            label="Roster To Date"
+                            minDate={0}
+                            showDisabledMonthNavigation={true}
+                            selected={doctorInfoData.toDate}
+                            peekNextMonth={true}
+                            showMonthDropdown={true}
+                            showYearDropdown={true}
+                            dropdownMode="select"
+                            invalid={!!overrideData.dateErrorMessage}
+                            onChange={() => {}}
+                            disabled={true}
+                        />
+                    </Col>
+                    <Col xs={12}>
+                        <CEnglishDatePicker
                             id="from-date-override"
                             name="fromDate"
-                            label="From Date"
-                            dateFormat="yyyy-MM-dd"
+                            label="Override From Date"
+                            // dateFormat="yyyy-MM-dd"
                             minDate={0}
                             showDisabledMonthNavigation={true}
                             selected={overrideData.fromDate}
@@ -39,8 +73,8 @@ const AddOverrideModal = ({
                         <CEnglishDatePicker
                             id="to-date-override"
                             name="toDate"
-                            label="To Date"
-                            dateFormat="yyyy-MM-dd"
+                            label="Override To Date"
+                            // dateFormat="yyyy-MM-dd"
                             minDate={0}
                             showDisabledMonthNavigation={true}
                             selected={overrideData.toDate}
