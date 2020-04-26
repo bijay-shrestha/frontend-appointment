@@ -31,7 +31,6 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
-                            invalid={!!overrideData.dateErrorMessage}
                             onChange={() =>{}}
                             disabled={true}
                         />
@@ -47,7 +46,6 @@ const AddOverrideModal = ({
                             showMonthDropdown={true}
                             showYearDropdown={true}
                             dropdownMode="select"
-                            invalid={!!overrideData.dateErrorMessage}
                             onChange={() => {}}
                             disabled={true}
                         />
