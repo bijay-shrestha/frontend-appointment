@@ -50,13 +50,12 @@ function HospitalAdd(props) {
                         id="resetProfileForm"
                         variant="outline-secondary"
                         size="sm"
-                        name="Reset"
+                        name=""
                         className="mb-2  float-right"
                         onClickHandler={resetStateAddValues}
                     >
                         <>
-                            &nbsp;
-                            <i className="fa fa-refresh"/>
+                            <i className="fa fa-refresh"/> &nbsp;Reset
                         </>
                     </CButton>
                     <HospitalForm

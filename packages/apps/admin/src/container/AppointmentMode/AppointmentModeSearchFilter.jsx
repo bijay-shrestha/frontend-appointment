@@ -41,10 +41,10 @@ class AppointmentModeSearchFilter extends PureComponent {
                                     id="reset-form"
                                     variant="outline-secondary"
                                     size="sm"
-                                    name="Reset "
+                                    name=" "
                                     onClickHandler={resetSearchForm}
                                 >
-                                    <i className="fa fa-refresh"/>
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>

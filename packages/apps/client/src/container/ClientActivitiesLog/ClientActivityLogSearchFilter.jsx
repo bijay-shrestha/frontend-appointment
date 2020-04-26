@@ -61,10 +61,10 @@ class ClientActivityLogSearchFilter extends PureComponent {
                   id="reset-form"
                   variant="outline-secondary"
                   size="sm"
-                  name="Reset"
+                  name=""
                   onClickHandler={resetSearch}
                 >
-                  &nbsp; <i className="fa fa-refresh" />
+                   <i className="fa fa-refresh" />&nbsp;Reset
                 </CButton>
               </div>
             </div>

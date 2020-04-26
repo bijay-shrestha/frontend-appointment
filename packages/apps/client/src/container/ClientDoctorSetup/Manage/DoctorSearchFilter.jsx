@@ -44,13 +44,13 @@ class DoctorSetupSearchFilter extends PureComponent {
                             <h5 className="title">Search Doctor</h5>
                             <div>
                                 <CButton
-                                    id="reset-form"
+                                id="reset-form"
                                     variant="outline-secondary"
                                     size="sm"
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                    Reset <i className="fa fa-refresh"/>
+                                     <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>

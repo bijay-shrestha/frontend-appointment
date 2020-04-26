@@ -40,6 +40,13 @@
              padding:25px;
          }
 
+         .modal-footer{
+             padding:0 25px;
+            &>{
+                margin:0;
+            }
+         }
+
         
      }
 

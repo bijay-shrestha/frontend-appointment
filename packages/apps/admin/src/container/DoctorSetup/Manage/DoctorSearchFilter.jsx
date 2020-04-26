@@ -50,7 +50,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                    Reset <i className="fa fa-refresh"/>
+                                     <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>

@@ -19,8 +19,8 @@ const DoctorDutyRosterPreviewModal = ({
 
     return <>
         <Container className="" fluid>
-            <Row className="mb-2">
-                <Col md={12} lg={5} className="">
+            <Row className="mb-3">
+                <Col md={12} lg={5} className="p-0">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title mb-4">Doctor Info</h5>
                         <Form>
@@ -89,7 +89,7 @@ const DoctorDutyRosterPreviewModal = ({
                     </div>
                 </Col>
 
-                <Col md={12} lg={7} className="">
+                <Col md={12} lg={7} className="pr-0">
                     <div className="doctor-availability bg-white p-4">
                         <h5 className="title">Doctor Availability</h5>
                         <Row className="header">

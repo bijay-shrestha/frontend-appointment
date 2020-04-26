@@ -1,7 +1,8 @@
 import React from 'react';
-import {CButton, CCheckbox, CHybridTextArea, CHybridTimePicker, CModal} from "@frontend-appointment/ui-elements";
+import {CButton, CCheckbox, CHybridTextArea, CHybridTimePicker, CModal, CHybridInput} from "@frontend-appointment/ui-elements";
 import {Container, Form, Row, Col} from "react-bootstrap";
 import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
+import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const AddOverrideModal = ({
                               isModifyOverride,
@@ -15,12 +16,20 @@ const AddOverrideModal = ({
                               doctorInfoData
                           }) => {
     const body = <>
-        <Container className="" fluid>
+        <div className="" fluid>
             <Row className="mb-2">
                 <Form className="override-form">
                     {/*<Form.Label>Date</Form.Label>*/}
-                    <Col xs={12}>
-                        <CEnglishDatePicker
+                    <Col xs={12} >
+
+                        <CHybridInput 
+                        id="duty-date"
+                        placeholder="Doctor Duty Date"
+                        disabled={true}
+                        value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.fromDate) 
+                            + " - " + DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.toDate) }
+                        />
+                        {/* <CEnglishDatePicker
                             id="roster-from-date-override"
                             name="rosterFromDate"
                             label="Roster From Date"
@@ -48,7 +57,7 @@ const AddOverrideModal = ({
                             dropdownMode="select"
                             onChange={() => {}}
                             disabled={true}
-                        />
+                        /> */}
                     </Col>
                     <Col xs={12}>
                         <CEnglishDatePicker
@@ -176,11 +185,11 @@ const AddOverrideModal = ({
                     </Col>
                 </Form>
             </Row>
-        </Container>
+        </div>
     </>;
 
     const footer = <>
-        <Container fluid="true">
+        <div className="m-0">
             <Row>
                 <div className="col-sm-12">
                     {overrideUpdateErrorMessage ?
@@ -221,7 +230,7 @@ const AddOverrideModal = ({
                         </div>
                 }
             </Row>
-        </Container>
+        </div>
     </>;
 
     return <>
