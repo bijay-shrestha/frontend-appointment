@@ -191,7 +191,7 @@
     // for profile details
 
     .user-profile {
-        margin-top:-9px;
+        margin-top:-7px;
         // padding:0 4px;   
         &.show{
             background-color: #e6efff;
@@ -222,7 +222,8 @@
             transition        : all 0.3s;
 
             &:hover {
-                background-color:lighten($primary,42%);
+                background-color:$white;
+                // background-color:lighten($primary,42%);
                 @include border-radius(50%);
             }
 
