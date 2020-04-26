@@ -36,7 +36,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 isNew: true
             },
             formValid: false,
-            qualificationAlias: [],
             searchParameters: {
                 name: '',
                 status: {value: 'A', label: 'All'},
@@ -231,9 +230,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        actionsOnOperationComplete = () => {
+        actionsOnOperationComplete = async () => {
             this.resetAliasData();
-            this.handleResetSearchForm();
+            await this.handleResetSearchForm();
         };
 
         searchQualificationAlias = async (page) => {
@@ -262,13 +261,9 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                         ...this.state.queryParams,
                         page: updatedPage
                     },
-                    qualificationAlias: [...this.props.QualificationAliasSearchReducer.qualificationAliasList],
                     isActionComplete: true
                 })
             } catch (e) {
-                await this.setState({
-                    qualificationAlias: [],
-                })
             }
 
         };
@@ -343,7 +338,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 const response = await this.props.editQualificationAlias(EDIT_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasEditReducer.editSuccessMessage);
                 this.closeModal();
-                this.actionsOnOperationComplete();
+                await this.actionsOnOperationComplete();
                 return true;
             } catch (e) {
                 this.defaultAliasValueForEdit.id = id;
@@ -383,7 +378,6 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
 
             const {
                 aliasData,
-                qualificationAlias,
                 searchParameters,
                 queryParams,
                 totalRecords,
@@ -399,7 +393,8 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
 
             const {
                 isSearchQualificationAliasLoading,
-                searchErrorMessage
+                searchErrorMessage,
+                qualificationAliasList
             } = this.props.QualificationAliasSearchReducer;
 
             const {editErrorMessage, isEditQualificationAliasLoading} = this.props.QualificationAliasEditReducer;
@@ -409,7 +404,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 <ComposedComponent
                     {...props}
                     tableData={{
-                        qualificationAliasList: qualificationAlias,
+                        qualificationAliasList: qualificationAliasList,
                         isSearchQualificationAliasLoading,
                         searchErrorMessage,
                         currentPage: queryParams.page,
