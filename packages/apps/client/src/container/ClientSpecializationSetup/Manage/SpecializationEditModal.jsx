@@ -70,7 +70,7 @@ const DepartmentEditModal = ({
                             type="radio"
                             value="Y"
                             onKeyDown={event => onEnterKeyPress(event)}
-                            onChange={event => onInputChange(event, 'E')}
+                            onChange={event => onInputChange(event,'', 'E')}
                         />
                         <CRadioButton
                             checked={specializationData.status === 'N'}
@@ -80,7 +80,7 @@ const DepartmentEditModal = ({
                             type="radio"
                             value="N"
                             onKeyDown={event => onEnterKeyPress(event)}
-                            onChange={event => onInputChange(event, 'E')}
+                            onChange={event => onInputChange(event,'','E')}
                         />
                     </Col>
                     <Col sm={12} md={12} lg={4}>
