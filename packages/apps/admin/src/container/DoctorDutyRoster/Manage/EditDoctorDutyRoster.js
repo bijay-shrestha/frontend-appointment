@@ -163,6 +163,7 @@ const EditDoctorDutyRoster = ({
                                 updateDoctorDutyRosterData.isCloneAndAdd ?
                                     '' :
                                     <CHybridTextArea
+                                    className="mt-3"
                                         onChange={onInputChange}
                                         id="remarks"
                                         name="remarks"
