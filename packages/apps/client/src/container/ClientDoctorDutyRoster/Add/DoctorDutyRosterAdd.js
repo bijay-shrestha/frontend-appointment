@@ -101,7 +101,8 @@ function DoctorDutyRosterAdd(props) {
                         variant="primary  "
                         size="xl"
                         className="float-right btn-action"
-                        name={showConfirmModal ? "Saving" : "Save"}
+                        name={"Save"}
+                        isLoading={showConfirmModal}
                         disabled={!formValid || showConfirmModal}
                         onClickHandler={onSaveButtonClick}>
                     </CButton>

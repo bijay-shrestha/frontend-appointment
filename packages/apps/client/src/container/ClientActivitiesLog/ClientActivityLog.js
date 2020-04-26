@@ -23,6 +23,8 @@ const ClientActivityLog = props => {
             paginationProps={paginationProps}
             adminLogStatsData={adminLogStatsData}
             adminDiagramStatsData={adminDiagramStatsData}
+            fromDate ={searchHandler.searchParameters.fromDate}
+            toDate ={searchHandler.searchParameters.toDate}
           />
         </div>
       </>
