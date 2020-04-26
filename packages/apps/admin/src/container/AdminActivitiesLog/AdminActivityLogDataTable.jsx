@@ -17,7 +17,9 @@ const AdminActivityLogDataTable = ({
   tableHandler,
   paginationProps,
   adminLogStatsData,
-  adminDiagramStatsData
+  adminDiagramStatsData,
+  fromDate,
+  toDate
 }) => {
   const {isSearchLoading, searchErrorMessage, logList} = tableHandler
   const {
@@ -33,7 +35,7 @@ const AdminActivityLogDataTable = ({
     statsTotalRecord,
     handlePageChangeStats
   } = paginationProps
-
+ 
   const {
     logDiagramSearchData,
     isLogDiagramSearchLoading,
@@ -235,7 +237,8 @@ const AdminActivityLogDataTable = ({
           <div className="activity-count ">
             <Row>
               <Col>
-                <h5 className="title"> Activity Statistics</h5>
+              {console.log("romdate",fromDate.toDateString())}
+                <h5 className="title"> Activity Statistics As of {fromDate.toDateString()} - {toDate.toDateString()}</h5>
               </Col>
             </Row>
 
@@ -272,7 +275,7 @@ const AdminActivityLogDataTable = ({
                       width: '200'
                     },
                     {
-                      headerName: 'Count',
+                      headerName: 'Hits',
                       field: 'count',
                       resizable: true,
                       sortable: true,
@@ -308,7 +311,7 @@ const AdminActivityLogDataTable = ({
           <div className="activity-log">
             <Row>
               <Col>
-                <h5 className="title"> Activity Statistics Diagram</h5>
+                <h5 className="title"> Statistics Diagram As Of {fromDate.toDateString()}-{toDate.toDateString()}</h5>
               </Col>
             </Row>
             {logDiagramSearchData.length &&
@@ -320,7 +323,7 @@ const AdminActivityLogDataTable = ({
                   width={160}
                   height={100}
                 />
-                  <p className="total-count">Total Counts:{totalCounts}</p>
+                  <p className="total-count">Total Hits:{totalCounts}</p>
                 <div className="legend-box clearfix">
                 
                   <p>Top Features</p>

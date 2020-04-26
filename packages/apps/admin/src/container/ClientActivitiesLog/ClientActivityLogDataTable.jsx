@@ -5,8 +5,6 @@ import {
   CPagination,
   CDoughnutChart
 } from '@frontend-appointment/ui-elements'
-//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-// import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
@@ -17,7 +15,9 @@ const ClientActivityLogDataTable = ({
   tableHandler,
   paginationProps,
   adminLogStatsData,
-  adminDiagramStatsData
+  adminDiagramStatsData,
+  fromDate,
+  toDate
 }) => {
   const {isSearchLoading, searchErrorMessage, logList} = tableHandler
   const {
@@ -234,7 +234,7 @@ const ClientActivityLogDataTable = ({
           <div className="activity-count ">
             <Row>
               <Col>
-                <h5 className="title"> Activity Statistics</h5>
+                <h5 className="title"> Activity Statistics As Of {fromDate.toDateString()}-{toDate.toDateString()}</h5>
               </Col>
             </Row>
 
@@ -271,7 +271,7 @@ const ClientActivityLogDataTable = ({
                       width: '200'
                     },
                     {
-                      headerName: 'Count',
+                      headerName: 'Hits',
                       field: 'count',
                       resizable: true,
                       sortable: true,
@@ -307,7 +307,7 @@ const ClientActivityLogDataTable = ({
           <div className="activity-log">
             <Row>
               <Col>
-                <h5 className="title"> Activity Statistics Diagram</h5>
+                <h5 className="title">  Statistics Diagram As Of {fromDate.toDateString()}-{toDate.toDateString()}</h5>
               </Col>
             </Row>
             {logDiagramSearchData.length &&
@@ -319,7 +319,7 @@ const ClientActivityLogDataTable = ({
                   width={160}
                   height={100}
                 />
-                 <p className="total-count">Total Counts:{totalCounts}</p>
+                 <p className="total-count">Total Hits:{totalCounts}</p>
                 <div className="legend-box clearfix">
                
                   <p>Top Features</p>
