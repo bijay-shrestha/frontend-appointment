@@ -3,7 +3,7 @@
         border:none;
         padding-bottom:10px;
          .modal-header{
-             background-color: darken($cogent, 5%);
+            // background-color: darken($cogent, 5%);
            // background: linear-gradient(180deg,darken($cogent, 25%), rgba(0,212,255,1) 100%);
             // background-image: url("../images/clinic5.png");
             justify-content: center;
@@ -12,16 +12,26 @@
             background-position: center;
             position        : relative;
             padding-top     : 25px;
-            margin-bottom   : 20px;
+            padding-bottom   : 0px;
             text-align      : center;
-             color:$white;
+            color              : $gray-800;
              border: none;
              opacity: 0.9;
+
+             .close{
+                color:$gray-800;
+                font-size: 1.6rem;
+
+                &:hover{
+                    color:$gray-900;
+                   
+                }
+            }
          }
 
-         .close{
-            font-size: 2rem !important;
-        }
+        //  .close{
+        //     font-size: 2rem !important;
+        // }
 
          .modal-body{
              padding:25px;
