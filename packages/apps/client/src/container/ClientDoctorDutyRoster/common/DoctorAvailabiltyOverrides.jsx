@@ -23,7 +23,8 @@ const DoctorAvailabilityOverrides = ({
                                          addOverride,
                                          isModifyOverride,
                                          overrideUpdateErrorMessage,
-                                         doctorInfoData
+                                         doctorInfoData,
+                                         overrideFormValid
                                      }) => {
     return <>
         <Col>
@@ -63,6 +64,7 @@ const DoctorAvailabilityOverrides = ({
                             addOverride={addOverride}
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
                             doctorInfoData={doctorInfoData}
+                            overrideFormValid={overrideFormValid}
                         />
                     </Col>
                     }

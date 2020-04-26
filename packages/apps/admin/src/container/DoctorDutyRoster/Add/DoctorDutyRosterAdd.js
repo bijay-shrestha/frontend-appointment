@@ -46,6 +46,7 @@ function DoctorDutyRosterAdd(props) {
                                                               specializationDropdownError,
                                                               activeSpecializationListByHospital,
                                                               wholeWeekOff,
+                                                              overrideFormValid
                                                           }) =>
         <div>
             <Container className="p-0" fluid>
@@ -89,6 +90,7 @@ function DoctorDutyRosterAdd(props) {
                         onModify={onModifyOverride}
                         isModifyOverride={isModifyOverride}
                         doctorInfoData={doctorInfoData}
+                        overrideFormValid={overrideFormValid}
                     />
                 </Row>
             </Container>
