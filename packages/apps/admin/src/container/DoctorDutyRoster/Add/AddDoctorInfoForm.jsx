@@ -143,6 +143,7 @@ const AddDoctorInfoForm = ({
                 </Form>
 
                 <CButton
+                className="mt-2 pl-0"
                     id="show-existing"
                     variant="link"
                     size="lg"
