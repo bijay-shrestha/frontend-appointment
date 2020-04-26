@@ -67,6 +67,7 @@ const DepartmentEditModal = ({
                             placeholder="Specialization Code"
                             value={specializationData.code}
                             required={true}
+                             disabled={true}
                             // hasValidation={true}
                             // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                             errorMessagePassed={errorMessageForSpecializationCode}

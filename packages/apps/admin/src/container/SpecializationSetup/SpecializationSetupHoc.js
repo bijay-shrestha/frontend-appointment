@@ -399,7 +399,8 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                     code: '',
                     status: { value: '', label: 'All' },
                     name: '',
-                    id: null
+                    id: null,
+                    hospitalId:null
                 }
             })
             this.searchSpecialization();
