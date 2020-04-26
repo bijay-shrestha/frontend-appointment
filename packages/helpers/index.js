@@ -22,6 +22,7 @@ import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
 import menuRoles from './src/roles';
 import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
+import * as StringUtils from './src/utils/StringUtils';
 
 
 export {
@@ -46,5 +47,6 @@ export {
     dateHelpers,
     appointmentStatusList,
     clientUserMenusJson,
-    ObjectUtils
+    ObjectUtils,
+    StringUtils
 }
