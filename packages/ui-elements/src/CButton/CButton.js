@@ -22,21 +22,21 @@ const CButton = props => {
     } = props;
     const checkVowelsCondition =splitName =>{
         const vowels = ['a', 'e', 'i', 'o', 'u']
-        if (vowels.includes(splitName[name.length - 1])) {
+        if (vowels.includes(splitName[splitName.length - 1])) {
             return splitName.slice(0, name.length - 1).join('') + "ing"
         } else {
             return splitName.join('') + "ing"
         }
-       
+
 
     }
     const checkAndRenameNameForLoading = () => {
-      
+
         const splitNameCheck =name.split(' ');
-        const splitName = splitNameCheck[0].split('') 
+        const splitName = splitNameCheck[0].split('')
         const newName = checkVowelsCondition(splitName)
         if(splitNameCheck>1)
-         return newName+' '+splitNameCheck[1] 
+         return newName+' '+splitNameCheck[1]
         return newName;
     }
     return (

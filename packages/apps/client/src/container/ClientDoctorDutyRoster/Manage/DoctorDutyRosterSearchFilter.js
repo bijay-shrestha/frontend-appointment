@@ -123,6 +123,23 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="status"
+                                            name="status"
+                                            onKeyDown={this.handleEnter}
+                                            onChange={event => onSearchInputChange(event)}
+                                            value={searchParameters.status}
+                                            options={[
+                                                {value: 'A', label: 'All'},
+                                                {value: 'Y', label: 'Active'},
+                                                {value: 'N', label: 'Inactive'}
+                                            ]}
+                                            label="Status"
+                                            placeholder={"Select Status."}
+                                        />
+                                    </Col>
+
                                     <Col
                                         sm={12}
                                         md={{span: 6, offset: 6}}
@@ -233,6 +250,26 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
 
                             </li>
                             }
+
+                            {searchParameters.status && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Status</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.status.value === 'Y'
+                                                ? 'Active'
+                                                : searchParameters.status.value === 'N'
+                                                    ? 'Inactive'
+                                                    : 'All'}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
                         </ul>
                     </div>}
             </>
