@@ -35,8 +35,8 @@ const CButton = props => {
         const splitNameCheck = name.split(' ');
         const splitName = splitNameCheck[0].split('')
         const newName = checkVowelsCondition(splitName)
-        if (splitNameCheck.length > 1)
-            return newName + ' ' + splitNameCheck[1]
+        // if (splitNameCheck.length > 1)
+        //     return newName + ' ' + splitNameCheck[1]
         return newName;
     }
     return (
