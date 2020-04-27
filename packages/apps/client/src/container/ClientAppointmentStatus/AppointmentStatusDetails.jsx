@@ -101,7 +101,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {(appointmentStatusDetail.dayOffStatus === 'Y'
                                         && appointmentStatusDetail.doctorTimeSlots
                                         && appointmentStatusDetail.doctorTimeSlots.length) ?
-                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
+                                        <div className="back-day-off"><i
+                                            className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -179,12 +180,18 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         </div>
 
                                         <div className="patient-details">
-                                            <div className="label">Appointment Category</div>
+                                            <div className="label">Appointment Amount</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                                {appointmentStatusDetail.patientDetails.appointmentAmount}
                                             </div>
                                         </div>
 
+                                        <div className="patient-details">
+                                            <div className="label">Appointment Mode</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.appointmentMode}
+                                            </div>
+                                        </div>
 
                                         <div className="patient-details">
                                             <div className="label">Name</div>

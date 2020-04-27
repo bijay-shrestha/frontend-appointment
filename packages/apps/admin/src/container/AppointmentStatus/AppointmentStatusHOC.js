@@ -151,7 +151,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 let fieldName, value, label;
                 fieldName = field ? field : event.target.name;
                 value = field ? event : event.target.value;
-                label = fieldName ? '' : event.target.label;
+                label = field ? '' : event.target.label;
 
                 let searchParams = {...this.state.searchParameters};
                 searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
@@ -234,7 +234,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
                 registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
                 esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',
-                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A'
+                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A',
+                appointmentMode: appointmentStatusDetail.patientDetails.appointmentMode || 'N/A'
             };
             this.setState({
                 showAppointmentDetailModal: true,

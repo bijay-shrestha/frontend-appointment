@@ -184,10 +184,16 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             <div className="patient-details">
                                                 <div className="label">Appointment Amount</div>
                                                 <div className="data">
-                                                    {appointmentStatusDetail.appointmentAmount}
+                                                    {appointmentStatusDetail.patientDetails.appointmentAmount}
                                                 </div>
                                             </div>
 
+                                            <div className="patient-details">
+                                                <div className="label">Appointment Mode</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.appointmentMode}
+                                                </div>
+                                            </div>
 
                                             <div className="patient-details">
                                                 <div className="label">Name</div>
