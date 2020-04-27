@@ -637,6 +637,8 @@
         }
     }
 
+    
+
     .appointment-box{
         background-color:$white;
         padding:30px;
@@ -661,53 +663,117 @@
             margin:0 auto;
         }
 
-        .title{
-            font-size: 14px;
-            font-weight: 500;
-            margin:0;
-        }
+      
 
-        p{
-            font-size: 22px;
-            font-weight: 500;
-            margin:0;
-        }
+        // ul li{
+        //     width:50%;
+        //     display: inline-block;
+        //     text-align: center;
+        //     font-size: 14px;
+        //     font-weight: 400;
+        //     color:$gray-700;
 
-        ul li{
-            width:50%;
-            display: inline-block;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 400;
-            color:$gray-700;
+            // span{
+            //     font-size: 18px;
+            //     color:$gray-700;
+            //     font-weight: 400;
+            // }
 
-            span{
-                font-size: 18px;
-                color:$gray-700;
-                font-weight: 400;
-            }
+        // }
 
-        }
+        .total-count{
+            margin-top:10px;
+             text-align: center;
+             font-weight:500;
+             font-size:0.9rem;
+         }
+     
+         .legend-box{
+             display: block;
+         //    min-width: 320px;
+             width:400px;
+             height: auto;
+              border:1px solid #ccc;
+             margin:20px auto;
+             padding:12px;
+             @include border-radius(0.5rem);
+     
+             ul li{
+                 width:50%;
+                 float:left;
+                 height: 20px;
+                 display: flex;
+                 flex-direction: row;
+                 justify-content: left;
+                 // align-items: center;
+     
+                 // span{
+                 //     // border:1px solid #ccc;
+                 //     width:8px;
+                 //     height: 6px;
+                 // }
+     
+                 .legend{
+                     width:15px;
+                     height:15px;
+                     display: inline-block;
+                     padding: 0.55em 0.55em;
+                     margin-right:6px;
+                     background-color:$primary;
+                     line-height: 1;
+                     // text-align: center;
+                     border-radius: 0.25rem;
+                 
+                 }
+     
+                 .data{
+                     font-weight: 500;
+                     font-size: 12px;
+                     color:$gray-900
+                 }
+                 
+     
+                 &:nth-child(1){
+                    .legend{
+                        background-color: rgba(0, 99, 255, 0.2);
+                     }
+                 }
+     
+                 &:nth-child(2){
+                     .legend{
+                        background-color:$cogent;
+                     }
+                 }
+     
+             }
+     
+             p{
+                 text-align: center;
+                 font-weight:500;
+                 font-size:0.9rem;
+             }
+         }
+     
 
-        .color-code{
-            display:inline-block;
-            width:10px;
-            height: 10px;
-            background-color:$info;
-           vertical-align: middle;
-           margin-bottom:6px;
-           margin-right:2px;
-            @include border-radius(50%);
+        // .color-code{
+        //     display:inline-block;
+        //     width:10px;
+        //     height: 10px;
+        //     background-color:$info;
+        //    vertical-align: middle;
+        //    margin-bottom:6px;
+        //    margin-right:2px;
+        //     @include border-radius(50%);
 
-            &.code1{
-                // background-color:lighten($cogent,20%);
-               background-color: rgba(0, 99, 255, 0.2);
-            }
+        //     &.code1{
+        //         // background-color:lighten($cogent,20%);
+        //        background-color: rgba(0, 99, 255, 0.2);
+        //     }
 
-            &.code2{
-                background-color:$cogent;
-            }
-        }
+        //     &.code2{
+        //         background-color:$cogent;
+        //     }
+        // }
 
     }
 
