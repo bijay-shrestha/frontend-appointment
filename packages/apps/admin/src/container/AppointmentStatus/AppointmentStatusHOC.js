@@ -151,7 +151,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 let fieldName, value, label;
                 fieldName = field ? field : event.target.name;
                 value = field ? event : event.target.value;
-                label = event.target.label;
+                label = fieldName ? '' : event.target.label;
 
                 let searchParams = {...this.state.searchParameters};
                 searchParams[fieldName] = label ? (value ? {value, label} : '') : value;

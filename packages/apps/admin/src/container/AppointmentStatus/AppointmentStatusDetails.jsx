@@ -182,9 +182,9 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             </div>
 
                                             <div className="patient-details">
-                                                <div className="label">Appointment Category</div>
+                                                <div className="label">Appointment Amount</div>
                                                 <div className="data">
-                                                    {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                                    {appointmentStatusDetail.appointmentAmount}
                                                 </div>
                                             </div>
 

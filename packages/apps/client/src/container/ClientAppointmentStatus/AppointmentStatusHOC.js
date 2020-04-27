@@ -135,7 +135,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 let fieldName, value, label;
                 fieldName = field ? field : event.target.name;
                 value = field ? event : event.target.value;
-                label = event.target.label;
+                label = field ? '' : event.target.label;
 
                 let searchParams = {...this.state.searchParameters};
                 searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
@@ -167,7 +167,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         handleCheckIn = async appointmentStatusDetail => {
-            sessionStorage.setItem('actionType',14);
+            sessionStorage.setItem('actionType', 14);
             let appointmentData = {
                 hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
                 doctorName: appointmentStatusDetail.doctorName,
@@ -575,7 +575,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 checkInAppointment: this.checkInAppointment,
                                 appointmentDetails: {...appointmentDetails},
                                 isConfirming: isConfirming,
-                                closeAppointmentDetailModal:this.closeAppointmentDetailModal
+                                closeAppointmentDetailModal: this.closeAppointmentDetailModal
                             }}
                         />
                         <CAlert
