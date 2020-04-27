@@ -106,12 +106,14 @@ class AppointmentLog extends PureComponent {
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
-                                        placeholder={"Select doctor."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first." :
+                                            doctorList.length ? "Select doctor." : "No Doctor(s)."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.doctorId}
+                                        isDisabled={!searchParameters.hospitalId || !doctorList.length}
                                     />
                                 </Col>
 
@@ -125,11 +127,13 @@ class AppointmentLog extends PureComponent {
                                         label="Specialization"
                                         name="specializationId"
                                         options={specializationList}
-                                        placeholder={"Select specialization."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first."
+                                            : specializationList.length ? "Select specialization." : "No Specialization(s)."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.specializationId}
+                                        isDisabled={!searchParameters.hospitalId || !specializationList.length}
                                     />
                                 </Col>
 
