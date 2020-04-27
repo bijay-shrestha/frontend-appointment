@@ -105,6 +105,14 @@ const DetailsModal = ({refundData}) => {
                                     disabled={true}
                                 />
                             </Col>
+                             <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="appointmentMode"
+                                    placeholder="AppointmentMode"
+                                    value={refundData.appointmentMode || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
                             {/*<Col sm={12} md={6} lg={6}>*/}
                             {/*  <CHybridInput*/}
                             {/*    id="remarks"*/}
