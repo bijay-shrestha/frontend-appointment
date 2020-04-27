@@ -111,7 +111,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="type_patient"
                   placeholder="Patient Type"
-                  value={previewData.isRegistered ==='Y'? 'Registered' : 'Not Registered'}
+                  value={previewData.isRegistered ==='Y'? 'Registered' : 'New'}
                   disabled={true}
                 />
               </Col>
