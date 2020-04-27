@@ -77,7 +77,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp;
+                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentStatusDetail.date)}
+                                    &nbsp;,&nbsp;
+                                    {appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
@@ -98,7 +101,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {(appointmentStatusDetail.dayOffStatus === 'Y'
                                         && appointmentStatusDetail.doctorTimeSlots
                                         && appointmentStatusDetail.doctorTimeSlots.length) ?
-                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
+                                        <div className="back-day-off"><i
+                                            className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -168,74 +172,74 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             {
                                 appointmentStatusDetail.patientDetails ?
                                     <Col sm={12} md={2} lg={2}>
-                                       <div className="patient-container">
-                                        <h5 className="title">Patients Details </h5><br></br>
-                                        <div className="patient-details">
-                                            <div className="label">Appointment No.</div>
-                                            <div className="data">
-                                                {appointmentStatusDetail.patientDetails.appointmentNumber}
+                                        <div className="patient-container">
+                                            <h5 className="title">Patients Details </h5><br></br>
+                                            <div className="patient-details">
+                                                <div className="label">Appointment No.</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.appointmentNumber}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="patient-details">
-                                            <div className="label">Appointment Category</div>
-                                            <div className="data">
-                                                {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                            <div className="patient-details">
+                                                <div className="label">Appointment Category</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                        <div className="patient-details">
-                                            <div className="label">Name</div>
-                                            <div className="data">
-                                                {appointmentStatusDetail.patientDetails.name}<br/>
-                                                {" ("
-                                                + appointmentStatusDetail.patientDetails.age + " / "
-                                                + appointmentStatusDetail.patientDetails.gender + ")"}
+                                            <div className="patient-details">
+                                                <div className="label">Name</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.name}<br/>
+                                                    {" ("
+                                                    + appointmentStatusDetail.patientDetails.age + " / "
+                                                    + appointmentStatusDetail.patientDetails.gender + ")"}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="patient-details">
-                                            <div className="label">Contact No.</div>
-                                            <div className="data">
-                                                {appointmentStatusDetail.patientDetails.mobileNumber}
+                                            <div className="patient-details">
+                                                <div className="label">Contact No.</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.mobileNumber}
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div className="patient-details">
-                                            <div className="label">Address</div>
-                                            <div className="data">
-                                                {appointmentStatusDetail.patientDetails.address}
+                                            <div className="patient-details">
+                                                <div className="label">Address</div>
+                                                <div className="data">
+                                                    {appointmentStatusDetail.patientDetails.address}
+                                                </div>
                                             </div>
-                                        </div>
 
 
-                                        <CButton
-                                            name=""
-                                            variant="outline-primary"
-                                            size="sm" block
-                                            onClickHandler={() => handleViewAppointmentDetails(appointmentStatusDetail)}
-                                            // className="btn-checkin"
-                                        >
-                                            <i className="fa fa-eye"/> &nbsp;View Details
-                                        </CButton>
-
-                                        {appointmentStatusDetail.patientDetails.showCheckInButton ?
                                             <CButton
                                                 name=""
-                                                // className={showCheckInModal ? 'btn-checkin':'btn-checkin'}
-                                                vairant="primary "
-                                                size="sm"
-                                                className="btn-checkin"
-                                                onClickHandler={() => handleCheckIn(appointmentStatusDetail)}
-                                                disabled={!appointmentStatusDetail.patientDetails.canCheckIn
-                                                || showCheckInModal}
+                                                variant="outline-primary"
+                                                size="sm" block
+                                                onClickHandler={() => handleViewAppointmentDetails(appointmentStatusDetail)}
+                                                // className="btn-checkin"
                                             >
-                                                <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
-                                                'Checking-In' : 'Check-In'}
+                                                <i className="fa fa-eye"/> &nbsp;View Details
                                             </CButton>
-                                            : ''
-                                        }
+
+                                            {appointmentStatusDetail.patientDetails.showCheckInButton ?
+                                                <CButton
+                                                    name=""
+                                                    // className={showCheckInModal ? 'btn-checkin':'btn-checkin'}
+                                                    vairant="primary "
+                                                    size="sm"
+                                                    className="btn-checkin"
+                                                    onClickHandler={() => handleCheckIn(appointmentStatusDetail)}
+                                                    disabled={!appointmentStatusDetail.patientDetails.canCheckIn
+                                                    || showCheckInModal}
+                                                >
+                                                    <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
+                                                    'Checking-In' : 'Check-In'}
+                                                </CButton>
+                                                : ''
+                                            }
 
                                         </div>
                                     </Col>

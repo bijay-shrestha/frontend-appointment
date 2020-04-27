@@ -77,7 +77,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp;
+                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentStatusDetail.date)}
+                                    &nbsp;,&nbsp;
+                                    {appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
