@@ -144,7 +144,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
           hospitalNumber: patient.hospitalNumber || 'N/A',
           hospitalName: patient.hospitalName || 'N/A',
           dateOfBirth: patient.dateOfBirth || 'N/A',
-          sN: index + 1
+          sN: index + 1,
+          gender:patient.gender?patient.gender.split('')[0] : 'N/A'
         }))
       return patientList
     }

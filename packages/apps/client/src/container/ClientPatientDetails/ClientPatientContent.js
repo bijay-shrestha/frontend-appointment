@@ -82,14 +82,14 @@ const DetailsModal = ({previewData}) => {
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              {/* <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospitalName"
                   placeholder="Client"
                   value={previewData.hospitalName||'N/A'}
                   disabled={true}
                 />
-              </Col>
+              </Col> */}
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="DOB"
@@ -111,7 +111,7 @@ const DetailsModal = ({previewData}) => {
                 <CHybridInput
                   id="type_patient"
                   placeholder="Patient Type"
-                  value={previewData.isRegistered ? 'Registered' : 'Not Registered'}
+                  value={previewData.isRegistered ==='Y'? 'Registered' : 'Not Registered'}
                   disabled={true}
                 />
               </Col>
