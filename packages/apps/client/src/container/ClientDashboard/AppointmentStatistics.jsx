@@ -68,7 +68,7 @@ const AppointmentStatistics = props => {
               <CDoughnutChart chartData={chartData} width={200} height={200} />
               </div>
             </Row>
-            <p className="total-count">Appointments:{appointmentStatsData.totalAppointment}</p>
+            <p className="total-count">Appointments : {appointmentStatsData.totalAppointment}</p>
                          
        <div className="legend-box clearfix">
          <ul>
