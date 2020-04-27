@@ -12,7 +12,7 @@ const CDoughnutChart = props => {
     },
     tooltips: {
       //enabled: true,
-      mode: 'nearest',
+      mode: 'index',
       callbacks: {
         label: function (tooltipItem, data) {
           const {index} = tooltipItem
