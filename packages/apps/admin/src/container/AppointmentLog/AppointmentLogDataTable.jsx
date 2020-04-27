@@ -59,9 +59,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
                             <span><Badge variant="primary">CH</Badge>  <span
                                 className="badge-data">Checked-In</span> </span>
-                            <span><Badge variant="dark">C</Badge>  <span className="badge-data">Canceled</span></span>
+                            <span><Badge variant="danger">C</Badge>  <span className="badge-data">Canceled</span></span>
                             {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
-                            <span><Badge variant="secondary">R</Badge>  <span
+                            <span><Badge variant="brown">R</Badge>  <span
                                 className="badge-data">Refunded</span></span>
                         </div>
                     </Col>

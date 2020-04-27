@@ -92,7 +92,7 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-dark">&nbsp;</span>
+                                        <span className="badge badge-danger">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
                                         <p> Cancelled </p>
@@ -110,10 +110,10 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-danger">&nbsp;</span>
+                                        <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p> Refunded </p>
+                                        <p>Refund</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -207,7 +207,7 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-dark">&nbsp;</span>
+                                        <span className="badge badge-danger">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
                                         <p> Cancelled </p>
@@ -225,10 +225,10 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-danger">&nbsp;</span>
+                                        <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p> Refunded </p>
+                                        <p>Refund</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -317,7 +317,7 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-dark">&nbsp;</span>
+                                        <span className="badge badge-danger">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
                                         <p> Cancelled </p>
@@ -335,10 +335,10 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-danger">&nbsp;</span>
+                                        <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p> Refunded </p>
+                                        <p>Refund</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -432,7 +432,7 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-dark">&nbsp;</span>
+                                        <span className="badge badge-danger">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
                                         <p> Cancelled </p>
@@ -450,10 +450,10 @@ const RevenueStatistics = props => {
 
                                 <div className="rd-row">
                                     <div className="rd-col rd-col-1">
-                                        <span className="badge badge-danger">&nbsp;</span>
+                                        <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p> Refunded </p>
+                                        <p>Refund</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;

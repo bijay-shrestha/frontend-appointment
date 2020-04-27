@@ -136,20 +136,20 @@
             &.cancel{
                 margin-right:0;
                 .icon{
-                    background-color:$dark;
+                    background-color:$danger;
                 }
             }
 
             &.refund{
                 .icon{
-                    background-color:$secondary;
+                    background-color:$brown;
                 }
             }
 
             &.refund-client{
              
                 .icon{
-                    background-color:$danger;
+                    background-color:$dark;
                 }
             }
 
