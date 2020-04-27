@@ -72,7 +72,7 @@ const AppointmentStatistics = props => {
                 />
               </div>
             </Row>
-            <p className="total-count">Appointments:{appointmentStatsData.totalAppointment}</p>
+            <p className="total-count">Appointments : {appointmentStatsData.totalAppointment}</p>
                          
        <div className="legend-box clearfix">
          <ul>
