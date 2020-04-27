@@ -69,8 +69,8 @@ const DetailsModal = ({previewData}) => {
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="status"
-                  placeholder="status"
-                  value={previewData.status||'N/A'}
+                  placeholder="Status"
+                  value={previewData.status?'Active':'Inactive'}
                   disabled={true}
                 />
               </Col>
@@ -99,14 +99,14 @@ const DetailsModal = ({previewData}) => {
                 />
               </Col>
 
-              <Col sm={12} md={6} lg={6}>
+              {/* <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="category_Patient"
                   placeholder="Patient Category"
                   value={previewData.isSelf ? 'Self' : 'Other'}
                   disabled={true}
                 />
-              </Col>
+              </Col> */}
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="type_patient"
