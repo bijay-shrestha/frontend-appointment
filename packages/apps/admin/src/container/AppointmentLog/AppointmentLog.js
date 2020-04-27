@@ -91,7 +91,7 @@ const AppointmentRefundLog = props => {
                         <Col md={4} className="p-0  mt-4">
                             <div className="rd-card refund-client">
                                 <div className="icon">
-                                    RF
+                                    RE
                                 </div>
                                 <div className="rd-content">
                                     <span>   <span className="label">Refunded Amount to Client </span> </span>

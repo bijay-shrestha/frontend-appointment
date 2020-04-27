@@ -52,16 +52,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             <span className="badge-data">Booked</span>
                         </span>
                             <span>
-                            <Badge variant="danger">CH</Badge>{' '}
+                            <Badge variant="primary">CH</Badge>{' '}
                                 <span className="badge-data">Checked-In</span>{' '}
                         </span>
                             <span>
-                            <Badge variant="dark">C</Badge>{' '}
+                            <Badge variant="danger">C</Badge>{' '}
                                 <span className="badge-data">Canceled</span>
                         </span>
                             {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
                             <span>
-                            <Badge variant="secondary">R</Badge>{' '}
+                            <Badge variant="brown">R</Badge>{' '}
                                 <span className="badge-data">Refunded</span>
                         </span>
                         </div>

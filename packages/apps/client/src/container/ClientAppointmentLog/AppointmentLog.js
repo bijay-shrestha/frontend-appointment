@@ -90,7 +90,7 @@ const AppointmentRefundLog = props => {
                         <Col md={4} className="p-0  mt-4">
                             <div className="rd-card refund-client">
                                 <div className="icon">
-                                    RF
+                                    RE
                                 </div>
                                 <div className="rd-content">
                                     <span>   <span className="label">Refunded Amount to Client </span> </span>
@@ -102,20 +102,24 @@ const AppointmentRefundLog = props => {
                         </Col>
 
                         <Col md={4} className="p-0  mt-4">
-                            <div className="rd-card total">
+                        <div className="rd-card total">
                                 <div className="icon">
-                                    T
+                                    &nbsp;
                                 </div>
                                 <div className="rd-content ">
+                                <span> <span className="amt"> NPR {appointmentStatistics.totalAmount || 0}</span> from
+                                    <span className="apt"> {
+                                        (appointmentStatistics.bookedAppointmentsCount +
+                                            appointmentStatistics.checkedInAppointmentsCount +
+                                            appointmentStatistics.cancelAppointmentsCount +
+                                            appointmentStatistics.revenueFromRefundedAppointmentsCount) || 0
+                                    } </span>Appointments</span>
                                     <span>   <span className="label">Total Revenue Amount from Client <br></br><span
                                         className="inc">(Incl. Booked Appts. revenue)</span> </span> </span>
-                                    <span> <span className="amt"> NPR {appointmentStatistics.totalAmount || 0}</span> from
-                                    <span className="apt"> {(appointmentStatistics.bookedAppointmentsCount +
-                                        appointmentStatistics.checkedInAppointmentsCount +
-                                        appointmentStatistics.cancelAppointmentsCount +
-                                        appointmentStatistics.revenueFromRefundedAppointmentsCount) || 0} </span>Appointments</span>
+                                   
                                 </div>
                             </div>
+
 
                         </Col>
                     </div>

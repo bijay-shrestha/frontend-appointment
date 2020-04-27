@@ -37,7 +37,7 @@ const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}
                                     appointmentStatusList.map(appointmentStatus => (
                                         <div>
                                             <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
-                                            <a href=""
+                                            <a href="javascript:void(0)"
                                                className={activeStatus === appointmentStatus.value ? "active" : ''}
                                                onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                 {appointmentStatus.label}
