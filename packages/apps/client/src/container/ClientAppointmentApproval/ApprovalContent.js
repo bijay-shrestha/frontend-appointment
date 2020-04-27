@@ -35,6 +35,14 @@ const ApprovalContent = ({approvalData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="AppointmentAmount"
+                                    placeholder="Appointment Amount"
+                                    value={approvalData.appointmentAmount || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="esewaId"
                                     placeholder="Esewa Id"
                                     value={approvalData.esewaId || 'N/A'}
@@ -86,11 +94,11 @@ const ApprovalContent = ({approvalData}) => {
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
                                     value={
-                                       approvalData.doctorName && approvalData.specialization? 'Dr.' +
-                                        approvalData.doctorName.toUpperCase() +
-                                        '(' +
-                                        approvalData.specializationName.toUpperCase() +
-                                        ')':'N/A'
+                                        approvalData.doctorName && approvalData.specialization ? 'Dr.' +
+                                            approvalData.doctorName.toUpperCase() +
+                                            '(' +
+                                            approvalData.specializationName.toUpperCase() +
+                                            ')' : 'N/A'
                                     }
                                     disabled={true}
                                 />
