@@ -219,6 +219,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         </CButton>
 
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
+                                      
                                             <CButton
                                                 name=""
                                                 vairant="primary "
@@ -228,6 +229,7 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 disabled={!appointmentStatusDetail.patientDetails.canCheckIn
                                                 || showCheckInModal}
                                             >
+                                              console.log("======apo",appointmentStatusDetail.patientDetails)
                                                 <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
                                                 'Checking-In' : 'Check-In'}
                                             </CButton>

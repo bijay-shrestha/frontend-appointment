@@ -402,7 +402,6 @@ class CTable extends PureComponent {
                                                             }
                                                     }
                                                 >
-                                                 {console.log("row",row)}
                                                     {row.onRowEdit &&
                                                     Object.keys(column).includes('editComponent') ? (
                                                         <column.editComponent
