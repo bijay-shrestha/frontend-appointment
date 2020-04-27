@@ -50,7 +50,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>&nbsp;Reset 
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -113,7 +113,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specializationId"
                                             placeholder={doctorsDropdown.length ? "Select specialization."
-                                                : "No specialization(s)."}
+                                                : "No specialization(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
@@ -129,7 +129,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             label="Doctor"
                                             name="doctorId"
                                             placeholder={doctorsDropdown.length ? "Select doctor."
-                                                : "No doctor(s)."}
+                                                : "No doctor(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
@@ -145,7 +145,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
                                             placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s).":"Select client first."}
+                                                : "No patient(s) available.":"Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}

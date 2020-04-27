@@ -63,7 +63,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             id="hospitalId"
                                             name="hospitalId"
                                             label="Client"
-                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No client(s)."}
+                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No client(s) available."}
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}
@@ -162,7 +162,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                             placeholder={searchParameters.hospitalId ? (activeSpecializationList.length ? "Select Specialization."
-                                                : "No specialization(s).") : "Select client first."}
+                                                : "No specialization(s) available.") : "Select client first."}
                                         />
                                     </Col>
 
@@ -179,7 +179,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             isDisabled={searchParameters.hospitalId ? !doctorsDropdown.length : true}
                                             onEnter={handleEnter}
                                             placeholder={searchParameters.hospitalId ? (doctorsDropdown.length ? "Select doctor."
-                                                : "No doctor(s).") : "Select client first."}
+                                                : "No doctor(s) available.") : "Select client first."}
                                         />
                                     </Col>
 
@@ -212,7 +212,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
                                             placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s)." : "Select client first."}
+                                                : "No patient(s) available." : "Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}

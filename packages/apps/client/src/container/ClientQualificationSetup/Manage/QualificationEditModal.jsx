@@ -38,7 +38,7 @@ const DepartmentEditModal = ({
                             onChange={(event) =>
                                 onInputChange(event, '', 'E')
                             }
-                            placeholder={universitiesDropdown.length ? "Select a University." : "No University."}
+                            placeholder={universitiesDropdown.length ? "Select a University." : "No University available."}
                             isDisabled={!universitiesDropdown.length}
                             value={qualificationData.universityId}
                             options={universitiesDropdown}
@@ -70,7 +70,7 @@ const DepartmentEditModal = ({
                             onChange={(event) =>
                                 onInputChange(event, '', 'E')
                             }
-                            placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias."}
+                            placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias available."}
                             isDisabled={!qualificationsAliasForDropdown.length}
                             options={qualificationsAliasForDropdown}
                             value={qualificationData.qualificationAliasId}

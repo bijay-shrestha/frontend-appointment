@@ -35,7 +35,7 @@ const QualificationForm = ({
                                     value={qualificationInfoObj.universityId}
                                     options={universitiesDropdown}
                                     label="University"
-                                    placeholder={universitiesDropdown.length ? "Select University" : "No University."}
+                                    placeholder={universitiesDropdown.length ? "Select University" : "No University available."}
                                     isDisabled={!universitiesDropdown.length}
                                 />
                             </Col>
@@ -64,7 +64,7 @@ const QualificationForm = ({
                                     value={qualificationInfoObj.qualificationAliasId}
                                     options={qualificationsAliasForDropdown}
                                     label="Qualification alias"
-                                    placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias."}
+                                    placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias available."}
                                     isDisabled={!qualificationsAliasForDropdown.length}
                                 />
                             </Col>

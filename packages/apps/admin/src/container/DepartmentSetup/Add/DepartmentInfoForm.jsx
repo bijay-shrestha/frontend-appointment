@@ -29,7 +29,7 @@ const DepartmentInfoForm = ({
                                 options={hospitalList}
                                 value={departmentInfoObj.hospital}
                                 isDisabled={!hospitalList.length}
-                                placeholder={hospitalList.length ? "Select client." : "No client(s)."}
+                                placeholder={hospitalList.length ? "Select client." : "No client(s) available."}
                             />
                         </Col>
                         <Col sm={12} md={4} lg={4}>

@@ -51,7 +51,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>&nbsp;Reset 
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -64,7 +64,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="hospitalId"
                                             name="hospitalId"
                                             label="Client"
-                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No Client(s)."}
+                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No Client(s) available."}
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}
@@ -118,7 +118,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specializationId"
                                             placeholder={searchParameters.hospitalId ? (activeSpecializationList.length ? "Select Specialization."
-                                                : "No specialization(s).") : "Select client first."}
+                                                : "No specialization(s) available.") : "Select client first."}
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
@@ -134,7 +134,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="doctorId"
                                             label="Doctor"
                                             placeholder={searchParameters.hospitalId ? (doctorsDropdown.length ? "Select doctor."
-                                                : "No doctor(s).") : "Select client first."}
+                                                : "No doctor(s) available.") : "Select client first."}
                                             name="doctorId"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
@@ -162,7 +162,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
                                             placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s).":"Select client first."}
+                                                : "No patient(s) available.":"Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}
