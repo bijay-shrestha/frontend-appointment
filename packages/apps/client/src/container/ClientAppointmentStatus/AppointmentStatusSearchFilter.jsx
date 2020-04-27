@@ -106,12 +106,13 @@ class AppointmentLog extends PureComponent {
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
-                                        placeholder={"Select doctor."}
+                                        placeholder={doctorList.length ? "Select doctor." : "No Doctor(s)."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.doctorId}
+                                        isDisabled={!doctorList.length}
                                     />
                                 </Col>
 
@@ -125,11 +126,13 @@ class AppointmentLog extends PureComponent {
                                         label="Specialization"
                                         name="specializationId"
                                         options={specializationList}
-                                        placeholder={"Select specialization."}
+                                        placeholder={specializationList.length ? "Select specialization."
+                                            : "No Specialization(s)."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.specializationId}
+                                        isDisabled={!specializationList.length}
                                     />
                                 </Col>
 
