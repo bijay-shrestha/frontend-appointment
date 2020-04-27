@@ -114,7 +114,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 toDate: addDate(new Date(), 30),
                 hospital: null,
                 specialization: null,
-                doctor: null
+                doctor: null,
+                status: {value: 'A', label: "All"}
             },
             queryParams: {
                 page: 0,
@@ -213,6 +214,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospital: null,
                     specialization: null,
                     doctor: null,
+                    status: {value: 'A', label: "All"}
                 },
                 showAlert: false
             });
@@ -1163,7 +1165,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         setHospitalIdOfLoggedInAdmin = () => {
-            const adminInfo =  LocalStorageSecurity.localStorageDecoder("adminInfo");
+            const adminInfo = LocalStorageSecurity.localStorageDecoder("adminInfo");
             let hospitalId = adminInfo.hospitalId;
             this.setState({
                 hospitalId: hospitalId
@@ -1304,7 +1306,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         searchDoctorDutyRoster = async page => {
-            const {fromDate, toDate, specialization, doctor} = this.state.searchParameters;
+            const {fromDate, toDate, specialization, doctor, status} = this.state.searchParameters;
             if (isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
                 getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
             ) {
@@ -1321,7 +1323,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     doctorId: doctor ? doctor.value : '',
                     specializationId: specialization ? specialization.value : '',
                     fromDate: fromDate,
-                    toDate: toDate
+                    toDate: toDate,
+                    status: status && status.value === 'A' ? '' : status.value
                 };
 
                 let updatedPage =
@@ -1489,13 +1492,13 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         render() {
             const {
                 showExistingRosterModal, hospital, specialization, doctor, rosterGapDuration, fromDate, toDate,
-                doctorWeekDaysDutyRosterRequestDTOS, isWholeWeekOff,
+                doctorWeekDaysDutyRosterRequestDTOS, isWholeWeekOff, status,
                 hasOverrideDutyRoster, overrideRequestDTO, doctorDutyRosterOverrideRequestDTOS,
                 showAlert, alertMessageInfo, showAddOverrideModal, isModifyOverride, formValid, showConfirmModal,
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
                 searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO,
                 showEditModal, updateDoctorDutyRosterData, overrideUpdateErrorMessage, showDeleteOverrideModal,
-                deleteOverrideErrorMessage, dateErrorMessage,overrideFormValid
+                deleteOverrideErrorMessage, dateErrorMessage, overrideFormValid
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -1531,7 +1534,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                 doctor: doctor,
                                 rosterGapDuration: rosterGapDuration,
                                 fromDate: fromDate,
-                                toDate: toDate
+                                toDate: toDate,
+                                status: status
                             }
                         }
                         doctorList={doctorsBySpecializationForDropdown}
@@ -1604,7 +1608,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     doctor: doctor,
                                     rosterGapDuration: rosterGapDuration,
                                     fromDate: fromDate,
-                                    toDate: toDate
+                                    toDate: toDate,
+                                    status:status
                                 }}
                                 doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
                                 hasOverrideDutyRoster={hasOverrideDutyRoster}
@@ -1614,15 +1619,17 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             <>
                                 <CButton
                                     variant="outline-primary"
-                                    name={isSaveRosterLoading ? 'Cloning' : 'Clone and Add New Doctor Duty Roster'}
+                                    name={ 'Clone and Add New Doctor Duty Roster'}
                                     disabled={isSaveRosterLoading}
+                                    isLoading={isSaveRosterLoading}
                                     size="lg"
                                     className="float-right btn-action mr-3"
                                     onClickHandler={() => this.saveDoctorDutyRoster(true, false)}/>
                                 <CButton
                                     variant="primary"
-                                    name={isSaveRosterLoading ? 'Confirming' : 'Confirm'}
+                                    name={'Confirm'}
                                     disabled={isSaveRosterLoading}
+                                    isLoading={isSaveRosterLoading}
                                     size="lg"
                                     className="float-right btn-action mr-3"
                                     onClickHandler={() => this.saveDoctorDutyRoster(false, false)}/>

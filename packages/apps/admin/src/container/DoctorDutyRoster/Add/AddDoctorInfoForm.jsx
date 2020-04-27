@@ -1,6 +1,6 @@
 import React from 'react';
-import {Col, Form} from "react-bootstrap";
-import {CButton, CHybridInput, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {Col, Form, Row} from "react-bootstrap";
+import {CButton, CFLabel, CHybridInput, CHybridSelect, CRadioButton} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddDoctorInfoForm = ({
@@ -109,9 +109,41 @@ const AddDoctorInfoForm = ({
                         onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.rosterGapDuration}
                     />
+                    <CFLabel labelName="Status" id="status"/>
+                    <div>
+                        <CRadioButton
+                            checked={doctorInfoData.status === 'Y'}
+                            id="radio1"
+                            label="Active"
+                            type="radio"
+                            name="status"
+                            value="Y"
+                            disabled={true}
+                            onKeyDown={event => onEnterKeyPress(event)}
+                            onChange={event => onInputChange(event)}
+                            readOnly={true}
+                        />
+                        {/*{*/}
+                        {/*    <CRadioButton*/}
+                        {/*        checked={adminInfoObj.status === 'N'}*/}
+                        {/*        id="radio2"*/}
+                        {/*        label="Inactive"*/}
+                        {/*        type="radio"*/}
+                        {/*        name="status"*/}
+                        {/*        value="N"*/}
+                        {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
+                        {/*        onChange={event => onInputChange(event)}*/}
+                        {/*        className="sr-only"*/}
+                        {/*        disabled={true}*/}
+                        {/*        readOnly={true}*/}
+                        {/*    />*/}
+                        {/*}*/}
+                    </div>
+
                 </Form>
 
                 <CButton
+                className="mt-2 pl-0"
                     id="show-existing"
                     variant="link"
                     size="lg"

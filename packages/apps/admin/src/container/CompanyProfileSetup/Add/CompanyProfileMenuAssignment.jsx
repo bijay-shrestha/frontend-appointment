@@ -440,22 +440,22 @@ class CompanyProfileMenuAssignment extends PureComponent {
                             <div className='previledge-title'>
                                 <div>
                                     <CButton
-                                        name="Preview"
+                                        name=""
                                         variant="outline-primary"
                                         className="mb-2  ml-2 float-right"
                                         size="sm"
                                         id="modal"
                                         onClickHandler={this.setShowModal}>
-                                        <>&nbsp;<i className="fa fa-eye"></i></>
+                                        <><i className="fa fa-eye"></i>&nbsp;Preview</>
                                     </CButton>
                                     <CButton
                                         id="resetProfileForm"
                                         variant='outline-secondary'
                                         size='sm'
-                                        name='Reset'
+                                        name=''
                                         className="mb-2   float-right"
                                         onClickHandler={resetFormData}>
-                                        <>&nbsp;<i className='fa fa-refresh'/></>
+                                        <><i className='fa fa-refresh'/>&nbsp;Reset</>
                                     </CButton>
                                 </div>
                                 <h5 className="title">&nbsp;</h5>
