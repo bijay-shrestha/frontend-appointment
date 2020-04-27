@@ -215,7 +215,7 @@
           "id": "12",
           "parentId": "10",
           "name": "Appointment Check-In",
-          "path": "/appointment/appointmentApprovalRequest",
+          "path": "/appointment/checkIn",
           "roles": [
             12,
             14,

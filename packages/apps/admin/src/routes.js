@@ -511,7 +511,7 @@ export const routes = [
         isSingleTab: true,
     },
     {
-        path: '/admin/appointment/appointmentApprovalRequest',
+        path: '/admin/appointment/checkIn',
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,

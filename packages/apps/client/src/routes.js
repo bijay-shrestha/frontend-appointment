@@ -420,7 +420,7 @@ export const routes = [
         isSingleTab:true,
     },
     {
-        path: '/appointment/appointmentApprovalRequest',
+        path: '/appointment/checkIn',
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,
@@ -489,7 +489,7 @@ export const routes = [
         name: 'Activity Log',
         isSingleTab:true,
     },
-    
+
     {
         path: '/reports/rescheduleLog',
         component: RescheduleLog,
