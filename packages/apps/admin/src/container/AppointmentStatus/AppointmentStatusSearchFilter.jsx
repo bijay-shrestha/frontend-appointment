@@ -107,29 +107,31 @@ class AppointmentLog extends PureComponent {
                                         label="Client"
                                         name="hospitalId"
                                         options={hospitalList}
-                                        placeholder="Select client."
+                                        placeholder={hospitalList.length ? "Select client." : "No Client(s)."}
+                                        isDisabled={!hospitalList.length}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.hospitalId}
                                     />
                                 </Col>
 
-                            <Col sm={12} md={4} xl={4} className="hide-on-md">
-                                {/*    /!* //should be empty *!/*/}
-                            </Col>
+                                <Col sm={12} md={4} xl={4} className="hide-on-md">
+                                    {/*    /!* //should be empty *!/*/}
+                                </Col>
 
                                 <Col sm={12} md={4} xl={4}>
                                     <CHybridSelect
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
-                                        placeholder={!searchParameters.hospitalId ? "Select client first." : "Select doctor."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first." :
+                                            doctorList.length ? "Select doctor." : "No Doctor(s)."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.doctorId}
-                                        isDisabled={!searchParameters.hospitalId}
+                                        isDisabled={!searchParameters.hospitalId || !doctorList.length}
                                     />
                                 </Col>
 
@@ -139,12 +141,13 @@ class AppointmentLog extends PureComponent {
                                         label="Specialization"
                                         name="specializationId"
                                         options={specializationList}
-                                        placeholder={!searchParameters.hospitalId ? "Select client first." : "Select specialization."}
+                                        placeholder={!searchParameters.hospitalId ? "Select client first."
+                                            : specializationList.length ? "Select specialization." : "No Specialization(s)."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.specializationId}
-                                        isDisabled={!searchParameters.hospitalId}
+                                        isDisabled={!searchParameters.hospitalId || !specializationList.length}
                                     />
                                 </Col>
 

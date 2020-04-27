@@ -149,21 +149,23 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         handleSearchFormChange = async (event, field) => {
             if (event) {
                 let fieldName, value, label;
-                if (field) {
-                    fieldName = field;
-                    value = event
-                } else {
-                    fieldName = event.target.name;
-                    value = event.target.value;
-                    label = event.target.label;
-                    if (fieldName === 'hospitalId') {
-                        this.callApiForHospitalChange(value)
-                    }
-                }
+                fieldName = field ? field : event.target.name;
+                value = field ? event : event.target.value;
+                label = field ? '' : event.target.label;
+
                 let searchParams = {...this.state.searchParameters};
                 searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
                 await this.setStateValuesForSearch(searchParams);
 
+                if (fieldName === 'hospitalId') {
+                    value ? this.callApiForHospitalChange(value) : this.setState({
+                        searchParameters: {
+                            ...this.state.searchParameters,
+                            doctorId: '',
+                            specializationId: '',
+                        }
+                    })
+                }
                 let errorMsg = '';
                 if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
                     if (
@@ -190,7 +192,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         handleCheckIn = async appointmentStatusDetail => {
-            sessionStorage.setItem("actionType",14)
+            sessionStorage.setItem("actionType", 14)
             let appointmentData = {
                 hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
                 doctorName: appointmentStatusDetail.doctorName,
@@ -207,7 +209,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
                 registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
                 esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',
-                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A'
+                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A',
+                appointmentMode: appointmentStatusDetail.patientDetails.appointmentMode || 'N/A'
             };
             this.setState({
                 showCheckInModal: true,
@@ -232,7 +235,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 patientType: appointmentStatusDetail.patientDetails.patientType || 'N/A',
                 registrationNumber: appointmentStatusDetail.patientDetails.registrationNumber || 'N/A',
                 esewaId: appointmentStatusDetail.patientDetails.esewaId || 'N/A',
-                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A'
+                transactionNumber: appointmentStatusDetail.patientDetails.transactionNumber || 'N/A',
+                appointmentMode: appointmentStatusDetail.patientDetails.appointmentMode || 'N/A'
             };
             this.setState({
                 showAppointmentDetailModal: true,
@@ -320,8 +324,15 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         };
 
         callApiForHospitalChange = hospitalId => {
-            this.fetchDoctorsByHospital(hospitalId)
-            this.fetchSpecializationByHospital(hospitalId)
+            this.fetchDoctorsByHospital(hospitalId);
+            this.fetchSpecializationByHospital(hospitalId);
+            this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    doctorId: '',
+                    specializationId: '',
+                }
+            })
         };
 
         initialApiCalls = async () => {
@@ -604,7 +615,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 checkInAppointment: this.checkInAppointment,
                                 appointmentDetails: {...appointmentDetails},
                                 isConfirming: isConfirming,
-                                closeAppointmentDetailModal:this.closeAppointmentDetailModal
+                                closeAppointmentDetailModal: this.closeAppointmentDetailModal
                             }}
                         />
                         <CAlert

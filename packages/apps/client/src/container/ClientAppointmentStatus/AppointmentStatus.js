@@ -22,7 +22,8 @@ const AppointmentStatus = props => {
                 </div>
                 <div className="">
                     <AppointmentStatusDetails
-                        statusDetailsData={statusDetailsData}/>
+                        statusDetailsData={statusDetailsData}
+                        showAppointmentDetailModal={checkInModalData.showAppointmentDetailModal}/>
                 </div>
                 <CConfirmationModal
                     modalHeader="Confirm Check-In?"

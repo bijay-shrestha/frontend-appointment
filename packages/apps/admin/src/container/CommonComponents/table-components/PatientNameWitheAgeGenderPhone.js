@@ -10,5 +10,4 @@ const PatientWithAge = props => {
     </>
   )
 }
-
 export default memo(PatientWithAge)

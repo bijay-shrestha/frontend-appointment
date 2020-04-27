@@ -9,7 +9,7 @@ import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointme
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
 
-const AppointmentStatusDetails = ({statusDetailsData}) => {
+const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}) => {
     const {
         appointmentStatusDetails,
         doctorInfoList,
@@ -77,7 +77,10 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                             <Col sm={12} md={8} lg={8} className="time-container">
                                 <h5 className="title">Appointment Slots</h5><br></br>
                                 <p className="time-details">
-                                    <i className="fa fa-calendar"></i> &nbsp; {appointmentStatusDetail.date},{appointmentStatusDetail.weekDayName}
+                                    <i className="fa fa-calendar"></i> &nbsp;
+                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(appointmentStatusDetail.date)}
+                                    &nbsp;,&nbsp;
+                                    {appointmentStatusDetail.weekDayName}
                                     {
                                         appointmentStatusDetail.doctorTimeSlots ?
                                             appointmentStatusDetail.doctorTimeSlots.length ?
@@ -98,7 +101,8 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                     {(appointmentStatusDetail.dayOffStatus === 'Y'
                                         && appointmentStatusDetail.doctorTimeSlots
                                         && appointmentStatusDetail.doctorTimeSlots.length) ?
-                                        <div className="back-day-off"><i className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
+                                        <div className="back-day-off"><i
+                                            className="fa fa-calendar-times-o"/> {DAY_OFF_MESSAGE} </div> : ''}
                                 </p>
                                 <ul>
                                     {appointmentStatusDetail.doctorTimeSlots ?
@@ -176,20 +180,33 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                         </div>
 
                                         <div className="patient-details">
-                                            <div className="label">Appointment Category</div>
+                                            <div className="label">Appointment Amount</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.isSelf === 'Y' ? 'Self' : 'Others'}
+                                                {appointmentStatusDetail.patientDetails.appointmentAmount}
                                             </div>
                                         </div>
 
+                                        <div className="patient-details">
+                                            <div className="label">Appointment Mode</div>
+                                            <div className="data">
+                                                {appointmentStatusDetail.patientDetails.appointmentMode}
+                                            </div>
+                                        </div>
 
                                         <div className="patient-details">
-                                            <div className="label">Name</div>
+                                            <div className="label">Patient Details</div>
                                             <div className="data">
                                                 {appointmentStatusDetail.patientDetails.name}<br/>
                                                 {" ("
                                                 + appointmentStatusDetail.patientDetails.age + " / "
                                                 + appointmentStatusDetail.patientDetails.gender + ")"}
+                                                <br/>
+                                                <Badge variant={
+                                                    appointmentStatusDetail.patientDetails.patientType === "N" ?
+                                                        "primary" : "success"}>{
+                                                    appointmentStatusDetail.patientDetails.patientType === "N" ? "NEW"
+                                                        : "REGISTERED"}
+                                                </Badge>{' '}
                                             </div>
                                         </div>
 
@@ -213,12 +230,16 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                             variant="outline-primary"
                                             size="sm" block
                                             onClickHandler={() => handleViewAppointmentDetails(appointmentStatusDetail)}
+                                            disabled={showAppointmentDetailModal}
                                             // className="btn-checkin"
                                         >
-                                            <i className="fa fa-eye"/> &nbsp;View Details
+                                            <i className="fa fa-eye"/> &nbsp;{showAppointmentDetailModal ?
+                                            <span className="saving">Viewing Details <img
+                                                src={require("../../images/three-dots.svg")}/></span> :"View Details"}
                                         </CButton>
 
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
+
                                             <CButton
                                                 name=""
                                                 vairant="primary "
@@ -227,9 +248,11 @@ const AppointmentStatusDetails = ({statusDetailsData}) => {
                                                 onClickHandler={() => handleCheckIn(appointmentStatusDetail)}
                                                 disabled={!appointmentStatusDetail.patientDetails.canCheckIn
                                                 || showCheckInModal}
+                                                // isLoading={showCheckInModal}
                                             >
                                                 <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
-                                                'Checking-In' : 'Check-In'}
+                                                <span className="saving">Checking-In <img
+                                                    src={require("../../images/three-dots.svg")}/></span> : 'Check-In'}
                                             </CButton>
                                             : ''
                                         }
