@@ -36,7 +36,9 @@ const AppointmentStatistics = props => {
   }
   return (
     <>
+      <h5 className="title">Patient Appointment Trend</h5>
       <div className="appointment-box">
+    
         {!isAppointmentStatsLoading && !appointmentStatsErrorMessage ? (
           <>
             {' '}
@@ -69,24 +71,28 @@ const AppointmentStatistics = props => {
               <CDoughnutChart chartData={chartData} width={200} height={200} mode="AS"/>
               </div>
             </Row>
-            <p>
-              <br></br>
-              {appointmentStatsData.totalAppointment}
-            </p>
-            <div className="title">Appointments</div>
-            <hr></hr>
-            <ul>
-              <li>
-                <span className="color-code code1">&nbsp;</span>
-                <span>{appointmentStatsData.newPatient}</span>
-                <br></br>New Patient
-              </li>
-              <li>
-                <span className="color-code code2">&nbsp;</span>
-                <span>{appointmentStatsData.registeredPatient}</span>
-                <br></br>Registered Patient
-              </li>
-            </ul>
+            
+            <p className="total-count">Appointments:{appointmentStatsData.totalAppointment}</p>
+       
+
+                                
+            <div className="legend-box clearfix">
+              <ul>
+                <li>
+                  <span className="legend"></span>
+                  <span>New Patient
+                  <span className="data"> - {appointmentStatsData.newPatient}</span></span>
+                </li>
+                <li>
+                  <span className="legend"></span>
+                  <span>Registered Patient
+                <span className="data"> - {appointmentStatsData.registeredPatient}</span>
+                  </span>
+
+
+                </li>
+              </ul>
+            </div>
           </>
         ) : isAppointmentStatsLoading ? (
           <CLoading />
