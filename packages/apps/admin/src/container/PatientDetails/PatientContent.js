@@ -34,7 +34,7 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                           
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="email"
@@ -79,13 +79,13 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            
-                         
+
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="status"
                                     placeholder="Status"
-                                    value={previewData.status==='Y'?'Active':'Inactive'}
+                                    value={previewData.status === 'Y' ? 'Active' : 'Inactive'}
                                     disabled={true}
                                 />
                             </Col>
@@ -97,7 +97,7 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            
+
 
                             {/* <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
@@ -111,7 +111,7 @@ const DetailsModal = ({previewData}) => {
                                 <CHybridInput
                                     id="type_patient"
                                     placeholder="Patient Type"
-                                    value={previewData.isRegistered === 'Y' ? 'Registered' : 'Not Registered'}
+                                    value={previewData.isRegistered === 'Y' ? 'Registered' : 'New'}
                                     disabled={true}
                                 />
                             </Col>

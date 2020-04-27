@@ -50,12 +50,11 @@ const AppointmentStatistics = props => {
               />
               <Col className="date">
                 <div>
-                  <span>From :</span> {new Date(fromDate.fromDate).toDateString()}
-                 
+                  <span>From :</span>{' '}
+                  {new Date(fromDate.fromDate).toDateString()}
                 </div>
                 <div>
                   <span>To :</span> {new Date(toDate.toDate).toDateString()}
-                  
                 </div>
               </Col>
             </Row>
@@ -64,8 +63,13 @@ const AppointmentStatistics = props => {
             src={require('./img/doughnut-chart.png')}
             className="doughnut-chart mx-auto"
           /> */}
-         <div className="doughnut-chart">
-              <CDoughnutChart chartData={chartData} width={200} height={200} />
+              <div className="doughnut-chart">
+                <CDoughnutChart
+                  chartData={chartData}
+                  width={200}
+                  height={200}
+                  mode={'AS'}
+                />
               </div>
             </Row>
             <p className="total-count">Appointments : {appointmentStatsData.totalAppointment}</p>
