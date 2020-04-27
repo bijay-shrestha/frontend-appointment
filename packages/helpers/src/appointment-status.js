@@ -3,5 +3,5 @@ export const appointmentStatusList = [
     { value: 'V', label: 'Vacant', variant: 'success' },
     { value: 'PA', label: 'Booked', variant: 'warning' },
     { value: 'A', label: 'Checked-In', variant: 'primary' },
-    { value: 'C', label: 'Cancelled', variant: 'dark' }
+    { value: 'C', label: 'Cancelled', variant: 'danger' }
 ];
