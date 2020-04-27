@@ -128,7 +128,7 @@ const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}
                                                                         appointmentStatusDetail.date, rowIndex, index)}
                                                                     variant={timeSlot.status === 'PA' ? 'warning'
                                                                         : timeSlot.status === 'A' ? 'primary'
-                                                                            : timeSlot.status === 'C' ? 'dark'
+                                                                            : timeSlot.status === 'C' ? 'danger'
                                                                                 : 'info'}
                                                                     size="lg block"
                                                                     className="time-button">
