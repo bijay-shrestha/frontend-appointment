@@ -81,7 +81,7 @@ class PatientSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder={patientListDropdown.length ? "Name, Mobile no Or Reg. no" : "No Patient Detail(s)."}
+                                            placeholder={patientListDropdown.length ? "Name, Mobile no Or Reg. no" : "No Patient Detail(s) available."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}

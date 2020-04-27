@@ -35,7 +35,7 @@ const ProfileInfoForm = ({
                     onChange={(event) => onInputChange(event)}
                     options={hospitalList}
                     value={profileInfoObj.hospitalValue}
-                    placeholder={hospitalList.length ? 'Select Client.' : "No client(s)."}
+                    placeholder={hospitalList.length ? 'Select Client.' : "No client(s) available."}
                     isDisabled={!hospitalList.length}
                 />
 
@@ -48,7 +48,7 @@ const ProfileInfoForm = ({
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
                     placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select department."
-                        : "No department(s)." : "Select Client first."}
+                        : "No department(s) available." : "Select Client first."}
                     isDisabled={!profileInfoObj.hospitalValue || !departmentList.length}
                 />
 

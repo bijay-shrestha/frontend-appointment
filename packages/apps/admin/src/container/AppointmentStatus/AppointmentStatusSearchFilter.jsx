@@ -107,7 +107,7 @@ class AppointmentLog extends PureComponent {
                                         label="Client"
                                         name="hospitalId"
                                         options={hospitalList}
-                                        placeholder={hospitalList.length ? "Select client." : "No Client(s)."}
+                                        placeholder={hospitalList.length ? "Select client." : "No Client(s) available."}
                                         isDisabled={!hospitalList.length}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
@@ -125,7 +125,7 @@ class AppointmentLog extends PureComponent {
                                         label="Doctor"
                                         name="doctorId"
                                         placeholder={!searchParameters.hospitalId ? "Select client first." :
-                                            doctorList.length ? "Select doctor." : "No Doctor(s)."}
+                                            doctorList.length ? "Select doctor." : "No Doctor(s) available."}
                                         options={doctorList}
                                         noOptionsMessage={() => doctorDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
@@ -142,7 +142,7 @@ class AppointmentLog extends PureComponent {
                                         name="specializationId"
                                         options={specializationList}
                                         placeholder={!searchParameters.hospitalId ? "Select client first."
-                                            : specializationList.length ? "Select specialization." : "No Specialization(s)."}
+                                            : specializationList.length ? "Select specialization." : "No Specialization(s) available."}
                                         noOptionsMessage={() => specializationDropdownErrorMessage}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}

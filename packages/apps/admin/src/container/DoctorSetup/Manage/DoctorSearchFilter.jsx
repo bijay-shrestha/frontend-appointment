@@ -80,7 +80,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             isDisabled={!doctorsForDropdown.length || !searchParameters.hospitalId}
                                             label="Doctor"
                                             placeholder={searchParameters.hospitalId ? doctorsForDropdown.length ?
-                                                "Select Doctor." : "No Doctor(s)." : "Select Client first."}
+                                                "Select Doctor." : "No Doctor(s) available." : "Select Client first."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
@@ -94,7 +94,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             isDisabled={!activeSpecializationList.length || !searchParameters.hospitalId}
                                             label="Specialization"
                                             placeholder={searchParameters.hospitalId ? activeSpecializationList.length ?
-                                                "Select Specialization." : "No Specialization(s)." : "Select Client first."}
+                                                "Select Specialization." : "No Specialization(s) available." : "Select Client first."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
