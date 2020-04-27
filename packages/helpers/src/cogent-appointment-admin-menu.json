@@ -18,7 +18,7 @@
           "id": "2",
           "parentId": "1",
           "name": "Department Setup",
-          "path": "/generalSetup/department",
+          "path": "/generalSetup/departmentSetup",
           "roles": [
             2,
             3,
@@ -38,7 +38,7 @@
           "id": "4",
           "parentId": "1",
           "name": "Client Profile Setup",
-          "path": "/generalSetup/profile",
+          "path": "/generalSetup/profileSetup",
           "roles": [
             2,
             3,
@@ -58,7 +58,7 @@
           "id": "5",
           "parentId": "1",
           "name": "Client Admin Setup",
-          "path": "/generalSetup/admin-setup",
+          "path": "/generalSetup/adminSetup",
           "roles": [
             2,
             3,
@@ -79,7 +79,7 @@
           "id": "6",
           "parentId": "1",
           "name": "Client Setup",
-          "path": "/generalSetup/client",
+          "path": "/generalSetup/clientSetup",
           "roles": [
             2,
             3,
@@ -99,7 +99,7 @@
           "id": "7",
           "parentId": "1",
           "name": "Doctor Setup",
-          "path": "/generalSetup/doctor",
+          "path": "/generalSetup/doctorSetup",
           "roles": [
             2,
             3,
@@ -158,7 +158,7 @@
           "id": "11",
           "parentId": "10",
           "name": "Pending Refund Approval",
-          "path": "/appointment/appointmentRefundRequest",
+          "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
             15,
@@ -177,7 +177,7 @@
           "id": "12",
           "parentId": "10",
           "name": "Appointment Check-In",
-          "path": "/appointment/appointmentApprovalRequest",
+          "path": "/appointment/appointmentCheckIn",
           "roles": [
             12,
             14,
@@ -337,7 +337,7 @@
           "id": "23",
           "parentId": "20",
           "name": "Company Admin Setup",
-          "path": "/companySettings/companyadmin",
+          "path": "/companySettings/companyAdmin",
           "roles": [
             2,
             3,

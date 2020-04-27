@@ -203,7 +203,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/profile',
+        path: '/generalSetup/profileSetup',
         component: ProfileComponent,
         isLink: true,
         icon: '',
@@ -213,7 +213,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/profile/add',
+        path: '/generalSetup/profileSetup/add',
         name: 'Add',
         component: AddProfileComponent,
         icon: '',
@@ -223,7 +223,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/profile/manage',
+        path: '/generalSetup/profileSetup/manage',
         component: ManageProfileComponent,
         icon: '',
         hasTab: true,
@@ -263,7 +263,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/department',
+        path: '/generalSetup/departmentSetup',
         component: <></>,
         isLink: true,
         icon: '',
@@ -273,7 +273,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/department/add',
+        path: '/generalSetup/departmentSetup/add',
         name: 'Add',
         component: AddDepartmentComponent,
         icon: '',
@@ -283,7 +283,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/department/manage',
+        path: '/generalSetup/departmentSetup/manage',
         name: 'Manage',
         component: ManageDepartmentComponent,
         icon: '',
@@ -293,7 +293,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/admin-setup',
+        path: '/generalSetup/adminSetup',
         name: 'Admin Setup',
         component: <></>,
         icon: '',
@@ -302,7 +302,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/admin-setup/add',
+        path: '/generalSetup/adminSetup/add',
         name: 'Add',
         component: AddAdminComponent,
         icon: '',
@@ -311,7 +311,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/admin-setup/manage',
+        path: '/generalSetup/adminSetup/manage',
         name: 'Manage',
         component: ManageAdminComponent,
         icon: '',
@@ -380,7 +380,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/doctor',
+        path: '/generalSetup/doctorSetup',
         component: <></>,
         icon: '',
         hasTab: true,
@@ -390,7 +390,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/doctor/add',
+        path: '/generalSetup/doctorSetup/add',
         component: AddDoctorComponent,
         icon: '',
         hasTab: true,
@@ -400,7 +400,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/generalSetup/doctor/manage',
+        path: '/generalSetup/doctorSetup/manage',
         component: ManageDoctorComponent,
         icon: '',
         hasTab: true,
@@ -410,7 +410,7 @@ export const routes = [
         isSingleTab:false,
     },
     {
-        path: '/appointment/appointmentRefundRequest',
+        path: '/appointment/pendingRefundApproval',
         component: AppointmentRefundListComponent,
         icon: '',
         hasTab: false,
@@ -420,7 +420,7 @@ export const routes = [
         isSingleTab:true,
     },
     {
-        path: '/appointment/appointmentApprovalRequest',
+        path: '/appointment/appointmentCheckIn',
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,
