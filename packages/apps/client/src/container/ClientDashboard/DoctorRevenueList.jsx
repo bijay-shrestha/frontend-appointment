@@ -125,7 +125,7 @@ const DoctorRevenueList = props => {
                           width: 400
                         },
                         {
-                          headerName: 'No of Appointments',
+                          headerName: 'No of Appt',
                           field: 'totalAppointmentCount',
                           resizable: true,
                           sortable: true,
