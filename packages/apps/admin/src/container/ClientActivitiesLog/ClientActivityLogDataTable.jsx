@@ -336,7 +336,7 @@ const ClientActivityLogDataTable = ({
                                             return (
                                                 <li key={'datum' + index}>
                                                     <span className="legend"></span>
-                                                    <span>
+                                                    <span className="legend-label">
                               {datum}{' '}
                                                         <span className="data">
                                 {' '}
