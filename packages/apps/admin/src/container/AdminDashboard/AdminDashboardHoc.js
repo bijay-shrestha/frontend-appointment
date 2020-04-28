@@ -283,7 +283,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                     break
                 case 'M':
                     searchParameterChange = {
-                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 30),
+                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     }
