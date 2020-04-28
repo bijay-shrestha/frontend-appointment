@@ -78,7 +78,7 @@
           "id": "5",
           "parentId": "1",
           "name": "Admin Setup",
-          "path": "/generalSetup/admin-setup",
+          "path": "/generalSetup/adminSetup",
           "roles": [
             2,
             3,
