@@ -246,18 +246,7 @@ const AdminInfoForm = ({
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Status" id="status"/>
                                 <div>
-                                    <CRadioButton
-                                        checked={adminInfoObj.status === 'Y'}
-                                        id="radio1"
-                                        label="Active"
-                                        type="radio"
-                                        name="status"
-                                        value="Y"
-                                        disabled={true}
-                                        onKeyDown={event => onEnterKeyPress(event)}
-                                        onChange={event => onInputChange(event)}
-                                        readOnly={true}
-                                    />
+                                   
                                     <CRadioButton
                                         checked={adminInfoObj.status === 'N'}
                                         id="radio2"
@@ -267,10 +256,23 @@ const AdminInfoForm = ({
                                         value="N"
                                         onKeyDown={event => onEnterKeyPress(event)}
                                         onChange={event => onInputChange(event)}
-                                        className="sr-only"
+                                        // className="sr-only"
                                         disabled={true}
                                         readOnly={true}
                                     />
+                                     {/* <CRadioButton
+                                        checked={adminInfoObj.status === 'Y'}
+                                        id="radio1"
+                                        label="Active"
+                                        type="radio"
+                                        name="status"
+                                        value="Y"
+                                        disabled={true}
+                                        onKeyDown={event => onEnterKeyPress(event)}
+                                        onChange={event => onInputChange(event)}
+                                        disabled={true}
+                                        readOnly={true}
+                                    /> */}
                                 </div>
                             </Col>
                             <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
