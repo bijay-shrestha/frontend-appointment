@@ -131,6 +131,8 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                                                 : 'info'}
                                                                     size="lg block"
                                                                     className="time-button">
+                                                                    {timeSlot.isFollowUp === 'Y' ?
+                                                                        <> <i className="fa fa-tag"/>&nbsp;</> : ''}
                                                                     <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
 
                                                                 </Button>
@@ -146,6 +148,8 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                                     onClickHandler={() => getPatientDetails(timeSlot,
                                                                         appointmentStatusDetail.date, rowIndex, index)}
                                                                 >
+                                                                    {timeSlot.isFollowUp === 'Y' ?
+                                                                        <> <i className="fa fa-tag"/>&nbsp;</> : ''}
                                                                     {timeSlot.appointmentTime}
                                                                 </CButton>)
                                                                 : ''
@@ -175,12 +179,11 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                         <div className="patient-details">
                                             <div className="label">Appointment No.</div>
                                             <div className="data">
-                                                {appointmentStatusDetail.patientDetails.appointmentNumber}
+                                                {appointmentStatusDetail.patientDetails.appointmentNumber}<br/>
                                                 {appointmentStatusDetail.patientDetails.isFollowUp === 'Y' ?
                                                     <>
-                                                        <Badge variant="info">
-                                                            FOLLOW UP
-                                                        </Badge>{' '}
+                                                        <i className="fa fa-tag"/>
+                                                            Follow Up
                                                     </>
                                                     : ""}
                                             </div>
