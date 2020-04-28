@@ -78,7 +78,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             },
             doctorTotalRecords: 0,
             doctorTotalAppointments: 0,
-            doctorTotalRevenueAmount: 0
+            doctorTotalRevenueAmount: 0,
+            doctorTotalFollowUp:0
         }
 
         fetchDashboardData = statsType => {
@@ -414,6 +415,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                             .DashboardRevenueGeneratedByDoctorReducer.overallAppointment,
                         doctorTotalRevenueAmount: this.props
                             .DashboardRevenueGeneratedByDoctorReducer.totalRevenueAmount,
+                        doctorTotalFollowUp:this.props
+                            .DashboardRevenueGeneratedByDoctorReducer.totalFollowUp,    
                         doctorQueryParams: {
                             ...this.state.doctorQueryParams,
                             page: updatedPage
@@ -481,7 +484,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 doctorRevenue,
                 doctorTotalAppointments,
                 doctorTotalRecords,
-                doctorTotalRevenueAmount
+                doctorTotalRevenueAmount,
+                doctorTotalFollowUp
             } = this.state
             const {revFromDate, revToDate} = searchParameterForRevenueTrend
 
@@ -627,6 +631,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                                 specializationId: doctorRevenue.specializationId,
                                 specializationListHospitalWise: this.props
                                     .SpecializationDropdownReducer.allActiveSpecializationList,
+                                doctorTotalFollowUp:doctorTotalFollowUp,
                                 code: ACCESSCODE.REVENUE_STAT
                             }}
                             onPillsClickHandler={this.onPillsClickHandler}

@@ -28,7 +28,8 @@ const DoctorRevenueList = props => {
     specializationId,
     specializationListHospitalWise,
     doctorTotalAppointments,
-    doctorTotalRevenueAmount
+    doctorTotalRevenueAmount,
+    doctorTotalFollowUp
   } = props.doctorRevenue
   return (
     <>
@@ -131,6 +132,13 @@ const DoctorRevenueList = props => {
                           sortable: true,
                           sizeColumnsToFit: true
                         },
+                         {
+                          headerName: 'No of Follow Up',
+                          field: 'totalFollowUpCount',
+                          resizable: true,
+                          sortable: true,
+                          sizeColumnsToFit: true,
+                        },
                         {
                           headerName: 'Revenue Amout',
                           field: 'revenueAmount',
@@ -162,6 +170,10 @@ const DoctorRevenueList = props => {
                           <span className="pull-left mt-3">
                             {' '}
                             Total Appointment : <span className="rev-total"> {doctorTotalAppointments}</span>
+                          </span>
+                           <span className="pull-left mt-3">
+                            {' '}
+                            Total Follow Up : <span className="rev-total"> {doctorTotalFollowUp}</span>
                           </span>
                           <span className="pull-right mt-3">
                             Total RevenueAmount : <span className="rev-total"> Rs. {doctorTotalRevenueAmount}</span>

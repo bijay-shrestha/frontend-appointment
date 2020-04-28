@@ -66,7 +66,8 @@ const revenueGeneratedByDoctor = {
   doctorRevenueGeneratedErrorMessage: '',
   totalItems: 0,
   totalAmount: 0,
-  overallAppointment: 0
+  overallAppointment: 0,
+  totalFollowUp:0
 }
 
 const revenueGeneratedMonth = {
@@ -374,7 +375,8 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: action.payload.data.totalItems,
         totalRevenueAmount: action.payload.data.totalRevenueAmount,
-        overallAppointment: action.payload.data.overallAppointmentCount
+        overallAppointment: action.payload.data.overallAppointmentCount,
+        totalFollowUp:action.payload.data.overallFollowUpCount
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
@@ -384,7 +386,8 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         doctorRevenueGeneratedErrorMessage: action.payload.data,
         totalItemsDoctorsRevenue: 0,
         totalRevenueAmount: 0,
-        overallAppointment: 0
+        overallAppointment: 0,
+         totalFollowUp:0
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {
@@ -394,7 +397,8 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: 0,
         totalRevenueAmount: 0,
-        overallAppointment: 0
+        overallAppointment: 0,
+        totalFollowUp:0
       }
     default:
       return {...state}
