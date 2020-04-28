@@ -2,50 +2,81 @@ import React from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const ApprovalContent = ({approvalData}) => {
+const TransactionLogDetailContent = ({logData}) => {
     return (
         <>
             <Container-fluid>
                 <CForm id="refund-info" className="mt-2">
                     <Container-fluid>
                         <Row>
-                            {/*<Col sm={12} md={6} lg={6}>*/}
-                            {/*    <CHybridInput*/}
-                            {/*        id="clientName"*/}
-                            {/*        placeholder="Client Name"*/}
-                            {/*        value={approvalData.hospitalName}*/}
-                            {/*        disabled={true}*/}
-                            {/*    />*/}
-                            {/*</Col>*/}
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="doctorName"
+                                    placeholder="Doctor Name(Specialization)"
+                                    value={logData.doctorName.toUpperCase() + "(" + logData.specializationName.toUpperCase() + ")"}
+                                    disabled={true}
+                                />
+                            </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="appointmentDate"
                                     placeholder="Appointment Date"
-                                    value={approvalData.appointmentDate || 'N/A'}
+                                    value={logData.appointmentDate}
                                     disabled={true}
                                 />
                             </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="transactionDate"
+                                    placeholder="Transaction Date"
+                                    value={logData.transactionDate}
+                                    disabled={true}
+                                />
+                            </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="AppointmentTime"
                                     placeholder="Appointment Time"
-                                    value={approvalData.appointmentTime || 'N/A'}
+                                    value={logData.appointmentTime}
                                     disabled={true}
                                 />
                             </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="AppointmentAmount"
-                                    placeholder="Appointment Amount"
-                                    value={approvalData.appointmentAmount || 'N/A'}
+                                    id="transactionTime"
+                                    placeholder="Transaction Time"
+                                    value={logData.transactionTime}
                                     disabled={true}
                                 />
                             </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="AppointmentNumber"
+                                    placeholder="Appointment Number"
+                                    value={logData.appointmentNumber}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="transactionNumber"
+                                    placeholder="Transaction Number"
+                                    value={logData.transactionNumber}
+                                    disabled={true}
+                                />
+                            </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="esewaId"
                                     placeholder="Esewa Id"
-                                    value={approvalData.esewaId || 'N/A'}
+                                    value={logData.esewaId}
                                     disabled={true}
                                 />
                             </Col>
@@ -53,80 +84,62 @@ const ApprovalContent = ({approvalData}) => {
                                 <CHybridInput
                                     id="registrationNumber"
                                     placeholder="Registration Number"
-                                    value={approvalData.registrationNumber || 'N/A'}
+                                    value={logData.registrationNumber}
                                     disabled={true}
                                 />
                             </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="patientName"
                                     placeholder="Patient Name"
-                                    value={approvalData.patientName || 'N/A'}
+                                    value={logData.patientName + "(" + logData.patientAge + "/" + logData.patientGender.split("")[0].toUpperCase() + ")"}
                                     disabled={true}
                                 />
                             </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="patientType"
-                                    placeholder="Patient Type"
-                                    value={approvalData.isRegistered === 'N' ? 'New' : 'Registered'}
+                                    id="DOB"
+                                    placeholder="Date of Birth"
+                                    value={logData.patientDob}
                                     disabled={true}
                                 />
                             </Col>
+
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="appointmentCategory"
-                                    placeholder="Appointment Category"
-                                    value={approvalData.isSelf === 'Y' ? 'Self' : 'Others'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="Mobile Number"
+                                    id="mobileNumber"
                                     placeholder="Mobile Number"
-                                    value={approvalData.mobileNumber || 'N/A'}
+                                    value={logData.mobileNumber}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="doctor-specializationName"
-                                    placeholder="Doctor(Specialization)"
-                                    value={
-                                        approvalData.doctorName && approvalData.specialization ? 'Dr.' +
-                                            approvalData.doctorName.toUpperCase() +
-                                            '(' +
-                                            approvalData.specializationName.toUpperCase() +
-                                            ')' : 'N/A'
-                                    }
+                                    id=""
+                                    placeholder="Address"
+                                    value={logData.patientAddress}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="AppointmentAmount"
+                                    placeholder="Appointment Amount"
+                                    value={logData.appointmentAmount}
                                     disabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
-                                    id="transactionNumber"
-                                    placeholder="Transaction Number"
-                                    value={approvalData.transactionNumber || 'N/A'}
+                                    id="refundAmount"
+                                    placeholder="Refund Amount"
+                                    value={logData.refundAmount}
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="appointmentMode"
-                                    placeholder="AppointmentMode"
-                                    value={approvalData.appointmentMode || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            {/*<Col sm={12} md={6} lg={6}>*/}
-                            {/*    <CHybridInput*/}
-                            {/*        id="refundAmount"*/}
-                            {/*        placeholder="Refund Amount"*/}
-                            {/*        value={approvalData.refundAmount}*/}
-                            {/*        disabled={true}*/}
-                            {/*    />*/}
-                            {/*</Col>*/}
                         </Row>
                     </Container-fluid>
                 </CForm>
@@ -135,4 +148,4 @@ const ApprovalContent = ({approvalData}) => {
     )
 }
 
-export default ApprovalContent
+export default TransactionLogDetailContent

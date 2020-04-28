@@ -1,16 +1,12 @@
 import React, {memo} from 'react'
-import {
-  CDataTable,
-  CLoading,
-  CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import TableAction from '../CommonComponents/table-components/TableAction'
 import TableStatus from '../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './PatientPreview'
 import PatientEditModal from './PatientEditModal'
-import PatientNameWithAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
-import AppointmentWithDateAndTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+
 const PatientDataList = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,

@@ -151,13 +151,13 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 //   sortable: true,
                                 //   sizeColumnsToFit: true
                                 // },
-                                // {
-                                //   headerName: 'Amount',
-                                //   field: 'refundAmount',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
+                                {
+                                  headerName: 'App. Amount',
+                                  field: 'appointmentAmount',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true
+                                },
                                 {
                                     headerName: '',
                                     action: 'action',

@@ -296,6 +296,23 @@
           "menuFor": "6",
           "description": "Reschedule Log",
           "childMenus": []
+        },
+        {
+          "id": "20",
+          "parentId": "14",
+          "name": "Transaction Log",
+          "path": "/reports/transactionLog",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Transaction Log",
+          "childMenus": []
         }
       ]
     },
@@ -318,7 +335,7 @@
       "childMenus": []
     },
     {
-      "id": "18",
+      "id": "19",
       "parentId": null,
       "name": "Activity Log",
       "path": "/activityLog",
