@@ -22,3 +22,6 @@ export {
 export {
     default as PatientNameWithAgeGenderPhone
 } from './src/PatientNameWithAgeGenderPhoneForTable';
+export {
+    default as TransactionDateWithTime
+} from './src/TransactionDateWithTimeForTable';

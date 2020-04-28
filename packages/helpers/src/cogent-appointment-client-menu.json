@@ -298,7 +298,7 @@
           "childMenus": []
         },
         {
-          "id": "19",
+          "id": "20",
           "parentId": "14",
           "name": "Transaction Log",
           "path": "/reports/transactionLog",
@@ -335,7 +335,7 @@
       "childMenus": []
     },
     {
-      "id": "18",
+      "id": "19",
       "parentId": null,
       "name": "Activity Log",
       "path": "/activityLog",

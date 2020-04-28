@@ -170,7 +170,7 @@ const ActivityLog = loadable(
 /* ****** T ***** */
 
 const TransactionLogComponent = loadable(
-    () => import('./container/TransactionLog/TransactionLog'),
+    () => import('./container/ClientTransactionLog/TransactionLog'),
     {fallback: () => getLoader()}
 );
 
@@ -528,7 +528,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/reports/transactionLog',
+        path: '/reports/transactionLog',
         component: TransactionLogComponent,
         icon: '',
         hasTab: false,

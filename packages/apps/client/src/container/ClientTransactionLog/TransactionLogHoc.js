@@ -3,24 +3,24 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
+    HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './appointment-log.scss'
+import './transaction-log.scss'
 
 const {
     clearAppointmentRefundPending,
     fetchAppointmentLogList
-    //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware;
 
-const AppointmentLogHOC = (ComposedComponent, props, type) => {
+const TransactionLogHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         doctorSetupApiConstants,
@@ -28,10 +28,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         patientSetupApiConstant
     } = AdminModuleAPIConstants;
 
-    class AppointmentLogDetails extends React.PureComponent {
+    class TransactionLogDetails extends React.PureComponent {
         state = {
             searchParameters: {
-                appointmentNumber: '',
+                transactionNumber: '',
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                 toDate: new Date(),
                 patientMetaInfoId: '',
@@ -39,10 +39,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 patientType: '',
                 specializationId: '',
                 appointmentCategory: '',
-                status: '',
-                transactionNumber: '',
-                transactionFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
-                transactionToDate: new Date()
+                status: {value: 'All', label: "All"}
             },
             queryParams: {
                 page: 0,
@@ -51,15 +48,15 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             totalRecords: 0,
             showModal: false,
             previewData: {}
-        };
+        }
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
-        };
+        }
 
         searchAppointment = async page => {
             const {
-                appointmentNumber,
+                transactionNumber,
                 fromDate,
                 toDate,
                 patientMetaInfoId,
@@ -68,9 +65,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId,
                 appointmentCategory,
                 status,
-            } = this.state.searchParameters;
+
+            } = this.state.searchParameters
             let searchData = {
-                appointmentNumber,
+                transactionNumber,
                 fromDate,
                 toDate,
                 patientMetaInfoId: patientMetaInfoId.value || '',
@@ -79,14 +77,14 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId: doctorId.value || '',
                 appointmentCategory: appointmentCategory.value || '',
                 status: status.value === "All" ? "" : status.value
-            };
+            }
 
             let updatedPage =
                 this.state.queryParams.page === 0
                     ? 1
                     : page
                     ? page
-                    : this.state.queryParams.page;
+                    : this.state.queryParams.page
             await this.props.fetchAppointmentLogList(
                 appointmentSetupApiConstant.APPOINTMENT_LOG_LIST,
                 {
@@ -94,7 +92,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     size: this.state.queryParams.size
                 },
                 searchData
-            );
+            )
             await this.setState({
                 totalRecords: this.props.AppointmentLogListReducer.logList.length
                     ? this.props.AppointmentLogListReducer.totalItems
@@ -104,17 +102,16 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     page: updatedPage
                 }
             })
-        };
+        }
 
         appendSNToTable = logList => {
-            let newLogList = [];
+            let newLogList = []
             newLogList =
                 logList.length &&
                 logList.map((spec, index) => ({
                     ...spec,
                     sN: index + 1,
                     status: spec.status || 'N/A',
-                    hospitalName: spec.hospitalName || 'N/A',
                     appointmentDate: spec.appointmentDate || 'N/A',
                     appointmentNumber: spec.appointmentNumber || 'N/A',
                     appointmentTime: spec.appointmentTime || 'N/A',
@@ -137,8 +134,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     refundAmount: spec.refundAmount || '0',
                     transactionDate: spec.transactionDate || 'N/A'
                 }));
-            return newLogList
-        };
+
+            return newLogList;
+        }
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -146,9 +144,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     ...this.state.queryParams,
                     page: newPage
                 }
-            });
+            })
             this.searchAppointment()
-        };
+        }
 
         handleSearchFormReset = async () => {
             await this.setState({
@@ -161,24 +159,24 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: {value: 'All', label: "All"},
+                    status: {value: 'All', label: "All"}
                 }
-            });
+            })
             this.searchAppointment()
-        };
+        }
 
         setStateValuesForSearch = searchParams => {
             this.setState({
                 searchParameters: searchParams
             })
-        };
+        }
 
         previewCall = data => {
             this.setState({
                 previewData: data,
                 showModal: true
             })
-        };
+        }
 
         handleHospitalChangeReset = async () => {
             await this.setState({
@@ -191,7 +189,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     appointmentCategory: ''
                 }
             })
-        };
+        }
 
         callApiForHospitalChange = async () => {
             this.props.fetchActiveDoctorsForDropdown(
@@ -203,37 +201,41 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             this.props.fetchPatientMetaDropdownForClient(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
             )
-        };
+        }
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label
                 if (field) {
-                    fieldName = field;
+                    fieldName = field
                     value = event
                 } else {
-                    fieldName = event.target.name;
-                    value = event.target.value;
-                    label = event.target.label;
+                    fieldName = event.target.name
+                    value = event.target.value
+                    label = event.target.label
                 }
-                let searchParams = {...this.state.searchParameters};
+                let searchParams = {...this.state.searchParameters}
 
-                let newSearchParams = {...this.state.searchParameters};
+                let newSearchParams = {...this.state.searchParameters}
 
-                newSearchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                newSearchParams[fieldName] = label
+                    ? value
+                        ? {value, label}
+                        : ''
+                    : value
                 await this.setStateValuesForSearch(newSearchParams)
             }
-        };
+        }
 
         setShowModal = () => {
             this.setState(prevState => ({
                 showModal: !prevState.showModal
             }))
-        };
+        }
 
         componentDidMount() {
-            this.callApiForHospitalChange();
-            this.searchAppointment();
+            this.searchAppointment()
+            this.callApiForHospitalChange()
         }
 
         render() {
@@ -243,29 +245,29 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 totalRecords,
                 showModal,
                 previewData
-            } = this.state;
+            } = this.state
 
             const {
                 isLogListLoading,
                 logList,
                 logErrorMessage,
                 appointmentStatistics
-            } = this.props.AppointmentLogListReducer;
+            } = this.props.AppointmentLogListReducer
 
             const {
-                activeDoctorsForDropdown,
+                activeDoctorsByHospitalForDropdown,
                 doctorDropdownErrorMessage
-            } = this.props.DoctorDropdownReducer;
+            } = this.props.DoctorDropdownReducer
 
             const {
-                allActiveSpecializationList,
+                activeSpecializationListByHospital,
                 dropdownErrorMessage
-            } = this.props.SpecializationDropdownReducer;
+            } = this.props.SpecializationDropdownReducer
 
             const {
                 patientList,
                 patientDropdownErrorMessage
-            } = this.props.PatientDropdownListReducer;
+            } = this.props.PatientDropdownListReducer
             return (
                 <div id="appointment-log">
                     <ComposedComponent
@@ -276,9 +278,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                             handleSearchFormChange: this.handleSearchFormChange,
                             resetSearch: this.handleSearchFormReset,
                             searchAppointment: this.searchAppointment,
-                            doctorsDropdown: activeDoctorsForDropdown,
+                            doctorsDropdown: activeDoctorsByHospitalForDropdown,
                             doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                            activeSpecializationList: allActiveSpecializationList,
+                            activeSpecializationList: activeSpecializationListByHospital,
                             specializationDropdownErrorMessage: dropdownErrorMessage,
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
@@ -306,7 +308,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
     }
 
     return ConnectHoc(
-        AppointmentLogDetails,
+        TransactionLogDetails,
         [
             'AppointmentLogListReducer',
             'SpecializationDropdownReducer',
@@ -321,5 +323,5 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             fetchPatientMetaDropdownForClient
         }
     )
-};
-export default AppointmentLogHOC
+}
+export default TransactionLogHoc
