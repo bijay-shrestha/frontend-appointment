@@ -231,7 +231,7 @@ const CompanyAdminInfoForm = ({
               <Col sm={12} md={12} lg={6}>
                 <CFLabel labelName="Status" id="status" />
                 <div>
-                  <CRadioButton
+                  {/* <CRadioButton
                     checked={adminInfoObj.status === 'Y'}
                     id="radio1"
                     label="Active"
@@ -242,7 +242,7 @@ const CompanyAdminInfoForm = ({
                     onKeyDown={event => onEnterKeyPress(event)}
                     onChange={event => onInputChange(event)}
                     readOnly={true}
-                  />
+                  /> */}
                   <CRadioButton
                     checked={adminInfoObj.status === 'N'}
                     id="radio2"
@@ -252,7 +252,6 @@ const CompanyAdminInfoForm = ({
                     value="N"
                     onKeyDown={event => onEnterKeyPress(event)}
                     onChange={event => onInputChange(event)}
-                    className="sr-only"
                     disabled={true}
                     readOnly={true}
                   />
