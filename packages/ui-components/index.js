@@ -19,3 +19,6 @@ export {default as CDoctorNameDisplayForTable} from './src/CDoctorNameDisplayFor
 export {
     default as CPasswordSavedSuccessMessageView
 }from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
+export {
+    default as PatientNameWithAgeGenderPhone
+} from './src/PatientNameWithAgeGenderPhoneForTable';

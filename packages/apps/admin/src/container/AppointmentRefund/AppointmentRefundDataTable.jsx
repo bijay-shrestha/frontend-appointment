@@ -5,7 +5,7 @@ import TableRefundStatus from '../CommonComponents/table-components/TableRefundS
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
-import PatientWithAge from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone';
+import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components';
 import DoctorWithSpecialization from "../CommonComponents/table-components/DoctorWithSpecialization";
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
@@ -143,7 +143,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             frameworkComponents={{
                                 childActionRenderer: TableRefundStatus,
                                 appointmentDateAndTimeRenderer:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
-                                patientWithAgeRenderer: PreviewHandlerHoc(PatientWithAge,null,null,null,previewCall),
+                                patientWithAgeRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone,null,null,null,previewCall),
                                 doctorWithSpecializationRenderer:PreviewHandlerHoc(DoctorWithSpecialization,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}

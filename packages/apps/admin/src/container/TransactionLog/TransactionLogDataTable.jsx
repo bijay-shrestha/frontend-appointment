@@ -3,15 +3,16 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
-import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import PreviewDetails from './AppointmentLogPreview';
+import PreviewDetails from './TransactionLogPreview';
 import {Badge, Col, Row} from 'react-bootstrap';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+import TransactionDateWithTime from "../CommonComponents/table-components/TransactionDateWithTime";
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
         appointmentLogList,
@@ -28,7 +29,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
 
                 <Row>
                     <Col>
-                        <h5 className="title">Appointment Log Details</h5>
+                        <h5 className="title">Transaction Log Details</h5>
                     </Col>
 
 
@@ -94,14 +95,22 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'statusRenderer'
                                 },
                                 {
-                                    headerName: 'App. DateTime',
-                                    field: 'appointmentDate',
+                                    headerName: 'Tran. Date',
+                                    field: 'transactionDate',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "200",
-                                    cellRenderer: "AppointmentDateWithTime"
+                                    cellRenderer: 'transactionDateWithTime',
                                 },
+                                // {
+                                //     headerName: 'App. DateTime',
+                                //     field: 'appointmentDate',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: "200",
+                                //     cellRenderer: "AppointmentDateWithTime"
+                                // },
                                 {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
@@ -110,6 +119,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: "140"
+                                },
+                                {
+                                    headerName: 'Txn. Detail (No/Amount)',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'transactionDetail',
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: "180"
                                 },
                                 {
                                     headerName: 'Doctor(Specialization)',
@@ -146,16 +165,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                                {
-                                    headerName: 'Txn. Detail (No/Amount)',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'transactionDetail',
-                                    autoSize: true,
-                                    autoWidth: true,
-                                    width: "180"
-                                },
+
+
                             ]}
                             frameworkComponents={{
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
@@ -164,6 +175,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall),
+                                transactionDateWithTime: PreviewHandlerHoc(TransactionDateWithTime, null, null, null, previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -174,17 +186,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             rowData={appointmentLogList}
 
                         />
-
-
-                        {/* <div className=" total-amount">
-                        <span>
-                        Total Amount :
-
-                        </span>
-                            <span> Rs {totalAmount}</span>
-
-                        </div> */}
-
 
                         <CPagination
                             totalItems={totalRecords}
@@ -219,4 +220,4 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     )
 }
 
-export default memo(AppointmentRefundDataTable)
+export default memo(TransactionLogDataTable)

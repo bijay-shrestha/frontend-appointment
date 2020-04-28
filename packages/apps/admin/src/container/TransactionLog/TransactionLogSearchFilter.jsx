@@ -3,7 +3,7 @@ import {Col, Container, Row, OverlayTrigger, Tooltip, Button} from 'react-bootst
 import {CButton, CHybridSelect, CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-class AppointmentLogListSearchFilter extends PureComponent {
+class TransactionLogSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
     }
@@ -42,7 +42,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Log List</h5>
+                            <h5 className="title">Search Transaction Log</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -51,7 +51,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                   <i className="fa fa-refresh"/>  &nbsp;Reset
+                                    <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="from-date"
                                                 name="fromDate"
-                                                label="Appointment From Date"
+                                                label="Transaction From Date"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -93,7 +93,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="to-date"
                                                 name="toDate"
-                                                label="Appointment To Date"
+                                                label="Transaction To Date"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
@@ -145,15 +145,14 @@ class AppointmentLogListSearchFilter extends PureComponent {
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder="Appointment Number"
-                                            value={searchParameters.appointmentNumber}
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
                                         />
                                     </Col>
-
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -210,11 +209,11 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             name="status"
                                             value={searchParameters.status}
                                             options={[
-                                                {value:'All',label:"All"},
                                                 {value: 'PA', label: 'Booked'},
                                                 {value: 'A', label: 'Checked-In'},
                                                 {value: 'C', label: 'Cancelled'},
-                                                {value: 'RE', label: 'Refunded'}
+                                                {value: 'RE', label: 'Refunded'},
+                                                {value: 'All', label: "All"}
                                             ]}
                                             onChange={handleSearchFormChange}
                                         />
@@ -262,37 +261,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </>
                                 </CButton>
                             </li>
-                            {searchParameters.appointmentNumber && (
+
+                            {searchParameters.transactionNumber && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Appointment Number</Tooltip>
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.appointmentNumber}
+                                            {searchParameters.transactionNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
                             )}
-
-                            {/*{searchParameters.transactionNumber && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            delay={{show: 250, hide: 400}}*/}
-                            {/*            overlay={props => (*/}
-                            {/*                <Tooltip {...props}>Transaction Number</Tooltip>*/}
-                            {/*            )}*/}
-                            {/*        >*/}
-                            {/*            <Button id="light-search-filters" variant="secondary">*/}
-                            {/*                {searchParameters.transactionNumber}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
 
                             {searchParameters.hospitalId && (
                                 <li>
@@ -339,37 +323,21 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-
-                            {/*{searchParameters.transactionFromDate && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            overlay={<Tooltip id="name">Transaction From Date</Tooltip>}*/}
-                            {/*        >*/}
-                            {/*            <Button*/}
-                            {/*                id="search-param-button-filters"*/}
-                            {/*                variant="secondary"*/}
-                            {/*            >*/}
-                            {/*                {searchParameters.transactionFromDate.toLocaleDateString()}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
-                            {/*{searchParameters.transactionToDate && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            overlay={<Tooltip id="name">Transaction To Date</Tooltip>}*/}
-                            {/*        >*/}
-                            {/*            <Button*/}
-                            {/*                id="search-param-button-filters"*/}
-                            {/*                variant="secondary"*/}
-                            {/*            >*/}
-                            {/*                {searchParameters.transactionToDate.toLocaleDateString()}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
+                            {searchParameters.appointmentCategory && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Appointment Category </Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.appointmentCategory.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
                             {searchParameters.patienMetaInfoId && (
                                 <li>
@@ -469,4 +437,4 @@ class AppointmentLogListSearchFilter extends PureComponent {
     }
 }
 
-export default AppointmentLogListSearchFilter
+export default TransactionLogSearchFilter

@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-patient-name-with-age-gender-phone",
+  "version": "1.0.0",
+  "main": "PatientNameWithAgeGenderPhone.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

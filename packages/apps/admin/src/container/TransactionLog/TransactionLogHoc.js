@@ -9,32 +9,32 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
-import './appointment-log.scss'
+import './transaction-log.scss'
 
 const {
     clearAppointmentRefundPending,
     fetchAppointmentLogList
     //downloadExcelForHospitals
-} = AppointmentDetailsMiddleware
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
+} = AppointmentDetailsMiddleware;
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {
     fetchSpecializationHospitalWiseForDropdown
-} = SpecializationSetupMiddleware
-const {fetchPatientMetaDropdown} = PatientDetailsMiddleware
-const AppointmentLogHOC = (ComposedComponent, props, type) => {
+} = SpecializationSetupMiddleware;
+const {fetchPatientMetaDropdown} = PatientDetailsMiddleware;
+const TransactionLogHoc = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         hospitalSetupApiConstants,
         doctorSetupApiConstants,
         specializationSetupAPIConstants,
         patientSetupApiConstant
-    } = AdminModuleAPIConstants
+    } = AdminModuleAPIConstants;
 
-    class AppointmentLogDetails extends React.PureComponent {
+    class TransactionLogDetails extends React.PureComponent {
         state = {
             searchParameters: {
-                appointmentNumber: '',
+                transactionNumber: '',
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                 toDate: new Date(),
                 hospitalId: '',
@@ -70,7 +70,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
 
         searchAppointment = async page => {
             const {
-                appointmentNumber,
+                transactionNumber,
                 fromDate,
                 toDate,
                 hospitalId,
@@ -83,7 +83,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
 
             } = this.state.searchParameters
             let searchData = {
-                appointmentNumber,
+                transactionNumber,
                 fromDate,
                 toDate,
                 hospitalId: hospitalId.value || '',
@@ -92,7 +92,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId: specializationId.value || '',
                 doctorId: doctorId.value || '',
                 appointmentCategory: appointmentCategory.value || '',
-                status: status.value === 'All' ? '' : status.value || ''
+                status: status.value === "All" ? "" : status.value
             }
 
             let updatedPage =
@@ -153,7 +153,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 }));
 
             return newLogList;
-        };
+        }
 
         handlePageChange = async newPage => {
             await this.setState({
@@ -177,7 +177,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: {value:'All',label:"All"}
+                    status: {value: 'All', label: "All"}
                 }
             })
             this.searchAppointment()
@@ -334,7 +334,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
     }
 
     return ConnectHoc(
-        AppointmentLogDetails,
+        TransactionLogDetails,
         [
             'AppointmentLogListReducer',
             'SpecializationDropdownReducer',
@@ -352,4 +352,4 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         }
     )
 }
-export default AppointmentLogHOC
+export default TransactionLogHoc
