@@ -18,19 +18,23 @@ const AppointmentStatistics = props => {
     const {
       newPatient,
       registeredPatient,
-      totalAppointment
+      totalAppointment,
+      followUpPatient
     } = appointmentStatsData
     const newPatientPercent = (newPatient / totalAppointment).toFixed(2) * 100
     const registeredPatientPercent =
       (registeredPatient / totalAppointment).toFixed(2) * 100
+    const followUpPercent =
+      (followUpPatient / totalAppointment).toFixed(2) * 100
     data.push(newPatientPercent)
     data.push(registeredPatientPercent)
+    data.push(followUpPercent)
     color.push('rgba(0, 99, 255, 0.2)')
     color.push('#0063ff')
-    color.push("#0d61fe")
+    color.push('#0d61fe')
     label.push('From New Patients')
     label.push('From Registered Patients')
-     label.push('From FollowUp Patient')
+    label.push('From FollowUp Patient')
     chartData = {
       datasets: [{data: [...data], backgroundColor: [...color]}],
       labels: [...label]
