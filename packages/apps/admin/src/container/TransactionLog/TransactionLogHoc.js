@@ -102,7 +102,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     ? page
                     : this.state.queryParams.page
             await this.props.fetchAppointmentLogList(
-                appointmentSetupApiConstant.APPOINTMENT_LOG_LIST,
+                appointmentSetupApiConstant.TRANSACTION_LOG_LIST,
                 {
                     page: updatedPage,
                     size: this.state.queryParams.size
