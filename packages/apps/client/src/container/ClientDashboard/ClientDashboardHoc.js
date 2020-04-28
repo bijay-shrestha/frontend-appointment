@@ -48,11 +48,11 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1)
             },
             searchParamsForOverallAppoinment: {
-                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                 toDate: new Date()
             },
             searchParameterForRevenueTrend: {
-                revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                 revToDate: new Date()
             },
             appointmentQueue: {
@@ -209,7 +209,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     break
                 case 'W':
                     searchParameterChange = {
-                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     }
