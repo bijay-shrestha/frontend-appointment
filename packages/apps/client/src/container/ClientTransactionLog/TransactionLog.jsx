@@ -1,19 +1,19 @@
 import React from 'react'
-import AppointmentLogSearchFilter from './AppointmentLogSearchFilter'
-import AppointmentLogDataTable from './AppointmentLogDataTable'
-import AppointmentLogHoc from './AppointmentLogHoc'
+import TransactionLogSearchFilter from './TransactionLogSearchFilter'
+import TransactionLogDataTable from './TransactionLogDataTable'
+import TransactionLogHoc from './TransactionLogHoc'
 import {Col, Container} from 'react-bootstrap';
 
-const AppointmentRefundLog = props => {
-    const AppointmentLog = AppointmentLogHoc(
+const TransactionLog = props => {
+    const TransactionLog = TransactionLogHoc(
         ({searchHandler, paginationProps, tableHandler, appointmentStatistics}) => (
             <>
                 <div>
-                    <AppointmentLogSearchFilter searchHandler={searchHandler}/>
+                    <TransactionLogSearchFilter searchHandler={searchHandler}/>
                 </div>
 
                 <div className="">
-                    <AppointmentLogDataTable
+                    <TransactionLogDataTable
                         tableHandler={tableHandler}
                         paginationProps={paginationProps}
                     />
@@ -128,14 +128,15 @@ const AppointmentRefundLog = props => {
                                 </Col>
                             </div>
                         </Container>
-                        : ""}
+                        : ""
+                }
             </>
         ),
         props,
         ''
     )
 
-    return <AppointmentLog/>
+    return <TransactionLog/>
 }
 
-export default AppointmentRefundLog
+export default TransactionLog

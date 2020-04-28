@@ -68,7 +68,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             value={searchParameters.departmentId}
                                             options={departments}
                                             label='Department'
-                                            placeholder={departments.length ? "Select department." : "No department(s)."}
+                                            placeholder={departments.length ? "Select department." : "No department(s) available."}
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>

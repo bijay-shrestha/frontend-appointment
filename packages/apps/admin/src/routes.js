@@ -208,6 +208,11 @@ const RescheduleLog = loadable(
 
 /* ****** T ***** */
 
+const TransactionLogComponent = loadable(
+    () => import('./container/TransactionLog/TransactionLog'),
+    {fallback: () => getLoader()}
+);
+
 /* ****** U ***** */
 
 const UniversitySetupComponent = loadable(
@@ -511,7 +516,7 @@ export const routes = [
         isSingleTab: true,
     },
     {
-        path: '/admin/appointment/appointmentCheckIn',
+        path: '/admin/appointment/checkIn',
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,
@@ -749,6 +754,16 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Mode Setup',
+        isSingleTab: true,
+    },
+    {
+        path: '/admin/reports/transactionLog',
+        component: TransactionLogComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Transaction Log',
         isSingleTab: true,
     },
 ];

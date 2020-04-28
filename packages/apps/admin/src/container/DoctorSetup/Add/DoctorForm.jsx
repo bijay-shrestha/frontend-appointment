@@ -97,7 +97,7 @@ const DoctorForm = ({
                                             options={hospitalsForDropdown}
                                             value={doctorInfoObj.hospitalId}
                                             required={true}
-                                            placeholder={hospitalsForDropdown.length ? "Select Client" : "No Client(s)."}
+                                            placeholder={hospitalsForDropdown.length ? "Select Client" : "No Client(s) available."}
                                             isDisabled={!hospitalsForDropdown.length}
                                         />
                                     </Col>
@@ -182,7 +182,7 @@ const DoctorForm = ({
                                             required={true}
                                             isMulti={true}
                                             placeholder={activeSpecializationList.length
-                                                ? "Select Specialization." : "No Specialization(s)."}
+                                                ? "Select Specialization." : "No Specialization(s) available."}
                                             isDisabled={!activeSpecializationList.length}
                                         />
                                     </Col>
@@ -202,7 +202,7 @@ const DoctorForm = ({
                                             required={true}
                                             isMulti={true}
                                             placeholder={qualificationDropdown.length
-                                                ? "Select Qualification." : "No Qualification(s)."}
+                                                ? "Select Qualification." : "No Qualification(s) available."}
                                             isDisabled={!qualificationDropdown.length}
                                         />
                                     </Col>

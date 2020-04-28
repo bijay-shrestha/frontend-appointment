@@ -70,7 +70,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             options={hospitalList}
                                             isDisabled={!hospitalList.length}
                                             label='Client'
-                                            placeholder={!hospitalList.length ? "No client(s)." : "Select Client."}
+                                            placeholder={!hospitalList.length ? "No client(s) available." : "Select Client."}
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
@@ -82,7 +82,7 @@ class DepartmentSetupSearchFilter extends PureComponent {
                                             value={searchParameters.departmentId}
                                             options={departments}
                                             label='Department'
-                                            placeholder={searchParameters.hospital ? departments.length ? "Select department." : "No department(s)."
+                                            placeholder={searchParameters.hospital ? departments.length ? "Select department." : "No department(s) available."
                                                 : "Select Client first."}
                                             isDisabled={!departments.length || !searchParameters.hospital}
                                         />

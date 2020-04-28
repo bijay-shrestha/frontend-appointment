@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-transaction-date-with-time",
+  "version": "1.0.0",
+  "main": "TransactionDateWithTime.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

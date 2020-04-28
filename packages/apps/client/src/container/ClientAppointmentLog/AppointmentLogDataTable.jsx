@@ -2,8 +2,7 @@ import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus'
-import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
-import PatientNameWitheAgeGenderPhone from '../CommonComponents/table-components/PatientNameWitheAgeGenderPhone'
+import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview'
 import {Badge, Col, Row} from 'react-bootstrap'
@@ -52,16 +51,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             <span className="badge-data">Booked</span>
                         </span>
                             <span>
-                            <Badge variant="danger">CH</Badge>{' '}
+                            <Badge variant="primary">CH</Badge>{' '}
                                 <span className="badge-data">Checked-In</span>{' '}
                         </span>
                             <span>
-                            <Badge variant="dark">C</Badge>{' '}
+                            <Badge variant="danger">C</Badge>{' '}
                                 <span className="badge-data">Canceled</span>
                         </span>
                             {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
                             <span>
-                            <Badge variant="secondary">R</Badge>{' '}
+                            <Badge variant="brown">R</Badge>{' '}
                                 <span className="badge-data">Refunded</span>
                         </span>
                         </div>
@@ -219,15 +218,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     null,
                                     previewCall
                                 ),
-                                patientRenderer: PreviewHandlerHoc(
-                                    PatientWithAgeAndGender,
-                                    null,
-                                    null,
-                                    null,
-                                    previewCall
-                                ),
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(
-                                    PatientNameWitheAgeGenderPhone,
+                                    PatientNameWithAgeGenderPhone,
                                     null,
                                     null,
                                     null,

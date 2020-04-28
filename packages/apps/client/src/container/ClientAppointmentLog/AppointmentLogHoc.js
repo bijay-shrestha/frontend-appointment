@@ -68,9 +68,6 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 doctorId,
                 appointmentCategory,
                 status,
-                transactionNumber,
-                transactionFromDate,
-                transactionToDate
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
@@ -81,10 +78,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 specializationId: specializationId.value || '',
                 doctorId: doctorId.value || '',
                 appointmentCategory: appointmentCategory.value || '',
-                status: status.value || '',
-                transactionNumber,
-                transactionFromDate,
-                transactionToDate
+                status: status.value === "All" ? "" : status.value
             };
 
             let updatedPage =
@@ -139,7 +133,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     doctorName: spec.doctorName || 'N/A',
                     specializationName: spec.specializationName || 'N/A',
                     transactionNumber: spec.transactionNumber || 'N/A',
-                    appointmentAmount: spec.appointmentAmount || 'N/A',
+                    appointmentAmount: spec.appointmentAmount || '0',
                     refundAmount: spec.refundAmount || '0',
                     transactionDate: spec.transactionDate || 'N/A'
                 }));
@@ -167,10 +161,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: '',
-                    transactionNumber: '',
-                    transactionFromDate: new Date(),
-                    transactionToDate: new Date()
+                    status: {value: 'All', label: "All"},
                 }
             });
             this.searchAppointment()
@@ -226,8 +217,6 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     label = event.target.label;
                 }
                 let searchParams = {...this.state.searchParameters};
-                if (fieldName === 'hospitalId')
-                    await this.handleHospitalChangeReset(searchParams);
 
                 let newSearchParams = {...this.state.searchParameters};
 
@@ -242,9 +231,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             }))
         };
 
-        async componentDidMount() {
-            await this.callApiForHospitalChange();
-            await this.searchAppointment();
+        componentDidMount() {
+            this.callApiForHospitalChange();
+            this.searchAppointment();
         }
 
         render() {

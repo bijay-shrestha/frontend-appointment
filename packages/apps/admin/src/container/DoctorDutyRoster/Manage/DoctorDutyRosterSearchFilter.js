@@ -117,7 +117,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             options={specializationList}
                                             placeholder={!searchParameters.hospital ? "Select Client first" : "Select specialization."}
                                             isDisabled={!searchParameters.hospital}
-                                            noOptionsMessage={() => specializationDropdownError ? specializationDropdownError : "No Specializatipon(s) found."}
+                                            noOptionsMessage={() => specializationDropdownError ? specializationDropdownError : "No Specialization(s) available."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.specialization}

@@ -115,8 +115,6 @@
           "description": "Doctor Setup",
           "childMenus": []
         }
-
-
       ]
     },
     {
@@ -177,7 +175,7 @@
           "id": "12",
           "parentId": "10",
           "name": "Appointment Check-In",
-          "path": "/appointment/appointmentCheckIn",
+          "path": "/appointment/checkIn",
           "roles": [
             12,
             14,
@@ -257,6 +255,23 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "Reschedule Log",
+          "childMenus": []
+        },
+        {
+          "id": "28",
+          "parentId": "14",
+          "name": "Transaction Log",
+          "path": "/reports/transactionLog",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Transaction Log",
           "childMenus": []
         }
       ]
@@ -475,7 +490,9 @@
           "parentId": "24",
           "name": "Admin Log",
           "path": "/activityLog/adminLog",
-          "roles": [12],
+          "roles": [
+            12
+          ],
           "icon": "",
           "leftNavigation": "Y",
           "checked": false,
@@ -490,7 +507,9 @@
           "parentId": "24",
           "name": "Client Log",
           "path": "/activityLog/clientLog",
-          "roles": [12],
+          "roles": [
+            12
+          ],
           "icon": "",
           "leftNavigation": "Y",
           "checked": false,

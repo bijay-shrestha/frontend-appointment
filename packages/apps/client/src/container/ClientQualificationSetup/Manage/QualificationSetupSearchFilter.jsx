@@ -66,7 +66,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                             label="Qualification"
                                             value={searchParameters.name}
                                             options={qualificationsForDropdown}
-                                            placeholder={qualificationsForDropdown.length ? "Select Qualification." : "No Qualification(s)."}
+                                            placeholder={qualificationsForDropdown.length ? "Select Qualification." : "No Qualification(s) available."}
                                             isDisabled={!qualificationsForDropdown.length}
                                         />
                                     </Col>
@@ -80,7 +80,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                             label="University"
                                             value={searchParameters.universityId}
                                             options={universitiesDropdown}
-                                            placeholder={universitiesDropdown.length ? "Select University." : "No University."}
+                                            placeholder={universitiesDropdown.length ? "Select University." : "No University available."}
                                             isDisabled={!universitiesDropdown.length}
                                         />
                                     </Col>
@@ -93,7 +93,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
                                             label="Qualification Alias"
                                             value={searchParameters.qualificationAliasId}
                                             options={qualificationsAliasForDropdown}
-                                            placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias."}
+                                            placeholder={qualificationsAliasForDropdown.length ? "Select Qualification Alias." : "No Qualification Alias available."}
                                             isDisabled={!qualificationsAliasForDropdown.length}
                                         />
                                     </Col>

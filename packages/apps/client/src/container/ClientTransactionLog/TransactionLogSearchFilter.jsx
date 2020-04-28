@@ -1,12 +1,12 @@
 import React, {PureComponent} from 'react'
-import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
-import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
+import {Col, Container, Row, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
+import {CButton, CHybridSelect, CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-class AppointmentApprovalListSearchFilter extends PureComponent {
+class TransactionLogSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
-    };
+    }
 
     toggleSearchForm = async () => {
         const searchFilter = document.getElementById('advanced-search')
@@ -14,19 +14,20 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
         })
-    };
+    }
 
     handleSearchButtonClick = () => {
-        this.props.searchHandler.searchAppointment(1);
+        this.props.searchHandler.searchAppointment(1)
         this.toggleSearchForm()
-    };
+    }
 
     render() {
-        const {searchHandler} = this.props;
+        const {searchHandler} = this.props
         const {
             handleEnter,
             handleSearchFormChange,
             resetSearch,
+            hospitalsDropdown,
             doctorsDropdown,
             doctorDropdownErrorMessage,
             activeSpecializationList,
@@ -34,14 +35,14 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
             searchParameters,
             patientListDropdown,
             patientDropdownErrorMessage
-        } = searchHandler;
+        } = searchHandler
 
         return (
             <>
                 {this.state.isSearchFormExpanded ? (
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Refund</h5>
+                            <h5 className="title">Search Transaction Log</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -50,7 +51,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -58,22 +59,11 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder="Appointment Number"
-                                            value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="from-date"
                                                 name="fromDate"
-                                                label="From Date"
-                                                dateFormat="yyyy-MM-dd"
+                                                label="Transaction From Date"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 peekNextMonth={true}
@@ -90,8 +80,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             <CEnglishDatePicker
                                                 id="to-date"
                                                 name="toDate"
-                                                label="To Date"
-                                                dateFormat="yyyy-MM-dd"
+                                                label="Transaction To Date"
                                                 // maxDate={0}
                                                 showDisabledMonthNavigation={true}
                                                 selected={searchParameters.toDate}
@@ -112,30 +101,42 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="specializationId"
                                             label="Specialization"
                                             name="specializationId"
-                                            placeholder={doctorsDropdown.length ? "Select specialization."
-                                                : "No specialization(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
-                                            isDisabled={activeSpecializationList.length ? false : true}
+                                            isDisabled={!activeSpecializationList.length}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
+                                            placeholder={activeSpecializationList.length ? "Select Specialization."
+                                                : "No specialization(s) available."}
                                         />
                                     </Col>
+
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="doctorId"
                                             label="Doctor"
                                             name="doctorId"
-                                            placeholder={doctorsDropdown.length ? "Select doctor."
-                                                : "No doctor(s) available."}
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}
                                             value={searchParameters.doctorId}
                                             isDisabled={!doctorsDropdown.length}
                                             onEnter={handleEnter}
+                                            placeholder={doctorsDropdown.length ? "Select doctor."
+                                                : "No doctor(s) available."}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
                                         />
                                     </Col>
 
@@ -144,20 +145,21 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
-                                            placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s) available.":"Select client first."}
+                                            placeholder={ patientListDropdown.length ? "Name, Mobile no Or Reg. no"
+                                                : "No patient(s) available."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
-                                            isDisabled={patientListDropdown.length ? false : true}
+                                            isDisabled={!patientListDropdown.length}
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
                                     </Col>
 
+
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="patientType"
-                                            label="Select Patient Type"
+                                            label="Patient Type"
                                             name="patientType"
                                             value={searchParameters.patientType}
                                             options={[
@@ -167,6 +169,39 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             placeholder="Select Patient Type."
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="appointmentCategory"
+                                            label="Appointment Category"
+                                            name="appointmentCategory"
+                                            options={[
+                                                {value: 'Y', label: 'Self'},
+                                                {value: 'N', label: 'Others'}
+                                            ]}
+                                            placeholder="Select Appointment Category."
+                                            onChange={handleSearchFormChange}
+                                            onEnter={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="status"
+                                            label="Status"
+                                            placeholder="Select Status."
+                                            name="status"
+                                            value={searchParameters.status}
+                                            options={[
+                                                {value: 'PA', label: 'Booked'},
+                                                {value: 'A', label: 'Checked-In'},
+                                                {value: 'C', label: 'Cancelled'},
+                                                {value: 'RE', label: 'Refunded'},
+                                                {value: 'All', label: "All"}
+                                            ]}
+                                            onChange={handleSearchFormChange}
                                         />
                                     </Col>
 
@@ -212,17 +247,18 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </>
                                 </CButton>
                             </li>
-                            {searchParameters.appointmentNumber && (
+
+                            {searchParameters.transactionNumber && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Appointment Number</Tooltip>
+                                            <Tooltip {...props}>Transaction Number</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.appointmentNumber}
+                                            {searchParameters.transactionNumber}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
@@ -232,7 +268,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">From Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment From Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -247,7 +283,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">To Date</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment To Date</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
@@ -258,34 +294,17 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-
-                            {searchParameters.specializationId && (
+                            {searchParameters.appointmentCategory && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Specialization Name</Tooltip>}
+                                        overlay={<Tooltip id="name">Appointment Category </Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
                                             variant="secondary"
                                         >
-                                            {searchParameters.specializationId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
-                            {searchParameters.doctorId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Doctor Name</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.doctorId.label}
+                                            {searchParameters.appointmentCategory.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
@@ -306,7 +325,36 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-
+                            {searchParameters.doctorId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Doctor Name</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.doctorId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.specializationId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Specialization Name</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.specializationId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
                             {searchParameters.patientType && (
                                 <li>
                                     <OverlayTrigger
@@ -322,6 +370,36 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+                            {searchParameters.patientCategory && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Patient Category</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.patientCategory.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.status && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Status</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.status.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 )}
@@ -330,4 +408,4 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
     }
 }
 
-export default AppointmentApprovalListSearchFilter
+export default TransactionLogSearchFilter

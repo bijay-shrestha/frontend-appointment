@@ -143,8 +143,8 @@ const ProfileComponent = Loadable({
 });
 
 const PatientComponent = Loadable({
-     loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
-     loading: () => getLoader()
+    loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
+    loading: () => getLoader()
 });
 /* ****** Q ***** */
 
@@ -169,6 +169,12 @@ const ActivityLog = loadable(
 
 /* ****** T ***** */
 
+const TransactionLogComponent = loadable(
+    () => import('./container/ClientTransactionLog/TransactionLog'),
+    {fallback: () => getLoader()}
+);
+
+
 /* ****** U ***** */
 
 /* ****** V ***** */
@@ -190,7 +196,7 @@ export const routes = [
         isTab: 'false',
         hasTab: false,
         name: 'Dashboard',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup',
@@ -200,7 +206,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/profileSetup',
@@ -210,7 +216,7 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Profile Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/profileSetup/add',
@@ -220,7 +226,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/profileSetup/manage',
@@ -230,7 +236,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/specialization/add',
@@ -240,7 +246,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/specialization/manage',
@@ -250,7 +256,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/specialization',
@@ -260,7 +266,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Specialization Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/departmentSetup',
@@ -270,7 +276,7 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Department Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/departmentSetup/add',
@@ -280,7 +286,7 @@ export const routes = [
         hasTab: true,
         isTab: true,
         isLink: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/departmentSetup/manage',
@@ -290,7 +296,7 @@ export const routes = [
         hasTab: true,
         isTab: true,
         isLink: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/adminSetup',
@@ -299,7 +305,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/adminSetup/add',
@@ -308,7 +314,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/adminSetup/manage',
@@ -317,7 +323,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/doctorDutyRoster',
@@ -327,7 +333,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/doctorDutyRoster/add',
@@ -337,7 +343,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/doctorDutyRoster/manage',
@@ -347,7 +353,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/qualification/add',
@@ -357,7 +363,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/qualification/manage',
@@ -367,7 +373,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/qualification',
@@ -377,7 +383,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Setup',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/doctorSetup',
@@ -387,7 +393,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Doctor',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/doctorSetup/add',
@@ -397,7 +403,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/generalSetup/doctorSetup/manage',
@@ -407,7 +413,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/appointment/pendingRefundApproval',
@@ -417,17 +423,17 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Pending Refund Approval',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
-        path: '/appointment/appointmentCheckIn',
+        path: '/appointment/checkIn',
         component: AppointmentApprovalListComponent,
         icon: '',
         hasTab: false,
         isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/reports/appointmentLog',
@@ -437,7 +443,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Log',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/appointment/appointmentStatus',
@@ -447,7 +453,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Status',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/appointment',
@@ -457,7 +463,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Appointment',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/patientInformation',
@@ -467,7 +473,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Patient Information',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/reports',
@@ -477,7 +483,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Reports',
-        isSingleTab:false,
+        isSingleTab: false,
     },
     {
         path: '/activityLog',
@@ -487,9 +493,9 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Activity Log',
-        isSingleTab:true,
+        isSingleTab: true,
     },
-    
+
     {
         path: '/reports/rescheduleLog',
         component: RescheduleLog,
@@ -498,7 +504,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Reschedule Log',
-        isSingleTab:true,
+        isSingleTab: true,
     },
     {
         path: '/generalSetup/qualificationAlias',
@@ -508,7 +514,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Alias',
-        isSingleTab:true,
+        isSingleTab: true,
     },
 
     {
@@ -519,6 +525,16 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized',
-        isSingleTab:false,
-    }
+        isSingleTab: false,
+    },
+    {
+        path: '/reports/transactionLog',
+        component: TransactionLogComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Transaction Log',
+        isSingleTab: true,
+    },
 ];

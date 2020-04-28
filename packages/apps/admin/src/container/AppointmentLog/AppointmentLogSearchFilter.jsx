@@ -63,7 +63,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             id="hospitalId"
                                             name="hospitalId"
                                             label="Client"
-                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No client(s)."}
+                                            placeholder={hospitalsDropdown.length ? "Select Client" : "No client(s) available."}
                                             options={hospitalsDropdown}
                                             isDisabled={hospitalsDropdown.length ? false : true}
                                             value={searchParameters.hospitalId}
@@ -109,46 +109,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         </div>
                                     </Col>
 
-                                    {/* <Col sm={12} md={6} xl={4}>
-                                        <div className="d-flex">
-                                            <CEnglishDatePicker
-                                                id="transaction-from-date"
-                                                name="transactionFromDate"
-                                                label="Transaction From Date"
-
-                                                // maxDate={0}
-                                                showDisabledMonthNavigation={true}
-                                                peekNextMonth={true}
-                                                showMonthDropdown={true}
-                                                showYearDropdown={true}
-                                                dropdownMode="select"
-                                                selected={searchParameters.transactionFromDate}
-                                                onKeyDown={event => handleEnter(event)}
-                                                onChange={date =>
-                                                    handleSearchFormChange(date, 'transactionFromDate')
-                                                }
-                                            />
-                                            &nbsp;&nbsp;
-                                            <CEnglishDatePicker
-                                                id="transaction-to-date"
-                                                name="transactionToDate"
-                                                label="Transaction To Date"
-                                                dateFormat="yyyy-MM-dd"
-                                                // maxDate={0}
-                                                showDisabledMonthNavigation={true}
-                                                selected={searchParameters.transactionToDate}
-                                                peekNextMonth={true}
-                                                showMonthDropdown={true}
-                                                showYearDropdown={true}
-                                                dropdownMode="select"
-                                                onKeyDown={event => handleEnter(event)}
-                                                onChange={date =>
-                                                    handleSearchFormChange(date, 'transactionToDate')
-                                                }
-                                            />
-                                        </div>
-                                    </Col> */}
-
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="specializationId"
@@ -162,7 +122,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                             placeholder={searchParameters.hospitalId ? (activeSpecializationList.length ? "Select Specialization."
-                                                : "No specialization(s).") : "Select client first."}
+                                                : "No specialization(s) available.") : "Select client first."}
                                         />
                                     </Col>
 
@@ -179,7 +139,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             isDisabled={searchParameters.hospitalId ? !doctorsDropdown.length : true}
                                             onEnter={handleEnter}
                                             placeholder={searchParameters.hospitalId ? (doctorsDropdown.length ? "Select doctor."
-                                                : "No doctor(s).") : "Select client first."}
+                                                : "No doctor(s) available.") : "Select client first."}
                                         />
                                     </Col>
 
@@ -194,17 +154,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    {/*<Col sm={12} md={6} xl={4}>*/}
-                                    {/*    <CHybridInput*/}
-                                    {/*        id="transactionNumber"*/}
-                                    {/*        name="transactionNumber"*/}
-                                    {/*        placeholder="Transaction Number"*/}
-                                    {/*        value={searchParameters.transactionNumber}*/}
-                                    {/*        onChange={handleSearchFormChange}*/}
-                                    {/*        onKeyDown={handleEnter}*/}
-                                    {/*    />*/}
-                                    {/*</Col>*/}
-
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -212,7 +161,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             name="patientMetaInfoId"
                                             label="Patients Detail"
                                             placeholder={searchParameters.hospitalId ? patientListDropdown.length ? "Name, Mobile no Or Reg. no"
-                                                : "No patient(s)." : "Select client first."}
+                                                : "No patient(s) available." : "Select client first."}
                                             options={patientListDropdown}
                                             value={searchParameters.patientMetaInfoId}
                                             isDisabled={patientListDropdown.length ? false : true}
@@ -238,7 +187,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    {/* <Col sm={12} md={6} xl={4}>
+                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="appointmentCategory"
                                             label="Appointment Category"
@@ -251,7 +200,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
                                         />
-                                    </Col> */}
+                                    </Col>
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
@@ -261,9 +210,9 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             name="status"
                                             value={searchParameters.status}
                                             options={[
+                                                {value:'All',label:"All"},
                                                 {value: 'PA', label: 'Booked'},
                                                 {value: 'A', label: 'Checked-In'},
-                                                // {value: 'RE', label: 'Rejected'},
                                                 {value: 'C', label: 'Cancelled'},
                                                 {value: 'RE', label: 'Refunded'}
                                             ]}
