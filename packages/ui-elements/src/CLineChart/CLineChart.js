@@ -2,7 +2,7 @@ import React,{memo} from 'react';
 import {Line} from 'react-chartjs-2';
 
 const LineChart = props => {
- 
+
 
  const{
     label,
@@ -60,7 +60,7 @@ const chartFillData = {
     labels: labels,
     datasets: [
         {
-            label:label||'Revenue Refund',
+            label:label||'Revenue',
             backgroundColor:backgroundColor||'rgba(0, 99, 255, 0.2)',
             fillColor: fillColor||'rgba(0, 99, 255, 0.2)',
             borderColor: borderColor||'#0063ff',

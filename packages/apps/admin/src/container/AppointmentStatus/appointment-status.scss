@@ -18,9 +18,9 @@
 
 
  .appointment-badge{
-    float: right;  
+    float: right;
     margin:10px 0;
-    
+
         &>div{
          margin-right:20px;
          height: auto;
@@ -38,7 +38,7 @@
          }
 
          a{
-            
+
              color:$gray-600;
              font-weight: 500;
              margin-left:4px;
@@ -56,7 +56,7 @@
      .btn{
         margin-bottom:10px;
      }
-    
+
 
 }
 
@@ -118,14 +118,14 @@
     //     background-color:$gray-600;
     // }
 
-   
+
 
     span{
         font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.01rem;
     }
-   
+
 }
 
 .patient-container{
@@ -142,7 +142,7 @@
     // text-transform: capitalize;
     letter-spacing: 0.02rem;
     font-weight: 500;
-    
+
 
    .label{
        font-size:0.65rem;
@@ -163,9 +163,15 @@
         border:1px solid $primary !important;
         background-color:white !important;
     }
+
+     .badge-info{
+       color:$info  ;
+       border:1px solid $info ;
+       background-color:transparent ;
+     }
 }
 
- 
+
 }
 
 .btn-checkin{
@@ -208,8 +214,8 @@
         margin-right:10px;
         margin-bottom:12px;
         float:left;
-     
-  
+
+
 
         .btn{
             width:120px;
@@ -217,7 +223,7 @@
             //  margin-right:10px;
             height: 46px;
 
-         
+
         }
 
         // .btn-success{
@@ -253,8 +259,8 @@
         background-color:$gray-600;
     }
 
-    
-    
+
+
 }
 
 .day-off{
@@ -306,21 +312,21 @@
     .fa{
         display:none;
         margin-right:4px;
-    
+
     }
     &.active{
        .fa{
            display:inline;
            margin-right:4px;
            color:white;
-           
+
        }
     }
 }
 
 
 
-@media (max-width: 1199px) { 
+@media (max-width: 1199px) {
     .hide-on-md{
       display:none;
     }

@@ -49,7 +49,6 @@ const AppointmentQueue = props => {
                                 name="date"
                                 label="Date"
                                 dateFormat="yyyy-MM-dd"
-                                minDate={0}
                                 showDisabledMonthNavigation={true}
                                 peekNextMonth={true}
                                 showMonthDropdown={true}
