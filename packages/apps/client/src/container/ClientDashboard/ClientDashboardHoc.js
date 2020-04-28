@@ -224,7 +224,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
           break
         case 'Y':
           searchParameterChange = {
-            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 364),
+            fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 366),
             toDate: new Date(),
             hospitalId: searchParameterChange.hospitalId
           }
