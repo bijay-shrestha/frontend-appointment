@@ -9,7 +9,7 @@ const DateWithTime = (props) => {
                  {props.node.data.logDate}
                 </li>
                 <li>
-                 {props.node.data.logTime}
+                 <i className="fa fa-clock-o">&nbsp;</i>{props.node.data.logTime}
                 </li>
             </ul>
         </>
