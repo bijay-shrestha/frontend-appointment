@@ -12,8 +12,8 @@ import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/
 import './transaction-log.scss'
 
 const {
-    clearAppointmentRefundPending,
-    fetchAppointmentLogList
+    clearTransactionLogMessage,
+    fetchTransactionLogList
 } = AppointmentDetailsMiddleware;
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
@@ -85,7 +85,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     : page
                     ? page
                     : this.state.queryParams.page
-            await this.props.fetchAppointmentLogList(
+            await this.props.fetchTransactionLogList(
                 appointmentSetupApiConstant.TRANSACTION_LOG_LIST,
                 {
                     page: updatedPage,
@@ -94,8 +94,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 searchData
             )
             await this.setState({
-                totalRecords: this.props.AppointmentLogListReducer.logList.length
-                    ? this.props.AppointmentLogListReducer.totalItems
+                totalRecords: this.props.TransactionLogReducer.logList.length
+                    ? this.props.TransactionLogReducer.totalItems
                     : 0,
                 queryParams: {
                     ...this.state.queryParams,
@@ -252,7 +252,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 logList,
                 logErrorMessage,
                 appointmentStatistics
-            } = this.props.AppointmentLogListReducer
+            } = this.props.TransactionLogReducer
 
             const {
                 activeDoctorsByHospitalForDropdown,
@@ -310,14 +310,14 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
     return ConnectHoc(
         TransactionLogDetails,
         [
-            'AppointmentLogListReducer',
+            'TransactionLogReducer',
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
             'PatientDropdownListReducer'
         ],
         {
-            clearAppointmentRefundPending,
-            fetchAppointmentLogList,
+            clearTransactionLogMessage,
+            fetchTransactionLogList,
             fetchActiveDoctorsForDropdown,
             fetchSpecializationForDropdown,
             fetchPatientMetaDropdownForClient

@@ -40,7 +40,11 @@ const {
     CLEAR_REFUND_DETAIL_MESSAGE,
     REFUND_DETAIL_FETCH_ERROR,
     REFUND_DETAIL_FETCH_START,
-    REFUND_DETAIL_FETCH_SUCCESS
+    REFUND_DETAIL_FETCH_SUCCESS,
+    CLEAR_TRANSACTION_LOGS_MESSAGE,
+    FETCH_TRANSACTION_LOGS_ERROR,
+    FETCH_TRANSACTION_LOGS_PENDING,
+    FETCH_TRANSACTION_LOGS_SUCCESS
 } = appointmentDetailsConstants;
 
 export const appointmentRefundFetchingStart = () => {
@@ -333,5 +337,33 @@ export const clearAppointmentRefundDetailMessage = message => {
         payload: {
             errorMessage: message
         }
+    }
+};
+
+export const transactionLogFetchingStart = () => {
+    return {
+        type: FETCH_TRANSACTION_LOGS_PENDING
+    }
+};
+
+export const transactionLogFetchingSuccess = data => {
+    return {
+        type: FETCH_TRANSACTION_LOGS_SUCCESS,
+        payload: {data}
+    }
+};
+
+export const transactionLogFetchingError = message => {
+    return {
+        type: FETCH_TRANSACTION_LOGS_ERROR,
+        payload: {
+            data: message
+        }
+    }
+};
+
+export const clearTransactionLogMessage = () => {
+    return {
+        type: CLEAR_TRANSACTION_LOGS_MESSAGE
     }
 };
