@@ -167,18 +167,21 @@ const DoctorRevenueList = props => {
                         <div>
                           {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
                   {toDate.toDateString()} */}
-                          <span className="pull-left mt-3">
+                          <div className="pull-left mt-3">
                             {' '}
-                            Total Appointment : <span className="rev-total"> {doctorTotalAppointments}</span>
-                          </span>
-                           <span className="pull-left mt-3">
+                            Total Appointment : <span className="rev-total"> {doctorTotalAppointments}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                          </div>
+                           <div className="pull-left mt-1">
                             {' '}
                             Total Follow Up : <span className="rev-total"> {doctorTotalFollowUp}</span>
-                          </span>
-                          <span className="pull-right mt-3">
+                          </div>
+                          
+                        </div>
+                      </Col>
+                      <Col>
+                      <span className="pull-right mt-3">
                             Total RevenueAmount : <span className="rev-total"> Rs. {doctorTotalRevenueAmount}</span>
                           </span>
-                        </div>
                       </Col>
                     </Row>
 
