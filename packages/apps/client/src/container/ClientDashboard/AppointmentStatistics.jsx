@@ -27,8 +27,10 @@ const AppointmentStatistics = props => {
     data.push(registeredPatientPercent)
     color.push('rgba(13, 97, 147, 0.2)')
     color.push('#0d6193')
-    label.push('New Patients')
-    label.push('Registered Patients')
+    color.push("#0d6196")
+    label.push('From New Patients')
+    label.push('From Registered Patients')
+     label.push('From FollowUp Patient')
     chartData = {
       datasets: [{data: [...data], backgroundColor: [...color]}],
       labels: [...label]
@@ -36,7 +38,7 @@ const AppointmentStatistics = props => {
   }
   return (
     <>
-        <h5 className="title">Patient Appointment Trend</h5>
+      <h5 className="title">Patient Appointment Trend</h5>
       <div className="appointment-box">
         {!isAppointmentStatsLoading && !appointmentStatsErrorMessage ? (
           <>
@@ -72,25 +74,43 @@ const AppointmentStatistics = props => {
                 />
               </div>
             </Row>
-            <p className="total-count">Appointments : {appointmentStatsData.totalAppointment}</p>
-                         
-       <div className="legend-box clearfix">
-         <ul>
-           <li>
-             <span className="legend"></span>
-             <span>New Patient
-             <span className="data"> - {appointmentStatsData.newPatient}</span></span>
-           </li>
-           <li>
-             <span className="legend"></span>
-             <span>Registered Patient
-           <span className="data"> - {appointmentStatsData.registeredPatient}</span>
-             </span>
-
-
-           </li>
-         </ul>
-       </div>
+            <p className="total-count">
+              Appointments : {appointmentStatsData.totalAppointment}
+            </p>
+            <div className="legend-box clearfix">
+              <ul>
+                <li>
+                  <span className="legend"></span>
+                  <span>
+                    From New Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.newPatient}
+                    </span>
+                  </span>
+                </li>
+                <li>
+                  <span className="legend"></span>
+                  <span>
+                    From Registered Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.registeredPatient}
+                    </span>
+                  </span>
+                </li>
+                <li>
+                  <span className="legend"></span>
+                  <span>
+                    From FollowUp Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.followUpPatient}
+                    </span>
+                  </span>
+                </li>
+              </ul>
+            </div>
           </>
         ) : isAppointmentStatsLoading ? (
           <CLoading />
