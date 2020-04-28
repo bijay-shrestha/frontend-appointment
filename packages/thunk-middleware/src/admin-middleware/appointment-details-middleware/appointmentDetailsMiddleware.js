@@ -231,3 +231,29 @@ export const fetchAppointmentRefundDetailByAppointmentId = (path, appointmentId)
 export const clearAppointmentRefundDetailMessage = () => async dispatch => {
     dispatch(AppointmentDetailActions.clearAppointmentRefundDetailMessage())
 };
+
+export const fetchTransactionLogList = (
+    path,
+    pagination,
+    data
+) => async dispatch => {
+    dispatch(AppointmentDetailActions.transactionLogFetchingStart());
+    try {
+        const response = await Axios.putWithPagination(path, pagination, data);
+        dispatch(
+            AppointmentDetailActions.transactionLogFetchingSuccess(response.data)
+        )
+    } catch (e) {
+        console.log(e);
+        dispatch(
+            AppointmentDetailActions.transactionLogFetchingError(
+                e.errorMessage || 'Sorry Internal Server Problem'
+            )
+        )
+    }
+};
+
+export const clearTransactionLogMessage = () => async dispatch => {
+    dispatch(AppointmentDetailActions.clearTransactionLogMessage())
+};
+

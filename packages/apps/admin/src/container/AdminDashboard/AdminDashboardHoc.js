@@ -196,11 +196,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             ),
                             previousToDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                8
+                                6
                             ),
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                15
+                                12
                             ),
                             hospitalId: hospitalId
                                 ? hospitalId.value === 'A'
@@ -215,7 +215,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             currentToDate: new Date(),
                             currentFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                30
+                                31
                             ),
                             previousToDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
@@ -223,7 +223,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             ),
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                61
+                                60
                             ),
                             hospitalId: hospitalId
                                 ? hospitalId.value === 'A'
@@ -243,11 +243,11 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             ),
                             previousToDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                367
+                                366
                             ),
                             previousFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                733
+                                731
                             ),
                             hospitalId: hospitalId
                                 ? hospitalId.value === 'A'
@@ -283,7 +283,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                     break
                 case 'M':
                     searchParameterChange = {
-                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 30),
+                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 31),
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     }
