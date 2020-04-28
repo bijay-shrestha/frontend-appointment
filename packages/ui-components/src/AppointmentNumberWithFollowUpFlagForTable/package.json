@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-appointment-number-with-follow-up-flag",
+  "version": "1.0.0",
+  "main": "AppointmentNumberWithFollowUpFlag.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

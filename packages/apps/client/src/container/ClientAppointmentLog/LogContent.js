@@ -71,6 +71,15 @@ const DetailsModal = ({logData}) => {
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="patientType"
+                                    placeholder="Patient Type"
+                                    value={logData.isRegistered === "Y" ? "Registered" : "New"}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="DOB"
                                     placeholder="Date of Birth"
                                     value={logData.patientDob}

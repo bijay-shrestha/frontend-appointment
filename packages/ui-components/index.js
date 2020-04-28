@@ -25,3 +25,6 @@ export {
 export {
     default as TransactionDateWithTime
 } from './src/TransactionDateWithTimeForTable';
+export {
+    default as AppointmentNumberWithFollowUpFlag
+} from './src/AppointmentNumberWithFollowUpFlagForTable';

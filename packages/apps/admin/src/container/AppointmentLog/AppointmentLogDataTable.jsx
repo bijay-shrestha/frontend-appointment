@@ -3,7 +3,7 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
-import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {AppointmentNumberWithFollowUpFlag, PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
 import {Badge, Col, Row} from 'react-bootstrap';
@@ -109,7 +109,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "140"
+                                    width: "140",
+                                    cellRenderer: "appointmentNumberWithFollowUpFlag"
                                 },
                                 {
                                     headerName: 'Doctor(Specialization)',
@@ -164,6 +165,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 transactionDetail: PreviewHandlerHoc(AppointmentAmountWithTransactionNumber, null, null, null, previewCall),
+                                appointmentNumberWithFollowUpFlag: PreviewHandlerHoc(AppointmentNumberWithFollowUpFlag, null, null, null, previewCall),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
