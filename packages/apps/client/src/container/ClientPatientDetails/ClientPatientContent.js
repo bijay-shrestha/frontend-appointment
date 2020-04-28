@@ -1,6 +1,6 @@
 import React,{memo} from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
-import {Col, Row} from 'react-bootstrap'
+import {Col, Row,Badge} from 'react-bootstrap'
 const DetailsModal = ({previewData}) => {
   return (
     <>
@@ -108,12 +108,13 @@ const DetailsModal = ({previewData}) => {
                 />
               </Col> */}
               <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="type_patient"
-                  placeholder="Patient Type"
-                  value={previewData.isRegistered ==='Y'? 'Registered' : 'New'}
-                  disabled={true}
-                />
+                   <Badge
+                  variant={
+                    previewData.isRegistered === 'N' ? 'primary' : 'success'
+                  }
+                >
+                  {previewData.isRegistered === 'N' ? 'NEW' : 'REGISTERED'}
+                </Badge>{' '}
               </Col>
             </Row>
           </Container-fluid>

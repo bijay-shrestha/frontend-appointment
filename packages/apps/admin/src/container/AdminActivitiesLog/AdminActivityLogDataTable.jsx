@@ -307,7 +307,7 @@ const AdminActivityLogDataTable = ({
                                 <div className="message"> {logStatsSearchErrorMessage}</div>
                             </div>
                         ) : (
-                            ''
+                          <CLoading/>
                         )}
                     </div>
                 </Col>

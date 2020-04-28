@@ -27,8 +27,10 @@ const AppointmentStatistics = props => {
     data.push(registeredPatientPercent)
     color.push('rgba(0, 99, 255, 0.2)')
     color.push('#0063ff')
-    label.push('New Patients')
-    label.push('Registered Patients')
+    color.push("#0d61fe")
+    label.push('From New Patients')
+    label.push('From Registered Patients')
+     label.push('From FollowUp Patient')
     chartData = {
       datasets: [{data: [...data], backgroundColor: [...color]}],
       labels: [...label]
@@ -38,27 +40,24 @@ const AppointmentStatistics = props => {
     <>
       <h5 className="title">Patient Appointment Trend</h5>
       <div className="appointment-box">
-    
         {!isAppointmentStatsLoading && !appointmentStatsErrorMessage ? (
           <>
             {' '}
             <Row>
               <Col className="date-group">
-              <CDateButtonPills
-                onPillsClickHandler={props.onPillsClickHandler}
-                type={props.type}
-                variant="outline-secondary"
-                data={props.appointmentFilter}
-              />
+                <CDateButtonPills
+                  onPillsClickHandler={props.onPillsClickHandler}
+                  type={props.type}
+                  variant="outline-secondary"
+                  data={props.appointmentFilter}
+                />
               </Col>
               <Col className="date">
                 <div>
                   <span>From :</span> {fromDate.fromDate.toDateString()}
-                 
                 </div>
                 <div>
                   <span>To :</span> {toDate.toDate.toDateString()}
-                  
                 </div>
               </Col>
             </Row>
@@ -67,29 +66,49 @@ const AppointmentStatistics = props => {
             src={require('./img/doughnut-chart.png')}
             className="doughnut-chart mx-auto"
           /> */}
-         <div className="doughnut-chart">
-              <CDoughnutChart chartData={chartData} width={200} height={200} mode="AS"/>
+              <div className="doughnut-chart">
+                <CDoughnutChart
+                  chartData={chartData}
+                  width={200}
+                  height={200}
+                  mode="AS"
+                />
               </div>
             </Row>
-            
-            <p className="total-count">Appointments:{appointmentStatsData.totalAppointment}</p>
-       
-
-                                
+            <p className="total-count">
+              Appointments:{appointmentStatsData.totalAppointment}
+            </p>
             <div className="legend-box clearfix">
               <ul>
                 <li>
                   <span className="legend"></span>
-                  <span>New Patient
-                  <span className="data"> - {appointmentStatsData.newPatient}</span></span>
+                  <span>
+                    From New Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.newPatient}
+                    </span>
+                  </span>
                 </li>
                 <li>
                   <span className="legend"></span>
-                  <span>Registered Patient
-                <span className="data"> - {appointmentStatsData.registeredPatient}</span>
+                  <span>
+                    From Registered Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.registeredPatient}
+                    </span>
                   </span>
-
-
+                </li>
+                <li>
+                  <span className="legend"></span>
+                  <span>
+                    From FollowUp Patient
+                    <span className="data">
+                      {' '}
+                      - {appointmentStatsData.followUpPatient}
+                    </span>
+                  </span>
                 </li>
               </ul>
             </div>

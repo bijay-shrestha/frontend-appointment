@@ -116,6 +116,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             let patientList =
                 patientSearchList.length &&
                 patientSearchList.map((patient, index) => ({
+                    ...patient,
                     id: patient.id || 'N/A',
                     name: patient.name || 'N/A',
                     patientName: patient.name || 'N/A',

@@ -132,6 +132,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             let patientList =
                 patientSearchList.length &&
                 patientSearchList.map((patient, index) => ({
+                    ...patient,
                     id: patient.id || 'N/A',
                     patientName: patient.name || 'N/A',
                     address: patient.address || 'N/A',
@@ -145,7 +146,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                     hospitalName: patient.hospitalName || 'N/A',
                     dateOfBirth: patient.dateOfBirth || 'N/A',
                     sN: index + 1,
-                    gender: patient.gender ? patient.gender.split('')[0] : 'N/A'
+                    gender: patient.gender ? patient.gender.split('')[0] : 'N/A',
                 }))
             return patientList
         }
