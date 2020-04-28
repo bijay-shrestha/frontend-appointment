@@ -599,7 +599,7 @@ class AdminAdd extends PureComponent {
                                             email: email,
                                             genderCode: genderCode,
                                             mobileNumber: mobileNumber,
-                                            status: status ? 'Y' : 'N',
+                                            status: status,
                                             hasMacBinding: hasMacBinding,
                                             macIdList: macIdList,
                                             adminAvatar: adminAvatar,
