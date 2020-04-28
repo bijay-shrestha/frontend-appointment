@@ -38,6 +38,9 @@ const AppointmentRefundLog = props => {
                                             <span> <span
                                                 className="amt"> NPR {appointmentStatistics.bookedAmount || 0}</span> from<span
                                                 className="apt">  {appointmentStatistics.bookedAppointmentsCount || 0} </span>Appointments</span>
+                                                 <span className="follow-up"><i className="fa fa-tag"></i>&nbsp; Follow-up<span
+                                                className="amt"> NPR 200</span> from<span
+                                                className="apt"> 10 </span>Appointments</span>
                                         </div>
                                     </div>
 
@@ -102,7 +105,7 @@ const AppointmentRefundLog = props => {
                                     </div>
 
                                 </Col>
-                                <Col md={4} className="p-0  mt-4">
+                                {/* <Col md={4} className="p-0  mt-4">
                                     <div className="rd-card follow-up">
                                         <div className="icon">
                                             F
@@ -116,10 +119,10 @@ const AppointmentRefundLog = props => {
                                         </div>
                                     </div>
 
-                                </Col>
+                                </Col> */}
 
 
-                                <Col md={{ span: 4, offset: 4 }} className="p-0  mt-4">
+                                <Col  md={4} className="p-0  mt-4">
                                     <div className="rd-card total">
                                         <div className="icon">
                                             &nbsp;
