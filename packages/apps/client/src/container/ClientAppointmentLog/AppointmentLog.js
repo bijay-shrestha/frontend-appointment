@@ -110,14 +110,14 @@ const AppointmentRefundLog = props => {
                                         <div className="rd-content">
                                             <span>   <span className="label">Follow Up</span> </span>
                                             <span> <span
-                                                className="amt"> NPR 200</span> from 
+                                                className="amt"> NPR {appointmentStatistics.followUpAmount || 0}</span> from
                                     <span
-                                        className="apt"> 444</span> Appointments</span>
+                                        className="apt"> {appointmentStatistics.followUpCount || 0}</span> Appointments</span>
                                         </div>
                                     </div>
 
                                 </Col>
-                            
+
 
                                 <Col md={{ span: 4, offset: 4 }} className="p-0  mt-4">
                                     <div className="rd-card total">
@@ -141,8 +141,8 @@ const AppointmentRefundLog = props => {
 
 
                                 </Col>
-                           
-                                     
+
+
                             </div>
                         </Container>
                         : ""}

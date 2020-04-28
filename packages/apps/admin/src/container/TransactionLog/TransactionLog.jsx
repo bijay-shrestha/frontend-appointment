@@ -112,9 +112,9 @@ const TransactionLog = props => {
                                         <div className="rd-content">
                                             <span>   <span className="label">Follow Up</span> </span>
                                             <span> <span
-                                                className="amt"> NPR 200</span> from
-                                    <span
-                                        className="apt"> 444</span> Appointments</span>
+                                                className="amt"> NPR {appointmentStatistics.followUpAmount || 0}</span> from
+                                        <span
+                                        className="apt"> {appointmentStatistics.followUpCount || 0}</span> Appointments</span>
                                         </div>
                                     </div>
 
