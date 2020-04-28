@@ -153,8 +153,15 @@
                 }
             }
 
-            &.total{
+            &.follow-up{
                 margin-right:0;
+                .icon{
+                    background-color:$purple;
+                }
+            }
+
+
+            &.total{
                 box-shadow: -6px -6px 9px 0px rgba(0, 0, 0, 0.2), 
                 6px 6px 9px rgba(0, 0, 0, 0.4);
                 

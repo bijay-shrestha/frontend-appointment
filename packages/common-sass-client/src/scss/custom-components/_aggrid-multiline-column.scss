@@ -10,7 +10,7 @@
 
 
 .ag-root-wrapper{
-    .patient-column, .doctor-column{
+    .patient-column{
         margin-top:0.1rem;
         margin-bottom:0.3rem;
 
@@ -18,6 +18,8 @@
             line-height: 1.4rem;
             font-weight: 500;
             padding:0;
+
+           
 
             &:nth-child(2){
                 font-size: 0.7rem;
@@ -35,6 +37,68 @@
                     color:$gray-600;
                     // @include border-radius(4px);
                 }
+
+                .badge{
+                    width:auto !important;
+                    padding:2px 4px !important;
+                    text-align: center !important;
+                    margin-right:3px;
+                     
+                    font-size: 75% !important;
+                    font-weight: 500 !important;
+                    line-height: 1 !important;
+                    
+                }
+    
+                .badge-success{
+                    color:$success  ;
+                    border:1px solid $success ;
+                    background-color:transparent ;
+                    
+                    // text-transform: lowercase;
+                }
+        
+                .badge-primary{
+                    color:$primary  ;
+                    border:1px solid $primary ;
+                    background-color:transparent ;
+                }
+
+              
+
+            }
+            
+        }
+    }
+
+   .doctor-column{
+        margin-top:0.1rem;
+        margin-bottom:0.3rem;
+
+         li{
+            line-height: 1.4rem;
+            font-weight: 500;
+            padding:0;
+
+          
+            &:nth-child(2){
+                font-size: 0.7rem;
+                font-weight: 500;
+                // padding:0 3px;
+                font-weight: $gray-300;
+                color:$gray-600;
+                span{
+                    // border:1px solid $gray-400;
+                    // background-color:$gray-100;
+                    font-size: 0.7rem;
+                    font-weight: 500;
+                    // padding:0 3px;
+                    font-weight: $gray-300;
+                    color:$gray-600;
+                    // @include border-radius(4px);
+                }
+
+              
 
             }
             
