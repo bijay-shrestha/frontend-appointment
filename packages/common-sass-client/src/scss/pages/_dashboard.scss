@@ -682,7 +682,7 @@
          .legend-box{
              display: block;
          //    min-width: 320px;
-             width:400px;
+             width:320px;
              height: auto;
               border:1px solid #ccc;
              margin:20px auto;
@@ -690,12 +690,13 @@
              @include border-radius(0.5rem);
      
              ul li{
-                 width:50%;
+                 width:100%;
                  float:left;
-                 height: 20px;
+                 height: 26px;
                  display: flex;
                  flex-direction: row;
                  justify-content: left;
+                 text-align: center;
                  // align-items: center;
      
                  // span{
@@ -735,6 +736,12 @@
                         background-color:$cogent;
                      }
                  }
+
+                 &:nth-child(3){
+                    .legend{
+                        background-color: rgba(0, 99, 255, 0.6);
+                    }
+                }
      
              }
      

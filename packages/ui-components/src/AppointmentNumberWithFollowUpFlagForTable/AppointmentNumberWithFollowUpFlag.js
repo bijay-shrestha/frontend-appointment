@@ -4,7 +4,7 @@ import {Badge} from "react-bootstrap";
 const AppointmentNumberWithFollowUpFlag = props => {
     return (
         <>
-            <ul className="doctor-column">
+            <ul className="patient-column">
                 <li>{props.node.data.appointmentNumber}</li>
                 {
                     props.node.data.isFollowUp === 'Y' ?
