@@ -35,6 +35,14 @@ const ApprovalContent = ({approvalData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="AppointmentAmount"
+                                    placeholder="Appointment Amount"
+                                    value={approvalData.appointmentAmount || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="esewaId"
                                     placeholder="Esewa Id"
                                     value={approvalData.esewaId || 'N/A'}
@@ -111,7 +119,7 @@ const ApprovalContent = ({approvalData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            
+
                         </Row>
                     </Container-fluid>
                 </CForm>
