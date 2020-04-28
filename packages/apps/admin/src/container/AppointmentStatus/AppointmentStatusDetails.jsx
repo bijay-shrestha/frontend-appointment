@@ -9,7 +9,7 @@ import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointme
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
 
-const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}) => {
+const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal}) => {
     const {
         appointmentStatusDetails,
         doctorInfoList,
@@ -177,7 +177,15 @@ const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}
                                             <div className="patient-details">
                                                 <div className="label">Appointment No.</div>
                                                 <div className="data">
-                                                    {appointmentStatusDetail.patientDetails.appointmentNumber}
+                                                    {appointmentStatusDetail.patientDetails.appointmentNumber}<br/>
+                                                    {appointmentStatusDetail.patientDetails.isFollowUp === 'Y' ?
+                                                        <>
+                                                            <Badge variant="info">
+                                                                FOLLOW UP
+                                                            </Badge>{' '}
+                                                        </>
+                                                        : ""}
+
                                                 </div>
                                             </div>
 
@@ -237,7 +245,7 @@ const AppointmentStatusDetails = ({statusDetailsData,showAppointmentDetailModal}
                                             >
                                                 <i className="fa fa-eye"/> &nbsp;{showAppointmentDetailModal ?
                                                 <span className="saving">Viewing Details <img
-                                                    src={require("../../images/three-dots.svg")}/></span> :"View Details"}
+                                                    src={require("../../images/three-dots.svg")}/></span> : "View Details"}
                                             </CButton>
 
                                             {appointmentStatusDetail.patientDetails.showCheckInButton ?
