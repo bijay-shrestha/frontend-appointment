@@ -53,12 +53,12 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                 hospitalId: {label: 'ALL', value: 'A'}
             },
             searchParamsForOverallAppoinment: {
-                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                 toDate: new Date(),
                 hospitalId: {label: 'ALL', value: 'A'}
             },
             searchParameterForRevenueTrend: {
-                revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                 revToDate: new Date(),
                 revHospitalId: {label: 'ALL', value: 'A'}
             },
@@ -192,7 +192,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             currentToDate: new Date(),
                             currentFromDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
-                                7
+                                6
                             ),
                             previousToDate: DateTimeFormatterUtils.subtractDate(
                                 new Date(),
@@ -276,7 +276,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                     break
                 case 'W':
                     searchParameterChange = {
-                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
+                        fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     }
