@@ -86,7 +86,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                 password: '',
                 mobileNumber: '',
                 genderCode: '',
-                status: 'Y',
+                status: 'N',
                 hasMacBinding: '',
                 macIdList: [],
                 adminAvatar: null,
@@ -164,7 +164,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                     password: '',
                     mobileNumber: '',
                     genderCode: '',
-                    status: 'Y',
+                    status: 'N',
                     hasMacBinding: '',
                     adminDashboardRequestDTOS: [
                         ...this.props.DashboardFeaturesReducer.dashboardFeatureData
