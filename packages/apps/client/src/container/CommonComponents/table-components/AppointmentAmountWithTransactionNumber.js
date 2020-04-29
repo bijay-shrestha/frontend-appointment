@@ -13,8 +13,8 @@ const AppointmentAmountWithTransactionNumber = (props) => {
                     <span className="spec">
                     <i className="fa fa-money "></i>&nbsp;
                     {/* <span className="fa-money">NPR &nbsp;</span> */}
-                    
-                    {props.node.data.appointmentAmount}
+
+                    {props.node.data.revenueAmount}
                     </span>
                 </li>
             </ul>

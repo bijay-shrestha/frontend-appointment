@@ -25,7 +25,9 @@ export const fetchAdminLog = (
           Authorization:
             LocalStorageSecurity.localStorageDecoder(
               EnvironmentVariableGetter.AUTH_TOKEN
-            ) || ''
+            ) || '',
+          crossDomain: true,
+          crossOrigin: true  
         }
       }
     )
@@ -67,7 +69,9 @@ export const fetchAdminLogStatistics = (
             LocalStorageSecurity.localStorageDecoder(
               EnvironmentVariableGetter.AUTH_TOKEN
             ) || ''
-        }
+        },
+        crossDomain: true,
+        crossOrigin: true  
       }
     )
     dispatch(AdminLoggingSetupActions.logStatsFetchSuccess(response.data))
@@ -104,7 +108,9 @@ export const fetchAdminDiagramStatistics = (
           LocalStorageSecurity.localStorageDecoder(
             EnvironmentVariableGetter.AUTH_TOKEN
           ) || ''
-      }
+      },
+      crossDomain: true,
+      crossOrigin: true  
     })
     dispatch(AdminLoggingSetupActions.logDiagramFetchSuccess(response.data))
     return response

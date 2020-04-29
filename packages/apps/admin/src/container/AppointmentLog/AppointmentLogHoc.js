@@ -148,6 +148,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationName: spec.specializationName || 'N/A',
                     transactionNumber: spec.transactionNumber || 'N/A',
                     appointmentAmount: spec.appointmentAmount || '0',
+                    revenueAmount: spec.revenueAmount || '0',
                     refundAmount: spec.refundAmount || '0',
                     transactionDate: spec.transactionDate || 'N/A'
                 }));

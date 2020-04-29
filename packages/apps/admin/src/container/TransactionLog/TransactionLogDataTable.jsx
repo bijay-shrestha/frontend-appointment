@@ -4,7 +4,7 @@ import DoctorWithSpecialization from '../CommonComponents/table-components/Docto
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
 import {
-    AppointmentNumberWithFollowUpFlag,
+    AppointmentNumberWithFollowUpFlag, AppointmentStatusBadges,
     PatientNameWithAgeGenderPhone,
     TransactionDateWithTime
 } from '@frontend-appointment/ui-components';
@@ -51,19 +51,8 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
                 </Row>
 
 
-                <Row>
-                    <Col>
-                        <div className="appointment-badge float-right">
-                            <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
-                            <span><Badge variant="primary">CH</Badge>  <span
-                                className="badge-data">Checked-In</span> </span>
-                            <span><Badge variant="danger">C</Badge>  <span className="badge-data">Canceled</span></span>
-                            {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
-                            <span><Badge variant="brown">R</Badge>  <span
-                                className="badge-data">Refunded</span></span>
-                        </div>
-                    </Col>
-                </Row>
+                <AppointmentStatusBadges/>
+
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentLogList.length ? (
@@ -122,7 +111,7 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: "140",
-                                    cellRenderer:"appointmentNumberWithFollowUpFlag"
+                                    cellRenderer: "appointmentNumberWithFollowUpFlag"
                                 },
                                 {
                                     headerName: 'Txn. Detail (No/Amount)',

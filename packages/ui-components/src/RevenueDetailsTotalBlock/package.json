@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-revenue-details-total-block",
+  "version": "1.0.0",
+  "main": "RevenueDetailsTotalBlock.js",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

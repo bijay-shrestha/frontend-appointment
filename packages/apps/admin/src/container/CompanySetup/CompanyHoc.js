@@ -262,7 +262,6 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     companyCode,
                     companyLogo,
                     alias
-                    // hospitalBanner,
                 } = this.props.companyPreviewReducer.companyPreviewData
                 let formValid = this.state.formValid
                 if (remarks) formValid = true
@@ -283,7 +282,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                         companyLogoUrlNew: '',
                         companyLogo: new File([5120], companyLogo),
                         companyImage: new File([5120], companyLogo),
-                        companyImageCroppedUrl: companyLogo
+                        companyImageCroppedUrl: companyLogo,
                     },
                     formValid: formValid,
                     nameValid: true
