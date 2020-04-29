@@ -5,7 +5,7 @@ const AppointmentDateWithTime = (props) => {
         <>
             <ul className="doctor-column">
                 <li>
-                    {props.node.data.appointmentDate},
+                    {props.node.data.appointmentDate}
                 </li>
                 <li>
                     <span className="time">
