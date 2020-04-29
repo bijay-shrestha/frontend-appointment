@@ -34,7 +34,7 @@ const AppointmentStatistics = props => {
     color.push('#66a1ff')
     label.push('From New Patients')
     label.push('From Registered Patients')
-     label.push('From FollowUp Patient')
+    label.push('From FollowUp Patient')
     chartData = {
       datasets: [{data: [...data], backgroundColor: [...color]}],
       labels: [...label]
@@ -70,6 +70,13 @@ const AppointmentStatistics = props => {
             className="doughnut-chart mx-auto"
           /> */}
               <div className="doughnut-chart">
+                <div style={{"width": "100%", "height": "40px", "position": "absolute", "top": "55%", "left":"0", "margin-top": "-20px", "line-height":"19px", "text-align": "center", "z-index": "999999999999999"}}>
+                 
+                {appointmentStatsData.totalAppointment} 
+                  <br/>
+                  Total Appointments
+                 
+                </div>
                 <CDoughnutChart
                   chartData={chartData}
                   width={200}
@@ -78,9 +85,9 @@ const AppointmentStatistics = props => {
                 />
               </div>
             </Row>
-            <p className="total-count">
+            {/* <p className="total-count">
               Appointments : {appointmentStatsData.totalAppointment}
-            </p>
+            </p> */}
             <div className="legend-box clearfix">
               <ul>
                 <li>
