@@ -8,12 +8,12 @@ const AppointmentAmountWithTransactionNumber = (props) => {
             <ul className="doctor-column">
                 <li>
                 {props.node.data.transactionNumber}
-                   
+
                 </li>
                 <li>
                     <span className="spec">
                     <i className="fa fa-money "></i>&nbsp;
-                   {props.node.data.appointmentAmount}
+                   {props.node.data.revenueAmount}
                     </span>
                 </li>
             </ul>
