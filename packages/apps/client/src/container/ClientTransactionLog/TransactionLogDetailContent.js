@@ -143,6 +143,14 @@ const TransactionLogDetailContent = ({logData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="revenueAmount"
+                                    placeholder="Revenue Amount"
+                                    value={logData.revenueAmount}
+                                    disabled={true}
+                                />
+                            </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="refundAmount"
                                     placeholder="Refund Amount"
                                     value={logData.refundAmount}
