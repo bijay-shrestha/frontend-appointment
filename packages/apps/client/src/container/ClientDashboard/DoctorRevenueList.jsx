@@ -126,21 +126,21 @@ const DoctorRevenueList = props => {
                         },
                         {
                           headerName: 'No of Appt',
-                          field: 'totalAppointmentCount',
+                          field: 'totalAppointments',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true
                         },
                          {
                           headerName: 'No of Follow Up',
-                          field: 'totalFollowUpCount',
+                          field: 'totalFollowUp',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
                         },
                         {
                           headerName: 'Revenue Amout',
-                          field: 'revenueAmount',
+                          field: 'totalRevenue',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true

@@ -371,12 +371,12 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         ...state,
         isDoctorRevenueGeneratedLoading: false,
         doctorRevenueGenerated:
-          action.payload.data.doctorRevenueResponseDTOList,
+          action.payload.data.doctorRevenueResponseDTOList||action.payload.data.doctorRevenueInfo,
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: action.payload.data.totalItems,
         totalRevenueAmount: action.payload.data.totalRevenueAmount,
-        overallAppointment: action.payload.data.overallAppointmentCount,
-        totalFollowUp:action.payload.data.overallFollowUpCount
+        overallAppointment: action.payload.data.totalAppointmentCount,
+        totalFollowUp:action.payload.data.totalFollowUpCount
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
