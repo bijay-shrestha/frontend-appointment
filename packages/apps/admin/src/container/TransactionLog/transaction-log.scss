@@ -153,15 +153,16 @@
                 }
             }
 
-            
-            &.follow-up{
-                margin-right:0;
-                .icon{
-                    background-color:$purple;
-                }
-            }
+            // &.follow-up{
+            //     margin-right:0;
+            //     .icon{
+            //         background-color:$purple;
+            //     }
+            // }
+
 
             &.total{
+                margin-right:0;
                 box-shadow: -6px -6px 9px 0px rgba(0, 0, 0, 0.2), 
                 6px 6px 9px rgba(0, 0, 0, 0.4);
                 
@@ -188,7 +189,11 @@
                 .amt,.apt{
                     color:$white !important;
                 }
+
+                
             }
+
+            
            
            
            
@@ -247,7 +252,7 @@
                     display: inline;
                     color: $gray-800;
                     font-weight: 500;
-                    font-size: 16px;
+                    font-size: 15px;
                }
 
             
@@ -256,6 +261,22 @@
                    font-weight:350;
                    text-transform: lowercase;
                }
+
+               .follow-up{
+                font-size:12px ;
+                .fa-tag{
+                    color:$purple;
+                }
+
+                .fl-label{
+                    color:$purple;
+                    display: inline;
+                }
+
+                .amt,.apt{
+                    font-size:12px ;
+                }
+            }
                
             }
 

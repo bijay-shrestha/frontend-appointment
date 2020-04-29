@@ -371,7 +371,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         ...state,
         isDoctorRevenueGeneratedLoading: false,
         doctorRevenueGenerated:
-          action.payload.data.doctorRevenueResponseDTOList,
+          action.payload.data.doctorRevenueInfo,
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: action.payload.data.totalItems,
         totalRevenueAmount: action.payload.data.totalRevenueAmount,

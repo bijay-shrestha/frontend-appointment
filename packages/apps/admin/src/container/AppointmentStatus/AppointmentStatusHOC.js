@@ -399,7 +399,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     let appointmentCopy = {...appointment};
                     if (appointment.doctorTimeSlots) {
                         let filteredTimeSlots = appointment.doctorTimeSlots.filter(
-                            time => time.status === status
+                            time => status === 'F' ? time.isFollowUp === 'Y' : time.status === status
                         );
                         appointmentCopy.doctorTimeSlots = [...filteredTimeSlots]
                     }

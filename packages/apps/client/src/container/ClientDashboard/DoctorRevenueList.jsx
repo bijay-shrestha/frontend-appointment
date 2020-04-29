@@ -101,12 +101,11 @@ const DoctorRevenueList = props => {
                 </div>
               </Col>
             </Row>
-
             <Row>
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
                 !doctorRevenueErrorMessage &&
-                doctorRevenueData.length ? (
+                (doctorRevenueData && doctorRevenueData.length) ? (
                   <>
                     <CDataTable
                       classes="ag-theme-balham"
@@ -175,7 +174,7 @@ const DoctorRevenueList = props => {
                             {' '}
                             Total Follow Up : <span className="rev-total"> {doctorTotalFollowUp}</span>
                           </div>
-                          
+
                         </div>
                       </Col>
                       <Col>
