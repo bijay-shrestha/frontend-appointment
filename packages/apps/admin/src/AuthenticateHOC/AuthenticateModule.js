@@ -35,11 +35,11 @@ const ChangePassword = loadable(
     {fallback: () => <CLoading/>}
 )
 const AuthenticateModule = () => {
-    const getTokenFormLocalStorage = async () => {
-        let storage = await LocalStorageSecurity.localStorageDecoder(
+    const getTokenFormLocalStorage =  () => {
+        let storage =  LocalStorageSecurity.localStorageDecoder(
             EnvironmentVariableGetter.AUTH_TOKEN
         )
-        return storage
+        return storage;
     }
 
     return (
