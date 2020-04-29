@@ -1,3 +1,4 @@
+import React from 'react';
 export const DoctorRevenueNoOfAppointments = props => {
     const {successfulAppointments,cancelledAppointments,totalAppointments}=props.node.data 
      return(
