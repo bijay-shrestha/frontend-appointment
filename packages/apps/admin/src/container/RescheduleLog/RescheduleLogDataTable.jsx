@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
+import {PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components';
 
 const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     const {
@@ -59,7 +59,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                  
+
                                 },
                                 // {
                                 //     headerName: 'Appointment Time',
@@ -98,7 +98,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-                            
+
                                 {
                                     headerName: 'Doctor(Specialization)',
                                     resizable: true,
@@ -132,7 +132,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                             frameworkComponents={{
                                 doctorWithSpecializationRenderer: DoctorWithSpecialization,
                                 statusRenderer: AppointmentLogAction,
-                                patientRenderer: PatientWithAgeAndGender
+                                patientRenderer: PatientNameWithAgeGenderPhone
                             }}
                             defaultColDef={{resizable: true}}
                             // getSelectedRows={
