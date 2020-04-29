@@ -192,7 +192,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                 {appointmentStatusDetail.patientDetails.appointmentNumber}<br/>
                                                 {appointmentStatusDetail.patientDetails.isFollowUp === 'Y' ?
                                                     <>
-                                                        <i className="fa fa-tag"/>
+                                                        <i className="fa fa-tag"/>&nbsp;
                                                         Follow Up
                                                     </>
                                                     : ""}
