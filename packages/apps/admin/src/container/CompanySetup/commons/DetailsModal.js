@@ -9,6 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
+import {AuditableEntityHoc} from "@frontend-appointment/commons"
 
 const DetailsModal = ({type, companyData}) => {
   const getOnlyContactNumber = contactsResponse => {
@@ -170,7 +171,8 @@ const DetailsModal = ({type, companyData}) => {
                       type="radio"
                     />
                   </Col>
-                 
+
+                 {AuditableEntityHoc(companyData)}
                 </Row>
               </Col>
             </Row>

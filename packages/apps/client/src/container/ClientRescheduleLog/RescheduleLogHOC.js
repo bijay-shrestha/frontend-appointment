@@ -16,7 +16,7 @@ const {searchRescheduleLog, clearRescheduleLogMessage} = AppointmentDetailsMiddl
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware;
-const {fetchPatientMetaList} = PatientDetailsMiddleware;
+const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware;
 
 const {
     appointmentSetupApiConstant,
@@ -77,8 +77,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             await this.props.fetchSpecializationForDropdown(ACTIVE_DROPDOWN_SPECIALIZATION);
         };
 
-        fetchPatientMetaInfo = async hospitalId => {
-            await this.props.fetchPatientMetaList(ACTIVE_PATIENT_META_INFO_DETAILS, hospitalId)
+        fetchPatientMetaInfo = async () => {
+            await this.props.fetchPatientMetaDropdownForClient(ACTIVE_PATIENT_META_INFO_DETAILS)
         };
 
         handleEnterPress = event => {
@@ -191,7 +191,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         callApiForHospitalChange = () => {
             this.fetchDoctors();
             this.fetchSpecializationByHospital();
-            this.fetchPatientMetaInfo(0);
+            this.fetchPatientMetaInfo();
         };
 
         initialApiCalls = async () => {
@@ -365,7 +365,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             fetchSpecializationForDropdown,
             searchRescheduleLog,
             clearRescheduleLogMessage,
-            fetchPatientMetaList
+            fetchPatientMetaDropdownForClient
         }
     )
 };

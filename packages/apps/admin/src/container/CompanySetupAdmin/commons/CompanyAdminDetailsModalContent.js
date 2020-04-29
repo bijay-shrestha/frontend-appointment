@@ -9,6 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'
+import {AuditableEntityHoc} from '@frontend-appointment/commons';
 
 const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
     const images = [
@@ -215,8 +216,10 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                                         : ''
                                                     : ''}
                                             </>
+                                       
                                         </Col>
                                     )}
+                                         {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>
                         </Row>
