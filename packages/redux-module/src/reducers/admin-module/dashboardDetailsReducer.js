@@ -371,7 +371,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         ...state,
         isDoctorRevenueGeneratedLoading: false,
         doctorRevenueGenerated:
-          action.payload.data.doctorRevenueInfo,
+          action.payload.data.doctorRevenueResponseDTOList,
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: action.payload.data.totalItems,
         totalRevenueAmount: action.payload.data.totalRevenueAmount,
@@ -387,7 +387,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         totalItemsDoctorsRevenue: 0,
         totalRevenueAmount: 0,
         overallAppointment: 0,
-         totalFollowUp:0
+        totalFollowUp:0
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {

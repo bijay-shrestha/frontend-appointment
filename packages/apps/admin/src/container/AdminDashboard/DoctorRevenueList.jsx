@@ -116,7 +116,7 @@ const DoctorRevenueList = props => {
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
                 !doctorRevenueErrorMessage &&
-                (doctorRevenueData && doctorRevenueData.length) ? (
+                doctorRevenueData.length ? (
                   <>
                     <CDataTable
                       classes="ag-theme-balham"
