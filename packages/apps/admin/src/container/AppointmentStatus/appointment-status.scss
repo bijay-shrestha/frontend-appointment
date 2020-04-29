@@ -308,22 +308,33 @@
     margin:0 auto;
 }
 
-.time-button{
-    .fa{
-        display:none;
-        margin-right:4px;
+.time-button {
+    .fa-check-circle {
+      display: none;
+      margin-right: 4px;
 
     }
-    &.active{
-       .fa{
-           display:inline;
-           margin-right:4px;
-           color:white;
 
-       }
+    .fa-tag{
+      display: inline;
+      color:$white;
     }
-}
 
+    &.active {
+      .fa-check-circle{
+        display: inline;
+        margin-right: 4px;
+        color:$white;
+
+      }
+
+      .fa-tag{
+        display: none;
+        $color:$gray-900;
+      }
+    }
+
+  }
 
 
 @media (max-width: 1199px) {

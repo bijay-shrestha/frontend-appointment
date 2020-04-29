@@ -116,7 +116,7 @@ const DoctorRevenueList = props => {
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
                 !doctorRevenueErrorMessage &&
-                (doctorRevenueData && doctorRevenueData.length) ? (
+                doctorRevenueData.length ? (
                   <>
                     <CDataTable
                       classes="ag-theme-balham"
@@ -137,7 +137,7 @@ const DoctorRevenueList = props => {
                         },
                         {
                           headerName: 'No of Appt.',
-                          field: 'totalAppointmentCount',
+                          field: 'totalAppointments',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
@@ -145,14 +145,14 @@ const DoctorRevenueList = props => {
                         },
                          {
                           headerName: 'No of Follow Up',
-                          field: 'totalFollowUpCount',
+                          field: 'totalFollowUp',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
                         },
                         {
                           headerName: 'Revenue Amt',
-                          field: 'revenueAmount',
+                          field: 'totalRevenue',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true
@@ -180,7 +180,7 @@ const DoctorRevenueList = props => {
                   {toDate.toDateString()} */}
                   <span className="pull-left mt-3"> Total Appointment :<span className="rev-total"> {doctorTotalAppointments}</span></span>
                   <span className="pull-left mt-3"> Total Follow Up :<span className="rev-total"> {doctorTotalFollowUp}</span></span>
-                  <span className="pull-right mt-3">Total RevenueAmount :<span className="rev-total"> Rs. {doctorTotalRevenueAmount} </span></span>
+                  <span className="pull-right mt-3">Total Revenue Amount :<span className="rev-total"> Rs. {doctorTotalRevenueAmount} </span></span>
                 </div>
               </Col></Row>
 

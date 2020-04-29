@@ -9,10 +9,8 @@ const AppointmentNumberWithFollowUpFlag = props => {
                 {
                     props.node.data.isFollowUp === 'Y' ?
                         <li>
-                            <Badge
-                                variant="info">
-                                FOLLOW UP
-                            </Badge>{' '}
+                            <i className="fa fa-tag"></i>Followup
+                            {' '}
                         </li>
                         : ''
                 }
