@@ -266,7 +266,8 @@ export const AppointmentLogListReducer = (
                     checkedInInfo: action.payload.data.checkedInInfo,
                     cancelledInfo: action.payload.data.cancelledInfo,
                     refundInfo: action.payload.data.refundInfo,
-                    revenueFromRefundInfo: action.payload.revenueFromRefundInfo
+                    revenueFromRefundInfo: action.payload.data.revenueFromRefundInfo,
+                    totalAmount: action.payload.data.totalAmount
                 },
                 totalItems: action.payload.data.totalItems
             }
@@ -582,7 +583,8 @@ export const TransactionLogReducer = (
                     checkedInInfo: action.payload.data.checkedInInfo,
                     cancelledInfo: action.payload.data.cancelledInfo,
                     refundInfo: action.payload.data.refundInfo,
-                    revenueFromRefundInfo: action.payload.revenueFromRefundInfo
+                    revenueFromRefundInfo: action.payload.data.revenueFromRefundInfo,
+                    totalAmount: action.payload.data.totalAmount
                 },
                 totalItems: action.payload.data.totalItems
             };
