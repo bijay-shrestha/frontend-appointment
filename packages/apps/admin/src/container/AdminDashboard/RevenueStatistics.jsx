@@ -113,7 +113,7 @@ const RevenueStatistics = props => {
                                         <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p>Refund</p>
+                                        <p>Refunded</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -228,7 +228,7 @@ const RevenueStatistics = props => {
                                         <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p>Refund</p>
+                                        <p>Refunded</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -338,7 +338,7 @@ const RevenueStatistics = props => {
                                         <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p>Refund</p>
+                                        <p>Refunded</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
@@ -453,7 +453,7 @@ const RevenueStatistics = props => {
                                         <span className="badge badge-brown">&nbsp;</span>
                                     </div>
                                     <div className="rd-col rd-col-2">
-                                        <p>Refund</p>
+                                        <p>Refunded</p>
                                         <p>
                                             <span className="amount">
                                                 <i className="fa fa-money"/>&nbsp;
