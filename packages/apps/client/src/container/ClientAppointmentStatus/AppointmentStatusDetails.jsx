@@ -35,14 +35,23 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                             <div className="appointment-badge float-right">
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
-                                        <div>
-                                            <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
-                                            <a href=""
-                                               className={activeStatus === appointmentStatus.value ? "active" : ''}
-                                               onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
-                                                {appointmentStatus.label}
-                                            </a>
-                                        </div>
+                                        appointmentStatus.value === 'F' ?
+                                            <div>
+                                                <i className="fa fa-tag"/>
+                                                <a href="javascript:void(0)"
+                                                   className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                   onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                    Follow Up
+                                                </a>
+                                            </div> :
+                                            <div>
+                                                <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
+                                                <a href="javascript:void(0)"
+                                                   className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                   onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                    {appointmentStatus.label}
+                                                </a>
+                                            </div>
                                     ))
                                 }
                             </div>
@@ -183,7 +192,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                 {appointmentStatusDetail.patientDetails.isFollowUp === 'Y' ?
                                                     <>
                                                         <i className="fa fa-tag"/>
-                                                            Follow Up
+                                                        Follow Up
                                                     </>
                                                     : ""}
                                             </div>

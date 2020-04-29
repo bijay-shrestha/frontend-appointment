@@ -35,16 +35,26 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                             <div className="appointment-badge float-right">
                                 {
                                     appointmentStatusList.map(appointmentStatus => (
-                                        <div>
-                                            <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
-                                            <a href="javascript:void(0)"
-                                               className={activeStatus === appointmentStatus.value ? "active" : ''}
-                                               onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
-                                                {appointmentStatus.label}
-                                            </a>
-                                        </div>
+                                        appointmentStatus.value === 'F' ?
+                                            <div>
+                                                <i className="fa fa-tag"/>
+                                                <a href="javascript:void(0)"
+                                                   className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                   onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                    Follow Up
+                                                </a>
+                                            </div> :
+                                            <div>
+                                                <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
+                                                <a href="javascript:void(0)"
+                                                   className={activeStatus === appointmentStatus.value ? "active" : ''}
+                                                   onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
+                                                    {appointmentStatus.label}
+                                                </a>
+                                            </div>
                                     ))
                                 }
+
                             </div>
                         </Col>
                     </Row>
@@ -135,8 +145,8 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                                     <i className="fa fa-check-circle"/>
                                                                     &nbsp;
                                                                     {timeSlot.isFollowUp === 'Y' ?
-                                                                       <> <i className="fa fa-tag"/>&nbsp;</> : ''}
-                                                                        {timeSlot.appointmentTime}
+                                                                        <> <i className="fa fa-tag"/>&nbsp;</> : ''}
+                                                                    {timeSlot.appointmentTime}
 
                                                                 </Button>
                                                             </OverlayTrigger> :
@@ -152,7 +162,8 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                                         appointmentStatusDetail.date, rowIndex, index)}
                                                                 >
                                                                     {timeSlot.isFollowUp === 'Y' ?
-                                                                        <> <i className="fa fa-tag"/>&nbsp;</> : ''}{timeSlot.appointmentTime}
+                                                                        <> <i
+                                                                            className="fa fa-tag"/>&nbsp;</> : ''}{timeSlot.appointmentTime}
                                                                 </CButton>)
                                                                 : ''
                                                         }
