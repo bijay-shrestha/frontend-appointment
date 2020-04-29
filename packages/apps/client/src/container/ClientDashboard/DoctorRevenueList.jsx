@@ -7,6 +7,8 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
+import {DoctorRevenueAppointmentAmount}  from '@frontend-appointment/commons'
+import {DoctorRevenueNoOfAppointments}  from '@frontend-appointment/commons'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
 //import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
@@ -126,10 +128,11 @@ const DoctorRevenueList = props => {
                         },
                         {
                           headerName: 'No of Appt',
-                          field: 'totalAppointments',
+                          // field: 'totalAppointments',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true
+                          sizeColumnsToFit: true,
+                          cellRenderer : 'doctorRevenueNoOfAppointments',
                         },
                          {
                           headerName: 'No of Follow Up',
@@ -139,15 +142,18 @@ const DoctorRevenueList = props => {
                           sizeColumnsToFit: true,
                         },
                         {
-                          headerName: 'Revenue Amout',
-                          field: 'totalRevenue',
+                          headerName: 'Amount',
+                          // field: 'totalRevenue',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true
+                          sizeColumnsToFit: true,
+                          cellRenderer : 'doctorRevenueAppointmentAmount'
                         }
                       ]}
                       frameworkComponents={{
-                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage
+                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage,
+                        doctorRevenueAppointmentAmount: DoctorRevenueAppointmentAmount,
+                        doctorRevenueNoOfAppointments: DoctorRevenueNoOfAppointments
                       }}
                       defaultColDef={{resizable: true}}
                       rowSelection={'single'}
@@ -168,7 +174,7 @@ const DoctorRevenueList = props => {
                   {toDate.toDateString()} */}
                           <div className="pull-left mt-3">
                             {' '}
-                            Total Appointment : <span className="rev-total"> {doctorTotalAppointments}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            Total Appointment : <span className="rev-total"> {doctorTotalAppointments}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                           </div>
                            <div className="pull-left mt-1">
                             {' '}
