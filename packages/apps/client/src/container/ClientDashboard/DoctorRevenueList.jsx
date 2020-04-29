@@ -179,7 +179,7 @@ const DoctorRevenueList = props => {
                       </Col>
                       <Col>
                       <span className="pull-right mt-3">
-                            Total RevenueAmount : <span className="rev-total"> Rs. {doctorTotalRevenueAmount}</span>
+                            Total Revenue Amount : <span className="rev-total"> Rs. {doctorTotalRevenueAmount}</span>
                           </span>
                       </Col>
                     </Row>
