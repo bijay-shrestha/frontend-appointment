@@ -93,7 +93,7 @@ const AppointmentRefundLog = props => {
                                                 className="amt"> NPR {appointmentStatistics.cancelledInfo
                                             && appointmentStatistics.cancelledInfo.cancelAmount || 0}</span> from <span
                                                 className="apt">  {appointmentStatistics.checkedInInfo
-                                            && appointmentStatistics.cancelledInfo.cancelledCount || 0}</span>Appt.
+                                            && appointmentStatistics.cancelledInfo.cancelledCount || 0}</span> Appt.
                                             </div>
                                             {appointmentStatistics.cancelledInfo &&
                                             appointmentStatistics.cancelledInfo.followUpCount ?
@@ -102,7 +102,7 @@ const AppointmentRefundLog = props => {
                                                     className="amt"> NPR {appointmentStatistics.cancelledInfo
                                                 && appointmentStatistics.cancelledInfo.followUpAmount || 0}</span> from<span
                                                     className="apt"> {appointmentStatistics.checkedInInfo
-                                                && appointmentStatistics.cancelledInfo.followUpCount || 0} </span>Appt.
+                                                && appointmentStatistics.cancelledInfo.followUpCount || 0} </span> Appt.
                                                 </div> : ""
                                             }
                                         </div>
@@ -191,12 +191,9 @@ const AppointmentRefundLog = props => {
                                         <div className="rd-content ">
                                         <span> <span
                                             className="amt"> NPR {appointmentStatistics.totalAmount || 0}</span> from
-                                        <span className="apt"> {
-                                            (appointmentStatistics.bookedAppointmentsCount +
-                                                appointmentStatistics.checkedInAppointmentsCount +
-                                                appointmentStatistics.cancelAppointmentsCount +
-                                                appointmentStatistics.revenueFromRefundedAppointmentsCount) || 0
-                                        } </span>Appt.</span>
+                                        <span className="apt">
+                                            &nbsp;{paginationProps.totalRecords || 0}&nbsp;
+                                        </span>Appt.</span>
                                             <span>   <span
                                                 className="label">Total Revenue Amount from Client <br></br><span
                                                 className="inc">(Incl. Booked Appts. revenue)</span> </span> </span>
