@@ -144,6 +144,10 @@
             
             }
 
+            .legend-label{
+                line-height: 1;
+            }
+
             .data{
                 font-weight: 500;
                 font-size: 12px;
@@ -210,7 +214,7 @@
 
             &:nth-child(10){
                 .legend{
-                    background-color:#34675C;
+                    background-color:#673451;
                 }
             }
         }

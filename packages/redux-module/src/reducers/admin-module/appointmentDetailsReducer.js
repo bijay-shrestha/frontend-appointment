@@ -40,7 +40,11 @@ const {
     REFUND_DETAIL_FETCH_SUCCESS,
     REFUND_DETAIL_FETCH_START,
     REFUND_DETAIL_FETCH_ERROR,
-    CLEAR_REFUND_DETAIL_MESSAGE
+    CLEAR_REFUND_DETAIL_MESSAGE,
+    FETCH_TRANSACTION_LOGS_SUCCESS,
+    FETCH_TRANSACTION_LOGS_PENDING,
+    FETCH_TRANSACTION_LOGS_ERROR,
+    CLEAR_TRANSACTION_LOGS_MESSAGE
 } = appointmentDetailsConstants;
 
 const initialState = {
@@ -67,6 +71,14 @@ const appointmentLogState = {
     appointmentStatistics: '',
     totalItems: ''
 }
+
+const transactionLogState = {
+    logList: [],
+    isLogListLoading: true,
+    logErrorMessage: '',
+    appointmentStatistics: '',
+    totalItems: ''
+};
 
 const appointmentApprovalState = {
     approvalList: [],
@@ -533,6 +545,48 @@ export const AppointmentRefundDetailReducer = (state = {...appointmentRefundDeta
             return {
                 ...state,
                 refundDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+
+export const TransactionLogReducer = (
+    state = {...transactionLogState},
+    action
+) => {
+    switch (action.type) {
+        case FETCH_TRANSACTION_LOGS_PENDING:
+            return {
+                ...state,
+                logList: [],
+                isLogListLoading: true,
+                logErrorMessage: '',
+                appointmentStatistics: '',
+                totalItems: ''
+            };
+        case FETCH_TRANSACTION_LOGS_SUCCESS:
+            return {
+                ...state,
+                logList: [...action.payload.data.transactionLogs],
+                isLogListLoading: false,
+                logErrorMessage: '',
+                appointmentStatistics: action.payload.data.appointmentStatistics,
+                totalItems: action.payload.data.totalItems
+            };
+        case FETCH_TRANSACTION_LOGS_ERROR:
+            return {
+                ...state,
+                logList: [],
+                isLogListLoading: false,
+                logErrorMessage: action.payload.data,
+                appointmentStatistics: '',
+                totalItems: ''
+            };
+        case CLEAR_TRANSACTION_LOGS_MESSAGE:
+            return {
+                ...state,
+                logErrorMessage: ''
             };
         default:
             return {...state}
