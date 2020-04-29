@@ -1,7 +1,7 @@
 import React from 'react'
 import {CFLabel, CForm, CHybridInput, CRadioButton} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
-
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
 const DetailsModal = ({qualificationData, type}) => {
     let universityId, qualificationAliasId, universityName;
     if (type !== 'M') {
@@ -52,6 +52,7 @@ const DetailsModal = ({qualificationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
+                            {AuditableEntityHoc(qualificationData,false,4)}
                             <Col sm={12} md={4} lg={4}>
                                 <CFLabel labelName="Status" id="status"></CFLabel>
                                 <CRadioButton

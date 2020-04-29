@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/picture.png'
-
+import {AuditableEntityHoc} from '@frontend-appointment/commons';
 const DetailsModal = ({type, doctorData}) => {
     let images;//,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
 
@@ -214,6 +214,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             readOnly={true}
                                         />
                                     </Col>
+                                    {AuditableEntityHoc(doctorData)}
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Doctor Status" id="status"/>
