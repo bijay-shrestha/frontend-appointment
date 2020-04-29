@@ -140,9 +140,10 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                                                 : 'info'}
                                                                     size="lg block"
                                                                     className="time-button">
+                                                                       
                                                                     {timeSlot.isFollowUp === 'Y' ?
                                                                         <> <i className="fa fa-tag"/>&nbsp;</> : ''}
-                                                                    <i className="fa fa-check-circle"></i>{timeSlot.appointmentTime}
+                                                                   <i className="fa fa-check-circle" /> {timeSlot.appointmentTime}
 
                                                                 </Button>
                                                             </OverlayTrigger> :

@@ -304,20 +304,31 @@
   }
 
   .time-button {
-    .fa {
+    .fa-check-circle {
       display: none;
       margin-right: 4px;
 
     }
 
+    .fa-tag{
+      display: inline;
+      color:$white;
+    }
+
     &.active {
-      .fa {
+      .fa-check-circle{
         display: inline;
         margin-right: 4px;
-        color: white;
+        color:$white;
 
       }
+
+      .fa-tag{
+        display: none;
+        $color:$gray-900;
+      }
     }
+
   }
 
 
