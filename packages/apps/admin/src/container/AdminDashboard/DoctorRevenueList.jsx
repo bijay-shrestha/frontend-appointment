@@ -34,7 +34,7 @@ const DoctorRevenueList = props => {
   } = props.doctorRevenue
   return (
     <>
-      
+
         <div className="doctor-revenue">
           <h5 className="title">Doctor Revenue</h5>
           <div className="app-log">
@@ -66,7 +66,7 @@ const DoctorRevenueList = props => {
                           value={doctorId}
                         ></CHybridSelect>
                       </div>
-                     
+
                       </Col>
 
                   </Form.Group>
@@ -74,7 +74,7 @@ const DoctorRevenueList = props => {
               </Col>
 
               <Col className="date">
-                      
+
                       <div className="">
                         <CEnglishDatePicker
                           id="from-date"
@@ -107,16 +107,16 @@ const DoctorRevenueList = props => {
 
                       </div>
                     </Col>
-              
+
 
             </Row>
 
-           
+
             <Row>
               <div className="app-queue-datatable">
                 {!isDoctorRevenueLoading &&
                 !doctorRevenueErrorMessage &&
-                doctorRevenueData.length ? (
+                (doctorRevenueData && doctorRevenueData.length) ? (
                   <>
                     <CDataTable
                       classes="ag-theme-balham"
@@ -141,7 +141,7 @@ const DoctorRevenueList = props => {
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
-                       
+
                         },
                          {
                           headerName: 'No of Follow Up',
@@ -203,7 +203,7 @@ const DoctorRevenueList = props => {
                 )}
               </div>
             </Row>
-          
+
           </>
           ) : (
             <div className="filter-message">
@@ -215,8 +215,8 @@ const DoctorRevenueList = props => {
             )}
          </div>
         </div>
-     
-   
+
+
     </>
   )
 }
