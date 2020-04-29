@@ -261,7 +261,13 @@ export const AppointmentLogListReducer = (
                 logList: [...action.payload.data.appointmentLogs],
                 isLogListLoading: false,
                 logErrorMessage: '',
-                appointmentStatistics: action.payload.data.appointmentStatistics,
+                appointmentStatistics: {
+                    bookedInfo: action.payload.data.bookedInfo,
+                    checkedInInfo: action.payload.data.checkedInInfo,
+                    cancelledInfo: action.payload.data.cancelledInfo,
+                    refundInfo: action.payload.data.refundInfo,
+                    revenueFromRefundInfo: action.payload.revenueFromRefundInfo
+                },
                 totalItems: action.payload.data.totalItems
             }
         case LOG_FETCH_ERROR:
