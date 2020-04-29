@@ -1,7 +1,7 @@
 import React from 'react';
 import {CFLabel, CForm, CHybridInput, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
-
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
 const DetailsModal = ({departmentData}) => {
     return (
         <>
@@ -75,7 +75,9 @@ const DetailsModal = ({departmentData}) => {
                                     </Col>
                                     : ''
                             }
-
+                          {
+                              AuditableEntityHoc(departmentData)
+                          }
                         </Row>
                     </Container-fluid>
                 </CForm>

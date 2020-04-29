@@ -9,6 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DetailsModal = ({type, hospitalData}) => {
     const getOnlyContactNumber = (contactsResponse) => {
@@ -234,6 +235,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
                                 </Row>
                             </Col>
+                            {AuditableEntityHoc(hospitalData)}
                         </Row>
                     </Container-fluid>
                 </CForm>

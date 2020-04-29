@@ -10,7 +10,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/picture.png'
-
+import {AuditableEntityHoc} from  '@frontend-appointment/commons'
 const DetailsModal = ({type, doctorData}) => {
     let images;//,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
 
@@ -262,6 +262,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             />
                                         </Col>
                                     )}
+                                    {AuditableEntityHoc(doctorData)}
                                 </Row>
                             </Col>
                         </Row>
