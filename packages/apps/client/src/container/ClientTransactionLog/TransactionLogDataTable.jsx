@@ -3,7 +3,7 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import {
-    AppointmentNumberWithFollowUpFlag,
+    AppointmentNumberWithFollowUpFlag, AppointmentStatusBadges,
     PatientNameWithAgeGenderPhone,
     TransactionDateWithTime
 } from '@frontend-appointment/ui-components';
@@ -49,20 +49,8 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
             </Col>  */}
                 </Row>
 
+                <AppointmentStatusBadges/>
 
-                <Row>
-                    <Col>
-                        <div className="appointment-badge float-right">
-                            <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
-                            <span><Badge variant="primary">CH</Badge>  <span
-                                className="badge-data">Checked-In</span> </span>
-                            <span><Badge variant="danger">C</Badge>  <span className="badge-data">Canceled</span></span>
-                            {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
-                            <span><Badge variant="brown">R</Badge>  <span
-                                className="badge-data">Refunded</span></span>
-                        </div>
-                    </Col>
-                </Row>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentLogList.length ? (
@@ -210,15 +198,17 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
                 )}
             </div>
 
-            {showModal ? (
-                <PreviewDetails
-                    showModal={showModal}
-                    setShowModal={setShowModal}
-                    logData={previewData}
-                />
-            ) : (
-                ''
-            )}
+            {
+                showModal ? (
+                    <PreviewDetails
+                        showModal={showModal}
+                        setShowModal={setShowModal}
+                        logData={previewData}
+                    />
+                ) : (
+                    ''
+                )
+            }
         </>
     )
 }

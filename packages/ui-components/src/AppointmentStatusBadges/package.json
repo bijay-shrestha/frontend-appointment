@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-appointment-status-badges",
+  "version": "1.0.0",
+  "main": "AppointmentStatusBadges.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
