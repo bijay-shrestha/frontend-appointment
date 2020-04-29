@@ -6,7 +6,9 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
     createdBy,
     createdDate,
     lastModifiedBy,
-    lastModifiedDate
+    lastModifiedDate,
+    modifiedBy,
+    modifiedDate
   } = auditableEntityObj
   const CreatedByComponent = 
     <CHybridInput placeholder="Created By" value={createdBy} disabled={true} />
@@ -21,14 +23,14 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   const ModifiedByComponent = (
     <CHybridInput
       placeholder="Last Modified By"
-      value={lastModifiedBy}
+      value={lastModifiedBy||modifiedBy}
       disabled={true}
     />
   )
   const ModifiedDateComponent = 
     <CHybridInput
       placeholder="Last Modified Date"
-      value={lastModifiedDate}
+      value={lastModifiedDate||modifiedDate}
       disabled={true}
     />
   
@@ -48,14 +50,14 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
           <ColWrapperComponent colSize={colSize} Component={CreatedDateComponent}/>
         )
       ) :''}
-      {lastModifiedBy ? (
+      {lastModifiedBy||modifiedBy ? (
         isNotAddCol ? (
           ModifiedByComponent
         ) : (
           <ColWrapperComponent colSize={colSize} Component={ModifiedByComponent} />
         )
       ) :''}
-      {lastModifiedDate ? (
+      {lastModifiedDate||modifiedDate ? (
         isNotAddCol ? (
           ModifiedDateComponent
         ) : (

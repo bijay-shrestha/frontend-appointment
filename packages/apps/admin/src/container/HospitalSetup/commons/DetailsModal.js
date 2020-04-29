@@ -207,7 +207,7 @@ const DetailsModal = ({type, hospitalData}) => {
 
                                     {/*</Col>*/}
                                     {/*}*/}
-
+                                    {AuditableEntityHoc(hospitalData)}
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Status" id="status"/>
@@ -235,7 +235,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
                                 </Row>
                             </Col>
-                            {AuditableEntityHoc(hospitalData)}
+                          
                         </Row>
                     </Container-fluid>
                 </CForm>
