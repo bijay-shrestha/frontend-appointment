@@ -1428,10 +1428,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         doctorDutyRosterInfo,
         overrideRosters,
         weekDaysRosters,
-        createdBy,
-        createdDate,
-        lastModifiedBy,
-        lastModifiedDate
       } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
       const {
         id,
@@ -1445,7 +1441,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
         hasOverrideDutyRoster,
         hospitalId,
         hospitalName,
-        status
+        status,
+        createdBy,
+        createdDate,
+        lastModifiedBy,
+        lastModifiedDate
       } = doctorDutyRosterInfo && doctorDutyRosterInfo
 
       return {
