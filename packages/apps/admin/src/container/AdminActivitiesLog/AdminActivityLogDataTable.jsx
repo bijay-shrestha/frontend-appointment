@@ -44,6 +44,8 @@ const AdminActivityLogDataTable = ({
         logDiagramSearchErrorMessage,
         totalCounts
     } = adminDiagramStatsData
+    let newFromDate=DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toString());
+    let newToDate= DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toString());
     const prepareDataForChart = datas => {
         var getColor = [
             '#80b1ff',
@@ -241,9 +243,9 @@ const AdminActivityLogDataTable = ({
                             <Col>
                                 {/*{console.log("romdate", fromDate.toDateString())}*/}
                                 <h5 className="title"> Activity Statistics as
-                                    of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
+                                    of {newFromDate}
                                     -
-                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</h5>
+                                    {newToDate}</h5>
                             </Col>
                         </Row>
 
@@ -317,9 +319,9 @@ const AdminActivityLogDataTable = ({
                         <Row>
                             <Col>
                                 <h5 className="title"> Statistics Diagram as
-                                    of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
+                                    of {newFromDate}
                                     -
-                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</h5>
+                                    {newToDate}</h5>
                             </Col>
                         </Row>
                         {logDiagramSearchData.length &&

@@ -232,7 +232,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         if (fieldName === 'hospitalId')
           this.searchCompanyAdminInfoForDropDown(value)
         let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label ? (value ? {value, label} : '') : ''
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
         if (fieldName === 'hospitalId') {
           this.searchCompanyAdminInfoForDropDown(value)
           searchParams['adminMetaInfoId'] = ''
