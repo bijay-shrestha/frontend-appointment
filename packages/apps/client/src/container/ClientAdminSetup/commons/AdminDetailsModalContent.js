@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'
-
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
 const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
     const images = [
         {
@@ -92,6 +92,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                             disabled={true}
                                         />
                                     </Col>
+                                    {AuditableEntityHoc(adminInfoObj)}
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CFLabel labelName="Gender" id="gender"/>

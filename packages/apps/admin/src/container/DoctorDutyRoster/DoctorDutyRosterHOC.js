@@ -785,7 +785,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 this.fetchActiveDoctorsByHospitalId(value);
                 this.fetchActiveSpecializationByHospitalForDropdown(value);
                 this.setState({
-                    searchParameters:{
+                    searchParameters: {
                         ...this.state.searchParameters,
                         specialization: null,
                         doctor: null,
@@ -1431,30 +1431,30 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        prepareDataForPreview = async () => {
-            const {
-                doctorDutyRosterInfo,
-                overrideRosters,
-                weekDaysRosters,
-                createdBy,
-                createdDate,
-                lastModifiedBy,
-                lastModifiedDate
-            } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
-            const {
-                id,
-                specializationName,
-                specializationId,
-                doctorId,
-                doctorName,
-                rosterGapDuration,
-                fromDate,
-                toDate,
-                hasOverrideDutyRoster,
-                hospitalId,
-                hospitalName,
-                status
-            } = doctorDutyRosterInfo && doctorDutyRosterInfo
+    prepareDataForPreview = async () => {
+      const {
+        doctorDutyRosterInfo,
+        overrideRosters,
+        weekDaysRosters,
+      } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
+      const {
+        id,
+        specializationName,
+        specializationId,
+        doctorId,
+        doctorName,
+        rosterGapDuration,
+        fromDate,
+        toDate,
+        hasOverrideDutyRoster,
+        hospitalId,
+        hospitalName,
+        status,
+        createdBy,
+        createdDate,
+        lastModifiedBy,
+        lastModifiedDate
+      } = doctorDutyRosterInfo && doctorDutyRosterInfo
 
             return {
                 id: id,

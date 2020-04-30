@@ -288,7 +288,11 @@ class AdminManage extends PureComponent {
             macIdList,
             adminAvatar,
             remarks,
-            adminAvatarUrl
+            adminAvatarUrl,
+            createdBy,
+            createdDate,
+            lastModifiedBy,
+            lastModifiedDate
         } = adminData
 
         console.log('Admin url', adminData)
@@ -315,7 +319,11 @@ class AdminManage extends PureComponent {
                 adminDashboardRequestDTOS:
                     value && value.length
                         ? [...value.map(val => ({...val, status: 'Y'}))]
-                        : []
+                        : [],
+                createdBy,
+                createdDate,
+                lastModifiedBy,
+                lastModifiedDate        
             }
         })
     }
@@ -964,7 +972,11 @@ class AdminManage extends PureComponent {
                 hasMacBinding,
                 fileUri,
                 adminMacAddressInfo,
-                remarks
+                remarks,
+                createdBy,
+                createdDate,
+                lastModifiedDate,
+                lastModifiedBy
             } = adminData
 
             if (adminMacAddressInfo && adminMacAddressInfo.length) {
@@ -987,7 +999,11 @@ class AdminManage extends PureComponent {
                 adminAvatarUrl: fileUri,
                 adminAvatarUrlNew: '',
                 adminDashboardRequestDTOS: this.state.adminUpdateData
-                    .adminDashboardRequestDTOS
+                    .adminDashboardRequestDTOS,
+                createdBy,
+                createdDate,
+                lastModifiedBy,
+                lastModifiedDate 
             }
         }
     }

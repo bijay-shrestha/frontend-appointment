@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row, Badge} from 'react-bootstrap'
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-
+import {AuditableEntityHoc} from "@frontend-appointment/commons";
 const DetailsModal = ({previewData}) => {
     return (
         <>
@@ -92,6 +92,7 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
+                            {AuditableEntityHoc(previewData)}
                             {/* <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="hospitalName"

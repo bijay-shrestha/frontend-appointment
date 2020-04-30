@@ -26,9 +26,10 @@ export const fetchAdminLog = (
             LocalStorageSecurity.localStorageDecoder(
               EnvironmentVariableGetter.AUTH_TOKEN
             ) || '',
-          crossDomain: true,
-          crossOrigin: true  
-        }
+         
+        },
+        crossDomain: true,
+        crossOrigin: true  
       }
     )
     dispatch(AdminLoggingSetupActions.logFetchSuccess(response.data))

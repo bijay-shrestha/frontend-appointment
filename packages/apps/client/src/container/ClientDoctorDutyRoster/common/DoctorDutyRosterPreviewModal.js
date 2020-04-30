@@ -8,7 +8,7 @@ import StartTimeDisplayForTable from "../../CommonComponents/table-components/St
 import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
 import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
 import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
-
+import {AuditableEntityHoc} from "@frontend-appointment/commons";
 const DoctorDutyRosterPreviewModal = ({
                                           doctorInfoData,
                                           doctorAvailabilityData,
@@ -85,6 +85,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />
+                            {AuditableEntityHoc(doctorInfoData,true,null)}
 
                             <CFLabel labelName="Status" id="status"/>
                             <div>

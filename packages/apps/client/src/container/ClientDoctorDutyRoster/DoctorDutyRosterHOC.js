@@ -706,8 +706,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 const {
                     hospital, specialization, doctor, rosterGapDuration,
                     fromDate, toDate, hasOverrideDutyRoster, doctorWeekDaysDutyRosterRequestDTOS,
+                    createdBy,createdDate,lastModifiedBy,lastModifiedDate,
                     doctorDutyRosterOverrideRequestDTOS
                 } = doctorDutyRosterInfo;
+                console.log("doctorDutyRosterInfo ====",doctorDutyRosterInfo)
                 await this.setState({
                     hospital: hospital,
                     showConfirmModal: true,
@@ -719,7 +721,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     toDate: new Date(toDate),
                     hasOverrideDutyRoster: hasOverrideDutyRoster,
                     doctorWeekDaysDutyRosterRequestDTOS: [...doctorWeekDaysDutyRosterRequestDTOS],
-                    doctorDutyRosterOverrideRequestDTOS: [...doctorDutyRosterOverrideRequestDTOS]
+                    doctorDutyRosterOverrideRequestDTOS: [...doctorDutyRosterOverrideRequestDTOS],
+                    createdBy,
+                    createdDate,
+                    lastModifiedBy,
+                    lastModifiedDate
                 })
             } catch (e) {
                 this.setState({
@@ -1179,8 +1185,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {
                 id, specializationName, specializationId, doctorId, doctorName, rosterGapDuration,
                 fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status,
+                createdDate,lastModifiedDate,lastModifiedBy,createdBy
             } = doctorDutyRosterInfo && doctorDutyRosterInfo;
-
             return {
                 id: id,
                 hospital: {label: hospitalName, value: hospitalId},
@@ -1192,7 +1198,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hasOverrideDutyRoster: hasOverrideDutyRoster,
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
                 doctorDutyRosterOverrideRequestDTOS: [...overrideRosters],
-                status: status
+                status: status,
+                createdDate,
+                lastModifiedDate,
+                lastModifiedBy,
+                createdBy
             };
         };
 
@@ -1498,7 +1508,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
                 searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO,
                 showEditModal, updateDoctorDutyRosterData, overrideUpdateErrorMessage, showDeleteOverrideModal,
-                deleteOverrideErrorMessage, dateErrorMessage, overrideFormValid
+                deleteOverrideErrorMessage, dateErrorMessage, overrideFormValid,createdBy,createdDate,lastModifiedBy,lastModifiedDate
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -1609,7 +1619,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     rosterGapDuration: rosterGapDuration,
                                     fromDate: fromDate,
                                     toDate: toDate,
-                                    status:status
+                                    status:status,
+                                    lastModifiedBy:lastModifiedBy,
+                                    lastModifiedDate:lastModifiedDate,
+                                    createdBy:createdBy,
+                                    createdDate:createdDate
                                 }}
                                 doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
                                 hasOverrideDutyRoster={hasOverrideDutyRoster}

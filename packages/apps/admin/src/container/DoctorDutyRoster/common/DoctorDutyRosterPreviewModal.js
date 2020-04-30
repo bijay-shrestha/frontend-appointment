@@ -94,7 +94,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />
-                                {AuditableEntityHoc(doctorInfoData.auditableDoctor)}
+                                {AuditableEntityHoc(doctorInfoData.auditableDoctor,true,null)}
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton

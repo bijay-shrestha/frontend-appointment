@@ -91,8 +91,13 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         label: profileResponseDTO.departmentName
                     },
                     status: profileResponseDTO.status,
-                    hospitalAlias: profileResponseDTO.hospitalAlias
+                    hospitalAlias: profileResponseDTO.hospitalAlias||'',
+                    createdBy:profileResponseDTO.createdBy,
+                    lastModifiedBy:profileResponseDTO.lastModifiedBy,
+                    lastModifiedDate:profileResponseDTO.lastModifiedDate,
+                    createdDate:profileResponseDTO.createdDate,
                 };
+                console.log('Filtered Profiles=====',filteredProfiles)
                 break;
             case 'COMPANY':
                 filteredProfiles = {
@@ -104,6 +109,10 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         value: profileResponseDTO.companyId,
                         label: profileResponseDTO.companyName
                     },
+                    createdBy:profileResponseDTO.createdBy,
+                    lastModifiedBy:profileResponseDTO.lastModifiedBy,
+                    lastModifiedDate:profileResponseDTO.lastModifiedDate,
+                    createdDate:profileResponseDTO.createdDate,
                     status: profileResponseDTO.status,
                     remarks: profileResponseDTO.remarks
                 };

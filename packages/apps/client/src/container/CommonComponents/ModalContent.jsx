@@ -10,7 +10,7 @@ import {
     CRadioButton,
     CScrollbar
 } from "@frontend-appointment/ui-elements";
-
+import {AuditableEntityHoc} from '@frontend-appointment/commons';
 class ModalContent extends React.PureComponent {
 
     state = {
@@ -123,6 +123,7 @@ class ModalContent extends React.PureComponent {
                                     disabled={true}
                                 />
                             </Col>
+                            {AuditableEntityHoc(profileData,false,4)}
                             <Col sm={4} md={4} lg={4}>
                                 <CFLabel labelName="Status" id="status"></CFLabel>
                                 <CRadioButton
