@@ -71,23 +71,13 @@ const AppointmentStatistics = props => {
             className="doughnut-chart mx-auto"
           /> */}
               <div className="doughnut-chart">
-                <div
-                  style={{
-                    width: '100%',
-                    height: '50px',
-                    position: 'absolute',
-                    top: '55%',
-                    left: '0',
-                    'margin-top': '-25px',
-                    'line-height': '19px',
-                    'text-align': 'center',
-                    'z-index': '999999999999999'
-                  }}
-                >
-                  {appointmentStatsData.totalAppointment}
-                  <br />
-                  Total Appointments
-                </div>
+              <div  className="mid-data" >
+                 
+                 {appointmentStatsData.totalAppointment} 
+                   <br/>
+                   Total Appointments
+                  
+                 </div>
                 <CDoughnutChart
                   chartData={chartData}
                   width={200}

@@ -8,6 +8,8 @@ import {
   CPagination
 } from '@frontend-appointment/ui-elements'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
+import {DoctorRevenueAppointmentAmount}  from '@frontend-appointment/commons'
+import {DoctorRevenueNoOfAppointments}  from '@frontend-appointment/commons'
 //import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 const DoctorRevenueList = props => {
@@ -136,12 +138,12 @@ const DoctorRevenueList = props => {
                           width:400,
                         },
                         {
-                          headerName: 'No of Appt.',
-                          field: 'totalAppointments',
+                          headerName: 'No of Appt',
+                          // field: 'totalAppointments',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,
-
+                          cellRenderer : 'doctorRevenueNoOfAppointments',
                         },
                          {
                           headerName: 'No of Follow Up',
@@ -151,15 +153,18 @@ const DoctorRevenueList = props => {
                           sizeColumnsToFit: true,
                         },
                         {
-                          headerName: 'Revenue Amt',
-                          field: 'totalRevenue',
+                          headerName: 'Amount',
+                          // field: 'totalRevenue',
                           resizable: true,
                           sortable: true,
-                          sizeColumnsToFit: true
+                          sizeColumnsToFit: true,
+                          cellRenderer : 'doctorRevenueAppointmentAmount'
                         }
                       ]}
                       frameworkComponents={{
-                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage
+                        doctorwithSpecializationRenderer: DoctorWithSpecializationAndImage,
+                        doctorRevenueAppointmentAmount: DoctorRevenueAppointmentAmount,
+                        doctorRevenueNoOfAppointments: DoctorRevenueNoOfAppointments
                       }}
                       defaultColDef={{resizable: true}}
                       rowSelection={'single'}
