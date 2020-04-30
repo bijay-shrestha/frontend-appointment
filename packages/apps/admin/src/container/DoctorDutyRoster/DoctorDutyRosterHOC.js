@@ -1321,7 +1321,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             let formValid = isCloneAndAdd
                 ? rosterGapDuration && hospital && specialization && doctor
-                : rosterGapDuration && remarks
+                : rosterGapDuration && remarks && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
 
             if (hasOverrideDutyRoster === 'Y') {
                 formValid = formValid && overridesUpdate.length
@@ -1356,7 +1356,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 endTime &&
                 dayOffStatus &&
                 remarks &&
-                !StringUtils.stringContainsWhiteSpacesOnly(remarks)
+                !StringUtils.stringContainsWhiteSpacesOnly(remarks);
 
             this.setState({
                 overrideFormValid: Boolean(validForm)
@@ -1431,30 +1431,30 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         }
 
-    prepareDataForPreview = async () => {
-      const {
-        doctorDutyRosterInfo,
-        overrideRosters,
-        weekDaysRosters,
-      } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
-      const {
-        id,
-        specializationName,
-        specializationId,
-        doctorId,
-        doctorName,
-        rosterGapDuration,
-        fromDate,
-        toDate,
-        hasOverrideDutyRoster,
-        hospitalId,
-        hospitalName,
-        status,
-        createdBy,
-        createdDate,
-        lastModifiedBy,
-        lastModifiedDate
-      } = doctorDutyRosterInfo && doctorDutyRosterInfo
+        prepareDataForPreview = async () => {
+            const {
+                doctorDutyRosterInfo,
+                overrideRosters,
+                weekDaysRosters,
+            } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
+            const {
+                id,
+                specializationName,
+                specializationId,
+                doctorId,
+                doctorName,
+                rosterGapDuration,
+                fromDate,
+                toDate,
+                hasOverrideDutyRoster,
+                hospitalId,
+                hospitalName,
+                status,
+                createdBy,
+                createdDate,
+                lastModifiedBy,
+                lastModifiedDate
+            } = doctorDutyRosterInfo && doctorDutyRosterInfo
 
             return {
                 id: id,
@@ -1910,7 +1910,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             } = this.props.DoctorDropdownReducer
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer
-            const {deleteErrorMessage} = this.props.DoctorDutyRosterDeleteReducer
+            const {deleteErrorMessage,isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer
             const {
                 editErrorMessage,
                 isEditRosterPending
@@ -1980,6 +1980,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             isSaveRosterLoading={isSaveRosterLoading}
                             isEditRosterPending={isEditRosterPending}
                             isSearchRosterLoading={isSearchRosterLoading}
+                            isDeleteRosterLoading={isDeleteRosterLoading}
                             onCloneAndAddNew={this.handleCloneAndAddNew}
                             onDeleteHandler={this.handleDelete}
                             onEditHandler={this.handleEdit}
