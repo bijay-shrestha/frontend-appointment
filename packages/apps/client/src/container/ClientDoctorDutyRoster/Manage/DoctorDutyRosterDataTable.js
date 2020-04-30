@@ -3,7 +3,7 @@ import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
 import TableAction from "../../CommonComponents/table-components/TableAction";
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
-import {CDoctorNameDisplayForTable} from "@frontend-appointment/ui-components";
+import {DoctorWithImage} from "@frontend-appointment/ui-components";
 import PreviewHandlerHoc from "../../CommonComponents/hoc/PreviewHandlerHoc";
 
 const {checkIfRoleExists} = ActionFilterUtils;
@@ -52,7 +52,8 @@ const DoctorDutyRosterDataTable = ({
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        cellRenderer:"doctorNameRenderer"
+                                        cellRenderer:"doctorNameRenderer",
+                                        width:300
                                     },
                                     {
                                         headerName: 'Specialization Name',
@@ -115,7 +116,7 @@ const DoctorDutyRosterDataTable = ({
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
                                     childLabelRenderer: StatusLabel,
-                                    doctorNameRenderer: PreviewHandlerHoc(CDoctorNameDisplayForTable, checkIfRoleExists, filteredAction, 4, onPreviewHandler)
+                                    doctorNameRenderer: PreviewHandlerHoc(DoctorWithImage, checkIfRoleExists, filteredAction, 4, onPreviewHandler)
                                 }}
                                 defaultColDef={{resizable: true}}
                                 getSelectedRows={checkIfRoleExists(filteredAction, 4) ? onPreviewHandler : () => {
