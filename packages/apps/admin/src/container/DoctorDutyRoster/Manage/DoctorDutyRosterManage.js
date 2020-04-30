@@ -64,7 +64,8 @@ function DoctorDutyRosterManage(props) {
              activeDoctorsByHospitalForDropdown,
              activeSpecializationListByHospital,
              dateErrorMessage,
-             overrideFormValid
+             overrideFormValid,
+             isDeleteRosterLoading
          }) => {
             const footerContent =
                 <Container fluid="true">
@@ -79,9 +80,8 @@ function DoctorDutyRosterManage(props) {
                             <CButton
                                 id="submit-update-button"
                                 disabled={!updateDoctorDutyRosterData.formValid || isSaveRosterLoading || isEditRosterPending}
-                                name={updateDoctorDutyRosterData.isCloneAndAdd ?
-                                    isSaveRosterLoading ? "Saving" : "Save"
-                                    : isEditRosterPending ? "Updating" : "Update"}
+                                isLoading={isSaveRosterLoading || isEditRosterPending}
+                                name={updateDoctorDutyRosterData.isCloneAndAdd ? "Save" : "Update"}
                                 size="lg"
                                 className="btn-action  float-right"
                                 onClickHandler={() => updateDoctorDutyRosterData.isCloneAndAdd ? saveDoctorDutyRoster(false, true)
@@ -92,6 +92,7 @@ function DoctorDutyRosterManage(props) {
                                      className="btn-action  float-right mr-2"
                                      name="Cancel"
                                      onClickHandler={cancelCloseEditModal}
+                                     disabled={isSaveRosterLoading || isEditRosterPending}
                             />
                         </div>
                     </Row>
@@ -133,6 +134,7 @@ function DoctorDutyRosterManage(props) {
                         remarks={remarks}
                         onSubmitDelete={deleteDoctorDutyRoster}
                         deleteErrorMessage={deleteErrorMessage}
+                        isLoading={isDeleteRosterLoading}
                     />
                 ) : (
                     ''
