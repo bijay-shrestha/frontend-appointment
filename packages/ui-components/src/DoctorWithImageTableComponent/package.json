@@ -1,7 +1,7 @@
 {
     "name": "@cogent/doctor-image",
     "version": "1.0.0",
-    "main": "DoctorWithImageTableComponent.js",
+    "main": "DoctorWithImageTableComponent",
     "license": "MIT",
     "private": true
   }

@@ -23,3 +23,4 @@ export {default as AppointmentNumberWithFollowUpFlag} from './src/AppointmentNum
 export {default as AppointmentStatusBadges} from './src/AppointmentStatusBadges';
 export {default as RevenueDetailsTotalBlock} from './src/RevenueDetailsTotalBlock';
 export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
+export {default as DoctorWithSpecImage} from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
