@@ -168,20 +168,20 @@ const DoctorRevenueList = props => {
                     />
 
                     <Row>
-                      <Col className="">
-                        <div>
-                          {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
-                  {toDate.toDateString()} */}
+                      <Col className="total-left">
+                      
                           <div className="pull-left mt-3">
                             {' '}
-                            Total Appointment : <span className="rev-total"> {doctorTotalAppointments}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                           <span className="label"> Total Appointment :</span> 
+                            <span className="rev-total"> {doctorTotalAppointments}</span>
                           </div>
                            <div className="pull-left mt-1">
                             {' '}
-                            Total Follow Up : <span className="rev-total"> {doctorTotalFollowUp}</span>
+                            <span className="label"> Total Follow Up :</span>
+                            <span className="rev-total"> {doctorTotalFollowUp}</span>
                           </div>
 
-                        </div>
+                        
                       </Col>
                       <Col>
                       <span className="pull-right mt-3">

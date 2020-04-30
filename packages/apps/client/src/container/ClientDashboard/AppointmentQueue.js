@@ -76,7 +76,7 @@ const AppointmentQueue = props => {
                                         classes="ag-theme-balham"
                                         id="roles-table"
                                         width="100%"
-                                        height="360px"
+                                        height="500px"
                                         enableSorting
                                         editType
                                         rowHeight={50}
