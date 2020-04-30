@@ -102,8 +102,11 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specialization"
                                             options={specializationList}
-                                            placeholder={"Select specialization."}
-                                            noOptionsMessage={() => specializationDropdownError ? specializationDropdownError : "No Specialization(s) available."}
+                                            placeholder={specializationList.length ? "Select Specialization."
+                                                : "No Specialization(s) available."}
+                                            isDisabled={!specializationList.length}
+                                            noOptionsMessage={() => specializationDropdownError ? specializationDropdownError
+                                                : "No Specialization(s) available."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.specialization}
@@ -114,7 +117,8 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
-                                            placeholder={"Select doctor."}
+                                            placeholder={doctorList.length ? "Select Doctor." : "No Doctor(s) available."}
+                                            isDisabled={!doctorList.length}
                                             options={doctorList}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
                                             onKeyDown={this.handleEnter}

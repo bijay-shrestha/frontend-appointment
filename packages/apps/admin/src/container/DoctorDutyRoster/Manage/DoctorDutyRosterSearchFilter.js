@@ -115,8 +115,9 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             label="Specialization"
                                             name="specialization"
                                             options={specializationList}
-                                            placeholder={!searchParameters.hospital ? "Select Client first" : "Select specialization."}
-                                            isDisabled={!searchParameters.hospital}
+                                            placeholder={!searchParameters.hospital ? "Select Client first."
+                                                : specializationList.length ? "Select Specialization." : "No Specialization(s) available."}
+                                            isDisabled={!searchParameters.hospital || !doctorList.length}
                                             noOptionsMessage={() => specializationDropdownError ? specializationDropdownError : "No Specialization(s) available."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
@@ -128,9 +129,10 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
-                                            placeholder={!searchParameters.hospital ? "Select Client first" : "Select doctor."}
+                                            placeholder={!searchParameters.hospital ? "Select Client first."
+                                                : doctorList.length ? "Select Doctor." : "No Doctor(s) available."}
                                             options={doctorList}
-                                            isDisabled={!searchParameters.hospital}
+                                            isDisabled={!searchParameters.hospital || !doctorList.length}
                                             noOptionsMessage={() => doctorDropdownErrorMessage}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
