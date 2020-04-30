@@ -5,8 +5,10 @@ export const addPictureInLabel = (dataList) => {
         return {
             ...data,
             label: (
-                <div>
-                    <img src={data.fileUri ? data.fileUri : ""} alt="img"/> {data.label}
+                <div className="doctor-with-image">
+                    {/* <img src={require('../img/picture.png')} alt="img"/>   */}
+                    <img src={data.fileUri ? data.fileUri : "../img/picture.png"} alt="img"/> 
+                    <span className="doctor-name">{data.label}</span>
                 </div>
             )
         }
