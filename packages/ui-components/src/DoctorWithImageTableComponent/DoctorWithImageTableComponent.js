@@ -20,7 +20,7 @@ const DoctorWithImage = props => {
               </div>
             )}
           </Col>
-          <Col xs="9" className="doctor-column">
+          <Col xs="8" className="doctor-column">
             <ul>
               <li>Dr. {props.node.data.doctorName || ''}</li>
             </ul>

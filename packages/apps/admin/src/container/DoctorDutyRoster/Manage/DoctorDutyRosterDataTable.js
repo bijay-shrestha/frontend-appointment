@@ -53,7 +53,8 @@ const DoctorDutyRosterDataTable = ({
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        cellRenderer: "doctorNameRenderer"
+                                        cellRenderer: "doctorNameRenderer",
+                                        width:300
 
                                     },
                                     {
