@@ -61,7 +61,7 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
-                            height="460px"
+                            height="555px"
                             enableSorting
                             editType
                             rowHeight={50}
