@@ -1,5 +1,6 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
+import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
     path,
@@ -88,8 +89,9 @@ export const downloadExcelForConsultants = path => async () => {
 export const fetchActiveDoctorsForDropdown = path => async dispatch => {
     try {
         const response = await Axios.get(path);
+        let dataWithImage = response.data.length ? DropdownUtils.addPictureInLabel(response.data) : [];
         dispatch(
-            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(response.data)
+            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(dataWithImage)
         );
         return response;
     } catch (e) {
@@ -98,7 +100,7 @@ export const fetchActiveDoctorsForDropdown = path => async dispatch => {
                 e.errorMessage ? e.errorMessage : 'Error fetching doctors.'
             )
         );
-       
+
     }
 };
 
