@@ -31,7 +31,7 @@ const AppointmentStatistics = props => {
     data.push(followUpPercent)
     color.push('rgba(0, 99, 255, 0.2)')
     color.push('#0063ff')
-    color.push('#0d61fe')
+    color.push('#66a1ff')
     label.push('From New Patients')
     label.push('From Registered Patients')
     label.push('From FollowUp Patient')
