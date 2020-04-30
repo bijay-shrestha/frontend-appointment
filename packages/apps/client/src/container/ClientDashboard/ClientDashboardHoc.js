@@ -11,7 +11,6 @@ import {
   checkDashboardRole,
   LocalStorageSecurity
 } from '@frontend-appointment/helpers'
-import './admin-dashboard.scss'
 import {CNoDashboardRoleContent} from '@frontend-appointment/ui-components'
 
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware

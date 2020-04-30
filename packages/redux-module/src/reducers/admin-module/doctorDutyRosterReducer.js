@@ -33,7 +33,7 @@ const initialState = {
     isSearchRosterLoading: false,
     doctorDutyRosterList: [],
     searchErrorMessage: '',
-    isDeleteRosterLoading: true,
+    isDeleteRosterLoading: false,
     deleteSuccessMessage: '',
     deleteErrorMessage: '',
     isEditRosterPending: false,

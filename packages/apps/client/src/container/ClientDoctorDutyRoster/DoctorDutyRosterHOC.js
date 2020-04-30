@@ -1067,7 +1067,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             } = this.state.updateDoctorDutyRosterData;
 
             let formValid = isCloneAndAdd ? rosterGapDuration && specialization && doctor
-                : rosterGapDuration && remarks;
+                : rosterGapDuration && remarks && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
 
 
             if (hasOverrideDutyRoster === "Y") {
@@ -1516,7 +1516,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage, activeDoctorsForDropdown, activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
-            const {deleteErrorMessage} = this.props.DoctorDutyRosterDeleteReducer;
+            const {deleteErrorMessage,isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer;
             const {editErrorMessage, isEditRosterPending} = this.props.DoctorDutyRosterEditReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
@@ -1570,6 +1570,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         isSaveRosterLoading={isSaveRosterLoading}
                         isSearchRosterLoading={isSearchRosterLoading}
                         isEditRosterPending={isEditRosterPending}
+                        isDeleteRosterLoading={isDeleteRosterLoading}
                         onCloneAndAddNew={this.handleCloneAndAddNew}
                         onDeleteHandler={this.handleDelete}
                         onEditHandler={this.handleEdit}
