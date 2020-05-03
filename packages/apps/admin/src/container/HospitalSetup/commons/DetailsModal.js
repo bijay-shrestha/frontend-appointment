@@ -189,7 +189,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     {type !== 'A' && (
                                         hospitalData.remarks &&
                                         <Col sm={12} md={6} lg={6}>
-                                            <CHybridInput
+                                            <CHybridTextArea
                                                 id="hospital-remarks"
                                                 name="remarks"
                                                 placeholder="Remarks"
@@ -235,7 +235,7 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
                                 </Row>
                             </Col>
-                          
+
                         </Row>
                     </Container-fluid>
                 </CForm>

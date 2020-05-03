@@ -6,10 +6,10 @@ import {
 } from '@frontend-appointment/ui-elements';
 import {
     ConfirmDelete,
-    CConfirmationModal
+    CConfirmationModal,
+    DoctorWithSpecImage
 } from '@frontend-appointment/ui-components';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
@@ -57,7 +57,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight="50"
+                            rowHeight="65"
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -142,7 +142,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer'
+                                    cellRenderer: 'doctorwithSpecializationRenderer',
+                                    width:300
                                 },
                                 // {
                                 //   headerName: 'Transaction Number',
@@ -182,7 +183,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization,null,null,null,previewCall),
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage,null,null,null,previewCall),
                                 AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
                                 PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall)
                             }}
