@@ -101,7 +101,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                       <CEnglishDatePicker
                         id="to-date"
                         name="toDate"
-                        label="Transaction To Date"
+                        label="To Date"
                         minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
                           searchParameters.fromDate,
                           new Date()
@@ -122,10 +122,8 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                         showMonthDropdown={true}
                         showYearDropdown={true}
                         dropdownMode="select"
-                        onKeyDown={event => handleEnter(event)}
-                        onChange={date =>
-                          handleSearchFormChange(date, 'toDate')
-                        }
+                        onKeyDown={event => this.handleEnter(event)}
+                        onChange={date =>onSearchInputChange(date, 'toDate')}
                       />
                     </div>
                   </Col>
