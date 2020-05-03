@@ -28,7 +28,7 @@ const ForgotPassword = ({
                                     </div>
                                     <CForm id="save-password" className="login-form">
                                         <p className="login-page-title">Forgot Password</p>
-                                        <p className="forgot-password-content">Enter you email to reset your
+                                        <p className="forgot-password-content">Enter your valid email to reset your
                                             password.</p>
                                         <CHybridInput
                                             id="email"

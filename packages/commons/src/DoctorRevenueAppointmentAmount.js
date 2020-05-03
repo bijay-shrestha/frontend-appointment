@@ -6,8 +6,8 @@ export const DoctorRevenueAppointmentAmount = props => {
     
       <div id="revenueAmountId" className="dr-amount">Rs. {totalRevenue}
       <ul id="breakDownAmountId" className="dr-details">
+        <li><i className="fa fa-money "></i> {doctorRevenue}</li>
         <li><i className="fa fa-money red"></i> {cancelledRevenue}</li>
-        <li><i className="fa fa-money"></i> {doctorRevenue}</li>
       </ul>
       </div>
 

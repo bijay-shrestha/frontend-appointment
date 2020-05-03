@@ -179,15 +179,25 @@ const DoctorRevenueList = props => {
                     />
 
             <Row>
-              <Col className="">
-              <div>
-                  {/* <span>Date :</span> {fromDate.toDateString()} to{' '}
-                  {toDate.toDateString()} */}
-                  <span className="pull-left mt-3"> Total Appointment :<span className="rev-total"> {doctorTotalAppointments}</span></span>
-                  <span className="pull-left mt-3"> Total Follow Up :<span className="rev-total"> {doctorTotalFollowUp}</span></span>
-                  <span className="pull-right mt-3">Total Revenue Amount :<span className="rev-total"> Rs. {doctorTotalRevenueAmount} </span></span>
-                </div>
-              </Col></Row>
+               <Col className="total-left">
+                     
+               <div className="pull-left mt-3">
+                            {' '}
+                           <span className="label"> Total Appointment :</span> 
+                            <span className="rev-total"> {doctorTotalAppointments}</span>
+                          </div>
+                           <div className="pull-left mt-1">
+                            {' '}
+                            <span className="label"> Total Follow Up :</span>
+                            <span className="rev-total"> {doctorTotalFollowUp}</span>
+                          </div>
+                        
+                      </Col>
+                      <Col>
+                      <span className="pull-right mt-3">
+                            Total Revenue Amount : <span className="rev-total"> Rs. {doctorTotalRevenueAmount}</span>
+                          </span>
+                      </Col></Row>
 
                     <CPagination
                       totalItems={totalRecords}

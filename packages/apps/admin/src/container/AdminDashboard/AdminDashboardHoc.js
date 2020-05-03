@@ -7,7 +7,6 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import './admin-dashboard.scss'
 import {
     DateTimeFormatterUtils,
     checkDashboardRole, LocalStorageSecurity

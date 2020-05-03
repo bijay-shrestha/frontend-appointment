@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CConfirmationModal, PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {CConfirmationModal, PatientNameWithAgeGenderPhone,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
@@ -45,7 +45,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={50}
+                            rowHeight={70}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -102,7 +102,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorWithSpecializationRenderer'
+                                    cellRenderer: 'doctorWithSpecializationRenderer',
+                                    width:350
                                 },
                                 {
                                     headerName: 'Esewa Id',
@@ -143,7 +144,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 childActionRenderer: TableRefundStatus,
                                 appointmentDateAndTimeRenderer: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 patientWithAgeRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
-                                doctorWithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
+                                doctorWithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={previewCall}

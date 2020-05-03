@@ -1,0 +1,8 @@
+{
+    "name": "@cogent/doctor-image",
+    "version": "1.0.0",
+    "main": "DoctorWithImageTableComponent",
+    "license": "MIT",
+    "private": true
+  }
+  

@@ -3,7 +3,7 @@ import {
     CFControl,
     CFLabel,
     CForm,
-    CHybridInput,
+    CHybridInput, CHybridTextArea,
     CImageDisplayAndView,
     CRadioButton
 } from '@frontend-appointment/ui-elements'
@@ -228,6 +228,18 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                             </>
                                         </Col>
                                     )}
+
+                                    {adminInfoObj.remarks ?
+                                        <Col sm={12} md={6}>
+                                            <CHybridTextArea
+                                                id="department-remarks"
+                                                placeholder="Remarks"
+                                                value={adminInfoObj.remarks || 'N/A'}
+                                                disabled={true}
+                                            />
+                                        </Col>
+                                        : ''
+                                    }
                                 </Row>
                             </Col>
                         </Row>

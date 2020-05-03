@@ -14,6 +14,7 @@ import {
   CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 class AdminActivityLogSearchFilter extends PureComponent {
   state = {
@@ -127,10 +128,23 @@ class AdminActivityLogSearchFilter extends PureComponent {
                         id="to-date"
                         name="toDate"
                         label="To Date"
-                        // maxDate={0}
+                        minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
+                          searchParameters.fromDate,
+                          new Date()
+                        )}
                         showDisabledMonthNavigation={true}
-                        selected={searchParameters.toDate}
-                        peekNextMonth={true}
+                        selected={
+                          DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
+                            searchParameters.fromDate,
+                            searchParameters.toDate
+                          )
+                            ? DateTimeFormatterUtils.addDate(
+                                searchParameters.toDate,
+                                7
+                              )
+                            : searchParameters.toDate
+                        }
+                        peekNextMonth={false}
                         showMonthDropdown={true}
                         showYearDropdown={true}
                         dropdownMode="select"

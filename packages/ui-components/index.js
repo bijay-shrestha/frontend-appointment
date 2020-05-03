@@ -27,3 +27,5 @@ export {default as PreviewClientProfileRoles} from './src/PreviewClientProfileRo
 export {default as PreviewClientProfileModalContent} from './src/PreviewClientProfileModalContent';
 export {default as CompanyProfileModalContent} from './src/CompanyProfileModalContent';
 export {default as RescheduleLogDateWithTimeForTable} from './src/RescheduleLogDateWithTimeForTable';
+export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
+export {default as DoctorWithSpecImage} from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';

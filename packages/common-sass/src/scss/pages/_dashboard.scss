@@ -26,7 +26,7 @@
     .rev-total{
         background-color:$gray-100;
         color:$gray-900;
-        padding:4px 10px;
+        padding:3px 10px;
         margin-top:10px;
         margin-left:10px;
         @include border-radius(4px);
@@ -80,11 +80,6 @@
                         border-bottom:1px solid $gray-500 !important;
                     }
                     }
-
-               
-            //    .css-tlfecz-indicatorContainer{
-            //        padding:2px !important;
-            //    }
 
             }
 
@@ -578,6 +573,19 @@
            
         }
 
+        .total-left{
+            
+            div{
+                width:100%;
+                margin-bottom:2px;
+
+                .label{
+                    width:130px;
+                    display: inline-block
+                }
+            }
+        }
+
         .t-app-box,.t-amount-box{
             padding:10px;
             border:1px solid $gray-200;
@@ -602,20 +610,7 @@
              margin-left:100px;
          }
 
-        //  .doctor-revenue-revenue{
-        //     width:100%;
-  
-        //     .data-image{
-        //       //   width:25px;
-        //         margin-top: 4px;
-        //     }
-  
-        //     ul li{
-        //         line-height: 22px;
-        //     }
-  
-  
-        // }
+      
 
     }
 

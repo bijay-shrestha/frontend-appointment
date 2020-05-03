@@ -8,7 +8,7 @@ import TableApproveAction from '../CommonComponents/table-components/TableApprov
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal} from '@frontend-appointment/ui-components'
+import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -53,7 +53,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight="50"
+                            rowHeight={65}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -173,7 +173,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
-                                    DoctorWithSpecialization,
+                                    DoctorWithSpecImage,
                                     null,
                                     null,
                                     null,

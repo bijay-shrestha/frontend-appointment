@@ -57,7 +57,7 @@ const AdminActivityLogDataTable = ({
             '#EAEC93',
             '#D7FBE6',
             '#34675C',
-            '#34675C'
+            '#673451'
         ]
 
         let chartData = {
@@ -95,7 +95,7 @@ const AdminActivityLogDataTable = ({
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
-                            height="460px"
+                            height="554px"
                             enableSorting
                             editType
                             rowHeight={50}
@@ -242,10 +242,10 @@ const AdminActivityLogDataTable = ({
                         <Row>
                             <Col>
                                 {/*{console.log("romdate", fromDate.toDateString())}*/}
-                                <h5 className="title"> Activity Statistics as
-                                    of {newFromDate}
+                                <h5 className="title"> Activity Statistics </h5>
+                                <span>as of {newFromDate}
                                     -
-                                    {newToDate}</h5>
+                                    {newToDate}</span>
                             </Col>
                         </Row>
 
@@ -318,22 +318,28 @@ const AdminActivityLogDataTable = ({
                     <div className="activity-log">
                         <Row>
                             <Col>
-                                <h5 className="title"> Statistics Diagram as
-                                    of {newFromDate}
+                                <h5 className="title"> Statistics Diagram </h5>
+                                <span>as of {newFromDate}
                                     -
-                                    {newToDate}</h5>
+                                    {newToDate}</span>
                             </Col>
                         </Row>
                         {logDiagramSearchData.length &&
                         !isLogDiagramSearchLoading &&
                         !logDiagramSearchErrorMessage ? (
                             <>
+                                <div className="doughnut-chart">
+                                <div  className="mid-data" >
+                               {totalCounts}<br/>
+                               Total Hits
+                               </div>
                                 <CDoughnutChart
                                     chartData={chartData}
                                     width={160}
                                     height={100}
                                 />
-                                <p className="total-count">Total Hits:{totalCounts}</p>
+                                </div>
+                               
                                 <div className="legend-box clearfix">
 
                                     <p>Top Features</p>
