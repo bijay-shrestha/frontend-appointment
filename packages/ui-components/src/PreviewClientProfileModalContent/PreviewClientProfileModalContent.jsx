@@ -183,6 +183,21 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                         type="radio"
                                     />
                                 </Col>
+
+                                {
+                                    profileData.remarks ?
+                                        <Col sm={4} md={4} lg={4}>
+                                            <CHybridTextArea
+                                                id="remarks"
+                                                name="remarks"
+                                                placeholder="Remarks"
+                                                disabled={true}
+                                                value={profileData.remarks}
+                                            />
+                                        </Col>
+                                        : ''
+                                }
+
                             </Row>
                         </Container-fluid>
                     </CForm>

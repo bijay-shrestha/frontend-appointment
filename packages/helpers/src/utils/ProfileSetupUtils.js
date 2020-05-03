@@ -93,6 +93,7 @@ export const prepareProfilePreviewData = (profileResponseDTO, profileMenuRespons
                     lastModifiedBy: profileResponseDTO.lastModifiedBy,
                     lastModifiedDate: profileResponseDTO.lastModifiedDate,
                     createdDate: profileResponseDTO.createdDate,
+                    remarks: profileResponseDTO.remarks
                 };
                 break;
             case 'COMPANY':
