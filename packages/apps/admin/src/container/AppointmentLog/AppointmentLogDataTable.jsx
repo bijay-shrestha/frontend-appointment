@@ -1,12 +1,12 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import PatientWithAgeAndGender from '../CommonComponents/table-components/PatientNameWithAgeAndGender';
 import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
-    PatientNameWithAgeGenderPhone
+    PatientNameWithAgeGenderPhone,
+    DoctorWithSpecImage
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
@@ -63,7 +63,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={50}
+                            rowHeight={65}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -151,7 +151,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 },
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                                 statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
                                 patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
