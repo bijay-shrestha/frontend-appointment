@@ -1,0 +1,8 @@
+{
+    "name": "@cogent/doctor-with-specialization-image",
+    "version": "1.0.0",
+    "main": "DoctorWithSpecializationAndImageComponent.js",
+    "license": "MIT",
+    "private": true
+  }
+  
