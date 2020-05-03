@@ -4,9 +4,8 @@ import {Row, Col, Container} from 'react-bootstrap'
 const DoctorWithSpecializationAndImage = props => {
   return (
     <>
-      <Container fluid>
-        <Row>
-          <Col xs="3">
+   
+        <div className="di-column">
             {props.node.data.doctorAvatar ||props.node.data.fileUri ? (
               <div className="data-image">
                 <img alt="PIC" src={props.node.data.doctorAvatar||props.node.data.fileUri} />{' '}
@@ -16,15 +15,16 @@ const DoctorWithSpecializationAndImage = props => {
                 <img alt="PIC" src={DefaultPic} />
               </div>
             )}
-          </Col>
-          <Col xs="9">
-            <ul>
+          
+         
+            <ul className="di-details">
               <li>Dr. {props.node.data.doctorName || ''}</li>
               <li>({props.node.data.specializationName ||props.node.data.specialization||''})</li>
             </ul>
-          </Col>
-        </Row>
-      </Container>
+
+          </div>
+         
+   
     </>
   )
 }
