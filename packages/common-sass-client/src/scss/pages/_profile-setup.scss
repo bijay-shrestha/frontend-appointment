@@ -449,6 +449,20 @@
     }
 }
 
+.doctor-with-image{
+    img{
+        width:26px;
+        height: auto;
+        margin-right:6px;
+        @include border-radius(50%);
+    }
+
+    .doctor-name{
+
+    }
+
+}
+
 
 
 @include media-breakpoint-down(md) {
