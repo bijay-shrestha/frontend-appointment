@@ -1,8 +1,7 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import {AppointmentNumberWithFollowUpFlag, PatientNameWithAgeGenderPhone} from "@frontend-appointment/ui-components";
+import {AppointmentNumberWithFollowUpFlag, PatientNameWithAgeGenderPhone,DoctorWithSpecImage} from "@frontend-appointment/ui-components";
 import AppointmentDateWithTime
     from "../CommonComponents/table-components/AppointmentDateWithTime";
 
@@ -28,7 +27,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight="50"
+                            rowHeight="65"
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -134,7 +133,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 // }
                             ]}
                             frameworkComponents={{
-                                doctorWithSpecializationRenderer: DoctorWithSpecialization,
+                                doctorWithSpecializationRenderer: DoctorWithSpecImage,
                                 statusRenderer: AppointmentLogAction,
                                 patientRenderer: PatientNameWithAgeGenderPhone,
                                 appointmentDateAndTime: AppointmentDateWithTime,

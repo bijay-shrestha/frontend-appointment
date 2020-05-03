@@ -1,11 +1,11 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
 import {
     AppointmentNumberWithFollowUpFlag, AppointmentStatusBadges,
     PatientNameWithAgeGenderPhone,
-    TransactionDateWithTime
+    TransactionDateWithTime,
+    DoctorWithSpecImage
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './TransactionLogPreview';
@@ -62,7 +62,7 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
                             height="555px"
                             enableSorting
                             editType
-                            rowHeight={50}
+                            rowHeight={65}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -160,7 +160,7 @@ const TransactionLogDataTable = ({tableHandler, paginationProps}) => {
 
                             ]}
                             frameworkComponents={{
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecialization, null, null, null, previewCall),
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                                 statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
