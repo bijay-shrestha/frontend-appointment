@@ -263,10 +263,10 @@
 
             #expandible-search input[type=search] {
                 border: none;
-                
-              
-                
-                
+
+
+
+
             }
 
         }
@@ -348,7 +348,7 @@
         height:422px;
     }
 
-   
+
 }
 
 
@@ -374,18 +374,18 @@
             color              : $gray-800;
             border             : none;
             opacity            : 0.9;
-            
+
             .close{
                 color:$gray-800;
                 font-size: 1.6rem;
 
                 &:hover{
                     color:$gray-900;
-                   
+
                 }
             }
 
-            
+
 
             .modal-title{
                 // text-decoration: underline;
@@ -450,6 +450,10 @@
 }
 
 .doctor-with-image{
+    display: flex;
+    flex-direction: row;
+    flex-align: center;
+
     img{
         width:26px;
         height: auto;
@@ -459,6 +463,17 @@
 
     .doctor-name{
 
+    }
+
+    .anchor-icon{
+        width:32px;
+        height: 32px;
+        line-height: 32px;
+        text-align: center;
+        flex-shrink: 0;
+        @include border-radius(50%);
+        border:1px solid $gray-100;
+        background-color:$gray-200;
     }
 
 }

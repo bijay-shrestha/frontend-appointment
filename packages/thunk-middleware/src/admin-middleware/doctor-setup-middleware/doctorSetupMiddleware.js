@@ -89,9 +89,8 @@ export const downloadExcelForConsultants = path => async () => {
 export const fetchActiveDoctorsForDropdown = path => async dispatch => {
     try {
         const response = await Axios.get(path);
-        let dataWithImage = response.data.length ? DropdownUtils.addPictureInLabel(response.data) : [];
         dispatch(
-            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(dataWithImage)
+            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(response.data)
         );
         return response;
     } catch (e) {

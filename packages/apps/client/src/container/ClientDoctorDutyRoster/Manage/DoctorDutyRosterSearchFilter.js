@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {CButton, CForm, CHybridSelect, CHybridSelectWithImage} from "@frontend-appointment/ui-elements";
 import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
@@ -113,18 +113,17 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                         />
                                     </Col>
                                     <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
+                                        <CHybridSelectWithImage
                                             id="doctor"
                                             label="Doctor"
                                             name="doctor"
                                             placeholder={doctorList.length ? "Select Doctor." : "No Doctor(s) available."}
                                             isDisabled={!doctorList.length}
                                             options={doctorList}
-                                            noOptionsMessage={() => doctorDropdownErrorMessage}
+                                            noOptionsMessage={() => "No Doctor(s) found."}
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.doctor}
-                                            // menuIsOpen={true}
                                         />
                                     </Col>
 
