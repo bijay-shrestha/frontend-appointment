@@ -35,7 +35,7 @@ import {
 } from '@frontend-appointment/helpers'
 import PasswordResetModal from './PasswordResetModal'
 import './../admin-setup.scss'
-import PreviewRoles from '../../CommonComponents/PreviewRoles'
+import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 const {
     SEARCH_ADMIN,
@@ -1256,7 +1256,7 @@ class AdminManage extends PureComponent {
                     />
                 )}
                 {showProfileDetailModal && (
-                    <PreviewRoles
+                    <PreviewClientProfileRoles
                         showModal={showProfileDetailModal}
                         setShowModal={this.closeProfileDetailsViewModal}
                         profileData={profileData}
