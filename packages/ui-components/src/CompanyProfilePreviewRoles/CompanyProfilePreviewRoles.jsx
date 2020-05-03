@@ -1,6 +1,6 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import CompanyProfileModalContent from "./CompanyProfileModalContent";
+import CompanyProfileModalContent from "../CompanyProfileModalContent/CompanyProfileModalContent";
 
 const CompanyProfilePreviewRoles = props => {
     const {showModal, setShowModal, profileData,rolesJson} = props;

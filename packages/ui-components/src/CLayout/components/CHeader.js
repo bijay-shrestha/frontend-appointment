@@ -11,7 +11,7 @@ import {
     ProfileSetupUtils
 } from '@frontend-appointment/helpers';
 import * as Material from 'react-icons/md';
-import CompanyProfilePreviewRoles from "../../PreviewAdminProfileRoles";
+import CompanyProfilePreviewRoles from "../../CompanyProfilePreviewRoles";
 import PreviewClientProfileRoles from "../../PreviewClientProfileRoles";
 
 const {CHANGE_COMPANY_ADMIN_PASSWORD} = AdminModuleAPIConstants.companyAdminSetupApiConstants;

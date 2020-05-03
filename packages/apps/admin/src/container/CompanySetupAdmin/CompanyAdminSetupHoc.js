@@ -9,10 +9,7 @@ import {
   resetPassword,
   savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
-import {
-  AdminModuleAPIConstants,
-  CommonAPIConstants
-} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   AdminSetupUtils,
   EnterKeyPressUtils,
@@ -24,9 +21,9 @@ import {
 // import * as UserMenuUtils from "@frontend-appointment/helpers/src/utils/UserMenuUtils";
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
-import PreviewRoles from '../CommonComponents/PreviewRoles'
 import PasswordResetModal from './commons/PasswordResetModal'
 import './admin-setup.scss'
+import {CompanyProfilePreviewRoles} from "@frontend-appointment/ui-components";
 
 const {
   clearAdminSuccessErrorMessagesFromStore,
@@ -1400,7 +1397,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             />
           )}
           {showProfileDetailModal && (
-            <PreviewRoles
+            <CompanyProfilePreviewRoles
               showModal={showProfileDetailModal}
               setShowModal={this.closeProfileDetailsViewModal}
               profileData={profileData}

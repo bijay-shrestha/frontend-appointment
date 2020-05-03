@@ -1,11 +1,9 @@
-import {menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
+import {ActionFilterUtils, menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import React, {memo} from 'react'
-import PreviewRoles from '../../CommonComponents/PreviewRoles'
 import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
 import TableAction from '../../CommonComponents/table-components/TableAction'
-import {ActionFilterUtils} from "@frontend-appointment/helpers";
-import {ConfirmDelete} from "@frontend-appointment/ui-components";
+import {ConfirmDelete, PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -129,7 +127,7 @@ const ProfileDetails = props => (
             ''
         )}
         {props.showProfileModal ? (
-            <PreviewRoles
+            <PreviewClientProfileRoles
                 showModal={props.showProfileModal}
                 setShowModal={props.setShowModal}
                 profileData={props.profileData}

@@ -12,7 +12,7 @@ import {
 import {AuditableEntityHoc} from '@frontend-appointment/commons';
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-class ModalContent extends React.PureComponent {
+class PreviewClientProfileModalContent extends React.PureComponent {
     state = {
         childMenusOfSelectedParent: [],
         activeKey: '',
@@ -335,4 +335,4 @@ class ModalContent extends React.PureComponent {
     }
 }
 
-export default ModalContent
+export default PreviewClientProfileModalContent
