@@ -22,3 +22,5 @@ export {default as TransactionDateWithTime} from './src/TransactionDateWithTimeF
 export {default as AppointmentNumberWithFollowUpFlag} from './src/AppointmentNumberWithFollowUpFlagForTable';
 export {default as AppointmentStatusBadges} from './src/AppointmentStatusBadges';
 export {default as RevenueDetailsTotalBlock} from './src/RevenueDetailsTotalBlock';
+export {default as CompanyProfilePreviewRoles} from './src/PreviewAdminProfileRoles';
+export {default as PreviewClientProfileRoles} from './src/PreviewClientProfileRoles';

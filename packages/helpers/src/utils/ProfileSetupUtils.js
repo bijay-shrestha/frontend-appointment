@@ -94,7 +94,6 @@ export const prepareProfilePreviewData = (profileResponseDTO, profileMenuRespons
                     lastModifiedDate: profileResponseDTO.lastModifiedDate,
                     createdDate: profileResponseDTO.createdDate,
                 };
-                console.log('Filtered Profiles=====', filteredProfiles)
                 break;
             case 'COMPANY':
                 filteredProfiles = {

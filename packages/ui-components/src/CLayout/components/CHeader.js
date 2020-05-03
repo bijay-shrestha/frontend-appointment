@@ -11,7 +11,8 @@ import {
     ProfileSetupUtils
 } from '@frontend-appointment/helpers';
 import * as Material from 'react-icons/md';
-// import PreviewRoles from "@frontend-appointment/admin/src/container/CommonComponents/PreviewRoles";
+import CompanyProfilePreviewRoles from "../../PreviewAdminProfileRoles";
+import PreviewClientProfileRoles from "../../PreviewClientProfileRoles";
 
 const {CHANGE_COMPANY_ADMIN_PASSWORD} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
@@ -168,13 +169,13 @@ class CHeader extends Component {
                     profilePreviewData &&
                     (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.companyProfileInfo,
                         profilePreviewData.companyProfileMenuInfo,
-                        EnvironmentVariableGetter.REACT_APP_MODULE_CODE));
+                       "COMPANY"));
             } else {
                 profileData =
                     profilePreviewData &&
                     (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
                         profilePreviewData.profileMenuResponseDTOS,
-                        EnvironmentVariableGetter.REACT_APP_MODULE_CODE));
+                       "CLIENT"));
             }
 
             this.setState({
@@ -190,7 +191,13 @@ class CHeader extends Component {
                 }
             })
         }
-    }
+    };
+
+    closeProfileDetailsViewModal = () => {
+        this.setState({
+            showProfileDetailModal: false
+        })
+    };
 
     componentDidMount() {
         this.setLoggedInUserInfo()
@@ -298,14 +305,20 @@ class CHeader extends Component {
                         {/* end user profile */}
                     </div>
                 </header>
-                {/*{this.state.showProfileDetailModal && (*/}
-                {/*    <PreviewRoles*/}
-                {/*        showModal={this.state.showProfileDetailModal}*/}
-                {/*        setShowModal={this.closeProfileDetailsViewModal}*/}
-                {/*        profileData={this.state.profileData}*/}
-                {/*        rolesJson={menuRoles}*/}
-                {/*    />*/}
-                {/*)}*/}
+                {this.state.showProfileDetailModal ? (
+                    EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                        <CompanyProfilePreviewRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}/> :
+                        <PreviewClientProfileRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}
+                        />) : ''
+                }
                 <CAlert
                     id="profile-manage"
                     variant={this.state.alertMessageInfo.variant}
