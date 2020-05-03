@@ -409,14 +409,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
     handleCompanyProfilePreview = async id => {
       try {
         await this.previewCompanyProfile(id)
-        const previewDataDetail = {
-          profileResponseDTO: this.props.CompanyProfilePreviewReducer
-            .companyProfileDetail.companyProfileInfo,
-          profileMenuResponseDTOS: this.props.CompanyProfilePreviewReducer
-            .companyProfileDetail.companyProfileMenuInfo
-        }
+        const {companyProfileDetail} = this.props.CompanyProfilePreviewReducer;
         let previewData = ProfileSetupUtils.prepareProfilePreviewData(
-          previewDataDetail,
+            companyProfileDetail.companyProfileInfo,
+            companyProfileDetail.companyProfileMenuInfo,
           'COMPANY'
         )
         this.setState({

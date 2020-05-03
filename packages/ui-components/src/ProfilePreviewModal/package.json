@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-profile-preview-modal",
+  "version": "1.0.0",
+  "main": "../../../apps/admin/src/container/CommonComponents/PreviewRoles.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

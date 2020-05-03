@@ -22,7 +22,7 @@ import {
     ProfileSetupUtils,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
-import {AdminModuleAPIConstants,CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
+import {AdminModuleAPIConstants, CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
 const {
     SEARCH_PROFILE,
@@ -235,9 +235,9 @@ class ProfileManage extends PureComponent {
 
     savePinOrUnpinUserMenu = async () => {
         await this.props.savePinOrUnpinUserMenu(ADMIN_FEATURE, {
-          isSideBarCollapse: !(
-            Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
-          )
+            isSideBarCollapse: !(
+                Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+            )
         })
     }
 
@@ -407,7 +407,8 @@ class ProfileManage extends PureComponent {
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
-        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile, 'CLIENT');
+        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile.profileResponseDTO,
+            userMenusProfile.profileMenuResponseDTOS, 'CLIENT');
     };
 
     previewApiCall = async id => {
@@ -684,11 +685,11 @@ class ProfileManage extends PureComponent {
 
         const {profilePreviewErrorMessage} = this.props.ProfilePreviewReducer;
 
-        const {deleteErrorMessage,isDeleteLoading} = this.props.ProfileDeleteReducer;
+        const {deleteErrorMessage, isDeleteLoading} = this.props.ProfileDeleteReducer;
 
         const {allProfilesForDropdown} = this.props.ProfileSetupReducer;
 
-        const {profileErrorMessage,isProfileEditLoading} = this.props.ProfileEditReducer;
+        const {profileErrorMessage, isProfileEditLoading} = this.props.ProfileEditReducer;
 
         const {departments} = this.props.DepartmentSetupReducer;
 

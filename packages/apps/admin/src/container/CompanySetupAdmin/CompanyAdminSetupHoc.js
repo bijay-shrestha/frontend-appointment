@@ -599,10 +599,8 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         let profileData =
           companyProfileDetail &&
           (await ProfileSetupUtils.prepareProfilePreviewData(
-            {
-              profileResponseDTO: companyProfileInfo,
-              profileMenuResponseDTOS: companyProfileMenuInfo
-            },
+              companyProfileInfo,
+              companyProfileMenuInfo,
             'COMPANY'
           ))
         this.setState({

@@ -323,7 +323,7 @@ class AdminManage extends PureComponent {
                 createdBy,
                 createdDate,
                 lastModifiedBy,
-                lastModifiedDate        
+                lastModifiedDate
             }
         })
     }
@@ -600,7 +600,8 @@ class AdminManage extends PureComponent {
 
             let profileData =
                 profilePreviewData &&
-                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,'CLIENT'))
+                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                    profilePreviewData.profileMenuResponseDTOS,'CLIENT'))
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -1003,7 +1004,7 @@ class AdminManage extends PureComponent {
                 createdBy,
                 createdDate,
                 lastModifiedBy,
-                lastModifiedDate 
+                lastModifiedDate
             }
         }
     }

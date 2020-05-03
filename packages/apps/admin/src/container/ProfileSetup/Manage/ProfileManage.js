@@ -399,7 +399,8 @@ class ProfileManage extends PureComponent {
     }
 
     getProfileDataForUserMenus = userMenusProfile => {
-        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile, 'CLIENT');
+        return ProfileSetupUtils.prepareProfilePreviewData(userMenusProfile.profileResponseDTO,
+            userMenusProfile.profileMenuResponseDTOS, 'CLIENT');
     };
 
     previewApiCall = async id => {

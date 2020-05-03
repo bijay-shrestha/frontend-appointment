@@ -315,10 +315,10 @@ class AdminManage extends PureComponent {
                     value && value.length
                         ? [...value.map(val => ({...val, status: 'Y'}))]
                         : [],
-                createdBy:createdBy,
-                createdDate:createdDate,
-                lastModifiedBy:lastModifiedBy,
-                lastModifiedDate:lastModifiedDate        
+                createdBy: createdBy,
+                createdDate: createdDate,
+                lastModifiedBy: lastModifiedBy,
+                lastModifiedDate: lastModifiedDate
             }
         })
     }
@@ -610,7 +610,8 @@ class AdminManage extends PureComponent {
 
             let profileData =
                 profilePreviewData &&
-                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,'CLIENT'))
+                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                    profilePreviewData.profileMenuResponseDTOS, 'CLIENT'));
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -1035,10 +1036,10 @@ class AdminManage extends PureComponent {
                 adminAvatarUrlNew: '',
                 adminDashboardRequestDTOS: this.state.adminUpdateData
                     .adminDashboardRequestDTOS,
-                createdBy:createdBy,
-                createdDate:createdDate,
-                lastModifiedBy:lastModifiedBy,
-                lastModifiedDate:lastModifiedDate    
+                createdBy: createdBy,
+                createdDate: createdDate,
+                lastModifiedBy: lastModifiedBy,
+                lastModifiedDate: lastModifiedDate
             }
         }
     }
@@ -1176,8 +1177,8 @@ class AdminManage extends PureComponent {
         this.fetchActiveProfileLists()
         this.fetchHospitals()
         this.fetchDepartments()
-        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
-          this.fetchDashBoardFeatures()
+        if (LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+            this.fetchDashBoardFeatures()
         this.searchAdmins()
     }
 

@@ -1,14 +1,11 @@
 import {adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter, LocalStorageSecurity} from "../../index";
 import * as UserMenuUtils from "./UserMenuUtils";
 
-export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
+export const prepareProfilePreviewData = (profileResponseDTO, profileMenuResponseDTOS, profileType) => {
     let filteredProfiles = {};
     let selectedMenus = [],
         selectedUserMenusForModal = [];
 
-    const {profileResponseDTO, profileMenuResponseDTOS} = userMenusProfile;
-
-    userMenusProfile.hasOwnProperty('profileMenuResponseDTOS') &&
     Object.keys(profileMenuResponseDTOS).map((parentMenuId, idx) => {
         // For each parent menu's selected menus
         // IN CASE DETAILS OF CLIENT PROFILE FROM ADMIN MODULE IS VIEWED, TAKE ACTUAL MENU JSON
@@ -91,13 +88,13 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         label: profileResponseDTO.departmentName
                     },
                     status: profileResponseDTO.status,
-                    hospitalAlias: profileResponseDTO.hospitalAlias||'',
-                    createdBy:profileResponseDTO.createdBy,
-                    lastModifiedBy:profileResponseDTO.lastModifiedBy,
-                    lastModifiedDate:profileResponseDTO.lastModifiedDate,
-                    createdDate:profileResponseDTO.createdDate,
+                    hospitalAlias: profileResponseDTO.hospitalAlias || '',
+                    createdBy: profileResponseDTO.createdBy,
+                    lastModifiedBy: profileResponseDTO.lastModifiedBy,
+                    lastModifiedDate: profileResponseDTO.lastModifiedDate,
+                    createdDate: profileResponseDTO.createdDate,
                 };
-                console.log('Filtered Profiles=====',filteredProfiles)
+                console.log('Filtered Profiles=====', filteredProfiles)
                 break;
             case 'COMPANY':
                 filteredProfiles = {
@@ -109,10 +106,10 @@ export const prepareProfilePreviewData = (userMenusProfile, profileType) => {
                         value: profileResponseDTO.companyId,
                         label: profileResponseDTO.companyName
                     },
-                    createdBy:profileResponseDTO.createdBy,
-                    lastModifiedBy:profileResponseDTO.lastModifiedBy,
-                    lastModifiedDate:profileResponseDTO.lastModifiedDate,
-                    createdDate:profileResponseDTO.createdDate,
+                    createdBy: profileResponseDTO.createdBy,
+                    lastModifiedBy: profileResponseDTO.lastModifiedBy,
+                    lastModifiedDate: profileResponseDTO.lastModifiedDate,
+                    createdDate: profileResponseDTO.createdDate,
                     status: profileResponseDTO.status,
                     remarks: profileResponseDTO.remarks
                 };

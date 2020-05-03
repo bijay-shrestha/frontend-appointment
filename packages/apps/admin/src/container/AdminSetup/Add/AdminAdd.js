@@ -402,7 +402,8 @@ class AdminAdd extends PureComponent {
 
             let profileData =
                 profilePreviewData &&
-                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,'CLIENT'))
+                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                    profilePreviewData.profileMenuResponseDTOS,'CLIENT'))
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -528,7 +529,7 @@ class AdminAdd extends PureComponent {
                                 onClickHandler={this.resetStateValues}
                             >
                                 <>
-                                  
+
                                     <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </>
                             </CButton>
