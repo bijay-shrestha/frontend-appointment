@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-reschedule-log-date-with-time-for-table",
+  "version": "1.0.0",
+  "main": "RescheduleLogDateWithTimeForTable.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

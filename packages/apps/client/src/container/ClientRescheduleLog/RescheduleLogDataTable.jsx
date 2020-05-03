@@ -2,7 +2,11 @@ import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import {AppointmentNumberWithFollowUpFlag, PatientNameWithAgeGenderPhone} from "@frontend-appointment/ui-components";
+import {
+    AppointmentNumberWithFollowUpFlag,
+    PatientNameWithAgeGenderPhone,
+    RescheduleLogDateWithTimeForTable
+} from "@frontend-appointment/ui-components";
 import AppointmentDateWithTime
     from "../CommonComponents/table-components/AppointmentDateWithTime";
 
@@ -62,7 +66,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-
+                                    cellRenderer: 'rescheduleDateAndTime'
                                 },
                                 // {
                                 //     headerName: 'Appointment Time',
@@ -138,6 +142,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 statusRenderer: AppointmentLogAction,
                                 patientRenderer: PatientNameWithAgeGenderPhone,
                                 appointmentDateAndTime: AppointmentDateWithTime,
+                                rescheduleDateAndTime: RescheduleLogDateWithTimeForTable,
                                 appNoWithFollowUp: AppointmentNumberWithFollowUpFlag
                             }}
                             defaultColDef={{resizable: true}}

@@ -26,3 +26,4 @@ export {default as CompanyProfilePreviewRoles} from './src/CompanyProfilePreview
 export {default as PreviewClientProfileRoles} from './src/PreviewClientProfileRoles';
 export {default as PreviewClientProfileModalContent} from './src/PreviewClientProfileModalContent';
 export {default as CompanyProfileModalContent} from './src/CompanyProfileModalContent';
+export {default as RescheduleLogDateWithTimeForTable} from './src/RescheduleLogDateWithTimeForTable';
