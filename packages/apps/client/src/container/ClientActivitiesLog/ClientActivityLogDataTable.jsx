@@ -44,16 +44,16 @@ const ClientActivityLogDataTable = ({
     } = adminDiagramStatsData
     const prepareDataForChart = datas => {
         var getColor = [
-            '#0063ff',
-            '#CCCCB3',
-            '#003B46',
+            '#80b1ff',
+            '#0277BD',
+            '#fff26b',
             '#FFCAFF',
             '#A2C523',
             '#FFBB00',
             '#EAEC93',
             '#D7FBE6',
-            '#D7FBE6',
-            '#34675C'
+            '#34675C',
+            '#673451'
         ]
 
         let chartData = {
@@ -236,10 +236,10 @@ const ClientActivityLogDataTable = ({
                     <div className="activity-count ">
                         <Row>
                             <Col>
-                                <h5 className="title"> Activity Statistics as
-                                    of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
+                                <h5 className="title"> Activity Statistics</h5>
+                                <span> as of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
                                      -
-                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</h5>
+                                    {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</span>
                             </Col>
                         </Row>
 
@@ -251,7 +251,7 @@ const ClientActivityLogDataTable = ({
                                     classes="ag-theme-balham"
                                     id="roles-table"
                                     width="100%"
-                                    height="460px"
+                                    height="555px"
                                     enableSorting
                                     editType
                                     rowHeight={50}
@@ -312,21 +312,27 @@ const ClientActivityLogDataTable = ({
                     <div className="activity-log">
                         <Row>
                             <Col>
-                                <h5 className="title"> Statistics Diagram as
-                                    of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
-                                     - {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</h5>
+                                <h5 className="title"> Statistics Diagram </h5>
+                              <span>  as of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
+                                     - {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</span>
                             </Col>
                         </Row>
                         {logDiagramSearchData.length &&
                         !isLogDiagramSearchLoading &&
                         !logDiagramSearchErrorMessage ? (
                             <>
+                            <div className="doughnut-chart">
                                 <CDoughnutChart
                                     chartData={chartData}
                                     width={160}
                                     height={100}
                                 />
-                                <p className="total-count">Total Hits:{totalCounts}</p>
+                                 <div  className="mid-data" >
+                               {totalCounts}<br/>
+                               Total Hits
+                               </div>
+                            </div>
+                               
                                 <div className="legend-box clearfix">
 
                                     <p>Top Features</p>
