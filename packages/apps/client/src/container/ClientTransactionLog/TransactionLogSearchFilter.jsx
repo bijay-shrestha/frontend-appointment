@@ -38,14 +38,14 @@ class TransactionLogSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalsDropdown,
+     // hospitalsDropdown,
       doctorsDropdown,
-      doctorDropdownErrorMessage,
+      //doctorDropdownErrorMessage,
       activeSpecializationList,
-      specializationDropdownErrorMessage,
+      //specializationDropdownErrorMessage,
       searchParameters,
       patientListDropdown,
-      patientDropdownErrorMessage
+      //patientDropdownErrorMessage
     } = searchHandler
 
     return (

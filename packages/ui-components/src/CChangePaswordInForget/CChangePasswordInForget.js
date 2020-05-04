@@ -4,8 +4,8 @@ import {
     CButton,
     CHybridPassword
 } from '@frontend-appointment/ui-elements'
-import {Col, Row, Container, Image, Form} from 'react-bootstrap'
-import logo from './images/400x400.png'
+import {Col, Row, Container, Form} from 'react-bootstrap'
+//import logo from './images/400x400.png'
 
 const CChangePasswordInForget = ({
                                      passwordChangeData,
@@ -55,8 +55,8 @@ const CChangePasswordInForget = ({
                                             variant="primary"
                                             className="btn-action float-right"
                                             type="button"
-                                            disabled={!isValid || status && status.toLowerCase() === 'pending'}
-                                            isLoading={status && status.toLowerCase() === 'pending'}
+                                            disabled={(!isValid || status) && status.toLowerCase() === 'pending'?true:false}
+                                            isLoading={status && status.toLowerCase() === 'pending'?true:false}
                                             onClickHandler={onSubmitFormHandler}
                                             name={'Change Password'}
                                         />

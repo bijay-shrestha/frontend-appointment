@@ -67,6 +67,7 @@ const ClientActivityLogDataTable = ({
             chartData.data.push(datum.count)
             chartData.label.push(datum.feature)
             chartData.color.push(getColor[index])
+            return datas;
         })
         return {
             datasets: [

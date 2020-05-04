@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 class CSelect extends PureComponent {
 
     handleMultiOrSingleSelectedValue = event => {
-        const {isMulti, name} = this.props;
+        const {isMulti} = this.props;
         return isMulti ? {values: [...event]} : {value: event.value, label: event.label};
     };
 
@@ -57,7 +57,7 @@ class CSelect extends PureComponent {
             minMenuHeight,
             name,
             noOptionsMessage,
-            onChange,
+           // onChange,
             onInputChange,
             onKeyDown,
             onMenuClose,

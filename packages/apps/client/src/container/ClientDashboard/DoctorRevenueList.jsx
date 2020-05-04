@@ -3,7 +3,7 @@ import {Row, Col, Form} from 'react-bootstrap'
 import {
   CDataTable,
   CHybridSelect,
-  CHybridInput,
+ // CHybridInput,
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'

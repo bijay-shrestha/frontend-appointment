@@ -11,19 +11,19 @@ const DoctorForm = ({
                         onEnterKeyPress,
                         onInputChange,
                         doctorImageCroppedUrl,
-                        doctorFileCropped,
+                        //doctorFileCropped,
                         showImageUploadModal,
                         onImageSelect,
                         handleCropImage,
                         handleImageUpload,
                         setImageShow,
                         qualificationDropdown,
-                        hospitalsForDropdown,
+                       // hospitalsForDropdown,
                         activeSpecializationList,
                         doctorImage,
-                        appointmentChargeValid,
+                        //appointmentChargeValid,
                         errorMessageForAppointmentCharge,
-                        emailValid
+                        //emailValid
                     }) => {
     return (
         <>
@@ -41,7 +41,7 @@ const DoctorForm = ({
                                             {/* <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel> */}
                                             <div className="image-box">
                                                 <img
-                                                    alt="Doctor Image"
+                                                    alt="doctor"
                                                     src={
                                                         doctorInfoObj.doctorAvatar
                                                             ? doctorInfoObj.doctorAvatarUrl

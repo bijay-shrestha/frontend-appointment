@@ -138,7 +138,7 @@ class Login2 extends PureComponent {
                                             >
                                                 {this.props.isLoginPending ?
                                                     <span className="saving">Loging In <img
-                                                        src={require("../img/three-dots.svg")}/></span> :
+                                                      alt="three-dots"  src={require("../img/three-dots.svg")}/></span> :
                                                     "Login"
                                                 }
                                             </Button>
@@ -190,7 +190,7 @@ class Login2 extends PureComponent {
                 </div>
 
                 <div className="content-login flex">
-                    <img src={logoCogent} className="company-logo"/>
+                    <img alt="company-logo" src={logoCogent} className="company-logo"/>
                     <p>Powered by Cogent Health (P) Ltd</p>
                 </div>
             </>

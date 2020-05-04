@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, OverlayTrigger, Tooltip} from "react-bootstrap";
+import {Button} from "react-bootstrap";
 
 const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, onDelete}) => {
 

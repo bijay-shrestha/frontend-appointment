@@ -41,7 +41,7 @@ class CHybridPassword extends React.PureComponent {
 
     checkValidLength = value => {
         let errorMsg = 'Password must be greater than 5';
-        let valueToBeReturned = false;
+       // let valueToBeReturned = false;
 
         // if (value.length >= 5) valueToBeReturned = true;
         // else if (value.length === 0) errorMsg = '';

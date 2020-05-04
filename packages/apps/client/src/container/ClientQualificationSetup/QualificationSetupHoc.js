@@ -22,7 +22,6 @@ const {fetchActiveQualificationAliasForDropdown} = QualificationAliasSetupMiddle
 const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
-        countrySetupAliasCode,
         universitySetupApiConstants,
         qualificationSetupAliasCode
     } = AdminModuleAPIConstants

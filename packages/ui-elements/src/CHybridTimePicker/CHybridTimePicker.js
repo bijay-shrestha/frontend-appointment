@@ -38,7 +38,7 @@ class CHybridTimePicker extends PureComponent {
     }
 
     convertDateToString = date => {
-        const {value, label} = date
+        const {value} = date
         let hours = value.getHours()
         let minutes = value.getMinutes()
         hours = hours.toString().length <= 1 ? '0' + hours : hours
@@ -177,7 +177,7 @@ class CHybridTimePicker extends PureComponent {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const {duration} = this.props
-        const {pickedTime} = this.state
+        //const {pickedTime} = this.state
         let pickedTime1, pickedTime2
         pickedTime1 = this.checkPickedTime(this.props.value)
         pickedTime2 = this.checkPickedTime(prevProps.value)
@@ -219,7 +219,7 @@ class CHybridTimePicker extends PureComponent {
             isClearable,
             isDisabled,
             isLoading,
-            isMulti,
+            //isMulti,
             isOptionDisabled,
             isOptionSelected,
             isRtl,

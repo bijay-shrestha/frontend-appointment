@@ -54,7 +54,6 @@ const {
 
 const {
     FETCH_DEPARTMENTS_FOR_DROPDOWN,
-    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants
 
 const {
@@ -478,6 +477,7 @@ class AdminManage extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break
+               default:return '';
             }
             this.checkFormValidity()
         }
@@ -1021,9 +1021,11 @@ class AdminManage extends PureComponent {
                 if (dash.code === adminDash.code) {
                     flag = true
                 }
+                return dash;
             })
             if (flag) adminDashRole.push({...adminDash, status: 'Y'})
             else adminDashRole.push({...adminDash, status: 'N'})
+            return adminDash
         })
         return adminDashRole
     }
@@ -1064,7 +1066,7 @@ class AdminManage extends PureComponent {
                 mobileNumber: mobileNumber,
                 emailValid: email || false,
                 fullNameValid: fullName || false,
-                mobileNumberValid: mobileNumber.length == 10 ? true : false,
+                mobileNumberValid: mobileNumber.length === 10 ? true : false,
                 status: status,
                 genderCode: genderCode,
                 hasMacBinding: hasMacBinding === 'Y',
@@ -1174,8 +1176,7 @@ class AdminManage extends PureComponent {
         const {adminMetaInfoForDropdown} = this.props.AdminSetupReducer
 
         const {
-            departments,
-            departmentsByHospital
+            departments
         } = this.props.DepartmentSetupReducer
 
         return (

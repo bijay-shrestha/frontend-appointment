@@ -4,7 +4,6 @@ import {CFullPageLoading, CPageNotFound} from '@frontend-appointment/ui-elements
 import {ConnectHoc} from '@frontend-appointment/commons';
 import {savePassword, verifyToken} from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
-import Cookies from "js-cookie";
 
 const {SAVE_ADMIN_PASSWORD, VERIFY_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants;
 

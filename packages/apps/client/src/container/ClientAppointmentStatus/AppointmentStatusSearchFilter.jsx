@@ -36,8 +36,8 @@ class AppointmentLog extends PureComponent {
     const {
       handleSearchFormChange,
       resetSearchForm,
-      searchAppointmentStatus,
-      hospitalList,
+    //   searchAppointmentStatus,
+    //   hospitalList,
       doctorList,
       doctorDropdownErrorMessage,
       specializationList,

@@ -1,8 +1,6 @@
 
-import Cookies from "js-cookie";
-import {Axios} from "@frontend-appointment/core";
 
-export const logoutUser = (path) => async dispatch => {
+export const logoutUser = () => () => {
   
     // if (Cookies.get('XSRF-TOKEN')) {
         try {

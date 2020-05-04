@@ -141,7 +141,7 @@ class DepartmentManage extends PureComponent {
     };
 
     searchDepartments = async (page) => {
-        const {departmentId, departmentCode, status, hospital} = this.state.searchParameters;
+        const {departmentId, departmentCode, status} = this.state.searchParameters;
         let searchData = {
             id: departmentId && departmentId.value,
             departmentCode: departmentCode,
@@ -369,7 +369,6 @@ class DepartmentManage extends PureComponent {
             name,
             code,
             nameValid,
-            codeValid,
             remarks
         } = this.state.departmentUpdateData;
         let formValidity = nameValid && name && code && remarks;

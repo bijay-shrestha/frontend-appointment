@@ -1,8 +1,6 @@
 import {departmentSetupConstants} from '@frontend-appointment/action-module'
 
 const {
-    DATA_FETCH_START,
-    DATA_FETCH_SUCCESS,
     DATA_FETCH_ERROR,
     SAVE_DEPARTMENTS,
     CREATE_DEPARTMENT_PENDING,

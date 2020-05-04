@@ -1,4 +1,4 @@
-import React,{memo} from 'react';
+import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
 import LogContent from "./LogContent";
 

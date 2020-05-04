@@ -3,12 +3,12 @@ import {CFLabel, CForm, CHybridInput, CRadioButton} from '@frontend-appointment/
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 const DetailsModal = ({qualificationData, type}) => {
-    let universityId, qualificationAliasId, universityName;
+    let  qualificationAliasId, universityName;
     if (type !== 'M') {
         universityName = qualificationData.universityId.label;
         qualificationAliasId = qualificationData.qualificationAliasId;
     } else {
-        universityId = {value: qualificationData.universityId, label: qualificationData.universityName}
+       // universityId = {value: qualificationData.universityId, label: qualificationData.universityName}
         universityName = qualificationData.universityName;
         qualificationAliasId = {
             value: qualificationData.qualificationAliasId,

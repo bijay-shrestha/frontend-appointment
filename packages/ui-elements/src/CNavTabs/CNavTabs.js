@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import { Nav } from 'reactstrap';
-import PropTypes from 'prop-types';
 import CTabsMenu from "./CTabsMenu";
 class CNavTabs extends PureComponent {
   state = {
@@ -21,7 +20,6 @@ class CNavTabs extends PureComponent {
       justified,
       customClass,
       roles,
-      toggle,
       currentActiveTab
     } = this.props
     return (

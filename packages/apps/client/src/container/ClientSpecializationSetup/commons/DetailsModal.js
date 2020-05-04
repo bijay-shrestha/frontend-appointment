@@ -1,5 +1,5 @@
 import React from 'react'
-import {CFLabel, CForm, CHybridInput, CHybridTextArea, CRadioButton} from '@frontend-appointment/ui-elements'
+import {CFLabel, CForm, CHybridInput, CRadioButton} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 const DetailsModal = ({specializationData, type}) => {

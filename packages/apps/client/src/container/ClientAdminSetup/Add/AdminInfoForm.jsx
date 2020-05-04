@@ -54,7 +54,7 @@ const AdminInfoForm = ({
                             {/* <CFLabel labelName="Admin Picture"></CFLabel> */}
                             <div className="image-box">
                                 <img
-                                    alt="ADMIN IMAGE"
+                                    alt="admin"
                                     src={
                                         adminInfoObj.adminAvatarUrl
                                             ? adminInfoObj.adminAvatarUrl

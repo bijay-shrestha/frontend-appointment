@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import {ButtonGroup,Col} from 'react-bootstrap'
+import {ButtonGroup} from 'react-bootstrap'
 import {CButton} from '@frontend-appointment/ui-elements'
 
 const DateButtonPills = props => {

@@ -87,8 +87,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
 
       const {revFromDate, revToDate} = this.state.searchParameterForRevenueTrend
 
-      const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
-      const hospitalId = adminInfo.hospitalId
+      //const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+      //const hospitalId = adminInfo.hospitalId
       if (checkDashboardRole(ACCESSCODE.PATIENT_STAT)) {
         if (!statsType || statsType !== 'refund')
           this.props.fetchDashboardAppointmentStatisticsList(
@@ -227,7 +227,8 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             toDate: new Date(),
             hospitalId: searchParameterChange.hospitalId
           }
-          break
+          break;
+        default:return ''  
       }
       return searchParameterChange
     }
@@ -424,8 +425,6 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
           })
           return response
         } catch (e) {
-          throw e
-          console.log(e)
         }
       }
     }

@@ -18,6 +18,7 @@ const hocConnector = (ComposedClass,statesToAccquire, dispatchToAccquire) => {
     if (state) {
       statesToAccquire.length && statesToAccquire.map((st, i) => {
         statesToMap[st] = state[st]
+        return st;
       })
     }
      return statesToMap

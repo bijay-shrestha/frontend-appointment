@@ -1,6 +1,6 @@
 import React from 'react';
 import {CForm, CHybridPassword, CModal} from "@frontend-appointment/ui-elements";
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Row} from "react-bootstrap";
 import {CPasswordSaveForm} from "@frontend-appointment/ui-components";
 
 const CChangePasswordModal = ({

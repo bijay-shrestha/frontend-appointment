@@ -33,12 +33,12 @@ class AppointmentLogListSearchFilter extends PureComponent {
       handleSearchFormChange,
       resetSearch,
       doctorsDropdown,
-      doctorDropdownErrorMessage,
+      //doctorDropdownErrorMessage,
       activeSpecializationList,
-      specializationDropdownErrorMessage,
+      //specializationDropdownErrorMessage,
       searchParameters,
       patientListDropdown,
-      patientDropdownErrorMessage
+      //patientDropdownErrorMessage
     } = searchHandler
 
     return (
@@ -179,7 +179,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                       options={doctorsDropdown}
                       value={searchParameters.doctorId}
                       // isDisabled={doctorsDropdown.length ? false : true}
-                      onChange={handleSearchFormChange}
                       onEnter={handleEnter}
                       placeholder="Select doctor."
                     />

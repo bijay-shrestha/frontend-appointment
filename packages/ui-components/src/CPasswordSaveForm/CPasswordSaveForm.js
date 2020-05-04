@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Button} from 'react-bootstrap'
-import {CForm, CHybridPassword, CHybridTextArea} from "@frontend-appointment/ui-elements";
+import {CHybridPassword, CHybridTextArea} from "@frontend-appointment/ui-elements";
 
 class CPasswordSaveForm extends PureComponent {
     state = {
@@ -63,7 +63,7 @@ class CPasswordSaveForm extends PureComponent {
                     formValid = false;
                 }
             } else {
-                const patt = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
+                //const patt = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
                 const value = Object.values(this.state['userPassword'])[i];
                 if (field === 'password' && value.length <= 4) {
                     errorMsg[field] = `${field.toUpperCase()} length should be equal or greater than 6`;
@@ -158,7 +158,7 @@ class CPasswordSaveForm extends PureComponent {
                     onClick={this.onSubmitFormHandler}>
                     {this.props.isLoading ?
                         <span className="saving">Saving Password<img
-                            src={require("../img/three-dots.svg")}/></span> :
+                            alt="three-dots" src={require("../img/three-dots.svg")}/></span> :
                         "Save Password"
                     }
                 </Button>

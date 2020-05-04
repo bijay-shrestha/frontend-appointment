@@ -156,7 +156,6 @@ class CHybridInput extends React.PureComponent {
 
     render() {
         const {
-            _ref,
             as,
             autoComplete,
             bsPrefix,

@@ -33,12 +33,12 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
       handleSearchFormChange,
       resetSearch,
       doctorsDropdown,
-      doctorDropdownErrorMessage,
+     // doctorDropdownErrorMessage,
       activeSpecializationList,
-      specializationDropdownErrorMessage,
+      //specializationDropdownErrorMessage,
       searchParameters,
-      patientListDropdown,
-      patientDropdownErrorMessage
+      patientListDropdown
+      //patientDropdownErrorMessage
     } = searchHandler
 
     return (

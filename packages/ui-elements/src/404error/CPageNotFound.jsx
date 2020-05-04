@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from "react-bootstrap";
+//import { Image } from "react-bootstrap";
 import './page-not-found.scss';
 
 const CPageNotFound = props => {

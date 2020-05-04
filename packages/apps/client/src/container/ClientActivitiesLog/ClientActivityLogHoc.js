@@ -251,6 +251,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
           if (assignMenus.childMenus.length) {
             assignMenus.childMenus.map(child => {
               filterMenusDropdown.push({value: child.id, label: child.name})
+              return child;
             })
           } else {
             filterMenusDropdown.push({
@@ -258,6 +259,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
               label: assignMenus.name
             })
           }
+          return assignMenus;
         })
       }
       this.setState({
@@ -294,8 +296,7 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
         rolesList,
         menuList,
         statsQueryParams,
-        statsTotalRecord,
-        adminMetaInfoId
+        statsTotalRecord
       } = this.state
 
       const {

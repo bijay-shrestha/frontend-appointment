@@ -17,7 +17,7 @@ import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import {
-    adminUserMenusJson, clientUserMenusJson, EnvironmentVariableGetter,
+    clientUserMenusJson, EnvironmentVariableGetter,
     LocalStorageSecurity,
     ProfileSetupUtils,
     TryCatchHandler
@@ -248,11 +248,13 @@ class ProfileManage extends PureComponent {
         profileMenuResponseDTOS &&
         Object.keys(profileMenuResponseDTOS).map(key => {
             menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
+           return key;
         });
 
         if (adminInfo.isAllRoleAssigned === 'Y') {
             menusSelected.map(menuSelected => {
                 menusSelectedWithFlag.push({...menuSelected, isNew: false, isUpdated: false});
+             return menuSelected
             });
         } else {
             menusSelected.map(menuSelected => {
@@ -264,6 +266,7 @@ class ProfileManage extends PureComponent {
                 } else {
                     menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
                 }
+                return menuSelected
             });
         }
 
@@ -585,7 +588,9 @@ class ProfileManage extends PureComponent {
                                 isNew: true,
                                 isUpdated: false
                             })
+                            return role;
                         })
+                        return child
                     })
                 } else {
                     menu.roles.map(role => {
@@ -602,8 +607,10 @@ class ProfileManage extends PureComponent {
                             isNew: true,
                             isUpdated: false
                         })
+                        return role
                     })
                 }
+                return menu;
             });
             currentSelectedMenus = [...currentSelectedMenusWithStatusUpdated];
         } else {
@@ -697,7 +704,7 @@ class ProfileManage extends PureComponent {
             profileDescription,
             profileName,
             status,
-            departmentListByHospital,
+           // departmentListByHospital,
             errorMessageForProfileName,
             errorMessageForProfileDescription,
             userMenus,

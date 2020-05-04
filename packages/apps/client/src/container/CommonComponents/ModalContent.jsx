@@ -1,7 +1,7 @@
 import React from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {
-    CCheckbox,
+   // CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -60,6 +60,7 @@ class ModalContent extends React.PureComponent {
                 let parent = roles.find(rol => rol.id === role.parent_role_id);
                 tabs.add(parent);
             }
+            return role;
         });
         let tabsWithRoles = Array.from(tabs).map(tab => {
             return {

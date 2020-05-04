@@ -30,12 +30,12 @@ const BrowserIconComponent = props => {
           browser.includes('internet') ||
           browser.includes('Internet') ? (
           <li>
-            <img open="internet explorer" src={require('../../../images/explorer.svg')} />
+            <img open="internet explorer" alt="explorer" src={require('../../../images/explorer.svg')} />
             <span>Internet Explorer</span>
           </li>
         ) : browser.includes('safari') || browser.includes('Safari') ? (
           <li>
-            <img src={require('../../../images/safari.svg')} />
+            <img alt="safari" src={require('../../../images/safari.svg')} />
             <span>Safari</span>
           </li>
         ) : browser.includes('Edge') || browser.includes('edge') ? (

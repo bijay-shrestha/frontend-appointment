@@ -38,7 +38,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                         appointmentStatus.value === 'F' ?
                                             <div>
                                                 <i className="fa fa-tag"/>
-                                                <a href="javascript:void(0)"
+                                                <a href="!#"
                                                    className={activeStatus === appointmentStatus.value ? "active" : ''}
                                                    onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                     Follow Up
@@ -46,7 +46,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                             </div> :
                                             <div>
                                                 <Badge variant={appointmentStatus.variant}>&nbsp;</Badge>
-                                                <a href="javascript:void(0)"
+                                                <a href="!#"
                                                    className={activeStatus === appointmentStatus.value ? "active" : ''}
                                                    onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
                                                     {appointmentStatus.label}
@@ -257,7 +257,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                         >
                                             <i className="fa fa-eye"/> &nbsp;{showAppointmentDetailModal ?
                                             <span className="saving">Viewing Details <img
-                                                src={require("../../images/three-dots.svg")}/></span> : "View Details"}
+                                                alt="three-dots" src={require("../../images/three-dots.svg")}/></span> : "View Details"}
                                         </CButton>
 
                                         {appointmentStatusDetail.patientDetails.showCheckInButton ?
@@ -274,7 +274,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                             >
                                                 <i className="fa fa-sign-in"/> &nbsp;{showCheckInModal ?
                                                 <span className="saving">Checking-In <img
-                                                    src={require("../../images/three-dots.svg")}/></span> : 'Check-In'}
+                                                alt="three-dots" src={require("../../images/three-dots.svg")}/></span> : 'Check-In'}
                                             </CButton>
                                             : ''
                                         }

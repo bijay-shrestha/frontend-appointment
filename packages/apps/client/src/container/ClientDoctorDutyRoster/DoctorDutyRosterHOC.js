@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {
     DateTimeFormatterUtils,
-    DoctorDutyRosterUtils,
+   // DoctorDutyRosterUtils,
     EnterKeyPressUtils, LocalStorageSecurity, StringUtils,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
@@ -42,7 +42,7 @@ const {
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {ACTIVE_DROPDOWN_SPECIALIZATION, SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = AdminModuleAPIConstants.specializationSetupAPIConstants;
 const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN, FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
-const {FETCH_WEEKDAYS, FETCH_WEEKDAYS_DATA} = CommonAPIConstants.WeekdaysApiConstants;
+const { FETCH_WEEKDAYS_DATA} = CommonAPIConstants.WeekdaysApiConstants;
 const {
     CREATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER,
@@ -602,6 +602,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     this.checkOverrideFormValidity();
                     break;
+                default:return '';
             }
         };
 
@@ -627,6 +628,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         deleteOverrideErrorMessage: ''
                     });
                     break;
+                default:return ''
             }
 
         };
@@ -897,7 +899,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     this.checkOverrideFormValidity()
                     break;
-            }
+                    default:return ''; 
+                }
+            
 
         };
 
@@ -1053,6 +1057,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             doctorWeekDaysDutyRosterRequestDTOS.map(weekDay => {
                 formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay;
             });
 
             this.setState({
@@ -1076,6 +1081,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
                 formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay 
             });
 
             this.setState({
@@ -1107,6 +1113,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let wholeWeekOff = true;
             doctorWeekDaysAvailability.map(day => {
                 wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y'
+                return day;
             });
             return wholeWeekOff;
         };
@@ -1473,6 +1480,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     };
                     overridesToBeReverted.push(override);
                 }
+                return originalUpdated
             });
 
             newOverrides.length && newOverrides.map(newAdded => {
@@ -1490,6 +1498,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     status: 'D'
                 };
                 overridesToBeReverted.push(override);
+                return newAdded;
             });
 
             try {

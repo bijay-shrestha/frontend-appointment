@@ -1,6 +1,5 @@
 import React, {memo} from 'react'
 import DefaultPic from './picture.png'
-import {Row, Col, Container} from 'react-bootstrap'
 const DoctorWithSpecializationAndImage = props => {
   return (
     <>
