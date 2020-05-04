@@ -7,26 +7,24 @@ import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 class DoctorDutyRosterSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
-    };
+    }
 
-    handleEnter = (event) => {
-        EnterKeyPressUtils.handleEnter(event);
-    };
+    handleEnter = event => {
+        EnterKeyPressUtils.handleEnter(event)
+    }
 
     toggleSearchForm = async () => {
-
-        const searchFilter = document.getElementById('advanced-search');
-        if (searchFilter) searchFilter.classList.toggle('collapsed');
+        const searchFilter = document.getElementById('advanced-search')
+        if (searchFilter) searchFilter.classList.toggle('collapsed')
         await this.setState({
             isSearchFormExpanded: !this.state.isSearchFormExpanded
-        });
-
-    };
+        })
+    }
 
     handleSearchButtonClick = () => {
-        this.props.onSearchClick();
-        this.toggleSearchForm();
-    };
+        this.props.onSearchClick()
+        this.toggleSearchForm()
+    }
 
     render() {
         const {
@@ -37,28 +35,28 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
             specializationDropdownError,
             doctorList,
             doctorDropdownErrorMessage
-        } = this.props;
+        } = this.props
         return (
             <>
-                {this.state.isSearchFormExpanded ?
-                    <div id="advanced-search" className='advanced-search'>
-                        <div className='search-header d-flex justify-content-between'>
+                {this.state.isSearchFormExpanded ? (
+                    <div id="advanced-search" className="advanced-search">
+                        <div className="search-header d-flex justify-content-between">
                             <h5 className="title">Search Doctor Duty Roster</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
-                                    variant='outline-secondary'
-                                    size='sm'
-                                    name=''
+                                    variant="outline-secondary"
+                                    size="sm"
+                                    name=""
                                     onClickHandler={resetSearchForm}
                                 >
                                     {' '}
-                                    <i className='fa fa-refresh'/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>
+                                    &nbsp;Reset
                                 </CButton>
                             </div>
-
                         </div>
-                        <CForm id='department-info' className='add-info mt-4'>
+                        <CForm id="department-info" className="add-info mt-4">
                             <Container-fluid>
                                 <Row>
                                     <Col sm={12} md={4} xl={4}>
@@ -75,23 +73,36 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                                 showMonthDropdown={true}
                                                 showYearDropdown={true}
                                                 dropdownMode="select"
-                                                onKeyDown={(event) => this.handleEnter(event)}
-                                                onChange={(date) => onSearchInputChange(date, "fromDate")}
-                                            />   &nbsp;&nbsp;
+                                                onKeyDown={event => this.handleEnter(event)}
+                                                onChange={date => onSearchInputChange(date, 'fromDate')}
+                                            />{' '}
+                                            &nbsp;&nbsp;
                                             <CEnglishDatePicker
                                                 id="to-date"
                                                 name="toDate"
                                                 label="To Date"
-                                                dateFormat="yyyy-MM-dd"
-                                                // minDate={0}
+                                                minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
+                                                    searchParameters.fromDate,
+                                                    new Date()
+                                                )}
                                                 showDisabledMonthNavigation={true}
-                                                selected={searchParameters.toDate}
-                                                peekNextMonth={true}
+                                                selected={
+                                                    DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
+                                                        searchParameters.fromDate,
+                                                        searchParameters.toDate
+                                                    )
+                                                        ? DateTimeFormatterUtils.addDate(
+                                                        searchParameters.toDate,
+                                                        7
+                                                        )
+                                                        : searchParameters.toDate
+                                                }
+                                                peekNextMonth={false}
                                                 showMonthDropdown={true}
                                                 showYearDropdown={true}
                                                 dropdownMode="select"
-                                                onKeyDown={(event) => this.handleEnter(event)}
-                                                onChange={(date) => onSearchInputChange(date, "toDate")}
+                                                onKeyDown={event => this.handleEnter(event)}
+                                                onChange={date => onSearchInputChange(date, 'toDate')}
                                             />
                                         </div>
                                     </Col>
@@ -140,7 +151,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                                 {value: 'N', label: 'Inactive'}
                                             ]}
                                             label="Status"
-                                            placeholder={"Select Status."}
+                                            placeholder={'Select Status.'}
                                         />
                                     </Col>
 
@@ -152,108 +163,115 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                         <div className="pull-right">
                                             <CButton
                                                 id="search-profiles"
-                                                variant='light'
-                                                size='sm'
-                                                className=' btn-action mr-2'
-                                                name='Close'
-                                                onClickHandler={this.toggleSearchForm}/>
+                                                variant="light"
+                                                size="sm"
+                                                className=" btn-action mr-2"
+                                                name="Close"
+                                                onClickHandler={this.toggleSearchForm}
+                                            />
                                             <CButton
                                                 id="search-profiles"
-                                                variant='primary'
-                                                className='btn-action'
-                                                name='Search'
-                                                onClickHandler={this.handleSearchButtonClick}/>
+                                                variant="primary"
+                                                className="btn-action"
+                                                name="Search"
+                                                onClickHandler={this.handleSearchButtonClick}
+                                            />
                                         </div>
                                     </Col>
                                 </Row>
                             </Container-fluid>
-                            <div className="search-toggle-btn">
-
-                            </div>
+                            <div className="search-toggle-btn"></div>
                         </CForm>
-                    </div> :
-                    <div className="search-filter-wrapper" onClick={this.toggleSearchForm}>
+                    </div>
+                ) : (
+                    <div
+                        className="search-filter-wrapper"
+                        onClick={this.toggleSearchForm}
+                    >
                         <ul id="" className="search-filter-item">
                             <li>
                                 <CButton id="filter" variant="primary" name="">
-                                    <><i className="fa fa-sliders"/>
+                                    <>
+                                        <i className="fa fa-sliders"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
-
                             </li>
 
-                            {searchParameters.fromDate &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>From Date</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(searchParameters.fromDate)}
-                                    </Button>
-                                </OverlayTrigger>
-                            </li>
-                            }
+                            {searchParameters.fromDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => <Tooltip {...props}>From Date</Tooltip>}
+                                    >
+                                        <Button id="button-search-filters" variant="secondary">
+                                            {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(
+                                                searchParameters.fromDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
-                            {searchParameters && searchParameters.hospital &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {searchParameters.hospital.label}
-                                    </Button>
-                                </OverlayTrigger>
+                            {searchParameters && searchParameters.hospital && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => <Tooltip {...props}>Client</Tooltip>}
+                                    >
+                                        <Button id="button-search-filters" variant="secondary">
+                                            {searchParameters.hospital.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
-                            </li>
-                            }
+                            {searchParameters.toDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => <Tooltip {...props}>To Date</Tooltip>}
+                                    >
+                                        <Button id="button-search-filters" variant="secondary">
+                                            {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(
+                                                searchParameters.toDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
-                            {searchParameters.toDate &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>To Date</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(searchParameters.toDate)}
-                                    </Button>
-                                </OverlayTrigger>
-                            </li>
-                            }
-
-                            {searchParameters && searchParameters.specialization &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Specialization</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {searchParameters.specialization.label}
-                                    </Button>
-                                </OverlayTrigger>
-
-                            </li>
-                            }
-                            {searchParameters && searchParameters.doctor &&
-                            <li>
-                                <OverlayTrigger
-                                    placement="top"
-                                    delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Doctor</Tooltip>}
-                                >
-                                    <Button id="button-search-filters" variant="secondary">
-                                        {searchParameters.doctor.label}
-                                    </Button>
-                                </OverlayTrigger>
-
-                            </li>
-                            }
+                            {searchParameters && searchParameters.specialization && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Specialization</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="button-search-filters" variant="secondary">
+                                            {searchParameters.specialization.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters && searchParameters.doctor && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => <Tooltip {...props}>Doctor</Tooltip>}
+                                    >
+                                        <Button id="button-search-filters" variant="secondary">
+                                            {searchParameters.doctor.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
                             {searchParameters.status && (
                                 <li>
@@ -275,7 +293,8 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                 </li>
                             )}
                         </ul>
-                    </div>}
+                    </div>
+                )}
             </>
         )
     }

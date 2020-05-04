@@ -60,7 +60,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={65}
+                            rowHeight={50}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -117,7 +117,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: "appointmentNumberWithFollowUpFlag"
                                 },
                                 {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: 'Doctor Details',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,

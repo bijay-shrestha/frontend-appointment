@@ -45,7 +45,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={65}
+                            rowHeight={50}
                             columnDefs={[
                                 {
                                     headerName: 'SN',

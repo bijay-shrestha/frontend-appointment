@@ -14,6 +14,7 @@ import {
     CHybridInput, CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 class AppointmentApprovalListSearchFilter extends PureComponent {
     state = {
@@ -34,7 +35,7 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
     }
 
     render() {
-        const {searchHandler} = this.props;
+        const {searchHandler} = this.props
         const {
             handleEnter,
             handleSearchFormChange,
@@ -62,14 +63,14 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>
+                                    &nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
                         <CForm id="" className=" mt-4">
                             <Container-fluid>
                                 <Row>
-
                                     <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -94,15 +95,27 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                                 id="to-date"
                                                 name="toDate"
                                                 label="To Date"
-                                                dateFormat="yyyy-MM-dd"
-                                                // maxDate={0}
+                                                minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
+                                                    searchParameters.fromDate,
+                                                    new Date()
+                                                )}
                                                 showDisabledMonthNavigation={true}
-                                                selected={searchParameters.toDate}
-                                                peekNextMonth={true}
+                                                selected={
+                                                    DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
+                                                        searchParameters.fromDate,
+                                                        searchParameters.toDate
+                                                    )
+                                                        ? DateTimeFormatterUtils.addDate(
+                                                        searchParameters.toDate,
+                                                        7
+                                                        )
+                                                        : searchParameters.toDate
+                                                }
+                                                peekNextMonth={false}
                                                 showMonthDropdown={true}
                                                 showYearDropdown={true}
                                                 dropdownMode="select"
-                                                onKeyDown={event => handleEnter(event)}
+                                                onKeyDown={event => this.handleEnter(event)}
                                                 onChange={date =>
                                                     handleSearchFormChange(date, 'toDate')
                                                 }
@@ -115,8 +128,11 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             id="specializationId"
                                             label="Specialization"
                                             name="specializationId"
-                                            placeholder={activeSpecializationList.length ? "Select specialization"
-                                                : "No specialization(s) available."}
+                                            placeholder={
+                                                activeSpecializationList.length
+                                                    ? 'Select specialization'
+                                                    : 'No specialization(s) available.'
+                                            }
                                             onKeyDown={event => handleEnter(event)}
                                             options={activeSpecializationList}
                                             value={searchParameters.specializationId}
@@ -168,7 +184,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                             onEnter={handleEnter}
                                         />
                                     </Col>
-
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect

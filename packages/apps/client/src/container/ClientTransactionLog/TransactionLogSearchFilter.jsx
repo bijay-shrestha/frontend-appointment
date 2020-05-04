@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react'
 import {
   Col,
-  Container,
   Row,
   OverlayTrigger,
   Tooltip,

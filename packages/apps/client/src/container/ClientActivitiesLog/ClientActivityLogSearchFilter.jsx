@@ -14,7 +14,7 @@ import {
   CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
-
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 class ClientActivityLogSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
@@ -64,7 +64,8 @@ class ClientActivityLogSearchFilter extends PureComponent {
                   name=""
                   onClickHandler={resetSearch}
                 >
-                   <i className="fa fa-refresh" />&nbsp;Reset
+                  <i className="fa fa-refresh" />
+                  &nbsp;Reset
                 </CButton>
               </div>
             </div>
@@ -107,20 +108,32 @@ class ClientActivityLogSearchFilter extends PureComponent {
                           handleSearchFormChange(date, 'fromDate')
                         }
                       />
-                      &nbsp;&nbsp;
+                      &nbsp;&nbsp; &nbsp;&nbsp;
                       <CEnglishDatePicker
                         id="to-date"
                         name="toDate"
                         label="To Date"
-                        dateFormat="yyyy-MM-dd"
-                        // maxDate={0}
+                        minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
+                          searchParameters.fromDate,
+                          new Date()
+                        )}
                         showDisabledMonthNavigation={true}
-                        selected={searchParameters.toDate}
-                        peekNextMonth={true}
+                        selected={
+                          DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
+                            searchParameters.fromDate,
+                            searchParameters.toDate
+                          )
+                            ? DateTimeFormatterUtils.addDate(
+                                searchParameters.toDate,
+                                7
+                              )
+                            : searchParameters.toDate
+                        }
+                        peekNextMonth={false}
                         showMonthDropdown={true}
                         showYearDropdown={true}
                         dropdownMode="select"
-                        onKeyDown={event => handleEnter(event)}
+                        onKeyDown={event => this.handleEnter(event)}
                         onChange={date =>
                           handleSearchFormChange(date, 'toDate')
                         }
@@ -218,7 +231,9 @@ class ClientActivityLogSearchFilter extends PureComponent {
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Admin Meta Info</Tooltip>}
+                    overlay={props => (
+                      <Tooltip {...props}>Admin Meta Info</Tooltip>
+                    )}
                   >
                     <Button id="light-search-filters" variant="secondary">
                       {searchParameters.adminMetaInfoId.label}
