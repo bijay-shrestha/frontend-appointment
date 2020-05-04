@@ -9,7 +9,7 @@ const BrowserIconComponent = props => {
       <ul className="browser">
         {browser.includes('chrome') || browser.includes('Chrome') ? (
           <li>
-            <img src={require('../../../images/chrome.svg')} />{' '}
+            <img alt="chrome" src={require('../../../images/chrome.svg')} />{' '}
             <span>Chrome</span>
           </li>
         ) : browser.includes('Firefox') ||
@@ -17,12 +17,12 @@ const BrowserIconComponent = props => {
           browser.includes('Mozilla') ||
           browser.includes('firefox') ? (
           <li>
-            <img src={require('../../../images/mozilla.svg')} />
+            <img alt="firefox" src={require('../../../images/mozilla.svg')} />
             <span>Mozilla</span>
           </li>
         ) : browser.includes('opera') || browser.includes('Opera') ? (
           <li>
-            <img src={require('../../../images/opera.svg')} />
+            <img alt="opera" src={require('../../../images/opera.svg')} />
             <span>Opera</span>
           </li>
         ) : browser.includes('explorer') ||
@@ -30,7 +30,7 @@ const BrowserIconComponent = props => {
           browser.includes('internet') ||
           browser.includes('Internet') ? (
           <li>
-            <img src={require('../../../images/explorer.svg')} />
+            <img open="internet explorer" src={require('../../../images/explorer.svg')} />
             <span>Internet Explorer</span>
           </li>
         ) : browser.includes('safari') || browser.includes('Safari') ? (
@@ -40,17 +40,17 @@ const BrowserIconComponent = props => {
           </li>
         ) : browser.includes('Edge') || browser.includes('edge') ? (
           <li>
-            <img src={require('../../../images/microsoft-edge.svg')} />
-            <span>Microsoft Edge</span>
+            <img alt="edge" src={require('../../../images/microsoft-edge.svg')} />
+            <span>Edge</span>
           </li>
         ) : browser.includes('Chromium') || browser.includes('chromium') ? (
           <li>
-            <img src={require('../../../images/chromium.svg')} />
+            <img alt="chromium" src={require('../../../images/chromium.svg')} />
             <span>Chromium</span>
           </li>
         ) : browser.includes('uc') || browser.includes('UC') ? (
           <li>
-            <img src={require('../../../images/uc.svg')} />
+            <img alt="uc browser" src={require('../../../images/uc.svg')} />
             <span>UC Browser</span>
           </li>
         ) : (
