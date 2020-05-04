@@ -135,7 +135,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
                                             onKeyDown={this.handleEnter}
                                             onChange={(event) => onSearchInputChange(event)}
                                             value={searchParameters.doctor}
-                                        />
+                                            />
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>

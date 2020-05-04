@@ -452,12 +452,12 @@
 .doctor-with-image{
     display: flex;
     flex-direction: row;
-    flex-align: center;
+    align-items: center;
 
     img{
         width:26px;
         height: auto;
-        margin-right:6px;
+        margin-right:10px;
         @include border-radius(50%);
     }
 
@@ -466,9 +466,10 @@
     }
 
     .anchor-icon{
-        width:32px;
-        height: 32px;
-        line-height: 32px;
+        margin-right: 10px;
+        width:28px;
+        height: 28px;
+        line-height: 23px;
         text-align: center;
         flex-shrink: 0;
         @include border-radius(50%);
