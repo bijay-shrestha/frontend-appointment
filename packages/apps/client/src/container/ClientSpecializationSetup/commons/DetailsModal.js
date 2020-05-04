@@ -6,9 +6,7 @@ const DetailsModal = ({specializationData, type}) => {
     return (
         <>
             <Container-fluid>
-                <Row className="pl-4 pr-4">
-                    <h5>Specialization Info</h5>
-                </Row>
+              
 
                 <CForm id="department-info" className="mt-2 department-info">
                     <Container-fluid>

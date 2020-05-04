@@ -172,15 +172,15 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
 
                                                 : appointmentStatusDetail.dayOffStatus === 'Y' ?
                                                     <div className="day-off"><i
-                                                        className='fa  fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
+                                                        className='fa  fa-calendar-times-o'/><span>{DAY_OFF_MESSAGE}</span></div>
                                                     : <div className="day-off"><i
-                                                        className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                                        className='fa  fa-calendar-times-o'/><span>{TIME_SLOT_EMPTY_ERROR_MESSAGE}</span>
                                                     </div>
 
                                         ) : appointmentStatusDetail.dayOffStatus === 'Y' ? <div className="day-off"><i
-                                                className='fa fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
+                                                className='fa fa-calendar-times-o'/><span>{DAY_OFF_MESSAGE}</span></div>
                                             : <div className="day-off"><i
-                                                className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                                className='fa  fa-calendar-times-o'/><span>{TIME_SLOT_EMPTY_ERROR_MESSAGE}</span>
                                             </div>
                                     }
                                 </ul>
@@ -197,7 +197,7 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                     {appointmentStatusDetail.patientDetails.isFollowUp === 'Y' ?
                                                         <>
                                                         <span className="pd-followup">
-                                                            <i className="fa fa-tag"/>
+                                                            <i className="fa fa-tag"/>&nbsp;
                                                             Follow Up
                                                             </span>
                                                         </>

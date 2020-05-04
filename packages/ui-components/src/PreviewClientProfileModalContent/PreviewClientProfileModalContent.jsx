@@ -298,6 +298,7 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                         <CScrollbar
                                             id="menus"
                                             autoHide={true}
+                                            style={{height: 313}}
 
                                         >
                                             <div className="assign-body">

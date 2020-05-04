@@ -5,6 +5,7 @@ import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
 import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointment/helpers";
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
@@ -122,12 +123,14 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
                                                             <OverlayTrigger
                                                                 placement='top'
                                                                 overlay={
-                                                                    <Tooltip id={timeSlot.status + "-" + index}>
+                                                                    <Tooltip id={timeSlot.status + "-" + index} >
+                                                                        <div style={{ "text-align" : "center"}}>
                                                                         App no: {timeSlot.appointmentNumber}<br>
                                                                     </br>
                                                                         {timeSlot.patientName} ({timeSlot.age} / {timeSlot.gender})<br>
                                                                     </br>
                                                                         Mobile No: {timeSlot.mobileNumber || 'N/A'}
+                                                                        </div>
                                                                     </Tooltip>
                                                                 }>
                                                                 <Button
@@ -169,15 +172,15 @@ const AppointmentStatusDetails = ({statusDetailsData, showAppointmentDetailModal
 
                                                 : appointmentStatusDetail.dayOffStatus === 'Y' ?
                                                     <div className="day-off"><i
-                                                        className='fa  fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
+                                                        className='fa  fa-calendar-times-o'/><span>{DAY_OFF_MESSAGE}</span></div>
                                                     : <div className="day-off"><i
-                                                        className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                                        className='fa  fa-calendar-times-o'/><span>{TIME_SLOT_EMPTY_ERROR_MESSAGE}</span>
                                                     </div>
 
                                         ) : appointmentStatusDetail.dayOffStatus === 'Y' ? <div className="day-off"><i
-                                                className='fa fa-calendar-times-o'/>{DAY_OFF_MESSAGE}</div>
+                                                className='fa fa-calendar-times-o'/><span>{DAY_OFF_MESSAGE}</span></div>
                                             : <div className="day-off"><i
-                                                className='fa  fa-calendar-times-o'/>{TIME_SLOT_EMPTY_ERROR_MESSAGE}
+                                                className='fa  fa-calendar-times-o'/><span>{TIME_SLOT_EMPTY_ERROR_MESSAGE}</span>
                                             </div>
                                     }
                                 </ul>
