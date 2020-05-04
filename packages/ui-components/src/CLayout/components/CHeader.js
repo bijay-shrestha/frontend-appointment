@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Button, Dropdown, Image, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {Button, Dropdown, Image,Tooltip,OverlayTrigger} from 'react-bootstrap'
 import {Axios} from '@frontend-appointment/core'
 import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'

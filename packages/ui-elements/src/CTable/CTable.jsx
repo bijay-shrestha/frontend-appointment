@@ -17,6 +17,7 @@ class CTable extends PureComponent {
 
     refs = this.props.columnDefinition.map(column => {
         this[`component${column.field}`] = React.createRef()
+        return column;
     })
 
     prepareData = () => {
@@ -33,6 +34,7 @@ class CTable extends PureComponent {
                     ? currentElement.state.value
                     : currentElement.state.checked
             }
+            return column
         })
         return dataToSave
     }
@@ -133,12 +135,12 @@ class CTable extends PureComponent {
     }
 
     handleUpdateRowData = async (e, data) => {
-        const {isEditing, rowNumber} = this.state
-        let isEditingRow = isEditing,
-            rowNumberSaved = rowNumber
+//const {isEditing, rowNumber} = this.state
+        // let isEditingRow = isEditing,
+        //     rowNumberSaved = rowNumber
         let editData = this.prepareData()
 
-        const isUpdated = await this.props.onUpdate({
+        await this.props.onUpdate({
             data: editData,
             rowIndex: data.rowIndex
         })
@@ -238,6 +240,7 @@ class CTable extends PureComponent {
                     areObjectsEqual = false
                 }
             }
+            return object1Prop;
         })
 
         return areObjectsEqual
@@ -251,6 +254,7 @@ class CTable extends PureComponent {
         } else {
             array1.map((array1Obj, index) => {
                 isEqual = this.checkObjectEquality(array1Obj, array2[index])
+                return array1Obj
             })
             return isEqual
         }
@@ -310,16 +314,12 @@ class CTable extends PureComponent {
             striped,
             variant,
             bsPrefix,
-            headerClassName,
-            bodyClassName,
             footerClassName,
             rowValid,
             onSave,
             isLoading,
-            errorMessage,
             onPreview
         } = this.props
-        console.log("===========",this.props)
         const {tableData, isEditing, rowNumber, noDataErrorMessage} = this.state;
         return (
             <>

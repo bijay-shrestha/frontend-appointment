@@ -364,7 +364,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData,
+
                 alertMessageInfo,
                 showAlert,
                 rejectModalShow,
@@ -398,7 +398,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 patientDropdownErrorMessage
             } = this.props.PatientDropdownListReducer;
 
-            const {refundDetail, isRefundDetailFetchLoading} = this.props.AppointmentRefundDetailReducer;
+            const {refundDetail} = this.props.AppointmentRefundDetailReducer;
 
             return (
                 <>

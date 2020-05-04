@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {Accordion, Nav, Dropdown} from 'react-bootstrap'
+import {Accordion, Nav} from 'react-bootstrap'
 import {faCaretDown, faCaretUp} from '@fortawesome/free-solid-svg-icons'
 // import NavLink from 'react-bootstrap/NavLink'
 import classNames from 'classnames'

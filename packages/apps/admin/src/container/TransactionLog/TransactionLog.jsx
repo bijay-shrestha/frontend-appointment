@@ -2,7 +2,7 @@ import React from 'react'
 import TransactionLogSearchFilter from './TransactionLogSearchFilter'
 import TransactionLogDataTable from './TransactionLogDataTable'
 import TransactionLogHoc from './TransactionLogHoc'
-import {Col, Container} from 'react-bootstrap';
+//import {Col, Container} from 'react-bootstrap';
 import {RevenueDetailsTotalBlock} from "@frontend-appointment/ui-components";
 
 const TransactionLog = props => {

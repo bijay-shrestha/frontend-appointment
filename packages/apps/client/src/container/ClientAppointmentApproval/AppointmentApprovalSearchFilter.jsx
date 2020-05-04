@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react'
 import {
-    Col,
-    Container,
-    Row,
-    OverlayTrigger,
-    Tooltip,
-    Button
+  Col,
+ // Container,
+  Row,
+  OverlayTrigger,
+  Tooltip,
+  Button
 } from 'react-bootstrap'
 import {
     CButton,
@@ -34,20 +34,20 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         this.toggleSearchForm()
     }
 
-    render() {
-        const {searchHandler} = this.props
-        const {
-            handleEnter,
-            handleSearchFormChange,
-            resetSearch,
-            doctorsDropdown,
-            doctorDropdownErrorMessage,
-            activeSpecializationList,
-            specializationDropdownErrorMessage,
-            searchParameters,
-            patientListDropdown,
-            patientDropdownErrorMessage
-        } = searchHandler
+  render () {
+    const {searchHandler} = this.props
+    const {
+      handleEnter,
+      handleSearchFormChange,
+      resetSearch,
+      doctorsDropdown,
+      //doctorDropdownErrorMessage,
+      activeSpecializationList,
+      //specializationDropdownErrorMessage,
+      searchParameters,
+      patientListDropdown,
+      //patientDropdownErrorMessage
+    } = searchHandler
 
         return (
             <>

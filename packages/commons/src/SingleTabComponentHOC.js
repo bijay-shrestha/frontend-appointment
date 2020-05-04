@@ -21,6 +21,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
                     name: roleObj.name,
                     parent: roleObj.parent_role_id
                 })
+                return assignedRole;
             });
             return filteredAction;
         };
@@ -42,7 +43,9 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
                     } else {
                         if (pathWithoutBase.includes(userMenu.path)) currentMenu.add(userMenu);
                     }
+                    return userMenu;
                 }
+
             );
 
             let menusMatchingPath = Array.from(currentMenu);

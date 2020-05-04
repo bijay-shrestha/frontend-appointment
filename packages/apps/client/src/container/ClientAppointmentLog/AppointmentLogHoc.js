@@ -218,7 +218,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     label = event.target.label;
                     fileUri = event.target.fileUri;
                 }
-                let searchParams = {...this.state.searchParameters};
+               
 
                 let newSearchParams = {...this.state.searchParameters};
 

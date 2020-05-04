@@ -30,8 +30,7 @@ class SpecializationSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             resetSearchForm,
-            handleEnter,
-            hospitalList
+            handleEnter
         } = this.props;
         return (
             <>

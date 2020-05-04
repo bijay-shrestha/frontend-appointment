@@ -34,7 +34,6 @@ class AdminSetupSearchFilter extends PureComponent {
             onInputChange,
             searchParameters,
             resetSearchForm,
-            hospitalList,
             departmentList,
             profileList,
             adminMetaInfos

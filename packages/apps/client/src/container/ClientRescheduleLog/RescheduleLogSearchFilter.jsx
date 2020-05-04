@@ -32,7 +32,6 @@ class RescheduleLogSearchFilter extends PureComponent {
       handleEnter,
       handleSearchFormChange,
       resetSearch,
-      hospitalList,
       doctorList,
       doctorDropdownErrorMessage,
       specializationList,

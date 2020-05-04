@@ -5,7 +5,7 @@ import {
     CPagination
 } from '@frontend-appointment/ui-elements'
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
-import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
+//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
 import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
@@ -30,7 +30,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         approveHandler,
         approveHandleApi,
         rejectError,
-        isAppointmentRejectLoading,
+        //isAppointmentRejectLoading,
         approveConfirmationModal,
         rejectModalShow,
         remarks,

@@ -1,6 +1,4 @@
 import React, {memo} from 'react'
-import {Badge} from "react-bootstrap";
-
 const AppointmentNumberWithFollowUpFlag = props => {
     return (
         <>

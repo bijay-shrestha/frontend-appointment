@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
+import { CDataTable} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
 import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";

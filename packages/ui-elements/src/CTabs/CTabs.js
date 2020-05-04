@@ -43,7 +43,7 @@ class CTabs extends PureComponent {
     }
 
     getTabElements = (tab) => {
-        const { tabpanelClass } = this.props;
+     //   const { tabpanelClass } = this.props;
         let title = <> <i className={tab.icon} aria-hidden="true"></i> {tab.name}</>;
 
         return (<Tab

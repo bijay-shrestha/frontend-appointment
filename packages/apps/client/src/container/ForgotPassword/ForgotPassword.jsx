@@ -77,7 +77,7 @@ class ForgotPassword extends PureComponent {
             isValid,
             alertMessageInfo,
             showAlert,
-            hospitalCode
+          //  hospitalCode
         } = this.state
         const {status} = this.props.ForgotPasswordReducer
         return (

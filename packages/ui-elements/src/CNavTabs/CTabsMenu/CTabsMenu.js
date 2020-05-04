@@ -1,8 +1,8 @@
 import React,{memo} from 'react'
-import classnames from 'classnames'
-import { Nav, NavLink, NavItem } from 'reactstrap'
+//import classnames from 'classnames'
+import {NavLink, NavItem } from 'reactstrap'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 
 const CTabsMenu = props => {
   const { currentTab, tabs, toggle } = props

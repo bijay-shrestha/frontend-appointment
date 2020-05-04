@@ -1,6 +1,6 @@
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {EnterKeyPressUtils, FileExportUtils} from '@frontend-appointment/helpers'
-import {HospitalSetupMiddleware, SpecializationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {SpecializationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import React from 'react'
 import './specialization.scss'
@@ -16,7 +16,7 @@ const {
 } = SpecializationSetupMiddleware;
 
 const SpecializationHOC = (ComposedComponent, props, type) => {
-    const {specializationSetupAPIConstants, hospitalSetupApiConstants} = AdminModuleAPIConstants;
+    const {specializationSetupAPIConstants} = AdminModuleAPIConstants;
 
     class SpecializationSetup extends React.PureComponent {
         state = {
@@ -210,8 +210,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                 const {
                     name,
                     code,
-                    status,
-                    hospitalName
+                    status
                 } = this.props.SpecializationPreviewReducer.specializationPreviewData;
                 // let formValid = this.state.formValid;
                 // if (remarks)

@@ -15,7 +15,7 @@ import {
     DashboardDetailsMiddleware,
     DepartmentSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
-    HospitalSetupMiddleware,
+    //HospitalSetupMiddleware,
     previewProfile
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
@@ -26,7 +26,7 @@ import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
 import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
+// const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDepartmentsForDropdown} = DepartmentSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
 
@@ -238,6 +238,7 @@ class AdminAdd extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break
+                default:return ''    
             }
             this.checkFormValidity()
         }
@@ -479,7 +480,7 @@ class AdminAdd extends PureComponent {
             status,
             hasMacBinding,
             macIdList,
-            departmentList,
+            // departmentList,
             profileList,
             adminAvatar,
             adminAvatarUrl,

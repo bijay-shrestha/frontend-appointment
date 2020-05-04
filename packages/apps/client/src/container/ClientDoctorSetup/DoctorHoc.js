@@ -33,7 +33,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         doctorSetupApiConstants,
         qualificationSetupApiConstants,
         specializationSetupAPIConstants,
-        hospitalSetupApiConstants
     } = AdminModuleAPIConstants;
 
     class DoctorSetup extends React.PureComponent {
@@ -182,7 +181,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 consultantData,
                 nameValid,
                 contactValid,
-                emailValid,
                 appointmentChargeValid
             } = this.state;
             let formValidity =
@@ -531,8 +529,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newEditData.map(newEditDatum => {
                     if (newEditDatum[key].toString() === old[key].toString())
                         flag = true
+                    return newEditDatum;
                 });
                 !flag && mixedEditData.push({[key]: old[key], [lower + 'Id']: dataId, status: 'N'})
+                return old;
             });
             return mixedEditData
         };
@@ -545,6 +545,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 let newDatum = {...newDat};
                 newDatum = {[doctorKey]: newDatum[doctorKey] || '', [lowerCaseKey + 'Id']: newDatum.value, status: 'Y'};
                 newEditData.push(newDatum);
+               return newDat;
             });
             const mixedData = this.findAndMixDatas(doctorKey, newEditData, oldData, lowerCaseKey);
             // console.log(mixedData);

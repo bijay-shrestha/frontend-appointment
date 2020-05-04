@@ -132,7 +132,7 @@ class DepartmentAdd extends PureComponent {
 
     render() {
         const {
-            name, code, status, hospital, errorMessageForDepartmentName,
+            name, code, status,errorMessageForDepartmentName,
             errorMessageForDepartmentCode, alertMessageInfo, showAlert, formValid, showConfirmModal
         } = this.state;
 

@@ -398,7 +398,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             if (timeSlot.appointmentId) {
                 try {
-                    const response = await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
+                    await this.getPatientDataByAppointmentId(timeSlot.appointmentId);
 
                     let patientDetail = this.setPatientDataProps(appointmentDate, timeSlot);
                     statusDetails[rowIndex].patientDetails = {...patientDetail};
@@ -539,7 +539,6 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
             const {
                 statusErrorMessage,
-                statusList,
                 isStatusListLoading
             } = this.props.AppointmentStatusListReducer;
 

@@ -56,7 +56,7 @@ const CButton = props => {
                 bsPrefix={bsPrefix}
             >
                 {isLoading ? <span className="saving">{checkAndRenameNameForLoading()} <img
-                    src={require("./three-dots.svg")}/></span> : name}
+                  alt="three-dots"  src={require("./three-dots.svg")}/></span> : name}
                 {children}
             </Button>
         </>

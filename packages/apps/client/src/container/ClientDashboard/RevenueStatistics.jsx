@@ -1,7 +1,7 @@
 import React, {memo} from 'react'
 import {CLoading} from '@frontend-appointment/ui-elements'
 import {checkPositveAndNegativeIcons} from '@frontend-appointment/commons'
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
+//import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const RevenueStatistics = props => {
     const {

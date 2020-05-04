@@ -9,6 +9,7 @@ import TableRefundStatus from '../CommonComponents/table-components/TableRefundS
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {

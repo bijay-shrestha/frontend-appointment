@@ -62,11 +62,13 @@ class ProfileUpdateMenuAssignment extends PureComponent {
         let tabs = new Set();
 
         allRolesFromJson.map(role => {
-            if (childMenu.roles.includes(role.id)) {
+            const flag=childMenu.roles.includes(role.id);
+            if (flag) {
                 rolesForSelectedMenu.push(role);
                 let parent = allRolesFromJson.find(rol => rol.id === role.parent_role_id);
                 tabs.add(parent);
             }
+            return role;
         });
 
         let {tabsData, rolesForTabs, allTabsChecked} = this.checkIfUserMenusHaveBeenSelected(Array.from(tabs), rolesForSelectedMenu, childMenu);
@@ -338,7 +340,7 @@ class ProfileUpdateMenuAssignment extends PureComponent {
     render() {
         const {userMenus, profileData, defaultSelectedMenu} = this.props;
         const {
-            adminInfo,
+          //  adminInfo,
             checkedAllUserMenus,
             checkedAllRolesAndTabs,
             currentSelectedChildMenu,

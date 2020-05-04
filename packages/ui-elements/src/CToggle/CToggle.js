@@ -16,7 +16,7 @@ const CToggle = props => {
         id, onLabel, offLabel,
         size, onStyle, offStyle,
         width, height, name,
-        onChangeHandler, classes, required,
+        classes, required,
         checked, style, reference, defaultChecked, disabled
     } = props;
     return (

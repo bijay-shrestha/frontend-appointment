@@ -27,20 +27,20 @@ class AppointmentLogListSearchFilter extends PureComponent {
         this.toggleSearchForm()
     }
 
-    render() {
-        const {searchHandler} = this.props
-        const {
-            handleEnter,
-            handleSearchFormChange,
-            resetSearch,
-            doctorsDropdown,
-            doctorDropdownErrorMessage,
-            activeSpecializationList,
-            specializationDropdownErrorMessage,
-            searchParameters,
-            patientListDropdown,
-            patientDropdownErrorMessage
-        } = searchHandler
+  render () {
+    const {searchHandler} = this.props
+    const {
+      handleEnter,
+      handleSearchFormChange,
+      resetSearch,
+      doctorsDropdown,
+      //doctorDropdownErrorMessage,
+      activeSpecializationList,
+      //specializationDropdownErrorMessage,
+      searchParameters,
+      patientListDropdown,
+      //patientDropdownErrorMessage
+    } = searchHandler
 
         return (
             <>

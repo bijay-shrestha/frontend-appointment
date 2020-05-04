@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {Dropdown} from 'react-bootstrap';
-
 class CFooter extends Component {
     render() {
 

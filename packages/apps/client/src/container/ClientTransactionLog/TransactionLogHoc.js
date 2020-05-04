@@ -3,7 +3,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
-    HospitalSetupMiddleware,
+  //  HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
@@ -215,7 +215,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     value = event.target.value
                     label = event.target.label
                 }
-                let searchParams = {...this.state.searchParameters}
+                //let searchParams = {...this.state.searchParameters}
 
                 let newSearchParams = {...this.state.searchParameters}
 

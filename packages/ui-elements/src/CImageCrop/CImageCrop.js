@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import ReactCrop from "react-image-crop";
 import PropTypes from 'prop-types';
 import 'react-image-crop/lib/ReactCrop.scss';

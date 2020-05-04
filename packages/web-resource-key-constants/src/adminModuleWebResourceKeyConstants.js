@@ -6,7 +6,7 @@ const QF_BASE = '/qualification'
 const PROFILE_BASE = '/profile'
 const QFA_BASE = '/qualificationAlias'
 const CNTRY_BASE = '/country'
-const UN_BASE = '/university'
+//const UN_BASE = '/university'
 const PATIENT_BASE = '/patient'
 const APPOINTMENT_BASE = '/appointment'
 const DASHBOARD_BASE = '/dashboard'
@@ -226,7 +226,7 @@ export const companyAdminSetupApiConstants = {
     VERIFY_COMPANY_ADMIN_EMAIL: BASE.concat(COMPANY_ADMIN_BASE + '/verify/email')
 };
 
-const LOG_BASE = '/logging';
+//const LOG_BASE = '/logging';
 
 export const adminLoggingConstant = {
     FETCH_ADMIN_LOG: (BASE.concat(ADMIN_LOGGING + '/search')),

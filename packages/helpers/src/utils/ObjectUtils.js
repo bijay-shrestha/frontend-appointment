@@ -31,6 +31,7 @@ export const areArrayOfObjectsEqual = (array1, array2) => {
     } else {
         array1.map((array1Obj, index) => {
             isEqual = checkObjectEquality(array1Obj, array2[index])
+            return array1Obj
         });
         return isEqual;
     }

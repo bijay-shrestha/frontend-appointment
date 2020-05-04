@@ -6,7 +6,7 @@ import {
     CHybridInput,
     CModal,
     CRadioButton,
-    CHybridTextArea, CHybridSelect
+    CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 

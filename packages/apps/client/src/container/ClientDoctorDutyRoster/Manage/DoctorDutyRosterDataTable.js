@@ -4,7 +4,7 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers';
 import TableAction from "../../CommonComponents/table-components/TableAction";
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import {DoctorWithImage} from "@frontend-appointment/ui-components";
-import PreviewHandlerHoc from "../../CommonComponents/hoc/PreviewHandlerHoc";
+import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 

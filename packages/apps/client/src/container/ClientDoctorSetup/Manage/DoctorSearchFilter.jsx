@@ -27,7 +27,6 @@ class DoctorSetupSearchFilter extends PureComponent {
             resetSearchForm,
             handleEnter,
             doctorsForDropdown,
-            hospitalsForDropdown,
             activeSpecializationList
         } = this.props
         return (

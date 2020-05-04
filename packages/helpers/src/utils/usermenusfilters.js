@@ -28,28 +28,32 @@ const usermenufilter = userMenus => {
     const deptUserMenus = moduleCode === 'ADMIN' ? adminMenus[moduleCode] : clientMenus[moduleCode];
     let filteredMenus = [];
     assignedRolesResponseDTOS &&
-    assignedRolesResponseDTOS.map((assignedRoles, index) => {
+    assignedRolesResponseDTOS.map((assignedRoles) => {
         const {parentId, childMenus} = assignedRoles;
-        deptUserMenus.map((depts, ind) => {
+        deptUserMenus.map((depts) => {
             if (Number(depts.id) === Number(parentId)) {
                 let hasChild = checkIfChildExist(depts.childMenus);
                 if (hasChild) {
                     let childMens = [];
-                    childMenus.map((assignedChild, indx) => {
+                    childMenus.map((assignedChild) => {
                         const {userMenuId, roleId} = assignedChild;
-                        depts.childMenus.map((dept, iddx) => {
+                        depts.childMenus.map((dept) => {
                             if (Number(dept.id) === Number(userMenuId)) {
                                 let child = getChildMenuFirst(dept, roleId, [])
                                 childMens.push(child)
                             }
+                            return dept;
                         })
+                        return assignedChild;
                     });
                     filteredMenus.push(getChildMenuFirst(depts, [], childMens))
                 } else {
                     filteredMenus.push(getChildMenuFirst(depts, childMenus[0].roleId, []))
                 }
             }
+            return depts;
         })
+        return assignedRoles
     })
     let alphabeticallySortedMenus = sortUserMenuJson([...filteredMenus]);
     localStorageSecurity.localStorageEncoder("userMenus", alphabeticallySortedMenus)

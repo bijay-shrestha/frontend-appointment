@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React from 'react'
 import * as Material from 'react-icons/md'
 import DoctorForm from './DoctorForm'
 import DoctorConfirmationModal from '././DoctorConfirmationModal';
@@ -82,7 +82,7 @@ function DoctorAdd(props) {
                                 className="float-right btn-action"
                                 disabled={!formValid || showConfirmModal}
                                 name={showConfirmModal ? <span className="saving">Saving <img
-                                    src={require("../../../images/three-dots.svg")}/></span> : "Save"}
+                                   alt="three-dots" src={require("../../../images/three-dots.svg")}/></span> : "Save"}
                                 onClickHandler={setShowConfirmModal}
                             />
                             <DoctorConfirmationModal

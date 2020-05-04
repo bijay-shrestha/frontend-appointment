@@ -33,8 +33,7 @@ class DoctorDutyRosterSearchFilter extends PureComponent {
             resetSearchForm,
             specializationList,
             specializationDropdownError,
-            doctorList,
-            doctorDropdownErrorMessage
+            doctorList
         } = this.props
         return (
             <>

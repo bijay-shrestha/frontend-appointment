@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import {CFLabel, CForm, CHybridInput, CHybridSelect, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CFLabel, CForm, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
 
 const DepartmentInfoForm = ({
                                 departmentInfoObj,

@@ -142,6 +142,7 @@ export const countTotalNoOfMenusAndRoles = userMenus => {
             });
         else
             countOfMenus += menu.enabled === 'Y' ? menu.roles.length : 0;
+        return menu;  
     });
 
     return countOfMenus;
@@ -160,7 +161,9 @@ export const prepareUserMenusAndRolesCombinationList = userMenus => {
                         roleId: role,
                         status: 'Y'
                     })
+                    return role
                 })
+                return child;
             });
         } else {
             menu.roles.map(role => {
@@ -170,8 +173,10 @@ export const prepareUserMenusAndRolesCombinationList = userMenus => {
                     roleId: role,
                     status: 'Y'
                 })
+                return role;
             })
         }
+        return menu;
     });
     return userMenuWithRoleList;
 };

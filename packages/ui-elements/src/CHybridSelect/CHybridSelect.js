@@ -6,20 +6,20 @@ import './hybrid-select.scss';
 import ReactDOM from 'react-dom';
 
 class CHybridSelect extends PureComponent {
-    handleOnBlur = event => {
+    handleOnBlur = () => {
         ReactDOM.findDOMNode(
             this.refs['select-label'.concat(this.props.id)]
         ).classList.remove('active');
     };
 
-    handleOnFocus = event => {
+    handleOnFocus = () => {
         ReactDOM.findDOMNode(
             this.refs['select-label'.concat(this.props.id)]
         ).classList.add('active');
     };
 
     handleMultiOrSingleSelectedValue = event => {
-        const {isMulti, name} = this.props;
+        const {isMulti} = this.props;
         return isMulti ? {values: [...event]} : {value: event.value, label: event.label};
     };
     handleOnChange = event => {
@@ -71,7 +71,7 @@ class CHybridSelect extends PureComponent {
             minMenuHeight,
             name,
             noOptionsMessage,
-            onChange,
+           // onChange,
             onInputChange,
             onKeyDown,
             onMenuClose,

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {
+   // CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -9,9 +10,8 @@ import {
     CRadioButton,
     CScrollbar
 } from "@frontend-appointment/ui-elements";
-import {AuditableEntityHoc} from '@frontend-appointment/commons'
-
-class CompanyProfileModalContent extends React.PureComponent {
+import {AuditableEntityHoc} from '@frontend-appointment/commons';
+class ModalContent extends React.PureComponent {
 
     state = {
         childMenusOfSelectedParent: [],
@@ -89,7 +89,7 @@ class CompanyProfileModalContent extends React.PureComponent {
         return <>
             {/* <Col sm={12} md={12} > */}
             <Container-fluid>
-                {/*<Row className="pl-4 pr-4"><h5>Company Profile Info</h5></Row>*/}
+                {/*<Row className="pl-4 pr-4"><h5>Profile Info</h5></Row>*/}
 
                 <CForm
                     id="profile-info"
@@ -97,22 +97,22 @@ class CompanyProfileModalContent extends React.PureComponent {
                     <Container-fluid>
                         <Row>
                             <Col sm={4} md={4} lg={4}>
+                                <CHybridSelect
+                                    id="department"
+                                    label="Department"
+                                    name="selectedDepartment"
+                                    // options={departmentList}
+                                    value={profileData.departmentValue}
+                                    isDisabled={true}
+                                />
+                            </Col>
+                            <Col sm={4} md={4} lg={4}>
                                 <CHybridInput
                                     id="profile-name"
                                     name="profileName"
                                     placeholder="Profile Name"
                                     value={profileData.profileName}
                                     disabled={true}
-                                />
-                            </Col>
-                            <Col sm={4} md={4} lg={4}>
-                                <CHybridSelect
-                                    id="company"
-                                    label="Company"
-                                    name="company"
-                                    // options={departmentList}
-                                    value={profileData.company}
-                                    isDisabled={true}
                                 />
                             </Col>
                             <Col sm={4} md={4} lg={4}>
@@ -145,19 +145,6 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     type="radio"
                                 />
                             </Col>
-                            {
-                                profileData.remarks ?
-                                    <Col sm={4} md={4} lg={4}>
-                                        <CHybridTextArea
-                                            id="remarks"
-                                            name="remarks"
-                                            placeholder="Remarks"
-                                            disabled={true}
-                                            value={profileData.remarks}
-                                        />
-                                    </Col>
-                                    : ''
-                            }
                         </Row>
                     </Container-fluid>
                 </CForm>
@@ -243,7 +230,7 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     <CScrollbar
                                         id="menus"
                                         autoHide={true}
-                                        style={{height: 313, width: 300}}>
+                                      >
                                         <div className="assign-body">
                                             {this.state.tabsWithRolesForSelectedMenu.map(tabWithRoles =>
                                                 <div
@@ -293,4 +280,4 @@ class CompanyProfileModalContent extends React.PureComponent {
     }
 }
 
-export default CompanyProfileModalContent;
+export default ModalContent;

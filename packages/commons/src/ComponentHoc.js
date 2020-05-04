@@ -43,7 +43,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
 
         getUniquesElement = data => {
             let result = []
-            let flag = false
+            //let flag = false
             if(data){
             if (data.length === 1) result.push(data[0])
             else {
@@ -89,7 +89,9 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
                             url: this.removeDuplicatePathInUrl(`${newBase}${role.path}`),
                             name: role.name
                         })
+                        return actions;
                 })
+                return role;
             })
             let newSet = this.getUniquesElement(filteredTabs)
             return newSet
@@ -110,11 +112,12 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
             newUserMenus.map(userMenu => {
                 const {childMenus} = userMenu
                 if (userMenu.childMenus.length) {
-                    childMenus.map((child, idx) => {
+                    childMenus.map((child) => {
                         filteredAction = [
                             ...filteredAction,
                             ...this.getAction(child, newPath)
                         ]
+                        return child
                     })
                 } else {
                     filteredAction = [
@@ -122,6 +125,7 @@ const ComponentHoc = (ComposedComponent, userMenus, path, props) => {
                         ...this.getAction(userMenu, newPath)
                     ]
                 }
+                return userMenu
             })
             filteredRolesTab = [...this.getFilterTabs(filteredAction, newPath)]
             this.setState({

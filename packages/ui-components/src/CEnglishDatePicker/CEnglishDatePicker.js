@@ -38,7 +38,7 @@ class CEnglishDatePicker extends Component {
       children,
       className,
       clearButtonTitle, // GIVES TITLE PROPERTY FOR CLEAR BUTTON WHEN USED
-      customInput, //CUSTOMIZING INPUT FIELD EXAMPLE AVAILABLE
+      //customInput, //CUSTOMIZING INPUT FIELD EXAMPLE AVAILABLE
       customInputRef,
       formatDate,
       dateFormatCalendar,

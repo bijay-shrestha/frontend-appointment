@@ -68,6 +68,7 @@ class ProfileMenuAssignment extends PureComponent {
                 let parent = allRolesFromJson.find(rol => rol.id === role.parent_role_id);
                 tabs.add(parent);
             }
+            return role;
         });
 
         let {tabsData, rolesForTabs, allTabsChecked} = this.checkIfUserMenusHaveBeenSelected(Array.from(tabs), rolesForSelectedMenu, childMenu);
