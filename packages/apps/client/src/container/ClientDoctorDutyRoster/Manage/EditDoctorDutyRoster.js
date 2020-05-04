@@ -2,7 +2,14 @@ import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import "./../doctor-duty-roster.scss";
 
-import {CFLabel, CHybridInput, CHybridSelect, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CFLabel,
+    CHybridInput,
+    CHybridSelect,
+    CHybridSelectWithImage,
+    CHybridTextArea,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
 import DoctorAvailabilityForm from "../common/DoctorAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DoctorAvailabiltyOverrides";
@@ -87,20 +94,20 @@ const EditDoctorDutyRoster = ({
                                 name="specialization"
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
                                 options={specializationList}
-                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First" : "Select specialization."}
+                                placeholder={!specializationList.length ? "Select Specialization." : "No Specialization(s) available."}
                                 noOptionsMessage={() => specializationDropdownError}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
                                 value={updateDoctorDutyRosterData.specialization}
                             />
-                            <CHybridSelect
+                            <CHybridSelectWithImage
                                 id="doctor"
                                 label="Doctor"
                                 name="doctor"
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.specialization}
-                                placeholder={!updateDoctorDutyRosterData.specialization ? "Select Specialization first" : "Select doctor."}
+                                placeholder={!updateDoctorDutyRosterData.specialization ? "Select Specialization first." : "Select Doctor."}
                                 options={doctorList}
-                                // noOptionsMessage={() => doctorDropdownErrorMessage}
+                                noOptionsMessage={() => "No Doctor(s) found."}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
                                 value={updateDoctorDutyRosterData.doctor}
@@ -145,7 +152,7 @@ const EditDoctorDutyRoster = ({
                                 updateDoctorDutyRosterData.isCloneAndAdd ?
                                     '' :
                                     <CHybridTextArea
-                                    className="mt-3"
+                                        className="mt-3"
                                         onChange={onInputChange}
                                         id="remarks"
                                         name="remarks"

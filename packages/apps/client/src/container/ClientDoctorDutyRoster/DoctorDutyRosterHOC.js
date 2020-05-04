@@ -661,7 +661,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let key = fieldName ? fieldName : event.target.name;
             let value = fieldName ? event : event.target.value;
             let label = fieldName ? '' : event.target.label;
-            let fileUri = fieldName ? event : event.target.fileUri;
+            let fileUri = fieldName ? '' : event.target.fileUri;
 
             await this.setState({
                 searchParameters: {
@@ -800,20 +800,26 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             EnterKeyPressUtils.handleEnter(event)
         };
 
-        setStateValues = (key, value, label, fieldValid) => {
+        setStateValues = (key, value, label, fileUri, fieldValid) => {
             if (type === 'ADD') {
-                label ? value ?
+                label ? value ? fileUri ? this.setState({[key]: {value, label, fileUri}}) :
                     this.setState({[key]: {value, label}})
                     : this.setState({[key]: null})
                     : this.setState({[key]: value, [key + "Valid"]: fieldValid})
             } else if (type === 'MANAGE') {
                 label ? value ?
-                    this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            [key]: {value, label}
-                        }
-                    })
+                    fileUri ? this.setState({
+                            updateDoctorDutyRosterData: {
+                                ...this.state.updateDoctorDutyRosterData,
+                                [key]: {value, label, fileUri}
+                            }
+                        }) :
+                        this.setState({
+                            updateDoctorDutyRosterData: {
+                                ...this.state.updateDoctorDutyRosterData,
+                                [key]: {value, label}
+                            }
+                        })
                     : this.setState({
                         updateDoctorDutyRosterData: {
                             ...this.state.updateDoctorDutyRosterData,
@@ -940,8 +946,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let key = fieldName ? fieldName : event.target.name;
             let value = fieldName ? event : event.target.value;
             let label = fieldName ? '' : event.target.label;
+            let fileUri = fieldName ? '' : event.target.fileUri;
 
-            await this.setStateValues(key, value, label, fieldValid);
+            await this.setStateValues(key, value, label, fileUri, fieldValid);
 
             if (key === 'specialization') {
                 if (value) {
