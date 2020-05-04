@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
-import {Col, Container, Row, OverlayTrigger, Tooltip, Button} from 'react-bootstrap'
-import {CButton, CHybridSelect, CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
+import {CButton, CForm, CHybridInput, CHybridSelect, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
 class TransactionLogSearchFilter extends PureComponent {
@@ -128,7 +128,7 @@ class TransactionLogSearchFilter extends PureComponent {
 
 
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
+                                        <CHybridSelectWithImage
                                             id="doctorId"
                                             label="Doctor"
                                             name="doctorId"
@@ -140,6 +140,7 @@ class TransactionLogSearchFilter extends PureComponent {
                                             onEnter={handleEnter}
                                             placeholder={searchParameters.hospitalId ? (doctorsDropdown.length ? "Select doctor."
                                                 : "No doctor(s) available.") : "Select client first."}
+                                            noOptionsMessage={() => "No Doctor(s) found."}
                                         />
                                     </Col>
 

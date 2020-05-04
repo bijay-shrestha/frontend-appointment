@@ -3,7 +3,6 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
     DoctorMiddleware,
-  //  HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
@@ -206,27 +205,28 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label
+                let fieldName, value, label, fileUri;
                 if (field) {
-                    fieldName = field
+                    fieldName = field;
                     value = event
                 } else {
-                    fieldName = event.target.name
-                    value = event.target.value
-                    label = event.target.label
+                    fieldName = event.target.name;
+                    value = event.target.value;
+                    label = event.target.label;
+                    fileUri = event.target.fileUri
                 }
                 //let searchParams = {...this.state.searchParameters}
 
-                let newSearchParams = {...this.state.searchParameters}
+                let newSearchParams = {...this.state.searchParameters};
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri} : {value, label}
                         : ''
-                    : value
+                    : value;
                 await this.setStateValuesForSearch(newSearchParams)
             }
-        }
+        };
 
         setShowModal = () => {
             this.setState(prevState => ({
@@ -256,12 +256,12 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             } = this.props.TransactionLogReducer
 
             const {
-                activeDoctorsByHospitalForDropdown,
+                activeDoctorsForDropdown,
                 doctorDropdownErrorMessage
             } = this.props.DoctorDropdownReducer
 
             const {
-                activeSpecializationListByHospital,
+                allActiveSpecializationList,
                 dropdownErrorMessage
             } = this.props.SpecializationDropdownReducer
 
@@ -279,9 +279,9 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                             handleSearchFormChange: this.handleSearchFormChange,
                             resetSearch: this.handleSearchFormReset,
                             searchAppointment: this.searchAppointment,
-                            doctorsDropdown: activeDoctorsByHospitalForDropdown,
+                            doctorsDropdown: activeDoctorsForDropdown,
                             doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                            activeSpecializationList: activeSpecializationListByHospital,
+                            activeSpecializationList: allActiveSpecializationList,
                             specializationDropdownErrorMessage: dropdownErrorMessage,
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,

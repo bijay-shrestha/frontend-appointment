@@ -227,27 +227,29 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label
+                let fieldName, value, label, fileUri;
                 if (field) {
-                    fieldName = field
+                    fieldName = field;
                     value = event
                 } else {
-                    fieldName = event.target.name
-                    value = event.target.value
-                    label = event.target.label
+                    fieldName = event.target.name;
+                    value = event.target.value;
+                    label = event.target.label;
+                    fileUri = event.target.fileUri;
                     if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
                 }
-                let searchParams = {...this.state.searchParameters}
+                let searchParams = {...this.state.searchParameters};
                 if (fieldName === 'hospitalId')
-                    await this.handleHospitalChangeReset(searchParams)
+                    await this.handleHospitalChangeReset(searchParams);
 
-                let newSearchParams = {...this.state.searchParameters}
+                let newSearchParams = {...this.state.searchParameters};
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri} : {value, label}
                         : ''
-                    : value
+                    :
+                    value;
                 await this.setStateValuesForSearch(newSearchParams)
             }
         }

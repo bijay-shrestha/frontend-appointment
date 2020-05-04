@@ -118,7 +118,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label, fileUri;
                 if (field) {
                     fieldName = field;
                     value = event;
@@ -126,9 +126,13 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name;
                     value = event.target.value;
                     label = event.target.label;
+                    fileUri = event.target.fileUri;
                 }
                 let searchParams = {...this.state.searchParameters};
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                searchParams[fieldName] = label ? (value ? fileUri ? {value, label, fileUri} : {
+                    value,
+                    label
+                } : '') : value;
                 await this.setStateValuesForSearch(searchParams);
 
                 if (fieldName === 'hospitalId') {
