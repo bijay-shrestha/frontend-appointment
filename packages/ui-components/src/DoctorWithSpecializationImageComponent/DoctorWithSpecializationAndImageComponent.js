@@ -2,8 +2,6 @@ import React, {memo} from 'react'
 import DefaultPic from './picture.png'
 const DoctorWithSpecializationAndImage = props => {
   return (
-    <>
-   
         <div className="di-column">
             {props.node.data.doctorAvatar ||props.node.data.fileUri ? (
               <div className="data-image">
@@ -22,9 +20,7 @@ const DoctorWithSpecializationAndImage = props => {
             </ul>
 
           </div>
-         
-   
-    </>
+     
   )
 }
 

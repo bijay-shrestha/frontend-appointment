@@ -3,8 +3,8 @@ import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
-import PreviewRoles from '../../CommonComponents/PreviewRoles';
 import {menuRoles, ProfileSetupUtils, TryCatchHandler} from '@frontend-appointment/helpers';
+import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 class ProfileMenuAssignment extends PureComponent {
     state = {
@@ -450,7 +450,7 @@ class ProfileMenuAssignment extends PureComponent {
                                     </CButton>
                                 </div>
                                 <h5 className="title">&nbsp;</h5>
-                                <PreviewRoles
+                                <PreviewClientProfileRoles
                                     showModal={this.state.showModal}
                                     setShowModal={this.setShowModal}
                                     profileData={this.props.profileData}

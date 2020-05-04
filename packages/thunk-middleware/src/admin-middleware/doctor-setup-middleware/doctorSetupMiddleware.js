@@ -1,5 +1,6 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
+import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
     path,
@@ -98,7 +99,7 @@ export const fetchActiveDoctorsForDropdown = path => async dispatch => {
                 e.errorMessage ? e.errorMessage : 'Error fetching doctors.'
             )
         );
-       
+
     }
 };
 

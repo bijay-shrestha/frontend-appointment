@@ -725,7 +725,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         };
 
         handleSearchFormChange = async event => {
-            const {name, value, label} = event.target;
+            const {name, value, label, fileUri} = event.target;
             let searchParams = await this.searchDoctorForDropDown(name, value);
             if (name) {
                 let fieldName = name;
@@ -733,7 +733,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 let lbl = label;
                 searchParams[fieldName] = label
                     ? value
-                        ? {value: val, label: lbl}
+                        ? fileUri ? {value: val, label: lbl, fileUri} : {value: val, label: lbl}
                         : ''
                     : value
                 await this.setStateValuesForSearch(searchParams)

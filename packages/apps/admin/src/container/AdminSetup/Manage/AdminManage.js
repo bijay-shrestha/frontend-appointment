@@ -3,6 +3,7 @@ import AdminSetupSearchFilter from './AdminSetupSearchFilter'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
+    DashboardDetailsMiddleware,
     deleteAdmin,
     DepartmentSetupMiddleware,
     editAdmin,
@@ -15,27 +16,24 @@ import {
     previewAdmin,
     previewProfile,
     resetPassword,
-    DashboardDetailsMiddleware,
     savePinOrUnpinUserMenu
 } from '@frontend-appointment/thunk-middleware'
-import {
-    AdminModuleAPIConstants,
-    CommonAPIConstants
-} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import AdminDetailsDataTable from './AdminDetailsDataTable'
-import {CAlert, CLoading} from '@frontend-appointment/ui-elements'
+import {CAlert} from '@frontend-appointment/ui-elements'
 import AdminEditModal from './AdminEditModal'
 import {
     AdminSetupUtils,
     EnterKeyPressUtils,
+    EnvironmentVariableGetter,
+    LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils,
-    TryCatchHandler,
-    LocalStorageSecurity, EnvironmentVariableGetter
+    TryCatchHandler
 } from '@frontend-appointment/helpers'
 import PasswordResetModal from './PasswordResetModal'
 import './../admin-setup.scss'
-import PreviewRoles from '../../CommonComponents/PreviewRoles'
+import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 const {
     SEARCH_ADMIN,
@@ -315,10 +313,10 @@ class AdminManage extends PureComponent {
                     value && value.length
                         ? [...value.map(val => ({...val, status: 'Y'}))]
                         : [],
-                createdBy:createdBy,
-                createdDate:createdDate,
-                lastModifiedBy:lastModifiedBy,
-                lastModifiedDate:lastModifiedDate        
+                createdBy: createdBy,
+                createdDate: createdDate,
+                lastModifiedBy: lastModifiedBy,
+                lastModifiedDate: lastModifiedDate
             }
         })
     }
@@ -610,7 +608,8 @@ class AdminManage extends PureComponent {
 
             let profileData =
                 profilePreviewData &&
-                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,'CLIENT'))
+                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                    profilePreviewData.profileMenuResponseDTOS, 'CLIENT'));
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -1035,10 +1034,10 @@ class AdminManage extends PureComponent {
                 adminAvatarUrlNew: '',
                 adminDashboardRequestDTOS: this.state.adminUpdateData
                     .adminDashboardRequestDTOS,
-                createdBy:createdBy,
-                createdDate:createdDate,
-                lastModifiedBy:lastModifiedBy,
-                lastModifiedDate:lastModifiedDate    
+                createdBy: createdBy,
+                createdDate: createdDate,
+                lastModifiedBy: lastModifiedBy,
+                lastModifiedDate: lastModifiedDate
             }
         }
     }
@@ -1176,8 +1175,8 @@ class AdminManage extends PureComponent {
         this.fetchActiveProfileLists()
         this.fetchHospitals()
         this.fetchDepartments()
-        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
-          this.fetchDashBoardFeatures()
+        if (LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+            this.fetchDashBoardFeatures()
         this.searchAdmins()
     }
 
@@ -1312,7 +1311,7 @@ class AdminManage extends PureComponent {
                     />
                 )}
                 {showProfileDetailModal && (
-                    <PreviewRoles
+                    <PreviewClientProfileRoles
                         showModal={showProfileDetailModal}
                         setShowModal={this.closeProfileDetailsViewModal}
                         profileData={profileData}

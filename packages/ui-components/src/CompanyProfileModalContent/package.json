@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-preview-admin-profile-modal-content",
+  "version": "1.0.0",
+  "main": "CompanyProfileModalContent.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

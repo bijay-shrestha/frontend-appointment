@@ -1,11 +1,9 @@
 import React, {memo} from 'react'
-import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import {ActionFilterUtils, menuRoles as rolesFromJson} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
 import TableAction from '../../CommonComponents/table-components/TableAction'
-import CompanyProfilePreviewRoles from "../../CommonComponents/CompanyProfilePreviewRoles";
-import {menuRoles as rolesFromJson} from "@frontend-appointment/helpers";
-import {ConfirmDelete} from "@frontend-appointment/ui-components";
+import {CompanyProfilePreviewRoles, ConfirmDelete} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -33,7 +31,7 @@ const CompanyProfileSetupDatTable = ({tableData}) => {
         onSubmitDelete,
         deleteErrorMsg
     } = tableData;
-    console.log("roles",filteredActions);
+    console.log("roles", filteredActions);
     return (
         <div className="manage-details">
             <h5 className="title">Company Profile Details</h5>

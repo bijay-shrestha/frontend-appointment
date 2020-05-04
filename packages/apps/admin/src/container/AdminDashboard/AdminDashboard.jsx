@@ -10,7 +10,7 @@ import AppointmentQueue from './AppointmentQueue'
 import DoctorRevenueList from './DoctorRevenueList'
 import {checkDashboardRole} from '@frontend-appointment/helpers'
 import CheckDashboardRole from '../CommonComponents/CheckDashBoardRoleComponent'
-//import {CHybridSelect} from '@frontend-appointment/ui-elements'
+//import {CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 const AdminDashboard = props => {
     const AdminDash = AdminDashboardHoc(
         ({

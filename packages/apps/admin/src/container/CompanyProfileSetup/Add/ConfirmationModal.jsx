@@ -1,5 +1,5 @@
 import React from 'react';
-import CompanyProfileModalContent from "../../CommonComponents/CompanyProfileModalContent";
+import {CompanyProfileModalContent} from "@frontend-appointment/ui-components";
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 const ConfirmationModal = props => {

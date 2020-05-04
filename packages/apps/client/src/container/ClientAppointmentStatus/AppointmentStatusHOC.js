@@ -132,13 +132,17 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label, fileUri;
                 fieldName = field ? field : event.target.name;
                 value = field ? event : event.target.value;
                 label = field ? '' : event.target.label;
+                fileUri = field ? '' : event.target.fileUri;
 
                 let searchParams = {...this.state.searchParameters};
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value;
+                searchParams[fieldName] = label ? (value ? fileUri ? {value, label, fileUri} : {
+                    value,
+                    label
+                } : '') : value;
                 await this.setStateValuesForSearch(searchParams);
 
                 let errorMsg = '';

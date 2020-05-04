@@ -1,14 +1,27 @@
 import React, {Component} from 'react'
+<<<<<<< HEAD
 import {Button, Dropdown, Image,Tooltip,OverlayTrigger} from 'react-bootstrap'
+=======
+import {Button, Dropdown, Image, OverlayTrigger, Tooltip} from 'react-bootstrap'
+>>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 import {Axios} from '@frontend-appointment/core'
 import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
-import {EnvironmentVariableGetter, LocalStorageSecurity} from '@frontend-appointment/helpers';
+import {
+    EnvironmentVariableGetter,
+    LocalStorageSecurity,
+    menuRoles,
+    ProfileSetupUtils
+} from '@frontend-appointment/helpers';
 import * as Material from 'react-icons/md';
+import CompanyProfilePreviewRoles from "../../CompanyProfilePreviewRoles";
+import PreviewClientProfileRoles from "../../PreviewClientProfileRoles";
 
 const {CHANGE_COMPANY_ADMIN_PASSWORD} = AdminModuleAPIConstants.companyAdminSetupApiConstants;
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
+const {FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants;
+const {PREVIEW_COMPANY_PROFILE} = AdminModuleAPIConstants.companyProfileSetupApiConstants;
 const {ADMIN_FEATURE} = CommonAPIConstants
 
 class CHeader extends Component {
@@ -25,8 +38,10 @@ class CHeader extends Component {
         oldPassword: '',
         errorOldPassword: '',
         keyPressCount: 0,
-        isPasswordChangePending: false
-    }
+        isPasswordChangePending: false,
+        profileData: {},
+        showProfileDetailModal: false
+    };
 
     closeAlert = () => {
         this.setState({
@@ -57,16 +72,16 @@ class CHeader extends Component {
         }
     }
 
-  logoutUser = async () => {
-  await this.savePinOrUnpinUserMenu(
-      ADMIN_FEATURE,
-      Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
-    )
-    localStorage.clear()
-    sessionStorage.clear()
+    logoutUser = async () => {
+        await this.savePinOrUnpinUserMenu(
+            ADMIN_FEATURE,
+            Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
+        )
+        localStorage.clear()
+        sessionStorage.clear()
 
-    this.props.history.push('/')
-  }
+        this.props.history.push('/')
+    }
 
     setLoggedInUserInfo = async () => {
         let absoluteUrl = window.location.href
@@ -143,17 +158,54 @@ class CHeader extends Component {
         });
     };
 
+    handleViewProfileDetails = async () => {
+        try {
+            let API_PATH = Object.is(EnvironmentVariableGetter.REACT_APP_MODULE_CODE,
+                EnvironmentVariableGetter.ADMIN_MODULE_CODE) ? PREVIEW_COMPANY_PROFILE :
+                FETCH_PROFILE_DETAILS;
+            let response = await Axios.getWithPathVariables(API_PATH, this.state.userInfo.profileId);
+
+            const profilePreviewData = response.data;
+            let profileData;
+
+            if (API_PATH === PREVIEW_COMPANY_PROFILE) {
+                profileData =
+                    profilePreviewData &&
+                    (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.companyProfileInfo,
+                        profilePreviewData.companyProfileMenuInfo,
+                       "COMPANY"));
+            } else {
+                profileData =
+                    profilePreviewData &&
+                    (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                        profilePreviewData.profileMenuResponseDTOS,
+                       "CLIENT"));
+            }
+
+            this.setState({
+                profileData,
+                showProfileDetailModal: true
+            })
+        } catch (e) {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'danger',
+                    message: e.errorMessage ? e.errorMessage : "Sorry, Internal Server Problem occurred."
+                }
+            })
+        }
+    };
+
+    closeProfileDetailsViewModal = () => {
+        this.setState({
+            showProfileDetailModal: false
+        })
+    };
+
     componentDidMount() {
         this.setLoggedInUserInfo()
-        // document.addEventListener('keydown', this.handleKeyPress);
-        // document.addEventListener("click", this.blurSearchOnMouseClick);
     }
-
-    // componentWillUnmount() {
-    //     document.removeEventListener("keydown", this.handleKeyPress);
-    //     document.removeEventListener('click', this.blurSearchOnMouseClick);
-    //     clearTimeout(this.clearKeyPressCount, this.clearStateOnTimeout);
-    // }
 
     render() {
         return (
@@ -200,15 +252,16 @@ class CHeader extends Component {
                                     </div>
                                     {/* <div
                                         className="user-name"> {this.state.userInfo && this.state.userInfo.hospitalName}</div> */}
-                                    <OverlayTrigger  placement="left" overlay={<Tooltip id="tooltip-disabled">Profile</Tooltip>}>
+                                    <OverlayTrigger placement="left"
+                                                    overlay={<Tooltip id="tooltip-disabled">Profile</Tooltip>}>
                                         <span className="d-inline-block">
-                                            <div className="profile-name">
+                                            <div className="profile-name" onClick={this.handleViewProfileDetails}>
                                                 <i className="fa fa-id-badge"></i> {this.state.userInfo && this.state.userInfo.profileName}
                                             </div>
                                             {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
                                         </span>
                                     </OverlayTrigger>
-                                   
+
                                     {/*{this.state.userInfo.isCompany === 'Y' ? (*/}
                                     {/*    <div>*/}
                                     {/*        <Badge variant="primary">Cogent Admin</Badge>*/}
@@ -256,6 +309,20 @@ class CHeader extends Component {
                         {/* end user profile */}
                     </div>
                 </header>
+                {this.state.showProfileDetailModal ? (
+                    EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                        <CompanyProfilePreviewRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}/> :
+                        <PreviewClientProfileRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}
+                        />) : ''
+                }
                 <CAlert
                     id="profile-manage"
                     variant={this.state.alertMessageInfo.variant}
@@ -271,4 +338,4 @@ class CHeader extends Component {
     }
 }
 
-export default CHeader
+export default CHeader;

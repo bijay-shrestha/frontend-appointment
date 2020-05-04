@@ -78,6 +78,30 @@
         }
     }
 
+    .di-column{
+        display: flex;
+        flex-direction: row;
+        // display: none;
+        .data-image{
+           width:42px;
+           height: 42px;
+           margin-right:10px;
+           flex-shrink: 0;
+
+           img{
+               width: 42px;
+               height: 42px;
+           }
+        }
+
+       .di-details{
+           margin:0;
+                li{
+                   line-height: 22px; 
+                }
+       }
+    }
+
    .doctor-column{
         margin-top:0.1rem;
         margin-bottom:0.3rem;
@@ -91,18 +115,16 @@
             &:nth-child(2){
                 font-size: 0.7rem;
                 font-weight: 500;
-                // padding:0 3px;
                 font-weight: $gray-300;
                 color:$gray-600;
                 span{
-                    // border:1px solid $gray-400;
-                    // background-color:$gray-100;
+              
                     font-size: 0.7rem;
                     font-weight: 500;
-                    // padding:0 3px;
+                
                     font-weight: $gray-300;
                     color:$gray-600;
-                    // @include border-radius(4px);
+                
                 }
 
               

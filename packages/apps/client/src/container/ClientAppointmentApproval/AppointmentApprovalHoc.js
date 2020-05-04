@@ -232,7 +232,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label, fileUri;
                 if (field) {
                     fieldName = field;
                     value = event
@@ -240,13 +240,15 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name;
                     value = event.target.value;
                     label = event.target.label;
+                    fileUri = event.target.fileUri
                 }
 
                 let newSearchParams = {...this.state.searchParameters};
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri}
+                            : {value, label}
                         : ''
                     : value;
                 await this.setStateValuesForSearch(newSearchParams)

@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-preview-admin-profile-roles",
+  "version": "1.0.0",
+  "main": "CompanyProfilePreviewRoles.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

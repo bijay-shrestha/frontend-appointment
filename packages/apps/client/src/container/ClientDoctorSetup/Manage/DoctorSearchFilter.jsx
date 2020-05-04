@@ -1,10 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-    CButton,
-    CForm,
-    CHybridInput,
-    CHybridSelect
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridInput, CHybridSelect, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
 class DoctorSetupSearchFilter extends PureComponent {
@@ -43,13 +38,13 @@ class DoctorSetupSearchFilter extends PureComponent {
                             <h5 className="title">Search Doctor</h5>
                             <div>
                                 <CButton
-                                id="reset-form"
+                                    id="reset-form"
                                     variant="outline-secondary"
                                     size="sm"
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                     <i className="fa fa-refresh"/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -70,7 +65,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
+                                        <CHybridSelectWithImage
                                             id="name"
                                             name="name"
                                             onKeyDown={event => handleEnter(event)}
@@ -80,6 +75,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             isDisabled={!doctorsForDropdown.length}
                                             label="Doctor"
                                             placeholder={activeSpecializationList.length ? "Select Doctor." : "No Doctor(s)."}
+                                            noOptionsMessage={()=>"No Doctor(s) found."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>

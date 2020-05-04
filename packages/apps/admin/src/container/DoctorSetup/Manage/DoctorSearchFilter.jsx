@@ -1,10 +1,5 @@
 import React, {PureComponent} from 'react'
-import {
-    CButton,
-    CForm,
-    CHybridInput,
-    CHybridSelect
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridInput, CHybridSelect, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
 class DoctorSetupSearchFilter extends PureComponent {
@@ -50,7 +45,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                     <i className="fa fa-refresh"/>&nbsp;Reset
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
@@ -70,7 +65,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
+                                        <CHybridSelectWithImage
                                             id="name"
                                             name="name"
                                             onKeyDown={event => handleEnter(event)}
@@ -81,6 +76,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             label="Doctor"
                                             placeholder={searchParameters.hospitalId ? doctorsForDropdown.length ?
                                                 "Select Doctor." : "No Doctor(s) available." : "Select Client first."}
+                                            noOptionsMessage={() => "No Doctor(s) found."}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>

@@ -29,5 +29,5 @@ export {
     DateTimeFormatterUtils,
     CommonUtils,
     RolesUtils,
-    ObjectUtils
+    ObjectUtils,
 }

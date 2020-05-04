@@ -1,7 +1,12 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import AppointmentLogAction from '../CommonComponents/table-components/AppointmentLogStatus';
-import {AppointmentNumberWithFollowUpFlag, PatientNameWithAgeGenderPhone,DoctorWithSpecImage} from "@frontend-appointment/ui-components";
+import {
+    AppointmentNumberWithFollowUpFlag,
+    PatientNameWithAgeGenderPhone,
+    RescheduleLogDateWithTimeForTable,
+    DoctorWithSpecImage
+} from "@frontend-appointment/ui-components";
 import AppointmentDateWithTime
     from "../CommonComponents/table-components/AppointmentDateWithTime";
 
@@ -27,7 +32,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight="65"
+                            rowHeight="50"
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -61,7 +66,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-
+                                    cellRenderer: 'rescheduleDateAndTime'
                                 },
                                 // {
                                 //     headerName: 'Appointment Time',
@@ -99,7 +104,8 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     field: 'esewaId',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: "120",
                                 },
 
                                 {
@@ -108,7 +114,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorWithSpecializationRenderer',
-                                    width: "260",
+                                    width: "300",
                                 },
                                 // {
                                 //     headerName: 'Transaction Number',
@@ -137,6 +143,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 statusRenderer: AppointmentLogAction,
                                 patientRenderer: PatientNameWithAgeGenderPhone,
                                 appointmentDateAndTime: AppointmentDateWithTime,
+                                rescheduleDateAndTime: RescheduleLogDateWithTimeForTable,
                                 appNoWithFollowUp: AppointmentNumberWithFollowUpFlag
                             }}
                             defaultColDef={{resizable: true}}

@@ -24,7 +24,7 @@ import {CAlert, CButton} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
 import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
-import PreviewRoles from '../../CommonComponents/PreviewRoles'
+import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDepartmentsForDropdown} = DepartmentSetupMiddleware
@@ -365,7 +365,8 @@ class AdminAdd extends PureComponent {
 
             let profileData =
                 profilePreviewData &&
-                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData,'CLIENT'))
+                (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
+                    profilePreviewData.profileMenuResponseDTOS,'CLIENT'))
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -601,7 +602,7 @@ class AdminAdd extends PureComponent {
                         </>
 
                         {showProfileDetailModal && (
-                            <PreviewRoles
+                            <PreviewClientProfileRoles
                                 showModal={showProfileDetailModal}
                                 setShowModal={this.closeProfileDetailsViewModal}
                                 profileData={profileData}

@@ -1,6 +1,6 @@
 import React from 'react';
-import ModalContent from "../../CommonComponents/ModalContent";
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
+import {PreviewClientProfileModalContent} from "@frontend-appointment/ui-components";
 
 const ConfirmationModal = props => {
     const {showConfirmModal, setShowConfirmModal, onConfirmClick, profileData, rolesJson,isAddLoading} = props;
@@ -9,7 +9,7 @@ const ConfirmationModal = props => {
                 modalHeading="Client Profile Details"
                 size="lg"
                 bodyChildren={
-                    <ModalContent
+                    <PreviewClientProfileModalContent
                         profileData={profileData}
                         rolesJson={rolesJson}/>}
                 footerChildren={<CButton

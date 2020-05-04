@@ -1,6 +1,13 @@
 import React from 'react';
 import {Col, Form} from "react-bootstrap";
-import {CButton, CFLabel, CHybridInput, CHybridSelect, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CButton,
+    CFLabel,
+    CHybridInput,
+    CHybridSelect,
+    CHybridSelectWithImage,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddDoctorInfoForm = ({
@@ -72,14 +79,14 @@ const AddDoctorInfoForm = ({
                         onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.specialization}
                     />
-                    <CHybridSelect
+                    <CHybridSelectWithImage
                         id="doctor"
                         label="Doctor"
                         name="doctor"
                         isDisabled={!doctorInfoData.specialization}
-                        placeholder={!doctorInfoData.specialization ? "Select Specialization first" : "Select doctor."}
+                        placeholder={!doctorInfoData.specialization ? "Select Specialization first." : "Select Doctor."}
                         options={doctorList}
-                        noOptionsMessage={() => doctorDropdownErrorMessage}
+                        noOptionsMessage={() => doctorDropdownErrorMessage? doctorDropdownErrorMessage:"No Doctor(s) found."}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
                         value={doctorInfoData.doctor}

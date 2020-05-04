@@ -88,7 +88,7 @@ class CompanyProfileModalContent extends React.PureComponent {
         return <>
             {/* <Col sm={12} md={12} > */}
             <Container-fluid>
-                <Row className="pl-4 pr-4"><h5>Company Profile Info</h5></Row>
+                {/*<Row className="pl-4 pr-4"><h5>Company Profile Info</h5></Row>*/}
 
                 <CForm
                     id="profile-info"
@@ -144,6 +144,19 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     type="radio"
                                 />
                             </Col>
+                            {
+                                profileData.remarks ?
+                                    <Col sm={4} md={4} lg={4}>
+                                        <CHybridTextArea
+                                            id="remarks"
+                                            name="remarks"
+                                            placeholder="Remarks"
+                                            disabled={true}
+                                            value={profileData.remarks}
+                                        />
+                                    </Col>
+                                    : ''
+                            }
                         </Row>
                     </Container-fluid>
                 </CForm>

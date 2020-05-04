@@ -263,10 +263,10 @@
 
             #expandible-search input[type=search] {
                 border: none;
-                
-              
-                
-                
+
+
+
+
             }
 
         }
@@ -348,7 +348,7 @@
         height:422px;
     }
 
-   
+
 }
 
 
@@ -368,24 +368,24 @@
             background-position: center;
             position           : relative;
             padding       : 25px;
-            padding-bottom:0;
+            padding-bottom:0px;
             // margin-bottom      : 20px;
             text-align         : center;
             color              : $gray-800;
             border             : none;
             opacity            : 0.9;
-            
+
             .close{
                 color:$gray-800;
                 font-size: 1.6rem;
 
                 &:hover{
                     color:$gray-900;
-                   
+
                 }
             }
 
-            
+
 
             .modal-title{
                 // text-decoration: underline;
@@ -428,24 +428,15 @@
 
     .assign-item{
         .assign-header{
-            margin-bottom:10px;
             i{
                 font-weight: 700;
                 color:$gray-700;
-                margin-right:8px;
             }
         }
-
-        .assign-children{
-            margin-bottom:4px;
-            display:inline-block;
-        }
-
         i{
             font-weight: 400;
             color:$gray-600;
             font-size: 12px;
-            margin-right:8px;
         }
     }
 }
@@ -456,6 +447,36 @@
         margin-bottom:6px;
         text-transform: capitalize;
     }
+}
+
+.doctor-with-image{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    img{
+        width:26px;
+        height: auto;
+        margin-right:10px;
+        @include border-radius(50%);
+    }
+
+    .doctor-name{
+
+    }
+
+    .anchor-icon{
+        margin-right: 10px;
+        width:28px;
+        height: 28px;
+        line-height: 23px;
+        text-align: center;
+        flex-shrink: 0;
+        @include border-radius(50%);
+        border:1px solid $gray-100;
+        background-color:$gray-200;
+    }
+
 }
 
 

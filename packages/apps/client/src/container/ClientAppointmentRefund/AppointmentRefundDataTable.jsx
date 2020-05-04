@@ -1,11 +1,18 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CConfirmationModal, PatientNameWithAgeGenderPhone,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {
+    CConfirmationModal,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
+} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
+<<<<<<< HEAD
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization';
+=======
+>>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {

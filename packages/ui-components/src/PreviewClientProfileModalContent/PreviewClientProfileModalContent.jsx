@@ -1,7 +1,6 @@
 import React from 'react'
 import {Accordion, Card, Col, Row} from 'react-bootstrap'
 import {
-    CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -11,8 +10,9 @@ import {
     CScrollbar
 } from '@frontend-appointment/ui-elements'
 import {AuditableEntityHoc} from '@frontend-appointment/commons';
+import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
-class ModalContent extends React.PureComponent {
+class PreviewClientProfileModalContent extends React.PureComponent {
     state = {
         childMenusOfSelectedParent: [],
         activeKey: '',
@@ -111,20 +111,24 @@ class ModalContent extends React.PureComponent {
                     <CForm id="profile-info" className="mt-2 add-info">
                         <Container-fluid>
                             <Row>
-                                <Col sm={4} md={4} lg={4}>
-                                    <CHybridSelect
-                                        id="hospital"
-                                        isDisabled={true}
-                                        label="Client"
-                                        name="selectedHospital"
-                                        // options={subDepartmentList}
-                                        value={
-                                            profileData.hospitalValue
-                                                ? profileData.hospitalValue
-                                                : profileData.company
-                                        }
-                                    />
-                                </Col>
+                                {
+                                    EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                                        <Col sm={4} md={4} lg={4}>
+                                            <CHybridSelect
+                                                id="hospital"
+                                                isDisabled={true}
+                                                label="Client"
+                                                name="selectedHospital"
+                                                // options={subDepartmentList}
+                                                value={
+                                                    profileData.hospitalValue
+                                                        ? profileData.hospitalValue
+                                                        : profileData.company
+                                                }
+                                            />
+                                        </Col> : ''
+                                }
+
                                 {profileData.departmentValue ? (
                                     <Col sm={4} md={4} lg={4}>
                                         <CHybridSelect
@@ -136,13 +140,16 @@ class ModalContent extends React.PureComponent {
                                             isDisabled={true}
                                         />
                                     </Col>
-                                ) : null}
+                                ) : ''}
                                 <Col sm={4} md={4} lg={4}>
                                     <CHybridInput
                                         id="profile-name"
                                         name="profileName"
                                         placeholder="Profile Name"
-                                        value={profileData.hospitalAlias + "-" + profileData.profileName}
+                                        value={
+                                            EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                                                (profileData.hospitalAlias + "-" + profileData.profileName)
+                                                : profileData.profileName}
                                         disabled={true}
                                     />
                                 </Col>
@@ -155,7 +162,7 @@ class ModalContent extends React.PureComponent {
                                         disabled={true}
                                     />
                                 </Col>
-                                {AuditableEntityHoc(profileData,false,4)}
+                                {AuditableEntityHoc(profileData, false, 4)}
                                 <Col sm={4} md={4} lg={4}>
                                     <CFLabel labelName="Status" id="status"></CFLabel>
                                     <CRadioButton
@@ -176,6 +183,21 @@ class ModalContent extends React.PureComponent {
                                         type="radio"
                                     />
                                 </Col>
+
+                                {
+                                    profileData.remarks ?
+                                        <Col sm={4} md={4} lg={4}>
+                                            <CHybridTextArea
+                                                id="remarks"
+                                                name="remarks"
+                                                placeholder="Remarks"
+                                                disabled={true}
+                                                value={profileData.remarks}
+                                            />
+                                        </Col>
+                                        : ''
+                                }
+
                             </Row>
                         </Container-fluid>
                     </CForm>
@@ -269,14 +291,14 @@ class ModalContent extends React.PureComponent {
                                 <Col sm={12} md={12} lg={6} className="menu-list-wrapper">
                                     <div className="assign-previledge">
                                         <div className="am-header">
-                      <span className="am-title">
-                        Assigned Roles : {this.state.selectedChildMenu.name}
-                      </span>
+                                              <span className="am-title">
+                                                Assigned Roles : {this.state.selectedChildMenu.name}
+                                              </span>
                                         </div>
                                         <CScrollbar
                                             id="menus"
                                             autoHide={true}
-                                          
+
                                         >
                                             <div className="assign-body">
                                                 {this.state.tabsWithRolesForSelectedMenu.map(
@@ -288,7 +310,7 @@ class ModalContent extends React.PureComponent {
                                                             >
                                                                  <span>
                                                                 <i className=" fa fa-check"> </i>{' '}
-                                                                {tabWithRoles.name ? tabWithRoles.name : this.state.selectedChildMenu.name}
+                                                                     {tabWithRoles.name ? tabWithRoles.name : this.state.selectedChildMenu.name}
                                                                 </span>
                                                             </div>
                                                             {/*Roles of child menus*/}
@@ -297,7 +319,7 @@ class ModalContent extends React.PureComponent {
                                                                     <Col key={role.id} sm={6}>
                                                                         <span className="assign-children">
                                                                         <i className=" fa fa-check"> </i>{' '}
-                                                                        {role.name}</span>
+                                                                            {role.name}</span>
                                                                     </Col>
                                                                 ))}
                                                             </Row>
@@ -328,4 +350,4 @@ class ModalContent extends React.PureComponent {
     }
 }
 
-export default ModalContent
+export default PreviewClientProfileModalContent

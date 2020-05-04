@@ -82,10 +82,17 @@
     .di-column{
         display: flex;
         flex-direction: row;
+        // display: none;
         .data-image{
-           width:40px;
-           height: 40px;
-           margin-right:8px;
+           width:42px;
+           height: 42px;
+           margin-right:10px;
+           flex-shrink: 0;
+
+           img{
+               width: 42px;
+               height: 42px;
+           }
         }
 
        .di-details{

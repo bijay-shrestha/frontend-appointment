@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-preview-client-profile-modal-content",
+  "version": "1.0.0",
+  "main": "PreviewClientProfileModalContent.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

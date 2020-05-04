@@ -663,11 +663,12 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let key = fieldName ? fieldName : event.target.name;
             let value = fieldName ? event : event.target.value;
             let label = fieldName ? '' : event.target.label;
+            let fileUri = fieldName ? '' : event.target.fileUri;
 
             await this.setState({
                 searchParameters: {
                     ...this.state.searchParameters,
-                    [key]: label ? {label, value} : value
+                    [key]: label ? fileUri ? {label, value, fileUri} : {label, value} : value
                 }
             });
 
@@ -708,10 +709,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 const {
                     hospital, specialization, doctor, rosterGapDuration,
                     fromDate, toDate, hasOverrideDutyRoster, doctorWeekDaysDutyRosterRequestDTOS,
-                    createdBy,createdDate,lastModifiedBy,lastModifiedDate,
+                    createdBy, createdDate, lastModifiedBy, lastModifiedDate,
                     doctorDutyRosterOverrideRequestDTOS
                 } = doctorDutyRosterInfo;
-                console.log("doctorDutyRosterInfo ====",doctorDutyRosterInfo)
+                console.log("doctorDutyRosterInfo ====", doctorDutyRosterInfo)
                 await this.setState({
                     hospital: hospital,
                     showConfirmModal: true,
@@ -801,20 +802,26 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             EnterKeyPressUtils.handleEnter(event)
         };
 
-        setStateValues = (key, value, label, fieldValid) => {
+        setStateValues = (key, value, label, fileUri, fieldValid) => {
             if (type === 'ADD') {
-                label ? value ?
+                label ? value ? fileUri ? this.setState({[key]: {value, label, fileUri}}) :
                     this.setState({[key]: {value, label}})
                     : this.setState({[key]: null})
                     : this.setState({[key]: value, [key + "Valid"]: fieldValid})
             } else if (type === 'MANAGE') {
                 label ? value ?
-                    this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            [key]: {value, label}
-                        }
-                    })
+                    fileUri ? this.setState({
+                            updateDoctorDutyRosterData: {
+                                ...this.state.updateDoctorDutyRosterData,
+                                [key]: {value, label, fileUri}
+                            }
+                        }) :
+                        this.setState({
+                            updateDoctorDutyRosterData: {
+                                ...this.state.updateDoctorDutyRosterData,
+                                [key]: {value, label}
+                            }
+                        })
                     : this.setState({
                         updateDoctorDutyRosterData: {
                             ...this.state.updateDoctorDutyRosterData,
@@ -943,8 +950,9 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let key = fieldName ? fieldName : event.target.name;
             let value = fieldName ? event : event.target.value;
             let label = fieldName ? '' : event.target.label;
+            let fileUri = fieldName ? '' : event.target.fileUri;
 
-            await this.setStateValues(key, value, label, fieldValid);
+            await this.setStateValues(key, value, label, fileUri, fieldValid);
 
             if (key === 'specialization') {
                 if (value) {
@@ -1192,7 +1200,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {
                 id, specializationName, specializationId, doctorId, doctorName, rosterGapDuration,
                 fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status,
-                createdDate,lastModifiedDate,lastModifiedBy,createdBy
+                createdDate, lastModifiedDate, lastModifiedBy, createdBy
             } = doctorDutyRosterInfo && doctorDutyRosterInfo;
             return {
                 id: id,
@@ -1517,7 +1525,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 existingRosterTableData, existingDoctorWeekDaysAvailability, existingOverrides,
                 searchParameters, queryParams, totalRecords, showDeleteModal, deleteRequestDTO,
                 showEditModal, updateDoctorDutyRosterData, overrideUpdateErrorMessage, showDeleteOverrideModal,
-                deleteOverrideErrorMessage, dateErrorMessage, overrideFormValid,createdBy,createdDate,lastModifiedBy,lastModifiedDate
+                deleteOverrideErrorMessage, dateErrorMessage, overrideFormValid, createdBy, createdDate, lastModifiedBy, lastModifiedDate
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -1525,7 +1533,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {doctorsBySpecializationForDropdown, doctorDropdownErrorMessage, activeDoctorsForDropdown, activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
-            const {deleteErrorMessage,isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer;
+            const {deleteErrorMessage, isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer;
             const {editErrorMessage, isEditRosterPending} = this.props.DoctorDutyRosterEditReducer;
             const {doctorDutyRosterList, isSearchRosterLoading, searchErrorMessage} = this.props.DoctorDutyRosterListReducer;
             return (<>
@@ -1629,11 +1637,11 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                                     rosterGapDuration: rosterGapDuration,
                                     fromDate: fromDate,
                                     toDate: toDate,
-                                    status:status,
-                                    lastModifiedBy:lastModifiedBy,
-                                    lastModifiedDate:lastModifiedDate,
-                                    createdBy:createdBy,
-                                    createdDate:createdDate
+                                    status: status,
+                                    lastModifiedBy: lastModifiedBy,
+                                    lastModifiedDate: lastModifiedDate,
+                                    createdBy: createdBy,
+                                    createdDate: createdDate
                                 }}
                                 doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
                                 hasOverrideDutyRoster={hasOverrideDutyRoster}
@@ -1643,7 +1651,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             <>
                                 <CButton
                                     variant="outline-primary"
-                                    name={ 'Clone and Add New Doctor Duty Roster'}
+                                    name={'Clone and Add New Doctor Duty Roster'}
                                     disabled={isSaveRosterLoading}
                                     isLoading={isSaveRosterLoading}
                                     size="lg"

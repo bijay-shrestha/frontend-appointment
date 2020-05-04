@@ -178,7 +178,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     specializationId: '',
                     doctorId: '',
                     appointmentCategory: '',
-                    status: {value:'All',label:"All"}
+                    status: {value: 'All', label: "All"}
                 }
             })
             this.searchAppointment()
@@ -227,7 +227,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label
+                let fieldName, value, label, fileUri;
                 if (field) {
                     fieldName = field
                     value = event
@@ -235,6 +235,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name
                     value = event.target.value
                     label = event.target.label
+                    fileUri = event.target.fileUri;
                     if (fieldName === 'hospitalId') this.callApiForHospitalChange(value)
                 }
                 let searchParams = {...this.state.searchParameters}
@@ -245,9 +246,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri} : {value, label}
                         : ''
-                    : value
+                    : value;
                 await this.setStateValuesForSearch(newSearchParams)
             }
         }

@@ -3,9 +3,8 @@ import {Accordion, Card, Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CScrollbar, CSearch} from "@frontend-appointment/ui-elements";
 import 'font-awesome/css/font-awesome.min.css';
 import 'material-icons/css/material-icons.min.css';
-import PreviewRoles from '../../CommonComponents/PreviewRoles';
-import {menuRoles as rolesFromJson, menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
-import CompanyProfilePreviewRoles from "../../CommonComponents/CompanyProfilePreviewRoles";
+import {menuRoles, TryCatchHandler} from '@frontend-appointment/helpers';
+import {CompanyProfilePreviewRoles} from "@frontend-appointment/ui-components";
 
 class CompanyProfileMenuAssignment extends PureComponent {
     state = {

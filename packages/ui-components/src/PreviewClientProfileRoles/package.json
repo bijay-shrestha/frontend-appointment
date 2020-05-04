@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-preview-client-profile-roles",
+  "version": "1.0.0",
+  "main": "PreviewClientProfileRoles.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}
