@@ -159,7 +159,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     refundAmount: spec.refundAmount || 'N/A',
                     esewaId: spec.esewaId || 'N/A',
                     // remarks: spec.remarks || 'N/A',
-                    appointmentMode:spec.appointmentMode,
+                    appointmentMode: spec.appointmentMode,
                     mobileNumber: spec.mobileNumber,
                     sN: index + 1
                 }));
@@ -247,21 +247,22 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label;
+                let fieldName, value, label, fileUri;
                 if (field) {
                     fieldName = field;
                     value = event
                 } else {
                     fieldName = event.target.name;
                     value = event.target.value;
-                    label = event.target.label
+                    label = event.target.label;
+                    fileUri = event.target.fileUri;
                 }
 
                 let newSearchParams = {...this.state.searchParameters};
 
                 newSearchParams[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri} : {value, label}
                         : ''
                     : value;
                 await this.setStateValuesForSearch(newSearchParams)
