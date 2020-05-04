@@ -32,7 +32,6 @@ class AppointmentLog extends PureComponent {
         this.toggleSearchForm()
     }
 
-<<<<<<< HEAD
   render () {
     const {
       handleSearchFormChange,
@@ -121,96 +120,6 @@ class AppointmentLog extends PureComponent {
                       />
                     </div>
                   </Col>
-=======
-    render() {
-        const {
-            handleSearchFormChange,
-            resetSearchForm,
-            searchAppointmentStatus,
-            hospitalList,
-            doctorList,
-            doctorDropdownErrorMessage,
-            specializationList,
-            specializationDropdownErrorMessage,
-            searchParameters
-        } = this.props.searchHandler
-        return (
-            <>
-                {this.state.isSearchFormExpanded ? (
-                    <div id="advanced-search" className="advanced-search">
-                        <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Appointment Status</h5>
-                            <div>
-                                <CButton
-                                    id="reset-form"
-                                    variant="outline-secondary"
-                                    size="sm"
-                                    name=""
-                                    onClickHandler={resetSearchForm}
-                                >
-                                    <>
-                                        {' '}
-                                        <i className="fa fa-refresh"/>
-                                        &nbsp;Reset
-                                    </>
-                                </CButton>
-                            </div>
-                        </div>
-                        <CForm id="" className=" mt-4">
-                            <Container-fluid>
-                                <Row>
-                                    <Col sm={12} md={4} xl={4}>
-                                        <div className="d-flex">
-                                            <CEnglishDatePicker
-                                                id="from-date"
-                                                name="fromDate"
-                                                label="From Date"
-                                                dateFormat="yyyy-MM-dd"
-                                                // minDate={0}
-                                                showDisabledMonthNavigation={true}
-                                                selected={searchParameters.fromDate}
-                                                peekNextMonth={true}
-                                                showMonthDropdown={true}
-                                                showYearDropdown={true}
-                                                dropdownMode="select"
-                                                onKeyDown={event => this.handleEnter(event)}
-                                                onChange={date =>
-                                                    handleSearchFormChange(date, 'fromDate')
-                                                }
-                                            />{' '}
-                                            &nbsp;&nbsp;
-                                            <CEnglishDatePicker
-                                                id="to-date"
-                                                name="toDate"
-                                                label="To Date"
-                                                minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
-                                                    searchParameters.fromDate,
-                                                    new Date()
-                                                )}
-                                                showDisabledMonthNavigation={true}
-                                                selected={
-                                                    DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
-                                                        searchParameters.fromDate,
-                                                        searchParameters.toDate
-                                                    )
-                                                        ? DateTimeFormatterUtils.addDate(
-                                                        searchParameters.toDate,
-                                                        7
-                                                        )
-                                                        : searchParameters.toDate
-                                                }
-                                                peekNextMonth={false}
-                                                showMonthDropdown={true}
-                                                showYearDropdown={true}
-                                                dropdownMode="select"
-                                                onKeyDown={event => this.handleEnter(event)}
-                                                onChange={date =>
-                                                    handleSearchFormChange(date, 'toDate')
-                                                }
-                                            />
-                                        </div>
-                                    </Col>
->>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelectWithImage

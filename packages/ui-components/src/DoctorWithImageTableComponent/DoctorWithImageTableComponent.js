@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 import DefaultPic from './picture.png'
-import {Row, Col, Container} from 'react-bootstrap'
+//import {Row, Col, Container} from 'react-bootstrap'
 const DoctorWithImage = props => {
   return (
   <div className="di-column">

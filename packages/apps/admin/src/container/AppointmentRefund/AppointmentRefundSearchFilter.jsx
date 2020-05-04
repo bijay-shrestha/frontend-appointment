@@ -34,7 +34,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         this.toggleSearchForm()
     }
 
-<<<<<<< HEAD
   render () {
     const {searchHandler} = this.props
     const {
@@ -50,23 +49,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
       patientListDropdown,
       //patientDropdownErrorMessage
     } = searchHandler
-=======
-    render() {
-        const {searchHandler} = this.props
-        const {
-            handleEnter,
-            handleSearchFormChange,
-            resetSearch,
-            hospitalsDropdown,
-            doctorsDropdown,
-            doctorDropdownErrorMessage,
-            activeSpecializationList,
-            specializationDropdownErrorMessage,
-            searchParameters,
-            patientListDropdown,
-            patientDropdownErrorMessage
-        } = searchHandler
->>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 
         return (
             <>

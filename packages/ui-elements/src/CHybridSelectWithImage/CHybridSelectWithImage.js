@@ -19,7 +19,7 @@ class CHybridSelectWithImage extends PureComponent {
     };
 
     handleMultiOrSingleSelectedValue = event => {
-        const {isMulti, name} = this.props;
+        const {isMulti} = this.props;
         return isMulti ? {values: [...event]} : {value: event.value, label: event.label, fileUri: event.fileUri};
     };
 

@@ -27,7 +27,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
         this.toggleSearchForm()
     }
 
-<<<<<<< HEAD
   render () {
     const {searchHandler} = this.props
     const {
@@ -42,22 +41,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
       patientListDropdown,
       //patientDropdownErrorMessage
     } = searchHandler
-=======
-    render() {
-        const {searchHandler} = this.props
-        const {
-            handleEnter,
-            handleSearchFormChange,
-            resetSearch,
-            doctorsDropdown,
-            doctorDropdownErrorMessage,
-            activeSpecializationList,
-            specializationDropdownErrorMessage,
-            searchParameters,
-            patientListDropdown,
-            patientDropdownErrorMessage
-        } = searchHandler
->>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 
         return (
             <>
@@ -187,22 +170,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-<<<<<<< HEAD
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelect
-                      id="doctorId"
-                      label="Doctor"
-                      name="doctorId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => handleSearchFormChange(event)}
-                      options={doctorsDropdown}
-                      value={searchParameters.doctorId}
-                      // isDisabled={doctorsDropdown.length ? false : true}
-                      onEnter={handleEnter}
-                      placeholder="Select doctor."
-                    />
-                  </Col>
-=======
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelectWithImage
                                             id="doctorId"
@@ -218,7 +185,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             noOptionsMessage={() => "No Doctor(s) found."}
                                         />
                                     </Col>
->>>>>>> 690b7a62e43d95876b219e314bced34335f553c8
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput

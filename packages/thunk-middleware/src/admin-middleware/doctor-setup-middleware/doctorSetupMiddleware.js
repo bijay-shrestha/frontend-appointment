@@ -1,6 +1,6 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
-import {DropdownUtils} from "@frontend-appointment/helpers";
+//import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
     path,
