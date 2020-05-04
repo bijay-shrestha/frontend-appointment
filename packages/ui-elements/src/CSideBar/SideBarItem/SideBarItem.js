@@ -27,11 +27,12 @@ class SideBarItem extends PureComponent {
     collapsed = this.props.localFunc.localStorageDecoder('collapsed') || []
     active = propsActiveKey || ''
     activeKey = this.props.localFunc.localStorageDecoder('activeStateKey') || []
-    this.state = {
-      collapsed: collapsed,
-      active: active,
-      activeKey: activeKey
-    }
+     this.state = {
+       reload:false
+     }
+    this.collapsed=collapsed;
+    this.active=active;
+    this.activeKey=activeKey;
   }
 
   filterAndSetCollapsibleElements = (id, alreadyClickedId, root, forWhich) => {
@@ -51,18 +52,19 @@ class SideBarItem extends PureComponent {
   }
 
   setActiveNavBar = id => {
-    let activeStateId = this.state.active
+    let activeStateId = this.active
     activeStateId = this.filterAndSetActiveElement(id)
+    this.active=activeStateId;
     this.props.localFunc.localStorageEncoder('active', activeStateId)
-    this.setState({
-      active: activeStateId
-    })
+    // this.setState({
+    //   active: activeStateId
+    // })
   }
 
   toggleNavbar = (id, root) => {
     if (this.props.isOpen || this.props.isHover) {
-      let alreadyClickedId = [...this.state.collapsed]
-      let alreadyActive = [...this.state.activeKey]
+      let alreadyClickedId = [...this.collapsed]
+      let alreadyActive = [...this.activeKey]
       alreadyClickedId = this.filterAndSetCollapsibleElements(
         id,
         alreadyClickedId,
@@ -77,17 +79,18 @@ class SideBarItem extends PureComponent {
       )
       this.props.localFunc.localStorageEncoder('activeStateKey', alreadyActive)
       this.props.localFunc.localStorageEncoder('collapsed', alreadyClickedId)
-      this.setState({
-        collapsed: alreadyClickedId,
-        activeKey: alreadyActive
-      })
+      this.collapsed=alreadyClickedId
+      this.activeKey=alreadyActive;
+      this.setState(prevState => ({
+        reload:!prevState.reload
+      }));
     }
   }
 
   render () {
     let trees =this.props.trees
-   const active = this.state.active
-    const activeKey = this.state.activeKey
+   const active = this.active
+    const activeKey = this.activeKey
     return (
       <Nav className="flex-column">
         <SideBarHeading heading={this.props.heading} />
@@ -99,7 +102,7 @@ class SideBarItem extends PureComponent {
                     parent={tree}
                     children={Object.values(tree.childMenus)}
                     childKey={index}
-                    collapsed={this.state.collapsed}
+                    collapsed={this.collapsed}
                     active={active}
                     activeNavBar={this.setActiveNavBar}
                     toggleNavbar={this.toggleNavbar}

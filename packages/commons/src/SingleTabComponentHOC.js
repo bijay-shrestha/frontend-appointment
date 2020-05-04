@@ -62,7 +62,7 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
 
         async componentDidMount() {
             await this.checkRolesAssigned();
-            this.props.dispatch({type:'LOCATION_CHANGE'})
+            await this.props.dispatch({type:'LOCATION_CHANGE'})
         }
 
         render() {
@@ -91,7 +91,8 @@ const SingleTabComponentHOC = (ComposedComponent, userMenus, path, props) => {
         }
     }
 
-    return connectHoc(SingleTabComponent,[],null);
+    const  ConnectedSingleTabComponent = connectHoc(SingleTabComponent,[],null);
+    return ConnectedSingleTabComponent
 };
 
 export default SingleTabComponentHOC;

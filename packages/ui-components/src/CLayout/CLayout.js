@@ -8,11 +8,17 @@ import {LocalStorageSecurity} from '@frontend-appointment/helpers'
 class CLayout extends PureComponent {
     constructor(props) {
         super(props)
-        this.state = {
-            isOpen: props.isOpen ? props.isOpen : props.isOpen,
-            isMobile: true,
-            hover: props.isHover ? props.isHover : props.isHover
-        }
+        this.isOpen=props.isOpen;
+        this.isMobile=true;
+        this.hover=props.isHover
+        // this.state = {
+        //     isOpen: props.isOpen ? props.isOpen : props.isOpen,
+        //     isMobile: true,
+        //     hover: props.isHover ? props.isHover : props.isHover
+        // }
+        // this.state={
+        //     reload:false
+        // }
         this.previousWidth = -1
     }
 
@@ -33,38 +39,41 @@ class CLayout extends PureComponent {
      * Add event listener
      */
 
-    componentDidMount() {
-        // console.log(this.props)
-        //this.updateWidth()
-        //window.addEventListener('resize', this.updateWidth.bind(this))
-    }
+    // componentDidMount() {
+    //     // console.log(this.props)
+    //     //this.updateWidth()
+    //     //window.addEventListener('resize', this.updateWidth.bind(this))
+    // }
 
-    componentWillUnmount() {
-        //window.removeEventListener('resize', this.updateWidth.bind(this))
-    }
+    // componentWillUnmount() {
+    //     //window.removeEventListener('resize', this.updateWidth.bind(this))
+    // }
 
     toggle = () => {
         let flag = false
-        if (!this.state.isOpen) flag = true
+        if (!this.isOpen) flag = true
         LocalStorageSecurity.localStorageEncoder('isOpen', flag)
-        this.setState(prevState => ({isOpen: !prevState.isOpen}))
+        this.isOpen =!this.isOpen
+        this.setState(prevState => ({reload: prevState?!prevState.reload:true}))
     };
 
     onHoverSideBar = () => {
-        if (!this.state.isOpen) {
+        if (!this.isOpen) {
             LocalStorageSecurity.localStorageEncoder('isHover', true)
-            this.setState({
-                hover: true
-            })
+            this.hover=true;
+            this.setState(prevState=>({
+                reload: prevState?!prevState.reload:true
+            }))
         }
     };
 
     onLeaveHoverSideBar = () => {
-        if (!this.state.isOpen) {
+        if (!this.isOpen) {
             LocalStorageSecurity.localStorageEncoder('isHover', false)
-            this.setState({
-                hover: false
-            })
+            this.hover=false;
+            this.setState(prevState =>({
+                reload: prevState?!prevState.reload:true
+            }))
         }
     };
 
@@ -76,8 +85,8 @@ class CLayout extends PureComponent {
                 <div id="wrapper">
                     <CSideBar
                         toggle={this.toggle}
-                        isOpen={this.state.isOpen}
-                        isHover={this.state.hover}
+                        isOpen={this.isOpen}
+                        isHover={this.hover}
                         onLeaveHover={this.onLeaveHoverSideBar}
                         onHoverSideBar={this.onHoverSideBar}
                         trees={this.props.userMenus}
@@ -91,8 +100,8 @@ class CLayout extends PureComponent {
                     <div
                         id="content-wrapper"
                         className={classNames('d-flex flex-column content', {
-                            'is-open': this.state.isOpen,
-                            'is-close': !this.state.isOpen
+                            'is-open': this.isOpen,
+                            'is-close': !this.isOpen
                         })}
                     >
                         <div id="topbar-wrapper">
