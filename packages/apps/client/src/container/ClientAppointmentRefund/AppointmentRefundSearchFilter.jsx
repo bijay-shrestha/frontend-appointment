@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
-import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridInput, CHybridSelect, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
 class AppointmentApprovalListSearchFilter extends PureComponent {
@@ -124,12 +124,13 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
+                                        <CHybridSelectWithImage
                                             id="doctorId"
                                             label="Doctor"
                                             name="doctorId"
                                             placeholder={doctorsDropdown.length ? "Select doctor."
                                                 : "No doctor(s) available."}
+                                            noOptionsMessage={()=>"No Doctor(s) found."}
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => handleSearchFormChange(event)}
                                             options={doctorsDropdown}

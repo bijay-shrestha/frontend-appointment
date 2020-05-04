@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CButton, CForm, CHybridSelect} from "@frontend-appointment/ui-elements";
+import {CButton, CForm, CHybridSelect, CHybridSelectWithImage} from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 import "./appointment-status.scss";
@@ -102,13 +102,14 @@ class AppointmentLog extends PureComponent {
                                 </Col>
 
                                 <Col sm={12} md={4} xl={4}>
-                                    <CHybridSelect
+                                    <CHybridSelectWithImage
                                         id="doctor"
                                         label="Doctor"
                                         name="doctorId"
                                         placeholder={doctorList.length ? "Select doctor." : "No Doctor(s) available."}
                                         options={doctorList}
-                                        noOptionsMessage={() => doctorDropdownErrorMessage}
+                                        noOptionsMessage={() => doctorDropdownErrorMessage ? doctorDropdownErrorMessage
+                                            : "No Doctor(s) found."}
                                         onKeyDown={this.handleEnter}
                                         onChange={(event) => handleSearchFormChange(event)}
                                         value={searchParameters.doctorId}
