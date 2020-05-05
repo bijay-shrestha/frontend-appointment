@@ -1,6 +1,12 @@
 import React, {memo} from 'react'
 import {Col, Form, Row} from 'react-bootstrap'
-import {CDataTable, CHybridSelect, CLoading, CPagination} from '@frontend-appointment/ui-elements'
+import {
+    CDataTable,
+    CHybridSelect,
+    CHybridSelectWithImage,
+    CLoading,
+    CPagination
+} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
 import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
@@ -30,13 +36,15 @@ const AppointmentQueue = props => {
                                 <Form.Group as={Row} controlId="formPlaintextEmail">
                                     <Col sm="12">
                                         <div className="hospital-list-input">
-                                            <CHybridSelect
+                                            <CHybridSelectWithImage
                                                 name="doctorId"
-                                                placeholder="Select Doctor"
-                                                onChange={(e) => handleDoctorChange(e, 'Q')}
+                                                placeholder={doctorDropdown.length ? "Select Doctor." : "No Doctor(s) available."}
+                                                onChange={e => handleDoctorChange(e, 'Q')}
                                                 options={doctorDropdown}
                                                 value={doctorId}
-                                            ></CHybridSelect>
+                                                isDisabled={!doctorDropdown.length}
+                                                noOptionsMessage={() => "No Doctor(s) found."}
+                                            />
                                         </div>
                                     </Col>
                                 </Form.Group>

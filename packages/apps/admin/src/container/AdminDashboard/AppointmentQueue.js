@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import {Row, Col, Form} from 'react-bootstrap'
 import {
     CDataTable,
-    CHybridSelect,
+    CHybridSelect, CHybridSelectWithImage,
     CLoading,
     CPagination
 } from '@frontend-appointment/ui-elements'
@@ -29,7 +29,7 @@ const AppointmentQueue = props => {
             <div className="mt-4 appointment-queue">
                 <h5 className="title">Appointment Queue</h5>
                 <div className="app-log">
-                    {props.hospitalId.value && props.hospitalId.value!=='A' ? (
+                    {props.hospitalId.value && props.hospitalId.value !== 'A' ? (
                             <>
                                 <Row>
                                     <Col className="px-0">
@@ -37,12 +37,14 @@ const AppointmentQueue = props => {
                                             <Form.Group as={Row} controlId="formPlaintextEmail">
                                                 <Col sm="12">
                                                     <div className="hospital-list-input">
-                                                        <CHybridSelect
+                                                        <CHybridSelectWithImage
                                                             name="doctorId"
-                                                            placeholder="Select Doctor"
+                                                            placeholder={doctorDropdown.length ? "Select Doctor." : "No Doctor(s) available."}
                                                             onChange={e => handleDoctorChange(e, 'Q')}
                                                             options={doctorDropdown}
                                                             value={doctorId}
+                                                            isDisabled={!doctorDropdown.length}
+                                                            noOptionsMessage={() => "No Doctor(s) found."}
                                                         />
                                                     </div>
                                                 </Col>

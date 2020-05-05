@@ -1,16 +1,13 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    HospitalSetupMiddleware,
     DashboardDetailsMiddleware,
     DoctorMiddleware,
+    HospitalSetupMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    checkDashboardRole, LocalStorageSecurity
-} from '@frontend-appointment/helpers'
+import {checkDashboardRole, DateTimeFormatterUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
 import {CNoDashboardRoleContent} from "@frontend-appointment/ui-components";
 
 const {
@@ -88,7 +85,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             doctorTotalRecords: 0,
             doctorTotalAppointments: 0,
             doctorTotalRevenueAmount: 0,
-            doctorTotalFollowUp:0
+            doctorTotalFollowUp: 0
         }
 
         searchHospitalForDropDown = async () => {
@@ -387,25 +384,27 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         handleDoctorChange = async (event, types) => {
             let searchParams = {
                 ...this.state.appointmentQueue
-            }
+            };
 
             let searchParamsForDoctor = {
                 ...this.state.doctorRevenue
-            }
+            };
 
-            let fieldName, value, label
-            fieldName = event.target.name
-            value = event.target.value
-            label = event.target.label
+            let fieldName, value, label, fileUri;
+            fieldName = event.target.name;
+            value = event.target.value;
+            label = event.target.label;
+            fileUri = event.target.fileUri;
             if (types === 'Q') {
-                searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+                searchParams[fieldName] = label ? (value ? fileUri ? {value, label, fileUri} : {value, label}
+                    : '') : value;
                 await this.setState({
                     appointmentQueue: searchParams
                 })
             } else {
                 searchParamsForDoctor[fieldName] = label
                     ? value
-                        ? {value, label}
+                        ? fileUri ? {value, label, fileUri} : {value, label}
                         : ''
                     : value
                 await this.setState({
@@ -506,7 +505,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                                 .DashboardRevenueGeneratedByDoctorReducer.overallAppointment,
                             doctorTotalRevenueAmount: this.props
                                 .DashboardRevenueGeneratedByDoctorReducer.totalRevenueAmount,
-                            doctorTotalFollowUp:this.props.DashboardRevenueGeneratedByDoctorReducer.totalFollowUp,
+                            doctorTotalFollowUp: this.props.DashboardRevenueGeneratedByDoctorReducer.totalFollowUp,
                             doctorQueryParams: {
                                 ...this.state.doctorQueryParams,
                                 page: updatedPage
@@ -751,7 +750,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                                 specializationId: doctorRevenue.specializationId,
                                 specializationListHospitalWise: this.props
                                     .SpecializationDropdownReducer.activeSpecializationListByHospital,
-                                doctorTotalFollowUp:doctorTotalFollowUp,    
+                                doctorTotalFollowUp: doctorTotalFollowUp,
                                 code: ACCESSCODE.REVENUE_STAT
                             }}
                             onPillsClickHandler={this.onPillsClickHandler}
@@ -762,7 +761,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                             appointmentFilter={appointmentFilter}
                         />
                         :
-                      <CNoDashboardRoleContent/>
+                        <CNoDashboardRoleContent/>
                     }
                 </>
             )
