@@ -1,12 +1,6 @@
 import React, {memo} from 'react'
 import {Col, Form, Row} from 'react-bootstrap'
-import {
-    CDataTable,
-    CHybridSelect,
-    CHybridSelectWithImage,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CHybridSelectWithImage, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import DoctorWithSpecializationAndImage from '../CommonComponents/table-components/DoctorWithSpecializationAndImage'
 import PatientWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
