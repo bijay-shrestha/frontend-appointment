@@ -65,8 +65,11 @@ const AdminInfoForm = ({
                                     variant="primary"
                                     className=" mt-1 mb-4  upload-button"
                                     onClickHandler={setShowModal}
-                              > <i className="fa fa-upload"></i>&nbsp;Upload
-                              </CButton>
+                                >
+                                    <>
+                                        <i className="fa fa-upload"/>&nbsp;Upload
+                                    </>
+                                </CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showModal}
                                     setShowModal={setShowModal}
@@ -246,7 +249,7 @@ const AdminInfoForm = ({
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Status" id="status"/>
                                 <div>
-                                   
+
                                     <CRadioButton
                                         checked={adminInfoObj.status === 'N'}
                                         id="radio2"
@@ -260,7 +263,7 @@ const AdminInfoForm = ({
                                         disabled={true}
                                         readOnly={true}
                                     />
-                                     {/* <CRadioButton
+                                    {/* <CRadioButton
                                         checked={adminInfoObj.status === 'Y'}
                                         id="radio1"
                                         label="Active"
