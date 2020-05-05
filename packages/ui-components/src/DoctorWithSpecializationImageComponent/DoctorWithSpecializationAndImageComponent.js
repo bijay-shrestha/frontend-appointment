@@ -16,7 +16,7 @@ const DoctorWithSpecializationAndImage = props => {
          
             <ul className="di-details">
               <li>Dr. {props.node.data.doctorName || ''}</li>
-              <li>({props.node.data.specializationName ||props.node.data.specialization||''})</li>
+              <li>{props.node.data.specializationName ||props.node.data.specialization||''}</li>
             </ul>
 
           </div>

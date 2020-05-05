@@ -32,7 +32,7 @@ const CChangePasswordInForget = ({
                                         <CHybridPassword
                                             id="password"
                                             name="password"
-                                            placeholder="Password"
+                                            placeholder="New Password"
                                             onChange={onChangeHandler}
                                             value={passwordChangeData.password}
                                         />

@@ -275,7 +275,7 @@ const AdminInfoForm = ({
                                     /> */}
                                 </div>
                             </Col>
-                            <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                            <Col sm={12} md={12} lg={6} className=" dash-roles-container">
                                 {dashData && dashData.length ?
                                     <CFLabel labelName="Dashboard Roles" id="dashboard-role"/> : null}
                                 <div>
@@ -349,7 +349,7 @@ const AdminInfoForm = ({
                                                                 id="macId"
                                                                 key={'macId' + index}
                                                                 value={macId.macId}
-                                                                placeholder="Enter MAC Address"
+                                                                placeholder="Enter MAC Address ( eg. 30-65-EC-6F-C4-58 ) "
                                                                 isInvalid={Boolean(macId.errorMessage)}
                                                                 onChange={event =>
                                                                     onMacIdChange(event, index)

@@ -166,7 +166,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         sm={12}
                                         md={12}
                                         lg={6}
-                                        className="py-4 dash-roles-container"
+                                        className="dash-roles-container"
                                     >
                                         {adminInfoObj.adminDashboardRequestDTOS &&
                                         adminInfoObj.adminDashboardRequestDTOS.length ? (
