@@ -246,6 +246,7 @@ class CImageUploadAndCropModal extends PureComponent {
                 <Row>
                     <div className="col-md-12">
                         <CButton
+                            id="image-confirm"
                             name="Confirm"
                             variant="primary"
                             size="xl"
