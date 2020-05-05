@@ -224,7 +224,7 @@ CHybridSelectWithImage.propTypes = {
         PropTypes.shape({
             value: PropTypes.any.isRequired,
             label: PropTypes.string.isRequired,
-            fileUri: PropTypes.any.isRequired
+            fileUri: PropTypes.any
         }).isRequired
     ),
     pageSize: PropTypes.number,

@@ -374,6 +374,7 @@ class ProfileAdd extends PureComponent {
                                     userMenus: userMenus,
                                     selectedUserMenusForModal: selectedUserMenusForModal,
                                     userMenuAvailabilityMessage: userMenuAvailabilityMessage,
+                                    hospitalAlias: aliasOfHospital
                                 }}/>
                             }
                         </Row>
