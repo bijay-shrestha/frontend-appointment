@@ -36,6 +36,8 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   
   return (
     <>
+ 
+
       {createdBy ? (
         isNotAddCol ? (
           CreatedByComponent

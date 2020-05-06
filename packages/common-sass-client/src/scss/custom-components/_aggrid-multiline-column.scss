@@ -9,7 +9,7 @@
  @import '~bootstrap/scss/mixins';
 
 
-.ag-root-wrapper{
+ .ag-root-wrapper{
     .patient-column{
         margin-top:0.1rem;
         margin-bottom:0.3rem;
@@ -85,14 +85,18 @@
         // display: none;
         .data-image{
             margin-top:2px;
-           width:41px;
-           height: 41px;
+           width:36px;
+           height: 36px;
            margin-right:10px;
            flex-shrink: 0;
+           line-height: 30px;
+        //    @include border-radius(4px !important) ;
+           
 
            img{
-               width: 41px;
-               height: 41px;
+                 width:100%;
+               height: auto;
+            //    @include border-radius(4px !important) ;
            }
         }
 

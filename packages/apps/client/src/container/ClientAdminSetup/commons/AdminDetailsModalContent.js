@@ -92,7 +92,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                             disabled={true}
                                         />
                                     </Col>
-                                    {AuditableEntityHoc(adminInfoObj)}
+                                   
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CFLabel labelName="Gender" id="gender"/>
@@ -240,6 +240,13 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         </Col>
                                         : ''
                                     }
+
+
+                                </Row>
+                               
+                                <Row className="mt-4">
+                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                     {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>
                         </Row>
