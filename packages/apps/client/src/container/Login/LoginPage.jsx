@@ -53,7 +53,13 @@ class LoginPage extends React.PureComponent {
                 'adminDashRole',
                 featuresAdmin.data
             );
+            const clientIp = await this.props.fetchLoggedInAdminIP();
+            LocalStorageSecurity.localStorageDecoder(
+                'clientIp',
+                clientIp
+            )
             const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
+
             const pathToRedirect = selectedPath
                 ? '' + selectedPath.replace('true', '')
                 : '/dashboard';

@@ -15,7 +15,8 @@ import {
   DashboardDetailsMiddleware,
   fetchLoggedInAdminUserInfo,
   fetchUserMenusNew,
-  signinUser
+  signinUser,
+  fetchLoggedInAdminIP
 } from '@frontend-appointment/thunk-middleware'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 import localStorageSecurity from '@frontend-appointment/helpers/src/utils/localStorageUtils'
@@ -58,6 +59,10 @@ class StartupApiHoc extends PureComponent {
           'adminDashRole',
           featuresAdmin.data
         )
+      }
+      if(!LocalStorageSecurity.localStorageDecoder("clientIp")){
+        const clientIp = await this.props.fetchLoggedInAdminIP();
+        LocalStorageSecurity.localStorageEncoder('clientIp',clietnIp)
       }
     } catch (e) {
       let userMenus = this.getUserMenusFromLocalStorage()
@@ -127,5 +132,6 @@ export default ConnectHoc(StartupApiHoc, [], {
   fetchUserMenusNew,
   signinUser,
   fetchLoggedInAdminUserInfo,
-  fetchDashboardFeaturesByAdmin
+  fetchDashboardFeaturesByAdmin,
+  fetchLoggedInAdminIP
 })
