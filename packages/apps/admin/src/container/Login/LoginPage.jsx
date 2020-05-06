@@ -2,7 +2,8 @@ import {
     DashboardDetailsMiddleware,
     fetchLoggedInAdminUserInfo,
     fetchUserMenus,
-    signinUser
+    signinUser,
+    fetchLoggedInAdminIP
 } from '@frontend-appointment/thunk-middleware'
 import {Login} from '@frontend-appointment/ui-components'
 import React from 'react'
@@ -43,10 +44,16 @@ class LoginPage extends React.PureComponent {
                 'adminDashRole',
                 featuresAdmin.data
             );
+            const adminIp = await this.props.fetchLoggedInAdminIP();
+            LocalStorageSecurity.localStorageDecoder(
+                'adminIp',
+                adminIp
+            )
             const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
             const pathToRedirect = selectedPath
                 ? '/admin' + selectedPath.replace('true', '')
                 : '/admin/dashboard';
+          
             await this.props.history.push(pathToRedirect);
             this.handleIsLoginPending(false);
             return null
@@ -90,6 +97,7 @@ export default ConnectHoc(
         fetchUserMenus,
         signinUser,
         fetchLoggedInAdminUserInfo,
-        fetchDashboardFeaturesByAdmin
+        fetchDashboardFeaturesByAdmin,
+        fetchLoggedInAdminIP
     }
 )

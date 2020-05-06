@@ -35,7 +35,7 @@ import {
     fetchAdminMetaInfoByHospitalId
 } from './src/admin-middleware'
 import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
-import {fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
+import {fetchLoggedInAdminUserInfo,fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {
     changePassword,
@@ -99,5 +99,6 @@ export {
     AppointmentModeMiddleware,
     fetchUserMenusNew,
     savePinOrUnpinUserMenu,
-    fetchAdminMetaInfoByHospitalId
+    fetchAdminMetaInfoByHospitalId,
+    fetchLoggedInAdminIP
 }

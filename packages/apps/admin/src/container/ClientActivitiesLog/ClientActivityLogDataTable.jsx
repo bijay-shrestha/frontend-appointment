@@ -160,7 +160,7 @@ const ClientActivityLogDataTable = ({
                                     autoSize: true,
                                     width: '60',
                                     valueFormatter: function (params) {
-                                        return params.value || 'N/A'
+                                        return params.value ? "Nearby "+params.value:'N/A'
                                     }
                                 },
                                 {
@@ -172,18 +172,18 @@ const ClientActivityLogDataTable = ({
                                     cellRenderer: 'browserIcon',
                                     width: '100'
                                 },
-                                // {
-                                //   headerName: 'Location',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true,
-                                //   field: 'location',
-                                //   autoSize: true,
-                                //   width: '100',
-                                //   valueFormatter: function (params) {
-                                //     return params.value || 'N/A'
-                                //   }
-                                // },
+                                {
+                                  headerName: 'Location',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true,
+                                  field: 'location',
+                                  autoSize: true,
+                                  width: '100',
+                                  valueFormatter: function (params) {
+                                    return params.value || 'N/A'
+                                  }
+                                },
                                 {
                                     headerName: 'Status',
                                     field: 'status',
