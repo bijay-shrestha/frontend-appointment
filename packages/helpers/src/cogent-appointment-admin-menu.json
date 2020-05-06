@@ -520,6 +520,27 @@
           "childMenus": []
         }
       ]
+    },
+    {
+      "id": "29",
+      "parentId": null,
+      "name": "Doctor Duty Roster Shift Wise",
+      "path": "/doctorDutyRosterShiftWise",
+      "roles": [
+        2,
+        3,
+        4,
+        5,
+        8
+      ],
+      "icon": "fa fa-user-md",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Doctor Duty Roster",
+      "childMenus": []
     }
   ]
 }

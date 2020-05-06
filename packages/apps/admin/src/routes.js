@@ -84,6 +84,11 @@ const AppointmentModeComponent = loadable(
     () => import('./container/AppointmentMode/AppointmentMode'),
     {fallback: getLoader()}
 )
+
+const AddDoctorDutyRosterShiftWise = loadable(
+    () => import('./container/DoctorDutyRosterShiftWise/Add/DoctorDutyRosterShiftWiseAdd'),
+    {fallback: getLoader()}
+)
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -765,5 +770,25 @@ export const routes = [
         isTab: false,
         name: 'Transaction Log',
         isSingleTab: true,
+    },
+    {
+        path: '/admin/doctorDutyRosterShiftWise',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Doctor Duty Roster',
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/doctorDutyRosterShiftWise/add',
+        component: AddDoctorDutyRosterShiftWise,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false,
     },
 ];
