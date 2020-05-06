@@ -39,18 +39,18 @@ const AdminEditForm = ({
                            isAdminEditLoading,
                            onChangeDashBoardRole
                        }) => {
-    const images = [
-        {
-            src: adminInfoObj.adminAvatarUrlNew
-                ? adminInfoObj.adminAvatarUrlNew
-                : adminInfoObj.adminAvatarUrl
-                    ? adminInfoObj.adminAvatarUrl
-                    : DefaultProfileImage,
-            width: 4,
-            height: 3,
-            alt: 'ADMIN'
-        }
-    ]
+    // const images = [
+    //     {
+    //         src: adminInfoObj.adminAvatarUrlNew
+    //             ? adminInfoObj.adminAvatarUrlNew
+    //             : adminInfoObj.adminAvatarUrl
+    //                 ? adminInfoObj.adminAvatarUrl
+    //                 : DefaultProfileImage,
+    //         width: 4,
+    //         height: 3,
+    //         alt: 'ADMIN'
+    //     }
+    // ]
     return <>
         {/*<h5 className="title">Client Admin Setup</h5>*/}
         <CForm id="admin-info" className="mt-2 add-info">
@@ -59,7 +59,7 @@ const AdminEditForm = ({
                     <div className="image-upload-container">
                         <div className="image-box">
                             <img
-                                alt="ADMIN IMAGE"
+                                alt="ADMIN"
                                 src={
                                     adminInfoObj.adminAvatarUrlNew
                                         ? adminInfoObj.adminAvatarUrlNew

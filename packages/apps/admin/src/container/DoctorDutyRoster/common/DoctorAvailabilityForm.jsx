@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import {CCheckbox, CHybridSelect, CHybridTimePicker} from "@frontend-appointment/ui-elements";
-import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
+import {CCheckbox, CHybridTimePicker} from "@frontend-appointment/ui-elements";
+//import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityForm = ({
                                     doctorAvailabilityData,

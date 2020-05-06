@@ -2,7 +2,7 @@ import React  from 'react'
 import {Dropdown} from 'react-bootstrap'
 import * as Material from 'react-icons/md'
 import * as Feather from 'react-icons/fi'
-import {ActionFilterUtils} from '@frontend-appointment/helpers'
+//import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
 // const {checkIfRoleExists} = ActionFilterUtils
 const RefundTableAction = props => {

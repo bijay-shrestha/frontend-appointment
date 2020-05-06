@@ -46,7 +46,6 @@ const AdminEditModal = ({
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>
                     <CButton id="cancel-update-profile"
-                             variant="light"
                              size="lg"
                              variant="light"
                              className="btn-action  float-right mr-2"

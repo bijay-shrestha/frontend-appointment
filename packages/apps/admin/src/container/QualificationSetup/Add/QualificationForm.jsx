@@ -5,8 +5,8 @@ import {
     CForm,
     CHybridInput,
     CRadioButton,
-    CHybridSelect,
-    CHybridTimePicker
+    CHybridSelect
+    //CHybridTimePicker
 } from '@frontend-appointment/ui-elements'
 
 const QualificationForm = ({

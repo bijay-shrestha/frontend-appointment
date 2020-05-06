@@ -10,7 +10,7 @@ import {
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './TransactionLogPreview';
-import {Badge, Col, Row} from 'react-bootstrap';
+import { Col, Row} from 'react-bootstrap';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";

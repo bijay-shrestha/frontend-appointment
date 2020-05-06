@@ -5,37 +5,47 @@ export const createLogHeader = request => {
   let getActMenu = ''
   let actionId, menuId
   let logHeader = null
-  if (checkIfItIsNotAnAction(request.url)) {
-    if (appStorageMenu) {
-      getActMenu = appStorageMenu.replace('true', '')
-
-      getActMenu = getActMenu.split('/')
-      getActMenu = getActMenu[getActMenu.length - 1]
+  if (checkIfItIsLogin(request.url)) {
+    logHeader = {
+      parentId: 8080,
+      roleId: 3001,
+      feature: 'Login',
+      actionType: 'Login',
+      logDescription: ''
     }
-    menuId = sessionStorage.getItem('activeMenu') || ''
-    if (!checkIfItIsAdd()) {
-      actionId = sessionStorage.getItem('actionType') || ''
+  } else {
+    if (checkIfItIsNotAnAction(request.url)) {
+      if (appStorageMenu) {
+        getActMenu = appStorageMenu.replace('true', '')
 
-      let role, roleName
-      if (menuId) role = RolesUtils.getOnlyGivenRole(actionId) || {}
-      if (role) roleName = role.name
-      if (menuId && actionId && getActMenu && roleName)
-        logHeader = {
-          parentId: menuId,
-          roleId: actionId,
-          feature: getActMenu,
-          actionType: roleName,
-          logDescription: ''
-        }
-    } else {
-      if (request.method === 'post')
-        logHeader = {
-          parentId: menuId,
-          roleId: 2,
-          feature: getActMenu,
-          actionType: 'Create',
-          logDescription: ''
-        }
+        getActMenu = getActMenu.split('/')
+        getActMenu = getActMenu[getActMenu.length - 1]
+      }
+      menuId = sessionStorage.getItem('activeMenu') || ''
+      if (!checkIfItIsAdd()) {
+        actionId = sessionStorage.getItem('actionType') || ''
+
+        let role, roleName
+        if (menuId) role = RolesUtils.getOnlyGivenRole(actionId) || {}
+        if (role) roleName = role.name
+        if (menuId && actionId && getActMenu && roleName)
+          logHeader = {
+            parentId: menuId,
+            roleId: actionId,
+            feature: getActMenu,
+            actionType: roleName,
+            logDescription: ''
+          }
+      } else {
+        if (request.method === 'post')
+          logHeader = {
+            parentId: menuId,
+            roleId: 2,
+            feature: getActMenu,
+            actionType: 'Create',
+            logDescription: ''
+          }
+      }
     }
   }
   return logHeader
@@ -74,6 +84,13 @@ const checkIfItIsNotAnAction = url => {
 const checkIfItIsAdd = () => {
   // console.log('===location.pathname', window.location.hash)
   if (window.location.hash.includes('/add')) {
+    return true
+  }
+  return false
+}
+
+const checkIfItIsLogin = (url) => {
+  if (url.includes('/login')){
     return true
   }
   return false

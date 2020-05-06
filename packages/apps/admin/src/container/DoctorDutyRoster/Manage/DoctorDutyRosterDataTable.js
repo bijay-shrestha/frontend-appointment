@@ -1,7 +1,7 @@
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
-import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
+//import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
 import TableAction from "../../CommonComponents/table-components/TableAction";
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";

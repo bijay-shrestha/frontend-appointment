@@ -29,7 +29,7 @@ const CompanyProfileSetupEditModal = ({
                         id="submit-update-button"
                         disabled={!commonData.formValid || editCompanyProfileLoading}
                         name={editCompanyProfileLoading ? <span className="saving">Updating <img
-                            src={require("../../../images/three-dots.svg")}/></span> : "Update"}
+                           alt="three-dots" src={require("../../../images/three-dots.svg")}/></span> : "Update"}
                         size="lg"
                         className="btn-action  float-right"
                         onClickHandler={editApiCall}/>

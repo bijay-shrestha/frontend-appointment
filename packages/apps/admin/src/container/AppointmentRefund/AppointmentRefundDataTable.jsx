@@ -23,7 +23,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandler,
         refundHandleApi,
         refundRejectError,
-        isRefundLoading,
+        //isRefundLoading,
         refundConfirmationModal,
         remarks,
         totalRefundAmount

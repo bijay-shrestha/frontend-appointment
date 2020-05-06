@@ -26,7 +26,7 @@ class CompanySetupSearchFilter extends PureComponent {
             searchParameters,
             resetSearchForm,
             handleEnter,
-            isCompanyDropdownLoading,
+           // isCompanyDropdownLoading,
             companyDropdownData,
             companyDropdownErrorMessage
             // hospitalDropdown

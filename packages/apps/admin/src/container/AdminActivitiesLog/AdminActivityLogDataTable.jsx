@@ -6,7 +6,6 @@ import {
     CDoughnutChart
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
@@ -71,6 +70,7 @@ const AdminActivityLogDataTable = ({
             chartData.data.push(datum.count)
             chartData.label.push(datum.feature)
             chartData.color.push(getColor[index])
+            return datum
         })
         return {
             datasets: [
@@ -164,7 +164,7 @@ const AdminActivityLogDataTable = ({
                                     autoSize: true,
                                     width: '60',
                                     valueFormatter: function (params) {
-                                        return params.value || 'N/A'
+                                        return params.value || 'Unknown'
                                     }
                                 },
                                 {
@@ -177,18 +177,18 @@ const AdminActivityLogDataTable = ({
                                     width: '100'
                                 },
 
-                                // {
-                                //   headerName: 'Location',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true,
-                                //   field: 'location',
-                                //   autoSize: true,
-                                //   width: '100',
-                                //   valueFormatter: function (params) {
-                                //     return params.value || 'N/A'
-                                //   }
-                                // },
+                                {
+                                  headerName: 'Nearby Location',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true,
+                                  field: 'location',
+                                  autoSize: true,
+                                  width: '100',
+                                  valueFormatter: function (params) {
+                                    return params.value || 'Unknown'
+                                  }
+                                },
                                 {
                                     headerName: 'Status',
                                     field: 'status',

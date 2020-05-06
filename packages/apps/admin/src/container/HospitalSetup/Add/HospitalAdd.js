@@ -1,4 +1,4 @@
-import React, {memo} from 'react'
+import React from 'react'
 import * as Material from 'react-icons/md'
 import HospitalForm from './HospitalForm'
 import HospitalConfirmationModal from './HospitalConfirmModal'

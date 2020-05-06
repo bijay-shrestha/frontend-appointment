@@ -67,6 +67,7 @@ const ClientActivityLogDataTable = ({
             chartData.data.push(datum.count)
             chartData.label.push(datum.feature)
             chartData.color.push(getColor[index])
+            return datum;
         })
         return {
             datasets: [
@@ -160,7 +161,7 @@ const ClientActivityLogDataTable = ({
                                     autoSize: true,
                                     width: '60',
                                     valueFormatter: function (params) {
-                                        return params.value || 'N/A'
+                                        return params.value||'Unknown'
                                     }
                                 },
                                 {
@@ -172,18 +173,18 @@ const ClientActivityLogDataTable = ({
                                     cellRenderer: 'browserIcon',
                                     width: '100'
                                 },
-                                // {
-                                //   headerName: 'Location',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true,
-                                //   field: 'location',
-                                //   autoSize: true,
-                                //   width: '100',
-                                //   valueFormatter: function (params) {
-                                //     return params.value || 'N/A'
-                                //   }
-                                // },
+                                {
+                                  headerName: 'Nearby Location',
+                                  resizable: true,
+                                  sortable: true,
+                                  sizeColumnsToFit: true,
+                                  field: 'location',
+                                  autoSize: true,
+                                  width: '100',
+                                  valueFormatter: function (params) {
+                                    return params.value || 'Unknown'
+                                  }
+                                },
                                 {
                                     headerName: 'Status',
                                     field: 'status',

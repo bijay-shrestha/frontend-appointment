@@ -7,11 +7,10 @@ import {
     CRadioButton,
     CHybridTextArea,
     CButton,
-    CFControl, CCheckbox
+    CFControl
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
 import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
-import { number } from 'prop-types'
 
 
 const HospitalForm = ({
@@ -72,7 +71,7 @@ const HospitalForm = ({
 
                                                     <div className="image-box">
                                                         <img
-                                                            alt="CLIENT IMAGE"
+                                                            alt="CLIENT"
                                                             src={hospitalInfoObj.hospitalLogo ? hospitalInfoObj.hospitalLogoUrl : DefaultLogo}
                                                         />
                                                         <CButton
@@ -233,7 +232,7 @@ const HospitalForm = ({
                                             labelName="Contact Number"
                                             id="contactNumber"
                                         />
-                                        {contactLength != hospitalInfoObj.contactNumber.length && (
+                                        {contactLength !== hospitalInfoObj.contactNumber.length && (
                                             <CButton
                                                 id={'add-contact-numbers'}
                                                 variant="outline-secondary"

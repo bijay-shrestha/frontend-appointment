@@ -262,8 +262,9 @@ const ClientActivityLogHOC = (ComposedComponent, props, type) => {
           return assignMenus;
         })
       }
+      const newFilterMenus = [...filterMenusDropdown,{value:8080,label:'Login'},{value:8081,label:'Forgot Password'}]
       this.setState({
-        menuList: [...filterMenusDropdown]
+        menuList: [...newFilterMenus]
       })
     }
     async componentDidMount () {

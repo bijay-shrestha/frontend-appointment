@@ -25,7 +25,8 @@ const hocConnector = (ComposedClass,statesToAccquire, dispatchToAccquire) => {
   }
 
   
- return connect(mapStateToProps,dispatchToAccquire)(connectHOC); 
+ const ConnectedComponent = connect(mapStateToProps,dispatchToAccquire)(connectHOC); 
+ return ConnectedComponent;
  
 }
 export default hocConnector;

@@ -1,8 +1,4 @@
 import React, { PureComponent } from 'react';
-import Add from "./Add/ProfileAdd";
-import Manage from "./Manage/ProfileManage";
-import { CNavTabs } from "@frontend-appointment/ui-elements";
-
 class ProfileSetup extends PureComponent {
     // state = {
     //     tabData: [

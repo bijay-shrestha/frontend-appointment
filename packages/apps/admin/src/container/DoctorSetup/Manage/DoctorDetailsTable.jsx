@@ -2,7 +2,6 @@ import React, {memo} from 'react'
 import {
     CDataTable,
     CPagination,
-    CButton,
     CLoading
 } from '@frontend-appointment/ui-elements'
 import {CDoctorNameDisplayForTable, ConfirmDelete} from '@frontend-appointment/ui-components'

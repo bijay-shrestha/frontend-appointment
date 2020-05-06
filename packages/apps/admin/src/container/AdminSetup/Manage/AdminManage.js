@@ -485,7 +485,8 @@ class AdminManage extends PureComponent {
                     break
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
-                    break
+                    break;
+                default: return ''    
             }
             this.checkFormValidity()
         }
@@ -861,7 +862,7 @@ class AdminManage extends PureComponent {
             fullName,
             email,
             mobileNumber,
-            adminCategory,
+           // adminCategory,
             status,
             hasMacBinding,
             adminAvatar,
@@ -1055,9 +1056,11 @@ class AdminManage extends PureComponent {
                 if (dash.code === adminDash.code) {
                     flag = true
                 }
+                return dash;
             })
             if (flag) adminDashRole.push({...adminDash, status: 'Y'})
             else adminDashRole.push({...adminDash, status: 'N'})
+         return adminDash;
         })
         return adminDashRole
     }
@@ -1082,7 +1085,7 @@ class AdminManage extends PureComponent {
             hasMacBinding,
             macIdList,
             adminAvatar,
-            remarks,
+            //remarks,
             adminAvatarUrl
         } = adminInfoObj
 
@@ -1229,8 +1232,8 @@ class AdminManage extends PureComponent {
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
         const {
-            departments,
-            departmentsByHospital
+            departments
+           // departmentsByHospital
         } = this.props.DepartmentSetupReducer
 
         return (

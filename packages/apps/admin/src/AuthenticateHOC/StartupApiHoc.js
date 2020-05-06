@@ -15,10 +15,10 @@ import {
   DashboardDetailsMiddleware,
   fetchLoggedInAdminUserInfo,
   fetchUserMenusNew,
-  signinUser
+  signinUser,
+  fetchLoggedInAdminIP
 } from '@frontend-appointment/thunk-middleware'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
-import localStorageSecurity from '@frontend-appointment/helpers/src/utils/localStorageUtils'
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {
@@ -37,19 +37,19 @@ class StartupApiHoc extends PureComponent {
       const user = await CommonUtils.getUserNameHospitalIdAndAdminId(
         LocalStorageSecurity.localStorageDecoder(auth_token)
       )
-      if (!localStorageSecurity.localStorageDecoder('userMenus')) {
+      if (!LocalStorageSecurity.localStorageDecoder('userMenus')) {
         await this.props.fetchUserMenusNew(GET_SIDEBAR_DATA, {
           username: user.username,
           hospitalCode: user.hospitalCode
         })
         this.setState({fetch: true, loading: false})
       }
-      if (!localStorageSecurity.localStorageDecoder('adminInfo')) {
+      if (!LocalStorageSecurity.localStorageDecoder('adminInfo')) {
         await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
           username: user.username
         })
       }
-      if (!localStorageSecurity.localStorageDecoder('adminDashRole')) {
+      if (!LocalStorageSecurity.localStorageDecoder('adminDashRole')) {
         const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
           DASHBOARD_FEATURE,
           user.id
@@ -58,6 +58,10 @@ class StartupApiHoc extends PureComponent {
           'adminDashRole',
           featuresAdmin.data
         )
+      }
+      if(!LocalStorageSecurity.localStorageDecoder("adminIp")){
+        const adminIp = await this.props.fetchLoggedInAdminIP();
+        LocalStorageSecurity.localStorageEncoder('adminIp',adminIp)
       }
     } catch (e) {
       let userMenus = this.getUserMenusFromLocalStorage()
@@ -127,5 +131,6 @@ export default ConnectHoc(StartupApiHoc, [], {
   fetchUserMenusNew,
   signinUser,
   fetchLoggedInAdminUserInfo,
-  fetchDashboardFeaturesByAdmin
+  fetchDashboardFeaturesByAdmin,
+  fetchLoggedInAdminIP
 })

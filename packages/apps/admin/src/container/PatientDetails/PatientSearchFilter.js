@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {
     Col,
-    Container,
+   // Container,
     Row,
     OverlayTrigger,
     Tooltip,
@@ -13,7 +13,7 @@ import {
     CForm,
     CHybridInput
 } from '@frontend-appointment/ui-elements'
-import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
+//import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
 class PatientSearchFilter extends PureComponent {
     state = {

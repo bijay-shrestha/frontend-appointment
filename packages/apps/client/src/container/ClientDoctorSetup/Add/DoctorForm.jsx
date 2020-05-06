@@ -50,12 +50,12 @@ const DoctorForm = ({
                                                 />
                                                 <CButton
                                                     id="uploadAdminImage"
-                                                    name=""
+                                                    name={<i className="fa fa-upload"></i>}
                                                     size="lg"
                                                     variant="primary"
                                                     className=" mt-1 mb-4  upload-button"
                                                     onClickHandler={setImageShow}
-                                                ><i className="fa fa-upload"></i>&nbsp;Upload
+                                                ><>&nbsp;Upload</>
                                                 </CButton>
                                                 <CImageUploadAndCropModal
                                                     showModal={showImageUploadModal}

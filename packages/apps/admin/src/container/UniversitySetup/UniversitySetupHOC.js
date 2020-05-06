@@ -124,7 +124,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 status: 'D'
             };
             try {
-                const response = await this.props.deleteUniversity(DELETE_UNIVERSITY, deleteRequestDTO);
+                await this.props.deleteUniversity(DELETE_UNIVERSITY, deleteRequestDTO);
                 this.showAlertMessage("success", this.props.UniversityDeleteReducer.deleteSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
@@ -144,7 +144,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                 remarks
             };
             try {
-                const response = await this.props.editUniversity(EDIT_UNIVERSITY, requestDTO);
+                await this.props.editUniversity(EDIT_UNIVERSITY, requestDTO);
                 this.showAlertMessage("success", this.props.UniversityEditReducer.editSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
@@ -329,7 +329,7 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
                     status: status && status.value
                 };
                 try {
-                    const response = await this.props.saveUniversity(SAVE_UNIVERSITY, requestDTO);
+                    await this.props.saveUniversity(SAVE_UNIVERSITY, requestDTO);
                     this.showAlertMessage("success", this.props.UniversitySaveReducer.saveSuccessMessage);
                     this.actionsOnOperationComplete();
                     return true;
@@ -442,13 +442,11 @@ const UniversitySetupHOC = (ComposedComponent, props) => {
 
             const {universityList, isSearchUniversityLoading, searchErrorMessage} = this.props.UniversitySearchReducer;
 
-            const {editErrorMessage, editSuccessMessage, isEditUniversityLoading} = this.props.UniversityEditReducer;
+            const {editErrorMessage, isEditUniversityLoading} = this.props.UniversityEditReducer;
 
-            const {deleteErrorMessage, deleteSuccessMessage, isDeleteUniversityLoading} = this.props.UniversityDeleteReducer;
+            const {deleteErrorMessage, isDeleteUniversityLoading} = this.props.UniversityDeleteReducer;
 
             const {
-                isPreviewUniversityLoading,
-                previewUniversityErrorMessage,
                 universityDetails
             } = this.props.UniversityPreviewReducer;
 

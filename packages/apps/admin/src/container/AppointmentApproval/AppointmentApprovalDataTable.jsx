@@ -5,7 +5,7 @@ import {
     CPagination
 } from '@frontend-appointment/ui-elements';
 import {
-    ConfirmDelete,
+  //  ConfirmDelete,
     CConfirmationModal,
     DoctorWithSpecImage
 } from '@frontend-appointment/ui-components';
@@ -33,13 +33,13 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         approveHandler,
         approveHandleApi,
         rejectError,
-        isAppointmentRejectLoading,
+        //isAppointmentRejectLoading,
         approveConfirmationModal,
         rejectModalShow,
         remarks,
         appointmentDetails,
         isConfirming,
-        filteredActions
+       // filteredActions
     } = tableHandler;
     const {queryParams, totalRecords, handlePageChange} = paginationProps;
     return (
