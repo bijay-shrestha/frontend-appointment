@@ -161,7 +161,7 @@ const ClientActivityLogDataTable = ({
                   autoSize: true,
                   width: '60',
                   valueFormatter: function (params) {
-                    return params.value || 'N/A'
+                    return params.value || 'Unknown'
                   }
                 },
                 {
@@ -174,7 +174,7 @@ const ClientActivityLogDataTable = ({
                   width: '100'
                 },
                 {
-                  headerName: 'Location',
+                  headerName: 'Nearby Location',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
@@ -182,7 +182,7 @@ const ClientActivityLogDataTable = ({
                   autoSize: true,
                   width: '100',
                   valueFormatter: function (params) {
-                    return params.value ? 'Nearby' + params.value : 'N/A'
+                    return params.value || 'Unknown'
                   }
                 },
                 {

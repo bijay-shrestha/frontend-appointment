@@ -164,7 +164,7 @@ const AdminActivityLogDataTable = ({
                                     autoSize: true,
                                     width: '60',
                                     valueFormatter: function (params) {
-                                        return params.value || 'N/A'
+                                        return params.value || 'Unknown'
                                     }
                                 },
                                 {
@@ -178,7 +178,7 @@ const AdminActivityLogDataTable = ({
                                 },
 
                                 {
-                                  headerName: 'Location',
+                                  headerName: 'Nearby Location',
                                   resizable: true,
                                   sortable: true,
                                   sizeColumnsToFit: true,
