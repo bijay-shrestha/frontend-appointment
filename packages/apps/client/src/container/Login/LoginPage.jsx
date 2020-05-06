@@ -28,6 +28,11 @@ class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         await this.handleIsLoginPending(true);
         try {
+            const clientIp = await this.props.fetchLoggedInAdminIP();
+            await LocalStorageSecurity.localStorageEncoder(
+                'clientIp',
+                clientIp
+            )
             await this.props.signinUser(LOGIN_API, {...user});
 
             await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
@@ -54,11 +59,7 @@ class LoginPage extends React.PureComponent {
                 'adminDashRole',
                 featuresAdmin.data
             );
-            const clientIp = await this.props.fetchLoggedInAdminIP();
-            LocalStorageSecurity.localStorageDecoder(
-                'clientIp',
-                clientIp
-            )
+           
             const selectedPath = LocalStorageSecurity.localStorageDecoder('active')
 
             const pathToRedirect = selectedPath

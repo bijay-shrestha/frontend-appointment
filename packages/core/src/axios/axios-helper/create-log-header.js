@@ -5,7 +5,7 @@ export const createLogHeader = request => {
   let getActMenu = ''
   let actionId, menuId
   let logHeader = null
-  if (checkIfItIsLogin()) {
+  if (checkIfItIsLogin(request.url)) {
     logHeader = {
       parentId: 8080,
       roleId: 3001,
@@ -89,9 +89,8 @@ const checkIfItIsAdd = () => {
   return false
 }
 
-const checkIfItIsLogin = () => {
-  console.log('===location.pathname', window.location.hash)
-  if (window.location.hash==="#/") {
+const checkIfItIsLogin = (url) => {
+  if (url.includes('/login')){
     return true
   }
   return false
