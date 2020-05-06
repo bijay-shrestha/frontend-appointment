@@ -8,106 +8,107 @@
  @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
  @import '~bootstrap/scss/mixins';
 
- #appointment-status{
-.filter-message{
-    .message{
-        width:200px;
+
+
+ #appointment-status {
+    .filter-message {
+      .message {
+        width: 200px;
+      }
     }
-}
-
-
-
- .appointment-badge{
-    float: right;
-    margin:10px 0;
-
-        &>div{
-         margin-right:20px;
-         height: auto;
-         display: inline-block;
+  
+  
+    .appointment-badge {
+      float: right;
+      margin: 10px 0;
+  
+      & > div {
+        margin-right: 20px;
+        height: auto;
+        display: inline-block;
         //  line-height: 40px;
-
-         &:last-child{
-             margin-right: 0;
-         }
-
-         .badge{
-             margin-right:4px;
-             width:16px;
-             height: 16px;
-         }
-
-         a{
-
-             color:$gray-600;
-             font-weight: 500;
-             margin-left:4px;
-             padding:2px 6px;
-
-             &.active{
-                color:$gray-900;
-                background-color:lighten($cogent,45%);
-                @include border-radius(4px);
-                padding:2px 6px;
-             }
-         }
-     }
-
-     .btn{
-        margin-bottom:10px;
-     }
-
-
-}
-
-// .badge{
-//     width:35px;
-//     height: 35px;
-//     // top:50%;
-//     // left:50%;
-//     // transform:translate(-50%,-50%);
-//     text-align: center;
-//     vertical-align: middle;
-//     font-size: 16px;
-//     line-height: 22px;
-//     padding:6px;
-//     @include border-radius(50%);
-// }
-
-.react-datepicker-wrapper{
-    width:50%;
-    // padding-left: 4px;
-}
-
-}
-
-.doctor-image{
-    width:100px;
-    height:100px;
-    margin-top:10px;
-    background-color:$gray-500;
+  
+        &:last-child {
+          margin-right: 0;
+        }
+  
+        .badge {
+          margin-right: 4px;
+          width: 16px;
+          height: 16px;
+        }
+  
+        a {
+  
+          color: $gray-600;
+          font-weight: 500;
+          margin-left: 4px;
+          padding: 2px 6px;
+  
+          &.active {
+            color: $gray-900;
+            background-color: lighten($cogent, 45%);
+            @include border-radius(4px);
+            padding: 2px 6px;
+          }
+        }
+      }
+  
+      .btn {
+        margin-bottom: 10px;
+      }
+  
+  
+    }
+  
+    // .badge{
+    //     width:35px;
+    //     height: 35px;
+    //     // top:50%;
+    //     // left:50%;
+    //     // transform:translate(-50%,-50%);
+    //     text-align: center;
+    //     vertical-align: middle;
+    //     font-size: 16px;
+    //     line-height: 22px;
+    //     padding:6px;
+    //     @include border-radius(50%);
+    // }
+  
+    .react-datepicker-wrapper {
+      width: 50%;
+      // padding-left: 4px;
+    }
+  
+  }
+  
+  .doctor-image {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    background-color: $gray-500;
     @include border-radius(50%);
     // display: inline-block;
-
-    img{
-        width:100px;
-        height: 100px;
-        background-color:$gray-500;
-        @include border-radius(50%);
+  
+    img {
+      width: 100px;
+      height: 100px;
+      background-color: $gray-500;
+      @include border-radius(50%);
     }
-}
-
-.doctor-details{
+  }
+  
+  .doctor-details {
     position: relative;
     display: inline-block;
-    margin-top:10px;
-    margin-bottom:20px;
-    color:$gray-700;
-    font-size:0.8rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: $gray-700;
+    font-size: 0.8rem;
     text-transform: capitalize;
     letter-spacing: 0.01rem;
-    width:100%;
-
+    width: 100%;
+  
     //  &::before{
     //     content:"";
     //     display: block;
@@ -117,235 +118,248 @@
     //     bottom:-5px;
     //     background-color:$gray-600;
     // }
-
-
-
-    span{
-        font-size: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 0.01rem;
+  
+  
+    span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.01rem;
     }
-
-}
-
-.patient-container{
-    padding-bottom:20px;
-}
-
-.patient-details{
+  
+  }
+  
+  .patient-container {
+    padding-bottom: 20px;
+  }
+  
+  .patient-details {
     display: block;
-    margin-top:10px;
-    margin-bottom:16px;
-    color:$gray-700;
-    font-size:0.8rem;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    color: $gray-700;
+    font-size: 0.8rem;
     // line-height: 1.6rem;
     // text-transform: capitalize;
     letter-spacing: 0.02rem;
     font-weight: 500;
-
-
-   .label{
-       font-size:0.65rem;
-       font-weight:400;
-       line-height: 1rem;
-   }
-
   
-
-   .data {
-    .pd-followup{
-        font-size: 12px;
-      }
-      
-    .badge-success{
-        color:$success  !important;
-        border:1px solid $success !important;
-        background-color:white !important;
+  
+    .label {
+      font-size: 0.65rem;
+      font-weight: 400;
+      line-height: 1rem;
+    }
+  
+    .data {
+      .badge-success {
+        color: $success !important;
+        padding:0;
+        border: none;
+        background-color: white !important;
         // text-transform: lowercase;
+      }
+  
+      .pd-followup{
+        font-size: 12px;
+        padding:2px 6px;
+        font-weight: 400;
+        background-color:$gray-200;
+        @include border-radius(20px);
+      }
+  
+      .badge-primary {
+        color: $primary !important;
+         border: none;
+         padding:0;
+         background-color: white !important;
+      }
+  
+      .badge-info {
+        color: $info;
+        border: none;
+        padding:0;
+        background-color: transparent;
+      }
     }
-
-    .badge-primary{
-        color:$primary  !important;
-        border:1px solid $primary !important;
-        background-color:white !important;
+  
+  
+  }
+  
+  .btn-checkin {
+    width: 100%;
+    padding: 6px 0 !important;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  
+    i {
+      color: $white;
     }
-
-     .badge-info{
-       color:$info  ;
-       border:1px solid $info ;
-       background-color:transparent ;
-     }
-}
-
-
-}
-
-.btn-checkin{
-    width:100%;
-    padding:6px 0  !important;
-    margin-top:10px;
-    margin-bottom:20px;
-    i{
-        color:$white;
+  }
+  
+  .time-container {
+  
+    .time-details {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      color: $gray-700;
+      font-size: 0.8rem;
+      line-height: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02rem;
+  
+  
     }
-}
-
-.time-container{
-
-    .time-details{
-        display:block;
-        margin-top:10px;
-        margin-bottom:20px;
-        color:$gray-700;
-        font-size:0.8rem;
-        line-height: 1.6rem;
-        text-transform: uppercase;
-        letter-spacing: 0.02rem;
-
-
+  
+    .time {
+      // float:left;
+      margin-left: 30px;
     }
-    .time{
-        // float:left;
-        margin-left:30px;
-    }
-
+  
     ul {
-        // display:flex;
-        // flex-direction:row;
-        width:100%;
-        // flex-wrap:wrap;
-        // justify-content: space-between;
-        li{
+      // display:flex;
+      // flex-direction:row;
+      width: 100%;
+      // flex-wrap:wrap;
+      // justify-content: space-between;
+      li {
         // display: inline-block;
-        margin-right:10px;
-        margin-bottom:12px;
-        float:left;
-
-
-
-        .btn{
-            width:120px;
-            // width:120px;
-            //  margin-right:10px;
-            height: 46px;
-
-
+        margin-right: 10px;
+        margin-bottom: 12px;
+        float: left;
+  
+  
+        .btn {
+          width: 120px;
+          // width:120px;
+          //  margin-right:10px;
+          height: 46px;
+  
+  
         }
-
+  
         // .btn-success{
         //    &:hover{
-
+  
         //     }
         // }
+      }
     }
-}
-}
-
-.appointment-status-list{
+  }
+  
+  .appointment-status-list {
     margin: 15px -30px 45px;
-    border-bottom:1px solid $gray-200;
-
-
-.title{
-    position: relative;
-    display: inline-block;
-    margin-top:10px;
-    margin-bottom:20px;
-    color:$gray-700;
-    font-size:0.8rem;
-    text-transform: capitalize;
-
-     &::before{
-        content:"";
+    border-bottom: 1px solid $gray-200;
+  
+  
+    .title {
+      position: relative;
+      display: inline-block;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      color: $gray-700;
+      font-size: 0.8rem;
+      text-transform: capitalize;
+  
+      &::before {
+        content: "";
         display: block;
         position: absolute;
-        width:25%;
-        height:1px;
-        bottom:-5px;
-        background-color:$gray-600;
+        width: 25%;
+        height: 1px;
+        bottom: -5px;
+        background-color: $gray-600;
+      }
+  
+  
     }
-
-
-
-}
-
-.day-off{
-    // width:100%;
-    // text-align: center;
-    display: inline-block;
-
-    .fa{
+  
+    .day-off {
+      // width:100%;
+      // text-align: center;
+      display: inline-block;
+      display:flex;
+      flex-direction: row;
+      align-items: center;
+  
+      .fa {
         font-size: 42px !important;
-       display: block;
-       color:$danger;
-
+        display: block;
+        color: $danger;
+        margin-right: 10px;
+  
+      }
+  
+      span{
+  
+      }
     }
-}
-
-.back-day-off{
-    display: block;
-    padding-top:20px;
-
-    .fa{
+  
+    .back-day-off {
+      display: block;
+      padding-top: 20px;
+  
+      .fa {
         font-size: 42px !important;
-       display: block;
-       color:$danger;
-
+        display: block;
+        color: $danger;
+  
+      }
     }
-}
-
-.appointment-status-list,.appointment-badge{
-    .btn-success{
+  
+    .appointment-status-list, .appointment-badge {
+      .btn-success {
         // background-color: adjust-hue($success,20%);
-
-        background-color:$spotify;
-        color:$gray-800;
-        padding:8px 12px;
+  
+        background-color: $spotify;
+        color: $gray-800;
+        padding: 8px 12px;
         // margin: 0 0 12px;
-    }
-
-    .btn{
-        padding:10px 6px;
+      }
+  
+      .btn {
+        padding: 10px 6px;
         font-weight: 500;
-    }
-}
-
-.filter-message{
-    margin:0 auto;
-}
-
-.time-button {
-    .fa-check-circle {
-      display: none;
-      margin-right: 4px;
-
-    }
-
-    .fa-tag{
-      display: inline;
-      color:$white;
-    }
-
-    &.active {
-      .fa-check-circle{
-        display: inline;
-        margin-right: 4px;
-        color:$white;
-
       }
-
-      .fa-tag{
+    }
+  
+    .filter-message {
+      margin: 0 auto;
+    }
+  
+    .time-button {
+      .fa-check-circle {
         display: none;
-        $color:$gray-900;
+        margin-right: 4px;
+  
+      }
+  
+      .fa-tag{
+        display: inline;
+        color:$white;
+      }
+  
+      &.active {
+        .fa-check-circle{
+          display: inline;
+          margin-right: 4px;
+          color:$white;
+  
+        }
+  
+        .fa-tag{
+          display: none;
+          $color:$gray-900;
+        }
+      }
+  
+    }
+  
+  
+    @media (max-width: 1199px) {
+      .hide-on-md {
+        display: none;
       }
     }
-
   }
-
-
-@media (max-width: 1199px) {
-    .hide-on-md{
-      display:none;
-    }
-  }
-}
+  

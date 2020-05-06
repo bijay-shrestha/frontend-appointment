@@ -265,7 +265,7 @@ const AdminEditForm = ({
                             />
                         </Col>
 
-                        <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                        <Col sm={12} md={12} lg={6} className=" dash-roles-container">
                             {adminInfoObj.adminDashboardRequestDTOS.length ? (
                                 <CFLabel labelName="Dashboard Roles" id="dash-role-edit"/>
                             ) : null}
@@ -375,7 +375,7 @@ const AdminEditForm = ({
                             </Row>
                         </Col>
 
-                        <Col sm={12} md={12} lg={6}>
+                        <Col sm={12} md={12} lg={6} className="py-4">
                             <CHybridTextArea
                                 className=""
                                 id="remarks"

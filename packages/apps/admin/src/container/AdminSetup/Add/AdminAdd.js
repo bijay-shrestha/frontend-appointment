@@ -642,7 +642,7 @@ class AdminAdd extends PureComponent {
                                         <i
                                             class="fa fa-exclamation-triangle"
                                             aria-hidden="true"
-                                        ></i>
+                                        />
                                     </>
                                 )
                             }

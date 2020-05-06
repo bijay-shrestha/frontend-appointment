@@ -7,11 +7,10 @@ import {
     CRadioButton,
     CHybridTextArea,
     CButton,
-    CFControl, CCheckbox
+    CFControl
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
 import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
-import { number } from 'prop-types'
 
 
 const HospitalForm = ({

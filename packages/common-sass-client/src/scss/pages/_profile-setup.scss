@@ -439,6 +439,12 @@
             font-size: 12px;
         }
     }
+
+    .assign-previledge{
+        #scrollbar_menus{
+            height: calc( 100% - 25px);
+        }
+    }
 }
 
 .dash-roles-container{

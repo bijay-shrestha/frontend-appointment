@@ -65,8 +65,11 @@ const AdminInfoForm = ({
                                     variant="primary"
                                     className=" mt-1 mb-4  upload-button"
                                     onClickHandler={setShowModal}
-                              > <i className="fa fa-upload"></i>&nbsp;Upload
-                              </CButton>
+                                >
+                                    <>
+                                        <i className="fa fa-upload"/>&nbsp;Upload
+                                    </>
+                                </CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showModal}
                                     setShowModal={setShowModal}
@@ -246,7 +249,7 @@ const AdminInfoForm = ({
                             <Col sm={12} md={12} lg={6}>
                                 <CFLabel labelName="Status" id="status"/>
                                 <div>
-                                   
+
                                     <CRadioButton
                                         checked={adminInfoObj.status === 'N'}
                                         id="radio2"
@@ -260,7 +263,7 @@ const AdminInfoForm = ({
                                         disabled={true}
                                         readOnly={true}
                                     />
-                                     {/* <CRadioButton
+                                    {/* <CRadioButton
                                         checked={adminInfoObj.status === 'Y'}
                                         id="radio1"
                                         label="Active"
@@ -275,7 +278,7 @@ const AdminInfoForm = ({
                                     /> */}
                                 </div>
                             </Col>
-                            <Col sm={12} md={12} lg={6} className="py-4 dash-roles-container">
+                            <Col sm={12} md={12} lg={6} className=" dash-roles-container">
                                 {dashData && dashData.length ?
                                     <CFLabel labelName="Dashboard Roles" id="dashboard-role"/> : null}
                                 <div>
@@ -349,7 +352,7 @@ const AdminInfoForm = ({
                                                                 id="macId"
                                                                 key={'macId' + index}
                                                                 value={macId.macId}
-                                                                placeholder="Enter MAC Address"
+                                                                placeholder="Enter MAC Address ( eg. 30-65-EC-6F-C4-58 ) "
                                                                 isInvalid={Boolean(macId.errorMessage)}
                                                                 onChange={event =>
                                                                     onMacIdChange(event, index)

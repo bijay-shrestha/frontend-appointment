@@ -148,24 +148,31 @@
   .data {
     .badge-success {
       color: $success !important;
-      border: 1px solid $success !important;
+      padding:0;
+      border: none;
       background-color: white !important;
       // text-transform: lowercase;
     }
 
     .pd-followup{
       font-size: 12px;
+      padding:2px 6px;
+      font-weight: 400;
+      background-color:$gray-200;
+      @include border-radius(20px);
     }
 
     .badge-primary {
       color: $primary !important;
-      border: 1px solid $primary !important;
-      background-color: white !important;
+       border: none;
+       padding:0;
+       background-color: white !important;
     }
 
     .badge-info {
       color: $info;
-      border: 1px solid $info;
+      border: none;
+      padding:0;
       background-color: transparent;
     }
   }
@@ -266,11 +273,19 @@
     // width:100%;
     // text-align: center;
     display: inline-block;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
 
     .fa {
       font-size: 42px !important;
       display: block;
       color: $danger;
+      margin-right: 10px;
+
+    }
+
+    span{
 
     }
   }
