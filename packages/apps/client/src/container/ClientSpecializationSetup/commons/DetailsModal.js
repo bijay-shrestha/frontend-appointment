@@ -11,7 +11,7 @@ const DetailsModal = ({specializationData, type}) => {
                 <CForm id="department-info" className="mt-2 department-info">
                     <Container-fluid>
                         <Row>
-                            <Col sm={4} md={4} lg={4}>
+                               <Col sm={12} md={6} xl={6}>
                                 <CHybridInput
                                     id="specialization-name"
                                     name="name"
@@ -21,7 +21,7 @@ const DetailsModal = ({specializationData, type}) => {
                                 />
                             </Col>
 
-                            <Col sm={4} md={4} lg={4}>
+                               <Col sm={12} md={6} xl={6}>
                                 <CHybridInput
                                     id="specialization-code"
                                     name="code"
@@ -30,9 +30,9 @@ const DetailsModal = ({specializationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            {AuditableEntityHoc(specializationData,false,4)}
+                          
                             {/*{type !== 'A' ? (*/}
-                            {/*    <Col sm={4} md={4} lg={4}>*/}
+                            {/*       <Col sm={12} md={6} xl={6}>*/}
                             {/*        <CHybridTextArea*/}
                             {/*            id="specialization-remarks"*/}
                             {/*            name="name"*/}
@@ -44,7 +44,7 @@ const DetailsModal = ({specializationData, type}) => {
                             {/*) : (*/}
                             {/*    ''*/}
                             {/*)}*/}
-                            <Col sm={4} md={4} lg={4}>
+                               <Col sm={12} md={6} xl={6}>
                                 <CFLabel labelName="Specialization Status" id="status"/>
                                 <CRadioButton
                                     checked={specializationData.status === 'Y'}
@@ -69,6 +69,10 @@ const DetailsModal = ({specializationData, type}) => {
                                 }
 
                             </Col>
+                        </Row>
+                        <Row className="mt-4">
+                            <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                            {AuditableEntityHoc(specializationData,false,6)}
                         </Row>
                     </Container-fluid>
                 </CForm>

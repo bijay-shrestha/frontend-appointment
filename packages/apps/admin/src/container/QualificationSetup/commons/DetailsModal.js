@@ -23,7 +23,7 @@ const DetailsModal = ({qualificationData, type}) => {
                 <CForm id="department-info" className="mt-2 ">
                     <Container-fluid>
                         <Row>
-                            <Col sm={12} md={4} lg={4}>
+                            <Col sm={12} md={6} xl={6}>
                                 <CHybridInput
                                     id="qualification-name"
                                     name="name"
@@ -32,7 +32,7 @@ const DetailsModal = ({qualificationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={4} xl={4}>
+                            <Col sm={12} md={6} xl={6}>
                                 <CHybridInput
                                     id="qualificationAliasId"
                                     name="qualificationAliasName"
@@ -41,7 +41,7 @@ const DetailsModal = ({qualificationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={4} xl={4}>
+                            <Col sm={12} md={6} xl={6}>
                                 <CHybridInput
                                     id="universityId"
                                     name="universityName"
@@ -51,8 +51,8 @@ const DetailsModal = ({qualificationData, type}) => {
                                 />
                             </Col>
 
-                            {AuditableEntityHoc(qualificationData,false,4)}
-                            <Col sm={12} md={4} lg={4}>
+                           
+                            <Col sm={12} md={6} xl={6}>
                                 <CFLabel labelName="Status" id="status"></CFLabel>
                                 <CRadioButton
                                     checked={qualificationData.status === 'Y'}
@@ -75,6 +75,11 @@ const DetailsModal = ({qualificationData, type}) => {
                                 }
                             </Col>
                         </Row>
+
+                        <Row className="mt-4">
+                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                {AuditableEntityHoc(qualificationData,false,6)}
+                                </Row>
                     </Container-fluid>
                 </CForm>
             </Container-fluid>
