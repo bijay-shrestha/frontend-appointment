@@ -5,7 +5,6 @@ import {CButton, CLoading} from "@frontend-appointment/ui-elements";
 
 import "./appointment-status.scss";
 import {appointmentStatusList, DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const TIME_SLOT_EMPTY_ERROR_MESSAGE = "APPOINTMENTS NOT AVAILABLE";
 const DAY_OFF_MESSAGE = "DAY OFF";
