@@ -28,7 +28,7 @@ Axios.interceptors.request.use(
     if (!requestConfig.url.includes('/login'))
       requestConfig.headers.Authorization = token ? token : ''
     let logHeader = createLogHeader(requestConfig)
-    if (logHeader) {
+    if (logHeader ||requestConfig.url.includes("/forgot")) {
       requestConfig.headers['log-header'] = JSON.stringify(logHeader)
       let ipKey = 'clientIp'
       if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === 'ADMIN') {
