@@ -191,7 +191,7 @@ const ClientActivityLogDataTable = ({
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer: 'childLabelRenderer',
+                  cellRenderer: 'childStatusLabelRenderer',
                   width: '100'
                 },
                 {
@@ -207,7 +207,7 @@ const ClientActivityLogDataTable = ({
               rowSelection={'single'}
               rowData={logList}
               frameworkComponents={{
-                childLabelRenderer: LoggingStatus,
+                childStatusLabelRenderer: LoggingStatus,
                 EmailWithMobileNumber: EmailWithMobileNumber,
                 LogDateAndTime: DateWithTime,
                 browserIcon: BrowserIconComponent
