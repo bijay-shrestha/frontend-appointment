@@ -34,9 +34,9 @@ Axios.interceptors.request.use(
       if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === 'ADMIN') {
         ipKey = 'adminIp'
       }
-      requestConfig.headers
-      ['X-Forwarded-For'] 
-     = LocalStorageSecurity.localStorageDecoder(ipKey)
+      requestConfig.headers[
+        'X-Forwarded-For'
+      ] = LocalStorageSecurity.localStorageDecoder(ipKey)
     }
     return requestConfig
   },

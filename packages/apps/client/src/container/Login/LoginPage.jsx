@@ -2,7 +2,8 @@ import {
     DashboardDetailsMiddleware,
     fetchLoggedInAdminUserInfo,
     fetchUserMenus,
-    signinUser
+    signinUser,
+    fetchLoggedInAdminIP
 } from '@frontend-appointment/thunk-middleware'
 import {ClientLogin} from '@frontend-appointment/ui-components'
 import React from 'react'
@@ -104,6 +105,7 @@ export default ConnectHoc(
         fetchUserMenus,
         signinUser,
         fetchLoggedInAdminUserInfo,
-        fetchDashboardFeaturesByAdmin
+        fetchDashboardFeaturesByAdmin,
+        fetchLoggedInAdminIP
     }
 )
