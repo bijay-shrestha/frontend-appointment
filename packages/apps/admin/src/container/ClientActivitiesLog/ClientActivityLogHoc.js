@@ -264,6 +264,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
           if (assignMenus.childMenus.length) {
             assignMenus.childMenus.map(child => {
               filterMenusDropdown.push({value: child.id, label: child.name})
+              return child
             })
           } else {
             filterMenusDropdown.push({
@@ -271,6 +272,7 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
               label: assignMenus.name
             })
           }
+          return assignMenus
         })
       }
       const newFilterMenus = [...filterMenusDropdown,{value:8080,label:'Login'},{value:8081,label:'Forgot Password'}]
@@ -308,8 +310,8 @@ const AdminActivityLogHOC = (ComposedComponent, props, type) => {
         rolesList,
         menuList,
         statsQueryParams,
-        statsTotalRecord,
-        adminMetaInfoId
+        statsTotalRecord
+        //adminMetaInfoId
       } = this.state
 
       const {

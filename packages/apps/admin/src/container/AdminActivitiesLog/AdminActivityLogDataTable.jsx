@@ -6,7 +6,6 @@ import {
     CDoughnutChart
 } from '@frontend-appointment/ui-elements'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import StatusLabel from '../CommonComponents/table-components/StatusLabel'
 import {Row, Col} from 'react-bootstrap'
 import {LoggingStatus} from '@frontend-appointment/commons'
 import EmailWithMobileNumber from '../CommonComponents/table-components/EmailWithMobileNumber'
@@ -71,6 +70,7 @@ const AdminActivityLogDataTable = ({
             chartData.data.push(datum.count)
             chartData.label.push(datum.feature)
             chartData.color.push(getColor[index])
+            return datum
         })
         return {
             datasets: [

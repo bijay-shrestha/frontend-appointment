@@ -7,8 +7,7 @@ import {
     CModal,
     CRadioButton,
     CHybridTextArea,
-    CFControl,
-    CCheckbox
+    CFControl
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
@@ -21,7 +20,7 @@ const CompanyEditModal = ({
                               onInputChange,
                               companyData,
                               errorMessageForCompanyName,
-                              errorMessageForCompanyCode,
+                              //errorMessageForCompanyCode,
                               errorMessage,
                               editApiCall,
                               formValid,
@@ -53,7 +52,7 @@ const CompanyEditModal = ({
                         <div className="image-upload-container">
                             <div className="image-box">
                                 <img
-                                    alt="COMPANY IMAGE"
+                                    alt="COMPANY"
                                     src={
                                         companyData.companyLogoUrlNew ? companyData.companyLogoUrlNew :
                                             (companyData.companyLogoUrl

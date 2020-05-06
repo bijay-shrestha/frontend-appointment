@@ -6,7 +6,8 @@ import {
     CHybridInput,
     CImageDisplayAndView,
     CRadioButton,
-    CCheckbox, CHybridTextArea
+    //CCheckbox, 
+    CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'

@@ -28,7 +28,7 @@ const HospitalConfirmationModal = props => {
             onClickHandler={onConfirmClick}
             disabled={createConsultantLoading}
             name={createConsultantLoading ? <span className="saving">Confirming <img
-                src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
+                alt="three-dots" src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
           />
         }
         closeButton={true}

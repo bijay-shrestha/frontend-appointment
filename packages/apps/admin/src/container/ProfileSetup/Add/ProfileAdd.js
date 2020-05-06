@@ -139,7 +139,7 @@ class ProfileAdd extends PureComponent {
     };
 
     filterMenuByDepartment = () => {
-        const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
+       // const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]);
 
         alphabeticallySortedMenus ?
@@ -325,7 +325,7 @@ class ProfileAdd extends PureComponent {
 
     render() {
 
-        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+      //  const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
         const {

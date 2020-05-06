@@ -7,8 +7,7 @@ import {
   CRadioButton,
   CHybridTextArea,
   CButton,
-  CFControl,
-  CCheckbox
+  CFControl
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
 import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
@@ -45,7 +44,7 @@ const HospitalForm = ({
 
                       <div className="image-box">
                         <img
-                          alt="COMPANY IMAGE"
+                          alt="COMPANY"
                           src={
                             companyInfoObj.companyLogo
                               ? companyInfoObj.companyLogoUrl

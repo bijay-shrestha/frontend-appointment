@@ -112,7 +112,6 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParamsForOverallAppoinment
             const {
                 revFromDate,
-                revHospitalId,
                 revToDate
             } = this.state.searchParameterForRevenueTrend
             if (checkDashboardRole(ACCESSCODE.PATIENT_STAT)) {
@@ -290,7 +289,8 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                         toDate: new Date(),
                         hospitalId: searchParameterChange.hospitalId
                     }
-                    break
+                    break;
+                default:return '';    
             }
             return searchParameterChange
         }
@@ -460,7 +460,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                         return response
                     } catch (e) {
                         throw e
-                        console.log(e)
+                       
                     }
                 }
             }
@@ -514,7 +514,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                         return response
                     } catch (e) {
                         throw e
-                        console.log(e)
+                       
                     }
                 }
             }
@@ -603,7 +603,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                 appointmentFilter,
                 queryParams,
                 revenueFilter,
-                specializationListHospitalWise,
+                //specializationListHospitalWise,
                 doctorTotalFollowUp
             } = this.state
             const {revFromDate, revToDate} = searchParameterForRevenueTrend

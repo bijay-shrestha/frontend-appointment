@@ -60,7 +60,7 @@ const {
   CREATE_COMPANY_ADMIN,
   DELETE_COMPANY_ADMIN,
   EDIT_COMPANY_ADMIN,
-  FETCH_COMPANY_ADMIN_META_INFO,
+//  FETCH_COMPANY_ADMIN_META_INFO,
   // FETCH_COMPANY_ADMIN_FOR_DROPDOWN,
   // GET_LOGGED_IN_COMPANY_ADMIN_INFO,
   PREVIEW_COMPANY_ADMIN,
@@ -500,6 +500,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           case 'hasMacBinding':
             this.addMacIdObjectToMacIdList(value)
             break
+          default:return ''  
         }
         this.checkFormValidity()
       }
@@ -834,7 +835,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         fullName,
         email,
         mobileNumber,
-        adminCategory,
+       // adminCategory,
         status,
         hasMacBinding,
         adminAvatar,
@@ -1013,9 +1014,11 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
               if (dash.code === adminDash.code) {
                 flag = true
               }
+              return dash
             })
           if (flag) adminDashRole.push({...adminDash, status: 'Y'})
           else adminDashRole.push({...adminDash, status: 'N'})
+          return adminDash
         })
       return adminDashRole
     }
@@ -1041,9 +1044,9 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         hasMacBinding,
         macIdList,
         adminAvatar,
-        remarks,
+        //remarks,
         adminAvatarUrl,
-        adminDashboardRequestDTOS
+       // adminDashboardRequestDTOS
       } = adminInfoObj
 
       //await this.fetchDepartmentsByHospitalId(hospital.value)
@@ -1271,7 +1274,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         adminEditErrorMessage
       } = this.props.CompanyAdminEditReducer
       const {
-        isDeleteCompanyLoading,
+        //isDeleteCompanyLoading,
         adminDeleteErrorMessage
       } = this.props.CompanyAdminDeleteReducer
       const {isCreateAdminLoading} = this.props.CompanyAdminSetupReducer

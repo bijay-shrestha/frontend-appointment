@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {
     Col,
-    Container,
+   // Container,
     Row,
     OverlayTrigger,
     Tooltip,
@@ -42,12 +42,12 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
             resetSearch,
             hospitalsDropdown,
             doctorsDropdown,
-            doctorDropdownErrorMessage,
+            //doctorDropdownErrorMessage,
             activeSpecializationList,
-            specializationDropdownErrorMessage,
+            //specializationDropdownErrorMessage,
             searchParameters,
-            patientListDropdown,
-            patientDropdownErrorMessage
+            patientListDropdown
+           // patientDropdownErrorMessage
         } = searchHandler
 
         return (
