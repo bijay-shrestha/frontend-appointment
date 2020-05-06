@@ -62,7 +62,7 @@ class StartupApiHoc extends PureComponent {
       }
       if(!LocalStorageSecurity.localStorageDecoder("clientIp")){
         const clientIp = await this.props.fetchLoggedInAdminIP();
-        LocalStorageSecurity.localStorageEncoder('clientIp',clietnIp)
+        LocalStorageSecurity.localStorageEncoder('clientIp',clientIp)
       }
     } catch (e) {
       let userMenus = this.getUserMenusFromLocalStorage()
