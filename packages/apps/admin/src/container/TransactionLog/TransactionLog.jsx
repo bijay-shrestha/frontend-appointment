@@ -7,7 +7,8 @@ import {RevenueDetailsTotalBlock} from "@frontend-appointment/ui-components";
 
 const TransactionLog = props => {
     const TransactionLog = TransactionLogHoc(
-        ({searchHandler, paginationProps, tableHandler, appointmentStatistics}) => (
+        ({searchHandler, paginationProps, tableHandler, appointmentStatistics,activeStatus,
+            handleStatusChange}) => (
             <>
                 <div>
                     <TransactionLogSearchFilter searchHandler={searchHandler}/>
@@ -17,6 +18,8 @@ const TransactionLog = props => {
                     <TransactionLogDataTable
                         tableHandler={tableHandler}
                         paginationProps={paginationProps}
+                        activeStatus={activeStatus}
+                        handleStatusChange={handleStatusChange}
                     />
                 </div>
                 {

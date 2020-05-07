@@ -8,7 +8,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils,CommonUtils,EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './transaction-log.scss'
 
 const {
@@ -51,7 +51,9 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {}
+            previewData: {},
+            filteredData:[],
+            activeStatus:'All'
         }
 
         handleEnterPress = event => {
@@ -179,9 +181,23 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     doctorId: '',
                     appointmentCategory: '',
                     status: {value: 'All', label: "All"}
-                }
+                },
+                activeStatus:'All',
+                filteredData:[]
             })
             this.searchAppointment()
+        }
+        
+        handleStatusChange= (event,status) =>{
+            let filteredData=[]
+            if(this.props.AppointmentLogListReducer.logList.length){
+             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.AppointmentLogListReducer.logList)
+            }
+            this.setState({
+                activeStatus:status,
+                filteredData:[...filteredData]
+            })
+            return false;
         }
 
         setStateValuesForSearch = searchParams => {

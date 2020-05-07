@@ -22,3 +22,6 @@ export const getUserNameHospitalIdAndAdminId = token => {
     hospitalCode: againSplitTokenTokenInToken[3]
   }
 }
+
+export const filterTableDataWithGivenStatus = (status,filterData) => filterData.filter(datum =>datum.status===status);
+

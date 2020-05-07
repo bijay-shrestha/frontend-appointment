@@ -15,7 +15,7 @@ import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewH
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
+const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusChange, activeStatus}) => {
     const {
         isSearchLoading,
         appointmentLogList,
@@ -50,7 +50,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
             </Col>  */}
                 </Row>
 
-                <AppointmentStatusBadges/>
+                <AppointmentStatusBadges activeStatus={activeStatus} handleStatusChange={handleStatusChange}/>
 
                 {!isSearchLoading &&
                 !searchErrorMessage &&
@@ -188,15 +188,16 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                         />
 
                     </>
-                ) : !isSearchLoading && searchErrorMessage ? (
+                ) : isSearchLoading && !searchErrorMessage ? (
+                    <CLoading/>
+                ) : (
                     <div className="filter-message">
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage}</div>
+                        <div className="message"> {searchErrorMessage||`No Appointment(s) Found`}</div>
                     </div>
-                ) : (
-                    <CLoading/>
+                    
                 )}
             </div>
 

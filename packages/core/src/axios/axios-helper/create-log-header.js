@@ -5,15 +5,15 @@ export const createLogHeader = request => {
   let getActMenu = ''
   let actionId, menuId
   let logHeader = null
-  if (checkIfItIsLogin(request.url)) {
-    logHeader = {
-      parentId: 8080,
-      roleId: 3001,
-      feature: 'Login',
-      actionType: 'Login',
-      logDescription: ''
-    }
-  } else {
+  // if (checkIfItIsLogin(request.url)) {
+  //   logHeader = {
+  //     parentId: 8080,
+  //     roleId: 3001,
+  //     feature: 'Login',
+  //     actionType: 'Login',
+  //     logDescription: ''
+  //   }
+  // } else {
     if (checkIfItIsNotAnAction(request.url)) {
       if (appStorageMenu) {
         getActMenu = appStorageMenu.replace('true', '')
@@ -47,7 +47,7 @@ export const createLogHeader = request => {
           }
       }
     }
-  }
+ // }
   return logHeader
 }
 const checkIfItIsNotAnAction = url => {

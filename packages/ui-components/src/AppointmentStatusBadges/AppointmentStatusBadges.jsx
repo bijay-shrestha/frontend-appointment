@@ -1,22 +1,36 @@
-import React from 'react';
-import {Badge, Col, Row} from "react-bootstrap";
-
-const AppointmentStatusBadges = () => {
-    return <>
-        <Row>
-            <Col>
-                <div className="appointment-badge float-right">
-                    <span><Badge variant="warning">B</Badge>  <span className="badge-data">Booked</span></span>
-                    <span><Badge variant="primary">CH</Badge>  <span
-                        className="badge-data">Checked-In</span> </span>
-                    <span><Badge variant="danger">C</Badge>  <span className="badge-data">Cancelled</span></span>
-                    {/*<span><Badge variant="warning">RE</Badge>  <span className="badge-data">Rejected</span></span>*/}
-                    <span><Badge variant="brown">R</Badge>  <span
-                        className="badge-data">Refunded</span></span>
-                </div>
-            </Col>
-        </Row>
+import React from 'react'
+import {Badge, Col, Row, Button} from 'react-bootstrap'
+import {appointmentStatusListForAppontmentAndTransaction} from '@frontend-appointment/helpers'
+const AppointmentStatusBadges = props => {
+  const {activeStatus, handleStatusChange} = props
+  console.log('handle', handleStatusChange)
+  return (
+    <>
+      <Row>
+        <Col>
+          <div className="appointment-badge float-right">
+            {appointmentStatusListForAppontmentAndTransaction.map(atList => {
+              return (
+                <span>
+                  <Badge variant={atList.variant}>
+                    &nbsp;{atList.value === 'PA' ? 'B' : atList.value}
+                  </Badge>
+                  &nbsp;
+                  <Button
+                    variant="link"
+                    className={activeStatus === atList.value ? 'active' : ''}
+                    onClick={event => handleStatusChange(event, atList.value)}
+                  >
+                    {atList.label}
+                  </Button>
+                </span>
+              )
+            })}
+          </div>
+        </Col>
+      </Row>
     </>
-};
+  )
+}
 
-export default AppointmentStatusBadges;
+export default AppointmentStatusBadges
