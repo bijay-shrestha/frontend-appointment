@@ -34,6 +34,10 @@ import * as  UniversitySetupActions from './university-setup/universitySetupActi
 import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
 import * as  AppointmentModeActions from './appointment-mode/appointmentModeActions';
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
+import * as  BreakTypeSetupActions from './break-type-setup/breakTypeSetupActions';
+import {breakTypeSetupActionConstants} from './break-type-setup/breakTypeSetupActionConstants';
+import * as  ShiftSetupActions from './shift-setup/shiftSetupActions';
+import {shiftSetupActionConstants} from './shift-setup/shiftSetupActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -71,5 +75,9 @@ export {
     UniversitySetupActions,
     universitySetupActionConstants,
     appointmentModeActionConstants,
-    AppointmentModeActions
+    AppointmentModeActions,
+    breakTypeSetupActionConstants,
+    BreakTypeSetupActions,
+    shiftSetupActionConstants,
+    ShiftSetupActions
 }
