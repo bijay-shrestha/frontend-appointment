@@ -1,3 +1,9 @@
+import {DoctorInformationForm} from './src/DoctorDutyRosterCommonComponents';
+
+export {
+    DoctorInformationForm
+}
+
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';
 export {default as CLayout} from './src/CLayout';
@@ -16,7 +22,9 @@ export {default as CRemarksModal} from './src/CRemarksModal/CRemarksModal';
 export {default as CNoDashboardRoleContent} from './src/CNoDashboardRoleContent/CNoDashboardRoleContent';
 export {default as CEmailVerification} from './src/CEmailVerification/CEmailVerification';
 export {default as CDoctorNameDisplayForTable} from './src/CDoctorNameDisplayForTable/CDoctorNameDisplayForTable';
-export {default as CPasswordSavedSuccessMessageView}from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
+export {
+    default as CPasswordSavedSuccessMessageView
+}from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
 export {default as PatientNameWithAgeGenderPhone} from './src/PatientNameWithAgeGenderPhoneForTable';
 export {default as TransactionDateWithTime} from './src/TransactionDateWithTimeForTable';
 export {default as AppointmentNumberWithFollowUpFlag} from './src/AppointmentNumberWithFollowUpFlagForTable';
@@ -28,4 +36,6 @@ export {default as PreviewClientProfileModalContent} from './src/PreviewClientPr
 export {default as CompanyProfileModalContent} from './src/CompanyProfileModalContent';
 export {default as RescheduleLogDateWithTimeForTable} from './src/RescheduleLogDateWithTimeForTable';
 export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
-export {default as DoctorWithSpecImage} from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
+export {
+    default as DoctorWithSpecImage
+}from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
