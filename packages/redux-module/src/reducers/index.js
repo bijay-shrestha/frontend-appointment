@@ -153,7 +153,23 @@ import {
     AppointmentModePreviewReducer,
     AppointmentModeSaveReducer,
     AppointmentModeSearchReducer
-} from './admin-module/appointmentModeReducer'
+} from './admin-module/appointmentModeReducer';
+
+import {
+    BreakTypeDeleteReducer,
+    BreakTypeDropdownReducer,
+    BreakTypeEditReducer,
+    BreakTypeSaveReducer,
+    BreakTypeSearchReducer
+} from './admin-module/breakTypeSetupReducer';
+
+import {
+    ShiftDeleteReducer,
+    ShiftDropdownReducer,
+    ShiftEditReducer,
+    ShiftSaveReducer,
+    ShiftSearchReducer
+} from './admin-module/shiftSetupReducer';
 
 export {
     AdminDeleteReducer,
@@ -180,6 +196,11 @@ export {
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
+    BreakTypeDeleteReducer,
+    BreakTypeDropdownReducer,
+    BreakTypeEditReducer,
+    BreakTypeSaveReducer,
+    BreakTypeSearchReducer,
     CompanyAdminReducer,
     companyDeleteReducer,
     companyDropdownReducer,
@@ -256,6 +277,11 @@ export {
     QualificationSaveReducer,
     QualificationSearchReducer,
     RescheduleLogReducer,
+    ShiftDeleteReducer,
+    ShiftDropdownReducer,
+    ShiftEditReducer,
+    ShiftSaveReducer,
+    ShiftSearchReducer,
     SpecializationDeleteReducer,
     SpecializationDropdownReducer,
     SpecializationEditReducer,
