@@ -58,7 +58,7 @@ const DepartmentEditModal = ({
                         errorMessagePassed={errorMessageForDepartmentCode}
                     />
                 </Col>
-                <Col sm={12} md={6}>
+                <Col sm={12} md={6} className="status-container">
 
                     <CFLabel labelName="Status" id="status"/>
                     <CRadioButton

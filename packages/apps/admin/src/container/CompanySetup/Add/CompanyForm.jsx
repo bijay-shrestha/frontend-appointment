@@ -34,7 +34,7 @@ const HospitalForm = ({
     <>
    
        
-          <h5 className="title">Company Info</h5>
+          <h5 className="title">Company Information</h5>
        
         <CForm id="hospital-info" className="mt-2 add-info">
                 <Row>

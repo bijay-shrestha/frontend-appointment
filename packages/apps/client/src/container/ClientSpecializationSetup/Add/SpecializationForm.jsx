@@ -13,7 +13,7 @@ const SpecializationForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Specialization Info</h5>
+                    <h5 className="title">Specialization Information</h5>
                 </Row>
                 <CForm id="profile-info" className="mt-2 profile-info specialization-form">
                     <Container-fluid>
