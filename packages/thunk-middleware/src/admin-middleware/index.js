@@ -38,6 +38,8 @@ import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/c
 import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLoggingMiddleware';
 import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
+import * as BreakTypeSetupMiddleware from './break-type-setup-middleware/breakTypeSetupMiddleware';
+import * as ShiftSetupMiddleware from './shift-setup-middleware/shiftSetupMiddleware';
 
 export {
     createProfile,
@@ -72,5 +74,7 @@ export {
     AdminLoggingMiddleware,
     UniversitySetupMiddleware,
     fetchAdminMetaInfoByHospitalId,
-    AppointmentModeMiddleware
+    AppointmentModeMiddleware,
+    BreakTypeSetupMiddleware,
+    ShiftSetupMiddleware
 }
