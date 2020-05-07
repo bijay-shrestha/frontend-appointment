@@ -280,7 +280,7 @@ class AdminActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.fromDate.toLocaleDateString()}
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(searchParameters.fromDate)}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -295,7 +295,7 @@ class AdminActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.toDate.toLocaleDateString()}
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(searchParameters.toDate)}
                     </Button>
                   </OverlayTrigger>
                 </li>
