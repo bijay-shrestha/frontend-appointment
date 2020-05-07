@@ -3,7 +3,7 @@ import DefaultPic from './picture.png'
 //import {Row, Col, Container} from 'react-bootstrap'
 const DoctorWithImage = props => {
   return (
-    <div className="di-column">
+  <div className="di-column">
       {props.node.data.doctorAvatar || props.node.data.fileUri ? (
         <div className="data-image">
           <img
