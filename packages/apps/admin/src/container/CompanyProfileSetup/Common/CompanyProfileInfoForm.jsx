@@ -20,7 +20,7 @@ const CompanyProfileInfoForm = ({profileInfoFormData, type}) => {
     } = profileInfoFormData;
     return (
         <Col sm={12} md={12} lg={4}>
-            <h5 className="title">Profile Info</h5>
+            <h5 className="title">Profile Information</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">

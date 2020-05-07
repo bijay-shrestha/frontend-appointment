@@ -25,6 +25,8 @@ const CRadioButton = props => {
         value
     } = props;
 
+    const newClassName = className || "" ;
+
     return (
         <>
             <Form.Check
@@ -35,7 +37,7 @@ const CRadioButton = props => {
                 // ref={reference}
                 checked={checked}
                 children={children}
-                className={className}
+                className={"c-radio " + newClassName  }
                 custom={custom}
                 disabled={disabled}
                 feedback={feedback}

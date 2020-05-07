@@ -22,7 +22,7 @@ const ProfileInfoForm = ({
                          }) => {
     return (
         <Col sm={12} md={12} lg={4}>
-            <h5 className="title">Client Profile Info</h5>
+            <h5 className="title">Client Profile Information</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">

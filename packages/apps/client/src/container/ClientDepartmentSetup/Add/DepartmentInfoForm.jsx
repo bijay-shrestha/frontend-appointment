@@ -11,7 +11,7 @@ const DepartmentInfoForm = ({
                             }) => {
     return (
         <>
-            <Col sm="6 p-0"><h5 className="title">Department Info</h5></Col>
+            <Col sm="6 p-0"><h5 className="title">Department Information</h5></Col>
             <Col sm="12" className="p-0">
 
                 <CForm
@@ -49,7 +49,7 @@ const DepartmentInfoForm = ({
 
                         </Col>
 
-                        <Col sm={12} md={4} lg={4}>
+                        <Col sm={12} md={4} lg={4} className="status-container">
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton

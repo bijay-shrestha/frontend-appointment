@@ -6,7 +6,7 @@ const DetailsModal = ({departmentData}) => {
     return (
         <>
             <Container-fluid>
-                {/*<Row className="pl-4 pr-4"><h5>Department Info</h5></Row>*/}
+                {/*<Row className="pl-4 pr-4"><h5>Department Information</h5></Row>*/}
 
                 <CForm
                     id="department-info"

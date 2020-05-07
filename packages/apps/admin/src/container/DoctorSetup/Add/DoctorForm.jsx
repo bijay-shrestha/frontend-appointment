@@ -36,7 +36,7 @@ const DoctorForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Doctor Info</h5>
+                    <h5 className="title">Doctor Information</h5>
                 </Row>
                 <CForm id="doctor-info" className="mt-2 profile-info">
                     <Container-fluid>
