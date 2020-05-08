@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import './doubleShiftSearch.scss';
 import {Scrollbars} from "react-custom-scrollbars";
-import {LocalStorageSecurity} from "@frontend-appointment/helpers";
+import {LocalStorageSecurity,CommonUtils} from "@frontend-appointment/helpers";
 
 class CDoubleShiftSearch extends PureComponent {
     state = {
