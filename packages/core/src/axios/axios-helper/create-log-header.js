@@ -7,7 +7,7 @@ export const createLogHeader = request => {
   let logHeader = null
   if (checkIfItIsLogout(request.url)) {
     logHeader = {
-      parentId: 8083,
+      parentId: 8082,
       roleId: 3003,
       feature: 'Logout',
       actionType: 'Logout',
