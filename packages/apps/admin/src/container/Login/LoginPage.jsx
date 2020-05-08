@@ -24,12 +24,7 @@ class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         await this.handleIsLoginPending(true);
         try {
-            const adminIp = await this.props.fetchLoggedInAdminIP();
-            LocalStorageSecurity.localStorageEncoder(
-                'adminIp',
-                adminIp
-            )
-
+          
             await this.props.signinUser(LOGIN_API, {...user});
 
             await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
@@ -74,7 +69,13 @@ class LoginPage extends React.PureComponent {
         });
     };
 
-    componentDidMount() {
+    async componentDidMount() {
+        const adminIp = await this.props.fetchLoggedInAdminIP();
+        LocalStorageSecurity.localStorageEncoder(
+            'adminIp',
+            adminIp
+        )
+
         document.title = 'Cogent-Appointment-Admin'
     }
 
