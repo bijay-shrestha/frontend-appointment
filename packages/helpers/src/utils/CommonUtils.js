@@ -26,14 +26,14 @@ export const getUserNameHospitalIdAndAdminId = token => {
 export const filterTableDataWithGivenStatus = (status,filterData) => filterData.filter(datum =>datum.status===status);
 
 export const matchTheWordEveryPossible = (stringToMatch,stringToMatchAgainst) =>{
-  var us = stringToMatchAgainst.toLowerCase();
-  var i = 0;
+  const secondString = stringToMatchAgainst.toLowerCase();
+  let i = 0;
   {
-      var array14219 = (stringToMatch.toLowerCase()).split('');
-      for (var index14218 = 0; index14218 < array14219.length; index14218++) {
-          var c = array14219[index14218];
+      const firstString = (stringToMatch.toLowerCase()).split('');
+      for (let count = 0; count < secondString.length; count++) {
+          let elem = firstString[count];
           {
-              var next = us.indexOf(c, i);
+              let next = secondString.indexOf(elem, i);
               if (next < 0) {
                   return false;
               }
