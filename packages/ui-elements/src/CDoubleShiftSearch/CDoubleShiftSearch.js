@@ -146,7 +146,7 @@ class CDoubleShiftSearch extends PureComponent {
                     } else {
                         // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
                         let childrenMatchingKeyWord = userMenu.childMenus.filter(
-                            child => (child.name).toLowerCase().match(pattern));
+                            child => CommonUtils.matchTheWordEveryPossible(keyWord,userMenu.name);
                         if (childrenMatchingKeyWord.length > 0) {
                             childrenMatchingKeyWord.map(child => {
                                 let displayData = {
