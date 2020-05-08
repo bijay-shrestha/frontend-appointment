@@ -39,18 +39,18 @@ const CompanyAdminEditForm = ({
   isAdminEditLoading,
   onChangeDashBoardRole
 }) => {
-  const images = [
-    {
-      src: adminInfoObj.adminAvatarUrlNew
-        ? adminInfoObj.adminAvatarUrlNew
-        : adminInfoObj.adminAvatarUrl
-        ? adminInfoObj.adminAvatarUrl
-        : DefaultProfileImage,
-      width: 4,
-      height: 3,
-      alt: 'ADMIN'
-    }
-  ]
+  // const images = [
+  //   {
+  //     src: adminInfoObj.adminAvatarUrlNew
+  //       ? adminInfoObj.adminAvatarUrlNew
+  //       : adminInfoObj.adminAvatarUrl
+  //       ? adminInfoObj.adminAvatarUrl
+  //       : DefaultProfileImage,
+  //     width: 4,
+  //     height: 3,
+  //     alt: 'ADMIN'
+  //   }
+  // ]
   return isAdminEditLoading ? (
     <CLoading />
   ) : (
@@ -62,7 +62,7 @@ const CompanyAdminEditForm = ({
             <div className="image-upload-container">
               <div className="image-box">
                 <img
-                  alt="ADMIN IMAGE"
+                  alt="ADMIN"
                   src={
                     adminInfoObj.adminAvatarUrlNew
                       ? adminInfoObj.adminAvatarUrlNew

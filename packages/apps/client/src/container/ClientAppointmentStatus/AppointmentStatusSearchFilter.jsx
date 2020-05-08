@@ -1,43 +1,48 @@
-import React, {PureComponent} from 'react';
-import {Button, Col, OverlayTrigger, Row, Tooltip} from "react-bootstrap";
-import {CButton, CForm, CHybridSelect, CHybridSelectWithImage} from "@frontend-appointment/ui-elements";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import React, {PureComponent} from 'react'
+import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
+import {
+  CButton,
+  CForm,
+  CHybridSelect,
+  CHybridSelectWithImage
+} from '@frontend-appointment/ui-elements'
+import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
 import './appointment-status.scss'
 import {
-    appointmentStatusList,
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
+  appointmentStatusList,
+  DateTimeFormatterUtils,
+  EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 
 class AppointmentLog extends PureComponent {
-    state = {
-        isSearchFormExpanded: false
-    }
+  state = {
+    isSearchFormExpanded: false
+  }
 
-    handleEnter = event => {
-        EnterKeyPressUtils.handleEnter(event)
-    }
+  handleEnter = event => {
+    EnterKeyPressUtils.handleEnter(event)
+  }
 
-    toggleSearchForm = async () => {
-        const searchFilter = document.getElementById('advanced-search')
-        if (searchFilter) searchFilter.classList.toggle('collapsed')
-        await this.setState({
-            isSearchFormExpanded: !this.state.isSearchFormExpanded
-        })
-    }
+  toggleSearchForm = async () => {
+    const searchFilter = document.getElementById('advanced-search')
+    if (searchFilter) searchFilter.classList.toggle('collapsed')
+    await this.setState({
+      isSearchFormExpanded: !this.state.isSearchFormExpanded
+    })
+  }
 
-    handleSearchButtonClick = () => {
-        this.props.searchHandler.searchAppointmentStatus()
-        this.toggleSearchForm()
-    }
+  handleSearchButtonClick = () => {
+    this.props.searchHandler.searchAppointmentStatus()
+    this.toggleSearchForm()
+  }
 
   render () {
     const {
       handleSearchFormChange,
       resetSearchForm,
-    //   searchAppointmentStatus,
-    //   hospitalList,
+      //   searchAppointmentStatus,
+      //   hospitalList,
       doctorList,
       doctorDropdownErrorMessage,
       specializationList,
@@ -121,183 +126,193 @@ class AppointmentLog extends PureComponent {
                     </div>
                   </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelectWithImage
-                                            id="doctor"
-                                            label="Doctor"
-                                            name="doctorId"
-                                            placeholder={doctorList.length ? "Select doctor." : "No Doctor(s) available."}
-                                            options={doctorList}
-                                            noOptionsMessage={() => doctorDropdownErrorMessage ? doctorDropdownErrorMessage
-                                                : "No Doctor(s) found."}
-                                            onKeyDown={this.handleEnter}
-                                            onChange={(event) => handleSearchFormChange(event)}
-                                            value={searchParameters.doctorId}
-                                            isDisabled={!doctorList.length}
-                                        />
-                                    </Col>
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelectWithImage
+                      id="doctor"
+                      label="Doctor"
+                      name="doctorId"
+                      placeholder={
+                        doctorList.length
+                          ? 'Select doctor.'
+                          : 'No Doctor(s) available.'
+                      }
+                      options={doctorList}
+                      noOptionsMessage={() =>
+                        doctorDropdownErrorMessage
+                          ? doctorDropdownErrorMessage
+                          : 'No Doctor(s) found.'
+                      }
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.doctorId}
+                      isDisabled={!doctorList.length}
+                    />
+                  </Col>
 
-                                    {/*<Col sm={12} md={4} xl={4} className="hide-on-md">*/}
-                                    {/*    /!*    /!* //should be empty *!/*!/*/}
-                                    {/*</Col>*/}
+                  {/*<Col sm={12} md={4} xl={4} className="hide-on-md">*/}
+                  {/*    /!*    /!* //should be empty *!/*!/*/}
+                  {/*</Col>*/}
 
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
-                                            id="specialization"
-                                            label="Specialization"
-                                            name="specializationId"
-                                            options={specializationList}
-                                            placeholder={
-                                                specializationList.length
-                                                    ? 'Select specialization.'
-                                                    : 'No Specialization(s) available.'
-                                            }
-                                            noOptionsMessage={() =>
-                                                specializationDropdownErrorMessage
-                                            }
-                                            onKeyDown={this.handleEnter}
-                                            onChange={event => handleSearchFormChange(event)}
-                                            value={searchParameters.specializationId}
-                                            isDisabled={!specializationList.length}
-                                        />
-                                    </Col>
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="specialization"
+                      label="Specialization"
+                      name="specializationId"
+                      options={specializationList}
+                      placeholder={
+                        specializationList.length
+                          ? 'Select specialization.'
+                          : 'No Specialization(s) available.'
+                      }
+                      noOptionsMessage={() =>
+                        specializationDropdownErrorMessage
+                      }
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.specializationId}
+                      isDisabled={!specializationList.length}
+                    />
+                  </Col>
 
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
-                                            id="status"
-                                            name="status"
-                                            onKeyDown={this.handleEnter}
-                                            onChange={event => handleSearchFormChange(event)}
-                                            value={searchParameters.status}
-                                            options={appointmentStatusList}
-                                            label="Status"
-                                        />
-                                    </Col>
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="status"
+                      name="status"
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.status}
+                      options={appointmentStatusList}
+                      label="Status"
+                    />
+                  </Col>
 
-                                    <Col
-                                        sm={12}
-                                        md={{span: 6, offset: 6}}
-                                        xl={{span: 6, offset: 6}}
-                                    >
-                                        <div className="pull-right">
-                                            <CButton
-                                                id="search-profiles"
-                                                variant="light"
-                                                size="sm"
-                                                className=" btn-action mr-2"
-                                                name="Close"
-                                                onClickHandler={this.toggleSearchForm}
-                                            />
-                                            <CButton
-                                                id="search-profiles"
-                                                variant="primary"
-                                                className="btn-action"
-                                                name="Search"
-                                                onClickHandler={this.handleSearchButtonClick}
-                                            />
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Container-fluid>
-                            <div className="search-toggle-btn"></div>
-                        </CForm>
+                  <Col
+                    sm={12}
+                    md={{span: 6, offset: 6}}
+                    xl={{span: 6, offset: 6}}
+                  >
+                    <div className="pull-right">
+                      <CButton
+                        id="search-profiles"
+                        variant="light"
+                        size="sm"
+                        className=" btn-action mr-2"
+                        name="Close"
+                        onClickHandler={this.toggleSearchForm}
+                      />
+                      <CButton
+                        id="search-profiles"
+                        variant="primary"
+                        className="btn-action"
+                        name="Search"
+                        onClickHandler={this.handleSearchButtonClick}
+                      />
                     </div>
-                ) : (
-                    <div
-                        className="search-filter-wrapper"
-                        onClick={this.toggleSearchForm}
+                  </Col>
+                </Row>
+              </Container-fluid>
+              <div className="search-toggle-btn"></div>
+            </CForm>
+          </div>
+        ) : (
+          <div
+            className="search-filter-wrapper"
+            onClick={this.toggleSearchForm}
+          >
+            <ul id="" className="search-filter-item">
+              <li>
+                <CButton id="filter" variant="primary" name="">
+                  <>
+                    <i className="fa fa-sliders" />
+                    &nbsp; Filter
+                  </>
+                </CButton>
+              </li>
+
+              {searchParameters.fromDate && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">From Date</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
                     >
-                        <ul id="" className="search-filter-item">
-                            <li>
-                                <CButton id="filter" variant="primary" name="">
-                                    <>
-                                        <i className="fa fa-sliders"/>
-                                        &nbsp; Filter
-                                    </>
-                                </CButton>
-                            </li>
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.fromDate
+                      )}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+              {searchParameters.toDate && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">To Date</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.toDate
+                      )}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
 
-                            {searchParameters.fromDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => <Tooltip {...props}>From Date</Tooltip>}
-                                    >
-                                        <Button id="button-search-filters" variant="secondary">
-                                            {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(
-                                                searchParameters.fromDate
-                                            )}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+              {searchParameters && searchParameters.doctorId && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => <Tooltip {...props}>Doctor</Tooltip>}
+                  >
+                    <Button id="button-search-filters" variant="secondary">
+                      {searchParameters.doctorId.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
 
-                            {searchParameters.toDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => <Tooltip {...props}>To Date</Tooltip>}
-                                    >
-                                        <Button id="button-search-filters" variant="secondary">
-                                            {DateTimeFormatterUtils.convertDateToYearMonthDateFormat(
-                                                searchParameters.toDate
-                                            )}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+              {searchParameters && searchParameters.specializationId && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => (
+                      <Tooltip {...props}>Specialization</Tooltip>
+                    )}
+                  >
+                    <Button id="button-search-filters" variant="secondary">
+                      {searchParameters.specializationId.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
 
-                            {searchParameters && searchParameters.doctorId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => <Tooltip {...props}>Doctor</Tooltip>}
-                                    >
-                                        <Button id="button-search-filters" variant="secondary">
-                                            {searchParameters.doctorId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
-                            {searchParameters && searchParameters.specializationId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => (
-                                            <Tooltip {...props}>Specialization</Tooltip>
-                                        )}
-                                    >
-                                        <Button id="button-search-filters" variant="secondary">
-                                            {searchParameters.specializationId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
-                            {searchParameters && searchParameters.status && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => <Tooltip {...props}>Status</Tooltip>}
-                                    >
-                                        <Button id="button-search-filters" variant="secondary">
-                                            {searchParameters.status.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-                        </ul>
-                    </div>
-                )}
-            </>
-        )
-    }
+              {searchParameters && searchParameters.status && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => <Tooltip {...props}>Status</Tooltip>}
+                  >
+                    <Button id="button-search-filters" variant="secondary">
+                      {searchParameters.status.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
+      </>
+    )
+  }
 }
 
 export default AppointmentLog

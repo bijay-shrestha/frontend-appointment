@@ -2,7 +2,7 @@ import React, {memo} from 'react'
 import SpecializationSetupSearchFilter from './SpecializationSetupSearchFilter'
 import SpecializationDetailsTable from './SpecializationDetailsTable'
 import SubDepartmentEditForm from './SpecializationEditModal'
-import {CAlert, CButton} from '@frontend-appointment/ui-elements'
+import {CAlert} from '@frontend-appointment/ui-elements'
 import SpecializationSetupHoc from '../SpecializationSetupHoc'
 
 const SpecializationManage = props => {

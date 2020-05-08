@@ -47,7 +47,6 @@ const CompanyAdminEditModal = ({
                     <CButton id="cancel-update-profile"
                              variant="light"
                              size="lg"
-                             variant="light"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
                              onClickHandler={setShowModal}

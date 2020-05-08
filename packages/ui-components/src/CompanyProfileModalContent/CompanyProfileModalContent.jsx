@@ -89,7 +89,7 @@ class CompanyProfileModalContent extends React.PureComponent {
         return <>
             {/* <Col sm={12} md={12} > */}
             <Container-fluid>
-                {/*<Row className="pl-4 pr-4"><h5>Company Profile Info</h5></Row>*/}
+                {/*<Row className="pl-4 pr-4"><h5>Company Profile Information</h5></Row>*/}
 
                 <CForm
                     id="profile-info"
@@ -124,7 +124,7 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     disabled={true}
                                 />
                             </Col>
-                            {AuditableEntityHoc(profileData,false,4)}
+                           
                             <Col sm={4} md={4} lg={4}>
                                 <CFLabel labelName="Status" id="status"></CFLabel>
                                 <CRadioButton
@@ -211,7 +211,8 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     <CScrollbar
                                         id="menus"
                                         autoHide={true}
-                                        style={{height: 313}}>
+                                       
+                                        style={{height: 313 }}>
                                         <Accordion
                                             activeKey={this.state.activeKeyChild}>
                                             {this.state.childMenusOfSelectedParent.length !== 0 &&
@@ -243,7 +244,7 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     <CScrollbar
                                         id="menus"
                                         autoHide={true}
-                                        style={{height: 313, width: 300}}>
+                                        style={{height: 313}}>
                                         <div className="assign-body">
                                             {this.state.tabsWithRolesForSelectedMenu.map(tabWithRoles =>
                                                 <div
@@ -287,6 +288,12 @@ class CompanyProfileModalContent extends React.PureComponent {
                             </div>
                         </Col>
                     }
+                </Row>
+            </Container-fluid>
+            <Container-fluid>
+            <Row className="mt-4">
+                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                {AuditableEntityHoc(profileData,false,4)}
                 </Row>
             </Container-fluid>
         </>;

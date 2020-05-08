@@ -178,7 +178,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, isCompany, refundPercentage, followUpIntervalDays,
+                name, status, hospitalCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
                 numberOfAdmins, numberOfFollowUps
             } = hospitalData;
@@ -343,11 +343,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     filteredContactNumber.push({...contactEdit, status: 'N'})
                 }
 
-
+            return contactEdit;
             });
             // console.log(filteredContactNumber)
             contactNumber.map(cont => {
                 if (!cont.hospitalContactNumberId && cont.contactNumber.length) filteredContactNumber.push(cont)
+                return cont;
             })
             return filteredContactNumber
         }
@@ -360,7 +361,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                editContactNumberRequestDTOS,
+                //editContactNumberRequestDTOS,
                 contactNumberUpdateRequestDTOS,
                 remarks,
                 id,
@@ -632,7 +633,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                isCompany,
+                //isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,

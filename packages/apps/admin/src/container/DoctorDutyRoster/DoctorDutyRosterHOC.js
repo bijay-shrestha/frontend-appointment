@@ -59,7 +59,7 @@ const {
     FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.doctorSetupApiConstants
 const {
-    FETCH_WEEKDAYS,
+    //FETCH_WEEKDAYS,
     FETCH_WEEKDAYS_DATA
 } = CommonAPIConstants.WeekdaysApiConstants
 const {
@@ -712,7 +712,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         showAddOverrideModal: true
                     })
                     this.checkOverrideFormValidity()
-                    break
+                    break;
+                default:return ''    
             }
         }
 
@@ -738,6 +739,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         deleteOverrideErrorMessage: ''
                     })
                     break
+                default:return ''    
             }
         }
 
@@ -1063,6 +1065,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     })
                     this.checkOverrideFormValidity()
                     break
+                default:return ''    
             }
         }
 
@@ -1308,6 +1311,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             doctorWeekDaysDutyRosterRequestDTOS.map(weekDay => {
                 formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay
             })
 
             this.setState({
@@ -1338,6 +1342,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
                 formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay
             })
 
             this.setState({
@@ -1376,6 +1381,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             let wholeWeekOff = true
             doctorWeekDaysAvailability.map(day => {
                 wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y'
+                return day
             })
             return wholeWeekOff
         }
@@ -1837,6 +1843,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                     overridesToBeReverted.push(override)
                 }
+                return originalUpdated;
             })
 
             newOverrides.length &&
@@ -1855,6 +1862,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     status: 'D'
                 }
                 overridesToBeReverted.push(override)
+                return newOverrides;
             })
 
             try {

@@ -7,7 +7,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils,CommonUtils} from '@frontend-appointment/helpers'
 import './appointment-log.scss'
 
 const {
@@ -50,7 +50,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {}
+            previewData: {},
+            filteredData:[],
+            activeStatus:'All'
         };
 
         handleEnterPress = event => {
@@ -102,7 +104,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 queryParams: {
                     ...this.state.queryParams,
                     page: updatedPage
-                }
+                },
+                filteredData:[...this.props.AppointmentLogListReducer.logList]
             })
         };
 
@@ -163,7 +166,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     doctorId: '',
                     appointmentCategory: '',
                     status: {value: 'All', label: "All"},
-                }
+                },
+                filteredData:[],
+                activeStatus:'All'
             });
             this.searchAppointment()
         };
@@ -180,6 +185,18 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 showModal: true
             })
         };
+        
+        handleStatusChange= (event,status) =>{
+            let filteredData=[]
+            if(this.props.AppointmentLogListReducer.logList.length){
+             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.AppointmentLogListReducer.logList)
+            }
+            this.setState({
+                activeStatus:status,
+                filteredData:[...filteredData]
+            })
+            return false;
+        }
 
         handleHospitalChangeReset = async () => {
             await this.setState({
@@ -247,12 +264,14 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData
+                previewData,
+                filteredData,
+                activeStatus
             } = this.state;
 
             const {
                 isLogListLoading,
-                logList,
+                //logList,
                 logErrorMessage,
                 appointmentStatistics
             } = this.props.AppointmentLogListReducer;
@@ -296,13 +315,15 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         }}
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
-                            appointmentLogList: this.appendSNToTable(logList),
+                            appointmentLogList: this.appendSNToTable(filteredData),
                             searchErrorMessage: logErrorMessage,
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
                         }}
+                        activeStatus={activeStatus}
+                        handleStatusChange={this.handleStatusChange}
                         appointmentStatistics={appointmentStatistics}
                     />
                 </div>

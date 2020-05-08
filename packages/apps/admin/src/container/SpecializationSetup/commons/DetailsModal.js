@@ -18,7 +18,7 @@ const DetailsModal = ({specializationData, type}) => {
                     <Container-fluid>
                         <Row>
 
-                            <Col sm={4} md={4} lg={4}>
+                            <Col sm={6} md={6} lg={6}>
                                 <CHybridInput
                                     id="hospital"
                                     name="hospitalId"
@@ -29,7 +29,7 @@ const DetailsModal = ({specializationData, type}) => {
                                 />
                             </Col>
 
-                            <Col sm={4} md={4} lg={4}>
+                            <Col sm={6} md={6} lg={6}>
                                 <CHybridInput
                                     id="specialization-name"
                                     name="name"
@@ -39,7 +39,7 @@ const DetailsModal = ({specializationData, type}) => {
                                 />
                             </Col>
 
-                            <Col sm={4} md={4} lg={4}>
+                            <Col sm={6} md={6} lg={6}>
                                 <CHybridInput
                                     id="specialization-code"
                                     name="code"
@@ -48,9 +48,9 @@ const DetailsModal = ({specializationData, type}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            {AuditableEntityHoc(specializationData,false,4)}
+                            
                             {/*{type !== 'A' ? (*/}
-                            {/*    <Col sm={4} md={4} lg={4}>*/}
+                            {/*    <Col sm={6} md={6} lg={6}>*/}
                             {/*        <CHybridInput*/}
                             {/*            id="specialization-remarks"*/}
                             {/*            name="name"*/}
@@ -62,7 +62,7 @@ const DetailsModal = ({specializationData, type}) => {
                             {/*) : (*/}
                             {/*    ''*/}
                             {/*)}*/}
-                            <Col sm={4} md={4} lg={4}>
+                            <Col sm={6} md={6} lg={6}>
                                 <CFLabel labelName="Specialization Status" id="status"/>
                                 <CRadioButton
                                     checked={specializationData.status === 'Y'}
@@ -87,6 +87,10 @@ const DetailsModal = ({specializationData, type}) => {
                                 }
                             </Col>
                         </Row>
+                        <Row className="mt-4">
+                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                {AuditableEntityHoc(specializationData)}
+                                </Row>
                     </Container-fluid>
                 </CForm>
             </Container-fluid>

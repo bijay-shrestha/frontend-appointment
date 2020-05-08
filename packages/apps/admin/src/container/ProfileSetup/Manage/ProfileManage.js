@@ -18,7 +18,7 @@ import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import {
     ProfileSetupUtils,
-    adminUserMenusJson,
+  //  adminUserMenusJson,
     clientUserMenusJson,
     UserMenuUtils,
     TryCatchHandler,
@@ -239,6 +239,7 @@ class ProfileManage extends PureComponent {
         profileMenuResponseDTOS &&
         Object.keys(profileMenuResponseDTOS).map(key => {
             menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
+            return key;
         });
 
         menusSelected.forEach(menuSelected => {
@@ -609,6 +610,7 @@ class ProfileManage extends PureComponent {
                         let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
                                 (Number(currentMenu.roleId) === Number(role)) && (Number(currentMenu.userMenuId) === Number(menu.id))
                             ))
+
                         );
                         !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
                             parentId: menu.id,
@@ -619,6 +621,7 @@ class ProfileManage extends PureComponent {
                             isNew: true,
                             isUpdated: false
                         })
+                        return role
                     })
                 }
             }
@@ -707,7 +710,7 @@ class ProfileManage extends PureComponent {
 
         const {profileErrorMessage, isProfileEditLoading} = this.props.ProfileEditReducer;
 
-        const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+        const {departments} = this.props.DepartmentSetupReducer;
 
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 

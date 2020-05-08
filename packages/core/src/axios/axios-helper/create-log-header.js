@@ -5,12 +5,12 @@ export const createLogHeader = request => {
   let getActMenu = ''
   let actionId, menuId
   let logHeader = null
-  if (checkIfItIsLogin(request.url)) {
+  if (checkIfItIsLogout(request.url)) {
     logHeader = {
-      parentId: 8080,
-      roleId: 3001,
-      feature: 'Login',
-      actionType: 'Login',
+      parentId: 8082,
+      roleId: 3003,
+      feature: 'Logout',
+      actionType: 'Logout',
       logDescription: ''
     }
   } else {
@@ -89,8 +89,8 @@ const checkIfItIsAdd = () => {
   return false
 }
 
-const checkIfItIsLogin = (url) => {
-  if (url.includes('/login')){
+const checkIfItIsLogout= (url) => {
+  if (url.includes('/logout')){
     return true
   }
   return false

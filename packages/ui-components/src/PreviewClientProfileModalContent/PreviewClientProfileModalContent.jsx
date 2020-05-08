@@ -106,7 +106,7 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                 {/* <Col sm={12} md={12} > */}
                 <Container-fluid>
                     {/*<Row className="pl-4 pr-4">*/}
-                    {/*    <h5>Client Profile Info</h5>*/}
+                    {/*    <h5>Client Profile Information</h5>*/}
                     {/*</Row>*/}
 
                     <CForm id="profile-info" className="mt-2 add-info">
@@ -154,16 +154,7 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                         disabled={true}
                                     />
                                 </Col>
-                                <Col sm={4} md={4} lg={4}>
-                                    <CHybridTextArea
-                                        id="profile-description"
-                                        name="profileDescription"
-                                        placeholder="Profile Description"
-                                        value={profileData.profileDescription}
-                                        disabled={true}
-                                    />
-                                </Col>
-                                {AuditableEntityHoc(profileData, false, 4)}
+
                                 <Col sm={4} md={4} lg={4}>
                                     <CFLabel labelName="Status" id="status"></CFLabel>
                                     <CRadioButton
@@ -185,6 +176,17 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                     />
                                 </Col>
 
+                                <Col sm={4} md={4} lg={4}>
+                                    <CHybridTextArea
+                                        id="profile-description"
+                                        name="profileDescription"
+                                        placeholder="Profile Description"
+                                        value={profileData.profileDescription}
+                                        disabled={true}
+                                    />
+                                </Col>
+                           
+                                
                                 {
                                     profileData.remarks ?
                                         <Col sm={4} md={4} lg={4}>
@@ -347,6 +349,15 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                         )}
                     </Row>
                 </Container-fluid>
+           <Container-fluid>
+           <Row className="mt-4">
+               
+               <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+               {AuditableEntityHoc(profileData, false, 4)}
+     
+               </Row>
+                                
+               </Container-fluid>
             </>
         )
     }

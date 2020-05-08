@@ -378,7 +378,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 showModal,
                 rejectRequestDTO,
                 rejectModalShow,
-                approveAppointmentId,
+               // approveAppointmentId,
                 approveConfirmationModal,
                 alertMessageInfo,
                 showAlert,

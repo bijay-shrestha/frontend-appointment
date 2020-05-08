@@ -5,8 +5,8 @@ import {
     CForm,
     CHybridInput,
     CRadioButton,
-    CHybridSelect,
-    CHybridTimePicker
+    CHybridSelect
+    //CHybridTimePicker
 } from '@frontend-appointment/ui-elements'
 
 const QualificationForm = ({
@@ -21,7 +21,7 @@ const QualificationForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Qualification Info</h5>
+                    <h5 className="title">Qualification Information</h5>
                 </Row>
                 <CForm id="profile-info" className="mt-2">
                     <Container-fluid>

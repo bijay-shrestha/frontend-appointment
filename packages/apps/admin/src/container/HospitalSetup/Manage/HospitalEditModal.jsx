@@ -20,7 +20,7 @@ const HospitalEditModal = ({
                                onInputChange,
                                hospitalData,
                                errorMessageForHospitalName,
-                               errorMessageForHospitalCode,
+                              // errorMessageForHospitalCode,
                                errorMessage,
                                editApiCall,
                                formValid,
@@ -67,7 +67,7 @@ const HospitalEditModal = ({
                                 <div className="image-upload-container">
                                     <div className="image-box">
                                         <img
-                                            alt="CLIENT IMAGE"
+                                            alt="CLIENT"
                                             src={
                                                 hospitalData.hospitalLogoUrlNew ?
                                                     hospitalData.hospitalLogoUrlNew :

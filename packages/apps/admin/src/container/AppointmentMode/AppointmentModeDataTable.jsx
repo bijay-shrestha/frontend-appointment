@@ -1,8 +1,8 @@
 import React from 'react'
-import {CFControl, CPagination, CSelect, CTable, CToggle} from '@frontend-appointment/ui-elements'
+import {CFControl, CPagination, CSelect, CTable} from '@frontend-appointment/ui-elements'
 import StatusRenderer from '../CommonComponents/table-components/StatusRenderer'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import IsEditableRenderer from "./IsEditableRenderer";
+//import IsEditableRenderer from "./IsEditableRenderer";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 

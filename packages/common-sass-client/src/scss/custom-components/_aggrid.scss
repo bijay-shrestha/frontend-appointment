@@ -50,6 +50,10 @@ $ag-range-selected-color-4: darken($ag-range-selected-color-1, 30%);
       color: $icon-color;
     }
   }
+
+  // .ag-cell{
+  //   line-height: ;
+  // }
 }
 
 // for example purposes, remove margin and padding of the grid and also removing the outline from focused items.
@@ -150,5 +154,6 @@ body {
   img {
     width: 40px;
     height: 40px;
+    line-height: 30px;
   }
 }

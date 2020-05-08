@@ -8,7 +8,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils,CommonUtils,EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './transaction-log.scss'
 
 const {
@@ -51,7 +51,9 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
             },
             totalRecords: 0,
             showModal: false,
-            previewData: {}
+            previewData: {},
+            filteredData:[],
+            activeStatus:'All'
         }
 
         handleEnterPress = event => {
@@ -116,7 +118,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 queryParams: {
                     ...this.state.queryParams,
                     page: updatedPage
-                }
+                },
+                filteredData:this.props.TransactionLogReducer.logList
             })
         }
 
@@ -179,9 +182,23 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                     doctorId: '',
                     appointmentCategory: '',
                     status: {value: 'All', label: "All"}
-                }
+                },
+                activeStatus:'All',
+                filteredData:[]
             })
             this.searchAppointment()
+        }
+        
+        handleStatusChange= (event,status) =>{
+            let filteredData=[]
+            if(this.props.TransactionLogReducer.logList.length){
+             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.TransactionLogReducer.logList)
+            }
+            this.setState({
+                activeStatus:status,
+                filteredData:[...filteredData]
+            })
+            return false;
         }
 
         setStateValuesForSearch = searchParams => {
@@ -271,12 +288,14 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData
+                previewData,
+                filteredData,
+                activeStatus
             } = this.state
 
             const {
                 isLogListLoading,
-                logList,
+                //logList,
                 logErrorMessage,
                 appointmentStatistics
             } = this.props.TransactionLogReducer
@@ -322,13 +341,15 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                         }}
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
-                            appointmentLogList: this.appendSNToTable(logList),
+                            appointmentLogList: this.appendSNToTable(filteredData),
                             searchErrorMessage: logErrorMessage,
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
                         }}
+                        activeStatus={activeStatus}
+                        handleStatusChange={this.handleStatusChange}
                         appointmentStatistics={appointmentStatistics}
                     />
                 </div>

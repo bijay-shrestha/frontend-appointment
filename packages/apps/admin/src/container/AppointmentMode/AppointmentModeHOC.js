@@ -5,7 +5,7 @@ import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-co
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
 import {CAlert, CModal} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
-import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
+import {ConfirmDelete} from "@frontend-appointment/ui-components";
 import AppointmentModeDetails from "./AppointmentModeDetails";
 import "./appointment-mode.scss"
 import AppointmentModeConfirmationModalContent from "./AppointmentModeConfirmatonModalContent";
@@ -120,7 +120,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 status: 'D'
             };
             try {
-                const response = await this.props.deleteAppointmentMode(DELETE_APPOINTMENT_MODE, deleteRequestDTO);
+                await this.props.deleteAppointmentMode(DELETE_APPOINTMENT_MODE, deleteRequestDTO);
                 this.showAlertMessage("success", this.props.AppointmentModeDeleteReducer.deleteSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
@@ -141,7 +141,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 remarks
             };
             try {
-                const response = await this.props.editAppointmentMode(EDIT_APPOINTMENT_MODE, requestDTO);
+                await this.props.editAppointmentMode(EDIT_APPOINTMENT_MODE, requestDTO);
                 this.showAlertMessage("success", this.props.AppointmentModeEditReducer.editSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
@@ -356,7 +356,7 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
                 isEditable: isEditable ? 'Y' : 'N'
             };
             try {
-                const response = await this.props.saveAppointmentMode(SAVE_APPOINTMENT_MODE, requestDTO);
+                await this.props.saveAppointmentMode(SAVE_APPOINTMENT_MODE, requestDTO);
                 this.showAlertMessage("success", this.props.AppointmentModeSaveReducer.saveSuccessMessage);
                 this.closeSaveModal();
                 this.actionsOnOperationComplete();
@@ -494,8 +494,8 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
 
             const {
                 isSaveAppointmentModeLoading,
-                saveSuccessMessage,
-                saveErrorMessage
+                // saveSuccessMessage,
+                // saveErrorMessage
             } = this.props.AppointmentModeSaveReducer;
 
             const {
@@ -509,8 +509,8 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             const {deleteErrorMessage, isDeleteAppointmentModeLoading} = this.props.AppointmentModeDeleteReducer;
 
             const {
-                isPreviewAppointmentModeLoading,
-                previewAppointmentModeErrorMessage,
+                // isPreviewAppointmentModeLoading,
+                // previewAppointmentModeErrorMessage,
                 appointmentModeDetails
             } = this.props.AppointmentModePreviewReducer;
 

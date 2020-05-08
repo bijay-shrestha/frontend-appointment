@@ -22,7 +22,7 @@ const DoctorDutyRosterPreviewModal = ({
             <Row className="mb-3">
                 <Col md={12} lg={5} className="p-0">
                     <div className="doctor-info bg-white p-4">
-                        <h5 className="title mb-4">Doctor Info</h5>
+                        <h5 className="title mb-4">Doctor Information</h5>
                         <Form>
                             <div className="d-flex">
                                 <CEnglishDatePicker
@@ -85,7 +85,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />
-                            {AuditableEntityHoc(doctorInfoData,true,null)}
+                       
 
                             <CFLabel labelName="Status" id="status"/>
                             <div>
@@ -239,6 +239,12 @@ const DoctorDutyRosterPreviewModal = ({
                     </Col>
                     : ''
                 }
+            </Row>
+            <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
+              
+                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                {AuditableEntityHoc(doctorInfoData,false, 4)}
+               
             </Row>
         </Container>
     </>

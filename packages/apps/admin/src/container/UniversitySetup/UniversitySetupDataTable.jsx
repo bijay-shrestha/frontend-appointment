@@ -1,7 +1,7 @@
 import React from 'react'
 import {
     CFControl,
-    CLoading,
+    //CLoading,
     CPagination,
     CSelect,
     CTable

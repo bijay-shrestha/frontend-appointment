@@ -2,7 +2,8 @@ import React, {memo} from 'react'
 import {Row, Col, Form} from 'react-bootstrap'
 import {
     CDataTable,
-    CHybridSelect, CHybridSelectWithImage,
+    //CHybridSelect, 
+    CHybridSelectWithImage,
     CLoading,
     CPagination
 } from '@frontend-appointment/ui-elements'

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col} from "react-bootstrap";
 import {
-    CCheckbox,
+   // CCheckbox,
     CFLabel,
     CForm,
     CHybridInput,
@@ -9,7 +9,7 @@ import {
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
-import {LocalStorageSecurity} from "@frontend-appointment/helpers";
+//import {LocalStorageSecurity} from "@frontend-appointment/helpers";
 
 const ProfileInfoForm = ({
                              onEnterKeyPress,
@@ -22,7 +22,7 @@ const ProfileInfoForm = ({
                          }) => {
     return (
         <Col sm={12} md={12} lg={4}>
-            <h5 className="title">Client Profile Info</h5>
+            <h5 className="title">Client Profile Information</h5>
             <CForm
                 id="profile-info"
                 className="mt-2 profile-info">

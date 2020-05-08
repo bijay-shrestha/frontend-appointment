@@ -58,7 +58,7 @@ class CompanyProfileSetupSearchFilter extends PureComponent {
                         <CForm id='profile-info' className='profile-info mt-4'>
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={6} md={6} xl={3}>
+                                    <Col sm={6} md={6} xl={4}>
                                         <CHybridSelect
                                             id="profile-name"
                                             label="Company Profile"
@@ -70,7 +70,7 @@ class CompanyProfileSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                         />
                                     </Col>
-                                    <Col sm={6} md={6} xl={3}>
+                                    <Col sm={6} md={6} xl={4}>
                                         <CHybridSelect
                                             id="company"
                                             label="Company"
@@ -83,7 +83,7 @@ class CompanyProfileSetupSearchFilter extends PureComponent {
                                         />
                                     </Col>
 
-                                    <Col sm={6} md={6} xl={3}>
+                                    <Col sm={6} md={6} xl={4}>
                                         <CHybridSelect
                                             id="status"
                                             name="status"

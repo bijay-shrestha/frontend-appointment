@@ -4,29 +4,23 @@ import DefaultPic from './picture.png'
 const DoctorWithImage = props => {
   return (
   <div className="di-column">
-      
-         
-            {props.node.data.doctorAvatar || props.node.data.fileUri ? (
-              <div className="data-image">
-                <img
-                  alt="PIC"
-                  src={props.node.data.doctorAvatar || props.node.data.fileUri}
-                />{' '}
-              </div>
-            ) : (
-              <div className="data-image">
-                <img alt="PIC" src={DefaultPic} />
-              </div>
-            )}
-         
-         
-            <ul>
-              <li>Dr. {props.node.data.doctorName || ''}</li>
-            </ul>
-         
-          </div>
-      
-  
+      {props.node.data.doctorAvatar || props.node.data.fileUri ? (
+        <div className="data-image">
+          <img
+            alt="PIC"
+            src={props.node.data.doctorAvatar || props.node.data.fileUri}
+          />{' '}
+        </div>
+      ) : (
+        <div className="data-image">
+          <img alt="PIC" src={DefaultPic} />
+        </div>
+      )}
+
+      <ul>
+        <li>Dr. {props.node.data.doctorName || ''}</li>
+      </ul>
+    </div>
   )
 }
 

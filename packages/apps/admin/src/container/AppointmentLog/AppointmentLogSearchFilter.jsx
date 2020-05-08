@@ -35,12 +35,12 @@ class AppointmentLogListSearchFilter extends PureComponent {
             resetSearch,
             hospitalsDropdown,
             doctorsDropdown,
-            doctorDropdownErrorMessage,
+            //doctorDropdownErrorMessage,
             activeSpecializationList,
-            specializationDropdownErrorMessage,
+            //specializationDropdownErrorMessage,
             searchParameters,
             patientListDropdown,
-            patientDropdownErrorMessage
+            //patientDropdownErrorMessage
         } = searchHandler
 
         return (
@@ -353,36 +353,40 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-                            {searchParameters.fromDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Appointment From Date</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.fromDate.toLocaleDateString()}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-                            {searchParameters.toDate && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Appointment To Date</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.toDate.toLocaleDateString()}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
+                           {searchParameters.fromDate && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">From Date</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.fromDate
+                      )}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+              {searchParameters.toDate && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">To Date</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.toDate
+                      )}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
 
                             {/*{searchParameters.transactionFromDate && (*/}
                             {/*    <li>*/}

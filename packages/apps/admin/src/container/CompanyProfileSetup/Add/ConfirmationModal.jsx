@@ -18,7 +18,7 @@ const ConfirmationModal = props => {
                         disabled={createCompanyProfileLoading}
                         name={createCompanyProfileLoading ?
                             <span className="saving">Confirming <img
-                            src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
+                            alt="three-dots" src={require("../../../images/three-dots.svg")}/></span> : "Confirm"}
                         size="lg"
                         className="float-right"
                         onClickHandler={onConfirmClick}/>

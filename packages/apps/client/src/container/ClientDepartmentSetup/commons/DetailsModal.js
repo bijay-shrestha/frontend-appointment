@@ -6,7 +6,7 @@ const DetailsModal = ({departmentData}) => {
     return (
         <>
             <Container-fluid>
-                {/*<Row className="pl-4 pr-4"><h5>Department Info</h5></Row>*/}
+                {/*<Row className="pl-4 pr-4"><h5>Department Information</h5></Row>*/}
 
                 <CForm
                     id="department-info"
@@ -66,6 +66,11 @@ const DetailsModal = ({departmentData}) => {
                                     </Col>
                                     : ''
                             }
+                        </Row>
+
+                        <Row className="mt-4">
+                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                 {AuditableEntityHoc(departmentData)}
                         </Row>
                     </Container-fluid>
                 </CForm>

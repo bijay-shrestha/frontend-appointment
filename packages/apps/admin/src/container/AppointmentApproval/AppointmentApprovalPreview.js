@@ -19,4 +19,4 @@ const PreviewRefund = props => {
     );
 };
 
-export default PreviewRefund;
+export default memo(PreviewRefund);

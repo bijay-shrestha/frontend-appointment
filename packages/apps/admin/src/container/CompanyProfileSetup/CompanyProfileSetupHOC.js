@@ -199,12 +199,14 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                 profileMenuResponseDTOS &&
                 Object.keys(profileMenuResponseDTOS).map(key => {
                     menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
+                    return key;
                 });
 
                 if (adminInfo.isAllRoleAssigned === 'Y') {
                     menusSelected.map(menuSelected => {
                         menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
-                    });
+                       return menuSelected
+                      });
                 } else {
                     menusSelected.map(menuSelected => {
                         let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(adminMenu =>
@@ -215,6 +217,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                         } else {
                             menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
                         }
+                        return menuSelected
                     });
                 }
 
@@ -618,7 +621,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
     }
 
     fetchCompanyListForDropdown = async () => {
-      const response = await this.props.companyDropdown(DROPDOWN_COMPANY)
+      await this.props.companyDropdown(DROPDOWN_COMPANY)
     }
 
     fetchCompanyProfileListForDropdown = async () => {
@@ -667,6 +670,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                     isUpdated: false
                   })
               })
+              return child
             })
           } else {
             menu.roles.map(role => {
@@ -687,8 +691,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                   isNew: true,
                   isUpdated: false
                 })
+                return role;
             })
           }
+          return menu;
         })
         currentSelectedMenus = [...currentSelectedMenusWithStatusUpdated]
       } else {

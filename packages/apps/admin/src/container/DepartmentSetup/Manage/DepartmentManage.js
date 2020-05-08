@@ -35,7 +35,7 @@ const {
     EDIT_DEPARTMENT,
     DELETE_DEPARTMENT,
     EXPORT_DEPARTMENT_EXCEL,
-    FETCH_DEPARTMENTS_FOR_DROPDOWN,
+    //FETCH_DEPARTMENTS_FOR_DROPDOWN,
     FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants;
 
@@ -387,8 +387,8 @@ class DepartmentManage extends PureComponent {
         const {
             name,
             code,
-            nameValid,
-            codeValid
+            nameValid
+          //  codeValid
         } = this.state.departmentUpdateData;
         let formValidity = nameValid && name && code;
 

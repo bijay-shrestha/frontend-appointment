@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {
   Col,
-  Container,
+  //Container,
   Row,
   OverlayTrigger,
   Tooltip,
@@ -10,8 +10,8 @@ import {
 import {
   CButton,
   CHybridSelect,
-  CForm,
-  CHybridInput
+  CForm
+  //CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
@@ -272,7 +272,7 @@ class ClientActivityLogSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.fromDate && (
+             {searchParameters.fromDate && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -282,7 +282,9 @@ class ClientActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.fromDate.toLocaleDateString()}
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.fromDate
+                      )}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -297,7 +299,9 @@ class ClientActivityLogSearchFilter extends PureComponent {
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.toDate.toLocaleDateString()}
+                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                        searchParameters.toDate
+                      )}
                     </Button>
                   </OverlayTrigger>
                 </li>

@@ -1,7 +1,6 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
-import ClientActivityLog from './container/ClientActivitiesLog/ClientActivityLog'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -10,7 +9,7 @@ const AdminActivityLog = loadable(
     {fallback: getLoader()}
 )
 
-const ClienActivityLog = loadable(
+const ClientActivityLog = loadable(
     () => import('./container/ClientActivitiesLog/ClientActivityLog'),
     {fallback: getLoader()}
 )

@@ -140,7 +140,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                     registrationNumber: patient.registrationNumber || 'N/A',
                     mobileNumber: patient.mobileNumber || 'N/A',
                     esewaId: patient.esewaId || 'N/A',
-                    age: patient.age && patient.age.slice(0, 4) || 'N/A',
+                    age: patient.age ? patient.age.slice(0, 4):'N/A',
                     status: patient.status || 'N/A',
                     hospitalNumber: patient.hospitalNumber || 'N/A',
                     hospitalName: patient.hospitalName || 'N/A',

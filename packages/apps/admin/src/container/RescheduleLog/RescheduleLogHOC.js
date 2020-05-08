@@ -313,7 +313,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
             const {activeSpecializationListByHospital, dropdownErrorMessage} = this.props.SpecializationDropdownReducer;
 
-            const {isRescheduleLogLoading, rescheduleLogErrorMessage, totalAmount} = this.props.RescheduleLogReducer;
+            const {isRescheduleLogLoading, rescheduleLogErrorMessage} = this.props.RescheduleLogReducer;
 
             const {patientList, patientDropdownErrorMessage} = this.props.PatientDropdownListReducer;
 

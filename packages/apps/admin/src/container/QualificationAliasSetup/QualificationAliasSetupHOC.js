@@ -281,7 +281,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                     status: status && status.value
                 };
                 try {
-                    const response = await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
+                    await this.props.saveQualificationAlias(SAVE_QUALIFICATION_ALIAS, requestDTO);
                     this.showAlertMessage("success", this.props.QualificationAliasSaveReducer.saveSuccessMessage);
                     this.actionsOnOperationComplete();
                     return true
@@ -336,7 +336,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 remarks
             };
             try {
-                const response = await this.props.editQualificationAlias(EDIT_QUALIFICATION_ALIAS, requestDTO);
+                await this.props.editQualificationAlias(EDIT_QUALIFICATION_ALIAS, requestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasEditReducer.editSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
@@ -358,7 +358,7 @@ const QualificationAliasSetupHOC = (ComposedComponent, props, type) => {
                 status: 'D'
             };
             try {
-                const response = await this.props.deleteQualificationAlias(DELETE_QUALIFICATION_ALIAS, deleteRequestDTO);
+                await this.props.deleteQualificationAlias(DELETE_QUALIFICATION_ALIAS, deleteRequestDTO);
                 this.showAlertMessage("success", this.props.QualificationAliasDeleteReducer.deleteSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();

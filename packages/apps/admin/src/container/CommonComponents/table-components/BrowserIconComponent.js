@@ -3,7 +3,6 @@ import React, {memo} from 'react'
 const BrowserIconComponent = props => {
   let {browser} = props.node.data
   browser = browser || ''
-  console.log('=====', props.node.data.browser)
   return (
     <>
       <ul className="browser">
@@ -22,7 +21,7 @@ const BrowserIconComponent = props => {
           </li>
         ) : browser.includes('opera') || browser.includes('Opera') ? (
           <li>
-            <img alt="opera" src={require('../../../images/opera.svg')} />
+            <img  alt="opera" src={require('../../../images/opera.svg')} />
             <span>Opera</span>
           </li>
         ) : browser.includes('explorer') ||
@@ -30,12 +29,12 @@ const BrowserIconComponent = props => {
           browser.includes('internet') ||
           browser.includes('Internet') ? (
           <li>
-            <img open="internet explorer" src={require('../../../images/explorer.svg')} />
+            <img open="internet explorer" alt="explorer" src={require('../../../images/explorer.svg')} />
             <span>Internet Explorer</span>
           </li>
         ) : browser.includes('safari') || browser.includes('Safari') ? (
           <li>
-            <img src={require('../../../images/safari.svg')} />
+            <img alt="safari" src={require('../../../images/safari.svg')} />
             <span>Safari</span>
           </li>
         ) : browser.includes('Edge') || browser.includes('edge') ? (

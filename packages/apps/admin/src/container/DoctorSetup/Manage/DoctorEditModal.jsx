@@ -50,8 +50,10 @@ const DoctorEditModal = ({
                 currSpec && currSpec.map(currSpec => {
                     if (currSpec.doctorSpecializationId === editSp.doctorSpecializationId)
                         flag = true
+                return currSpec;
                 });
                 !flag && editSpec.length !== currSpec.length && CommonUtils.checkIfTwoArrayEquals(currSpec, editSpec, 'doctorSpecializationId') && newArray.push(editSp)
+              return editSp;
             })
         }
         return newArray
@@ -65,7 +67,7 @@ const DoctorEditModal = ({
                         <div className="image-upload-container">
                             <div className="image-box">
                                 <img
-                                    alt="DOCTOR IMAGE"
+                                    alt="DOCTOR"
                                     src={
                                         doctorData.doctorAvatarUrlNew
                                             ? doctorData.doctorAvatarUrlNew :
@@ -80,7 +82,7 @@ const DoctorEditModal = ({
                                     size="lg"
                                     className="upload-button my-1"
                                     onClickHandler={setImageShow}
-                                ><i className="fa fa-upload"></i>&nbsp;Upload</CButton>
+                                ><><i className="fa fa-upload"></i>&nbsp;Upload</></CButton>
                                 <CImageUploadAndCropModal
                                     showModal={showImageUploadModal}
                                     ruleOfThirds={true}
@@ -345,7 +347,7 @@ const DoctorEditModal = ({
                             id="submit-update-button"
                             disabled={!formValid || isConsultantEditLoading}
                             name={isConsultantEditLoading ? <span className="saving">Updating <img
-                                src={require("../../../images/three-dots.svg")}/></span> : "Update"}
+                              alt="three-dots"  src={require("../../../images/three-dots.svg")}/></span> : "Update"}
                             variant="primary"
                             size="lg"
                             className="btn-action  float-right"

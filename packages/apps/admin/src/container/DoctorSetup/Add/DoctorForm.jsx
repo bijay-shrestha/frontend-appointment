@@ -18,7 +18,7 @@ const DoctorForm = ({
                         onEnterKeyPress,
                         onInputChange,
                         doctorImageCroppedUrl,
-                        doctorFileCropped,
+                       // doctorFileCropped,
                         showImageUploadModal,
                         onImageSelect,
                         handleCropImage,
@@ -36,7 +36,7 @@ const DoctorForm = ({
         <>
             <Container-fluid>
                 <Row sm="12 p-0">
-                    <h5 className="title">Doctor Info</h5>
+                    <h5 className="title">Doctor Information</h5>
                 </Row>
                 <CForm id="doctor-info" className="mt-2 profile-info">
                     <Container-fluid>
@@ -48,7 +48,7 @@ const DoctorForm = ({
                                             {/* <CFLabel id="DoctorPicture" labelName="Doctor Picture"></CFLabel> */}
                                             <div className="image-box">
                                                 <img
-                                                    alt="Doctor Image"
+                                                    alt="Doctor"
                                                     src={
                                                         doctorInfoObj.doctorAvatar
                                                             ? doctorInfoObj.doctorAvatarUrl
@@ -62,7 +62,7 @@ const DoctorForm = ({
                                                     variant="primary"
                                                     className=" mt-1 mb-4  upload-button"
                                                     onClickHandler={setImageShow}>
-                                                    <i className="fa fa-upload"></i>&nbsp;Upload
+                                                    <><i className="fa fa-upload"></i>&nbsp;Upload</>
                                                 </CButton>
                                                 <CImageUploadAndCropModal
                                                     showModal={showImageUploadModal}

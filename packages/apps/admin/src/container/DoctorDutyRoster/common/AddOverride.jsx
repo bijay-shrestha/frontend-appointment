@@ -1,7 +1,7 @@
 import React from 'react';
 import {CButton, CCheckbox, CHybridTextArea, CHybridTimePicker, CModal,CHybridInput} from "@frontend-appointment/ui-elements";
-import {Container, Form, Row, Col} from "react-bootstrap";
-import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
+import {Form, Row, Col} from "react-bootstrap";
+import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const AddOverrideModal = ({

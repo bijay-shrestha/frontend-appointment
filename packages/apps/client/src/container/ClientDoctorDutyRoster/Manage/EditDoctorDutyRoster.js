@@ -47,7 +47,7 @@ const EditDoctorDutyRoster = ({
             <Row className="">
                 <Col md={12} lg={5} className="">
                     <div className="doctor-info bg-white p-4">
-                        <h5 className="title mb-4">Doctor Info</h5>
+                        <h5 className="title mb-4">Doctor Information</h5>
                         <Form>
                             <div className="d-flex">
                                 <CEnglishDatePicker

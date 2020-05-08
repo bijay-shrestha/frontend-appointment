@@ -23,7 +23,7 @@ import menuRoles from './src/roles';
 import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
 import * as StringUtils from './src/utils/StringUtils';
-
+import {appointmentStatusListForAppontmentAndTransaction} from './src/appointment-transaction-status'
 
 export {
     checkDashboardRole,
@@ -49,4 +49,5 @@ export {
     clientUserMenusJson,
     ObjectUtils,
     StringUtils,
+    appointmentStatusListForAppontmentAndTransaction
 }

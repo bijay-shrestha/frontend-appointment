@@ -6,7 +6,8 @@ import {
     CHybridInput,
     CImageDisplayAndView,
     CRadioButton,
-    CCheckbox, CHybridTextArea
+    //CCheckbox, 
+    CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../Add/picture.png'
@@ -108,7 +109,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         />
                                     </Col>
 
-                                    {AuditableEntityHoc(adminInfoObj)}
+                                  
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CFLabel labelName="Gender" id="gender"/>
@@ -260,6 +261,10 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         : ''
                                     }
 
+                                </Row>
+                                <Row className="mt-4">
+                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>
                         </Row>
