@@ -18,7 +18,7 @@ const {CHANGE_COMPANY_ADMIN_PASSWORD} = AdminModuleAPIConstants.companyAdminSetu
 const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants;
 const {FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants;
 const {PREVIEW_COMPANY_PROFILE} = AdminModuleAPIConstants.companyProfileSetupApiConstants;
-const {ADMIN_FEATURE} = CommonAPIConstants
+const {ADMIN_FEATURE,LOGOUT_API} = CommonAPIConstants
 
 class CHeader extends Component {
     state = {
@@ -67,12 +67,22 @@ class CHeader extends Component {
             return true
         }
     }
+    logoutApi = async path =>{
+     try{
+         await Axios.get(path);
+
+     }catch(e){
+         return true;
+     }
+    }
 
     logoutUser = async () => {
         await this.savePinOrUnpinUserMenu(
             ADMIN_FEATURE,
             Boolean(LocalStorageSecurity.localStorageDecoder('isOpen')) || false
         )
+        
+        await this.logoutApi(LOGOUT_API);
         localStorage.clear()
         sessionStorage.clear()
 

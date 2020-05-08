@@ -14,3 +14,4 @@ export const ForgotPasswordAndVerification = {
 }
 
 export const ADMIN_FEATURE=BASE.concat("/adminFeature");
+export const LOGOUT_API=BASE.concat("/logout")
