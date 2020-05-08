@@ -25,7 +25,7 @@ class LoginPage extends React.PureComponent {
         await this.handleIsLoginPending(true);
         try {
             const adminIp = await this.props.fetchLoggedInAdminIP();
-           await LocalStorageSecurity.localStorageEncoder(
+            LocalStorageSecurity.localStorageEncoder(
                 'adminIp',
                 adminIp
             )

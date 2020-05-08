@@ -28,12 +28,13 @@ Axios.interceptors.request.use(
     if (!requestConfig.url.includes('/login'))
       requestConfig.headers.Authorization = token ? token : ''
     let logHeader = createLogHeader(requestConfig)
-    if (logHeader ||requestConfig.url.includes("/forgot")) {
+    if (logHeader ||requestConfig.url.includes("/forgot")||request.url.includes("/login")) {
       requestConfig.headers['log-header'] = JSON.stringify(logHeader)
       let ipKey = 'clientIp'
       if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === 'ADMIN') {
         ipKey = 'adminIp'
       }
+      console.log(LocalStorageSecurity.localStorageDecoder(ipKey));
       requestConfig.headers[
         'X-Forwarded-For'
       ] = LocalStorageSecurity.localStorageDecoder(ipKey)
