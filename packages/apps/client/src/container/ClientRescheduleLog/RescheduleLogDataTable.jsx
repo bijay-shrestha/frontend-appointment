@@ -85,7 +85,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     cellRenderer: "appNoWithFollowUp"
                                 },
                                 {
-                                    headerName: 'Patient Info',
+                                    headerName: 'Patient Details',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
