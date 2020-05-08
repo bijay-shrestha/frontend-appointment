@@ -128,11 +128,11 @@ class CDoubleShiftSearch extends PureComponent {
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
            // const pattern = new RegExp("(?:^|\\W)"+keyWord+"") //("\\b(\\w*"+keyWord+"\\w*)\\b")  //".*\\"+keyWord+"\\b.*"
-            console.log("======",pattern)
+           // console.log("======",pattern)
             userMenus.map(
                 userMenu => {
                     if (!userMenu.childMenus.length) {
-                        if ((userMenu.name).toLowerCase().match(pattern)) {
+                        if (CommonUtils.matchTheWordEveryPossible(keyWord,userMenu.name)){//(userMenu.name).toLowerCase().match(pattern)) {
                             // IF PARENT MATCHES THE KEYWORD,ADD PARENT
                             let displayData = {
                                 id: userMenu.id,
