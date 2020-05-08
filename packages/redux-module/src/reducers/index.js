@@ -164,6 +164,7 @@ import {
 } from './admin-module/breakTypeSetupReducer';
 
 import {
+    AssignShiftsToDoctorReducer,
     ShiftDeleteReducer,
     ShiftDropdownReducer,
     ShiftEditReducer,
@@ -196,6 +197,7 @@ export {
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
+    AssignShiftsToDoctorReducer,
     BreakTypeDeleteReducer,
     BreakTypeDropdownReducer,
     BreakTypeEditReducer,

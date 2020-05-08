@@ -1,5 +1,5 @@
 import React from 'react';
-import {Col, Container, Form, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import {
     CButton,
     CCheckbox,
@@ -22,7 +22,8 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
         hospitalList,
         onInputChange,
         onEnterKeyPress,
-        specializationList
+        specializationList,
+        handleAssignNewShiftToDoctor
     } = doctorInformationFormData;
 
     return <>
@@ -130,7 +131,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                     placeholder={!doctorInformationData.specialization ? "Select Specialization first."
                                         : doctorList.length ? "Select Doctor." : "No Doctor(s) available."}
                                     options={doctorList}
-                                    // noOptionsMessage={() => doctorDropdownErrorMessage ? doctorDropdownErrorMessage : "No Doctor(s) found."}
                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                     onChange={(event) => onInputChange(event, '')}
                                     value={doctorInformationData.doctor}
@@ -165,21 +165,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                         onChange={event => onInputChange(event)}
                                         readOnly={true}
                                     />
-                                    {/*{*/}
-                                    {/*    <CRadioButton*/}
-                                    {/*        checked={adminInfoObj.status === 'N'}*/}
-                                    {/*        id="radio2"*/}
-                                    {/*        label="Inactive"*/}
-                                    {/*        type="radio"*/}
-                                    {/*        name="status"*/}
-                                    {/*        value="N"*/}
-                                    {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
-                                    {/*        onChange={event => onInputChange(event)}*/}
-                                    {/*        className="sr-only"*/}
-                                    {/*        disabled={true}*/}
-                                    {/*        readOnly={true}*/}
-                                    {/*    />*/}
-                                    {/*}*/}
                                 </div>
                             </Col>
                             <Col sm={12} md={4} lg={4}>
@@ -190,31 +175,39 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                 {
                     doctorInformationData.doctor ?
                         <>
-                            <Col sm="6 p-0">
-                                <h5 className="title">Shift Information</h5>
-                            </Col>
-                            <CButton
-                                id="addNewShift"
-                                variant='outline-secondary'
-                                size='lg'
-                                name=''
-                                className="mb-2  float-right"
-                                // disabled={hasOverrideDutyRoster === 'N'}
-                                // onClickHandler={setShowAddOverrideModal}
-                            >
-                                <><i className='fa fa-plus'/> New Shift</>
-                            </CButton>
+                            <Row>
+                                <Col>
+                                    <h5 className="title">Shift Information</h5>
+                                </Col>
+                                <Col>
+                                    <CButton
+                                        id="addNewShift"
+                                        variant='outline-secondary'
+                                        size='lg'
+                                        name=''
+                                        className="mb-2  float-right"
+                                        // disabled={}
+                                        onClickHandler={handleAssignNewShiftToDoctor}
+                                    >
+                                        <><i className='fa fa-plus'/> New Shift</>
+                                    </CButton>
+                                </Col>
+                            </Row>
 
-                            <Col sm="12" className="p-0">
+                            <Row>
                                 {doctorInformationData.doctorShifts.map(shift => (
-                                    <CCheckbox
-                                        id={"doctor-shift" + shift.value}
-                                        label={shift.label}
-                                        checked={shift.isChecked}
-                                        onChange={onInputChange}
-                                    />
+                                    <Col sm={2} key={"doctor-shift" + shift.value}>
+                                        <CCheckbox
+                                            id={"doctor-shift" + shift.value}
+                                            key={"doctor-shift" + shift.value}
+                                            label={shift.label}
+                                            className="select-all check-all"
+                                            checked={shift.checked}
+                                            onChange={onInputChange}
+                                        />
+                                    </Col>
                                 ))}
-                            </Col>
+                            </Row>
                         </>
                         : ''
                 }

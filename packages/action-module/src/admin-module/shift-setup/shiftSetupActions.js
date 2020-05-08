@@ -22,7 +22,11 @@ const {
     FETCH_ACTIVE_SHIFT_BY_DOCTOR_FOR_DROPDOWN_SUCCESS,
     FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
     FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_PENDING,
-    FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS
+    FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
+    ASSIGN_SHIFTS_TO_DOCTOR_ERROR,
+    ASSIGN_SHIFTS_TO_DOCTOR_PENDING,
+    ASSIGN_SHIFTS_TO_DOCTOR_SUCCESS,
+    CLEAR_ASSIGN_SHIFTS_TO_DOCTOR_MESSAGE
     // CLEAR_PREVIEW_SHIFT_MESSAGE,
     // PREVIEW_SHIFT_ERROR,
     // PREVIEW_SHIFT_PENDING,
@@ -194,6 +198,36 @@ export const fetchActiveShiftByHospitalIdForDropdownError = (errorMessage) => {
         payload: {
             message: errorMessage
         }
+    }
+};
+
+export const assignShiftToDoctorPending = () => {
+    return {
+        type: ASSIGN_SHIFTS_TO_DOCTOR_PENDING,
+    }
+};
+
+export const assignShiftToDoctorSuccess = (successMessage) => {
+    return {
+        type: ASSIGN_SHIFTS_TO_DOCTOR_SUCCESS,
+        payload: {
+            message: successMessage
+        }
+    }
+};
+
+export const assignShiftToDoctorError = (errorMessage) => {
+    return {
+        type: ASSIGN_SHIFTS_TO_DOCTOR_ERROR,
+        payload: {
+            message: errorMessage
+        }
+    }
+};
+
+export const clearAssignShiftsToDoctorMessage = () => {
+    return {
+        type: CLEAR_ASSIGN_SHIFTS_TO_DOCTOR_MESSAGE,
     }
 };
 

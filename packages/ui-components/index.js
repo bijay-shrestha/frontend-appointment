@@ -1,7 +1,7 @@
-import {DoctorInformationForm} from './src/DoctorDutyRosterCommonComponents';
+import * as DoctorDutyRosterComponents from './src/DoctorDutyRosterCommonComponents';
 
 export {
-    DoctorInformationForm
+    DoctorDutyRosterComponents
 }
 
 export {default as Login} from './src/Login';

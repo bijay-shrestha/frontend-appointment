@@ -69,10 +69,10 @@ export const searchShift = (path, data, paginationData) => async dispatch => {
 //     }
 // };
 
-export const fetchActiveShiftByDoctorIdForDropdown = (path) => async dispatch => {
+export const fetchActiveShiftByDoctorIdForDropdown = (path, doctorId) => async dispatch => {
     dispatch(ShiftSetupActions.fetchActiveShiftByDoctorIdForDropdownPending());
     try {
-        const response = await Axios.get(path);
+        const response = await Axios.getWithPathVariables(path, doctorId);
         dispatch(ShiftSetupActions.fetchActiveShiftByDoctorIdForDropdownSuccess(response.data));
         return response.data;
     } catch (e) {
@@ -82,14 +82,27 @@ export const fetchActiveShiftByDoctorIdForDropdown = (path) => async dispatch =>
     }
 };
 
-export const fetchActiveShiftByHospitalIdForDropdown = (path) => async dispatch => {
+export const fetchActiveShiftByHospitalIdForDropdown = (path, hospitalId) => async dispatch => {
     dispatch(ShiftSetupActions.fetchActiveShiftByHospitalIdForDropdownPending());
     try {
-        const response = await Axios.get(path);
+        const response = await Axios.getWithPathVariables(path, hospitalId);
         dispatch(ShiftSetupActions.fetchActiveShiftByHospitalIdForDropdownSuccess(response.data));
         return response.data;
     } catch (e) {
         dispatch(ShiftSetupActions.fetchActiveShiftByHospitalIdForDropdownError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
+export const assignShiftsToDoctor = (path, data) => async dispatch => {
+    dispatch(ShiftSetupActions.assignShiftToDoctorPending());
+    try {
+        const response = await Axios.put(path, data);
+        dispatch(ShiftSetupActions.assignShiftToDoctorSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(ShiftSetupActions.assignShiftToDoctorError(
             e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
         throw e;
     }
@@ -100,4 +113,5 @@ export const clearSuccessErrorMessageFormStore = () => async dispatch => {
     dispatch(ShiftSetupActions.clearEditShiftMessage());
     dispatch(ShiftSetupActions.clearSaveShiftMessage());
     dispatch(ShiftSetupActions.clearSearchShiftMessage());
+    dispatch(ShiftSetupActions.clearAssignShiftsToDoctorMessage());
 };

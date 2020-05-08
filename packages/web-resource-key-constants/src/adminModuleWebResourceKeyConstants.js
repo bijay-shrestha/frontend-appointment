@@ -266,3 +266,15 @@ export const appointmentModeApiConstants = {
     FETCH_APPOINTMENT_MODE_DETAILS_BY_ID: BASE.concat(APPOINTMENT_MODE_BASE.concat("/detail")),
     SEARCH_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE.concat("/search")),
 };
+
+const SHIFT_SETUP_BASE = "/shift";
+export const shiftSetupApiConstants = {
+    ASSIGN_SHIFTS_TO_DOCTOR: BASE.concat(DOCTOR_BASE.concat(SHIFT_SETUP_BASE)),
+    FETCH_ACTIVE_SHIFT_BY_DOCTOR_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE.concat(SHIFT_SETUP_BASE)),
+    FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(SHIFT_SETUP_BASE.concat("/active/min")),
+};
+
+const BREAK_TYPE_SETUP_BASE = "/breakType";
+export const breakTypeSetupApiConstants = {
+    FETCH_ACTIVE_BREAK_TYPE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BREAK_TYPE_SETUP_BASE.concat("/active/min")),
+};

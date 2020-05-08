@@ -22,7 +22,11 @@ const {
     FETCH_ACTIVE_SHIFT_BY_DOCTOR_FOR_DROPDOWN_ERROR,
     FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
     FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_PENDING,
-    FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_ERROR
+    FETCH_ACTIVE_SHIFT_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
+    ASSIGN_SHIFTS_TO_DOCTOR_SUCCESS,
+    ASSIGN_SHIFTS_TO_DOCTOR_PENDING,
+    ASSIGN_SHIFTS_TO_DOCTOR_ERROR,
+    CLEAR_ASSIGN_SHIFTS_TO_DOCTOR_MESSAGE
     // PREVIEW_SHIFT_SUCCESS,
     // PREVIEW_SHIFT_PENDING,
     // PREVIEW_SHIFT_ERROR,
@@ -48,7 +52,10 @@ const initialState = {
     dropdownErrorMessage: '',
     isPreviewShiftLoading: false,
     previewShiftErrorMessage: '',
-    shiftDetails: {}
+    shiftDetails: {},
+    isAssignShiftsToDoctorLoading: false,
+    assignShiftsToDoctorErrorMessage: '',
+    assignShiftsToDoctorSuccessMessage: '',
 };
 
 export const ShiftSaveReducer = (state = {...initialState}, action) => {
@@ -262,6 +269,40 @@ export const ShiftDropdownReducer = (state = {...initialState}, action) => {
                 isFetchShiftLoading: false,
                 activeShiftByHospitalIdForDropdown: [],
                 dropdownErrorMessage: action.payload.message
+            };
+        default:
+            return state
+    }
+};
+
+export const AssignShiftsToDoctorReducer = (state = {...initialState}, action) => {
+    switch (action.type) {
+        case ASSIGN_SHIFTS_TO_DOCTOR_PENDING:
+            return {
+                ...state,
+                isAssignShiftsToDoctorLoading: true,
+                assignShiftsToDoctorErrorMessage: '',
+                assignShiftsToDoctorSuccessMessage: '',
+            };
+        case ASSIGN_SHIFTS_TO_DOCTOR_SUCCESS:
+            return {
+                ...state,
+                isAssignShiftsToDoctorLoading: false,
+                assignShiftsToDoctorSuccessMessage: action.payload.message,
+                assignShiftsToDoctorErrorMessage: '',
+            };
+        case ASSIGN_SHIFTS_TO_DOCTOR_ERROR:
+            return {
+                ...state,
+                isSaveShiftLoading: false,
+                assignShiftsToDoctorSuccessMessage: '',
+                assignShiftsToDoctorErrorMessage: action.payload.message,
+            };
+        case CLEAR_ASSIGN_SHIFTS_TO_DOCTOR_MESSAGE:
+            return {
+                ...state,
+                assignShiftsToDoctorSuccessMessage: '',
+                assignShiftsToDoctorErrorMessage: ''
             };
         default:
             return state

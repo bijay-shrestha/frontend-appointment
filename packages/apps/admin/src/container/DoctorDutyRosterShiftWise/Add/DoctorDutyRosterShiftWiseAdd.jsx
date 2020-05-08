@@ -1,12 +1,17 @@
 import React from 'react';
 import DoctorDutyRosterShiftWiseHOC from "../DoctorDutyRosterShiftWiseHOC";
-import {DoctorInformationForm} from "@frontend-appointment/ui-components";
+import {DoctorDutyRosterComponents} from "@frontend-appointment/ui-components";
 
 const DoctorDutyRosterShiftWiseAdd = (props) => {
     const DoctorDutyRosterShiftWiseAdd = DoctorDutyRosterShiftWiseHOC(
-        ({doctorInformationFormData}) => (
+        ({doctorInformationFormData, assignNewShiftModalData}) => (
             <>
-                <DoctorInformationForm doctorInformationFormData={doctorInformationFormData}/>
+                <DoctorDutyRosterComponents.DoctorInformationForm
+                    doctorInformationFormData={doctorInformationFormData}/>
+                {assignNewShiftModalData.showAssignShiftToDoctorModal ?
+                    <DoctorDutyRosterComponents.AssignNewShiftToDoctorModal
+                        assignNewShiftModalData={assignNewShiftModalData}/>
+                    : ''}
             </>), props, "ADD");
 
     return <DoctorDutyRosterShiftWiseAdd/>

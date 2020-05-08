@@ -69,10 +69,10 @@ export const searchBreakType = (path, data, paginationData) => async dispatch =>
 //     }
 // };
 
-export const fetchActiveBreakTypeByHospitalIdForDropdown = (path) => async dispatch => {
+export const fetchActiveBreakTypeByHospitalIdForDropdown = (path, hospitalId) => async dispatch => {
     dispatch(BreakTypeSetupActions.fetchActiveBreakTypeByHospitalIdForDropdownPending());
     try {
-        const response = await Axios.get(path);
+        const response = await Axios.getWithPathVariables(path, hospitalId);
         dispatch(BreakTypeSetupActions.fetchActiveBreakTypeByHospitalIdForDropdownSuccess(response.data));
         return response.data;
     } catch (e) {
