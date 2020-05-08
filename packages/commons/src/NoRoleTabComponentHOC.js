@@ -10,6 +10,7 @@ const NoRoleTabComponentHoc = (ComposedComponent, props) => {
       return <ComposedComponent {...this.props} {...props} />
     }
   }
-  return connectHoc(NoRoleTabComponent,[],null);
+  const NoRoleTabComponentsConnected = connectHoc(NoRoleTabComponent,[],null);
+  return NoRoleTabComponentsConnected;
 }
 export default NoRoleTabComponentHoc;

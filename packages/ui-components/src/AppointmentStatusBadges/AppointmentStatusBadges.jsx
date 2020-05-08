@@ -9,9 +9,9 @@ const AppointmentStatusBadges = props => {
       <Row>
         <Col>
           <div className="appointment-badge float-right">
-            {appointmentStatusListForAppontmentAndTransaction.map(atList => {
+            {appointmentStatusListForAppontmentAndTransaction.map((atList,index) => {
               return (
-                <span>
+                <span key={"app-status-badges"+atList.value+index}>
                   <Badge variant={atList.variant}>
                     &nbsp;{atList.value === 'PA' ? 'B' : atList.value}
                   </Badge>
