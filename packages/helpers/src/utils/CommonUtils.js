@@ -25,3 +25,15 @@ export const getUserNameHospitalIdAndAdminId = token => {
 
 export const filterTableDataWithGivenStatus = (status,filterData) => filterData.filter(datum =>datum.status===status);
 
+export const matchTheWordEveryPossible = (stringToMatch,stringToMatchAgainst) =>{
+  let us = stringToMatch.toLowerCase();
+  let i = 0;
+  for (let c in stringToMatchAgainst.toLowerCase().split("")) {
+      let next = us.indexOf(c, i);
+      if (next < 0) {
+          return false;
+      }
+      i = next+1;
+  }
+  return true;
+} 

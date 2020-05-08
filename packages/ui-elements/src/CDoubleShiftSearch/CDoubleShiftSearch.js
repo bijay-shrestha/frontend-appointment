@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import './doubleShiftSearch.scss';
 import {Scrollbars} from "react-custom-scrollbars";
-import {LocalStorageSecurity} from "@frontend-appointment/helpers";
+import {LocalStorageSecurity,CommonUtils} from "@frontend-appointment/helpers";
 
 class CDoubleShiftSearch extends PureComponent {
     state = {
@@ -127,6 +127,8 @@ class CDoubleShiftSearch extends PureComponent {
 
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
+           // const pattern = new RegExp("(?:^|\\W)"+keyWord+"") //("\\b(\\w*"+keyWord+"\\w*)\\b")  //".*\\"+keyWord+"\\b.*"
+          //  console.log("======",pattern)
             userMenus.map(
                 userMenu => {
                     if (!userMenu.childMenus.length) {
@@ -144,7 +146,7 @@ class CDoubleShiftSearch extends PureComponent {
                     } else {
                         // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
                         let childrenMatchingKeyWord = userMenu.childMenus.filter(
-                            child => (child.name).toLowerCase().includes(keyWord));
+                            child => (child.name).toLowerCase().match(pattern));
                         if (childrenMatchingKeyWord.length > 0) {
                             childrenMatchingKeyWord.map(child => {
                                 let displayData = {
