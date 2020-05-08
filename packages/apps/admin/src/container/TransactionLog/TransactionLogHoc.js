@@ -118,7 +118,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 queryParams: {
                     ...this.state.queryParams,
                     page: updatedPage
-                }
+                },
+                filteredData:this.props.TransactionLogReducer.logList
             })
         }
 
@@ -190,8 +191,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         
         handleStatusChange= (event,status) =>{
             let filteredData=[]
-            if(this.props.AppointmentLogListReducer.logList.length){
-             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.AppointmentLogListReducer.logList)
+            if(this.props.TransactionLogReducer.logList.length){
+             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.TransactionLogReducer.logList)
             }
             this.setState({
                 activeStatus:status,
@@ -287,12 +288,14 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                 queryParams,
                 totalRecords,
                 showModal,
-                previewData
+                previewData,
+                filteredData,
+                activeStatus
             } = this.state
 
             const {
                 isLogListLoading,
-                logList,
+                //logList,
                 logErrorMessage,
                 appointmentStatistics
             } = this.props.TransactionLogReducer
@@ -338,13 +341,15 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
                         }}
                         tableHandler={{
                             isSearchLoading: isLogListLoading,
-                            appointmentLogList: this.appendSNToTable(logList),
+                            appointmentLogList: this.appendSNToTable(filteredData),
                             searchErrorMessage: logErrorMessage,
                             setShowModal: this.setShowModal,
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: previewData,
                         }}
+                        activeStatus={activeStatus}
+                        handleStatusChange={this.handleStatusChange}
                         appointmentStatistics={appointmentStatistics}
                     />
                 </div>

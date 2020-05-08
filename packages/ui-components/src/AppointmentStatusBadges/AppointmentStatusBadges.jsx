@@ -9,23 +9,30 @@ const AppointmentStatusBadges = props => {
       <Row>
         <Col>
           <div className="appointment-badge float-right">
-            {appointmentStatusListForAppontmentAndTransaction.map((atList,index) => {
-              return (
-                <span key={"app-status-badges"+atList.value+index}>
-                  <Badge variant={atList.variant}>
-                    &nbsp;{atList.value === 'PA' ? 'B' : atList.value}
-                  </Badge>
-                  &nbsp;
-                  <Button
-                    variant="link"
-                    className={activeStatus === atList.value ? 'active' : ''}
-                    onClick={event => handleStatusChange(event, atList.value)}
-                  >
-                    {atList.label}
-                  </Button>
-                </span>
-              )
-            })}
+            {appointmentStatusListForAppontmentAndTransaction.map(
+              (atList, index) => {
+                return (
+                  <span key={'app-status-badges' + atList.value + index}>
+                    <Badge variant={atList.variant}>
+                      &nbsp;
+                      {atList.value === 'PA'
+                        ? 'B'
+                        : atList.value === 'A'
+                        ? 'CH'
+                        : atList.value}
+                    </Badge>
+                    &nbsp;
+                    <Button
+                      variant="link"
+                      className={activeStatus === atList.value ? 'active' : ''}
+                      onClick={event => handleStatusChange(event, atList.value)}
+                    >
+                      {atList.label}
+                    </Button>
+                  </span>
+                )
+              }
+            )}
           </div>
         </Col>
       </Row>

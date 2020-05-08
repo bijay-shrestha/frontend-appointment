@@ -19,7 +19,12 @@ import {Col, Row} from 'react-bootstrap'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
-const TransactionLogDataTable = ({tableHandler, paginationProps,activeStatus,handleStatusChange}) => {
+const TransactionLogDataTable = ({
+  tableHandler,
+  paginationProps,
+  activeStatus,
+  handleStatusChange
+}) => {
   const {
     isSearchLoading,
     appointmentLogList,
@@ -237,15 +242,15 @@ const TransactionLogDataTable = ({tableHandler, paginationProps,activeStatus,han
               onPageChanged={handlePageChange}
             />
           </>
-        ) : !isSearchLoading && searchErrorMessage ? (
+        ) : isSearchLoading && !searchErrorMessage ? (
+          <CLoading />
+        ) : (
           <div className="filter-message">
             <div className="no-data">
               <i className="fa fa-file-text-o"></i>
             </div>
             <div className="message"> {searchErrorMessage}</div>
           </div>
-        ) : (
-          <CLoading />
         )}
       </div>
 
