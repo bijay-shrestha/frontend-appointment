@@ -23,6 +23,7 @@ const AppointmentStatusBadges = props => {
                     </Badge>
                     &nbsp;
                     <Button
+                      id="status-link-button"
                       variant="link"
                       className={activeStatus === atList.value ? 'active' : ''}
                       onClick={event => handleStatusChange(event, atList.value)}
