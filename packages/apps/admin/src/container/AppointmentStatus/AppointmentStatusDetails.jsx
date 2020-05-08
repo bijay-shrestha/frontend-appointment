@@ -55,12 +55,23 @@ const AppointmentStatusDetails = ({
                     appointmentStatus.value === 'F' ? (
                       <div>
                         <i className="fa fa-tag" />
-                        {/* <a href="!#"
-                                                   className={activeStatus === appointmentStatus.value ? "active" : ''}
-                                                   onClick={(event) => filterAppointmentDetailsByStatus(appointmentStatus.value, event)}>
-                                                    Follow Up
-                                                </a> */}
-                        <Button
+                        <a
+                          href="!#"
+                          className={
+                            activeStatus === appointmentStatus.value
+                              ? 'active'
+                              : ''
+                          }
+                          onClick={event =>
+                            filterAppointmentDetailsByStatus(
+                              appointmentStatus.value,
+                              event
+                            )
+                          }
+                        >
+                          Follow Up
+                        </a>
+                        {/* <Button
                           variant="link"
                           className={
                             activeStatus === appointmentStatus.value
@@ -75,14 +86,14 @@ const AppointmentStatusDetails = ({
                           }
                         >
                           Follow Up
-                        </Button>
+                        </Button> */}
                       </div>
                     ) : (
                       <div>
                         <Badge variant={appointmentStatus.variant}>
                           &nbsp;
                         </Badge>
-                        {/* <a
+                        <a
                           href="!#"
                           className={
                             activeStatus === appointmentStatus.value
@@ -97,9 +108,9 @@ const AppointmentStatusDetails = ({
                           }
                         >
                           {appointmentStatus.label}
-                        </a> */}
+                        </a>
 
-                        <Button
+                        {/* <Button
                           variant="link"
                           className={
                             activeStatus === appointmentStatus.value
@@ -114,7 +125,7 @@ const AppointmentStatusDetails = ({
                           }
                         >
                           {appointmentStatus.label}
-                        </Button>
+                        </Button> */}
                       </div>
                     )
                   )}
