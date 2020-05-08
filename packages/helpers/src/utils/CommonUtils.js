@@ -25,11 +25,11 @@ export const getUserNameHospitalIdAndAdminId = token => {
 
 export const filterTableDataWithGivenStatus = (status,filterData) => filterData.filter(datum =>datum.status===status);
 
-export const matchTheWordEveryPossible = (stringToMatchAgainst,stringToMatch) =>{
-  var us = stringToMatch.toLowerCase();
+export const matchTheWordEveryPossible = (stringToMatch,stringToMatchAgainst) =>{
+  var us = stringToMatchAgainst.toLowerCase();
   var i = 0;
   {
-      var array14219 = (stringToMatchAgainst.toLowerCase()).split('');
+      var array14219 = (stringToMatch.toLowerCase()).split('');
       for (var index14218 = 0; index14218 < array14219.length; index14218++) {
           var c = array14219[index14218];
           {
