@@ -89,9 +89,9 @@ const checkIfItIsAdd = () => {
   return false
 }
 
-const checkIfItIsLogin = (url) => {
-  if (url.includes('/login')){
-    return true
-  }
-  return false
-}
+// const checkIfItIsLogin = (url) => {
+//   if (url.includes('/login')){
+//     return true
+//   }
+//   return false
+// }
