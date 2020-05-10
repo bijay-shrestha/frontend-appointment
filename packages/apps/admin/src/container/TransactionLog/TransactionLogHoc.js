@@ -192,6 +192,10 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         handleStatusChange= (event,status) =>{
             let filteredData=[]
             if(this.props.TransactionLogReducer.logList.length){
+              if(status==='All'){
+                 filteredData= [...this.props.TransactionLogReducer.logList]
+              }
+              else
              filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.TransactionLogReducer.logList)
             }
             this.setState({
