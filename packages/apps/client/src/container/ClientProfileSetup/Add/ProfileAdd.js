@@ -57,7 +57,8 @@ class ProfileAdd extends PureComponent {
         },
         departmentListByHospital: [],
         originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
-            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE])
+            clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]),
+        isCloneAndAdd:false
     };
 
     closeAlert = () => {
@@ -84,6 +85,7 @@ class ProfileAdd extends PureComponent {
             formValid: false,
             profileNameValid: false,
             profileDescriptionValid: false,
+            isCloneAndAdd:false
         })
     };
 
@@ -261,7 +263,14 @@ class ProfileAdd extends PureComponent {
         this.checkFormValidity();
     };
 
-    handleConfirmClick = async () => {
+    isCloneAndAdd = async () => {
+        await this.setState({
+          isCloneAndAdd: true
+        })
+        this.handleConfirmClick('cloneAndAdd')
+      }
+
+    handleConfirmClick = async (value) => {
         const {
             profileName, profileDescription, status, isAllRoleAssigned, selectedDepartment, menusAssignedToProfileAndAllowedToChange
         } = this.state;
@@ -278,13 +287,16 @@ class ProfileAdd extends PureComponent {
         try {
             await this.props.createProfile(CREATE_PROFILE, profileDetails);
             // this.setShowConfirmModal();
+            if(!value)
             this.resetStateValues();
+
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
                     variant: "success",
                     message: "Profile Added successfully."
-                }
+                },
+                showConfirmModal:false
             })
         } catch (e) {
             await this.setShowConfirmModal();
@@ -313,7 +325,7 @@ class ProfileAdd extends PureComponent {
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus,
             menusAssignedToProfileAndAllowedToChange, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal,
-            showAlert, alertMessageInfo, formValid,
+            showAlert, alertMessageInfo, formValid,isCloneAndAdd
         } = this.state;
 
         return (
@@ -369,6 +381,8 @@ class ProfileAdd extends PureComponent {
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
+                                    cloneAndAdd={()=>{this.isCloneAndAdd()}}
+                                    isCloneAndAdd={isCloneAndAdd}
                                     isAddLoading={isCreateProfileLoading}
                                     profileData={{
                                         profileName: profileName,

@@ -45,6 +45,8 @@ const CompanyProfileSetupAdd = props => {
                                 profileData={profileMenuAssignmentData.profileData}
                                 rolesJson={menuRoles}
                                 createCompanyProfileLoading={addFormData.createCompanyProfileLoading}
+                                isCloneAndAdd={addFormData.isCloneAndAdd}
+                                cloneAndAdd={addFormData.cloneAndAdd}
                             />
                         </Col>
                     </Row>

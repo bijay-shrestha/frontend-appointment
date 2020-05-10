@@ -23,23 +23,25 @@ export const getUserNameHospitalIdAndAdminId = token => {
   }
 }
 
-export const filterTableDataWithGivenStatus = (status,filterData) => filterData.filter(datum =>datum.status===status);
+export const filterTableDataWithGivenStatus = (status, filterData) =>
+  filterData.filter(datum => datum.status === status)
 
-export const matchTheWordEveryPossible = (stringToMatch,stringToMatchAgainst) =>{
-  const secondString = stringToMatchAgainst.toLowerCase();
-  let i = 0;
-  {
-      const firstString = (stringToMatch.toLowerCase()).split('');
-      for (let count = 0; count < secondString.length; count++) {
-          let elem = firstString[count];
-          {
-              let next = secondString.indexOf(elem, i);
-              if (next < 0) {
-                  return false;
-              }
-              i = next + 1;
-          }
-      }
+export const matchTheWordEveryPossible = (
+  stringToMatch,
+  stringToMatchAgainst
+) => {
+  const secondString = stringToMatchAgainst.toLowerCase().split('')
+  let i = 0
+
+  const firstString = stringToMatch.toLowerCase().split('')
+  for (let count = 0; count < firstString.length; count++) {
+    let elem = firstString[count]
+
+    let next = secondString.indexOf(elem, i)
+    if (next < 0) {
+      return false
+    }
+    i = next + 1
   }
-  return true;
-} 
+  return true
+}
