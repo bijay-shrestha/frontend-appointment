@@ -292,7 +292,7 @@ class CompanyProfileModalContent extends React.PureComponent {
             </Container-fluid>
             <Container-fluid>
             <Row className="mt-4">
-                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                
                 {AuditableEntityHoc(profileData,false,4)}
                 </Row>
             </Container-fluid>
