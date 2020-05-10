@@ -145,11 +145,11 @@ class ProfileAdd extends PureComponent {
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]);
 
         alphabeticallySortedMenus ?
-            this.setState({
-                userMenus:[...alphabeticallySortedMenus],
+            this.setState(prevState=>({
+                userMenus:isCloneAndAdd?prevState.userMenus:[...alphabeticallySortedMenus],
                 selectedMenus:isCloneAndAdd?[...selectedMenus]:[],
-                defaultSelectedMenu:alphabeticallySortedMenus[0]
-            }) :
+                defaultSelectedMenu:isCloneAndAdd?prevState.defaultSelectedMenu:alphabeticallySortedMenus[0]
+            })) :
             this.setState({
                 userMenus:[],
                 defaultSelectedMenu:[],

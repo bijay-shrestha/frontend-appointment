@@ -99,7 +99,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       adminInfo: LocalStorageSecurity.localStorageDecoder('adminInfo'),
       minifiedLoggedInAdminUserMenus: [],
       menusAssignedToProfileButNotAllowedToChange: [],
-      isCloneAndAdd:false
+      isCloneAndAdd: false
     }
 
     alertTimer = ''
@@ -128,11 +128,16 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder(
         'userMenus'
       )
-
+      const {
+        isCloneAndAdd,
+        menusAssignedToProfileAndAllowedToChange
+      } = this.state
       alphabeticallySortedMenus
         ? await this.setState({
             userMenus: [...alphabeticallySortedMenus],
-            menusAssignedToProfileAndAllowedToChange: [],
+            menusAssignedToProfileAndAllowedToChange: isCloneAndAdd
+              ? menusAssignedToProfileAndAllowedToChange
+              : [],
             defaultSelectedMenu: {...alphabeticallySortedMenus[0]}
           })
         : await this.setState({
@@ -193,34 +198,52 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       this.setState({showConfirmModal: !this.state.showConfirmModal})
     }
 
-            setDataForProfileUpdate = async (profileData, profileId) => {
-                const {adminInfo, minifiedLoggedInAdminUserMenus} = this.state;
-                let menusSelected = [], menusAssignedAndAllowedToChange = [], menusAssignedToProfileButNotToBeChanged = [];
-                const {profileMenuResponseDTOS, profileResponseDTO} = profileData;
-                profileMenuResponseDTOS &&
-                Object.keys(profileMenuResponseDTOS).map(key => {
-                    menusSelected = menusSelected.concat(profileMenuResponseDTOS[key]);
-                    return key;
-                });
+    setDataForProfileUpdate = async (profileData, profileId) => {
+      const {adminInfo, minifiedLoggedInAdminUserMenus} = this.state
+      let menusSelected = [],
+        menusAssignedAndAllowedToChange = [],
+        menusAssignedToProfileButNotToBeChanged = []
+      const {profileMenuResponseDTOS, profileResponseDTO} = profileData
+      profileMenuResponseDTOS &&
+        Object.keys(profileMenuResponseDTOS).map(key => {
+          menusSelected = menusSelected.concat(profileMenuResponseDTOS[key])
+          return key
+        })
 
-                if (adminInfo.isAllRoleAssigned === 'Y') {
-                    menusSelected.map(menuSelected => {
-                        menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
-                       return menuSelected
-                      });
-                } else {
-                    menusSelected.map(menuSelected => {
-                        let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(adminMenu =>
-                            Object.is(Number(adminMenu.userMenuId), Number(menuSelected.userMenuId))
-                            && Number(adminMenu.roleId) === Number(menuSelected.roleId));
-                        if (menuAssignedToAdmin) {
-                            menusAssignedAndAllowedToChange.push({...menuSelected, isNew: false, isUpdated: false});
-                        } else {
-                            menusAssignedToProfileButNotToBeChanged.push({...menuSelected, isNew: false, isUpdated: false})
-                        }
-                        return menuSelected
-                    });
-                }
+      if (adminInfo.isAllRoleAssigned === 'Y') {
+        menusSelected.map(menuSelected => {
+          menusAssignedAndAllowedToChange.push({
+            ...menuSelected,
+            isNew: false,
+            isUpdated: false
+          })
+          return menuSelected
+        })
+      } else {
+        menusSelected.map(menuSelected => {
+          let menuAssignedToAdmin = minifiedLoggedInAdminUserMenus.find(
+            adminMenu =>
+              Object.is(
+                Number(adminMenu.userMenuId),
+                Number(menuSelected.userMenuId)
+              ) && Number(adminMenu.roleId) === Number(menuSelected.roleId)
+          )
+          if (menuAssignedToAdmin) {
+            menusAssignedAndAllowedToChange.push({
+              ...menuSelected,
+              isNew: false,
+              isUpdated: false
+            })
+          } else {
+            menusAssignedToProfileButNotToBeChanged.push({
+              ...menuSelected,
+              isNew: false,
+              isUpdated: false
+            })
+          }
+          return menuSelected
+        })
+      }
 
       let alphabeticallySortedMenus = LocalStorageSecurity.localStorageDecoder(
         'userMenus'
@@ -277,7 +300,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         profileNameValid: false,
         profileDescriptionValid: false,
         showEditModal: false,
-        isCloneAndAdd:false
+        isCloneAndAdd: false
       })
     }
 
@@ -414,10 +437,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
     handleCompanyProfilePreview = async id => {
       try {
         await this.previewCompanyProfile(id)
-        const {companyProfileDetail} = this.props.CompanyProfilePreviewReducer;
+        const {companyProfileDetail} = this.props.CompanyProfilePreviewReducer
         let previewData = ProfileSetupUtils.prepareProfilePreviewData(
-            companyProfileDetail.companyProfileInfo,
-            companyProfileDetail.companyProfileMenuInfo,
+          companyProfileDetail.companyProfileInfo,
+          companyProfileDetail.companyProfileMenuInfo,
           'COMPANY'
         )
         this.setState({
@@ -544,7 +567,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       )
     }
 
-    saveCompanyProfile = async () => {
+    saveCompanyProfile = async value => {
       const {
         profileName,
         profileDescription,
@@ -568,12 +591,15 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
           CREATE_COMPANY_PROFILE,
           profileDetails
         )
-        this.resetStateValues()
+        if (!value) this.resetStateValues()
         this.showAlertMessage(
           'success',
           this.props.CompanyProfileCreateReducer
             .createCompanyProfileSuccessMessage
         )
+        this.setState({
+          showConfirmModal: false
+        })
       } catch (e) {
         await this.setShowConfirmModal()
         this.showAlertMessage(
@@ -693,10 +719,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
                   isNew: true,
                   isUpdated: false
                 })
-                return role;
+              return role
             })
           }
-          return menu;
+          return menu
         })
         currentSelectedMenus = [...currentSelectedMenusWithStatusUpdated]
       } else {
@@ -830,15 +856,17 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       let value = event.target.value
       let label = event.target.label
       await this.setStateValues(fieldName, value, label, fieldValid)
+
       if (fieldName === 'company') {
+        const {isCloneAndAdd}=this.state
         value
           ? this.setUserMenusAlphabetically()
-          : this.setState({
-              userMenus: [],
-              defaultSelectedMenu: [],
+          : this.setState(prevState=>({
+              userMenus:isCloneAndAdd?prevState.userMenus:[],
+              defaultSelectedMenu:isCloneAndAdd?prevState.defaultSelectedMenu:[],
               userMenuAvailabilityMessage: '',
-              menusAssignedToProfileAndAllowedToChange: []
-            })
+              menusAssignedToProfileAndAllowedToChange:isCloneAndAdd?prevState.menusAssignedToProfileButNotAllowedToChange:[]
+            }))
       }
 
       this.checkFormValidity()
@@ -954,13 +982,13 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       }
       // await this.setUserMenusAlphabetically();
     }
-     
-    isCloneAndAdd = async ()=>{
+
+    isCloneAndAdd = async () => {
       await this.setState({
-          isCloneAndAdd:true
+        isCloneAndAdd: true
       })
-      this.handleConfirmClick('cloneAndAdd')
-      }
+      this.saveCompanyProfile('cloneAndAdd')
+    }
 
     componentDidMount () {
       this.initialApiCalls()
@@ -997,7 +1025,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         deleteRequestDTO,
         showEditModal,
         newSelectedMenus,
-        companyProfileList
+        companyProfileList,
+        isCloneAndAdd
       } = this.state
 
       const {
@@ -1028,11 +1057,10 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       } = this.props.CompanyProfileEditReducer
 
       const {companyDropdownData} = this.props.companyDropdownReducer
-      console.log("=====",props)
+      console.log('=====', props)
       return (
         <>
           <ComposedComponent
-
             profileInfoFormData={{
               handleEnter: this.handleEnter,
               companyListForDropdown: companyDropdownData,
@@ -1071,7 +1099,9 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
               setShowConfirmModal: this.setShowConfirmModal,
               showConfirmModal: showConfirmModal,
               handleConfirmClick: this.saveCompanyProfile,
-              createCompanyProfileLoading
+              createCompanyProfileLoading,
+              cloneAndAdd: this.isCloneAndAdd,
+              isCloneAndAdd: isCloneAndAdd
             }}
             commonData={{
               formValid: formValid
