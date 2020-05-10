@@ -500,7 +500,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
           case 'hasMacBinding':
             this.addMacIdObjectToMacIdList(value)
             break
-          default:return ''  
+          default:break; 
         }
         this.checkFormValidity()
       }

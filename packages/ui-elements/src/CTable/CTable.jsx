@@ -396,7 +396,7 @@ class CTable extends PureComponent {
                                           },
                                           'PREVIEW'
                                         )
-                                    : ''
+                                    : ()=>{}
                                   : onPreview
                                   ? e =>
                                       this.handleClick(
@@ -408,7 +408,7 @@ class CTable extends PureComponent {
                                         },
                                         'PREVIEW'
                                       )
-                                  : ''
+                                  : ()=>{}
                                 : () => {}
                             }
                           >
