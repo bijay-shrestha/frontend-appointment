@@ -57,7 +57,8 @@ class ProfileAdd extends PureComponent {
         departmentListByHospital: [],
         originalTotalNoOfMenusAndRoles: ProfileSetupUtils.countTotalNoOfMenusAndRoles(
             clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]),
-        aliasOfHospital: ''
+        aliasOfHospital: '',
+        isCloneAndAdd:false
     };
 
     closeAlert = () => {
@@ -130,28 +131,29 @@ class ProfileAdd extends PureComponent {
         let selectedHospital = hospitalsForDropdown.find(hospital => hospital.value === value);
         await this.setState({
             selectedDepartment: null,
-            userMenus: [],
-            defaultSelectedMenu: [],
-            selectedMenus: [],
+            userMenus:[],
+            defaultSelectedMenu:[],
+            selectedMenus:[],
             departmentListByHospital: [...departmentsByHospital],
             aliasOfHospital: selectedHospital.alias || '',
         });
     };
 
     filterMenuByDepartment = () => {
+        const{selectedMenus,isCloneAndAdd}=this.state
        // const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
         let alphabeticallySortedMenus = UserMenuUtils.sortUserMenuJson(clientUserMenusJson[EnvironmentVariableGetter.CLIENT_MODULE_CODE]);
 
         alphabeticallySortedMenus ?
             this.setState({
-                userMenus: [...alphabeticallySortedMenus],
-                selectedMenus: [],
-                defaultSelectedMenu: alphabeticallySortedMenus[0]
+                userMenus:[...alphabeticallySortedMenus],
+                selectedMenus:isCloneAndAdd?[...selectedMenus]:[],
+                defaultSelectedMenu:alphabeticallySortedMenus[0]
             }) :
             this.setState({
-                userMenus: [],
-                defaultSelectedMenu: [],
-                selectedMenus: [],
+                userMenus:[],
+                defaultSelectedMenu:[],
+                selectedMenus:[],
                 userMenuAvailabilityMessage: 'No user menus available.'
             });
     };
@@ -160,7 +162,7 @@ class ProfileAdd extends PureComponent {
         let formValidity = this.state.profileNameValid && this.state.profileDescriptionValid && this.state.profileName
             && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedHospital !== null
             && this.state.selectedMenus.length !== 0;
-
+        console.log("Form Validity:::",formValidity);
         this.setState({
             formValid: formValidity
         })
@@ -279,8 +281,14 @@ class ProfileAdd extends PureComponent {
         });
         this.checkFormValidity();
     };
-
-    handleConfirmClick = async () => {
+    
+    isCloneAndAdd = async ()=>{
+    await this.setState({
+        isCloneAndAdd:true
+    })
+    this.handleConfirmClick('cloneAndAdd')
+    }
+    handleConfirmClick = async (value) => {
         const {
             profileName, profileDescription, status, selectedDepartment,
             selectedHospital, selectedMenus
@@ -298,13 +306,15 @@ class ProfileAdd extends PureComponent {
         try {
             await this.props.createProfile(CREATE_PROFILE, profileDetails);
             // this.setShowConfirmModal();
-            this.resetStateValues();
+            if(!value)
+              this.resetStateValues();
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
                     variant: "success",
                     message: "Profile Added successfully."
-                }
+                },
+                showConfirmModal: false,
             })
         } catch (e) {
             await this.setShowConfirmModal();
@@ -332,7 +342,7 @@ class ProfileAdd extends PureComponent {
             selectedDepartment, selectedHospital, profileDescription, profileName, status,
             errorMessageForProfileDescription, errorMessageForProfileName, userMenus, selectedMenus, defaultSelectedMenu,
             selectedUserMenusForModal, userMenuAvailabilityMessage, showConfirmModal, showAlert, alertMessageInfo, formValid,
-            departmentListByHospital, aliasOfHospital
+            departmentListByHospital, aliasOfHospital,isCloneAndAdd
         } = this.state;
 
         return (
@@ -392,6 +402,8 @@ class ProfileAdd extends PureComponent {
                                     showConfirmModal={showConfirmModal}
                                     setShowConfirmModal={this.setShowConfirmModal}
                                     onConfirmClick={() => this.handleConfirmClick()}
+                                    isCloneAndAdd={()=>this.isCloneAndAdd()}
+                                    boolFlagForCloneAndAdd ={isCloneAndAdd}
                                     isAddLoading={isCreateProfileLoading}
                                     profileData={{
                                         profileName: profileName,

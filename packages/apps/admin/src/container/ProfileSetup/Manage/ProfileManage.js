@@ -88,8 +88,7 @@ class ProfileManage extends PureComponent {
             message: ''
         },
         showAlert: false,
-        previewData: {},
-        isCloneAndAdd:false
+        previewData: {}
     };
     timer = '';
 
@@ -134,8 +133,7 @@ class ProfileManage extends PureComponent {
                 profileDescriptionValid: true,
                 remarks: ''
             },
-            showEditModal: false,
-            isCloneAndAdd:false
+            showEditModal: false
         })
     };
 

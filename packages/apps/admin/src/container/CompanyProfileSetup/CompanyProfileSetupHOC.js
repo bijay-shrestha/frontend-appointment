@@ -98,7 +98,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       ),
       adminInfo: LocalStorageSecurity.localStorageDecoder('adminInfo'),
       minifiedLoggedInAdminUserMenus: [],
-      menusAssignedToProfileButNotAllowedToChange: []
+      menusAssignedToProfileButNotAllowedToChange: [],
+      isCloneAndAdd:false
     }
 
     alertTimer = ''
@@ -275,7 +276,8 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
         formValid: false,
         profileNameValid: false,
         profileDescriptionValid: false,
-        showEditModal: false
+        showEditModal: false,
+        isCloneAndAdd:false
       })
     }
 
@@ -952,6 +954,13 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
       }
       // await this.setUserMenusAlphabetically();
     }
+     
+    isCloneAndAdd = async ()=>{
+      await this.setState({
+          isCloneAndAdd:true
+      })
+      this.handleConfirmClick('cloneAndAdd')
+      }
 
     componentDidMount () {
       this.initialApiCalls()
