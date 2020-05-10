@@ -28,7 +28,7 @@ Axios.interceptors.request.use(
     if (!requestConfig.url.includes('/login'))
       requestConfig.headers.Authorization = token ? token : ''
     let logHeader = createLogHeader(requestConfig)
-    if (logHeader ||requestConfig.url.includes("/forgot")||requestConfig.url.includes("/login")) {
+    if (logHeader ||requestConfig.url.includes("/forgot")||requestConfig.url.includes("/login")||requestConfig.url.includes("/logout")) {
       if(logHeader)
       requestConfig.headers['log-header'] = JSON.stringify(logHeader)
       let ipKey = 'clientIp'
