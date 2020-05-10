@@ -77,7 +77,7 @@ const DetailsModal = ({qualificationData, type}) => {
                         </Row>
 
                         <Row className="mt-4">
-                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                
                                 {AuditableEntityHoc(qualificationData,false,6)}
                                 </Row>
                     </Container-fluid>

@@ -226,7 +226,8 @@ class CHybridPassword extends React.PureComponent {
                         onClick={this.onSeePassword}
                         variant="outline-secondary"
                         className="show-btn-pwd">
-                        <i className={!this.state.showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'}/>
+                        {/* <i className={!this.state.showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'}/> */}
+                        {!this.state.showPassword ? 'Hide' : 'Show'}
                     </Button>
                     {/*</InputGroup.Append>*/}
                     {/*</InputGroup>*/}

@@ -122,7 +122,7 @@ const HospitalEditModal = ({
                             </div>
                         </div>
                     </Col>
-                    <Col sm={12} md={12} lg={9}>
+                    <Col sm={12} md={12} lg={12}>
                         <Row>
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
@@ -224,9 +224,9 @@ const HospitalEditModal = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={12} lg={6} className="py-4">
+                            <Col sm={12} md={12} lg={6} className="pb-4">
                                 <Row>
-                                    <Col lg={12} className="px-4">
+                                    <Col lg={12} className="px-3">
                                         <Row>
                                             <Col>
                                                 <CFLabel

@@ -163,7 +163,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                         )}
                                     </Col>
 
-                                    <Col sm={12} md={12} lg={6} className="dash-roles-container">
+                                    <Col sm={12} md={12} lg={6} className="dash-roles-container py-4">
                                         {adminInfoObj.adminDashboardRequestDTOS && adminInfoObj.adminDashboardRequestDTOS.length ? (
                                             <CFLabel labelName="Dashboard Roles" id="dashboard-role"/>
                                         ) : null}
@@ -224,7 +224,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                        
                                 </Row>
                                 <Row className="mt-4">
-                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                           
                                 {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>
