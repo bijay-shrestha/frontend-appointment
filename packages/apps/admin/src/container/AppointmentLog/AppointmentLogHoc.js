@@ -236,7 +236,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         handleStatusChange= (event,status) =>{
             let filteredData=[]
             if(this.props.AppointmentLogListReducer.logList.length){
-             filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.AppointmentLogListReducer.logList)
+             if(status==="All")
+               filteredData=[...this.props.AppointmentLogListReducer.logList]
+             else 
+              filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.AppointmentLogListReducer.logList)
             }
             this.setState({
                 activeStatus:status,
