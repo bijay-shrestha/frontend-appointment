@@ -103,6 +103,9 @@ class CHeader extends Component {
         })
         document.title =
             this.state.userInfo.hospitalName || 'Cogent-Appointment-Admin'
+       const a =document.getElementById("favIcon");
+       console.log(a);
+       document.getElementById('favIcon').href= this.state.userInfo.hospitalLogo;    
     }
 
     handleChangePassword = () => {
