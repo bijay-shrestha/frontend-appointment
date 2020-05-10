@@ -40,7 +40,7 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
 
   return (
     <>
-      {createBy ||
+      {createdBy ||
       createdDate ||
       lastModifiedBy ||
       lastModifiedDate ||
