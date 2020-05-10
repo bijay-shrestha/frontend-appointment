@@ -1,6 +1,7 @@
 import React from 'react'
 import {CHybridInput} from '@frontend-appointment/ui-elements'
 import {ColWrapperComponent} from './ColWrapperComponent'
+import {Col, Row} from "react-bootstrap"
 const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   const {
     createdBy,
@@ -36,7 +37,7 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   
   return (
     <>
- 
+     <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
 
       {createdBy ? (
         isNotAddCol ? (
