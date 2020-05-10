@@ -23,7 +23,8 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
         onInputChange,
         onEnterKeyPress,
         specializationList,
-        handleAssignNewShiftToDoctor
+        handleAssignNewShiftToDoctor,
+        handleShiftSelection
     } = doctorInformationFormData;
 
     return <>
@@ -195,15 +196,16 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                             </Row>
 
                             <Row>
-                                {doctorInformationData.doctorShifts.map(shift => (
+                                {doctorInformationData.doctorShifts.map((shift, index) => (
                                     <Col sm={2} key={"doctor-shift" + shift.value}>
                                         <CCheckbox
                                             id={"doctor-shift" + shift.value}
                                             key={"doctor-shift" + shift.value}
+                                            name={shift.label}
                                             label={shift.label}
                                             className="select-all check-all"
                                             checked={shift.checked}
-                                            onChange={onInputChange}
+                                            onChange={() => handleShiftSelection(shift, index)}
                                         />
                                     </Col>
                                 ))}
