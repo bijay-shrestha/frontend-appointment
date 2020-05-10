@@ -49,7 +49,7 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
         <Col xs={12} className="mb-2">
           <h5>Audit Details</h5>
         </Col>
-      ) : null}
+      ) :''}
       {createdBy ? (
         isNotAddCol ? (
           CreatedByComponent
@@ -96,7 +96,6 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
           />
         )
       ) : null}
-      :null }
     </>
   )
 }
