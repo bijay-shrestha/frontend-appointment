@@ -1,7 +1,7 @@
 import React from 'react'
 import {CHybridInput} from '@frontend-appointment/ui-elements'
 import {ColWrapperComponent} from './ColWrapperComponent'
-import {Col, Row} from 'react-bootstrap'
+import {Col} from 'react-bootstrap'
 const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   const {
     createdBy,
