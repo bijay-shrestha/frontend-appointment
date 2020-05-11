@@ -1,0 +1,23 @@
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+.date-error{
+  color:$danger;
+  margin-top:-32px;
+  font-weight: 400;
+  font-size:12px;
+}
+
+.time-error{
+  color:$danger;
+  margin-top:-30px;
+  // margin-left:25%;
+  font-weight: 400;
+  font-size:12px;
+}

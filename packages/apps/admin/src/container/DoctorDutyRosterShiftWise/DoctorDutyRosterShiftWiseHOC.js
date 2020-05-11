@@ -251,36 +251,30 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     value && await this.fetchActiveDoctorsBySpecializationIdForDropdown(value);
                     this.resetDoctorOnSpecializationChange();
                     break;
-                case "fromDate" || "toDate":
+                case "fromDate":
                     await this.validateAndSetWeekDaysDataOnDateChange(key);
                     break;
-                // case "doctor":
-                //     if (value) {
-                //         try {
-                //             await this.fetchActiveShiftsByDoctorIdForDropdown(value);
-                //         } catch (e) {
-                //
-                //         }
-                //         this.setDoctorShiftsAndShiftDetails([...this.props.ShiftDropdownReducer.activeShiftByDoctorIdForDropdown]);
-                //     } else {
-                //         this.setDoctorShiftsAndShiftDetails([]);
-                //     }
-                //     break;
+                case "toDate":
+                    await this.validateAndSetWeekDaysDataOnDateChange(key);
+                    break;
+                case "doctor":
+                    break;
                 default:
                     break;
             }
+            this.resetShiftAndWeekdaysRosterDetails();
             this.checkFormValidity();
         };
 
         handleCheckAvailability = async () => {
             try {
                 await this.fetchActiveShiftsByDoctorIdForDropdown(this.state.doctorInformation.doctor.value);
-                this.setDoctorShiftsAndShiftDetails([...this.props.ShiftDropdownReducer.activeShiftByDoctorIdForDropdown]);
             } catch (e) {
                 this.setState({
                     isCreatingRosterAvailable: false
                 })
             }
+            this.setDoctorShiftsAndShiftDetails([...this.props.ShiftDropdownReducer.activeShiftByDoctorIdForDropdown]);
         };
 
         handleShiftSelection = async (shift, index) => {
@@ -342,6 +336,17 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     doctor: null,
                     doctorShifts: []
                 }
+            });
+        };
+
+        resetShiftAndWeekdaysRosterDetails = () => {
+            this.setState({
+                doctorInformation: {
+                    ...this.state.doctorInformation,
+                    doctorShifts: [],
+                },
+                shiftDetails: [],
+                isCreatingRosterAvailable: false,
             });
         };
 
@@ -414,16 +419,16 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 case 'ADD':
                     if (
                         isFirstDateGreaterThanSecondDate(
-                            getDateWithTimeSetToGivenTime(this.state.fromDate, 0, 0, 0),
-                            getDateWithTimeSetToGivenTime(this.state.toDate, 0, 0, 0)
+                            getDateWithTimeSetToGivenTime(this.state.doctorInformation.fromDate, 0, 0, 0),
+                            getDateWithTimeSetToGivenTime(this.state.doctorInformation.toDate, 0, 0, 0)
                         )
                     ) {
                         errorMessage = DATE_ERROR_MESSAGE;
                         weekDaysData = [...originalWeekDaysData]
                     } else {
                         weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
-                            this.state.fromDate,
-                            this.state.toDate,
+                            this.state.doctorInformation.fromDate,
+                            this.state.doctorInformation.toDate,
                             [...this.props.WeekdaysReducer.weekdaysDataList]
                         )
                     }
@@ -432,7 +437,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                             ...this.state.doctorInformation,
                             dateErrorMessage: errorMessage,
                         },
-                        weekdaysInclusiveOfDates: [...weekDaysData]
+                        weekdaysInclusiveOfDates: [...weekDaysData],
                     });
                     break;
                 case 'MANAGE':
@@ -512,7 +517,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
             const {activeBreakTypeByHospitalIdForDropdown} = this.props.BreakTypeDropdownReducer;
 
-            const {activeShiftByHospitalIdForDropdown} = this.props.ShiftDropdownReducer;
+            const {activeShiftByHospitalIdForDropdown,dropdownErrorMessage} = this.props.ShiftDropdownReducer;
 
             const {
                 isAssignShiftsToDoctorLoading,
@@ -544,7 +549,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         handleAssignNewShiftToDoctor: this.handleAssignNewShiftToDoctor,
                         handleShiftSelection: this.handleShiftSelection,
                         isCreatingRosterAvailable: isCreatingRosterAvailable,
-                        handleCheckAvailability: this.handleCheckAvailability
+                        handleCheckAvailability: this.handleCheckAvailability,
+                        shiftErrorMessage: dropdownErrorMessage
                     }}
                     assignNewShiftModalData={{
                         showAssignShiftToDoctorModal: showAssignShiftToDoctorModal,

@@ -2,6 +2,8 @@ import React from 'react';
 import DoctorDutyRosterShiftWiseHOC from "../DoctorDutyRosterShiftWiseHOC";
 import {DoctorDutyRosterComponents} from "@frontend-appointment/ui-components";
 
+import '../doctor-duty-roster-shift-wise.scss';
+
 const DoctorDutyRosterShiftWiseAdd = (props) => {
     const DoctorDutyRosterShiftWiseAdd = DoctorDutyRosterShiftWiseHOC(
         ({
@@ -17,7 +19,7 @@ const DoctorDutyRosterShiftWiseAdd = (props) => {
                         assignNewShiftModalData={assignNewShiftModalData}/>
                     : ''}
                 {
-                    doctorInformationFormData.isCreatingRosterAvailable ?
+                    doctorInformationFormData.isCreatingRosterAvailable && weekdaysRosterFormData.shiftDetails.length ?
                         <DoctorDutyRosterComponents.WeekdaysRosterForm weekdaysRosterFormData={weekdaysRosterFormData}/>
                         : ''
                 }

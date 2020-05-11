@@ -24,26 +24,25 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
         handleAssignNewShiftToDoctor,
         handleShiftSelection,
         isCreatingRosterAvailable,
-        handleCheckAvailability
+        handleCheckAvailability,
+        shiftErrorMessage
     } = doctorInformationFormData;
+
+    let allowCheckAvailability = doctorInformationData.hospital && doctorInformationData.specialization &&
+        doctorInformationData.doctor && doctorInformationData.fromDate && doctorInformationData.toDate
+        && !doctorInformationData.dateErrorMessage;
 
     return <>
         <div className="department-setup">
             <Container className="bg-white add-container " fluid>
-                {/*<CButton*/}
-                {/*    className="mt-2 pl-0 mb-2  float-right"*/}
-                {/*    id="show-existing"*/}
-                {/*    variant="link"*/}
-                {/*    size="lg"*/}
-                {/*    // onClickHandler={(getExistingRoster)}*/}
-                {/*    name="*Existing Availability"/>*/}
                 <Col sm="6 p-0">
                     <h5 className="title">Doctor Information</h5>
                 </Col>
                 <Col sm="12" className="p-0">
                     <CForm
-                        id="profile-info"
-                        className="mt-2 add-info">
+                        id="doctor-info"
+                        className="mt-2 add-info"
+                    >
                         <Row>
                             <Col sm={12} md={4} lg={4}>
                                 <div className="d-flex">
@@ -80,7 +79,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                         onKeyDown={(event) => onEnterKeyPress(event)}
                                         onChange={(date) => onInputChange(date, "toDate")}
                                     />
-
                                 </div>
                                 <div>
                                     {doctorInformationData.dateErrorMessage ?
@@ -151,33 +149,35 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                 />
                             </Col>
 
-                            <Col sm={12} md={4} lg={4}>
-                                <CButton
-                                    id="checkAvailability"
-                                    variant="primary"
-                                    size="sm"
-                                    className=" btn-action mr-2"
-                                    name="Check Availability"
-                                    onClickHandler={handleCheckAvailability}
-                                />
-                                {/*<CFLabel labelName="Status" id="status"/>*/}
-                                {/*<div>*/}
-                                {/*    <CRadioButton*/}
-                                {/*        checked={doctorInformationData.status === 'Y'}*/}
-                                {/*        id="radio1"*/}
-                                {/*        label="Active"*/}
-                                {/*        type="radio"*/}
-                                {/*        name="status"*/}
-                                {/*        value="Y"*/}
-                                {/*        disabled={true}*/}
-                                {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
-                                {/*        onChange={event => onInputChange(event)}*/}
-                                {/*        readOnly={true}*/}
-                                {/*    />*/}
-                                {/*</div>*/}
-                            </Col>
-                            <Col sm={12} md={4} lg={4}>
-                            </Col>
+                            {
+                                !isCreatingRosterAvailable ?
+                                    <Col sm={12} md={4} lg={4}>
+                                        <CButton
+                                            id="checkAvailability"
+                                            variant="primary"
+                                            size="sm"
+                                            className=" btn-action mr-2"
+                                            name="Check Availability"
+                                            disabled={!allowCheckAvailability}
+                                            onClickHandler={handleCheckAvailability}
+                                        />
+                                        {/*<CFLabel labelName="Status" id="status"/>*/}
+                                        {/*<div>*/}
+                                        {/*    <CRadioButton*/}
+                                        {/*        checked={doctorInformationData.status === 'Y'}*/}
+                                        {/*        id="radio1"*/}
+                                        {/*        label="Active"*/}
+                                        {/*        type="radio"*/}
+                                        {/*        name="status"*/}
+                                        {/*        value="Y"*/}
+                                        {/*        disabled={true}*/}
+                                        {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
+                                        {/*        onChange={event => onInputChange(event)}*/}
+                                        {/*        readOnly={true}*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
+                                    </Col> : ""
+                            }
                         </Row>
                     </CForm>
                 </Col>
@@ -203,21 +203,31 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                 </Col>
                             </Row>
 
-                            <Row>
-                                {doctorInformationData.doctorShifts.map((shift, index) => (
-                                    <Col sm={2} key={"doctor-shift" + shift.value}>
-                                        <CCheckbox
-                                            id={"doctor-shift" + shift.value}
-                                            key={"doctor-shift" + shift.value}
-                                            name={shift.label}
-                                            label={shift.label}
-                                            className="select-all check-all"
-                                            checked={shift.checked}
-                                            onChange={() => handleShiftSelection(shift, index)}
-                                        />
-                                    </Col>
-                                ))}
-                            </Row>
+                            {
+                                doctorInformationData.doctorShifts.length ?
+                                    <Row>
+                                        {doctorInformationData.doctorShifts.map((shift, index) => (
+                                            <Col sm={2} key={"doctor-shift" + shift.value}>
+                                                <CCheckbox
+                                                    id={"doctor-shift" + shift.value}
+                                                    key={"doctor-shift" + shift.value}
+                                                    name={shift.label}
+                                                    label={shift.label}
+                                                    className="select-all check-all"
+                                                    checked={shift.checked}
+                                                    onChange={() => handleShiftSelection(shift, index)}
+                                                />
+                                            </Col>
+                                        ))}
+                                    </Row>
+                                    :
+                                    <div className="filter-message">
+                                        <div className="no-data">
+                                            <i className="fa fa-file-text-o"/>
+                                        </div>
+                                        <div className="message"> {shiftErrorMessage}</div>
+                                    </div>
+                            }
                         </>
                         : ''
                 }
