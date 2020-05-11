@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
+import * as Material from 'react-icons/md';
+import * as Feather from 'react-icons/fi';
 
 const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, onDelete}) => {
 
@@ -45,7 +47,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, 
                                     variant="outline-primary"
                                     disabled={actionDisabled}
                                     onClick={(e) => onClick(e, node, 'EDIT')}>
-                                    <i className="fa fa-edit"/>
+                                    <Material.MdEdit/>
                                     {/* Edit */}
                                 </Button>
                             </div>
@@ -61,7 +63,7 @@ const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, 
                                     variant="outline-danger"
                                     disabled={actionDisabled}
                                     onClick={(e) => onClick(e, node, 'DELETE')}>
-                                    <i className="fa fa-trash-o"/>
+                                    <Material.MdDeleteForever/>
                                     {/* Delete */}
                                 </Button>
                             </div>
