@@ -3,12 +3,10 @@ import {Col, Container, Row} from "react-bootstrap";
 import {
     CButton,
     CCheckbox,
-    CFLabel,
     CForm,
     CHybridInput,
     CHybridSelect,
-    CHybridSelectWithImage,
-    CRadioButton
+    CHybridSelectWithImage
 } from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "../../index";
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
@@ -24,19 +22,21 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
         onEnterKeyPress,
         specializationList,
         handleAssignNewShiftToDoctor,
-        handleShiftSelection
+        handleShiftSelection,
+        isCreatingRosterAvailable,
+        handleCheckAvailability
     } = doctorInformationFormData;
 
     return <>
         <div className="department-setup">
             <Container className="bg-white add-container " fluid>
-                <CButton
-                    className="mt-2 pl-0 mb-2  float-right"
-                    id="show-existing"
-                    variant="link"
-                    size="lg"
-                    // onClickHandler={(getExistingRoster)}
-                    name="*Existing Availability"/>
+                {/*<CButton*/}
+                {/*    className="mt-2 pl-0 mb-2  float-right"*/}
+                {/*    id="show-existing"*/}
+                {/*    variant="link"*/}
+                {/*    size="lg"*/}
+                {/*    // onClickHandler={(getExistingRoster)}*/}
+                {/*    name="*Existing Availability"/>*/}
                 <Col sm="6 p-0">
                     <h5 className="title">Doctor Information</h5>
                 </Col>
@@ -152,21 +152,29 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                             </Col>
 
                             <Col sm={12} md={4} lg={4}>
-                                <CFLabel labelName="Status" id="status"/>
-                                <div>
-                                    <CRadioButton
-                                        checked={doctorInformationData.status === 'Y'}
-                                        id="radio1"
-                                        label="Active"
-                                        type="radio"
-                                        name="status"
-                                        value="Y"
-                                        disabled={true}
-                                        onKeyDown={event => onEnterKeyPress(event)}
-                                        onChange={event => onInputChange(event)}
-                                        readOnly={true}
-                                    />
-                                </div>
+                                <CButton
+                                    id="checkAvailability"
+                                    variant="primary"
+                                    size="sm"
+                                    className=" btn-action mr-2"
+                                    name="Check Availability"
+                                    onClickHandler={handleCheckAvailability}
+                                />
+                                {/*<CFLabel labelName="Status" id="status"/>*/}
+                                {/*<div>*/}
+                                {/*    <CRadioButton*/}
+                                {/*        checked={doctorInformationData.status === 'Y'}*/}
+                                {/*        id="radio1"*/}
+                                {/*        label="Active"*/}
+                                {/*        type="radio"*/}
+                                {/*        name="status"*/}
+                                {/*        value="Y"*/}
+                                {/*        disabled={true}*/}
+                                {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
+                                {/*        onChange={event => onInputChange(event)}*/}
+                                {/*        readOnly={true}*/}
+                                {/*    />*/}
+                                {/*</div>*/}
                             </Col>
                             <Col sm={12} md={4} lg={4}>
                             </Col>
@@ -174,7 +182,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                     </CForm>
                 </Col>
                 {
-                    doctorInformationData.doctor ?
+                    isCreatingRosterAvailable ?
                         <>
                             <Row>
                                 <Col>
