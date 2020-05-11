@@ -52,7 +52,7 @@ export const boldCharactersOfString = (stringToBold, mainString) => {
         if (indexOfMatchedCharacter >= 0) {
             startingIndex = indexOfMatchedCharacter + 1;
 
-            normalCaseString[indexOfMatchedCharacter] = <b>{normalCaseString[indexOfMatchedCharacter]}</b>;
+            normalCaseString[indexOfMatchedCharacter] = <span className="selected" >{normalCaseString[indexOfMatchedCharacter]}</span>;
         }
     }
     return normalCaseString;
