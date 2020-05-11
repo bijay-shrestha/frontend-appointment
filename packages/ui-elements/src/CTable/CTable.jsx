@@ -107,7 +107,7 @@ class CTable extends PureComponent {
         this.handlePreview(data)
         break
       default:
-        break
+        break;
     }
     if (saveAction) sessionStorage.setItem('actionType', saveAction)
   }

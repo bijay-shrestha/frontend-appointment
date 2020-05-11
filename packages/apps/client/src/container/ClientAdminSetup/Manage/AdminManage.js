@@ -477,7 +477,7 @@ class AdminManage extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break
-               default:return '';
+               default:break;
             }
             this.checkFormValidity()
         }

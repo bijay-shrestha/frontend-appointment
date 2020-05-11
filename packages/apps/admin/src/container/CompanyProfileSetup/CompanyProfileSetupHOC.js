@@ -359,8 +359,7 @@ const CompanyProfileSetupHOC = (ComposedComponent, props, type) => {
             userMenus
           )
           break
-        default:
-          break
+        default:break;
       }
 
       await this.setState({

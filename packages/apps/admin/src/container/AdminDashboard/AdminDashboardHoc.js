@@ -290,7 +290,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
                         hospitalId: searchParameterChange.hospitalId
                     }
                     break;
-                default:return '';    
+                default:break;
             }
             return searchParameterChange
         }
