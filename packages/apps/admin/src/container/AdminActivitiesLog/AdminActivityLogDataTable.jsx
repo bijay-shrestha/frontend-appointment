@@ -117,7 +117,7 @@ const AdminActivityLogDataTable = ({
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: '130',
+                                    width: '120',
                                     cellRenderer: 'LogDateAndTime'
                                 },
                                 {
@@ -162,7 +162,7 @@ const AdminActivityLogDataTable = ({
                                     sizeColumnsToFit: true,
                                     field: 'os',
                                     autoSize: true,
-                                    width: '60',
+                                    width: '80',
                                     valueFormatter: function (params) {
                                         return params.value || 'Unknown'
                                     }
@@ -184,7 +184,7 @@ const AdminActivityLogDataTable = ({
                                   sizeColumnsToFit: true,
                                   field: 'location',
                                   autoSize: true,
-                                  width: '100',
+                                  width: '140',
                                   valueFormatter: function (params) {
                                     return params.value || 'Unknown'
                                   }
@@ -196,7 +196,7 @@ const AdminActivityLogDataTable = ({
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childLabelRenderer',
-                                    width: '100'
+                                    width: '80'
                                 },
                                 {
                                     headerName: 'Log Description',
@@ -242,7 +242,7 @@ const AdminActivityLogDataTable = ({
                         <Row>
                             <Col>
                                 {/*{console.log("romdate", fromDate.toDateString())}*/}
-                                <h5 className="title"> Activity Statistics </h5>
+                                <h5 className="title"> Activity Statistics &nbsp;</h5>
                                 <span>as of {newFromDate}
                                     -
                                     {newToDate}</span>
@@ -318,7 +318,7 @@ const AdminActivityLogDataTable = ({
                     <div className="activity-log">
                         <Row>
                             <Col>
-                                <h5 className="title"> Statistics Diagram </h5>
+                                <h5 className="title"> Statistics Diagram &nbsp; </h5>
                                 <span>as of {newFromDate}
                                     -
                                     {newToDate}</span>
