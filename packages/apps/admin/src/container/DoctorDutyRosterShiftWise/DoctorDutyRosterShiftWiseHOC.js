@@ -393,6 +393,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 return {
                     shiftId: shift.value,
                     shiftName: shift.label,
+                    wholeWeekOff:'N',
                     weekdaysDetail: [...weekdaysData]
                 };
             else return {};

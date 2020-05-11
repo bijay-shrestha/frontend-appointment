@@ -44,6 +44,23 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                         className="mt-2 add-info"
                     >
                         <Row>
+                            {
+                                isAdminModule ?
+                                    <Col sm={12} md={4} lg={4}>
+                                        <CHybridSelect
+                                            id="hospital"
+                                            label="Client"
+                                            name="hospital"
+                                            options={hospitalList}
+                                            placeholder={hospitalList.length ? "Select Client." : "No Client(s) available."}
+                                            isDisabled={!hospitalList.length}
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event, '')}
+                                            value={doctorInformationData.hospital}
+                                        />
+                                    </Col>
+                                    : ''
+                            }
                             <Col sm={12} md={4} lg={4}>
                                 <div className="d-flex">
                                     <CEnglishDatePicker
@@ -86,23 +103,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                             {doctorInformationData.dateErrorMessage}</p> : ''}
                                 </div>
                             </Col>
-                            {
-                                isAdminModule ?
-                                    <Col sm={12} md={4} lg={4}>
-                                        <CHybridSelect
-                                            id="hospital"
-                                            label="Client"
-                                            name="hospital"
-                                            options={hospitalList}
-                                            placeholder={hospitalList.length ? "Select Client." : "No Client(s) available."}
-                                            isDisabled={!hospitalList.length}
-                                            onKeyDown={(event) => onEnterKeyPress(event)}
-                                            onChange={(event) => onInputChange(event, '')}
-                                            value={doctorInformationData.hospital}
-                                        />
-                                    </Col>
-                                    : ''
-                            }
 
                             <Col sm={12} md={4} lg={4}>
                                 <CHybridSelect
