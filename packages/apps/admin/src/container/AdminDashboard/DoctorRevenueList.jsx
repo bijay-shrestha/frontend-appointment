@@ -229,7 +229,7 @@ const DoctorRevenueList = props => {
                             <div className="no-data">
                                 <i className="fa fa-hand-o-up"></i>
                             </div>
-                            <div className="message">Please select hosptial!.</div>
+                            <div className="message">Please select client!.</div>
                         </div>
                     )}
                 </div>
