@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import './doubleShiftSearch.scss';
 import {Scrollbars} from "react-custom-scrollbars";
-import {LocalStorageSecurity,CommonUtils} from "@frontend-appointment/helpers";
+import {LocalStorageSecurity, StringUtils} from "@frontend-appointment/helpers";
 
 class CDoubleShiftSearch extends PureComponent {
     state = {
@@ -127,16 +127,14 @@ class CDoubleShiftSearch extends PureComponent {
 
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
-           // const pattern = new RegExp("(?:^|\\W)"+keyWord+"") //("\\b(\\w*"+keyWord+"\\w*)\\b")  //".*\\"+keyWord+"\\b.*"
-           // console.log("======",pattern)
             userMenus.map(
                 userMenu => {
                     if (!userMenu.childMenus.length) {
-                        if (CommonUtils.matchTheWordEveryPossible(keyWord,userMenu.name)){//(userMenu.name).toLowerCase().match(pattern)) {
+                        if (StringUtils.compareStrings(keyWord, userMenu.name)) {
                             // IF PARENT MATCHES THE KEYWORD,ADD PARENT
                             let displayData = {
                                 id: userMenu.id,
-                                name: userMenu.name,
+                                name: StringUtils.boldCharactersOfString(keyWord, userMenu.name),
                                 path: BASE_PATH.concat(userMenu.path),
                                 breadcrumb: userMenu.name,
                                 iCharacter: userMenu.name.charAt(0).toUpperCase()
@@ -146,12 +144,12 @@ class CDoubleShiftSearch extends PureComponent {
                     } else {
                         // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
                         let childrenMatchingKeyWord = userMenu.childMenus.filter(
-                            child => CommonUtils.matchTheWordEveryPossible(keyWord,child.name))
+                            child => StringUtils.compareStrings(keyWord, child.name))
                         if (childrenMatchingKeyWord.length > 0) {
                             childrenMatchingKeyWord.map(child => {
                                 let displayData = {
                                     id: child.id,
-                                    name: child.name,
+                                    name: StringUtils.boldCharactersOfString(keyWord, child.name),
                                     path: BASE_PATH.concat(child.path),
                                     breadcrumb: userMenu.name.concat("/".concat(child.name)),
                                     iCharacter: child.name.charAt(0).toUpperCase()
@@ -213,9 +211,8 @@ class CDoubleShiftSearch extends PureComponent {
                             placeholder='Search Menus'
                             value={this.state.searchKeyword}
                             autoComplete="off"/>
-                                {/* <i className= "fa fa-search" > </i>
+                        {/* <i className= "fa fa-search" > </i>
                          </Form.Control> */}
-                            
 
                         <span className="search-text"> Press Double Shift Key To Search Menu </span>
                     </div>

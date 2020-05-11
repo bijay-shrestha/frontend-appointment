@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from "react-bootstrap";
 import * as Material from 'react-icons/md';
-import * as Feather from 'react-icons/fi';
 
 const ActionForEditableTable = ({isEditing, onClick, node, rowNumber, onUpdate, onDelete}) => {
 
