@@ -77,6 +77,7 @@ class LoginPage extends React.PureComponent {
         )
 
         document.title = 'Cogent-Appointment-Admin'
+        document.getElementById('favIcon').href=process.env.PUBLIC_URL+"logo-small-blue.png"
     }
 
     render() {

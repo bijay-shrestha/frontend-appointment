@@ -713,7 +713,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     })
                     this.checkOverrideFormValidity()
                     break;
-                default:return ''    
+                default:break;
             }
         }
 
@@ -739,7 +739,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         deleteOverrideErrorMessage: ''
                     })
                     break
-                default:return ''    
+                default:break;
             }
         }
 
@@ -1065,7 +1065,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     })
                     this.checkOverrideFormValidity()
                     break
-                default:return ''    
+                default:break;
             }
         }
 

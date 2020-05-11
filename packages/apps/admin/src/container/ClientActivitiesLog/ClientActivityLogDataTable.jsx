@@ -92,7 +92,7 @@ const ClientActivityLogDataTable = ({
                             classes="ag-theme-balham"
                             id="roles-table"
                             width="100%"
-                            height="460px"
+                            height="554px"
                             enableSorting
                             editType
                             rowHeight={50}
@@ -114,7 +114,7 @@ const ClientActivityLogDataTable = ({
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: '130',
+                                    width: '120',
                                     cellRenderer: 'LogDateAndTime'
                                 },
                                 {
@@ -159,7 +159,7 @@ const ClientActivityLogDataTable = ({
                                     sizeColumnsToFit: true,
                                     field: 'os',
                                     autoSize: true,
-                                    width: '60',
+                                    width: '80',
                                     valueFormatter: function (params) {
                                         return params.value||'Unknown'
                                     }
@@ -180,7 +180,7 @@ const ClientActivityLogDataTable = ({
                                   sizeColumnsToFit: true,
                                   field: 'location',
                                   autoSize: true,
-                                  width: '100',
+                                  width: '140',
                                   valueFormatter: function (params) {
                                     return params.value || 'Unknown'
                                   }
@@ -192,7 +192,7 @@ const ClientActivityLogDataTable = ({
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childLabelRenderer',
-                                    width: '100'
+                                    width: '80'
                                 },
                                 {
                                     headerName: 'Log Description',
@@ -237,7 +237,7 @@ const ClientActivityLogDataTable = ({
                     <div className="activity-count ">
                         <Row>
                             <Col>
-                                <h5 className="title"> Activity Statistics</h5>
+                                <h5 className="title"> Activity Statistics&nbsp;</h5>
                                 <span>
                                  as of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
                                      -
@@ -314,7 +314,7 @@ const ClientActivityLogDataTable = ({
                     <div className="activity-log">
                         <Row>
                             <Col>
-                                <h5 className="title"> Statistics Diagram</h5>
+                                <h5 className="title"> Statistics Diagram&nbsp;</h5>
                                 <span> as of {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(fromDate.toDateString())}
                                      -
                                     {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(toDate.toDateString())}</span>

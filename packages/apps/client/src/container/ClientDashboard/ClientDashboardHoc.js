@@ -225,7 +225,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                     }
                     break;
                 default:
-                    return ''
+                    break;
             }
             return searchParameterChange
         }

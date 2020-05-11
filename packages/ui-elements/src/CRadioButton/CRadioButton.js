@@ -44,7 +44,7 @@ const CRadioButton = props => {
                 inline={inline}
                 isInvalid={isInvalid}
                 isValid={isValid}
-                title={title}
+            title={title}
                 bsPrefix={bsPrefix}
                 // onChange={onChange}
             >

@@ -133,6 +133,15 @@ const TransactionLogDataTable = ({
                   width: '180'
                 },
                 {
+                  headerName: 'App. DateTime',
+                  field: 'appointmentDate',
+                  resizable: true,
+                  sortable: true,
+                  sizeColumnsToFit: true,
+                  width: "200",
+                  cellRenderer: "AppointmentDateWithTime"
+                },
+                {
                   headerName: 'Doctor(Specialization)',
                   resizable: true,
                   sortable: true,

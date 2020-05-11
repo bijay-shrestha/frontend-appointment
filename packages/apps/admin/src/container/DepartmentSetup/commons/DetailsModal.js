@@ -78,7 +78,7 @@ const DetailsModal = ({departmentData}) => {
                          
                         </Row>
                         <Row className="mt-4">
-                                <Col xs={12} className="mb-2"><h5>Audit Details</h5></Col>
+                                
                                 {
                               AuditableEntityHoc(departmentData)
                           }

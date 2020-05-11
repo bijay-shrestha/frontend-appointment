@@ -1,6 +1,7 @@
 import React from 'react'
 import {CHybridInput} from '@frontend-appointment/ui-elements'
 import {ColWrapperComponent} from './ColWrapperComponent'
+import {Col} from 'react-bootstrap'
 const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
   const {
     createdBy,
@@ -10,60 +11,89 @@ const AuditableEntityHoc = (auditableEntityObj, isNotAddCol, colSize) => {
     modifiedBy,
     modifiedDate
   } = auditableEntityObj
-  const CreatedByComponent = 
+  const CreatedByComponent = (
     <CHybridInput placeholder="Created By" value={createdBy} disabled={true} />
-  
-  const CreatedDateComponent = 
+  )
+
+  const CreatedDateComponent = (
     <CHybridInput
       placeholder="Created Date"
       value={createdDate}
       disabled={true}
     />
-  
+  )
+
   const ModifiedByComponent = (
     <CHybridInput
       placeholder="Last Modified By"
-      value={lastModifiedBy||modifiedBy}
+      value={lastModifiedBy || modifiedBy}
       disabled={true}
     />
   )
-  const ModifiedDateComponent = 
+  const ModifiedDateComponent = (
     <CHybridInput
       placeholder="Last Modified Date"
-      value={lastModifiedDate||modifiedDate}
+      value={lastModifiedDate || modifiedDate}
       disabled={true}
     />
-  
+  )
+
   return (
     <>
- 
-
+      {createdBy ||
+      createdDate ||
+      lastModifiedBy ||
+      lastModifiedDate ||
+      modifiedBy ||
+      modifiedDate ? (
+        <Col xs={12} className="mb-2">
+          <h5>Audit Details</h5>
+        </Col>
+      ) :''}
       {createdBy ? (
         isNotAddCol ? (
           CreatedByComponent
         ) : (
-          <ColWrapperComponent colSize={colSize}  Component={CreatedByComponent}/>
+          <ColWrapperComponent
+            colSize={colSize}
+            Component={CreatedByComponent}
+          />
         )
-      ) : ''}
+      ) : (
+        ''
+      )}
       {createdDate ? (
         isNotAddCol ? (
-          CreatedDateComponent 
+          CreatedDateComponent
         ) : (
-          <ColWrapperComponent colSize={colSize} Component={CreatedDateComponent}/>
+          <ColWrapperComponent
+            colSize={colSize}
+            Component={CreatedDateComponent}
+          />
         )
-      ) :''}
-      {lastModifiedBy||modifiedBy ? (
+      ) : (
+        ''
+      )}
+      {lastModifiedBy || modifiedBy ? (
         isNotAddCol ? (
           ModifiedByComponent
         ) : (
-          <ColWrapperComponent colSize={colSize} Component={ModifiedByComponent} />
+          <ColWrapperComponent
+            colSize={colSize}
+            Component={ModifiedByComponent}
+          />
         )
-      ) :''}
-      {lastModifiedDate||modifiedDate ? (
+      ) : (
+        ''
+      )}
+      {lastModifiedDate || modifiedDate ? (
         isNotAddCol ? (
           ModifiedDateComponent
         ) : (
-          <ColWrapperComponent colSize={colSize} Component={ModifiedDateComponent}/>
+          <ColWrapperComponent
+            colSize={colSize}
+            Component={ModifiedDateComponent}
+          />
         )
       ) : null}
     </>
