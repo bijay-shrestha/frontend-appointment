@@ -146,6 +146,7 @@ import {
 
 import {CountryDropdownReducer} from './common/countryReducer'
 
+import {AppointmentTransferReducers} from './admin-module/appointmentTransferReducer';
 import {
     AppointmentModeDeleteReducer,
     AppointmentModeDropdownReducer,
@@ -271,4 +272,5 @@ export {
     UniversitySaveReducer,
     UniversitySearchReducer,
     WeekdaysReducer,
+    AppointmentTransferReducers
 }

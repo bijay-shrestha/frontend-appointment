@@ -38,7 +38,7 @@ import * as CompanyAdminSetupMiddleware from './company-admin-setup-middleware/c
 import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLoggingMiddleware';
 import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
-import * as AppointmentTransferMiddleware from './appointment-transfer-middleware'
+import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware'
 export {
     createProfile,
     fetchProfileList,
