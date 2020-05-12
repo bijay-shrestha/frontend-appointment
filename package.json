@@ -12,7 +12,7 @@
     "clean": "lerna exec -- rimraf dist && lerna exec -- rimraf build && lerna clean --yes && rimraf node_modules",
     "admin": "yarn workspace @frontend-appointment/admin start",
     "client": "yarn workspace @frontend-appointment/client start",
-    "build": "yarn build:admin"
+    "build": "yarn build:admin && yarn build:client"
   },
   "workspaces": {
     "packages": [
