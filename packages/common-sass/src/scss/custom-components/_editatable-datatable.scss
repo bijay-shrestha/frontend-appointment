@@ -87,19 +87,25 @@
 
 
                     .btn-outline-primary, .btn-outline-danger, .btn-outline-success{
-                      width:32px;
-                      height: 32px;
-                      padding:7px;
+                      width:30px;
+                      height: 30px;
+                      // padding:7px;
+                      padding:0.1rem 0.7rem;
                       @include border-radius(50%);
                       border:none;
-                      i{
+                      position: relative;
+                      i,svg{
+                        position: absolute;
+                        top:50%;
+                        left:50%;
+                        transform: translate(-50%,-50%);
                         color:$gray-700;
                         font-size: 18px;
                       }
 
                       &:hover{
                         background-color:$white;
-                        i{
+                        i,svg{
                           color:$gray-900;
                         }
                       }
@@ -107,7 +113,7 @@
 
                     .btn-outline-success{
                       &:hover{
-                        i{
+                        i,svg{
                           color:$success;
                         }
                       }
@@ -115,7 +121,7 @@
 
                     .btn-outline-primary{
                       &:hover{
-                        i{
+                        i,svg{
                           color:$primary;
                         }
                       }
@@ -124,7 +130,7 @@
 
                     .btn-outline-danger{
                       &:hover{
-                        i{
+                        i,svg{
                           color:$danger;
                         }
                       }
@@ -137,7 +143,7 @@
         }
         
         td{
-            height: 40px;
+            height: 55px;
             border-width: 1px;
             color:$gray-800;
             border-color:$gray-100;

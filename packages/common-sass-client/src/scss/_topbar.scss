@@ -152,6 +152,14 @@
 
             &:hover{
                 text-decoration: none;
+
+                .menu-box{
+                    .menu .selected{
+                        font-weight: 700;
+                        color:$gray-900;
+                        display: inline;
+                      }
+                }
             }
 
             .anchor-icon{
@@ -178,6 +186,8 @@
                 font-weight: 400;
                 color:$gray-700;
               }
+
+             
             }
 
           }
