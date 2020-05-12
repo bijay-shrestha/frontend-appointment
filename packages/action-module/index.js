@@ -50,7 +50,10 @@ import {
     UniversitySetupActions,
     universitySetupActionConstants,
     AppointmentModeActions,
-    appointmentModeActionConstants
+    appointmentModeActionConstants,
+    appointmentTransferConstant,
+    AppointmentTransferActions
+
 } from './src/admin-module'
 
 export {
@@ -103,5 +106,7 @@ export {
     countryActionConstants,
     CountryActions,
     AppointmentModeActions,
-    appointmentModeActionConstants
+    appointmentModeActionConstants,
+    appointmentTransferConstant,
+    AppointmentTransferActions
 }

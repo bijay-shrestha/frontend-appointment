@@ -34,6 +34,8 @@ import * as  UniversitySetupActions from './university-setup/universitySetupActi
 import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
 import * as  AppointmentModeActions from './appointment-mode/appointmentModeActions';
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
+import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
+import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
 
 export {
     AppointmentDetailActions,
@@ -71,5 +73,7 @@ export {
     UniversitySetupActions,
     universitySetupActionConstants,
     appointmentModeActionConstants,
-    AppointmentModeActions
+    AppointmentModeActions,
+    AppointmentTransferActions,
+    appointmentTransferConstant
 }

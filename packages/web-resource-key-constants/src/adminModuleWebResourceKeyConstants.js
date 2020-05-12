@@ -14,6 +14,7 @@ const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
+const APPOINTMENT_TRANSFER="/appointmentTransfer"
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -265,4 +266,12 @@ export const appointmentModeApiConstants = {
     FETCH_APPOINTMENT_MODE_FOR_DROPDOWN: BASE.concat(APPOINTMENT_MODE_BASE.concat("/active/min")),
     FETCH_APPOINTMENT_MODE_DETAILS_BY_ID: BASE.concat(APPOINTMENT_MODE_BASE.concat("/detail")),
     SEARCH_APPOINTMENT_MODE: BASE.concat(APPOINTMENT_MODE_BASE.concat("/search")),
+};
+
+export const appointmentTransferApiConstants = {
+    APPOINTMENT_TRANSFER: BASE.concat(APPOINTMENT_TRANSFER),
+    APPOINTMENT_TRANSFER_INFO: BASE.concat(APPOINTMENT_TRANSFER+'/info'),
+    APPOINTMENT_TRANSFER_CHARGE: BASE.concat(APPOINTMENT_TRANSFER+'/charge'),
+    APPOINTMNET_TRANSFER_DATE: BASE.concat(APPOINTMENT_TRANSFER.concat("/date")),
+    APPOINTMENT_TRANSFER_TIME: BASE.concat(APPOINTMENT_MODE_BASE.concat("/time")),
 };
