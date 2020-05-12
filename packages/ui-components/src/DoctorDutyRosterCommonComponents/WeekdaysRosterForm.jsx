@@ -133,7 +133,12 @@ class WeekdaysRosterForm extends PureComponent {
                                                                     weekdayData={weekdayData}/>
                                                 )}
                                             </Accordion> :
-                                            ''
+                                            <div className="filter-message">
+                                                <div className="no-data">
+                                                    <i className="fa fa-file-text-o"/>
+                                                </div>
+                                                <div className="message"> No weekday data available.</div>
+                                            </div>
                                     }
 
                                 </CScrollbar>
