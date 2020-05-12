@@ -22,7 +22,7 @@ export const compareStrings = (stringToCompare, stringToCompareAgainst) => {
     //     i = next + 1
     // }
     // return true
-    let parentCharacterArray = stringToCompareAgainst.toLowerCase().split("");
+    parentCharacterArray = stringToCompareAgainst.toLowerCase().split("");
     let childCharacterArray = stringToCompare.toLowerCase().split("");
 
     let startingIndex = 0;
