@@ -150,22 +150,22 @@
             padding-top:12px;
             padding-bottom:12px;
 
-            &:hover,&:focus{
-                text-decoration: none;
+            // &:hover,&:focus{
+            //     text-decoration: none;
 
-                .menu-box{
-                    .menu .selected{
-                        font-weight: 700;
-                        color:$gray-900;
-                        display: inline;
-                      }
-                }
-            }
+            //     .menu-box{
+            //         .menu .selected{
+            //             font-weight: 700;
+            //             color:$gray-900;
+            //             display: inline;
+            //           }
+            //     }
+            // }
 
             .anchor-icon{
               width:32px;
               height: 32px;
-              line-height: 32px;
+              line-height: 28px;
               text-align: center;
               flex-shrink: 0;
               @include border-radius(50%);
@@ -186,6 +186,14 @@
                 font-weight: 400;
                 color:$gray-700;
               }
+
+             
+            .selected{
+            font-weight: 700;
+            color:$gray-900;
+            display: inline;
+            }
+           
 
              
             }
