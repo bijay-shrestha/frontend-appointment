@@ -72,12 +72,13 @@ export const compareStrings = (stringToCompare, stringToCompareAgainst) => {
 //   }
 //   return normalCaseStringCopy
 // }
-export const boldCharactersOfString = (stringToBold, mainString) => {
+export const boldCharactersOfString = (stringToBold, mainString,index) => {
   let normalCaseString = mainString.split('')
   let parentCharacterArray = mainString.toLowerCase().split('')
   let childCharacterArray = stringToBold.toLowerCase().split('')
 
   let startingIndex = 0
+  console.log("=========",index)
 
   for (let i = 0; i < childCharacterArray.length; i++) {
     let characterToFind = childCharacterArray[i]
@@ -88,12 +89,15 @@ export const boldCharactersOfString = (stringToBold, mainString) => {
     if (indexOfMatchedCharacter >= 0) {
       startingIndex = indexOfMatchedCharacter + 1
 
-      normalCaseString[indexOfMatchedCharacter] = (
+      normalCaseString[indexOfMatchedCharacter] = Number(index)!==0?(
         <span className="selected">
           {normalCaseString[indexOfMatchedCharacter]}
         </span>
-      )
+      ):    <span className="selected firstfocus">
+      {normalCaseString[indexOfMatchedCharacter]}
+    </span>
     }
   }
+  console.log(normalCaseString);
   return normalCaseString
 }
