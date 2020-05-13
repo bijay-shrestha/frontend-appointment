@@ -124,37 +124,41 @@ class CDoubleShiftSearch extends PureComponent {
         let menusMatchingKeyWord = [];
         let menusFromStorage = LocalStorageSecurity.localStorageDecoder('userMenus');
         let userMenus = [...menusFromStorage];
-
+        let count =0
         if (keyWord !== '') {
             keyWord = keyWord.toLowerCase();
             userMenus.map(
-                userMenu => {
+                (userMenu,index) => {
+                  console.log("index",index.toString()+""+count);
                     if (!userMenu.childMenus.length) {
                         if (StringUtils.compareStrings(keyWord, userMenu.name)) {
+                            
                             // IF PARENT MATCHES THE KEYWORD,ADD PARENT
                             let displayData = {
                                 id: userMenu.id,
-                                name: StringUtils.boldCharactersOfString(keyWord, userMenu.name),
+                                name: StringUtils.boldCharactersOfString(keyWord, userMenu.name,count<1?count:count++),
                                 path: BASE_PATH.concat(userMenu.path),
                                 breadcrumb: userMenu.name,
                                 iCharacter: userMenu.name.charAt(0).toUpperCase()
                             };
                             menusMatchingKeyWord.push(displayData);
+                            count++;
                         }
                     } else {
                         // IF PARENT DID NOT MATCH CHECK CHILDREN, IF ANY  CHILD MATCHED ADD  PARENT AND CHILD
                         let childrenMatchingKeyWord = userMenu.childMenus.filter(
                             child => StringUtils.compareStrings(keyWord, child.name))
                         if (childrenMatchingKeyWord.length > 0) {
-                            childrenMatchingKeyWord.map(child => {
+                            childrenMatchingKeyWord.map((child,index) => {
                                 let displayData = {
                                     id: child.id,
-                                    name: StringUtils.boldCharactersOfString(keyWord, child.name),
+                                    name: StringUtils.boldCharactersOfString(keyWord, child.name,count===0?0:index++),
                                     path: BASE_PATH.concat(child.path),
                                     breadcrumb: userMenu.name.concat("/".concat(child.name)),
                                     iCharacter: child.name.charAt(0).toUpperCase()
                                 };
                                 menusMatchingKeyWord.push(displayData);
+                                count++;
                                 return child;
                             });
                         }
