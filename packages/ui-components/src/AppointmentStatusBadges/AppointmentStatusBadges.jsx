@@ -18,6 +18,8 @@ const AppointmentStatusBadges = props => {
                         ? 'B'
                         : atList.value === 'A'
                         ? 'CH'
+                        : atList.value === 'All'
+                        ? ''
                         : atList.value}
                     </Badge>
                     &nbsp;
