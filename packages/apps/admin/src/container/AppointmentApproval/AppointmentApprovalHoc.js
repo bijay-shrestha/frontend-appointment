@@ -5,7 +5,8 @@ import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    AppointmentTransferMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -22,6 +23,14 @@ const {
     fetchAppointmentApprovalDetailByAppointmentId
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware;
+
+const {
+appointmentTransfer,
+fetchAppointmentTransferCharge,
+fetchAppointmentTransferDate,
+fetchAppointmentTransferInfo
+} = AppointmentTransferMiddleware
+
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {
@@ -69,8 +78,10 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             showAlert: false,
             approveConfirmationModal: false,
             approveAppointmentId: '',
+            trasferConfirmationModal:false,
             appointmentDetails: '',
-            isConfirming: false
+            isConfirming: false,
+            transferData:null
         };
 
         handleEnterPress = event => {
@@ -109,14 +120,17 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             }
         };
 
+    
+
         setShowModal = () => {
             this.setState(prevState => ({
                 showModal: false,
                 rejectModalShow: false,
-                approveConfirmationModal: false
+                approveConfirmationModal: false,
+                trasferConfirmationModal:false
             }))
         };
-
+        
         searchAppointment = async page => {
             const {
                 appointmentNumber,
@@ -283,6 +297,17 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {...this.props.AppointmentDetailReducer.appointmentDetail}
             })
+        };
+
+        transferHandler = async data => {
+            await this.previewApiCall(data);
+            this.props.clearAppointmentApproveMessage();
+
+            // this.setState({
+            //     approveConfirmationModal: true,
+            //     approveAppointmentId: data.appointmentId,
+            //     appointmentDetails: {...this.props.AppointmentDetailReducer.appointmentDetail}
+            // })
         };
 
         approveHandleApi = async () => {
@@ -498,7 +523,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             'PatientDropdownListReducer',
             'AppointmentApproveReducer',
             'AppointmentRejectReducer',
-            'AppointmentDetailReducer'
+            'AppointmentDetailReducer',
+            'appointmentTransferReducer',
+            'appointmentTransferDateReducer',
+            'appointmentTrasferTimeReducer',
+            'appointmentTrasferChargeReducer'
         ],
         {
             clearAppointmentRefundPending,
@@ -511,7 +540,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             appointmentReject,
             clearAppointmentApproveMessage,
             clearAppointmentRejectMessage,
-            fetchAppointmentApprovalDetailByAppointmentId
+            fetchAppointmentApprovalDetailByAppointmentId,
+            appointmentTransfer,
+            fetchAppointmentTransferCharge,
+            fetchAppointmentTransferDate,
+            fetchAppointmentTransferInfo
         }
     )
 };
