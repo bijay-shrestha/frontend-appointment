@@ -77,27 +77,23 @@ export const boldCharactersOfString = (stringToBold, mainString) => {
   let parentCharacterArray = mainString.toLowerCase().split('')
   let childCharacterArray = stringToBold.toLowerCase().split('')
 
+  let startingIndex = 0
+
   for (let i = 0; i < childCharacterArray.length; i++) {
     let characterToFind = childCharacterArray[i]
-    let startIndex = 0
-    while (startIndex >= 0) {
-      let indexOfMatchedCharacter = parentCharacterArray.indexOf(
-        characterToFind,
-        startIndex
-      )
+    let indexOfMatchedCharacter = parentCharacterArray.indexOf(
+      characterToFind,
+      startingIndex
+    )
+    if (indexOfMatchedCharacter >= 0) {
+      startingIndex = indexOfMatchedCharacter + 1
 
-      if (indexOfMatchedCharacter >= 0) {
-        startIndex = indexOfMatchedCharacter + 1
-        normalCaseString[indexOfMatchedCharacter] = (
-          <span className="selected">
-            {normalCaseString[indexOfMatchedCharacter]}
-          </span>
-        )
-      } else {
-        startIndex = indexOfMatchedCharacter
-      }
+      normalCaseString[indexOfMatchedCharacter] = (
+        <span className="selected">
+          {normalCaseString[indexOfMatchedCharacter]}
+        </span>
+      )
     }
   }
-
   return normalCaseString
 }
