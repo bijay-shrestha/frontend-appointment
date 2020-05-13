@@ -1,10 +1,10 @@
 @import '~bootstrap/scss/functions';
 
 //custom colors
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
-@import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
 @mixin border-radii($topleft, $topright, $bottomright, $bottomleft) {
@@ -21,6 +21,7 @@
 	-moz-border-radius-bottomright: $bottomright;
 	-moz-border-radius-bottomleft: $bottomleft;
 }
+
 
 #appointment-log {
 
@@ -48,7 +49,7 @@
     }
 
     .badge {
-        width         : 30px;
+        width         : auto;
         height        : auto;
         // top        :50%;
         // left       :50%;
@@ -67,15 +68,15 @@
         color: $gray-600;
         font-weight: 500;
         margin-left: 4px;
-        padding: 2px 6px;
+        padding: 8px 6px;
 
         &.active {
           color: $gray-900;
           background-color: lighten($cogent, 45%);
           @include border-radius(4px);
-          padding: 2px 6px;
+         
         }
-    }
+      }
 
     .total-amount{
         display: block;  
