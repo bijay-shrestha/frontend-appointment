@@ -14,7 +14,7 @@ const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
-const APPOINTMENT_TRANSFER="/appointmentTransfer"
+const APPOINTMENT_TRANSFER="/appointment-transfer"
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),

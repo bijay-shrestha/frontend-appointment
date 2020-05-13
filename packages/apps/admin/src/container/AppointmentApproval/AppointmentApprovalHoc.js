@@ -78,10 +78,10 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             showAlert: false,
             approveConfirmationModal: false,
             approveAppointmentId: '',
-            trasferConfirmationModal:false,
             appointmentDetails: '',
             isConfirming: false,
-            transferData:null
+            transferData:null,
+            trasferConfirmationModal:false,
         };
 
         handleEnterPress = event => {
@@ -439,6 +439,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             } = this.props.PatientDropdownListReducer;
 
             const {appointmentDetail} = this.props.AppointmentDetailReducer;
+            // const { 
+            //  //   appointmentTransferSucessMessage,
+            // //    isAppointmentTransferLoading,
+            //   // appointmentTransferErrorMessage
+            // }=this.props.appointmentTransferReducer
 
             return (
                 <div id="appointment-approval">
