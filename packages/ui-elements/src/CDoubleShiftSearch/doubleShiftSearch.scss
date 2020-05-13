@@ -16,7 +16,12 @@ input {
 .search-button{
 
 }
+.selected {
+	font-weight: 700;
+    color: #212529;
+    display: inline;
 
+  }
 #menu-search{
 	.search-text{
 		color:$gray-500;
