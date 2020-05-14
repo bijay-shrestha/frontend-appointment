@@ -136,19 +136,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                 />
                             </Col>
 
-                            <Col sm={12} md={4} lg={4}>
-                                <CHybridInput
-                                    id="duration"
-                                    label="Duration"
-                                    type="number"
-                                    name="rosterGapDuration"
-                                    placeholder="Enter Duration In Minutes."
-                                    onKeyDown={(event) => onEnterKeyPress(event)}
-                                    onChange={(event) => onInputChange(event, '')}
-                                    value={doctorInformationData.rosterGapDuration}
-                                />
-                            </Col>
-
                             {
                                 !isCreatingRosterAvailable ?
                                     <Col sm={12} md={4} lg={4}>
@@ -161,21 +148,6 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                             disabled={!allowCheckAvailability}
                                             onClickHandler={handleCheckAvailability}
                                         />
-                                        {/*<CFLabel labelName="Status" id="status"/>*/}
-                                        {/*<div>*/}
-                                        {/*    <CRadioButton*/}
-                                        {/*        checked={doctorInformationData.status === 'Y'}*/}
-                                        {/*        id="radio1"*/}
-                                        {/*        label="Active"*/}
-                                        {/*        type="radio"*/}
-                                        {/*        name="status"*/}
-                                        {/*        value="Y"*/}
-                                        {/*        disabled={true}*/}
-                                        {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
-                                        {/*        onChange={event => onInputChange(event)}*/}
-                                        {/*        readOnly={true}*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
                                     </Col> : ""
                             }
                         </Row>
@@ -207,17 +179,33 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                 doctorInformationData.doctorShifts.length ?
                                     <Row>
                                         {doctorInformationData.doctorShifts.map((shift, index) => (
-                                            <Col sm={2} key={"doctor-shift" + shift.value}>
-                                                <CCheckbox
-                                                    id={"doctor-shift" + shift.value}
-                                                    key={"doctor-shift" + shift.value}
-                                                    name={shift.label}
-                                                    label={shift.label}
-                                                    className="select-all check-all"
-                                                    checked={shift.checked}
-                                                    onChange={() => handleShiftSelection(shift, index)}
-                                                />
-                                            </Col>
+                                            <>
+                                                <Col sm={2} key={"doctor-shift" + shift.value}>
+                                                    <CCheckbox
+                                                        id={"doctor-shift" + shift.value}
+                                                        key={"doctor-shift" + shift.value}
+                                                        name={shift.label}
+                                                        label={shift.label}
+                                                        className="select-all check-all"
+                                                        checked={shift.checked}
+                                                        onChange={() => handleShiftSelection(shift, index, false, '')}
+                                                    />
+                                                </Col>
+                                                <Col sm={12} md={4} lg={4}>
+                                                    <CHybridInput
+                                                        key={"doctor-shift" + shift.value}
+                                                        id="duration"
+                                                        label="Duration"
+                                                        type="number"
+                                                        name="rosterGapDuration"
+                                                        disabled={!shift.checked}
+                                                        placeholder="Enter Duration In Minutes."
+                                                        onKeyDown={(event) => onEnterKeyPress(event)}
+                                                        onChange={(event) => handleShiftSelection(shift, index, true, event)}
+                                                        value={shift.rosterGapDuration}
+                                                    />
+                                                </Col>
+                                            </>
                                         ))}
                                     </Row>
                                     :

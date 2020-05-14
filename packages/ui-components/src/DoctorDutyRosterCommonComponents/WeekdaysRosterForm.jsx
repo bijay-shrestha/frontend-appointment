@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
-import {Accordion, Card, Col, Container, Row} from "react-bootstrap";
-import {CButton, CCheckbox, CScrollbar} from "@frontend-appointment/ui-elements";
-import WeekdayRowForm from "./WeekdayRowForm";
+import {Container, Row} from "react-bootstrap";
+import WeekdaysRosterShift from "./WeekdaysRosterShift";
+import WeekdaysRosterTimeAvailabilityDetails from "./WeekdaysRosterTimeAvailabilityDetails";
+import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 class WeekdaysRosterForm extends PureComponent {
 
@@ -15,7 +16,7 @@ class WeekdaysRosterForm extends PureComponent {
 
         await this.setState({
             activeShiftKey: active,
-            selectedShift: {...shift}
+            selectedShift: {...shift, wholeWeekOff: 'N'}
         });
     };
 
@@ -40,118 +41,37 @@ class WeekdaysRosterForm extends PureComponent {
 
     render() {
         const {activeShiftKey, selectedShift} = this.state;
-        const {weekdaysDetail} = selectedShift;
-        const {shiftDetails} = this.props.weekdaysRosterFormData;
+        const {weekdaysDetail, rosterGapDuration} = selectedShift;
+        const {shiftDetails, doctorInformationData} = this.props.weekdaysRosterFormData;
         return <>
-            <div className=" ">
-                <Container className="bg-white add-container " fluid>
+            <div>
+                <Container className="p-0" fluid>
+                    <span>
+                        <h5 className="title">Weekdays Roster </h5>
+                        &nbsp;as of&nbsp;
+                        <h5 className="title">
+                               {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInformationData.fromDate)}
+                           </h5>
+                        &nbsp; to &nbsp;
+                        <h5 className="title">
+                            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInformationData.toDate)}
+                        </h5>
+                    </span>
+                    <Row className="mb-2">
+                        {/*****************************************DOCTOR SHIFTS START***************************************************/}
+                        <WeekdaysRosterShift
+                            shiftDetails={shiftDetails}
+                            activeShiftKey={activeShiftKey}
+                            handleShiftAccordionSelect={this.handleShiftAccordionSelect}/>
+                        {/******************************************DOCTOR SHIFTS END ****************************************************/}
 
-                    <Row>
-                        <Col sm={12} md={6} lg={3} className="menu-list-wrapper">
-                            <h5 className="title">&nbsp;</h5>
-                            <div className="assign-menu">
-                                <div className="am-header">
-                                <span className="am-title">
-                                    Shifts
-                                </span>
-                                </div>
-                                <CScrollbar
-                                    id="menus"
-                                    autoHide={true}
-                                    style={{height: 312}}>
-                                    {
-                                        shiftDetails.length ?
-                                            <Accordion
-                                                className="menu-accordion"
-                                                activeKey={activeShiftKey ? activeShiftKey : shiftDetails[0].shiftId}>
-                                                {shiftDetails.map(shift =>
-                                                    <Card
-                                                        key={"shift" + shift.shiftId}>
-                                                        <Accordion.Toggle
-                                                            eventKey={shift.shiftId}
-                                                            key={shift.shiftId}
-                                                            as={Card.Header}
-                                                            className={
-                                                                (activeShiftKey ? activeShiftKey
-                                                                    : shiftDetails[0].shiftId) === shift.shiftId ?
-                                                                    'activeParent' : ''
-                                                            }
-                                                            onClick={() => this.handleShiftAccordionSelect(shift)}>
-                                                            <span>{shift.shiftName}</span>
-                                                        </Accordion.Toggle>
-                                                    </Card>
-                                                )}
-                                            </Accordion> :
-                                            ''
-                                    }
-
-                                </CScrollbar>
-                            </div>
-                        </Col>
-
-                        <Col sm={12} md={6} lg={5} className="roles-wrapper">
-                            <div className="assign-previledge">
-                                <div className="am-header">
-                                    <span className="am-title">
-                                        Availability:{selectedShift.shiftName}
-                                    </span>
-                                </div>
-
-                                <div className="doctor-availability bg-white p-4">
-                                    <Row className="header">
-                                        <Col> Days</Col>
-                                        <Col>
-                                            Start Time
-                                        </Col>
-                                        <Col> End Time</Col>
-                                        <Col>
-                                            {/*{type === 'ADD' ?*/}
-                                            <CCheckbox
-                                                id="check-all-menu"
-                                                label="Off"
-                                                className="select-all check-all"
-                                                checked={selectedShift.wholeWeekOff === 'Y'}
-                                                // onChange={handleWholeWeekOff}
-                                            />
-                                            {/*: "Off"*/}
-                                            {/*}*/}
-                                        </Col>
-                                        <Col> Advanced Settings</Col>
-                                    </Row>
-                                </div>
-                                <CScrollbar
-                                    id="menus"
-                                    autoHide={true}
-                                    style={{height: 312}}>
-                                    {
-                                        selectedShift.weekdaysDetail && selectedShift.weekdaysDetail.length ?
-                                            <Accordion className="menu-accordion"
-                                                       activeKey={activeShiftKey ? activeShiftKey : weekdaysDetail[0].weekDaysId}
-                                            >
-                                                {weekdaysDetail.map(weekdayData =>
-                                                    <WeekdayRowForm key={weekdayData.weekDaysId}
-                                                                    weekdayData={weekdayData}/>
-                                                )}
-                                            </Accordion> :
-                                            <div className="filter-message">
-                                                <div className="no-data">
-                                                    <i className="fa fa-file-text-o"/>
-                                                </div>
-                                                <div className="message"> No weekday data available.</div>
-                                            </div>
-                                    }
-
-                                </CScrollbar>
-                            </div>
-                        </Col>
-                    </Row>
-
-                    <Row className="mt-4">
-                        <Col sm={12} md={{span: 3, offset: 9}}>
-                            <CButton
-                                id="save"
-                                name="Save"/>
-                        </Col>
+                        {/********************************************WEEKDAYS START******************************************************/}
+                        <WeekdaysRosterTimeAvailabilityDetails
+                            rosterGapDuration={rosterGapDuration}
+                            selectedShift={selectedShift}
+                            weekdaysDetail={weekdaysDetail}
+                        />
+                        {/*********************************************WEEKDAYS END ******************************************************/}
                     </Row>
                 </Container>
             </div>

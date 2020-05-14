@@ -294,7 +294,7 @@ export const AssignShiftsToDoctorReducer = (state = {...initialState}, action) =
         case ASSIGN_SHIFTS_TO_DOCTOR_ERROR:
             return {
                 ...state,
-                isSaveShiftLoading: false,
+                isAssignShiftsToDoctorLoading: false,
                 assignShiftsToDoctorSuccessMessage: '',
                 assignShiftsToDoctorErrorMessage: action.payload.message,
             };

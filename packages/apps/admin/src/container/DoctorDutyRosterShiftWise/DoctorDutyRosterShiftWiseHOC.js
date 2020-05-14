@@ -93,19 +93,20 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         alertTimer = '';
 
         assignShiftsToDoctor = async () => {
-            const {doctor, newDoctorShifts} = this.state.doctorInformation;
+            const {doctor, hospital, newDoctorShifts} = this.state.doctorInformation;
             let requestData = {
+                hospitalId: hospital ? hospital.value : '',
                 doctorId: doctor ? doctor.value : '',
                 shiftIds: newDoctorShifts && newDoctorShifts.length ? newDoctorShifts.map(newShift => newShift.value)
                     : []
             };
             try {
                 await this.props.assignShiftsToDoctor(ASSIGN_SHIFTS_TO_DOCTOR, requestData);
-                this.closeAssignNewShiftModal();
                 this.addNewShiftsToDoctorShifts();
                 let shiftNames = newDoctorShifts && newDoctorShifts.map(newShift => newShift.label);
                 let successMessage = "New Shift(s) - " + shiftNames.join(', ') + ", has been assigned to Dr." + doctor.label + '.';
                 this.showAlertMessage("success", successMessage);
+                this.setDoctorShiftsAndShiftDetails([...this.state.doctorInformation.doctorShifts]);
             } catch (e) {
 
             }
@@ -123,7 +124,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     ...this.state.doctorInformation,
                     doctorShifts: [...initialDoctorShifts],
                     newDoctorShifts: []
-                }
+                },
+                showAssignShiftToDoctorModal: false,
             });
         };
 
@@ -139,7 +141,11 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
         closeAssignNewShiftModal = () => {
             this.setState({
-                showAssignShiftToDoctorModal: false
+                showAssignShiftToDoctorModal: false,
+                doctorInformation: {
+                    ...this.state.doctorInformation,
+                    newDoctorShifts: []
+                }
             })
         };
 
@@ -262,8 +268,10 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 default:
                     break;
             }
-            this.resetShiftAndWeekdaysRosterDetails();
-            this.checkFormValidity();
+            if (key !== 'newDoctorShifts') {
+                this.resetShiftAndWeekdaysRosterDetails();
+                this.checkFormValidity();
+            }
         };
 
         handleCheckAvailability = async () => {
@@ -277,38 +285,54 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             this.setDoctorShiftsAndShiftDetails([...this.props.ShiftDropdownReducer.activeShiftByDoctorIdForDropdown]);
         };
 
-        handleShiftSelection = async (shift, index) => {
+        handleShiftSelection = async (shift, index, isGapDurationChange, event) => {
             const {doctorInformation, shiftDetails} = this.state;
             let doctorShiftsCopy = [...doctorInformation.doctorShifts];
             let shiftDetailsCopy = [...shiftDetails];
 
-            //CHECK UNCHECK SHIFTS FROM DOCTOR'S SHIFT LIST.
-            shift.checked = !shift.checked;
-            doctorShiftsCopy[index] = shift;
+            if (!isGapDurationChange) {
+                // HANDLE SHIFT CHECKED UNCHECKED
 
-            let activeShift = doctorShiftsCopy.filter(doctorShift => doctorShift.checked);
-            if (activeShift.length) {
-                // BASED ON SHIFT SELECTED OR DE-SELECTED, ADD SHIFT WITH WEEKDAYS DATA TO SHIFT DETAILS.
-                if (shift.checked) {
-                    let shiftIndexInShiftDetails = shiftDetailsCopy.findIndex(shiftDetail => shiftDetail.shiftId === shift.value);
-                    if (shiftIndexInShiftDetails <= 0)
-                        shiftDetailsCopy.push(this.setShiftDetailObjectWithWeekdays(shift));
+                //CHECK UNCHECK SHIFTS FROM DOCTOR'S SHIFT LIST.
+                shift.checked = !shift.checked;
+                doctorShiftsCopy[index] = shift;
+
+                let activeShift = doctorShiftsCopy.filter(doctorShift => doctorShift.checked);
+                if (activeShift.length) {
+                    // BASED ON SHIFT SELECTED OR DE-SELECTED, ADD SHIFT WITH WEEKDAYS DATA TO SHIFT DETAILS.
+                    if (shift.checked) {
+                        let shiftIndexInShiftDetails = shiftDetailsCopy.findIndex(shiftDetail => shiftDetail.shiftId === shift.value);
+                        if (shiftIndexInShiftDetails <= 0)
+                            shiftDetailsCopy.push(this.setShiftDetailObjectWithWeekdays(shift));
+                    } else {
+                        let shiftIndexInShiftDetails = shiftDetailsCopy.findIndex(shiftDetail => shiftDetail.shiftId === shift.value);
+                        if (shiftIndexInShiftDetails >= 0) {
+                            shift.rosterGapDuration = '';
+                            shiftDetailsCopy.splice(shiftIndexInShiftDetails, 1);
+                        }
+                    }
+
+                    await this.setState({
+                        shiftDetails: [...shiftDetailsCopy],
+                        doctorInformation: {
+                            ...this.state.doctorInformation,
+                            doctorShifts: [...doctorShiftsCopy]
+                        }
+                    });
                 } else {
-                    let shiftIndexInShiftDetails = shiftDetailsCopy.findIndex(shiftDetail => shiftDetail.shiftId === shift.value);
-                    if (shiftIndexInShiftDetails >= 0)
-                        shiftDetailsCopy.splice(shiftIndexInShiftDetails, 1);
+                    shift.checked = true;
+                    this.showAlertMessage("warning", "There  must be one shift in Doctor Duty Roster.")
                 }
-
+            } else {
+                // HANDLE SHIFT ROSTER GAP DURATION CHANGE
+                shift.rosterGapDuration = event.target.value;
+                doctorShiftsCopy[index] = shift;
                 await this.setState({
-                    shiftDetails: [...shiftDetailsCopy],
                     doctorInformation: {
                         ...this.state.doctorInformation,
                         doctorShifts: [...doctorShiftsCopy]
                     }
                 });
-            } else {
-                shift.checked = true;
-                this.showAlertMessage("warning", "There  must be one shift in Doctor Duty Roster.")
             }
         };
 
@@ -363,13 +387,20 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         };
 
         setDoctorShiftsAndShiftDetails = doctorShiftList => {
-            let selectedDoctorShifts = doctorShiftList && doctorShiftList.length ? doctorShiftList.filter(doctorShift => doctorShift.checked) : [];
+            let doctorShiftsWithRosterDuration = [], selectedDoctorShifts = [];
+            if (doctorShiftList && doctorShiftList.length) {
+                doctorShiftsWithRosterDuration = doctorShiftList.map(doctorShift => {
+                    return {...doctorShift, rosterGapDuration: ''}
+                });
+                selectedDoctorShifts = doctorShiftList.filter(doctorShift => doctorShift.checked);
+            }
+
             let shiftDetails = this.setShiftDetailsFromDoctorShiftList(selectedDoctorShifts);
 
             this.setState({
                 doctorInformation: {
                     ...this.state.doctorInformation,
-                    doctorShifts: [...doctorShiftList],
+                    doctorShifts: [...doctorShiftsWithRosterDuration],
                 },
                 shiftDetails: [...shiftDetails],
                 isCreatingRosterAvailable: true
@@ -393,7 +424,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 return {
                     shiftId: shift.value,
                     shiftName: shift.label,
-                    wholeWeekOff:'N',
+                    wholeWeekOff: 'N',
+                    rosterGapDuration: shift.rosterGapDuration,
                     weekdaysDetail: [...weekdaysData]
                 };
             else return {};
@@ -518,7 +550,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
             const {activeBreakTypeByHospitalIdForDropdown} = this.props.BreakTypeDropdownReducer;
 
-            const {activeShiftByHospitalIdForDropdown,dropdownErrorMessage} = this.props.ShiftDropdownReducer;
+            const {activeShiftByHospitalIdForDropdown, dropdownErrorMessage} = this.props.ShiftDropdownReducer;
 
             const {
                 isAssignShiftsToDoctorLoading,
@@ -565,6 +597,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     }}
                     weekdaysRosterFormData={{
                         shiftDetails: shiftDetails,
+                        doctorInformationData: doctorInformation,
                     }}
                 />
                 <CAlert
