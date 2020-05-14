@@ -84,10 +84,10 @@ export const appointmentTransferInfoError = errorMessage => ({
   payload:{ message:errorMessage}
 })
 
-export const appointmentTransferSuccess = data => ({
+export const appointmentTransferSuccess = message => ({
   type: APPOINTMENT_TRANSFER_SUCCESS,
   payload: {
-    data: data
+    message: message
   }
 })
 

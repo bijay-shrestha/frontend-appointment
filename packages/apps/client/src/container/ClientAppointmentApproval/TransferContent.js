@@ -161,7 +161,7 @@ const TransferContent = ({
                   value={transferredDate}
                   options={optionsDate}
                   onChange={onChangeHandler}
-                  isDisabled={!optionsDate.length}
+                  isDisabled={!optionsDate.length || !transferredDoctor.value}
                 />
               </Col>
               <Col sm={12} md={6} lg={6}>
@@ -177,7 +177,7 @@ const TransferContent = ({
                   value={transferredTime}
                   options={optionsTime}
                   onChange={onChangeHandler}
-                  isDisabled={!optionsTime}
+                  isDisabled={!optionsTime.length ||!transferredDate.value}
                 />
                
               </Col>
