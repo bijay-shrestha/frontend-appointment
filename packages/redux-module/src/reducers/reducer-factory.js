@@ -7,6 +7,7 @@ export const createReducerFactory = (handlers, initialState = {}) => (
       console.log(`Unknown action type: ${action.type}`);
       return state;
     }
+    console.log("===============",action)
     const nextState = handler(state, action)
     return nextState
 }

@@ -26,11 +26,12 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         setShowModal,
         rejectSubmitHandler,
         rejectRemarksHandler,
-        onRejectHandler,
+        //onRejectHandler,
         approveHandler,
         approveHandleApi,
         rejectError,
         //isAppointmentRejectLoading,
+        transferHandler,
         approveConfirmationModal,
         rejectModalShow,
         remarks,
@@ -159,9 +160,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     width: '100',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
-                                            type === 'D'
+                                            type === 'P'
                                                 ? // ? props.filteredActions.find(action => action.id === 5) &&
-                                                onRejectHandler(id)
+                                                transferHandler(id)
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         }

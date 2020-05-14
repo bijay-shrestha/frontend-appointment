@@ -84,14 +84,27 @@ export const fetchAppointmentTransferCharge = (
 //     dispatch(AppointmentDetailActions.clearAppointmentLogMessage())
 // };
 
-export const fetchAppointmentTransferInfo = (path,pagination, data) => async dispatch => {
+// export const fetchAppointmentTransferInfo = (path,pagination, data) => async dispatch => {
+//     dispatch(AppointmentTransferActions.appointmentTransferInfoPending());
+//     try {
+//         const response = await Axios.putWithPagination(path,pagination,data);
+//         dispatch(AppointmentTransferActions.appointmentTransferInfoSuccess(response.data));
+//         return response.data;
+//     } catch (e) {
+//         dispatch(AppointmentTransferActions.appointmentTransferInfoError(e.errorMessage || 'Sorry Internal Server Problem'))
+//     }
+// };
+
+
+export const fetchAppointmentTransferDetail = (path,transferId) => async dispatch => {
     dispatch(AppointmentTransferActions.appointmentTransferInfoPending());
     try {
-        const response = await Axios.putWithPagination(path,pagination,data);
+        const response = await Axios.getWithPathVariables(path,transferId);
         dispatch(AppointmentTransferActions.appointmentTransferInfoSuccess(response.data));
         return response.data;
     } catch (e) {
         dispatch(AppointmentTransferActions.appointmentTransferInfoError(e.errorMessage || 'Sorry Internal Server Problem'))
+        throw e;
     }
 };
 

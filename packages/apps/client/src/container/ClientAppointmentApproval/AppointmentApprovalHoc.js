@@ -12,7 +12,8 @@ import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
-
+import AppointmentTransferContent from './TransferContent'
+import {CConfirmationModal} from '@frontend-appointment/ui-components'
 const {
   clearAppointmentRefundPending,
   fetchAppointmentApprovalList,
@@ -31,7 +32,7 @@ const {
   fetchAppointmentTransferTime
 } = AppointmentTransferMiddleware
 
-const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
+const {fetchActiveDoctorsForDropdown,fetchDoctorsBySpecializationIdForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
 const AppointApprovalHOC = (ComposedComponent, props, type) => {
@@ -76,8 +77,14 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       approveAppointmentId: '',
       appointmentDetails: '',
       isConfirming: false,
-      transferData:null,
-      trasferConfirmationModal:false,
+      appointmentTransferData: {
+        transferData: {},
+        transferDate: [],
+        transferTime: [],
+        transferCharge: 0
+      },
+      transferConfirmationModal: false,
+      transferValid:false
     }
 
     handleEnterPress = event => {
@@ -113,8 +120,17 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       this.setState({
         showModal: false,
         approveConfirmationModal: false,
-        trasferConfirmationModal:false
+        transferConfirmationModal: false
       })
+    }
+
+    checkValidityOfTransfer = () =>{
+      const {transferData}=this.state.appointmentTransferData
+      const {transferredDate,transferredTime,transferredSpecialization,transferredDoctor,remarks}=transferData
+      const transferValid = transferredDate.value && transferredTime.value && transferredSpecialization.value && transferredDoctor.value && remarks 
+       this.setState({
+         transferValid:Boolean(transferValid)
+       })
     }
 
     searchAppointment = async page => {
@@ -206,6 +222,19 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       this.searchAppointment()
     }
 
+    resetTransferData = () =>{
+      this.setState({
+        appointmentTransferData: {
+          transferData: {},
+          transferDate: [],
+          transferTime: [],
+          transferCharge: 0,
+        },
+        transferConfirmationModal: false,
+        transferValid:false
+      })
+    }
+
     handleHospitalChangeReset = async () => {
       await this.setState({
         searchParameters: {
@@ -238,23 +267,125 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
       )
     }
+    callApiAfterSpecializationAndDoctorChange = async (appointmentDetail,transferDate) => {
+      await this.props.fetchAppointmentTransferCharge(
+        appointmentTransferApiConstants.APPOINTMENT_TRANSFER_CHARGE,
+        {
+          doctorId: appointmentDetail.doctorId,
+          specializationId: appointmentDetail.specializationId,
+          followUp: appointmentDetail.followUp
+        }
+      )
+
+      await this.props.fetchAppointmentTransferDate(
+        appointmentTransferApiConstants.APPOINTMENT_TRANSFER_DATE,
+        {
+          doctorId: appointmentDetail.doctorId,
+          specializationId: appointmentDetail.specializationId,
+          followUp: appointmentDetail.followUp
+        }
+      )
+     
+    }
+
+    onDoctorOrDateChangeHandler= async(appointmentDetail,transferedDate) =>{
+      await this.props.fetchAppointmentTransferTime(
+        appointmentTransferApiConstants.APPOINTMENT_TRANSFER_TIME,
+        {
+          doctorId: appointmentDetail.doctorId,
+          specializationId: appointmentDetail.specializationId,
+          date: transferedDate.value?new Date(transferedDate.value):new Date()
+        }
+      )
+    }
+
+    callApiAfterSpecializationChange = async specializationId => {
+      await this.props.fetchDoctorsBySpecializationIdForDropdown(
+        doctorSetupApiConstants.FETCH_DOCTOR_BY_SPECIALIZATION_ID,
+        specializationId
+      )
+    }
 
     transferHandler = async data => {
-        await this.previewApiCall(data);
-        await this.props.clearAppointmentApproveMessage();
-        await this.props.fetchAppointmentTransferCharge(appointmentTransferApiConstants.APPOINTMENT_TRANSFER_CHARGE),
-        await this.props.fetchAppointmentTransferDate(appointmentTransferApiConstants.APPOINTMENT_TRANSFER_DATE),
-        await this.props.fetchAppointmentTransferTime(appointmentTransferApiConstants.APPOINTMENT_TRANSFER_TIME),
-       this.setState({
-           transferData:{
-            ...this.props.AppointmentDetailReducer.appointmentDetail
-           },
-           trasferConfirmationModal:true
-       })   
-    };
+      await this.previewApiCall(data)
+      const {appointmentDetail} = this.props.AppointmentDetailReducer
+      await this.props.clearAppointmentApproveMessage()
+      await this.callApiAfterSpecializationChange(
+        appointmentDetail.specializationId
+      )
+      await this.callApiAfterSpecializationAndDoctorChange(appointmentDetail)
+      await this.onDoctorOrDateChangeHandler(appointmentDetail,{value:appointmentDetail.date,label:appointmentDetail.date})
+      const {
+        appointmentTransferCharge
+      } = this.props.appointmentTransferChargeReducer
+      const {
+        appointmentTransferTime,
+        appointmentTransferTimeError,
+        isAppointmentTransferTimeLoading
+      } = this.props.appointmentTransferTimeReducer
+     // console.log("========",this.props.appointmentTransferTimeReducer)
+      const {
+        appointmentTransferDate,
+        appointmentTransferDateError,
+        isAppointmentTransferDateLoading
+      } = this.props.appointmentTransferDateReducer
+      this.setState({
+        appointmentTransferData: {
+          transferData: {
+            ...this.props.AppointmentDetailReducer.appointmentDetail,
+            transferredDoctor: {
+              value: appointmentDetail.doctorId,
+              label: appointmentDetail.doctorName
+            },
+            transferredSpecialization: {
+              value: appointmentDetail.specializationId,
+              label: appointmentDetail.specializationName
+            },
+            transferredDate:'',
+            transferredTime: '',
+            transferredCharge:appointmentTransferCharge,
+            remarks:''
+          },
+          transferDate: {
+            appointmentTransferDate,
+            appointmentTransferDateError,
+            isAppointmentTransferDateLoading
+          },
+          transferTime: {
+            appointmentTransferTime,
+            appointmentTransferTimeError,
+            isAppointmentTransferTimeLoading
+          },
+          transferCharge: appointmentTransferCharge
+        },
+        transferConfirmationModal: true
+      })
+    }
 
-    transferApiCall = async data => {
-    
+    transferApiCall = async () => {
+      //const {transferData} = this.state.appointmentTransferData
+      try{
+       this.setState({
+          isConfirming: false,
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'success',
+            message: this.props.AppointmentApproveReducer.approveSuccessMessage
+          }
+        })
+      } catch (e) {
+        this.setState({
+          isConfirming: false,
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.AppointmentApproveReducer.approveErrorMessage
+          }
+        })
+      } finally {
+        await this.searchAppointment()
+        this.setShowModal()
+      }
     }
 
     handleSearchFormChange = async (event, field) => {
@@ -294,6 +425,74 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         }
       })
     }
+
+    handleTransferChange = async e => {
+      const {value, label, name} = e.target
+
+      const transferAppointment = {
+        ...this.state.appointmentTransferData
+      }
+      transferAppointment['transferData'][name]=label?value?{value,label}:'':value
+      if(value){
+      await this.setState({
+        appointmentTransferData:{...transferAppointment}
+      })
+     
+      if(name==='transferredSpecialization')
+       await this.callApiAfterSpecializationChange(value)
+       if(name==="transferredSpecialization"||name==="transferredDoctor" ||name==="transferredDate"){
+         await this.onDoctorOrDateChangeHandler(this.state.appointmentTransferData.transferData,this.state.appointmentTransferData.transferData.transferredDate);
+         const {
+          appointmentTransferTime,
+          appointmentTransferTimeError,
+          isAppointmentTransferTimeLoading
+        } = this.props.appointmentTransferTimeReducer
+        transferAppointment.transferTime={
+          appointmentTransferTime,
+          appointmentTransferTimeError,
+          isAppointmentTransferTimeLoading
+        }
+        transferAppointment['transferData']['transferredTime'] ='';
+        this.setState({
+          appointmentTransferData:{...transferAppointment}
+        })
+
+        }   
+      if(name==="transferredSpecialization"||name==="transferredDoctor" ){
+        if(value){
+        transferAppointment['transferData']['transferredDate'] ='';
+        transferAppointment['transferData']['transferredTime'] ='';
+        transferAppointment['transferData']['transferredCharge'] ='';
+        this.callApiAfterSpecializationAndDoctorChange(this.state.appointmentTransferData.transferData)
+        const {
+          appointmentTransferCharge
+        } = this.props.appointmentTransferChargeReducer
+        // const {
+        //   appointmentTransferTime,
+        //   appointmentTransferTimeError,
+        //   isAppointmentTransferTimeLoading
+        // } = this.props.appointmentTransferTimeReducer
+        const {
+          appointmentTransferDate,
+          appointmentTransferDateError,
+          isAppointmentTransferDateLoading
+        } = this.props.appointmentTransferDateReducer
+        transferAppointment.transferDate={
+          appointmentTransferDate,
+          appointmentTransferDateError,
+          isAppointmentTransferDateLoading
+        }
+        transferAppointment.transferCharge={
+          appointmentTransferCharge
+        }
+        this.setState({
+          appointmentTransferData:{...transferAppointment}
+        })
+      }
+      this.checkValidityOfTransfer();
+    }
+  }
+   }
 
     approveHandleApi = async () => {
       this.setState({
@@ -392,8 +591,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         showAlert,
         appointmentDetails,
         isConfirming,
-        transferData,
-        trasferConfirmationModal
+        appointmentTransferData,
+        transferConfirmationModal,
+        transferValid
       } = this.state
 
       const {
@@ -406,7 +606,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         activeDoctorsForDropdown,
         doctorDropdownErrorMessage
       } = this.props.DoctorDropdownReducer
-
+      const {
+        doctorsBySpecializationForDropdown
+      } = this.props.DoctorDropdownReducer
       const {
         isAppointmentRejectLoading,
         appointmentRejectErrorMessage
@@ -425,11 +627,26 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       const {appointmentDetail} = this.props.AppointmentDetailReducer
       const {
         //appointmentTransferSucessMessage,
-        isAppointmentTransferLoading,
-     //   appointmentTransferErrorMessage
+        isAppointmentTransferLoading
+        //   appointmentTransferErrorMessage
       } = this.props.appointmentTransferReducer
-      
-    
+      //   const {
+      //     appointmentTransferCharge
+      //     // isAppointmentTransferChargeLoading,
+      //     // appointmentTransferChargeError
+      //   } = this.props.appointmentTransferChargeReducer
+      //   const {
+      //     appointmentTransferDate,
+      //     appointmentTransferDateError,
+      //     isAppointmentTransferDateLoading
+      //   } = this.props.appointmentTransferDateReducer
+
+      //   const {
+      //     appointmentTransferTime,
+      //     isAppointmentTransferTimeLoading,
+      //     appointmentTransferTimeError
+      //   } = this.props.appointmentTransferTimeReducer
+
       return (
         <div id="appointment-approval">
           <ComposedComponent
@@ -472,15 +689,32 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
               rejectModalShow: rejectModalShow,
               remarks: rejectRequestDTO.remarks,
               appointmentDetails: appointmentDetails,
-              isConfirming: isConfirming
-            }}
-            transferModalHandler={{
-                transferData:transferData,
-                trasferConfirmationModal:trasferConfirmationModal,
-                setShowModal:this.setShowModal,
-                isAppointmentTransferLoading:isAppointmentTransferLoading
+              isConfirming: isConfirming,
+              transferHandler: this.transferHandler
             }}
           />
+          {transferConfirmationModal ? (
+            <CConfirmationModal
+              modalHeader="Confirm Transfer?"
+              modalBody={
+                <AppointmentTransferContent
+                  {...appointmentTransferData}
+                  doctorList={doctorsBySpecializationForDropdown}
+                  specializationList={allActiveSpecializationList}
+                  //transferValid={transferValid}
+                  onChangeHandler={this.handleTransferChange}
+                />
+              }
+              onConfirm={this.transferApiCall}
+              onCancel={this.setShowModal}
+              isConfirming={isAppointmentTransferLoading}
+              isDisabled={!transferValid}
+              setShowModal={this.setShowModal}
+              showModal={transferConfirmationModal}
+            />
+          ) : (
+            ''
+          )}
           <CAlert
             id="profile-add"
             variant={alertMessageInfo.variant}
@@ -520,12 +754,12 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       'AppointmentDetailReducer',
       'appointmentTransferReducer',
       'appointmentTransferDateReducer',
-      'appointmentTrasferTimeReducer',
-      'appointmentTrasferChargeReducer'
+      'appointmentTransferTimeReducer',
+      'appointmentTransferChargeReducer'
     ],
     {
       clearAppointmentRefundPending,
-      fetchActiveDoctorsForDropdown,
+      fetchDoctorsBySpecializationIdForDropdown,
       fetchSpecializationForDropdown,
       fetchPatientMetaDropdownForClient,
       fetchAppointmentApprovalList,
@@ -537,7 +771,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       appointmentTransfer,
       fetchAppointmentTransferCharge,
       fetchAppointmentTransferDate,
-      fetchAppointmentTransferTime
+      fetchAppointmentTransferTime,
+      fetchActiveDoctorsForDropdown
     }
   )
 }

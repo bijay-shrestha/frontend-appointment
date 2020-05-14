@@ -8,7 +8,8 @@ const ConfirmationModal = ({
                                modalHeader,
                                modalBody,
                                setShowModal,
-                               isConfirming
+                               isConfirming,
+                               isDisabled
                            }) => {
     let footer = (
         <>
@@ -17,7 +18,7 @@ const ConfirmationModal = ({
                     variant="primary"
                     size="lg"
                     className="float-right  btn-action ml-2"
-                    disabled={isConfirming}
+                    disabled={isConfirming||isDisabled}
                     isLoading={isConfirming}
                     name={"Confirm"}
                     onClickHandler={onConfirm}

@@ -31,7 +31,9 @@ export const appointmentTransferChargePending = () => ({
 
 export const appointmentTransferChargeError = errorMessage => ({
   type: APPOINTMENT_TRANSFER_CHARGE_ERROR,
-  message: errorMessage
+  payload:{
+    message:errorMessage
+  } 
 })
 
 export const appointmentTransferDateSuccess = data => ({
@@ -47,7 +49,7 @@ export const appointmentTransferDatePending = () => ({
 
 export const appointmentTransferDateError = errorMessage => ({
   type: APPOINTMENT_TRANSFER_DATE_ERROR,
-  message: errorMessage
+  payload:{message: errorMessage}
 })
 
 export const appointmentTransferTimeSuccess = data => ({
@@ -63,7 +65,7 @@ export const appointmentTransferTimePending = () => ({
 
 export const appointmentTransferTimeError = errorMessage => ({
   type: APPOINTMENT_TRANSFER_TIME_ERROR,
-  message: errorMessage
+  payload:{message: errorMessage}
 })
 
 export const appointmentTransferInfoSuccess = data => ({
@@ -79,7 +81,7 @@ export const appointmentTransferInfoPending = () => ({
 
 export const appointmentTransferInfoError = errorMessage => ({
   type: APPOINTMENT_TRANSFER_INFO_ERROR,
-  message: errorMessage
+  payload:{ message:errorMessage}
 })
 
 export const appointmentTransferSuccess = data => ({
@@ -95,5 +97,7 @@ export const appointmentTransferPending = () => ({
 
 export const appointmentTransferError = errorMessage => ({
   type: APPOINTMENT_TRANSFER_ERROR,
+  payload:{
   message: errorMessage
+  }
 })
