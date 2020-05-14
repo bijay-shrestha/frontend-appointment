@@ -179,10 +179,10 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                 doctorInformationData.doctorShifts.length ?
                                     <Row>
                                         {doctorInformationData.doctorShifts.map((shift, index) => (
-                                            <>
-                                                <Col sm={2} key={"doctor-shift" + shift.value}>
+                                            <React.Fragment key={shift.value}>
+                                                <Col sm={2} key={"doctor-shift-" + shift.value}>
                                                     <CCheckbox
-                                                        id={"doctor-shift" + shift.value}
+                                                        id={"shift-" + shift.value}
                                                         key={"doctor-shift" + shift.value}
                                                         name={shift.label}
                                                         label={shift.label}
@@ -191,9 +191,9 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                                         onChange={() => handleShiftSelection(shift, index, false, '')}
                                                     />
                                                 </Col>
-                                                <Col sm={12} md={4} lg={4}>
+                                                <Col sm={12} md={4} lg={4} key={"doctor-shift-roster-gap-duration" + shift.value}>
                                                     <CHybridInput
-                                                        key={"doctor-shift" + shift.value}
+                                                        key={"roster-gap-duration" + shift.value}
                                                         id="duration"
                                                         label="Duration"
                                                         type="number"
@@ -205,7 +205,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                                         value={shift.rosterGapDuration}
                                                     />
                                                 </Col>
-                                            </>
+                                            </React.Fragment>
                                         ))}
                                     </Row>
                                     :

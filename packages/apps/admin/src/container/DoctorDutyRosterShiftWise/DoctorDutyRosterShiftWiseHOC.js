@@ -387,20 +387,15 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         };
 
         setDoctorShiftsAndShiftDetails = doctorShiftList => {
-            let doctorShiftsWithRosterDuration = [], selectedDoctorShifts = [];
-            if (doctorShiftList && doctorShiftList.length) {
-                doctorShiftsWithRosterDuration = doctorShiftList.map(doctorShift => {
-                    return {...doctorShift, rosterGapDuration: ''}
-                });
-                selectedDoctorShifts = doctorShiftList.filter(doctorShift => doctorShift.checked);
-            }
+            let selectedDoctorShifts = doctorShiftList && doctorShiftList.length ?
+                doctorShiftList.filter(doctorShift => doctorShift.checked) : [];
 
             let shiftDetails = this.setShiftDetailsFromDoctorShiftList(selectedDoctorShifts);
 
             this.setState({
                 doctorInformation: {
                     ...this.state.doctorInformation,
-                    doctorShifts: [...doctorShiftsWithRosterDuration],
+                    doctorShifts: [...doctorShiftList],
                 },
                 shiftDetails: [...shiftDetails],
                 isCreatingRosterAvailable: true
