@@ -21,6 +21,7 @@ const DoctorDutyRosterShiftWiseAdd = (props) => {
                 {
                     doctorInformationFormData.isCreatingRosterAvailable && weekdaysRosterFormData.shiftDetails.length ?
                         <DoctorDutyRosterComponents.WeekdaysRosterForm
+                            type={"ADD"}
                             weekdaysRosterFormData={weekdaysRosterFormData}/>
                         : ''
                 }

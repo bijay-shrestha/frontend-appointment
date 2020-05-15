@@ -56,7 +56,8 @@ const {
 const {
     addDate,
     isFirstDateGreaterThanSecondDate,
-    getDateWithTimeSetToGivenTime
+    getDateWithTimeSetToGivenTime,
+    isFirstTimeGreaterThanSecond
 } = DateTimeFormatterUtils;
 
 const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!';
@@ -180,6 +181,15 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             this.setState({
                 formValid: Boolean(formValid)
             })
+        };
+
+        checkIfWholeWeekOff = weekdaysAvailabilityData => {
+            let wholeWeekOff = true;
+            weekdaysAvailabilityData.map(day => {
+                wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y';
+                return day
+            });
+            return wholeWeekOff
         };
 
         fetchHospitalsForDropdown = async () => {
@@ -343,6 +353,83 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             });
         };
 
+        handleWeekdaysFormChange = async (event, shiftDetail, weekDayIndex) => {
+            let fieldName = event.target.name;
+            let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
+            let shiftDetailsCopy;
+
+            switch (type) {
+                case 'ADD':
+                    // COPY VALUES TO BE CHANGED
+                    shiftDetailsCopy = [...this.state.shiftDetails];
+                    let selectedWeekday = {...shiftDetail.weekdaysDetail[weekDayIndex]};
+
+                    // SET VALUES AND VALIDATE
+                    selectedWeekday[fieldName] = value;
+                    shiftDetail.wholeWeekOff = this.checkIfWholeWeekOff(shiftDetail.weekdaysDetail) ? 'Y' : 'N';
+
+                    if (fieldName === 'startTime' || fieldName === 'endTime') {
+                        this.validateWeekdayStartTimeAndEndTimeAndSetErrorMessage(selectedWeekday);
+                    } else if (fieldName === 'dayOffStatus') {
+                        this.setDefaultStartTimeAndEndTimeOnDayOff(value, selectedWeekday);
+                    }
+
+                    shiftDetail.weekdaysDetail[weekDayIndex] = {...selectedWeekday};
+                    let changedShiftIndex = shiftDetailsCopy.findIndex(shift => shift.shiftId === shiftDetail.shiftId);
+                    if (changedShiftIndex >= 0) shiftDetailsCopy[changedShiftIndex] = shiftDetail;
+
+                    await this.setState({
+                        shiftDetails: [
+                            ...shiftDetailsCopy
+                        ],
+                    });
+
+                    this.checkFormValidity();
+                    break;
+                case 'MANAGE':
+                    break;
+                default:
+                    break
+
+            }
+
+        };
+
+        handleWholeWeekOff = async (event, selectedShift) => {
+            // let fieldName = event.target.name;
+            let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
+            let shiftDetailsCopy;
+            switch (type) {
+                case 'ADD':
+                    shiftDetailsCopy = [...this.state.shiftDetails];
+                    selectedShift.wholeWeekOff = value;
+
+                    let updatedWeekdaysDetail = selectedShift.weekdaysDetail.map(weekday => {
+                        this.setDefaultStartTimeAndEndTimeOnDayOff(value, weekday);
+                        weekday.dayOffStatus = value;
+                        return weekday;
+                    });
+
+                    selectedShift.weekdaysDetail = [...updatedWeekdaysDetail];
+                    let changedShiftIndex = shiftDetailsCopy.findIndex(shift => shift.shiftId === selectedShift.shiftId);
+                    if (changedShiftIndex >= 0) shiftDetailsCopy[changedShiftIndex] = selectedShift;
+
+                    await this.setState({
+                        shiftDetails: [
+                            ...shiftDetailsCopy
+                        ],
+                    });
+
+                    this.checkFormValidity();
+                    break;
+                case 'MANAGE':
+                    break;
+                default:
+                    break
+
+            }
+        };
+
         resetSpecializationAndDoctorOnHospitalChange = () => {
             this.setState({
                 doctorInformation: {
@@ -386,6 +473,28 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             })
         };
 
+        setDefaultStartTimeAndEndTimeOnDayOff = (value, selectedWeekday) => {
+            if (value === 'Y') {
+                selectedWeekday.startTime = getDateWithTimeSetToGivenTime(
+                    new Date(),
+                    0,
+                    0,
+                    0
+                );
+                selectedWeekday.endTime = getDateWithTimeSetToGivenTime(
+                    new Date(),
+                    23,
+                    59,
+                    59
+                );
+                selectedWeekday.errorMessage = ''
+            } else {
+                selectedWeekday.startTime = '';
+                selectedWeekday.endTime = '';
+                selectedWeekday.errorMessage = '';
+            }
+        };
+
         setDoctorShiftsAndShiftDetails = doctorShiftList => {
             let selectedDoctorShifts = doctorShiftList && doctorShiftList.length ?
                 doctorShiftList.filter(doctorShift => doctorShift.checked) : [];
@@ -414,7 +523,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         };
 
         setShiftDetailObjectWithWeekdays = shift => {
-            const weekdaysData = this.state.weekdaysInclusiveOfDates;
+            const weekdaysData = JSON.parse(JSON.stringify(this.state.weekdaysInclusiveOfDates));
             if (shift)
                 return {
                     shiftId: shift.value,
@@ -435,6 +544,22 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 }
             });
             this.clearAlertTimeout();
+        };
+
+        validateWeekdayStartTimeAndEndTimeAndSetErrorMessage = (selectedWeekday) => {
+            if (
+                selectedWeekday.startTime &&
+                selectedWeekday.endTime
+            ) {
+                selectedWeekday.errorMessage = isFirstTimeGreaterThanSecond(
+                    selectedWeekday.startTime,
+                    selectedWeekday.endTime
+                )
+                    ? TIME_ERROR_MESSAGE
+                    : ''
+            } else {
+                selectedWeekday.errorMessage = ''
+            }
         };
 
         validateAndSetWeekDaysDataOnDateChange = async () => {
@@ -593,6 +718,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     weekdaysRosterFormData={{
                         shiftDetails: shiftDetails,
                         doctorInformationData: doctorInformation,
+                        handleWeekdaysFormChange: this.handleWeekdaysFormChange,
+                        handleWholeWeekOff: this.handleWholeWeekOff
                     }}
                 />
                 <CAlert

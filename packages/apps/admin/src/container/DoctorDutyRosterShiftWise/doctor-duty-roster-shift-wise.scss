@@ -209,6 +209,10 @@
   }
 }
 
+.accordion > .card {
+  overflow: visible;
+}
+
 .previledge-title {
   display: flex;
   flex-direction: row-reverse;
@@ -316,6 +320,12 @@
       color: $gray-700;
     }
   }
+}
+
+.inactive{
+  font-weight: 400;
+  color: #595d6e;
+  text-decoration: none;
 }
 
 

@@ -14,19 +14,20 @@ class WeekdaysRosterForm extends PureComponent {
     handleShiftAccordionSelect = async shift => {
         let active = shift.shiftId === Number(this.state.activeShiftKey) ? 0 : shift.shiftId;
 
+        let hasWholeWeekOffParam = Object.keys(shift).includes("wholeWeekOff");
         await this.setState({
             activeShiftKey: active,
-            selectedShift: {...shift, wholeWeekOff: 'N'}
+            selectedShift: {...shift, wholeWeekOff: hasWholeWeekOffParam ? shift.wholeWeekOff : 'N'}
         });
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const {shiftDetails} = this.props.weekdaysRosterFormData;
+        let hasWholeWeekOffParam = Object.keys(shiftDetails[0]).includes("wholeWeekOff");
         if (prevProps.weekdaysRosterFormData.shiftDetails.length !== shiftDetails.length) {
             this.setState({
                 activeShiftKey: '',
-                selectedShift: shiftDetails[0],
-
+                selectedShift: {...shiftDetails[0], wholeWeekOff: hasWholeWeekOffParam ? shiftDetails[0].wholeWeekOff : 'N'},
             })
         }
     }
@@ -35,14 +36,14 @@ class WeekdaysRosterForm extends PureComponent {
         const {shiftDetails} = this.props.weekdaysRosterFormData;
         this.setState({
             activeShiftKey: shiftDetails[0].shiftId,
-            selectedShift: shiftDetails[0]
+            selectedShift: {...shiftDetails[0], wholeWeekOff: 'N'}
         })
     }
 
     render() {
         const {activeShiftKey, selectedShift} = this.state;
         const {weekdaysDetail, rosterGapDuration} = selectedShift;
-        const {shiftDetails, doctorInformationData} = this.props.weekdaysRosterFormData;
+        const {shiftDetails, doctorInformationData, handleWeekdaysFormChange, handleWholeWeekOff} = this.props.weekdaysRosterFormData;
         return <>
             <div>
                 <Container className="p-0" fluid>
@@ -67,9 +68,15 @@ class WeekdaysRosterForm extends PureComponent {
 
                         {/********************************************WEEKDAYS START******************************************************/}
                         <WeekdaysRosterTimeAvailabilityDetails
-                            rosterGapDuration={rosterGapDuration}
+                            type={this.props.type}
                             selectedShift={selectedShift}
-                            weekdaysDetail={weekdaysDetail}
+                            handleWholeWeekOff={handleWholeWeekOff}
+                            weekDayRowFormProps={{
+                                selectedShift: selectedShift,
+                                rosterGapDuration: rosterGapDuration,
+                                weekdaysDetail: weekdaysDetail,
+                                handleWeekdaysFormChange: handleWeekdaysFormChange
+                            }}
                         />
                         {/*********************************************WEEKDAYS END ******************************************************/}
                     </Row>
