@@ -49,64 +49,18 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class',
                                     width: 100
                                 },
-                                // {
-                                //     headerName: 'Date & Time',
-                                //     field: 'name',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     cellRenderer: 'AppointmentDateWithTime',
-                                //     width:"260"
-                                //   },
-
                                 {
-                                    headerName: 'Date',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
-                                {
-                                    headerName: 'Time',
-                                    field: 'appointmentTime',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 100
-                                },
-                                {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
+                                    headerName: 'Status',
+                                    field: 'status',
                                     // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 120
+                                    width: 60,
+                                    valueFormatter:function(params){
+                                        return params.value ==='PA'?'CH':'N/A'
+                                    }
                                 },
-                                // {
-                                //   headerName: 'Esewa Id',
-                                //   field: 'esewaId',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                {
-                                    headerName: 'Reg  No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
-                                // {
-                                //     headerName: 'Patient Name',
-                                //     field: 'patientName',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
-
                                 {
                                     headerName: 'Patient Detail ',
                                     field: 'patientDetails',
@@ -117,18 +71,97 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },
                                 {
-                                    headerName: 'Doctor Detail',
+                                    headerName: 'App. No',
+                                    field: 'apptNumber',
+                                    // headerClass: "fi",
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer'
+                                    width: 120
                                 },
+
                                 {
-                                    headerName: 'App. Amount',
-                                    field: 'appointmentAmount',
+                                    headerName: 'Transferred From Date',
+                                    field: 'transferredFromDate',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                {
+                                    headerName: 'Transferred To Date',
+                                    field: 'transferredToDate',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                {
+                                    headerName: 'Transferred From Time',
+                                    field: 'transferredFromTime',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 100
+                                },
+                                {
+                                    headerName: 'Transferred To Time',
+                                    field: 'transferredToTime',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 100
+                                },
+                            
+                                // {
+                                //   headerName: 'Esewa Id',
+                                //   field: 'esewaId',
+                                //   resizable: true,
+                                //   sortable: true,
+                                //   sizeColumnsToFit: true
+                                // },
+                                {
+                                    headerName: 'Tranferred From Doctor',
+                                    field: 'transferredFromDoctor',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                {
+                                    headerName: 'Transferred To Doctor',
+                                    field: 'transferredToDoctor',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                // {
+                                //     headerName: 'Doctor Detail',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     cellRenderer: 'doctorwithSpecializationRenderer'
+                                // },
+                                {
+                                    headerName: 'Transferred from Amount',
+                                    field: 'transferredFromAmount',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    valueFormatter:function(params){
+                                        return params.value||'N/A'
+                                    }
+                                },
+                                {
+                                    headerName: 'Transferred To Amount',
+                                    field: 'transferredToAmount',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    valueFormatter:function(params){
+                                        return params.value||'N/A'
+                                    }
                                 },
                             ]}
                             frameworkComponents={{
@@ -160,7 +193,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                                 previewCall
                             }
                             rowSelection={'single'}
-                            rowData={appointmentApprovalList}
+                            rowData={appointmentTransferList}
                         />
                         <CPagination
                             totalItems={totalRecords}

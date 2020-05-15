@@ -114,7 +114,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       await this.setState({
         totalRecords: this.props.appointmentTransferSearchReducer.appointmentTransferList
           .length
-          ? this.props.appointmentTransferList.totalItems
+          ? this.props.appointmentTransferSearchReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -247,7 +247,6 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         patientList,
         patientDropdownErrorMessage
       } = this.props.PatientDropdownListReducer
-
       return (
         <div id="appointment-approval">
           <ComposedComponent
