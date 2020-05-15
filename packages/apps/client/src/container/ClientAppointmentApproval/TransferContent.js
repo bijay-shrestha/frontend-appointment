@@ -5,6 +5,7 @@ import {
   CHybridTextArea,
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
+import {DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import {Col, Row} from 'react-bootstrap'
 
 const TransferContent = ({
@@ -34,7 +35,7 @@ const TransferContent = ({
     doctorName,
     fileUri,
     remarks,
-    // specializationName,
+    specializationName,
     // transactionNumber,
     appointmentAmount,
     // isSelf,
@@ -55,12 +56,8 @@ const TransferContent = ({
     .concat(isRegistered === 'N' ? 'Registered' : 'New')
     .concat(', ')
     .concat(mobileNumber)
-  const doctorDetails = (
-    <p>
-      <img src={fileUri} alt="" />
-      {doctorName}
-    </p>
-  )
+  const doctorDetails = <DoctorWithSpecImage node={{data:{fileUri:fileUri,doctorName,specializationName}}}/>
+  
   let optionsDate=[],optionsTime=[];
    optionsDate =transferDate.appointmentTransferDate && transferDate.appointmentTransferDate.map(tdate => ({value:tdate,label:tdate}))
    optionsTime = transferTime.appointmentTransferTime && transferTime.appointmentTransferTime.map(tTime =>({value:tTime,label:tTime}))
