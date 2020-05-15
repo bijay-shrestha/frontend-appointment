@@ -73,7 +73,7 @@
     border:1px solid $gray-300;
     @include border-radius(4px);
     background-color: #f8f9fa;
-    padding:35px 8px;
+    padding:27px 8px;
     margin-bottom:35px;
     position: relative;
 
@@ -92,11 +92,11 @@
     .di-column{
         display: flex;
         flex-direction: row;
-        // display: none;
+        align-items: center;
         .data-image{
             margin-top:2px;
-           width:36px;
-           height: 36px;
+           width:55px;
+           height: 55px;
            margin-right:10px;
            flex-shrink: 0;
            line-height: 30px;
@@ -118,7 +118,7 @@
                    &:nth-child(2){
                     font-size: 0.75rem;
                     font-weight: 500;
-                   line-height: 20px;
+                    line-height: 20px;
                     font-weight: $gray-300;
                     color:$gray-600;
                    }
