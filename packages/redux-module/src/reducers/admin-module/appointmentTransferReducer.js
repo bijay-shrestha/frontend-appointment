@@ -15,7 +15,13 @@ const {
   APPOINTMENT_TRANSFER_SUCCESS,
   APPOINTMENT_TRANSFER_TIME_ERROR,
   APPOINTMENT_TRANSFER_TIME_PENDING,
-  APPOINTMENT_TRANSFER_TIME_SUCCESS
+  APPOINTMENT_TRANSFER_TIME_SUCCESS,
+  APPOINTMENT_TRANSFER_PREVIEW_ERROR,
+  APPOINTMENT_TRANSFER_PREVIEW_PENDING,
+  APPOINTMENT_TRANSFER_PREVIEW_SUCCESS,
+  APPOINTMENT_TRANSFER_SEARCH_ERROR,
+  APPOINTMENT_TRANSFER_SEARCH_PENDING,
+  APPOINTMENT_TRANSFER_SEARCH_SUCCESS
 } = appointmentTransferConstant
 //State
 const initialState = {
@@ -41,8 +47,13 @@ const initialState = {
   },
   transferInfo: {
     appointmentTransferInfo: null,
-    isAppointmentTransferInfoLoading: false,
+    isAppointmentTransferInfoLoading: true,
     appointmentTransferInfoErrorMessage: ''
+  },
+  transferSearch: {
+    appointmentTransferList: [],
+    isAppointmentTransferSearchLoading: true,
+    appointmentTransferSearchErrorMessage: ''
   }
 }
 //Handlers
@@ -128,47 +139,73 @@ const appointmentTransferChargehandlers = {
   })
 }
 
-const appointmentTransferInfohandlers = {
-    [APPOINTMENT_TRANSFER_INFO_PENDING]: state => ({
-      ...state,
-      appointmentTransferInfo:[],
-      isAppointmentTransferInfoLoading: true,
-      appointmentTransferInfoErrorMessage: ''
-    }),
-    [APPOINTMENT_TRANSFER_INFO_SUCCESS]: (state, action) => ({
-      ...state,
-      appointmentTransferInfo:action.payload.data,
-      isAppointmentTransferInfoLoading: false,
-      appointmentTransferInfoErrorMessage: ''
-    }),
-    [APPOINTMENT_TRANSFER_INFO_ERROR]: (state, action) => ({
-      ...state,
-      appointmentTransferInfo:[],
-      isAppointmentTransferInfoLoading: false,
-      appointmentTransferInfoErrorMessage:action.payload.message
-    })
-  }
-  
+const appointmentSearchHandlers = {
+  [APPOINTMENT_TRANSFER_SEARCH_PENDING]: state => ({
+    ...state,
+    appointmentTransferList: [],
+    isAppointmentTransferSearchLoading: true,
+    appointmentTransferSearchErrorMessage: ''
+  }),
+  [APPOINTMENT_TRANSFER_SEARCH_SUCCESS]: (state, action) => ({
+    ...state,
+    appointmentTransferList: action.payload.data,
+    isAppointmentTransferSearchLoading: false,
+    appointmentTransferSearchErrorMessage: ''
+  }),
+  [APPOINTMENT_TRANSFER_SEARCH_ERROR]: (state, action) => ({
+    ...state,
+    appointmentTransferList: [],
+    isAppointmentTransferSearchLoading: false,
+    appointmentTransferSearchErrorMessage: action.payload.message
+  })
+}
+
+const appointmentTransferPreviewHandler = {
+  [APPOINTMENT_TRANSFER_PREVIEW_PENDING]: state => ({
+    ...state,
+    appointmentTransferInfo: null,
+    isAppointmentTransferInfoLoading: true,
+    appointmentTransferInfoErrorMessage: ''
+  }),
+  [APPOINTMENT_TRANSFER_PREVIEW_SUCCESS]: (state, action) => ({
+    ...state,
+    appointmentTransferInfo: action.payload.data,
+    isAppointmentTransferInfoLoading: false,
+    appointmentTransferInfoErrorMessage: ''
+  }),
+  [APPOINTMENT_TRANSFER_PREVIEW_ERROR]: (state, action) => ({
+    ...state,
+    appointmentTransferInfo: null,
+    isAppointmentTransferInfoLoading: false,
+    appointmentTransferInfoErrorMessage: action.payload.message
+  })
+}
+
 //Reducers
-export const AppointmentTransferReducers={
-  appointmentTransferReducer : createReducerFactory(
-  appointmentTransferhandlers,
-  initialState.transferInitialData
-),
-  appointmentTransferDateReducer:createReducerFactory(
-  appointmentTransferDatehandlers,
-  initialState.transferDate
-),
-appointmentTransferTimeReducer:createReducerFactory(
-  appointmentTransferTimehandlers,
-  initialState.transferTime
-),
-appointmentTransferChargeReducer:createReducerFactory(
+export const AppointmentTransferReducers = {
+  appointmentTransferReducer: createReducerFactory(
+    appointmentTransferhandlers,
+    initialState.transferInitialData
+  ),
+  appointmentTransferDateReducer: createReducerFactory(
+    appointmentTransferDatehandlers,
+    initialState.transferDate
+  ),
+  appointmentTransferTimeReducer: createReducerFactory(
+    appointmentTransferTimehandlers,
+    initialState.transferTime
+  ),
+  appointmentTransferChargeReducer: createReducerFactory(
     appointmentTransferChargehandlers,
     initialState.transferCharge
-),
-appointmentTransferInfoReducer:createReducerFactory(
-    appointmentTransferInfohandlers,
+  ),
+
+  appointmentTransferPreviewReducer: createReducerFactory(
+    appointmentTransferPreviewHandler,
     initialState.transferInfo
-)
-}  
+  ),
+  appointmentTransferSearchReducer: createReducerFactory(
+    appointmentSearchHandlers,
+    initialState.transferSearch
+  )
+}
