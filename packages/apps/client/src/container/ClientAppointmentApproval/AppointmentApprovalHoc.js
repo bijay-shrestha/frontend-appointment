@@ -367,7 +367,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             ...this.props.AppointmentDetailReducer.appointmentDetail,
             transferredDoctor: {
               value: appointmentDetail.doctorId,
-              label: appointmentDetail.doctorName
+              label: appointmentDetail.doctorName,
+              fileUri: appointmentDetail.fileUri
             },
             transferredSpecialization: {
               value: appointmentDetail.specializationId,
@@ -483,14 +484,16 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
     }
 
     handleTransferChange = async e => {
-      const {value, label, name} = e.target
+      const {value, label, name, fileUri} = e.target
 
       const transferAppointment = {
         ...this.state.appointmentTransferData
       }
       transferAppointment['transferData'][name] = label
         ? value
-          ? {value, label}
+          ? fileUri
+            ? {value, label, fileUri}
+            : {value, label, fileUri: ''}
           : ''
         : value
         ? value
@@ -703,6 +706,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         isAppointmentTransferLoading
         //   appointmentTransferErrorMessage
       } = this.props.appointmentTransferReducer
+      console.log('============', doctorsBySpecializationForDropdown)
       //   const {
       //     appointmentTransferCharge
       //     // isAppointmentTransferChargeLoading,

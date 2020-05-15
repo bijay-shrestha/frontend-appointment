@@ -3,7 +3,8 @@ import {
   CForm,
   CHybridInput,
   CHybridTextArea,
-  CHybridSelect
+  CHybridSelect,
+  CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import {Col, Row} from 'react-bootstrap'
@@ -96,12 +97,18 @@ const TransferContent = ({
                 />
               </Col>
 
+
               </Row>
               <Row >
                 <Col xs={12} md={6} className="px-0 box">
               <Col xs={12}>  <h5 className="title">Present Appointment Details</h5></Col>
-              <Col xs={12}>
-                {doctorDetails}
+                <Col sm={12} md={6} lg={6}>
+                <CHybridTextArea
+                  id="patientMetaInfo"
+                  placeholder="Patient Meta Info"
+                  value={doctorDetails}
+                  disabled={true}
+                />
               </Col>
               <Col  xs={12}>
                 <CHybridInput
@@ -144,7 +151,7 @@ const TransferContent = ({
                 />
               </Col>
               <Col xs={12}>
-                <CHybridSelect
+                <CHybridSelectWithImage
                   id="transferredDoctor"
                   name="transferredDoctor"
                   placeholder={
