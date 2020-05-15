@@ -69,7 +69,10 @@ const TransferContent = ({
       <Container-fluid>
         <CForm id="refund-info" className="mt-2">
           <Container-fluid>
+            
             <Row>
+              <Col xs={12}>  <h5 className="title">Patient Details</h5></Col>
+          
               {/*<Col sm={12} md={6} lg={6}>*/}
               {/*    <CHybridInput*/}
               {/*        id="clientName"*/}
@@ -94,10 +97,15 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+
+              </Row>
+              <Row>
+                <Col xs={12} md={6} className="px-0">
+              <Col xs={12}>  <h5 className="title">Present Appointment Details</h5></Col>
+              <Col xs={12}>
                 {doctorDetails}
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col  xs={12}>
                 <CHybridInput
                   id="date"
                   placeholder="Appointment Date"
@@ -105,7 +113,7 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridInput
                   id="date"
                   placeholder="Appointment Time"
@@ -113,7 +121,7 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col  xs={12}>
                 <CHybridInput
                   id="date"
                   placeholder="Appointment Charge"
@@ -121,7 +129,12 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              </Col>
+
+
+              <Col xs={12} md={6} className="px-0">
+              <Col xs={12}>  <h5 className="title">Transfer Details</h5></Col>
+              <Col  xs={12}>
                 <CHybridSelect
                   id="transferredSpecialization"
                   name="transferredSpecialization"
@@ -132,7 +145,7 @@ const TransferContent = ({
                   isDisabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridSelect
                   id="transferredDoctor"
                   name="transferredDoctor"
@@ -148,7 +161,7 @@ const TransferContent = ({
                   isDisabled={!doctorList.length}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridSelect
                   id="transferredDate"
                   name="transferredDate"
@@ -164,7 +177,7 @@ const TransferContent = ({
                   isDisabled={!optionsDate.length || !transferredDoctor.value}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridSelect
                   id="transferredTime"
                   name="transferredTime"
@@ -181,7 +194,7 @@ const TransferContent = ({
                 />
                
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridInput
                   id="charge"
                   placeholder="Transferred Charge"
@@ -190,7 +203,7 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
+              <Col xs={12}>
                 <CHybridTextArea
                   id="remarks"
                   name="remarks"
@@ -198,6 +211,7 @@ const TransferContent = ({
                   onChange={(e)=>onChangeHandler(e)}
                   value={remarks}
                 />
+              </Col>
               </Col>
             </Row>
           </Container-fluid>
