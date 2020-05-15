@@ -124,7 +124,7 @@ export const appointmentTransferSearchError = errorMessage => ({
   payload: {message: errorMessage}
 })
 
-export const appointmentTransferPreview = data => ({
+export const appointmentTransferPreviewSuccess = data => ({
   type: APPOINTMENT_TRANSFER_PREVIEW_SUCCESS,
   payload: {
     data: data

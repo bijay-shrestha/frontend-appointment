@@ -84,16 +84,27 @@ export const fetchAppointmentTransferCharge = (
 //     dispatch(AppointmentDetailActions.clearAppointmentLogMessage())
 // };
 
-// export const fetchAppointmentTransferInfo = (path,pagination, data) => async dispatch => {
-//     dispatch(AppointmentTransferActions.appointmentTransferInfoPending());
-//     try {
-//         const response = await Axios.putWithPagination(path,pagination,data);
-//         dispatch(AppointmentTransferActions.appointmentTransferInfoSuccess(response.data));
-//         return response.data;
-//     } catch (e) {
-//         dispatch(AppointmentTransferActions.appointmentTransferInfoError(e.errorMessage || 'Sorry Internal Server Problem'))
-//     }
-// };
+export const fetchAppointmentTransferSearch = (path,pagination, data) => async dispatch => {
+    dispatch(AppointmentTransferActions.appointmentTransferSearchPending());
+    try {
+        const response = await Axios.putWithPagination(path,pagination,data);
+        dispatch(AppointmentTransferActions.appointmentTransferSearchSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(AppointmentTransferActions.appointmentTransferSearchError(e.errorMessage || 'Sorry Internal Server Problem'))
+    }
+};
+
+export const fetchAppointmentPreviewInfo  = (path,id) =>{
+    dispatch(AppointmentTransferActions.appointmentTransferPreviewPending());
+    try {
+        const response = await Axios.getWithPathVariables(path,id);
+        dispatch(AppointmentTransferActions.appointmentTransferPreviewSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(AppointmentTransferActions.appointmentTransferPreviewError(e.errorMessage || 'Sorry Internal Server Problem'))
+    }
+}
 
 
 export const fetchAppointmentTransferDetail = (path,transferId) => async dispatch => {
