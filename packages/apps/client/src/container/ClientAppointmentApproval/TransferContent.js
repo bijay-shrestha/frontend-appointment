@@ -69,8 +69,8 @@ const TransferContent = ({
         <CForm id="refund-info" className="mt-2">
           <Container-fluid>
             
-            <Row className="patient-box">
-              <Col xs={12} >  <h5 className="title">Patient Details</h5></Col>
+            <Row>
+              <Col xs={12} className="box">  <h5 className="title">Patient Details</h5></Col>
           
               {/*<Col sm={12} md={6} lg={6}>*/}
               {/*    <CHybridInput*/}
@@ -97,19 +97,12 @@ const TransferContent = ({
                 />
               </Col>
 
-
               </Row>
               <Row >
-                <Col xs={12} md={6} className="pl-0">
-                  <div  className="box">
+                <Col xs={12} md={6} className="px-0 box">
               <Col xs={12}>  <h5 className="title">Present Appointment Details</h5></Col>
-                <Col sm={12} md={6} lg={6}>
-                <CHybridTextArea
-                  id="patientMetaInfo"
-                  placeholder="Patient Meta Info"
-                  value={doctorDetails}
-                  disabled={true}
-                />
+              <Col xs={12}>
+                {doctorDetails}
               </Col>
               <Col  xs={12}>
                 <CHybridInput
@@ -135,7 +128,6 @@ const TransferContent = ({
                   disabled={true}
                 />
               </Col>
-              </div>
               </Col>
 
 
