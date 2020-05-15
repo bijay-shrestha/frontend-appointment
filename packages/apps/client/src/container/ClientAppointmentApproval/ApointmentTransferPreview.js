@@ -12,7 +12,7 @@ const AppointmentTransfer = props => {
                     bodyChildren={<TransferContent {...transferModalHandler}/>}
                     onHide={setShowModal}
                     centered={false}
-                    dialogClassName="preview-modal"
+                    dialogClassName="preview-modal "
                     closeButton={true}
             />
         </>
