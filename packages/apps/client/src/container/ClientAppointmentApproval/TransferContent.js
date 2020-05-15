@@ -6,6 +6,7 @@ import {
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
+import './appointment-approval.scss'
 
 const TransferContent = ({
   transferData,
@@ -66,12 +67,12 @@ const TransferContent = ({
    optionsTime = transferTime.appointmentTransferTime && transferTime.appointmentTransferTime.map(tTime =>({value:tTime,label:tTime}))
   return (
     <>
-      <Container-fluid>
+      <Container-fluid className="transfer-modal">
         <CForm id="refund-info" className="mt-2">
           <Container-fluid>
             
             <Row>
-              <Col xs={12}>  <h5 className="title">Patient Details</h5></Col>
+              <Col xs={12} className="box">  <h5 className="title">Patient Details</h5></Col>
           
               {/*<Col sm={12} md={6} lg={6}>*/}
               {/*    <CHybridInput*/}
@@ -99,8 +100,8 @@ const TransferContent = ({
               </Col>
 
               </Row>
-              <Row>
-                <Col xs={12} md={6} className="px-0">
+              <Row >
+                <Col xs={12} md={6} className="px-0 box">
               <Col xs={12}>  <h5 className="title">Present Appointment Details</h5></Col>
               <Col xs={12}>
                 {doctorDetails}
@@ -132,7 +133,7 @@ const TransferContent = ({
               </Col>
 
 
-              <Col xs={12} md={6} className="px-0">
+              <Col xs={12} md={6} className="px-0 box">
               <Col xs={12}>  <h5 className="title">Transfer Details</h5></Col>
               <Col  xs={12}>
                 <CHybridSelect
