@@ -4,48 +4,30 @@ import {
     CLoading,
     CPagination
 } from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
-//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import PreviewDetails from './AppointmentApprovalPreview'
-
-import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
-import CheckInModalContent from '../CommonComponents/CheckInModalContent'
-import RejectModal from './RejectModal'
+import PreviewDetails from './AppointmentTransferLogPreview'
+import {DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 
-const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
+const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
-        appointmentApprovalList,
+        appointmentTransferList,
         searchErrorMessage,
         previewCall,
         previewData,
         showModal,
-        setShowModal,
-        rejectSubmitHandler,
-        rejectRemarksHandler,
-        //onRejectHandler,
-        approveHandler,
-        approveHandleApi,
-        rejectError,
-        //isAppointmentRejectLoading,
-        transferHandler,
-        approveConfirmationModal,
-        rejectModalShow,
-        remarks,
-        appointmentDetails,
-        isConfirming
+        setShowModal
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Checkin Details</h5>
+                <h5 className="title">Appointment Transfer Details</h5>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
-                appointmentApprovalList.length ? (
+                appointmentTransferList.length ? (
                     <>
                         <CDataTable
                             classes="ag-theme-balham"
@@ -148,31 +130,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true
                                 },
-
-                                {
-                                    headerName: '',
-                                    action: 'action',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'childActionRenderer',
-                                    cellClass: 'actions-button-cell',
-                                    width: '100',
-                                    cellRendererParams: {
-                                        onClick: function (e, id, type) {
-                                            type === 'P'
-                                                ? // ? props.filteredActions.find(action => action.id === 5) &&
-                                                transferHandler(id)
-                                                : approveHandler(id)
-                                            //: props.onPreviewHandler(id)
-                                        }
-                                        // filteredAction: props.filteredActions
-                                    },
-                                    cellStyle: {overflow: 'visible', 'z-index': '99'}
-                                }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableApproveAction,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
@@ -221,47 +180,15 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                     <CLoading/>
                 )}
             </div>
-            {showModal ? (
+            {showModal && (
                 <PreviewDetails
                     showModal={showModal}
                     setShowModal={setShowModal}
-                    approvalData={previewData}
+                    transferData={previewData}
                 />
-            ) : (
-                ''
-            )}
-            {rejectModalShow ? (
-                <RejectModal
-                    confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
-                    modalHeader="Reject Appointment"
-                    showModal={rejectModalShow}
-                    setShowModal={setShowModal}
-                    onDeleteRemarksChangeHandler={rejectRemarksHandler}
-                    remarks={remarks}
-                    onSubmitDelete={rejectSubmitHandler}
-                    deleteErrorMessage={rejectError}
-                />
-            ) : (
-                ''
-            )}
-            {approveConfirmationModal ? (
-                <CConfirmationModal
-                    modalHeader="Confirm Check-In?"
-                    modalBody={
-                        <CheckInModalContent appointmentDetails={appointmentDetails}/>
-                    }
-                    showModal={approveConfirmationModal}
-                    setShowModal={setShowModal}
-                    remarks={remarks}
-                    onConfirm={approveHandleApi}
-                    onCancel={setShowModal}
-                    isConfirming={isConfirming}
-                />
-            ) : (
-                ''
-            )}
+            )} 
         </>
     )
 }
 
-export default memo(AppointmentApprovalDataTable)
+export default memo(AppointmentTransferDataTable)

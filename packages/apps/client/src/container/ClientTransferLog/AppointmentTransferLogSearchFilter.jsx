@@ -17,7 +17,7 @@ import {
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
-class AppointmentApprovalListSearchFilter extends PureComponent {
+class AppointmentTransferListSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -190,7 +190,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                     />
                   </Col>
 
-               
                   <Col
                     sm={12}
                     md={{span: 8, offset: 4}}
@@ -327,35 +326,6 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.patientType && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">Patient Type</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.patientType.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-              {searchParameters.patientCategory && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">Patient Type</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.patientCategory.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
               )}
             </ul>
           </div>
@@ -365,4 +335,4 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
   }
 }
 
-export default AppointmentApprovalListSearchFilter
+export default AppointmentTransferListSearchFilter
