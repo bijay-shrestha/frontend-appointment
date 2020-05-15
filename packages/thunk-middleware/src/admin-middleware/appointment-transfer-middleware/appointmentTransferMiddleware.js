@@ -95,7 +95,7 @@ export const fetchAppointmentTransferSearch = (path,pagination, data) => async d
     }
 };
 
-export const fetchAppointmentPreviewInfo  = (path,id) =>{
+export const fetchAppointmentPreviewInfo  = (path,id) => async dispatch =>{
     dispatch(AppointmentTransferActions.appointmentTransferPreviewPending());
     try {
         const response = await Axios.getWithPathVariables(path,id);
