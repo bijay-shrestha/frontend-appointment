@@ -24,7 +24,5 @@ export const excludedUrl = [
 ]
 export const includeAppUrl=[
     '/approve/',
-    '/reject/',
-    '/transfer/'
-    
+    '/reject/'
 ]
