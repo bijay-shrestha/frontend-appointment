@@ -97,6 +97,7 @@ class CHybridSelectWithImage extends PureComponent {
             theme,
             value
         } = this.props;
+        
         return (
             <>
                 <div

@@ -32,7 +32,8 @@ import {
     QualificationAliasSetupMiddleware,
     UniversitySetupMiddleware,
     AppointmentModeMiddleware,
-    fetchAdminMetaInfoByHospitalId
+    fetchAdminMetaInfoByHospitalId,
+    AppointmentTransferMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo,fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
@@ -100,5 +101,6 @@ export {
     fetchUserMenusNew,
     savePinOrUnpinUserMenu,
     fetchAdminMetaInfoByHospitalId,
-    fetchLoggedInAdminIP
+    fetchLoggedInAdminIP,
+    AppointmentTransferMiddleware
 }

@@ -1,9 +1,11 @@
 import {Axios} from '@frontend-appointment/core'
-export const logoutUser = () => async() => {
+import {LogoutActions} from "@frontend-appointment/action-module"
+export const logoutUser = () => async(dispatch) =>{
   
     // if (Cookies.get('XSRF-TOKEN')) {
         try {
             await Axios.get('api/v1/logout')
+            dispatch(LogoutActions.logoutSuccess())
             localStorage.clear();
             return true;
         } catch (e) {
