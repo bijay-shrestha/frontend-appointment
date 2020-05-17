@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import {Button, Col, Container, Form, Image, Row} from 'react-bootstrap'
-import logo from './images/400x400.png'
-import logoCogent from './images/logo-small-0063FF.png'
+import logo from './images/logo.png'
+import logoCogent from './images/logo-small.png'
 import {CHybridInput, CHybridPassword} from '@frontend-appointment/ui-elements'
 
 class Login2 extends PureComponent {
@@ -127,9 +127,7 @@ class Login2 extends PureComponent {
                                             />
 
                                             <p className="error">{this.state.submitErrorMsg}</p>
-                                            <a href="#/forgotPassword">Forgot Password</a>
-                                            <br></br>
-
+                                            <a href="#/forgotPassword" className="mb-4">Forgot Password</a>
                                             <Button
                                                 variant="primary"
                                                 type="submit"
