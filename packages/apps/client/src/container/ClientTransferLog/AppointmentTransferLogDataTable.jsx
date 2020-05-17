@@ -62,7 +62,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: 60,
+                  width: 90,
                   valueFormatter: function (params) {
                     return params.value === 'PA' ? 'CH' : 'N/A'
                   }
@@ -88,7 +88,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                 },
 
                 {
-                  headerName: 'Transferred From Date/Time',
+                  headerName: ' Transf. From Date/Time',
                   //field: 'transferredFromDate',
                   resizable: true,
                   sortable: true,
@@ -97,7 +97,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   cellRenderer: 'TransferredFromDateTime'
                 },
                 {
-                  headerName: 'Transferred To Date/Time',
+                  headerName: 'Transf. To Date/Time',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
@@ -113,7 +113,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                 //   sizeColumnsToFit: true
                 // },
                 {
-                  headerName: 'Tranferred From Doctor',
+                  headerName: 'Transfer From Doctor',
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
@@ -121,7 +121,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   cellRenderer: 'DoctorWithSpecImage'
                 },
                 {
-                  headerName: 'Transferred To Doctor',
+                  headerName: 'Transfer To Doctor',
                   //field: 'transferredToDoctor',
                   resizable: true,
                   sortable: true,
@@ -136,27 +136,27 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                 //     sizeColumnsToFit: true,
                 //     cellRenderer: 'doctorwithSpecializationRenderer'
                 // },
-                {
-                  headerName: 'Transferred from Amount',
-                  field: 'transferredFromAmount',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  PatientNameWithAgeGenderPhone: 100,
-                  valueFormatter: function (params) {
-                    return params.value || 'N/A'
-                  }
-                },
-                {
-                  headerName: 'Transferred To Amount',
-                  field: 'transferredToAmount',
-                  resizable: true,
-                  sortable: true,
-                  sizeColumnsToFit: true,
-                  valueFormatter: function (params) {
-                    return params.value || 'N/A'
-                  }
-                }
+                // {
+                //   headerName: 'Transf. From Amount',
+                //   field: 'transferredFromAmount',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                //   PatientNameWithAgeGenderPhone: 100,
+                //   valueFormatter: function (params) {
+                //     return params.value || 'N/A'
+                //   }
+                // },
+                // {
+                //   headerName: 'Transf. To Amount',
+                //   field: 'transferredToAmount',
+                //   resizable: true,
+                //   sortable: true,
+                //   sizeColumnsToFit: true,
+                //   valueFormatter: function (params) {
+                //     return params.value || 'N/A'
+                //   }
+                // }
               ]}
               frameworkComponents={{
                 DoctorWithSpecImage: PreviewHandlerHoc(
