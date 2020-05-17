@@ -19,3 +19,4 @@ export const CLIENT_MODULE_CODE = process.env.REACT_APP_CLIENT_MODULE_CODE || ''
 export const APP_SECRET_KEY= process.env.REACT_APP_SECRET_KEY||'';
 export const LOGGING_SERVER_DOMAIN=process.env.REACT_APP_LOGGING_SERVER_DOMAIN||'';
 export const LOGGING_BASE = process.env.REACT_APP_LOGGING_BASE||'';
+export const IP_API_KEY=process.env.REACT_APP_IP_TRACKER||'';

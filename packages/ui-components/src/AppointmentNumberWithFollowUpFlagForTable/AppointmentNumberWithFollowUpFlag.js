@@ -3,9 +3,9 @@ const AppointmentNumberWithFollowUpFlag = props => {
     return (
         <>
             <ul className="patient-column">
-                <li>{props.node.data.appointmentNumber}</li>
+                <li>{props.node.data.appointmentNumber||props.node.data.apptNumber}</li>
                 {
-                    props.node.data.isFollowUp === 'Y' ?
+                    props.node.data.isFollowUp === 'N' ?
                         <li>
                             <i className="fa fa-tag"></i>&nbsp;Followup
                             {' '}

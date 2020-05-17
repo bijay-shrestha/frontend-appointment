@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-transfer-date-with-time",
+  "version": "1.0.0",
+  "main": "TransferredToDateWithTime.jsx",
+  "author": "Kaushal Regmi",
+  "license": "MIT",
+  "private": true
+}

@@ -47,7 +47,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     previewApiCall = async data => {
       await this.props.fetchAppointmentPreviewInfo(
         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_PREVIEW,
-        data.appointmentId
+        data.appointmentTransferId
       )
     }
 
@@ -132,7 +132,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
           ...spec,
           patientMobileNumber: spec.mobileNumber,
           sN: index + 1,
-          registrationNumber: spec.registrationNumber || 'N/A'
+          registrationNumber: spec.registrationNumber || 'N/A',
+          gender:spec.gender.split("")[0],
+          age:spec.age.slice(0, 4)
         }))
       return newRefundList
     }

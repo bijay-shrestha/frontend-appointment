@@ -1,16 +1,16 @@
 import React, {memo} from 'react'
 
-const AppointmentDateWithTime = (props) => {
+const TransferredToDateWithTime = (props) => {
     return (
         <>
             <ul className="doctor-column">
                 <li>
-                    {props.node.data.appointmentDate||'N/A'}
+                    {props.node.data.transferredToDate||'N/A'}
                 </li>
                 <li>
                     <span className="time">
                           <i className="fa fa-clock-o"/> &nbsp;
-                        {props.node.data.appointmentTime||'N/A'}
+                        {props.node.data.transferredToTime||'N/A'}
                      </span>
                 </li>
             </ul>
@@ -18,4 +18,4 @@ const AppointmentDateWithTime = (props) => {
     )
 };
 
-export default memo(AppointmentDateWithTime);
+export default memo(TransferredToDateWithTime);
