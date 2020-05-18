@@ -15,7 +15,7 @@ const WeekdaysRosterTimeAvailabilityDetails = ({
                 <h5 className="title">Time Availability Details
                     for <i>{selectedShift.shiftName} Shift</i></h5>
                 {
-                    weekDayRowFormProps.weekdaysDetail && weekDayRowFormProps.weekdaysDetail.length ?
+                    selectedShift.weekdaysDetail && selectedShift.weekdaysDetail.length ?
                         <CScrollbar
                             id="menus"
                             autoHide={true}

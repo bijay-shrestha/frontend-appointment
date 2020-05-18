@@ -42,8 +42,11 @@ class WeekdaysRosterForm extends PureComponent {
 
     render() {
         const {activeShiftKey, selectedShift} = this.state;
-        const {weekdaysDetail, rosterGapDuration} = selectedShift;
-        const {shiftDetails, doctorInformationData, handleWeekdaysFormChange, handleWholeWeekOff} = this.props.weekdaysRosterFormData;
+        const {shiftDetails,
+            doctorInformationData,
+            handleWholeWeekOff,
+            type
+        } = this.props.weekdaysRosterFormData;
         return <>
             <div>
                 <Container className="p-0" fluid>
@@ -68,14 +71,12 @@ class WeekdaysRosterForm extends PureComponent {
 
                         {/********************************************WEEKDAYS START******************************************************/}
                         <WeekdaysRosterTimeAvailabilityDetails
-                            type={this.props.type}
+                            type={type}
                             selectedShift={selectedShift}
                             handleWholeWeekOff={handleWholeWeekOff}
                             weekDayRowFormProps={{
                                 selectedShift: selectedShift,
-                                rosterGapDuration: rosterGapDuration,
-                                weekdaysDetail: weekdaysDetail,
-                                handleWeekdaysFormChange: handleWeekdaysFormChange
+                                ...this.props.weekdaysRosterFormData
                             }}
                         />
                         {/*********************************************WEEKDAYS END ******************************************************/}

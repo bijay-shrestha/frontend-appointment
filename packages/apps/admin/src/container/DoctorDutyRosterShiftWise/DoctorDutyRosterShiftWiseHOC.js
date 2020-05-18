@@ -244,6 +244,18 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             })
         };
 
+        findSelectedShiftIndexAndUpdateShiftDetails = async (shiftDetail) => {
+            let shiftDetailsCopy = [...this.state.shiftDetails];
+            let changedShiftIndex = shiftDetailsCopy.findIndex(shift => shift.shiftId === shiftDetail.shiftId);
+            if (changedShiftIndex >= 0) shiftDetailsCopy[changedShiftIndex] = shiftDetail;
+
+            await this.setState({
+                shiftDetails: [
+                    ...shiftDetailsCopy
+                ],
+            });
+        };
+
         handleEnter = event => {
             EnterKeyPressUtils.handleEnter(event)
         };
@@ -356,12 +368,10 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         handleWeekdaysFormChange = async (event, shiftDetail, weekDayIndex) => {
             let fieldName = event.target.name;
             let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
-            let shiftDetailsCopy;
 
             switch (type) {
                 case 'ADD':
                     // COPY VALUES TO BE CHANGED
-                    shiftDetailsCopy = [...this.state.shiftDetails];
                     let selectedWeekday = {...shiftDetail.weekdaysDetail[weekDayIndex]};
 
                     // SET VALUES AND VALIDATE
@@ -375,14 +385,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     }
 
                     shiftDetail.weekdaysDetail[weekDayIndex] = {...selectedWeekday};
-                    let changedShiftIndex = shiftDetailsCopy.findIndex(shift => shift.shiftId === shiftDetail.shiftId);
-                    if (changedShiftIndex >= 0) shiftDetailsCopy[changedShiftIndex] = shiftDetail;
-
-                    await this.setState({
-                        shiftDetails: [
-                            ...shiftDetailsCopy
-                        ],
-                    });
+                    await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetail);
 
                     this.checkFormValidity();
                     break;
@@ -398,10 +401,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         handleWholeWeekOff = async (event, selectedShift) => {
             // let fieldName = event.target.name;
             let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
-            let shiftDetailsCopy;
             switch (type) {
                 case 'ADD':
-                    shiftDetailsCopy = [...this.state.shiftDetails];
                     selectedShift.wholeWeekOff = value;
 
                     let updatedWeekdaysDetail = selectedShift.weekdaysDetail.map(weekday => {
@@ -411,14 +412,64 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     });
 
                     selectedShift.weekdaysDetail = [...updatedWeekdaysDetail];
-                    let changedShiftIndex = shiftDetailsCopy.findIndex(shift => shift.shiftId === selectedShift.shiftId);
-                    if (changedShiftIndex >= 0) shiftDetailsCopy[changedShiftIndex] = selectedShift;
+                    await this.findSelectedShiftIndexAndUpdateShiftDetails(selectedShift);
+                    this.checkFormValidity();
+                    break;
+                case 'MANAGE':
+                    break;
+                default:
+                    break
 
-                    await this.setState({
-                        shiftDetails: [
-                            ...shiftDetailsCopy
-                        ],
-                    });
+            }
+        };
+
+        handleAddBreak = async (selectedShift, weekdayIndex) => {
+            let selectedWeekday = {...selectedShift.weekdaysDetail[weekdayIndex]},
+                breakData = {
+                    breakType: null,
+                    startTime: '',
+                    endTime: '',
+                    errorMessage: ''
+                };
+
+            selectedWeekday.breakDetail.push(breakData);
+            selectedShift.weekdaysDetail[weekdayIndex] = {...selectedWeekday};
+            await this.findSelectedShiftIndexAndUpdateShiftDetails(selectedShift);
+
+        };
+
+        handleRemoveBreak = async (selectedShift, weekdayIndex, removedBreakIndex) => {
+            let shiftDetailsCopy = [...this.state.shiftDetails],
+                selectedWeekday = {...selectedShift.weekdaysDetail[weekdayIndex]};
+
+            selectedWeekday.breakDetail.splice(removedBreakIndex, 1);
+            selectedShift.weekdaysDetail[weekdayIndex] = {...selectedWeekday};
+            await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetailsCopy, selectedShift);
+        };
+
+        handleBreakFormChange = async (event, selectedShift, weekdayIndex, breakIndex) => {
+            let fieldName = event.target.name;
+            let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
+            let label = event.target.label;
+            let shiftDetailsCopy;
+            switch (type) {
+                case 'ADD':
+                    // COPY VALUES TO BE CHANGED
+                    shiftDetailsCopy = [...this.state.shiftDetails];
+                    let selectedBreak = {...selectedShift.weekdaysDetail[weekdayIndex].breakDetail[breakIndex]};
+
+                    // SET VALUES AND VALIDATE
+                    selectedBreak[fieldName] = (fieldName === 'breakType' && label) ? value ? {
+                        label,
+                        value
+                    } : null : value;
+
+                    if (fieldName === 'startTime' || fieldName === 'endTime') {
+                        this.validateWeekdayStartTimeAndEndTimeAndSetErrorMessage(selectedBreak);
+                    }
+
+                    selectedShift.weekdaysDetail[weekdayIndex].breakDetail[breakIndex] = {...selectedBreak};
+                    await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetailsCopy, selectedShift);
 
                     this.checkFormValidity();
                     break;
@@ -719,7 +770,11 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         shiftDetails: shiftDetails,
                         doctorInformationData: doctorInformation,
                         handleWeekdaysFormChange: this.handleWeekdaysFormChange,
-                        handleWholeWeekOff: this.handleWholeWeekOff
+                        handleWholeWeekOff: this.handleWholeWeekOff,
+                        handleAddBreak: this.handleAddBreak,
+                        breakTypeList: activeBreakTypeByHospitalIdForDropdown,
+                        handleRemoveBreak: this.handleRemoveBreak,
+                        handleBreakFormChange: this.handleBreakFormChange
                     }}
                 />
                 <CAlert
