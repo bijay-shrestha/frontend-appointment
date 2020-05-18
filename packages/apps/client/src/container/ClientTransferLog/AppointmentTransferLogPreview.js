@@ -8,7 +8,7 @@ const PreviewRefund = props => {
         <>
             <CModal show={showModal}
                     modalHeading="Appointment Transfer Details"
-                    size="xl"
+                    size="lg"
                     bodyChildren={<TransferContent transferData={transferData} />}
                     onHide={setShowModal}
                     centered={false}

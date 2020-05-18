@@ -14,11 +14,12 @@ const AppointmentStatusBadges = props => {
                 return (
                   <span key={'app-status-badges' + atList.value + index}>
                     <Badge variant={atList.variant}>
-                      &nbsp;
                       {atList.value === 'PA'
                         ? 'B'
                         : atList.value === 'A'
                         ? 'CH'
+                        : atList.value === 'All'
+                        ? ''
                         : atList.value}
                     </Badge>
                     &nbsp;
