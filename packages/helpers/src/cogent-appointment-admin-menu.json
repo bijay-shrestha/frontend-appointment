@@ -273,6 +273,23 @@
           "menuFor": "6",
           "description": "Transaction Log",
           "childMenus": []
+        },
+        {
+          "id": "29",
+          "parentId": "14",
+          "name": "Transfer Log",
+          "path": "/reports/transferLog",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Transfer Log",
+          "childMenus": [] 
         }
       ]
     },

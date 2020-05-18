@@ -212,6 +212,11 @@ const TransactionLogComponent = loadable(
     {fallback: () => getLoader()}
 );
 
+const TransferLogComponent = loadable(
+    () => import('./container/TransferLog/AppointmentTransferLog'),
+    {fallback: getLoader()}
+)
+
 /* ****** U ***** */
 
 const UniversitySetupComponent = loadable(
@@ -763,6 +768,16 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Transaction Log',
+        isSingleTab: true,
+    },
+    {
+        path: '/admin/reports/transferLog',
+        component: TransferLogComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Transfer Log',
         isSingleTab: true,
     },
 ];
