@@ -31,6 +31,9 @@ const ApproveTableAction = props => {
             <Dropdown.Item onClick={e => saveActionInSession(e, 14, 'E')}>
               <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
+            <Dropdown.Item onClick={e => saveActionInSession(e, 17, 'P')}>
+              <i className="fa fa-sign-in"></i>&nbsp; Transfer{' '}
+            </Dropdown.Item>
               {/* <Dropdown.Item onClick={e => saveActionInSession(e, 17, 'P')}>
                <i className="fa fa-sign-in"></i>&nbsp; Transfer{' '}
              </Dropdown.Item> */}

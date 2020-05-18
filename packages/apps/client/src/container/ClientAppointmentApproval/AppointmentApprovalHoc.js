@@ -560,7 +560,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           transferAppointment['transferData'][
             'transferredCharge'
           ] = appointmentTransferCharge
-          console.log('============', transferAppointment)
           this.setState({
             appointmentTransferData: {...transferAppointment}
           })
@@ -706,7 +705,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         isAppointmentTransferLoading
         //   appointmentTransferErrorMessage
       } = this.props.appointmentTransferReducer
-      console.log('============', doctorsBySpecializationForDropdown)
+      // console.log('============', doctorsBySpecializationForDropdown)
       //   const {
       //     appointmentTransferCharge
       //     // isAppointmentTransferChargeLoading,
