@@ -2,6 +2,7 @@ import {signinUser} from './src/login-middleware'
 import {
     AdminLoggingMiddleware,
     AppointmentModeMiddleware,
+    AppointmentTransferMiddleware,
     BreakTypeSetupMiddleware,
     clearAdminSuccessErrorMessagesFromStore,
     clearErrorMessageForDropdown,
@@ -99,5 +100,6 @@ export {
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
     ShiftSetupMiddleware,
-    BreakTypeSetupMiddleware
+    BreakTypeSetupMiddleware,
+    AppointmentTransferMiddleware
 }

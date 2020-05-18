@@ -103,7 +103,7 @@ const AppointmentStatistics = props => {
                 <li>
                   <span className="legend"></span>
                   <span>
-                    From Registered Patient
+                    From Returning Patient
                     <span className="data">
                       {' '}
                       - {appointmentStatsData.registeredPatient}

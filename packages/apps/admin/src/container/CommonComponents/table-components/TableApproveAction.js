@@ -26,12 +26,15 @@ const ApproveTableAction = props => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {
-            // checkIfRoleExists(this.props.filteredAction, 3) &&
+          
+            {/* // checkIfRoleExists(this.props.filteredAction, 3) && */}
             <Dropdown.Item onClick={e => saveActionInSession(e, 14, 'E')}>
               <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
-          }
+              {/* <Dropdown.Item onClick={e => saveActionInSession(e, 17, 'P')}>
+               <i className="fa fa-sign-in"></i>&nbsp; Transfer{' '}
+             </Dropdown.Item> */}
+          
           {/* {
             // checkIfRoleExists(this.props.filteredAction, 5) &&
             <Dropdown.Item

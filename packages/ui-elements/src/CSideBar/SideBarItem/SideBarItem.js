@@ -10,6 +10,7 @@ class SideBarItem extends PureComponent {
       active = '',
       activeKey = [],
       propsActiveKey =this.props.activeStateKey;
+      console.log("==",this.props.history)
     if (this.props.activeStateKey && this.props.hasTab) {
       propsActiveKey = props.activeStateKey.split('/')
       let pathToBeAdded='';
@@ -26,6 +27,7 @@ class SideBarItem extends PureComponent {
     }
     collapsed = this.props.localFunc.localStorageDecoder('collapsed') || []
     active = propsActiveKey || ''
+    this.props.localFunc.localStorageEncoder('active',propsActiveKey)
     activeKey = this.props.localFunc.localStorageDecoder('activeStateKey') || []
      this.state = {
        reload:false
