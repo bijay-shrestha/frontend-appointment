@@ -29,3 +29,6 @@ export {default as CompanyProfileModalContent} from './src/CompanyProfileModalCo
 export {default as RescheduleLogDateWithTimeForTable} from './src/RescheduleLogDateWithTimeForTable';
 export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
 export {default as DoctorWithSpecImage} from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
+export {default as TransferredFromDateWithTime} from './src/TransferredFromDateWithTime/TransferredFromDateWithTime';
+export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
+export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
