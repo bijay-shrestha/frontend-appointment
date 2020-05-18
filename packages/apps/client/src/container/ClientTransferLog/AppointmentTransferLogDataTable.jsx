@@ -12,10 +12,12 @@ import {
   TransferredToDateWithTime,
   AppointmentNumberWithFollowUpFlag,
   TransferredToDoctorWithSpecImage
+  
 } from '@frontend-appointment/ui-components'
 //import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
 const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
   const {
     isSearchLoading,
@@ -63,9 +65,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   width: 60,
-                  valueFormatter: function (params) {
-                    return params.value === 'PA' ? 'CH' : 'N/A'
-                  }
+                  cellRenderer:'TransferLogStatus'
                 },
                 {
                   headerName: 'Patient Detail ',
@@ -196,6 +196,13 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                 ),
                 AppointmentNumberWithFollowUpFlag: PreviewHandlerHoc(
                   AppointmentNumberWithFollowUpFlag,
+                  null,
+                  null,
+                  null,
+                  previewCall
+                ),
+                TransferLogStatus:PreviewHandlerHoc(
+                  AppointmentLogStatus,
                   null,
                   null,
                   null,
