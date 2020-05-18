@@ -7,7 +7,7 @@ import {
   AppointmentTransferMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import './appointment-approval.scss'
+import './transfer-log.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 const {

@@ -39,9 +39,9 @@ const ApprovalContent = ({transferData}) => {
       : ''
   return (
     <>
-      <Container-fluid>
-        <CForm id="refund-info" className="mt-2">
-          <Container-fluid>
+      <Container-fluid >
+        <CForm id="" className="mt-2">
+          <Container-fluid >
             <Row>
               {/*<Col sm={12} md={6} lg={6}>*/}
               {/*    <CHybridInput*/}
@@ -69,65 +69,6 @@ const ApprovalContent = ({transferData}) => {
                   disabled={true}
                 />
               </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="Transferred From Date"
-                  placeholder="Transferred From Date/Time"
-                  value={transferredFromDateAndTime || 'N/A'}
-                  disabled={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="Transferred To Date"
-                  placeholder="Transferred To Date/Time"
-                  value={transferredToDateAndTime || 'N/A'}
-                  disabled={true}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CFLabel labelName="Transferred From Doctor" />
-                <DoctorWithSpecImage
-                  node={{
-                    data: {
-                      doctorName: transferData.transferredFromDoctor,
-                      fileUri: transferData.transferredFromFileUri,
-                      specializationName:
-                        transferData.transferredFromSpecialization
-                    }
-                  }}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CFLabel labelName="Transferred To Doctor" />
-                <DoctorWithSpecImage
-                  node={{
-                    data: {
-                      doctorName: transferData.transferredToDoctor,
-                      fileUri: transferData.transferredToFileUri,
-                      specializationName:
-                        transferData.transferredToSpecialization
-                    }
-                  }}
-                />
-              </Col>
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="Transferred From Amount "
-                  placeholder="Transfer From Amount"
-                  value={transferData.transferredFromAmount || 'N/A'}
-                  disabled={true}
-                />
-              </Col>
-
-              <Col sm={12} md={6} lg={6}>
-                <CHybridInput
-                  id="Transferred To Amount "
-                  placeholder="Transfer To Amount"
-                  value={transferData.transferredToAmount || 'N/A'}
-                  disabled={true}
-                />
-              </Col>
 
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
@@ -147,7 +88,74 @@ const ApprovalContent = ({transferData}) => {
                   disabled={true}
                 />
               </Col>
-            </Row>
+            
+              
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="Transferred From Date"
+                  placeholder="Transferred From Date/Time"
+                  value={transferredFromDateAndTime || 'N/A'}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="Transferred To Date"
+                  placeholder="Transferred To Date/Time"
+                  value={transferredToDateAndTime || 'N/A'}
+                  disabled={true}
+                />
+              </Col>
+              <Col sm={12} md={6} lg={6} className="transfer-log-details">
+              <div className="doctor-box">
+              <span className="doctor-label">Transferred From Doctor</span>
+                <DoctorWithSpecImage
+                  node={{
+                    data: {
+                      doctorName: transferData.transferredFromDoctor,
+                      fileUri: transferData.transferredFromFileUri,
+                      specializationName:
+                        transferData.transferredFromSpecialization
+                    }
+                  }}
+                />
+                </div>
+              </Col>
+              <Col sm={12} md={6} lg={6} className="transfer-log-details">
+              <div className="doctor-box ">
+              <span className="doctor-label ">Transferred From Doctor</span>
+              
+                <DoctorWithSpecImage
+                  node={{
+                    data: {
+                      doctorName: transferData.transferredToDoctor,
+                      fileUri: transferData.transferredToFileUri,
+                      specializationName:
+                        transferData.transferredToSpecialization
+                    }
+                  }}
+                />
+                </div>
+              </Col>
+              <Col sm={12} md={6} lg={6} >
+                <CHybridInput
+                  id="Transferred From Amount "
+                  placeholder="Transfer From Amount"
+                  value={transferData.transferredFromAmount || 'N/A'}
+                  disabled={true}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={6}>
+                <CHybridInput
+                  id="Transferred To Amount "
+                  placeholder="Transfer To Amount"
+                  value={transferData.transferredToAmount || 'N/A'}
+                  disabled={true}
+                />
+              </Col>
+
+              </Row>
           </Container-fluid>
         </CForm>
       </Container-fluid>
