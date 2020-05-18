@@ -123,7 +123,7 @@ const ApprovalContent = ({transferData}) => {
               </Col>
               <Col sm={12} md={6} lg={6} className="transfer-log-details">
               <div className="doctor-box ">
-              <span className="doctor-label ">Transferred From Doctor</span>
+              <span className="doctor-label ">Transferred To Doctor</span>
               
                 <DoctorWithSpecImage
                   node={{

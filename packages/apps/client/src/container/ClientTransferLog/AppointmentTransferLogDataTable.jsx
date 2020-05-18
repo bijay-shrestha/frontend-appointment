@@ -64,7 +64,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  width: 60,
+                  width: 80,
                   cellRenderer:'TransferLogStatus'
                 },
                 {
@@ -77,11 +77,12 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   cellRenderer: 'PatientNameWithAgeGenderPhone'
                 },
                 {
-                  headerName: 'App. No',
+                  headerName: 'Appt. No',
                   field: 'apptNumber',
                   // headerClass: "fi",
                   resizable: true,
                   sortable: true,
+                  width: 150,
                   sizeColumnsToFit: true,
 
                   cellRenderer: 'AppointmentNumberWithFollowUpFlag'
