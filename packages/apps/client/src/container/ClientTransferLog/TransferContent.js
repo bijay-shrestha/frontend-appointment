@@ -20,17 +20,23 @@ const ApprovalContent = ({transferData}) => {
   const appointmentNumberWithFollowup =
     transferData.appointmentNumber + followUp
   const transferredToDate = transferData.transferredToDate
-    ? transferData.transferredToDate.toDateString()
+    ? new Date(transferData.transferredToDate).toDateString()
     : ''
   const transferredFromDate = transferData.transferredFromDate
-    ? transferData.transferredFromDate.toDateString()
+    ? new Date(transferData.transferredFromDate).toDateString()
     : ''
-  const transferredToDateAndTime = transferredToDate.concat(
-    transferData.transferredToTime || ''
-  )
-  const transferredFromDateAndTime = transferredFromDate.concat(
-    transferData.transferredFromTime || ''
-  )
+  const transferredToDateAndTime =
+    transferredToDate || transferData.transferredToTime
+      ? transferredToDate
+          .concat(' ')
+          .concat(transferData.transferredToTime || '')
+      : ''
+  const transferredFromDateAndTime =
+    transferredFromDate || transferData.transferredFromTime
+      ? transferredFromDate
+          .concat(' ')
+          .concat(transferData.transferredFromTime || '')
+      : ''
   return (
     <>
       <Container-fluid>
@@ -123,7 +129,6 @@ const ApprovalContent = ({transferData}) => {
                 />
               </Col>
 
-
               <Col sm={12} md={6} lg={6}>
                 <CHybridInput
                   id="transactionNumber"
@@ -141,7 +146,7 @@ const ApprovalContent = ({transferData}) => {
                   }
                   disabled={true}
                 />
-              </Col>  
+              </Col>
             </Row>
           </Container-fluid>
         </CForm>
