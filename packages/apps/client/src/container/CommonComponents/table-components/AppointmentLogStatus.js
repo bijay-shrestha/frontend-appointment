@@ -28,7 +28,7 @@ const AppointmentLogAction = props => {
         </span>
       ) : (
         <span>
-          <Badge variant="secondary">N/A</Badge>
+          <Badge variant="">N/A</Badge>
         </span>
       )}
     </>
