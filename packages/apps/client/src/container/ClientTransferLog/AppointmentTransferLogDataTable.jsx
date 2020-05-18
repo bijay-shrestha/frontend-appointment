@@ -64,15 +64,8 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-<<<<<<< HEAD
                   width: 60,
                   cellRenderer:'TransferLogStatus'
-=======
-                  width: 90,
-                  valueFormatter: function (params) {
-                    return params.value === 'PA' ? 'CH' : 'N/A'
-                  }
->>>>>>> 010e1509a4c5f6bf832b799957372afba9ee4d47
                 },
                 {
                   headerName: 'Patient Detail ',
