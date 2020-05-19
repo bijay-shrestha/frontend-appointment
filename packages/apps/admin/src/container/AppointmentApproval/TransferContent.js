@@ -102,7 +102,7 @@ const TransferContent = ({
               </Row>
               <Row >
                 <Col xs={12} md={6} className="pl-0 ">
-                  <div className="box">
+                  <div className="box box-1">
               <Col xs={12}>  <h5 className="title">Present Appointment Details</h5></Col>
               <Col xs={12}>
                <div className="doctor-box">
@@ -139,7 +139,8 @@ const TransferContent = ({
               </Col>
 
 
-              <Col xs={12} md={6} className="px-0 box">
+              <Col xs={12} md={6} className="px-0 ">
+                <div className="box">
               <Col xs={12}>  <h5 className="title">Transfer Details</h5></Col>
               <Col  xs={12}>
                 <CHybridSelect
@@ -227,6 +228,7 @@ const TransferContent = ({
                   value={remarks}
                 />
               </Col>
+              </div>
               </Col>
             </Row>
           </Container-fluid>
