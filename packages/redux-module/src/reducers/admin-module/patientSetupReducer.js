@@ -22,7 +22,10 @@ const {
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_START,
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_ERROR,
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_SUCCESS,
-    CLEAR_PATIENT_DETAIL_ERROR_MESSAGE
+    CLEAR_PATIENT_DETAIL_ERROR_MESSAGE,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_ERROR,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_SUCCESS
 } = patientDetailsConstants;
 
 const initialState = {
@@ -58,6 +61,12 @@ const detailState = {
     isPatientDetailLoading: false,
     patientDetailErrorMessage: ''
 };
+
+const esewaIdState = {
+    esewaIdDropdown:[],
+    isEsewaIdDropdownLoading:true,
+    esewaIdDropdownErrorMessage:''
+}
 
 export const PatientDropdownListReducer = (
     state = {...initialState},
@@ -243,6 +252,34 @@ export const PatientDetailReducer = (state = {...detailState}, action) => {
             return {
                 ...state,
                 patientDetailErrorMessage: ''
+            };
+        default:
+            return {...state}
+    }
+};
+
+export const PatientEsewIdReducer = (state = {...esewaIdState}, action) => {
+    switch (action.type) {
+        case FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING:
+            return {
+                ...state,
+                esewaIdDropdown:[],
+                isEsewaIdDropdownLoading:true,
+                esewaIdDropdownErrorMessage:''
+            };
+        case FETCH_ESEWA_ID_FROM_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                esewaIdDropdown:action.payload.data,
+                isEsewaIdDropdownLoading:false,
+                esewaIdDropdownErrorMessage:''
+            };
+        case FETCH_ESEWA_ID_FROM_DROPDOWN_ERROR:
+            return {
+                ...state,
+                esewaIdDropdown:[],
+                isEsewaIdDropdownLoading:false,
+                esewaIdDropdownErrorMessage:action.payload.message
             };
         default:
             return {...state}

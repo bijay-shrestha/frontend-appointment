@@ -22,7 +22,10 @@ const {
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_START,
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_SUCCESS,
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID_ERROR,
-    CLEAR_PATIENT_DETAIL_ERROR_MESSAGE
+    CLEAR_PATIENT_DETAIL_ERROR_MESSAGE,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_ERROR,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING,
+    FETCH_ESEWA_ID_FROM_DROPDOWN_SUCCESS
 } = patientDetailsConstants;
 
 export const patientActiveDropdownFetchingStart = () => {
@@ -180,3 +183,29 @@ export const clearPatientDetailErrorMessage = () => {
         type: CLEAR_PATIENT_DETAIL_ERROR_MESSAGE
     }
 };
+
+export const fetchEsewaIdForDropdwonPending = () => {
+    return {
+        type: FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING
+    }
+};
+
+export const fetchEsewaIdForDropdwonSuccess = data => {
+    return {
+        type: FETCH_ESEWA_ID_FROM_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchEsewaIdForError = errorMessage => {
+    return {
+        type: FETCH_ESEWA_ID_FROM_DROPDOWN_ERROR,
+        payload: {
+           message:errorMessage
+        }
+    }
+};
+
+
