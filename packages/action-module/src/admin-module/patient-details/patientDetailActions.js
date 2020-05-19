@@ -184,13 +184,13 @@ export const clearPatientDetailErrorMessage = () => {
     }
 };
 
-export const fetchEsewaIdForDropdwonPending = () => {
+export const fetchEsewaIdForDropdownPending = () => {
     return {
         type: FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING
     }
 };
 
-export const fetchEsewaIdForDropdwonSuccess = data => {
+export const fetchEsewaIdForDropdownSuccess = data => {
     return {
         type: FETCH_ESEWA_ID_FROM_DROPDOWN_SUCCESS,
         payload: {
@@ -199,7 +199,7 @@ export const fetchEsewaIdForDropdwonSuccess = data => {
     }
 };
 
-export const fetchEsewaIdForError = errorMessage => {
+export const fetchEsewaIdForDropdownError = errorMessage => {
     return {
         type: FETCH_ESEWA_ID_FROM_DROPDOWN_ERROR,
         payload: {

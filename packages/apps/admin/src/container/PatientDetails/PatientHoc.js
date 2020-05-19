@@ -16,7 +16,8 @@ const {
     clearPatientEdit,
     fetchPatientMetaList,
     previewPatient,
-    fetchPatientMetaDropdown
+    fetchPatientMetaDropdown,
+    fetchEsewaDetails
 } = PatientDetailsMiddleware
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -97,7 +98,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                 status
             } = this.state.searchParameters
             let searchData = {
-                esewaId,
+                esewaId:esewaId.label||'',
                 hospitalId: hospitalId.value || '',
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 status: status && status.value === 'A' ? '' : status.value
@@ -199,7 +200,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 searchParameters: {
                     ...this.state.searchParameters,
-                    patientMetaInfoId: ''
+                    patientMetaInfoId: '',
+                    esewaId:''
                 }
             })
         }
@@ -221,8 +223,10 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name
                     value = event.target.value
                     label = event.target.label
-                    if (fieldName === 'hospitalId')
+                    if (fieldName === 'hospitalId'){
                         await this.callApiForHospitalChange(value)
+                        await this.searchEsewaId(value)
+                    }
                 }
                 let searchParams = {...this.state.searchParameters}
                 if (fieldName === 'hospitalId')
@@ -377,6 +381,12 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             }
         }
 
+        searchEsewaId = async (value) => {
+         if(value){
+           await this.props.fetchEsewaDetails(patientSetupApiConstant.FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN,value)
+         }
+        }
+
         async componentDidMount() {
             await this.searchPatient()
             await this.searchHospitalForDropDown()
@@ -416,6 +426,7 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             } = this.props.PatientEditReducer
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+            const {esewaIdDropdown}=this.props.PatientEsewaIdReducer
             const {
                 patientList,
                 patientDropdownErrorMessage
@@ -433,7 +444,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
                             hospitalsDropdown: hospitalsForDropdown,
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
-                            patientDropdownErrorMessage: patientDropdownErrorMessage
+                            patientDropdownErrorMessage: patientDropdownErrorMessage,
+                            esewaIdDropdown:esewaIdDropdown
                         }}
                         paginationProps={{
                             queryParams: queryParams,
@@ -502,7 +514,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
             'HospitalDropdownReducer',
-            'PatientDropdownListReducer'
+            'PatientDropdownListReducer',
+            'PatientEsewaIdReducer'
         ],
         {
             clearPatientDetails,
@@ -512,7 +525,8 @@ const PatientDetailsHOC = (ComposedComponent, props, type) => {
             fetchPatientMetaList,
             fetchPatientMetaDropdown,
             previewPatient,
-            fetchActiveHospitalsForDropdown
+            fetchActiveHospitalsForDropdown,
+            fetchEsewaDetails
         }
     )
 }

@@ -157,7 +157,8 @@ export const patientSetupApiConstant = {
     SEARCH_PATIENT_INFO: BASE.concat(PATIENT_BASE + "/search"),
     PREVIEW_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE + "/detail"),
     UPDATE_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE),
-    FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID: BASE.concat(PATIENT_BASE.concat("/min/detail"))
+    FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID: BASE.concat(PATIENT_BASE.concat("/min/detail")),
+    FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN:BASE.concat(PATIENT_BASE.concat("/eSewaId"))
 };
 
 
