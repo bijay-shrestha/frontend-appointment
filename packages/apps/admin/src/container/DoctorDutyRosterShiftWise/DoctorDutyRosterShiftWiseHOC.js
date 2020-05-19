@@ -89,6 +89,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 variant: "",
                 message: ""
             },
+            settingsClonedFromWeekday: ''
         };
 
         alertTimer = '';
@@ -309,8 +310,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
         handleShiftSelection = async (shift, index, isGapDurationChange, event) => {
             const {doctorInformation, shiftDetails} = this.state;
-            let doctorShiftsCopy = [...doctorInformation.doctorShifts];
-            let shiftDetailsCopy = [...shiftDetails];
+            let doctorShiftsCopy = [...doctorInformation.doctorShifts],
+                shiftDetailsCopy = [...shiftDetails];
 
             if (!isGapDurationChange) {
                 // HANDLE SHIFT CHECKED UNCHECKED
@@ -349,11 +350,23 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 // HANDLE SHIFT ROSTER GAP DURATION CHANGE
                 shift.rosterGapDuration = event.target.value;
                 doctorShiftsCopy[index] = shift;
+
+                let shiftDetailsWithGapDurationUpdated = shiftDetailsCopy.map(shiftDetail => {
+                    if (shiftDetail.shiftId === doctorShiftsCopy[index].value)
+                        return {
+                            ...shiftDetail,
+                            rosterGapDuration: doctorShiftsCopy[index].rosterGapDuration
+                        };
+                    else
+                        return shiftDetail;
+                });
+
                 await this.setState({
                     doctorInformation: {
                         ...this.state.doctorInformation,
-                        doctorShifts: [...doctorShiftsCopy]
-                    }
+                        doctorShifts: [...doctorShiftsCopy],
+                    },
+                    shiftDetails: [...shiftDetailsWithGapDurationUpdated]
                 });
             }
         };
@@ -376,6 +389,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
                     // SET VALUES AND VALIDATE
                     selectedWeekday[fieldName] = value;
+
                     shiftDetail.wholeWeekOff = this.checkIfWholeWeekOff(shiftDetail.weekdaysDetail) ? 'Y' : 'N';
 
                     if (fieldName === 'startTime' || fieldName === 'endTime') {
@@ -385,8 +399,13 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     }
 
                     shiftDetail.weekdaysDetail[weekDayIndex] = {...selectedWeekday};
-                    await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetail);
 
+                    // ON ANY PARAMETER CHANGE OF ANY WEEKDAY, SET IS CLONE SETTING TO FALSE
+                    shiftDetail.weekdaysDetail.map(weekday => {
+                        return this.setIsCloneSettingToFalse(weekday);
+                    });
+
+                    await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetail);
                     this.checkFormValidity();
                     break;
                 case 'MANAGE':
@@ -451,11 +470,9 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             let fieldName = event.target.name;
             let value = event.target.type === "checkbox" ? event.target.checked ? 'Y' : 'N' : event.target.value;
             let label = event.target.label;
-            let shiftDetailsCopy;
             switch (type) {
                 case 'ADD':
                     // COPY VALUES TO BE CHANGED
-                    shiftDetailsCopy = [...this.state.shiftDetails];
                     let selectedBreak = {...selectedShift.weekdaysDetail[weekdayIndex].breakDetail[breakIndex]};
 
                     // SET VALUES AND VALIDATE
@@ -469,7 +486,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     }
 
                     selectedShift.weekdaysDetail[weekdayIndex].breakDetail[breakIndex] = {...selectedBreak};
-                    await this.findSelectedShiftIndexAndUpdateShiftDetails(shiftDetailsCopy, selectedShift);
+                    await this.findSelectedShiftIndexAndUpdateShiftDetails(selectedShift);
 
                     this.checkFormValidity();
                     break;
@@ -479,6 +496,48 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     break
 
             }
+        };
+
+        handleCloneSetting = async (event, selectedShift, weekdayIndex) => {
+            let checked = event.target.checked;
+            let updatedWeekdaysData,
+                selectedWeekdayOfShift = selectedShift.weekdaysDetail[weekdayIndex];
+            if (checked) {
+                updatedWeekdaysData
+                    = selectedShift.weekdaysDetail.map(weekday => {
+                    return {
+                        ...weekday,
+                        startTime: selectedWeekdayOfShift.startTime,
+                        endTime: selectedWeekdayOfShift.endTime,
+                        dayOffStatus: selectedWeekdayOfShift.dayOffStatus,
+                        breakDetail: [...selectedWeekdayOfShift.breakDetail],
+                        isSettingCloned: true,
+                        isSettingCloneDisabled: weekday.weekDaysId !== selectedWeekdayOfShift.weekDaysId,
+                    }
+                });
+            } else {
+                updatedWeekdaysData
+                    = selectedShift.weekdaysDetail.map(weekday => {
+                    if (weekday.weekDaysId === selectedWeekdayOfShift.weekDaysId)
+                        return this.setIsCloneSettingToFalse(weekday);
+                    else
+                        return {
+                            ...weekday,
+                            startTime: "",
+                            endTime: "",
+                            dayOffStatus: "",
+                            breakDetail: [],
+                            isSettingCloned: false,
+                            isSettingCloneDisabled: false
+                        }
+                });
+            }
+
+            selectedShift.weekdaysDetail = [...updatedWeekdaysData];
+            await this.findSelectedShiftIndexAndUpdateShiftDetails(selectedShift);
+            this.setState({
+                settingsClonedFromWeekday:{...updatedWeekdaysData}
+            })
         };
 
         resetSpecializationAndDoctorOnHospitalChange = () => {
@@ -510,6 +569,13 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 shiftDetails: [],
                 isCreatingRosterAvailable: false,
             });
+        };
+
+        setIsCloneSettingToFalse = (weekday) => {
+            return {
+                ...weekday,
+                isSettingCloned: false,
+            };
         };
 
         setValuesInState = (key, value, label, fileUri, fieldValid, objectName) => {
@@ -696,7 +762,6 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             }
         };
 
-
         initialApiCalls = () => {
             this.fetchHospitalsForDropdown();
             this.fetchWeekdaysData();
@@ -709,7 +774,6 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         componentWillUnmount() {
             clearTimeout(this.alertTimer);
         }
-
 
         render() {
             const {
@@ -774,7 +838,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         handleAddBreak: this.handleAddBreak,
                         breakTypeList: activeBreakTypeByHospitalIdForDropdown,
                         handleRemoveBreak: this.handleRemoveBreak,
-                        handleBreakFormChange: this.handleBreakFormChange
+                        handleBreakFormChange: this.handleBreakFormChange,
+                        handleCloneSetting: this.handleCloneSetting
                     }}
                 />
                 <CAlert

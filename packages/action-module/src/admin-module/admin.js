@@ -40,6 +40,8 @@ import * as  BreakTypeSetupActions from './break-type-setup/breakTypeSetupAction
 import {breakTypeSetupActionConstants} from './break-type-setup/breakTypeSetupActionConstants';
 import * as  ShiftSetupActions from './shift-setup/shiftSetupActions';
 import {shiftSetupActionConstants} from './shift-setup/shiftSetupActionConstants';
+import * as  DDRShiftWiseAction from './ddr-shift-wise/ddrShiftWiseAction';
+import {ddrShiftWiseActionConstants} from './ddr-shift-wise/ddrShiftWiseActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -83,5 +85,7 @@ export {
     breakTypeSetupActionConstants,
     BreakTypeSetupActions,
     shiftSetupActionConstants,
-    ShiftSetupActions
+    ShiftSetupActions,
+    ddrShiftWiseActionConstants,
+    DDRShiftWiseAction
 }

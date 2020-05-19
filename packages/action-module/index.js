@@ -56,7 +56,9 @@ import {
     shiftSetupActionConstants,
     ShiftSetupActions,
     BreakTypeSetupActions,
-    breakTypeSetupActionConstants
+    breakTypeSetupActionConstants,
+    ddrShiftWiseActionConstants,
+    DDRShiftWiseAction
 } from './src/admin-module'
 
 export {
@@ -115,5 +117,7 @@ export {
     shiftSetupActionConstants,
     ShiftSetupActions,
     BreakTypeSetupActions,
-    breakTypeSetupActionConstants
+    breakTypeSetupActionConstants,
+    ddrShiftWiseActionConstants,
+    DDRShiftWiseAction
 }

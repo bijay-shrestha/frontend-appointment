@@ -171,7 +171,10 @@ class CHybridTimePicker extends PureComponent {
         }
     }
     checkPickedTime = pickedTime => {
-        if (pickedTime) return pickedTime.value
+        if (pickedTime) {
+            if (Object.keys(pickedTime).includes("value")) return pickedTime.value
+            else return pickedTime;
+        }
         else return pickedTime
     }
 

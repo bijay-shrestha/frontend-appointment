@@ -27,10 +27,28 @@ class WeekdaysRosterForm extends PureComponent {
         if (prevProps.weekdaysRosterFormData.shiftDetails.length !== shiftDetails.length) {
             this.setState({
                 activeShiftKey: '',
-                selectedShift: {...shiftDetails[0], wholeWeekOff: hasWholeWeekOffParam ? shiftDetails[0].wholeWeekOff : 'N'},
+                selectedShift: {
+                    ...shiftDetails[0],
+                    wholeWeekOff: hasWholeWeekOffParam ? shiftDetails[0].wholeWeekOff : 'N'
+                },
             })
         }
+        this.checkAndUpdateRosterGapDurationOfSelectedShift(shiftDetails);
     }
+
+    checkAndUpdateRosterGapDurationOfSelectedShift = shiftDetails => {
+        const {selectedShift} = this.state;
+        let selectedShiftFromProps = shiftDetails.length
+            && shiftDetails.find(shift => shift.shiftId === selectedShift.shiftId);
+        if (selectedShiftFromProps && selectedShiftFromProps.rosterGapDuration !== selectedShift.rosterGapDuration) {
+            this.setState({
+                selectedShift: {
+                    ...selectedShift,
+                    rosterGapDuration: selectedShiftFromProps.rosterGapDuration
+                }
+            })
+        }
+    };
 
     componentDidMount() {
         const {shiftDetails} = this.props.weekdaysRosterFormData;
@@ -42,7 +60,8 @@ class WeekdaysRosterForm extends PureComponent {
 
     render() {
         const {activeShiftKey, selectedShift} = this.state;
-        const {shiftDetails,
+        const {
+            shiftDetails,
             doctorInformationData,
             handleWholeWeekOff,
             type

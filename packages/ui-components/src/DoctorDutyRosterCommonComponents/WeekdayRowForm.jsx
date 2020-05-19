@@ -11,14 +11,15 @@ const WeekdayRowForm = ({
         handleAddBreak,
         breakTypeList,
         handleRemoveBreak,
-        handleBreakFormChange
+        handleBreakFormChange,
+        handleCloneSetting
     } = weekDayRowFormProps;
 
     const {
         weekdaysDetail,
         rosterGapDuration
     } = selectedShift;
-
+    console.log("Roster Duration", rosterGapDuration);
     return <>
         {
             weekdaysDetail &&
@@ -198,8 +199,10 @@ const WeekdayRowForm = ({
                                 </div>
                             }
                             <CCheckbox
-                                id="clone-setting"
+                                id={"clone-setting".concat(weekdayData.weekDaysId)}
                                 label={"Clone the Setting across all Weekdays."}
+                                checked={weekdayData.isSettingCloned}
+                                onChange={(event) => handleCloneSetting(event, selectedShift, weekdayIndex)}
                             />
                         </Card.Body>
                     </Accordion.Collapse>
