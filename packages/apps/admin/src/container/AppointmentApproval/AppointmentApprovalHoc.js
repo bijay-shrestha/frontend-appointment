@@ -177,6 +177,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       })
     }
     callApiAfterSpecializationAndDoctorChange = async appointmentDetail => {
+      console.log("==========tappdetail",appointmentDetail);
       await this.props.fetchAppointmentTransferCharge(
         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_CHARGE,
         {
@@ -309,7 +310,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         remarks
       } = transferData
       try {
-        console.log("=======",this.props.appointmentTransfer);
         await this.props.appointmentTransfer(
           appointmentTransferApiConstants.APPOINTMENT_TRANSFER,
           {
@@ -350,7 +350,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
     handleTransferChange = async e => {
       const {value, label, name, fileUri} = e.target
 
-      const transferAppointment = {
+      let transferAppointment = {
         ...this.state.appointmentTransferData
       }
       transferAppointment['transferData'][name] = label
@@ -363,9 +363,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         ? value
         : ''
 
-      await this.setState({
-        appointmentTransferData: {...transferAppointment}
-      })
+       console.log("=========",transferAppointment)
 
       // if (name === 'transferredSpecialization')
       //   await this.callApiAfterSpecializationChange(transf)
@@ -375,8 +373,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         name === 'transferredDate'
       ) {
         await this.onDoctorOrDateChangeHandler(
-          this.state.appointmentTransferData.transferData,
-          this.state.appointmentTransferData.transferData.transferredDate
+          transferAppointment.transferData,
+          transferAppointment.transferData.transferredDate
         )
         const {
           appointmentTransferTime,
@@ -389,9 +387,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           isAppointmentTransferTimeLoading
         }
         transferAppointment['transferData']['transferredTime'] = ''
-        this.setState({
-          appointmentTransferData: {...transferAppointment}
-        })
+        // this.setState({
+        //   appointmentTransferData: {...transferAppointment}
+        // })
       }
       if (
         name === 'transferredSpecialization' ||
@@ -402,7 +400,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           transferAppointment['transferData']['transferredTime'] = ''
 
           await this.callApiAfterSpecializationAndDoctorChange(
-            this.state.appointmentTransferData.transferData
+            transferAppointment.transferData
           )
           const {
             appointmentTransferCharge
@@ -424,11 +422,12 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           transferAppointment['transferData'][
             'transferredCharge'
           ] = appointmentTransferCharge
-          this.setState({
-            appointmentTransferData: {...transferAppointment}
-          })
+         
         }
       }
+      await this.setState({
+        appointmentTransferData: {...transferAppointment}
+      })
 
       this.checkValidityOfTransfer()
     }

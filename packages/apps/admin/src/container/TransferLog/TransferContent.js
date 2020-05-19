@@ -2,8 +2,7 @@ import React from 'react'
 import {
   CForm,
   CHybridTextArea,
-  CHybridInput,
-  CFLabel
+  CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import {Col, Row} from 'react-bootstrap'
