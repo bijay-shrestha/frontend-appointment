@@ -41,6 +41,7 @@ import * as AppointmentModeMiddleware from './appointment-mode-middleware/appoin
 import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware'
 import * as BreakTypeSetupMiddleware from './break-type-setup-middleware/breakTypeSetupMiddleware';
 import * as ShiftSetupMiddleware from './shift-setup-middleware/shiftSetupMiddleware';
+import * as DDRShiftWiseMiddleware from './ddr-shift-wise-middleware/ddrShiftWiseMiddleware';
 
 export {
     createProfile,
@@ -78,5 +79,6 @@ export {
     AppointmentTransferMiddleware,
     AppointmentModeMiddleware,
     BreakTypeSetupMiddleware,
-    ShiftSetupMiddleware
+    ShiftSetupMiddleware,
+    DDRShiftWiseMiddleware
 }

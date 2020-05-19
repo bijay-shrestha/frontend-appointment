@@ -173,6 +173,13 @@ import {
     ShiftSearchReducer
 } from './admin-module/shiftSetupReducer';
 
+import {
+    DDRBreakReducer,
+    DDRExistingAvailabilityReducer,
+    DDRSaveReducer,
+    DDRWeekdaysReducer
+} from './admin-module/ddrShiftWiseReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -300,5 +307,9 @@ export {
     UniversitySaveReducer,
     UniversitySearchReducer,
     WeekdaysReducer,
-    AppointmentTransferReducers
+    AppointmentTransferReducers,
+    DDRBreakReducer,
+    DDRExistingAvailabilityReducer,
+    DDRSaveReducer,
+    DDRWeekdaysReducer
 }

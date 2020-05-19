@@ -35,7 +35,8 @@ import {
     QualificationSetupMiddleware,
     ShiftSetupMiddleware,
     SpecializationSetupMiddleware,
-    UniversitySetupMiddleware
+    UniversitySetupMiddleware,
+    DDRShiftWiseMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminIP, fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
@@ -101,5 +102,6 @@ export {
     fetchLoggedInAdminIP,
     ShiftSetupMiddleware,
     BreakTypeSetupMiddleware,
-    AppointmentTransferMiddleware
+    AppointmentTransferMiddleware,
+    DDRShiftWiseMiddleware
 }

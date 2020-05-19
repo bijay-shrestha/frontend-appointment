@@ -288,3 +288,15 @@ const BREAK_TYPE_SETUP_BASE = "/breakType";
 export const breakTypeSetupApiConstants = {
     FETCH_ACTIVE_BREAK_TYPE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BREAK_TYPE_SETUP_BASE.concat("/active/min")),
 };
+
+const DDR_SHIFT_WISE_BASE = "/doctorDutyRoster/shiftWise";
+const DDR_EXISTING_BASE = DDR_SHIFT_WISE_BASE.concat("/existing");
+export const ddrShiftWiseApiConstants = {
+    SAVE_DDR_WEEKDAYS :BASE.concat(DDR_SHIFT_WISE_BASE),
+    SAVE_DDR_OVERRIDE_ROSTER :BASE.concat(DDR_SHIFT_WISE_BASE.concat("/override")),
+    FETCH_EXISTING_DDR_AVAILABILITY :BASE.concat(DDR_EXISTING_BASE),
+    FETCH_EXISTING_ROSTER_SHIFT_AND_OVERRIDE_INFORMATION :BASE.concat(DDR_EXISTING_BASE.concat("/detail")),
+    FETCH_WEEKDAYS_INFORMATION_BY_DDR_SHIFT_ID :BASE.concat(DDR_EXISTING_BASE.concat("/weekDays")),
+    FETCH_WEEKDAYS_BREAK_DETAIL :BASE.concat(DDR_EXISTING_BASE.concat("/weekDays/breakDetail")),
+    FETCH_OVERRIDE_BREAK_DETAIL :BASE.concat(DDR_EXISTING_BASE.concat("/override/breakDetail")),
+};
