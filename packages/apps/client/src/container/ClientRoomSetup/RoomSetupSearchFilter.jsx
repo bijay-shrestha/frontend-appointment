@@ -31,7 +31,6 @@ class RoomSetupSearchFilter extends PureComponent {
             resetSearchForm,
             handleEnter,
             roomNumbersForDropdown,
-            hospitalList,
             dropdownErrorMessage
         } = this.props.searchData;
         return (
@@ -58,30 +57,16 @@ class RoomSetupSearchFilter extends PureComponent {
                                 <Row>
                                     <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
-                                            id="hospital"
-                                            name="hospital"
-                                            onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event, 'SEARCH')}
-                                            label="Client"
-                                            placeholder={hospitalList.length ? "Select Client."
-                                                : "No Client(s) available."}
-                                            value={searchParameters.hospital}
-                                            options={hospitalList}
-                                            isDisabled={!hospitalList.length}
-                                        />
-                                    </Col>
-                                    <Col sm={12} md={4} xl={4}>
-                                        <CHybridSelect
                                             id="room-number"
                                             name="roomNumber"
                                             onKeyDown={event => handleEnter(event)}
                                             onChange={event => onInputChange(event, 'SEARCH')}
                                             label="Room Number"
-                                            placeholder={searchParameters.hospital ? roomNumbersForDropdown.length ? "Select Room Number."
-                                                : "No Room Number(s) available.":"Select Client first."}
+                                            placeholder={roomNumbersForDropdown.length ? "Select Room Number."
+                                                : "No Room Number(s) available."}
                                             value={searchParameters.roomNumber}
                                             options={roomNumbersForDropdown}
-                                            isDisabled={!roomNumbersForDropdown.length || !searchParameters.hospital}
+                                            isDisabled={!roomNumbersForDropdown.length}
                                             noOptionsMessage={() => dropdownErrorMessage}
                                         />
                                     </Col>
@@ -145,21 +130,6 @@ class RoomSetupSearchFilter extends PureComponent {
                                     </>
                                 </CButton>
                             </li>
-                            {searchParameters.hospital && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        delay={{show: 250, hide: 400}}
-                                        overlay={props => (
-                                            <Tooltip {...props}>Client</Tooltip>
-                                        )}
-                                    >
-                                        <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.hospital.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
 
                             {searchParameters.roomNumber && (
                                 <li>

@@ -56,7 +56,7 @@ export const searchRoomNumber = (path, data, paginationData) => async dispatch =
     }
 };
 
-export const fetchActiveRoomNumberForDropdown = (path,hospitalId) => async dispatch => {
+export const fetchActiveRoomNumberForDropdownByHospitalId = (path, hospitalId) => async dispatch => {
     dispatch(RoomSetupActions.fetchActiveRoomNumberPending());
     try {
         const response = await Axios.getWithPathVariables(path,hospitalId);
@@ -69,10 +69,23 @@ export const fetchActiveRoomNumberForDropdown = (path,hospitalId) => async dispa
     }
 };
 
-export const fetchAllRoomNumberForDropdown = (path,hospitalId) => async dispatch => {
+export const fetchActiveRoomNumberForDropdown = (path) => async dispatch => {
+    dispatch(RoomSetupActions.fetchActiveRoomNumberPending());
+    try {
+        const response = await Axios.get(path);
+        dispatch(RoomSetupActions.fetchActiveRoomNumberSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(RoomSetupActions.fetchActiveRoomNumberError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
+export const fetchAllRoomNumberForDropdown = (path) => async dispatch => {
     dispatch(RoomSetupActions.fetchAllRoomNumberPending());
     try {
-        const response = await Axios.getWithPathVariables(path,hospitalId);
+        const response = await Axios.get(path);
         dispatch(RoomSetupActions.fetchAllRoomNumberSuccess(response.data));
         return response.data;
     } catch (e) {

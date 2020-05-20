@@ -15,15 +15,11 @@ const {
     clearSuccessErrorMessageFormStore,
     deleteRoomNumber,
     editRoomNumber,
-    fetchActiveRoomNumberForDropdownByHospitalId,
-    fetchAllRoomNumberForDropdownByHospitalId,
+    fetchActiveRoomNumberForDropdown,
+    fetchAllRoomNumberForDropdown,
     saveRoomNumber,
     searchRoomNumber,
 } = RoomSetupMiddleware;
-
-const {
-    fetchActiveHospitalsForDropdown
-} = HospitalSetupMiddleware;
 
 const {
     DELETE_ROOM_NUMBER,
@@ -34,16 +30,11 @@ const {
     SEARCH_ROOM_NUMBER
 } = AdminModuleAPIConstants.roomSetupApiConstants;
 
-const {
-    FETCH_HOSPITALS_FOR_DROPDOWN
-} = AdminModuleAPIConstants.hospitalSetupApiConstants;
-
 const RoomSetupHOC = (ComposedComponent, props, type) => {
     class RoomSetup extends PureComponent {
         state = {
             roomData: {
                 id: '',
-                hospitalName: '',
                 roomNumber: '',
                 status: {value: 'Y', label: 'Active'},
                 remarks: '',
@@ -53,7 +44,6 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             searchParameters: {
                 roomNumber: '',
                 status: {value: 'A', label: 'All'},
-                hospital: null
             },
             queryParams: {
                 page: 0,
@@ -73,7 +63,6 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
 
         defaultRoomValueForEdit = {
             id: '',
-            hospitalName: '',
             roomNumber: '',
             status: {value: 'Y', label: 'Active'},
             remarks: '',
@@ -97,7 +86,6 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 searchParameters: {
                     ...this.state.searchParameters,
                     roomNumber: '',
-                    hospital: null,
                     status: {value: 'A', label: 'All'},
                 }
             });
@@ -140,17 +128,6 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                             // , [key + "Valid"]: fieldValid
                         }
                     });
-                if (key === 'hospital') {
-                    if (value) {
-                        this.fetchAllRoomNumberForDropdownByHospitalId(value);
-                    }
-                    this.setState({
-                        searchParameters: {
-                            ...this.state.searchParameters,
-                            roomNumber: null
-                        }
-                    })
-                }
             } else {
                 label ? value ?
                     await this.setState({
@@ -186,11 +163,7 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 value: editData.status,
                 label: editData.status === 'Y' ? 'Active' : 'Inactive'
             };
-            let hospital = {
-                value: editData.hospitalId,
-                label: editData.hospitalName
-            };
-            this.setDefaultRoomValues(editData.id, editData.roomNumber, hospital, status, '')
+            this.setDefaultRoomValues(editData.id, editData.roomNumber, status, '')
             // this.checkFormValidity();
         };
 
@@ -204,20 +177,16 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         initialApiCalls = async () => {
-            this.fetchActiveHospitalsForDropdown();
+            this.fetchAllRoomNumberForDropdown();
             this.searchRoomNumber(1);
         };
 
-        fetchActiveRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
+        fetchActiveRoomNumberForDropdown = async () => {
+            await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN);
         };
 
-        fetchAllRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchAllRoomNumberForDropdown(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
-        };
-
-        fetchActiveHospitalsForDropdown = async () => {
-            await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
+        fetchAllRoomNumberForDropdown = async () => {
+            await this.props.fetchAllRoomNumberForDropdown(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN);
         };
 
         showAlertMessage = (type, message) => {
@@ -244,12 +213,11 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         resetAliasData = () => {
             let currentRoomData = {...this.state.roomData};
             currentRoomData.id = '';
-            currentRoomData.hospitalName = null;
             currentRoomData.roomNumber = '';
             currentRoomData.remarks = '';
             currentRoomData.status = {value: 'Y', label: 'Active'};
 
-            this.setDefaultRoomValues('', '', null, '', '');
+            this.setDefaultRoomValues('', '', null, '');
 
             this.setState({
                 roomData: {...currentRoomData},
@@ -263,9 +231,8 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         searchRoomNumber = async (page) => {
-            const {roomNumber, status, hospital} = this.state.searchParameters;
+            const {roomNumber, status} = this.state.searchParameters;
             let searchData = {
-                hospitalId: hospital ? hospital.value : '',
                 id: roomNumber ? roomNumber.value : '',
                 status: status && status.value !== 'A' ? status.value : ''
             };
@@ -298,13 +265,12 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         saveRoomNumber = async (saveData) => {
-            const {hospitalName, roomNumber, status} = saveData.data;
-            this.setDefaultRoomValues('', roomNumber, hospitalName, status, '');
-            if (!roomNumber || !status || !hospitalName) {
-                this.validateFields(roomNumber, status, hospitalName);
+            const {roomNumber, status} = saveData.data;
+            this.setDefaultRoomValues('', roomNumber, status, '');
+            if (!roomNumber || !status) {
+                this.validateFields(roomNumber, status);
             } else {
                 let requestDTO = {
-                    hospitalId: hospitalName ? hospitalName.value : '',
                     roomNumber: roomNumber,
                     status: status && status.value
                 };
@@ -320,23 +286,15 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        validateFields = (roomNumber, status, hospitalName) => {
-            if (!roomNumber && !status && !hospitalName) this.showAlertMessage("warning",
-                "Client,Room Number and status must be not empty.");
-            else if (!roomNumber && !hospitalName)
-                this.showAlertMessage("warning", "Client and Room Number must be not empty.");
-            else if (!roomNumber && !status)
-                this.showAlertMessage("warning", "Room Number and Status must be not empty.");
-            else if (!status && !hospitalName)
-                this.showAlertMessage("warning", "Client and Status must be not empty.");
+        validateFields = (roomNumber, status) => {
+            if (!roomNumber && !status) this.showAlertMessage("warning",
+                "Room Number and status must be not empty.");
             else if (!roomNumber) this.showAlertMessage("warning", "Room Number should not  be empty.");
-            else if (!hospitalName) this.showAlertMessage("warning", "Hospital should not  be empty.");
             else if (!status) this.showAlertMessage("warning", "Status should not  be empty.")
         };
 
-        setDefaultRoomValues = (id, roomNumber, hospitalName, status, remarks) => {
+        setDefaultRoomValues = (id, roomNumber, status, remarks) => {
             this.defaultRoomValueForEdit.id = id;
-            this.defaultRoomValueForEdit.hospitalName = hospitalName;
             this.defaultRoomValueForEdit.roomNumber = roomNumber;
             this.defaultRoomValueForEdit.status = status;
             this.defaultRoomValueForEdit.remarks = remarks;
@@ -344,17 +302,15 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         openEditRemarksModal = (updateData) => {
-            const {id, roomNumber, hospitalName, status} = updateData.data;
+            const {id, roomNumber, status} = updateData.data;
             let roomData = {...this.state.roomData};
             roomData.id = id;
-            roomData.roomNumber = roomNumber;
-            roomData.hospitalName = hospitalName;
             roomData.status = status;
 
-            this.setDefaultRoomValues(id, roomNumber, hospitalName, status, '');
+            this.setDefaultRoomValues(id, roomNumber, status, '');
 
-            if (!roomNumber || !status || !hospitalName) {
-                this.validateFields(roomNumber, status, hospitalName);
+            if (!roomNumber || !status) {
+                this.validateFields(roomNumber, status);
             } else {
                 this.setState({
                     showEditRemarksModal: true,
@@ -376,11 +332,10 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         editRoomNumber = async () => {
-            const {id, roomNumber, status, hospitalName, remarks} = this.state.roomData;
+            const {id, roomNumber, status, remarks} = this.state.roomData;
             let requestDTO = {
                 id,
                 roomNumber,
-                hospitalId: hospitalName ? hospitalName.value : '',
                 status: status && status.value,
                 remarks
             };
@@ -391,7 +346,7 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 this.actionsOnOperationComplete();
                 return true;
             } catch (e) {
-                this.setDefaultRoomValues(id, roomNumber, hospitalName, status, '');
+                this.setDefaultRoomValues(id, roomNumber, status, '');
                 // this.showAlertMessage("danger", this.props.RoomNumberEditReducer.editErrorMessage);
                 return false;
             }
@@ -448,14 +403,12 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             const {editErrorMessage, isEditRoomNumberLoading} = this.props.RoomNumberEditReducer;
             const {deleteErrorMessage, isDeleteRoomNumberLoading} = this.props.RoomNumberDeleteReducer;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
             return <>
                 <ComposedComponent
                     {...props}
                     tableData={{
                         roomNumberList: roomNumberList,
-                        hospitalList: [...hospitalsForDropdown],
                         isSearchRoomNumberLoading,
                         searchErrorMessage,
                         currentPage: queryParams.page,
@@ -483,7 +436,6 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                         roomNumbersForDropdown: allRoomNumberForDropdown,
                         dropdownErrorMessage: allRoomDropdownErrorMessage,
                         onSearchClick: this.searchRoomNumber,
-                        hospitalList: [...hospitalsForDropdown]
                     }}
                 />
                 {showEditRemarksModal ?
@@ -537,11 +489,9 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             'RoomNumberEditReducer',
             'RoomNumberDeleteReducer',
             'RoomNumberSearchReducer',
-            'HospitalDropdownReducer'
         ], {
-            fetchActiveRoomNumberForDropdown: fetchActiveRoomNumberForDropdownByHospitalId,
-            fetchAllRoomNumberForDropdown: fetchAllRoomNumberForDropdownByHospitalId,
-            fetchActiveHospitalsForDropdown,
+            fetchActiveRoomNumberForDropdown,
+            fetchAllRoomNumberForDropdown,
             searchRoomNumber,
             deleteRoomNumber,
             editRoomNumber,
