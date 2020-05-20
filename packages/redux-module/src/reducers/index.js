@@ -102,7 +102,8 @@ import {
     PatientDropdownWithoutHospitalListReducer,
     PatientEditReducer,
     PatientPreviewReducer,
-    PatientSearchReducer
+    PatientSearchReducer,
+    PatientEsewaIdReducer
 } from './admin-module/patientSetupReducer'
 
 import {
@@ -272,5 +273,6 @@ export {
     UniversitySaveReducer,
     UniversitySearchReducer,
     WeekdaysReducer,
-    AppointmentTransferReducers
+    AppointmentTransferReducers,
+    PatientEsewaIdReducer
 }

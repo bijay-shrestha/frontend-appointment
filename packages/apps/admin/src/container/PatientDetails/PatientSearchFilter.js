@@ -11,7 +11,7 @@ import {
     CButton,
     CHybridSelect,
     CForm,
-    CHybridInput
+   // CHybridInput
 } from '@frontend-appointment/ui-elements'
 //import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
@@ -41,7 +41,8 @@ class PatientSearchFilter extends PureComponent {
             resetSearch,
             hospitalsDropdown,
             searchParameters,
-            patientListDropdown
+            patientListDropdown,
+            esewaIdDropdown
         } = searchHandler
 
         return (
@@ -94,12 +95,16 @@ class PatientSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
+                                        <CHybridSelect
                                             id="esewaId"
-                                            placeholder="Esewa Id"
                                             name="esewaId"
+                                            label="Esewa Id"
+                                            placeholder={!searchParameters.hospitalId? "Select Client First" : "Select Esewa Id."}
+                                            options={esewaIdDropdown}
+                                            isDisabled={searchParameters.hospitalId ||esewaIdDropdown.length ? false : true}
                                             value={searchParameters.esewaId}
                                             onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
                                         />
                                     </Col>
 
@@ -186,6 +191,21 @@ class PatientSearchFilter extends PureComponent {
                                             variant="secondary"
                                         >
                                             {searchParameters.patientMetaInfoId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                              {searchParameters.esewaId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">EsewaId</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.esewaId.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
