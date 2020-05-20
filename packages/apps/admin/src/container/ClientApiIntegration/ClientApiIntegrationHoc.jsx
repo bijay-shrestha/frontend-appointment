@@ -1,5 +1,12 @@
 import React, {PureComponent} from 'react'
-const ClientApiIntegrationHoc = (ComposedComponent, props) => {
+import {CAlert} from '@frontend-appointment/ui-elements'
+import {ConnectHoc} from '@frontend-appointment/commons'
+import {CommonUtils} from '@frontend-appointment/helpers'
+import {HospitalApiIntegrationMiddleware} from '@frontend-appointment/thunk-middleware'
+import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+const {hospitalIntegrationConstants} = AdminModuleAPIConstants
+const {changeCommaSeperatedStringToObjectAndStringifyIt} = CommonUtils
+const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
   class ClientApiIntegration extends PureComponent {
     state = {
       integrationData: {
@@ -20,20 +27,56 @@ const ClientApiIntegrationHoc = (ComposedComponent, props) => {
       addObjectId: 0,
       previewModal: true,
       editShowModal: true,
-      regexForCommaSeperation:/^(?!,)(,?[a-zA-Z]+)+$/
+      showConfirmationModal: true,
+      regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
+      alertMessageInfo: {
+        variant: '',
+        message: ''
+      },
+      showAlert: false,
+      formValid: false
     }
-    
-    setTheStateForIntegrationData = objectToModify =>{
-        this.setState({
-            integrationData:{...objectToModify}
-        })
+
+    resetIntegrationData = () => {
+      this.setTheStateForIntegrationData({
+        integrationData: {
+          clientId: '',
+          featureType: '',
+          requestMethod: '',
+          apiUrl: '',
+          headers: [],
+          queryParams: [],
+          requestBody: ''
+        },
+        formValid: false
+      })
+    }
+
+    setTheStateForIntegrationData = objectToModify => {
+      this.setState({
+        integrationData: {...objectToModify}
+      })
     }
 
     onChangeHandler = e => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      this.setTheStateForIntegrationData(integrationDatas);
+      this.setTheStateForIntegrationData(integrationDatas)
+    }
+
+    setCloseModal = () => {
+      this.setState({
+        previewModal: false,
+        editShowModal: false,
+        showConfirmationModal: false
+      })
+    }
+
+    setShowModal = fieldName => {
+      this.setState({
+        [fieldName]: true
+      })
     }
 
     onAddHeaderOrQueryParams = (index, fieldName) => {
@@ -43,24 +86,204 @@ const ClientApiIntegrationHoc = (ComposedComponent, props) => {
         value: '',
         description: ''
       }
-     this.setTheStateForIntegrationData(objectToModify);
-    }
-
-    onChangeHandlerHeaderOrQueryParams =(e,index,fieldName) => {
-      const {name,value} = e.target
-      let objectToModify={...this.state.integrationData}
-      objectToModify[fieldName][index][name] = value;
       this.setTheStateForIntegrationData(objectToModify)
     }
-    
-    onRemoveHandlerHeaderOrQueryParamas = (index,fieldName) => {
-     let objectToModify={...this.state.integrationData}
-     objectToModify[fieldName].splice(index,index);
-     this.setTheStateForIntegrationData(objectToModify);
+
+    onChangeHandlerHeaderOrQueryParams = (e, index, fieldName) => {
+      const {name, value} = e.target
+      let objectToModify = {...this.state.integrationData}
+      objectToModify[fieldName][index][name] = value
+      this.setTheStateForIntegrationData(objectToModify)
+    }
+
+    onRemoveHandlerHeaderOrQueryParams = (index, fieldName) => {
+      let objectToModify = {...this.state.integrationData}
+      objectToModify[fieldName].splice(index, index)
+      this.setTheStateForIntegrationData(objectToModify)
+    }
+
+    setShowAlertModal = (variant, message) => {
+      this.setState({
+        alertMessageInfo: {
+          variant,
+          message
+        },
+        showAlert: true
+      })
+    }
+
+    closeAlertModal = () => {
+      this.setState({
+        alertMessageInfo: {
+          variant: '',
+          message: ''
+        },
+        showAlert: false
+      })
+    }
+
+    checkFormValidity = () => {
+      const {
+        apiUrl,
+        clientId,
+        featureType,
+        headers,
+        queryParams,
+        requestBody,
+        requestMethod
+      } = this.state.integrationData
+      const formValid =
+        apiUrl &&
+        clientId.value &&
+        featureType.value &&
+        headers.length &&
+        queryParams.length &&
+        requestBody &&
+        requestMethod.value
+      this.setState({
+        formValid: Boolean(formValid)
+      })
+    }
+    onConfirmHandler = () => {
+      this.setShowModal('showConfirmationModal')
+    }
+
+    onSaveHandler = async () => {
+      const {
+        clientId,
+        featureType,
+        apiUrl,
+        headers,
+        queryParams,
+        requestBody,
+        requestMethod
+      } = this.state.integrationData
+      try {
+        await this.props.saveHospitalIntegration(hospitalIntegrationConstants, {
+          apiUrl,
+          clientApiRequestHeaders: [...headers],
+          parametersRequestDTOS: [...queryParams],
+          requestMethodId: requestMethod,
+          hospitalId: clientId,
+          featureTypeId: featureType,
+          requestBodyAttribute: changeCommaSeperatedStringToObjectAndStringifyIt(
+            requestBody
+          )
+        })
+        this.resetIntegrationData(
+          'success',
+          this.props.hospitalApiIntegrationSaveReducers
+            .hospitalApiSaveSucessMessage
+        )
+        this.setShowAlertModal()
+      } catch (e) {
+        this.setShowAlertModal(
+          'danger',
+          this.props.hospitalApiIntegrationSaveReducers
+            .hospitalApiSaveErrorMessage
+        )
+      }
+    }
+
+    callInitialApi = async () => {
+      await this.props.fetchFeatureTypeForDrodown(
+        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN
+      )
+      await this.props.fetchRequestMethodDropdown(
+        hospitalIntegrationConstants.HOSPITAL_REQUEST_METHOD_DROPDOWN
+      )
+    }
+
+    componentDidMount () {
+      this.callInitialApi()
     }
 
     render () {
-      return <ComposedComponent></ComposedComponent>
+      const {
+        showAlert,
+        alertMessageInfo,
+        integrationData,
+        regexForCommaSeperation,
+        formValid
+      } = this.state
+      const {
+        isHospitalApiSaveLoading
+      } = this.props.hospitalApiIntegrationSaveReducers
+      const {
+        featureTypeDropdownData,
+        featureTypeDropdownError,
+        isFeatureTypeDropdownLoading
+      } = this.props.hospitalRequestMethodDropdownReducers
+      const {
+        isRequestMethodDropdownLoading,
+        requestMethodData,
+        requestMethodDropdownError
+      } = this.props.hospitalFeatureTypeDropdownReducers
+      return (
+        <>
+          <ComposedComponent
+            {...props}
+            commonHandler={{
+              onChangeHandlerHeaderOrQueryParams: this
+                .onChangeHandlerHeaderOrQueryParams,
+              onRemoveHandlerHeaderOrQueryParams: this
+                .onRemoveHandlerHeaderOrQueryParams,
+              onAddHeaderOrQueryParams: this.onAddHeaderOrQueryParams,
+              onChangeHandler: this.onChangeHandler,
+              integrationData: integrationData,
+              setCloseModal: this.setCloseModal,
+              resetIntegrationData: this.resetIntegrationData,
+              regexForCommaSeperation: regexForCommaSeperation,
+              featureTypeDropdownData,
+              featureTypeDropdownError,
+              isFeatureTypeDropdownLoading,
+              isRequestMethodDropdownLoading,
+              requestMethodData,
+              requestMethodDropdownError,
+              formValid
+            }}
+            addHandler={{
+              isHospitalApiSaveLoading: isHospitalApiSaveLoading,
+              onConfirmHandler: this.onConfirmHandler,
+              onSaveHandler: this.onSaveHandler
+            }}
+          />
+          <CAlert
+            id="profile-add"
+            variant={alertMessageInfo.variant}
+            show={showAlert}
+            onClose={this.closeAlertModal}
+            alertType={
+              alertMessageInfo.variant === 'success' ? (
+                <>
+                  <i className="fa fa-check-circle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              ) : (
+                <>
+                  <i className="fa fa-exclamation-triangle" aria-hidden="true">
+                    {' '}
+                  </i>
+                </>
+              )
+            }
+            message={alertMessageInfo.message}
+          />
+        </>
+      )
     }
   }
+  return ConnectHoc(
+    ClientApiIntegration,
+    [
+      'hospitalApiIntegrationSaveReducers',
+      'hospitalRequestMethodDropdownReducers',
+      'hospitalFeatureTypeDropdownReducers'
+    ],
+    {
+      ...HospitalApiIntegrationMiddleware
+    }
+  )
 }
+export default ClientApiIntegrationHoc

@@ -15,6 +15,7 @@ const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
 const APPOINTMENT_TRANSFER="/appointmentTransfer"
+const HOSPITAL_API_INTEGRATION="/integration"
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -277,3 +278,9 @@ export const appointmentTransferApiConstants = {
     APPOINTMENT_TRANSFER_TIME: BASE.concat(APPOINTMENT_TRANSFER.concat("/time")),
     APPOINTMENT_TRANSFER_SEARCH:BASE.concat(APPOINTMENT_TRANSFER.concat("/search"))
 };
+
+export const hospitalIntegrationConstants = {
+    HOSPITAL_API_INTEGRATION_SAVE:BASE.concat(HOSPITAL_API_INTEGRATION), 
+    HOSPITAL_FEATURE_TYPE_DROPDOWN:BASE.concat(HOSPITAL_API_INTEGRATION+"/features/active/min"),
+    HOSPITAL_REQUEST_METHOD_DROPDOWN:BASE.concat(HOSPITAL_API_INTEGRATION+"/request-methods/active/min")
+}

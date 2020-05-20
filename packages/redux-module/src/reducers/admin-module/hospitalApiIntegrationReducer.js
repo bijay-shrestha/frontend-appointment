@@ -102,7 +102,7 @@ export const HospitalApiIntegrationReducers = {
     requestMethodDropdownHandler,
     initialState.requestMethodDropdown
   ),
-  hostialFeatureTypeDropdownReducers: createReducerFactory(
+  hospitalFeatureTypeDropdownReducers: createReducerFactory(
     featureTypeDropdownHandler,
     initialState.featureTypeDropdown
   )

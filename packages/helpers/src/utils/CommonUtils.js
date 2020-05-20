@@ -25,3 +25,10 @@ export const getUserNameHospitalIdAndAdminId = token => {
 
 export const filterTableDataWithGivenStatus = (status, filterData) =>
     filterData.filter(datum => datum.status === status)
+
+export const changeCommaSeperatedStringToObjectAndStringifyIt =(commaSeperatedString) =>{
+    let splittedCommaSperatedString = commaSeperatedString.split(",");
+    let objFromSplitteCommaString={};
+    splittedCommaSperatedString.map(scsp =>{objFromSplitteCommaString[scsp]=''; return scsp;})
+    return JSON.stringify(objFromSplitteCommaString)
+}
