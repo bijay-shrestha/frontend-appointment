@@ -305,6 +305,7 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             const {id, roomNumber, status} = updateData.data;
             let roomData = {...this.state.roomData};
             roomData.id = id;
+            roomData.roomNumber = roomNumber;
             roomData.status = status;
 
             this.setDefaultRoomValues(id, roomNumber, status, '');
