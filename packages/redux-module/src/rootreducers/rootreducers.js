@@ -117,7 +117,8 @@ import {
     UniversitySearchReducer,
     WeekdaysReducer,
     AppointmentTransferReducers,
-    PatientEsewaIdReducer
+    PatientEsewaIdReducer,
+    HospitalApiIntegrationReducers
 } from '../reducers'
 
 const {
@@ -259,7 +260,8 @@ const appReducers = combineReducers({
     VerificationCodeReducer,
     WeekdaysReducer,
     PatientEsewaIdReducer,
-    ...AppointmentTransferReducers
+    ...AppointmentTransferReducers,
+    ...HospitalApiIntegrationReducers
 })
 
 export const rootReducers = (state, action) => {

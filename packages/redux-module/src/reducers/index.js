@@ -148,6 +148,7 @@ import {
 import {CountryDropdownReducer} from './common/countryReducer'
 
 import {AppointmentTransferReducers} from './admin-module/appointmentTransferReducer';
+import {HospitalApiIntegrationReducers} from './admin-module/hospitalApiIntegrationReducer';
 import {
     AppointmentModeDeleteReducer,
     AppointmentModeDropdownReducer,
@@ -274,5 +275,6 @@ export {
     UniversitySearchReducer,
     WeekdaysReducer,
     AppointmentTransferReducers,
-    PatientEsewaIdReducer
+    PatientEsewaIdReducer,
+    HospitalApiIntegrationReducers
 }
