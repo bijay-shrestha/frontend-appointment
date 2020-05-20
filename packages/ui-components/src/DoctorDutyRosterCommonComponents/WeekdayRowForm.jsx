@@ -198,12 +198,20 @@ const WeekdayRowForm = ({
                                     </Row>
                                 </div>
                             }
-                            <CCheckbox
+                            <CButton
                                 id={"clone-setting".concat(weekdayData.weekDaysId)}
-                                label={"Clone the Setting across all Weekdays."}
-                                checked={weekdayData.isSettingCloned}
-                                onChange={(event) => handleCloneSetting(event, selectedShift, weekdayIndex)}
-                            />
+                                name={" Clone the Setting across all Weekdays."}
+                                className={"outline-primary"}
+                                onClickHandler={() => handleCloneSetting(selectedShift, weekdayIndex)}
+                            >
+                                <i className={"fa fa-copy"}/>
+                            </CButton>
+                            {/*<CCheckbox*/}
+                            {/*    id={"clone-setting".concat(weekdayData.weekDaysId)}*/}
+                            {/*    label={"Clone the Setting across all Weekdays."}*/}
+                            {/*    checked={weekdayData.isSettingCloned}*/}
+                            {/*    onChange={(event) => handleCloneSetting(event, selectedShift, weekdayIndex)}*/}
+                            {/*/>*/}
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
