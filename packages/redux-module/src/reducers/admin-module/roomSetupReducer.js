@@ -36,14 +36,15 @@ const initialState = {
     deleteSuccessMessage: '',
     deleteErrorMessage: '',
     isSearchRoomNumberLoading: false,
-    qualificationAliasList: [],
+    roomNumberList: [],
     searchErrorMessage: '',
     isFetchActiveRoomNumberLoading: false,
     activeRoomNumberForDropdown: [],
     dropdownErrorMessage: '',
     isFetchAllRoomNumberLoading: false,
     allRoomNumberForDropdown: [],
-    allRoomDropdownErrorMessage: ''
+    allRoomDropdownErrorMessage: '',
+    totalRecords:''
 };
 
 export const RoomNumberSaveReducer = (state = {...initialState}, action) => {
@@ -154,21 +155,24 @@ export const RoomNumberSearchReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 isSearchRoomNumberLoading: true,
-                qualificationAliasList: [],
-                searchErrorMessage: ''
+                roomNumberList: [],
+                searchErrorMessage: '',
+                totalRecords:''
             };
         case SEARCH_ROOM_NUMBER_SUCCESS:
             return {
                 ...state,
                 isSearchRoomNumberLoading: false,
-                qualificationAliasList: [...action.payload.data],
+                roomNumberList: [...action.payload.data.response],
+                totalRecords:action.payload.data.totalItems,
                 searchErrorMessage: ''
             };
         case SEARCH_ROOM_NUMBER_ERROR:
             return {
                 ...state,
                 isSearchRoomNumberLoading: false,
-                qualificationAliasList: [],
+                roomNumberList: [],
+                totalRecords:'',
                 searchErrorMessage: action.payload.message
             };
         case CLEAR_SEARCH_ROOM_NUMBER_MESSAGE:

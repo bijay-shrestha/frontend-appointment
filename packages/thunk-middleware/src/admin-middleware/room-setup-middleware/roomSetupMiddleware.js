@@ -6,7 +6,7 @@ export const saveRoomNumber = (path, data) => async dispatch => {
     try {
         const response = await Axios.post(path, data);
         dispatch(RoomSetupActions.saveRoomNumberSuccess(
-            "Qualification Alias saved successfully."));
+            "Room Number saved successfully."));
         return response.data;
     } catch (e) {
         dispatch(RoomSetupActions.saveRoomNumberError(
@@ -20,7 +20,7 @@ export const editRoomNumber = (path, data) => async dispatch => {
     try {
         const response = await Axios.put(path, data);
         dispatch(RoomSetupActions.editRoomNumberSuccess(
-            "Qualification Alias edited successfully."));
+            "Room Number edited successfully."));
         return response.data;
     } catch (e) {
         dispatch(RoomSetupActions.editRoomNumberError(
@@ -34,7 +34,7 @@ export const deleteRoomNumber = (path, data) => async dispatch => {
     try {
         const response = await Axios.del(path, data);
         dispatch(RoomSetupActions.deleteRoomNumberSuccess(
-            "Qualification Alias deleted successfully."));
+            "Room Number deleted successfully."));
         return response.data;
     } catch (e) {
         dispatch(RoomSetupActions.deleteRoomNumberError(
@@ -56,10 +56,10 @@ export const searchRoomNumber = (path, data, paginationData) => async dispatch =
     }
 };
 
-export const fetchActiveRoomNumberForDropdown = (path) => async dispatch => {
+export const fetchActiveRoomNumberForDropdown = (path,hospitalId) => async dispatch => {
     dispatch(RoomSetupActions.fetchActiveRoomNumberPending());
     try {
-        const response = await Axios.get(path);
+        const response = await Axios.getWithPathVariables(path,hospitalId);
         dispatch(RoomSetupActions.fetchActiveRoomNumberSuccess(response.data));
         return response.data;
     } catch (e) {
@@ -69,10 +69,10 @@ export const fetchActiveRoomNumberForDropdown = (path) => async dispatch => {
     }
 };
 
-export const fetchAllRoomNumberForDropdown = (path) => async dispatch => {
+export const fetchAllRoomNumberForDropdown = (path,hospitalId) => async dispatch => {
     dispatch(RoomSetupActions.fetchAllRoomNumberPending());
     try {
-        const response = await Axios.get(path);
+        const response = await Axios.getWithPathVariables(path,hospitalId);
         dispatch(RoomSetupActions.fetchAllRoomNumberSuccess(response.data));
         return response.data;
     } catch (e) {
