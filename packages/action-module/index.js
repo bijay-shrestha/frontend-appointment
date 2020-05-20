@@ -52,8 +52,9 @@ import {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
-
+    AppointmentTransferActions,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants
 } from './src/admin-module'
 
 export {
@@ -108,5 +109,7 @@ export {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
+    AppointmentTransferActions,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants
 }
