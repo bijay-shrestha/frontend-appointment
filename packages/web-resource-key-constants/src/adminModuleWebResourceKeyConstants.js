@@ -277,3 +277,13 @@ export const appointmentTransferApiConstants = {
     APPOINTMENT_TRANSFER_TIME: BASE.concat(APPOINTMENT_TRANSFER.concat("/time")),
     APPOINTMENT_TRANSFER_SEARCH:BASE.concat(APPOINTMENT_TRANSFER.concat("/search"))
 };
+
+const ROOM_SETUP_BASE = "/room";
+export const roomSetupApiConstants = {
+    SAVE_ROOM_NUMBER: BASE.concat(ROOM_SETUP_BASE),
+    EDIT_ROOM_NUMBER: BASE.concat(ROOM_SETUP_BASE),
+    DELETE_ROOM_NUMBER: BASE.concat(ROOM_SETUP_BASE),
+    SEARCH_ROOM_NUMBER: BASE.concat(ROOM_SETUP_BASE.concat("/search")),
+    FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/active/min")),
+    FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/min")),
+};

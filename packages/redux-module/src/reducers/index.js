@@ -157,6 +157,14 @@ import {
     AppointmentModeSearchReducer
 } from './admin-module/appointmentModeReducer'
 
+import {
+    RoomNumberDeleteReducer,
+    RoomNumberDropdownReducer,
+    RoomNumberEditReducer,
+    RoomNumberSaveReducer,
+    RoomNumberSearchReducer
+} from './admin-module/roomSetupReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -274,5 +282,10 @@ export {
     UniversitySearchReducer,
     WeekdaysReducer,
     AppointmentTransferReducers,
-    PatientEsewaIdReducer
+    PatientEsewaIdReducer,
+    RoomNumberDeleteReducer,
+    RoomNumberDropdownReducer,
+    RoomNumberEditReducer,
+    RoomNumberSaveReducer,
+    RoomNumberSearchReducer
 }
