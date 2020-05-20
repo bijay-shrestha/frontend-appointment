@@ -36,7 +36,8 @@ import * as  AppointmentModeActions from './appointment-mode/appointmentModeActi
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
 import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
 import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
-
+import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction';
+import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant';
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -75,5 +76,7 @@ export {
     appointmentModeActionConstants,
     AppointmentModeActions,
     AppointmentTransferActions,
-    appointmentTransferConstant
+    appointmentTransferConstant,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants
 }
