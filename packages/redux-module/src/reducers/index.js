@@ -33,11 +33,11 @@ import {
 } from './admin-module/doctorSetupReducer'
 import {
     UnitDeleteReducer,
+    UnitDropdownReducer,
     UnitEditReducer,
     UnitListReducer,
     UnitPreviewReducer,
-    UnitSetupReducer,
-    UnitDropdownReducer
+    UnitSetupReducer
 } from './admin-module/unitSetupReducer'
 import {
     AdminDeleteReducer,
@@ -57,15 +57,15 @@ import {
 import {
     DashboardAppointmentQueueReducer,
     DashboardAppointmentStatisticsReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedByDoctorReducer,
     DashboardRevenueGeneratedDayReducer,
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer,
-    DashboardFeaturesByAdminReducer,
-    DashboardFeaturesReducer
+    DashboardRevenueStatisticsReducer
 } from './admin-module/dashboardDetailsReducer'
 import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer'
 import {
@@ -82,15 +82,15 @@ import {
 import {
     AppointmentApprovalListReducer,
     AppointmentApproveReducer,
+    AppointmentDetailReducer,
     AppointmentLogListReducer,
+    AppointmentRefundDetailReducer,
     AppointmentRefundListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
     RescheduleLogReducer,
-    AppointmentDetailReducer,
-    AppointmentRefundDetailReducer,
     TransactionLogReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
@@ -101,9 +101,9 @@ import {
     PatientDropdownListReducer,
     PatientDropdownWithoutHospitalListReducer,
     PatientEditReducer,
+    PatientEsewaIdReducer,
     PatientPreviewReducer,
-    PatientSearchReducer,
-    PatientEsewaIdReducer
+    PatientSearchReducer
 } from './admin-module/patientSetupReducer'
 
 import {
@@ -132,17 +132,17 @@ import {
     companyUpdateReducer
 } from './admin-module/companySetupReducers'
 import {
+    AdminLoggingDiagramSearchReducer,
     AdminLoggingSearchReducer,
-    AdminLoggingStatsSearchReducer,
-    AdminLoggingDiagramSearchReducer
+    AdminLoggingStatsSearchReducer
 } from './admin-module/adminLoggingReducer'
 import {
     UniversityDeleteReducer,
     UniversityDropdownReducer,
     UniversityEditReducer,
+    UniversityPreviewReducer,
     UniversitySaveReducer,
-    UniversitySearchReducer,
-    UniversityPreviewReducer
+    UniversitySearchReducer
 } from './admin-module/universitySetupReducer'
 
 import {CountryDropdownReducer} from './common/countryReducer'
@@ -164,6 +164,15 @@ import {
     RoomNumberSaveReducer,
     RoomNumberSearchReducer
 } from './admin-module/roomSetupReducer';
+
+import {
+    HospitalDepartmentDeleteReducer,
+    HospitalDepartmentDropdownReducer,
+    HospitalDepartmentEditReducer,
+    HospitalDepartmentPreviewReducer,
+    HospitalDepartmentSaveReducer,
+    HospitalDepartmentSearchReducer
+} from './admin-module/hospitalDepartmentSetupReducer';
 
 export {
     AdminDeleteReducer,
@@ -287,5 +296,11 @@ export {
     RoomNumberDropdownReducer,
     RoomNumberEditReducer,
     RoomNumberSaveReducer,
-    RoomNumberSearchReducer
+    RoomNumberSearchReducer,
+    HospitalDepartmentDeleteReducer,
+    HospitalDepartmentDropdownReducer,
+    HospitalDepartmentEditReducer,
+    HospitalDepartmentPreviewReducer,
+    HospitalDepartmentSaveReducer,
+    HospitalDepartmentSearchReducer
 }

@@ -54,8 +54,9 @@ import {
     appointmentTransferConstant,
     AppointmentTransferActions,
     roomSetupActionConstants,
-    RoomSetupActions
-
+    RoomSetupActions,
+    hospitalDepartmentSetupActionConstants,
+    HospitalDepartmentSetupActions
 } from './src/admin-module'
 
 export {
@@ -112,5 +113,7 @@ export {
     appointmentTransferConstant,
     AppointmentTransferActions,
     roomSetupActionConstants,
-    RoomSetupActions
+    RoomSetupActions,
+    HospitalDepartmentSetupActions,
+    hospitalDepartmentSetupActionConstants
 }

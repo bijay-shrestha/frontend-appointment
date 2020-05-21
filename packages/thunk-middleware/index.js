@@ -34,7 +34,8 @@ import {
     AppointmentModeMiddleware,
     fetchAdminMetaInfoByHospitalId,
     AppointmentTransferMiddleware,
-    RoomSetupMiddleware
+    RoomSetupMiddleware,
+    HospitalDepartmentSetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
@@ -104,5 +105,6 @@ export {
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
     AppointmentTransferMiddleware,
-    RoomSetupMiddleware
+    RoomSetupMiddleware,
+    HospitalDepartmentSetupMiddleware
 }

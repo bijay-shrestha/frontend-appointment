@@ -14,7 +14,7 @@ const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
-const APPOINTMENT_TRANSFER="/appointmentTransfer"
+const APPOINTMENT_TRANSFER = "/appointmentTransfer"
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -158,7 +158,7 @@ export const patientSetupApiConstant = {
     PREVIEW_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE + "/detail"),
     UPDATE_PATIENT_DETAIL_BY_ID: BASE.concat(PATIENT_BASE),
     FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID: BASE.concat(PATIENT_BASE.concat("/min/detail")),
-    FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN:BASE.concat(PATIENT_BASE.concat("/eSewaId"))
+    FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN: BASE.concat(PATIENT_BASE.concat("/eSewaId"))
 };
 
 
@@ -271,11 +271,11 @@ export const appointmentModeApiConstants = {
 
 export const appointmentTransferApiConstants = {
     APPOINTMENT_TRANSFER: BASE.concat(APPOINTMENT_TRANSFER),
-    APPOINTMENT_TRANSFER_PREVIEW: BASE.concat(APPOINTMENT_TRANSFER+'/detail'),
-    APPOINTMENT_TRANSFER_CHARGE: BASE.concat(APPOINTMENT_TRANSFER+'/charge'),
+    APPOINTMENT_TRANSFER_PREVIEW: BASE.concat(APPOINTMENT_TRANSFER + '/detail'),
+    APPOINTMENT_TRANSFER_CHARGE: BASE.concat(APPOINTMENT_TRANSFER + '/charge'),
     APPOINTMENT_TRANSFER_DATE: BASE.concat(APPOINTMENT_TRANSFER.concat("/date")),
     APPOINTMENT_TRANSFER_TIME: BASE.concat(APPOINTMENT_TRANSFER.concat("/time")),
-    APPOINTMENT_TRANSFER_SEARCH:BASE.concat(APPOINTMENT_TRANSFER.concat("/search"))
+    APPOINTMENT_TRANSFER_SEARCH: BASE.concat(APPOINTMENT_TRANSFER.concat("/search"))
 };
 
 const ROOM_SETUP_BASE = "/room";
@@ -287,3 +287,14 @@ export const roomSetupApiConstants = {
     FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/active/min")),
     FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/min")),
 };
+
+const HOSPITAL_DEPARTMENT_SETUP_BASE = "/room";
+export const hospitalDepartmentSetupApiConstants = {
+    SAVE_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
+    EDIT_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
+    DELETE_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
+    SEARCH_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE.concat("/search")),
+    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE.concat("/active/min")),
+    FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE.concat("/min")),
+};
+

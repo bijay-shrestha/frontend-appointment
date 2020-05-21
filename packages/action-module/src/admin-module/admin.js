@@ -39,6 +39,9 @@ import {appointmentTransferConstant} from './appointment-transfer/appointmentTra
 import * as  RoomSetupActions from './room-setup/roomSetupActions';
 import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
 
+import * as  HospitalDepartmentSetupActions from './hospital-department-setup/hospitalDepartmentSetupActions';
+import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants';
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -79,5 +82,7 @@ export {
     AppointmentTransferActions,
     appointmentTransferConstant,
     roomSetupActionConstants,
-    RoomSetupActions
+    RoomSetupActions,
+    hospitalDepartmentSetupActionConstants,
+    HospitalDepartmentSetupActions
 }
