@@ -12,7 +12,7 @@ const AddProfileComponent = Loadable({
 })
 
 const AddUnitComponent = Loadable({
-    loader: () => import('./container/ClientDepartmentSetup/Add/DepartmentAdd'),
+    loader: () => import('./container/ClientUnitSetup/Add/UnitAdd'),
     loading: () => getLoader()
 })
 
@@ -110,7 +110,7 @@ const ManageProfileComponent = Loadable({
 
 const ManageUnitComponent = Loadable({
     loader: () =>
-        import('./container/ClientDepartmentSetup/Manage/DepartmentManage'),
+        import('./container/ClientUnitSetup/Manage/UnitManage'),
     loading: () => getLoader()
 })
 

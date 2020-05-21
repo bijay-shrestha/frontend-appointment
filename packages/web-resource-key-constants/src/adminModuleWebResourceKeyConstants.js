@@ -29,22 +29,22 @@ export const profileSetupAPIConstants = {
     DELETE_PROFILE: BASE.concat(PROFILE_BASE),
     FETCH_PROFILE_DETAILS: BASE.concat(PROFILE_BASE.concat("/detail")),
     EDIT_PROFILE: BASE.concat(PROFILE_BASE),
-    FETCH_PROFILE_LIST_BY_SUB_DEPARTMENT_ID: BASE.concat(PROFILE_BASE),
+    FETCH_PROFILE_LIST_BY_SUB_UNIT_ID: BASE.concat(PROFILE_BASE),
     FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
     FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN: BASE.concat(PROFILE_BASE.concat("/active/min")),
-    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID: BASE.concat(PROFILE_BASE)
+    FETCH_ACTIVE_PROFILES_BY_UNIT_ID: BASE.concat(PROFILE_BASE)
 };
 
-const DEPARTMENT_BASE = "/department";
+const UNIT_BASE = "/department";
 export const departmentSetupAPIConstants = {
-    CREATE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
-    SEARCH_DEPARTMENT: BASE.concat(DEPARTMENT_BASE.concat("/search")),
-    FETCH_DEPARTMENT_DETAILS: BASE.concat(DEPARTMENT_BASE.concat("/detail")),
-    EDIT_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
-    DELETE_DEPARTMENT: BASE.concat(DEPARTMENT_BASE),
-    EXPORT_DEPARTMENT_EXCEL: BASE.concat(DEPARTMENT_BASE.concat("/excel")),
-    FETCH_DEPARTMENTS_FOR_DROPDOWN: BASE.concat(DEPARTMENT_BASE.concat('/active/min')),
-    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL: BASE.concat(DEPARTMENT_BASE + '/active/min'),
+    CREATE_UNIT: BASE.concat(UNIT_BASE),
+    SEARCH_UNIT: BASE.concat(UNIT_BASE.concat("/search")),
+    FETCH_UNIT_DETAILS: BASE.concat(UNIT_BASE.concat("/detail")),
+    EDIT_UNIT: BASE.concat(UNIT_BASE),
+    DELETE_UNIT: BASE.concat(UNIT_BASE),
+    EXPORT_UNIT_EXCEL: BASE.concat(UNIT_BASE.concat("/excel")),
+    FETCH_UNIT_FOR_DROPDOWN: BASE.concat(UNIT_BASE.concat('/active/min')),
+    FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL: BASE.concat(UNIT_BASE + '/active/min'),
 };
 
 const ADMIN_BASE = "/admin";

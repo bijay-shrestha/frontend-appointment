@@ -91,13 +91,13 @@ const AdminInfoForm = ({
               <Col sm={12} md={12} lg={6}>
                 <CHybridSelect
                   id="admin-department"
-                  label="Department"
+                  label="Unit"
                   name="department"
                   onKeyDown={event => onEnterKeyPress(event)}
                   onChange={event => onInputChange(event)}
                   options={departmentList}
                   value={adminInfoObj.department}
-                  placeholder={'Select department.'}
+                  placeholder={'Select Unit.'}
                 />
               </Col>
 

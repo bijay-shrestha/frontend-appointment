@@ -1,10 +1,7 @@
 import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
-import {
-    HospitalSetupMiddleware,
-    RoomSetupMiddleware
-} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
+import {RoomSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';

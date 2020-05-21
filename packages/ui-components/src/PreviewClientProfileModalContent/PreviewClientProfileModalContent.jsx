@@ -134,7 +134,7 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                     <Col sm={4} md={4} lg={4}>
                                         <CHybridSelect
                                             id="department"
-                                            label="Department"
+                                            label="Unit"
                                             name="selectedDepartment"
                                             // options={departmentList}
                                             value={profileData.departmentValue}
@@ -185,8 +185,8 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                         disabled={true}
                                     />
                                 </Col>
-                           
-                                
+
+
                                 {
                                     profileData.remarks ?
                                         <Col sm={4} md={4} lg={4}>
@@ -351,12 +351,12 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                 </Container-fluid>
            <Container-fluid>
            <Row className="mt-4">
-               
+
                {/*  */}
                {AuditableEntityHoc(profileData, false, 4)}
-     
+
                </Row>
-                                
+
                </Container-fluid>
             </>
         )

@@ -26,7 +26,7 @@ import {
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
 import * as HospitalSetupMiddleware from './hospital-setup-middleware/hospitalSetupMiddleware';
 import * as DoctorMiddleware from './doctor-setup-middleware/doctorSetupMiddleware';
-import * as DepartmentSetupMiddleware from "./department-setup-middleware/departmentSetupMiddleware";
+import * as UnitSetupMiddleware from "./unit-setup-middleware/unitSetupMiddleware";
 import * as DoctorDutyRosterMiddleware from "./doctor-duty-roster-middleware/doctorDutyRosterMiddleware";
 import * as QualificationSetupMiddleware from './qualification-setup-middleware/qualificationSetupMiddleware';
 import * as PatientDetailsMiddleware from './patient-details-middleware/patientDetailsMiddleware'
@@ -64,7 +64,7 @@ export {
     HospitalSetupMiddleware,
     CompanySetupMiddleware,
     DoctorMiddleware,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     QualificationSetupMiddleware,
     DoctorDutyRosterMiddleware,
     PatientDetailsMiddleware,

@@ -32,13 +32,13 @@ import {
     DoctorSearchReducer
 } from './admin-module/doctorSetupReducer'
 import {
-    DepartmentDeleteReducer,
-    DepartmentEditReducer,
-    DepartmentListReducer,
-    DepartmentPreviewReducer,
-    DepartmentSetupReducer,
-    DepartmentDropdownReducer
-} from './admin-module/departmentSetupReducer'
+    UnitDeleteReducer,
+    UnitEditReducer,
+    UnitListReducer,
+    UnitPreviewReducer,
+    UnitSetupReducer,
+    UnitDropdownReducer
+} from './admin-module/unitSetupReducer'
 import {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -216,12 +216,12 @@ export {
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
-    DepartmentDeleteReducer,
-    DepartmentDropdownReducer,
-    DepartmentEditReducer,
-    DepartmentListReducer,
-    DepartmentPreviewReducer,
-    DepartmentSetupReducer,
+    UnitDeleteReducer,
+    UnitDropdownReducer,
+    UnitEditReducer,
+    UnitListReducer,
+    UnitPreviewReducer,
+    UnitSetupReducer,
     DoctorDeleteReducer,
     DoctorDropdownReducer,
     DoctorDutyRosterDeleteReducer,

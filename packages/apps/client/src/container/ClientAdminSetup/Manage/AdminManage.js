@@ -4,7 +4,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
     deleteAdmin,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     editAdmin,
     fetchActiveProfileListForDropdown,
     fetchActiveProfilesByDepartmentId,
@@ -48,12 +48,12 @@ const {
 
 const {
     FETCH_ACTIVE_PROFILE_LIST_FOR_DROPDOWN,
-    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID,
+    FETCH_ACTIVE_PROFILES_BY_UNIT_ID,
     FETCH_PROFILE_DETAILS
 } = AdminModuleAPIConstants.profileSetupAPIConstants
 
 const {
-    FETCH_DEPARTMENTS_FOR_DROPDOWN,
+    FETCH_UNIT_FOR_DROPDOWN,
 } = AdminModuleAPIConstants.departmentSetupAPIConstants
 
 const {
@@ -65,7 +65,7 @@ const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {
     fetchActiveDepartmentsByHospitalId,
     fetchActiveDepartmentsForDropdown
-} = DepartmentSetupMiddleware
+} = UnitSetupMiddleware
 
 const {
     fetchDashboardFeatures,
@@ -757,7 +757,7 @@ class AdminManage extends PureComponent {
     fetchDepartments = async () => {
         await TryCatchHandler.genericTryCatch(
             this.props.fetchActiveDepartmentsForDropdown(
-                FETCH_DEPARTMENTS_FOR_DROPDOWN
+                FETCH_UNIT_FOR_DROPDOWN
             )
         )
     }
@@ -765,7 +765,7 @@ class AdminManage extends PureComponent {
     fetchProfilesByDepartmentId = async value => {
         value &&
         (await this.props.fetchActiveProfilesByDepartmentId(
-            FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID,
+            FETCH_ACTIVE_PROFILES_BY_UNIT_ID,
             value
         ))
     }
@@ -909,7 +909,7 @@ class AdminManage extends PureComponent {
     actionsOnHospitalChange = async value => {
         if (value) {
             await this.fetchDepartmentsByHospitalId(value)
-            const {departmentsByHospital} = this.props.DepartmentSetupReducer
+            const {departmentsByHospital} = this.props.UnitSetupReducer
             this.setState({
                 adminUpdateData: {
                     ...this.state.adminUpdateData,
@@ -1074,7 +1074,7 @@ class AdminManage extends PureComponent {
                 macIdList: [...macIdList],
                 adminAvatar: adminAvatar,
                 adminAvatarUrl: adminAvatarUrl,
-                departmentList: [...this.props.DepartmentSetupReducer.departments],
+                departmentList: [...this.props.UnitSetupReducer.departments],
                 profileList: [
                     ...this.props.ProfileSetupReducer.activeProfilesByDepartmentId
                 ],
@@ -1178,7 +1178,7 @@ class AdminManage extends PureComponent {
 
         const {
             departments
-        } = this.props.DepartmentSetupReducer
+        } = this.props.UnitSetupReducer
 
         return (
             <>
@@ -1300,7 +1300,7 @@ export default ConnectHoc(
         'AdminEditReducer',
         'AdminPreviewReducer',
         'HospitalDropdownReducer',
-        'DepartmentSetupReducer',
+        'UnitSetupReducer',
         'ProfileSetupReducer',
         'ProfilePreviewReducer',
         'logoutReducer',

@@ -99,7 +99,7 @@ class ModalContent extends React.PureComponent {
                             <Col sm={4} md={4} lg={4}>
                                 <CHybridSelect
                                     id="department"
-                                    label="Department"
+                                    label="Unit"
                                     name="selectedDepartment"
                                     // options={departmentList}
                                     value={profileData.departmentValue}

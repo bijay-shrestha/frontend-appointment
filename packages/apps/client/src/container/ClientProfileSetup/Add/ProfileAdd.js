@@ -7,7 +7,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
@@ -23,12 +23,12 @@ import {
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
-const {FETCH_DEPARTMENTS_FOR_DROPDOWN} = AdminModuleAPIConstants.departmentSetupAPIConstants;
+const {FETCH_UNIT_FOR_DROPDOWN} = AdminModuleAPIConstants.departmentSetupAPIConstants;
 
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsForDropdown} = DepartmentSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown} = UnitSetupMiddleware;
 
 class ProfileAdd extends PureComponent {
 
@@ -117,7 +117,7 @@ class ProfileAdd extends PureComponent {
             : this.setState({[key]: value, [key + "Valid"]: fieldValid});
 
     fetchDepartments = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_UNIT_FOR_DROPDOWN));
     };
 
     filterMenuByDepartment = () => {
@@ -317,7 +317,7 @@ class ProfileAdd extends PureComponent {
 
     render() {
 
-        const {departments} = this.props.DepartmentSetupReducer;
+        const {departments} = this.props.UnitSetupReducer;
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
 
         const {
@@ -416,7 +416,7 @@ class ProfileAdd extends PureComponent {
 export default ConnectHoc(ProfileAdd,
     [
         'ProfileSetupReducer',
-        'DepartmentSetupReducer',
+        'UnitSetupReducer',
     ], {
         fetchActiveDepartmentsForDropdown,
         createProfile,

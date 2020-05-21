@@ -8,8 +8,8 @@ import {doctorSetupConstants} from './doctor-setup/doctorSetupConstant'
 import * as DoctorSetupActions from './doctor-setup/doctorSetupActions'
 import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant'
 import * as AdminSetupActions from './admin-setup/adminSetupActions'
-import * as DepartmentSetupActions from './department-setup/departmentSetupActions'
-import {departmentSetupConstants} from './department-setup/departmentSetupActionConstants'
+import * as UnitSetupActions from './unit-setup/unitSetupActions'
+import {unitSetupConstants} from './unit-setup/unitSetupActionConstants'
 import * as QualificationSetupActions from './qualification-setup/qualificationSetupActions'
 import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
 import {doctorDutyRosterActionConstants} from './doctor-duty-roster/doctorDutyRosterActionConstants'
@@ -56,8 +56,8 @@ export {
     DoctorSetupActions,
     adminSetupActionConstants,
     AdminSetupActions,
-    departmentSetupConstants,
-    DepartmentSetupActions,
+    unitSetupConstants,
+    UnitSetupActions,
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     QualificationSetupActions,

@@ -20,7 +20,7 @@ const AddProfileComponent = loadable(
 )
 
 const AddUnitComponent = loadable(
-    () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
+    () => import('./container/UnitSetup/Add/UnitAdd'),
     {fallback: getLoader()}
 )
 
@@ -130,7 +130,7 @@ const ManageProfileComponent = loadable(
 )
 
 const ManageUnitComponent = loadable(
-    () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
+    () => import('./container/UnitSetup/Manage/UnitManage'),
     {fallback: () => getLoader()}
 )
 

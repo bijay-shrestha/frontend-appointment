@@ -41,14 +41,14 @@ const ProfileInfoForm = ({
 
                 <CHybridSelect
                     id="department"
-                    label="Department"
+                    label="Unit"
                     name="selectedDepartment"
                     onKeyDown={(event) => onEnterKeyPress(event)}
                     onChange={(event) => onInputChange(event)}
                     options={departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select department."
-                        : "No department(s) available." : "Select Client first."}
+                    placeholder={!profileInfoObj.hospitalValue ? departmentList.length ? "Select Unit."
+                        : "No Unit(s) available." : "Select Client first."}
                     isDisabled={!profileInfoObj.hospitalValue || !departmentList.length}
                 />
 
