@@ -224,13 +224,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         alertMessageInfo,
         integrationData,
         regexForCommaSeperation,
-        formValid
+        formValid,
+        showConfirmationModal
       } = this.state
       const {
         isHospitalApiSaveLoading
       } = this.props.hospitalApiIntegrationSaveReducers
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-      const {} = this.props.h
       const {
         featureTypeDropdownData,
         featureTypeDropdownError,
@@ -268,7 +268,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
               onConfirmHandler: this.onConfirmHandler,
-              onSaveHandler: this.onSaveHandler
+              onSaveHandler: this.onSaveHandler,
+              showConfirmationModal:showConfirmationModal
             }}
           />
           <CAlert

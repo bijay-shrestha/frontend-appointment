@@ -1,4 +1,4 @@
-import {HospitalApiIntegrationActions, hospitalApiIntegrationActionConstants} from "@frontend-appointment/action-module";
+import {HospitalApiIntegrationActions} from "@frontend-appointment/action-module";
 import {Axios} from "@frontend-appointment/core";
 
 export const fetchFeatureTypeForDrodown = (path) => async dispatch => {

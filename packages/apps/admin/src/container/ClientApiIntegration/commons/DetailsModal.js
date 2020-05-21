@@ -8,7 +8,7 @@ import {
 import {Col, Row} from 'react-bootstrap'
 //import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
-const DetailsModal = ({integration, type}) => {
+const DetailsModal = ({integrationData, type}) => {
   return (
     <>
       <Container-fluid>
@@ -19,7 +19,7 @@ const DetailsModal = ({integration, type}) => {
                 <CHybridSelect
                   id="hospital"
                   label="Hospital"
-                  value={integration.clientId}
+                  value={integrationData.clientId}
                   isDisabled={true}
                 />
               </Col>
@@ -29,7 +29,7 @@ const DetailsModal = ({integration, type}) => {
                   id="featureType"
                   name="name"
                   label="Feature Type"
-                  value={integration.featureType}
+                  value={integrationData.featureType}
                   isDisabled={true}
                 />
               </Col>
@@ -39,7 +39,7 @@ const DetailsModal = ({integration, type}) => {
                   id="requestMethod"
                   name="requestmethod"
                   label="Request Method"
-                  value={integration.requestMethod}
+                  value={integrationData.requestMethod}
                   isDisabled={true}
                 />
               </Col>
@@ -96,7 +96,7 @@ const DetailsModal = ({integration, type}) => {
                 <CHybridTextArea
                   id="header"
                   placeholder="Request Body"
-                  value={integration.requestBody}
+                  value={integrationData.requestBody}
                   disabled={true}
                 />
               </Col>

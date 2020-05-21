@@ -7,12 +7,13 @@ const ClientApiConfirmationModal = props => {
         integrationData,
         setCloseModal,
         isHospitalApiSaveLoading,
-        onSaveHandler
+        onSaveHandler,
+        showConfirmationModal
     } = props
     return (
         <>
             <CModal
-                show={setCloseModal}
+                show={showConfirmationModal}
                 modalHeading="API Integration Details"
                 size="lg"
                 bodyChildren={
@@ -21,7 +22,7 @@ const ClientApiConfirmationModal = props => {
                          type={'A'}
                     />
                 }
-                onHide={setShowModal}
+                onHide={setCloseModal}
                 centered={false}
                 dialogClassName="preview-modal"
                 footerChildren={

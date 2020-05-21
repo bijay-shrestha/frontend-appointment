@@ -29,8 +29,7 @@ const ClientApiIntegrationForm = ({
   // isHospitalApiSaveLoading,
   //onConfirmHandler,
   // onSaveHandler,
-  hospitalsForDropdown,
-  featureTypeDropdownData
+  hospitalsForDropdown
 }) => {
   return (
     <>

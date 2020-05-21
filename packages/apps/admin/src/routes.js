@@ -94,6 +94,10 @@ const CompanyAddComponent = loadable(
     () => import('./container/CompanySetup/Add/CompanyAdd'),
     {fallback: () => getLoader()}
 )
+const ClientApiIntegration = loadable(
+    () => import('./container/ClientApiIntegration/Add/ClientApiIntegrationAddForm'),
+    {fallback: () => getLoader()}  
+)
 /* ****** D ***** */
 
 const DashboardComponent = loadable(
@@ -678,6 +682,26 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/apiIntegration/clientApiMigration',
+        name: 'Client Api Integration',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/apiIntegration/clientApiMigration/add',
+        name: 'Add',
+        component: ClientApiIntegration,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
         isSingleTab: false,
     },
     {
