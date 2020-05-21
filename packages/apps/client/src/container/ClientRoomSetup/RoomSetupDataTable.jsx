@@ -28,7 +28,7 @@ const RoomSetupDataTable = ({tableData, filteredAction}) => {
         <div className="manage-details editable-table-container">
             <h5 className="title">Room Setup</h5>
             <CTable
-                id="room"
+                id="room-setup"
                 columnDefinition={[
                     {
                         headerName: 'Room Number',
