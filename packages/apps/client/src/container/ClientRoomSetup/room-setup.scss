@@ -8,18 +8,18 @@
 @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
-#qualification-alias{
+#room-setup{
   .table-header,.table-body{
     tr td{
       &:nth-child(1){
-        width:40%;
+        width:30%;
       }
 
       &:nth-child(2){
         width:40%;
       }
       &:nth-child(3){
-        width:20%;
+        width:30%;
       }
     }
   }
