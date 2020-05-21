@@ -16,7 +16,9 @@ export {default as CRemarksModal} from './src/CRemarksModal/CRemarksModal';
 export {default as CNoDashboardRoleContent} from './src/CNoDashboardRoleContent/CNoDashboardRoleContent';
 export {default as CEmailVerification} from './src/CEmailVerification/CEmailVerification';
 export {default as CDoctorNameDisplayForTable} from './src/CDoctorNameDisplayForTable/CDoctorNameDisplayForTable';
-export {default as CPasswordSavedSuccessMessageView}from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
+export {
+    default as CPasswordSavedSuccessMessageView
+}from './src/CPasswordSavedSuccessMessage/CPasswordSavedSuccessMessageView';
 export {default as PatientNameWithAgeGenderPhone} from './src/PatientNameWithAgeGenderPhoneForTable';
 export {default as TransactionDateWithTime} from './src/TransactionDateWithTimeForTable';
 export {default as AppointmentNumberWithFollowUpFlag} from './src/AppointmentNumberWithFollowUpFlagForTable';
@@ -28,7 +30,13 @@ export {default as PreviewClientProfileModalContent} from './src/PreviewClientPr
 export {default as CompanyProfileModalContent} from './src/CompanyProfileModalContent';
 export {default as RescheduleLogDateWithTimeForTable} from './src/RescheduleLogDateWithTimeForTable';
 export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
-export {default as DoctorWithSpecImage} from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
+export {
+    default as DoctorWithSpecImage
+}from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
 export {default as TransferredFromDateWithTime} from './src/TransferredFromDateWithTime/TransferredFromDateWithTime';
 export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
-export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
+export {
+    default as TransferredToDoctorWithSpecImage
+}from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
+export {default as HospitalDepartmentForm} from './src/HospitalDepartmentSetupComponents/HospitalDepartmentForm';
+export {default as HospitalDepartmentPreviewModal} from './src/HospitalDepartmentSetupComponents/HospitalDepartmentPreviewModal';

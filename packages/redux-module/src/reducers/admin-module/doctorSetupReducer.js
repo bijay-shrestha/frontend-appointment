@@ -259,14 +259,14 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
                 doctorDropdownErrorMessage: action.payload.errorMessage,
             };
         case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS:
-            console.log('Doctor By Specializaiton',action.payload.data)
+            // console.log('Doctor By Specializaiton',action.payload.data)
             return {
                 ...state,
                 doctorsBySpecializationForDropdown: [...action.payload.data],
                 doctorDropdownErrorMessage: '',
             };
         case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR:
-    
+
             return {
                 ...state,
                 doctorsBySpecializationForDropdown: [],

@@ -69,6 +69,12 @@ const ActivityLog = loadable(
     () => import('./container/ClientActivitiesLog/ClientActivityLog'),
     {fallback: () => getLoader()}
 )
+
+const AddDepartmentSetup = loadable(
+    () => import('./container/ClientHospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
+    {fallback: () => getLoader()}
+)
+
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -139,6 +145,11 @@ const ManageQualificationComponent = Loadable({
 
 const ManageDoctorComponent = Loadable({
     loader: () => import('./container/ClientDoctorSetup/Manage/DoctorManage'),
+    loading: () => getLoader()
+})
+
+const ManageDepartmentComponent = Loadable({
+    loader: () => import('./container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
     loading: () => getLoader()
 })
 /* ****** N ***** */
@@ -571,5 +582,35 @@ export const routes = [
         isTab: false,
         name: 'Room Setup',
         isSingleTab: true,
+    },
+    {
+        path: '/generalSetup/departmentSetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Department Setup',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/departmentSetup/add',
+        component: AddDepartmentSetup,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/doctorSetup/manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage',
+        isSingleTab: false
     },
 ]

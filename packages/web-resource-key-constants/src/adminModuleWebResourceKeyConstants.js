@@ -288,7 +288,7 @@ export const roomSetupApiConstants = {
     FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/min")),
 };
 
-const HOSPITAL_DEPARTMENT_SETUP_BASE = "/room";
+const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 export const hospitalDepartmentSetupApiConstants = {
     SAVE_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
     EDIT_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
