@@ -36,6 +36,8 @@ import * as  AppointmentModeActions from './appointment-mode/appointmentModeActi
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
 import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
 import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
+import * as  RoomSetupActions from './room-setup/roomSetupActions';
+import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -75,5 +77,7 @@ export {
     appointmentModeActionConstants,
     AppointmentModeActions,
     AppointmentTransferActions,
-    appointmentTransferConstant
+    appointmentTransferConstant,
+    roomSetupActionConstants,
+    RoomSetupActions
 }

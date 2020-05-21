@@ -1,0 +1,29 @@
+
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+#room-setup{
+  .table-header,.table-body{
+    tr td{
+      &:nth-child(1){
+        width:30%;
+      }
+
+      &:nth-child(2){
+        width:30%;
+      }
+      &:nth-child(3){
+        width:20%;
+      }
+      &:nth-child(4){
+        width:20%;
+      }
+    }
+  }
+}

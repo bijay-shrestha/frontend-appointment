@@ -52,7 +52,9 @@ import {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
+    AppointmentTransferActions,
+    roomSetupActionConstants,
+    RoomSetupActions
 
 } from './src/admin-module'
 
@@ -108,5 +110,7 @@ export {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
+    AppointmentTransferActions,
+    roomSetupActionConstants,
+    RoomSetupActions
 }

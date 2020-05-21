@@ -39,6 +39,8 @@ import * as AdminLoggingMiddleware from './admin-logging-middleware/adminLogging
 import * as UniversitySetupMiddleware from './university-setup-middleware/universitySetupMiddleware';
 import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
 import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware'
+import * as RoomSetupMiddleware from './room-setup-middleware/roomSetupMiddleware';
+
 export {
     createProfile,
     fetchProfileList,
@@ -73,5 +75,6 @@ export {
     UniversitySetupMiddleware,
     fetchAdminMetaInfoByHospitalId,
     AppointmentModeMiddleware,
-    AppointmentTransferMiddleware
+    AppointmentTransferMiddleware,
+    RoomSetupMiddleware
 }

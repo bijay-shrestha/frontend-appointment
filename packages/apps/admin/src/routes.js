@@ -19,7 +19,7 @@ const AddProfileComponent = loadable(
     {fallback: getLoader()}
 )
 
-const AddDepartmentComponent = loadable(
+const AddUnitComponent = loadable(
     () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
     {fallback: getLoader()}
 )
@@ -83,6 +83,11 @@ const AppointmentModeComponent = loadable(
     () => import('./container/AppointmentMode/AppointmentMode'),
     {fallback: getLoader()}
 )
+
+const AddCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+    {fallback: () => getLoader()}
+)
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -98,16 +103,6 @@ const CompanyAddComponent = loadable(
 
 const DashboardComponent = loadable(
     () => import('./container/AdminDashboard/AdminDashboard'),
-    {fallback: () => getLoader()}
-)
-
-const AddCompanyAdminComponent = loadable(
-    () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
-    {fallback: () => getLoader()}
-)
-
-const ManageCompanyAdminComponent = loadable(
-    () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
     {fallback: () => getLoader()}
 )
 
@@ -134,7 +129,7 @@ const ManageProfileComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const ManageDepartmentComponent = loadable(
+const ManageUnitComponent = loadable(
     () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
     {fallback: () => getLoader()}
 )
@@ -174,6 +169,11 @@ const ManageCompanyProfileComponent = loadable(
         import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
     {fallback: getLoader()}
 )
+
+const ManageCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+    {fallback: () => getLoader()}
+)
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -200,6 +200,11 @@ const QualificationAlias = loadable(
 
 const RescheduleLog = loadable(
     () => import('./container/RescheduleLog/RescheduleLog'),
+    {fallback: () => getLoader()}
+)
+
+const RoomSetup = loadable(
+    () => import('./container/RoomSetup/RoomSetup'),
     {fallback: () => getLoader()}
 )
 
@@ -334,19 +339,19 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/departmentSetup',
+        path: '/admin/generalSetup/unitSetup',
         component: <></>,
         isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Department Setup',
+        name: 'Unit Setup',
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/departmentSetup/add',
+        path: '/admin/generalSetup/unitSetup/add',
         name: 'Add',
-        component: AddDepartmentComponent,
+        component: AddUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
@@ -354,9 +359,9 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/generalSetup/departmentSetup/manage',
+        path: '/admin/generalSetup/unitSetup/manage',
         name: 'Manage',
-        component: ManageDepartmentComponent,
+        component: ManageUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
@@ -778,6 +783,16 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Transfer Log',
+        isSingleTab: true,
+    },
+    {
+        path: '/admin/generalSetup/roomSetup',
+        component: RoomSetup,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Room Setup',
         isSingleTab: true,
     },
 ];
