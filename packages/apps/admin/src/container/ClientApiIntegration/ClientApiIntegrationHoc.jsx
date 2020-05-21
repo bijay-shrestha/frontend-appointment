@@ -33,9 +33,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         size: 10
       },
       addObjectId: 0,
-      previewModal: true,
-      editShowModal: true,
-      showConfirmationModal: true,
+      previewModal: false,
+      editShowModal: false,
+      showConfirmationModal: false,
       regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
       alertMessageInfo: {
         variant: '',
@@ -80,6 +80,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       if (name !== 'requestBody')
         this.setTheStateForIntegrationData(integrationDatas)
       else this.setTheStateForInputValidity(integrationDatas, validity)
+      this.checkFormValidity()
     }
 
     setCloseModal = () => {
@@ -104,6 +105,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         description: ''
       })
       this.setTheStateForIntegrationData(objectToModify)
+      this.checkFormValidity()
     }
 
     onChangeHandlerHeaderOrQueryParams = (e, index, fieldName) => {
@@ -111,12 +113,14 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName][index][name] = value
       this.setTheStateForIntegrationData(objectToModify)
+      this.checkFormValidity()
     }
 
     onRemoveHandlerHeaderOrQueryParams = (index, fieldName) => {
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName].splice(index, index)
       this.setTheStateForIntegrationData(objectToModify)
+      this.checkFormValidity()
     }
 
     setShowAlertModal = (variant, message) => {
@@ -235,12 +239,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         featureTypeDropdownData,
         featureTypeDropdownError,
         isFeatureTypeDropdownLoading
-      } = this.props.hospitalRequestMethodDropdownReducers
+      } = this.props.hospitalFeatureTypeDropdownReducers
       const {
         isRequestMethodDropdownLoading,
         requestMethodData,
         requestMethodDropdownError
-      } = this.props.hospitalFeatureTypeDropdownReducers
+      } = this.props.hospitalRequestMethodDropdownReducers
+      console.log("done",this.props.hospitalRequestMethodDropdownReducers);
       return (
         <>
           <ComposedComponent
@@ -256,12 +261,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               setCloseModal: this.setCloseModal,
               resetIntegrationData: this.resetIntegrationData,
               regexForCommaSeperation: regexForCommaSeperation,
-              featureTypeDropdownData,
-              featureTypeDropdownError,
-              isFeatureTypeDropdownLoading,
-              isRequestMethodDropdownLoading,
-              requestMethodData,
-              requestMethodDropdownError,
+              featureTypeDropdownData:featureTypeDropdownData.length?featureTypeDropdownData:[],
+              featureTypeDropdownError:featureTypeDropdownError,
+              isFeatureTypeDropdownLoading:isFeatureTypeDropdownLoading,
+              isRequestMethodDropdownLoading:isRequestMethodDropdownLoading,
+              requestMethodData:requestMethodData.length?[...requestMethodData]:[],
+              requestMethodDropdownError:requestMethodDropdownError,
               formValid,
               hospitalsForDropdown
             }}

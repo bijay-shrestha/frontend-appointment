@@ -28,8 +28,8 @@ export const saveHospitalIntegration = (path, integrationData) => async dispatch
 export const fetchRequestMethodDropdown = (path) => async dispatch => {
     dispatch(HospitalApiIntegrationActions.hospitalRequestMethodDropdownPending())
     try {
-         await Axios.get(path);
-        dispatch(HospitalApiIntegrationActions.hospitalRequestMethodDropdownSuccess())
+        const response= await Axios.get(path);
+        dispatch(HospitalApiIntegrationActions.hospitalRequestMethodDropdownSuccess(response.data))
     } catch (e) {
         dispatch(HospitalApiIntegrationActions.hospitalRequestMethodDropdownError(e.errorMessage));
     }

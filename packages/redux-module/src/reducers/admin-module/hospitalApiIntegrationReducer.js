@@ -78,17 +78,17 @@ const requestMethodDropdownHandler = {
     requestMethodData: [],
     requestMethodDropdownError: ''
   }),
-  [HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS]: (state, action) => ({
+  [HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS]: (state, action) =>{ console.log("action.payload.data",action.payload.data); return({
     ...state,
     isRequestMethodDropdownLoading: false,
     requestMethodData: action.payload.data,
     requestMethodDropdownError: ''
-  }),
+  })},
   [HOSPITAL_REQUEST_METHOD_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
-    appointmentTransferTime: [],
-    isAppointmentTransferTimeLoading: false,
-    appointmentTransferTimeError: action.payload.message
+    isRequestMethodDropdownLoading: false,
+    requestMethodData: [],
+    requestMethodDropdownError:action.payload.data
   })
 }
 

@@ -685,7 +685,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/apiIntegration/clientApiMigration',
+        path: '/admin/apiIntegration/clientApiIntegration',
         name: 'Client Api Integration',
         component: <></>,
         icon: '',
@@ -695,7 +695,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/apiIntegration/clientApiMigration/add',
+        path: '/admin/apiIntegration/clientApiIntegration/add',
         name: 'Add',
         component: ClientApiIntegration,
         icon: '',

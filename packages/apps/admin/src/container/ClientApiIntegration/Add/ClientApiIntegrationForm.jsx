@@ -44,7 +44,7 @@ const ClientApiIntegrationForm = ({
                 <CHybridSelect
                   id="client"
                   label="Client"
-                  name="hospitalId"
+                  name="clientId"
                   onChange={(event, validity) =>
                     onChangeHandler(event, validity)
                   }
@@ -65,6 +65,9 @@ const ClientApiIntegrationForm = ({
                   }
                   options={featureTypeDropdownData}
                   value={integrationData.featureType}
+                  isDisabled={
+                    !integrationData.clientId.value || !requestMethodData.length
+                  }
                   placeholder={
                     integrationData.clientId
                       ? 'Select Client First.'
@@ -94,7 +97,7 @@ const ClientApiIntegrationForm = ({
                     integrationData.clientId
                       ? 'Select Client First.'
                       : requestMethodData.length
-                      ? 'Select Feature Type'
+                      ? 'Select Request method'
                       : 'No Request Method(s) Found'
                   }
                 />
@@ -128,19 +131,16 @@ const ClientApiIntegrationForm = ({
                                 value={header[headerKey]}
                                 required={true}
                               />
-                              <CButton
-                                id="remove-header"
-                                name="Remove"
-                                onClickHandler={() =>
-                                  onRemoveHandlerHeaderOrQueryParams(
-                                    ind,
-                                    'headers'
-                                  )
-                                }
-                              />
                             </>
                           )
                         })}
+                        <CButton
+                          id="remove-header"
+                          name="Remove"
+                          onClickHandler={() =>
+                            onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
+                          }
+                        />
                       </div>
                     )
                   })}
@@ -149,7 +149,7 @@ const ClientApiIntegrationForm = ({
                 <CButton
                   id="add-header"
                   name="Add"
-                  onClickHandler={() => onAddHeaderOrQueryParams('headers')}
+                  onClickHandler={() => onAddHeaderOrQueryParams('queryParams')}
                 />
                 {integrationData.queryParams.length &&
                   integrationData.queryParams.map((queryParam, ind) => {
@@ -173,7 +173,11 @@ const ClientApiIntegrationForm = ({
                                 value={queryParam[queryParamKey]}
                                 required={true}
                               />
-                              <CButton
+                              
+                            </>
+                          )
+                        })}
+                        <CButton
                                 id="remove-header"
                                 name="Remove"
                                 onClickHandler={() =>
@@ -183,9 +187,6 @@ const ClientApiIntegrationForm = ({
                                   )
                                 }
                               />
-                            </>
-                          )
-                        })}
                       </div>
                     )
                   })}
