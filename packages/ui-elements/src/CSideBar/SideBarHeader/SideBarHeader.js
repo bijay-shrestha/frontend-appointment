@@ -9,7 +9,7 @@ const SideBarHeader = props => {
         <div className='sidebar-header container-fluid'>
             <div className="row">
                 <h3>
-                <Image src={require("../images/logo.png")} className="logo" />
+                <Image src={require("../images/logo4 - white.png")} className="logo" />
                     {/* <label className={props.isOpen || props.isHover ? 'text' : 'collapse'}>{props.header}</label> */}
                     <Button className={!props.isOpen ? 'collapsed':''} variant="primary" onClick={props.toggle}>
                         {/* <FontAwesomeIcon icon={faAlignLeft}/> */}
