@@ -209,11 +209,11 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         fetchActiveRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
+            await this.props.fetchActiveRoomNumberForDropdownByHospitalId(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
         fetchAllRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchAllRoomNumberForDropdown(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
+            await this.props.fetchAllRoomNumberForDropdownByHospitalId(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
         fetchActiveHospitalsForDropdown = async () => {
@@ -539,8 +539,8 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             'RoomNumberSearchReducer',
             'HospitalDropdownReducer'
         ], {
-            fetchActiveRoomNumberForDropdown: fetchActiveRoomNumberForDropdownByHospitalId,
-            fetchAllRoomNumberForDropdown: fetchAllRoomNumberForDropdownByHospitalId,
+            fetchActiveRoomNumberForDropdownByHospitalId,
+            fetchAllRoomNumberForDropdownByHospitalId,
             fetchActiveHospitalsForDropdown,
             searchRoomNumber,
             deleteRoomNumber,
