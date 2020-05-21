@@ -25,6 +25,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         queryParams: [],
         requestBody: ''
       },
+      requestBodyValid: false,
       editQueryParams: [],
       editHeaders: [],
       searchQueryParams: {
@@ -55,7 +56,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           queryParams: [],
           requestBody: ''
         },
-        formValid: false
+        formValid: false,
+        requestBodyValid: false
       })
     }
 
@@ -65,11 +67,19 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    onChangeHandler = e => {
+    setTheStateForInputValidity = (objectToModify, validity) => {
+      this.setState({
+        integrationData: {...objectToModify},
+        requestBodyValid: validity
+      })
+    }
+    onChangeHandler = (e, validity) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      this.setTheStateForIntegrationData(integrationDatas)
+      if (name !== 'requestBody')
+        this.setTheStateForIntegrationData(integrationDatas)
+      else this.setTheStateForInputValidity(integrationDatas, validity)
     }
 
     setCloseModal = () => {
@@ -86,13 +96,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    onAddHeaderOrQueryParams = (index, fieldName) => {
+    onAddHeaderOrQueryParams = fieldName => {
       let objectToModify = {...this.state.integrationData}
-      objectToModify[fieldName][index] = {
+      objectToModify[fieldName].push({
         key: '',
         value: '',
         description: ''
-      }
+      })
       this.setTheStateForIntegrationData(objectToModify)
     }
 
@@ -252,7 +262,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               isRequestMethodDropdownLoading,
               requestMethodData,
               requestMethodDropdownError,
-              formValid
+              formValid,
+              hospitalsForDropdown
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,

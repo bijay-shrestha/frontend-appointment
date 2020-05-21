@@ -1,11 +1,13 @@
 import React, {memo} from 'react'
 import {Col, Row} from 'react-bootstrap'
 import {
-  CFLabel,
+  //CFLabel,
   CForm,
   CHybridInput,
   CHybridSelect,
-  CRadioButton
+  //CRadioButton,
+  CHybridTextArea,
+  CButton
 } from '@frontend-appointment/ui-elements'
 
 const ClientApiIntegrationForm = ({
@@ -14,18 +16,21 @@ const ClientApiIntegrationForm = ({
   onAddHeaderOrQueryParams,
   onChangeHandler,
   integrationData,
-  setCloseModal,
-  resetIntegrationData,
+  //   setCloseModal,
+  featureTypeDropdownData,
+  //resetIntegrationData,
   regexForCommaSeperation,
-  featureTypeDropdownError,
+  //featureTypeDropdownError,
   isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
-  requestMethodDropdownError,
-  formValid,
-  isHospitalApiSaveLoading,
-  onConfirmHandler,
-  onSaveHandler
+  //requestMethodDropdownError,
+  // formValid,
+  // isHospitalApiSaveLoading,
+  //onConfirmHandler,
+  // onSaveHandler,
+  hospitalsForDropdown,
+  featureTypeDropdownData
 }) => {
   return (
     <>
@@ -41,61 +46,165 @@ const ClientApiIntegrationForm = ({
                   id="client"
                   label="Client"
                   name="hospitalId"
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  options={hospitalList}
-                  value={specializationInfoObj.hospitalId}
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={hospitalsForDropdown}
+                  value={integrationData.clientId}
+                  isDisabled={!hospitalsForDropdown.length}
                   placeholder={'Select Client.'}
                 />
               </Col>
 
               <Col sm={12} md={6} lg={4}>
-                <CHybridInput
-                  id="specialization-name"
-                  name="name"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Specialization Name"
-                  value={specializationInfoObj.name}
+                <CHybridSelect
+                  id="client"
+                  label="Feature Type"
+                  name="featureType"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={featureTypeDropdownData}
+                  value={integrationData.featureType}
+                  placeholder={
+                    integrationData.clientId
+                      ? 'Select Client First.'
+                      : featureTypeDropdownData.length
+                      ? 'Select Feature Type'
+                      : 'No Feature Types(s) Found'
+                  }
+                  isLoading={isFeatureTypeDropdownLoading}
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={4}>
+                <CHybridSelect
+                  id="client"
+                  label="Request Method"
+                  name="requestMethod"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={requestMethodData}
+                  value={integrationData.requestMethod}
+                  isLoading={isRequestMethodDropdownLoading}
+                  isDisabled={
+                    !integrationData.clientId.value || !requestMethodData.length
+                  }
+                  placeholder={
+                    integrationData.clientId
+                      ? 'Select Client First.'
+                      : requestMethodData.length
+                      ? 'Select Feature Type'
+                      : 'No Request Method(s) Found'
+                  }
+                />
+              </Col>
+
+              <Col sm={12} md={6} lg={4}>
+                <CButton
+                  id="add-header"
+                  name="Add"
+                  onClickHandler={() => onAddHeaderOrQueryParams('headers')}
+                />
+                {integrationData.headers.length &&
+                  integrationData.headers.map((header, ind) => {
+                    return (
+                      <div key={'header' + ind} id="header">
+                        {Object.keys(header).map((headerKey, index) => {
+                          return (
+                            <>
+                              <CHybridInput
+                                key={'header-' + headerKey + index}
+                                id={'header-' + headerKey + index}
+                                name={headerKey}
+                                onChange={event =>
+                                  onChangeHandlerHeaderOrQueryParams(
+                                    event,
+                                    ind,
+                                    'headers'
+                                  )
+                                }
+                                placeholder={'Enter a ' + headerKey}
+                                value={header[headerKey]}
+                                required={true}
+                              />
+                              <CButton
+                                id="remove-header"
+                                name="Remove"
+                                onClickHandler={() =>
+                                  onRemoveHandlerHeaderOrQueryParams(
+                                    ind,
+                                    'headers'
+                                  )
+                                }
+                              />
+                            </>
+                          )
+                        })}
+                      </div>
+                    )
+                  })}
+              </Col>
+              <Col sm={12} md={8} lg={8}>
+                <CButton
+                  id="add-header"
+                  name="Add"
+                  onClickHandler={() => onAddHeaderOrQueryParams('headers')}
+                />
+                {integrationData.queryParams.length &&
+                  integrationData.queryParams.map((queryParam, ind) => {
+                    return (
+                      <div key={'query-param-' + ind} id="query-param">
+                        {Object.keys(queryParam).map((queryParamKey, index) => {
+                          return (
+                            <>
+                              <CHybridInput
+                                key={'header-' + queryParamKey + index}
+                                id={'header-' + queryParamKey + index}
+                                name={queryParamKey}
+                                onChange={event =>
+                                  onChangeHandlerHeaderOrQueryParams(
+                                    event,
+                                    ind,
+                                    'queryParams'
+                                  )
+                                }
+                                placeholder={'Enter a ' + queryParamKey}
+                                value={queryParam[queryParamKey]}
+                                required={true}
+                              />
+                              <CButton
+                                id="remove-header"
+                                name="Remove"
+                                onClickHandler={() =>
+                                  onRemoveHandlerHeaderOrQueryParams(
+                                    ind,
+                                    'queryParams'
+                                  )
+                                }
+                              />
+                            </>
+                          )
+                        })}
+                      </div>
+                    )
+                  })}
+              </Col>
+              <Col sm={12} md={6} lg={4}>
+                <CHybridTextArea
+                  id="request-body-hospital-integration"
+                  name="requestBody"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  placeholder="Request Body"
+                  value={integrationData.requestBody}
                   required={true}
                   hasValidation={true}
-                  fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                  errorMessagePassed={errorMessageForSpecializationName}
+                  fieldValuePattern={regexForCommaSeperation}
+                  errorMessagePassed={'Value Should Be Comma Seperated'}
                 />
-              </Col>
-
-              <Col sm={12} md={6} lg={4}>
-                <CHybridInput
-                  id="sub-department-code"
-                  name="code"
-                  onKeyDown={event => onEnterKeyPress(event)}
-                  onChange={(event, validity) => onInputChange(event, validity)}
-                  placeholder="Specialization Code"
-                  value={specializationInfoObj.code}
-                  required={true}
-                  errorMessagePassed={errorMessageForSpecializationCode}
-                />
-              </Col>
-
-              <Col sm={12} md={6} lg={4}>
-                <CFLabel labelName="Status" id="status"></CFLabel>
-                <div>
-                  <CRadioButton
-                    checked={Boolean(specializationInfoObj.status)}
-                    disabled={true}
-                    id="radio1"
-                    label="Active"
-                    type="radio"
-                    readOnly
-                  />
-                  {/* <CRadioButton
-                  checked={!Boolean(specializationInfoObj.status)}
-                  disabled={true}
-                  readOnly={true}
-                  id="radio2"
-                  label="Inactive"
-                  type="radio"
-                /> */}
-                </div>
               </Col>
             </Row>
           </Container-fluid>
@@ -105,4 +214,4 @@ const ClientApiIntegrationForm = ({
   )
 }
 
-export default memo(SpecializationForm)
+export default memo(ClientApiIntegrationForm)

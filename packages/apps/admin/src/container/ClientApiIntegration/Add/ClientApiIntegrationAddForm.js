@@ -31,8 +31,7 @@ function ClientApiIntegarationAdd (props) {
                 variant="primary "
                 className="float-right btn-action"
                 name="Save"
-                loading={!commonHandler.formValid || !isHospitalApiSaveLoading}
-                disabled={!commonHandler.formValid || !isHospitalApiSaveLoading}
+                disabled={!commonHandler.formValid}
                 onClickHandler={addHandler.onConfirmHandler}
               />
               <ClientApiConfirmationModal {...commonHandler} {...addHandler} />

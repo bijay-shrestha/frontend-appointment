@@ -1,20 +1,24 @@
-import React from 'react'
+import React,{memo} from 'react'
 import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
-const SpecializationConfirmationModal = props => {
-    const {showModal, setShowModal, specializationData, onConfirmClick, type} = props
-    console.log('onConfirmClick', onConfirmClick);
+const ClientApiConfirmationModal = props => {
+    const {
+        integrationData,
+        setCloseModal,
+        isHospitalApiSaveLoading,
+        onSaveHandler
+    } = props
     return (
         <>
             <CModal
-                show={showModal}
-                modalHeading="Specialization Details"
+                show={setCloseModal}
+                modalHeading="API Integration Details"
                 size="lg"
                 bodyChildren={
                     <DetailsModal
-                        specializationData={specializationData}
-                        type={type}
+                         integrationData={integrationData}
+                         type={'A'}
                     />
                 }
                 onHide={setShowModal}
@@ -28,15 +32,18 @@ const SpecializationConfirmationModal = props => {
                             variant="light"
                             size="lg"
                             className="float-right btn-action"
-                            onClickHandler={setShowModal}
+                            onClickHandler={setCloseModal}
 
                         />
                         <CButton
-                            id="specializationConfirm"
+                            id="apiintegrationform"
                             variant="primary"
                             size="lg"
                             className="float-right btn-action"
-                            onClickHandler={onConfirmClick}
+                            onClickHandler={onSaveHandler}
+                            isLoading={isHospitalApiSaveLoading}
+                            disabled={isHospitalApiSaveLoading}
+                            
                         />
                     </>
                 }
@@ -46,4 +53,4 @@ const SpecializationConfirmationModal = props => {
     )
 }
 
-export default SpecializationConfirmationModal
+export default memo(ClientApiConfirmationModal)
