@@ -2,10 +2,17 @@ import React, {PureComponent} from 'react'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {CommonUtils} from '@frontend-appointment/helpers'
-import {HospitalApiIntegrationMiddleware} from '@frontend-appointment/thunk-middleware'
+import {
+  HospitalApiIntegrationMiddleware,
+  HospitalSetupMiddleware
+} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-const {hospitalIntegrationConstants} = AdminModuleAPIConstants
+const {
+  hospitalIntegrationConstants,
+  hospitalSetupApiConstants
+} = AdminModuleAPIConstants
 const {changeCommaSeperatedStringToObjectAndStringifyIt} = CommonUtils
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
   class ClientApiIntegration extends PureComponent {
     state = {
@@ -192,6 +199,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       await this.props.fetchRequestMethodDropdown(
         hospitalIntegrationConstants.HOSPITAL_REQUEST_METHOD_DROPDOWN
       )
+      await this.props.fetchActiveHospitalsForDropdown(
+        hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
+      )
     }
 
     componentDidMount () {
@@ -209,6 +219,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       const {
         isHospitalApiSaveLoading
       } = this.props.hospitalApiIntegrationSaveReducers
+      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+      const {} = this.props.h
       const {
         featureTypeDropdownData,
         featureTypeDropdownError,
@@ -279,10 +291,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     [
       'hospitalApiIntegrationSaveReducers',
       'hospitalRequestMethodDropdownReducers',
-      'hospitalFeatureTypeDropdownReducers'
+      'hospitalFeatureTypeDropdownReducers',
+      'HospitalDropdownReducer'
     ],
     {
-      ...HospitalApiIntegrationMiddleware
+      ...HospitalApiIntegrationMiddleware,
+      fetchActiveHospitalsForDropdown
     }
   )
 }
