@@ -59,7 +59,11 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 rooms: null,
                 appointmentCharge: '',
                 followUpCharge: '',
-                status: 'Y'
+                status: 'Y',
+                nameValid: true,
+                descriptionValid: true,
+                appointmentChargeValid: true,
+                followUpChargeValid: true,
             },
             showConfirmModal: false,
             showPreviewModal: false,
@@ -68,10 +72,11 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 variant: "",
                 message: ""
             },
-            errorMessageForDepartmentName: '',
-            errorMessageForDescription: '',
+
+            errorMessageForDepartmentName: 'Department Name should not contain special characters.',
+            errorMessageForDescription: 'Department Description should contain 200 characters only.',
             errorMessageForAppointmentCharge:
-                'Appointment Charge Should only be number and upto 2 decimal',
+                'Charge Should only be number and upto 2 decimal.',
             formValid: false,
         };
 
@@ -94,17 +99,21 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 followUpCharge,
                 name,
                 rooms,
-                status
+                status,
+                nameValid,
+                descriptionValid,
+                appointmentChargeValid,
+                followUpChargeValid
             } = this.state.departmentData;
 
             let formValid =
-                appointmentCharge &&
-                code &&
-                description &&
+                name && nameValid &&
+                description && descriptionValid &&
+                appointmentCharge && appointmentChargeValid &&
+                followUpCharge && followUpChargeValid &&
                 doctors && doctors.length &&
-                followUpCharge &&
-                name &&
                 rooms && rooms.length &&
+                code &&
                 status;
 
             this.setState({
@@ -165,7 +174,11 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     rooms: null,
                     appointmentCharge: '',
                     followUpCharge: '',
-                    status: 'Y'
+                    status: 'Y',
+                    nameValid: true,
+                    descriptionValid: true,
+                    appointmentChargeValid: true,
+                    followUpChargeValid: true,
                 },
                 errorMessageForDepartmentName: '',
                 errorMessageForDescription: ''
@@ -179,6 +192,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     ? (fileUri ? {label, value, fileUri} : {label, value})
                     : null)
                 : value;
+            if (!label) departmentData[key + "Valid"] = fieldValid;
             this.setState({
                 [objectName]: {...departmentData}
             })

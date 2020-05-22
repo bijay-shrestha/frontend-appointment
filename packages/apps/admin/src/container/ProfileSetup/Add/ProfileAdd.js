@@ -162,7 +162,7 @@ class ProfileAdd extends PureComponent {
         let formValidity = this.state.profileNameValid && this.state.profileDescriptionValid && this.state.profileName
             && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedHospital !== null
             && this.state.selectedMenus.length !== 0;
-        console.log("Form Validity:::",formValidity);
+        // console.log("Form Validity:::",formValidity);
         this.setState({
             formValid: formValidity
         })
