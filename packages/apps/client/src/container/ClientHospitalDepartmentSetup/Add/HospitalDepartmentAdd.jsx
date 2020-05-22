@@ -1,6 +1,6 @@
 import React from 'react';
 import HospitalDepartmentSetupHOC from "../HospitalDepartmentSetupHOC";
-import {HospitalDepartmentForm, HospitalDepartmentPreviewModal} from "@frontend-appointment/ui-components";
+import {HospitalDepartmentSetupComponents} from "@frontend-appointment/ui-components";
 import {Col, Container, Row} from "react-bootstrap";
 import {CButton} from "@frontend-appointment/ui-elements";
 
@@ -25,7 +25,7 @@ const HospitalDepartmentAdd = props => {
                                 <i className="fa fa-refresh"/> &nbsp;Reset
                             </>
                         </CButton>
-                        <HospitalDepartmentForm hospitalDepartmentAddData={hospitalDepartmentAddData}/>
+                        <HospitalDepartmentSetupComponents.HospitalDepartmentForm hospitalDepartmentAddData={hospitalDepartmentAddData}/>
                         <Row className="mt-4">
                             <Col sm={12} md={{span: 3, offset: 9}}>
                                 <CButton
@@ -38,7 +38,7 @@ const HospitalDepartmentAdd = props => {
                                     onClickHandler={hospitalDepartmentAddData.handleAddDepartment}
                                 />
                             </Col>
-                            <HospitalDepartmentPreviewModal
+                            <HospitalDepartmentSetupComponents.HospitalDepartmentPreviewModal
                                 departmentPreviewData={{
                                     ...departmentPreviewData,
                                     type: "ADD"

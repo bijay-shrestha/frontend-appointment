@@ -25,3 +25,20 @@ export const getUserNameHospitalIdAndAdminId = token => {
 
 export const filterTableDataWithGivenStatus = (status, filterData) =>
     filterData.filter(datum => datum.status === status)
+
+export const appendSerialNumberToDataList = (dataList, page, size) => {
+    let startingNumber = 1;
+    if (page > 1) {
+        startingNumber += (page - 1) * size;
+    }
+    let dataWithSerialNumberAdded = dataList && dataList.map(data => {
+        let dataWithSN = {
+            ...data,
+            sN: startingNumber
+        };
+        startingNumber++;
+        return dataWithSN;
+    });
+
+    return dataWithSerialNumberAdded ? dataWithSerialNumberAdded : [];
+};

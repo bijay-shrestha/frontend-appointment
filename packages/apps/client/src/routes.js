@@ -604,7 +604,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/generalSetup/doctorSetup/manage',
+        path: '/generalSetup/departmentSetup/manage',
         component: ManageDepartmentComponent,
         icon: '',
         hasTab: true,

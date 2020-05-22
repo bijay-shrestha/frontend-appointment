@@ -1,5 +1,6 @@
 import {Axios} from "@frontend-appointment/core";
 import {HospitalDepartmentSetupActions} from "@frontend-appointment/action-module";
+import {CommonUtils} from "@frontend-appointment/helpers";
 
 export const saveHospitalDepartment = (path, data) => async dispatch => {
     dispatch(HospitalDepartmentSetupActions.saveHospitalDepartmentPending());
@@ -46,9 +47,14 @@ export const deleteHospitalDepartment = (path, data) => async dispatch => {
 export const searchHospitalDepartment = (path, data, paginationData) => async dispatch => {
     dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentPending());
     try {
-        const response = await Axios.putWithPagination(path, paginationData, data);
-        dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentSuccess(response.data));
-        return response.data;
+        const apiResponse = await Axios.putWithPagination(path, paginationData, data);
+        let dataWithSerialNumber = CommonUtils.appendSerialNumberToDataList(apiResponse.data.response,
+            paginationData.page, paginationData.size);
+        dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentSuccess({
+            ...apiResponse.data,
+            response: dataWithSerialNumber
+        }));
+        return apiResponse.data;
     } catch (e) {
         dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentError(
             e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));

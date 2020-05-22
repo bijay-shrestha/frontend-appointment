@@ -1,3 +1,9 @@
+import * as HospitalDepartmentSetupComponents from './src/HospitalDepartmentSetupComponents';
+
+export {
+    HospitalDepartmentSetupComponents
+}
+
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';
 export {default as CLayout} from './src/CLayout';
@@ -38,5 +44,3 @@ export {default as TransferredToDateWithTime} from './src/TransferredToDateWithT
 export {
     default as TransferredToDoctorWithSpecImage
 }from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
-export {default as HospitalDepartmentForm} from './src/HospitalDepartmentSetupComponents/HospitalDepartmentForm';
-export {default as HospitalDepartmentPreviewModal} from './src/HospitalDepartmentSetupComponents/HospitalDepartmentPreviewModal';

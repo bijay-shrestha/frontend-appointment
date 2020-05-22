@@ -26,7 +26,8 @@ const {
 } = DoctorMiddleware;
 
 const {
-    fetchActiveRoomNumberForDropdown
+    fetchActiveRoomNumberForDropdown,
+    fetchAllRoomNumberForDropdown
 } = RoomSetupMiddleware;
 
 const {
@@ -43,7 +44,8 @@ const {
 } = AdminModuleAPIConstants.doctorSetupApiConstants;
 
 const {
-    FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN
+    FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN,
+    FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN
 } = AdminModuleAPIConstants.roomSetupApiConstants;
 
 const HospitalDepartmentSetupHOC = (Component, props, type) => {
@@ -78,6 +80,18 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             errorMessageForAppointmentCharge:
                 'Charge Should only be number and upto 2 decimal.',
             formValid: false,
+            searchParameters: {
+                code: '',
+                doctor: null,
+                department: null,
+                room: null,
+                status: {value: 'A', label: 'All'},
+            },
+            queryParams: {
+                page: 0,
+                size: 10
+            },
+            totalRecords: 0,
         };
 
         alertTimer = '';
@@ -139,13 +153,21 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN);
         };
 
+        fetchAllRoomNumbersForDropdown = async () => {
+            await this.props.fetchAllRoomNumberForDropdown(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN);
+        };
+
+        fetchAllHospitalDepartmentsForDropdown = async () => {
+            await this.props.fetchAllHospitalDepartmentForDropdown(FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN);
+        };
+
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         };
 
         handleInputChange = async (event, fieldValid) => {
             let key = event.target.name;
-            let value = event.target.value;
+            let value = key === "code" ? event.target.value.toUpperCase() : event.target.value;
             let label = event.target.label;
             let fileUri = event.target.fileUri;
             let values = event.target.values;
@@ -154,13 +176,38 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.checkFormValidity();
         };
 
+        handleSearchFormChange = async (event) => {
+            let key = event.target.name;
+            let value = key === "code" ? event.target.value.toUpperCase() : event.target.value;
+            let label = event.target.label;
+            let fileUri = event.target.fileUri;
+
+            await this.setValuesInState(key, value, label, fileUri, undefined, "searchParameters");
+            this.checkFormValidity();
+        };
+
         handleAddDepartment = () => {
             this.setShowModal(true)
+        };
+
+        handlePageChange = async newPage => {
+            await this.setState({
+                queryParams: {
+                    ...this.state.queryParams,
+                    page: newPage
+                }
+            });
+            await this.searchDepartmentList();
         };
 
         initialApiCalls = () => {
             this.fetchActiveDoctorsForDropdown();
             this.fetchActiveRoomNumberForDropdown();
+            if (type === "MANAGE") {
+                this.fetchAllHospitalDepartmentsForDropdown();
+                this.fetchAllRoomNumbersForDropdown();
+                this.searchDepartmentList(1);
+            }
         };
 
         resetDepartmentAddForm = () => {
@@ -186,15 +233,15 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         };
 
         setValuesInState = (key, value, label, fileUri, fieldValid, objectName) => {
-            let departmentData = {...this.state[objectName]};
-            departmentData[key] = label
+            let stateData = {...this.state[objectName]};
+            stateData[key] = label
                 ? (value
                     ? (fileUri ? {label, value, fileUri} : {label, value})
                     : null)
                 : value;
-            if (!label) departmentData[key + "Valid"] = fieldValid;
+            if (!label) stateData[key + "Valid"] = fieldValid;
             this.setState({
-                [objectName]: {...departmentData}
+                [objectName]: {...stateData}
             })
         };
 
@@ -246,17 +293,62 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.setShowModal(false);
         };
 
+        searchDepartmentList = async page => {
+            const {doctor, code, department, room, status} = this.state.searchParameters;
+            let searchData = {
+                code,
+                doctorId: doctor && doctor.value,
+                id: department && department.value,
+                roomId: room && room.value,
+                status: status && status.value === 'A' ? '' : status.value,
+            };
+
+            let updatedPage =
+                this.state.queryParams.page === 0 ? 1 : (page ? page : this.state.queryParams.page);
+
+            try {
+                await this.props.searchHospitalDepartment(
+                    SEARCH_HOSPITAL_DEPARTMENT,
+                    searchData,
+                    {
+                        page: updatedPage,
+                        size: this.state.queryParams.size
+                    });
+                await this.setState({
+                    totalRecords: this.props.HospitalDepartmentSearchReducer.hospitalDepartmentList.length
+                        ? this.props.HospitalDepartmentSearchReducer.totalRecords
+                        : 0,
+                    queryParams: {
+                        ...this.state.queryParams,
+                        page: updatedPage
+                    }
+                })
+            } catch (e) {
+
+            }
+        };
+
         render() {
             const {
                 departmentData, alertMessageInfo, showAlert, showConfirmModal, errorMessageForDepartmentName,
-                errorMessageForDescription, errorMessageForAppointmentCharge, formValid, showPreviewModal
+                errorMessageForDescription, errorMessageForAppointmentCharge, formValid, showPreviewModal,
+                searchParameters, totalRecords, queryParams
             } = this.state;
 
             const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
-            const {activeRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
+            const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
             const {isSaveHospitalDepartmentLoading} = this.props.HospitalDepartmentSaveReducer;
+
+            const {allHospitalDepartmentForDropdown, allDepartmentDropdownErrorMessage} = this.props.HospitalDepartmentDropdownReducer;
+
+            const {
+                isSearchHospitalDepartmentLoading,
+                hospitalDepartmentList,
+                searchErrorMessage
+            } = this.props.HospitalDepartmentSearchReducer;
+
             return <>
                 <Component
                     {...props}
@@ -281,6 +373,26 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         setShowModal: this.setShowModal,
                         onConfirmClick: this.saveDepartment,
                         isSaveHospitalDepartmentLoading
+                    }}
+                    searchData={{
+                        searchParameters: searchParameters,
+                        allHospitalDepartmentForDropdown,
+                        allDepartmentDropdownErrorMessage,
+                        allRoomNumberForDropdown,
+                        activeDoctorsForDropdown,
+                        onSearchClick: this.searchDepartmentList,
+                        onInputChange: this.handleSearchFormChange,
+                        resetSearchForm: this.handleSearchFormReset
+                    }}
+                    tableData={{
+                        filteredActions: props.filteredAction,
+                        isSearchHospitalDepartmentLoading,
+                        hospitalDepartmentList,
+                        searchErrorMessage,
+                        totalItems: totalRecords,
+                        maxSize: queryParams.size,
+                        currentPage: queryParams.page,
+                        handlePageChange: this.handlePageChange,
                     }}
                 />
                 <CAlert
@@ -307,7 +419,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             'HospitalDepartmentSearchReducer',
             'DoctorDropdownReducer',
             'RoomNumberDropdownReducer'
-        ], {
+        ],
+        {
             clearSuccessErrorMessageFormStore,
             deleteHospitalDepartment,
             editHospitalDepartment,
@@ -315,6 +428,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchAllHospitalDepartmentForDropdown,
             fetchHospitalDepartmentDetailsByHospitalDepartmentId,
             fetchActiveDoctorsForDropdown,
+            fetchAllRoomNumberForDropdown,
             fetchActiveRoomNumberForDropdown,
             saveHospitalDepartment,
             searchHospitalDepartment

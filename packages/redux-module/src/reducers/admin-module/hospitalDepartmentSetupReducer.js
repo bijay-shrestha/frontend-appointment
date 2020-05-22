@@ -41,6 +41,7 @@ const initialState = {
     deleteErrorMessage: '',
     isSearchHospitalDepartmentLoading: false,
     hospitalDepartmentList: [],
+    totalRecords:'',
     searchErrorMessage: '',
     isFetchHospitalDepartmentLoading: false,
     activeHospitalDepartmentForDropdown: [],
@@ -162,13 +163,15 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchHospitalDepartmentLoading: true,
                 hospitalDepartmentList: [],
+                totalRecords:'',
                 searchErrorMessage: ''
             };
         case SEARCH_HOSPITAL_DEPARTMENT_SUCCESS:
             return {
                 ...state,
                 isSearchHospitalDepartmentLoading: false,
-                hospitalDepartmentList: [...action.payload.data],
+                hospitalDepartmentList: [...action.payload.data.response],
+                totalRecords:action.payload.data.totalItems,
                 searchErrorMessage: ''
             };
         case SEARCH_HOSPITAL_DEPARTMENT_ERROR:
@@ -176,6 +179,7 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchHospitalDepartmentLoading: false,
                 hospitalDepartmentList: [],
+                totalRecords:'',
                 searchErrorMessage: action.payload.message
             };
         case CLEAR_SEARCH_HOSPITAL_DEPARTMENT_MESSAGE:
