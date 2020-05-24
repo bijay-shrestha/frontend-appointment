@@ -20,7 +20,9 @@ export const excludedUrl = [
     '/updateDetails',
     '/min',
     '/adminFeature',
-    '/logout'
+    '/logout',
+    '/postticket',
+    '/test'
 ]
 export const includeAppUrl=[
     '/approve/',

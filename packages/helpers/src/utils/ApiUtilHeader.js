@@ -12,7 +12,8 @@ const convertObjectToRequestParam = (path, paramObject) => {
         _stringParam = _stringParam + '&'
       }
     })
-    return path + '?' + _stringParam
+    if(_stringParam)
+    return path + '?' + _stringParam 
   }
   return path;
 }
@@ -21,7 +22,7 @@ export const formApiFromECIntegrate = (featureTypeCode, type) => {
   const getApiIntegrate = localStorageSecurity.localStorageDecoder('adminInfo')
   const integrateApi = getApiIntegrate[type]
   //let apiFormed =[];
-  let option = {}
+  let option = null
   integrateApi.features.map(feature => {
     const {
       featureCode,
@@ -32,15 +33,25 @@ export const formApiFromECIntegrate = (featureTypeCode, type) => {
       url
     } = feature
     console.log('requestBody', requestBody)
-    const data = requestBody
-    const urlWithParams = convertObjectToRequestParam(url, queryParameters)
+    const method= requestMethod.toLowerCase();
+    const urlWithParams = convertObjectToRequestParam(url, '')
     if (featureCode === featureTypeCode)
+     if(method.includes('post'))
       option = {
-        method: requestMethod,
+        method,
         headers: {...headers},
-        data,
-        url: urlWithParams
+        data:JSON.parse(requestBody),
+        url: urlWithParams,
+        withCredentials:false
+       
       }
+     else
+      option={
+       method,
+       headers,
+       url:urlWithParams,
+       withCredentials:false,
+      } 
     return feature
   })
   return option

@@ -15,11 +15,11 @@ export const fetchFeatureTypeForDrodown = (path) => async dispatch => {
 export const saveHospitalIntegration = (path, integrationData) => async dispatch => {
     dispatch(HospitalApiIntegrationActions.hospitalApiSavePending());
     try {
-        let response = await Axios.postRaw(path, integrationData);
+        let response = await Axios.post(path, integrationData);
         dispatch(HospitalApiIntegrationActions.hospitalApiSaveSuccess("Hospital Api Integrated Successfully."));
         return response;
     } catch (e) {
-        dispatch(HospitalApiIntegrationActions.creatingDepartmentError(e.errorMessage));
+        dispatch(HospitalApiIntegrationActions.hospitalApiSaveError(e.errorMessage));
         throw e;
     }
 };

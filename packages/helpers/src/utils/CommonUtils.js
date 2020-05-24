@@ -28,7 +28,7 @@ export const filterTableDataWithGivenStatus = (status, filterData) =>
 
 export const changeCommaSeperatedStringToObjectAndStringifyIt =(commaSeperatedString) =>{
     let splittedCommaSperatedString = commaSeperatedString.split(",");
-    let objFromSplitteCommaString={};
-    splittedCommaSperatedString.map(scsp =>{objFromSplitteCommaString[scsp]=''; return scsp;})
-    return JSON.stringify(objFromSplitteCommaString)
+    let objFromSplittedCommaString={};
+    splittedCommaSperatedString.map(scsp =>{objFromSplittedCommaString[scsp]=''; return scsp;})
+    return objFromSplittedCommaString
 }

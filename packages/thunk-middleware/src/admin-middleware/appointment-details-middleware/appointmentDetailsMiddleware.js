@@ -2,6 +2,7 @@ import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 import {APIUtils} from '@frontend-appointment/helpers'
 import axios from 'axios'
+import headers from '@frontend-appointment/core/src/axios/axios-helper/headers'
 export const fetchAppointmentRefundList = (
   path,
   pagination,
@@ -193,16 +194,11 @@ export const clearRescheduleLogMessage = () => async dispatch => {
 export const appointmentApprove = (path, id) => async dispatch => {
   dispatch(AppointmentDetailActions.appointmentApproveStart())
   try {
-    const option = APIUtils.formApiFromECIntegrate('ROOM_INFO', 'ecintegrate')
-    console.log('======', option)
-
-    let methodOption = option.method === 'POST' ? axios.post : axios.get
-    console.log()
-    const response1 = await methodOption(option.url, {
-      crossDomain: true,
-      crossOrigin: true
-    })
-    console.log('=====', response1)
+    const option = APIUtils.formApiFromECIntegrate('APKCHK', 'ecintegrate')
+    let response1=null;
+    if(option){
+     response1 = await Axios.dynamicMethod(option)
+    }
     const response = await Axios.getWithPathVariables(path, id)
     dispatch(
       AppointmentDetailActions.appointmentApproveSuccess(

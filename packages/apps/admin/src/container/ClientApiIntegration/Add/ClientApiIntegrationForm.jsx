@@ -5,7 +5,6 @@ import {
   CForm,
   CHybridInput,
   CHybridSelect,
-  //CRadioButton,
   CHybridTextArea,
   CButton
 } from '@frontend-appointment/ui-elements'
@@ -102,6 +101,15 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
+              <Col sm={12} md={6} lg={4}>
+                <CHybridInput
+                  id="apiUrl"
+                  name="apiUrl"
+                  value={integrationData.apiUrl}
+                  onChange={event => onChangeHandler(event,'')}
+                  placeholder={"Enter the api url"}
+                />
+              </Col>
 
               <Col sm={12} md={6} lg={4}>
                 <CButton
@@ -173,20 +181,19 @@ const ClientApiIntegrationForm = ({
                                 value={queryParam[queryParamKey]}
                                 required={true}
                               />
-                              
                             </>
                           )
                         })}
                         <CButton
-                                id="remove-header"
-                                name="Remove"
-                                onClickHandler={() =>
-                                  onRemoveHandlerHeaderOrQueryParams(
-                                    ind,
-                                    'queryParams'
-                                  )
-                                }
-                              />
+                          id="remove-header"
+                          name="Remove"
+                          onClickHandler={() =>
+                            onRemoveHandlerHeaderOrQueryParams(
+                              ind,
+                              'queryParams'
+                            )
+                          }
+                        />
                       </div>
                     )
                   })}

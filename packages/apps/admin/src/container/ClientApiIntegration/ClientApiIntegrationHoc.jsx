@@ -11,6 +11,11 @@ const {
   hospitalIntegrationConstants,
   hospitalSetupApiConstants
 } = AdminModuleAPIConstants
+const {
+  fetchFeatureTypeForDrodown,
+  fetchRequestMethodDropdown,
+  saveHospitalIntegration
+} = HospitalApiIntegrationMiddleware
 const {changeCommaSeperatedStringToObjectAndStringifyIt} = CommonUtils
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
@@ -100,8 +105,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     onAddHeaderOrQueryParams = fieldName => {
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName].push({
-        key: '',
-        value: '',
+        keyParam: '',
+        valueParam: '',
         description: ''
       })
       this.setTheStateForIntegrationData(objectToModify)
@@ -118,7 +123,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
 
     onRemoveHandlerHeaderOrQueryParams = (index, fieldName) => {
       let objectToModify = {...this.state.integrationData}
-      objectToModify[fieldName].splice(index, index)
+      objectToModify[fieldName].splice(index, 1)
       this.setTheStateForIntegrationData(objectToModify)
       this.checkFormValidity()
     }
@@ -180,13 +185,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod
       } = this.state.integrationData
       try {
-        await this.props.saveHospitalIntegration(hospitalIntegrationConstants, {
+        await this.props.saveHospitalIntegration(hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE, {
           apiUrl,
           clientApiRequestHeaders: [...headers],
           parametersRequestDTOS: [...queryParams],
-          requestMethodId: requestMethod,
-          hospitalId: clientId,
-          featureTypeId: featureType,
+          requestMethodId: requestMethod.value || '',
+          hospitalId: clientId.value || '',
+          featureTypeId: featureType.value || '',
           requestBodyAttribute: changeCommaSeperatedStringToObjectAndStringifyIt(
             requestBody
           )
@@ -196,13 +201,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           this.props.hospitalApiIntegrationSaveReducers
             .hospitalApiSaveSucessMessage
         )
+        this.resetIntegrationData();
         this.setShowAlertModal()
+        this.setCloseModal()
       } catch (e) {
+
         this.setShowAlertModal(
           'danger',
           this.props.hospitalApiIntegrationSaveReducers
             .hospitalApiSaveErrorMessage
         )
+        this.setCloseModal()
       }
     }
 
@@ -245,7 +254,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethodData,
         requestMethodDropdownError
       } = this.props.hospitalRequestMethodDropdownReducers
-      console.log("done",this.props.hospitalRequestMethodDropdownReducers);
+     // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
       return (
         <>
           <ComposedComponent
@@ -261,12 +270,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               setCloseModal: this.setCloseModal,
               resetIntegrationData: this.resetIntegrationData,
               regexForCommaSeperation: regexForCommaSeperation,
-              featureTypeDropdownData:featureTypeDropdownData.length?featureTypeDropdownData:[],
-              featureTypeDropdownError:featureTypeDropdownError,
-              isFeatureTypeDropdownLoading:isFeatureTypeDropdownLoading,
-              isRequestMethodDropdownLoading:isRequestMethodDropdownLoading,
-              requestMethodData:requestMethodData.length?[...requestMethodData]:[],
-              requestMethodDropdownError:requestMethodDropdownError,
+              featureTypeDropdownData: featureTypeDropdownData.length
+                ? featureTypeDropdownData
+                : [],
+              featureTypeDropdownError: featureTypeDropdownError,
+              isFeatureTypeDropdownLoading: isFeatureTypeDropdownLoading,
+              isRequestMethodDropdownLoading: isRequestMethodDropdownLoading,
+              requestMethodData: requestMethodData.length
+                ? [...requestMethodData]
+                : [],
+              requestMethodDropdownError: requestMethodDropdownError,
               formValid,
               hospitalsForDropdown
             }}
@@ -274,7 +287,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
               onConfirmHandler: this.onConfirmHandler,
               onSaveHandler: this.onSaveHandler,
-              showConfirmationModal:showConfirmationModal
+              showConfirmationModal: showConfirmationModal
             }}
           />
           <CAlert
@@ -312,7 +325,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       'HospitalDropdownReducer'
     ],
     {
-      ...HospitalApiIntegrationMiddleware,
+      fetchFeatureTypeForDrodown,
+      fetchRequestMethodDropdown,
+      saveHospitalIntegration,
       fetchActiveHospitalsForDropdown
     }
   )
