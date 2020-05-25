@@ -107,11 +107,13 @@ const ClientApiIntegrationForm = ({
                   id="apiUrl"
                   name="apiUrl"
                   value={integrationData.apiUrl}
-                  onChange={event => onChangeHandler(event,'')}
-                  placeholder={"Enter the api url"}
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  placeholder={'Enter the api url'}
                   fieldValuePattern={regexForApiUrl}
                   hasValidation={true}
-                  errorMessagePassed={"Value Should be Api Url"}
+                  errorMessagePassed={'Value Should be Api Url'}
                 />
               </Col>
 
@@ -121,41 +123,40 @@ const ClientApiIntegrationForm = ({
                   name="Add"
                   onClickHandler={() => onAddHeaderOrQueryParams('headers')}
                 />
-                {integrationData.headers.length &&
-                  integrationData.headers.map((header, ind) => {
-                    return (
-                      <div key={'header' + ind} id="header">
-                        {Object.keys(header).map((headerKey, index) => {
-                          return (
-                            <>
-                              <CHybridInput
-                                key={'header-' + headerKey + index}
-                                id={'header-' + headerKey + index}
-                                name={headerKey}
-                                onChange={event =>
-                                  onChangeHandlerHeaderOrQueryParams(
-                                    event,
-                                    ind,
-                                    'headers'
-                                  )
-                                }
-                                placeholder={'Enter a ' + headerKey}
-                                value={header[headerKey]}
-                                required={true}
-                              />
-                            </>
-                          )
-                        })}
-                        <CButton
-                          id="remove-header"
-                          name="Remove"
-                          onClickHandler={() =>
-                            onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
-                          }
-                        />
-                      </div>
-                    )
-                  })}
+                {integrationData.headers.map((header, ind) => {
+                  return (
+                    <div key={'header' + ind} id="header">
+                      {Object.keys(header).map((headerKey, index) => {
+                        return (
+                          <>
+                            <CHybridInput
+                              key={'header-' + headerKey + index}
+                              id={'header-' + headerKey + index}
+                              name={headerKey}
+                              onChange={event =>
+                                onChangeHandlerHeaderOrQueryParams(
+                                  event,
+                                  ind,
+                                  'headers'
+                                )
+                              }
+                              placeholder={'Enter a ' + headerKey}
+                              value={header[headerKey]}
+                              required={true}
+                            />
+                          </>
+                        )
+                      })}
+                      <CButton
+                        id="remove-header"
+                        name="Remove"
+                        onClickHandler={() =>
+                          onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
+                        }
+                      />
+                    </div>
+                  )
+                })}
               </Col>
               <Col sm={12} md={8} lg={8}>
                 <CButton
@@ -163,44 +164,40 @@ const ClientApiIntegrationForm = ({
                   name="Add"
                   onClickHandler={() => onAddHeaderOrQueryParams('queryParams')}
                 />
-                {integrationData.queryParams.length &&
-                  integrationData.queryParams.map((queryParam, ind) => {
-                    return (
-                      <div key={'query-param-' + ind} id="query-param">
-                        {Object.keys(queryParam).map((queryParamKey, index) => {
-                          return (
-                            <>
-                              <CHybridInput
-                                key={'header-' + queryParamKey + index}
-                                id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
-                                onChange={event =>
-                                  onChangeHandlerHeaderOrQueryParams(
-                                    event,
-                                    ind,
-                                    'queryParams'
-                                  )
-                                }
-                                placeholder={'Enter a ' + queryParamKey}
-                                value={queryParam[queryParamKey]}
-                                required={true}
-                              />
-                            </>
-                          )
-                        })}
-                        <CButton
-                          id="remove-header"
-                          name="Remove"
-                          onClickHandler={() =>
-                            onRemoveHandlerHeaderOrQueryParams(
-                              ind,
-                              'queryParams'
-                            )
-                          }
-                        />
-                      </div>
-                    )
-                  })}
+                {integrationData.queryParams.map((queryParam, ind) => {
+                  return (
+                    <div key={'query-param-' + ind} id="query-param">
+                      {Object.keys(queryParam).map((queryParamKey, index) => {
+                        return (
+                          <>
+                            <CHybridInput
+                              key={'header-' + queryParamKey + index}
+                              id={'header-' + queryParamKey + index}
+                              name={queryParamKey}
+                              onChange={event =>
+                                onChangeHandlerHeaderOrQueryParams(
+                                  event,
+                                  ind,
+                                  'queryParams'
+                                )
+                              }
+                              placeholder={'Enter a ' + queryParamKey}
+                              value={queryParam[queryParamKey]}
+                              required={true}
+                            />
+                          </>
+                        )
+                      })}
+                      <CButton
+                        id="remove-header"
+                        name="Remove"
+                        onClickHandler={() =>
+                          onRemoveHandlerHeaderOrQueryParams(ind, 'queryParams')
+                        }
+                      />
+                    </div>
+                  )
+                })}
               </Col>
               <Col sm={12} md={6} lg={4}>
                 <CHybridTextArea

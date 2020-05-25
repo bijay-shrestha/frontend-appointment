@@ -31,6 +31,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: ''
       },
       requestBodyValid: false,
+      apiUrlValid: false,
       editQueryParams: [],
       editHeaders: [],
       searchQueryParams: {
@@ -42,7 +43,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       editShowModal: false,
       showConfirmationModal: false,
       regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
-      regexForApiUrl:/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?/g,
+      regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/,
       alertMessageInfo: {
         variant: '',
         message: ''
@@ -63,7 +64,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: ''
         },
         formValid: false,
-        requestBodyValid: false
+        requestBodyValid: false,
+        restApiValid: false
       })
     }
 
@@ -73,21 +75,25 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    setTheStateForInputValidity = (objectToModify, validity) => {
-      console.log('validity',validity)
-      this.setState({
+    setTheStateForInputValidity = async (objectToModify, validity, name) => {
+      const newName = name + 'Valid'
+      await this.setState({
         integrationData: {...objectToModify},
-        requestBodyValid: validity
+        [newName]: validity
       })
+      console.log("====",this.state)
     }
-    onChangeHandler = (e, validity) => {
+    onChangeHandler = async (e, validity) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      if (name !== 'requestBody')
-        this.setTheStateForIntegrationData(integrationDatas)
-      else this.setTheStateForInputValidity(integrationDatas, validity)
-      this.checkFormValidity()
+      if (name !== 'requestBody' && name !== 'apiUrl'){
+        await this.setTheStateForIntegrationData(integrationDatas)
+      }  
+      else{
+       await this.setTheStateForInputValidity(integrationDatas, validity, name)
+      }
+       this.checkFormValidity()
     }
 
     setCloseModal = () => {
@@ -155,24 +161,25 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         apiUrl,
         clientId,
         featureType,
-        headers,
-        queryParams,
+        // headers,
+        // queryParams,
         requestBody,
         requestMethod
       } = this.state.integrationData
-      const {requestBodyValid}= this.state
+      const {requestBodyValid, apiUrlValid} = this.state
       let formValid =
-        apiUrl &&
-        clientId.value &&
-        featureType.value &&
-        //headers.length &&
-        //queryParams.length &&
-        //requestBody &&
-        requestMethod.value
+          apiUrl &&
+          clientId.value &&
+          featureType.value &&
+          //headers.length &&
+          //queryParams.length &&
+          //requestBody &&
+          requestMethod.value &&
+        apiUrlValid
 
-        if(requestBody.length){
-          formValid = formValid && requestBodyValid
-        }
+      if (requestBody.length) {
+        formValid = formValid && requestBodyValid
+      }
       this.setState({
         formValid: Boolean(formValid)
       })
@@ -289,7 +296,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 ? [...requestMethodData]
                 : [],
               requestMethodDropdownError: requestMethodDropdownError,
-              regexForApiUrl:regexForApiUrl,
+              regexForApiUrl: regexForApiUrl,
               formValid,
               hospitalsForDropdown
             }}
