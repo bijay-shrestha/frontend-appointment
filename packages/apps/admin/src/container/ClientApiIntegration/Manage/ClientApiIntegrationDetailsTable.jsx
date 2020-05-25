@@ -47,24 +47,24 @@ const ClientApiIntegrationDetailsDataTable = ({
               //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
             },
             {
-              headerName: 'Client Name',
-              field: 'hospitalName',
+              headerName: 'Feature Name',
+              field: 'featureName',
               // headerClass: "fi",
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true
             },
             {
-              headerName: 'Specialization Name',
-              field: 'name',
+              headerName: 'Feature Code',
+              field: 'featureCode',
               // headerClass: "fi",
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true
             },
             {
-              headerName: 'Specialization Code',
-              field: 'code',
+              headerName: 'Request Method',
+              field: 'requestMethod',
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true

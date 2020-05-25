@@ -153,7 +153,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         totalRecords: this.props.hospitalSearchApiIntegrationReducers
           .searchApiIntegrationData.length
           ? this.props.hospitalSearchApiIntegrationReducers
-              .searchApiIntegrationData[0].totalItems
+              .totalItems
           : 0,
         searchQueryParams: {
           ...this.state.searchQueryParams,

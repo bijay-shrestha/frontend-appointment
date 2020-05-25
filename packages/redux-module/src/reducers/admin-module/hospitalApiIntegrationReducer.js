@@ -139,8 +139,8 @@ const searchApiIntegrationHandler = {
   [HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS]: (state, action) => ({
     ...state,
     isSearchApiIntegrationLoading: false,
-    searchApiIntegrationData: action.payload.data,
-    totalItems: 0,
+    searchApiIntegrationData: action.payload.data.searchResponseDTOS,
+    totalItems: action.payload.data.totalItems,
     searchApiIntegrationMessageError: ''
   }),
   [HOSPITAL_API_INTEGRATION_SEARCH_ERROR]: (state, action) => ({
