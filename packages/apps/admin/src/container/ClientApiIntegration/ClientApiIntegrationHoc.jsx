@@ -16,9 +16,16 @@ const {
 const {
   fetchFeatureTypeForDrodown,
   fetchRequestMethodDropdown,
-  saveHospitalIntegration
+  saveHospitalIntegration,
+  deleteApiIntegrationData,
+  editApiIntegrationData,
+  previewApiIntegrationData,
+  searchApiIntegrationData
 } = HospitalApiIntegrationMiddleware
-const {changeCommaSeperatedStringToObjectAndStringifyIt} = CommonUtils
+const {
+  changeCommaSeperatedStringToObjectAndStringifyIt,
+  checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent
+} = CommonUtils
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
   class ClientApiIntegration extends PureComponent {
@@ -32,7 +39,15 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         queryParams: [],
         requestBody: ''
       },
+      searchParameters: {
+        clientId: '',
+        requestMethodId: '',
+        featureTypeId: '',
+        apiUrl: ''
+      },
+      totalRecords: 0,
       requestBodyValid: false,
+      apiUrlValid: false,
       editQueryParams: [],
       editHeaders: [],
       searchQueryParams: {
@@ -44,7 +59,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       editShowModal: false,
       showConfirmationModal: false,
       regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
-      regexForApiUrl:/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?/g,
+      regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/,
       alertMessageInfo: {
         variant: '',
         message: ''
@@ -65,7 +80,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: ''
         },
         formValid: false,
-        requestBodyValid: false
+        requestBodyValid: false,
+        restApiValid: false
       })
     }
 
@@ -75,21 +91,113 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    setTheStateForInputValidity = (objectToModify, validity) => {
-      console.log('validity',validity)
-      this.setState({
+    setTheStateForInputValidity = async (objectToModify, validity, name) => {
+      const newName = name + 'Valid'
+      await this.setState({
         integrationData: {...objectToModify},
-        requestBodyValid: validity
+        [newName]: validity
       })
+      console.log('====', this.state)
     }
-    onChangeHandler = (e, validity) => {
+    onChangeHandler = async (e, validity) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      if (name !== 'requestBody')
-        this.setTheStateForIntegrationData(integrationDatas)
-      else this.setTheStateForInputValidity(integrationDatas, validity)
+      if (name !== 'requestBody' && name !== 'apiUrl') {
+        await this.setTheStateForIntegrationData(integrationDatas)
+      } else {
+        await this.setTheStateForInputValidity(integrationDatas, validity, name)
+      }
       this.checkFormValidity()
+    }
+
+    handleSearchFormReset = async () => {
+      await this.setState({
+        searchParameters: {
+          clientId: '',
+          requestMethodId: '',
+          featureTypeId: '',
+          apiUrl: ''
+        }
+      })
+      this.searchHospitalApiIntegration()
+    }
+
+    searchHospitalApiIntegration = async page => {
+      const {
+        apiUrl,
+        clientId,
+        featureTypeId,
+        requestMethodId
+      } = this.state.searchParameters
+
+      let updatedPage =
+        this.state.searchQueryParams.page === 0
+          ? 1
+          : page
+          ? page
+          : this.state.searchQueryParams.page
+      await this.props.searchApiIntegrationData(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SEARCH,
+        {
+          page: updatedPage,
+          size: this.state.searchQueryParams.size
+        },
+        {
+          apiUrl,
+          clientId: clientId.value || '',
+          featureTypeId: featureTypeId.value || '',
+          requestMethodId: requestMethodId.value || ''
+        }
+      )
+
+      await this.setState({
+        totalRecords: this.props.hospitalSearchApiIntegrationReducers
+          .searchApiIntegrationData.length
+          ? this.props.hospitalSearchApiIntegrationReducers
+              .searchApiIntegrationData[0].totalItems
+          : 0,
+        searchQueryParams: {
+          ...this.state.searchQueryParams,
+          page: updatedPage
+        }
+      })
+    }
+
+    handlePageChange = async newPage => {
+      await this.setState({
+        searchQueryParams: {
+          ...this.state.searchQueryParams,
+          page: newPage
+        }
+      })
+      this.searchHospitalApiIntegration()
+    }
+
+    appendSNToTable = apiIntegrationList => {
+      const newApiIntegrationList = apiIntegrationList.map(
+        (apiIntegrate, index) => ({
+          ...apiIntegrate,
+          sN: index + 1
+        })
+      )
+      return newApiIntegrationList
+    }
+    setStateValuesForSearch = searchParams => {
+      this.setState({
+        searchParameters: searchParams
+      })
+    }
+
+    handleSearchFormChange = async event => {
+      if (event) {
+        let fieldName = event.target.name
+        let value = event.target.value
+        let label = event.target.label
+        let searchParams = {...this.state.searchParameters}
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        await this.setStateValuesForSearch(searchParams)
+      }
     }
 
     setCloseModal = () => {
@@ -157,12 +265,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         apiUrl,
         clientId,
         featureType,
-        headers,
-        queryParams,
+        // headers,
+        // queryParams,
         requestBody,
         requestMethod
       } = this.state.integrationData
-      const {requestBodyValid}= this.state
+      const {requestBodyValid, apiUrlValid} = this.state
       let formValid =
         apiUrl &&
         clientId.value &&
@@ -170,11 +278,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         //headers.length &&
         //queryParams.length &&
         //requestBody &&
-        requestMethod.value
+        requestMethod.value &&
+        apiUrlValid
 
-        if(requestBody.length){
-          formValid = formValid && requestBodyValid
-        }
+      if (requestBody.length) {
+        formValid = formValid && requestBodyValid
+      }
       this.setState({
         formValid: Boolean(formValid)
       })
@@ -198,8 +307,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE,
           {
             apiUrl,
-            clientApiRequestHeaders: [...headers],
-            parametersRequestDTOS: [...queryParams],
+            clientApiRequestHeaders: checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent(
+              headers
+            ),
+            parametersRequestDTOS: checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent(
+              queryParams
+            ),
             requestMethodId: requestMethod.value || '',
             hospitalId: clientId.value || '',
             featureTypeId: featureType.value || '',
@@ -238,6 +351,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
 
     componentDidMount () {
+      if(type==="M")
+        this.searchHospitalApiIntegration()
       this.callInitialApi()
     }
 
@@ -249,7 +364,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         regexForCommaSeperation,
         formValid,
         regexForApiUrl,
-        showConfirmationModal
+        showConfirmationModal,
+        searchParameters,
+        searchQueryParams,
+        totalRecords
       } = this.state
       const {
         isHospitalApiSaveLoading
@@ -265,6 +383,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethodData,
         requestMethodDropdownError
       } = this.props.hospitalRequestMethodDropdownReducers
+      const {
+        isSearchApiIntegrationLoading,
+        searchApiIntegrationData,
+        searchApiIntegrationMessageError
+      } = this.props.hospitalSearchApiIntegrationReducers
       // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
       return (
         <>
@@ -291,7 +414,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 ? [...requestMethodData]
                 : [],
               requestMethodDropdownError: requestMethodDropdownError,
-              regexForApiUrl:regexForApiUrl,
+              regexForApiUrl: regexForApiUrl,
               formValid,
               hospitalsForDropdown
             }}
@@ -300,6 +423,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               onConfirmHandler: this.onConfirmHandler,
               onSaveHandler: this.onSaveHandler,
               showConfirmationModal: showConfirmationModal
+            }}
+            searchHandler={{
+              onSearchChangeHandler: this.handleSearchFormChange,
+              onSearchResetHandler: this.handleSearchFormReset,
+              searchParams: searchParameters,
+              searchApiIntegration: this.searchHospitalApiIntegration
+            }}
+            tableHandler={{
+              integrationList: this.appendSNToTable(searchApiIntegrationData),
+              isSearchLoading: isSearchApiIntegrationLoading,
+              searchErrorMessage: searchApiIntegrationMessageError,
+              searchQueryParams: searchQueryParams,
+              onPageChangehandler: this.handlePageChange,
+              totalItems:totalRecords
             }}
           />
           <CAlert
@@ -334,13 +471,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       'hospitalApiIntegrationSaveReducers',
       'hospitalRequestMethodDropdownReducers',
       'hospitalFeatureTypeDropdownReducers',
-      'HospitalDropdownReducer'
+      'HospitalDropdownReducer',
+      'hospitalPreviewApiIntegrationReducers',
+      'hospitalSearchApiIntegrationReducers',
+      'hospitalDeleteApiIntegrationReducers'
     ],
     {
       fetchFeatureTypeForDrodown,
       fetchRequestMethodDropdown,
       saveHospitalIntegration,
-      fetchActiveHospitalsForDropdown
+      fetchActiveHospitalsForDropdown,
+      deleteApiIntegrationData,
+      editApiIntegrationData,
+      previewApiIntegrationData,
+      searchApiIntegrationData
     }
   )
 }

@@ -110,11 +110,13 @@ const ClientApiIntegrationForm = ({
                   id="apiUrl"
                   name="apiUrl"
                   value={integrationData.apiUrl}
-                  onChange={event => onChangeHandler(event,'')}
-                  placeholder={"Enter the api url"}
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  placeholder={'Enter the api url'}
                   fieldValuePattern={regexForApiUrl}
                   hasValidation={true}
-                  errorMessagePassed={"Value Should be Api Url"}
+                  errorMessagePassed={'Value Should be Api Url'}
                 />
               </Col>
               </Row>

@@ -98,6 +98,11 @@ const ClientApiIntegration = loadable(
     () => import('./container/ClientApiIntegration/Add/ClientApiIntegrationAddForm'),
     {fallback: () => getLoader()}  
 )
+const ClientApiIntegrationManage =loadable(
+    () => import('./container/ClientApiIntegration/Manage/ClientApiIntegrationManage'),
+    {fallback: () => getLoader()}  
+)
+
 /* ****** D ***** */
 
 const DashboardComponent = loadable(
@@ -698,6 +703,16 @@ export const routes = [
         path: '/admin/apiIntegration/clientApiIntegration/add',
         name: 'Add',
         component: ClientApiIntegration,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/apiIntegration/clientApiIntegration/manage',
+        name: 'Add',
+        component: ClientApiIntegrationManage,
         icon: '',
         hasTab: true,
         isLink: true,
