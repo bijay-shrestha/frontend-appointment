@@ -51,13 +51,12 @@ const HospitalDepartmentForm = ({
                 </Row>
                 <CForm id="doctor-info" className="mt-2 profile-info">
                     <Container-fluid>
-                        <Row>
-                            <Col lg={9}>
+                   
                                 <Row>
                                     {
                                         isAdminModule ?
                                             <>
-                                                <Col sm={12} md={12} lg={6}>
+                                                <Col sm={12} md={12} lg={4}>
                                                     <CHybridSelect
                                                         id="hospital"
                                                         name="hospital"
@@ -71,12 +70,12 @@ const HospitalDepartmentForm = ({
                                                         isDisabled={!hospitalsForDropdown.length}
                                                     />
                                                 </Col>
-                                                <Col sm={12} md={12} lg={6}> </Col>
+                                                <Col sm={12} md={12} lg={4}> </Col>
                                             </>
                                             : ''
                                     }
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={6} lg={4}>
                                         <CHybridInput
                                             id="department-name"
                                             name="name"
@@ -91,7 +90,7 @@ const HospitalDepartmentForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={6} lg={4}>
                                         <CHybridInput
                                             id="department-code"
                                             name="code"
@@ -103,7 +102,7 @@ const HospitalDepartmentForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={6} lg={4}>
                                         <CHybridTextArea
                                             id="department-description"
                                             name="description"
@@ -118,7 +117,7 @@ const HospitalDepartmentForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={12} lg={6}>
+                                    <Col sm={12} md={12} lg={4}>
                                         <CHybridSelectWithImage
                                             id="doctor"
                                             name="doctorList"
@@ -131,10 +130,11 @@ const HospitalDepartmentForm = ({
                                             placeholder={doctorPlaceholder}
                                             isDisabled={doctorDropdownDisabled}
                                             isMulti={true}
+                                            className="multiple-select"
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={12} lg={6}>
+                                    <Col sm={12} md={12} lg={4}>
                                         <CHybridSelect
                                             id="roomNumbers"
                                             name="roomList"
@@ -147,11 +147,12 @@ const HospitalDepartmentForm = ({
                                             placeholder={roomPlaceholder}
                                             isDisabled={roomDropdownDisabled}
                                             isMulti={true}
+                                            className="multiple-select"
                                         />
                                     </Col>
 
 
-                                    <Col sm={12} md={6} lg={6} className="">
+                                    <Col sm={12} md={6} lg={4} className="">
                                         <CHybridInput
                                             id="appointment-charge"
                                             name="appointmentCharge"
@@ -166,7 +167,7 @@ const HospitalDepartmentForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6} className="">
+                                    <Col sm={12} md={6} lg={4} className="">
                                         <CHybridInput
                                             id="appointment-follow-up-charge"
                                             name="followUpCharge"
@@ -181,7 +182,7 @@ const HospitalDepartmentForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={4} lg={4}>
+                                    <Col sm={12} md={6} lg={4}>
                                         <CFLabel labelName="Status" id="status"/>
                                         <div>
                                             <CRadioButton
@@ -195,8 +196,7 @@ const HospitalDepartmentForm = ({
                                         </div>
                                     </Col>
                                 </Row>
-                            </Col>
-                        </Row>
+                       
                     </Container-fluid>
                 </CForm>
             </Container-fluid>
