@@ -583,6 +583,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             } = this.state;
 
             const {activeDoctorsByHospitalForDropdown, allDoctorsForDropdown} = this.props.DoctorDropdownReducer;
+            console.log("=========================", allDoctorsForDropdown)
 
             const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
