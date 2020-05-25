@@ -7,9 +7,21 @@ const {
   HOSPITAL_REQUEST_METHOD_DROPDOWN_ERROR,
   HOSPITAL_REQUEST_METHOD_DROPDOWN_PENDING,
   HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_ERROR,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_PENDING,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_SUCCESS
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_ERROR,
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_PENDING,
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS,
+  HOSPITAL_API_INTEGRATION_EDIT_ERROR,
+  HOSPITAL_API_INTEGRATION_EDIT_PENDING,
+  HOSPITAL_API_INTEGRATION_EDIT_SUCCESS,
+  HOSPITAL_API_INTEGRATION_PREVIEW_ERROR,
+  HOSPITAL_API_INTEGRATION_PREVIEW_PENDING,
+  HOSPITAL_API_INTEGRATION_PREVIEW_SUCCESS,
+  HOSPITAL_API_INTEGRATION_SEARCH_ERROR,
+  HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS,
+  HOSPITAL_API_INTEGRATION_SEARCH_PENDING,
+  HOSPITAL_API_INTEGRATION_DELETE_ERROR,
+  HOSPITAL_API_INTEGRATION_DELETE_PENDING,
+  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS
 } = hospitalApiIntegrationActionConstants
 //State
 const initialState = {
@@ -27,6 +39,27 @@ const initialState = {
     isRequestMethodDropdownLoading: true,
     requestMethodData: [],
     requestMethodDropdownError: ''
+  },
+  searchApiIntegration: {
+    isSearchApiIntegrationLoading: true,
+    searchApiIntegrationData: [],
+    totalItems: 0,
+    searchApiIntegrationMessageError: ''
+  },
+  editApiIntegration: {
+    isEditApiIntegrationLoading: false,
+    editApiIntegrationSuccessMessage: '',
+    editApiIntegrationErrorMessage: ''
+  },
+  previewApiIntegration: {
+    isPreviewApiIntegrationLoading: true,
+    previewApiIntegrationData: null,
+    previewApiIntegrationErorrMessage: ''
+  },
+  deleteApiIntegration: {
+    isDeleteApiIntegrationLoading: false,
+    deleteApiIntegrationSuccessMessage: '',
+    deleteApiIntegrationErrorMessage: ''
   }
 }
 //Handlers
@@ -52,19 +85,19 @@ const hospitalApiIntegrationSaveHandler = {
 }
 
 const featureTypeDropdownHandler = {
-  [HOSPTIAL_FEATURE_TYPE_DROPDOWN_PENDING]: state => ({
+  [HOSPITAL_FEATURE_TYPE_DROPDOWN_PENDING]: state => ({
     ...state,
     isFeatureTypeDropdownLoading: true,
     featureTypeDropdownData: [],
     featureTypeDropdownError: ''
   }),
-  [HOSPTIAL_FEATURE_TYPE_DROPDOWN_SUCCESS]: (state, action) => ({
+  [HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS]: (state, action) => ({
     ...state,
     isFeatureTypeDropdownLoading: false,
     featureTypeDropdownData: action.payload.data,
     featureTypeDropdownError: ''
   }),
-  [HOSPTIAL_FEATURE_TYPE_DROPDOWN_ERROR]: (state, action) => ({
+  [HOSPITAL_FEATURE_TYPE_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
     isFeatureTypeDropdownLoading: false,
     featureTypeDropdownData: [],
@@ -78,17 +111,107 @@ const requestMethodDropdownHandler = {
     requestMethodData: [],
     requestMethodDropdownError: ''
   }),
-  [HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS]: (state, action) =>{ console.log("action.payload.data",action.payload.data); return({
-    ...state,
-    isRequestMethodDropdownLoading: false,
-    requestMethodData: action.payload.data,
-    requestMethodDropdownError: ''
-  })},
+  [HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS]: (state, action) => {
+    console.log('action.payload.data', action.payload.data)
+    return {
+      ...state,
+      isRequestMethodDropdownLoading: false,
+      requestMethodData: action.payload.data,
+      requestMethodDropdownError: ''
+    }
+  },
   [HOSPITAL_REQUEST_METHOD_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
     isRequestMethodDropdownLoading: false,
     requestMethodData: [],
-    requestMethodDropdownError:action.payload.data
+    requestMethodDropdownError: action.payload.data
+  })
+}
+
+const searchApiIntegrationHandler = {
+  [HOSPITAL_API_INTEGRATION_SEARCH_PENDING]: state => ({
+    ...state,
+    isSearchApiIntegrationLoading: true,
+    searchApiIntegrationData: [],
+    totalItems: 0,
+    searchApiIntegrationMessageError: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS]: (state, action) => ({
+    ...state,
+    isSearchApiIntegrationLoading: false,
+    searchApiIntegrationData: action.payload.data,
+    totalItems: 0,
+    searchApiIntegrationMessageError: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_SEARCH_ERROR]: (state, action) => ({
+    ...state,
+    isSearchApiIntegrationLoading: false,
+    searchApiIntegrationData: [],
+    totalItems: 0,
+    searchApiIntegrationMessageError: action.payload.message
+  })
+}
+
+const previewApiIntegrationHandler = {
+  [HOSPITAL_API_INTEGRATION_PREVIEW_PENDING]: state => ({
+    ...state,
+    isPreviewApiIntegrationLoading: true,
+    previewApiIntegrationData: null,
+    previewApiIntegrationErorrMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_PREVIEW_SUCCESS]: (state, action) => ({
+    ...state,
+    isPreviewApiIntegrationLoading: false,
+    previewApiIntegrationData: action.payload.data,
+    previewApiIntegrationErorrMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_PREVIEW_ERROR]: (state, action) => ({
+    ...state,
+    isPreviewApiIntegrationLoading: false,
+    previewApiIntegrationData: null,
+    previewApiIntegrationErorrMessage: action.payload.data
+  })
+}
+
+const editApiIntegrationHandler = {
+  [HOSPITAL_API_INTEGRATION_EDIT_PENDING]: state => ({
+    ...state,
+    isEditApiIntegrationLoading: true,
+    editApiIntegrationSuccessMessage: '',
+    editApiIntegrationErrorMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_EDIT_SUCCESS]: (state, action) => ({
+    ...state,
+    isEditApiIntegrationLoading: false,
+    editApiIntegrationSuccessMessage: action.payload.message,
+    editApiIntegrationErrorMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_EDIT_ERROR]: (state, action) => ({
+    ...state,
+    isEditApiIntegrationLoading: false,
+    editApiIntegrationSuccessMessage: '',
+    editApiIntegrationErrorMessage: action.payload.message
+  })
+}
+
+const deleteApiIntegrationHandler = {
+  [HOSPITAL_API_INTEGRATION_DELETE_PENDING]: state => ({
+    ...state,
+    isDeleteApiIntegrationLoading: true,
+    deleteApiIntegrationSuccessMessage: '',
+    deleteApiIntegrationErrorMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_DELETE_SUCCESS]: (state, action) => ({
+    ...state,
+    isDeleteApiIntegrationLoading: false,
+    deleteApiIntegrationSuccessMessage: action.payload.message,
+    deleteApiIntegrationErrorMessage: ''
+  }),
+  [HOSPITAL_API_INTEGRATION_DELETE_ERROR]: (state, action) => ({
+    ...state,
+    isDeleteApiIntegrationLoading: false,
+    deleteApiIntegrationSuccessMessage: '',
+    deleteApiIntegrationErrorMessage:ActionForEditableTable.payload.message
   })
 }
 
@@ -105,5 +228,21 @@ export const HospitalApiIntegrationReducers = {
   hospitalFeatureTypeDropdownReducers: createReducerFactory(
     featureTypeDropdownHandler,
     initialState.featureTypeDropdown
+  ),
+  hospitalEditApiIntegrationReducers: createReducerFactory(
+    editApiIntegrationHandler,
+    initialState.editApiIntegration
+  ),
+  hospitalPreviewApiIntegrationReducers: createReducerFactory(
+    previewApiIntegrationHandler,
+    initialState.previewApiIntegration
+  ),
+  hospitalSearchApiIntegrationReducers: createReducerFactory(
+    searchApiIntegrationHandler,
+    initialState.searchApiIntegration
+  ),
+  hospitalDeleteApiIntegrationReducers: createReducerFactory(
+    deleteApiIntegrationHandler,
+    initialState.deleteApiIntegration
   )
 }

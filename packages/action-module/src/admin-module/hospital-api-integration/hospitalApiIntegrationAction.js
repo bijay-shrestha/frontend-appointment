@@ -18,7 +18,10 @@ const {
   HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS,
   HOSPITAL_FEATURE_TYPE_DROPDOWN_ERROR,
   HOSPITAL_FEATURE_TYPE_DROPDOWN_PENDING,
-  HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS,
+  HOSPITAL_API_INTEGRATION_DELETE_ERROR,
+  HOSPITAL_API_INTEGRATION_DELETE_PENDING,
+  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS
 } = hospitalApiIntegrationActionConstants
 
 export const hospitalApiSaveSuccess = message => ({
@@ -122,9 +125,27 @@ export const hospitalApiEditPending = () => ({
   type: HOSPITAL_API_INTEGRATION_EDIT_PENDING
 })
 
-export const hospitalApiEditSuccess = data => ({
+export const hospitalApiEditSuccess = message => ({
   type: HOSPITAL_API_INTEGRATION_EDIT_SUCCESS,
   payload: {
-    data
+    message
+  }
+})
+
+export const hospitalApiDeleteError = message => ({
+  type: HOSPITAL_API_INTEGRATION_DELETE_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const hospitalApiDeletePending = () => ({
+  type: HOSPITAL_API_INTEGRATION_DELETE_PENDING
+})
+
+export const hospitalApiDeleteSuccess = message => ({
+  type: HOSPITAL_API_INTEGRATION_DELETE_SUCCESS,
+  payload: {
+    message
   }
 })
