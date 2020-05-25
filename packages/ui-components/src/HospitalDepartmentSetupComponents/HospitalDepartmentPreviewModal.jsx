@@ -149,6 +149,21 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                         disabled={true}
                                     />
                                 </Col>
+
+                                {
+                                    type === "MANAGE" ?
+                                        <Col sm={12} md={12} lg={6}>
+                                            <CHybridTextArea
+                                                id="department-remarks"
+                                                name="remark"
+                                                placeholder="Remarks"
+                                                value={departmentData.remarks || 'N/A'}
+                                                required={true}
+                                                disabled={true}
+                                            />
+                                        </Col>
+                                        : ''
+                                }
                             </Row>
                             {
                                 type === "MANAGE" ?

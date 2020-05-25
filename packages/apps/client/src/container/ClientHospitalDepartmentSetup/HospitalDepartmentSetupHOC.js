@@ -238,6 +238,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     }
                 });
 
+                // REMOVE EXISTING DATA
                 originalList.map(originalItem => {
                     let originalItemInCurrentList = currentList.find(current => current.value === originalItem.value);
                     if (!originalItemInCurrentList) {
@@ -248,8 +249,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     }
                 })
             }
-
-            console.log("UPDATED====================" + fieldName, updatedDataList);
             return updatedDataList;
         };
 
@@ -381,7 +380,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 },
                 errorMessageForDepartmentName: '',
                 errorMessageForDescription: '',
-                showEditModal:false
+                showEditModal: false
 
             })
         };
@@ -445,9 +444,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 description, code,
                 appointmentCharge
             } = this.state.departmentData;
-            let doctorIds = doctorList && doctorList.map(doctor => doctor.value);
-            let roomIds = roomList && roomList.map(room => room.value);
-            console.log(doctorIds);
+            let doctorIds = doctorList ? doctorList.map(doctor => doctor.value) : [];
+            let roomIds = roomList ? roomList.map(room => room.value) : [];
+
             let requestDTO = {
                 name,
                 code,
