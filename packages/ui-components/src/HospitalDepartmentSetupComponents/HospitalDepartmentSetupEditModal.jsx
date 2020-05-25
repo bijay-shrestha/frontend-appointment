@@ -37,8 +37,7 @@ const HospitalDepartmentSetupEditModal = ({
         <Container-fluid>
             <CForm id="doctor-info" className="mt-2 profile-info">
                 <Container-fluid>
-                    <Row>
-                        <Col lg={9}>
+               
                             <Row>
                                 {
                                     EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
@@ -197,8 +196,7 @@ const HospitalDepartmentSetupEditModal = ({
                                 </Col>
 
                             </Row>
-                        </Col>
-                    </Row>
+                   
                 </Container-fluid>
             </CForm>
         </Container-fluid>;
