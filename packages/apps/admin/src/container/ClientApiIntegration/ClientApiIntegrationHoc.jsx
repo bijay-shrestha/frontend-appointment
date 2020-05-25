@@ -6,7 +6,9 @@ import {
   HospitalApiIntegrationMiddleware,
   HospitalSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
+
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import './client-api-integration.scss'
 const {
   hospitalIntegrationConstants,
   hospitalSetupApiConstants
