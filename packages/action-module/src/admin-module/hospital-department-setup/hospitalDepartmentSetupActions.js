@@ -26,7 +26,10 @@ const {
     FETCH_ALL_HOSPITAL_DEPARTMENT_ERROR,
     FETCH_ACTIVE_HOSPITAL_DEPARTMENT_ERROR,
     FETCH_ACTIVE_HOSPITAL_DEPARTMENT_PENDING,
-    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_SUCCESS
+    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_SUCCESS,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_ERROR,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_PENDING,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_SUCCESS
 } = hospitalDepartmentSetupActionConstants;
 
 export const saveHospitalDepartmentPending = () => {
@@ -222,6 +225,30 @@ export const fetchActiveHospitalDepartmentSuccess = (data) => {
 export const fetchActiveHospitalDepartmentError = (errorMessage) => {
     return {
         type: FETCH_ACTIVE_HOSPITAL_DEPARTMENT_ERROR,
+        payload: {
+            message: errorMessage
+        }
+    }
+};
+
+export const fetchAvailableRoomsForDropdownPending = () => {
+    return {
+        type: FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchAvailableRoomsForDropdownSuccess = (data) => {
+    return {
+        type: FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchAvailableRoomsForDropdownError = (errorMessage) => {
+    return {
+        type: FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_ERROR,
         payload: {
             message: errorMessage
         }

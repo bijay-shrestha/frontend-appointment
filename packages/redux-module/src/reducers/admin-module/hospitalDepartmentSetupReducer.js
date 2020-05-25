@@ -26,7 +26,10 @@ const {
     FETCH_ACTIVE_HOSPITAL_DEPARTMENT_ERROR,
     FETCH_ALL_HOSPITAL_DEPARTMENT_ERROR,
     FETCH_ALL_HOSPITAL_DEPARTMENT_PENDING,
-    FETCH_ALL_HOSPITAL_DEPARTMENT_SUCCESS
+    FETCH_ALL_HOSPITAL_DEPARTMENT_SUCCESS,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_ERROR,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_PENDING,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_SUCCESS
 } = hospitalDepartmentSetupActionConstants;
 
 const initialState = {
@@ -41,7 +44,7 @@ const initialState = {
     deleteErrorMessage: '',
     isSearchHospitalDepartmentLoading: false,
     hospitalDepartmentList: [],
-    totalRecords:'',
+    totalRecords: '',
     searchErrorMessage: '',
     isFetchHospitalDepartmentLoading: false,
     activeHospitalDepartmentForDropdown: [],
@@ -52,6 +55,9 @@ const initialState = {
     isFetchAllHospitalDepartmentLoading: false,
     allHospitalDepartmentForDropdown: [],
     allDepartmentDropdownErrorMessage: '',
+    isFetchAvailableRoomsLoading: false,
+    availableRoomsForDropdown: [],
+    availableRoomsForDropdownErrorMessage: '',
 };
 
 export const HospitalDepartmentSaveReducer = (state = {...initialState}, action) => {
@@ -163,7 +169,7 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchHospitalDepartmentLoading: true,
                 hospitalDepartmentList: [],
-                totalRecords:'',
+                totalRecords: '',
                 searchErrorMessage: ''
             };
         case SEARCH_HOSPITAL_DEPARTMENT_SUCCESS:
@@ -171,7 +177,7 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchHospitalDepartmentLoading: false,
                 hospitalDepartmentList: [...action.payload.data.hospitalDepartmentList],
-                totalRecords:action.payload.data.totalItems,
+                totalRecords: action.payload.data.totalItems,
                 searchErrorMessage: ''
             };
         case SEARCH_HOSPITAL_DEPARTMENT_ERROR:
@@ -179,7 +185,7 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
                 ...state,
                 isSearchHospitalDepartmentLoading: false,
                 hospitalDepartmentList: [],
-                totalRecords:'',
+                totalRecords: '',
                 searchErrorMessage: action.payload.message
             };
         case CLEAR_SEARCH_HOSPITAL_DEPARTMENT_MESSAGE:
@@ -268,6 +274,27 @@ export const HospitalDepartmentDropdownReducer = (state = {...initialState}, act
                 isFetchAllHospitalDepartmentLoading: false,
                 allHospitalDepartmentForDropdown: [],
                 allDepartmentDropdownErrorMessage: action.payload.message,
+            };
+        case FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_PENDING :
+            return {
+                ...state,
+                isFetchAvailableRoomsLoading: true,
+                availableRoomsForDropdown: [],
+                availableRoomsForDropdownErrorMessage: '',
+            };
+        case FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isFetchAvailableRoomsLoading: false,
+                availableRoomsForDropdown: [...action.payload.data],
+                availableRoomsForDropdownErrorMessage: '',
+            };
+        case FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isFetchAvailableRoomsLoading: false,
+                availableRoomsForDropdown: [],
+                availableRoomsForDropdownErrorMessage: action.payload.message,
             };
         default:
             return state

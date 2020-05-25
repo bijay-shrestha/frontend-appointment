@@ -298,7 +298,6 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
                 allDoctorDropdownErrorMessage: ''
             };
         case FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS:
-            console.log("Reducer data=================",action.payload.data);
             return {
                 ...state,
                 isAllDoctorDropdownPending: false,

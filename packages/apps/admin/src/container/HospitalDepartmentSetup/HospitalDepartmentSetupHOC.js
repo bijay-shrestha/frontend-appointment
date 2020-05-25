@@ -15,10 +15,11 @@ const {
     deleteHospitalDepartment,
     editHospitalDepartment,
     fetchActiveHospitalDepartmentForDropdown,
+    fetchAvailableRoomsByHospitalIdForDropdown,
     fetchAllHospitalDepartmentForDropdownByHospitalId,
     fetchHospitalDepartmentDetailsByHospitalDepartmentId,
     saveHospitalDepartment,
-    searchHospitalDepartment
+    searchHospitalDepartment,
 } = HospitalDepartmentSetupMiddleware;
 
 const {
@@ -39,7 +40,8 @@ const {
     FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
     SAVE_HOSPITAL_DEPARTMENT,
     SEARCH_HOSPITAL_DEPARTMENT,
-    FETCH_HOSPITAL_DEPARTMENT_DETAILS_BY_ID
+    FETCH_HOSPITAL_DEPARTMENT_DETAILS_BY_ID,
+    FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
 
 const {
@@ -116,7 +118,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         actionsOnHospitalChange = (value) => {
             if (value) {
                 this.fetchActiveDoctorsForDropdownByHospitalId(value);
-                this.fetchActiveRoomNumberForDropdownByHospital(value);
+                this.fetchAvailableRoomNumbersForDropdownByHospital(value);
             }
             this.setState({
                 departmentData: {
@@ -215,7 +217,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         editDepartment = async () => {
             const {
                 id, name, code, description, appointmentCharge, followUpCharge, remarks, status,
-                originalDoctorList, originalRoomList, doctorList, roomList
+                originalDoctorList, originalRoomList, doctorList, roomList, hospital
             } = this.state.departmentData;
 
             let updatedDoctors = [...this.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")];
@@ -231,6 +233,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 followUpCharge: followUpCharge,
                 remarks: remarks,
                 status: status,
+                hospitalId: hospital && hospital.value,
                 doctorUpdateList: [...updatedDoctors],
                 roomUpdateList: [...updatedRooms],
             };
@@ -248,31 +251,30 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         getUpdatedDataListForMultiSelect = (originalList, currentList, fieldName) => {
             let updatedDataList = [];
-            if (originalList && currentList) {
-                // FIND NEW ADDED DATA
-                currentList.map(currentItem => {
-                    let currentItemInOriginalList = originalList.find(original => original.value === currentItem.value);
-                    if (!currentItemInOriginalList) {
-                        updatedDataList.push({
-                            [fieldName.concat("Id")]: currentItem.value,
-                            status: 'Y'
-                        })
-                    }
-                    return '';
-                });
+            // FIND NEW ADDED DATA
+            currentList && currentList.map(currentItem => {
+                let currentItemInOriginalList = originalList && originalList.find(original => original.value === currentItem.value);
+                if (!currentItemInOriginalList) {
+                    updatedDataList.push({
+                        [fieldName.concat("Id")]: currentItem.value,
+                        status: 'Y'
+                    })
+                }
+                return '';
+            });
 
-                // REMOVE EXISTING DATA
-                originalList.map(originalItem => {
-                    let originalItemInCurrentList = currentList.find(current => current.value === originalItem.value);
-                    if (!originalItemInCurrentList) {
-                        updatedDataList.push({
-                            [fieldName.concat("Id")]: originalItem.value,
-                            status: 'D'
-                        })
-                    }
-                    return '';
-                })
-            }
+            // REMOVE EXISTING DATA
+            originalList && originalList.map(originalItem => {
+                let originalItemInCurrentList = currentList && currentList.find(current => current.value === originalItem.value);
+                if (!originalItemInCurrentList) {
+                    updatedDataList.push({
+                        [fieldName.concat("Id")]: originalItem.value,
+                        status: 'D'
+                    })
+                }
+                return '';
+            });
+
             return updatedDataList;
         };
 
@@ -281,6 +283,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         fetchActiveHospitalsForDropdown = async () =>
             await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
+
+        fetchAvailableRoomNumbersForDropdownByHospital = async hospitalId => {
+            await this.props.fetchAvailableRoomsByHospitalIdForDropdown(FETCH_AVAILABLE_ROOMS_FOR_DROPDOWN, hospitalId);
+        };
 
         fetchActiveDoctorsForDropdownByHospitalId = async hospitalId => {
             await this.props.fetchActiveDoctorsHospitalWiseForDropdown(FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN, hospitalId);
@@ -377,7 +383,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         handlePreviewDepartmentDetails = async departmentId => {
             await this.previewDepartmentDetails(departmentId);
-            this.setShowPreviewModal();
+
         };
 
         handleDeleteDepartment = async departmentId => {
@@ -416,6 +422,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         previewDepartmentDetails = async departmentId => {
             try {
                 await this.previewApiCall(departmentId);
+                this.setShowPreviewModal();
             } catch (e) {
                 this.showAlertMessage("danger",
                     this.props.HospitalDepartmentPreviewReducer.previewHospitalDepartmentErrorMessage);
@@ -492,7 +499,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     originalRoomList: [...roomList]
                 },
                 showEditModal: true
-            })
+            });
+            this.fetchActiveDoctorsForDropdownByHospitalId(hospitalId);
+            this.fetchAvailableRoomNumbersForDropdownByHospital(hospitalId);
         };
 
         showAlertMessage = (type, message) => {
@@ -583,9 +592,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             } = this.state;
 
             const {activeDoctorsByHospitalForDropdown, allDoctorsForDropdown} = this.props.DoctorDropdownReducer;
-            console.log("=========================", allDoctorsForDropdown)
 
-            const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
+            const {allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
             const {isSaveHospitalDepartmentLoading} = this.props.HospitalDepartmentSaveReducer;
 
@@ -595,7 +603,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
             const {isEditHospitalDepartmentLoading, editErrorMessage} = this.props.HospitalDepartmentEditReducer;
 
-            const {allHospitalDepartmentForDropdown, allDepartmentDropdownErrorMessage} = this.props.HospitalDepartmentDropdownReducer;
+            const {
+                allHospitalDepartmentForDropdown, allDepartmentDropdownErrorMessage,
+                availableRoomsForDropdown
+            } = this.props.HospitalDepartmentDropdownReducer;
 
             const {allHospitalsForDropdown, hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
@@ -611,7 +622,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     hospitalDepartmentAddData={{
                         departmentData: departmentData,
                         activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
-                        activeRoomNumberForDropdown,
+                        availableRoomsForDropdown,
                         handleEnterPress: this.handleEnterPress,
                         handleInputChange: this.handleInputChange,
                         errorMessageForDepartmentName,
@@ -679,7 +690,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         errorMessage: editErrorMessage,
                         isEditHospitalDepartmentLoading,
                         activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
-                        activeRoomNumberForDropdown,
+                        availableRoomsForDropdown,
                         hospitalsForDropdown: hospitalsForDropdown,
                         handleEnterPress: this.handleEnterPress,
                         handleInputChange: this.handleInputChange,
@@ -720,6 +731,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             deleteHospitalDepartment,
             editHospitalDepartment,
             fetchActiveHospitalDepartmentForDropdown,
+            fetchAvailableRoomsByHospitalIdForDropdown,
             fetchAllHospitalDepartmentForDropdownByHospitalId,
             fetchHospitalDepartmentDetailsByHospitalDepartmentId,
             fetchActiveDoctorsHospitalWiseForDropdown,

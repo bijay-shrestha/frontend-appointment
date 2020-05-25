@@ -19,7 +19,7 @@ const HospitalDepartmentForm = ({
         hospitalsForDropdown,
         departmentData,
         activeDoctorsForDropdown,
-        activeRoomNumberForDropdown,
+        availableRoomsForDropdown,
         handleEnterPress,
         handleInputChange,
         errorMessageForDepartmentName,
@@ -35,13 +35,13 @@ const HospitalDepartmentForm = ({
     let doctorDropdownDisabled = isAdminModule ?
         (!activeDoctorsForDropdown.length || !departmentData.hospital) : !activeDoctorsForDropdown.length;
 
-    let roomPlaceholderForClient = activeRoomNumberForDropdown.length ? "Select Rooms." : "No Room(s) available.";
+    let roomPlaceholderForClient = availableRoomsForDropdown.length ? "Select Rooms." : "No Room(s) available.";
     let roomPlaceholder =
         isAdminModule ?
             (departmentData.hospital ? roomPlaceholderForClient : "Select Client first.") : (roomPlaceholderForClient);
     let roomDropdownDisabled =
         isAdminModule ?
-            (!activeRoomNumberForDropdown.length || !departmentData.hospital) : !activeRoomNumberForDropdown.length;
+            (!availableRoomsForDropdown.length || !departmentData.hospital) : !availableRoomsForDropdown.length;
 
     return (
         <>
@@ -51,7 +51,7 @@ const HospitalDepartmentForm = ({
                 </Row>
                 <CForm id="doctor-info" className="mt-2 profile-info">
                     <Container-fluid>
-                   
+
                                 <Row>
                                     {
                                         isAdminModule ?
@@ -141,7 +141,7 @@ const HospitalDepartmentForm = ({
                                             onKeyDown={event => handleEnterPress(event)}
                                             onChange={(event, validity) => handleInputChange(event, validity)}
                                             label="Rooms"
-                                            options={activeRoomNumberForDropdown}
+                                            options={availableRoomsForDropdown}
                                             value={departmentData.roomList}
                                             required={true}
                                             placeholder={roomPlaceholder}
@@ -196,7 +196,7 @@ const HospitalDepartmentForm = ({
                                         </div>
                                     </Col>
                                 </Row>
-                       
+
                     </Container-fluid>
                 </CForm>
             </Container-fluid>

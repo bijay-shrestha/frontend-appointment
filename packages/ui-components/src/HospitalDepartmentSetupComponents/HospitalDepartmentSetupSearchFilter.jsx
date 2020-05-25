@@ -38,6 +38,16 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
             allDoctorsForDropdown,
             hospitalListForDropdown
         } = this.props.searchData;
+
+        let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
+
+        let departmentPlaceholder = allHospitalDepartmentForDropdown.length ? "Select Department."
+            : "No Department(s) available.";
+        let doctorPlaceholder = allDoctorsForDropdown.length ? 'Select Doctor.'
+            : 'No Doctor(s) available.';
+        let roomPlaceholder = allRoomNumberForDropdown.length ? 'Select Room.'
+            : 'No Room(s) available.';
+
         return (
             <>
                 {this.state.isSearchFormExpanded ?
@@ -64,7 +74,7 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                             <Container-fluid>
                                 <Row>
                                     {
-                                        EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                                        isAdminModule ?
                                             <Col sm={6} md={6} xl={4}>
                                                 <CHybridSelect
                                                     id="hospital"
@@ -86,9 +96,12 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                             name="department"
                                             options={allHospitalDepartmentForDropdown}
                                             value={searchParameters.department}
-                                            placeholder={allHospitalDepartmentForDropdown.length ? "Select Department."
-                                                : "No Department(s) available."}
-                                            isDisabled={!allHospitalDepartmentForDropdown.length}
+                                            placeholder={isAdminModule ? (
+                                                    searchParameters.hospital ? departmentPlaceholder : "Select Client first.")
+                                                : departmentPlaceholder}
+                                            isDisabled={isAdminModule ? (
+                                                !searchParameters.hospital || !allHospitalDepartmentForDropdown.length)
+                                                : !allHospitalDepartmentForDropdown.length}
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                         />
@@ -103,9 +116,12 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             options={allDoctorsForDropdown}
                                             value={searchParameters.doctor}
-                                            placeholder={allDoctorsForDropdown.length ? 'Select Doctor.'
-                                                : 'No Doctor(s) available.'}
-                                            isDisabled={!allDoctorsForDropdown.length}
+                                            placeholder={isAdminModule ? (
+                                                    searchParameters.hospital ? doctorPlaceholder : "Select Client first.")
+                                                : doctorPlaceholder}
+                                            isDisabled={isAdminModule ? (
+                                                !searchParameters.hospital || !allDoctorsForDropdown.length)
+                                                : !allDoctorsForDropdown.length}
                                         />
                                     </Col>
 
@@ -118,9 +134,12 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                             onChange={(event) => onInputChange(event)}
                                             options={allRoomNumberForDropdown}
                                             value={searchParameters.room}
-                                            placeholder={allRoomNumberForDropdown.length ? 'Select Room.'
-                                                : 'No Room(s) available.'}
-                                            isDisabled={!allRoomNumberForDropdown.length}
+                                            placeholder={isAdminModule ? (
+                                                    searchParameters.hospital ? roomPlaceholder : "Select Client first.")
+                                                : roomPlaceholder}
+                                            isDisabled={isAdminModule ? (
+                                                !searchParameters.hospital || !allRoomNumberForDropdown.length)
+                                                : !allRoomNumberForDropdown.length}
                                         />
                                     </Col>
 
@@ -199,7 +218,7 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Hospital</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Client</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
                                         {searchParameters.hospital && searchParameters.hospital.label}
