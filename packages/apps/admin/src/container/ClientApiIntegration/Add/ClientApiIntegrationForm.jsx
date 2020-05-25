@@ -102,10 +102,9 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
-
-              </Row>
-              <Row>
-              <Col sm={12} md={8} >
+            </Row>
+            <Row>
+              <Col sm={12} md={8}>
                 <CHybridInput
                   id="apiUrl"
                   name="apiUrl"
@@ -119,148 +118,144 @@ const ClientApiIntegrationForm = ({
                   errorMessagePassed={'Value Should be Api Url'}
                 />
               </Col>
-              </Row>
+            </Row>
 
-              <Row>
-                <Col ><div className="underline">Headers</div>
-                </Col>
-                <Col>
-                  <CButton
-                    id="add-header"
-                    name=""
-                    size="sm"
-                    variant="outline-secondary"
-                    className="float-right mb-2"
-                    onClickHandler={() => onAddHeaderOrQueryParams('headers')}
-                   
-                  >
-                  <i className="fa fa-plus" />
-                        &nbsp;Add
-                        </CButton>
-                </Col>
-                </Row>
-               
-                <>
-                {integrationData.headers.length &&
-                  integrationData.headers.map((header, ind) => {
-                    return (
-                      <Row key={'header' + ind} id="header">
-                        {Object.keys(header).map((headerKey, index) => {
-                          return (
-                            <>
-                            <Col sm={4}>
-                              <CHybridInput
-                                key={'header-' + headerKey + index}
-                                id={'header-' + headerKey + index}
-                                name={headerKey}
-                                onChange={event =>
-                                  onChangeHandlerHeaderOrQueryParams(
-                                    event,
-                                    ind,
-                                    'headers'
-                                  )
-                                }
-                                placeholder={'Enter a ' + headerKey}
-                                value={header[headerKey]}
-                                required={true}
-                              />
-                              </Col>
-                            </>
-                          )
-                        })}
-                        <Col >
-                        <CButton
-                          id="remove-header"
-                          name=""
-                          size="sm"
-                          variant="outline-danger"
-                          className="float-right  remove-button"
-                          onClickHandler={() =>
-                            onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
-                          }                          
-                        >
-                         <i className="fa fa-times" />
-                        &nbsp;Remove
-                        </CButton>
-                        </Col>
-                      </Row>
-                    )
-                  })}
-              </>
-              <Row className="mt-4">
-              <Col><div className="underline"> Query Parameters</div>
-                </Col>
-               
+            <Row>
+              <Col>
+                <div className="underline">Headers</div>
+              </Col>
               <Col>
                 <CButton
                   id="add-header"
                   name=""
-                    size="sm"
-                    variant="outline-secondary"
-                    className="float-right mb-2"
+                  size="sm"
+                  variant="outline-secondary"
+                  className="float-right mb-2"
+                  onClickHandler={() => onAddHeaderOrQueryParams('headers')}
+                >
+                  <i className="fa fa-plus" />
+                  &nbsp;Add
+                </CButton>
+              </Col>
+            </Row>
+
+            <>
+              {integrationData.headers.map((header, ind) => {
+                return (
+                  <Row key={'header' + ind} id="header">
+                    {Object.keys(header).map((headerKey, index) => {
+                      return (
+                        <>
+                          <Col sm={4}>
+                            <CHybridInput
+                              key={'header-' + headerKey + index}
+                              id={'header-' + headerKey + index}
+                              name={headerKey}
+                              onChange={event =>
+                                onChangeHandlerHeaderOrQueryParams(
+                                  event,
+                                  ind,
+                                  'headers'
+                                )
+                              }
+                              placeholder={'Enter a ' + headerKey}
+                              value={header[headerKey]}
+                              required={true}
+                            />
+                          </Col>
+                        </>
+                      )
+                    })}
+                    <Col>
+                      <CButton
+                        id="remove-header"
+                        name=""
+                        size="sm"
+                        variant="outline-danger"
+                        className="float-right  remove-button"
+                        onClickHandler={() =>
+                          onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
+                        }
+                      >
+                        <i className="fa fa-times" />
+                        &nbsp;Remove
+                      </CButton>
+                    </Col>
+                  </Row>
+                )
+              })}
+            </>
+            <Row className="mt-4">
+              <Col>
+                <div className="underline"> Query Parameters</div>
+              </Col>
+
+              <Col>
+                <CButton
+                  id="add-header"
+                  name=""
+                  size="sm"
+                  variant="outline-secondary"
+                  className="float-right mb-2"
                   onClickHandler={() => onAddHeaderOrQueryParams('queryParams')}
                 >
                   <i className="fa fa-plus" />
-                        &nbsp;Add
+                  &nbsp;Add
                 </CButton>
-                </Col>
-
-                </Row>
-                <>
-                {integrationData.queryParams.length &&
-                  integrationData.queryParams.map((queryParam, ind) => {
-                    return (
-                      <Row key={'query-param-' + ind} id="query-param" className="mb-4">
-                        {Object.keys(queryParam).map((queryParamKey, index) => {
-                          return (
-                            <>
-                              <Col sm={4}>
-                              <CHybridInput
-                                key={'header-' + queryParamKey + index}
-                                id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
-                                onChange={event =>
-                                  onChangeHandlerHeaderOrQueryParams(
-                                    event,
-                                    ind,
-                                    'queryParams'
-                                  )
-                                }
-                                placeholder={'Enter a ' + queryParamKey}
-                                value={queryParam[queryParamKey]}
-                                required={true}
-                              />
-                              </Col>
-                             
-                            </>
-                          )
-                        })}
-                        <Col>
-                        <CButton
-                          id="remove-header"
-                          name=""
-                          size="sm"
-                          variant="outline-danger"
-                          className="float-right  remove-button"
-                          onClickHandler={() =>
-                            onRemoveHandlerHeaderOrQueryParams(
-                              ind,
-                              'queryParams'
-                            )
-                          }
-                        >
-                          <i className="fa fa-times" />
+              </Col>
+            </Row>
+            <>
+              {integrationData.queryParams.map((queryParam, ind) => {
+                return (
+                  <Row
+                    key={'query-param-' + ind}
+                    id="query-param"
+                    className="mb-4"
+                  >
+                    {Object.keys(queryParam).map((queryParamKey, index) => {
+                      return (
+                        <>
+                          <Col sm={4}>
+                            <CHybridInput
+                              key={'header-' + queryParamKey + index}
+                              id={'header-' + queryParamKey + index}
+                              name={queryParamKey}
+                              onChange={event =>
+                                onChangeHandlerHeaderOrQueryParams(
+                                  event,
+                                  ind,
+                                  'queryParams'
+                                )
+                              }
+                              placeholder={'Enter a ' + queryParamKey}
+                              value={queryParam[queryParamKey]}
+                              required={true}
+                            />
+                          </Col>
+                        </>
+                      )
+                    })}
+                    <Col>
+                      <CButton
+                        id="remove-header"
+                        name=""
+                        size="sm"
+                        variant="outline-danger"
+                        className="float-right  remove-button"
+                        onClickHandler={() =>
+                          onRemoveHandlerHeaderOrQueryParams(ind, 'queryParams')
+                        }
+                      >
+                        <i className="fa fa-times" />
                         &nbsp;Remove
-                        </CButton>
-                        </Col>
-                        {/* <div className="line-gap"></div> */}
-                      </Row>
-                   
-                   )
-                  })}
-          
-              </>
-              <Row className="mt-4">
+                      </CButton>
+                    </Col>
+                    {/* <div className="line-gap"></div> */}
+                  </Row>
+                )
+              })}
+            </>
+            <Row className="mt-4">
               <Col sm={12} md={8} lg={8}>
                 <CHybridTextArea
                   id="request-body-hospital-integration"
