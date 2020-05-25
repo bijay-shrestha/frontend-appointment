@@ -7,9 +7,18 @@ const {
   HOSPITAL_REQUEST_METHOD_DROPDOWN_ERROR,
   HOSPITAL_REQUEST_METHOD_DROPDOWN_PENDING,
   HOSPITAL_REQUEST_METHOD_DROPDOWN_SUCCESS,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_ERROR,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_PENDING,
-  HOSPTIAL_FEATURE_TYPE_DROPDOWN_SUCCESS
+  HOSPITAL_API_INTEGRATION_EDIT_ERROR,
+  HOSPITAL_API_INTEGRATION_EDIT_PENDING,
+  HOSPITAL_API_INTEGRATION_EDIT_SUCCESS,
+  HOSPITAL_API_INTEGRATION_PREVIEW_ERROR,
+  HOSPITAL_API_INTEGRATION_PREVIEW_PENDING,
+  HOSPITAL_API_INTEGRATION_PREVIEW_SUCCESS,
+  HOSPITAL_API_INTEGRATION_SEARCH_ERROR,
+  HOSPITAL_API_INTEGRATION_SEARCH_PENDING,
+  HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS,
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_ERROR,
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_PENDING,
+  HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS
 } = hospitalApiIntegrationActionConstants
 
 export const hospitalApiSaveSuccess = message => ({
@@ -49,19 +58,73 @@ export const hospitalRequestMethodDropdownPending = () => ({
 })
 
 export const hospitalFeatureTypeDropdownSuccess = data => ({
-  type: HOSPTIAL_FEATURE_TYPE_DROPDOWN_SUCCESS,
+  type: HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS,
   payload: {
     data
   }
 })
 
 export const hospitalFeatureTypeDropdownError = message => ({
-  type: HOSPTIAL_FEATURE_TYPE_DROPDOWN_ERROR,
+  type: HOSPITAL_FEATURE_TYPE_DROPDOWN_ERROR,
   payload: {
     message
   }
 })
 
 export const hospitalFeatureTypeDropdownPending = () => ({
-  type: HOSPTIAL_FEATURE_TYPE_DROPDOWN_PENDING
+  type: HOSPITAL_FEATURE_TYPE_DROPDOWN_PENDING
+})
+
+export const hospitalApiSearchSuccess = data => ({
+  type: HOSPITAL_API_INTEGRATION_SEARCH_SUCCESS,
+  payload: {
+    data
+  }
+})
+
+export const hospitalApiSearchError = message => ({
+  type: HOSPITAL_API_INTEGRATION_SEARCH_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const hospitalApiSearchPending = () => ({
+  type: HOSPITAL_API_INTEGRATION_SEARCH_PENDING
+})
+
+export const hospitalApiPreviewPending = () => ({
+  type: HOSPITAL_API_INTEGRATION_PREVIEW_PENDING
+})
+
+export const hospitalApiPreviewSuccess = data => ({
+  type: HOSPITAL_API_INTEGRATION_PREVIEW_SUCCESS,
+  payload: {
+    data
+  }
+})
+
+export const hospitalApiPreviewSuccess = message => ({
+  type: HOSPITAL_API_INTEGRATION_PREVIEW_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const hospitalApiEditError = message => ({
+  type: HOSPITAL_API_INTEGRATION_EDIT_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const hospitalApiEditPending = () => ({
+  type: HOSPITAL_API_INTEGRATION_EDIT_PENDING
+})
+
+export const hospitalApiEditSuccess = data => ({
+  type: HOSPITAL_API_INTEGRATION_EDIT_SUCCESS,
+  payload: {
+    data
+  }
 })
