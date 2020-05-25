@@ -1,10 +1,10 @@
 import React, {memo} from 'react'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-// import Statuslabel from '../../CommonComponents/table-components/StatusLabel'
-// import TableAction from '../../CommonComponents/table-components/TableAction'
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
 import HospitalDepartmentPreviewModal from "./HospitalDepartmentPreviewModal";
+import TableAction from "../CTableComponents/TableAction";
+import {StatusLabel} from "../CTableComponents";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -18,7 +18,7 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
         maxSize,
         currentPage,
         handlePageChange,
-        showPreviewModal,
+        closeModal,
         departmentPreviewData,
         onPreviewHandler,
         onEditHandler,
@@ -27,7 +27,8 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
         remarksHandler,
         remarks,
         onSubmitDelete,
-        deleteErrorMsg
+        deleteErrorMsg,
+        isDeleteHospitalDepartmentLoading
     } = tableData;
 
     return (
@@ -86,7 +87,7 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
                                 resizable: true,
                                 sortable: true,
                                 sizeColumnsToFit: true,
-                                // cellRenderer: 'childLabelRenderer'
+                                cellRenderer: 'childLabelRenderer'
                             },
                             {
                                 headerName: '',
@@ -94,24 +95,24 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
                                 resizable: true,
                                 sortable: true,
                                 sizeColumnsToFit: true,
-                                // cellRenderer: 'childActionRenderer',
-                                // cellClass: 'actions-button-cell',
-                                // cellRendererParams: {
-                                //     onClick: function (e, id, type) {
-                                //         type === 'D'
-                                //             ? onDeleteHandler(id)
-                                //             : type === 'E'
-                                //             ? onEditHandler(id)
-                                //             : onPreviewHandler(id)
-                                //     },
-                                //     filteredAction: filteredActions
-                                // },
+                                cellRenderer: 'childActionRenderer',
+                                cellClass: 'actions-button-cell',
+                                cellRendererParams: {
+                                    onClick: function (e, id, type) {
+                                        type === 'D'
+                                            ? onDeleteHandler(id)
+                                            : type === 'E'
+                                            ? onEditHandler(id)
+                                            : onPreviewHandler(id)
+                                    },
+                                    filteredAction: filteredActions
+                                },
                                 cellStyle: {overflow: 'visible', 'z-index': '99'}
                             }
                         ]}
                         frameworkComponents={{
-                            // childActionRenderer: TableAction,
-                            // childLabelRenderer: Statuslabel
+                            childActionRenderer: TableAction,
+                            childLabelRenderer: StatusLabel
                         }}
                         defaultColDef={{resizable: true}}
                         getSelectedRows={checkIfRoleExists(filteredActions, 4) && onPreviewHandler}
@@ -135,30 +136,31 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
             ) : (
                 <CLoading/>
             )}
-            {/*{showDeleteModal ? (*/}
-            {/*    <ConfirmDelete*/}
-            {/*        confirmationMessage="Are you sure you want to delete the Company Profile? If yes please provide remarks."*/}
-            {/*        modalHeader="Delete Company Profile"*/}
-            {/*        showModal={showDeleteModal}*/}
-            {/*        setShowModal={closeModal}*/}
-            {/*        onDeleteRemarksChangeHandler={remarksHandler}*/}
-            {/*        remarks={remarks}*/}
-            {/*        onSubmitDelete={onSubmitDelete}*/}
-            {/*        deleteErrorMessage={deleteErrorMsg}*/}
-            {/*    />*/}
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
-            {/*{showPreviewModal ? (*/}
-            {/*    <HospitalDepartmentPreviewModal*/}
-            {/*        departmentPreviewData={{*/}
-            {/*            ...departmentPreviewData,*/}
-            {/*            type: "MANAGE"*/}
-            {/*        }}*/}
-            {/*    />*/}
-            {/*) : (*/}
-            {/*    ''*/}
-            {/*)}*/}
+            {showDeleteModal ? (
+                <ConfirmDelete
+                    confirmationMessage="Are you sure you want to delete the Department? If yes please provide remarks."
+                    modalHeader="Delete Department"
+                    showModal={showDeleteModal}
+                    setShowModal={closeModal}
+                    onDeleteRemarksChangeHandler={(event) => remarksHandler(event, null, "deleteRequestDTO")}
+                    remarks={remarks}
+                    onSubmitDelete={onSubmitDelete}
+                    deleteErrorMessage={deleteErrorMsg}
+                    isLoading={isDeleteHospitalDepartmentLoading}
+                />
+            ) : (
+                ''
+            )}
+            {departmentPreviewData.showPreviewModal ? (
+                <HospitalDepartmentPreviewModal
+                    departmentPreviewData={{
+                        ...departmentPreviewData,
+                        type: "MANAGE"
+                    }}
+                />
+            ) : (
+                ''
+            )}
         </div>
     )
 };

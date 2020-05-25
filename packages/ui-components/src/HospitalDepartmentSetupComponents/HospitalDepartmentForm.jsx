@@ -104,12 +104,12 @@ const HospitalDepartmentForm = ({
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridSelectWithImage
                                             id="doctor"
-                                            name="doctors"
+                                            name="doctorList"
                                             onKeyDown={event => handleEnterPress(event)}
                                             onChange={(event, validity) => handleInputChange(event, validity)}
                                             label="Doctors"
                                             options={activeDoctorsForDropdown}
-                                            value={departmentData.doctors}
+                                            value={departmentData.doctorList}
                                             required={true}
                                             placeholder={activeDoctorsForDropdown.length ? "Select Doctors." : "No Doctors(s) available."}
                                             isDisabled={!activeDoctorsForDropdown.length}
@@ -120,12 +120,12 @@ const HospitalDepartmentForm = ({
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridSelect
                                             id="roomNumbers"
-                                            name="rooms"
+                                            name="roomList"
                                             onKeyDown={event => handleEnterPress(event)}
                                             onChange={(event, validity) => handleInputChange(event, validity)}
                                             label="Rooms"
                                             options={activeRoomNumberForDropdown}
-                                            value={departmentData.rooms}
+                                            value={departmentData.roomList}
                                             required={true}
                                             placeholder={activeRoomNumberForDropdown.length ? "Select Rooms." : "No Room(s) available."}
                                             isDisabled={!activeRoomNumberForDropdown.length}

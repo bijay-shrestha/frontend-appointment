@@ -6,7 +6,8 @@ const HospitalDepartmentManage = props => {
     const HospitalDepartmentManage = HospitalDepartmentSetupHOC(
         ({
              searchData,
-             tableData
+             tableData,
+             updateData
          }) =>
             <>
                 <div className="">
@@ -15,6 +16,11 @@ const HospitalDepartmentManage = props => {
                 <div className=" mb-2">
                     <HospitalDepartmentSetupComponents.HospitalDepartmentSetupDataTable tableData={tableData}/>
                 </div>
+                {
+                    updateData.showEditModal ?
+                        <HospitalDepartmentSetupComponents.HospitalDepartmentSetupEditModal updateData={updateData}/>
+                        :''
+                }
 
             </>,
         props, 'MANAGE');

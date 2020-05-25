@@ -170,7 +170,7 @@ export const HospitalDepartmentSearchReducer = (state = {...initialState}, actio
             return {
                 ...state,
                 isSearchHospitalDepartmentLoading: false,
-                hospitalDepartmentList: [...action.payload.data.response],
+                hospitalDepartmentList: [...action.payload.data.hospitalDepartmentList],
                 totalRecords:action.payload.data.totalItems,
                 searchErrorMessage: ''
             };

@@ -4,7 +4,7 @@ import {
     CFLabel,
     CForm,
     CHybridInput,
-    CHybridSelect,
+    CHybridSelect, CHybridTextArea,
     CModal,
     CRadioButton
 } from '@frontend-appointment/ui-elements'
@@ -17,7 +17,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
         departmentData,
         type,
         showPreviewModal,
-        setShowModal,
+        closeModal,
         onConfirmClick,
         isSaveHospitalDepartmentLoading
     } = departmentPreviewData;
@@ -67,7 +67,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
-                                    <CHybridInput
+                                    <CHybridTextArea
                                         id="description"
                                         placeholder="Department Description"
                                         name="description"
@@ -80,22 +80,32 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                     <CHybridSelect
                                         id="doctor"
                                         placeholder="Doctors"
-                                        name="doctors"
-                                        value={departmentData.doctors}
-                                        disabled={true}
+                                        name="doctorList"
+                                        value={departmentData.doctorList}
+                                        isDisabled={true}
                                         isMulti={true}
                                     />
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
-                                    <CHybridSelect
-                                        id="rooms"
-                                        placeholder="Rooms"
-                                        name="rooms"
-                                        value={departmentData.rooms}
-                                        disabled={true}
-                                        isMulti={true}
-                                    />
+                                    {
+                                        departmentData.roomList && departmentData.roomList.length ?
+                                            <CHybridSelect
+                                                id="rooms"
+                                                placeholder="Rooms"
+                                                name="roomList"
+                                                value={departmentData.roomList}
+                                                isDisabled={true}
+                                                isMulti={true}
+                                            /> :
+                                            <CHybridInput
+                                                id="room"
+                                                placeholder={"Rooms"}
+                                                name="room"
+                                                value={"N/A"}
+                                                disabled={true}
+                                            />
+                                    }
                                 </Col>
 
                                 <Col sm={12} md={12} lg={6}>
@@ -174,7 +184,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
             size="lg"
             bodyChildren={bodyContent}
             footerChildren={type === "ADD" ? footerContent : ''}
-            onHide={setShowModal}
+            onHide={closeModal}
             centered={false}
             dialogClassName="preview-modal"
             closeButton={true}

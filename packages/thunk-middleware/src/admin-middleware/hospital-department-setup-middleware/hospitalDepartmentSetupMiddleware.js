@@ -7,7 +7,7 @@ export const saveHospitalDepartment = (path, data) => async dispatch => {
     try {
         const response = await Axios.post(path, data);
         dispatch(HospitalDepartmentSetupActions.saveHospitalDepartmentSuccess(
-            "HospitalDepartment saved successfully."));
+            "Hospital Department saved successfully."));
         return response.data;
     } catch (e) {
         dispatch(HospitalDepartmentSetupActions.saveHospitalDepartmentError(
@@ -21,7 +21,7 @@ export const editHospitalDepartment = (path, data) => async dispatch => {
     try {
         const response = await Axios.put(path, data);
         dispatch(HospitalDepartmentSetupActions.editHospitalDepartmentSuccess(
-            "HospitalDepartment edited successfully."));
+            "Hospital Department edited successfully."));
         return response.data;
     } catch (e) {
         dispatch(HospitalDepartmentSetupActions.editHospitalDepartmentError(
@@ -35,7 +35,7 @@ export const deleteHospitalDepartment = (path, data) => async dispatch => {
     try {
         const response = await Axios.del(path, data);
         dispatch(HospitalDepartmentSetupActions.deleteHospitalDepartmentSuccess(
-            "HospitalDepartment deleted successfully."));
+            "Hospital Department deleted successfully."));
         return response.data;
     } catch (e) {
         dispatch(HospitalDepartmentSetupActions.deleteHospitalDepartmentError(
@@ -48,11 +48,11 @@ export const searchHospitalDepartment = (path, data, paginationData) => async di
     dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentPending());
     try {
         const apiResponse = await Axios.putWithPagination(path, paginationData, data);
-        let dataWithSerialNumber = CommonUtils.appendSerialNumberToDataList(apiResponse.data.response,
+        let dataWithSerialNumber = CommonUtils.appendSerialNumberToDataList(apiResponse.data.hospitalDepartmentList,
             paginationData.page, paginationData.size);
         dispatch(HospitalDepartmentSetupActions.searchHospitalDepartmentSuccess({
             ...apiResponse.data,
-            response: dataWithSerialNumber
+            hospitalDepartmentList: dataWithSerialNumber
         }));
         return apiResponse.data;
     } catch (e) {
@@ -62,10 +62,10 @@ export const searchHospitalDepartment = (path, data, paginationData) => async di
     }
 };
 
-export const fetchHospitalDepartmentDetailsByHospitalDepartmentId = (path, universityId) => async dispatch => {
+export const fetchHospitalDepartmentDetailsByHospitalDepartmentId = (path, departmentId) => async dispatch => {
     dispatch(HospitalDepartmentSetupActions.previewHospitalDepartmentPending());
     try {
-        const response = await Axios.getWithPathVariables(path, universityId);
+        const response = await Axios.getWithPathVariables(path, departmentId);
         dispatch(HospitalDepartmentSetupActions.previewHospitalDepartmentSuccess(response.data));
         return response.data;
     } catch (e) {

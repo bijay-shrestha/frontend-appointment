@@ -19,7 +19,7 @@ const HospitalDepartmentAdd = props => {
                             size="sm"
                             name=""
                             className="mb-2  float-right"
-                            onClickHandler={hospitalDepartmentAddData.resetDepartmentAddForm}
+                            onClickHandler={hospitalDepartmentAddData.resetDepartmentData}
                         >
                             <>
                                 <i className="fa fa-refresh"/> &nbsp;Reset

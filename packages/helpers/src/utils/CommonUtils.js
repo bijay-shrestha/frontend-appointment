@@ -28,7 +28,7 @@ export const filterTableDataWithGivenStatus = (status, filterData) =>
 
 export const appendSerialNumberToDataList = (dataList, page, size) => {
     let startingNumber = 1;
-    if (page > 1) {
+    if (page && page > 1) {
         startingNumber += (page - 1) * size;
     }
     let dataWithSerialNumberAdded = dataList && dataList.map(data => {
