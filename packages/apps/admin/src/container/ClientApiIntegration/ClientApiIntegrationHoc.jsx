@@ -42,6 +42,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       editShowModal: false,
       showConfirmationModal: false,
       regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
+      regexForApiUrl:/^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?/g,
       alertMessageInfo: {
         variant: '',
         message: ''
@@ -51,7 +52,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
 
     resetIntegrationData = () => {
-      this.setTheStateForIntegrationData({
+      this.setState({
         integrationData: {
           clientId: '',
           featureType: '',
@@ -73,6 +74,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
 
     setTheStateForInputValidity = (objectToModify, validity) => {
+      console.log('validity',validity)
       this.setState({
         integrationData: {...objectToModify},
         requestBodyValid: validity
@@ -158,14 +160,19 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody,
         requestMethod
       } = this.state.integrationData
-      const formValid =
+      const {requestBodyValid}= this.state
+      let formValid =
         apiUrl &&
         clientId.value &&
         featureType.value &&
-        headers.length &&
-        queryParams.length &&
-        requestBody &&
+        //headers.length &&
+        //queryParams.length &&
+        //requestBody &&
         requestMethod.value
+
+        if(requestBody.length){
+          formValid = formValid && requestBodyValid
+        }
       this.setState({
         formValid: Boolean(formValid)
       })
@@ -185,27 +192,28 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod
       } = this.state.integrationData
       try {
-        await this.props.saveHospitalIntegration(hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE, {
-          apiUrl,
-          clientApiRequestHeaders: [...headers],
-          parametersRequestDTOS: [...queryParams],
-          requestMethodId: requestMethod.value || '',
-          hospitalId: clientId.value || '',
-          featureTypeId: featureType.value || '',
-          requestBodyAttribute: changeCommaSeperatedStringToObjectAndStringifyIt(
-            requestBody
-          )
-        })
-        this.resetIntegrationData(
+        await this.props.saveHospitalIntegration(
+          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE,
+          {
+            apiUrl,
+            clientApiRequestHeaders: [...headers],
+            parametersRequestDTOS: [...queryParams],
+            requestMethodId: requestMethod.value || '',
+            hospitalId: clientId.value || '',
+            featureTypeId: featureType.value || '',
+            requestBodyAttribute: changeCommaSeperatedStringToObjectAndStringifyIt(
+              requestBody
+            )
+          }
+        )
+        this.resetIntegrationData()
+        this.setShowAlertModal(
           'success',
           this.props.hospitalApiIntegrationSaveReducers
             .hospitalApiSaveSucessMessage
         )
-        this.resetIntegrationData();
-        this.setShowAlertModal()
         this.setCloseModal()
       } catch (e) {
-
         this.setShowAlertModal(
           'danger',
           this.props.hospitalApiIntegrationSaveReducers
@@ -238,6 +246,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationData,
         regexForCommaSeperation,
         formValid,
+        regexForApiUrl,
         showConfirmationModal
       } = this.state
       const {
@@ -254,7 +263,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethodData,
         requestMethodDropdownError
       } = this.props.hospitalRequestMethodDropdownReducers
-     // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
+      // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
       return (
         <>
           <ComposedComponent
@@ -280,6 +289,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 ? [...requestMethodData]
                 : [],
               requestMethodDropdownError: requestMethodDropdownError,
+              regexForApiUrl:regexForApiUrl,
               formValid,
               hospitalsForDropdown
             }}

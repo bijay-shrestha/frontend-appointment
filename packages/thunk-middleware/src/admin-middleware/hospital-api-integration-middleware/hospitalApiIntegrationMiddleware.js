@@ -96,7 +96,7 @@ export const previewApiIntegrationData = (path, id) => async dispatch => {
     )
   } catch (e) {
     dispatch(
-      HospitalApiIntegrationActions.hopsitalApiPreviewError(e.errorMessage)
+      HospitalApiIntegrationActions.hopitalApiPreviewError(e.errorMessage)
     )
   }
 }

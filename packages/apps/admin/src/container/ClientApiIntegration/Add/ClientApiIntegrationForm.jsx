@@ -23,6 +23,7 @@ const ClientApiIntegrationForm = ({
   isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
+  regexForApiUrl,
   //requestMethodDropdownError,
   // formValid,
   // isHospitalApiSaveLoading,
@@ -108,6 +109,9 @@ const ClientApiIntegrationForm = ({
                   value={integrationData.apiUrl}
                   onChange={event => onChangeHandler(event,'')}
                   placeholder={"Enter the api url"}
+                  fieldValuePattern={regexForApiUrl}
+                  hasValidation={true}
+                  errorMessagePassed={"Value Should be Api Url"}
                 />
               </Col>
 

@@ -211,7 +211,7 @@ const deleteApiIntegrationHandler = {
     ...state,
     isDeleteApiIntegrationLoading: false,
     deleteApiIntegrationSuccessMessage: '',
-    deleteApiIntegrationErrorMessage:ActionForEditableTable.payload.message
+    deleteApiIntegrationErrorMessage:action.payload.message
   })
 }
 

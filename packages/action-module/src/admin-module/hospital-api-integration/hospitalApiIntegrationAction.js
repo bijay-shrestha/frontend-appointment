@@ -107,7 +107,7 @@ export const hospitalApiPreviewSuccess = data => ({
   }
 })
 
-export const hospitalApiPreviewSuccess = message => ({
+export const hopitalApiPreviewError = message => ({
   type: HOSPITAL_API_INTEGRATION_PREVIEW_ERROR,
   payload: {
     message

@@ -44,6 +44,9 @@ class CHybridTextArea extends React.PureComponent {
         let isValid = maxLength ? (minLength ? minLength <= value.length <= maxLength : value.length <= maxLength)
             : (minLength ? minLength <= value.length : true);
         // let    isValid = value.length <= maxLength;
+        if(this.props.fieldValuePattern){
+            isValid = isValid && value.match(this.props.fieldValuePattern);
+        }
         if (!isValid && value) {
             fieldWrapper.add('errorInput');
             this.setStateValues(errorMessageToDisplay, false);
@@ -57,7 +60,7 @@ class CHybridTextArea extends React.PureComponent {
 
     handleOnChange = e => {
         let validity = '';
-        this.props.onChange(e, validity);
+        //this.props.onChange(e, validity);
         this.classAdditionWhenValueIsChanged(e.target.value);
         if (this.props.hasValidation) {
             validity = this.validateFieldAndToggleErrorClass(
