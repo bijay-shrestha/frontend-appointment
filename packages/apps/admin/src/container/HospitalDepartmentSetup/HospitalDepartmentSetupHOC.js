@@ -15,18 +15,19 @@ const {
     deleteHospitalDepartment,
     editHospitalDepartment,
     fetchActiveHospitalDepartmentForDropdown,
-    fetchAllHospitalDepartmentForDropdown,
+    fetchAllHospitalDepartmentForDropdownByHospitalId,
     fetchHospitalDepartmentDetailsByHospitalDepartmentId,
     saveHospitalDepartment,
     searchHospitalDepartment
 } = HospitalDepartmentSetupMiddleware;
 
 const {
-    fetchActiveDoctorsHospitalWiseForDropdown
+    fetchActiveDoctorsHospitalWiseForDropdown,
+    fetchAllDoctorsHospitalWiseForDropdown
 } = DoctorMiddleware;
 
 const {
-    fetchAllRoomNumberForDropdown,
+    fetchAllRoomNumberForDropdownByHospitalId,
     fetchActiveRoomNumberForDropdownByHospitalId
 } = RoomSetupMiddleware;
 
@@ -42,7 +43,8 @@ const {
 } = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
 
 const {
-    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
+    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
+    FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.doctorSetupApiConstants;
 
 const {
@@ -91,6 +93,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             formValid: false,
             searchParameters: {
                 code: '',
+                hospital: null,
                 doctor: null,
                 department: null,
                 room: null,
@@ -283,16 +286,20 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             await this.props.fetchActiveDoctorsHospitalWiseForDropdown(FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN, hospitalId);
         };
 
+        fetchAllDoctorsForDropdownByHospital = async hospitalId => {
+            await this.props.fetchAllDoctorsHospitalWiseForDropdown(FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN, hospitalId);
+        };
+
         fetchActiveRoomNumberForDropdownByHospital = async hospitalId => {
             await this.props.fetchActiveRoomNumberForDropdownByHospitalId(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
-        fetchAllRoomNumbersForDropdown = async () => {
-            await this.props.fetchAllRoomNumberForDropdown(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN);
+        fetchAllRoomNumbersForDropdownByHospitalId = async hospitalId => {
+            await this.props.fetchAllRoomNumberForDropdownByHospitalId(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
-        fetchAllHospitalDepartmentsForDropdown = async () => {
-            await this.props.fetchAllHospitalDepartmentForDropdown(FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN);
+        fetchAllHospitalDepartmentsForDropdownByHospital = async hospitalId => {
+            await this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN, hospitalId);
         };
 
         handleEnterPress = event => {
@@ -314,6 +321,21 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.checkFormValidity();
         };
 
+        handleSearchFormReset = async () => {
+            await this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    code: '',
+                    hospital: null,
+                    doctor: null,
+                    department: null,
+                    room: null,
+                    status: {value: 'A', label: 'All'},
+                }
+            });
+            this.searchDepartmentList(1);
+        };
+
         handleSearchFormChange = async (event) => {
             let key = event.target.name;
             let value = key === "code" ? event.target.value.toUpperCase() : event.target.value;
@@ -321,6 +343,21 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             let fileUri = event.target.fileUri;
 
             await this.setValuesInState(key, value, label, fileUri, undefined, "searchParameters");
+            if (key === "hospital") {
+                if (value) {
+                    this.fetchAllRoomNumbersForDropdownByHospitalId(value);
+                    this.fetchAllHospitalDepartmentsForDropdownByHospital(value);
+                    this.fetchAllDoctorsForDropdownByHospital(value);
+                }
+                this.setState({
+                    searchParameters: {
+                        ...this.state.searchParameters,
+                        doctor: null,
+                        department: null,
+                        room: null,
+                    }
+                })
+            }
             this.checkFormValidity();
         };
 
@@ -368,8 +405,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.fetchActiveHospitalsForDropdown();
             if (type === "MANAGE") {
                 this.fetchAllHospitalsForDropdown();
-                this.fetchAllHospitalDepartmentsForDropdown();
-                this.fetchAllRoomNumbersForDropdown();
                 this.searchDepartmentList(1);
             }
         };
@@ -436,13 +471,17 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         setDepartmentDataForEdit = async () => {
             const {hospitalDepartmentDetails} = this.props.HospitalDepartmentPreviewReducer;
-            const {id, name, code, description, doctorList, roomList, appointmentCharge, followUpCharge, status} = hospitalDepartmentDetails;
+            const {
+                id, name, code, description, doctorList, roomList, appointmentCharge, followUpCharge, status,
+                hospitalName, hospitalId
+            } = hospitalDepartmentDetails;
             await this.setState({
                 departmentData: {
                     ...this.state.departmentData,
                     id: id,
                     name: name,
                     code: code,
+                    hospital: {label: hospitalName, value: hospitalId},
                     description: description,
                     doctorList: doctorList && [...doctorList],
                     roomList: roomList && [...roomList],
@@ -499,13 +538,14 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         };
 
         searchDepartmentList = async page => {
-            const {doctor, code, department, room, status} = this.state.searchParameters;
+            const {doctor, code, department, room, status, hospital} = this.state.searchParameters;
             let searchData = {
                 code,
                 doctorId: doctor && doctor.value,
                 id: department && department.value,
                 roomId: room && room.value,
                 status: status && status.value === 'A' ? '' : status.value,
+                hospitalId: hospital && hospital.value
             };
 
             let updatedPage =
@@ -542,7 +582,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 showEditModal
             } = this.state;
 
-            const {activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer;
+            const {activeDoctorsByHospitalForDropdown, allDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
             const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
@@ -576,7 +616,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         errorMessageForDepartmentName,
                         errorMessageForDescription,
                         errorMessageForAppointmentCharge,
-                        resetDepartmentAddForm: this.resetDepartmentData,
+                        resetDepartmentData: this.resetDepartmentData,
                         formValid,
                         showConfirmModal: showPreviewModal,
                         setShowConfirmModal: this.closeModal,
@@ -595,7 +635,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         allHospitalDepartmentForDropdown,
                         allDepartmentDropdownErrorMessage,
                         allRoomNumberForDropdown,
-                        activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
+                        allDoctorsForDropdown: allDoctorsForDropdown,
                         onSearchClick: this.searchDepartmentList,
                         onInputChange: this.handleSearchFormChange,
                         resetSearchForm: this.handleSearchFormReset,
@@ -679,10 +719,11 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             deleteHospitalDepartment,
             editHospitalDepartment,
             fetchActiveHospitalDepartmentForDropdown,
-            fetchAllHospitalDepartmentForDropdown,
+            fetchAllHospitalDepartmentForDropdownByHospitalId,
             fetchHospitalDepartmentDetailsByHospitalDepartmentId,
             fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchAllRoomNumberForDropdown,
+            fetchAllDoctorsHospitalWiseForDropdown,
+            fetchAllRoomNumberForDropdownByHospitalId,
             fetchActiveRoomNumberForDropdownByHospitalId,
             fetchAllHospitalsForDropdown,
             fetchActiveHospitalsForDropdown,

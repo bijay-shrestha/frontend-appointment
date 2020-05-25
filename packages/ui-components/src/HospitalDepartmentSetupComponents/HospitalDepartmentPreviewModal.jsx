@@ -37,7 +37,8 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                                     placeholder="Client"
                                                     name="hospital"
                                                     value={
-                                                        departmentData.hospital && departmentData.hospital.label
+                                                        departmentData.hospital ? departmentData.hospital.label:
+                                                            departmentData.hospitalName
                                                     }
                                                     disabled={true}
                                                 />

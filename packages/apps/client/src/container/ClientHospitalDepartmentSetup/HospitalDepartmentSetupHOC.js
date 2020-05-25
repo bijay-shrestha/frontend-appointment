@@ -22,7 +22,8 @@ const {
 } = HospitalDepartmentSetupMiddleware;
 
 const {
-    fetchActiveDoctorsForDropdown
+    fetchActiveDoctorsForDropdown,
+    fetchAllDoctorsForDropdown
 } = DoctorMiddleware;
 
 const {
@@ -40,7 +41,8 @@ const {
 } = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
 
 const {
-    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
+    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN,
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.doctorSetupApiConstants;
 
 const {
@@ -259,6 +261,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
         };
 
+        fetchAllDoctorsForDropdown = async () => {
+            await this.props.fetchAllDoctorsForDropdown(FETCH_ALL_DOCTORS_FOR_DROPDOWN);
+        };
+
         fetchActiveRoomNumberForDropdown = async () => {
             await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN);
         };
@@ -286,6 +292,23 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 objectName ? objectName : "departmentData");
             this.checkFormValidity();
         };
+
+        handleSearchFormReset = async () => {
+            await this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    code: '',
+                    hospital: null,
+                    doctor: null,
+                    department: null,
+                    room: null,
+                    status: {value: 'A', label: 'All'},
+                }
+            });
+
+            this.searchDepartmentList(1);
+        };
+
 
         handleSearchFormChange = async (event) => {
             let key = event.target.name;
@@ -342,6 +365,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.fetchActiveRoomNumberForDropdown();
             if (type === "MANAGE") {
                 this.fetchAllHospitalDepartmentsForDropdown();
+                this.fetchAllDoctorsForDropdown();
                 this.fetchAllRoomNumbersForDropdown();
                 this.searchDepartmentList(1);
             }
@@ -513,7 +537,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 showEditModal
             } = this.state;
 
-            const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
+            const {activeDoctorsForDropdown, allDoctorsForDropdown} = this.props.DoctorDropdownReducer;
 
             const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
@@ -545,7 +569,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         errorMessageForDepartmentName,
                         errorMessageForDescription,
                         errorMessageForAppointmentCharge,
-                        resetDepartmentAddForm: this.resetDepartmentData,
+                        resetDepartmentData: this.resetDepartmentData,
                         formValid,
                         showConfirmModal: showPreviewModal,
                         setShowConfirmModal: this.closeModal,
@@ -563,7 +587,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         allHospitalDepartmentForDropdown,
                         allDepartmentDropdownErrorMessage,
                         allRoomNumberForDropdown,
-                        activeDoctorsForDropdown,
+                        allDoctorsForDropdown: allDoctorsForDropdown,
                         onSearchClick: this.searchDepartmentList,
                         onInputChange: this.handleSearchFormChange,
                         resetSearchForm: this.handleSearchFormReset
@@ -646,6 +670,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchActiveHospitalDepartmentForDropdown,
             fetchAllHospitalDepartmentForDropdown,
             fetchHospitalDepartmentDetailsByHospitalDepartmentId,
+            fetchAllDoctorsForDropdown,
             fetchActiveDoctorsForDropdown,
             fetchAllRoomNumberForDropdown,
             fetchActiveRoomNumberForDropdown,

@@ -26,7 +26,10 @@ const {
     FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
     FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR,
     FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
-    FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR
+    FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
+    FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
+    FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_PENDING,
+    FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
 } = doctorSetupConstants;
 
 export const clearConsultantCreateMessage = () => {
@@ -256,6 +259,30 @@ export const fetchActiveDoctorsByHospitalForDropdownSuccess = data => {
 export const fetchActiveDoctorsByHospitalForDropdownError = errorMessage => {
     return {
         type: FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+
+export const fetchAllDoctorsByHospitalForDropdownPending = () => {
+    return {
+        type: FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchAllDoctorsByHospitalForDropdownSuccess = data => {
+    return {
+        type: FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchAllDoctorsByHospitalForDropdownError = errorMessage => {
+    return {
+        type: FETCH_ALL_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
         payload: {
             errorMessage
         }

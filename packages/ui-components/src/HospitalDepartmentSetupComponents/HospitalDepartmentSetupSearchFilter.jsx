@@ -35,7 +35,7 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
             allHospitalDepartmentForDropdown,
             // allDepartmentDropdownErrorMessage,
             allRoomNumberForDropdown,
-            activeDoctorsForDropdown,
+            allDoctorsForDropdown,
             hospitalListForDropdown
         } = this.props.searchData;
         return (
@@ -52,8 +52,10 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                     size='sm'
                                     name=''
                                     onClickHandler={resetSearchForm}>
-                                    {' '}
-                                    <i className='fa fa-refresh'/>&nbsp;Reset
+                                    <>
+                                        {' '}
+                                        <i className='fa fa-refresh'/>&nbsp;Reset
+                                    </>
                                 </CButton>
                             </div>
 
@@ -67,7 +69,7 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                                 <CHybridSelect
                                                     id="hospital"
                                                     label="Client"
-                                                    name="client"
+                                                    name="hospital"
                                                     options={hospitalListForDropdown}
                                                     value={searchParameters.hospital}
                                                     placeholder={hospitalListForDropdown.length ? "Select Client."
@@ -99,11 +101,11 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                             name="doctor"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
-                                            options={activeDoctorsForDropdown}
+                                            options={allDoctorsForDropdown}
                                             value={searchParameters.doctor}
-                                            placeholder={activeDoctorsForDropdown.length ? 'Select Doctor.'
+                                            placeholder={allDoctorsForDropdown.length ? 'Select Doctor.'
                                                 : 'No Doctor(s) available.'}
-                                            isDisabled={!activeDoctorsForDropdown.length}
+                                            isDisabled={!allDoctorsForDropdown.length}
                                         />
                                     </Col>
 
