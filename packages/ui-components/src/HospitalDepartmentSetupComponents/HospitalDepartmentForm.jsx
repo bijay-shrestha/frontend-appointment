@@ -26,6 +26,23 @@ const HospitalDepartmentForm = ({
         errorMessageForDescription,
         errorMessageForAppointmentCharge
     } = hospitalDepartmentAddData;
+
+    let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
+
+    let doctorPlaceholderForClient = activeDoctorsForDropdown.length ? "Select Doctors." : "No Doctors(s) available.";
+    let doctorPlaceholder = isAdminModule ?
+        (departmentData.hospital ? doctorPlaceholderForClient : "Select Client first.") : (doctorPlaceholderForClient);
+    let doctorDropdownDisabled = isAdminModule ?
+        (!activeDoctorsForDropdown.length || !departmentData.hospital) : !activeDoctorsForDropdown.length;
+
+    let roomPlaceholderForClient = activeRoomNumberForDropdown.length ? "Select Rooms." : "No Room(s) available.";
+    let roomPlaceholder =
+        isAdminModule ?
+            (departmentData.hospital ? roomPlaceholderForClient : "Select Client first.") : (roomPlaceholderForClient);
+    let roomDropdownDisabled =
+        isAdminModule ?
+            (!activeRoomNumberForDropdown.length || !departmentData.hospital) : !activeRoomNumberForDropdown.length;
+
     return (
         <>
             <Container-fluid>
@@ -38,7 +55,7 @@ const HospitalDepartmentForm = ({
                             <Col lg={9}>
                                 <Row>
                                     {
-                                        EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
+                                        isAdminModule ?
                                             <>
                                                 <Col sm={12} md={12} lg={6}>
                                                     <CHybridSelect
@@ -50,7 +67,7 @@ const HospitalDepartmentForm = ({
                                                         options={hospitalsForDropdown}
                                                         value={departmentData.hospital}
                                                         required={true}
-                                                        placeholder={hospitalsForDropdown.length ? "Select Client" : "No Client(s) available."}
+                                                        placeholder={hospitalsForDropdown.length ? "Select Client." : "No Client(s) available."}
                                                         isDisabled={!hospitalsForDropdown.length}
                                                     />
                                                 </Col>
@@ -111,8 +128,8 @@ const HospitalDepartmentForm = ({
                                             options={activeDoctorsForDropdown}
                                             value={departmentData.doctorList}
                                             required={true}
-                                            placeholder={activeDoctorsForDropdown.length ? "Select Doctors." : "No Doctors(s) available."}
-                                            isDisabled={!activeDoctorsForDropdown.length}
+                                            placeholder={doctorPlaceholder}
+                                            isDisabled={doctorDropdownDisabled}
                                             isMulti={true}
                                         />
                                     </Col>
@@ -127,8 +144,8 @@ const HospitalDepartmentForm = ({
                                             options={activeRoomNumberForDropdown}
                                             value={departmentData.roomList}
                                             required={true}
-                                            placeholder={activeRoomNumberForDropdown.length ? "Select Rooms." : "No Room(s) available."}
-                                            isDisabled={!activeRoomNumberForDropdown.length}
+                                            placeholder={roomPlaceholder}
+                                            isDisabled={roomDropdownDisabled}
                                             isMulti={true}
                                         />
                                     </Col>

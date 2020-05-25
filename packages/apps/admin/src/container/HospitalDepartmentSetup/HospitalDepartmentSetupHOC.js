@@ -4,7 +4,7 @@ import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {
     DoctorMiddleware,
-    HospitalDepartmentSetupMiddleware,
+    HospitalDepartmentSetupMiddleware, HospitalSetupMiddleware,
     RoomSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
@@ -22,13 +22,15 @@ const {
 } = HospitalDepartmentSetupMiddleware;
 
 const {
-    fetchActiveDoctorsForDropdown
+    fetchActiveDoctorsHospitalWiseForDropdown
 } = DoctorMiddleware;
 
 const {
-    fetchActiveRoomNumberForDropdown,
-    fetchAllRoomNumberForDropdown
+    fetchAllRoomNumberForDropdown,
+    fetchActiveRoomNumberForDropdownByHospitalId
 } = RoomSetupMiddleware;
+
+const {fetchAllHospitalsForDropdown, fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 
 const {
     DELETE_HOSPITAL_DEPARTMENT,
@@ -40,13 +42,15 @@ const {
 } = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
 
 const {
-    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
+    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.doctorSetupApiConstants;
 
 const {
     FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN,
     FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN
 } = AdminModuleAPIConstants.roomSetupApiConstants;
+
+const {FETCH_ALL_HOSPITALS_FOR_DROPDOWN, FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
 const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
@@ -58,6 +62,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 name: '',
                 code: '',
                 description: '',
+                hospital: null,
                 doctorList: null,
                 roomList: null,
                 appointmentCharge: '',
@@ -104,6 +109,20 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         };
 
         alertTimer = '';
+
+        actionsOnHospitalChange = (value) => {
+            if (value) {
+                this.fetchActiveDoctorsForDropdownByHospitalId(value);
+                this.fetchActiveRoomNumberForDropdownByHospital(value);
+            }
+            this.setState({
+                departmentData: {
+                    ...this.state.departmentData,
+                    doctorList: [],
+                    roomList: []
+                }
+            })
+        };
 
         componentDidMount() {
             this.initialApiCalls();
@@ -254,13 +273,18 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             return updatedDataList;
         };
 
+        fetchAllHospitalsForDropdown = async () =>
+            await this.props.fetchAllHospitalsForDropdown(FETCH_ALL_HOSPITALS_FOR_DROPDOWN);
 
-        fetchActiveDoctorsForDropdown = async () => {
-            await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
+        fetchActiveHospitalsForDropdown = async () =>
+            await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
+
+        fetchActiveDoctorsForDropdownByHospitalId = async hospitalId => {
+            await this.props.fetchActiveDoctorsHospitalWiseForDropdown(FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN, hospitalId);
         };
 
-        fetchActiveRoomNumberForDropdown = async () => {
-            await this.props.fetchActiveRoomNumberForDropdown(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN);
+        fetchActiveRoomNumberForDropdownByHospital = async hospitalId => {
+            await this.props.fetchActiveRoomNumberForDropdownByHospitalId(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
         fetchAllRoomNumbersForDropdown = async () => {
@@ -284,6 +308,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
             await this.setValuesInState(key, values ? values : value, label, fileUri, fieldValid,
                 objectName ? objectName : "departmentData");
+            if (key === "hospital") {
+                this.actionsOnHospitalChange(value);
+            }
             this.checkFormValidity();
         };
 
@@ -338,9 +365,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         };
 
         initialApiCalls = () => {
-            this.fetchActiveDoctorsForDropdown();
-            this.fetchActiveRoomNumberForDropdown();
+            this.fetchActiveHospitalsForDropdown();
             if (type === "MANAGE") {
+                this.fetchAllHospitalsForDropdown();
                 this.fetchAllHospitalDepartmentsForDropdown();
                 this.fetchAllRoomNumbersForDropdown();
                 this.searchDepartmentList(1);
@@ -367,6 +394,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     name: '',
                     code: '',
                     description: '',
+                    hospital: null,
                     doctorList: null,
                     roomList: null,
                     appointmentCharge: '',
@@ -444,7 +472,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 status, roomList,
                 name, followUpCharge, doctorList,
                 description, code,
-                appointmentCharge
+                appointmentCharge, hospital
             } = this.state.departmentData;
             let doctorIds = doctorList ? doctorList.map(doctor => doctor.value) : [];
             let roomIds = roomList ? roomList.map(room => room.value) : [];
@@ -457,7 +485,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 appointmentCharge,
                 followUpCharge,
                 doctorId: [...doctorIds],
-                roomId: [...roomIds]
+                roomId: [...roomIds],
+                hospitalId: hospital && hospital.value
             };
             try {
                 await this.props.saveHospitalDepartment(SAVE_HOSPITAL_DEPARTMENT, requestDTO);
@@ -513,7 +542,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 showEditModal
             } = this.state;
 
-            const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer;
+            const {activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer;
 
             const {activeRoomNumberForDropdown, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
@@ -527,6 +556,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
             const {allHospitalDepartmentForDropdown, allDepartmentDropdownErrorMessage} = this.props.HospitalDepartmentDropdownReducer;
 
+            const {allHospitalsForDropdown, hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+
             const {
                 isSearchHospitalDepartmentLoading,
                 hospitalDepartmentList,
@@ -538,7 +569,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     {...props}
                     hospitalDepartmentAddData={{
                         departmentData: departmentData,
-                        activeDoctorsForDropdown,
+                        activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
                         activeRoomNumberForDropdown,
                         handleEnterPress: this.handleEnterPress,
                         handleInputChange: this.handleInputChange,
@@ -549,7 +580,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         formValid,
                         showConfirmModal: showPreviewModal,
                         setShowConfirmModal: this.closeModal,
-                        handleAddDepartment: this.handleAddDepartment
+                        handleAddDepartment: this.handleAddDepartment,
+                        hospitalsForDropdown: hospitalsForDropdown
                     }}
                     departmentPreviewData={{
                         departmentData: departmentData,
@@ -563,10 +595,11 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         allHospitalDepartmentForDropdown,
                         allDepartmentDropdownErrorMessage,
                         allRoomNumberForDropdown,
-                        activeDoctorsForDropdown,
+                        activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
                         onSearchClick: this.searchDepartmentList,
                         onInputChange: this.handleSearchFormChange,
-                        resetSearchForm: this.handleSearchFormReset
+                        resetSearchForm: this.handleSearchFormReset,
+                        hospitalListForDropdown: allHospitalsForDropdown
                     }}
                     tableData={{
                         filteredActions: props.filteredAction,
@@ -604,8 +637,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         editApiCall: this.editDepartment,
                         errorMessage: editErrorMessage,
                         isEditHospitalDepartmentLoading,
-                        activeDoctorsForDropdown,
+                        activeDoctorsForDropdown: activeDoctorsByHospitalForDropdown,
                         activeRoomNumberForDropdown,
+                        hospitalsForDropdown: hospitalsForDropdown,
                         handleEnterPress: this.handleEnterPress,
                         handleInputChange: this.handleInputChange,
                         errorMessageForDepartmentName,
@@ -637,7 +671,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             'HospitalDepartmentSaveReducer',
             'HospitalDepartmentSearchReducer',
             'DoctorDropdownReducer',
-            'RoomNumberDropdownReducer'
+            'RoomNumberDropdownReducer',
+            'HospitalDropdownReducer'
         ],
         {
             clearSuccessErrorMessageFormStore,
@@ -646,11 +681,13 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchActiveHospitalDepartmentForDropdown,
             fetchAllHospitalDepartmentForDropdown,
             fetchHospitalDepartmentDetailsByHospitalDepartmentId,
-            fetchActiveDoctorsForDropdown,
+            fetchActiveDoctorsHospitalWiseForDropdown,
             fetchAllRoomNumberForDropdown,
-            fetchActiveRoomNumberForDropdown,
+            fetchActiveRoomNumberForDropdownByHospitalId,
+            fetchAllHospitalsForDropdown,
+            fetchActiveHospitalsForDropdown,
             saveHospitalDepartment,
-            searchHospitalDepartment
+            searchHospitalDepartment,
         });
 
 };

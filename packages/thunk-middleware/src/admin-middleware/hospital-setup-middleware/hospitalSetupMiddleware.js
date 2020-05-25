@@ -37,7 +37,7 @@ export const editHospital = (path, data, formDataLogo) => async dispatch => {
         dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
         return response
     } catch (e) {
-        dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage? e.errorMessage : "Sorry! Internal Server Problem occurred."));
+        dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage ? e.errorMessage : "Sorry! Internal Server Problem occurred."));
         throw e
     }
 };
@@ -93,5 +93,16 @@ export const fetchActiveHospitalsForDropdown = (path) => async dispatch => {
         return response.data;
     } catch (e) {
         dispatch(HospitalSetupActions.hospitalsFetchForDropdownError("Error fetching department"));
+    }
+};
+
+export const fetchAllHospitalsForDropdown = (path) => async dispatch => {
+    dispatch(HospitalSetupActions.allHospitalsFetchForDropdownPending());
+    try {
+        const response = await Axios.get(path);
+        dispatch(HospitalSetupActions.allHospitalsFetchForDropdownSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(HospitalSetupActions.allHospitalsFetchForDropdownError("Error fetching department"));
     }
 };

@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
 import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import Loadable from "react-loadable";
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -86,6 +87,11 @@ const AppointmentModeComponent = loadable(
 
 const AddCompanyAdminComponent = loadable(
     () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+    {fallback: () => getLoader()}
+)
+
+const AddDepartmentSetup = loadable(
+    () => import('./container/HospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
     {fallback: () => getLoader()}
 )
 /* ****** B ***** */
@@ -174,6 +180,11 @@ const ManageCompanyAdminComponent = loadable(
     () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
     {fallback: () => getLoader()}
 )
+
+const ManageDepartmentComponent = Loadable({
+    loader: () => import('./container/HospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
+    loading: () => getLoader()
+})
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -794,5 +805,35 @@ export const routes = [
         isTab: false,
         name: 'Room Setup',
         isSingleTab: true,
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Department Setup',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup/add',
+        component: AddDepartmentSetup,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup/manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage',
+        isSingleTab: false
     },
 ];

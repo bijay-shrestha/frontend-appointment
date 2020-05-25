@@ -33,7 +33,7 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
             resetSearchForm,
             searchParameters,
             allHospitalDepartmentForDropdown,
-            allDepartmentDropdownErrorMessage,
+            // allDepartmentDropdownErrorMessage,
             allRoomNumberForDropdown,
             activeDoctorsForDropdown,
             hospitalListForDropdown

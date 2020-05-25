@@ -98,6 +98,7 @@ export const hospitalSetupApiConstants = {
     DELETE_HOSPITAL: BASE.concat(HP_BASE),
     DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown'),
     FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/active/min')),
+    FETCH_ALL_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/min')),
     SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown/active')
 };
 

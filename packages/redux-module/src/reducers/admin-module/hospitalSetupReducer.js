@@ -22,7 +22,10 @@ const {
     HP_LIST_SUCCESS,
     CLEAR_HP_LIST_MESSAGE,
     FETCH_HOSPITALS_DROPDOWN_ERROR,
-    FETCH_HOSPITALS_DROPDOWN_SUCCESS
+    FETCH_HOSPITALS_DROPDOWN_SUCCESS,
+    FETCH_ALL_HOSPITALS_DROPDOWN_SUCCESS,
+    FETCH_ALL_HOSPITALS_DROPDOWN_PENDING,
+    FETCH_ALL_HOSPITALS_DROPDOWN_ERROR
 } = hospitalSetupConstants
 
 const initialState = {
@@ -41,7 +44,10 @@ const initialState = {
     hospitalPreviewData: null,
     isPreviewLoading: true,
     hospitalPreviewErrorMessage: '',
-    hospitalsForDropdown: []
+    hospitalsForDropdown: [],
+    isAllHospitalFetchLoading: false,
+    allHospitalsForDropdown: [],
+    allHospitalDropdownErrorMessage: ''
 }
 
 export const HospitalSaveReducer = (state = {...initialState}, action) => {
@@ -242,6 +248,26 @@ export const HospitalDropdownReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 hospitalsForDropdown: []
+            };
+        case FETCH_ALL_HOSPITALS_DROPDOWN_PENDING:
+            return {
+                isAllHospitalFetchLoading: true,
+                allHospitalsForDropdown: [],
+                allHospitalDropdownErrorMessage: ''
+            };
+        case FETCH_ALL_HOSPITALS_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isAllHospitalFetchLoading: false,
+                allHospitalsForDropdown: [...action.payload.data],
+                allHospitalDropdownErrorMessage: ''
+            };
+        case FETCH_ALL_HOSPITALS_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isAllHospitalFetchLoading: false,
+                allHospitalsForDropdown: [],
+                allHospitalDropdownErrorMessage: action.payload.errorMessage
             };
         default:
             return state
