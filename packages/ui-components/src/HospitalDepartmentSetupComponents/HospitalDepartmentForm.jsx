@@ -70,7 +70,6 @@ const HospitalDepartmentForm = ({
                                                         isDisabled={!hospitalsForDropdown.length}
                                                     />
                                                 </Col>
-                                                <Col sm={12} md={12} lg={4}> </Col>
                                             </>
                                             : ''
                                     }
