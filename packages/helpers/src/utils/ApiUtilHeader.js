@@ -29,7 +29,7 @@ export const formApiFromECIntegrate = (featureTypeCode, type) => {
       requestMethod,
       requestBody,
       headers,
-      queryParameters,
+   //   queryParameters,
       url
     } = feature
     console.log('requestBody', requestBody)

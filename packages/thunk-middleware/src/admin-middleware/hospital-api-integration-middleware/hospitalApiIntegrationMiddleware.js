@@ -1,6 +1,13 @@
-import {HospitalApiIntegrationActions} from '@frontend-appointment/action-module'
+import {
+  HospitalApiIntegrationActions,
+  hospitalApiIntegrationActionConstants
+} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
-
+const {
+  CLEAR_HOSPITAL_API_DELETE_MESSAGE,
+  CLEAR_HOSPITAL_API_EDIT_MESSAGE,
+  CLEAR_HOSPITAL_API_PREVIEW_MESSAGE
+} = hospitalApiIntegrationActionConstants
 export const fetchFeatureTypeForDrodown = path => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalFeatureTypeDropdownPending())
   try {
@@ -84,6 +91,7 @@ export const editApiIntegrationData = (path, data) => async dispatch => {
     )
   } catch (e) {
     dispatch(HospitalApiIntegrationActions.hospitalApiEditError(e.errorMessage))
+    throw e
   }
 }
 
@@ -98,6 +106,7 @@ export const previewApiIntegrationData = (path, id) => async dispatch => {
     dispatch(
       HospitalApiIntegrationActions.hopitalApiPreviewError(e.errorMessage)
     )
+    throw e
   }
 }
 
@@ -106,11 +115,18 @@ export const deleteApiIntegrationData = (path, data) => async dispatch => {
   try {
     const response = await Axios.del(path, data)
     dispatch(
-      HospitalApiIntegrationActions.hospitalApiDeleteSuccess(response.data)
+      HospitalApiIntegrationActions.hospitalApiDeleteSuccess('Client Api Successfully Removed')
     )
   } catch (e) {
     dispatch(
       HospitalApiIntegrationActions.hospitalApiDeleteError(e.errorMessage)
     )
+    throw e
   }
+}
+
+export const clearMessages = () => dispatch => {
+  dispatch({type: CLEAR_HOSPITAL_API_DELETE_MESSAGE})
+  dispatch({type: CLEAR_HOSPITAL_API_PREVIEW_MESSAGE})
+  dispatch({type: CLEAR_HOSPITAL_API_EDIT_MESSAGE})
 }

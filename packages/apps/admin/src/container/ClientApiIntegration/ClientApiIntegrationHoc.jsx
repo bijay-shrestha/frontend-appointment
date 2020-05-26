@@ -20,7 +20,8 @@ const {
   deleteApiIntegrationData,
   editApiIntegrationData,
   previewApiIntegrationData,
-  searchApiIntegrationData
+  searchApiIntegrationData,
+  clearMessages
 } = HospitalApiIntegrationMiddleware
 const {
   changeCommaSeperatedStringToObjectAndStringifyIt,
@@ -45,6 +46,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         featureTypeId: '',
         apiUrl: ''
       },
+      deleteRequestDTO: {
+        id: 0,
+        remarks: '',
+        status: 'D'
+      },
       totalRecords: 0,
       requestBodyValid: false,
       apiUrlValid: false,
@@ -58,8 +64,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       previewModal: false,
       editShowModal: false,
       showConfirmationModal: false,
+      deleteModalShow: false,
       regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
-      regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/,
+      regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\s]+)((\/\w+)*\/)([\w]+[^#?\s]+)(.*)?(#[\w]+)?$/,
       alertMessageInfo: {
         variant: '',
         message: ''
@@ -154,8 +161,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       await this.setState({
         totalRecords: this.props.hospitalSearchApiIntegrationReducers
           .searchApiIntegrationData.length
-          ? this.props.hospitalSearchApiIntegrationReducers
-              .totalItems
+          ? this.props.hospitalSearchApiIntegrationReducers.totalItems
           : 0,
         searchQueryParams: {
           ...this.state.searchQueryParams,
@@ -200,11 +206,80 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       }
     }
 
-    setCloseModal = () => {
+    previewApiCall = async id => {
+      await this.props.previewApiIntegrationData(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_PREVIEW,
+        id
+      )
+    }
+
+    onPreviewHandler = async id => {
+      try {
+        await this.previewApiCall(id)
+        this.setShowModal('previewModal')
+      } catch (e) {
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.hospitalPreviewApiIntegrationReducers
+              .previewApiIntegrationErorrMessage
+          }
+        })
+      }
+    }
+
+    onDeleteHandler = async id => {
+      this.props.clearMessages()
+      let deleteRequestDTO = {...this.state.deleteRequestDTO}
+      deleteRequestDTO['id'] = id
+      await this.setState({
+        deleteRequestDTO: deleteRequestDTO,
+        deleteModalShow: true
+      })
+    }
+
+    deleteRemarksHandler = event => {
+      const {name, value} = event.target
+      let deleteRequest = {...this.state.deleteRequestDTO}
+      deleteRequest[name] = value
+      this.setState({
+        deleteRequestDTO: deleteRequest
+      })
+    }
+
+    onSubmitDeleteHandler = async () => {
+      try {
+        await this.props.deleteApiIntegrationData(
+          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_DELETE,
+          this.state.deleteRequestDTO
+        )
+        this.setCloseModal('D')
+        this.setShowAlertModal(
+          'success',
+          this.props.hospitalDeleteApiIntegrationReducers
+            .deleteApiIntegrationSuccessMessage
+        )
+        await this.searchHospitalApiIntegration()
+      } catch (e) {
+        this.setShowModal('deleteModalShow')
+      }
+    }
+
+    setCloseModal = type => {
+      if (type === 'D') this.resetDeleteRequestDTO()
+
       this.setState({
         previewModal: false,
         editShowModal: false,
-        showConfirmationModal: false
+        showConfirmationModal: false,
+        deleteModalShow: false
+      })
+    }
+
+    resetDeleteRequestDTO = () => {
+      this.setState({
+        deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
       })
     }
 
@@ -351,8 +426,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
 
     componentDidMount () {
-      if(type==="M")
-        this.searchHospitalApiIntegration()
+      if (type === 'M') this.searchHospitalApiIntegration()
       this.callInitialApi()
     }
 
@@ -367,7 +441,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         showConfirmationModal,
         searchParameters,
         searchQueryParams,
-        totalRecords
+        totalRecords,
+        deleteModalShow,
+        deleteRequestDTO,
+        previewModal
       } = this.state
       const {
         isHospitalApiSaveLoading
@@ -388,7 +465,14 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         searchApiIntegrationData,
         searchApiIntegrationMessageError
       } = this.props.hospitalSearchApiIntegrationReducers
+      const {
+        deleteApiIntegrationErrorMessage,
+        isDeleteApiIntegrationLoading
+      } = this.props.hospitalDeleteApiIntegrationReducers
       // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
+      const {
+        previewApiIntegrationData
+      } = this.props.hospitalPreviewApiIntegrationReducers
       return (
         <>
           <ComposedComponent
@@ -436,7 +520,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               searchErrorMessage: searchApiIntegrationMessageError,
               searchQueryParams: searchQueryParams,
               onPageChangehandler: this.handlePageChange,
-              totalItems:totalRecords
+              totalItems: totalRecords,
+              deleteApiIntegrationErrorMessage,
+              isDeleteApiIntegrationLoading,
+              deleteRemarksHandler: this.deleteRemarksHandler,
+              deleteHandler: this.onDeleteHandler,
+              deleteApiCall: this.onSubmitDeleteHandler,
+              deleteRequestDTO,
+              deleteModalShow,
+              previewApiIntegrationData,
+              previewModal,
+              previewHandler:this.onPreviewHandler
             }}
           />
           <CAlert
@@ -484,7 +578,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       deleteApiIntegrationData,
       editApiIntegrationData,
       previewApiIntegrationData,
-      searchApiIntegrationData
+      searchApiIntegrationData,
+      clearMessages
     }
   )
 }

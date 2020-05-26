@@ -5,9 +5,9 @@ import {
   //CButton,
   CLoading
 } from '@frontend-appointment/ui-elements'
-// import {ConfirmDelete} from '@frontend-appointment/ui-components'
+import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-// import TableAction from '../../CommonComponents/table-components/TableAction'
+import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 // import PreviewDetails from '../commons/PreviewDetails'
 
@@ -19,13 +19,20 @@ const ClientApiIntegrationDetailsDataTable = ({
   searchErrorMessage,
   searchQueryParams,
   onPageChangehandler,
-  totalItems
+  totalItems,
+  setCloseModal,
+  deleteApiIntegrationErrorMessage,
+  isDeleteApiIntegrationLoading,
+  deleteRemarksHandler,
+  deleteHandler,
+  deleteApiCall,
+  deleteRequestDTO,
+  deleteModalShow,
+  filteredActions
 }) => (
   <div className="manage-details">
     <h5 className="title">Client Api Integration Details</h5>
-    {!isSearchLoading &&
-    !searchErrorMessage &&
-    integrationList.length ? (
+    {!isSearchLoading && !searchErrorMessage && integrationList.length ? (
       <>
         <CDataTable
           classes="ag-theme-balham"
@@ -43,7 +50,8 @@ const ClientApiIntegrationDetailsDataTable = ({
               sortable: true,
               editable: true,
               sizeColumnsToFit: true,
-              cellClass: 'first-class'
+              cellClass: 'first-class',
+              width: 30
               //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
             },
             {
@@ -52,7 +60,8 @@ const ClientApiIntegrationDetailsDataTable = ({
               // headerClass: "fi",
               resizable: true,
               sortable: true,
-              sizeColumnsToFit: true
+              sizeColumnsToFit: true,
+              width: 80
             },
             {
               headerName: 'Feature Code',
@@ -60,11 +69,20 @@ const ClientApiIntegrationDetailsDataTable = ({
               // headerClass: "fi",
               resizable: true,
               sortable: true,
-              sizeColumnsToFit: true
+              sizeColumnsToFit: true,
+              width: 60
             },
             {
               headerName: 'Request Method',
               field: 'requestMethod',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+              width: 40
+            },
+            {
+              headerName: 'Url',
+              field: 'url',
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true
@@ -77,37 +95,34 @@ const ClientApiIntegrationDetailsDataTable = ({
             //   sizeColumnsToFit: true,
             //   cellRenderer: 'childLabelRenderer'
             // },
-            // {
-            //   headerName: '',
-            //   action: 'action',
-            //   resizable: true,
-            //   sortable: true,
-            //   sizeColumnsToFit: true,
-            //   cellRenderer: 'childActionRenderer',
-            //   cellClass: 'actions-button-cell',
-            //   cellRendererParams: {
-            //     onClick: function (e, id, type) {
-            //       type === 'D'
-            //         ? // ? props.filteredActions.find(action => action.id === 5) &&
-            //           props.onDeleteHandler(id)
-            //         : type === 'E'
-            //         ? props.onEditHandler(id)
-            //         : props.onPreviewHandler(id)
-            //     },
-            //     filteredAction: props.filteredActions
-            //   },
-            //   cellStyle: {overflow: 'visible', 'z-index': '99'}
-            // }
+            {
+              headerName: '',
+              action: 'action',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+              cellRenderer: 'childActionRenderer',
+              cellClass: 'actions-button-cell',
+              cellRendererParams: {
+                onClick: function (e, id, type) {
+                  return type === 'D' ? deleteHandler(id) : '' //type === 'E'
+                  // //   ? props.onEditHandler(id)
+                  // : props.onPreviewHandler(id)
+                },
+                filteredAction: filteredActions
+              },
+              cellStyle: {overflow: 'visible', 'z-index': '99'}
+            }
           ]}
-        //   frameworkComponents={{
-        //     childActionRenderer: TableAction,
-        //     childLabelRenderer: StatusLabel
-        //   }}
+          frameworkComponents={{
+            childActionRenderer: TableAction
+            //childLabelRenderer: StatusLabel
+          }}
           defaultColDef={{resizable: true}}
-        //   getSelectedRows={
-        //     checkIfRoleExists(props.filteredActions, 4) &&
-        //     props.onPreviewHandler
-        //   }
+          //   getSelectedRows={
+          //     checkIfRoleExists(props.filteredActions, 4) &&
+          //     props.onPreviewHandler
+          //   }
           rowSelection={'single'}
           rowData={integrationList}
         />
@@ -141,20 +156,20 @@ const ClientApiIntegrationDetailsDataTable = ({
     ) : (
       ''
     )} */}
-    {/* {props.deleteModalShow ? (
+    {deleteModalShow ? (
       <ConfirmDelete
-        confirmationMessage="Are you sure you want to delete the Specialization?If yes please provide remarks."
-        modalHeader="Delete Specialization"
-        showModal={props.deleteModalShow}
-        setShowModal={props.setShowModal}
-        onDeleteRemarksChangeHandler={props.remarksHandler}
-        remarks={props.remarks}
-        onSubmitDelete={props.onSubmitDelete}
-        deleteErrorMessage={props.deleteErrorMsg}
+        confirmationMessage="Are you sure you want to delete the Api Integration?If yes please provide remarks."
+        modalHeader="Delete Api Interation"
+        showModal={deleteModalShow}
+        setShowModal={() => setCloseModal('D')}
+        onDeleteRemarksChangeHandler={deleteRemarksHandler}
+        remarks={deleteRequestDTO.remarks}
+        onSubmitDelete={deleteApiCall}
+        deleteErrorMessage={deleteApiIntegrationErrorMessage}
+        isLoading={isDeleteApiIntegrationLoading}
+        onDeleteHandler={deleteApiCall}
       />
-    ) : (
-      '' */}
-   
+    ) : null}
   </div>
 )
 export default memo(ClientApiIntegrationDetailsDataTable)
