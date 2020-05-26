@@ -41,14 +41,14 @@ const AppointmentModeDetails = ({closeModal, appointmentModeData, showPreviewMod
                             />
                         </Col>
 
-                        <Col sm={12} md={6} lg={6}>
-                            <CToggle
-                                onLabel={"Yes"}
-                                offLabel={"No"}
-                                checked={appointmentModeData.isEditable}
-                                disabled={true}
-                            />
-                        </Col>
+                        {/*<Col sm={12} md={6} lg={6}>*/}
+                        {/*    <CToggle*/}
+                        {/*        onLabel={"Yes"}*/}
+                        {/*        offLabel={"No"}*/}
+                        {/*        checked={appointmentModeData.isEditable}*/}
+                        {/*        disabled={true}*/}
+                        {/*    />*/}
+                        {/*</Col>*/}
                         {AuditableEntityHoc(appointmentModeData)}
 
                         <Col sm="12" md="6">
