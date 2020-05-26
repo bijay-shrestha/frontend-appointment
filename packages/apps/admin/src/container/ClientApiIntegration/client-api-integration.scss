@@ -1,7 +1,13 @@
-.remove-button{
-    margin-top:-26px;
-    margin-bottom:20px;
-}
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
 
 .line-gap{
     width:100%;
@@ -16,3 +22,61 @@
     font-size: 0.8rem;
     position: relative;
 }
+
+.note{
+    margin-top:-16px;
+    font-style: italic;
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.add-button{
+    // margin-top:-10px;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    padding:0 15px;
+
+   
+
+    .header-fields{
+            &:nth-child(1){
+                width:130px;
+                padding-right:15px;
+            }
+            &:nth-child(2){
+                width:calc(65% - 180px );
+                padding-right:15px;
+            }
+
+            &:nth-child(3){
+                width: 35%;
+                padding-right:15px;
+            }
+
+            .field-wrapper{
+                min-height: 54px;
+            }
+    }
+
+    .remove-button{
+        width:auto;
+        height: 37px;
+        border:none;
+        @include border-radius(4px);
+      
+    }
+
+    &:hover{
+        .remove-button{
+            display: inline-block;
+        }
+        
+    }
+
+   
+}
+

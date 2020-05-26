@@ -40,7 +40,7 @@ const ClientApiIntegrationForm = ({
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={6} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CHybridSelect
                   id="client"
                   label="Client"
@@ -55,7 +55,7 @@ const ClientApiIntegrationForm = ({
                 />
               </Col>
 
-              <Col sm={12} md={6} lg={4}>
+              <Col sm={12} md={6} lg={6}>
                 <CHybridSelect
                   id="client"
                   label="Feature Type"
@@ -79,7 +79,10 @@ const ClientApiIntegrationForm = ({
                 />
               </Col>
 
-              <Col sm={12} md={6} lg={4}>
+              
+            </Row>
+            <Row>
+            <Col sm={4} md={4} lg={4}>
                 <CHybridSelect
                   id="client"
                   label="Request Method"
@@ -102,9 +105,7 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
-            </Row>
-            <Row>
-              <Col sm={12} md={8}>
+              <Col sm={8} md={8}>
                 <CHybridInput
                   id="apiUrl"
                   name="apiUrl"
@@ -112,7 +113,7 @@ const ClientApiIntegrationForm = ({
                   onChange={(event, validity) =>
                     onChangeHandler(event, validity)
                   }
-                  placeholder={'Enter the api url'}
+                  placeholder={'Enter Request URL'}
                   fieldValuePattern={regexForApiUrl}
                   hasValidation={true}
                   errorMessagePassed={'Value Should be Api Url'}
@@ -125,28 +126,28 @@ const ClientApiIntegrationForm = ({
                 <div className="underline">Headers</div>
               </Col>
               <Col>
-                <CButton
+              <CButton
                   id="add-header"
                   name=""
                   size="sm"
                   variant="outline-secondary"
-                  className="float-right mb-2"
+                  className="float-right mb-2 add-button"
                   onClickHandler={() => onAddHeaderOrQueryParams('headers')}
                 >
                   <i className="fa fa-plus" />
                   &nbsp;Add
                 </CButton>
-              </Col>
+             </Col>
             </Row>
-
-            <>
+           
+            <Row >
               {integrationData.headers.map((header, ind) => {
                 return (
-                  <Row key={'header' + ind} id="header">
+                  <div key={'header' + ind} id="header" className="header">
                     {Object.keys(header).map((headerKey, index) => {
                       return (
                         <>
-                          <Col sm={4}>
+                          <div className="header-fields" >
                             <CHybridInput
                               key={'header-' + headerKey + index}
                               id={'header-' + headerKey + index}
@@ -158,19 +159,19 @@ const ClientApiIntegrationForm = ({
                                   'headers'
                                 )
                               }
-                              placeholder={'Enter a ' + headerKey}
+                              placeholder={ headerKey}
                               value={header[headerKey]}
                               required={true}
                             />
-                          </Col>
+                          </div>
                         </>
                       )
                     })}
-                    <Col>
+                   
                       <CButton
                         id="remove-header"
                         name=""
-                        size="sm"
+                        size="lg"
                         variant="outline-danger"
                         className="float-right  remove-button"
                         onClickHandler={() =>
@@ -178,20 +179,19 @@ const ClientApiIntegrationForm = ({
                         }
                       >
                         <i className="fa fa-times" />
-                        &nbsp;Remove
+                        {/* &nbsp;Remove */}
                       </CButton>
-                    </Col>
-                  </Row>
+                
+                  </div>
                 )
               })}
-            </>
-            <Row className="mt-4">
+            </Row>
+            <Row >
               <Col>
                 <div className="underline"> Query Parameters</div>
               </Col>
-
               <Col>
-                <CButton
+              <CButton
                   id="add-header"
                   name=""
                   size="sm"
@@ -204,18 +204,20 @@ const ClientApiIntegrationForm = ({
                 </CButton>
               </Col>
             </Row>
-            <>
+            <div className="">
+            
+                <Row>
               {integrationData.queryParams.map((queryParam, ind) => {
                 return (
-                  <Row
+                  <div
                     key={'query-param-' + ind}
                     id="query-param"
-                    className="mb-4"
+                    className="header"
                   >
                     {Object.keys(queryParam).map((queryParamKey, index) => {
                       return (
                         <>
-                          <Col sm={4}>
+                          <div className="header-fields" >
                             <CHybridInput
                               key={'header-' + queryParamKey + index}
                               id={'header-' + queryParamKey + index}
@@ -227,15 +229,15 @@ const ClientApiIntegrationForm = ({
                                   'queryParams'
                                 )
                               }
-                              placeholder={'Enter a ' + queryParamKey}
+                              placeholder={ queryParamKey}
                               value={queryParam[queryParamKey]}
                               required={true}
                             />
-                          </Col>
+                          </div>
                         </>
                       )
                     })}
-                    <Col>
+                 
                       <CButton
                         id="remove-header"
                         name=""
@@ -247,16 +249,17 @@ const ClientApiIntegrationForm = ({
                         }
                       >
                         <i className="fa fa-times" />
-                        &nbsp;Remove
+                       
                       </CButton>
-                    </Col>
+                  
                     {/* <div className="line-gap"></div> */}
-                  </Row>
+                  </div>
                 )
               })}
-            </>
+              </Row>
+            </div>
             <Row className="mt-4">
-              <Col sm={12} md={8} lg={8}>
+              <Col sm={12} >
                 <CHybridTextArea
                   id="request-body-hospital-integration"
                   name="requestBody"
@@ -270,6 +273,7 @@ const ClientApiIntegrationForm = ({
                   fieldValuePattern={regexForCommaSeperation}
                   errorMessagePassed={'Value Should Be Comma Seperated'}
                 />
+                <p className="note">Note: Should be in  comma separed format</p>
               </Col>
             </Row>
           </Container-fluid>
