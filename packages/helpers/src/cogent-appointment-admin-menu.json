@@ -136,7 +136,7 @@
           "childMenus": []
         },
         {
-          "id": "33",
+          "id": "32",
           "parentId": "1",
           "name": "Department Setup",
           "path": "/generalSetup/departmentSetup",
