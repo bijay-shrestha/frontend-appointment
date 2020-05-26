@@ -74,7 +74,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       showAlert: false,
       formValid: false,
       requestParamsIsSelected: false,
-      requestHeadersIsSelected: false
+      requestHeadersIsSelected: false,
+      previewData:null
     }
 
     resetIntegrationData = () => {
@@ -221,6 +222,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(id)
         this.setShowModal('previewModal')
+
       } catch (e) {
         this.setState({
           showAlert: true,

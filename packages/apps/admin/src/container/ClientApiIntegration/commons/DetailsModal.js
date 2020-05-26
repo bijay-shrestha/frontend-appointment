@@ -53,14 +53,14 @@ const DetailsModal = ({integrationData, type}) => {
                   label="Request Url"
                   name="Request Url"
                   value={integrationData.apiUrl}
-                  isDisabled={true}
+                  disabled={true}
                 />
               </Col>
             </Row>
 
             <Row>
               <div className="underline  px-3 my-3">Headers</div>
-              {integrationData.headers.length &&
+              {integrationData.headers.length ?
                 integrationData.headers.map((header, ind) => {
                   return (
                     <div key={'header' + ind} id="header" className="header">
@@ -83,12 +83,12 @@ const DetailsModal = ({integrationData, type}) => {
                       })}
                     </div>
                   )
-                })}
+                }):null}
             </Row>
             <Row>
               <div className="underline px-3 my-3">Query Param</div>
 
-              {integrationData.queryParams.length &&
+              {integrationData.queryParams.length?
                 integrationData.queryParams.map((queryParam, ind) => {
                   return (
                     <div
@@ -114,7 +114,7 @@ const DetailsModal = ({integrationData, type}) => {
                       })}
                     </div>
                   )
-                })}
+                }):null}
             </Row>
             <Row>
               <Col sm={12} className="mt-4">
