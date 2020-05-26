@@ -36,5 +36,9 @@ export const changeCommaSeperatedStringToObjectAndStringifyIt = commaSeperatedSt
   return objFromSplittedCommaString
 }
 
-export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValuePair =>
-  arrayOfKeyValuePair.filter(keyValPair => keyValPair.key && keyValPair.value)
+export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValuePair =>{
+  //console.log(arrayOfKeyValuePair);
+  const filteredValue = arrayOfKeyValuePair.filter(keyValPair => keyValPair.keyParam && keyValPair.valueParam)
+  //console.log("filtered",filteredValue);
+  return filteredValue;
+}
