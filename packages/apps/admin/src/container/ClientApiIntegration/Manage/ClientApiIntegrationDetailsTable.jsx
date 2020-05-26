@@ -28,7 +28,10 @@ const ClientApiIntegrationDetailsDataTable = ({
   deleteApiCall,
   deleteRequestDTO,
   deleteModalShow,
-  filteredActions
+  filteredActions,
+  previewApiIntegrationData,
+  previewModal,
+  previewHandler
 }) => (
   <div className="manage-details">
     <h5 className="title">Client Api Integration Details</h5>
@@ -105,9 +108,12 @@ const ClientApiIntegrationDetailsDataTable = ({
               cellClass: 'actions-button-cell',
               cellRendererParams: {
                 onClick: function (e, id, type) {
-                  return type === 'D' ? deleteHandler(id) : '' //type === 'E'
-                  // //   ? props.onEditHandler(id)
-                  // : props.onPreviewHandler(id)
+                  return type === 'D'
+                    ? deleteHandler(id)
+                    : type === 'P'
+                    ? previewHandler(id)
+                    : ''
+                  // //   \? props.onEditHandler(id)
                 },
                 filteredAction: filteredActions
               },
@@ -144,14 +150,11 @@ const ClientApiIntegrationDetailsDataTable = ({
       <CLoading />
     )}
     {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-    {/* {props.showSpecializationModal && !props.isPreviewLoading ? (
+    {/* {previewModal ? (
       <PreviewDetails
-        showModal={props.showSpecializationModal}
-        setShowModal={props.setShowModal}
-        specializationData={props.specializationData}
-        specializationPreviewErrorMessage={
-          props.specializationPreviewErrorMessage
-        }
+        showModal={previewModal}
+        setShowModal={setCloseModal}
+        previewData={previewApiIntegrationData}
       />
     ) : (
       ''

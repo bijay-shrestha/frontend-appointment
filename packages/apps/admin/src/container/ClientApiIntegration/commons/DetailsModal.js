@@ -44,6 +44,14 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
 
+              <Col sm={6} md={6} lg={6}>
+                <CHybridInput
+                  label="Request Url"
+                  value={integrationData.apiUrl}
+                  isDisabled={true}
+                />
+              </Col>
+
               <Col sm={12} md={6} lg={4}>
                 {integrationData.headers.length &&
                   integrationData.headers.map((header, ind) => {
