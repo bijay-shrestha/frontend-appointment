@@ -40,7 +40,7 @@ const ClientApiIntegrationForm = ({
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={6} lg={6}>
+              <Col sm={12} md={4} >
                 <CHybridSelect
                   id="client"
                   label="Client"
@@ -54,8 +54,11 @@ const ClientApiIntegrationForm = ({
                   placeholder={'Select Client.'}
                 />
               </Col>
+              <Col sm={12} md={4}>
+                Integration Type
+                </Col>
 
-              <Col sm={12} md={6} lg={6}>
+              <Col sm={12} md={4}>
                 <CHybridSelect
                   id="client"
                   label="Feature Type"

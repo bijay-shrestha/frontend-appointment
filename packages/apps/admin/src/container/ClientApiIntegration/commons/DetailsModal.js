@@ -15,7 +15,7 @@ const DetailsModal = ({integrationData, type}) => {
         <CForm id="department-info" className="mt-2 department-info">
           <Container-fluid>
             <Row>
-              <Col sm={6} md={6} lg={6}>
+            <Col sm={12} md={4}>
                 <CHybridSelect
                   id="hospital"
                   label="Hospital"
@@ -24,7 +24,11 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
 
-              <Col sm={6} md={6} lg={6}>
+              <Col sm={12} md={4}>
+                Integration Type
+                </Col>
+
+              <Col sm={12} md={4}>
                 <CHybridSelect
                   id="featureType"
                   name="name"
@@ -34,7 +38,7 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
 
-              <Col sm={6} md={6} lg={6}>
+              <Col sm={3} >
                 <CHybridSelect
                   id="requestMethod"
                   name="requestmethod"
@@ -44,63 +48,74 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
 
-              <Col sm={6} md={6} lg={6}>
+              <Col sm={9}>
                 <CHybridInput
                   label="Request Url"
+                  name="Request Url"
                   value={integrationData.apiUrl}
                   isDisabled={true}
                 />
               </Col>
+              </Row>
 
-              <Col sm={12} md={6} lg={4}>
+            <Row>
+              <div className="underline  px-3 my-3">Headers</div>
                 {integrationData.headers.length &&
                   integrationData.headers.map((header, ind) => {
                     return (
-                      <div key={'header' + ind} id="header">
+                      <div key={'header' + ind} id="header" className="header">
                         {Object.keys(header).map((headerKey, index) => {
                           return (
                             <>
+                             <div className="header-fields" >
                               <CHybridInput
                                 key={'header-' + headerKey + index}
                                 id={'header-' + headerKey + index}
                                 name={headerKey}
+                                placeholder={headerKey}
                                 value={header[headerKey]}
                                 required={true}
                                 disabled={true}
                               />
+                              </div>
                             </>
                           )
                         })}
                       </div>
                     )
                   })}
-              </Col>
-
-              <Col sm={12} md={8} lg={8}>
+          
+              </Row>
+              <Row>
+              <div className="underline px-3 my-3">Query Param</div>
+              
                 {integrationData.queryParams.length &&
                   integrationData.queryParams.map((queryParam, ind) => {
                     return (
-                      <div key={'query-param-' + ind} id="query-param">
+                      <div key={'query-param-' + ind} id="query-param" className="header">
                         {Object.keys(queryParam).map((queryParamKey, index) => {
                           return (
                             <>
+                             <div className="header-fields" >
                               <CHybridInput
                                 key={'header-' + queryParamKey + index}
                                 id={'header-' + queryParamKey + index}
                                 name={queryParamKey}
                                 disabled={true}
-                                placeholder={'Enter a ' + queryParamKey}
+                                placeholder={ queryParamKey}
                                 value={queryParam[queryParamKey]}
                               />
+                              </div>
                             </>
                           )
                         })}
                       </div>
                     )
                   })}
-              </Col>
-
-              <Col sm={6} md={6} lg={6}>
+           
+              </Row>
+              <Row>
+              <Col sm={6} md={6} lg={6} className="mt-4">
                 <CHybridTextArea
                   id="header"
                   placeholder="Request Body"
