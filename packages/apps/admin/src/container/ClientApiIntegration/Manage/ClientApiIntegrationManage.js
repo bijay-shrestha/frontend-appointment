@@ -11,6 +11,7 @@ const HospitalIntegrationApiManage = props => {
         <div className="">
           <ClientApiIntegrationSearchFilter
             {...searchHandler}
+            {...commonHandler}
           />
         </div>
         <div className=" mb-2">

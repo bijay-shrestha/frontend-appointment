@@ -150,7 +150,7 @@ const ClientApiIntegrationDetailsDataTable = ({
       <CLoading />
     )}
     {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-    {previewModal ? (
+    {/* {previewModal ? (
       <PreviewDetails
         showModal={previewModal}
         setShowModal={setCloseModal}
@@ -158,7 +158,7 @@ const ClientApiIntegrationDetailsDataTable = ({
       />
     ) : (
       ''
-    )}
+    )} */}
     {deleteModalShow ? (
       <ConfirmDelete
         confirmationMessage="Are you sure you want to delete the Api Integration?If yes please provide remarks."

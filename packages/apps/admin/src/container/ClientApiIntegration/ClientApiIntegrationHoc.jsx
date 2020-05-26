@@ -450,6 +450,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         isHospitalApiSaveLoading
       } = this.props.hospitalApiIntegrationSaveReducers
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
+      console.log('hospitalDropdw',this.props.HospitalDropdownReducer)
       const {
         featureTypeDropdownData,
         featureTypeDropdownError,

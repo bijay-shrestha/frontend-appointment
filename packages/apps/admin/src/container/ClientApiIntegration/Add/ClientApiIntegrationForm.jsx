@@ -115,7 +115,7 @@ const ClientApiIntegrationForm = ({
                   placeholder={'Enter the Request Url'}
                   fieldValuePattern={regexForApiUrl}
                   hasValidation={true}
-                  errorMessagePassed={'Value Should be Api Url'}
+                  errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
             </Row>
