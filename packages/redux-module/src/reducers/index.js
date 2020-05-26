@@ -174,6 +174,18 @@ import {
     HospitalDepartmentSearchReducer
 } from './admin-module/hospitalDepartmentSetupReducer';
 
+import {
+    DepartmentDutyRosterDeleteReducer,
+    DepartmentDutyRosterEditReducer,
+    DepartmentDutyRosterExistingReducer,
+    DepartmentDutyRosterListReducer,
+    DepartmentDutyRosterOverrideDeleteReducer,
+    DepartmentDutyRosterOverrideRevertReducer,
+    DepartmentDutyRosterOverrideUpdateReducer,
+    DepartmentDutyRosterPreviewReducer,
+    DepartmentDutyRosterSaveReducer,
+} from './admin-module/departmentDutyRosterReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -302,5 +314,14 @@ export {
     HospitalDepartmentEditReducer,
     HospitalDepartmentPreviewReducer,
     HospitalDepartmentSaveReducer,
-    HospitalDepartmentSearchReducer
+    HospitalDepartmentSearchReducer,
+    DepartmentDutyRosterDeleteReducer,
+    DepartmentDutyRosterEditReducer,
+    DepartmentDutyRosterExistingReducer,
+    DepartmentDutyRosterListReducer,
+    DepartmentDutyRosterOverrideDeleteReducer,
+    DepartmentDutyRosterOverrideRevertReducer,
+    DepartmentDutyRosterOverrideUpdateReducer,
+    DepartmentDutyRosterPreviewReducer,
+    DepartmentDutyRosterSaveReducer,
 }
