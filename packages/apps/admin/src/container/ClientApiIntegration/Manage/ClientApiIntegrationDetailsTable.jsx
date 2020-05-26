@@ -81,7 +81,7 @@ const ClientApiIntegrationDetailsDataTable = ({
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true,
-              width: 40
+              width: 80
             },
             {
               headerName: 'Url',
@@ -106,6 +106,7 @@ const ClientApiIntegrationDetailsDataTable = ({
               sizeColumnsToFit: true,
               cellRenderer: 'childActionRenderer',
               cellClass: 'actions-button-cell',
+              width: 80,
               cellRendererParams: {
                 onClick: function (e, id, type) {
                   return type === 'D'

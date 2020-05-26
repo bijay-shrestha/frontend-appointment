@@ -24,7 +24,7 @@
 }
 
 .note{
-    margin-top:-16px;
+    margin-top:-4px;
     font-style: italic;
     font-size: 0.7rem;
     font-weight: 300;
@@ -78,5 +78,21 @@
     }
 
    
+}
+
+.api-info{
+    .header{
+        .header-fields{
+           
+            &:nth-child(2){
+                width:calc(70% - 130px) ;
+                padding-right:15px;
+            }
+
+            &:nth-child(3){
+                padding-right:0;
+            }
+    }
+}
 }
 
