@@ -21,7 +21,10 @@ const {
   HOSPITAL_API_INTEGRATION_SEARCH_PENDING,
   HOSPITAL_API_INTEGRATION_DELETE_ERROR,
   HOSPITAL_API_INTEGRATION_DELETE_PENDING,
-  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS
+  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS,
+  CLEAR_HOSPITAL_API_DELETE_MESSAGE,
+  CLEAR_HOSPITAL_API_EDIT_MESSAGE,
+  CLEAR_HOSPITAL_API_PREVIEW_MESSAGE
 } = hospitalApiIntegrationActionConstants
 //State
 const initialState = {
@@ -157,7 +160,8 @@ const previewApiIntegrationHandler = {
     ...state,
     isPreviewApiIntegrationLoading: true,
     previewApiIntegrationData: null,
-    previewApiIntegrationErorrMessage: ''
+    previewApiIntegrationErorrMessage: '',
+    
   }),
   [HOSPITAL_API_INTEGRATION_PREVIEW_SUCCESS]: (state, action) => ({
     ...state,
@@ -170,7 +174,12 @@ const previewApiIntegrationHandler = {
     isPreviewApiIntegrationLoading: false,
     previewApiIntegrationData: null,
     previewApiIntegrationErorrMessage: action.payload.data
+  }),
+  [CLEAR_HOSPITAL_API_PREVIEW_MESSAGE]: (state) => ({
+    ...state,
+    previewApiIntegrationErorrMessage: ''
   })
+
 }
 
 const editApiIntegrationHandler = {
@@ -191,6 +200,11 @@ const editApiIntegrationHandler = {
     isEditApiIntegrationLoading: false,
     editApiIntegrationSuccessMessage: '',
     editApiIntegrationErrorMessage: action.payload.message
+  }),
+  [CLEAR_HOSPITAL_API_EDIT_MESSAGE]: (state) => ({
+    ...state,
+    editApiIntegrationSuccessMessage: '',
+    editApiIntegrationErrorMessage:''
   })
 }
 
@@ -212,6 +226,11 @@ const deleteApiIntegrationHandler = {
     isDeleteApiIntegrationLoading: false,
     deleteApiIntegrationSuccessMessage: '',
     deleteApiIntegrationErrorMessage:action.payload.message
+  }),
+  [CLEAR_HOSPITAL_API_DELETE_MESSAGE]: (state) => ({
+    ...state,
+    deleteApiIntegrationSuccessMessage: '',
+    deleteApiIntegrationErrorMessage:''
   })
 }
 
