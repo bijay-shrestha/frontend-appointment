@@ -234,6 +234,11 @@ const AppointmentModeHOC = (ComposedComponent, props) => {
             this.defaultAppointmentModeData.name = editData.name;
             this.defaultAppointmentModeData.description = editData.address;
             this.defaultAppointmentModeData.code = editData.code;
+            this.defaultAppointmentModeData.status = {
+                value: editData.status,
+                label: editData.status === 'Y' ? 'Active' : 'Inactive'
+            };
+
             try {
                 await this.previewApiCall(editData);
                 const {name, description, code, isEditable, id, status} = this.props.AppointmentModePreviewReducer.appointmentModeDetails;
