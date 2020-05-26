@@ -183,19 +183,23 @@ const ClientApiIntegrationForm = ({
                       )
                     })}
 
-                    <CButton
-                      id="remove-header"
-                      name=""
-                      size="lg"
-                      variant="outline-danger"
-                      className="float-right  remove-button"
-                      onClickHandler={() =>
-                        onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
-                      }
-                    >
-                      <i className="fa fa-times" />
-                      {/* &nbsp;Remove */}
-                    </CButton>
+                    {integrationData.headers.length !== 1 ? (
+                      <CButton
+                        id="remove-header"
+                        name=""
+                        size="lg"
+                        variant="outline-danger"
+                        className="float-right  remove-button"
+                        onClickHandler={() =>
+                          onRemoveHandlerHeaderOrQueryParams(ind, 'headers')
+                        }
+                      >
+                        <i className="fa fa-times" />
+                        {/* &nbsp;Remove */}
+                      </CButton>
+                    ) : (
+                      ''
+                    )}
                   </div>
                 )
               })}
@@ -269,18 +273,25 @@ const ClientApiIntegrationForm = ({
                         )
                       })}
 
-                      <CButton
-                        id="remove-header"
-                        name=""
-                        size="sm"
-                        variant="outline-danger"
-                        className="float-right  remove-button"
-                        onClickHandler={() =>
-                          onRemoveHandlerHeaderOrQueryParams(ind, 'queryParams')
-                        }
-                      >
-                        <i className="fa fa-times" />
-                      </CButton>
+                      {integrationData.queryParams.length !== 1 ? (
+                        <CButton
+                          id="remove-header"
+                          name=""
+                          size="sm"
+                          variant="outline-danger"
+                          className="float-right  remove-button"
+                          onClickHandler={() =>
+                            onRemoveHandlerHeaderOrQueryParams(
+                              ind,
+                              'queryParams'
+                            )
+                          }
+                        >
+                          <i className="fa fa-times" />
+                        </CButton>
+                      ) : (
+                        ''
+                      )}
 
                       {/* <div className="line-gap"></div> */}
                     </div>

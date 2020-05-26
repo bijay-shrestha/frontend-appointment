@@ -1,4 +1,4 @@
-import React,{memo} from 'react'
+import React, {memo} from 'react'
 import {
   CForm,
   CHybridInput,
@@ -46,58 +46,57 @@ const DetailsModal = ({integrationData, type}) => {
 
               <Col sm={6} md={6} lg={6}>
                 <CHybridInput
-                  label="Request Url"
+                  placeholder="Request Url"
                   value={integrationData.apiUrl}
                   isDisabled={true}
                 />
               </Col>
 
               <Col sm={12} md={6} lg={4}>
-                {integrationData.headers.length &&
-                  integrationData.headers.map((header, ind) => {
-                    return (
-                      <div key={'header' + ind} id="header">
-                        {Object.keys(header).map((headerKey, index) => {
-                          return (
-                            <>
-                              <CHybridInput
-                                key={'header-' + headerKey + index}
-                                id={'header-' + headerKey + index}
-                                name={headerKey}
-                                value={header[headerKey]}
-                                required={true}
-                                disabled={true}
-                              />
-                            </>
-                          )
-                        })}
-                      </div>
-                    )
-                  })}
+                {integrationData.headers.map((header, ind) => {
+                  return (
+                    <div key={'header' + ind} id="header">
+                      {Object.keys(header).map((headerKey, index) => {
+                        return (
+                          <>
+                            <CHybridInput
+                              key={'header-' + headerKey + index}
+                              id={'header-' + headerKey + index}
+                              name={headerKey}
+                              value={header[headerKey]}
+                              placeholder={'Enter a ' + headerKey}
+                              required={true}
+                              disabled={true}
+                            />
+                          </>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
               </Col>
 
               <Col sm={12} md={8} lg={8}>
-                {integrationData.queryParams.length &&
-                  integrationData.queryParams.map((queryParam, ind) => {
-                    return (
-                      <div key={'query-param-' + ind} id="query-param">
-                        {Object.keys(queryParam).map((queryParamKey, index) => {
-                          return (
-                            <>
-                              <CHybridInput
-                                key={'header-' + queryParamKey + index}
-                                id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
-                                disabled={true}
-                                placeholder={'Enter a ' + queryParamKey}
-                                value={queryParam[queryParamKey]}
-                              />
-                            </>
-                          )
-                        })}
-                      </div>
-                    )
-                  })}
+                {integrationData.queryParams.map((queryParam, ind) => {
+                  return (
+                    <div key={'query-param-' + ind} id="query-param">
+                      {Object.keys(queryParam).map((queryParamKey, index) => {
+                        return (
+                          <>
+                            <CHybridInput
+                              key={'header-' + queryParamKey + index}
+                              id={'header-' + queryParamKey + index}
+                              name={queryParamKey}
+                              disabled={true}
+                              placeholder={'Enter a ' + queryParamKey}
+                              value={queryParam[queryParamKey]}
+                            />
+                          </>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
               </Col>
 
               <Col sm={6} md={6} lg={6}>
