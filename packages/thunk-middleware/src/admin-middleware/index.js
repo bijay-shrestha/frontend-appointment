@@ -41,6 +41,7 @@ import * as AppointmentModeMiddleware from './appointment-mode-middleware/appoin
 import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware'
 import * as RoomSetupMiddleware from './room-setup-middleware/roomSetupMiddleware';
 import * as HospitalDepartmentSetupMiddleware from './hospital-department-setup-middleware/hospitalDepartmentSetupMiddleware';
+import * as DepartmentDutyRosterMiddleware from './department-duty-roster-middleware/departmentDutyRosterMiddleware';
 
 export {
     createProfile,
@@ -78,5 +79,6 @@ export {
     AppointmentModeMiddleware,
     AppointmentTransferMiddleware,
     RoomSetupMiddleware,
-    HospitalDepartmentSetupMiddleware
+    HospitalDepartmentSetupMiddleware,
+    DepartmentDutyRosterMiddleware
 }

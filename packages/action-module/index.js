@@ -56,7 +56,9 @@ import {
     roomSetupActionConstants,
     RoomSetupActions,
     hospitalDepartmentSetupActionConstants,
-    HospitalDepartmentSetupActions
+    HospitalDepartmentSetupActions,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions
 } from './src/admin-module'
 
 export {
@@ -115,5 +117,7 @@ export {
     roomSetupActionConstants,
     RoomSetupActions,
     HospitalDepartmentSetupActions,
-    hospitalDepartmentSetupActionConstants
+    hospitalDepartmentSetupActionConstants,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions
 }

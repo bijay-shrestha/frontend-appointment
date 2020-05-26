@@ -41,6 +41,9 @@ import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
 
 import * as  HospitalDepartmentSetupActions from './hospital-department-setup/hospitalDepartmentSetupActions';
 import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants';
+import * as  DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions';
+import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants';
+
 
 export {
     AppointmentDetailActions,
@@ -84,5 +87,7 @@ export {
     roomSetupActionConstants,
     RoomSetupActions,
     hospitalDepartmentSetupActionConstants,
-    HospitalDepartmentSetupActions
+    HospitalDepartmentSetupActions,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions
 }
