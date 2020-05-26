@@ -166,7 +166,7 @@ export const DepartmentDutyRosterDeleteReducer = (state = {...initialState}, act
             return {
                 ...state,
                 deleteErrorMessage: '',
-                deleteSuccessMessage
+                deleteSuccessMessage: ''
             };
         default:
             return {
