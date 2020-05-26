@@ -198,17 +198,11 @@
       ]
     },
     {
-      "id": "9",
+      "id": "24",
       "parentId": null,
-      "name": "Doctor Duty Roster",
-      "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5,
-        8
-      ],
+      "name": "Roster Settings",
+      "path": "/rosterSettings",
+      "roles": [],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
@@ -216,7 +210,50 @@
       "enabled": "Y",
       "menuFor": "6",
       "description": "Doctor Duty Roster",
-      "childMenus": []
+      "childMenus": [
+        {
+          "id": "9",
+          "parentId": "24",
+          "name": "Doctor Duty Roster",
+          "path": "/rosterSettings/doctorDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "fa fa-user-md",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Duty Roster",
+          "childMenus": []
+        },
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Department Duty Roster",
+          "path": "/rosterSettings/departmentDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "fa fa-user-md",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Duty Roster",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "10",

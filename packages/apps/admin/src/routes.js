@@ -94,6 +94,11 @@ const AddDepartmentSetup = loadable(
     () => import('./container/HospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
     {fallback: () => getLoader()}
 )
+const AddDepartmentDutyRosterComponent = loadable(
+    () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    {fallback: () => getLoader()}
+)
+
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -185,6 +190,11 @@ const ManageDepartmentComponent = Loadable({
     loader: () => import('./container/HospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
     loading: () => getLoader()
 })
+
+const ManageDepartmentDutyRosterComponent = loadable(
+    () => import('./container/DepartmentDutyRoster/Manage/DepartmentDutyRosterManage'),
+    {fallback: () => getLoader()}
+)
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -406,7 +416,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/doctorDutyRoster',
+        path: '/admin/rosterSettings/doctorDutyRoster',
         name: 'Doctor Duty Roster',
         component: <></>,
         icon: '',
@@ -416,7 +426,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/doctorDutyRoster/add',
+        path: '/admin/rosterSettings/doctorDutyRoster/add',
         name: 'Add',
         component: AddDoctorDutyRosterComponent,
         icon: '',
@@ -426,7 +436,7 @@ export const routes = [
         isSingleTab: false,
     },
     {
-        path: '/admin/doctorDutyRoster/manage',
+        path: '/admin/rosterSettings/doctorDutyRoster/manage',
         name: 'Manage',
         component: ManageDoctorDutyRosterComponent,
         icon: '',
@@ -835,5 +845,35 @@ export const routes = [
         isTab: true,
         name: 'Manage',
         isSingleTab: false
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster',
+        name: 'Department Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster/add',
+        name: 'Add',
+        component: AddDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false,
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false,
     },
 ];
