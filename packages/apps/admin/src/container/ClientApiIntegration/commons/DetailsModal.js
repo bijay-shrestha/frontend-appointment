@@ -12,7 +12,7 @@ const DetailsModal = ({integrationData, type}) => {
   return (
     <>
       <Container-fluid>
-        <CForm id="department-info" className="mt-2 department-info">
+        <CForm id="department-info" className="mt-2 api-info">
           <Container-fluid>
             <Row>
             <Col sm={12} md={4}>
@@ -115,7 +115,7 @@ const DetailsModal = ({integrationData, type}) => {
            
               </Row>
               <Row>
-              <Col sm={6} md={6} lg={6} className="mt-4">
+              <Col sm={12} className="mt-4">
                 <CHybridTextArea
                   id="header"
                   placeholder="Request Body"

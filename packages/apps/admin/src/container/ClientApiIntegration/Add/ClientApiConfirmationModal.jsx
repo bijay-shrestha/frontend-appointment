@@ -14,12 +14,14 @@ const ClientApiConfirmationModal = props => {
         <>
             <CModal
                 show={showConfirmationModal}
+              
                 modalHeading="API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal
                          integrationData={integrationData}
                          type={'A'}
+                         className="api-details-modal"
                     />
                 }
                 onHide={setCloseModal}
