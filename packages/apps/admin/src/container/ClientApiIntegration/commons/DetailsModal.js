@@ -59,7 +59,7 @@ const DetailsModal = ({integrationData, type}) => {
             </Row>
 
             <Row>
-              <div className="underline  px-3 my-3">Headers</div>
+              <div className="underline  px-3 mb-3 mt-1">Headers</div>
               {integrationData.headers.length &&
                 integrationData.headers.map((header, ind) => {
                   return (
