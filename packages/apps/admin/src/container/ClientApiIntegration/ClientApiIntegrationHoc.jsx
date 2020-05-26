@@ -72,7 +72,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         message: ''
       },
       showAlert: false,
-      formValid: false
+      formValid: false,
+      requestParamsIsSelected: false,
+      requestHeadersIsSelected: false
     }
 
     resetIntegrationData = () => {
@@ -88,7 +90,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         },
         formValid: false,
         requestBodyValid: false,
-        restApiValid: false
+        restApiValid: false,
+        requestHeadersIsSelected: false,
+        requestParamsIsSelected: false
       })
     }
 
@@ -363,8 +367,27 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         formValid: Boolean(formValid)
       })
     }
+
     onConfirmHandler = () => {
       this.setShowModal('showConfirmationModal')
+    }
+
+    changeRequestHandler = async (fieldName, parentFieldName) => {
+      let field = this.state[fieldName]
+      field = field ? false : true
+      await this.setState({
+        [fieldName]: field
+      })
+      if (field) {
+        this.onAddHeaderOrQueryParams(parentFieldName)
+      } else {
+        let integrationData = this.state.integrationData
+        integrationData[parentFieldName] = []
+        await this.setState({
+          integrationData: {...integrationData}
+        })
+        console.log(this.state.integrationData)
+      }
     }
 
     onSaveHandler = async () => {
@@ -444,13 +467,15 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         totalRecords,
         deleteModalShow,
         deleteRequestDTO,
-        previewModal
+        previewModal,
+        requestHeadersIsSelected,
+        requestParamsIsSelected
       } = this.state
       const {
         isHospitalApiSaveLoading
       } = this.props.hospitalApiIntegrationSaveReducers
       const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-      console.log('hospitalDropdw',this.props.HospitalDropdownReducer)
+      console.log('hospitalDropdw', this.props.HospitalDropdownReducer)
       const {
         featureTypeDropdownData,
         featureTypeDropdownError,
@@ -501,7 +526,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               requestMethodDropdownError: requestMethodDropdownError,
               regexForApiUrl: regexForApiUrl,
               formValid,
-              hospitalsForDropdown
+              hospitalsForDropdown,
+              requestParamsIsSelected,
+              requestHeadersIsSelected,
+              changeRequestHandler: this.changeRequestHandler
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
@@ -531,7 +559,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               deleteModalShow,
               previewApiIntegrationData,
               previewModal,
-              previewHandler:this.onPreviewHandler
+              previewHandler: this.onPreviewHandler
             }}
           />
           <CAlert
