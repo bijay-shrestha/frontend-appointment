@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
-import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CCheckbox, CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
@@ -11,10 +11,10 @@ import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDat
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DepartmentDutyRosterPreviewModal = ({
-                                              doctorInfoData,
-                                              doctorAvailabilityData,
+                                              departmentInfoData,
+                                              departmentAvailabilityData,
                                               hasOverrideDutyRoster,
-                                              doctorDutyRosterOverrideRequestDTOS,
+                                              departmentDutyRosterOverrideRequestDTOS,
                                               type
                                           }) => {
 
@@ -23,7 +23,7 @@ const DepartmentDutyRosterPreviewModal = ({
             <Row className="mb-3">
                 <Col md={12} lg={5} className="p-0">
                     <div className="doctor-info bg-white p-4">
-                        <h5 className="title mb-4">Doctor Information</h5>
+                        <h5 className="title mb-4">General Information</h5>
                         <Form>
                             <div className="d-flex">
                                 <CEnglishDatePicker
@@ -33,7 +33,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                     dateFormat="yyyy-MM-dd"
                                     minDate={0}
                                     showDisabledMonthNavigation={true}
-                                    selected={doctorInfoData.fromDate}
+                                    selected={departmentInfoData.fromDate}
                                     peekNextMonth={true}
                                     showMonthDropdown={true}
                                     showYearDropdown={true}
@@ -50,7 +50,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                     dateFormat="yyyy-MM-dd"
                                     minDate={0}
                                     showDisabledMonthNavigation={true}
-                                    selected={doctorInfoData.toDate}
+                                    selected={departmentInfoData.toDate}
                                     peekNextMonth={true}
                                     showMonthDropdown={true}
                                     showYearDropdown={true}
@@ -63,43 +63,50 @@ const DepartmentDutyRosterPreviewModal = ({
 
                             <CHybridInput
                                 id="hospital"
-                                label="Client"
                                 name="hospital"
                                 placeholder="Client"
-                                value={doctorInfoData.hospital && doctorInfoData.hospital.label}
+                                value={departmentInfoData.hospital && departmentInfoData.hospital.label}
                                 disabled={true}
                             />
 
                             <CHybridInput
-                                id="specialization"
-                                label="Specialization"
-                                name="specialization"
-                                placeholder="Specialization"
-                                value={doctorInfoData.specialization && doctorInfoData.specialization.label}
+                                id="department"
+                                name="department"
+                                placeholder="Department"
+                                value={departmentInfoData.department && departmentInfoData.department.label}
                                 disabled={true}
                             />
-                            <CHybridInput
-                                id="doctor"
-                                label="Doctor"
-                                name="doctor"
-                                placeholder="Doctor"
-                                value={doctorInfoData.doctor && doctorInfoData.doctor.label}
-                                disabled={true}
-                            />
+
+                            <i className={departmentInfoData.isRoomEnabled === 'Y' ?
+                                "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
+                                                                          labelName={"Enable Room"}/>
+
+                            {
+                                departmentInfoData.isRoomEnabled === 'Y' ?
+                                    <CHybridInput
+                                        id="room"
+                                        name="room"
+                                        placeholder="room"
+                                        value={departmentInfoData.room && departmentInfoData.room.label}
+                                        disabled={true}
+                                    /> : ''
+
+                            }
+
                             <CHybridInput
                                 id="duration"
                                 label="Duration"
                                 type="number"
                                 name="rosterGapDuration"
                                 placeholder="Duration In Minutes."
-                                value={doctorInfoData.rosterGapDuration}
+                                value={departmentInfoData.rosterGapDuration}
                                 disabled={true}
                             />
 
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton
-                                    checked={doctorInfoData.status === 'Y'}
+                                    checked={departmentInfoData.status === 'Y'}
                                     id="radio1"
                                     label="Active"
                                     type="radio"
@@ -109,7 +116,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                     disabled={true}
                                 />
                                 <CRadioButton
-                                    checked={doctorInfoData.status === 'N'}
+                                    checked={departmentInfoData.status === 'N'}
                                     id="radio2"
                                     label="Inactive"
                                     type="radio"
@@ -125,8 +132,8 @@ const DepartmentDutyRosterPreviewModal = ({
                 </Col>
 
                 <Col md={12} lg={7} className="pr-0">
-                    <div className="doctor-availability bg-white p-4">
-                        <h5 className="title">Doctor Availability</h5>
+                    <div className="department-availability bg-white p-4">
+                        <h5 className="title">Department Availability</h5>
                         <Row className="header">
                             <Col> Days</Col>
                             <Col>
@@ -139,16 +146,16 @@ const DepartmentDutyRosterPreviewModal = ({
                             </Col>
                         </Row>
                         {
-                            doctorAvailabilityData.map((day, index) => (
+                            departmentAvailabilityData.map((day, index) => (
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
                                     <Col>
-                                        {type === 'A' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
+                                        {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
 
                                     </Col>
                                     <Col>
-                                        {type === 'A' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
+                                        {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
 
                                     </Col>
@@ -164,9 +171,9 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
             <Row>
                 {hasOverrideDutyRoster === 'Y' ?
-                    <Col className="doctor-override">
+                    <Col className="department-override">
                         <h5 className="title">Overrides</h5>
-                        {hasOverrideDutyRoster === 'Y' && doctorDutyRosterOverrideRequestDTOS.length ?
+                        {hasOverrideDutyRoster === 'Y' && departmentDutyRosterOverrideRequestDTOS.length ?
                             <>
                                 <CDataTable
                                     classes="ag-theme-balham"
@@ -235,10 +242,10 @@ const DepartmentDutyRosterPreviewModal = ({
                                     }}
                                     defaultColDef={{resizable: true}}
                                     rowSelection={'single'}
-                                    rowData={doctorDutyRosterOverrideRequestDTOS}
+                                    rowData={departmentDutyRosterOverrideRequestDTOS}
                                 />
                             </>
-                            : (hasOverrideDutyRoster === 'Y' && !doctorDutyRosterOverrideRequestDTOS.length ?
+                            : (hasOverrideDutyRoster === 'Y' && !departmentDutyRosterOverrideRequestDTOS.length ?
                                 <div className="filter-message">
                                     <div className="no-data">
                                         <i className="fa fa-file-text-o"/>
@@ -252,12 +259,12 @@ const DepartmentDutyRosterPreviewModal = ({
 
             </Row>
 
-            <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
-
-
-                {AuditableEntityHoc(doctorInfoData.auditableDoctor, false, 4)}
-
-            </Row>
+            {type !== "ADD" ?
+                <Row className="mt-4 department-availability bg-white px-2 pt-4">
+                    {AuditableEntityHoc(departmentInfoData.auditableDoctor, false, 4)}
+                </Row> :
+                ''
+            }
         </Container>
     </>
 };

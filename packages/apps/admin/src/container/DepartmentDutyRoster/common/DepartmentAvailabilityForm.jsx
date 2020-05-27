@@ -3,13 +3,17 @@ import {Col, Row} from "react-bootstrap";
 import {CCheckbox, CHybridTimePicker} from "@frontend-appointment/ui-elements";
 
 const DepartmentAvailabilityForm = ({
-                                    departmentAvailabilityData,
-                                    handleDoctorAvailabilityFormChange,
-                                    wholeWeekOff,
-                                    handleWholeWeekOff,
-                                    type,
-                                    rosterGapDuration
-                                }) => {
+                                        departmentAvailabilityFormData
+
+                                    }) => {
+    const {
+        departmentAvailabilityData,
+        handleDepartmentAvailabilityFormChange,
+        wholeWeekOff,
+        handleWholeWeekOff,
+        type,
+        rosterGapDuration
+    } = departmentAvailabilityFormData;
     return <>
         <Col md={12} lg={7} className="">
             <div className="department-availability bg-white p-4">
@@ -43,11 +47,14 @@ const DepartmentAvailabilityForm = ({
                                             id={"startTime".concat(day.weekDaysId)}
                                             name={"startTime".concat(day.weekDaysId)}
                                             label=""
-                                            onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}
+                                            onChange={(val) => handleDepartmentAvailabilityFormChange(val, 'startTime', index)}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
-                                            value={day.dayOffStatus !== "Y"?day.startTime:{value:"00:00",label:"00:00"}}
+                                            value={day.dayOffStatus !== "Y" ? day.startTime : {
+                                                value: "00:00",
+                                                label: "00:00"
+                                            }}
                                             isClearable={true}
                                         />
                                     </div>
@@ -58,11 +65,14 @@ const DepartmentAvailabilityForm = ({
                                             id={"endTime".concat(day.weekDaysId)}
                                             name={"endTime".concat(day.weekDaysId)}
                                             label=""
-                                            onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}
+                                            onChange={(val) => handleDepartmentAvailabilityFormChange(val, 'endTime', index)}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             isDisabled={day.dayOffStatus === 'Y'}
-                                            value={day.dayOffStatus !== "Y"?day.endTime:{value:"23:59",label:"23:59"}}
+                                            value={day.dayOffStatus !== "Y" ? day.endTime : {
+                                                value: "23:59",
+                                                label: "23:59"
+                                            }}
                                             isClearable={true}
                                         />
                                     </div>
@@ -72,7 +82,7 @@ const DepartmentAvailabilityForm = ({
                                                label="&nbsp;"
                                                className=" "
                                                checked={day.dayOffStatus === 'Y'}
-                                               onChange={(e) => handleDoctorAvailabilityFormChange(e, '', index)}>
+                                               onChange={(e) => handleDepartmentAvailabilityFormChange(e, '', index)}>
                                     </CCheckbox>
                                 </Col>
                             </Row>

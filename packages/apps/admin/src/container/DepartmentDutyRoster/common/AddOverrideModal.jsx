@@ -1,5 +1,12 @@
 import React from 'react';
-import {CButton, CCheckbox, CHybridTextArea, CHybridTimePicker, CModal,CHybridInput} from "@frontend-appointment/ui-elements";
+import {
+    CButton,
+    CCheckbox,
+    CHybridTextArea,
+    CHybridTimePicker,
+    CModal,
+    CHybridInput
+} from "@frontend-appointment/ui-elements";
 import {Form, Row, Col} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
@@ -13,61 +20,44 @@ const AddOverrideModal = ({
                               onEnterKeyPress,
                               addOverride,
                               overrideUpdateErrorMessage,
-                              doctorInfoData,
+                              departmentInfoData,
                               overrideFormValid
                           }) => {
     const body = <>
-        <div className="" >
+        <div className="">
             <Row className="mb-2">
                 <Form className="override-form">
-                    {/*<Form.Label>Date</Form.Label>*/}
+
                     <Col xs={12}>
-                    <CHybridInput 
-                        id="duty-date"
-                        placeholder="Doctor Duty Date"
-                        disabled={true}
-                        value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.fromDate) 
-                            + " - " + DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.toDate) }
+                        <CHybridInput
+                            id="duty-date"
+                            placeholder="Department Duty Date"
+                            disabled={true}
+                            value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(departmentInfoData.fromDate)
+                            + " - " + DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(departmentInfoData.toDate)}
                         />
-
-                        {/* <CEnglishDatePicker
-                            id="roster-from-date-override"
-                            name="rosterFromDate"
-                            label="Roster From Date"
-                            minDate={0}
-                            showDisabledMonthNavigation={true}
-                            selected={doctorInfoData.fromDate}
-                            peekNextMonth={true}
-                            showMonthDropdown={true}
-                            showYearDropdown={true}
-                            dropdownMode="select"
-                            onChange={() => {
-                            }}
+                    </Col>
+                    <Col xs={12}>
+                        <CHybridInput
+                            placeholder="Department"
                             disabled={true}
-                        /> */}
-
-                        {/* <CEnglishDatePicker
-                            id="roster-to-date-override"
-                            name="rosterToDate"
-                            label="Roster To Date"
-                            minDate={0}
-                            showDisabledMonthNavigation={true}
-                            selected={doctorInfoData.toDate}
-                            peekNextMonth={true}
-                            showMonthDropdown={true}
-                            showYearDropdown={true}
-                            dropdownMode="select"
-                            onChange={() => {
-                            }}
-                            disabled={true}
-                        /> */}
+                            value={departmentInfoData.department ? departmentInfoData.department.label : "NOT SELECTED!"}
+                        />
+                        {
+                            departmentInfoData.isRoomEnabled === 'Y' ?
+                                <CHybridInput
+                                    placeholder="Room"
+                                    disabled={true}
+                                    value={departmentInfoData.room ? departmentInfoData.room.label : "NOT SELECTED!"}
+                                />
+                                : ''
+                        }
                     </Col>
                     <Col xs={12}>
                         <CEnglishDatePicker
                             id="from-date-override"
                             name="fromDate"
                             label="Override From Date"
-                            // dateFormat="yyyy-MM-dd"
                             minDate={0}
                             showDisabledMonthNavigation={true}
                             selected={overrideData.fromDate}
@@ -192,7 +182,7 @@ const AddOverrideModal = ({
     </>;
 
     const footer = <>
-        <div  className="m-0">
+        <div className="m-0">
             <Row>
                 <div className="col-sm-12">
                     {overrideUpdateErrorMessage ?

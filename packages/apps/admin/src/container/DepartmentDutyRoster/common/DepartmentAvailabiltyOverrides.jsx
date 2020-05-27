@@ -1,31 +1,37 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
-import AddOverrideModal from "./AddDepartmentRosterOverride";
-import DayOffStatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/DayOffStatusLabel";
+import AddOverrideModal from "./AddOverrideModal";
+import DayOffStatusLabel
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/DayOffStatusLabel";
 import OverrideActions from "./table-components/OverrideActions";
-import FromDateDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/ToDateDisplayForTable";
-import StartTimeDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/EndTimeDisplayForTable";
+import FromDateDisplayForTable
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/FromDateDisplayForTable";
+import ToDateDisplayForTable
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/ToDateDisplayForTable";
+import StartTimeDisplayForTable
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/EndTimeDisplayForTable";
 
-const DoctorAvailabilityOverrides = ({
-                                         hasOverrideDutyRoster,
-                                         overrideData,
-                                         doctorDutyRosterOverrideRequestDTOS,
-                                         onRemove,
-                                         onModify,
-                                         handleOverrideDutyRoster,
-                                         showAddOverrideModal,
-                                         setShowAddOverrideModal,
-                                         handleOverrideFormInputChange,
-                                         onEnterKeyPress,
-                                         addOverride,
-                                         isModifyOverride,
-                                         overrideUpdateErrorMessage,
-                                         doctorInfoData,
-                                         overrideFormValid
-                                     }) => {
+const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
+    const {
+        hasOverrideDutyRoster,
+        overrideData,
+        departmentDutyRosterOverrideRequestDTOS,
+        onRemove,
+        onModify,
+        handleOverrideDutyRoster,
+        showAddOverrideModal,
+        setShowAddOverrideModal,
+        handleOverrideFormInputChange,
+        onEnterKeyPress,
+        addOverride,
+        isModifyOverride,
+        overrideUpdateErrorMessage,
+        departmentInfoData,
+        overrideFormValid
+    } = departmentAvailabilityOverrideData;
     return <>
         <Col>
             <div className="doctor-override bg-white mt-2">
@@ -63,14 +69,14 @@ const DoctorAvailabilityOverrides = ({
                             onEnterKeyPress={onEnterKeyPress}
                             addOverride={addOverride}
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
-                            doctorInfoData={doctorInfoData}
+                            departmentInfoData={departmentInfoData}
                             overrideFormValid={overrideFormValid}
                         />
                     </Col>
                     }
                 </Row>
                 <Row>
-                    {hasOverrideDutyRoster === 'Y' && doctorDutyRosterOverrideRequestDTOS.length ?
+                    {hasOverrideDutyRoster === 'Y' && departmentDutyRosterOverrideRequestDTOS.length ?
                         <>
                             <CDataTable
                                 classes="ag-theme-balham"
@@ -168,13 +174,11 @@ const DoctorAvailabilityOverrides = ({
 
                                 }}
                                 defaultColDef={{resizable: true}}
-                                // getSelectedRows={checkIfRoleExists(props.filteredActions, 4) ? props.onPreviewHandler : () => {}}
                                 rowSelection={'single'}
-                                // setShowModal={props.setShowModal} // {this.showModal}
-                                rowData={doctorDutyRosterOverrideRequestDTOS}
+                                rowData={departmentDutyRosterOverrideRequestDTOS}
                             />
                         </>
-                        : (hasOverrideDutyRoster === 'Y' && !doctorDutyRosterOverrideRequestDTOS.length ?
+                        : (hasOverrideDutyRoster === 'Y' && !departmentDutyRosterOverrideRequestDTOS.length ?
                             <div className="filter-message">
                                 <div className="no-data">
                                     <i className="fa fa-file-text-o"/>

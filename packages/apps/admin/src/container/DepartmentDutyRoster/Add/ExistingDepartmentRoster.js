@@ -9,11 +9,14 @@ import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffSta
 
 
 const ExistingDepartmentRoster = ({
-                                      existingRosterTableData,
-                                      onViewDetailsExisting,
-                                      existingDepartmentWeekDaysAvailability,
-                                      existingOverrides,
+                                      existingRosterModalData,
                                   }) => {
+    const {
+        existingRosterTableData,
+        onViewDetailsExisting,
+        existingDepartmentWeekDaysAvailability,
+        existingOverrides,
+    } = existingRosterModalData;
     return <>
         <Container className="p-0" fluid>
             <Row className="">
