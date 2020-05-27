@@ -127,7 +127,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 name,
                 // roomList,//roomList can be null
                 status,
-                nameValid,
+                // nameValid,
                 descriptionValid,
                 appointmentChargeValid,
                 followUpChargeValid,
@@ -135,7 +135,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             } = this.state.departmentData;
 
             let formValid =
-                name && nameValid &&
+                name &&
+                // nameValid &&
                 description && descriptionValid &&
                 Number(appointmentCharge) >= 0 && appointmentChargeValid && appointmentCharge.toString() &&
                 Number(followUpCharge) >= 0 && followUpChargeValid && followUpCharge.toString() &&

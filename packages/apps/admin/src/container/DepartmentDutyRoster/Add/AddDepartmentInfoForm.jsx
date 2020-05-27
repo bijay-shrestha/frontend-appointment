@@ -2,30 +2,32 @@ import React from 'react';
 import {Col, Form} from "react-bootstrap";
 import {
     CButton,
+    CCheckbox,
     CFLabel,
     CHybridInput,
     CHybridSelect,
-    CHybridSelectWithImage,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
-const AddDepartmentInfoForm = ({
-                               hospitalList,
-                               specializationList,
-                               doctorList,
-                               doctorInfoData,
-                               onInputChange,
-                               onEnterKeyPress,
-                               specializationDropdownError,
-                               doctorDropdownErrorMessage,
-                               getExistingRoster,
-                               dateErrorMessage
-                           }) => {
+const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
+    const {
+        hospitalList,
+        departmentList,
+        roomList,
+        departmentInfoData,
+        onInputChange,
+        onEnterKeyPress,
+        departmentDropdownError,
+        roomDropdownErrorMessage,
+        getExistingRoster,
+        dateErrorMessage
+    } = departmentInfoFormData;
+
     return <>
         <Col md={12} lg={5} className="info-container">
             <div className="doctor-info bg-white p-4">
-                <h5 className="title mb-4">Doctor Information</h5>
+                <h5 className="title mb-4">General Information</h5>
                 <Form>
                     {/*<Form.Label>Date</Form.Label>*/}
                     <div className="d-flex">
@@ -36,7 +38,7 @@ const AddDepartmentInfoForm = ({
                             dateFormat="yyyy-MM-dd"
                             minDate={0}
                             showDisabledMonthNavigation={true}
-                            selected={doctorInfoData.fromDate}
+                            selected={departmentInfoData.fromDate}
                             peekNextMonth={true}
                             showMonthDropdown={true}
                             showYearDropdown={true}
@@ -53,7 +55,7 @@ const AddDepartmentInfoForm = ({
                             dateFormat="yyyy-MM-dd"
                             minDate={0}
                             showDisabledMonthNavigation={true}
-                            selected={doctorInfoData.toDate}
+                            selected={departmentInfoData.toDate}
                             peekNextMonth={true}
                             showMonthDropdown={true}
                             showYearDropdown={true}
@@ -75,36 +77,53 @@ const AddDepartmentInfoForm = ({
                         label="Client"
                         name="hospital"
                         options={hospitalList}
-                        placeholder="Select client."
+                        placeholder="Select Client."
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
-                        value={doctorInfoData.hospital}
+                        value={departmentInfoData.hospital}
                     />
 
                     <CHybridSelect
-                        id="specialization"
-                        label="Specialization"
-                        name="specialization"
-                        isDisabled={!doctorInfoData.hospital}
-                        options={specializationList}
-                        placeholder={!doctorInfoData.hospital ? "Select Client First" : "Select specialization."}
-                        noOptionsMessage={() => specializationDropdownError}
+                        id="department"
+                        label="Department"
+                        name="department"
+                        isDisabled={!departmentInfoData.hospital || !departmentList.length}
+                        options={departmentList}
+                        placeholder={!departmentInfoData.hospital ? "Select Client First"
+                            : departmentList.length ? "Select Department." : "No Department(s) available."}
+                        noOptionsMessage={() => departmentDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
-                        value={doctorInfoData.specialization}
+                        value={departmentInfoData.department}
                     />
-                    <CHybridSelectWithImage
-                        id="doctor"
-                        label="Doctor"
-                        name="doctor"
-                        isDisabled={!doctorInfoData.specialization}
-                        placeholder={!doctorInfoData.specialization ? "Select Specialization first." : "Select Doctor."}
-                        options={doctorList}
-                        noOptionsMessage={() => doctorDropdownErrorMessage ? doctorDropdownErrorMessage : "No Doctor(s) found."}
-                        onKeyDown={(event) => onEnterKeyPress(event)}
+
+                    <CCheckbox
+                        id="enable-room"
+                        label="Enable Room"
+                        name="isRoomEnabled"
+                        className="select-all check-all"
+                        checked={departmentInfoData.isRoomEnabled === 'Y'}
                         onChange={(event) => onInputChange(event, '')}
-                        value={doctorInfoData.doctor}
-                    />
+                    >
+                    </CCheckbox>
+
+                    {
+                        departmentInfoData.isRoomEnabled === 'Y' ?
+                            <CHybridSelect
+                                id="room"
+                                label="Room Number"
+                                name="room"
+                                isDisabled={!departmentInfoData.department || !roomList.length}
+                                placeholder={!departmentInfoData.department ? "Select Department first."
+                                    : roomList.length ? "Select Room Number." : "No Room Number(s) available."}
+                                options={roomList}
+                                noOptionsMessage={() => roomDropdownErrorMessage ? roomDropdownErrorMessage : "No Room Number(s) found."}
+                                onKeyDown={(event) => onEnterKeyPress(event)}
+                                onChange={(event) => onInputChange(event, '')}
+                                value={departmentInfoData.room}
+                            /> :
+                            ''
+                    }
 
                     <CHybridInput
                         id="duration"
@@ -114,12 +133,12 @@ const AddDepartmentInfoForm = ({
                         placeholder="Enter Duration In Minutes."
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}
-                        value={doctorInfoData.rosterGapDuration}
+                        value={departmentInfoData.rosterGapDuration}
                     />
                     <CFLabel labelName="Status" id="status"/>
                     <div>
                         <CRadioButton
-                            checked={doctorInfoData.status === 'Y'}
+                            checked={departmentInfoData.status === 'Y'}
                             id="radio1"
                             label="Active"
                             type="radio"
@@ -130,21 +149,6 @@ const AddDepartmentInfoForm = ({
                             onChange={event => onInputChange(event)}
                             readOnly={true}
                         />
-                        {/*{*/}
-                        {/*    <CRadioButton*/}
-                        {/*        checked={adminInfoObj.status === 'N'}*/}
-                        {/*        id="radio2"*/}
-                        {/*        label="Inactive"*/}
-                        {/*        type="radio"*/}
-                        {/*        name="status"*/}
-                        {/*        value="N"*/}
-                        {/*        onKeyDown={event => onEnterKeyPress(event)}*/}
-                        {/*        onChange={event => onInputChange(event)}*/}
-                        {/*        className="sr-only"*/}
-                        {/*        disabled={true}*/}
-                        {/*        readOnly={true}*/}
-                        {/*    />*/}
-                        {/*}*/}
                     </div>
 
                 </Form>

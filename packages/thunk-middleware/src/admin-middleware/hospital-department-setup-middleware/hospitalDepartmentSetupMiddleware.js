@@ -114,6 +114,20 @@ export const fetchActiveHospitalDepartmentForDropdown = (path) => async dispatch
     }
 };
 
+export const fetchActiveHospitalDepartmentForDropdownByHospitalId = (path,hospitalId) => async dispatch => {
+    dispatch(HospitalDepartmentSetupActions.fetchActiveHospitalDepartmentPending());
+    try {
+        const response = await Axios.getWithPathVariables(path,hospitalId);
+        dispatch(HospitalDepartmentSetupActions.fetchActiveHospitalDepartmentSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(HospitalDepartmentSetupActions.fetchActiveHospitalDepartmentError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
+
 export const fetchAvailableRoomsForDropdown = (path) => async dispatch => {
     dispatch(HospitalDepartmentSetupActions.fetchAvailableRoomsForDropdownPending());
     try {

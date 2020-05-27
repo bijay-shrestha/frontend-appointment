@@ -22,7 +22,13 @@ const {
     FETCH_ALL_ROOM_NUMBER_ERROR,
     FETCH_ACTIVE_ROOM_NUMBER_ERROR,
     FETCH_ACTIVE_ROOM_NUMBER_PENDING,
-    FETCH_ACTIVE_ROOM_NUMBER_SUCCESS
+    FETCH_ACTIVE_ROOM_NUMBER_SUCCESS,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_ERROR,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_PENDING,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_ERROR,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_PENDING,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS
 } = roomSetupActionConstants;
 
 export const saveRoomNumberPending = () => {
@@ -193,3 +199,51 @@ export const fetchActiveRoomNumberError = (errorMessage) => {
     }
 };
 
+export const fetchActiveRoomNumberByDepartmentPending = () => {
+    return {
+        type: FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_PENDING
+    }
+};
+
+export const fetchActiveRoomNumberByDepartmentSuccess = (data) => {
+    return {
+        type: FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchActiveRoomNumberByDepartmentError = (errorMessage) => {
+    return {
+        type: FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_ERROR,
+        payload: {
+            message: errorMessage
+        }
+    }
+};
+
+
+export const fetchAllRoomNumberByDepartmentPending = () => {
+    return {
+        type: FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_PENDING
+    }
+};
+
+export const fetchAllRoomNumberByDepartmentSuccess = (data) => {
+    return {
+        type: FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchAllRoomNumberByDepartmentError = (errorMessage) => {
+    return {
+        type: FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_ERROR,
+        payload: {
+            message: errorMessage
+        }
+    }
+};

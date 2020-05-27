@@ -289,6 +289,8 @@ export const roomSetupApiConstants = {
     SEARCH_ROOM_NUMBER: BASE.concat(ROOM_SETUP_BASE.concat("/search")),
     FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/active/min")),
     FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/min")),
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/hospitalDepartmentWise/active/min")),
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/hospitalDepartmentWise/min")),
 };
 
 const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";

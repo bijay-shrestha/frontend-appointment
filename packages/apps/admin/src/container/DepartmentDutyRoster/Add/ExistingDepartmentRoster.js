@@ -9,18 +9,17 @@ import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffSta
 
 
 const ExistingDepartmentRoster = ({
-                             existingRosterTableData,
-                             onViewDetailsExisting,
-                             existingDoctorWeekDaysAvailability,
-                             existingOverrides,
-                         }) => {
+                                      existingRosterTableData,
+                                      onViewDetailsExisting,
+                                      existingDepartmentWeekDaysAvailability,
+                                      existingOverrides,
+                                  }) => {
     return <>
         <Container className="p-0" fluid>
             <Row className="">
 
                 <Col md={12} lg={12} className="mb-2">
                     <div className="doctor-availability bg-white p-4">
-
                         {
                             existingRosterTableData.length ?
                                 <CDataTable
@@ -52,29 +51,10 @@ const ExistingDepartmentRoster = ({
                                             sortable: true,
                                             sizeColumnsToFit: true,
                                         },
-                                        // {
-                                        //     headerName: 'Created By',
-                                        //     field: 'createdBy',
-                                        //     resizable: true,
-                                        //     sortable: true,
-                                        //     sizeColumnsToFit: true,
-                                        // },
-                                        // {
-                                        //     headerName: 'Created Date',
-                                        //     field: 'createdDate',
-                                        //     resizable: true,
-                                        //     sortable: true,
-                                        //     sizeColumnsToFit: true,
-                                        // },
                                     ]}
-                                    frameworkComponents={{
-                                        // childActionRenderer: OverrideActions,
-                                        // childLabelRenderer: DayOffStatusLabel
-                                    }}
                                     defaultColDef={{resizable: true}}
                                     getSelectedRows={onViewDetailsExisting}
                                     rowSelection={'single'}
-                                    // setShowModal={setShowModal} // {this.showModal}
                                     rowData={existingRosterTableData}
                                 /> : ''
                         }
@@ -83,10 +63,10 @@ const ExistingDepartmentRoster = ({
                 </Col>
 
                 {
-                    existingDoctorWeekDaysAvailability.length ?
+                    existingDepartmentWeekDaysAvailability.length ?
                         <Col md={12} lg={12} className="">
                             <div className="doctor-availability bg-white p-4">
-                                <h5 className="title">Doctor Availability</h5>
+                                <h5 className="title">Department Availability</h5>
                                 <Row className="header">
                                     <Col> Days</Col>
                                     <Col> Start Time</Col>
@@ -94,7 +74,7 @@ const ExistingDepartmentRoster = ({
                                     <Col> Days Off</Col>
                                 </Row>
                                 {
-                                    existingDoctorWeekDaysAvailability.map(weekDay => (
+                                    existingDepartmentWeekDaysAvailability.map(weekDay => (
                                         <Row className="main-content mt-3">
                                             <Col> {weekDay.weekDaysName}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
@@ -185,9 +165,7 @@ const ExistingDepartmentRoster = ({
                                                         childLabelRenderer: DayOffStatusLabel
                                                     }}
                                                     defaultColDef={{resizable: true}}
-                                                    // getSelectedRows={onViewDetailsExisting}
                                                     rowSelection={'single'}
-                                                    // setShowModal={setShowModal} // {this.showModal}
                                                     rowData={existingOverrides}
                                                 /> : ''
                                         }

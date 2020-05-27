@@ -1,10 +1,9 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CCheckbox, CHybridTimePicker} from "@frontend-appointment/ui-elements";
-//import {CEnglishDatePicker, CTimePicker} from "@frontend-appointment/ui-components";
 
 const DepartmentAvailabilityForm = ({
-                                    doctorAvailabilityData,
+                                    departmentAvailabilityData,
                                     handleDoctorAvailabilityFormChange,
                                     wholeWeekOff,
                                     handleWholeWeekOff,
@@ -13,8 +12,8 @@ const DepartmentAvailabilityForm = ({
                                 }) => {
     return <>
         <Col md={12} lg={7} className="">
-            <div className="doctor-availability bg-white p-4">
-                <h5 className="title">Doctor Availability</h5>
+            <div className="department-availability bg-white p-4">
+                <h5 className="title">Department Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
                     <Col>
@@ -34,7 +33,7 @@ const DepartmentAvailabilityForm = ({
                     </Col>
                 </Row>
                 {
-                    doctorAvailabilityData.map((day, index) => (
+                    departmentAvailabilityData.map((day, index) => (
                         <div key={day.weekDaysName.concat("-" + index)}>
                             <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                 <Col>{day.weekDaysName}</Col>
@@ -51,20 +50,6 @@ const DepartmentAvailabilityForm = ({
                                             value={day.dayOffStatus !== "Y"?day.startTime:{value:"00:00",label:"00:00"}}
                                             isClearable={true}
                                         />
-                                        {/*<CTimePicker*/}
-                                        {/*    id={"startTime".concat(day.weekDaysId)}*/}
-                                        {/*    name={"startTime".concat(day.weekDaysId)}*/}
-                                        {/*    label="00:00"*/}
-                                        {/*    onChange={(val) => handleDoctorAvailabilityFormChange(val, 'startTime', index)}*/}
-                                        {/*    selected={day.startTime}*/}
-                                        {/*    showTimeSelect={true}*/}
-                                        {/*    showTimeSelectOnly={true}*/}
-                                        {/*    timeIntervals={rosterGapDuration ? rosterGapDuration : 15}*/}
-                                        {/*    timeCaption="Start Time"*/}
-                                        {/*    dateFormat="h:mm aa"*/}
-                                        {/*    disabled={day.dayOffStatus === 'Y'}*/}
-                                        {/*    inputType="normal"*/}
-                                        {/*/>*/}
                                     </div>
                                 </Col>
                                 <Col>
@@ -80,19 +65,6 @@ const DepartmentAvailabilityForm = ({
                                             value={day.dayOffStatus !== "Y"?day.endTime:{value:"23:59",label:"23:59"}}
                                             isClearable={true}
                                         />
-                                        {/*<CTimePicker*/}
-                                        {/*    id={"endTime".concat(day.weekDaysId)}*/}
-                                        {/*    name={"endTime".concat(day.weekDaysId)}*/}
-                                        {/*    label="00:00"*/}
-                                        {/*    onChange={(val) => handleDoctorAvailabilityFormChange(val, 'endTime', index)}*/}
-                                        {/*    selected={day.endTime}*/}
-                                        {/*    showTimeSelect={true}*/}
-                                        {/*    showTimeSelectOnly={true}*/}
-                                        {/*    timeIntervals={rosterGapDuration ? rosterGapDuration : 15}*/}
-                                        {/*    timeCaption="End Time"*/}
-                                        {/*    dateFormat="h:mm aa"*/}
-                                        {/*    disabled={day.dayOffStatus === 'Y'}*/}
-                                        {/*/>*/}
                                     </div>
                                 </Col>
                                 <Col>

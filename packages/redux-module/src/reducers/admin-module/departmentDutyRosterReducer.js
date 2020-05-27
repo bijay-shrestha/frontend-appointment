@@ -63,7 +63,8 @@ const initialState = {
     existingDepartmentDutyRosterList: [],
     existingRostersFetchErrorMessage: '',
     isFetchExistingRosterDetailLoading: false,
-    existingDepartmentDutyRosterDetails: {},
+    existingDepartmentDutyRosterWeekdaysDetails: [],
+    existingDepartmentDutyRosterOverrideDetails: [],
     existingRostersDetailErrorMessage: '',
     isUpdateOverrideLoading: false,
     overrideUpdateErrorMessage: '',
@@ -274,21 +275,24 @@ export const DepartmentDutyRosterExistingReducer = (state = {...initialState}, a
             return {
                 ...state,
                 isFetchExistingRosterDetailLoading: true,
-                existingDepartmentDutyRosterDetails: {},
+                existingDepartmentDutyRosterWeekdaysDetails: [],
+                existingDepartmentDutyRosterOverrideDetails: [],
                 existingRostersDetailErrorMessage: '',
             };
         case FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID_SUCCESS:
             return {
                 ...state,
                 isFetchExistingRosterDetailLoading: false,
-                existingDepartmentDutyRosterDetails: {...action.payload.data},
+                existingDepartmentDutyRosterWeekdaysDetails: [...action.payload.data.weekDaysRosters],
+                existingDepartmentDutyRosterOverrideDetails: [...action.payload.data.overrideRosters],
                 existingRostersDetailErrorMessage: '',
             };
         case FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID_ERROR:
             return {
                 ...state,
                 isFetchExistingRosterDetailLoading: false,
-                existingDepartmentDutyRosterDetails: {},
+                existingDepartmentDutyRosterWeekdaysDetails: [],
+                existingDepartmentDutyRosterOverrideDetails: [],
                 existingRostersDetailErrorMessage: action.payload.errorMessage,
             };
         case CLEAR_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID_MESSAGE:

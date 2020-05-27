@@ -2,20 +2,21 @@ import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
-import DayOffStatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/DayOffStatusLabel";
+import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/EndTimeDisplayForTable";
-import FromDateDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "@frontend-appointment/admin/src/container/CommonComponents/table-components/ToDateDisplayForTable";
+import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
+import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
+import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
+import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
+
 const DepartmentDutyRosterPreviewModal = ({
-                                          doctorInfoData,
-                                          doctorAvailabilityData,
-                                          hasOverrideDutyRoster,
-                                          doctorDutyRosterOverrideRequestDTOS,
-                                          type
-                                      }) => {
+                                              doctorInfoData,
+                                              doctorAvailabilityData,
+                                              hasOverrideDutyRoster,
+                                              doctorDutyRosterOverrideRequestDTOS,
+                                              type
+                                          }) => {
 
     return <>
         <Container className="" fluid>
@@ -254,10 +255,9 @@ const DepartmentDutyRosterPreviewModal = ({
             <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
 
 
+                {AuditableEntityHoc(doctorInfoData.auditableDoctor, false, 4)}
 
-              {AuditableEntityHoc(doctorInfoData.auditableDoctor,false, 4)}
-
-          </Row>
+            </Row>
         </Container>
     </>
 };

@@ -83,9 +83,9 @@ const HospitalDepartmentForm = ({
                                             placeholder="Department Name"
                                             value={departmentData.name}
                                             required={true}
-                                            hasValidation={true}
-                                            fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                                            errorMessagePassed={errorMessageForDepartmentName}
+                                            // hasValidation={true}
+                                            // fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                            // errorMessagePassed={errorMessageForDepartmentName}
                                         />
                                     </Col>
 

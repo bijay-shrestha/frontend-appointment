@@ -108,6 +108,32 @@ export const fetchAllRoomNumberForDropdown = (path) => async dispatch => {
     }
 };
 
+export const fetchActiveRoomNumberForDropdownByDepartmentId = (path, departmentId) => async dispatch => {
+    dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentPending());
+    try {
+        const response = await Axios.getWithPathVariables(path, departmentId);
+        dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
+export const fetchAllRoomNumberForDropdownByDepartmentId = (path, departmentId) => async dispatch => {
+    dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentPending());
+    try {
+        const response = await Axios.getWithPathVariables(path, departmentId);
+        dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(RoomSetupActions.fetchActiveRoomNumberByDepartmentError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
 export const clearSuccessErrorMessageFormStore = () => async dispatch => {
     dispatch(RoomSetupActions.clearDeleteRoomNumberMessage());
     dispatch(RoomSetupActions.clearEditRoomNumberMessage());

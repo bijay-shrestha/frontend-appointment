@@ -8,9 +8,9 @@ import {
 } from '@frontend-appointment/helpers'
 import {
     DepartmentDutyRosterMiddleware,
-    DoctorMiddleware,
     HospitalSetupMiddleware,
-    SpecializationSetupMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    RoomSetupMiddleware,
     WeekdaysMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {
@@ -22,59 +22,56 @@ import * as Material from 'react-icons/md'
 import DepartmentDutyRosterPreviewModal
     from './common/DepartmentDutyRosterPreviewModal';
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {
-    fetchSpecializationForDropdown,
-    fetchSpecializationHospitalWiseForDropdown
-} = SpecializationSetupMiddleware
-const {
-    fetchDoctorsBySpecializationIdForDropdown,
-    fetchActiveDoctorsForDropdown,
-    fetchActiveDoctorsHospitalWiseForDropdown
-} = DoctorMiddleware
+const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+
 const {fetchWeekdays, fetchWeekdaysData} = WeekdaysMiddleware;
+
+const {fetchActiveHospitalDepartmentForDropdownByHospitalId} = HospitalDepartmentSetupMiddleware;
+
+const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware;
+
 const {
-    createDoctorDutyRoster,
-    fetchDoctorDutyRosterList,
-    fetchExistingDoctorDutyRoster,
-    fetchExistingDoctorDutyRosterDetails,
-    fetchDoctorDutyRosterDetailById,
-    deleteDoctorDutyRoster,
-    updateDoctorDutyRoster,
-    clearDDRSuccessErrorMessage,
-    updateDoctorDutyRosterOverride,
-    deleteDoctorDutyRosterOverride,
-    revertDoctorDutyRosterOverrideUpdate
+    createDepartmentDutyRoster,
+    clearDepartmentDutyRosterMessages,
+    deleteDepartmentDutyRoster,
+    deleteDepartmentDutyRosterOverride,
+    fetchDepartmentDutyRosterDetailById,
+    fetchExistingDepartmentDutyRoster,
+    fetchExistingDepartmentDutyRosterDetails,
+    revertDepartmentDutyRosterOverrideUpdate,
+    searchDepartmentDutyRoster,
+    updateDepartmentDutyRoster,
+    updateDepartmentDutyRosterOverride
 } = DepartmentDutyRosterMiddleware;
 
 const {
     FETCH_HOSPITALS_FOR_DROPDOWN
-} = AdminModuleAPIConstants.hospitalSetupApiConstants
+} = AdminModuleAPIConstants.hospitalSetupApiConstants;
+
 const {
-    ACTIVE_DROPDOWN_SPECIALIZATION,
-    SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
-} = AdminModuleAPIConstants.specializationSetupAPIConstants
-const {
-    FETCH_DOCTOR_BY_SPECIALIZATION_ID,
-    FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN,
-    FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
-} = AdminModuleAPIConstants.doctorSetupApiConstants
-const {
-    //FETCH_WEEKDAYS,
     FETCH_WEEKDAYS_DATA
-} = CommonAPIConstants.WeekdaysApiConstants
+} = CommonAPIConstants.WeekdaysApiConstants;
+
+const {
+    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+} = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
+
+const {
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN
+} = AdminModuleAPIConstants.roomSetupApiConstants;
+
 const {
     CREATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER,
     FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
     UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE,
-    FETCH_EXISTING_DOCTOR_DUTY_ROSTER,
+    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER,
     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
     SEARCH_DOCTOR_DUTY_ROSTER,
     UPDATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
     REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE
-} = AdminModuleAPIConstants.doctorDutyRosterApiConstants
+} = AdminModuleAPIConstants.departmentDutyRosterApiConstants;
 
 const {
     getDateWithTimeSetToGivenTime,
@@ -82,13 +79,13 @@ const {
     isFirstTimeGreaterThanSecond,
     isFirstDateGreaterThanSecondDate,
     getNoOfDaysBetweenGivenDatesInclusive
-} = DateTimeFormatterUtils
+} = DateTimeFormatterUtils;
 
-const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!'
-const TIME_ERROR_MESSAGE = 'Start time must not be greater than end time!'
+const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!';
+const TIME_ERROR_MESSAGE = 'Start time must not be greater than end time!';
 
 const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
-    class DoctorDutyRoster extends PureComponent {
+    class DepartmentDutyRoster extends PureComponent {
         state = {
             showExistingRosterModal: false,
             showAddOverrideModal: false,
@@ -99,17 +96,20 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             showDeleteModal: false,
             showEditModal: false,
             showDeleteOverrideModal: false,
+            // GENERAL INFO PARAMS
             hospital: null,
-            specialization: null,
-            doctor: null,
+            room: null,
+            department: null,
+            isRoomEnabled: 'N',
             rosterGapDuration: '',
             status: 'Y',
             fromDate: new Date(),
             toDate: addDate(new Date(), 6),
             hasOverrideDutyRoster: 'N',
             isWholeWeekOff: 'N',
-            doctorWeekDaysDutyRosterRequestDTOS: [],
-            doctorDutyRosterOverrideRequestDTOS: [],
+            departmentWeekDaysDutyRosterRequestDTOS: [],
+            departmentDutyRosterOverrideRequestDTOS: [],
+            //
             overrideRequestDTO: {
                 fromDate: new Date(),
                 toDate: new Date(),
@@ -118,7 +118,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 dayOffStatus: 'N',
                 remarks: '',
                 status: 'Y',
-                doctorDutyRosterOverrideId: '',
+                departmentDutyRosterOverrideId: '',
                 id: '',
                 isNew: false,
                 dateErrorMessage: '',
@@ -137,7 +137,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 toDate: addDate(new Date(), 30),
                 hospital: null,
                 specialization: null,
-                doctor: null,
+                department: null,
                 status: {value: 'A', label: 'All'}
             },
             queryParams: {
@@ -155,8 +155,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 toDate: '',
                 hospital: null,
                 specialization: null,
-                doctor: null,
-                doctorDutyRosterId: 0,
+                department: null,
+                departmentDutyRosterId: 0,
                 hasOverrideDutyRoster: '',
                 remarks: '',
                 rosterGapDuration: 0,
@@ -172,97 +172,48 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             overrideUpdateErrorMessage: '',
             deleteOverrideErrorMessage: '',
             dateErrorMessage: ''
-        }
-        alertTimer = ''
+        };
 
-        resetAddForm = async onSuccessData => {
-            const weekDays = await this.getWeekDaysDataForForm()
-            await this.setState({
-                hospital: null,
-                specialization: null,
-                doctor: null,
-                rosterGapDuration: '',
-                status: 'Y',
-                fromDate: new Date(),
-                toDate: addDate(new Date(), 6),
-                hasOverrideDutyRoster: 'N',
-                isWholeWeekOff: 'N',
-                doctorWeekDaysDutyRosterRequestDTOS: [...weekDays],
-                doctorDutyRosterOverrideRequestDTOS: [],
-                overrideRequestDTO: {
-                    fromDate: new Date(),
-                    toDate: new Date(),
-                    startTime: '',
-                    endTime: '',
-                    dayOffStatus: 'N',
-                    remarks: '',
-                    status: 'Y',
-                    id: '',
-                    dateErrorMessage: '',
-                    timeErrorMessage: ''
-                },
-                ...onSuccessData
-            })
-        }
+        alertTimer = '';
 
-        partialResetAddForm = async onSuccessData => {
-            await this.setState({
-                doctor: null,
-                rosterGapDuration: '',
-                status: 'Y',
-                overrideRequestDTO: {
-                    fromDate: new Date(),
-                    toDate: new Date(),
-                    startTime: '',
-                    endTime: '',
-                    dayOffStatus: 'N',
-                    remarks: '',
-                    status: 'Y',
-                    id: '',
-                    dateErrorMessage: '',
-                    timeErrorMessage: ''
-                },
-                ...onSuccessData
-            })
-        }
+        actionOnHospitalChange = async (value) => {
+            if (value) {
+                await this.fetchDepartmentByHospitalId(value);
+            }
+            this.resetDepartmentAndRoomOnHospitalChange();
+        };
 
-        resetSearchForm = async () => {
-            await this.setState({
-                searchParameters: {
-                    ...this.state.searchParameters,
-                    fromDate: new Date(),
-                    toDate: addDate(new Date(), 30),
-                    hospital: null,
-                    specialization: null,
-                    doctor: null,
-                    status: {value: 'A', label: 'All'}
-                },
-                showAlert: false
-            })
-            await this.searchDoctorDutyRoster(1)
-        }
+        addOrModifyOverride = (isModifyOverride, overrideList, currentOverride) => {
+            if (isModifyOverride) {
+                // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
+                overrideList[currentOverride.id] = currentOverride
+            } else {
+                // ELSE SIMPLY ADD
+                overrideList.push(currentOverride)
+            }
+        };
 
-        resetEditForm = () => {
-            this.setState({
-                updateDoctorDutyRosterData: {
-                    ...this.state.updateDoctorDutyRosterData,
-                    fromDate: '',
-                    toDate: '',
-                    hospital: null,
-                    specialization: null,
-                    doctor: null,
-                    doctorDutyRosterId: 0,
-                    hasOverrideDutyRoster: '',
-                    remarks: '',
-                    rosterGapDuration: 0,
-                    status: '',
-                    weekDaysDutyRosterUpdateRequestDTOS: [],
-                    overridesUpdate: [],
-                    originalOverrides: [],
-                    updateFormValid: true
+        actionOnRoomEnableOrDisable = async (value) => {
+            const {department} = this.state;
+            if (value === 'Y') {
+                if (department && department.value) {
+                    try {
+                        await this.fetchRoomByDepartmentId(department.value);
+                    } catch (e) {
+                        this.setState({
+                            isRoomEnabled: "N"
+                        });
+                        this.showAlertMessage("warning", this.props.RoomNumberDropdownReducer.activeRoomsByDepartmentDropdownErrorMessage)
+                    }
+                } else {
+                    this.setState({
+                        isRoomEnabled: "N"
+                    });
+                    this.showAlertMessage("warning", "Select Department first.")
                 }
-            })
-        }
+            }
+            await this.resetRoomOnRoomDisable();
+        };
 
         componentDidMount() {
             this.initialApiCalls()
@@ -272,152 +223,385 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             clearTimeout(this.alertTimer)
         }
 
-        fetchHospitalsForDropdown = async () => {
+        cancelCloseEditModal = async () => {
+            if (this.state.updateDoctorDutyRosterData.updatedOverrides.length) {
+                await this.revertOverrideUpdatesOnCancel()
+            }
+            this.setState({
+                showEditModal: false,
+                dateErrorMessage: ''
+            })
+        }
+
+        checkFormValidity = () => {
+            const {
+                fromDate,
+                toDate,
+                hospital,
+                specialization,
+                department,
+                rosterGapDuration,
+                hasOverrideDutyRoster,
+                departmentDutyRosterOverrideRequestDTOS,
+                departmentWeekDaysDutyRosterRequestDTOS
+            } = this.state
+
+            let formValid =
+                fromDate &&
+                toDate &&
+                hospital &&
+                specialization &&
+                department &&
+                rosterGapDuration
+            if (hasOverrideDutyRoster === 'Y') {
+                formValid = formValid && departmentDutyRosterOverrideRequestDTOS.length
+            }
+
+            departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
+                formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay
+            })
+
+            this.setState({
+                formValid: Boolean(formValid)
+            })
+        }
+
+        checkManageFormValidity = () => {
+            const {
+                rosterGapDuration,
+                remarks,
+                hasOverrideDutyRoster,
+                overridesUpdate,
+                weekDaysDutyRosterUpdateRequestDTOS,
+                isCloneAndAdd,
+                hospital,
+                specialization,
+                department
+            } = this.state.updateDoctorDutyRosterData
+
+            let formValid = isCloneAndAdd
+                ? rosterGapDuration && hospital && specialization && department
+                : rosterGapDuration && remarks && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
+
+            if (hasOverrideDutyRoster === 'Y') {
+                formValid = formValid && overridesUpdate.length
+            }
+
+            weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
+                formValid = formValid && weekDay.startTime && weekDay.endTime
+                return weekDay
+            })
+
+            this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    formValid: Boolean(formValid)
+                }
+            })
+        }
+
+        checkOverrideFormValidity = () => {
+            const {
+                fromDate,
+                toDate,
+                startTime,
+                endTime,
+                dayOffStatus,
+                remarks
+            } = this.state.overrideRequestDTO
+
+            const validForm =
+                fromDate &&
+                toDate &&
+                startTime &&
+                endTime &&
+                dayOffStatus &&
+                remarks &&
+                !StringUtils.stringContainsWhiteSpacesOnly(remarks);
+
+            this.setState({
+                overrideFormValid: Boolean(validForm)
+            })
+        }
+
+        checkIfWholeWeekOff = departmentWeekDaysAvailability => {
+            let wholeWeekOff = true
+            departmentWeekDaysAvailability.map(day => {
+                wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y'
+                return day
+            })
+            return wholeWeekOff
+        }
+
+        clearAlertTimeout = () => {
+            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
+        };
+
+        closeAlert = () => {
+            this.setState({
+                showAlert: false
+            })
+        };
+
+        deleteOverride = async () => {
+            let updatedOverride = [
+                ...this.state.updateDoctorDutyRosterData.updatedOverrides
+            ]
+            try {
+                await this.props.deleteDoctorDutyRosterOverride(
+                    DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
+                    this.state.deleteRequestDTO
+                )
+                let overrides = [
+                    ...this.state.updateDoctorDutyRosterData.overridesUpdate
+                ]
+                let deletedOverride = overrides.splice(
+                    this.state.deleteRequestDTO.index,
+                    1
+                )
+                updatedOverride.push(deletedOverride[0])
+                this.setState({
+                    updateDoctorDutyRosterData: {
+                        ...this.state.updateDoctorDutyRosterData,
+                        overridesUpdate: [...overrides],
+                        updatedOverrides: [...updatedOverride]
+                    },
+                    showDeleteOverrideModal: false,
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
+                })
+            } catch (e) {
+                this.setState({
+                    deleteOverrideErrorMessage: e.errorMessage
+                        ? e.errorMessage
+                        : 'Error occurred while deleting override'
+                })
+            }
+        }
+
+        deleteDoctorDutyRoster = async () => {
+            try {
+                await this.props.deleteDoctorDutyRoster(
+                    DELETE_DOCTOR_DUTY_ROSTER,
+                    this.state.deleteRequestDTO
+                )
+                await this.setState({
+                    showDeleteModal: false,
+                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: this.props.DoctorDutyRosterDeleteReducer
+                            .deleteSuccessMessage
+                    }
+                })
+                this.clearAlertTimeout()
+                await this.searchDoctorDutyRoster(1)
+            } catch (e) {
+                this.setState({
+                    showDeleteModal: true
+                })
+            }
+        }
+
+        editDoctorDutyRoster = async () => {
+            const {
+                departmentDutyRosterId,
+                hasOverrideDutyRoster,
+                remarks,
+                rosterGapDuration,
+                status,
+                weekDaysDutyRosterUpdateRequestDTOS
+            } = this.state.updateDoctorDutyRosterData
+            let updateData = {
+                departmentDutyRosterId: departmentDutyRosterId,
+                hasOverrideDutyRoster: hasOverrideDutyRoster,
+                remarks: remarks,
+                rosterGapDuration: rosterGapDuration,
+                status: status,
+                weekDaysDutyRosterUpdateRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS
+            }
+            const {editSuccessMessage} = this.props.DoctorDutyRosterEditReducer
+            try {
+                await this.props.updateDoctorDutyRoster(
+                    UPDATE_DOCTOR_DUTY_ROSTER,
+                    updateData
+                )
+                this.setState({
+                    showEditModal: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: editSuccessMessage
+                            ? editSuccessMessage
+                            : 'Doctor Duty Roster updated successfully.'
+                    }
+                })
+                this.clearAlertTimeout()
+                this.resetEditForm()
+                await this.searchDoctorDutyRoster()
+            } catch (e) {
+            }
+        }
+
+        fetchHospitalsForDropdown = async () =>
             await TryCatchHandler.genericTryCatch(
                 this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN)
-            )
-        }
+            );
 
-        fetchActiveSpecializationForDropdown = async () => {
-            await TryCatchHandler.genericTryCatch(
-                this.props.fetchSpecializationForDropdown(
-                    ACTIVE_DROPDOWN_SPECIALIZATION
-                )
-            )
-        }
+        fetchDepartmentByHospitalId = async hospitalId =>
+            await this.props.fetchActiveHospitalDepartmentForDropdownByHospitalId(
+                FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN, hospitalId);
 
-        fetchActiveSpecializationByHospitalForDropdown = async hospitalId => {
-            return await this.props.fetchSpecializationHospitalWiseForDropdown(
-                SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
-                hospitalId
-            )
-        }
-
-        fetchActiveDoctors = async () => {
-            await this.props.fetchActiveDoctorsForDropdown(
-                FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
-            )
-        }
-
-        fetchActiveDoctorsByHospitalId = async hospitalId => {
-            await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
-                FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-                hospitalId
-            )
-        }
-
-        // fetchWeekdays = async () => {
-        //     await TryCatchHandler.genericTryCatch(this.props.fetchWeekdays(FETCH_WEEKDAYS));
-        //     let weekDaysData = this.getWeekDaysDataForForm();
-        //     this.setState({
-        //         doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
-        //     });
-        // };
+        fetchRoomByDepartmentId = async departmentId => {
+            await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(
+                FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN, departmentId);
+        };
 
         fetchWeekdaysData = async () => {
             await TryCatchHandler.genericTryCatch(
                 this.props.fetchWeekdaysData(FETCH_WEEKDAYS_DATA)
-            )
+            );
             const weekDays = JSON.parse(
                 JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList])
-            )
+            );
             let weekDaysData = DateTimeFormatterUtils.getDaysInGivenDateRange(
                 this.state.fromDate,
                 this.state.toDate,
                 [...weekDays]
-            )
+            );
             this.setState({
-                doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
+                departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
             })
-        }
-
-        fetchExistingRoster = async () => {
-            const {doctor, fromDate, toDate, specialization} = this.state
-            return await this.props.fetchExistingDoctorDutyRoster(
-                FETCH_EXISTING_DOCTOR_DUTY_ROSTER,
-                {
-                    doctorId: doctor ? doctor.value : '',
-                    specializationId: specialization ? specialization.value : '',
-                    fromDate: fromDate,
-                    toDate: toDate
-                }
-            )
-        }
+        };
 
         fetchDoctorDutyRosterDetailsById = async id => {
             await this.props.fetchDoctorDutyRosterDetailById(
                 FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
                 id
             )
+        };
+
+        getWeekDaysDataForForm = () => {
+            return JSON.parse(
+                JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList])
+            )
         }
+
+        getExistingRoster = async () => {
+            const {department, fromDate, toDate} = this.state;
+            try {
+                await this.props.fetchExistingDepartmentDutyRoster(
+                    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER,
+                    {
+                        hospitalDeptId: department ? department.value : '',
+                        fromDate: fromDate,
+                        toDate: toDate
+                    }
+                );
+                const {existingDepartmentDutyRosterList} = this.props.DepartmentDutyRosterExistingReducer;
+                if (existingDepartmentDutyRosterList && existingDepartmentDutyRosterList.length)
+                    this.setState({
+                        showExistingRosterModal: true,
+                    });
+                else
+                    this.showAlertMessage('danger', 'No Existing Department Duty Roster(s) found for department "' + department.label + '".');
+            } catch (e) {
+                this.showAlertMessage('danger', this.props.DepartmentDutyRosterExistingReducer.existingRostersFetchErrorMessage);
+            }
+        };
 
         handleShowExistingRoster = () => {
             this.setState({
                 showExistingRosterModal: !this.state.showExistingRosterModal
             })
-        }
+        };
 
-        handleDoctorInfoFormInputChange = (event, fieldName, fieldValid) => {
-            event && this.bindValuesToState(event, fieldName, fieldValid)
-        }
+        handleGeneralInfoFormInputChange = async (event, fieldName, fieldValid) => {
+            if (event) {
+                let key = fieldName ? fieldName : event.target.name;
+                let value = fieldName ? event : event.target.type === 'checkbox' ? (event.target.checked ? 'Y' : 'N') : event.target.value;
+                let label = fieldName ? '' : event.target.label;
+                let fileUri = fieldName ? '' : event.target.fileUri;
+
+                await this.setStateValues(key, value, label, fileUri, fieldValid);
+                switch (key) {
+                    case "hospital":
+                        await this.actionOnHospitalChange(value);
+                        break;
+                    case "isRoomEnabled":
+                        await this.actionOnRoomEnableOrDisable(value);
+                        break;
+                    case "fromDate":
+                        await this.validateAndSetWeekDaysDataOnDateChange(key);
+                        break;
+                    case "toDate":
+                        await this.validateAndSetWeekDaysDataOnDateChange(key);
+                        break;
+                    default:
+                        break;
+                }
+                type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity()
+            }
+        };
 
         handleDoctorAvailabilityFormChange = async (event, fieldName, index) => {
             let value = fieldName ? event.target.value : event.target.checked
-            let doctorWeekDaysAvailability
+            let departmentWeekDaysAvailability;
             switch (type) {
                 case 'ADD':
-                    doctorWeekDaysAvailability = [
-                        ...this.state.doctorWeekDaysDutyRosterRequestDTOS
-                    ]
+                    departmentWeekDaysAvailability = [
+                        ...this.state.departmentWeekDaysDutyRosterRequestDTOS
+                    ];
                     this.setAvailabilityData(
                         fieldName,
-                        doctorWeekDaysAvailability,
+                        departmentWeekDaysAvailability,
                         index,
                         value
-                    )
+                    );
                     let wholeWeekOff = this.checkIfWholeWeekOff(
-                        doctorWeekDaysAvailability
-                    )
+                        departmentWeekDaysAvailability
+                    );
                     await this.setState({
-                        doctorWeekDaysDutyRosterRequestDTOS: [
-                            ...doctorWeekDaysAvailability
+                        departmentWeekDaysDutyRosterRequestDTOS: [
+                            ...departmentWeekDaysAvailability
                         ],
                         isWholeWeekOff: wholeWeekOff ? 'Y' : 'N'
-                    })
-                    this.checkFormValidity()
-                    break
+                    });
+                    this.checkFormValidity();
+                    break;
                 case 'MANAGE':
-                    doctorWeekDaysAvailability = [
+                    departmentWeekDaysAvailability = [
                         ...this.state.updateDoctorDutyRosterData
                             .weekDaysDutyRosterUpdateRequestDTOS
-                    ]
+                    ];
                     this.setAvailabilityData(
                         fieldName,
-                        doctorWeekDaysAvailability,
+                        departmentWeekDaysAvailability,
                         index,
                         value
-                    )
+                    );
                     this.setState({
                         updateDoctorDutyRosterData: {
                             ...this.state.updateDoctorDutyRosterData,
                             weekDaysDutyRosterUpdateRequestDTOS: [
-                                ...doctorWeekDaysAvailability
+                                ...departmentWeekDaysAvailability
                             ]
                         }
-                    })
-                    this.checkManageFormValidity()
-                    break
+                    });
+                    this.checkManageFormValidity();
+                    break;
                 default:
                     break
             }
-        }
+        };
 
         handleWholeWeekOff = event => {
             if (event) {
-                let doctorWeekDaysAvailability = [
-                    ...this.state.doctorWeekDaysDutyRosterRequestDTOS
-                ]
-                let updatedWeekDays = doctorWeekDaysAvailability.map(day => {
+                let departmentWeekDaysAvailability = [
+                    ...this.state.departmentWeekDaysDutyRosterRequestDTOS
+                ];
+                let updatedWeekDays = departmentWeekDaysAvailability.map(day => {
                     this.setDefaultStartAndEndTimeAndDayOffStatus(
                         event.target.checked,
                         day
@@ -426,7 +610,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 })
                 this.setState({
                     isWholeWeekOff: event.target.checked ? 'Y' : 'N',
-                    doctorWeekDaysDutyRosterRequestDTOS: [...updatedWeekDays]
+                    departmentWeekDaysDutyRosterRequestDTOS: [...updatedWeekDays]
                 })
                 this.checkFormValidity()
             }
@@ -445,7 +629,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         } else {
                             await this.setState({
                                 hasOverrideDutyRoster: 'N',
-                                doctorDutyRosterOverrideRequestDTOS: [],
+                                departmentDutyRosterOverrideRequestDTOS: [],
                                 overrideRequestDTO: {
                                     fromDate: new Date(),
                                     toDate: new Date(),
@@ -543,7 +727,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handleAddOverride = async (isAddAnother, isModifyOverride) => {
             let overrideList =
                 type === 'ADD'
-                    ? [...this.state.doctorDutyRosterOverrideRequestDTOS]
+                    ? [...this.state.departmentDutyRosterOverrideRequestDTOS]
                     : [...this.state.updateDoctorDutyRosterData.overridesUpdate]
             let currentOverride = {...this.state.overrideRequestDTO}
             switch (type) {
@@ -554,7 +738,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         currentOverride
                     )
                     await this.setState({
-                        doctorDutyRosterOverrideRequestDTOS: [...overrideList],
+                        departmentDutyRosterOverrideRequestDTOS: [...overrideList],
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
                             fromDate: new Date(),
@@ -580,10 +764,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     try {
                         let dataToSave = {
                             dayOffStatus: currentOverride.dayOffStatus,
-                            doctorDutyRosterId: this.state.updateDoctorDutyRosterData
-                                .doctorDutyRosterId,
-                            doctorDutyRosterOverrideId: isModifyOverride
-                                ? currentOverride.doctorDutyRosterOverrideId
+                            departmentDutyRosterId: this.state.updateDoctorDutyRosterData
+                                .departmentDutyRosterId,
+                            departmentDutyRosterOverrideId: isModifyOverride
+                                ? currentOverride.departmentDutyRosterOverrideId
                                 : '',
                             endTime: currentOverride.endTime,
                             overrideFromDate: currentOverride.fromDate,
@@ -610,7 +794,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 if (isModifyOverride) {
                                     overrideList[currentOverride.id] = currentOverride
                                 } else {
-                                    currentOverride.doctorDutyRosterOverrideId =
+                                    currentOverride.departmentDutyRosterOverrideId =
                                         response.savedOverrideId
                                     currentOverride.isNew = true
                                     overrideList.push(currentOverride)
@@ -635,45 +819,6 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     break
                 default:
                     break
-            }
-        }
-
-        updateStateDataAfterAddingOrEditingOverride = async (
-            overrideList,
-            updatedOverrides,
-            isAddAnother
-        ) => {
-            await this.setState({
-                updateDoctorDutyRosterData: {
-                    ...this.state.updateDoctorDutyRosterData,
-                    overridesUpdate: [...overrideList],
-                    updatedOverrides: [...updatedOverrides]
-                },
-                overrideRequestDTO: {
-                    ...this.state.overrideRequestDTO,
-                    fromDate: new Date(),
-                    toDate: new Date(),
-                    startTime: '',
-                    endTime: '',
-                    dayOffStatus: 'N',
-                    remarks: '',
-                    id: '',
-                    dateErrorMessage: '',
-                    timeErrorMessage: ''
-                },
-                isModifyOverride: false,
-                showAddOverrideModal: isAddAnother,
-                overrideUpdateErrorMessage: ''
-            })
-        }
-
-        addOrModifyOverride = (isModifyOverride, overrideList, currentOverride) => {
-            if (isModifyOverride) {
-                // IF MODIFYING EXISTING OVERRIDE REPLACE OLD ONE WITH NEW MODIFIED
-                overrideList[currentOverride.id] = currentOverride
-            } else {
-                // ELSE SIMPLY ADD
-                overrideList.push(currentOverride)
             }
         }
 
@@ -706,7 +851,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             endTime: new Date(data.endTime),
                             dayOffStatus: data.dayOffStatus,
                             remarks: data.remarks,
-                            doctorDutyRosterOverrideId: data.doctorDutyRosterOverrideId,
+                            departmentDutyRosterOverrideId: data.departmentDutyRosterOverrideId,
                             id: data.id ? data.id : index
                         },
                         isModifyOverride: true,
@@ -722,18 +867,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handleRemoveOverride = async (data, index) => {
             switch (type) {
                 case 'ADD':
-                    let overrides = [...this.state.doctorDutyRosterOverrideRequestDTOS]
+                    let overrides = [...this.state.departmentDutyRosterOverrideRequestDTOS]
                     overrides.splice(index, 1)
                     this.setState({
-                        doctorDutyRosterOverrideRequestDTOS: [...overrides]
+                        departmentDutyRosterOverrideRequestDTOS: [...overrides]
                     })
                     break
                 case 'MANAGE':
                     this.props.clearDDRSuccessErrorMessage()
                     let deleteRequestDTO = {...this.state.deleteRequestDTO}
-                    deleteRequestDTO['id'] = data.doctorDutyRosterOverrideId
+                    deleteRequestDTO['id'] = data.departmentDutyRosterOverrideId
                     deleteRequestDTO['index'] = index
-                    // deleteRequestDTO['doctorDutyRosterOverrideId'] = data.doctorDutyRosterOverrideId;
+                    // deleteRequestDTO['departmentDutyRosterOverrideId'] = data.departmentDutyRosterOverrideId;
                     await this.setState({
                         deleteRequestDTO: deleteRequestDTO,
                         showDeleteOverrideModal: true,
@@ -756,7 +901,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             try {
                 let detailsData = await this.props.fetchExistingDoctorDutyRosterDetails(
                     FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
-                    data.doctorDutyRosterId
+                    data.departmentDutyRosterId
                 )
                 this.setState({
                     existingDoctorWeekDaysAvailability: [...detailsData.weekDaysRosters],
@@ -794,7 +939,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     searchParameters: {
                         ...this.state.searchParameters,
                         specialization: null,
-                        doctor: null,
+                        department: null,
                     }
                 })
             }
@@ -829,37 +974,37 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handlePreview = async id => {
             try {
                 await this.fetchDoctorDutyRosterDetailsById(id)
-                const doctorDutyRosterInfo = await this.prepareDataForPreview()
+                const departmentDutyRosterInfo = await this.prepareDataForPreview()
                 const {
                     hospital,
                     specialization,
-                    doctor,
+                    department,
                     rosterGapDuration,
                     fromDate,
                     toDate,
                     hasOverrideDutyRoster,
-                    doctorWeekDaysDutyRosterRequestDTOS,
-                    doctorDutyRosterOverrideRequestDTOS,
+                    departmentWeekDaysDutyRosterRequestDTOS,
+                    departmentDutyRosterOverrideRequestDTOS,
                     createdDate,
                     createdBy,
                     lastModifiedBy,
                     lastModifiedDate
-                } = doctorDutyRosterInfo
+                } = departmentDutyRosterInfo
                 await this.setState({
                     hospital: hospital,
                     showConfirmModal: true,
                     showAlert: false,
                     specialization: {...specialization},
-                    doctor: {...doctor},
+                    department: {...department},
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
                     toDate: new Date(toDate),
                     hasOverrideDutyRoster: hasOverrideDutyRoster,
-                    doctorWeekDaysDutyRosterRequestDTOS: [
-                        ...doctorWeekDaysDutyRosterRequestDTOS
+                    departmentWeekDaysDutyRosterRequestDTOS: [
+                        ...departmentWeekDaysDutyRosterRequestDTOS
                     ],
-                    doctorDutyRosterOverrideRequestDTOS: [
-                        ...doctorDutyRosterOverrideRequestDTOS
+                    departmentDutyRosterOverrideRequestDTOS: [
+                        ...departmentDutyRosterOverrideRequestDTOS
                     ],
                     createdDate: createdDate,
                     createdBy: createdBy,
@@ -903,8 +1048,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handleEdit = async editId => {
             try {
                 await this.fetchDoctorDutyRosterDetailsById(editId)
-                const doctorDutyRosterInfo = await this.prepareDataForPreview()
-                await this.prepareDataForEdit(doctorDutyRosterInfo, false)
+                const departmentDutyRosterInfo = await this.prepareDataForPreview()
+                await this.prepareDataForEdit(departmentDutyRosterInfo, false)
             } catch (e) {
                 this.setState({
                     showAlert: true,
@@ -922,11 +1067,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handleCloneAndAddNew = async id => {
             try {
                 await this.fetchDoctorDutyRosterDetailsById(id)
-                const doctorDutyRosterInfo = await this.prepareDataForPreview()
+                const departmentDutyRosterInfo = await this.prepareDataForPreview()
                 await this.fetchActiveSpecializationByHospitalForDropdown(
-                    doctorDutyRosterInfo.hospital.value
+                    departmentDutyRosterInfo.hospital.value
                 )
-                await this.prepareDataForEdit(doctorDutyRosterInfo, true)
+                await this.prepareDataForEdit(departmentDutyRosterInfo, true)
             } catch (e) {
                 this.setState({
                     showAlert: true,
@@ -939,10 +1084,300 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 })
                 this.clearAlertTimeout()
             }
-        }
+        };
 
         handleEnter = event => {
             EnterKeyPressUtils.handleEnter(event)
+        };
+
+        initialApiCalls = async () => {
+            this.fetchHospitalsForDropdown();
+            this.fetchWeekdaysData();
+            if (type === 'MANAGE') {
+                await this.searchDoctorDutyRoster(1)
+            }
+        };
+
+        prepareDataForPreview = async () => {
+            const {
+                departmentDutyRosterInfo,
+                overrideRosters,
+                weekDaysRosters,
+            } = this.props.DoctorDutyRosterPreviewReducer.departmentDutyRosterPreviewData
+            const {
+                id,
+                specializationName,
+                specializationId,
+                departmentId,
+                departmentName,
+                rosterGapDuration,
+                fromDate,
+                toDate,
+                hasOverrideDutyRoster,
+                hospitalId,
+                hospitalName,
+                status,
+                createdBy,
+                createdDate,
+                lastModifiedBy,
+                lastModifiedDate
+            } = departmentDutyRosterInfo && departmentDutyRosterInfo
+
+            return {
+                id: id,
+                hospital: {label: hospitalName, value: hospitalId},
+                specialization: {label: specializationName, value: specializationId},
+                department: {label: departmentName, value: departmentId},
+                rosterGapDuration: rosterGapDuration,
+                fromDate: new Date(fromDate),
+                toDate: new Date(toDate),
+                hasOverrideDutyRoster: hasOverrideDutyRoster,
+                departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
+                departmentDutyRosterOverrideRequestDTOS: [...overrideRosters],
+                status: status,
+                createdBy,
+                createdDate,
+                lastModifiedBy,
+                lastModifiedDate
+            }
+        }
+
+        prepareDataForEdit = async (departmentDutyRosterInfo, isCloneAndAdd) => {
+            const {
+                id,
+                hospital,
+                specialization,
+                department,
+                rosterGapDuration,
+                fromDate,
+                toDate,
+                hasOverrideDutyRoster,
+                departmentWeekDaysDutyRosterRequestDTOS,
+                departmentDutyRosterOverrideRequestDTOS,
+                status
+            } = departmentDutyRosterInfo
+
+            let weekDaysAvailabilityData = departmentWeekDaysDutyRosterRequestDTOS.map(
+                weekDay => {
+                    weekDay.startTime = new Date(weekDay.startTime)
+                    weekDay.endTime = new Date(weekDay.endTime)
+                    weekDay.dayOffStatus = weekDay.dayOffStatus
+                        ? weekDay.dayOffStatus
+                        : 'N'
+                    return weekDay
+                }
+            )
+
+            await this.setState({
+                showEditModal: true,
+                showAlert: false,
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    fromDate: new Date(fromDate),
+                    toDate: new Date(toDate),
+                    hospital: {...hospital},
+                    specialization: isCloneAndAdd ? null : {...specialization},
+                    department: isCloneAndAdd ? null : {...department},
+                    departmentDutyRosterId: isCloneAndAdd ? null : id,
+                    hasOverrideDutyRoster: hasOverrideDutyRoster,
+                    remarks: '',
+                    rosterGapDuration: rosterGapDuration,
+                    status: status,
+                    weekDaysDutyRosterUpdateRequestDTOS: [...weekDaysAvailabilityData],
+                    weekDaysDataOriginal: [...weekDaysAvailabilityData],
+                    overridesUpdate: [...departmentDutyRosterOverrideRequestDTOS],
+                    originalOverrides: [...departmentDutyRosterOverrideRequestDTOS],
+                    updatedOverrides: [],
+                    isCloneAndAdd: isCloneAndAdd
+                }
+            })
+            this.checkManageFormValidity()
+        }
+
+        partialResetAddForm = async onSuccessData => {
+            await this.setState({
+                department: null,
+                rosterGapDuration: '',
+                status: 'Y',
+                overrideRequestDTO: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    status: 'Y',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
+                },
+                ...onSuccessData
+            })
+        }
+
+        resetAddForm = async onSuccessData => {
+            const weekDays = await this.getWeekDaysDataForForm()
+            await this.setState({
+                hospital: null,
+                room: null,
+                department: null,
+                rosterGapDuration: '',
+                status: 'Y',
+                fromDate: new Date(),
+                toDate: addDate(new Date(), 6),
+                hasOverrideDutyRoster: 'N',
+                isWholeWeekOff: 'N',
+                departmentWeekDaysDutyRosterRequestDTOS: [...weekDays],
+                departmentDutyRosterOverrideRequestDTOS: [],
+                overrideRequestDTO: {
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    status: 'Y',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
+                },
+                ...onSuccessData
+            })
+        }
+
+        resetSearchForm = async () => {
+            await this.setState({
+                searchParameters: {
+                    ...this.state.searchParameters,
+                    fromDate: new Date(),
+                    toDate: addDate(new Date(), 30),
+                    hospital: null,
+                    specialization: null,
+                    department: null,
+                    status: {value: 'A', label: 'All'}
+                },
+                showAlert: false
+            })
+            await this.searchDoctorDutyRoster(1)
+        }
+
+        resetEditForm = () => {
+            this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    fromDate: '',
+                    toDate: '',
+                    hospital: null,
+                    specialization: null,
+                    department: null,
+                    departmentDutyRosterId: 0,
+                    hasOverrideDutyRoster: '',
+                    remarks: '',
+                    rosterGapDuration: 0,
+                    status: '',
+                    weekDaysDutyRosterUpdateRequestDTOS: [],
+                    overridesUpdate: [],
+                    originalOverrides: [],
+                    updateFormValid: true
+                }
+            })
+        }
+
+        resetRoomOnRoomDisable = async () => {
+            type === 'ADD'
+                ? await this.setState({
+                    room: null
+                })
+                : await this.setState({
+                    updateDoctorDutyRosterData: {
+                        ...this.state.updateDoctorDutyRosterData,
+                        room: null
+                    }
+                })
+        };
+
+        resetDepartmentAndRoomOnHospitalChange = () => {
+            if (type === 'ADD') {
+                this.setState({
+                    room: null,
+                    department: null
+                })
+            } else {
+                this.setState({
+                    updateDoctorDutyRosterData: {
+                        ...this.state.updateDoctorDutyRosterData,
+                        room: null,
+                        department: null
+                    }
+                })
+            }
+        };
+
+        revertOverrideUpdatesOnCancel = async () => {
+            const {
+                updatedOverrides,
+                originalOverrides,
+                departmentDutyRosterId
+            } = this.state.updateDoctorDutyRosterData
+            let overridesToBeReverted = []
+            let originalUpdatedOverrides = updatedOverrides.filter(
+                override => !override.isNew
+            )
+            let newOverrides = updatedOverrides.filter(override => override.isNew)
+
+            originalUpdatedOverrides.map(originalUpdated => {
+                // FIND THE ORIGINAL DATA, CHANGE IT'S STATUS TO 'Y' ; ADD isOriginal FLAG THEN ADD TO ARRAY
+                let originalOverride = originalOverrides.find(
+                    original =>
+                        original.departmentDutyRosterOverrideId ===
+                        originalUpdated.departmentDutyRosterOverrideId
+                )
+                if (originalOverride) {
+                    let override = {
+                        dayOffStatus: originalOverride.dayOffStatus,
+                        departmentDutyRosterId: departmentDutyRosterId,
+                        departmentDutyRosterOverrideId:
+                        originalOverride.departmentDutyRosterOverrideId,
+                        endTime: originalOverride.endTime,
+                        // original: true,
+                        overrideFromDate: originalOverride.fromDate,
+                        overrideToDate: originalOverride.toDate,
+                        remarks: originalOverride.remarks,
+                        startTime: originalOverride.startTime,
+                        status: 'Y'
+                    }
+                    overridesToBeReverted.push(override)
+                }
+                return originalUpdated;
+            })
+
+            newOverrides.length &&
+            newOverrides.map(newAdded => {
+                // FOR NEWLY ADDED DATA, CHANGE STATUS TO 'D' , ADD REMARKS THEN ADD TO ARRAY
+                let override = {
+                    dayOffStatus: newAdded.dayOffStatus,
+                    departmentDutyRosterId: departmentDutyRosterId,
+                    departmentDutyRosterOverrideId: newAdded.departmentDutyRosterOverrideId,
+                    endTime: newAdded.endTime,
+                    // original: false,
+                    overrideFromDate: newAdded.fromDate,
+                    overrideToDate: newAdded.toDate,
+                    remarks: 'Update Cancelled.',
+                    startTime: newAdded.startTime,
+                    status: 'D'
+                }
+                overridesToBeReverted.push(override)
+                return newOverrides;
+            })
+
+            try {
+                await this.props.revertDoctorDutyRosterOverrideUpdate(
+                    REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE,
+                    overridesToBeReverted
+                )
+            } catch (e) {
+                console.log('Revert Override Error', e.errorMessage)
+            }
         }
 
         setStateValues = (key, value, label, fileUri, fieldValid) => {
@@ -982,20 +1417,20 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         }
                     })
             }
-        }
+        };
 
-        setAvailabilityData(fieldName, doctorWeekDaysAvailability, index, value) {
+        setAvailabilityData(fieldName, departmentWeekDaysAvailability, index, value) {
             if (fieldName) {
-                doctorWeekDaysAvailability[index][fieldName] = value
+                departmentWeekDaysAvailability[index][fieldName] = value
                 if (
-                    doctorWeekDaysAvailability[index].startTime &&
-                    doctorWeekDaysAvailability[index].endTime
+                    departmentWeekDaysAvailability[index].startTime &&
+                    departmentWeekDaysAvailability[index].endTime
                 ) {
-                    doctorWeekDaysAvailability[
+                    departmentWeekDaysAvailability[
                         index
                         ].errorMessage = isFirstTimeGreaterThanSecond(
-                        doctorWeekDaysAvailability[index].startTime,
-                        doctorWeekDaysAvailability[index].endTime
+                        departmentWeekDaysAvailability[index].startTime,
+                        departmentWeekDaysAvailability[index].endTime
                     )
                         ? TIME_ERROR_MESSAGE
                         : ''
@@ -1003,7 +1438,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             } else {
                 this.setDefaultStartAndEndTimeAndDayOffStatus(
                     value,
-                    doctorWeekDaysAvailability[index]
+                    departmentWeekDaysAvailability[index]
                 )
             }
         }
@@ -1013,7 +1448,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             switch (type) {
                 case 'ADD':
                     hasOverride =
-                        this.state.doctorDutyRosterOverrideRequestDTOS.length <= 0
+                        this.state.departmentDutyRosterOverrideRequestDTOS.length <= 0
                             ? 'N'
                             : this.state.hasOverrideDutyRoster
                     await this.setState({
@@ -1030,7 +1465,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             dayOffStatus: 'N',
                             remarks: '',
                             status: 'Y',
-                            doctorDutyRosterOverrideId: '',
+                            departmentDutyRosterOverrideId: '',
                             id: '',
                             dateErrorMessage: '',
                             timeErrorMessage: ''
@@ -1060,7 +1495,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             dayOffStatus: 'N',
                             remarks: '',
                             status: 'Y',
-                            doctorDutyRosterOverrideId: '',
+                            departmentDutyRosterOverrideId: '',
                             id: '',
                             dateErrorMessage: '',
                             timeErrorMessage: ''
@@ -1093,86 +1528,241 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
         setDefaultStartAndEndTimeAndDayOffStatus = (
             dayOff,
-            doctorWeekDaysAvailability
+            departmentWeekDaysAvailability
         ) => {
             if (dayOff) {
-                doctorWeekDaysAvailability.dayOffStatus = 'Y'
-                doctorWeekDaysAvailability.startTime = getDateWithTimeSetToGivenTime(
+                departmentWeekDaysAvailability.dayOffStatus = 'Y'
+                departmentWeekDaysAvailability.startTime = getDateWithTimeSetToGivenTime(
                     new Date(),
                     0,
                     0,
                     0
                 )
-                doctorWeekDaysAvailability.endTime = getDateWithTimeSetToGivenTime(
+                departmentWeekDaysAvailability.endTime = getDateWithTimeSetToGivenTime(
                     new Date(),
                     23,
                     59,
                     59
                 )
-                doctorWeekDaysAvailability.errorMessage = ''
+                departmentWeekDaysAvailability.errorMessage = ''
             } else {
-                doctorWeekDaysAvailability.dayOffStatus = 'N'
-                doctorWeekDaysAvailability.startTime = ''
-                doctorWeekDaysAvailability.endTime = ''
-                doctorWeekDaysAvailability.errorMessage = ''
+                departmentWeekDaysAvailability.dayOffStatus = 'N'
+                departmentWeekDaysAvailability.startTime = ''
+                departmentWeekDaysAvailability.endTime = ''
+                departmentWeekDaysAvailability.errorMessage = ''
             }
         }
 
-        bindValuesToState = async (event, fieldName, fieldValid) => {
-            let key = fieldName ? fieldName : event.target.name
-            let value = fieldName ? event : event.target.value
-            let label = fieldName ? '' : event.target.label
-            let fileUri = fieldName ? '' : event.target.fileUri;
-
-            await this.setStateValues(key, value, label, fileUri, fieldValid)
-
-            if (key === 'hospital') {
-                if (value) {
-                    await this.fetchActiveSpecializationByHospitalForDropdown(value)
-                    this.setState({
-                        specialization: null,
-                        doctor: null
-                    })
-                } else {
-                    await this.fetchActiveSpecializationByHospitalForDropdown(0)
-                    this.setState({
-                        hospital: null,
-                        specialization: null,
-                        doctor: null
-                    })
+        showAlertMessage = (type, message) => {
+            this.setState({
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: type,
+                    message: message
                 }
-                this.resetSpecializationAndDoctorOnHospitalChange()
-            } else if (key === 'specialization') {
-                if (value) {
-                    await this.props.fetchDoctorsBySpecializationIdForDropdown(
-                        FETCH_DOCTOR_BY_SPECIALIZATION_ID,
-                        value
-                    )
-                    this.setState({
-                        doctor: null
-                    })
-                } else {
-                    await this.props.fetchDoctorsBySpecializationIdForDropdown(
-                        FETCH_DOCTOR_BY_SPECIALIZATION_ID,
-                        0
-                    )
-                    this.setState({
-                        specialization: null,
-                        doctor: null
-                    })
+            });
+            this.clearAlertTimeout();
+        };
+
+        saveDoctorDutyRoster = async (isClone, isSaveFromManageClone) => {
+            let dataToSave
+            if (!isSaveFromManageClone) {
+                const {
+                    departmentDutyRosterOverrideRequestDTOS,
+                    department,
+                    departmentWeekDaysDutyRosterRequestDTOS,
+                    fromDate,
+                    hasOverrideDutyRoster,
+                    rosterGapDuration,
+                    specialization,
+                    status,
+                    toDate,
+                    hospital
+                } = this.state
+                dataToSave = {
+                    fromDate,
+                    toDate,
+                    specializationId: specialization ? specialization.value : '',
+                    departmentId: department ? department.value : '',
+                    hospitalId: hospital ? hospital.value : '',
+                    rosterGapDuration,
+                    departmentWeekDaysDutyRosterRequestDTOS,
+                    hasOverrideDutyRoster,
+                    departmentDutyRosterOverrideRequestDTOS,
+                    status
                 }
-                await this.resetDoctorOnSpecializationChange()
+            } else {
+                const {
+                    department,
+                    fromDate,
+                    hasOverrideDutyRoster,
+                    rosterGapDuration,
+                    specialization,
+                    status,
+                    toDate,
+                    hospital,
+                    weekDaysDutyRosterUpdateRequestDTOS,
+                    overridesUpdate
+                } = this.state.updateDoctorDutyRosterData
+
+                dataToSave = {
+                    fromDate,
+                    toDate,
+                    specializationId: specialization ? specialization.value : '',
+                    departmentId: department ? department.value : '',
+                    hospitalId: hospital ? hospital.value : '',
+                    rosterGapDuration,
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS,
+                    hasOverrideDutyRoster,
+                    departmentDutyRosterOverrideRequestDTOS: overridesUpdate,
+                    status
+                }
             }
-            if (key === 'fromDate' || key === 'toDate') {
-                await this.validateAndSetWeekDaysDataOnDateChange(key)
+
+            try {
+                await this.props.createDoctorDutyRoster(
+                    CREATE_DOCTOR_DUTY_ROSTER,
+                    dataToSave
+                )
+                const {saveSuccessMessage} = this.props.DoctorDutyRosterSaveReducer
+                let onSuccessData = {
+                    showConfirmModal: false,
+                    showEditModal: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'success',
+                        message: saveSuccessMessage
+                            ? saveSuccessMessage
+                            : 'Doctor Duty Roster saved successfully.'
+                    }
+                }
+                this.clearAlertTimeout()
+                isClone
+                    ? this.partialResetAddForm(onSuccessData)
+                    : this.resetAddForm(onSuccessData)
+                type === 'MANAGE' && this.searchDoctorDutyRoster(1)
+            } catch (e) {
+                const {saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer
+                this.setState({
+                    showAlert: true,
+                    showConfirmModal: false,
+                    showEditModal: false,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: saveErrorMessage
+                            ? saveErrorMessage
+                            : 'Error occurred while saving Doctor Duty Roster.'
+                    }
+                })
+                this.clearAlertTimeout()
             }
-            type === 'ADD' ? this.checkFormValidity() : this.checkManageFormValidity()
+        }
+
+        searchDoctorDutyRoster = async page => {
+            const {
+                fromDate,
+                toDate,
+                hospital,
+                specialization,
+                department,
+                status
+            } = this.state.searchParameters
+            if (
+                isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
+                getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
+            ) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: DATE_ERROR_MESSAGE
+                    }
+                })
+                this.clearAlertTimeout()
+            } else {
+                let searchData = {
+                    hospitalId: hospital ? hospital.value : '',
+                    departmentId: department ? department.value : '',
+                    specializationId: specialization ? specialization.value : '',
+                    fromDate: fromDate,
+                    toDate: toDate,
+                    status: status && status.value === 'A' ? '' : status.value
+                }
+
+                let updatedPage =
+                    this.state.queryParams.page === 0
+                        ? 1
+                        : page
+                        ? page
+                        : this.state.queryParams.page
+
+                await this.props.fetchDoctorDutyRosterList(
+                    SEARCH_DOCTOR_DUTY_ROSTER,
+                    {
+                        page: updatedPage,
+                        size: this.state.queryParams.size
+                    },
+                    searchData
+                )
+
+                await this.setState({
+                    totalRecords: this.props.DoctorDutyRosterListReducer
+                        .departmentDutyRosterList.length
+                        ? this.props.DoctorDutyRosterListReducer.departmentDutyRosterList[0]
+                            .totalItems
+                        : 0,
+                    queryParams: {
+                        ...this.state.queryParams,
+                        page: updatedPage
+                    }
+                })
+            }
+        }
+
+        updateOverride = async overrideData => {
+            try {
+                return await this.props.updateDoctorDutyRosterOverride(
+                    UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE,
+                    overrideData
+                )
+            } catch (e) {
+                throw e
+            }
+        }
+
+        updateStateDataAfterAddingOrEditingOverride = async (
+            overrideList,
+            updatedOverrides,
+            isAddAnother
+        ) => {
+            await this.setState({
+                updateDoctorDutyRosterData: {
+                    ...this.state.updateDoctorDutyRosterData,
+                    overridesUpdate: [...overrideList],
+                    updatedOverrides: [...updatedOverrides]
+                },
+                overrideRequestDTO: {
+                    ...this.state.overrideRequestDTO,
+                    fromDate: new Date(),
+                    toDate: new Date(),
+                    startTime: '',
+                    endTime: '',
+                    dayOffStatus: 'N',
+                    remarks: '',
+                    id: '',
+                    dateErrorMessage: '',
+                    timeErrorMessage: ''
+                },
+                isModifyOverride: false,
+                showAddOverrideModal: isAddAnother,
+                overrideUpdateErrorMessage: ''
+            })
         }
 
         validateAndSetWeekDaysDataOnDateChange = async () => {
             let errorMessage = ''
             let originalWeekDaysData = [
-                ...this.state.doctorWeekDaysDutyRosterRequestDTOS
+                ...this.state.departmentWeekDaysDutyRosterRequestDTOS
             ]
             let weekDaysData = []
             switch (type) {
@@ -1194,7 +1784,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                     await this.setState({
                         dateErrorMessage: errorMessage,
-                        doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
+                        departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
                     })
                     break
                 case 'MANAGE':
@@ -1249,660 +1839,31 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         }
 
-        resetDoctorOnSpecializationChange = async () => {
-            type === 'ADD'
-                ? await this.setState({
-                    doctor: null
-                })
-                : await this.setState({
-                    updateDoctorDutyRosterData: {
-                        ...this.state.updateDoctorDutyRosterData,
-                        doctor: null
-                    }
-                })
-        }
-
-        resetSpecializationAndDoctorOnHospitalChange = () => {
-            if (type === 'ADD') {
-                this.setState({
-                    specialization: null,
-                    doctor: null
-                })
-            } else {
-                this.setState({
-                    updateDoctorDutyRosterData: {
-                        ...this.state.updateDoctorDutyRosterData,
-                        specialization: null,
-                        doctor: null
-                    }
-                })
-            }
-        }
-
-        cancelCloseEditModal = async () => {
-            if (this.state.updateDoctorDutyRosterData.updatedOverrides.length) {
-                await this.revertOverrideUpdatesOnCancel()
-            }
-            this.setState({
-                showEditModal: false,
-                dateErrorMessage: ''
-            })
-        }
-
-        checkFormValidity = () => {
-            const {
-                fromDate,
-                toDate,
-                hospital,
-                specialization,
-                doctor,
-                rosterGapDuration,
-                hasOverrideDutyRoster,
-                doctorDutyRosterOverrideRequestDTOS,
-                doctorWeekDaysDutyRosterRequestDTOS
-            } = this.state
-
-            let formValid =
-                fromDate &&
-                toDate &&
-                hospital &&
-                specialization &&
-                doctor &&
-                rosterGapDuration
-            if (hasOverrideDutyRoster === 'Y') {
-                formValid = formValid && doctorDutyRosterOverrideRequestDTOS.length
-            }
-
-            doctorWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                formValid = formValid && weekDay.startTime && weekDay.endTime
-                return weekDay
-            })
-
-            this.setState({
-                formValid: Boolean(formValid)
-            })
-        }
-
-        checkManageFormValidity = () => {
-            const {
-                rosterGapDuration,
-                remarks,
-                hasOverrideDutyRoster,
-                overridesUpdate,
-                weekDaysDutyRosterUpdateRequestDTOS,
-                isCloneAndAdd,
-                hospital,
-                specialization,
-                doctor
-            } = this.state.updateDoctorDutyRosterData
-
-            let formValid = isCloneAndAdd
-                ? rosterGapDuration && hospital && specialization && doctor
-                : rosterGapDuration && remarks && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
-
-            if (hasOverrideDutyRoster === 'Y') {
-                formValid = formValid && overridesUpdate.length
-            }
-
-            weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
-                formValid = formValid && weekDay.startTime && weekDay.endTime
-                return weekDay
-            })
-
-            this.setState({
-                updateDoctorDutyRosterData: {
-                    ...this.state.updateDoctorDutyRosterData,
-                    formValid: Boolean(formValid)
-                }
-            })
-        }
-
-        checkOverrideFormValidity = () => {
-            const {
-                fromDate,
-                toDate,
-                startTime,
-                endTime,
-                dayOffStatus,
-                remarks
-            } = this.state.overrideRequestDTO
-
-            const validForm =
-                fromDate &&
-                toDate &&
-                startTime &&
-                endTime &&
-                dayOffStatus &&
-                remarks &&
-                !StringUtils.stringContainsWhiteSpacesOnly(remarks);
-
-            this.setState({
-                overrideFormValid: Boolean(validForm)
-            })
-        }
-
-        checkIfWholeWeekOff = doctorWeekDaysAvailability => {
-            let wholeWeekOff = true
-            doctorWeekDaysAvailability.map(day => {
-                wholeWeekOff = wholeWeekOff && day.dayOffStatus === 'Y'
-                return day
-            })
-            return wholeWeekOff
-        }
-
-        clearAlertTimeout = () => {
-            this.alertTimer = setTimeout(() => this.closeAlert(), 5000)
-        }
-
-        closeAlert = () => {
-            // this.props.clearDepartmentSuccessErrorMessagesFromStore();
-            this.setState({
-                showAlert: false
-            })
-        }
-
-        getWeekDaysDataForForm = () => {
-            return JSON.parse(
-                JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList])
-            )
-        }
-
-        getExistingRoster = async () => {
-            try {
-                const existingRosters = await this.fetchExistingRoster()
-                if (existingRosters.length) {
-                    this.setState({
-                        showAlert: false,
-                        showExistingRosterModal: true,
-                        existingRosterTableData: [...existingRosters],
-                        existingDoctorWeekDaysAvailability: [],
-                        existingOverrides: []
-                    })
-                } else {
-                    this.setState({
-                        showAlert: true,
-                        alertMessageInfo: {
-                            variant: 'warning',
-                            message: 'No existing rosters found.'
-                        }
-                    })
-                    this.clearAlertTimeout()
-                }
-            } catch (e) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: e.errorMessage
-                    }
-                })
-                this.clearAlertTimeout()
-            }
-        }
-
-        initialApiCalls = async () => {
-            this.fetchHospitalsForDropdown()
-            this.fetchActiveSpecializationForDropdown()
-            this.fetchWeekdaysData()
-            if (type === 'MANAGE') {
-                await this.fetchActiveDoctors()
-                await this.searchDoctorDutyRoster(1)
-            }
-        }
-
-        prepareDataForPreview = async () => {
-            const {
-                doctorDutyRosterInfo,
-                overrideRosters,
-                weekDaysRosters,
-            } = this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData
-            const {
-                id,
-                specializationName,
-                specializationId,
-                doctorId,
-                doctorName,
-                rosterGapDuration,
-                fromDate,
-                toDate,
-                hasOverrideDutyRoster,
-                hospitalId,
-                hospitalName,
-                status,
-                createdBy,
-                createdDate,
-                lastModifiedBy,
-                lastModifiedDate
-            } = doctorDutyRosterInfo && doctorDutyRosterInfo
-
-            return {
-                id: id,
-                hospital: {label: hospitalName, value: hospitalId},
-                specialization: {label: specializationName, value: specializationId},
-                doctor: {label: doctorName, value: doctorId},
-                rosterGapDuration: rosterGapDuration,
-                fromDate: new Date(fromDate),
-                toDate: new Date(toDate),
-                hasOverrideDutyRoster: hasOverrideDutyRoster,
-                doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
-                doctorDutyRosterOverrideRequestDTOS: [...overrideRosters],
-                status: status,
-                createdBy,
-                createdDate,
-                lastModifiedBy,
-                lastModifiedDate
-            }
-        }
-
-        prepareDataForEdit = async (doctorDutyRosterInfo, isCloneAndAdd) => {
-            const {
-                id,
-                hospital,
-                specialization,
-                doctor,
-                rosterGapDuration,
-                fromDate,
-                toDate,
-                hasOverrideDutyRoster,
-                doctorWeekDaysDutyRosterRequestDTOS,
-                doctorDutyRosterOverrideRequestDTOS,
-                status
-            } = doctorDutyRosterInfo
-
-            let weekDaysAvailabilityData = doctorWeekDaysDutyRosterRequestDTOS.map(
-                weekDay => {
-                    weekDay.startTime = new Date(weekDay.startTime)
-                    weekDay.endTime = new Date(weekDay.endTime)
-                    weekDay.dayOffStatus = weekDay.dayOffStatus
-                        ? weekDay.dayOffStatus
-                        : 'N'
-                    return weekDay
-                }
-            )
-
-            await this.setState({
-                showEditModal: true,
-                showAlert: false,
-                updateDoctorDutyRosterData: {
-                    ...this.state.updateDoctorDutyRosterData,
-                    fromDate: new Date(fromDate),
-                    toDate: new Date(toDate),
-                    hospital: {...hospital},
-                    specialization: isCloneAndAdd ? null : {...specialization},
-                    doctor: isCloneAndAdd ? null : {...doctor},
-                    doctorDutyRosterId: isCloneAndAdd ? null : id,
-                    hasOverrideDutyRoster: hasOverrideDutyRoster,
-                    remarks: '',
-                    rosterGapDuration: rosterGapDuration,
-                    status: status,
-                    weekDaysDutyRosterUpdateRequestDTOS: [...weekDaysAvailabilityData],
-                    weekDaysDataOriginal: [...weekDaysAvailabilityData],
-                    overridesUpdate: [...doctorDutyRosterOverrideRequestDTOS],
-                    originalOverrides: [...doctorDutyRosterOverrideRequestDTOS],
-                    updatedOverrides: [],
-                    isCloneAndAdd: isCloneAndAdd
-                }
-            })
-            this.checkManageFormValidity()
-        }
-
-        saveDoctorDutyRoster = async (isClone, isSaveFromManageClone) => {
-            let dataToSave
-            if (!isSaveFromManageClone) {
-                const {
-                    doctorDutyRosterOverrideRequestDTOS,
-                    doctor,
-                    doctorWeekDaysDutyRosterRequestDTOS,
-                    fromDate,
-                    hasOverrideDutyRoster,
-                    rosterGapDuration,
-                    specialization,
-                    status,
-                    toDate,
-                    hospital
-                } = this.state
-                dataToSave = {
-                    fromDate,
-                    toDate,
-                    specializationId: specialization ? specialization.value : '',
-                    doctorId: doctor ? doctor.value : '',
-                    hospitalId: hospital ? hospital.value : '',
-                    rosterGapDuration,
-                    doctorWeekDaysDutyRosterRequestDTOS,
-                    hasOverrideDutyRoster,
-                    doctorDutyRosterOverrideRequestDTOS,
-                    status
-                }
-            } else {
-                const {
-                    doctor,
-                    fromDate,
-                    hasOverrideDutyRoster,
-                    rosterGapDuration,
-                    specialization,
-                    status,
-                    toDate,
-                    hospital,
-                    weekDaysDutyRosterUpdateRequestDTOS,
-                    overridesUpdate
-                } = this.state.updateDoctorDutyRosterData
-
-                dataToSave = {
-                    fromDate,
-                    toDate,
-                    specializationId: specialization ? specialization.value : '',
-                    doctorId: doctor ? doctor.value : '',
-                    hospitalId: hospital ? hospital.value : '',
-                    rosterGapDuration,
-                    doctorWeekDaysDutyRosterRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS,
-                    hasOverrideDutyRoster,
-                    doctorDutyRosterOverrideRequestDTOS: overridesUpdate,
-                    status
-                }
-            }
-
-            try {
-                await this.props.createDoctorDutyRoster(
-                    CREATE_DOCTOR_DUTY_ROSTER,
-                    dataToSave
-                )
-                const {saveSuccessMessage} = this.props.DoctorDutyRosterSaveReducer
-                let onSuccessData = {
-                    showConfirmModal: false,
-                    showEditModal: false,
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: saveSuccessMessage
-                            ? saveSuccessMessage
-                            : 'Doctor Duty Roster saved successfully.'
-                    }
-                }
-                this.clearAlertTimeout()
-                isClone
-                    ? this.partialResetAddForm(onSuccessData)
-                    : this.resetAddForm(onSuccessData)
-                type === 'MANAGE' && this.searchDoctorDutyRoster(1)
-            } catch (e) {
-                const {saveErrorMessage} = this.props.DoctorDutyRosterSaveReducer
-                this.setState({
-                    showAlert: true,
-                    showConfirmModal: false,
-                    showEditModal: false,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: saveErrorMessage
-                            ? saveErrorMessage
-                            : 'Error occurred while saving Doctor Duty Roster.'
-                    }
-                })
-                this.clearAlertTimeout()
-            }
-        }
-
-        searchDoctorDutyRoster = async page => {
-            const {
-                fromDate,
-                toDate,
-                hospital,
-                specialization,
-                doctor,
-                status
-            } = this.state.searchParameters
-            if (
-                isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
-                getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
-            ) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: DATE_ERROR_MESSAGE
-                    }
-                })
-                this.clearAlertTimeout()
-            } else {
-                let searchData = {
-                    hospitalId: hospital ? hospital.value : '',
-                    doctorId: doctor ? doctor.value : '',
-                    specializationId: specialization ? specialization.value : '',
-                    fromDate: fromDate,
-                    toDate: toDate,
-                    status: status && status.value === 'A' ? '' : status.value
-                }
-
-                let updatedPage =
-                    this.state.queryParams.page === 0
-                        ? 1
-                        : page
-                        ? page
-                        : this.state.queryParams.page
-
-                await this.props.fetchDoctorDutyRosterList(
-                    SEARCH_DOCTOR_DUTY_ROSTER,
-                    {
-                        page: updatedPage,
-                        size: this.state.queryParams.size
-                    },
-                    searchData
-                )
-
-                await this.setState({
-                    totalRecords: this.props.DoctorDutyRosterListReducer
-                        .doctorDutyRosterList.length
-                        ? this.props.DoctorDutyRosterListReducer.doctorDutyRosterList[0]
-                            .totalItems
-                        : 0,
-                    queryParams: {
-                        ...this.state.queryParams,
-                        page: updatedPage
-                    }
-                })
-            }
-        }
-
-        deleteDoctorDutyRoster = async () => {
-            try {
-                await this.props.deleteDoctorDutyRoster(
-                    DELETE_DOCTOR_DUTY_ROSTER,
-                    this.state.deleteRequestDTO
-                )
-                await this.setState({
-                    showDeleteModal: false,
-                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'},
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: this.props.DoctorDutyRosterDeleteReducer
-                            .deleteSuccessMessage
-                    }
-                })
-                this.clearAlertTimeout()
-                await this.searchDoctorDutyRoster(1)
-            } catch (e) {
-                this.setState({
-                    showDeleteModal: true
-                })
-            }
-        }
-
-        editDoctorDutyRoster = async () => {
-            const {
-                doctorDutyRosterId,
-                hasOverrideDutyRoster,
-                remarks,
-                rosterGapDuration,
-                status,
-                weekDaysDutyRosterUpdateRequestDTOS
-            } = this.state.updateDoctorDutyRosterData
-            let updateData = {
-                doctorDutyRosterId: doctorDutyRosterId,
-                hasOverrideDutyRoster: hasOverrideDutyRoster,
-                remarks: remarks,
-                rosterGapDuration: rosterGapDuration,
-                status: status,
-                weekDaysDutyRosterUpdateRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS
-            }
-            const {editSuccessMessage} = this.props.DoctorDutyRosterEditReducer
-            try {
-                await this.props.updateDoctorDutyRoster(
-                    UPDATE_DOCTOR_DUTY_ROSTER,
-                    updateData
-                )
-                this.setState({
-                    showEditModal: false,
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: editSuccessMessage
-                            ? editSuccessMessage
-                            : 'Doctor Duty Roster updated successfully.'
-                    }
-                })
-                this.clearAlertTimeout()
-                this.resetEditForm()
-                await this.searchDoctorDutyRoster()
-            } catch (e) {
-            }
-        }
-
-        updateOverride = async overrideData => {
-            try {
-                return await this.props.updateDoctorDutyRosterOverride(
-                    UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE,
-                    overrideData
-                )
-            } catch (e) {
-                throw e
-            }
-        }
-
-        deleteOverride = async () => {
-            let updatedOverride = [
-                ...this.state.updateDoctorDutyRosterData.updatedOverrides
-            ]
-            try {
-                await this.props.deleteDoctorDutyRosterOverride(
-                    DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
-                    this.state.deleteRequestDTO
-                )
-                let overrides = [
-                    ...this.state.updateDoctorDutyRosterData.overridesUpdate
-                ]
-                let deletedOverride = overrides.splice(
-                    this.state.deleteRequestDTO.index,
-                    1
-                )
-                updatedOverride.push(deletedOverride[0])
-                this.setState({
-                    updateDoctorDutyRosterData: {
-                        ...this.state.updateDoctorDutyRosterData,
-                        overridesUpdate: [...overrides],
-                        updatedOverrides: [...updatedOverride]
-                    },
-                    showDeleteOverrideModal: false,
-                    deleteRequestDTO: {id: 0, remarks: '', status: 'D'}
-                })
-            } catch (e) {
-                this.setState({
-                    deleteOverrideErrorMessage: e.errorMessage
-                        ? e.errorMessage
-                        : 'Error occurred while deleting override'
-                })
-            }
-        }
-
-        revertOverrideUpdatesOnCancel = async () => {
-            const {
-                updatedOverrides,
-                originalOverrides,
-                doctorDutyRosterId
-            } = this.state.updateDoctorDutyRosterData
-            let overridesToBeReverted = []
-            let originalUpdatedOverrides = updatedOverrides.filter(
-                override => !override.isNew
-            )
-            let newOverrides = updatedOverrides.filter(override => override.isNew)
-
-            originalUpdatedOverrides.map(originalUpdated => {
-                // FIND THE ORIGINAL DATA, CHANGE IT'S STATUS TO 'Y' ; ADD isOriginal FLAG THEN ADD TO ARRAY
-                let originalOverride = originalOverrides.find(
-                    original =>
-                        original.doctorDutyRosterOverrideId ===
-                        originalUpdated.doctorDutyRosterOverrideId
-                )
-                if (originalOverride) {
-                    let override = {
-                        dayOffStatus: originalOverride.dayOffStatus,
-                        doctorDutyRosterId: doctorDutyRosterId,
-                        doctorDutyRosterOverrideId:
-                        originalOverride.doctorDutyRosterOverrideId,
-                        endTime: originalOverride.endTime,
-                        // original: true,
-                        overrideFromDate: originalOverride.fromDate,
-                        overrideToDate: originalOverride.toDate,
-                        remarks: originalOverride.remarks,
-                        startTime: originalOverride.startTime,
-                        status: 'Y'
-                    }
-                    overridesToBeReverted.push(override)
-                }
-                return originalUpdated;
-            })
-
-            newOverrides.length &&
-            newOverrides.map(newAdded => {
-                // FOR NEWLY ADDED DATA, CHANGE STATUS TO 'D' , ADD REMARKS THEN ADD TO ARRAY
-                let override = {
-                    dayOffStatus: newAdded.dayOffStatus,
-                    doctorDutyRosterId: doctorDutyRosterId,
-                    doctorDutyRosterOverrideId: newAdded.doctorDutyRosterOverrideId,
-                    endTime: newAdded.endTime,
-                    // original: false,
-                    overrideFromDate: newAdded.fromDate,
-                    overrideToDate: newAdded.toDate,
-                    remarks: 'Update Cancelled.',
-                    startTime: newAdded.startTime,
-                    status: 'D'
-                }
-                overridesToBeReverted.push(override)
-                return newOverrides;
-            })
-
-            try {
-                await this.props.revertDoctorDutyRosterOverrideUpdate(
-                    REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE,
-                    overridesToBeReverted
-                )
-            } catch (e) {
-                console.log('Revert Override Error', e.errorMessage)
-            }
-        }
-
         render() {
             const {
                 showExistingRosterModal,
                 hospital,
                 specialization,
-                doctor,
+                department,
                 rosterGapDuration,
                 fromDate,
                 toDate,
-                doctorWeekDaysDutyRosterRequestDTOS,
+                isRoomEnabled,
+                departmentWeekDaysDutyRosterRequestDTOS,
                 isWholeWeekOff,
                 status,
                 hasOverrideDutyRoster,
                 overrideRequestDTO,
-                doctorDutyRosterOverrideRequestDTOS,
+                departmentDutyRosterOverrideRequestDTOS,
                 showAlert,
                 alertMessageInfo,
                 showAddOverrideModal,
                 isModifyOverride,
                 formValid,
                 showConfirmModal,
-                existingRosterTableData,
-                existingDoctorWeekDaysAvailability,
-                existingOverrides,
+                // existingRosterTableData,
+                // existingDoctorWeekDaysAvailability,
+                // existingOverrides,
                 searchParameters,
                 queryParams,
                 totalRecords,
@@ -1915,85 +1876,92 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 deleteOverrideErrorMessage,
                 dateErrorMessage,
                 overrideFormValid
-            } = this.state
+            } = this.state;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-            const {
-                allActiveSpecializationList,
-                activeSpecializationListByHospital,
-                dropdownErrorMessage
-            } = this.props.SpecializationDropdownReducer
-            const {
-                doctorsBySpecializationForDropdown,
-                doctorDropdownErrorMessage,
-                activeDoctorsForDropdown,
-                activeDoctorsByHospitalForDropdown
-            } = this.props.DoctorDropdownReducer
+            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
-            const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer
-            const {deleteErrorMessage, isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer
+            const {
+                activeHospitalDepartmentForDropdown,
+                activeDepartmentDropdownErrorMessage
+            } = this.props.HospitalDepartmentDropdownReducer;
+
+            const {activeRoomNumberForDropdownByDepartment} = this.props.RoomNumberDropdownReducer;
+
+            const {isSaveRosterLoading} = this.props.DoctorDutyRosterSaveReducer;
+
+            const {deleteErrorMessage, isDeleteRosterLoading} = this.props.DoctorDutyRosterDeleteReducer;
+
             const {
                 editErrorMessage,
                 isEditRosterPending
-            } = this.props.DoctorDutyRosterEditReducer
+            } = this.props.DoctorDutyRosterEditReducer;
+
             const {
-                doctorDutyRosterList,
+                departmentDutyRosterList,
                 isSearchRosterLoading,
                 searchErrorMessage
-            } = this.props.DoctorDutyRosterListReducer
+            } = this.props.DoctorDutyRosterListReducer;
+
+            const {
+                existingDepartmentDutyRosterList,
+                existingDepartmentDutyRosterWeekdaysDetails,
+                existingDepartmentDutyRosterOverrideDetails
+            } = this.props.DepartmentDutyRosterExistingReducer;
+
             return (
                 <>
-                    <div className="doctorDutyRoster-setup">
+                    <div className="departmentDutyRoster-setup">
                         <ComposedComponent
                             {...props}
-                            activeDoctorList={activeDoctorsForDropdown}
-                            activeDoctorsByHospitalForDropdown={
-                                activeDoctorsByHospitalForDropdown
-                            }
-                            activeSpecializationListByHospital={
-                                activeSpecializationListByHospital
-                            }
+                            departmentInfoFormData={{
+                                hospitalList: hospitalsForDropdown,
+                                departmentList: activeHospitalDepartmentForDropdown,
+                                roomList: activeRoomNumberForDropdownByDepartment,
+                                departmentInfoData: {
+                                    hospital: hospital,
+                                    specialization: specialization,
+                                    department: department,
+                                    rosterGapDuration: rosterGapDuration,
+                                    fromDate: fromDate,
+                                    toDate: toDate,
+                                    status: status,
+                                    isRoomEnabled: isRoomEnabled
+                                },
+                                onInputChange: this.handleGeneralInfoFormInputChange,
+                                onEnterKeyPress: this.handleEnter,
+                                departmentDropdownError: activeDepartmentDropdownErrorMessage,
+                                roomDropdownErrorMessage: '',
+                                getExistingRoster: this.getExistingRoster,
+                                dateErrorMessage: dateErrorMessage
+                            }}
+                            existingRosterModalData={{
+                                showExistingRosterModal,
+                                handleShowExistingRoster: this.handleShowExistingRoster,
+                                onViewDetailsExisting: this.handleViewDetailsExisting,
+                                existingDepartmentWeekDaysAvailability: existingDepartmentDutyRosterWeekdaysDetails,
+                                existingOverrides: existingDepartmentDutyRosterOverrideDetails,
+                                existingRosterTableData: existingDepartmentDutyRosterList,
+                            }}
                             addOverride={this.handleAddOverride}
                             cancelCloseEditModal={this.cancelCloseEditModal}
-                            dateErrorMessage={dateErrorMessage}
                             deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
                             deleteErrorMessage={deleteErrorMessage}
                             deleteOverride={this.deleteOverride}
                             deleteOverrideErrorMessage={deleteOverrideErrorMessage}
-                            doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
-                            doctorDropdownErrorMessage={doctorDropdownErrorMessage}
-                            doctorDutyRosterList={doctorDutyRosterList}
-                            doctorDutyRosterOverrideRequestDTOS={
-                                doctorDutyRosterOverrideRequestDTOS
+                            departmentAvailabilityData={departmentWeekDaysDutyRosterRequestDTOS}
+                            departmentDutyRosterList={departmentDutyRosterList}
+                            departmentDutyRosterOverrideRequestDTOS={
+                                departmentDutyRosterOverrideRequestDTOS
                             }
-                            doctorInfoData={{
-                                hospital: hospital,
-                                specialization: specialization,
-                                doctor: doctor,
-                                rosterGapDuration: rosterGapDuration,
-                                fromDate: fromDate,
-                                toDate: toDate,
-                                status: status
-                            }}
-                            doctorList={doctorsBySpecializationForDropdown}
                             editDoctorDutyRoster={this.editDoctorDutyRoster}
                             editErrorMessage={editErrorMessage}
-                            existingDoctorWeekDaysAvailability={
-                                existingDoctorWeekDaysAvailability
-                            }
-                            existingOverrides={existingOverrides}
-                            existingRosterTableData={existingRosterTableData}
                             formValid={formValid}
-                            getExistingRoster={this.getExistingRoster}
                             handleDoctorAvailabilityFormChange={
                                 this.handleDoctorAvailabilityFormChange
                             }
-                            handleEnter={this.handleEnter}
-                            handleInputChange={this.handleDoctorInfoFormInputChange}
                             handleOverrideDutyRoster={this.handleOverrideDutyRoster}
                             handleOverrideFormInputChange={this.handleOverrideFormInputChange}
                             handlePageChange={this.handlePageChange}
-                            handleShowExistingRoster={this.handleShowExistingRoster}
                             handleWholeWeekOff={this.handleWholeWeekOff}
                             hasOverrideDutyRoster={hasOverrideDutyRoster}
                             hospitalList={hospitalsForDropdown}
@@ -2010,7 +1978,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             onRemoveOverride={this.handleRemoveOverride}
                             onSaveButtonClick={this.handleSaveButtonClick}
                             onSearchInputChange={this.handleSearchInputChange}
-                            onViewDetailsExisting={this.handleViewDetailsExisting}
+
                             overrideData={{...overrideRequestDTO}}
                             overrideFormValid={overrideFormValid}
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
@@ -2019,7 +1987,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarksHandler={this.handleDeleteRemarksChange}
                             resetSearchForm={this.resetSearchForm}
                             saveDoctorDutyRoster={this.saveDoctorDutyRoster}
-                            searchDoctorDutyRoster={() => this.searchDoctorDutyRoster(1)}
+                            searchDoctorDutyRoster={this.searchDoctorDutyRoster}
                             searchErrorMessage={searchErrorMessage}
                             searchParameters={searchParameters}
                             setShowAddOverrideModal={this.setShowAddOverrideModal}
@@ -2033,8 +2001,6 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             showDeleteOverrideModal={showDeleteOverrideModal}
                             showEditModal={showEditModal}
                             showExistingRosterModal={showExistingRosterModal}
-                            specializationDropdownError={dropdownErrorMessage}
-                            specializationList={allActiveSpecializationList}
                             updateDoctorDutyRosterData={updateDoctorDutyRosterData}
                             wholeWeekOff={isWholeWeekOff}
                         />
@@ -2044,10 +2010,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             size="xl"
                             bodyChildren={
                                 <DepartmentDutyRosterPreviewModal
-                                    doctorInfoData={{
+                                    departmentInfoData={{
                                         hospital: hospital,
                                         specialization: specialization,
-                                        doctor: doctor,
+                                        department: department,
                                         rosterGapDuration: rosterGapDuration,
                                         fromDate: fromDate,
                                         toDate: toDate,
@@ -2059,10 +2025,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                             lastModifiedDate: this.state.lastModifiedDate
                                         }
                                     }}
-                                    doctorAvailabilityData={doctorWeekDaysDutyRosterRequestDTOS}
+                                    departmentAvailabilityData={departmentWeekDaysDutyRosterRequestDTOS}
                                     hasOverrideDutyRoster={hasOverrideDutyRoster}
-                                    doctorDutyRosterOverrideRequestDTOS={
-                                        doctorDutyRosterOverrideRequestDTOS
+                                    departmentDutyRosterOverrideRequestDTOS={
+                                        departmentDutyRosterOverrideRequestDTOS
                                     }
                                 />
                             }
@@ -2129,40 +2095,41 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
     }
 
     return ConnectHoc(
-        DoctorDutyRoster,
+        DepartmentDutyRoster,
         [
+            'DepartmentDutyRosterExistingReducer',
+
             'DoctorDropdownReducer',
             'DoctorDutyRosterDeleteReducer',
             'DoctorDutyRosterEditReducer',
             'DoctorDutyRosterListReducer',
             'DoctorDutyRosterPreviewReducer',
             'DoctorDutyRosterSaveReducer',
+
             'HospitalDropdownReducer',
-            'SpecializationDropdownReducer',
-            'WeekdaysReducer'
+            'WeekdaysReducer',
+            'HospitalDepartmentDropdownReducer',
+            'RoomNumberDropdownReducer'
         ],
         {
-            clearDDRSuccessErrorMessage,
-            createDoctorDutyRoster,
-            deleteDoctorDutyRoster,
-            fetchActiveDoctorsForDropdown,
+            createDepartmentDutyRoster,
+            clearDepartmentDutyRosterMessages,
+            deleteDepartmentDutyRoster,
+            deleteDepartmentDutyRosterOverride,
+            fetchDepartmentDutyRosterDetailById,
+            fetchExistingDepartmentDutyRoster,
+            fetchExistingDepartmentDutyRosterDetails,
+            revertDepartmentDutyRosterOverrideUpdate,
+            searchDepartmentDutyRoster,
+            updateDepartmentDutyRoster,
+            updateDepartmentDutyRosterOverride,
             fetchActiveHospitalsForDropdown,
-            fetchSpecializationHospitalWiseForDropdown,
-            fetchDoctorDutyRosterDetailById,
-            fetchDoctorDutyRosterList,
-            fetchDoctorsBySpecializationIdForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchExistingDoctorDutyRoster,
-            fetchExistingDoctorDutyRosterDetails,
-            fetchSpecializationForDropdown,
             fetchWeekdays,
             fetchWeekdaysData,
-            updateDoctorDutyRoster,
-            updateDoctorDutyRosterOverride,
-            deleteDoctorDutyRosterOverride,
-            revertDoctorDutyRosterOverrideUpdate
+            fetchActiveHospitalDepartmentForDropdownByHospitalId,
+            fetchActiveRoomNumberForDropdownByDepartmentId
         }
     )
-}
+};
 
 export default DepartmentDutyRosterHOC
