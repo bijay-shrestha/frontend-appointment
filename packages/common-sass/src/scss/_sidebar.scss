@@ -32,17 +32,11 @@
     transition: all 0.5s ease;
 
     .sidebar-header {
-
-      h3 {
-        // margin : 14px 0;
-        margin    : 14px auto;
-        text-align: center;
-
-      }
+      padding:1rem 1.2rem;
+      
 
       .logo {
         display: none;
-
       }
 
       button {
@@ -304,24 +298,29 @@
     background: $cogent;
     color     : $white;
     @include border-radius($cogent-radius);
-    margin-bottom   : 20px;
+    padding:1rem 1.5rem;
+    // margin-bottom   : 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     // height       : 66px;
     // border-bottom:1px solid $gray-100;
 
     .logo {
-      width       : 160px;
-      height      : auto;
+      width       : 154px;
+      height      : 100%;
       display     : inline-block;
-      margin-right: 11px;
+      // margin-right: 11px;
+      padding:0;
     }
 
-    h3 {
-      display        : flex;
-      justify-content: space-between;
-      align-items    : center;
-      color          : $white;
-      margin         : 12px 12px;
-    }
+    // h3 {
+    //   display        : flex;
+    //   justify-content: space-between;
+    //   align-items    : center;
+    //   color          : $white;
+    //   margin         : 12px 12px;
+    // }
 
     button {
       display           : inline-block;
@@ -449,7 +448,7 @@
   } */
 
   .sidebar-header button {
-    margin-left: 30px;
+    // margin-left: 30px;
 
   }
 
@@ -520,10 +519,12 @@
     height        : 100vh !important;
   }
 
-  .sidebar.is-close {
-    .sidebar-header .logo {
+  .sidebar{
+    .sidebar-header  {
+     padding:1rem 1.5rem;
+      .logo {
       display: none;
-
+    }
     }
   }
 

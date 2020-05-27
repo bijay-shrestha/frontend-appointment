@@ -6,9 +6,9 @@ import {Button,Image} from 'react-bootstrap'
 const SideBarHeader = props => {
     // console.log(props.isHover)
     return (
-        <div className='sidebar-header container-fluid'>
-            <div className="row">
-                <h3>
+        <div className='sidebar-header'>
+            {/* <div className="row"> */}
+               
                 <Image src={require("../images/logo4 - white.png")} className="logo" />
                     {/* <label className={props.isOpen || props.isHover ? 'text' : 'collapse'}>{props.header}</label> */}
                     <Button className={!props.isOpen ? 'collapsed':''} variant="primary" onClick={props.toggle}>
@@ -17,8 +17,8 @@ const SideBarHeader = props => {
 
                         </span>
                     </Button>
-                </h3>
-            </div>
+                
+            {/* </div> */}
         </div>
     )
 }
