@@ -476,7 +476,7 @@
         margin-right: 10px;
         width:28px;
         height: 28px;
-        line-height: 23px;
+        line-height: 28px;
         text-align: center;
         flex-shrink: 0;
         @include border-radius(50%);
@@ -486,7 +486,10 @@
 
 }
 
-
+.multiple-select{
+    min-height: 54px;
+    margin-bottom:20px;
+}
 
 
 @include media-breakpoint-down(md) {
