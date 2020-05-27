@@ -60,61 +60,63 @@ const DetailsModal = ({integrationData, type}) => {
 
             <Row>
               <div className="underline  px-3 mb-3 mt-1">Headers</div>
-              {integrationData.headers.length ?
-                integrationData.headers.map((header, ind) => {
-                  return (
-                    <div key={'header' + ind} id="header" className="header">
-                      {Object.keys(header).map((headerKey, index) => {
-                        return (
-                          <>
-                            <div className="header-fields">
-                              <CHybridInput
-                                key={'header-' + headerKey + index}
-                                id={'header-' + headerKey + index}
-                                name={headerKey}
-                                placeholder={headerKey}
-                                value={header[headerKey]}
-                                required={true}
-                                disabled={true}
-                              />
-                            </div>
-                          </>
-                        )
-                      })}
-                    </div>
-                  )
-                }):null}
+              {integrationData.headers.length
+                ? integrationData.headers.map((header, ind) => {
+                    return (
+                      <div key={'header' + ind} id="header" className="header">
+                        {Object.keys(header).map((headerKey, index) => {
+                          return (
+                            <>
+                              <div className="header-fields">
+                                <CHybridInput
+                                  key={'header-' + headerKey + index}
+                                  id={'header-' + headerKey + index}
+                                  name={headerKey}
+                                  placeholder={headerKey}
+                                  value={header[headerKey]}
+                                  required={true}
+                                  disabled={true}
+                                />
+                              </div>
+                            </>
+                          )
+                        })}
+                      </div>
+                    )
+                  })
+                : null}
             </Row>
             <Row>
               <div className="underline px-3 my-3">Query Param</div>
 
-              {integrationData.queryParams.length?
-                integrationData.queryParams.map((queryParam, ind) => {
-                  return (
-                    <div
-                      key={'query-param-' + ind}
-                      id="query-param"
-                      className="header"
-                    >
-                      {Object.keys(queryParam).map((queryParamKey, index) => {
-                        return (
-                          <>
-                            <div className="header-fields">
-                              <CHybridInput
-                                key={'header-' + queryParamKey + index}
-                                id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
-                                disabled={true}
-                                placeholder={queryParamKey}
-                                value={queryParam[queryParamKey]}
-                              />
-                            </div>
-                          </>
-                        )
-                      })}
-                    </div>
-                  )
-                }):null}
+              {integrationData.queryParams.length
+                ? integrationData.queryParams.map((queryParam, ind) => {
+                    return (
+                      <div
+                        key={'query-param-' + ind}
+                        id="query-param"
+                        className="header"
+                      >
+                        {Object.keys(queryParam).map((queryParamKey, index) => {
+                          return (
+                            <>
+                              <div className="header-fields">
+                                <CHybridInput
+                                  key={'header-' + queryParamKey + index}
+                                  id={'header-' + queryParamKey + index}
+                                  name={queryParamKey}
+                                  disabled={true}
+                                  placeholder={queryParamKey}
+                                  value={queryParam[queryParamKey]}
+                                />
+                              </div>
+                            </>
+                          )
+                        })}
+                      </div>
+                    )
+                  })
+                : null}
             </Row>
             <Row>
               <Col sm={12} className="mt-4">

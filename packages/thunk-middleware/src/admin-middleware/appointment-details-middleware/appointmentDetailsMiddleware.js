@@ -195,9 +195,9 @@ export const appointmentApprove = (path, id) => async dispatch => {
   dispatch(AppointmentDetailActions.appointmentApproveStart())
   try {
     const option = APIUtils.formApiFromECIntegrate('APKCHK', 'ecintegrate')
-    //let response1=null;
+    let response1=null;
     if(option){
-     await Axios.dynamicMethod(option)
+     response1 = await Axios.dynamicMethod(option)
     }
     const response = await Axios.getWithPathVariables(path, id)
     dispatch(

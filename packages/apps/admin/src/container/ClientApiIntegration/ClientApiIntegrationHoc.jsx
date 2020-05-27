@@ -221,8 +221,15 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     onPreviewHandler = async id => {
       try {
         await this.previewApiCall(id)
+        const {
+          previewApiIntegrationData
+        } = this.props.hospitalPreviewApiIntegrationReducers
+        const{featureCode} = previewApiIntegrationData
+        let integrationData ={
+          
+        }
         this.setShowModal('previewModal')
-
+       
       } catch (e) {
         this.setState({
           showAlert: true,
