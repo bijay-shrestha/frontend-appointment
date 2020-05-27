@@ -6,7 +6,7 @@ import {
   CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
-//import {AuditableEntityHoc} from '@frontend-appointment/commons'
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DetailsModal = ({integrationData, type}) => {
   return (
@@ -16,43 +16,70 @@ const DetailsModal = ({integrationData, type}) => {
           <Container-fluid>
             <Row>
               <Col sm={12} md={4}>
-                <CHybridSelect
-                  id="hospital"
-                  label="Hospital"
-                  value={integrationData.clientId}
-                  isDisabled={true}
-                />
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="hospital"
+                    label="Hospital"
+                    value={integrationData.clientId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="hospital"
+                    value={integrationData.clientId || 'N/A'}
+                    disabled={true}
+                    placeholder={'Hospital'}
+                  />
+                )}
               </Col>
 
-              <Col sm={12} md={4}>
+              {/* <Col sm={12} md={4}>
                 Integration Type
-              </Col>
+              </Col> */}
 
               <Col sm={12} md={4}>
-                <CHybridSelect
-                  id="featureType"
-                  name="name"
-                  label="Feature Type"
-                  value={integrationData.featureType}
-                  isDisabled={true}
-                />
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="featureType"
+                    name="name"
+                    label="Feature Type"
+                    value={integrationData.featureType}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="featureType"
+                    value={integrationData.featureType}
+                    disabled={true}
+                    placeholder={'Feature Type'}
+                  />
+                )}
               </Col>
 
               <Col sm={3}>
-                <CHybridSelect
-                  id="requestMethod"
-                  name="requestmethod"
-                  label="Request Method"
-                  value={integrationData.requestMethod}
-                  isDisabled={true}
-                />
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="requestMethod"
+                    name="requestmethod"
+                    label="Request Method"
+                    value={integrationData.requestMethod}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="requestMethod"
+                    value={integrationData.requestMethod}
+                    disabled={true}
+                    placeholder="Request Method"
+                  />
+                )}
               </Col>
 
               <Col sm={9}>
                 <CHybridInput
                   label="Request Url"
                   name="Request Url"
-                  value={integrationData.apiUrl}
+                  value={integrationData.apiUrl || 'N/A'}
                   disabled={true}
                 />
               </Col>
@@ -128,6 +155,7 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
             </Row>
+            <Row className="mt-4">{AuditableEntityHoc(integrationData)}</Row>
           </Container-fluid>
         </CForm>
       </Container-fluid>

@@ -9,7 +9,7 @@ import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
-// import PreviewDetails from '../commons/PreviewDetails'
+import PreviewDetails from './ClientApiDetailsModal'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -31,7 +31,8 @@ const ClientApiIntegrationDetailsDataTable = ({
   filteredActions,
   previewApiIntegrationData,
   previewModal,
-  previewHandler
+  previewHandler,
+  editHandler
 }) => (
   <div className="manage-details">
     <h5 className="title">Client Api Integration Details</h5>
@@ -64,7 +65,7 @@ const ClientApiIntegrationDetailsDataTable = ({
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true,
-              width: 60 
+              width: 60
             },
             {
               headerName: 'Feature Name',
@@ -121,10 +122,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                 onClick: function (e, id, type) {
                   return type === 'D'
                     ? deleteHandler(id)
-                    : type === 'P'
-                    ? previewHandler(id)
-                    : ''
-                  // //   \? props.onEditHandler(id)
+                    : editHandler(id)
                 },
                 filteredAction: filteredActions
               },
@@ -136,10 +134,9 @@ const ClientApiIntegrationDetailsDataTable = ({
             //childLabelRenderer: StatusLabel
           }}
           defaultColDef={{resizable: true}}
-          //   getSelectedRows={
-          //     checkIfRoleExists(props.filteredActions, 4) &&
-          //     props.onPreviewHandler
-          //   }
+          getSelectedRows={
+            checkIfRoleExists(filteredActions, 4) && previewHandler
+          }
           rowSelection={'single'}
           rowData={integrationList}
         />
@@ -161,15 +158,15 @@ const ClientApiIntegrationDetailsDataTable = ({
       <CLoading />
     )}
     {/* {console.log('DepartMentModal',props.showDepartmentModal)}; */}
-    {/* {previewModal ? (
+    {previewModal ? (
       <PreviewDetails
         showModal={previewModal}
-        setShowModal={setCloseModal}
-        previewData={previewApiIntegrationData}
+        setCloseModal={setCloseModal}
+        integrationData={previewApiIntegrationData}
       />
     ) : (
       ''
-    )} */}
+    )}
     {deleteModalShow ? (
       <ConfirmDelete
         confirmationMessage="Are you sure you want to delete the Api Integration?If yes please provide remarks."

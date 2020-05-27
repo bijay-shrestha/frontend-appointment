@@ -1,12 +1,12 @@
 import React, {memo} from 'react'
 import ClientApiIntegrationSearchFilter from './ClientApiIntegrationSearchFilter'
 import ClientApiIntegrationDetailsTable from './ClientApiIntegrationDetailsTable'
-//import SubDepartmentEditForm from './SpecializationEditModal'
+import ClientApiIntegrationForm from './ClientApiIntegrationEditModal'
 import ClientApiIntegrationHoc from '../ClientApiIntegrationHoc'
 
 const HospitalIntegrationApiManage = props => {
   const IntegrationApiManage = ClientApiIntegrationHoc(
-    ({commonHandler, searchHandler, tableHandler}) => (
+    ({commonHandler, searchHandler, tableHandler,editHandler}) => (
       <>
         <div className="">
           <ClientApiIntegrationSearchFilter
@@ -21,25 +21,12 @@ const HospitalIntegrationApiManage = props => {
             {...tableHandler}
           />
         </div>
-        {/* {showEditModal && (
-                    <SubDepartmentEditForm
-                        showModal={showEditModal}
-                        setShowModal={setShowModal}
-                        onEnterKeyPress={handleEnter}
-                        specializationData={specializationData}
-                        onInputChange={handleInputChange}
-                        editApiCall={editSpecialization}
-                        formValid={formValid}
-                        hospitalList={hospitalList}
-                        errorMessageForSpecializationCode={
-                            errorMessageForSpecializationCode
-                        }
-                        errorMessageForSpecializationName={
-                            errorMessageForSpecializationName
-                        }
-                        errorMessage={specializationEditErrorMessage}
+        {editHandler.showEditModal && (
+                    <ClientApiIntegrationForm
+                      {...commonHandler}
+                      {...editHandler}
                     />
-                )} */}
+                )}
       </>
     ),
     props,
