@@ -25,8 +25,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
         <Container-fluid>
             <CForm id="department-info" className="mt-2 add-info">
                 <Container-fluid>
-                    <Row>
-                        <Col sm={12} md={12} lg={9}>
+                   
                             <Row>
                                 {
                                     EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE ?
@@ -79,12 +78,14 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
 
                                 <Col sm={12} md={12} lg={6}>
                                     <CHybridSelect
+                                         label="Doctors"
                                         id="doctor"
                                         placeholder="Doctors"
                                         name="doctorList"
                                         value={departmentData.doctorList}
                                         isDisabled={true}
                                         isMulti={true}
+                                        className="multiple-select"
                                     />
                                 </Col>
 
@@ -93,11 +94,13 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                         departmentData.roomList && departmentData.roomList.length ?
                                             <CHybridSelect
                                                 id="rooms"
+                                                label="Rooms"
                                                 placeholder="Rooms"
                                                 name="roomList"
                                                 value={departmentData.roomList}
                                                 isDisabled={true}
                                                 isMulti={true}
+                                                className="multiple-select"
                                             /> :
                                             <CHybridInput
                                                 id="room"
@@ -105,6 +108,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                                 name="room"
                                                 value={"N/A"}
                                                 disabled={true}
+                                                className="multiple-select"
                                             />
                                     }
                                 </Col>
@@ -175,8 +179,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                     : ''
                             }
 
-                        </Col>
-                    </Row>
+                  
                 </Container-fluid>
             </CForm>
         </Container-fluid>

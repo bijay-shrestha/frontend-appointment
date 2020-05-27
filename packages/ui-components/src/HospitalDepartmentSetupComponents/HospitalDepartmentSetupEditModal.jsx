@@ -133,6 +133,7 @@ const HospitalDepartmentSetupEditModal = ({
                                 placeholder={doctorPlaceholder}
                                 isDisabled={doctorDropdownDisabled}
                                 isMulti={true}
+                                className="multiple-select"
                             />
                         </Col>
 
@@ -149,6 +150,7 @@ const HospitalDepartmentSetupEditModal = ({
                                 placeholder={roomPlaceholder}
                                 isDisabled={roomDropdownDisabled}
                                 isMulti={true}
+                                className="multiple-select"
                             />
                         </Col>
 
