@@ -39,6 +39,7 @@ class LoginPage extends React.PureComponent {
           email: user.email
         }
       )
+      if(userMenus){
       LocalStorageSecurity.localStorageEncoder(
         'isOpen',
         userMenus.isSideBarCollapse === 'Y' ||
@@ -46,7 +47,7 @@ class LoginPage extends React.PureComponent {
           ? false
           : true
       )
-
+      }
       const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
         DASHBOARD_FEATURE,
         userMenus.adminId

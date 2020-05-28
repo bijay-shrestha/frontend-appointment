@@ -103,6 +103,7 @@ export const previewApiIntegrationData = (path, id) => async dispatch => {
       HospitalApiIntegrationActions.hospitalApiPreviewSuccess(response.data)
     )
   } catch (e) {
+    console.log("=========",e);
     dispatch(
       HospitalApiIntegrationActions.hopitalApiPreviewError(e.errorMessage)
     )

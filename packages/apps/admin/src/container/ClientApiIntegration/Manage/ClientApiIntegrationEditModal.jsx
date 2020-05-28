@@ -49,9 +49,9 @@ const ClientApiIntegrationEditModal = ({
                 placeholder={'Select Client.'}
               />
             </Col>
-            <Col sm={12} md={4}>
+            {/* <Col sm={12} md={4}>
               Integration Type
-            </Col>
+            </Col> */}
 
             <Col sm={12} md={4}>
               <CHybridSelect

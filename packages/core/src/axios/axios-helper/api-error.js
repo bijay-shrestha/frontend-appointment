@@ -13,7 +13,11 @@ export default {
             case 500:
             case 502:
                 console.log("Developer Api Error:", error);
-                throw error.response.data;
+                if(error.response.data)
+                  throw error.response.data
+                if(error.response)
+                 throw Error({...error.response,errorMessage:error.response.error})
+              break;
             default:
                 console.log("Developer Api Error:", error);
                 let errorObj = {

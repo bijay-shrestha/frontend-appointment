@@ -173,7 +173,7 @@ const previewApiIntegrationHandler = {
     ...state,
     isPreviewApiIntegrationLoading: false,
     previewApiIntegrationData: null,
-    previewApiIntegrationErorrMessage: action.payload.data
+    previewApiIntegrationErorrMessage: action.payload.message
   }),
   [CLEAR_HOSPITAL_API_PREVIEW_MESSAGE]: (state) => ({
     ...state,
