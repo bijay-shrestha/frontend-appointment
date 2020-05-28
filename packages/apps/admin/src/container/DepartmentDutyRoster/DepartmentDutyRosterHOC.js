@@ -614,12 +614,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         handleOverrideDutyRoster = async event => {
             if (event) {
                 let isOverride = event.target.checked;
+                const {fromDate} = this.state;
                 switch (type) {
                     case 'ADD':
                         if (isOverride) {
                             await this.setState({
                                 hasOverrideDutyRoster: 'Y',
-                                showAddOverrideModal: true
+                                showAddOverrideModal: true,
+                                overrideRequestDTO: {
+                                    ...this.state.overrideRequestDTO,
+                                    fromDate: fromDate,
+                                    toDate: fromDate
+                                }
                             })
                         } else {
                             await this.setState({
@@ -725,6 +731,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     ? [...this.state.departmentDutyRosterOverrideRequestDTOS]
                     : [...this.state.updateDoctorDutyRosterData.overridesUpdate];
             let currentOverride = {...this.state.overrideRequestDTO};
+            const {fromDate} = this.state;
             switch (type) {
                 case 'ADD':
                     this.addOrModifyOverride(
@@ -736,8 +743,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         departmentDutyRosterOverrideRequestDTOS: [...overrideList],
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
-                            fromDate: new Date(),
-                            toDate: new Date(),
+                            fromDate: fromDate,
+                            toDate: fromDate,
                             startTime: '',
                             endTime: '',
                             dayOffStatus: 'N',
@@ -1190,9 +1197,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     updatedOverrides: [],
                     isCloneAndAdd: isCloneAndAdd
                 }
-            })
+            });
             this.checkManageFormValidity()
-        }
+        };
 
         partialResetAddForm = async onSuccessData => {
             await this.setState({
@@ -1224,7 +1231,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 room: null,
                 department: null,
                 rosterGapDuration: '',
-                isRoomEnabled:'N',
+                isRoomEnabled: 'N',
                 status: 'Y',
                 fromDate: new Date(),
                 toDate: addDate(new Date(), 6),
@@ -1475,7 +1482,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
 
         setShowAddOverrideModal = async () => {
-            let hasOverride
+            let hasOverride;
+            const {fromDate} = this.state;
             switch (type) {
                 case 'ADD':
                     hasOverride =
@@ -1489,8 +1497,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         hasOverrideDutyRoster: hasOverride,
                         overrideRequestDTO: {
                             ...this.state.overrideRequestDTO,
-                            fromDate: new Date(),
-                            toDate: new Date(),
+                            fromDate: fromDate,
+                            toDate: fromDate,
                             startTime: '',
                             endTime: '',
                             dayOffStatus: 'N',
@@ -1501,9 +1509,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             dateErrorMessage: '',
                             timeErrorMessage: ''
                         }
-                    })
-                    this.checkOverrideFormValidity()
-                    break
+                    });
+                    this.checkOverrideFormValidity();
+                    break;
                 case 'MANAGE':
                     hasOverride =
                         this.state.updateDoctorDutyRosterData.overridesUpdate.length <= 0
@@ -1537,7 +1545,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 default:
                     break;
             }
-        }
+        };
 
         setShowModal = () => {
             this.setState({

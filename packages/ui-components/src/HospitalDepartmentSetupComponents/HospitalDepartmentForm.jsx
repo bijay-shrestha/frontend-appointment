@@ -22,7 +22,7 @@ const HospitalDepartmentForm = ({
         availableRoomsForDropdown,
         handleEnterPress,
         handleInputChange,
-        errorMessageForDepartmentName,
+        // errorMessageForDepartmentName,
         errorMessageForDescription,
         errorMessageForAppointmentCharge
     } = hospitalDepartmentAddData;

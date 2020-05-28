@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
-import {CCheckbox, CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
