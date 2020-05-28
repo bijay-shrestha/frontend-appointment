@@ -13,6 +13,7 @@ function DepartmentDutyRosterManage(props) {
         ({
              searchFilterProps,
              dataTableProps,
+             deleteProps,
 
              hospitalList,
              specializationDropdownError,
@@ -21,12 +22,10 @@ function DepartmentDutyRosterManage(props) {
              isSaveRosterLoading,
              isEditRosterPending,
 
-             showDeleteModal,
-             setShowDeleteModal,
+
              remarksHandler,
              remarks,
-             deleteDoctorDutyRoster,
-             deleteErrorMessage,
+
              showEditModal,
              updateDoctorDutyRosterData,
              editErrorMessage,
@@ -53,7 +52,7 @@ function DepartmentDutyRosterManage(props) {
              activeSpecializationListByHospital,
              dateErrorMessage,
              overrideFormValid,
-             isDeleteRosterLoading
+
          }) => {
             const footerContent =
                 <Container fluid="true">
@@ -90,17 +89,17 @@ function DepartmentDutyRosterManage(props) {
                 />
                 <DepartmentDutyRosterDataTable dataTableProps={dataTableProps}/>
 
-                {showDeleteModal ? (
+                {deleteProps.showDeleteModal ? (
                     <ConfirmDelete
-                        confirmationMessage="Are you sure you want to delete this Doctor Duty Roster? If yes please provide remarks."
-                        modalHeader="Delete Doctor Duty Roster"
-                        showModal={showDeleteModal}
-                        setShowModal={setShowDeleteModal}
-                        onDeleteRemarksChangeHandler={remarksHandler}
-                        remarks={remarks}
-                        onSubmitDelete={deleteDoctorDutyRoster}
-                        deleteErrorMessage={deleteErrorMessage}
-                        isLoading={isDeleteRosterLoading}
+                        confirmationMessage="Are you sure you want to delete this Department Duty Roster? If yes please provide remarks."
+                        modalHeader="Delete Department Duty Roster"
+                        showModal={deleteProps.showDeleteModal}
+                        setShowModal={deleteProps.setShowModal}
+                        onDeleteRemarksChangeHandler={deleteProps.remarksHandler}
+                        remarks={deleteProps.remarks}
+                        onSubmitDelete={deleteProps.deleteDepartmentDutyRoster}
+                        deleteErrorMessage={deleteProps.deleteErrorMessage}
+                        isLoading={deleteProps.isDeleteRosterLoading}
                     />
                 ) : (
                     ''

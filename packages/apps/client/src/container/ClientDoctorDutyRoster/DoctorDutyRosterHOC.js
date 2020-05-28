@@ -1365,7 +1365,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         deleteDoctorDutyRoster = async () => {
             try {
-                await this.props.deleteDoctorDutyRoster(
+                await this.props.deleteDepartmentDutyRoster(
                     DELETE_DOCTOR_DUTY_ROSTER,
                     this.state.deleteRequestDTO
                 );

@@ -46,7 +46,7 @@ export const updateDepartmentDutyRoster = (path, updateDepartmentDutyRosterData)
     dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterPending());
     try {
         const response = await Axios.put(path, updateDepartmentDutyRosterData);
-        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterSuccess('Department Duty roster edited successfully.'));
+        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterSuccess('Department Duty Roster edited successfully.'));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterError(e.errorMessage ? e.errorMessage
@@ -59,7 +59,7 @@ export const deleteDepartmentDutyRoster = (path, deleteRosterData) => async disp
     dispatch(DepartmentDutyRosterActions.deleteDepartmentDutyRosterPending());
     try {
         const response = await Axios.del(path, deleteRosterData);
-        dispatch(DepartmentDutyRosterActions.deleteDepartmentDutyRosterSuccess('Department Duty roster deleted successfully.'));
+        dispatch(DepartmentDutyRosterActions.deleteDepartmentDutyRosterSuccess('Department Duty Roster deleted successfully.'));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.deleteDepartmentDutyRosterError(e.errorMessage ? e.errorMessage
