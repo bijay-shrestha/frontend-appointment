@@ -20,8 +20,20 @@
    
     padding-right:0
 }
+.room-check{
+    margin-bottom: 20px;
+    .select-all{
+        margin-left: 11px;
+       
+    }
 
- .doctor-availability{
+    .field-wrapper{
+        min-height: 54px;
+        margin-top:6px;
+    }
+}
+
+ .department-availability{
     height: 100%;
     @include border-radius($cogent-radius);
 
@@ -53,6 +65,8 @@
         }
        }
     }
+
+    
 
 
  }

@@ -97,6 +97,8 @@ const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
                         value={departmentInfoData.department}
                     />
 
+                    <div className="room-check">
+
                     <CCheckbox
                         id="enable-room"
                         label="Enable Room"
@@ -124,6 +126,8 @@ const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
                             /> :
                             ''
                     }
+
+                    </div>
 
                     <CHybridInput
                         id="duration"
