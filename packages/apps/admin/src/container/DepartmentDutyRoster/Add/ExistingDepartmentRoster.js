@@ -16,6 +16,7 @@ const ExistingDepartmentRoster = ({
         onViewDetailsExisting,
         existingDepartmentWeekDaysAvailability,
         existingOverrides,
+        existingRostersDetailErrorMessage
     } = existingRosterModalData;
     return <>
         <Container className="p-0" fluid>
@@ -62,6 +63,10 @@ const ExistingDepartmentRoster = ({
                                 /> : ''
                         }
 
+                    </div>
+                    <div>
+                        {existingRostersDetailErrorMessage ? <p className="error-message">
+                            <i className="fa fa-exclamation-triangle"/>&nbsp;{existingRostersDetailErrorMessage}</p> : ''}
                     </div>
                 </Col>
 

@@ -62,11 +62,12 @@ const {
 
 const {
     CREATE_DEPARTMENT_DUTY_ROSTER,
+    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER,
+    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID,
+
     DELETE_DOCTOR_DUTY_ROSTER,
     FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
     UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE,
-    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER,
-    FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
     SEARCH_DOCTOR_DUTY_ROSTER,
     UPDATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
@@ -906,25 +907,16 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
         handleViewDetailsExisting = async data => {
             try {
-                let detailsData = await this.props.fetchExistingDoctorDutyRosterDetails(
-                    FETCH_EXISTING_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
-                    data.departmentDutyRosterId
-                )
-                this.setState({
-                    existingDoctorWeekDaysAvailability: [...detailsData.weekDaysRosters],
-                    existingOverrides: [...detailsData.overrideRosters]
-                })
+                await this.props.fetchExistingDepartmentDutyRosterDetails(
+                    FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID,
+                    data.hddRosterId
+                );
             } catch (e) {
                 this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: e.errorMessage
-                    }
-                })
-                this.clearAlertTimeout()
+                    showExistingRosterModal: true
+                });
             }
-        }
+        };
 
         handleSearchInputChange = async (event, fieldName) => {
             let key = fieldName ? fieldName : event.target.name;
@@ -1919,7 +1911,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             const {
                 existingDepartmentDutyRosterList,
                 existingDepartmentDutyRosterWeekdaysDetails,
-                existingDepartmentDutyRosterOverrideDetails
+                existingDepartmentDutyRosterOverrideDetails,
+                existingRostersDetailErrorMessage
             } = this.props.DepartmentDutyRosterExistingReducer;
 
             let departmentInfoData = {
@@ -1957,6 +1950,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 existingDepartmentWeekDaysAvailability: existingDepartmentDutyRosterWeekdaysDetails,
                                 existingOverrides: existingDepartmentDutyRosterOverrideDetails,
                                 existingRosterTableData: existingDepartmentDutyRosterList,
+                                existingRostersDetailErrorMessage
                             }}
                             departmentAvailabilityFormData={{
                                 departmentAvailabilityData: departmentWeekDaysDutyRosterRequestDTOS,

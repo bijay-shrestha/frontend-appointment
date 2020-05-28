@@ -53,6 +53,13 @@ function DepartmentDutyRosterAdd(props) {
                 size="lg"
                 bodyChildren={<ExistingDepartmentRoster existingRosterModalData={existingRosterModalData}/>}
                 onHide={existingRosterModalData.handleShowExistingRoster}
+                footerChildren={<CButton
+                    variant="outline-secondary"
+                    name={'Close'}
+                    size="lg"
+                    className="float-right btn-action mr-3"
+                    onClickHandler={existingRosterModalData.handleShowExistingRoster}
+                />}
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}/>

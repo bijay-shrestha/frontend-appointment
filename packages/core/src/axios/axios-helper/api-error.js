@@ -17,7 +17,7 @@ export default {
             default:
                 console.log("Developer Api Error:", error);
                 let errorObj = {
-                    errorMessage: error.message||error.errorMessage||'Sorry Something Error Occured In Server',
+                    errorMessage: error.message||error.errorMessage||'Sorry, Internal Server Problem occurred.',
                     stack: error.stack
                 };
                 throw errorObj;
