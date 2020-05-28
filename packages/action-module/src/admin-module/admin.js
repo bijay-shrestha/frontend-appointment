@@ -38,6 +38,9 @@ import * as  AppointmentTransferActions from './appointment-transfer/appointment
 import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
 import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction';
 import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant';
+import * as RequestBodyIntegration from './request-body-integration/RequestBodyIntegration';
+import {requestBOdyApiIntegrationActionConstants} from './request-body-integration/RequestBodyIntegrationActionConstants';
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
@@ -78,5 +81,7 @@ export {
     AppointmentTransferActions,
     appointmentTransferConstant,
     HospitalApiIntegrationActions,
-    hospitalApiIntegrationActionConstants
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants
 }

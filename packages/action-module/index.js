@@ -54,7 +54,9 @@ import {
     appointmentTransferConstant,
     AppointmentTransferActions,
     HospitalApiIntegrationActions,
-    hospitalApiIntegrationActionConstants
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants
 } from './src/admin-module'
 
 export {
@@ -111,5 +113,7 @@ export {
     appointmentTransferConstant,
     AppointmentTransferActions,
     HospitalApiIntegrationActions,
-    hospitalApiIntegrationActionConstants
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants
 }

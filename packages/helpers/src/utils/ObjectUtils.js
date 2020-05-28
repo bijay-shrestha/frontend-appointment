@@ -62,7 +62,7 @@ export const changeJSONObjectToCommaSepratedValue = jsonObj => {
     else commaSepratedString += newObjKey + ','
     return newObjKey;
   })
-  return commaSepratedString||'N/A'
+  return commaSepratedString;
 }
 export const addDescriptionInHeaderAndParams  =(data) => {
    return data.map(datum =>({

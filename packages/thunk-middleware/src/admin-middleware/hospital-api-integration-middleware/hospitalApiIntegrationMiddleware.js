@@ -114,7 +114,7 @@ export const previewApiIntegrationData = (path, id) => async dispatch => {
 export const deleteApiIntegrationData = (path, data) => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalApiDeletePending())
   try {
-    const response = await Axios.del(path, data)
+    await Axios.del(path, data)
     dispatch(
       HospitalApiIntegrationActions.hospitalApiDeleteSuccess('Client Api Successfully Removed')
     )

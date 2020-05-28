@@ -15,9 +15,12 @@ export default {
                 console.log("Developer Api Error:", error);
                 if(error.response.data)
                   throw error.response.data
-                if(error.response)
-                 throw Error({...error.response,errorMessage:error.response.error})
-              break;
+                 else{
+                     throw new Error('Sorry Internal Server Error')
+                 } 
+                // if(error.response)
+                //  throw Error({...error.response,errorMessage:error.response.error})
+              //break;
             default:
                 console.log("Developer Api Error:", error);
                 let errorObj = {
