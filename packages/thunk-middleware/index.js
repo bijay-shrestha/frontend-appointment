@@ -7,7 +7,7 @@ import {
     createProfile,
     deleteAdmin,
     deleteProfile,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     DoctorDutyRosterMiddleware,
     DoctorMiddleware,
     editAdmin,
@@ -33,10 +33,11 @@ import {
     UniversitySetupMiddleware,
     AppointmentModeMiddleware,
     fetchAdminMetaInfoByHospitalId,
-    AppointmentTransferMiddleware
+    AppointmentTransferMiddleware,
+    RoomSetupMiddleware
 } from './src/admin-middleware'
-import {fetchUserMenus,fetchUserMenusNew,savePinOrUnpinUserMenu} from './src/menu-middleware'
-import {fetchLoggedInAdminUserInfo,fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
+import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
+import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {
     changePassword,
@@ -63,7 +64,7 @@ export {
     DashboardDetailsMiddleware,
     deleteAdmin,
     deleteProfile,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     DoctorDutyRosterMiddleware,
     DoctorMiddleware,
     editAdmin,
@@ -102,5 +103,6 @@ export {
     savePinOrUnpinUserMenu,
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
-    AppointmentTransferMiddleware
+    AppointmentTransferMiddleware,
+    RoomSetupMiddleware
 }

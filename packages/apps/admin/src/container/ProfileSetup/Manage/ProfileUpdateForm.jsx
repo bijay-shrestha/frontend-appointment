@@ -55,13 +55,13 @@ const ProfileUpdateForm = ({
 
                 <CHybridSelect
                     id="department"
-                    label="Department"
+                    label="Unit"
                     name="selectedDepartment"
                     onKeyDown={(event) => onEnterKeyPress(event)}
                     onChange={(event) => onInputChange(event)}
                     options={profileInfoObj.departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Department'}
+                    placeholder={!profileInfoObj.hospitalValue ? 'Select Client first.' : 'Select Unit.'}
                 />
                 <div className="status-box">
                 <CFLabel labelName="Status" id="status"></CFLabel>

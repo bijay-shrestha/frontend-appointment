@@ -169,6 +169,7 @@ const HospitalEditModal = ({
                                     }
                                     placeholder="Alias"
                                     value={hospitalData.alias}
+                                    disabled={true}
                                     required={true}
                                     max={10}
                                     min={2}

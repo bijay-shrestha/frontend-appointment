@@ -40,7 +40,7 @@ const ProfileDetails = props => (
                             sizeColumnsToFit: true
                         },
                         {
-                            headerName: 'Department Name',
+                            headerName: 'Unit Name',
                             field: 'departmentName',
                             resizable: true,
                             sortable: true,

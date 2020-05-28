@@ -8,8 +8,8 @@ import {doctorSetupConstants} from './doctor-setup/doctorSetupConstant'
 import * as DoctorSetupActions from './doctor-setup/doctorSetupActions'
 import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant'
 import * as AdminSetupActions from './admin-setup/adminSetupActions'
-import * as DepartmentSetupActions from './department-setup/departmentSetupActions'
-import {departmentSetupConstants} from './department-setup/departmentSetupActionConstants'
+import * as UnitSetupActions from './unit-setup/unitSetupActions'
+import {unitSetupConstants} from './unit-setup/unitSetupActionConstants'
 import * as QualificationSetupActions from './qualification-setup/qualificationSetupActions'
 import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
 import {doctorDutyRosterActionConstants} from './doctor-duty-roster/doctorDutyRosterActionConstants'
@@ -36,6 +36,8 @@ import * as  AppointmentModeActions from './appointment-mode/appointmentModeActi
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
 import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
 import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
+import * as  RoomSetupActions from './room-setup/roomSetupActions';
+import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -54,8 +56,8 @@ export {
     DoctorSetupActions,
     adminSetupActionConstants,
     AdminSetupActions,
-    departmentSetupConstants,
-    DepartmentSetupActions,
+    unitSetupConstants,
+    UnitSetupActions,
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     QualificationSetupActions,
@@ -75,5 +77,7 @@ export {
     appointmentModeActionConstants,
     AppointmentModeActions,
     AppointmentTransferActions,
-    appointmentTransferConstant
+    appointmentTransferConstant,
+    roomSetupActionConstants,
+    RoomSetupActions
 }

@@ -32,13 +32,13 @@ import {
     DoctorSearchReducer
 } from './admin-module/doctorSetupReducer'
 import {
-    DepartmentDeleteReducer,
-    DepartmentEditReducer,
-    DepartmentListReducer,
-    DepartmentPreviewReducer,
-    DepartmentSetupReducer,
-    DepartmentDropdownReducer
-} from './admin-module/departmentSetupReducer'
+    UnitDeleteReducer,
+    UnitEditReducer,
+    UnitListReducer,
+    UnitPreviewReducer,
+    UnitSetupReducer,
+    UnitDropdownReducer
+} from './admin-module/unitSetupReducer'
 import {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -157,6 +157,14 @@ import {
     AppointmentModeSearchReducer
 } from './admin-module/appointmentModeReducer'
 
+import {
+    RoomNumberDeleteReducer,
+    RoomNumberDropdownReducer,
+    RoomNumberEditReducer,
+    RoomNumberSaveReducer,
+    RoomNumberSearchReducer
+} from './admin-module/roomSetupReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -208,12 +216,12 @@ export {
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
     DashboardRevenueStatisticsReducer,
-    DepartmentDeleteReducer,
-    DepartmentDropdownReducer,
-    DepartmentEditReducer,
-    DepartmentListReducer,
-    DepartmentPreviewReducer,
-    DepartmentSetupReducer,
+    UnitDeleteReducer,
+    UnitDropdownReducer,
+    UnitEditReducer,
+    UnitListReducer,
+    UnitPreviewReducer,
+    UnitSetupReducer,
     DoctorDeleteReducer,
     DoctorDropdownReducer,
     DoctorDutyRosterDeleteReducer,
@@ -274,5 +282,10 @@ export {
     UniversitySearchReducer,
     WeekdaysReducer,
     AppointmentTransferReducers,
-    PatientEsewaIdReducer
+    PatientEsewaIdReducer,
+    RoomNumberDeleteReducer,
+    RoomNumberDropdownReducer,
+    RoomNumberEditReducer,
+    RoomNumberSaveReducer,
+    RoomNumberSearchReducer
 }

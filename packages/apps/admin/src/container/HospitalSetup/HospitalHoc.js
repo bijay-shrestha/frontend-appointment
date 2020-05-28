@@ -371,7 +371,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfAdmins,
                 numberOfFollowUps,
                 // isCompany,
-                alias,
+                // alias,//cannot be updated
                 hospitalLogoUrlNew,
                 hospitalBannerUrlNew
             } = this.state.hospitalData
@@ -386,7 +386,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 hospitalCode,
-                alias,
+                // alias,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,

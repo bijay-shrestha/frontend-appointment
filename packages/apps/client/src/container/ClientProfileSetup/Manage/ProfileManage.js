@@ -4,7 +4,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     editProfile,
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
@@ -32,11 +32,11 @@ const {
     FETCH_ALL_PROFILE_LIST_FOR_SEARCH_DROPDOWN
 } = AdminModuleAPIConstants.profileSetupAPIConstants;
 
-const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} =
+const {FETCH_UNIT_FOR_DROPDOWN, FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL} =
     AdminModuleAPIConstants.departmentSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = UnitSetupMiddleware;
 
 const {ADMIN_FEATURE}=CommonAPIConstants
 class ProfileManage extends PureComponent {
@@ -288,7 +288,7 @@ class ProfileManage extends PureComponent {
                     status: profileResponseDTO.status,
                     isAllRoleAssigned: profileResponseDTO.isAllRoleAssigned,
                     menusAssignedToProfileAndAllowedToChange: [...menusSelectedWithFlag],
-                    departmentListByHospital: [...this.props.DepartmentSetupReducer.departments],
+                    departmentListByHospital: [...this.props.UnitSetupReducer.departments],
                     userMenus: [...alphabeticallySortedMenus],
                     defaultSelectedMenu: alphabeticallySortedMenus[0]
                 },
@@ -382,11 +382,11 @@ class ProfileManage extends PureComponent {
     };
 
     fetchDepartments = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_UNIT_FOR_DROPDOWN));
     };
 
     fetchDepartmentsByHospitalId = async value => {
-        return value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
+        return value && await this.props.fetchActiveDepartmentsByHospitalId(FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL, value);
     };
 
     fetchProfileListForDropdown = async () => {
@@ -698,7 +698,7 @@ class ProfileManage extends PureComponent {
 
         const {profileErrorMessage, isProfileEditLoading} = this.props.ProfileEditReducer;
 
-        const {departments} = this.props.DepartmentSetupReducer;
+        const {departments} = this.props.UnitSetupReducer;
 
         const {
             selectedDepartment,
@@ -818,7 +818,7 @@ export default ConnectHoc(
         'ProfileSetupReducer',
         'ProfileDeleteReducer',
         'ProfileEditReducer',
-        'DepartmentSetupReducer'
+        'UnitSetupReducer'
     ],
     {
         fetchProfileList,

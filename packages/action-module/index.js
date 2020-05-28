@@ -23,8 +23,8 @@ import {
     DashboardDetailsActions,
     DoctorSetupActions,
     doctorSetupConstants,
-    DepartmentSetupActions,
-    departmentSetupConstants,
+    UnitSetupActions,
+    unitSetupConstants,
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     HospitalSetupActions,
@@ -52,7 +52,9 @@ import {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
+    AppointmentTransferActions,
+    roomSetupActionConstants,
+    RoomSetupActions
 
 } from './src/admin-module'
 
@@ -65,8 +67,8 @@ export {
     DashboardDetailsActions,
     DoctorSetupActions,
     doctorSetupConstants,
-    DepartmentSetupActions,
-    departmentSetupConstants,
+    UnitSetupActions,
+    unitSetupConstants,
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     HospitalSetupActions,
@@ -108,5 +110,7 @@ export {
     AppointmentModeActions,
     appointmentModeActionConstants,
     appointmentTransferConstant,
-    AppointmentTransferActions
+    AppointmentTransferActions,
+    roomSetupActionConstants,
+    RoomSetupActions
 }

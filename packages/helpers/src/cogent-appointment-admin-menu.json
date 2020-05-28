@@ -17,8 +17,8 @@
         {
           "id": "2",
           "parentId": "1",
-          "name": "Department Setup",
-          "path": "/generalSetup/departmentSetup",
+          "name": "Unit Setup",
+          "path": "/generalSetup/unitSetup",
           "roles": [
             2,
             3,
@@ -113,6 +113,46 @@
           "enabled": "Y",
           "menuFor": "1",
           "description": "Doctor Setup",
+          "childMenus": []
+        },
+        {
+          "id": "31",
+          "parentId": "1",
+          "name": "Room Setup",
+          "path": "/generalSetup/roomSetup",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Room Setup",
+          "childMenus": []
+        },
+        {
+          "id": "33",
+          "parentId": "1",
+          "name": "Department Setup",
+          "path": "/generalSetup/departmentSetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Department Setup",
           "childMenus": []
         }
       ]
@@ -289,8 +329,9 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "Transfer Log",
-          "childMenus": [] 
+          "childMenus": []
         }
+
       ]
     },
     {
