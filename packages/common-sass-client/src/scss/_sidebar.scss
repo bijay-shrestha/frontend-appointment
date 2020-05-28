@@ -24,6 +24,14 @@
     -o-transition     : all 0.5s ease;
     transition        : all 0.5s ease;
     z-index           : 999;
+
+    .sidebar-header{
+      padding:1rem 1.2rem;
+      
+      .logo-small{
+        display:none;
+      }
+    }
   }
 
   &.is-close {
@@ -32,15 +40,27 @@
     transition: all 0.5s ease;
 
     .sidebar-header {
-      padding:1rem 1.2rem;
+      padding:1rem 1rem;
       
 
       .logo {
         display: none;
       }
 
+      .logo-small{
+    
+          width       : 31px;
+          height      : 100%;
+          display     : inline-block;
+          // margin-right: 11px;
+          padding:0;
+          margin-top:-4px
+        
+      }
+
       button {
         // margin-left: 14px;
+        display:none;
         margin-left   : 0px;
       }
     }
@@ -72,6 +92,12 @@
     position    : absolute;
     z-index     : 999;
     /*transition: all 0.5s ease;*/
+
+    .sidebar-header{
+      .logo-small{
+        display:none;
+      }
+    }
   }
 
   .text {
