@@ -532,9 +532,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               'editQueryParams'
             ),
             requestMethodId: requestMethod.value,
-            requestBodyAttrribute: changeCommaSeperatedStringToObjectAndStringifyIt(
-              requestBody
-            )
+            requestBodyAttrribute:requestBody
+            
           }
         )
         this.resetIntegrationData()

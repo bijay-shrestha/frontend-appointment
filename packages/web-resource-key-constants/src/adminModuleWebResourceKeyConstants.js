@@ -17,6 +17,7 @@ const CLIENT_LOGGING = '/client-log'
 const APPOINTMENT_TRANSFER="/appointmentTransfer"
 const HOSPITAL_API_INTEGRATION="/client-integration"
 const INTEGRATION='/integration'
+const REQUEST_BODY_INTEGRATION='/request-body-integration' 
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -292,3 +293,7 @@ export const hospitalIntegrationConstants = {
 }
 
 // export const hospital
+
+// export const requestbodyIntegrationConstants = {
+//     HOSPIT
+// }
