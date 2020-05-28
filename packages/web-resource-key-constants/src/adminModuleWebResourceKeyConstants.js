@@ -294,6 +294,13 @@ export const hospitalIntegrationConstants = {
 
 // export const hospital
 
-// export const requestbodyIntegrationConstants = {
-//     HOSPIT
-// }
+export const requestbodyIntegrationConstants = {
+    REQUEST_BODY_API_INTEGRATION_SAVE:BASE.concat(REQUEST_BODY_INTEGRATION), 
+    HOSPITAL_FEATURE_TYPE_DROPDOWN:BASE.concat(INTEGRATION+"/features/active/min"),
+    HOSPITAL_REQUEST_METHOD_DROPDOWN:BASE.concat(INTEGRATION+"/request-methods/active/min"),
+    HOSPITAL_API_INTEGRATION_SEARCH:BASE.concat(HOSPITAL_API_INTEGRATION+"/client-api-integration"),
+    HOSPITAL_API_INTEGRATION_EDIT:BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_PREVIEW:BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_DELETE:BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_UPDATE_PREVIEW:BASE.concat(HOSPITAL_API_INTEGRATION+"/update-details")
+}

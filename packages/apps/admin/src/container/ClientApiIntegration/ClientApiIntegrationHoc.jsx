@@ -43,7 +43,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         apiUrl: '',
         headers: [],
         queryParams: [],
-        requestBody: ''
+        requestBody: '',
+        id:''
       },
       searchParameters: {
         clientId: '',
@@ -290,7 +291,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: url,
           headers: addDescriptionInHeaderAndParams(headers),
           queryParams: addDescriptionInHeaderAndParams(queryParameters),
-          requestBody: changeJSONObjectToCommaSepratedValue(requestBody)
+          requestBody: changeJSONObjectToCommaSepratedValue(requestBody),
+          id:id
         }
         this.setTheStateForIntegrationData(integrationData)
         this.setShowModal('editShowModal')
@@ -515,7 +517,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers,
         queryParams,
         requestBody,
-        requestMethod
+        requestMethod,
+        id
       } = this.state.integrationData
       try {
         await this.props.editApiIntegrationData(
@@ -526,7 +529,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               headers,
               'editHeaders'
             ),
-            clientFeatureIntegrationId: featureType.value,
+            clientFeatureIntegrationId: id,
+            featureId:featureType.value,
             queryParametersRequestDTOS: this.filterOutRequestAndHeaderParams(
               queryParams,
               'editQueryParams'
@@ -561,6 +565,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       } = this.state.integrationData
       try {
         await this.props.saveHospitalIntegration(
+
           hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE,
           {
             apiUrl,
@@ -575,6 +580,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             featureTypeId: featureType.value || '',
             requestBodyAttribute: JSON.stringify(changeCommaSeperatedStringToObjectAndStringifyIt(
               requestBody
+
             ))
           }
         )
