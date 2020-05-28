@@ -116,7 +116,8 @@ import {
     UniversitySaveReducer,
     UniversitySearchReducer,
     WeekdaysReducer,
-    AppointmentTransferReducers
+    AppointmentTransferReducers,
+    PatientEsewaIdReducer
 } from '../reducers'
 
 const {
@@ -257,6 +258,7 @@ const appReducers = combineReducers({
     UniversitySearchReducer,
     VerificationCodeReducer,
     WeekdaysReducer,
+    PatientEsewaIdReducer,
     ...AppointmentTransferReducers
 })
 

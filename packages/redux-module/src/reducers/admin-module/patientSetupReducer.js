@@ -258,7 +258,7 @@ export const PatientDetailReducer = (state = {...detailState}, action) => {
     }
 };
 
-export const PatientEsewIdReducer = (state = {...esewaIdState}, action) => {
+export const PatientEsewaIdReducer = (state = {...esewaIdState}, action) => {
     switch (action.type) {
         case FETCH_ESEWA_ID_FROM_DROPDOWN_PENDING:
             return {
