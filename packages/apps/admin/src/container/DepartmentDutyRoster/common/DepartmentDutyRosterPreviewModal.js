@@ -261,7 +261,7 @@ const DepartmentDutyRosterPreviewModal = ({
 
             {type !== "ADD" ?
                 <Row className="mt-4 department-availability bg-white px-2 pt-4">
-                    {AuditableEntityHoc(departmentInfoData.auditableDoctor, false, 4)}
+                    {AuditableEntityHoc(departmentInfoData.auditableDepartment, false, 4)}
                 </Row> :
                 ''
             }

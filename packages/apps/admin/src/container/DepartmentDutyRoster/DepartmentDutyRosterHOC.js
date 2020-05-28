@@ -22,13 +22,13 @@ import * as Material from 'react-icons/md'
 import DepartmentDutyRosterPreviewModal
     from './common/DepartmentDutyRosterPreviewModal';
 
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
+const {fetchActiveHospitalsForDropdown, fetchAllHospitalsForDropdown} = HospitalSetupMiddleware;
 
 const {fetchWeekdays, fetchWeekdaysData} = WeekdaysMiddleware;
 
-const {fetchActiveHospitalDepartmentForDropdownByHospitalId} = HospitalDepartmentSetupMiddleware;
+const {fetchActiveHospitalDepartmentForDropdownByHospitalId, fetchAllHospitalDepartmentForDropdownByHospitalId} = HospitalDepartmentSetupMiddleware;
 
-const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware;
+const {fetchActiveRoomNumberForDropdownByDepartmentId, fetchAllRoomNumberForDropdownByHospitalId} = RoomSetupMiddleware;
 
 const {
     createDepartmentDutyRoster,
@@ -45,7 +45,8 @@ const {
 } = DepartmentDutyRosterMiddleware;
 
 const {
-    FETCH_HOSPITALS_FOR_DROPDOWN
+    FETCH_HOSPITALS_FOR_DROPDOWN,
+    FETCH_ALL_HOSPITALS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
 const {
@@ -53,22 +54,24 @@ const {
 } = CommonAPIConstants.WeekdaysApiConstants;
 
 const {
-    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+    FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
+    FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
 } = AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants;
 
 const {
-    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN,
+    FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN
 } = AdminModuleAPIConstants.roomSetupApiConstants;
 
 const {
     CREATE_DEPARTMENT_DUTY_ROSTER,
     FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER,
     FETCH_EXISTING_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID,
+    SEARCH_DEPARTMENT_DUTY_ROSTER,
+    FETCH_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID,
 
     DELETE_DOCTOR_DUTY_ROSTER,
-    FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
     UPDATE_DOCTOR_DUTY_ROSTER_OVERRIDE,
-    SEARCH_DOCTOR_DUTY_ROSTER,
     UPDATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER_OVERRIDE,
     REVERT_DOCTOR_DUTY_ROSTER_OVERRIDE_UPDATE
@@ -134,8 +137,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 fromDate: new Date(),
                 toDate: addDate(new Date(), 30),
                 hospital: null,
-                specialization: null,
                 department: null,
+                room: null,
                 status: {value: 'A', label: 'All'}
             },
             queryParams: {
@@ -176,7 +179,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
         actionOnHospitalChange = async (value) => {
             if (value) {
-                await this.fetchDepartmentByHospitalId(value);
+                await this.fetchActiveDepartmentByHospitalId(value);
             }
             this.resetDepartmentAndRoomOnHospitalChange();
         };
@@ -196,7 +199,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             if (value === 'Y') {
                 if (department && department.value) {
                     try {
-                        await this.fetchRoomByDepartmentId(department.value);
+                        await this.fetchActiveRoomByDepartmentId(department.value);
                     } catch (e) {
                         this.setState({
                             isRoomEnabled: "N"
@@ -392,7 +395,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 })
                 this.clearAlertTimeout()
-                await this.searchDoctorDutyRoster(1)
+                await this.searchDepartmentDutyRoster(1)
             } catch (e) {
                 this.setState({
                     showDeleteModal: true
@@ -435,23 +438,35 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 })
                 this.clearAlertTimeout()
                 this.resetEditForm()
-                await this.searchDoctorDutyRoster()
+                await this.searchDepartmentDutyRoster()
             } catch (e) {
             }
         }
 
-        fetchHospitalsForDropdown = async () =>
+        fetchActiveHospitalsForDropdown = async () =>
             await TryCatchHandler.genericTryCatch(
                 this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN)
             );
 
-        fetchDepartmentByHospitalId = async hospitalId =>
+        fetchAllHospitalsForDropdown = async () =>
+            await this.props.fetchAllHospitalsForDropdown(FETCH_ALL_HOSPITALS_FOR_DROPDOWN);
+
+        fetchActiveDepartmentByHospitalId = async hospitalId =>
             await this.props.fetchActiveHospitalDepartmentForDropdownByHospitalId(
                 FETCH_ACTIVE_HOSPITAL_DEPARTMENT_FOR_DROPDOWN, hospitalId);
 
-        fetchRoomByDepartmentId = async departmentId => {
+        fetchActiveRoomByDepartmentId = async departmentId => {
             await this.props.fetchActiveRoomNumberForDropdownByDepartmentId(
                 FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN, departmentId);
+        };
+
+        fetchAllDepartmentByHospitalId = async hospitalId =>
+            await this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(
+                FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN, hospitalId);
+
+        fetchAllRoomByHospitalId = async hospitalId => {
+            await this.props.fetchAllRoomNumberForDropdownByHospitalId(
+                FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
         fetchWeekdaysData = async () => {
@@ -471,9 +486,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        fetchDoctorDutyRosterDetailsById = async id => {
-            await this.props.fetchDoctorDutyRosterDetailById(
-                FETCH_DOCTOR_DUTY_ROSTER_DETAIL_BY_ID,
+        fetchDepartmentDutyRosterDetailsById = async id => {
+            await this.props.fetchDepartmentDutyRosterDetailById(
+                FETCH_DEPARTMENT_DUTY_ROSTER_DETAIL_BY_ID,
                 id
             )
         };
@@ -932,31 +947,26 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             });
 
             if (key === 'hospital') {
-                this.fetchActiveDoctorsByHospitalId(value);
-                this.fetchActiveSpecializationByHospitalForDropdown(value);
+                if (value) {
+                    this.fetchAllDepartmentByHospitalId(value);
+                    this.fetchAllRoomByHospitalId(value);
+                }
                 this.setState({
                     searchParameters: {
                         ...this.state.searchParameters,
-                        specialization: null,
                         department: null,
+                        room: null,
                     }
                 })
             }
             if (key === 'fromDate' || key === 'toDate') {
-                const {fromDate, toDate} = this.state.searchParameters
+                const {fromDate, toDate} = this.state.searchParameters;
                 if (
                     isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
                     getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
-                ) {
-                    this.setState({
-                        showAlert: true,
-                        alertMessageInfo: {
-                            variant: 'danger',
-                            message: DATE_ERROR_MESSAGE
-                        }
-                    });
-                    this.clearAlertTimeout()
-                }
+                )
+                    this.showAlertMessage('danger', DATE_ERROR_MESSAGE);
+
             }
         };
 
@@ -967,62 +977,21 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     page: newPage
                 }
             })
-            await this.searchDoctorDutyRoster()
+            await this.searchDepartmentDutyRoster()
         }
 
-        handlePreview = async id => {
+        handlePreview = async data => {
             try {
-                await this.fetchDoctorDutyRosterDetailsById(id)
-                const departmentDutyRosterInfo = await this.prepareDataForPreview()
-                const {
-                    hospital,
-                    specialization,
-                    department,
-                    rosterGapDuration,
-                    fromDate,
-                    toDate,
-                    hasOverrideDutyRoster,
-                    departmentWeekDaysDutyRosterRequestDTOS,
-                    departmentDutyRosterOverrideRequestDTOS,
-                    createdDate,
-                    createdBy,
-                    lastModifiedBy,
-                    lastModifiedDate
-                } = departmentDutyRosterInfo
+                await this.fetchDepartmentDutyRosterDetailsById(data.hddRosterId);
+                const departmentDutyRosterInfo = await this.prepareDataForPreview();
                 await this.setState({
-                    hospital: hospital,
                     showConfirmModal: true,
-                    showAlert: false,
-                    specialization: {...specialization},
-                    department: {...department},
-                    rosterGapDuration: rosterGapDuration,
-                    fromDate: new Date(fromDate),
-                    toDate: new Date(toDate),
-                    hasOverrideDutyRoster: hasOverrideDutyRoster,
-                    departmentWeekDaysDutyRosterRequestDTOS: [
-                        ...departmentWeekDaysDutyRosterRequestDTOS
-                    ],
-                    departmentDutyRosterOverrideRequestDTOS: [
-                        ...departmentDutyRosterOverrideRequestDTOS
-                    ],
-                    createdDate: createdDate,
-                    createdBy: createdBy,
-                    lastModifiedBy: lastModifiedBy,
-                    lastModifiedDate: lastModifiedDate
+                    ...departmentDutyRosterInfo
                 })
             } catch (e) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: e.errorMessage
-                            ? e.errorMessage
-                            : 'Error occurred while fetching Doctor Duty Roster details.'
-                    }
-                })
-                this.clearAlertTimeout()
+                this.showAlertMessage('danger', this.props.DepartmentDutyRosterPreviewReducer.previewErrorMessage);
             }
-        }
+        };
 
         handleDelete = async data => {
             this.props.clearDDRSuccessErrorMessage()
@@ -1046,7 +1015,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
         handleEdit = async editId => {
             try {
-                await this.fetchDoctorDutyRosterDetailsById(editId)
+                await this.fetchDepartmentDutyRosterDetailsById(editId)
                 const departmentDutyRosterInfo = await this.prepareDataForPreview()
                 await this.prepareDataForEdit(departmentDutyRosterInfo, false)
             } catch (e) {
@@ -1065,7 +1034,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
         handleCloneAndAddNew = async id => {
             try {
-                await this.fetchDoctorDutyRosterDetailsById(id)
+                await this.fetchDepartmentDutyRosterDetailsById(id)
                 const departmentDutyRosterInfo = await this.prepareDataForPreview()
                 await this.fetchActiveSpecializationByHospitalForDropdown(
                     departmentDutyRosterInfo.hospital.value
@@ -1090,43 +1059,47 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         };
 
         initialApiCalls = async () => {
-            this.fetchHospitalsForDropdown();
+            this.fetchActiveHospitalsForDropdown();
             this.fetchWeekdaysData();
             if (type === 'MANAGE') {
-                await this.searchDoctorDutyRoster(1)
+                this.fetchAllHospitalsForDropdown();
+                this.searchDepartmentDutyRoster(1)
             }
         };
 
         prepareDataForPreview = async () => {
             const {
-                departmentDutyRosterInfo,
+                dutyRosterDetail,
                 overrideRosters,
                 weekDaysRosters,
-            } = this.props.DoctorDutyRosterPreviewReducer.departmentDutyRosterPreviewData
+                roomInfo
+            } = this.props.DepartmentDutyRosterPreviewReducer.departmentDutyRosterPreviewData;
             const {
-                id,
-                specializationName,
-                specializationId,
-                departmentId,
-                departmentName,
+                hddRosterId,
+                hospitalDeptId,
+                hospitalDeptName,
+                hospitalName,
+                hospitalId,
+                isRoomEnabled,
                 rosterGapDuration,
                 fromDate,
                 toDate,
                 hasOverrideDutyRoster,
-                hospitalId,
-                hospitalName,
+                remarks,
                 status,
                 createdBy,
                 createdDate,
                 lastModifiedBy,
-                lastModifiedDate
-            } = departmentDutyRosterInfo && departmentDutyRosterInfo
+                lastModifiedDate,
+            } = dutyRosterDetail && dutyRosterDetail;
 
             return {
-                id: id,
+                id: hddRosterId,
                 hospital: {label: hospitalName, value: hospitalId},
-                specialization: {label: specializationName, value: specializationId},
-                department: {label: departmentName, value: departmentId},
+                department: {label: hospitalDeptName, value: hospitalDeptId},
+                isRoomEnabled,
+                room: isRoomEnabled === 'Y' ? {label: roomInfo.roomNumber, value: roomInfo.roomId} : null,
+                rosterRoomId:roomInfo.rosterRoomId,
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),
                 toDate: new Date(toDate),
@@ -1134,12 +1107,13 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
                 departmentDutyRosterOverrideRequestDTOS: [...overrideRosters],
                 status: status,
+                remarks,
                 createdBy,
                 createdDate,
                 lastModifiedBy,
                 lastModifiedDate
             }
-        }
+        };
 
         prepareDataForEdit = async (departmentDutyRosterInfo, isCloneAndAdd) => {
             const {
@@ -1260,7 +1234,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 },
                 showAlert: false
             })
-            await this.searchDoctorDutyRoster(1)
+            await this.searchDepartmentDutyRoster(1)
         }
 
         resetEditForm = () => {
@@ -1646,7 +1620,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 isClone
                     ? this.partialResetAddForm(onSuccessData)
                     : this.resetAddForm(onSuccessData);
-                type === 'MANAGE' && this.searchDoctorDutyRoster(1)
+                type === 'MANAGE' && this.searchDepartmentDutyRoster(1)
             } catch (e) {
                 const {saveErrorMessage} = this.props.DepartmentDutyRosterSaveReducer
                 this.setState({
@@ -1664,57 +1638,50 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        searchDoctorDutyRoster = async page => {
+        searchDepartmentDutyRoster = async page => {
             const {
                 fromDate,
                 toDate,
                 hospital,
-                specialization,
+                room,
                 department,
                 status
-            } = this.state.searchParameters
+            } = this.state.searchParameters;
             if (
                 isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
                 getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) !== 1
             ) {
-                this.setState({
-                    showAlert: true,
-                    alertMessageInfo: {
-                        variant: 'danger',
-                        message: DATE_ERROR_MESSAGE
-                    }
-                })
-                this.clearAlertTimeout()
+                this.showAlertMessage('danger', DATE_ERROR_MESSAGE);
             } else {
                 let searchData = {
                     hospitalId: hospital ? hospital.value : '',
-                    departmentId: department ? department.value : '',
-                    specializationId: specialization ? specialization.value : '',
+                    hospitalDepartmentId: department ? department.value : '',
+                    roomId: room ? room.value : '',
                     fromDate: fromDate,
                     toDate: toDate,
                     status: status && status.value === 'A' ? '' : status.value
-                }
+                };
 
                 let updatedPage =
                     this.state.queryParams.page === 0
                         ? 1
                         : page
                         ? page
-                        : this.state.queryParams.page
+                        : this.state.queryParams.page;
 
-                await this.props.fetchDoctorDutyRosterList(
-                    SEARCH_DOCTOR_DUTY_ROSTER,
+                await this.props.searchDepartmentDutyRoster(
+                    SEARCH_DEPARTMENT_DUTY_ROSTER,
                     {
                         page: updatedPage,
                         size: this.state.queryParams.size
                     },
                     searchData
-                )
+                );
 
                 await this.setState({
-                    totalRecords: this.props.DoctorDutyRosterListReducer
+                    totalRecords: this.props.DepartmentDutyRosterListReducer
                         .departmentDutyRosterList.length
-                        ? this.props.DoctorDutyRosterListReducer.departmentDutyRosterList[0]
+                        ? this.props.DepartmentDutyRosterListReducer.departmentDutyRosterList[0]
                             .totalItems
                         : 0,
                     queryParams: {
@@ -1723,7 +1690,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 })
             }
-        }
+        };
 
         updateOverride = async overrideData => {
             try {
@@ -1884,14 +1851,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 overrideFormValid
             } = this.state;
 
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            const {hospitalsForDropdown, allHospitalsForDropdown} = this.props.HospitalDropdownReducer;
 
             const {
                 activeHospitalDepartmentForDropdown,
-                activeDepartmentDropdownErrorMessage
+                activeDepartmentDropdownErrorMessage,
+                allHospitalDepartmentForDropdown
             } = this.props.HospitalDepartmentDropdownReducer;
 
-            const {activeRoomNumberForDropdownByDepartment} = this.props.RoomNumberDropdownReducer;
+            const {activeRoomNumberForDropdownByDepartment, allRoomNumberForDropdown} = this.props.RoomNumberDropdownReducer;
 
             const {isSaveRosterLoading} = this.props.DepartmentDutyRosterSaveReducer;
 
@@ -1906,7 +1874,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 departmentDutyRosterList,
                 isSearchRosterLoading,
                 searchErrorMessage
-            } = this.props.DoctorDutyRosterListReducer;
+            } = this.props.DepartmentDutyRosterListReducer;
 
             const {
                 existingDepartmentDutyRosterList,
@@ -1980,6 +1948,29 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 onSaveButtonClick: this.handleSaveButtonClick,
                                 showConfirmModal: showConfirmModal,
                             }}
+                            searchFilterProps={{
+                                searchParameters,
+                                onSearchInputChange: this.handleSearchInputChange,
+                                resetSearchForm: this.resetSearchForm,
+                                onSearchClick: this.searchDepartmentDutyRoster,
+                                hospitalList: allHospitalsForDropdown,
+                                departmentList: allHospitalDepartmentForDropdown,
+                                roomList: allRoomNumberForDropdown,
+                            }}
+                            dataTableProps={{
+                                isSearchRosterLoading,
+                                searchErrorMessage,
+                                departmentDutyRosterList,
+                                filteredAction: props.filteredAction,
+                                totalItems: totalRecords,
+                                maxSize: queryParams.size,
+                                currentPage: queryParams.page,
+                                handlePageChange: this.handlePageChange,
+                                onPreviewHandler: this.handlePreview,
+                                onDeleteHandler: this.handleDelete,
+                                onEditHandler: this.handleEdit,
+                                onCloneAndAddNew: this.handleCloneAndAddNew
+                            }}
 
                             cancelCloseEditModal={this.cancelCloseEditModal}
                             deleteDoctorDutyRoster={this.deleteDoctorDutyRoster}
@@ -1992,26 +1983,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             }
                             editDoctorDutyRoster={this.editDoctorDutyRoster}
                             editErrorMessage={editErrorMessage}
-                            handlePageChange={this.handlePageChange}
-                            hospitalList={hospitalsForDropdown}
                             isSaveRosterLoading={isSaveRosterLoading}
                             isEditRosterPending={isEditRosterPending}
-                            isSearchRosterLoading={isSearchRosterLoading}
+
                             isDeleteRosterLoading={isDeleteRosterLoading}
-                            onCloneAndAddNew={this.handleCloneAndAddNew}
-                            onDeleteHandler={this.handleDelete}
-                            onEditHandler={this.handleEdit}
-                            onPreviewHandler={this.handlePreview}
-                            onSearchInputChange={this.handleSearchInputChange}
+
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
-                            paginationData={{...queryParams, totalRecords}}
                             remarks={deleteRequestDTO.remarks}
                             remarksHandler={this.handleDeleteRemarksChange}
-                            resetSearchForm={this.resetSearchForm}
                             saveDoctorDutyRoster={this.saveDepartmentDutyRoster}
-                            searchDoctorDutyRoster={this.searchDoctorDutyRoster}
+                            searchDoctorDutyRoster={this.searchDepartmentDutyRoster}
                             searchErrorMessage={searchErrorMessage}
-                            searchParameters={searchParameters}
+
                             setShowConfirmModal={this.setShowModal}
                             setShowDeleteModal={this.setShowModal}
                             setShowDeleteOverrideModal={this.setShowDeleteOverrideModal}
@@ -2028,7 +2011,16 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             size="xl"
                             bodyChildren={
                                 <DepartmentDutyRosterPreviewModal
-                                    departmentInfoData={departmentInfoData}
+                                    departmentInfoData={
+                                        {
+                                            ...departmentInfoData,
+                                            auditableDepartment: {
+                                                createdDate: this.state.createdDate,
+                                                createdBy: this.state.createdBy,
+                                                lastModifiedBy: this.state.lastModifiedBy,
+                                                lastModifiedDate: this.state.lastModifiedDate
+                                            }
+                                        }}
                                     departmentAvailabilityData={departmentWeekDaysDutyRosterRequestDTOS}
                                     hasOverrideDutyRoster={hasOverrideDutyRoster}
                                     departmentDutyRosterOverrideRequestDTOS={
@@ -2102,13 +2094,13 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
     return ConnectHoc(
         DepartmentDutyRoster,
         [
+            'DepartmentDutyRosterSaveReducer',
             'DepartmentDutyRosterExistingReducer',
+            'DepartmentDutyRosterListReducer',
+            'DepartmentDutyRosterPreviewReducer',
 
             'DoctorDutyRosterDeleteReducer',
             'DoctorDutyRosterEditReducer',
-            'DoctorDutyRosterListReducer',
-            'DoctorDutyRosterPreviewReducer',
-            'DepartmentDutyRosterSaveReducer',
 
             'HospitalDropdownReducer',
             'WeekdaysReducer',
@@ -2131,7 +2123,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             fetchWeekdays,
             fetchWeekdaysData,
             fetchActiveHospitalDepartmentForDropdownByHospitalId,
-            fetchActiveRoomNumberForDropdownByDepartmentId
+            fetchActiveRoomNumberForDropdownByDepartmentId,
+            fetchAllHospitalDepartmentForDropdownByHospitalId,
+            fetchAllRoomNumberForDropdownByHospitalId,
+            fetchAllHospitalsForDropdown
         }
     )
 };

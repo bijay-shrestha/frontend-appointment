@@ -1,5 +1,6 @@
 import {DepartmentDutyRosterActions} from "@frontend-appointment/action-module";
 import {Axios} from "@frontend-appointment/core";
+import {CommonUtils} from "@frontend-appointment/helpers";
 
 export const createDepartmentDutyRoster = (path, departmentDutyRosterData) => async dispatch => {
     dispatch(DepartmentDutyRosterActions.createDepartmentDutyRosterPending());
@@ -18,7 +19,8 @@ export const searchDepartmentDutyRoster = (path, searchData, pageObj) => async d
     dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterPending());
     try {
         const response = await Axios.putWithPagination(path, searchData, pageObj);
-        dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterSuccess(response.data));
+        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data,pageObj.page,pageObj.size);
+        dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterSuccess(dataWithSN));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterError(e.errorMessage ? e.errorMessage

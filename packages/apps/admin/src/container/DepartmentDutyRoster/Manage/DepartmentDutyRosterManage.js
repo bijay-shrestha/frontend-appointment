@@ -11,26 +11,16 @@ import {Container, Row} from "react-bootstrap";
 function DepartmentDutyRosterManage(props) {
     const DoctorDutyRosterManage = DepartmentDutyRosterHOC(
         ({
-             searchParameters,
-             resetSearchForm,
-             onSearchInputChange,
-             searchDoctorDutyRoster,
+             searchFilterProps,
+             dataTableProps,
+
              hospitalList,
-             specializationList,
              specializationDropdownError,
              doctorList,
              doctorDropdownErrorMessage,
-             isSearchRosterLoading,
              isSaveRosterLoading,
              isEditRosterPending,
-             searchErrorMessage,
-             doctorDutyRosterList,
-             filteredAction,
-             paginationData,
-             handlePageChange,
-             onPreviewHandler,
-             onDeleteHandler,
-             onEditHandler,
+
              showDeleteModal,
              setShowDeleteModal,
              remarksHandler,
@@ -59,9 +49,7 @@ function DepartmentDutyRosterManage(props) {
              deleteOverrideErrorMessage,
              deleteOverride,
              onRemoveOverride,
-             onCloneAndAddNew,
              saveDoctorDutyRoster,
-             activeDoctorsByHospitalForDropdown,
              activeSpecializationListByHospital,
              dateErrorMessage,
              overrideFormValid,
@@ -98,31 +86,9 @@ function DepartmentDutyRosterManage(props) {
                     </Row>
                 </Container>;
             return <>
-                <DepartmentDutyRosterSearchFilter
-                    searchParameters={searchParameters}
-                    onSearchInputChange={onSearchInputChange}
-                    resetSearchForm={resetSearchForm}
-                    onSearchClick={() => searchDoctorDutyRoster(1)}
-                    hospitalList={hospitalList}
-                    specializationList={activeSpecializationListByHospital}
-                    specializationDropdownError={specializationDropdownError}
-                    doctorList={activeDoctorsByHospitalForDropdown}
-                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
+                <DepartmentDutyRosterSearchFilter searchFilterProps={searchFilterProps}
                 />
-                <DepartmentDutyRosterDataTable
-                    isSearchRosterLoading={isSearchRosterLoading}
-                    searchErrorMessage={searchErrorMessage}
-                    doctorDutyRosterList={doctorDutyRosterList}
-                    filteredAction={filteredAction}
-                    totalItems={paginationData.totalRecords}
-                    maxSize={paginationData.size}
-                    currentPage={paginationData.page}
-                    handlePageChange={handlePageChange}
-                    onPreviewHandler={onPreviewHandler}
-                    onDeleteHandler={onDeleteHandler}
-                    onEditHandler={onEditHandler}
-                    onCloneAndAddNew={onCloneAndAddNew}
-                />
+                <DepartmentDutyRosterDataTable dataTableProps={dataTableProps}/>
 
                 {showDeleteModal ? (
                     <ConfirmDelete

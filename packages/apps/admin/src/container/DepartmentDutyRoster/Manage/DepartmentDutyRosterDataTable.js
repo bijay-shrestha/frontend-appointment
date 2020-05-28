@@ -1,33 +1,33 @@
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import React from 'react';
 import {ActionFilterUtils} from '@frontend-appointment/helpers';
-//import EditDoctorDutyRoster from "./EditDoctorDutyRoster";
 import TableAction from "@frontend-appointment/admin/src/container/CommonComponents/table-components/TableAction";
 import StatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StatusLabel";
-import PreviewHandlerHoc from "@frontend-appointment/admin/src/container/CommonComponents/table-components/hoc/PreviewHandlerHoc";
-import {DoctorWithImage} from "@frontend-appointment/ui-components";
+import PreviewHandlerHoc
+    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/hoc/PreviewHandlerHoc";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
-const DepartmentDutyRosterDataTable = ({
-                                       isSearchRosterLoading,
-                                       searchErrorMessage,
-                                       doctorDutyRosterList,
-                                       filteredAction,
-                                       totalItems,
-                                       maxSize,
-                                       currentPage,
-                                       handlePageChange,
-                                       onPreviewHandler,
-                                       onDeleteHandler,
-                                       onEditHandler,
-                                       onCloneAndAddNew
-                                   }) => {
+const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
+    const {
+        isSearchRosterLoading,
+        searchErrorMessage,
+        departmentDutyRosterList,
+        filteredAction,
+        totalItems,
+        maxSize,
+        currentPage,
+        handlePageChange,
+        onPreviewHandler,
+        onDeleteHandler,
+        onEditHandler,
+        onCloneAndAddNew
+    } = dataTableProps;
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Doctor Roster Details</h5>
-                {!isSearchRosterLoading && !searchErrorMessage && doctorDutyRosterList.length ?
+                <h5 className="title">Department Roster Details</h5>
+                {!isSearchRosterLoading && !searchErrorMessage && departmentDutyRosterList.length ?
                     (<>
                             <CDataTable
                                 classes="ag-theme-balham"
@@ -37,32 +37,33 @@ const DepartmentDutyRosterDataTable = ({
                                 enableSorting
                                 editType
                                 columnDefs={[
-                                    // {
-                                    //     headerName: 'SN',
-                                    //     field: 'sN',
-                                    //     headerClass: 'resizable-header header-first-class',
-                                    //     resizable: true,
-                                    //     sortable: true,
-                                    //     editable: true,
-                                    //     sizeColumnsToFit: true,
-                                    //     cellClass: 'first-class'
-                                    // },
                                     {
-                                        headerName: 'Doctor Name',
-                                        field: 'doctorName',
+                                        headerName: 'SN',
+                                        field: 'sN',
+                                        headerClass: 'resizable-header header-first-class',
+                                        resizable: true,
+                                        sortable: true,
+                                        editable: true,
+                                        sizeColumnsToFit: true,
+                                        cellClass: 'first-class'
+                                    },
+                                    {
+                                        headerName: 'Client',
+                                        field: 'hospitalName',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        cellRenderer: "doctorNameRenderer",
-                                        width:300
+                                        width: 300
 
                                     },
                                     {
-                                        headerName: 'Specialization Name',
-                                        field: 'specializationName',
+                                        headerName: 'Department Name',
+                                        field: 'hospitalDeptName',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 300
+
                                     },
                                     {
                                         headerName: 'From Date',
@@ -118,13 +119,12 @@ const DepartmentDutyRosterDataTable = ({
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
                                     childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
-                                    doctorNameRenderer: PreviewHandlerHoc(DoctorWithImage, checkIfRoleExists, filteredAction, 4, onPreviewHandler)
                                 }}
                                 defaultColDef={{resizable: true}}
                                 getSelectedRows={checkIfRoleExists(filteredAction, 4) ? onPreviewHandler : () => {
                                 }}
                                 rowSelection={'single'}
-                                rowData={doctorDutyRosterList}
+                                rowData={departmentDutyRosterList}
                             />
                             <CPagination
                                 totalItems={totalItems}
