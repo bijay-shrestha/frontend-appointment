@@ -291,4 +291,4 @@ export const hospitalIntegrationConstants = {
     HOSPITAL_API_INTEGRATION_UPDATE_PREVIEW:BASE.concat(HOSPITAL_API_INTEGRATION+"/update-details")
 }
 
-export const hospital
+// export const hospital
