@@ -44,7 +44,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers: [],
         queryParams: [],
         requestBody: '',
-        id:''
+        id: ''
       },
       searchParameters: {
         clientId: '',
@@ -117,7 +117,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
       console.log('====', this.state)
     }
-    onChangeHandler = async (e, validity,type) => {
+    onChangeHandler = async (e, validity, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
@@ -233,7 +233,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         } = this.props.hospitalPreviewApiIntegrationReducers
         const {
           featureCode,
-          requestMethod,
+          requestMethodId,
+          featureId,
+          requestMethodName,
           url,
           requestBody,
           headers,
@@ -242,7 +244,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         } = previewApiIntegrationData
         let integrationData = {
           apiUrl: url,
-          requestMethod: requestMethod,
+          requestMethod: requestMethodName,
           requestBody: changeJSONObjectToCommaSepratedValue(requestBody),
           featureType: featureCode,
           headers: changeObjectStructureToKeyValueArray(headers),
@@ -292,7 +294,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           headers: addDescriptionInHeaderAndParams(headers),
           queryParams: addDescriptionInHeaderAndParams(queryParameters),
           requestBody: changeJSONObjectToCommaSepratedValue(requestBody),
-          id:id
+          id: id
         }
         this.setTheStateForIntegrationData(integrationData)
         this.setShowModal('editShowModal')
@@ -382,7 +384,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    onAddHeaderOrQueryParams = (fieldName,type) => {
+    onAddHeaderOrQueryParams = (fieldName, type) => {
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName].push({
         keyParam: '',
@@ -393,7 +395,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       this.checkFormValidity(type)
     }
 
-    onChangeHandlerHeaderOrQueryParams = (e, index, fieldName,type) => {
+    onChangeHandlerHeaderOrQueryParams = (e, index, fieldName, type) => {
       const {name, value} = e.target
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName][index][name] = value
@@ -401,7 +403,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       this.checkFormValidity(type)
     }
 
-    onRemoveHandlerHeaderOrQueryParams = (index, fieldName,type) => {
+    onRemoveHandlerHeaderOrQueryParams = (index, fieldName, type) => {
       let objectToModify = {...this.state.integrationData}
       objectToModify[fieldName].splice(index, 1)
       this.setTheStateForIntegrationData(objectToModify)
@@ -464,14 +466,14 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       this.setShowModal('showConfirmationModal')
     }
 
-    changeRequestHandler = async (fieldName, parentFieldName,type) => {
+    changeRequestHandler = async (fieldName, parentFieldName, type) => {
       let field = this.state[fieldName]
       field = field ? false : true
       await this.setState({
         [fieldName]: field
       })
       if (field) {
-        this.onAddHeaderOrQueryParams(parentFieldName,type)
+        this.onAddHeaderOrQueryParams(parentFieldName, type)
       } else {
         let integrationData = this.state.integrationData
         integrationData[parentFieldName] = []
@@ -530,17 +532,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               'editHeaders'
             ),
             clientFeatureIntegrationId: id,
-            featureId:featureType.value,
+            featureId: featureType.value,
             queryParametersRequestDTOS: this.filterOutRequestAndHeaderParams(
               queryParams,
               'editQueryParams'
             ),
             requestMethodId: requestMethod.value,
-            requestBodyAttrribute:requestBody
-            
+            requestBodyAttrribute: requestBody
           }
         )
         this.resetIntegrationData()
+        this.setCloseModal()
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -565,7 +567,6 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       } = this.state.integrationData
       try {
         await this.props.saveHospitalIntegration(
-
           hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE,
           {
             apiUrl,
@@ -578,10 +579,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             requestMethodId: requestMethod.value || '',
             hospitalId: clientId.value || '',
             featureTypeId: featureType.value || '',
-            requestBodyAttribute: JSON.stringify(changeCommaSeperatedStringToObjectAndStringifyIt(
-              requestBody
-
-            ))
+            requestBodyAttribute: JSON.stringify(
+              changeCommaSeperatedStringToObjectAndStringifyIt(requestBody)
+            )
           }
         )
         this.resetIntegrationData()

@@ -87,7 +87,7 @@ export const editApiIntegrationData = (path, data) => async dispatch => {
   try {
     const response = await Axios.put(path, data)
     dispatch(
-      HospitalApiIntegrationActions.hospitalApiEditSuccess(response.data)
+      HospitalApiIntegrationActions.hospitalApiEditSuccess('Api Integration Updated Successfully')
     )
   } catch (e) {
     dispatch(HospitalApiIntegrationActions.hospitalApiEditError(e.errorMessage))
