@@ -24,6 +24,14 @@
     -o-transition     : all 0.5s ease;
     transition        : all 0.5s ease;
     z-index           : 999;
+
+    .sidebar-header{
+      padding:1rem 1.2rem;
+      
+      .logo-small{
+        display:none;
+      }
+    }
   }
 
   &.is-close {
@@ -32,21 +40,27 @@
     transition: all 0.5s ease;
 
     .sidebar-header {
-
-      h3 {
-        // margin : 14px 0;
-        margin    : 14px auto;
-        text-align: center;
-
-      }
+      padding:1rem 1rem;
+      
 
       .logo {
         display: none;
+      }
 
+      .logo-small{
+    
+          width       : 31px;
+          height      : 100%;
+          display     : inline-block;
+          // margin-right: 11px;
+          padding:0;
+          margin-top:-4px
+        
       }
 
       button {
         // margin-left: 14px;
+        display:none;
         margin-left   : 0px;
       }
     }
@@ -78,6 +92,12 @@
     position    : absolute;
     z-index     : 999;
     /*transition: all 0.5s ease;*/
+
+    .sidebar-header{
+      .logo-small{
+        display:none;
+      }
+    }
   }
 
   .text {
@@ -304,30 +324,36 @@
     background: $cogent;
     color     : $white;
     @include border-radius($cogent-radius);
-    margin-bottom   : 20px;
+    padding:1rem 1.5rem;
+    // margin-bottom   : 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     // height       : 66px;
     // border-bottom:1px solid $gray-100;
 
     .logo {
-      width       : 160px;
-      height      : auto;
+      width       : 154px;
+      height      : 100%;
       display     : inline-block;
-      margin-right: 11px;
+      // margin-right: 11px;
+      padding:0;
     }
 
-    h3 {
-      display        : flex;
-      justify-content: space-between;
-      align-items    : center;
-      color          : $white;
-      margin         : 12px 12px;
-    }
+    // h3 {
+    //   display        : flex;
+    //   justify-content: space-between;
+    //   align-items    : center;
+    //   color          : $white;
+    //   margin         : 12px 12px;
+    // }
 
     button {
       display           : inline-block;
       position          : relative;
       overflow          : hidden;
       margin            : 0;
+      margin-top        :-2px;
       padding           : 0;
       font-size         : 0;
       text-indent       : -9999px;
@@ -448,10 +474,7 @@
     top     : 10%
   } */
 
-  .sidebar-header button {
-    margin-left: 30px;
-
-  }
+ 
 
   .no-child {
     padding: 1rem 0rem 1rem 1.6rem;
@@ -520,10 +543,12 @@
     height        : 100vh !important;
   }
 
-  .sidebar.is-close {
-    .sidebar-header .logo {
+  .sidebar{
+    .sidebar-header  {
+     padding:1rem 1.5rem;
+      .logo {
       display: none;
-
+    }
     }
   }
 
