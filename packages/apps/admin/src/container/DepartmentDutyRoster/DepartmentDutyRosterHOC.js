@@ -923,7 +923,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 try {
                     await this.fetchDepartmentDutyRosterDetailsById(data.hddRosterId);
                     const departmentDutyRosterInfo = await this.prepareDataForPreview();
-                    const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+                    // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
                     // // TODO REMOVE THESE 3 LINES AND UNCOMMENT FOURTH LINE
                     // let hospitalSelected = hospitalsForDropdown.find(hospitalS => hospitalS.label === departmentDutyRosterInfo.hospital.label);
                     // this.fetchActiveDepartmentByHospitalId(hospitalSelected && hospitalSelected.value);
