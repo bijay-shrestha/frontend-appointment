@@ -26,7 +26,7 @@ function DepartmentDutyRosterManage(props) {
                 editErrorMessage,
                 editDepartmentDutyRoster,
                 cancelCloseEditModal,
-                saveDoctorDutyRoster,
+                saveDepartmentDutyRoster,
             } = editRosterProps;
             const footerContent =
                 <Container fluid="true">
@@ -45,7 +45,7 @@ function DepartmentDutyRosterManage(props) {
                                 name={updateDoctorDutyRosterData.isCloneAndAdd ? "Save" : "Update"}
                                 size="lg"
                                 className="btn-action  float-right"
-                                onClickHandler={() => updateDoctorDutyRosterData.isCloneAndAdd ? saveDoctorDutyRoster(false, true)
+                                onClickHandler={() => updateDoctorDutyRosterData.isCloneAndAdd ? saveDepartmentDutyRoster(false, true)
                                     : editDepartmentDutyRoster()}/>
                             <CButton id="cancel-update-profile"
                                      variant="light"

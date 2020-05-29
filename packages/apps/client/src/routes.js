@@ -352,7 +352,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster',
+        path: '/rosterSettings/doctorDutyRoster',
         name: 'Doctor Duty Roster',
         component: <></>,
         icon: '',
@@ -362,7 +362,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/add',
+        path: '/rosterSettings/doctorDutyRoster/add',
         name: 'Add',
         component: AddDoctorDutyRosterComponent,
         icon: '',
@@ -372,7 +372,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/manage',
+        path: '/rosterSettings/doctorDutyRoster/manage',
         name: 'Manage',
         component: ManageDoctorDutyRosterComponent,
         icon: '',

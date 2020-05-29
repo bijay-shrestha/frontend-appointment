@@ -108,7 +108,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                                     ? onDeleteHandler(data)
                                                     : type === 'E'
                                                     ? onEditHandler(data)
-                                                    : type === 'C' ? onCloneAndAddNew(id)
+                                                    : type === 'C' ? onCloneAndAddNew(data)
                                                         : onPreviewHandler(data)
                                             },
                                             filteredAction: filteredAction

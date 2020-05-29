@@ -259,12 +259,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     departmentWeekDaysDutyRosterRequestDTOS,
                     isCloneAndAdd,
                     hospital,
-                    specialization,
                     department
                 } = this.state;
 
                 let formValid = isCloneAndAdd
-                    ? rosterGapDuration && hospital && specialization && department
+                    ? rosterGapDuration && hospital && department
                     : rosterGapDuration && remarks && !StringUtils.stringContainsWhiteSpacesOnly(remarks);
 
                 if (hasOverrideDutyRoster === 'Y') {
@@ -920,25 +919,20 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
             };
 
-            handleCloneAndAddNew = async id => {
+            handleCloneAndAddNew = async data => {
                 try {
-                    await this.fetchDepartmentDutyRosterDetailsById(id)
-                    const departmentDutyRosterInfo = await this.prepareDataForPreview()
-                    await this.fetchActiveSpecializationByHospitalForDropdown(
-                        departmentDutyRosterInfo.hospital.value
-                    )
-                    await this.prepareDataForEdit(departmentDutyRosterInfo, true)
+                    await this.fetchDepartmentDutyRosterDetailsById(data.hddRosterId);
+                    const departmentDutyRosterInfo = await this.prepareDataForPreview();
+                    const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+                    // // TODO REMOVE THESE 3 LINES AND UNCOMMENT FOURTH LINE
+                    // let hospitalSelected = hospitalsForDropdown.find(hospitalS => hospitalS.label === departmentDutyRosterInfo.hospital.label);
+                    // this.fetchActiveDepartmentByHospitalId(hospitalSelected && hospitalSelected.value);
+                    // departmentDutyRosterInfo.hospital.value = hospitalSelected.value;
+                    this.fetchActiveDepartmentByHospitalId(departmentDutyRosterInfo.hospital && departmentDutyRosterInfo.hospital.value);
+                    await this.prepareDataForEdit(departmentDutyRosterInfo, true);
+                    this.checkManageFormValidity();
                 } catch (e) {
-                    this.setState({
-                        showAlert: true,
-                        alertMessageInfo: {
-                            variant: 'danger',
-                            message: e.errorMessage
-                                ? e.errorMessage
-                                : 'Error occurred while fetching Doctor Duty Roster details.'
-                        }
-                    })
-                    this.clearAlertTimeout()
+                    this.showAlertMessage('danger', this.props.DepartmentDutyRosterPreviewReducer.previewErrorMessage);
                 }
             };
 
@@ -1007,6 +1001,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 const {
                     departmentWeekDaysDutyRosterRequestDTOS,
                     departmentDutyRosterOverrideRequestDTOS,
+                    department, isRoomEnabled, room, hddRosterId
                 } = departmentDutyRosterInfo;
 
                 let weekDaysAvailabilityData = departmentWeekDaysDutyRosterRequestDTOS.map(
@@ -1023,6 +1018,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.setState({
                     showEditModal: true,
                     ...departmentDutyRosterInfo,
+                    department: isCloneAndAdd ? null : {...department},
+                    room: isCloneAndAdd ? null : {...room},
+                    hddRosterId: isCloneAndAdd ? null : hddRosterId,
+                    isRoomEnabled: isCloneAndAdd ? 'N' : isRoomEnabled,
                     departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysAvailabilityData],
                     weekDaysDataOriginal: [...weekDaysAvailabilityData],
                     overridesUpdate: [...departmentDutyRosterOverrideRequestDTOS],
@@ -1402,27 +1401,43 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 } else {
                     const {
                         department,
+                        departmentWeekDaysDutyRosterRequestDTOS,
                         fromDate,
                         hasOverrideDutyRoster,
                         rosterGapDuration,
-                        specialization,
+                        isRoomEnabled,
+                        room,
                         status,
                         toDate,
                         hospital,
-                        weekDaysDutyRosterUpdateRequestDTOS,
                         overridesUpdate
-                    } = this.state.updateDoctorDutyRosterData;
+                    } = this.state;
+
+                    let overrideList = overridesUpdate && overridesUpdate.length && overridesUpdate.map(override => {
+                        return {
+                            ...override,
+                            rosterOverrideId: '',
+                            fromDate: new Date(override.fromDate),
+                            toDate: new Date(override.toDate)
+                        }
+                    });
+
+                    let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
+                        weekdays.rosterWeekDaysId = '';
+                        return weekdays;
+                    });
 
                     dataToSave = {
                         fromDate,
                         toDate,
-                        specializationId: specialization ? specialization.value : '',
-                        departmentId: department ? department.value : '',
+                        hospitalDepartmentId: department ? department.value : '',
                         hospitalId: hospital ? hospital.value : '',
+                        isRoomEnabled,
+                        roomId: room ? room.value : '',
                         rosterGapDuration,
-                        departmentWeekDaysDutyRosterRequestDTOS: weekDaysDutyRosterUpdateRequestDTOS,
+                        weekDaysDetail: weekDaysList,
                         hasOverrideDutyRoster,
-                        departmentDutyRosterOverrideRequestDTOS: overridesUpdate,
+                        overrideDetail: overrideList,
                         status
                     }
                 }
@@ -1450,7 +1465,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         : this.resetAddForm(onSuccessData);
                     type === 'MANAGE' && this.searchDepartmentDutyRoster(1)
                 } catch (e) {
-                    const {saveErrorMessage} = this.props.DepartmentDutyRosterSaveReducer
+                    const {saveErrorMessage} = this.props.DepartmentDutyRosterSaveReducer;
                     this.setState({
                         showAlert: true,
                         showConfirmModal: false,
