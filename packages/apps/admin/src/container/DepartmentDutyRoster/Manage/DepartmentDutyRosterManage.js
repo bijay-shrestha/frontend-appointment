@@ -14,46 +14,20 @@ function DepartmentDutyRosterManage(props) {
              searchFilterProps,
              dataTableProps,
              deleteProps,
-
-             hospitalList,
-             specializationDropdownError,
-             doctorList,
-             doctorDropdownErrorMessage,
-             isSaveRosterLoading,
-             isEditRosterPending,
-
-
-             remarksHandler,
-             remarks,
-
-             showEditModal,
-             updateDoctorDutyRosterData,
-             editErrorMessage,
-             editDoctorDutyRoster,
-             overrideData,
-             handleEnter,
-             handleInputChange,
-             handleDoctorAvailabilityFormChange,
-             handleOverrideDutyRoster,
-             handleOverrideFormInputChange,
-             showAddOverrideModal,
-             cancelCloseEditModal,
-             setShowAddOverrideModal,
-             addOverride,
-             overrideUpdateErrorMessage,
-             onModifyOverride,
-             isModifyOverride,
-             setShowDeleteOverrideModal,
-             showDeleteOverrideModal,
-             deleteOverrideErrorMessage,
-             deleteOverride,
-             onRemoveOverride,
-             saveDoctorDutyRoster,
-             activeSpecializationListByHospital,
-             dateErrorMessage,
-             overrideFormValid,
-
+             editRosterProps,
+             departmentAvailabilityFormData,
+             departmentAvailabilityOverrideData
          }) => {
+            const {
+                isSaveRosterLoading,
+                isEditRosterPending,
+                showEditModal,
+                updateDoctorDutyRosterData,
+                editErrorMessage,
+                editDepartmentDutyRoster,
+                cancelCloseEditModal,
+                saveDoctorDutyRoster,
+            } = editRosterProps;
             const footerContent =
                 <Container fluid="true">
                     <Row>
@@ -72,7 +46,7 @@ function DepartmentDutyRosterManage(props) {
                                 size="lg"
                                 className="btn-action  float-right"
                                 onClickHandler={() => updateDoctorDutyRosterData.isCloneAndAdd ? saveDoctorDutyRoster(false, true)
-                                    : editDoctorDutyRoster()}/>
+                                    : editDepartmentDutyRoster()}/>
                             <CButton id="cancel-update-profile"
                                      variant="light"
                                      size="lg"
@@ -108,39 +82,14 @@ function DepartmentDutyRosterManage(props) {
                     showEditModal ? (
                         <CModal
                             show={showEditModal}
-                            modalHeading={updateDoctorDutyRosterData.isCloneAndAdd ? "Clone and Add Doctor Roster"
-                                : "Edit Doctor Roster"}
+                            modalHeading={updateDoctorDutyRosterData.isCloneAndAdd ? "Clone and Add Department Roster"
+                                : "Edit Department Roster"}
                             size="xl"
                             bodyChildren={
                                 <EditDepartmentDutyRoster
-                                    updateDoctorDutyRosterData={updateDoctorDutyRosterData}
-                                    onInputChange={handleInputChange}
-                                    onEnterKeyPress={handleEnter}
-                                    overrideData={overrideData}
-                                    handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
-                                    handleOverrideDutyRoster={handleOverrideDutyRoster}
-                                    showAddOverrideModal={showAddOverrideModal}
-                                    setShowAddOverrideModal={setShowAddOverrideModal}
-                                    handleOverrideFormInputChange={handleOverrideFormInputChange}
-                                    addOverride={addOverride}
-                                    overrideUpdateErrorMessage={overrideUpdateErrorMessage}
-                                    onModifyOverride={onModifyOverride}
-                                    isModifyOverride={isModifyOverride}
-                                    setShowDeleteOverrideModal={setShowDeleteOverrideModal}
-                                    showDeleteOverrideModal={showDeleteOverrideModal}
-                                    remarksHandler={remarksHandler}
-                                    remarks={remarks}
-                                    deleteOverrideErrorMessage={deleteOverrideErrorMessage}
-                                    deleteOverride={deleteOverride}
-                                    onRemoveOverride={onRemoveOverride}
-                                    hospitalList={hospitalList}
-                                    specializationList={activeSpecializationListByHospital}
-                                    specializationDropdownError={specializationDropdownError}
-                                    doctorList={doctorList}
-                                    doctorDropdownErrorMessage={doctorDropdownErrorMessage}
-                                    dateErrorMessage={dateErrorMessage}
-                                    overrideFormValid={overrideFormValid}
-                                />
+                                    editRosterProps={editRosterProps}
+                                    departmentAvailabilityFormData={departmentAvailabilityFormData}
+                                    departmentAvailabilityOverrideData={departmentAvailabilityOverrideData}/>
                             }
                             onHide={cancelCloseEditModal}
                             centered={false}

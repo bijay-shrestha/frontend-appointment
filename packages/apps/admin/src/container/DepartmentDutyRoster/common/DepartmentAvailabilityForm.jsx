@@ -2,10 +2,7 @@ import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CCheckbox, CHybridTimePicker} from "@frontend-appointment/ui-elements";
 
-const DepartmentAvailabilityForm = ({
-                                        departmentAvailabilityFormData
-
-                                    }) => {
+const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
     const {
         departmentAvailabilityData,
         handleDepartmentAvailabilityFormChange,

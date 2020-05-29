@@ -3,10 +3,10 @@ import {Col, Container, Form, Row} from "react-bootstrap";
 import "../department-duty-roster.scss";
 
 import {
+    CCheckbox,
     CFLabel,
     CHybridInput,
     CHybridSelect,
-    CHybridSelectWithImage,
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
@@ -15,40 +15,41 @@ import DoctorAvailabilityForm from "../common/DepartmentAvailabilityForm";
 import DoctorAvailabilityOverrides from "../common/DepartmentAvailabiltyOverrides";
 
 
-const EditDepartmentDutyRoster = ({
-                                  updateDoctorDutyRosterData,
-                                  onEnterKeyPress,
-                                  onInputChange,
-                                  overrideData,
-                                  handleDoctorAvailabilityFormChange,
-                                  handleOverrideDutyRoster,
-                                  showAddOverrideModal,
-                                  handleOverrideFormInputChange,
-                                  addOverride,
-                                  setShowAddOverrideModal,
-                                  overrideUpdateErrorMessage,
-                                  onModifyOverride,
-                                  isModifyOverride,
-                                  setShowDeleteOverrideModal,
-                                  showDeleteOverrideModal,
-                                  remarksHandler,
-                                  remarks,
-                                  onRemoveOverride,
-                                  deleteOverride,
-                                  deleteOverrideErrorMessage,
-                                  hospitalList,
-                                  specializationList,
-                                  doctorList,
-                                  dateErrorMessage,
-                                  specializationDropdownError,
-                                  overrideFormValid
-                              }) => {
+const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormData, departmentAvailabilityOverrideData}) => {
+    const {
+        hospitalList,
+        departmentList,
+        roomList,
+        updateDoctorDutyRosterData,
+        onEnterKeyPress,
+        onInputChange,
+        setShowDeleteOverrideModal,
+        showDeleteOverrideModal,
+        remarksHandler,
+        remarks,
+        deleteOverride,
+        deleteOverrideErrorMessage,
+        dateErrorMessage,
+        specializationDropdownError,
+        onRemoveOverride,
+        overrideFormValid,
+        overrideData,
+        handleDepartmentAvailabilityFormChange,
+        handleOverrideDutyRoster,
+        showAddOverrideModal,
+        handleOverrideFormInputChange,
+        addOverride,
+        setShowAddOverrideModal,
+        overrideUpdateErrorMessage,
+        onModifyOverride,
+        isModifyOverride,
+    } = editRosterProps;
     return <>
         <Container className="p-0" fluid>
             <Row className="">
                 <Col md={12} lg={5} className="">
                     <div className="doctor-info bg-white p-4">
-                        <h5 className="title mb-4">Doctor Information</h5>
+                        <h5 className="title mb-4">General Information</h5>
                         <Form>
                             <div className="d-flex">
                                 <CEnglishDatePicker
@@ -96,7 +97,7 @@ const EditDepartmentDutyRoster = ({
                                 label="Client"
                                 name="hospital"
                                 options={hospitalList}
-                                placeholder="Select client."
+                                placeholder="Select Client."
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
@@ -104,29 +105,44 @@ const EditDepartmentDutyRoster = ({
                             />
 
                             <CHybridSelect
-                                id="specialization"
-                                label="Specialization"
-                                name="specialization"
+                                id="department"
+                                label="Department"
+                                name="department"
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.hospital}
-                                options={specializationList}
-                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First" : "Select specialization."}
+                                options={departmentList}
+                                placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First." :
+                                    departmentList.length? "Select Department.":"No Department(s) available."}
                                 noOptionsMessage={() => specializationDropdownError}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
-                                value={updateDoctorDutyRosterData.specialization}
+                                value={updateDoctorDutyRosterData.department}
                             />
-                            <CHybridSelectWithImage
-                                id="doctor"
-                                label="Doctor"
-                                name="doctor"
-                                isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.specialization}
-                                placeholder={!updateDoctorDutyRosterData.specialization ? "Select Specialization first." : "Select Doctor."}
-                                options={doctorList}
-                                noOptionsMessage={() => "No Doctor(s) found."}
-                                onKeyDown={(event) => onEnterKeyPress(event)}
+                            <CCheckbox
+                                id="enable-room"
+                                label="Enable Room"
+                                name="isRoomEnabled"
+                                className="select-all check-all"
+                                checked={updateDoctorDutyRosterData.isRoomEnabled === 'Y'}
                                 onChange={(event) => onInputChange(event, '')}
-                                value={updateDoctorDutyRosterData.doctor}
-                            />
+                            >
+                            </CCheckbox>
+
+                            {
+                                updateDoctorDutyRosterData.isRoomEnabled === 'Y' ?
+                                    <CHybridSelect
+                                        id="room"
+                                        label="Room Number"
+                                        name="room"
+                                        isDisabled={!updateDoctorDutyRosterData.department || !roomList.length}
+                                        placeholder={!updateDoctorDutyRosterData.department ? "Select Department first."
+                                            : roomList.length ? "Select Room Number." : "No Room Number(s) available."}
+                                        options={roomList}
+                                        onKeyDown={(event) => onEnterKeyPress(event)}
+                                        onChange={(event) => onInputChange(event, '')}
+                                        value={updateDoctorDutyRosterData.room}
+                                    /> :
+                                    ''
+                            }
 
                             <CHybridInput
                                 id="duration"
@@ -182,32 +198,12 @@ const EditDepartmentDutyRoster = ({
                         </Form>
                     </div>
                 </Col>
-                <DoctorAvailabilityForm
-                    doctorAvailabilityData={updateDoctorDutyRosterData.weekDaysDutyRosterUpdateRequestDTOS}
-                    handleDoctorAvailabilityFormChange={handleDoctorAvailabilityFormChange}
-                    rosterGapDuration={updateDoctorDutyRosterData.rosterGapDuration}
-                    type="MANAGE"
-                />
+                <DoctorAvailabilityForm departmentAvailabilityFormData={departmentAvailabilityFormData}/>
             </Row>
 
             <Row>
                 <DoctorAvailabilityOverrides
-                    hasOverrideDutyRoster={updateDoctorDutyRosterData.hasOverrideDutyRoster}
-                    overrideData={overrideData}
-                    doctorDutyRosterOverrideRequestDTOS={updateDoctorDutyRosterData.overridesUpdate}
-                    onEnterKeyPress={onEnterKeyPress}
-                    handleOverrideDutyRoster={handleOverrideDutyRoster}
-                    showAddOverrideModal={showAddOverrideModal}
-                    handleOverrideFormInputChange={handleOverrideFormInputChange}
-                    addOverride={addOverride}
-                    setShowAddOverrideModal={setShowAddOverrideModal}
-                    overrideUpdateErrorMessage={overrideUpdateErrorMessage}
-                    onModify={onModifyOverride}
-                    isModifyOverride={isModifyOverride}
-                    onRemove={onRemoveOverride}
-                    doctorInfoData={updateDoctorDutyRosterData}
-                    overrideFormValid={overrideFormValid}
-                />
+                    departmentAvailabilityOverrideData={departmentAvailabilityOverrideData}/>
                 {showDeleteOverrideModal ? (
                     <ConfirmDelete
                         confirmationMessage="Are you sure you want to delete this Override? If yes please provide remarks."
