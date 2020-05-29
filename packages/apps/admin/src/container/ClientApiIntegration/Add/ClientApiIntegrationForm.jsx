@@ -177,7 +177,8 @@ const ClientApiIntegrationForm = ({
                                   'headers'
                                 )
                               }
-                              placeholder={headerKey}
+                              placeholder={headerKey.replace("Param","")}
+                              
                               value={header[headerKey]}
                               required={true}
                             />
@@ -267,7 +268,7 @@ const ClientApiIntegrationForm = ({
                                     'queryParams'
                                   )
                                 }
-                                placeholder={queryParamKey}
+                                placeholder={queryParamKey.replace("Param","")}
                                 value={queryParam[queryParamKey]}
                                 required={true}
                               />
