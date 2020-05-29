@@ -143,6 +143,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             newRefundList =
                 refundList.length &&
                 refundList.map((spec, index) => ({
+                    ...spec,
                     appointmentId: spec.appointmentId || 'N/A',
                     appointmentDate: spec.appointmentDate || 'N/A',
                     appointmentTime: spec.appointmentTime || 'N/A',
