@@ -39,34 +39,36 @@ export const areArrayOfObjectsEqual = (array1, array2) => {
 export const changeObjectStructureToKeyValueArray = obj => {
   return Object.entries(obj).map(object => {
     return {
-      keyParam: object[0]||'N/A',
-      valueParam: object[1]||'N/A'
+      keyParam: object[0] || 'N/A',
+      valueParam: object[1] || 'N/A'
     }
   })
 }
 export const changeJSONObjectToCommaSepratedValue = jsonObj => {
-  let newObj,flag;
-  const newJsonObj=jsonObj||''
-  if(newJsonObj.includes("{")){
-   newObj = newJsonObj?JSON.parse(jsonObj):null
-   flag=true
-  } 
-  else{
-   newObj=newJsonObj
-   flag=false  
+  let newObj, flag
+  const newJsonObj = jsonObj || ''
+  if (newJsonObj.includes('{')) {
+    newObj = newJsonObj ? JSON.parse(jsonObj) : null
+    flag = true
+  } else {
+    newObj = newJsonObj
+    flag = false
   }
   let commaSepratedString = ''
-  const newObjKeys =flag?Object.keys(newObj):[]
+  const newObjKeys = flag ? Object.keys(newObj) : []
   newObjKeys.map((newObjKey, index) => {
     if (index === newObjKeys.length - 1) commaSepratedString += newObjKey
     else commaSepratedString += newObjKey + ','
-    return newObjKey;
+    return newObjKey
   })
-  return commaSepratedString;
+  return commaSepratedString
 }
-export const addDescriptionInHeaderAndParams  =(data) => {
-   return data.map(datum =>({
-       ...datum,
-       description:datum.description||'',
-    }))
+export const addDescriptionInHeaderAndParams = data => {
+  return data.map(datum => ({
+    ...datum,
+    description: datum.description || ''
+  }))
 }
+
+export const changeValueLabelAraaryToIdsArray = arrayOfValueLabel =>
+  arrayOfValueLabel.map(arrayValue => arrayValue.value)

@@ -32,7 +32,7 @@ const initialState = {
   },
   requestBodyDropdown: {
     isRequestBodyDropdownLoading: true,
-    requestBodyData: [],
+    requestBodyDropdownData: [],
     requestBodyDropdownError: ''
   },
   searchRequestBodyIntegration: {
@@ -83,7 +83,7 @@ const requestBodyDropdownHandler = {
   [REQUEST_BODY_INTEGRATION_DROPDOWN_PENDING]: state => ({
     ...state,
     isRequestBodyDropdownLoading: true,
-    requestBodyData: [],
+    requestBodyDropdownData: [],
     requestBodyDropdownError: ''
   }),
   [REQUEST_BODY_INTEGRATION_DROPDOWN_SUCCESS]: (state, action) => {
@@ -91,14 +91,14 @@ const requestBodyDropdownHandler = {
     return {
       ...state,
       isRequestBodyDropdownLoading: false,
-      requestBodyData: action.payload.data,
+      requestBodyDropdownData: action.payload.data,
       requestBodyDropdownError: ''
     }
   },
   [REQUEST_BODY_INTEGRATION_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
     isRequestBodyDropdownLoading: false,
-    requestBodyData: [],
+    requestBodyDropdownData: [],
     requestBodyDropdownError: action.payload.message
   })
 }
@@ -171,7 +171,7 @@ const editRequestBodyIntegrationHandler = {
     editRequestBodySuccessMessage: '',
     editRequestBodyErrorMessage: action.payload.message
   }),
-  [REQUEST_BODY_INTEGRATION_EDIT_ERROR]: state => ({
+  [REQUEST_BODY_INTEGRATION_EDIT_MESSAGE]: state => ({
     ...state,
     editRequestBodySuccessMessage: '',
     editRequestBodyErrorMessage: ''
@@ -231,3 +231,4 @@ export const RequestBodyIntegrationReducers = {
     initialState.searchRequestBodyIntegration
   )
 }
+

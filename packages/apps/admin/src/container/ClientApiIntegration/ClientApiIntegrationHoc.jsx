@@ -233,8 +233,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         } = this.props.hospitalPreviewApiIntegrationReducers
         const {
           featureCode,
-          requestMethodId,
-          featureId,
+          // requestMethodId,
+          // featureId,
           requestMethodName,
           url,
           requestBody,
