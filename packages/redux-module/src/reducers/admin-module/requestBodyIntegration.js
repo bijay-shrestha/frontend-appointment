@@ -146,7 +146,7 @@ const previewRequestBodyIntegrationHandler = {
     previewRequestBodyIntegrationData: null,
     previewRequestIntegrationErorrMessage: action.payload.message
   }),
-  [REQUEST_BODY_INTEGRATION_EDIT_MESSAGE]: state => ({
+  [REQUEST_BODY_INTEGRATION_PREVIEW_MESSAGE]: state => ({
     ...state,
     previewRequestIntegrationErorrMessage: ''
   })
@@ -205,7 +205,7 @@ const deleteRequestBodyHandler = {
 }
 
 //Reducers
-export const HospitalApiIntegrationReducers = {
+export const RequestBodyIntegrationReducers = {
   RequestBodyIntegrationSaveReducers: createReducerFactory(
     requestBodyApiSaveIntegrationSaveHandler,
     initialState.requestBodyApiData
