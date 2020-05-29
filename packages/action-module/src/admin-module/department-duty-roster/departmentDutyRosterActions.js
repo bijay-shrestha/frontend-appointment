@@ -259,11 +259,12 @@ export const updateDepartmentDutyRosterOverridePending = () => {
     }
 };
 
-export const updateDepartmentDutyRosterOverrideSuccess = data => {
+export const updateDepartmentDutyRosterOverrideSuccess = (data,successMessage) => {
     return {
         type: UPDATE_DEPARTMENT_DUTY_ROSTER_OVERRIDE_SUCCESS,
         payload: {
-            data
+            data,
+            successMessage,
         }
     }
 };

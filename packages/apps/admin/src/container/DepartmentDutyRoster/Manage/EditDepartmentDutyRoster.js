@@ -29,20 +29,9 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
         remarks,
         deleteOverride,
         deleteOverrideErrorMessage,
+        isDeleteOverrideLoading,
         dateErrorMessage,
         specializationDropdownError,
-        onRemoveOverride,
-        overrideFormValid,
-        overrideData,
-        handleDepartmentAvailabilityFormChange,
-        handleOverrideDutyRoster,
-        showAddOverrideModal,
-        handleOverrideFormInputChange,
-        addOverride,
-        setShowAddOverrideModal,
-        overrideUpdateErrorMessage,
-        onModifyOverride,
-        isModifyOverride,
     } = editRosterProps;
     return <>
         <Container className="p-0" fluid>
@@ -111,7 +100,7 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                                 isDisabled={!updateDoctorDutyRosterData.isCloneAndAdd || !updateDoctorDutyRosterData.hospital}
                                 options={departmentList}
                                 placeholder={!updateDoctorDutyRosterData.hospital ? "Select Client First." :
-                                    departmentList.length? "Select Department.":"No Department(s) available."}
+                                    departmentList.length ? "Select Department." : "No Department(s) available."}
                                 noOptionsMessage={() => specializationDropdownError}
                                 onKeyDown={(event) => onEnterKeyPress(event)}
                                 onChange={(event) => onInputChange(event, '')}
@@ -214,6 +203,7 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                         remarks={remarks}
                         onSubmitDelete={deleteOverride}
                         deleteErrorMessage={deleteOverrideErrorMessage}
+                        isLoading={isDeleteOverrideLoading}
                     />
                 ) : (
                     ''

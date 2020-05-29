@@ -13,6 +13,7 @@ import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 
 const AddOverrideModal = ({
                               isModifyOverride,
+                              isUpdateOverrideLoading,
                               showAddOverrideModal,
                               setShowAddOverrideModal,
                               overrideData,
@@ -106,20 +107,6 @@ const AddOverrideModal = ({
                                 isClearable={true}
                                 duration={15}
                             />
-                            {/*<CTimePicker*/}
-                            {/*    id={"startTime-override"}*/}
-                            {/*    name={"startTime"}*/}
-                            {/*    label="Start Time"*/}
-                            {/*    onChange={(val) => handleOverrideFormInputChange(val, 'startTime')}*/}
-                            {/*    selected={overrideData.startTime}*/}
-                            {/*    showTimeSelect={true}*/}
-                            {/*    showTimeSelectOnly={true}*/}
-                            {/*    timeIntervals={15}*/}
-                            {/*    timeCaption="Start Time"*/}
-                            {/*    dateFormat="h:mm aa"*/}
-                            {/*    disabled={overrideData.dayOffStatus === 'Y'}*/}
-                            {/*    inputType="hybrid"*/}
-                            {/*/>*/}
                         </div>
                         <div className="time-picker">
                             <CHybridTimePicker
@@ -133,20 +120,6 @@ const AddOverrideModal = ({
                                 isClearable={true}
                                 duration={15}
                             />
-                            {/*<CTimePicker*/}
-                            {/*    id={"endTime-override"}*/}
-                            {/*    name={"endTime"}*/}
-                            {/*    label="End Time"*/}
-                            {/*    onChange={(val) => handleOverrideFormInputChange(val, 'endTime')}*/}
-                            {/*    selected={overrideData.endTime}*/}
-                            {/*    showTimeSelect={true}*/}
-                            {/*    showTimeSelectOnly={true}*/}
-                            {/*    timeIntervals={15}*/}
-                            {/*    timeCaption="End Time"*/}
-                            {/*    dateFormat="h:mm aa"*/}
-                            {/*    disabled={overrideData.dayOffStatus === 'Y'}*/}
-                            {/*    inputType="hybrid"*/}
-                            {/*/>*/}
                         </div>
                         <div>
                             {overrideData.timeErrorMessage ?
@@ -169,7 +142,6 @@ const AddOverrideModal = ({
                             id="remarks"
                             name="remarks"
                             onChange={(e) => handleOverrideFormInputChange(e, '')}
-                            // onKeyDown={(event) => onEnterKeyPress(event)}
                             placeholder="Remarks"
                             value={overrideData.remarks}
                             max={200}
@@ -197,8 +169,9 @@ const AddOverrideModal = ({
                         <div className="col-md-12">
                             <CButton
                                 id="submit-update-button"
-                                disabled={!overrideData.remarks}
+                                disabled={!overrideData.remarks || isUpdateOverrideLoading}
                                 name="Modify"
+                                isLoading={isUpdateOverrideLoading}
                                 size="lg"
                                 className="btn-action  float-right"
                                 onClickHandler={() => addOverride(false, true)}/>
@@ -206,14 +179,16 @@ const AddOverrideModal = ({
                         <div className="col-md-12">
                             <CButton
                                 id="submit-update-button"
-                                disabled={!overrideFormValid}
+                                disabled={!overrideFormValid || isUpdateOverrideLoading}
                                 name="Save And Exit"
+                                isLoading={isUpdateOverrideLoading}
                                 size="lg"
                                 className="btn-action  float-right"
                                 onClickHandler={() => addOverride(false, false)}/>
                             <CButton id="submit-update-button"
                                      variant="outline-primary"
-                                     disabled={!overrideFormValid}
+                                     disabled={!overrideFormValid || isUpdateOverrideLoading}
+                                     isLoading={isUpdateOverrideLoading}
                                      size="lg"
                                      className="btn-action  float-right mr-2"
                                      name="Save and Create Another"

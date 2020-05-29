@@ -98,7 +98,7 @@ export const updateDepartmentDutyRosterOverride = (path, data) => async dispatch
     dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverridePending());
     try {
         const response = await Axios.put(path, data);
-        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideSuccess(response.data));
+        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideSuccess(response.data,"Override Saved successfully."));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideError(e.errorMessage ? e.errorMessage

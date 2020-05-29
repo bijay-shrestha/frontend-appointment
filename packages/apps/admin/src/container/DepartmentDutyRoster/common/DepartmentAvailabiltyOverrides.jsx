@@ -28,6 +28,7 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
         onEnterKeyPress,
         addOverride,
         isModifyOverride,
+        isUpdateOverrideLoading,
         overrideUpdateErrorMessage,
         departmentInfoData,
         overrideFormValid
@@ -62,6 +63,7 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
                         </CButton>
                         <AddOverrideModal
                             isModifyOverride={isModifyOverride}
+                            isUpdateOverrideLoading={isUpdateOverrideLoading}
                             overrideData={overrideData}
                             showAddOverrideModal={showAddOverrideModal}
                             setShowAddOverrideModal={setShowAddOverrideModal}

@@ -69,6 +69,7 @@ const initialState = {
     isUpdateOverrideLoading: false,
     overrideUpdateErrorMessage: '',
     overrideUpdateSuccessMessage: '',
+    savedOverrideId: '',
     isDeleteOverrideLoading: false,
     overrideDeleteErrorMessage: '',
     overrideDeleteSuccessMessage: '',
@@ -319,6 +320,7 @@ export const DepartmentDutyRosterOverrideUpdateReducer = (state = {...initialSta
                 ...state,
                 isUpdateOverrideLoading: false,
                 overrideUpdateErrorMessage: '',
+                savedOverrideId: action.payload.data.savedOverrideId,
                 overrideUpdateSuccessMessage: action.payload.successMessage,
             };
         case UPDATE_DEPARTMENT_DUTY_ROSTER_OVERRIDE_ERROR:
@@ -326,6 +328,7 @@ export const DepartmentDutyRosterOverrideUpdateReducer = (state = {...initialSta
                 ...state,
                 isUpdateOverrideLoading: false,
                 overrideUpdateErrorMessage: action.payload.errorMessage,
+                savedOverrideId:'',
                 overrideUpdateSuccessMessage: '',
             };
         case CLEAR_DEPARTMENT_DUTY_ROSTER_OVERRIDE_UPDATE_MESSAGE:
@@ -361,7 +364,7 @@ export const DepartmentDutyRosterOverrideDeleteReducer = (state = {...initialSta
             return {
                 ...state,
                 isDeleteOverrideLoading: false,
-                overrideUpdateErrorMessage: action.payload.errorMessage,
+                overrideDeleteErrorMessage: action.payload.errorMessage,
                 overrideDeleteSuccessMessage: '',
             };
         case CLEAR_DEPARTMENT_DUTY_ROSTER_OVERRIDE_DELETE_MESSAGE:

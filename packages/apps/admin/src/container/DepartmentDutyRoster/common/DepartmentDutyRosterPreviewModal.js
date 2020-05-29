@@ -1,7 +1,7 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
 import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
-import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {CDataTable, CFLabel, CHybridInput, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
 import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
@@ -126,6 +126,19 @@ const DepartmentDutyRosterPreviewModal = ({
                                     disabled={true}
                                 />
                             </div>
+                            {
+                                type === 'ADD' ?
+                                    '' :
+                                    <CHybridTextArea
+                                        id="remarks"
+                                        className="mt-3"
+                                        name="remarks"
+                                        placeholder="Remarks"
+                                        disabled={true}
+                                        value={departmentInfoData.remarks || 'N/A'}
+                                    />
+                            }
+
 
                         </Form>
                     </div>
