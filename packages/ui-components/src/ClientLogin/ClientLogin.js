@@ -128,8 +128,8 @@ class ClientLogin extends PureComponent {
                                             />
 
                                             <p className="error">{submitErrorMsg}</p>
-                                            <a href="#/forgotPassword">Forgot Password</a>
-                                            <br></br>
+                                            <a href="#/forgotPassword" className="mb-4">Forgot Password</a>
+                                            
 
                                             <Button
                                                 variant="primary"

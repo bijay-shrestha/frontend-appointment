@@ -9,25 +9,20 @@
  @import '~bootstrap/scss/mixins';
 
 
-.container-login{
+
+ .container-login{
   width:750px !important;
   margin:0 auto;
   height: 400px;
-
-
 }
 
 .login-left {
   background-color:#fafafa;
   border-radius: 5px;
-
-  
 }
 
 .login-left .app-detail{
   margin-top:20px;
-
-
 }
 
 
@@ -52,10 +47,10 @@ height: auto;
 }
 
 .logo-image{
-  width:180px;
-  height: auto;
-  padding:30px 0;
-  text-align: center;
+width:180px;
+height: auto;
+padding:30px 0;
+text-align: center;
 }
 
 .login-wrapper{   
@@ -63,7 +58,7 @@ width:80%;
 margin:auto;
 text-align: left;
 position: relative;
-padding:10px 10px 40px;
+padding:40px 10px;;
 top: 50%;
 transform: translateY(-50%);
 -webkit-transform: translateY(-50%);
@@ -108,7 +103,7 @@ padding:10px;
 .header-login {
 position:relative;
 text-align:center;
-background: linear-gradient(60deg, darken($cogent,15%) 0%, lighten($cogent,30%) 100%);
+background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
 color:white;
 }
 .logo {
@@ -165,25 +160,29 @@ flex-direction:column;
    }
 
    .verify-wrapper{
-    padding:90px 10px;
-  }
+     padding:90px 10px;
+   }
 
-  .forgot-password-content{
-    font-size:1rem;
+   .forgot-password-content{
+     font-size:1rem;
+     letter-spacing:0;
+     margin-bottom:20px;
+   }
+
+   #login-page-redirect{
+     line-height: 1.5;
+   }
+
+   .change-email-verify{
+    font-size: 1rem;
     letter-spacing:0;
     margin-bottom:20px;
-  }
+   }
 
-  #login-page-redirect{
-    line-height: 1.5;
-  }
-
-  .change-email-verify{
-   font-size: 1rem;
-   letter-spacing:0;
-   margin-bottom:20px;
-  }
-
+   p{
+    font-size:1rem;
+    letter-spacing: 0;
+   }
    
    .password-requirement{
      // display:none;
@@ -193,6 +192,7 @@ flex-direction:column;
        font-weight: 300;
        margin:0px 0;
      }
+     
    ul{
      
      li{
@@ -206,6 +206,22 @@ flex-direction:column;
      
    }
 
+}
+
+.forgot-password{
+  .login-header{
+    display: block;
+    .login-page-title{
+     
+      font-size: 1rem;
+      text-transform: capitalize;
+      color:$cogent;
+      text-align: center;
+      font-weight: 400;
+      font-size: 19px;
+      margin: 4px 0 24px;
+    }
+  }
 }
 
 
@@ -223,19 +239,6 @@ flex-direction:column;
 .change-password{
   .password-requirement{
     display:none;
-  }
-}
-
-.forgot-password{
-  padding: 60px 10px;
-  .login-page-title{
-    text-transform: capitalize;
-    color: #0059e6;
-    text-align: center;
-    font-weight: 400;
-    font-size: 19px;
-    margin: 4px 0 24px;
-    display:block;
   }
 }
 
@@ -303,11 +306,9 @@ animation-duration: 20s;
 }
 /*Shrinking for mobile*/
 @media (max-width: 768px) {
-
-  .inner-header{
-    height:calc(100vh - 90px);
-  }
-
+.inner-header{
+  height:calc(100vh - 90px);
+}
   .container-login{
     width:90% !important;
     margin:0 auto;
