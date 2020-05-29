@@ -85,7 +85,7 @@ export const searchApiIntegrationData = (
 export const editApiIntegrationData = (path, data) => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalApiEditPending())
   try {
-    const response = await Axios.put(path, data)
+    await Axios.put(path, data)
     dispatch(
       HospitalApiIntegrationActions.hospitalApiEditSuccess('Api Integration Updated Successfully')
     )

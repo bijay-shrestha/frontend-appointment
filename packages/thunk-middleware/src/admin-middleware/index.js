@@ -40,6 +40,7 @@ import * as UniversitySetupMiddleware from './university-setup-middleware/univer
 import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
 import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware'
 import * as HospitalApiIntegrationMiddleware from './hospital-api-integration-middleware/hospitalApiIntegrationMiddleware'
+import * as RequestBodyApiIntegrationMiddleware from './request-body-integration-api/requestBodyIntegrationMiddleware'
 export {
     createProfile,
     fetchProfileList,
@@ -75,5 +76,6 @@ export {
     fetchAdminMetaInfoByHospitalId,
     AppointmentModeMiddleware,
     AppointmentTransferMiddleware,
-    HospitalApiIntegrationMiddleware
+    HospitalApiIntegrationMiddleware,
+    RequestBodyApiIntegrationMiddleware
 }

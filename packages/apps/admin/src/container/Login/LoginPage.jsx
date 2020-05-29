@@ -8,7 +8,7 @@ import {
 import {Login} from '@frontend-appointment/ui-components'
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {LocalStorageSecurity,CommonUtils} from '@frontend-appointment/helpers'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants';
 
 
@@ -38,10 +38,10 @@ class LoginPage extends React.PureComponent {
             );
             if(userMenus)
             LocalStorageSecurity.localStorageEncoder('isOpen', userMenus.isSideBarCollapse === 'Y' || userMenus.isSideBarCollapse === null ? false : true);
-            
+            const admin = CommonUtils.getUserNameHospitalIdAndAdminId(LocalStorageSecurity.localStorageDecoder('a-auth-token'));
             const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
                 DASHBOARD_FEATURE,
-                userMenus.adminId
+                admin.id
             );
             LocalStorageSecurity.localStorageEncoder(
                 'adminDashRole',
