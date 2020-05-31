@@ -12,7 +12,7 @@ export const fetchFeatureTypeForDrodown = (path,id) => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalFeatureTypeDropdownPending())
   try {
     let response;
-     response =id?await Axios.get(path):await  Axios.getWithPathVariables(path,id)
+     response =!id?await Axios.get(path):await Axios.getWithPathVariables(path,id)
     dispatch(
       HospitalApiIntegrationActions.hospitalFeatureTypeDropdownSuccess(
         response.data

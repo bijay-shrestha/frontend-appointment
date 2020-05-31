@@ -21,7 +21,10 @@ const {
   REQUEST_BODY_INTEGRATION_SEARCH_ERROR,
   REQUEST_BODY_INTEGRATION_SEARCH_PENDING,
   REQUEST_BODY_INTEGRATION_SEARCH_SUCCESS,
-  REQUEST_BODY_INTEGRATION_SUCCESS
+  REQUEST_BODY_INTEGRATION_SUCCESS,
+  REQUEST_BODY_BY_FEATURE_ID_ERROR,
+  REQUEST_BODY_BY_FEATURE_ID_PENDING,
+  REQUEST_BODY_BY_FEATURE_ID_SUCCESS
 } = requestBOdyApiIntegrationActionConstants
 //State
 const initialState = {
@@ -55,6 +58,11 @@ const initialState = {
     isDeleteRequestBodyIntegrationLoading: false,
     deleteRequestBodyIntegrationSuccessMessage: '',
     deleteRequestBodyIntegrationErrorMessage: ''
+  },
+  requestBodyByFeature: {
+    isRequestBodyByFeatureLoading: true,
+    requestBodyByFeatureData: null,
+    requestBodyByFeatureErrorMessage: ''
   }
 }
 //Handlers
@@ -152,6 +160,27 @@ const previewRequestBodyIntegrationHandler = {
   })
 }
 
+const requestBodyByFeatureHandler = {
+  [REQUEST_BODY_BY_FEATURE_ID_PENDING]: state => ({
+    ...state,
+    isRequestBodyByFeatureLoading: true,
+    requestBodyByFeatureData: null,
+    requestBodyByFeatureErrorMessage: ''
+  }),
+  [REQUEST_BODY_BY_FEATURE_ID_SUCCESS]: (state, action) => ({
+    ...state,
+    isRequestBodyByFeatureLoading: false,
+    requestBodyByFeatureData: action.payload.data,
+    requestBodyByFeatureErrorMessage: ''
+  }),
+  [REQUEST_BODY_BY_FEATURE_ID_ERROR]: (state, action) => ({
+    ...state,
+    isRequestBodyByFeatureLoading: false,
+    requestBodyByFeatureData: null,
+    requestBodyByFeatureErrorMessage: action.payload.message
+  })
+}
+
 const editRequestBodyIntegrationHandler = {
   [REQUEST_BODY_INTEGRATION_EDIT_PENDING]: state => ({
     ...state,
@@ -229,6 +258,9 @@ export const RequestBodyIntegrationReducers = {
   RequestBodySearchReducers: createReducerFactory(
     searchRequestBodyIntegrationHandler,
     initialState.searchRequestBodyIntegration
+  ),
+  RequestBodyByFeatureReducers:createReducerFactory(
+    requestBodyByFeatureHandler,
+    initialState.requestBodyByFeature
   )
 }
-

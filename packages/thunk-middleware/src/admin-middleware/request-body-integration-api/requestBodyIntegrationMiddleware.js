@@ -78,23 +78,7 @@ export const editRequestBodyIntegrationData = (
   }
 }
 
-export const previewRequestBodyIntegrationData = (
-  path,
-  id
-) => async dispatch => {
-  dispatch(RequestBodyIntegration.requestBodyIntegrationPreviewPending())
-  try {
-    const response = await Axios.getWithPathVariables(path, id)
-    dispatch(
-      RequestBodyIntegration.requestBodyIntegrationPreviewSuccess(response.data)
-    )
-  } catch (e) {
-    dispatch(
-      RequestBodyIntegration.requestBodyIntegrationPreviewError(e.errorMessage)
-    )
-    throw e
-  }
-}
+
 
 export const deleteRequestBodyIntegrationData = (
   path,
@@ -111,6 +95,44 @@ export const deleteRequestBodyIntegrationData = (
   } catch (e) {
     dispatch(
       RequestBodyIntegration.requestBodyIntegrationDeleteError(e.errorMessage)
+    )
+    throw e
+  }
+}
+
+
+
+export const getRequestBodyByFeatureId = (
+  path,
+  featureId
+) => async dispatch => {
+  dispatch(RequestBodyIntegration.requestBodyByFeaturePending())
+  try {
+    const response = await Axios.getWithPathVariables(path, featureId)
+    dispatch(
+      RequestBodyIntegration.requestBodyByFeatureSuccess(response.data)
+    )
+  } catch (e) {
+    dispatch(
+      RequestBodyIntegration.requestBodyByFeatureError(e.errorMessage)
+    )
+    
+  }
+}
+
+export const previewRequestBodyIntegrationData = (
+  path,
+  id
+) => async dispatch => {
+  dispatch(RequestBodyIntegration.requestBodyIntegrationPreviewPending())
+  try {
+    const response = await Axios.getWithPathVariables(path, id)
+    dispatch(
+      RequestBodyIntegration.requestBodyIntegrationPreviewSuccess(response.data)
+    )
+  } catch (e) {
+    dispatch(
+      RequestBodyIntegration.requestBodyIntegrationPreviewError(e.errorMessage)
     )
     throw e
   }

@@ -4,14 +4,16 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {CommonUtils, ObjectUtils} from '@frontend-appointment/helpers'
 import {
   HospitalApiIntegrationMiddleware,
-  HospitalSetupMiddleware
+  HospitalSetupMiddleware,
+  RequestBodyApiIntegrationMiddleware
 } from '@frontend-appointment/thunk-middleware'
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './client-api-integration.scss'
 const {
   hospitalIntegrationConstants,
-  hospitalSetupApiConstants
+  hospitalSetupApiConstants,
+  requestbodyIntegrationConstants
 } = AdminModuleAPIConstants
 const {
   fetchFeatureTypeForDrodown,
@@ -29,6 +31,7 @@ const {
   changeCommaSeperatedStringToObjectAndStringifyIt,
   checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent
 } = CommonUtils
+const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
   changeObjectStructureToKeyValueArray,
   changeJSONObjectToCommaSepratedValue,
@@ -48,7 +51,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: '',
         id: '',
         integrationChannelId: '',
-        integrationTypeId:''
+        integrationTypeId: ''
       },
       searchParameters: {
         clientId: '',
@@ -100,7 +103,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: '',
           id: '',
           integrationChannelId: '',
-          integrationTypeId:''
+          integrationTypeId: ''
         },
         formValid: false,
         requestBodyValid: false,
@@ -128,15 +131,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      if(name === 'integrationTypeId'){
-        integrationDatas['featureType']=''
+      if (name === 'integrationTypeId') {
+        integrationDatas['featureType'] = ''
         this.onIntegrationTypeChangeFeatureType(value)
+      }
+      if (name === 'featureType') {
+        integrationDatas['requestBody'] = '';
+          this.onFeatureTypeChangeRequestBody(value)
       }
       if (name !== 'requestBody' && name !== 'apiUrl') {
         await this.setTheStateForIntegrationData(integrationDatas)
       } else {
         await this.setTheStateForInputValidity(integrationDatas, validity, name)
       }
+      
       this.checkFormValidity(type)
     }
 
@@ -574,7 +582,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers,
         queryParams,
         requestBody,
-        requestMethod
+        requestMethod,
+        integrationChannelId,
+        integrationTypeId
       } = this.state.integrationData
       try {
         await this.props.saveHospitalIntegration(
@@ -589,6 +599,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             ),
             requestMethodId: requestMethod.value || '',
             hospitalId: clientId.value || '',
+            apiIntegrationTypeId: integrationTypeId.value || '',
+            integrationChannelId: integrationChannelId.value || '',
             featureTypeId: featureType.value || '',
             requestBodyAttribute: JSON.stringify(
               changeCommaSeperatedStringToObjectAndStringifyIt(requestBody)
@@ -612,9 +624,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       }
     }
 
-    onIntegrationTypeChangeFeatureType = async(id)=>{
+    onIntegrationTypeChangeFeatureType = async id => {
       await this.props.fetchFeatureTypeForDrodown(
-        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE,id
+        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE,
+        id
+      )
+    }
+
+    onFeatureTypeChangeRequestBody = async id => {
+      await this.props.getRequestBodyByFeatureId(
+        requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_BY_FEATURE_TYPE,
+        id
       )
     }
 
@@ -700,6 +720,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureData,
+        requestBodyByFeatureErrorMessage
+      } = this.props.RequestBodyByFeatureReducers
       return (
         <>
           <ComposedComponent
@@ -736,7 +761,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationChannelDropdownError,
               isIntegrationTypeDropdownLoading,
               integrationTypeData,
-              integrationTypeDropdownError
+              integrationTypeDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureData,
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
@@ -814,7 +842,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       'hospitalDeleteApiIntegrationReducers',
       'hospitalEditApiIntegrationReducers',
       'integrationChannelReducers',
-      'integrationTypeReducers'
+      'integrationTypeReducers',
+      'RequestBodyByFeatureReducers'
     ],
     {
       fetchFeatureTypeForDrodown,
@@ -827,7 +856,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       searchApiIntegrationData,
       clearMessages,
       fetchIntegrationChannelDropdown,
-      fetchIntegrationTypeDropdown
+      fetchIntegrationTypeDropdown,
+      getRequestBodyByFeatureId
     }
   )
 }

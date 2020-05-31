@@ -21,7 +21,10 @@ const {
   REQUEST_BODY_INTEGRATION_SEARCH_ERROR,
   REQUEST_BODY_INTEGRATION_SEARCH_PENDING,
   REQUEST_BODY_INTEGRATION_SEARCH_SUCCESS,
-  REQUEST_BODY_INTEGRATION_SUCCESS
+  REQUEST_BODY_INTEGRATION_SUCCESS,
+  REQUEST_BODY_BY_FEATURE_ID_ERROR,
+  REQUEST_BODY_BY_FEATURE_ID_PENDING,
+  REQUEST_BODY_BY_FEATURE_ID_SUCCESS
 } = requestBOdyApiIntegrationActionConstants
 
 export const requestBodyApiIntegrationSaveSuccess = message => ({
@@ -129,5 +132,23 @@ export const requestBodyIntegrationDeleteSuccess = message => ({
   type: REQUEST_BODY_INTEGRATION_DELETE_SUCCESS,
   payload: {
     message
+  }
+})
+
+export const requestBodyByFeatureError = message => ({
+  type: REQUEST_BODY_BY_FEATURE_ID_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const requestBodyByFeaturePending = () => ({
+  type: REQUEST_BODY_BY_FEATURE_ID_PENDING
+})
+
+export const requestBodyByFeatureSuccess = data => ({
+  type: REQUEST_BODY_BY_FEATURE_ID_SUCCESS,
+  payload: {
+    data
   }
 })
