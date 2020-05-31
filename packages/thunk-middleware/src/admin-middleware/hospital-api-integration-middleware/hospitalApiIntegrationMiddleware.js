@@ -8,10 +8,11 @@ const {
   CLEAR_HOSPITAL_API_EDIT_MESSAGE,
   CLEAR_HOSPITAL_API_PREVIEW_MESSAGE
 } = hospitalApiIntegrationActionConstants
-export const fetchFeatureTypeForDrodown = path => async dispatch => {
+export const fetchFeatureTypeForDrodown = (path,id) => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalFeatureTypeDropdownPending())
   try {
-    const response = await Axios.get(path)
+    let response;
+     response =id?await Axios.get(path):await  Axios.getWithPathVariables(path,id)
     dispatch(
       HospitalApiIntegrationActions.hospitalFeatureTypeDropdownSuccess(
         response.data

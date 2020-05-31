@@ -159,7 +159,7 @@ const integrationChannelDropdownHandler = {
     integrationChannelData: action.payload.data,
     integrationChannelDropdownError: ''
   }),
-  [API_INTEGRATION_TYPE_DROPDOWN_ERROR]: (state, action) => ({
+  [API_INTEGRATION_CHANNEL_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
     isIntegrationChannelDropdownLoading: true,
     integrationChannelData: [],

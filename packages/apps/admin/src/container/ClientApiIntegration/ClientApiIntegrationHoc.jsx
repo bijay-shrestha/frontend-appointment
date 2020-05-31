@@ -21,7 +21,9 @@ const {
   editApiIntegrationData,
   previewApiIntegrationData,
   searchApiIntegrationData,
-  clearMessages
+  clearMessages,
+  fetchIntegrationChannelDropdown,
+  fetchIntegrationTypeDropdown
 } = HospitalApiIntegrationMiddleware
 const {
   changeCommaSeperatedStringToObjectAndStringifyIt,
@@ -44,7 +46,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers: [],
         queryParams: [],
         requestBody: '',
-        id: ''
+        id: '',
+        integrationChannelId: '',
+        integrationTypeId:''
       },
       searchParameters: {
         clientId: '',
@@ -93,7 +97,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: '',
           headers: [],
           queryParams: [],
-          requestBody: ''
+          requestBody: '',
+          id: '',
+          integrationChannelId: '',
+          integrationTypeId:''
         },
         formValid: false,
         requestBodyValid: false,
@@ -121,6 +128,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
+      if(name === 'integrationTypeId'){
+        integrationDatas['featureType']=''
+        this.onIntegrationTypeChangeFeatureType(value)
+      }
       if (name !== 'requestBody' && name !== 'apiUrl') {
         await this.setTheStateForIntegrationData(integrationDatas)
       } else {
@@ -601,9 +612,19 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       }
     }
 
-    callInitialApi = async () => {
+    onIntegrationTypeChangeFeatureType = async(id)=>{
       await this.props.fetchFeatureTypeForDrodown(
-        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN
+        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE,id
+      )
+    }
+
+    callInitialApi = async () => {
+      await this.props.fetchIntegrationChannelDropdown(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_CHANNEL_DROPDOWN
+      )
+
+      await this.props.fetchIntegrationTypeDropdown(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_TYPE_DROPDOWN
       )
 
       await this.props.fetchRequestMethodDropdown(
@@ -668,6 +689,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         isEditApiIntegrationLoading,
         editApiIntegrationErrorMessage
       } = this.props.hospitalEditApiIntegrationReducers
+
+      const {
+        isIntegrationChannelDropdownLoading,
+        integrationChannelData,
+        integrationChannelDropdownError
+      } = this.props.integrationChannelReducers
+      const {
+        isIntegrationTypeDropdownLoading,
+        integrationTypeData,
+        integrationTypeDropdownError
+      } = this.props.integrationTypeReducers
       return (
         <>
           <ComposedComponent
@@ -698,7 +730,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               hospitalsForDropdown,
               requestParamsIsSelected,
               requestHeadersIsSelected,
-              changeRequestHandler: this.changeRequestHandler
+              changeRequestHandler: this.changeRequestHandler,
+              isIntegrationChannelDropdownLoading,
+              integrationChannelData,
+              integrationChannelDropdownError,
+              isIntegrationTypeDropdownLoading,
+              integrationTypeData,
+              integrationTypeDropdownError
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
@@ -774,7 +812,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       'hospitalPreviewApiIntegrationReducers',
       'hospitalSearchApiIntegrationReducers',
       'hospitalDeleteApiIntegrationReducers',
-      'hospitalEditApiIntegrationReducers'
+      'hospitalEditApiIntegrationReducers',
+      'integrationChannelReducers',
+      'integrationTypeReducers'
     ],
     {
       fetchFeatureTypeForDrodown,
@@ -785,7 +825,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       editApiIntegrationData,
       previewApiIntegrationData,
       searchApiIntegrationData,
-      clearMessages
+      clearMessages,
+      fetchIntegrationChannelDropdown,
+      fetchIntegrationTypeDropdown
     }
   )
 }
