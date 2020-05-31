@@ -21,7 +21,13 @@ const {
   HOSPITAL_FEATURE_TYPE_DROPDOWN_SUCCESS,
   HOSPITAL_API_INTEGRATION_DELETE_ERROR,
   HOSPITAL_API_INTEGRATION_DELETE_PENDING,
-  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS
+  HOSPITAL_API_INTEGRATION_DELETE_SUCCESS,
+  API_INTEGRATION_CHANNEL_DROPDOWN_ERROR,
+  API_INTEGRATION_CHANNEL_DROPDOWN_PENDING,
+  API_INTEGRATION_CHANNEL_DROPDOWN_SUCCESS,
+  API_INTEGRATION_TYPE_DROPDOWN_ERROR,
+  API_INTEGRATION_TYPE_DROPDOWN_PENDING,
+  API_INTEGRATION_TYPE_DROPDOWN_SUCCESS,  
 } = hospitalApiIntegrationActionConstants
 
 export const hospitalApiSaveSuccess = message => ({
@@ -147,5 +153,41 @@ export const hospitalApiDeleteSuccess = message => ({
   type: HOSPITAL_API_INTEGRATION_DELETE_SUCCESS,
   payload: {
     message
+  }
+})
+
+export const apiIntegrationTypeError = message => ({
+  type: API_INTEGRATION_TYPE_DROPDOWN_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const apiIntegrationTypePending = () => ({
+  type: API_INTEGRATION_TYPE_DROPDOWN_PENDING
+})
+
+export const apiIntegrationTypeSuccess = data => ({
+  type: API_INTEGRATION_TYPE_DROPDOWN_SUCCESS,
+  payload: {
+    data
+  }
+})
+
+export const apiIntegrationChannelError = message => ({
+  type: API_INTEGRATION_CHANNEL_DROPDOWN_ERROR,
+  payload: {
+    message
+  }
+})
+
+export const apiIntegrationChannelPending = () => ({
+  type: API_INTEGRATION_CHANNEL_DROPDOWN_PENDING
+})
+
+export const apiIntegrationChannelSuccess = data => ({
+  type: API_INTEGRATION_CHANNEL_DROPDOWN_SUCCESS,
+  payload: {
+    data
   }
 })

@@ -22,6 +22,12 @@ const {
   HOSPITAL_API_INTEGRATION_DELETE_ERROR,
   HOSPITAL_API_INTEGRATION_DELETE_PENDING,
   HOSPITAL_API_INTEGRATION_DELETE_SUCCESS,
+  API_INTEGRATION_CHANNEL_DROPDOWN_ERROR,
+  API_INTEGRATION_CHANNEL_DROPDOWN_PENDING,
+  API_INTEGRATION_CHANNEL_DROPDOWN_SUCCESS,
+  API_INTEGRATION_TYPE_DROPDOWN_ERROR,
+  API_INTEGRATION_TYPE_DROPDOWN_PENDING,
+  API_INTEGRATION_TYPE_DROPDOWN_SUCCESS,
   CLEAR_HOSPITAL_API_DELETE_MESSAGE,
   CLEAR_HOSPITAL_API_EDIT_MESSAGE,
   CLEAR_HOSPITAL_API_PREVIEW_MESSAGE
@@ -63,8 +69,19 @@ const initialState = {
     isDeleteApiIntegrationLoading: false,
     deleteApiIntegrationSuccessMessage: '',
     deleteApiIntegrationErrorMessage: ''
-  }
+  },
+  integrationChannelDropdown: {
+    isIntegrationChannelDropdownLoading: true,
+    integrationChannelData: [],
+    integrationChannelDropdownError: ''
+  },
+  integrationTypeDropdown: {
+    isIntegrationTypeDropdownLoading: true,
+    integrationTypeData: [],
+    integrationTypeDropdownError: ''
+  },
 }
+
 //Handlers
 const hospitalApiIntegrationSaveHandler = {
   [HOSPITAL_API_SAVE_PENDING]: state => ({
@@ -105,6 +122,48 @@ const featureTypeDropdownHandler = {
     isFeatureTypeDropdownLoading: false,
     featureTypeDropdownData: [],
     featureTypeDropdownError: action.payload.message
+  })
+}
+
+const integrationTypeDropdownHandler = {
+  [API_INTEGRATION_TYPE_DROPDOWN_PENDING]: state => ({
+    ...state,
+    isIntegrationTypeDropdownLoading: true,
+    integrationTypeData: [],
+    integrationTypeDropdownError: ''
+  }),
+  [API_INTEGRATION_TYPE_DROPDOWN_SUCCESS]: (state, action) => ({
+    ...state,
+    isIntegrationTypeDropdownLoading: false,
+    integrationTypeData: action.payload.data,
+    integrationTypeDropdownError: ''
+  }),
+  [API_INTEGRATION_TYPE_DROPDOWN_ERROR]: (state, action) => ({
+    ...state,
+    isIntegrationTypeDropdownLoading: false,
+    integrationTypeData: [],
+    integrationTypeDropdownError: action.payload.message
+  })
+}
+
+const integrationChannelDropdownHandler = {
+  [API_INTEGRATION_CHANNEL_DROPDOWN_PENDING]: state => ({
+    ...state,
+    isIntegrationChannelDropdownLoading: true,
+    integrationChannelData: [],
+    integrationChannelDropdownError: ''
+  }),
+  [API_INTEGRATION_CHANNEL_DROPDOWN_SUCCESS]: (state, action) => ({
+    ...state,
+    isIntegrationChannelDropdownLoading: true,
+    integrationChannelData: action.payload.data,
+    integrationChannelDropdownError: ''
+  }),
+  [API_INTEGRATION_TYPE_DROPDOWN_ERROR]: (state, action) => ({
+    ...state,
+    isIntegrationChannelDropdownLoading: true,
+    integrationChannelData: [],
+    integrationChannelDropdownError: action.payload.message
   })
 }
 const requestMethodDropdownHandler = {
@@ -263,5 +322,13 @@ export const HospitalApiIntegrationReducers = {
   hospitalDeleteApiIntegrationReducers: createReducerFactory(
     deleteApiIntegrationHandler,
     initialState.deleteApiIntegration
+  ),
+  integrationChannelReducers:createReducerFactory(
+    integrationChannelDropdownHandler,
+    initialState.integrationChannelDropdown
+  ),
+  integrationTypeReducers:createReducerFactory(
+    integrationTypeDropdownHandler,
+    initialState.integrationTypeDropdown
   )
 }
