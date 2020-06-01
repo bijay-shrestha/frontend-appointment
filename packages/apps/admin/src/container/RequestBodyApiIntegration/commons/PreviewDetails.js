@@ -10,7 +10,7 @@ const PreviewDetails = props => {
         show={showModal}
         modalHeading="Request Body Details"
         size="lg"
-        bodyChildren={<DetailsModal specializationData={requestBodyData} />}
+        bodyChildren={<DetailsModal requestBodyData={requestBodyData} />}
         onHide={setShowModal}
         centered={false}
         dialogClassName="preview-modal"

@@ -10,7 +10,6 @@ import {CAlert} from '@frontend-appointment/ui-elements'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 
 import './specialization.scss'
-
 const {fetchFeatureTypeForDrodown} = HospitalApiIntegrationMiddleware
 
 const {
@@ -59,7 +58,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
         remarks: '',
         status: 'D'
       },
-      totalRecords: 0
+      totalRecords: 0,
+      previewData: null
     }
 
     handleEnterPress = event => {
@@ -93,9 +93,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {featureTypeId, requestBodys, remarks} = this.state.requestBodyData
+      const {featureTypeId, requestBodys} = this.state.requestBodyData
       let formValidity = featureTypeId.value && requestBodys.length
-      if (eventType === 'E') formValidity = formValidity && remarks
       this.setState({
         formValid: formValidity
       })
@@ -168,11 +167,22 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       )
     }
 
-    onPreviewHandler = async id => {
+    onPreviewHandler = async data => {
       try {
-        await this.previewApiCall(id)
-        this.setState({
-          showRequestBodyModal: true
+        await this.previewApiCall(data.featureId)
+        const {
+          // isPreviewRequestBodyIntegrationLoading,
+          previewRequestBodyIntegrationData
+          //previewRequestIntegrationErorrMessage
+        } = this.props.RequestBodyPreviewReducers
+        await this.setState({
+          showRequestBodyModal: true,
+          previewData: {
+            featureTypeId: {value: data.featureId, label: data.featureName},
+            requestBodys: ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
+              previewRequestBodyIntegrationData
+            )
+          }
         })
       } catch (e) {
         this.setState({
@@ -186,19 +196,19 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    onEditHandler = async id => {
+    onEditHandler = async data => {
       this.props.clearMessages()
       try {
-        await this.previewApiCall(id)
+        await this.previewApiCall(data.featureId)
         const {
-          featureType,
-          requestBodys
-        } = this.props.SpecializationPreviewReducer
+          previewRequestBodyIntegrationData
+        } = this.props.RequestBodyPreviewReducers
         await this.setState({
           showEditModal: true,
           requestBodyData: {
-            featureTypeId: featureType,
-            requestBodys: requestBodys
+            featureTypeId: {value: data.featureId, label: data.featureName},
+            requestBodys:  ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
+              previewRequestBodyIntegrationData)
           }
         })
         this.checkFormValidity('E')
@@ -212,7 +222,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       let searchData = {
         featureTypeId: featureType.value || '',
         requestBodyId: requestBody.value || '',
-        status: status.value
+        status: status.value==='All'?'':status.value
       }
 
       let updatedPage =
@@ -249,6 +259,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
           ...req,
           sN: index + 1
         }))
+      console.log(newRequestBodyList)
       return newRequestBodyList
     }
 
@@ -287,10 +298,10 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       } catch (e) {}
     }
 
-    onDeleteHandler = async id => {
+    onDeleteHandler = async data => {
       this.props.clearMessages()
       let deleteRequestDTO = {...this.state.deleteRequestDTO}
-      deleteRequestDTO['id'] = id
+      deleteRequestDTO['id'] = data.featureId
       await this.setState({
         deleteRequestDTO: deleteRequestDTO,
         deleteModalShow: true
@@ -353,7 +364,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
         let value = event.target.value
         let label = event.target.label
         let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
+        searchParams[fieldName] = label ? value ? {value, label} : '': value
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -393,7 +404,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
         showConfirmModal,
         showEditModal,
         showRequestBodyModal,
-        totalRecords
+        totalRecords,
+        previewData
       } = this.state
 
       const {
@@ -406,7 +418,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       } = this.props.RequestBodyIntegrationSaveReducers
       const {
         isPreviewRequestBodyIntegrationLoading,
-        previewRequestBodyIntegrationData,
+       // previewRequestBodyIntegrationData,
         previewRequestIntegrationErorrMessage
       } = this.props.RequestBodyPreviewReducers
 
@@ -466,10 +478,12 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
               deleteRequestDTO,
               pageChangeHandler: this.handlePageChange,
               isSearchRequestBodyLoading,
-              searchRequestBodyData,
+              searchRequestBodyData: this.appendSNToTable(
+                searchRequestBodyData
+              ),
               searchRequestBodyMessageError,
               isPreviewRequestBodyIntegrationLoading,
-              previewRequestBodyIntegrationData,
+              previewRequestBodyIntegrationData:previewData,
               previewRequestIntegrationErorrMessage,
               isDeleteRequestBodyIntegrationLoading,
               deleteRequestBodyIntegrationErrorMessage,

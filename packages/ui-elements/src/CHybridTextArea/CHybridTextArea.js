@@ -96,16 +96,9 @@ class CHybridTextArea extends React.PureComponent {
     };
 
     componentDidUpdate(prevProps, prevState) {
-        if (!this.props.value) {
-            const a = ReactDOM.findDOMNode(this.refs['fieldWrapper' + this.props.id])
-                .className;
-            const replaceString = a.replace(' hasValue', '');
-            ReactDOM.findDOMNode(
-                this.refs['fieldWrapper' + this.props.id]
-            ).className = replaceString;
-            return true
-        }
-        return false
+
+        this.classAdditionWhenValueIsChanged(this.props.value);
+
     }
 
     componentDidMount() {

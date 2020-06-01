@@ -20,8 +20,9 @@ class RequestBodySearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchRequestBody()
+   
     this.toggleSearchForm()
+    this.props.searchRequestBody()
   }
 
   render () {
@@ -46,7 +47,7 @@ class RequestBodySearchFilter extends PureComponent {
                   variant="outline-secondary"
                   size="sm"
                   name=""
-                  onClickHandler={handleSearchFormReset}
+                  onClickHandler={()=>handleSearchFormReset()}
                 >
                   {' '}
                   <i className="fa fa-refresh" />
@@ -67,7 +68,7 @@ class RequestBodySearchFilter extends PureComponent {
                         handleSearchFormChange(event, validity)
                       }
                       options={featureTypeDropdownData}
-                      value={searchParameters.featureTypeId}
+                      value={searchParameters.featureType}
                       isDisabled={!featureTypeDropdownData.length}
                       placeholder={
                         featureTypeDropdownData.length
@@ -80,13 +81,13 @@ class RequestBodySearchFilter extends PureComponent {
                     <CHybridSelect
                       id="requestBody"
                       label="Request Body"
-                      name="Request Body"
+                      name="requestBody"
                       onKeyDown={onEnterKeyPress}
                       onChange={(event, validity) =>
                         handleSearchFormChange(event, validity)
                       }
                       options={requestBodyDropdownData}
-                      value={searchParameters.featureTypeId}
+                      value={searchParameters.requestBody}
                       isDisabled={!requestBodyDropdownData.length}
                       placeholder={
                         requestBodyDropdownData.length
@@ -98,19 +99,18 @@ class RequestBodySearchFilter extends PureComponent {
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="status"
-                      label="status"
+                      label="Status"
                       name="status"
                       onKeyDown={onEnterKeyPress}
                       onChange={(event, validity) =>
                         handleSearchFormChange(event, validity)
                       }
                       options={[
-                        {value: '', label: 'ALL'},
+                        {value: 'All', label: 'ALL'},
                         {value: 'Y', label: 'Active'},
                         {value: 'N', label: 'Inactive'}
                       ]}
                       value={searchParameters.status}
-                      isDisabled={!featureTypeDropdownData.length}
                       placeholder={'Select Status'}
                     />
                   </Col>

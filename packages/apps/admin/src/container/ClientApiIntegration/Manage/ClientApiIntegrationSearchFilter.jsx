@@ -32,7 +32,9 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
       hospitalsForDropdown,
       onSearchChangeHandler,
       onSearchResetHandler,
-      searchParams
+      searchParams,
+      //integrationChannelData,
+      integrationTypeData
     } = this.props
     return (
       <>
@@ -58,6 +60,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
               id="client-api-integraiton-info"
               className="profile-info mt-4"
             >
+              
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
@@ -70,6 +73,19 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                       value={searchParams.clientId}
                       disabled={!hospitalsForDropdown.length}
                       placeholder={'Select Client.'}
+                    />
+                  </Col>
+
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="apiIntegrationTypeId"
+                      label="Api Integration Type"
+                      name="apiIntegrationTypeId"
+                      onChange={event => onSearchChangeHandler(event)}
+                      options={integrationTypeData}
+                      value={searchParams.apiIntegrationTypeId}
+                      disabled={!integrationTypeData.length}
+                      placeholder={'Select Api Integration Type.'}
                     />
                   </Col>
 
@@ -163,6 +179,20 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                   >
                     <Button id="light-search-filters" variant="secondary">
                       {searchParams.clientId.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+               
+               {searchParams.apiIntegrationTypeId.value && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => <Tooltip {...props}>Api Integration Type</Tooltip>}
+                  >
+                    <Button id="light-search-filters" variant="secondary">
+                      {searchParams.apiIntegrationTypeId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
