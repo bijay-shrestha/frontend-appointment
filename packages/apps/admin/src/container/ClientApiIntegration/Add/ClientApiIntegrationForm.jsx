@@ -49,27 +49,12 @@ const ClientApiIntegrationForm = ({
     <>
       <Container-fluid>
         <Row sm="12 p-0">
-          <h5 className="title"> Client Api Integration </h5>
+          <h5 className="title"> API Integration </h5>
         </Row>
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={4}>
-                <CHybridSelect
-                  id="client"
-                  label="Client"
-                  name="clientId"
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  options={hospitalsForDropdown}
-                  value={integrationData.clientId}
-                  isDisabled={!hospitalsForDropdown.length}
-                  placeholder={'Select Client.'}
-                />
-              </Col>
-
-              <Col sm={12} md={4}>
+            <Col sm={12} md={3}>
                 <CHybridSelect
                   id="integrationTypeId"
                   label="Integration Type"
@@ -90,69 +75,6 @@ const ClientApiIntegrationForm = ({
                       ? 'Select Integration Type'
                       : 'No Integration Types(s) Found'
                   }
-                />
-              </Col>
-
-              <Col sm={12} md={4}>
-                <CHybridSelect
-                  id="client"
-                  label="Feature Type"
-                  name="featureType"
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  options={featureTypeDropdownData}
-                  value={integrationData.featureType}
-                  isDisabled={
-                    !integrationData.integrationTypeId.value ||
-                    !requestMethodData.length
-                  }
-                  placeholder={
-                    !integrationData.integrationTypeId
-                      ? 'Select Integration Type Id First.'
-                      : featureTypeDropdownData.length
-                      ? 'Select Feature Type'
-                      : 'No Feature Types(s) Found'
-                  }
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col sm={3} md={3} lg={3}>
-                <CHybridSelect
-                  id="client"
-                  label="Request Method"
-                  name="requestMethod"
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  options={requestMethodData}
-                  value={integrationData.requestMethod}
-                  isLoading={isRequestMethodDropdownLoading}
-                  isDisabled={
-                    !integrationData.clientId.value || !requestMethodData.length
-                  }
-                  placeholder={
-                    !integrationData.clientId
-                      ? 'Select Client First.'
-                      : requestMethodData.length
-                      ? 'Select Req. method'
-                      : 'No Req. Method(s) Found'
-                  }
-                />
-              </Col>
-              <Col sm={6} md={6}>
-                <CHybridInput
-                  id="apiUrl"
-                  name="apiUrl"
-                  value={integrationData.apiUrl}
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  placeholder={'Enter Request URL'}
-                  fieldValuePattern={regexForApiUrl}
-                  hasValidation={true}
-                  errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
               <Col sm={3} md={3}>
@@ -176,6 +98,85 @@ const ClientApiIntegrationForm = ({
                     !integrationData.integrationTypeId.value ||
                     !integrationChannelData.length
                   }
+                />
+              </Col>
+              <Col sm={12} md={3}>
+                <CHybridSelect
+                  id="client"
+                  label="Client"
+                  name="clientId"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={hospitalsForDropdown}
+                  value={integrationData.clientId}
+                  isDisabled={!hospitalsForDropdown.length}
+                  placeholder={'Select Client.'}
+                />
+              </Col>
+
+             
+          
+              <Col sm={12} md={3}>
+                <CHybridSelect
+                  id="client"
+                  label="Feature Type"
+                  name="featureType"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={featureTypeDropdownData}
+                  value={integrationData.featureType}
+                  isDisabled={
+                    !integrationData.integrationTypeId.value ||
+                    !requestMethodData.length
+                  }
+                  placeholder={
+                    !integrationData.integrationTypeId
+                      ? 'Select Integration Type Id First.'
+                      : featureTypeDropdownData.length
+                      ? 'Select Feature Type'
+                      : 'No Feature Types(s) Found'
+                  }
+                />
+              </Col>
+           
+              <Col sm={12} md={3}>
+                <CHybridSelect
+                  id="client"
+                  label="Request Method"
+                  name="requestMethod"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={requestMethodData}
+                  value={integrationData.requestMethod}
+                  isLoading={isRequestMethodDropdownLoading}
+                  isDisabled={
+                    !integrationData.clientId.value || !requestMethodData.length
+                  }
+                  placeholder={
+                    !integrationData.clientId
+                      ? 'Select Client First.'
+                      : requestMethodData.length
+                      ? 'Select Req. method'
+                      : 'No Req. Method(s) Found'
+                  }
+                />
+              </Col>
+              
+              <Col sm={12} md={9}>
+                <CHybridInput
+                  id="apiUrl"
+                  name="apiUrl"
+                  value={integrationData.apiUrl}
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  placeholder={'Enter Request URL'}
+                  fieldValuePattern={regexForApiUrl}
+                  hasValidation={true}
+                  errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
             </Row>
@@ -335,9 +336,9 @@ const ClientApiIntegrationForm = ({
                         <CButton
                           id="remove-header"
                           name=""
-                          size="sm"
+                          size="lg"
                           variant="outline-danger"
-                          className="float-right  remove-button"
+                          className="float-right remove-button"
                           onClickHandler={() =>
                             onRemoveHandlerHeaderOrQueryParams(
                               ind,
@@ -374,7 +375,7 @@ const ClientApiIntegrationForm = ({
                 />
                 <p className="note">Note: Should be in comma separed format</p> */}
                 <CFLabel id="preId" labelName="Request Body"/>
-                { requestBodyByFeatureData?<pre>{requestBodyByFeatureData}</pre>:<pre>Empty Request Body</pre>}
+                <div className="request-body-code"> { requestBodyByFeatureData?<code>{requestBodyByFeatureData}</code>:<span>Empty Request Body</span>}</div>
               </Col>
             </Row>
           </Container-fluid>
