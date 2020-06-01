@@ -12,7 +12,6 @@ import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
 
 const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
     const {
-        hospitalList,
         departmentList,
         roomList,
         departmentInfoData,
@@ -73,24 +72,12 @@ const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
                     </div>
 
                     <CHybridSelect
-                        id="hospital"
-                        label="Client"
-                        name="hospital"
-                        options={hospitalList}
-                        placeholder="Select Client."
-                        onKeyDown={(event) => onEnterKeyPress(event)}
-                        onChange={(event) => onInputChange(event, '')}
-                        value={departmentInfoData.hospital}
-                    />
-
-                    <CHybridSelect
                         id="department"
                         label="Department"
                         name="department"
-                        isDisabled={!departmentInfoData.hospital || !departmentList.length}
+                        isDisabled={!departmentList.length}
                         options={departmentList}
-                        placeholder={!departmentInfoData.hospital ? "Select Client First"
-                            : departmentList.length ? "Select Department." : "No Department(s) available."}
+                        placeholder={departmentList.length ? "Select Department." : "No Department(s) available."}
                         noOptionsMessage={() => departmentDropdownError}
                         onKeyDown={(event) => onEnterKeyPress(event)}
                         onChange={(event) => onInputChange(event, '')}

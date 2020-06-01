@@ -75,6 +75,12 @@ const AddDepartmentSetup = loadable(
     {fallback: () => getLoader()}
 )
 
+const AddDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    loading: () => getLoader()
+})
+
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -150,6 +156,12 @@ const ManageDoctorComponent = Loadable({
 
 const ManageDepartmentComponent = Loadable({
     loader: () => import('./container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
+    loading: () => getLoader()
+})
+
+const ManageDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Manage/DepartmentDutyRosterManage'),
     loading: () => getLoader()
 })
 /* ****** N ***** */
@@ -611,6 +623,36 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster',
+        name: 'Department Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/add',
+        name: 'Add',
+        component: AddDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
         isSingleTab: false
     },
 ]

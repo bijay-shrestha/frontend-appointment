@@ -139,7 +139,7 @@ const HospitalDepartmentForm = ({
                                             name="roomList"
                                             onKeyDown={event => handleEnterPress(event)}
                                             onChange={(event, validity) => handleInputChange(event, validity)}
-                                            label="Rooms"
+                                            label="Rooms (optional)"
                                             options={availableRoomsForDropdown}
                                             value={departmentData.roomList}
                                             required={true}

@@ -147,7 +147,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 name,
                 // roomList,//roomList can be null
                 status,
-                nameValid,
+                // nameValid, NAME VALIDATION REMOVED AS NEPALI NAME IS ALSO TO BE ADDED
                 descriptionValid,
                 appointmentChargeValid,
                 followUpChargeValid,
@@ -155,7 +155,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             } = this.state.departmentData;
 
             let formValid =
-                name && nameValid &&
+                name &&
                 description && descriptionValid &&
                 Number(appointmentCharge) >= 0 && appointmentChargeValid && appointmentCharge.toString() &&
                 Number(followUpCharge) >= 0 && followUpChargeValid && followUpCharge.toString() &&
