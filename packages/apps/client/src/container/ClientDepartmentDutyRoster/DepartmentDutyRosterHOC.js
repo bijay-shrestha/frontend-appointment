@@ -164,6 +164,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         try {
                             await this.fetchActiveRoomByDepartmentId(department.value);
                             this.setState({
+                                isRoomEnabled: 'Y',
                                 room: null
                             })
                         } catch (e) {
@@ -479,10 +480,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     let label = fieldName ? '' : event.target.label;
                     let fileUri = fieldName ? '' : event.target.fileUri;
 
-                    await this.setStateValues(key, value, label, fileUri, fieldValid);
+                    if (key !== "isRoomEnabled") {
+                        await this.setStateValues(key, value, label, fileUri, fieldValid);
+                    }
                     switch (key) {
                         case "isRoomEnabled":
                             await this.actionOnRoomEnableOrDisable(value);
+                            break;
+                        case "department":
+                            this.setState({
+                                isRoomEnabled: 'N',
+                                room: null
+                            });
                             break;
                         case "fromDate":
                             await this.validateAndSetWeekDaysDataOnDateChange(key);

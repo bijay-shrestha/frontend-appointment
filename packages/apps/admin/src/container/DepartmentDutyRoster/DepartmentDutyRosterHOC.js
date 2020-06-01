@@ -180,6 +180,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         try {
                             await this.fetchActiveRoomByDepartmentId(department.value);
                             this.setState({
+                                isRoomEnabled: 'Y',
                                 room: null
                             })
                         } catch (e) {
@@ -506,10 +507,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     let label = fieldName ? '' : event.target.label;
                     let fileUri = fieldName ? '' : event.target.fileUri;
 
-                    await this.setStateValues(key, value, label, fileUri, fieldValid);
+                    if (key !== "isRoomEnabled") {
+                        await this.setStateValues(key, value, label, fileUri, fieldValid);
+                    }
                     switch (key) {
                         case "hospital":
                             await this.actionOnHospitalChange(value);
+                            break;
+                        case "department":
+                            this.setState({
+                                isRoomEnabled: 'N',
+                                room: null
+                            });
                             break;
                         case "isRoomEnabled":
                             await this.actionOnRoomEnableOrDisable(value);
@@ -1141,33 +1150,17 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             resetRoomOnRoomDisable = async () => {
-                type === 'ADD'
-                    ? await this.setState({
-                        room: null
-                    })
-                    : await this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            room: null
-                        }
-                    })
+                await this.setState({
+                    room: null
+                })
             };
 
             resetDepartmentAndRoomOnHospitalChange = () => {
-                if (type === 'ADD') {
-                    this.setState({
-                        room: null,
-                        department: null
-                    })
-                } else {
-                    this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            room: null,
-                            department: null
-                        }
-                    })
-                }
+                this.setState({
+                    isRoomEnabled: 'N',
+                    room: null,
+                    department: null
+                })
             };
 
             revertOverrideUpdatesOnCancel = async () => {
@@ -1415,7 +1408,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             fromDate: new Date(override.fromDate),
                             toDate: new Date(override.toDate)
                         }
-                    }):[];
+                    }) : [];
 
                     let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
                         weekdays.rosterWeekDaysId = '';
