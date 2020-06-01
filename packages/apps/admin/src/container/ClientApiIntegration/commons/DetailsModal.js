@@ -3,7 +3,8 @@ import {
   CForm,
   CHybridInput,
   CHybridTextArea,
-  CHybridSelect
+  CHybridSelect,
+  CFLabel
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
@@ -15,25 +16,8 @@ const DetailsModal = ({integrationData, type}) => {
         <CForm id="department-info" className="mt-2 api-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={4}>
-                {type !== 'P' ? (
-                  <CHybridSelect
-                    id="hospital"
-                    label="Hospital"
-                    value={integrationData.clientId}
-                    isDisabled={true}
-                  />
-                ) : (
-                  <CHybridInput
-                    id="hospital"
-                    value={integrationData.clientId || 'N/A'}
-                    disabled={true}
-                    placeholder={'Hospital'}
-                  />
-                )}
-              </Col>
 
-              <Col sm={12} md={4}>
+            <Col sm={12} md={3}>
               {type !== 'P' ? (
                   <CHybridSelect
                     id="integrationType"
@@ -52,7 +36,47 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-              <Col sm={12} md={4}>
+              <Col sm={3}>
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="integrationChannelId"
+                    name="integrationChannelIdPreview"
+                    label="Integation Channel "
+                    value={integrationData.integrationChannelId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="iintegrationChannelId"
+                    value={integrationData.integrationChannelId}
+                    disabled={true}
+                    placeholder="Integration Channel"
+                  />
+                )}
+              </Col>
+
+
+              <Col sm={12} md={3}>
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="hospital"
+                    label="Hospital"
+                    value={integrationData.clientId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="hospital"
+                    value={integrationData.clientId || 'N/A'}
+                    disabled={true}
+                    placeholder={'Hospital'}
+                  />
+                )}
+              </Col>
+
+             
+
+              <Col sm={12} md={3}>
                 {type !== 'P' ? (
                   <CHybridSelect
                     id="featureType"
@@ -90,7 +114,7 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-              <Col sm={6}>
+              <Col sm={9}>
                 <CHybridInput
                   placeholder="Request Url"
                   name="Request Url"
@@ -99,24 +123,7 @@ const DetailsModal = ({integrationData, type}) => {
                 />
               </Col>
 
-              <Col sm={3}>
-                {type !== 'P' ? (
-                  <CHybridSelect
-                    id="integrationChannelId"
-                    name="integrationChannelIdPreview"
-                    label="Integation Channel "
-                    value={integrationData.integrationChannelId}
-                    isDisabled={true}
-                  />
-                ) : (
-                  <CHybridInput
-                    id="iintegrationChannelId"
-                    value={integrationData.integrationChannelId}
-                    disabled={true}
-                    placeholder="Integration Channel"
-                  />
-                )}
-              </Col>
+             
 
             </Row>
 
@@ -182,12 +189,16 @@ const DetailsModal = ({integrationData, type}) => {
             </Row>
             <Row>
               <Col sm={12} className="mt-4">
-                <CHybridTextArea
+              <CFLabel id="preId" labelName="Request Body" />
+              <div className="request-body-code"> 
+              <code>{integrationData.requestBody}</code>
+              </div>
+                {/* <CHybridTextArea
                   id="header"
                   placeholder="Request Body"
                   value={integrationData.requestBody}
                   disabled={true}
-                />
+                /> */}
               </Col>
             </Row>
             <Row className="mt-4">{AuditableEntityHoc(integrationData)}</Row>
