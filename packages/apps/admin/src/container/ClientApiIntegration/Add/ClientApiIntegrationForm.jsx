@@ -35,15 +35,15 @@ const ClientApiIntegrationForm = ({
   requestHeadersIsSelected,
   changeRequestHandler,
   hospitalsForDropdown,
- //isIntegrationChannelDropdownLoading,
+  //isIntegrationChannelDropdownLoading,
   integrationChannelData,
- // integrationChannelDropdownError,
+  // integrationChannelDropdownError,
   //isIntegrationTypeDropdownLoading,
   integrationTypeData,
   //integrationTypeDropdownError
   //isRequestBodyByFeatureLoading,
-  requestBodyByFeatureData,
- //requestBodyByFeatureErrorMessage
+  //requestBodyByFeatureData
+  //requestBodyByFeatureErrorMessage
 }) => {
   return (
     <>
@@ -105,7 +105,7 @@ const ClientApiIntegrationForm = ({
                   value={integrationData.featureType}
                   isDisabled={
                     !integrationData.integrationTypeId.value ||
-                    !requestMethodData.length
+                    !featureTypeDropdownData.length
                   }
                   placeholder={
                     !integrationData.integrationTypeId
@@ -173,7 +173,7 @@ const ClientApiIntegrationForm = ({
                   }
                   options={integrationChannelData}
                   isDisabled={
-                    !integrationData.integrationTypeId.value ||
+                    !integrationData.clientId.value ||
                     !integrationChannelData.length
                   }
                 />
@@ -356,9 +356,10 @@ const ClientApiIntegrationForm = ({
                 })}
               </Row>
             </div>
-            <Row className="mt-4">
-              <Col sm={12}>
-                {/* <CHybridTextArea
+            {integrationData.requestBody !== 'null' ? (
+              <Row className="mt-4">
+                <Col sm={12}>
+                  {/* <CHybridTextArea
                   id="request-body-hospital-integration"
                   name="requestBody"
                   onChange={(event, validity) =>
@@ -372,10 +373,11 @@ const ClientApiIntegrationForm = ({
                   errorMessagePassed={'Value Should Be Comma Seperated'}
                 />
                 <p className="note">Note: Should be in comma separed format</p> */}
-                <CFLabel id="preId" labelName="Request Body"/>
-                { requestBodyByFeatureData?<pre>{requestBodyByFeatureData}</pre>:<pre>Empty Request Body</pre>}
-              </Col>
-            </Row>
+                  <CFLabel id="preId" labelName="Request Body" />
+                  <pre>{integrationData.requestBody}</pre>
+                </Col>
+              </Row>
+            ) : null}
           </Container-fluid>
         </CForm>
       </Container-fluid>

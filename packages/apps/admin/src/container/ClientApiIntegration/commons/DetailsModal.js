@@ -33,9 +33,24 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-              {/* <Col sm={12} md={4}>
-                Integration Type
-              </Col> */}
+              <Col sm={12} md={4}>
+              {type !== 'P' ? (
+                  <CHybridSelect
+                    id="integrationType"
+                    name="integrationType"
+                    label="Integration Type"
+                    value={integrationData.integrationTypeId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="featureType"
+                    value={integrationData.integrationTypeId}
+                    disabled={true}
+                    placeholder={'Feature Type'}
+                  />
+                )}
+              </Col>
 
               <Col sm={12} md={4}>
                 {type !== 'P' ? (
@@ -75,14 +90,34 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-              <Col sm={9}>
+              <Col sm={6}>
                 <CHybridInput
-                  label="Request Url"
+                  placeholder="Request Url"
                   name="Request Url"
                   value={integrationData.apiUrl || 'N/A'}
                   disabled={true}
                 />
               </Col>
+
+              <Col sm={3}>
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="integrationChannelId"
+                    name="integrationChannelIdPreview"
+                    label="Integation Channel "
+                    value={integrationData.integrationChannelId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="iintegrationChannelId"
+                    value={integrationData.integrationChannelId}
+                    disabled={true}
+                    placeholder="Integration Channel"
+                  />
+                )}
+              </Col>
+
             </Row>
 
             <Row>

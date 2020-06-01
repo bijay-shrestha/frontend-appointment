@@ -48,7 +48,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         apiUrl: '',
         headers: [],
         queryParams: [],
-        requestBody: '',
+        requestBody: null,
         id: '',
         integrationChannelId: '',
         integrationTypeId: ''
@@ -131,7 +131,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
+      if(name==='clientId'){
+        integrationDatas['requestBody'] = '';
+        integrationDatas['featureType'] = ''
+        integrationDatas['integrationTypeId']=''
+        integrationDatas['apiUrl']='';
+        integrationDatas['requestMethod']=''
+        integrationDatas['integrationChannelId']=''
+      }
       if (name === 'integrationTypeId') {
+        integrationDatas['requestBody'] = '';
         integrationDatas['featureType'] = ''
         this.onIntegrationTypeChangeFeatureType(value)
       }
@@ -456,25 +465,22 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         featureType,
         // headers,
         // queryParams,
-        requestBody,
+        integrationChannelId,
+        integrationTypeId,
         requestMethod
       } = this.state.integrationData
       const {requestBodyValid, apiUrlValid} = this.state
       let formValid =
         apiUrl &&
         featureType.value &&
-        //headers.length &&
-        //queryParams.length &&
-        //requestBody &&
+        integrationChannelId.value &&
+        integrationTypeId.value &&
         requestMethod.value &&
         apiUrlValid
       if (type === 'E') {
         formValid = formValid && clientId
       } else {
         formValid = formValid && clientId.value
-      }
-      if (requestBody.length) {
-        formValid = formValid && requestBodyValid
       }
       this.setState({
         formValid: Boolean(formValid)
@@ -636,6 +642,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_BY_FEATURE_TYPE,
         id
       )
+      const {
+        requestBodyByFeatureData,   
+      } = this.props.RequestBodyByFeatureReducers
+     this.getObjectValue(requestBodyByFeatureData)
     }
 
     callInitialApi = async () => {
@@ -656,7 +666,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       )
     }
 
-    getObjectValue = (dataObjArray) => {
+    getObjectValue = async(dataObjArray) => {
       let requestBodyObj =null;
       if(dataObjArray.length)
         requestBodyObj={}
@@ -664,7 +674,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBodyObj={...requestBodyObj,[dataObj.name]:""}
         return dataObj
       });
-      return requestBodyObj;
+      let integrationDatas = {...this.state.integrationData}
+      integrationDatas['requestBody'] = JSON.stringify(requestBodyObj)
+      await this.setState({
+       integrationData:{...integrationDatas}
+      })
     }
 
     componentDidMount () {
@@ -731,11 +745,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
-      const {
-        isRequestBodyByFeatureLoading,
-        requestBodyByFeatureData,
-        requestBodyByFeatureErrorMessage
-      } = this.props.RequestBodyByFeatureReducers
+     
 
       console.log("=======",this.props.integrationChannelReducers)
       return (
@@ -775,9 +785,6 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               isIntegrationTypeDropdownLoading,
               integrationTypeData,
               integrationTypeDropdownError,
-              isRequestBodyByFeatureLoading,
-              requestBodyByFeatureData:JSON.stringify(this.getObjectValue(requestBodyByFeatureData)),
-              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
