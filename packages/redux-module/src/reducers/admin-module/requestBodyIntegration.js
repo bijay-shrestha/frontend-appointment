@@ -61,7 +61,7 @@ const initialState = {
   },
   requestBodyByFeature: {
     isRequestBodyByFeatureLoading: true,
-    requestBodyByFeatureData: null,
+    requestBodyByFeatureData: [],
     requestBodyByFeatureErrorMessage: ''
   }
 }
@@ -164,7 +164,7 @@ const requestBodyByFeatureHandler = {
   [REQUEST_BODY_BY_FEATURE_ID_PENDING]: state => ({
     ...state,
     isRequestBodyByFeatureLoading: true,
-    requestBodyByFeatureData: null,
+    requestBodyByFeatureData: [],
     requestBodyByFeatureErrorMessage: ''
   }),
   [REQUEST_BODY_BY_FEATURE_ID_SUCCESS]: (state, action) => ({
@@ -176,7 +176,7 @@ const requestBodyByFeatureHandler = {
   [REQUEST_BODY_BY_FEATURE_ID_ERROR]: (state, action) => ({
     ...state,
     isRequestBodyByFeatureLoading: false,
-    requestBodyByFeatureData: null,
+    requestBodyByFeatureData: [],
     requestBodyByFeatureErrorMessage: action.payload.message
   })
 }

@@ -656,6 +656,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       )
     }
 
+    getObjectValue = (dataObjArray) => {
+      let requestBodyObj =null;
+      if(dataObjArray.length)
+        requestBodyObj={}
+       dataObjArray.map(dataObj => {
+        requestBodyObj={...requestBodyObj,[dataObj.name]:""}
+        return dataObj
+      });
+      return requestBodyObj;
+    }
+
     componentDidMount () {
       if (type === 'M') this.searchHospitalApiIntegration()
       this.callInitialApi()
@@ -725,6 +736,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBodyByFeatureData,
         requestBodyByFeatureErrorMessage
       } = this.props.RequestBodyByFeatureReducers
+
+      console.log("=======",this.props.integrationChannelReducers)
       return (
         <>
           <ComposedComponent
@@ -763,7 +776,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationTypeData,
               integrationTypeDropdownError,
               isRequestBodyByFeatureLoading,
-              requestBodyByFeatureData,
+              requestBodyByFeatureData:JSON.stringify(this.getObjectValue(requestBodyByFeatureData)),
               requestBodyByFeatureErrorMessage
             }}
             addHandler={{

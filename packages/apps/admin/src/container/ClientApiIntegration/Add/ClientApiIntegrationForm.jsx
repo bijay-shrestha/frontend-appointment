@@ -171,7 +171,7 @@ const ClientApiIntegrationForm = ({
                       ? 'Select Integration Channel'
                       : 'No Integration Channel(s) Found'
                   }
-                  option={integrationChannelData}
+                  options={integrationChannelData}
                   isDisabled={
                     !integrationData.integrationTypeId.value ||
                     !integrationChannelData.length

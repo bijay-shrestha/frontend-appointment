@@ -155,13 +155,13 @@ const integrationChannelDropdownHandler = {
   }),
   [API_INTEGRATION_CHANNEL_DROPDOWN_SUCCESS]: (state, action) => ({
     ...state,
-    isIntegrationChannelDropdownLoading: true,
+    isIntegrationChannelDropdownLoading: false,
     integrationChannelData: action.payload.data,
     integrationChannelDropdownError: ''
   }),
   [API_INTEGRATION_CHANNEL_DROPDOWN_ERROR]: (state, action) => ({
     ...state,
-    isIntegrationChannelDropdownLoading: true,
+    isIntegrationChannelDropdownLoading: false,
     integrationChannelData: [],
     integrationChannelDropdownError: action.payload.message
   })

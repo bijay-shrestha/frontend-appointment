@@ -177,7 +177,8 @@ export const appointmentSetupApiConstant = {
     SEARCH_APPOINTMENT_RESCHEDULE: BASE.concat(APPOINTMENT_BASE.concat("/reschedule-log")),
     APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval")),
     APPOINTMENT_REFUND_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/refund/detail")),
-    TRANSACTION_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/transaction-log"),
+    TRANSACTION_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/transaction-log")
+    
 };
 
 export const DashboardApiConstant = {
@@ -293,7 +294,7 @@ export const hospitalIntegrationConstants = {
     HOSPITAL_API_INTEGRATION_CHANNEL_DROPDOWN:BASE.concat(INTEGRATION+"/integration-channel/active/min"),
     HOSPITAL_API_INTEGRATION_TYPE_DROPDOWN:BASE.concat(INTEGRATION+"/api-integration-type/active/min"),
     HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE:BASE.concat(INTEGRATION+"/features"),
-    HOSPITAL_REQUEST_BODY_BY_FEATURE_TYPE:BASE.concat()
+    APPOINTMENT_APPROVE_INTEGRATION:BASE.concat(INTEGRATION+"/appointment-approve")
 }
 
 // export const hospital
