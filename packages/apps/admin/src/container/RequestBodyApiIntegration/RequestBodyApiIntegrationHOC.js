@@ -59,7 +59,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
         status: 'D'
       },
       totalRecords: 0,
-      previewData: null
+      previewData: null,
+      editRequestBodys:[],
     }
 
     handleEnterPress = event => {
@@ -93,8 +94,11 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {featureTypeId, requestBodys} = this.state.requestBodyData
+      const {featureTypeId, requestBodys,remarks} = this.state.requestBodyData
       let formValidity = featureTypeId.value && requestBodys.length
+      if(eventType==='E'){
+        formValidity = formValidity && remarks
+      }
       this.setState({
         formValid: formValidity
       })
@@ -208,12 +212,22 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
           requestBodyData: {
             featureTypeId: {value: data.featureId, label: data.featureName},
             requestBodys:  ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
-              previewRequestBodyIntegrationData)
-          }
+              previewRequestBodyIntegrationData),
+            remarks:''    
+          },
+          editRequestBodys: ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
+            previewRequestBodyIntegrationData),
         })
         this.checkFormValidity('E')
       } catch (e) {
-        console.log(e)
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.RequestBodyPreviewReducers
+              .previewRequestIntegrationErorrMessage
+          }
+        })
       }
     }
 
@@ -272,20 +286,57 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       })
       this.searchRequestBody()
     }
+    
+    filterOutRequestBody = (requestBodys,orgRequestBody) =>{
+     const filteredObj = []
+     const originalBody = [...orgRequestBody];
+     const editedRequestBodys = [...requestBodys]
+     originalBody.map(orgBody => {
+      let flag = false
+      for (let i = 0; i < editedRequestBodys.length; i++) {
+        if (Number(orgBody.value) === Number(editedRequestBodys[i].value)) {
+          filteredObj.push(editedRequestBodys[i])
+          flag = true
+          break
+        }
+      }
+      if (!flag) {
+        filteredObj.push({...orgBody, status: 'N'})
+      }
+
+      return orgBody
+    })
+    
+    originalBody.map(orgBody => {
+      if (!orgBody.value )
+        filteredObj.push({...orgBody,status:'Y'})
+      return orgBody
+    });
+
+    const newFilterObj = filteredObj.map(filteredObj =>{
+      return {
+        requestBodyId:filteredObj.value,
+        status:filteredObj.status
+      }
+    })
+    return newFilterObj
+   }
 
     editRequestBodyData = async () => {
       const {requestBodys, featureTypeId, remarks} = this.state.requestBodyData
       const data = {
-        featureTypeId: featureTypeId.value || '',
-        requestBodyIds: requestBodys,
+        featureId: featureTypeId.value || '',
+        requestBodyUpdateRequestDTOS: this.filterOutRequestBody(requestBodys,this.state.editRequestBodys),
         remarks: remarks
       }
+      
       try {
         await this.props.editRequestBodyIntegrationData(
           requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_EDIT,
           data
         )
         this.resetRequestBodyValues()
+        
         this.setState({
           showAlert: true,
           alertMessageInfo: {

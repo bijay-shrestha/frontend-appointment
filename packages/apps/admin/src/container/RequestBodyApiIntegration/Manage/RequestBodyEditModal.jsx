@@ -3,7 +3,8 @@ import {
   CButton,
   CForm,
   CModal,
-  CHybridSelect
+  CHybridSelect,
+  CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -59,6 +60,16 @@ const DepartmentEditModal = ({
                     ? 'Select Request Body'
                     : 'No Request Body(ies) Found'
                 }
+              />
+            </Col>
+            <Col sm={12} md={6} lg={4}>
+              <CHybridInput
+                id="remarks"
+                placeholder="Remarks"
+                name="remarks"
+                onKeyDown={onEnterKeyPress}
+                onChange={(event) => handleOnChange(event,'E')}
+                value={requestBodyData.remarks}
               />
             </Col>
           </Row>
