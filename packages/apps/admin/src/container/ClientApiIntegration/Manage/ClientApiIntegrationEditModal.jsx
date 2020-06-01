@@ -6,7 +6,8 @@ import {
   CModal,
   CHybridTextArea,
   CHybridSelect,
-  CCheckbox
+  CCheckbox,
+  CFLabel
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -19,19 +20,20 @@ const ClientApiIntegrationEditModal = ({
   onAddHeaderOrQueryParams,
   onChangeHandler,
   regexForCommaSeperation,
-  isFeatureTypeDropdownLoading,
+  //isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
   regexForApiUrl,
   requestParamsIsSelected,
   requestHeadersIsSelected,
   changeRequestHandler,
-  hospitalsForDropdown,
   isEditApiIntegrationLoading,
   editApiHandler,
   featureTypeDropdownData,
   formValid,
-  errorMessage
+  errorMessage,
+  integrationChannelData,
+  integrationTypeData
 }) => {
   console.log('showEditModal', showEditModal)
   const bodyContent = (
@@ -39,7 +41,52 @@ const ClientApiIntegrationEditModal = ({
       <CForm id="profile-info spec" className="mt-2 profile-info">
         <Container-fluid>
           <Row>
-            <Col sm={12} md={4}>
+          <Col sm={12} md={3}>
+              <CHybridSelect
+                id="integrationTypeId"
+                label="Integration Type"
+                name="integrationTypeId"
+                onChange={(event, validity) => onChangeHandler(event, validity)}
+                options={integrationTypeData}
+                value={integrationData.integrationTypeId}
+                isDisabled={
+                  !integrationTypeData.length || !integrationData.clientId.value
+                }
+                placeholder={
+                  !integrationData.clientId
+                    ? 'Select Client First.'
+                    : integrationTypeData.length
+                    ? 'Select Integration Type'
+                    : 'No Integration Types(s) Found'
+                }
+              />
+            </Col>
+
+            <Col sm={3} md={3}>
+              <CHybridSelect
+                id="integrationChannelId"
+                name="integrationChannelId"
+                value={integrationData.integrationChannelId}
+                onChange={(event, validity) => onChangeHandler(event, validity)}
+                label={'Ingtegration Channel'}
+                placeholder={
+                  !integrationData.clientId
+                    ? 'Select Client First.'
+                    : integrationChannelData.length
+                    ? 'Select Integration Channel'
+                    : 'No Integration Channel(s) Found'
+                }
+                options={integrationChannelData}
+                isDisabled={
+                  !integrationData.clientId.value ||
+                  !integrationChannelData.length
+                }
+              />
+            </Col>
+        
+
+            
+            <Col sm={12} md={3}>
               <CHybridInput
                 id="client"
                 label="Client"
@@ -49,20 +96,19 @@ const ClientApiIntegrationEditModal = ({
                 placeholder={'Select Client.'}
               />
             </Col>
-            {/* <Col sm={12} md={4}>
-              Integration Type
-            </Col> */}
 
-            <Col sm={12} md={4}>
+           <Col sm={12} md={3}>
               <CHybridSelect
                 id="featureType"
                 label="Feature Type"
                 name="featureType"
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 options={featureTypeDropdownData}
                 value={integrationData.featureType}
                 isDisabled={
-                  !integrationData.clientId || !requestMethodData.length
+                  !integrationData.clientId || !featureTypeDropdownData.length
                 }
                 placeholder={
                   integrationData.clientId
@@ -71,17 +117,18 @@ const ClientApiIntegrationEditModal = ({
                     ? 'Select Feature Type'
                     : 'No Feature Types(s) Found'
                 }
-                isLoading={isFeatureTypeDropdownLoading}
               />
             </Col>
           </Row>
           <Row>
-            <Col sm={4} md={4} lg={4}>
+            <Col sm={3} md={3} lg={3}>
               <CHybridSelect
                 id="featureType"
                 label="Request Method"
                 name="requestMethod"
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 options={requestMethodData}
                 value={integrationData.requestMethod}
                 isLoading={isRequestMethodDropdownLoading}
@@ -97,19 +144,22 @@ const ClientApiIntegrationEditModal = ({
                 }
               />
             </Col>
-            <Col sm={8} md={8}>
+            <Col sm={9} md={9}>
               <CHybridInput
                 id="apiUrl"
                 name="apiUrl"
                 value={integrationData.apiUrl}
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 placeholder={'Enter Request URL'}
                 fieldValuePattern={regexForApiUrl}
                 hasValidation={true}
                 errorMessagePassed={'Value Should be Request Url'}
               />
             </Col>
-          </Row>
+
+              </Row>
 
           <Row>
             <Col>
@@ -120,7 +170,11 @@ const ClientApiIntegrationEditModal = ({
                 className="module fw-500"
                 checked={requestHeadersIsSelected}
                 onChange={() =>
-                  changeRequestHandler('requestHeadersIsSelected', 'headers','E')
+                  changeRequestHandler(
+                    'requestHeadersIsSelected',
+                    'headers',
+                    'E'
+                  )
                 }
               />
             </Col>
@@ -132,7 +186,9 @@ const ClientApiIntegrationEditModal = ({
                   size="sm"
                   variant="outline-secondary"
                   className="float-right mb-2 add-button"
-                  onClickHandler={() => onAddHeaderOrQueryParams('headers','E')}
+                  onClickHandler={() =>
+                    onAddHeaderOrQueryParams('headers', 'E')
+                  }
                 >
                   <i className="fa fa-plus" />
                   &nbsp;Add
@@ -182,7 +238,7 @@ const ClientApiIntegrationEditModal = ({
                       variant="outline-danger"
                       className="float-right  remove-button"
                       onClickHandler={() =>
-                        onRemoveHandlerHeaderOrQueryParams(ind, 'headers','E')
+                        onRemoveHandlerHeaderOrQueryParams(ind, 'headers', 'E')
                       }
                     >
                       <i className="fa fa-times" />
@@ -204,7 +260,11 @@ const ClientApiIntegrationEditModal = ({
                 className="module fw-500"
                 checked={requestParamsIsSelected}
                 onChange={() =>
-                  changeRequestHandler('requestParamsIsSelected', 'queryParams','E')
+                  changeRequestHandler(
+                    'requestParamsIsSelected',
+                    'queryParams',
+                    'E'
+                  )
                 }
               />
             </Col>
@@ -216,7 +276,9 @@ const ClientApiIntegrationEditModal = ({
                   size="sm"
                   variant="outline-secondary"
                   className="float-right mb-2"
-                  onClickHandler={() => onAddHeaderOrQueryParams('queryParams','E')}
+                  onClickHandler={() =>
+                    onAddHeaderOrQueryParams('queryParams', 'E')
+                  }
                 >
                   <i className="fa fa-plus" />
                   &nbsp;Add
@@ -271,7 +333,11 @@ const ClientApiIntegrationEditModal = ({
                         variant="outline-danger"
                         className="float-right  remove-button"
                         onClickHandler={() =>
-                          onRemoveHandlerHeaderOrQueryParams(ind, 'queryParams','E')
+                          onRemoveHandlerHeaderOrQueryParams(
+                            ind,
+                            'queryParams',
+                            'E'
+                          )
                         }
                       >
                         <i className="fa fa-times" />
@@ -291,7 +357,9 @@ const ClientApiIntegrationEditModal = ({
               <CHybridTextArea
                 id="request-body-hospital-integration"
                 name="requestBody"
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 placeholder="Request Body Attributes"
                 value={integrationData.requestBody}
                 required={true}
@@ -299,9 +367,34 @@ const ClientApiIntegrationEditModal = ({
                 fieldValuePattern={regexForCommaSeperation}
                 errorMessagePassed={'Value Should Be Comma Seperated'}
               />
-              <p className="note">Note: Should be in comma separed format</p>
             </Col>
           </Row>
+
+          {integrationData.requestBody !== 'null' ? (
+              <Row className="mt-4">
+                <Col sm={12}>
+                  {/* <CHybridTextArea
+                  id="request-body-hospital-integration"
+                  name="requestBody"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  placeholder="Request Body Attributes"
+                  value={integrationData.requestBody}
+                  required={true}
+                  hasValidation={true}
+                  fieldValuePattern={regexForCommaSeperation}
+                  errorMessagePassed={'Value Should Be Comma Seperated'}
+                /> */}
+                
+                  <CFLabel id="preId" labelName="Request Body" />
+                  <div className="request-body-code"> 
+                  <code>{integrationData.requestBody}</code>
+                  </div>
+                  
+                </Col>
+              </Row>
+            ) : null}
         </Container-fluid>
       </CForm>
     </>
@@ -346,8 +439,8 @@ const ClientApiIntegrationEditModal = ({
     <>
       <CModal
         show={showEditModal}
-        modalHeading="Client Api Integration"
-        size="lg"
+        modalHeading="API Integration"
+        size="xl"
         bodyChildren={bodyContent}
         onHide={setCloseModal}
         centered={false}

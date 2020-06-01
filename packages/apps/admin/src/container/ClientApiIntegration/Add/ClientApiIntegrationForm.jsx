@@ -35,15 +35,16 @@ const ClientApiIntegrationForm = ({
   requestHeadersIsSelected,
   changeRequestHandler,
   hospitalsForDropdown,
- //isIntegrationChannelDropdownLoading,
+  //isIntegrationChannelDropdownLoading,
   integrationChannelData,
- // integrationChannelDropdownError,
+  integrationTypeData
+  // integrationChannelDropdownError,
   //isIntegrationTypeDropdownLoading,
-  integrationTypeData,
+  
   //integrationTypeDropdownError
   //isRequestBodyByFeatureLoading,
-  requestBodyByFeatureData,
- //requestBodyByFeatureErrorMessage
+  //requestBodyByFeatureData
+  //requestBodyByFeatureErrorMessage
 }) => {
   return (
     <>
@@ -95,11 +96,12 @@ const ClientApiIntegrationForm = ({
                   }
                   options={integrationChannelData}
                   isDisabled={
-                    !integrationData.integrationTypeId.value ||
+                    !integrationData.clientId.value ||
                     !integrationChannelData.length
                   }
                 />
               </Col>
+             
               <Col sm={12} md={3}>
                 <CHybridSelect
                   id="client"
@@ -129,7 +131,7 @@ const ClientApiIntegrationForm = ({
                   value={integrationData.featureType}
                   isDisabled={
                     !integrationData.integrationTypeId.value ||
-                    !requestMethodData.length
+                    !featureTypeDropdownData.length
                   }
                   placeholder={
                     !integrationData.integrationTypeId
@@ -179,7 +181,7 @@ const ClientApiIntegrationForm = ({
                   errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
-            </Row>
+               </Row>
 
             <Row>
               <Col>
@@ -358,9 +360,10 @@ const ClientApiIntegrationForm = ({
                 })}
               </Row>
             </div>
-            <Row className="mt-4">
-              <Col sm={12}>
-                {/* <CHybridTextArea
+            {integrationData.requestBody !== 'null' ? (
+              <Row className="mt-4">
+                <Col sm={12}>
+                  {/* <CHybridTextArea
                   id="request-body-hospital-integration"
                   name="requestBody"
                   onChange={(event, validity) =>
@@ -374,10 +377,14 @@ const ClientApiIntegrationForm = ({
                   errorMessagePassed={'Value Should Be Comma Seperated'}
                 />
                 <p className="note">Note: Should be in comma separed format</p> */}
-                <CFLabel id="preId" labelName="Request Body"/>
-                <div className="request-body-code"> { requestBodyByFeatureData?<code>{requestBodyByFeatureData}</code>:<span>Empty Request Body</span>}</div>
-              </Col>
-            </Row>
+                  <CFLabel id="preId" labelName="Request Body" />
+                  <div className="request-body-code"> 
+                  <code>{integrationData.requestBody}</code>
+                  </div>
+                  
+                </Col>
+              </Row>
+            ) : null}
           </Container-fluid>
         </CForm>
       </Container-fluid>
