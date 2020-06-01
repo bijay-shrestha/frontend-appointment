@@ -122,7 +122,7 @@ const searchRequestBodyIntegrationHandler = {
   [REQUEST_BODY_INTEGRATION_SEARCH_SUCCESS]: (state, action) => ({
     ...state,
     isSearchRequestBodyLoading: false,
-    searchRequestBodyData: action.payload.data.searchResponseDTOS,
+    searchRequestBodyData: action.payload.data.searchResponseDTOList,
     totalItems: action.payload.data.totalItems,
     searchRequestBodyMessageError: ''
   }),

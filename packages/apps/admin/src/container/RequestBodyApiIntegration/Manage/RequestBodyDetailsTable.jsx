@@ -77,7 +77,7 @@ const RequestBodyDetailsTable = ({
                         },
                         {
                             headerName: 'Feature Type',
-                            field: 'featureType',
+                            field: 'featureName',
                             // headerClass: "fi",
                             resizable: true,
                             sortable: true,

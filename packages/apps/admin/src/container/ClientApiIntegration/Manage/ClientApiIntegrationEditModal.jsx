@@ -46,12 +46,10 @@ const ClientApiIntegrationEditModal = ({
                 id="integrationTypeId"
                 label="Integration Type"
                 name="integrationTypeId"
-                onChange={(event, validity) => onChangeHandler(event, validity)}
+                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
                 options={integrationTypeData}
                 value={integrationData.integrationTypeId}
-                isDisabled={
-                  !integrationTypeData.length || !integrationData.clientId.value
-                }
+                isDisabled={true}
                 placeholder={
                   !integrationData.clientId
                     ? 'Select Client First.'
@@ -67,7 +65,7 @@ const ClientApiIntegrationEditModal = ({
                 id="integrationChannelId"
                 name="integrationChannelId"
                 value={integrationData.integrationChannelId}
-                onChange={(event, validity) => onChangeHandler(event, validity)}
+                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
                 label={'Ingtegration Channel'}
                 placeholder={
                   !integrationData.clientId
@@ -78,11 +76,12 @@ const ClientApiIntegrationEditModal = ({
                 }
                 options={integrationChannelData}
                 isDisabled={
-                  !integrationData.clientId.value ||
+                  !integrationData.clientId ||
                   !integrationChannelData.length
                 }
               />
             </Col>
+        
         
 
             
@@ -108,7 +107,7 @@ const ClientApiIntegrationEditModal = ({
                 options={featureTypeDropdownData}
                 value={integrationData.featureType}
                 isDisabled={
-                  !integrationData.clientId || !featureTypeDropdownData.length
+                  !integrationData.integrationTypeId || !featureTypeDropdownData.length
                 }
                 placeholder={
                   integrationData.clientId
@@ -159,7 +158,7 @@ const ClientApiIntegrationEditModal = ({
               />
             </Col>
 
-              </Row>
+             </Row>
 
           <Row>
             <Col>
@@ -363,9 +362,7 @@ const ClientApiIntegrationEditModal = ({
                 placeholder="Request Body Attributes"
                 value={integrationData.requestBody}
                 required={true}
-                hasValidation={true}
-                fieldValuePattern={regexForCommaSeperation}
-                errorMessagePassed={'Value Should Be Comma Seperated'}
+                disabled={true}
               />
             </Col>
           </Row>
@@ -409,7 +406,7 @@ const ClientApiIntegrationEditModal = ({
                 <i class="fa fa-exclamation-triangle" /> &nbsp; {errorMessage}
               </p>
             ) : (
-              ''
+              null
             )}
           </div>
           <div className="col-md-6">

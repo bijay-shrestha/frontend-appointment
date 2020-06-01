@@ -4,7 +4,7 @@ import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DetailsModal = ({requestBodyData, type}) => {
-    
+    console.log("=========",requestBodyData)
   return (
     <>
       <Container-fluid>

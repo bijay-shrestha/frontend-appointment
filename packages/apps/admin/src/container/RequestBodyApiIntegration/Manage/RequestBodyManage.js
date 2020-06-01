@@ -30,7 +30,7 @@ const RequestBodyManage = props => {
                 {editHandler.showEditModal && (
                     <RequestBodyEditModal
                         {...commonHandler}
-                        {...tableHandler}
+                        {...editHandler}
                     />
                 )}
              

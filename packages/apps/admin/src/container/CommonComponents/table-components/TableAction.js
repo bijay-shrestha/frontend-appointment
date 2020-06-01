@@ -32,7 +32,7 @@ class TableAction extends PureComponent {
                         : ''
         this.props.onClick(
             e,
-            this.props.node.data.id,
+            this.props.node.data.id||this.props.node.data,
             actionName,
             this.props.node.data
         )

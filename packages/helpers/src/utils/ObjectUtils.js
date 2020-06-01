@@ -72,3 +72,7 @@ export const addDescriptionInHeaderAndParams = data => {
 
 export const changeValueLabelAraaryToIdsArray = arrayOfValueLabel =>
   arrayOfValueLabel.map(arrayValue => arrayValue.value)
+
+export const constructValueLabelArrayObjectFromGivenArrayObject = arrayObj => {
+  return arrayObj.map(obj => ({value: obj.id, label: obj.name}))
+}
