@@ -159,30 +159,29 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
             actionOnRoomEnableOrDisable = async (value) => {
                 const {department} = this.state;
+                let isRoomEnabled = "N", isRoomUpdated = "Y";
                 if (value === 'Y') {
                     if (department && department.value) {
                         try {
                             await this.fetchActiveRoomByDepartmentId(department.value);
-                            this.setState({
-                                isRoomEnabled: 'Y',
-                                room: null
-                            })
+                            isRoomEnabled = 'Y';
+                            isRoomUpdated = 'Y';
                         } catch (e) {
-                            this.setState({
-                                isRoomEnabled: "N",
-                                room: null
-                            });
+                            isRoomEnabled = "N";
+                            isRoomUpdated = 'N';
                             this.showAlertMessage("warning", this.props.RoomNumberDropdownReducer.activeRoomsByDepartmentDropdownErrorMessage)
                         }
                     } else {
-                        await this.setState({
-                            isRoomEnabled: "N",
-                            room: null
-                        });
+                        isRoomEnabled = "N";
+                        isRoomUpdated = 'N';
                         this.showAlertMessage("warning", "Select Department first.")
                     }
                 }
-                await this.resetRoomOnRoomDisable();
+                await this.setState({
+                    isRoomEnabled: isRoomEnabled,
+                    isRoomUpdated: isRoomUpdated,
+                    room: null
+                });
             };
 
             componentDidMount() {
@@ -363,6 +362,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     rosterGapDuration,
                     status,
                     isRoomEnabled,
+                    isRoomUpdated,
                     room,
                     rosterRoomId,
                     departmentWeekDaysDutyRosterRequestDTOS
@@ -377,6 +377,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         hasOverrideDutyRoster: hasOverrideDutyRoster,
                         hddRosterId: hddRosterId,
                         isRoomEnabled,
+                        isRoomUpdated,
                         remarks,
                         rosterGapDuration,
                         status
@@ -492,6 +493,12 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 isRoomEnabled: 'N',
                                 room: null
                             });
+                            break;
+                        case "room":
+                            if (type === "MANAGE")
+                                this.setState({
+                                    isRoomUpdated: 'Y'
+                                });
                             break;
                         case "fromDate":
                             await this.validateAndSetWeekDaysDataOnDateChange(key);
@@ -993,17 +1000,18 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 await this.setState({
                     showEditModal: true,
                     ...departmentDutyRosterInfo,
+                    remarks: '',
                     department: isCloneAndAdd ? null : {...department},
                     room: isCloneAndAdd ? null : {...room},
                     hddRosterId: isCloneAndAdd ? null : hddRosterId,
                     isRoomEnabled: isCloneAndAdd ? 'N' : isRoomEnabled,
+                    isRoomUpdated: 'N',
                     departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysAvailabilityData],
                     weekDaysDataOriginal: [...weekDaysAvailabilityData],
                     overridesUpdate: [...departmentDutyRosterOverrideRequestDTOS],
                     originalOverrides: [...departmentDutyRosterOverrideRequestDTOS],
                     updatedOverrides: [],
                     isCloneAndAdd: isCloneAndAdd
-
                 });
                 this.checkManageFormValidity()
             };
@@ -1118,36 +1126,6 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     rosterRoomId: '',
                     updateFormValid: true
                 })
-            };
-
-            resetRoomOnRoomDisable = async () => {
-                type === 'ADD'
-                    ? await this.setState({
-                        room: null
-                    })
-                    : await this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            room: null
-                        }
-                    })
-            };
-
-            resetDepartmentAndRoomOnHospitalChange = () => {
-                if (type === 'ADD') {
-                    this.setState({
-                        room: null,
-                        department: null
-                    })
-                } else {
-                    this.setState({
-                        updateDoctorDutyRosterData: {
-                            ...this.state.updateDoctorDutyRosterData,
-                            room: null,
-                            department: null
-                        }
-                    })
-                }
             };
 
             revertOverrideUpdatesOnCancel = async () => {
