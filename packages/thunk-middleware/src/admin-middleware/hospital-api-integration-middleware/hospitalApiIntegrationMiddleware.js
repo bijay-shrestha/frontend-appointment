@@ -8,10 +8,11 @@ const {
   CLEAR_HOSPITAL_API_EDIT_MESSAGE,
   CLEAR_HOSPITAL_API_PREVIEW_MESSAGE
 } = hospitalApiIntegrationActionConstants
-export const fetchFeatureTypeForDrodown = path => async dispatch => {
+export const fetchFeatureTypeForDrodown = (path,id) => async dispatch => {
   dispatch(HospitalApiIntegrationActions.hospitalFeatureTypeDropdownPending())
   try {
-    const response = await Axios.get(path)
+    let response;
+     response =!id?await Axios.get(path):await Axios.getWithPathVariables(path,id)
     dispatch(
       HospitalApiIntegrationActions.hospitalFeatureTypeDropdownSuccess(
         response.data
@@ -130,4 +131,40 @@ export const clearMessages = () => dispatch => {
   dispatch({type: CLEAR_HOSPITAL_API_DELETE_MESSAGE})
   dispatch({type: CLEAR_HOSPITAL_API_PREVIEW_MESSAGE})
   dispatch({type: CLEAR_HOSPITAL_API_EDIT_MESSAGE})
+}
+
+export const fetchIntegrationChannelDropdown = path => async dispatch => {
+  dispatch(HospitalApiIntegrationActions.apiIntegrationChannelPending())
+  try {
+    const response = await Axios.get(path)
+    dispatch(
+      HospitalApiIntegrationActions.apiIntegrationChannelSuccess(
+        response.data
+      )
+    )
+  } catch (e) {
+    dispatch(
+      HospitalApiIntegrationActions.apiIntegrationChannelError(
+        e.errorMessage
+      )
+    )
+  }
+}
+
+export const fetchIntegrationTypeDropdown = path => async dispatch => {
+  dispatch(HospitalApiIntegrationActions.apiIntegrationTypePending())
+  try {
+    const response = await Axios.get(path)
+    dispatch(
+      HospitalApiIntegrationActions.apiIntegrationTypeSuccess(
+        response.data
+      )
+    )
+  } catch (e) {
+    dispatch(
+      HospitalApiIntegrationActions.apiIntegrationTypeError(
+        e.errorMessage
+      )
+    )
+  }
 }

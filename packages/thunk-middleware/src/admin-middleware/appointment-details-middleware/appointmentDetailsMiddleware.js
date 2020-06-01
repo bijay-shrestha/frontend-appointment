@@ -1,6 +1,7 @@
 import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 import {APIUtils} from '@frontend-appointment/helpers'
+import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 // import axios from 'axios'
 // import headers from '@frontend-appointment/core/src/axios/axios-helper/headers'
 export const fetchAppointmentRefundList = (
@@ -45,6 +46,25 @@ export const fetchAppointmentApprovalList = (
       )
     )
   }
+}
+
+
+
+export const thirdPartyApiCall = async(data) =>{
+  const apiIntegrateData = APIUtils.getIntegrationValue('ecintegrate')
+  const requestBodies = APIUtils.getIntegrationValue('requestBody');
+  const constructedData = constructAppointmentCheckInData(data,requestBodies)
+  const option = APIUtils.constructApiFromEcIntegration('APKCHK',apiIntegrateData,constructedData)
+  let response=null;
+  try{
+  if(APIUtils.checkIntegrationChannelIsFrontend(option.integrationChannelCode)){
+   response = await Axios.dynamicMethod(option.requestOption)
+  }
+  return response.data
+  }catch(e){
+   throw e;
+  }
+  
 }
 
 export const fetchAppointmentApprovalDetailByAppointmentId = (
@@ -191,15 +211,11 @@ export const clearRescheduleLogMessage = () => async dispatch => {
   dispatch(AppointmentDetailActions.clearRescheduleLogMessage())
 }
 
-export const appointmentApprove = (path, id) => async dispatch => {
+export const appointmentApprove = (path, id,responseData) => async dispatch => {
   dispatch(AppointmentDetailActions.appointmentApproveStart())
   try {
-    const option = APIUtils.formApiFromECIntegrate('APKCHK', 'ecintegrate')
-    let response1=null;
-    if(option){
-     response1 = await Axios.dynamicMethod(option)
-    }
     const response = await Axios.getWithPathVariables(path, id)
+  
     dispatch(
       AppointmentDetailActions.appointmentApproveSuccess(
         'Checked-In Successfully'

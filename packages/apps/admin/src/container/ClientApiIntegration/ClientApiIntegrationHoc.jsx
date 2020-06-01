@@ -4,14 +4,16 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {CommonUtils, ObjectUtils} from '@frontend-appointment/helpers'
 import {
   HospitalApiIntegrationMiddleware,
-  HospitalSetupMiddleware
+  HospitalSetupMiddleware,
+  RequestBodyApiIntegrationMiddleware
 } from '@frontend-appointment/thunk-middleware'
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './client-api-integration.scss'
 const {
   hospitalIntegrationConstants,
-  hospitalSetupApiConstants
+  hospitalSetupApiConstants,
+  requestbodyIntegrationConstants
 } = AdminModuleAPIConstants
 const {
   fetchFeatureTypeForDrodown,
@@ -21,12 +23,15 @@ const {
   editApiIntegrationData,
   previewApiIntegrationData,
   searchApiIntegrationData,
-  clearMessages
+  clearMessages,
+  fetchIntegrationChannelDropdown,
+  fetchIntegrationTypeDropdown
 } = HospitalApiIntegrationMiddleware
 const {
   changeCommaSeperatedStringToObjectAndStringifyIt,
   checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent
 } = CommonUtils
+const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
   changeObjectStructureToKeyValueArray,
   changeJSONObjectToCommaSepratedValue,
@@ -44,7 +49,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers: [],
         queryParams: [],
         requestBody: '',
-        id: ''
+        id: '',
+        integrationChannelId: '',
+        integrationTypeId: ''
       },
       searchParameters: {
         clientId: '',
@@ -93,7 +100,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: '',
           headers: [],
           queryParams: [],
-          requestBody: ''
+          requestBody: '',
+          id: '',
+          integrationChannelId: '',
+          integrationTypeId: ''
         },
         formValid: false,
         requestBodyValid: false,
@@ -121,11 +131,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
+      if (name === 'integrationTypeId') {
+        integrationDatas['featureType'] = ''
+        this.onIntegrationTypeChangeFeatureType(value)
+      }
+      if (name === 'featureType') {
+        integrationDatas['requestBody'] = '';
+          this.onFeatureTypeChangeRequestBody(value)
+      }
       if (name !== 'requestBody' && name !== 'apiUrl') {
         await this.setTheStateForIntegrationData(integrationDatas)
       } else {
         await this.setTheStateForInputValidity(integrationDatas, validity, name)
       }
+      
       this.checkFormValidity(type)
     }
 
@@ -563,7 +582,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         headers,
         queryParams,
         requestBody,
-        requestMethod
+        requestMethod,
+        integrationChannelId,
+        integrationTypeId
       } = this.state.integrationData
       try {
         await this.props.saveHospitalIntegration(
@@ -578,6 +599,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             ),
             requestMethodId: requestMethod.value || '',
             hospitalId: clientId.value || '',
+            apiIntegrationTypeId: integrationTypeId.value || '',
+            integrationChannelId: integrationChannelId.value || '',
             featureTypeId: featureType.value || '',
             requestBodyAttribute: JSON.stringify(
               changeCommaSeperatedStringToObjectAndStringifyIt(requestBody)
@@ -601,9 +624,27 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       }
     }
 
-    callInitialApi = async () => {
+    onIntegrationTypeChangeFeatureType = async id => {
       await this.props.fetchFeatureTypeForDrodown(
-        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN
+        hospitalIntegrationConstants.HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE,
+        id
+      )
+    }
+
+    onFeatureTypeChangeRequestBody = async id => {
+      await this.props.getRequestBodyByFeatureId(
+        requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_BY_FEATURE_TYPE,
+        id
+      )
+    }
+
+    callInitialApi = async () => {
+      await this.props.fetchIntegrationChannelDropdown(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_CHANNEL_DROPDOWN
+      )
+
+      await this.props.fetchIntegrationTypeDropdown(
+        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_TYPE_DROPDOWN
       )
 
       await this.props.fetchRequestMethodDropdown(
@@ -613,6 +654,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       await this.props.fetchActiveHospitalsForDropdown(
         hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
       )
+    }
+
+    getObjectValue = (dataObjArray) => {
+      let requestBodyObj =null;
+      if(dataObjArray.length)
+        requestBodyObj={}
+       dataObjArray.map(dataObj => {
+        requestBodyObj={...requestBodyObj,[dataObj.name]:""}
+        return dataObj
+      });
+      return requestBodyObj;
     }
 
     componentDidMount () {
@@ -668,6 +720,24 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         isEditApiIntegrationLoading,
         editApiIntegrationErrorMessage
       } = this.props.hospitalEditApiIntegrationReducers
+
+      const {
+        isIntegrationChannelDropdownLoading,
+        integrationChannelData,
+        integrationChannelDropdownError
+      } = this.props.integrationChannelReducers
+      const {
+        isIntegrationTypeDropdownLoading,
+        integrationTypeData,
+        integrationTypeDropdownError
+      } = this.props.integrationTypeReducers
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureData,
+        requestBodyByFeatureErrorMessage
+      } = this.props.RequestBodyByFeatureReducers
+
+      console.log("=======",this.props.integrationChannelReducers)
       return (
         <>
           <ComposedComponent
@@ -698,7 +768,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               hospitalsForDropdown,
               requestParamsIsSelected,
               requestHeadersIsSelected,
-              changeRequestHandler: this.changeRequestHandler
+              changeRequestHandler: this.changeRequestHandler,
+              isIntegrationChannelDropdownLoading,
+              integrationChannelData,
+              integrationChannelDropdownError,
+              isIntegrationTypeDropdownLoading,
+              integrationTypeData,
+              integrationTypeDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureData:JSON.stringify(this.getObjectValue(requestBodyByFeatureData)),
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
@@ -774,7 +853,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       'hospitalPreviewApiIntegrationReducers',
       'hospitalSearchApiIntegrationReducers',
       'hospitalDeleteApiIntegrationReducers',
-      'hospitalEditApiIntegrationReducers'
+      'hospitalEditApiIntegrationReducers',
+      'integrationChannelReducers',
+      'integrationTypeReducers',
+      'RequestBodyByFeatureReducers'
     ],
     {
       fetchFeatureTypeForDrodown,
@@ -785,7 +867,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       editApiIntegrationData,
       previewApiIntegrationData,
       searchApiIntegrationData,
-      clearMessages
+      clearMessages,
+      fetchIntegrationChannelDropdown,
+      fetchIntegrationTypeDropdown,
+      getRequestBodyByFeatureId
     }
   )
 }

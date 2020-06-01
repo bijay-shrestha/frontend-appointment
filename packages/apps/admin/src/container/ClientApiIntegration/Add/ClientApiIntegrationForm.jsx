@@ -7,7 +7,8 @@ import {
   CHybridSelect,
   CHybridTextArea,
   CButton,
-  CCheckbox
+  CCheckbox,
+  CFLabel
 } from '@frontend-appointment/ui-elements'
 
 const ClientApiIntegrationForm = ({
@@ -19,9 +20,9 @@ const ClientApiIntegrationForm = ({
   //   setCloseModal,
   featureTypeDropdownData,
   //resetIntegrationData,
-  regexForCommaSeperation,
+  //regexForCommaSeperation,
   //featureTypeDropdownError,
-  isFeatureTypeDropdownLoading,
+  //isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
   regexForApiUrl,
@@ -33,7 +34,16 @@ const ClientApiIntegrationForm = ({
   requestParamsIsSelected,
   requestHeadersIsSelected,
   changeRequestHandler,
-  hospitalsForDropdown
+  hospitalsForDropdown,
+ //isIntegrationChannelDropdownLoading,
+  integrationChannelData,
+ // integrationChannelDropdownError,
+  //isIntegrationTypeDropdownLoading,
+  integrationTypeData,
+  //integrationTypeDropdownError
+  //isRequestBodyByFeatureLoading,
+  requestBodyByFeatureData,
+ //requestBodyByFeatureErrorMessage
 }) => {
   return (
     <>
@@ -44,7 +54,7 @@ const ClientApiIntegrationForm = ({
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={4} >
+              <Col sm={12} md={4}>
                 <CHybridSelect
                   id="client"
                   label="Client"
@@ -58,9 +68,30 @@ const ClientApiIntegrationForm = ({
                   placeholder={'Select Client.'}
                 />
               </Col>
-              {/* <Col sm={12} md={4}>
-                Integration Type
-                </Col> */}
+
+              <Col sm={12} md={4}>
+                <CHybridSelect
+                  id="integrationTypeId"
+                  label="Integration Type"
+                  name="integrationTypeId"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={integrationTypeData}
+                  value={integrationData.integrationTypeId}
+                  isDisabled={
+                    !integrationTypeData.length ||
+                    !integrationData.clientId.value
+                  }
+                  placeholder={
+                    !integrationData.clientId
+                      ? 'Select Client First.'
+                      : integrationTypeData.length
+                      ? 'Select Integration Type'
+                      : 'No Integration Types(s) Found'
+                  }
+                />
+              </Col>
 
               <Col sm={12} md={4}>
                 <CHybridSelect
@@ -73,21 +104,21 @@ const ClientApiIntegrationForm = ({
                   options={featureTypeDropdownData}
                   value={integrationData.featureType}
                   isDisabled={
-                    !integrationData.clientId.value || !requestMethodData.length
+                    !integrationData.integrationTypeId.value ||
+                    !requestMethodData.length
                   }
                   placeholder={
-                    integrationData.clientId
-                      ? 'Select Client First.'
+                    !integrationData.integrationTypeId
+                      ? 'Select Integration Type Id First.'
                       : featureTypeDropdownData.length
                       ? 'Select Feature Type'
                       : 'No Feature Types(s) Found'
                   }
-                  isLoading={isFeatureTypeDropdownLoading}
                 />
               </Col>
             </Row>
             <Row>
-              <Col sm={4} md={4} lg={4}>
+              <Col sm={3} md={3} lg={3}>
                 <CHybridSelect
                   id="client"
                   label="Request Method"
@@ -102,15 +133,15 @@ const ClientApiIntegrationForm = ({
                     !integrationData.clientId.value || !requestMethodData.length
                   }
                   placeholder={
-                    integrationData.clientId
+                    !integrationData.clientId
                       ? 'Select Client First.'
                       : requestMethodData.length
-                      ? 'Select Request method'
-                      : 'No Request Method(s) Found'
+                      ? 'Select Req. method'
+                      : 'No Req. Method(s) Found'
                   }
                 />
               </Col>
-              <Col sm={8} md={8}>
+              <Col sm={6} md={6}>
                 <CHybridInput
                   id="apiUrl"
                   name="apiUrl"
@@ -122,6 +153,29 @@ const ClientApiIntegrationForm = ({
                   fieldValuePattern={regexForApiUrl}
                   hasValidation={true}
                   errorMessagePassed={'Value Should be Request Url'}
+                />
+              </Col>
+              <Col sm={3} md={3}>
+                <CHybridSelect
+                  id="integrationChannelId"
+                  name="integrationChannelId"
+                  value={integrationData.integrationChannelId}
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  label={'Ingtegration Channel'}
+                  placeholder={
+                    !integrationData.clientId
+                      ? 'Select Client First.'
+                      : integrationChannelData.length
+                      ? 'Select Integration Channel'
+                      : 'No Integration Channel(s) Found'
+                  }
+                  options={integrationChannelData}
+                  isDisabled={
+                    !integrationData.integrationTypeId.value ||
+                    !integrationChannelData.length
+                  }
                 />
               </Col>
             </Row>
@@ -305,7 +359,7 @@ const ClientApiIntegrationForm = ({
             </div>
             <Row className="mt-4">
               <Col sm={12}>
-                <CHybridTextArea
+                {/* <CHybridTextArea
                   id="request-body-hospital-integration"
                   name="requestBody"
                   onChange={(event, validity) =>
@@ -318,7 +372,9 @@ const ClientApiIntegrationForm = ({
                   fieldValuePattern={regexForCommaSeperation}
                   errorMessagePassed={'Value Should Be Comma Seperated'}
                 />
-                <p className="note">Note: Should be in comma separed format</p>
+                <p className="note">Note: Should be in comma separed format</p> */}
+                <CFLabel id="preId" labelName="Request Body"/>
+                { requestBodyByFeatureData?<pre>{requestBodyByFeatureData}</pre>:<pre>Empty Request Body</pre>}
               </Col>
             </Row>
           </Container-fluid>

@@ -21,7 +21,8 @@ const {
   appointmentReject,
   clearAppointmentApproveMessage,
   clearAppointmentRejectMessage,
-  fetchAppointmentApprovalDetailByAppointmentId
+  fetchAppointmentApprovalDetailByAppointmentId,
+  thirdPartyApiCall
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 
@@ -575,6 +576,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       })
 
       try {
+        const response = await thirdPartyApiCall(this.state.appointmentDetails)
+        console.log(response);
         await this.props.appointmentApprove(
           appointmentSetupApiConstant.APPOINTMENT_APPROVE,
           this.state.approveAppointmentId
