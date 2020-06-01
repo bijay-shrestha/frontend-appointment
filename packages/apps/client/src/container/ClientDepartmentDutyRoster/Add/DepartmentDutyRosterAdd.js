@@ -28,7 +28,7 @@ function DepartmentDutyRosterAdd(props) {
                 </Row>
                 <Row>
                     <DepartmentAvailabilityOverrides
-                        departmentAvailabilityOverrideData={departmentAvailabilityOverrideData}/>
+                        departmentAvailabilityOverrideData={{...departmentAvailabilityOverrideData, type: "ADD"}}/>
                 </Row>
             </Container>
 

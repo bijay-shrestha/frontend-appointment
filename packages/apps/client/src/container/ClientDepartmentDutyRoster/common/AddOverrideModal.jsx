@@ -22,7 +22,9 @@ const AddOverrideModal = ({
                               addOverride,
                               overrideUpdateErrorMessage,
                               departmentInfoData,
-                              overrideFormValid
+                              overrideFormValid,
+                              overrideErrorMessage,
+                              type
                           }) => {
     const body = <>
         <div className="">
@@ -157,10 +159,17 @@ const AddOverrideModal = ({
         <div className="m-0">
             <Row>
                 <div className="col-sm-12">
-                    {overrideUpdateErrorMessage ?
-                        <p className="modal-error"><i
-                            className="fa fa-exclamation-triangle"/> &nbsp;  {overrideUpdateErrorMessage}
-                        </p> : ''}
+                    {type === "ADD" ?
+                        overrideErrorMessage ?
+                            <p className="modal-error"><i
+                                className="fa fa-exclamation-triangle"/> &nbsp;  {overrideErrorMessage}
+                            </p> : ''
+                        :
+                        overrideUpdateErrorMessage ?
+                            <p className="modal-error"><i
+                                className="fa fa-exclamation-triangle"/> &nbsp;  {overrideUpdateErrorMessage}
+                            </p> : ''
+                    }
                 </div>
             </Row>
             <Row>

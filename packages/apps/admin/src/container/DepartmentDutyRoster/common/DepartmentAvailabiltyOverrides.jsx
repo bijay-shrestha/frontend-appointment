@@ -31,7 +31,9 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
         isUpdateOverrideLoading,
         overrideUpdateErrorMessage,
         departmentInfoData,
-        overrideFormValid
+        overrideFormValid,
+        overrideErrorMessage,
+        type
     } = departmentAvailabilityOverrideData;
     return <>
         <Col>
@@ -73,6 +75,8 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
                             overrideUpdateErrorMessage={overrideUpdateErrorMessage}
                             departmentInfoData={departmentInfoData}
                             overrideFormValid={overrideFormValid}
+                            overrideErrorMessage={overrideErrorMessage}
+                            type={type}
                         />
                     </Col>
                     }

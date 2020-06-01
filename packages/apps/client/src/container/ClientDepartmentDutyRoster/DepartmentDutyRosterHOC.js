@@ -64,11 +64,15 @@ const {
     addDate,
     isFirstTimeGreaterThanSecond,
     isFirstDateGreaterThanSecondDate,
-    getNoOfDaysBetweenGivenDatesInclusive
+    getNoOfDaysBetweenGivenDatesInclusive,
+    convertDateToStringMonthDateYearFormat,
+    checkIfFromDateAndToDateExistsInObjectList,
+    isFromDateToDateWithinTheGivenDateRange
 } = DateTimeFormatterUtils;
 
 const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!';
 const TIME_ERROR_MESSAGE = 'Start time must not be greater than end time!';
+const OVERRIDE_DATE_RANGE_ERROR_MESSAGE ="Override 'From date' and 'To Date' must lie within roster From and To date!";
 
 const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         class DepartmentDutyRoster extends PureComponent {
@@ -119,6 +123,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     timeErrorMessage: ''
                 },
                 overrideFormValid: false,
+                overrideErrorMessage: '',
                 alertMessageInfo: {
                     variant: '',
                     message: ''
@@ -268,7 +273,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     startTime,
                     endTime,
                     dayOffStatus,
-                    remarks
+                    remarks,
+                    dateErrorMessage
                 } = this.state.overrideRequestDTO;
 
                 const validForm =
@@ -277,6 +283,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     startTime &&
                     endTime &&
                     dayOffStatus &&
+                    !dateErrorMessage &&
                     remarks &&
                     !StringUtils.stringContainsWhiteSpacesOnly(remarks);
 
@@ -605,7 +612,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 ? 'Y'
                                 : 'N'
                             : event.target.value;
+                    const {overrideErrorMessage, fromDate, toDate} = this.state;
                     let overrideRequestDTO = {...this.state.overrideRequestDTO};
+                    let overrideErrorMsg = overrideErrorMessage;
 
                     if (key === 'dayOffStatus') {
                         this.setDefaultStartAndEndTimeAndDayOffStatus(
@@ -616,12 +625,13 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         overrideRequestDTO[key] = value
                     }
                     if (key === 'fromDate' || key === 'toDate') {
-                        overrideRequestDTO.dateErrorMessage = isFirstDateGreaterThanSecondDate(
-                            overrideRequestDTO.fromDate,
-                            overrideRequestDTO.toDate
-                        )
-                            ? DATE_ERROR_MESSAGE
-                            : ''
+                        overrideRequestDTO.dateErrorMessage =
+                            isFirstDateGreaterThanSecondDate(overrideRequestDTO.fromDate, overrideRequestDTO.toDate) ?
+                                DATE_ERROR_MESSAGE :
+                                !isFromDateToDateWithinTheGivenDateRange(
+                                    overrideRequestDTO.fromDate, overrideRequestDTO.toDate, fromDate, toDate) ?
+                                    OVERRIDE_DATE_RANGE_ERROR_MESSAGE:'' ;
+                        overrideErrorMsg = "";
                     } else if (key === 'endTime' || key === 'startTime') {
                         if (overrideRequestDTO.startTime && overrideRequestDTO.endTime) {
                             overrideRequestDTO.timeErrorMessage = isFirstTimeGreaterThanSecond(
@@ -633,7 +643,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         }
                     }
                     await this.setState({
-                        overrideRequestDTO: {...overrideRequestDTO}
+                        overrideRequestDTO: {...overrideRequestDTO},
+                        overrideErrorMessage: overrideErrorMsg
                     });
                     this.checkOverrideFormValidity()
                 }
@@ -648,15 +659,25 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
                 switch (type) {
                     case 'ADD':
-                        this.addOrModifyOverride(
-                            isModifyOverride,
-                            overrideList,
-                            currentOverride
-                        );
-                        await this.resetOverrideRequestDTOAndUpdateStateValues({
-                            departmentDutyRosterOverrideRequestDTOS: [...overrideList]
-                        }, isAddAnother);
-                        this.checkFormValidity();
+                        if (!checkIfFromDateAndToDateExistsInObjectList(currentOverride.fromDate,
+                            currentOverride.toDate, overrideList)) {
+                            this.addOrModifyOverride(
+                                isModifyOverride,
+                                overrideList,
+                                currentOverride
+                            );
+                            await this.resetOverrideRequestDTOAndUpdateStateValues({
+                                departmentDutyRosterOverrideRequestDTOS: [...overrideList]
+                            }, isAddAnother);
+                            this.checkFormValidity();
+                        } else {
+                            await this.setState({
+                                overrideErrorMessage: `Override already exists for
+                                 ${convertDateToStringMonthDateYearFormat(currentOverride.fromDate)} -
+                                  ${convertDateToStringMonthDateYearFormat(currentOverride.toDate)}.`
+                            });
+                            this.checkOverrideFormValidity();
+                        }
                         break;
                     case 'MANAGE':
                         let updatedOverrides = [
@@ -1278,6 +1299,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     isModifyOverride: false,
                     overrideUpdateErrorMessage: '',
                     hasOverrideDutyRoster: hasOverride,
+                    overrideErrorMessage: '',
                     overrideRequestDTO: {
                         ...this.state.overrideRequestDTO,
                         fromDate: fromDate,
@@ -1578,7 +1600,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     overrideUpdateErrorMessage,
                     showDeleteOverrideModal,
                     dateErrorMessage,
-                    overrideFormValid
+                    overrideFormValid,
+                    overrideErrorMessage
                 } = this.state;
 
                 const {
@@ -1667,6 +1690,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                     setShowAddOverrideModal: this.setShowAddOverrideModal,
                                     showAddOverrideModal,
                                     overrideFormValid,
+                                    overrideErrorMessage,//FOR ADD
                                     overrideUpdateErrorMessage//EDIT MANAGE
                                 }}
                                 saveProps={{
