@@ -37,9 +37,10 @@ const ClientApiIntegrationForm = ({
   hospitalsForDropdown,
   //isIntegrationChannelDropdownLoading,
   integrationChannelData,
+  integrationTypeData
   // integrationChannelDropdownError,
   //isIntegrationTypeDropdownLoading,
-  integrationTypeData,
+  
   //integrationTypeDropdownError
   //isRequestBodyByFeatureLoading,
   //requestBodyByFeatureData
