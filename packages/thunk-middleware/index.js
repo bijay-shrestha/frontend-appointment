@@ -36,7 +36,8 @@ import {
     AppointmentTransferMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
-    DepartmentDutyRosterMiddleware
+    DepartmentDutyRosterMiddleware,
+    BillingModeMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
@@ -108,5 +109,6 @@ export {
     AppointmentTransferMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
-    DepartmentDutyRosterMiddleware
+    DepartmentDutyRosterMiddleware,
+    BillingModeMiddleware
 }

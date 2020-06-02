@@ -233,13 +233,13 @@ export const fetchActiveBillingModeError = (errorMessage) => {
     }
 };
 
-export const fetchActiveBillingModeByDepartmentPending = () => {
+export const fetchActiveBillingModeByHospitalPending = () => {
     return {
         type: FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_PENDING
     }
 };
 
-export const fetchActiveBillingModeByDepartmentSuccess = (data) => {
+export const fetchActiveBillingModeByHospitalSuccess = (data) => {
     return {
         type: FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_SUCCESS,
         payload: {
@@ -248,7 +248,7 @@ export const fetchActiveBillingModeByDepartmentSuccess = (data) => {
     }
 };
 
-export const fetchActiveBillingModeByDepartmentError = (errorMessage) => {
+export const fetchActiveBillingModeByHospitalError = (errorMessage) => {
     return {
         type: FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_ERROR,
         payload: {
@@ -257,13 +257,13 @@ export const fetchActiveBillingModeByDepartmentError = (errorMessage) => {
     }
 };
 
-export const fetchAllBillingModeByDepartmentPending = () => {
+export const fetchAllBillingModeByHospitalPending = () => {
     return {
         type: FETCH_ALL_BILLING_MODE_BY_HOSPITAL_PENDING
     }
 };
 
-export const fetchAllBillingModeByDepartmentSuccess = (data) => {
+export const fetchAllBillingModeByHospitalSuccess = (data) => {
     return {
         type: FETCH_ALL_BILLING_MODE_BY_HOSPITAL_SUCCESS,
         payload: {
@@ -272,7 +272,7 @@ export const fetchAllBillingModeByDepartmentSuccess = (data) => {
     }
 };
 
-export const fetchAllBillingModeByDepartmentError = (errorMessage) => {
+export const fetchAllBillingModeByHospitalError = (errorMessage) => {
     return {
         type: FETCH_ALL_BILLING_MODE_BY_HOSPITAL_ERROR,
         payload: {
