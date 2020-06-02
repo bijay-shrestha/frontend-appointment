@@ -10,6 +10,9 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './ClientApiDetailsModal'
+import {
+  RequestMethodStatus
+} from '@frontend-appointment/ui-components'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -91,7 +94,8 @@ const ClientApiIntegrationDetailsDataTable = ({
               resizable: true,
               sortable: true,
               sizeColumnsToFit: true,
-              width: 80
+              width: 80,
+              cellRenderer: 'requestMethodRenderer'
             },
             {
               headerName: 'Url',
@@ -130,8 +134,8 @@ const ClientApiIntegrationDetailsDataTable = ({
             }
           ]}
           frameworkComponents={{
-            childActionRenderer: TableAction
-            //childLabelRenderer: StatusLabel
+            childActionRenderer: TableAction,
+            requestMethodRenderer: RequestMethodStatus
           }}
           defaultColDef={{resizable: true}}
           getSelectedRows={

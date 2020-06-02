@@ -5,15 +5,16 @@ const RequestMethodStatus = props => {
   // console.log('node status',this.props.node);
   return (
     <>
+    <div className="request-method">
       {props.node.data.requestMethod === 'GET' ? (
-        <Badge variant="success">GET</Badge>
+        <Badge variant="primary">GET</Badge>
       ) : props.node.data.requestMethod === 'POST' ? (
-        <Badge variant="primary">POST</Badge>
+        <Badge variant="success">POST</Badge>
       ) : props.node.data.requestMethod === 'PUT' ? (
-        <Badge variant="light">PUT</Badge>
+        <Badge variant="warning">PUT</Badge>
       ) : (
         (props.node.data.requestMethod = 'PATCH' ? (
-          <Badge variant="warning">PATCH</Badge>
+          <Badge variant="info">PATCH</Badge>
         ) : (
           (props.node.data.requestMethod = 'DELETE' ? (
             <Badge variant="danger">DELETE</Badge>
@@ -22,6 +23,7 @@ const RequestMethodStatus = props => {
           ))
         ))
       )}
+      </div>
     </>
   )
 }
