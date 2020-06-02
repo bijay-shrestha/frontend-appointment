@@ -24,7 +24,7 @@ import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
 import * as StringUtils from './src/utils/StringUtils';
 import {appointmentStatusListForAppontmentAndTransaction} from './src/appointment-transaction-status'
-
+import * as APIUtils from  './src/utils/ApiUtilHeader';
 export {
     checkDashboardRole,
     UserMenusFilter,
@@ -49,5 +49,6 @@ export {
     clientUserMenusJson,
     ObjectUtils,
     StringUtils,
-    appointmentStatusListForAppontmentAndTransaction
+    appointmentStatusListForAppontmentAndTransaction,
+    APIUtils
 }

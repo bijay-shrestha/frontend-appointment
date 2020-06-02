@@ -34,9 +34,11 @@ import {
     AppointmentModeMiddleware,
     fetchAdminMetaInfoByHospitalId,
     AppointmentTransferMiddleware,
+    HospitalApiIntegrationMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
-    DepartmentDutyRosterMiddleware
+    DepartmentDutyRosterMiddleware,
+    RequestBodyApiIntegrationMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
@@ -54,7 +56,6 @@ import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboar
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
 import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
-
 export {
     AppointmentDetailsMiddleware,
     changePassword,
@@ -106,6 +107,8 @@ export {
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
     AppointmentTransferMiddleware,
+    HospitalApiIntegrationMiddleware,
+    RequestBodyApiIntegrationMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
     DepartmentDutyRosterMiddleware

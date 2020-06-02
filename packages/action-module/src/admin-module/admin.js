@@ -36,6 +36,10 @@ import * as  AppointmentModeActions from './appointment-mode/appointmentModeActi
 import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
 import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
 import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
+import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction';
+import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant';
+import * as RequestBodyIntegration from './request-body-integration/RequestBodyIntegration';
+import {requestBOdyApiIntegrationActionConstants} from './request-body-integration/RequestBodyIntegrationActionConstants';
 import * as  RoomSetupActions from './room-setup/roomSetupActions';
 import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
 
@@ -43,7 +47,6 @@ import * as  HospitalDepartmentSetupActions from './hospital-department-setup/ho
 import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants';
 import * as  DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions';
 import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants';
-
 
 export {
     AppointmentDetailActions,
@@ -84,6 +87,10 @@ export {
     AppointmentModeActions,
     AppointmentTransferActions,
     appointmentTransferConstant,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants,
     roomSetupActionConstants,
     RoomSetupActions,
     hospitalDepartmentSetupActionConstants,

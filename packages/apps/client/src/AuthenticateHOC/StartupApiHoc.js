@@ -23,7 +23,8 @@ import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
 const {fetchDashboardFeaturesByAdmin} = DashboardDetailsMiddleware
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {
-  GET_LOGGED_IN_ADMIN_INFO,
+ 
+  GET_LOGGED_IN_ADMIN_INFO_CLIENT,
   GET_SIDEBAR_DATA
 } = AdminModuleAPIConstants.initialApiConstantsOfAdmin
 
@@ -46,8 +47,8 @@ class StartupApiHoc extends PureComponent {
         this.setState({fetch: true, loading: false})
       }
       if (!LocalStorageSecurity.localStorageDecoder('adminInfo')) {
-        await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO, {
-          username: user.username
+        await this.props.fetchLoggedInAdminUserInfo(GET_LOGGED_IN_ADMIN_INFO_CLIENT, {
+          email: user.username
         })
       }
       if (!LocalStorageSecurity.localStorageDecoder('adminDashRole')) {

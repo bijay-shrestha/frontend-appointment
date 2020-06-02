@@ -148,6 +148,8 @@ import {
 import {CountryDropdownReducer} from './common/countryReducer'
 
 import {AppointmentTransferReducers} from './admin-module/appointmentTransferReducer';
+import {HospitalApiIntegrationReducers} from './admin-module/hospitalApiIntegrationReducer';
+import {RequestBodyIntegrationReducers} from './admin-module/requestBodyIntegration';
 import {
     AppointmentModeDeleteReducer,
     AppointmentModeDropdownReducer,
@@ -304,6 +306,7 @@ export {
     WeekdaysReducer,
     AppointmentTransferReducers,
     PatientEsewaIdReducer,
+<<<<<<< HEAD
     RoomNumberDeleteReducer,
     RoomNumberDropdownReducer,
     RoomNumberEditReducer,
@@ -324,4 +327,8 @@ export {
     DepartmentDutyRosterOverrideUpdateReducer,
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
+=======
+    HospitalApiIntegrationReducers,
+    RequestBodyIntegrationReducers
+>>>>>>> api-integration
 }
