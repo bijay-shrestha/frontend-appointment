@@ -60,7 +60,9 @@ import {
     departmentDutyRosterActionConstants,
     DepartmentDutyRosterActions,
     billingModeActionConstants,
-    BillingModeActions
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 } from './src/admin-module'
 
 export {
@@ -123,5 +125,7 @@ export {
     departmentDutyRosterActionConstants,
     DepartmentDutyRosterActions,
     billingModeActionConstants,
-    BillingModeActions
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 }

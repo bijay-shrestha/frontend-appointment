@@ -28,7 +28,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 alias: '',
                 panNumber: '',
                 status: 'Y',
-                hospitalCode: '',
+                esewaMerchantCode: '',
                 hospitalLogo: null,
                 hospitalLogoUrl: '',
                 hospitalLogoUrlNew: '',
@@ -67,7 +67,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 // code: '',
                 // id: null,
                 name: '',
-                hospitalCode: '',
+                esewaMerchantCode: '',
                 status: {value: '', label: 'All'}
             },
             queryParams: {
@@ -99,7 +99,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     panNumber: '',
                     status: 'Y',
                     alias: '',
-                    hospitalCode: '',
+                    esewaMerchantCode: '',
                     contactNumber: [''],
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
@@ -178,7 +178,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, refundPercentage, followUpIntervalDays,
+                name, status, esewaMerchantCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
                 numberOfAdmins, numberOfFollowUps
             } = hospitalData;
@@ -186,7 +186,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 nameValid &&
                 name &&
                 status &&
-                hospitalCode &&
+                esewaMerchantCode &&
                 address &&
                 panNumber &&
                 refundPercentage >= 0 &&
@@ -273,7 +273,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     alias,
                     address,
                     contactNumberResponseDTOS,
-                    hospitalCode,
+                    esewaMerchantCode,
                     hospitalLogo,
                     hospitalBanner,
                     refundPercentage,
@@ -293,7 +293,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         panNumber: panNumber,
                         alias,
                         address: address,
-                        hospitalCode: hospitalCode,
+                        esewaMerchantCode: esewaMerchantCode,
                         // remarks: remarks,
                         refundPercentage,
                         numberOfAdmins,
@@ -343,7 +343,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     filteredContactNumber.push({...contactEdit, status: 'N'})
                 }
 
-            return contactEdit;
+                return contactEdit;
             });
             // console.log(filteredContactNumber)
             contactNumber.map(cont => {
@@ -360,7 +360,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalLogo,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode,
                 //editContactNumberRequestDTOS,
                 contactNumberUpdateRequestDTOS,
                 remarks,
@@ -385,7 +385,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 remarks,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode: esewaMerchantCode,
                 // alias,
                 numberOfFollowUps,
                 numberOfAdmins,
@@ -442,10 +442,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         }
 
         searchHospital = async page => {
-            const {hospitalCode, name, status, id} = this.state.searchParameters;
+            const {esewaMerchantCode, name, status, id} = this.state.searchParameters;
             let searchData = {
                 name: name.value ? name.label : name,
-                hospitalCode: hospitalCode,
+                esewaMerchantCode: esewaMerchantCode,
                 status: status.value === 'A' ? '' : status.value,
                 id: id
             };
@@ -546,7 +546,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         handleSearchFormReset = async () => {
             await this.setState({
                 searchParameters: {
-                    hospitalCode: '',
+                    esewaMerchantCode: '',
                     status: {value: '', label: 'All'},
                     name: ''
                     //id: null
@@ -640,7 +640,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 refundPercentage,
                 hospitalBanner,
                 alias
-            } = this.state.hospitalData
+            } = this.state.hospitalData;
 
             let hospitalData = {
                 name,
@@ -648,7 +648,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode: hospitalCode,
                 alias,
                 // isCompany,
                 numberOfFollowUps,

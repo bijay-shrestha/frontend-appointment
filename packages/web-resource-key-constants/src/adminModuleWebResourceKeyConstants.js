@@ -331,3 +331,8 @@ export const billingModeApiConstants = {
     FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/hospital-wise/active/min")),
     FETCH_ALL_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/hospital-wise/min")),
 };
+
+const APPOINTMENT_SERVICE_TYPE_BASE = "//appointmentServiceType";
+export const appointmentServiceTypeApiConstants = {
+    FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/active/min"))
+};

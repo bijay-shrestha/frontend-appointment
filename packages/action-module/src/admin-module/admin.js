@@ -45,7 +45,8 @@ import * as  DepartmentDutyRosterActions from './department-duty-roster/departme
 import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants';
 import * as  BillingModeActions from './billing-mode/billingModeActions';
 import {billingModeActionConstants} from './billing-mode/billingModeActionConstants';
-
+import * as AppointmentServiceTypeAction from './appointment-service-type/appointmentServiceTypeAction';
+import {appointmentServiceTypeActionConstants} from './appointment-service-type/appointmentServiceTypeActionConstants'
 
 
 export {
@@ -94,5 +95,7 @@ export {
     departmentDutyRosterActionConstants,
     DepartmentDutyRosterActions,
     billingModeActionConstants,
-    BillingModeActions
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 }

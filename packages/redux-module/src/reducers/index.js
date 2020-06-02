@@ -195,6 +195,10 @@ import {
     BillingModeSearchReducer
 } from './admin-module/billingModeReducer';
 
+import {
+    AppointmentServiceTypeDropdownReducer
+} from './admin-module/appointmentServiceTypeReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -219,6 +223,7 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
+    AppointmentServiceTypeDropdownReducer,
     AppointmentStatusListReducer,
     CompanyAdminReducer,
     companyDeleteReducer,
