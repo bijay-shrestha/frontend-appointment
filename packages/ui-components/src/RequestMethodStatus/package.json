@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-request-method",
+  "version": "1.0.0",
+  "main": "RequestMethodStatus.js",
+  "author": "Kaushal Regmi",
+  "license": "MIT",
+  "private": true
+}
