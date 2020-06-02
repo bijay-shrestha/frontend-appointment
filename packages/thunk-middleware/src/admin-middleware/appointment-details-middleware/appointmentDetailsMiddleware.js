@@ -67,6 +67,24 @@ export const thirdPartyApiCall = async(data) =>{
   
 }
 
+export const appointmentApproveIntegration  = (path,data) =>  async dispatch =>{
+  dispatch(AppointmentDetailActions.appointmentApproveStart())
+  try {
+    const response = await Axios.put(path, data)
+    dispatch(
+      AppointmentDetailActions.appointmentApproveSuccess(response.data)
+    )
+  } catch (e) {
+   // console.log(e)
+    dispatch(
+      AppointmentDetailActions.appointmentApproveError(
+        e.errorMessage || 'Sorry Internal Server Problem'
+      )
+    )
+    throw e;
+  }
+}
+
 export const fetchAppointmentApprovalDetailByAppointmentId = (
   path,
   appointmentId
