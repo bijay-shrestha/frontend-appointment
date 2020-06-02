@@ -53,6 +53,10 @@ import {
     appointmentModeActionConstants,
     appointmentTransferConstant,
     AppointmentTransferActions,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants,
     roomSetupActionConstants,
     RoomSetupActions
 
@@ -111,6 +115,10 @@ export {
     appointmentModeActionConstants,
     appointmentTransferConstant,
     AppointmentTransferActions,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants,
     roomSetupActionConstants,
     RoomSetupActions
 }

@@ -4,6 +4,7 @@ export const createReducerFactory = (handlers, initialState = {}) => (
   ) => {
     const handler = handlers[action.type]
     if (!handler) {
+      
       return state;
     }
     const nextState = handler(state, action)

@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
-    CommonUtils,
+    //CommonUtils,
     DateTimeFormatterUtils,
     EnterKeyPressUtils
 } from '@frontend-appointment/helpers'

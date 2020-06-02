@@ -5,8 +5,8 @@ import {
     CHybridInput,
     CHybridTextArea,
     CModal,
-    CRadioButton,
-    CToggle
+    CRadioButton
+   // CToggle
 } from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 import {AuditableEntityHoc} from "@frontend-appointment/commons"
