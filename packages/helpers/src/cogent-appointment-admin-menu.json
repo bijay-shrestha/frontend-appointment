@@ -394,7 +394,7 @@
       "name": "Api Integration",
       "path": "/apiIntegration",
       "roles": [],
-      "icon": "fa fa-building-o",
+      "icon": "fa fa-gg",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
