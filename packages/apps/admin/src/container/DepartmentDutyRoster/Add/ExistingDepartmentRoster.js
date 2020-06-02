@@ -55,6 +55,13 @@ const ExistingDepartmentRoster = ({
                                             sortable: true,
                                             sizeColumnsToFit: true,
                                         },
+                                        {
+                                            headerName: 'Room Number',
+                                            field: 'roomNumber',
+                                            resizable: true,
+                                            sortable: true,
+                                            sizeColumnsToFit: true,
+                                        },
                                     ]}
                                     defaultColDef={{resizable: true}}
                                     getSelectedRows={onViewDetailsExisting}

@@ -17,7 +17,6 @@ import DoctorAvailabilityOverrides from "../common/DepartmentAvailabiltyOverride
 
 const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormData, departmentAvailabilityOverrideData}) => {
     const {
-        hospitalList,
         departmentList,
         roomList,
         updateDoctorDutyRosterData,
