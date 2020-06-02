@@ -56,6 +56,19 @@ export const searchBillingMode = (path, data, paginationData) => async dispatch 
     }
 };
 
+export const previewBillingMode = (path, billingModeId) => async dispatch => {
+    dispatch(BillingModeActions.previewBillingModePending());
+    try {
+        const response = await Axios.getWithPathVariables(path, billingModeId);
+        dispatch(BillingModeActions.previewBillingModeSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(BillingModeActions.previewBillingModeError(
+            e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
+        throw e;
+    }
+};
+
 export const fetchActiveBillingModeForDropdown = (path) => async dispatch => {
     dispatch(BillingModeActions.fetchActiveBillingModePending());
     try {
@@ -82,10 +95,10 @@ export const fetchAllBillingModeForDropdown = (path) => async dispatch => {
     }
 };
 
-export const fetchActiveBillingModeForDropdownByHospitalId = (path, departmentId) => async dispatch => {
+export const fetchActiveBillingModeForDropdownByHospitalId = (path, hospitalId) => async dispatch => {
     dispatch(BillingModeActions.fetchActiveBillingModeByHospitalPending());
     try {
-        const response = await Axios.getWithPathVariables(path, departmentId);
+        const response = await Axios.getWithPathVariables(path, hospitalId);
         dispatch(BillingModeActions.fetchActiveBillingModeByHospitalSuccess(response.data));
         return response.data;
     } catch (e) {
@@ -95,10 +108,10 @@ export const fetchActiveBillingModeForDropdownByHospitalId = (path, departmentId
     }
 };
 
-export const fetchAllBillingModeForDropdownByHospitalId = (path, departmentId) => async dispatch => {
+export const fetchAllBillingModeForDropdownByHospitalId = (path, hospitalId) => async dispatch => {
     dispatch(BillingModeActions.fetchActiveBillingModeByHospitalPending());
     try {
-        const response = await Axios.getWithPathVariables(path, departmentId);
+        const response = await Axios.getWithPathVariables(path, hospitalId);
         dispatch(BillingModeActions.fetchActiveBillingModeByHospitalSuccess(response.data));
         return response.data;
     } catch (e) {

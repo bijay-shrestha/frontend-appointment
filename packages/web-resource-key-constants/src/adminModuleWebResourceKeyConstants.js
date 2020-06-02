@@ -318,3 +318,16 @@ export const departmentDutyRosterApiConstants = {
     DELETE_DEPARTMENT_DUTY_ROSTER_OVERRIDE: BASE.concat(DEPARTMENT_DUTY_ROSTER_BASE.concat("/override")),
     REVERT_DEPARTMENT_DUTY_ROSTER_OVERRIDE_UPDATE: BASE.concat(DEPARTMENT_DUTY_ROSTER_BASE.concat("/override/revert"))
 };
+
+const BILLING_MODE_BASE = "/billingMode";
+export const billingModeApiConstants = {
+    SAVE_BILLING_MODE: BASE.concat(BILLING_MODE_BASE),
+    EDIT_BILLING_MODE: BASE.concat(BILLING_MODE_BASE),
+    DELETE_BILLING_MODE: BASE.concat(BILLING_MODE_BASE),
+    PREVIEW_BILLING_MODE: BASE.concat(BILLING_MODE_BASE.concat('/detail')),
+    SEARCH_BILLING_MODE: BASE.concat(BILLING_MODE_BASE.concat("/search")),
+    FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/active/min")),
+    FETCH_ALL_BILLING_MODE_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/min")),
+    FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/hospital-wise/active/min")),
+    FETCH_ALL_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN: BASE.concat(BILLING_MODE_BASE.concat("/hospital-wise/min")),
+};
