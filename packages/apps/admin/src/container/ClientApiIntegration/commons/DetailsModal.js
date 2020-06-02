@@ -15,6 +15,24 @@ const DetailsModal = ({integrationData, type}) => {
         <CForm id="department-info" className="mt-2 api-info">
           <Container-fluid>
             <Row>
+
+            <Col sm={12} md={3}>
+                {type !== 'P' ? (
+                  <CHybridSelect
+                    id="hospital"
+                    label="Client"
+                    value={integrationData.clientId}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridInput
+                    id="hospital"
+                    value={integrationData.clientId || 'N/A'}
+                    disabled={true}
+                    placeholder={'Client'}
+                  />
+                )}
+              </Col>
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
                   <CHybridSelect
@@ -53,23 +71,7 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-              <Col sm={12} md={3}>
-                {type !== 'P' ? (
-                  <CHybridSelect
-                    id="hospital"
-                    label="Hospital"
-                    value={integrationData.clientId}
-                    isDisabled={true}
-                  />
-                ) : (
-                  <CHybridInput
-                    id="hospital"
-                    value={integrationData.clientId || 'N/A'}
-                    disabled={true}
-                    placeholder={'Hospital'}
-                  />
-                )}
-              </Col>
+             
 
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
