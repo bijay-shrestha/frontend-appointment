@@ -60,7 +60,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       },
       totalRecords: 0,
       previewData: null,
-      editRequestBodys:[],
+      editRequestBodys: []
     }
 
     handleEnterPress = event => {
@@ -94,9 +94,9 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
     }
 
     checkFormValidity = eventType => {
-      const {featureTypeId, requestBodys,remarks} = this.state.requestBodyData
+      const {featureTypeId, requestBodys, remarks} = this.state.requestBodyData
       let formValidity = featureTypeId.value && requestBodys.length
-      if(eventType==='E'){
+      if (eventType === 'E') {
         formValidity = formValidity && remarks
       }
       this.setState({
@@ -211,12 +211,14 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
           showEditModal: true,
           requestBodyData: {
             featureTypeId: {value: data.featureId, label: data.featureName},
-            requestBodys:  ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
-              previewRequestBodyIntegrationData),
-            remarks:''    
+            requestBodys: ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
+              previewRequestBodyIntegrationData
+            ),
+            remarks: ''
           },
           editRequestBodys: ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
-            previewRequestBodyIntegrationData),
+            previewRequestBodyIntegrationData
+          )
         })
         this.checkFormValidity('E')
       } catch (e) {
@@ -236,7 +238,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       let searchData = {
         featureTypeId: featureType.value || '',
         requestBodyId: requestBody.value || '',
-        status: status.value==='All'?'':status.value
+        status: status.value === 'All' ? '' : status.value
       }
 
       let updatedPage =
@@ -286,57 +288,59 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       })
       this.searchRequestBody()
     }
-    
-    filterOutRequestBody = (requestBodys,orgRequestBody) =>{
-     const filteredObj = []
-     const originalBody = [...orgRequestBody];
-     const editedRequestBodys = [...requestBodys]
-     originalBody.map(orgBody => {
-      let flag = false
-      for (let i = 0; i < editedRequestBodys.length; i++) {
-        if (Number(orgBody.value) === Number(editedRequestBodys[i].value)) {
-          filteredObj.push(editedRequestBodys[i])
-          flag = true
-          break
+
+    filterOutRequestBody = (requestBodys, orgRequestBody) => {
+      const filteredObj = []
+      const originalBody = [...orgRequestBody]
+      const editedRequestBodys = [...requestBodys]
+      originalBody.map(orgBody => {
+        let flag = false
+        for (let i = 0; i < editedRequestBodys.length; i++) {
+          if (Number(orgBody.value) === Number(editedRequestBodys[i].value)) {
+            filteredObj.push(editedRequestBodys[i])
+            flag = true
+            break
+          }
         }
-      }
-      if (!flag) {
-        filteredObj.push({...orgBody, status: 'N'})
-      }
+        if (!flag) {
+          filteredObj.push({...orgBody, status: 'N'})
+        }
 
-      return orgBody
-    })
-    
-    editedRequestBodys.map(orgBody => {
-      if (!orgBody.status )
-        filteredObj.push({...orgBody,status:'Y'})
-      return orgBody
-    });
+        return orgBody
+      })
 
-    const newFilterObj = filteredObj.map(filteredObj =>{
-      return {
-        requestBodyId:filteredObj.value,
-        status:filteredObj.status
-      }
-    })
-    return newFilterObj
-   }
+      editedRequestBodys.map(orgBody => {
+        if (!orgBody.status) filteredObj.push({...orgBody, status: 'Y'})
+        return orgBody
+      })
+
+      const newFilterObj = filteredObj.map(filteredObj => {
+        return {
+          requestBodyId: filteredObj.value,
+          status: filteredObj.status
+        }
+      })
+      return newFilterObj
+    }
 
     editRequestBodyData = async () => {
       const {requestBodys, featureTypeId, remarks} = this.state.requestBodyData
       const data = {
         featureId: featureTypeId.value || '',
-        requestBodyUpdateRequestDTOS: this.filterOutRequestBody(requestBodys,this.state.editRequestBodys),
+        requestBodyUpdateRequestDTOS: this.filterOutRequestBody(
+          requestBodys,
+          this.state.editRequestBodys
+        ),
         remarks: remarks
       }
-      
+
       try {
         await this.props.editRequestBodyIntegrationData(
           requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_EDIT,
           data
         )
         this.resetRequestBodyValues()
-        
+
         this.setState({
           showAlert: true,
           alertMessageInfo: {
@@ -415,7 +419,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
         let value = event.target.value
         let label = event.target.label
         let searchParams = {...this.state.searchParameters}
-        searchParams[fieldName] = label ? value ? {value, label} : '': value
+        searchParams[fieldName] = label ? (value ? {value, label} : '') : value
         await this.setStateValuesForSearch(searchParams)
       }
     }
@@ -469,7 +473,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       } = this.props.RequestBodyIntegrationSaveReducers
       const {
         isPreviewRequestBodyIntegrationLoading,
-       // previewRequestBodyIntegrationData,
+        // previewRequestBodyIntegrationData,
         previewRequestIntegrationErorrMessage
       } = this.props.RequestBodyPreviewReducers
 
@@ -534,7 +538,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
               ),
               searchRequestBodyMessageError,
               isPreviewRequestBodyIntegrationLoading,
-              previewRequestBodyIntegrationData:previewData,
+              previewRequestBodyIntegrationData: previewData,
               previewRequestIntegrationErorrMessage,
               isDeleteRequestBodyIntegrationLoading,
               deleteRequestBodyIntegrationErrorMessage,
