@@ -43,6 +43,9 @@ import * as  HospitalDepartmentSetupActions from './hospital-department-setup/ho
 import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants';
 import * as  DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions';
 import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants';
+import * as  BillingModeActions from './billing-mode/billingModeActions';
+import {billingModeActionConstants} from './billing-mode/billingModeActionConstants';
+
 
 
 export {
@@ -89,5 +92,7 @@ export {
     hospitalDepartmentSetupActionConstants,
     HospitalDepartmentSetupActions,
     departmentDutyRosterActionConstants,
-    DepartmentDutyRosterActions
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions
 }
