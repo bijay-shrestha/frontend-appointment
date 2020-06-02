@@ -18,7 +18,7 @@ const ClientApiIntegrationEditModal = ({
   onRemoveHandlerHeaderOrQueryParams,
   onAddHeaderOrQueryParams,
   onChangeHandler,
-  regexForCommaSeperation,
+  //regexForCommaSeperation,
   //isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
