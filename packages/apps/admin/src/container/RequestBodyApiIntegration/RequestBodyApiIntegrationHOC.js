@@ -307,8 +307,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       return orgBody
     })
     
-    originalBody.map(orgBody => {
-      if (!orgBody.value )
+    editedRequestBodys.map(orgBody => {
+      if (!orgBody.status )
         filteredObj.push({...orgBody,status:'Y'})
       return orgBody
     });
