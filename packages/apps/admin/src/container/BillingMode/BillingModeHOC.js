@@ -1,59 +1,49 @@
 import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
-import {
-    HospitalSetupMiddleware,
-    RoomSetupMiddleware
-} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
+import {BillingModeMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
-import "./room-setup.scss";
+import "./billing-mode.scss";
 import {ConfirmDelete, CRemarksModal} from "@frontend-appointment/ui-components";
 
 const {
     clearSuccessErrorMessageFormStore,
-    deleteRoomNumber,
-    editRoomNumber,
-    fetchActiveRoomNumberForDropdownByHospitalId,
-    fetchAllRoomNumberForDropdownByHospitalId,
-    saveRoomNumber,
-    searchRoomNumber,
-} = RoomSetupMiddleware;
+    deleteBillingMode,
+    editBillingMode,
+    fetchAllBillingModeForDropdown,
+    saveBillingMode,
+    searchBillingMode,
+} = BillingModeMiddleware;
 
 const {
-    fetchActiveHospitalsForDropdown
-} = HospitalSetupMiddleware;
+    DELETE_BILLING_MODE,
+    EDIT_BILLING_MODE,
+    FETCH_ALL_BILLING_MODE_FOR_DROPDOWN,
+    PREVIEW_BILLING_MODE,
+    SAVE_BILLING_MODE,
+    SEARCH_BILLING_MODE
+} = AdminModuleAPIConstants.billingModeApiConstants;
 
-const {
-    DELETE_ROOM_NUMBER,
-    EDIT_ROOM_NUMBER,
-    FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN,
-    FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN,
-    SAVE_ROOM_NUMBER,
-    SEARCH_ROOM_NUMBER
-} = AdminModuleAPIConstants.roomSetupApiConstants;
-
-const {
-    FETCH_HOSPITALS_FOR_DROPDOWN
-} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
 const RoomSetupHOC = (ComposedComponent, props, type) => {
     class RoomSetup extends PureComponent {
         state = {
-            roomData: {
+            billingModeData: {
                 id: '',
-                hospitalName: '',
-                roomNumber: '',
+                name: '',
+                code: '',
+                description: '',
                 status: {value: 'Y', label: 'Active'},
                 remarks: '',
                 isNew: true
             },
             formValid: false,
             searchParameters: {
-                roomNumber: '',
+                billingMode: null,
                 status: {value: 'A', label: 'All'},
-                hospital: null
+                code: ""
             },
             queryParams: {
                 page: 0,
@@ -71,10 +61,11 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             isActionComplete: false
         };
 
-        defaultRoomValueForEdit = {
+        defaultBillingModeValueForEdit = {
             id: '',
-            hospitalName: '',
-            roomNumber: '',
+            name: '',
+            code: '',
+            description: '',
             status: {value: 'Y', label: 'Active'},
             remarks: '',
             isNew: true
@@ -96,12 +87,12 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             await this.setState({
                 searchParameters: {
                     ...this.state.searchParameters,
-                    roomNumber: '',
-                    hospital: null,
+                    billingMode: null,
+                    code: "",
                     status: {value: 'A', label: 'All'},
                 }
             });
-            this.searchRoomNumber(1);
+            this.searchBillingMode(1);
         };
 
         handlePageChange = async newPage => {
@@ -111,13 +102,14 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                     page: newPage
                 }
             });
-            await this.searchRoomNumber();
+            await this.searchBillingMode();
         };
 
         handleInputChange = async (event, fType) => {
             let key = event.target.name;
-            let value = event.target.value;
+            let value = key === 'code' ? event.target.value.toUpperCase() : event.target.value;
             let label = event.target.label;
+
 
             if (fType === 'SEARCH') {
                 label ? value ?
@@ -140,34 +132,23 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                             // , [key + "Valid"]: fieldValid
                         }
                     });
-                if (key === 'hospital') {
-                    if (value) {
-                        this.fetchAllRoomNumberForDropdownByHospitalId(value);
-                    }
-                    this.setState({
-                        searchParameters: {
-                            ...this.state.searchParameters,
-                            roomNumber: null
-                        }
-                    })
-                }
             } else {
                 label ? value ?
                     await this.setState({
-                        roomData: {
-                            ...this.state.roomData,
+                        billingModeData: {
+                            ...this.state.billingModeData,
                             [key]: {value, label}
                         }
                     })
                     : await this.setState({
-                        roomData: {
-                            ...this.state.roomData,
+                        billingModeData: {
+                            ...this.state.billingModeData,
                             [key]: null
                         }
                     })
                     : await this.setState({
-                        roomData: {
-                            ...this.state.roomData,
+                        billingModeData: {
+                            ...this.state.billingModeData,
                             [key]: value
                             // , [key + "Valid"]: fieldValid
                         }
@@ -186,38 +167,25 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 value: editData.status,
                 label: editData.status === 'Y' ? 'Active' : 'Inactive'
             };
-            let hospital = {
-                value: editData.hospitalId,
-                label: editData.hospitalName
-            };
-            this.setDefaultRoomValues(editData.id, editData.roomNumber, hospital, status, '')
-            // this.checkFormValidity();
+            this.setDefaultRoomValues(editData.id, editData.name, editData.code, editData.description, status, '')
         };
 
         handleDelete = async (deleteData) => {
-            let room = {...this.state.roomData};
-            room.id = deleteData.id;
+            let billingMode = {...this.state.billingModeData};
+            billingMode.id = deleteData.id;
             this.setState({
-                roomData: {...room},
+                billingModeData: {...billingMode},
                 showDeleteModal: true
             })
         };
 
         initialApiCalls = async () => {
-            this.fetchActiveHospitalsForDropdown();
-            this.searchRoomNumber(1);
+            this.fetchAllBillingModeForDropdown();
+            this.searchBillingMode(1);
         };
 
-        fetchActiveRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchActiveRoomNumberForDropdownByHospitalId(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
-        };
-
-        fetchAllRoomNumberForDropdownByHospitalId = async hospitalId => {
-            await this.props.fetchAllRoomNumberForDropdownByHospitalId(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
-        };
-
-        fetchActiveHospitalsForDropdown = async () => {
-            await this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN);
+        fetchAllBillingModeForDropdown = async () => {
+            await this.props.fetchAllBillingModeForDropdown(FETCH_ALL_BILLING_MODE_FOR_DROPDOWN);
         };
 
         showAlertMessage = (type, message) => {
@@ -242,17 +210,18 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         };
 
         resetAliasData = () => {
-            let currentRoomData = {...this.state.roomData};
+            let currentRoomData = {...this.state.billingModeData};
             currentRoomData.id = '';
-            currentRoomData.hospitalName = null;
-            currentRoomData.roomNumber = '';
+            currentRoomData.name = "";
+            currentRoomData.code = "";
+            currentRoomData.description = '';
             currentRoomData.remarks = '';
             currentRoomData.status = {value: 'Y', label: 'Active'};
 
-            this.setDefaultRoomValues('', '', null, currentRoomData.status, '');
+            this.setDefaultRoomValues('', '', '', '', currentRoomData.status, '');
 
             this.setState({
-                roomData: {...currentRoomData},
+                billingModeData: {...currentRoomData},
                 isActionComplete: true
             })
         };
@@ -262,11 +231,11 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             this.handleResetSearchForm();
         };
 
-        searchRoomNumber = async (page) => {
-            const {roomNumber, status, hospital} = this.state.searchParameters;
+        searchBillingMode = async (page) => {
+            const {code, status, billingMode} = this.state.searchParameters;
             let searchData = {
-                hospitalId: hospital ? hospital.value : '',
-                id: roomNumber ? roomNumber.value : '',
+                code: code,
+                id: billingMode ? billingMode.value : '',
                 status: status && status.value !== 'A' ? status.value : ''
             };
 
@@ -274,16 +243,16 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 this.state.queryParams.page === 0 ? 1 : (page ? page : this.state.queryParams.page);
 
             try {
-                await this.props.searchRoomNumber(
-                    SEARCH_ROOM_NUMBER,
+                await this.props.searchBillingMode(
+                    SEARCH_BILLING_MODE,
                     searchData,
                     {
                         page: updatedPage,
                         size: this.state.queryParams.size
                     });
                 await this.setState({
-                    totalRecords: this.props.RoomNumberSearchReducer.roomNumberList.length
-                        ? this.props.RoomNumberSearchReducer.totalRecords
+                    totalRecords: this.props.BillingModeSearchReducer.billingModeList.length
+                        ? this.props.BillingModeSearchReducer.totalRecords
                         : 0,
                     queryParams: {
                         ...this.state.queryParams,
@@ -297,68 +266,72 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
 
         };
 
-        saveRoomNumber = async (saveData) => {
-            const {hospitalName, roomNumber, status} = saveData.data;
-            this.setDefaultRoomValues('', roomNumber, hospitalName, status, '');
-            if (!roomNumber || !status || !hospitalName) {
-                this.validateFields(roomNumber, status, hospitalName);
+        saveBillingMode = async (saveData) => {
+            const {name, code, description, status} = saveData.data;
+            this.setDefaultRoomValues('', name, code, description, status, '');
+            if (!name || !status || !code || !description) {
+                this.validateFields(name, code, description, status);
             } else {
                 let requestDTO = {
-                    hospitalId: hospitalName ? hospitalName.value : '',
-                    roomNumber: roomNumber,
+                    name: name,
+                    code: code,
+                    description: description,
                     status: status && status.value
                 };
                 try {
-                    await this.props.saveRoomNumber(SAVE_ROOM_NUMBER, requestDTO);
-                    this.showAlertMessage("success", this.props.RoomNumberSaveReducer.saveSuccessMessage);
+                    await this.props.saveBillingMode(SAVE_BILLING_MODE, requestDTO);
+                    this.showAlertMessage("success", this.props.BillingModeSaveReducer.saveSuccessMessage);
                     this.actionsOnOperationComplete();
                     return true
                 } catch (e) {
-                    this.showAlertMessage("danger", this.props.RoomNumberSaveReducer.saveErrorMessage);
+                    this.showAlertMessage("danger", this.props.BillingModeSaveReducer.saveErrorMessage);
                     return false;
                 }
             }
         };
 
-        validateFields = (roomNumber, status, hospitalName) => {
-            if (!roomNumber && !status && !hospitalName) this.showAlertMessage("warning",
-                "Client,Room Number and status must be not empty.");
-            else if (!roomNumber && !hospitalName)
-                this.showAlertMessage("warning", "Client and Room Number must be not empty.");
-            else if (!roomNumber && !status)
-                this.showAlertMessage("warning", "Room Number and Status must be not empty.");
-            else if (!status && !hospitalName)
-                this.showAlertMessage("warning", "Client and Status must be not empty.");
-            else if (!roomNumber) this.showAlertMessage("warning", "Room Number should not  be empty.");
-            else if (!hospitalName) this.showAlertMessage("warning", "Hospital should not  be empty.");
+        validateFields = (name, code, description, status) => {
+            if (!name && !status && !code && !description) this.showAlertMessage("warning",
+                "Name,Code,Description and status must be not empty.");
+            else if (!name && !code)
+                this.showAlertMessage("warning", "Name and Code must be not empty.");
+            else if (!name && !status)
+                this.showAlertMessage("warning", "Name and Status must be not empty.");
+            else if (!status && !code)
+                this.showAlertMessage("warning", "Code and Status must be not empty.");
+            else if (!name) this.showAlertMessage("warning", "Name should not  be empty.");
+            else if (!code) this.showAlertMessage("warning", "Code should not  be empty.");
+            else if (!description) this.showAlertMessage("warning", "Description should not  be empty.");
             else if (!status) this.showAlertMessage("warning", "Status should not  be empty.")
         };
 
-        setDefaultRoomValues = (id, roomNumber, hospitalName, status, remarks) => {
-            this.defaultRoomValueForEdit.id = id;
-            this.defaultRoomValueForEdit.hospitalName = hospitalName;
-            this.defaultRoomValueForEdit.roomNumber = roomNumber;
-            this.defaultRoomValueForEdit.status = status;
-            this.defaultRoomValueForEdit.remarks = remarks;
-            this.defaultRoomValueForEdit.isNew = true;
+        setDefaultRoomValues = (id, name, code, description, status, remarks) => {
+            this.defaultBillingModeValueForEdit.id = id;
+            this.defaultBillingModeValueForEdit.name = name;
+            this.defaultBillingModeValueForEdit.code = code;
+            this.defaultBillingModeValueForEdit.description = description;
+            this.defaultBillingModeValueForEdit.status = status;
+            this.defaultBillingModeValueForEdit.remarks = remarks;
+            this.defaultBillingModeValueForEdit.isNew = true;
         };
 
         openEditRemarksModal = (updateData) => {
-            const {id, roomNumber, hospitalName, status} = updateData.data;
-            let roomData = {...this.state.roomData};
-            roomData.id = id;
-            roomData.roomNumber = roomNumber;
-            roomData.hospitalName = hospitalName;
-            roomData.status = status;
+            const {id, name, code, description, status} = updateData.data;
+            let billingModeData = {...this.state.billingModeData};
+            billingModeData.id = id;
+            billingModeData.name = name;
+            billingModeData.code = code;
+            billingModeData.description = description;
+            billingModeData.status = status;
 
-            this.setDefaultRoomValues(id, roomNumber, hospitalName, status, '');
+            this.setDefaultRoomValues(id, name, code, description, status, '');
 
-            if (!roomNumber || !status || !hospitalName) {
-                this.validateFields(roomNumber, status, hospitalName);
+            if (!name || !status || !code || !description) {
+                this.validateFields(name, code, description, status);
             } else {
                 this.setState({
                     showEditRemarksModal: true,
-                    roomData: {...roomData}
+                    billingModeData: {...billingModeData}
                 })
             }
         };
@@ -367,46 +340,46 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             this.setState({
                 showEditRemarksModal: false,
                 showDeleteModal: false,
-                roomData: {
-                    ...this.state.roomData,
+                billingModeData: {
+                    ...this.state.billingModeData,
                     remarks: ''
                 }
             });
             this.props.clearSuccessErrorMessageFormStore();
         };
 
-        editRoomNumber = async () => {
-            const {id, roomNumber, status, hospitalName, remarks} = this.state.roomData;
+        editBillingMode = async () => {
+            const {id, name, code, description, status, remarks} = this.state.billingModeData;
             let requestDTO = {
                 id,
-                roomNumber,
-                hospitalId: hospitalName ? hospitalName.value : '',
+                name,
+                code,
+                description,
                 status: status && status.value,
                 remarks
             };
             try {
-                await this.props.editRoomNumber(EDIT_ROOM_NUMBER, requestDTO);
-                this.showAlertMessage("success", this.props.RoomNumberEditReducer.editSuccessMessage);
+                await this.props.editBillingMode(EDIT_BILLING_MODE, requestDTO);
+                this.showAlertMessage("success", this.props.BillingModeEditReducer.editSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
                 return true;
             } catch (e) {
-                this.setDefaultRoomValues(id, roomNumber, hospitalName, status, '');
-                // this.showAlertMessage("danger", this.props.RoomNumberEditReducer.editErrorMessage);
+                this.setDefaultRoomValues(id, name, code, description, status, '');
                 return false;
             }
         };
 
-        deleteRoomNumber = async () => {
-            const {id, remarks} = this.state.roomData;
+        deleteBillingMode = async () => {
+            const {id, remarks} = this.state.billingModeData;
             let deleteRequestDTO = {
                 id: id,
                 remarks,
                 status: 'D'
             };
             try {
-                await this.props.deleteRoomNumber(DELETE_ROOM_NUMBER, deleteRequestDTO);
-                this.showAlertMessage("success", this.props.RoomNumberDeleteReducer.deleteSuccessMessage);
+                await this.props.deleteBillingMode(DELETE_BILLING_MODE, deleteRequestDTO);
+                this.showAlertMessage("success", this.props.BillingModeDeleteReducer.deleteSuccessMessage);
                 this.closeModal();
                 this.actionsOnOperationComplete();
             } catch (e) {
@@ -425,7 +398,7 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
         render() {
 
             const {
-                roomData,
+                billingModeData,
                 searchParameters,
                 queryParams,
                 totalRecords,
@@ -437,40 +410,37 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                 isActionComplete
             } = this.state;
 
-            const {allRoomNumberForDropdown, allRoomDropdownErrorMessage} = this.props.RoomNumberDropdownReducer;
+            const {allBillingModeForDropdown, allRoomDropdownErrorMessage} = this.props.BillingModeDropdownReducer;
 
             const {
-                isSearchRoomNumberLoading,
+                isSearchBillingModeLoading,
                 searchErrorMessage,
-                roomNumberList
-            } = this.props.RoomNumberSearchReducer;
+                billingModeList
+            } = this.props.BillingModeSearchReducer;
 
-            const {editErrorMessage, isEditRoomNumberLoading} = this.props.RoomNumberEditReducer;
-            const {deleteErrorMessage, isDeleteRoomNumberLoading} = this.props.RoomNumberDeleteReducer;
-
-            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            const {editErrorMessage, isEditBillingModeLoading} = this.props.BillingModeEditReducer;
+            const {deleteErrorMessage, isDeleteBillingModeLoading} = this.props.BillingModeDeleteReducer;
 
             return <>
                 <ComposedComponent
                     {...props}
                     tableData={{
-                        roomNumberList: roomNumberList,
-                        hospitalList: [...hospitalsForDropdown],
-                        isSearchRoomNumberLoading,
+                        billingModeList: billingModeList,
+                        isSearchBillingModeLoading,
                         searchErrorMessage,
                         currentPage: queryParams.page,
                         maxSize: queryParams.size,
                         totalItems: totalRecords,
                         handlePageChange: this.handlePageChange,
-                        roomData: this.defaultRoomValueForEdit,
+                        billingModeData: this.defaultBillingModeValueForEdit,
                         handleInputChange: this.handleInputChange,
                         handleCancel: this.handleCancel,
                         handleEdit: this.handleEdit,
-                        handleSave: this.saveRoomNumber,
+                        handleSave: this.saveBillingMode,
                         handleUpdate: this.openEditRemarksModal,
-                        handleUpdateConfirm: this.editRoomNumber,
+                        handleUpdateConfirm: this.editBillingMode,
                         handleDelete: this.handleDelete,
-                        handleDeleteSubmit: this.deleteRoomNumber,
+                        handleDeleteSubmit: this.deleteBillingMode,
                         formValid,
                         isActionComplete,
                         changeActionComplete: this.changeActionComplete
@@ -480,39 +450,38 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
                         searchParameters,
                         resetSearchForm: this.handleResetSearchForm,
                         handleEnter: this.handleEnter,
-                        roomNumbersForDropdown: allRoomNumberForDropdown,
+                        billingModeForDropdown: allBillingModeForDropdown,
                         dropdownErrorMessage: allRoomDropdownErrorMessage,
-                        onSearchClick: this.searchRoomNumber,
-                        hospitalList: [...hospitalsForDropdown]
+                        onSearchClick: this.searchBillingMode,
                     }}
                 />
                 {showEditRemarksModal ?
                     <CRemarksModal
                         confirmationMessage="Provide remarks for edit."
-                        modalHeader="Edit Room"
+                        modalHeader="Edit Billing Mode"
                         showModal={showEditRemarksModal}
                         onCancel={this.closeModal}
                         onRemarksChangeHandler={this.handleInputChange}
-                        remarks={roomData.remarks}
-                        onPrimaryAction={this.editRoomNumber}
+                        remarks={billingModeData.remarks}
+                        onPrimaryAction={this.editBillingMode}
                         primaryActionName={"Confirm"}
-                        actionDisabled={isEditRoomNumberLoading}
-                        primaryActionLoading={isEditRoomNumberLoading}
+                        actionDisabled={isEditBillingModeLoading}
+                        primaryActionLoading={isEditBillingModeLoading}
                         errorMessage={editErrorMessage}
                     />
                     : ''
                 }
                 {showDeleteModal ?
                     <ConfirmDelete
-                        confirmationMessage="Are you sure you want to delete the Room Number? If yes please provide remarks."
-                        modalHeader="Delete Room Number"
+                        confirmationMessage="Are you sure you want to delete the Billing Mode? If yes please provide remarks."
+                        modalHeader="Delete Billing Mode"
                         showModal={showDeleteModal}
                         setShowModal={this.closeModal}
                         onDeleteRemarksChangeHandler={this.handleInputChange}
-                        remarks={roomData.remarks}
-                        onSubmitDelete={this.deleteRoomNumber}
+                        remarks={billingModeData.remarks}
+                        onSubmitDelete={this.deleteBillingMode}
                         deleteErrorMessage={deleteErrorMessage}
-                        isLoading={isDeleteRoomNumberLoading}
+                        isLoading={isDeleteBillingModeLoading}
                     />
                     : ''
                 }
@@ -532,21 +501,18 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
 
     return ConnectHoc(
         RoomSetup, [
-            'RoomNumberDropdownReducer',
-            'RoomNumberSaveReducer',
-            'RoomNumberEditReducer',
-            'RoomNumberDeleteReducer',
-            'RoomNumberSearchReducer',
-            'HospitalDropdownReducer'
+            'BillingModeDropdownReducer',
+            'BillingModeSaveReducer',
+            'BillingModeEditReducer',
+            'BillingModeDeleteReducer',
+            'BillingModeSearchReducer',
         ], {
-            fetchActiveRoomNumberForDropdownByHospitalId,
-            fetchAllRoomNumberForDropdownByHospitalId,
-            fetchActiveHospitalsForDropdown,
-            searchRoomNumber,
-            deleteRoomNumber,
-            editRoomNumber,
-            saveRoomNumber,
-            clearSuccessErrorMessageFormStore
+            clearSuccessErrorMessageFormStore,
+            deleteBillingMode,
+            editBillingMode,
+            fetchAllBillingModeForDropdown,
+            saveBillingMode,
+            searchBillingMode,
         }
     )
 };

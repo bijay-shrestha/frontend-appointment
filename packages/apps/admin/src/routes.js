@@ -101,6 +101,11 @@ const AddDepartmentDutyRosterComponent = loadable(
 
 /* ****** B ***** */
 
+const BillingModeComponent = loadable(
+    () => import('./container/BillingMode/BillingMode'),
+    {fallback: () => getLoader()}
+)
+
 /* ****** C ***** */
 const CompanyManageComponent = loadable(
     () => import('./container/CompanySetup/Manage/CompanyManage'),
@@ -875,5 +880,15 @@ export const routes = [
         isLink: true,
         isTab: true,
         isSingleTab: false,
+    },
+    {
+        path: '/admin/companySettings/billingMode',
+        component: BillingModeComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Billing Mode Setup',
+        isSingleTab: true,
     },
 ];

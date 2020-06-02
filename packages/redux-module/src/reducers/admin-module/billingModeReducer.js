@@ -182,7 +182,7 @@ export const BillingModeSearchReducer = (state = {...initialState}, action) => {
             return {
                 ...state,
                 isSearchBillingModeLoading: false,
-                billingModeList: [...action.payload.data.response],
+                billingModeList: [...action.payload.data.billingModeList],
                 totalRecords: action.payload.data.totalItems,
                 searchErrorMessage: ''
             };
