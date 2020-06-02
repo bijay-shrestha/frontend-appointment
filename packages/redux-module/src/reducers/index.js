@@ -186,6 +186,15 @@ import {
     DepartmentDutyRosterSaveReducer,
 } from './admin-module/departmentDutyRosterReducer';
 
+import {
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
+} from './admin-module/billingModeReducer';
+
 export {
     AdminDeleteReducer,
     AdminEditReducer,
@@ -324,4 +333,10 @@ export {
     DepartmentDutyRosterOverrideUpdateReducer,
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
 }
