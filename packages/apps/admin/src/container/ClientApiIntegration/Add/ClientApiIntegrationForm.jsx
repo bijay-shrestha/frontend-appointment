@@ -40,7 +40,7 @@ const ClientApiIntegrationForm = ({
   integrationTypeData
   // integrationChannelDropdownError,
   //isIntegrationTypeDropdownLoading,
-  
+
   //integrationTypeDropdownError
   //isRequestBodyByFeatureLoading,
   //requestBodyByFeatureData
@@ -55,7 +55,21 @@ const ClientApiIntegrationForm = ({
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-            <Col sm={12} md={3}>
+              <Col sm={12} md={3}>
+                <CHybridSelect
+                  id="client"
+                  label="Client"
+                  name="clientId"
+                  onChange={(event, validity) =>
+                    onChangeHandler(event, validity)
+                  }
+                  options={hospitalsForDropdown}
+                  value={integrationData.clientId}
+                  isDisabled={!hospitalsForDropdown.length}
+                  placeholder={hospitalsForDropdown.length?'Select Client.':'No Hospital(s) Found'}
+                />
+              </Col>
+              <Col sm={12} md={3}>
                 <CHybridSelect
                   id="integrationTypeId"
                   label="Integration Type"
@@ -101,24 +115,7 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
-             
-              <Col sm={12} md={3}>
-                <CHybridSelect
-                  id="client"
-                  label="Client"
-                  name="clientId"
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  options={hospitalsForDropdown}
-                  value={integrationData.clientId}
-                  isDisabled={!hospitalsForDropdown.length}
-                  placeholder={'Select Client.'}
-                />
-              </Col>
 
-             
-          
               <Col sm={12} md={3}>
                 <CHybridSelect
                   id="client"
@@ -142,7 +139,7 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
-           
+
               <Col sm={12} md={3}>
                 <CHybridSelect
                   id="client"
@@ -153,7 +150,6 @@ const ClientApiIntegrationForm = ({
                   }
                   options={requestMethodData}
                   value={integrationData.requestMethod}
-                  isLoading={isRequestMethodDropdownLoading}
                   isDisabled={
                     !integrationData.clientId.value || !requestMethodData.length
                   }
@@ -166,7 +162,7 @@ const ClientApiIntegrationForm = ({
                   }
                 />
               </Col>
-              
+
               <Col sm={12} md={9}>
                 <CHybridInput
                   id="apiUrl"
@@ -181,7 +177,7 @@ const ClientApiIntegrationForm = ({
                   errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
-               </Row>
+            </Row>
 
             <Row>
               <Col>
@@ -234,8 +230,7 @@ const ClientApiIntegrationForm = ({
                                   'headers'
                                 )
                               }
-                              placeholder={headerKey.replace("Param","")}
-                              
+                              placeholder={headerKey.replace('Param', '')}
                               value={header[headerKey]}
                               required={true}
                             />
@@ -325,7 +320,7 @@ const ClientApiIntegrationForm = ({
                                     'queryParams'
                                   )
                                 }
-                                placeholder={queryParamKey.replace("Param","")}
+                                placeholder={queryParamKey.replace('Param', '')}
                                 value={queryParam[queryParamKey]}
                                 required={true}
                               />
@@ -360,7 +355,7 @@ const ClientApiIntegrationForm = ({
                 })}
               </Row>
             </div>
-            {integrationData.requestBody !== 'null' ? (
+            {integrationData.requestBody ? (
               <Row className="mt-4">
                 <Col sm={12}>
                   {/* <CHybridTextArea
@@ -378,10 +373,9 @@ const ClientApiIntegrationForm = ({
                 />
                 <p className="note">Note: Should be in comma separed format</p> */}
                   <CFLabel id="preId" labelName="Request Body" />
-                  <div className="request-body-code"> 
-                  <code>{integrationData.requestBody}</code>
+                  <div className="request-body-code">
+                    <code>{integrationData.requestBody}</code>
                   </div>
-                  
                 </Col>
               </Row>
             ) : null}

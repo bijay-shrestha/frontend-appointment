@@ -4,7 +4,6 @@ import {
   CForm,
   CHybridInput,
   CModal,
-  CHybridTextArea,
   CHybridSelect,
   CCheckbox,
   CFLabel
@@ -41,12 +40,25 @@ const ClientApiIntegrationEditModal = ({
       <CForm id="profile-info spec" className="mt-2 profile-info">
         <Container-fluid>
           <Row>
-          <Col sm={12} md={3}>
+            <Col sm={12} md={3}>
+              <CHybridInput
+                id="client"
+                label="Client"
+                name="clientId"
+                value={integrationData.clientId}
+                disabled={true}
+                placeholder={'Client'}
+              />
+            </Col>
+
+            <Col sm={12} md={3}>
               <CHybridSelect
                 id="integrationTypeId"
                 label="Integration Type"
                 name="integrationTypeId"
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 options={integrationTypeData}
                 value={integrationData.integrationTypeId}
                 isDisabled={true}
@@ -65,7 +77,9 @@ const ClientApiIntegrationEditModal = ({
                 id="integrationChannelId"
                 name="integrationChannelId"
                 value={integrationData.integrationChannelId}
-                onChange={(event, validity) => onChangeHandler(event, validity,'E')}
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
                 label={'Ingtegration Channel'}
                 placeholder={
                   !integrationData.clientId
@@ -76,27 +90,12 @@ const ClientApiIntegrationEditModal = ({
                 }
                 options={integrationChannelData}
                 isDisabled={
-                  !integrationData.clientId ||
-                  !integrationChannelData.length
+                  !integrationData.clientId || !integrationChannelData.length
                 }
               />
             </Col>
-        
-        
 
-            
             <Col sm={12} md={3}>
-              <CHybridInput
-                id="client"
-                label="Client"
-                name="clientId"
-                value={integrationData.clientId}
-                disabled={true}
-                placeholder={'Select Client.'}
-              />
-            </Col>
-
-           <Col sm={12} md={3}>
               <CHybridSelect
                 id="featureType"
                 label="Feature Type"
@@ -107,7 +106,8 @@ const ClientApiIntegrationEditModal = ({
                 options={featureTypeDropdownData}
                 value={integrationData.featureType}
                 isDisabled={
-                  !integrationData.integrationTypeId || !featureTypeDropdownData.length
+                  !integrationData.integrationTypeId ||
+                  !featureTypeDropdownData.length
                 }
                 placeholder={
                   integrationData.clientId
@@ -157,8 +157,7 @@ const ClientApiIntegrationEditModal = ({
                 errorMessagePassed={'Value Should be Request Url'}
               />
             </Col>
-
-             </Row>
+          </Row>
 
           <Row>
             <Col>
@@ -351,47 +350,17 @@ const ClientApiIntegrationEditModal = ({
               })}
             </Row>
           </div>
-          <Row className="mt-4">
-            <Col sm={12}>
-              <CHybridTextArea
-                id="request-body-hospital-integration"
-                name="requestBody"
-                onChange={(event, validity) =>
-                  onChangeHandler(event, validity, 'E')
-                }
-                placeholder="Request Body Attributes"
-                value={integrationData.requestBody}
-                required={true}
-                disabled={true}
-              />
-            </Col>
-          </Row>
 
-          {integrationData.requestBody !== 'null' ? (
-              <Row className="mt-4">
-                <Col sm={12}>
-                  {/* <CHybridTextArea
-                  id="request-body-hospital-integration"
-                  name="requestBody"
-                  onChange={(event, validity) =>
-                    onChangeHandler(event, validity)
-                  }
-                  placeholder="Request Body Attributes"
-                  value={integrationData.requestBody}
-                  required={true}
-                  hasValidation={true}
-                  fieldValuePattern={regexForCommaSeperation}
-                  errorMessagePassed={'Value Should Be Comma Seperated'}
-                /> */}
-                
-                  <CFLabel id="preId" labelName="Request Body" />
-                  <div className="request-body-code"> 
+          {integrationData.requestBody ? (
+            <Row className="mt-4">
+              <Col sm={12}>
+                <CFLabel id="preId" labelName="Request Body" />
+                <div className="request-body-code">
                   <code>{integrationData.requestBody}</code>
-                  </div>
-                  
-                </Col>
-              </Row>
-            ) : null}
+                </div>
+              </Col>
+            </Row>
+          ) : null}
         </Container-fluid>
       </CForm>
     </>
@@ -405,9 +374,7 @@ const ClientApiIntegrationEditModal = ({
               <p className="modal-error">
                 <i class="fa fa-exclamation-triangle" /> &nbsp; {errorMessage}
               </p>
-            ) : (
-              null
-            )}
+            ) : null}
           </div>
           <div className="col-md-6">
             <CButton

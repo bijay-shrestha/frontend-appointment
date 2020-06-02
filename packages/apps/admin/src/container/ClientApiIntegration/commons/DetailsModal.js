@@ -15,9 +15,8 @@ const DetailsModal = ({integrationData, type}) => {
         <CForm id="department-info" className="mt-2 api-info">
           <Container-fluid>
             <Row>
-
-            <Col sm={12} md={3}>
-              {type !== 'P' ? (
+              <Col sm={12} md={3}>
+                {type !== 'P' ? (
                   <CHybridSelect
                     id="integrationType"
                     name="integrationType"
@@ -54,7 +53,6 @@ const DetailsModal = ({integrationData, type}) => {
                 )}
               </Col>
 
-
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
                   <CHybridSelect
@@ -72,8 +70,6 @@ const DetailsModal = ({integrationData, type}) => {
                   />
                 )}
               </Col>
-
-             
 
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
@@ -121,9 +117,6 @@ const DetailsModal = ({integrationData, type}) => {
                   disabled={true}
                 />
               </Col>
-
-             
-
             </Row>
 
             <Row>
@@ -187,18 +180,20 @@ const DetailsModal = ({integrationData, type}) => {
                 : null}
             </Row>
             <Row>
-              <Col sm={12} className="mt-4">
-              <CFLabel id="preId" labelName="Request Body" />
-              <div className="request-body-code"> 
-              <code>{integrationData.requestBody}</code>
-              </div>
-                {/* <CHybridTextArea
+              {integrationData.requestBody ? (
+                <Col sm={12} className="mt-4">
+                  <CFLabel id="preId" labelName="Request Body" />
+                  <div className="request-body-code">
+                    <code>{integrationData.requestBody}</code>
+                  </div>
+                  {/* <CHybridTextArea
                   id="header"
                   placeholder="Request Body"
                   value={integrationData.requestBody}
                   disabled={true}
                 /> */}
-              </Col>
+                </Col>
+              ) : null}
             </Row>
             <Row className="mt-4">{AuditableEntityHoc(integrationData)}</Row>
           </Container-fluid>

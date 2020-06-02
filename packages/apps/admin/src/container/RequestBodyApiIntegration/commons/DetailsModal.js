@@ -1,10 +1,9 @@
 import React from 'react'
-import {CForm, CHybridSelect} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridSelect,CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DetailsModal = ({requestBodyData, type}) => {
-    console.log("=========",requestBodyData)
   return (
     <>
       <Container-fluid>
@@ -22,13 +21,22 @@ const DetailsModal = ({requestBodyData, type}) => {
               </Col>
 
               <Col sm={6} md={6} lg={6}>
-                <CHybridSelect
-                  id="requestBodys"
-                  label="Request Body"
-                  value={requestBodyData.requestBodys}
-                  isMulti={true}
-                  isDisabled={true}
-                />
+                {type === 'A' ? (
+                  <CHybridSelect
+                    id="requestBodys"
+                    label="Request Body"
+                    value={requestBodyData.requestBodys}
+                    isMulti={true}
+                    isDisabled={true}
+                  />
+                ) : (
+                  <CHybridTextArea
+                    id="requestBodys"
+                    placeholder="Request Body"
+                    value={requestBodyData.requestBodys}
+                    disabled={true}
+                  />
+                )}
               </Col>
             </Row>
             <Row className="mt-4">{AuditableEntityHoc(requestBodyData)}</Row>

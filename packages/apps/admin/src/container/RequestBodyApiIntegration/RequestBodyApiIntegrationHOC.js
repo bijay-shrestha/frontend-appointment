@@ -164,16 +164,16 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    previewApiCall = async id => {
+    previewApiCall = async (id,path) => {
       await this.props.previewRequestBodyIntegrationData(
-        requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_PREVIEW,
+        path,
         id
       )
     }
 
     onPreviewHandler = async data => {
       try {
-        await this.previewApiCall(data.featureId)
+        await this.previewApiCall(data.featureId,requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_PREVIEW)
         const {
           // isPreviewRequestBodyIntegrationLoading,
           previewRequestBodyIntegrationData
@@ -183,9 +183,8 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
           showRequestBodyModal: true,
           previewData: {
             featureTypeId: {value: data.featureId, label: data.featureName},
-            requestBodys: ObjectUtils.constructValueLabelArrayObjectFromGivenArrayObject(
-              previewRequestBodyIntegrationData
-            )
+            requestBodys: previewRequestBodyIntegrationData.requestBody,
+            ...previewRequestBodyIntegrationData
           }
         })
       } catch (e) {
@@ -203,7 +202,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
     onEditHandler = async data => {
       this.props.clearMessages()
       try {
-        await this.previewApiCall(data.featureId)
+        await this.previewApiCall(data.featureId,requestbodyIntegrationConstants.REQUEST_BODY_API_INTEGRATION_EDIT_PREVIEW)
         const {
           previewRequestBodyIntegrationData
         } = this.props.RequestBodyPreviewReducers
@@ -349,6 +348,7 @@ const RequestBodyApiIntegrationHOC = (ComposedComponent, props, type) => {
               .editRequestBodySuccessMessage
           }
         })
+        this.setShowModal();
         await this.searchRequestBody()
       } catch (e) {}
     }

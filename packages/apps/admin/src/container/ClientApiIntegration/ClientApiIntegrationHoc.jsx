@@ -34,7 +34,6 @@ const {
 const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
   changeObjectStructureToKeyValueArray,
-  changeJSONObjectToCommaSepratedValue,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -273,7 +272,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           url,
           headers,
           queryParameters,
-          hospitalName
+          hospitalName,
+          lastModifiedBy,
+          lastModifiedDate,
+          createdDate,
+          createdBy
         } = previewApiIntegrationData
         await this.onFeatureTypeChangeRequestBody(featureId)
         const {requestBody} = this.state.integrationData
@@ -288,7 +291,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
             : [],
           clientId: hospitalName,
           integrationChannelId: integrationChannel,
-          integrationTypeId: integrationType
+          integrationTypeId: integrationType,
+          lastModifiedBy,
+          lastModifiedDate,
+          createdDate,
+          createdBy
         }
         this.setTheStateForIntegrationData(integrationData)
         this.setShowModal('previewModal')
@@ -697,10 +704,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         return dataObj
       })
       let integrationDatas = {...this.state.integrationData}
+      if(requestBodyObj !==null){
       integrationDatas['requestBody'] = JSON.stringify(requestBodyObj)
       await this.setState({
         integrationData: {...integrationDatas}
       })
+    }
     }
 
     componentDidMount () {
