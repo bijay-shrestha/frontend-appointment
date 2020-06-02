@@ -2,7 +2,6 @@ import React, {memo} from 'react'
 import {
   CForm,
   CHybridInput,
-  CHybridTextArea,
   CHybridSelect,
   CFLabel
 } from '@frontend-appointment/ui-elements'

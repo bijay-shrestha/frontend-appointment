@@ -22,7 +22,10 @@ export const excludedUrl = [
     '/adminFeature',
     '/logout',
     '/postticket',
-    '/test'
+    '/test',
+    '/update-details',
+    "/client-api-integration",
+    "/request-body-attributes"
 ]
 export const includeAppUrl=[
     '/approve/',
