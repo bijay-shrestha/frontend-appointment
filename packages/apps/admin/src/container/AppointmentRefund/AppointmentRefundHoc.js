@@ -8,11 +8,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    CommonUtils,
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-refund.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
