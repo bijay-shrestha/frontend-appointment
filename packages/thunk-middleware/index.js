@@ -34,10 +34,10 @@ import {
     AppointmentModeMiddleware,
     fetchAdminMetaInfoByHospitalId,
     AppointmentTransferMiddleware,
-    HospitalApiIntegrationMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
     DepartmentDutyRosterMiddleware,
+    HospitalApiIntegrationMiddleware,
     RequestBodyApiIntegrationMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
@@ -107,9 +107,9 @@ export {
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
     AppointmentTransferMiddleware,
-    HospitalApiIntegrationMiddleware,
-    RequestBodyApiIntegrationMiddleware,
     RoomSetupMiddleware,
     HospitalDepartmentSetupMiddleware,
-    DepartmentDutyRosterMiddleware
+    DepartmentDutyRosterMiddleware,
+    HospitalApiIntegrationMiddleware,
+    RequestBodyApiIntegrationMiddleware
 }

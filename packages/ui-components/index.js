@@ -41,11 +41,5 @@ export {
 }from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
 export {default as TransferredFromDateWithTime} from './src/TransferredFromDateWithTime/TransferredFromDateWithTime';
 export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
-<<<<<<< HEAD
-export {
-    default as TransferredToDoctorWithSpecImage
-}from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
-=======
 export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
 export {default as RequestMethodStatus} from './src/RequestMethodStatus';
->>>>>>> api-integration

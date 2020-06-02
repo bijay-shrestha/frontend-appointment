@@ -130,15 +130,15 @@ const DashboardComponent = loadable(
   {fallback: () => getLoader()}
 )
 
-const AddCompanyAdminComponent = loadable(
-  () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
-  {fallback: () => getLoader()}
-)
+// const AddCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+//   {fallback: () => getLoader()}
+// )
 
-const ManageCompanyAdminComponent = loadable(
-  () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
-  {fallback: () => getLoader()}
-)
+// const ManageCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+//   {fallback: () => getLoader()}
+// )
 
 /* ****** E ***** */
 

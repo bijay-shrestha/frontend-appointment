@@ -138,8 +138,6 @@ import {
     UniversitySaveReducer,
     UniversitySearchReducer,
     WeekdaysReducer,
-    AppointmentTransferReducers,
-    PatientEsewaIdReducer,
     HospitalApiIntegrationReducers,
     RequestBodyIntegrationReducers
 } from '../reducers'

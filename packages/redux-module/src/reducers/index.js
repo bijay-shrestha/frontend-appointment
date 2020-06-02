@@ -306,7 +306,6 @@ export {
     WeekdaysReducer,
     AppointmentTransferReducers,
     PatientEsewaIdReducer,
-<<<<<<< HEAD
     RoomNumberDeleteReducer,
     RoomNumberDropdownReducer,
     RoomNumberEditReducer,
@@ -327,8 +326,6 @@ export {
     DepartmentDutyRosterOverrideUpdateReducer,
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
-=======
     HospitalApiIntegrationReducers,
     RequestBodyIntegrationReducers
->>>>>>> api-integration
 }
