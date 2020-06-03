@@ -148,15 +148,15 @@ const HospitalEditModal = ({
 
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
-                                    id="hospital-code"
-                                    name="hospitalCode"
+                                    id="esewaMerchantCode"
+                                    name="esewaMerchantCode"
                                     type="email"
                                     onKeyDown={event => onEnterKeyPress(event)}
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Merchant Code"
-                                    value={hospitalData.hospitalCode}
+                                    placeholder="Esewa Merchant Code"
+                                    value={hospitalData.esewaMerchantCode}
                                     required={true}
                                     disabled={true}
                                 />

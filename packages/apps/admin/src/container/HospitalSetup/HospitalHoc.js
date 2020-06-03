@@ -6,7 +6,7 @@ import {
     HospitalSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './hospitalHoc.scss'
 
 const {
@@ -61,7 +61,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 nameLengthErrorMsg: '',
                 billingMode: null,
                 appointmentServiceType: null,
-                primaryAppointmentServiceType: null
+                primaryAppointmentServiceType: null,
+                originalBillingMode: [],
+                originalAppointmentServiceType: []
             },
             appointmentServiceTypeListForPrimary: [],
             formValid: false,
@@ -311,11 +313,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 let formValid = this.state.formValid
                 if (remarks) formValid = true;
                 let appointmentServiceTypeList = hospitalAppointmentServiceTypeDetail
-                    && hospitalAppointmentServiceTypeDetail.map(serviceType => (
+                    ? hospitalAppointmentServiceTypeDetail.map(serviceType => (
                         {
                             label: serviceType.appointmentServiceTypeName,
-                            value: serviceType.appointmentServiceTypeId
-                        }));
+                            value: serviceType.appointmentServiceTypeId,
+                            hospitalAppointmentServiceTypeId: serviceType.hospitalAppointmentServiceTypeId
+                        })) : [];
 
                 let primaryServiceType = hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
 
@@ -347,12 +350,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
                         isCompany,
-                        billingMode,
-                        appointmentServiceType: appointmentServiceTypeList ? appointmentServiceTypeList : [],
+                        billingMode: [...billingMode],
+                        appointmentServiceType: [...appointmentServiceTypeList],
                         primaryAppointmentServiceType: primaryServiceType ? {
                             label: primaryServiceType.appointmentServiceTypeName,
                             value: primaryServiceType.appointmentServiceTypeId
-                        } : null
+                        } : null,
+                        originalBillingMode: [...billingMode],
+                        originalAppointmentServiceType: [...appointmentServiceTypeList]
                     },
                     appointmentServiceTypeListForPrimary: appointmentServiceTypeList ? appointmentServiceTypeList : [],
                     formValid: formValid,
@@ -408,8 +413,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalLogo,
                 address,
                 panNumber,
-                esewaMerchantCode,
-                //editContactNumberRequestDTOS,
                 contactNumberUpdateRequestDTOS,
                 remarks,
                 id,
@@ -418,11 +421,20 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBanner,
                 numberOfAdmins,
                 numberOfFollowUps,
-                // isCompany,
-                // alias,//cannot be updated
                 hospitalLogoUrlNew,
-                hospitalBannerUrlNew
-            } = this.state.hospitalData
+                hospitalBannerUrlNew,
+                appointmentServiceType,
+                primaryAppointmentServiceType,
+                billingMode,
+                originalBillingMode,
+                originalAppointmentServiceType
+            } = this.state.hospitalData;
+
+            let updatedBillingMode = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalBillingMode, billingMode, "billingMode")];
+            let updatedAppointmentServiceType = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalAppointmentServiceType, appointmentServiceType, "appointmentServiceType",
+                "hospitalAppointmentServiceTypeId")];
             let hospitalData = {
                 id,
                 name,
@@ -433,14 +445,15 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 remarks,
                 address,
                 panNumber,
-                esewaMerchantCode: esewaMerchantCode,
-                // alias,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage,
                 isLogoUpdate: hospitalLogoUrlNew ? 'Y' : 'N',
-                isBannerUpdate: hospitalBannerUrlNew ? 'Y' : 'N'
+                isBannerUpdate: hospitalBannerUrlNew ? 'Y' : 'N',
+                billingModeIds: updatedBillingMode,
+                appointmentServiceTypeUpdateRequestDTO: updatedAppointmentServiceType,
+                primaryAppointmentServiceTypeId: primaryAppointmentServiceType ? primaryAppointmentServiceType.value : ''
             };
 
             let formData = new FormData();

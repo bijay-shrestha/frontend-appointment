@@ -4,11 +4,12 @@ import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {
     DoctorMiddleware,
-    HospitalDepartmentSetupMiddleware, HospitalSetupMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    HospitalSetupMiddleware,
     RoomSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
-import {EnterKeyPressUtils} from "@frontend-appointment/helpers";
+import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from "@frontend-appointment/helpers";
 
 const {
     clearSuccessErrorMessageFormStore,
@@ -220,9 +221,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 originalDoctorList, originalRoomList, doctorList, roomList, hospital
             } = this.state.departmentData;
 
-            let updatedDoctors = [...this.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")];
+            let updatedDoctors = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")];
 
-            let updatedRooms = [...this.getUpdatedDataListForMultiSelect(originalRoomList, roomList, "room")];
+            let updatedRooms = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(originalRoomList, roomList, "room")];
 
             let editRequestDTO = {
                 id: id,
@@ -247,35 +248,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 await this.searchDepartmentList();
             } catch (e) {
             }
-        };
-
-        getUpdatedDataListForMultiSelect = (originalList, currentList, fieldName) => {
-            let updatedDataList = [];
-            // FIND NEW ADDED DATA
-            currentList && currentList.map(currentItem => {
-                let currentItemInOriginalList = originalList && originalList.find(original => original.value === currentItem.value);
-                if (!currentItemInOriginalList) {
-                    updatedDataList.push({
-                        [fieldName.concat("Id")]: currentItem.value,
-                        status: 'Y'
-                    })
-                }
-                return '';
-            });
-
-            // REMOVE EXISTING DATA
-            originalList && originalList.map(originalItem => {
-                let originalItemInCurrentList = currentList && currentList.find(current => current.value === originalItem.value);
-                if (!originalItemInCurrentList) {
-                    updatedDataList.push({
-                        [fieldName.concat("Id")]: originalItem.value,
-                        status: 'D'
-                    })
-                }
-                return '';
-            });
-
-            return updatedDataList;
         };
 
         fetchAllHospitalsForDropdown = async () =>
