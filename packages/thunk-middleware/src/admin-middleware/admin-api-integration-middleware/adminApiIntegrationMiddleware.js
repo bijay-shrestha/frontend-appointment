@@ -101,7 +101,7 @@ export const previewAdminApiIntegrationData = (path, id) => async dispatch => {
   }
 }
 
-export const deleteApiIntegrationData = (path, data) => async dispatch => {
+export const deleteAdminApiIntegrationData = (path, data) => async dispatch => {
   dispatch(AdminModeApiIntegrationActions.adminModeApiDeletePending())
   try {
     await Axios.del(path, data)
