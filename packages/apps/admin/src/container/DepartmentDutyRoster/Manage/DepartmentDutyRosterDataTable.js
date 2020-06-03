@@ -45,7 +45,8 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sortable: true,
                                         editable: true,
                                         sizeColumnsToFit: true,
-                                        cellClass: 'first-class'
+                                        cellClass: 'first-class',
+                                        width: 100
                                     },
                                     {
                                         headerName: 'Client',
@@ -92,7 +93,8 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        cellRenderer: 'childLabelRenderer'
+                                        cellRenderer: 'childLabelRenderer',
+                                        width:90
                                     },
                                     {
                                         headerName: '',

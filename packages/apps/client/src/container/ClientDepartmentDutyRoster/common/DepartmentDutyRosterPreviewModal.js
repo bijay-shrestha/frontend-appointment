@@ -137,7 +137,7 @@ const DepartmentDutyRosterPreviewModal = ({
                 </Col>
 
                 <Col md={12} lg={7} className="pr-0">
-                    <div className="department-availability bg-white p-4">
+                    <div className="doctor-availability bg-white p-4">
                         <h5 className="title">Department Availability</h5>
                         <Row className="header">
                             <Col> Days</Col>
@@ -176,7 +176,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
             <Row>
                 {hasOverrideDutyRoster === 'Y' ?
-                    <Col className="department-override">
+                    <Col className="doctor-override">
                         <h5 className="title">Overrides</h5>
                         {hasOverrideDutyRoster === 'Y' && departmentDutyRosterOverrideRequestDTOS.length ?
                             <>
@@ -265,7 +265,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
 
             {type !== "ADD" ?
-                <Row className="mt-4 department-availability bg-white px-2 pt-4">
+                <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
                     {AuditableEntityHoc(departmentInfoData.auditableDepartment, false, 4)}
                 </Row> :
                 ''
