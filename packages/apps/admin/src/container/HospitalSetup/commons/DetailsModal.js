@@ -111,8 +111,8 @@ const DetailsModal = ({type, hospitalData}) => {
                                         <CHybridInput
                                             id="hospital-code"
                                             name="code"
-                                            placeholder="Merchant Code"
-                                            value={hospitalData.hospitalCode}
+                                            placeholder="Esewa Merchant Code"
+                                            value={hospitalData.esewaMerchantCode}
                                             disabled={true}
                                         />
                                     </Col>
@@ -207,7 +207,7 @@ const DetailsModal = ({type, hospitalData}) => {
 
                                     {/*</Col>*/}
                                     {/*}*/}
-                                   
+
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Status" id="status"/>
@@ -235,11 +235,11 @@ const DetailsModal = ({type, hospitalData}) => {
                                     </Col>
                                 </Row>
                             </Col>
-                            
+
 
                         </Row>
                         <Row className="mt-4">
-                                
+
                                 {AuditableEntityHoc(hospitalData)}
                                 </Row>
                     </Container-fluid>

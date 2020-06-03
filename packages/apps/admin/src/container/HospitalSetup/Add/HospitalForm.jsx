@@ -160,12 +160,12 @@ const HospitalForm = ({
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CHybridInput
-                                            id="hospital-code"
-                                            name="hospitalCode"
+                                            id="esewaMerchantCode"
+                                            name="esewaMerchantCode"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Merchant Code"
-                                            value={hospitalInfoObj.hospitalCode}
+                                            placeholder="Esewa Merchant Code"
+                                            value={hospitalInfoObj.esewaMerchantCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
                                             max={10}
