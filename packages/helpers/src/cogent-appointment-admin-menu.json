@@ -564,7 +564,7 @@
           "childMenus": []
         },
         {
-          "id": "38",
+          "id": "39",
           "parentId": "20",
           "name": "Billing Mode Setup",
           "path": "/companySettings/billingMode",

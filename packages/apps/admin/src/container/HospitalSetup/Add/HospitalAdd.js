@@ -42,7 +42,10 @@ function HospitalAdd(props) {
              handleCropBannerImage,
              handleBannerImageUpload,
              setShowBannerUploadModal,
-             createHospitalLoading
+             createHospitalLoading,
+             activeBillingModeForDropdown,
+             activeAppointmentServiceTypeForDropdown,
+             appointmentServiceTypeListForPrimary
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -84,6 +87,9 @@ function HospitalAdd(props) {
                         handleCropBannerImage={handleCropBannerImage}
                         handleBannerImageUpload={handleBannerImageUpload}
                         setShowBannerUploadModal={setShowBannerUploadModal}
+                        activeBillingModeForDropdown={activeBillingModeForDropdown}
+                        activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                        appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                     />
 
                     <Row className="mt-4">

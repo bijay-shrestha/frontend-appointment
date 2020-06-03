@@ -1,6 +1,10 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {
+    AppointmentServiceTypeMiddleware,
+    BillingModeMiddleware,
+    HospitalSetupMiddleware
+} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './hospitalHoc.scss'
@@ -14,9 +18,20 @@ const {
     searchHospital,
     fetchActiveHospitalsForDropdown
     //downloadExcelForHospitals
-} = HospitalSetupMiddleware
+} = HospitalSetupMiddleware;
 
-const {hospitalSetupApiConstants} = AdminModuleAPIConstants
+const {fetchActiveBillingModeForDropdown} = BillingModeMiddleware;
+
+const {fetchActiveAppointmentServiceType} = AppointmentServiceTypeMiddleware;
+
+const {
+    hospitalSetupApiConstants,
+    billingModeApiConstants,
+    appointmentServiceTypeApiConstants
+} = AdminModuleAPIConstants;
+
+const {FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN} = billingModeApiConstants;
+const {FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE} = appointmentServiceTypeApiConstants;
 
 const HospitalHOC = (ComposedComponent, props, type) => {
     class HospitalSetup extends React.PureComponent {
@@ -43,8 +58,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfAdmins: '',
                 numberOfFollowUps: '',
                 followUpIntervalDays: '',
-                nameLengthErrorMsg: ''
+                nameLengthErrorMsg: '',
+                billingMode: null,
+                appointmentServiceType: null,
+                primaryAppointmentServiceType: null
             },
+            appointmentServiceTypeListForPrimary: [],
             formValid: false,
             nameValid: false,
             codeValid: false,
@@ -178,20 +197,25 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, esewaMerchantCode, address, panNumber, refundPercentage, followUpIntervalDays,
+                name, status, hospitalCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
-                numberOfAdmins, numberOfFollowUps
+                numberOfAdmins, numberOfFollowUps,
+                appointmentServiceType,
+                primaryAppointmentServiceType
             } = hospitalData;
             let formValidity =
                 nameValid &&
                 name &&
                 status &&
-                esewaMerchantCode &&
+                hospitalCode &&
                 address &&
                 panNumber &&
                 refundPercentage >= 0 &&
                 followUpIntervalDays >= 0 &&
-                numberOfAdmins >= 0 && numberOfFollowUps >= 0 && alias;
+                numberOfAdmins >= 0 && numberOfFollowUps >= 0 &&
+                alias &&
+                appointmentServiceType && appointmentServiceType.length &&
+                primaryAppointmentServiceType;
 
             if (eventType === 'E')
                 formValidity =
@@ -352,6 +376,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             })
             return filteredContactNumber
         }
+
+        fetchActiveBillingModes = async () =>
+            await this.props.fetchActiveBillingModeForDropdown(FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN);
+
+        fetchActiveAppointmentServiceTypes = async () =>
+            await this.props.fetchActiveAppointmentServiceType(FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE);
 
         editHospital = async () => {
             const {
@@ -639,7 +669,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 followUpIntervalDays,
                 refundPercentage,
                 hospitalBanner,
-                alias
+                alias,
+                primaryAppointmentServiceType,
+                billingMode,
+                appointmentServiceType
             } = this.state.hospitalData;
 
             let hospitalData = {
@@ -654,7 +687,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
-                refundPercentage
+                refundPercentage,
+                billingModeId: billingMode ? billingMode.map(billMode => billMode.value) : [],
+                appointmentServiceType:
+                    appointmentServiceType ? appointmentServiceType.map(appService => appService.value) : [],
+                primaryAppointmentServiceType: primaryAppointmentServiceType && primaryAppointmentServiceType.value,
             };
 
             let formData = new FormData();
@@ -703,16 +740,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
         handleOnChange = async (event, fieldValid, eventType) => {
             let hospital = {...this.state.hospitalData}
-            let {name, value, label, type} = event.target
+            let {name, value, label, type, values} = event.target
 
-            value =
-                name === 'hospitalCode' || name === 'alias'
-                    ? value.toUpperCase()
-                    : type === 'checkbox'
-                    ? event.target.checked
-                        ? 'Y'
-                        : 'N'
-                    : value
+            value = name === 'hospitalCode' || name === 'alias' ? value.toUpperCase()
+                : type === 'checkbox' ? event.target.checked ? 'Y' : 'N'
+                    : values ? values : value
 
             hospital[name] = !label
                 ? value
@@ -740,10 +772,33 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     })
                 }
             }
+            if (name === "appointmentServiceType") {
+                const {primaryAppointmentServiceType} = this.state.hospitalData;
+                if (value) {
+                    let selectedPrimaryExists = value.find(serviceType => serviceType.value === primaryAppointmentServiceType && primaryAppointmentServiceType.value);
+                    this.setState({
+                        appointmentServiceTypeListForPrimary: value ? [...value] : [],
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            primaryAppointmentServiceType: selectedPrimaryExists ? primaryAppointmentServiceType : null
+                        }
+                    })
+                } else {
+                    this.setState({
+                        appointmentServiceTypeListForPrimary: [],
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            primaryAppointmentServiceType: null
+                        }
+                    })
+                }
+            }
             this.checkFormValidity(eventType)
         };
 
         async componentDidMount() {
+            this.fetchActiveBillingModes();
+            this.fetchActiveAppointmentServiceTypes();
             if (type === 'M') {
                 await this.searchHospital()
                 await this.searchHospitalForDropDown()
@@ -776,7 +831,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBannerFileCropped,
                 hospitalBannerImage,
                 hospitalBannerImageCroppedUrl,
-                showBannerUploadModal
+                showBannerUploadModal,
+                appointmentServiceTypeListForPrimary
             } = this.state
 
             const {
@@ -805,10 +861,16 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
+            const {activeBillingModeForDropdown} = this.props.BillingModeDropdownReducer;
+            const {activeAppointmentServiceTypeForDropdown} = this.props.AppointmentServiceTypeDropdownReducer;
+
             return (
                 <ComposedComponent
                     {...this.props}
                     {...props}
+                    activeBillingModeForDropdown={activeBillingModeForDropdown}
+                    activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                    appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                     handleEnter={this.handleEnterPress}
                     hospitalData={hospitalData}
                     resetStateAddValues={this.resetHospitalStateValues}
@@ -888,7 +950,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             'HospitalEditReducer',
             'HospitalPreviewReducer',
             'HospitalSearchReducer',
-            'HospitalDropdownReducer'
+            'HospitalDropdownReducer',
+            'AppointmentServiceTypeDropdownReducer',
+            'BillingModeDropdownReducer'
         ],
         {
             clearHospitalCreateMessage,
@@ -897,8 +961,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             editHospital,
             previewHospital,
             searchHospital,
-            fetchActiveHospitalsForDropdown
+            fetchActiveHospitalsForDropdown,
+            fetchActiveBillingModeForDropdown,
+            fetchActiveAppointmentServiceType
         }
     )
-}
+};
 export default HospitalHOC
