@@ -23,7 +23,7 @@ const ClientApiIntegrationForm = ({
   //regexForCommaSeperation,
   //featureTypeDropdownError,
   //isFeatureTypeDropdownLoading,
-  isRequestMethodDropdownLoading,
+  //isRequestMethodDropdownLoading,
   requestMethodData,
   regexForApiUrl,
   //requestMethodDropdownError,
@@ -172,9 +172,9 @@ const ClientApiIntegrationForm = ({
                     onChangeHandler(event, validity)
                   }
                   placeholder={'Enter Request URL'}
-                  fieldValuePattern={regexForApiUrl}
-                  hasValidation={true}
-                  errorMessagePassed={'Value Should be Request Url'}
+                  // fieldValuePattern={regexForApiUrl}
+                  // hasValidation={true}
+                  // errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
             </Row>

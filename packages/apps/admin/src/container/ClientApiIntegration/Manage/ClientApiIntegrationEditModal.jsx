@@ -22,7 +22,7 @@ const ClientApiIntegrationEditModal = ({
   //isFeatureTypeDropdownLoading,
   isRequestMethodDropdownLoading,
   requestMethodData,
-  regexForApiUrl,
+  //regexForApiUrl,
   requestParamsIsSelected,
   requestHeadersIsSelected,
   changeRequestHandler,
@@ -152,9 +152,9 @@ const ClientApiIntegrationEditModal = ({
                   onChangeHandler(event, validity, 'E')
                 }
                 placeholder={'Enter Request URL'}
-                fieldValuePattern={regexForApiUrl}
-                hasValidation={true}
-                errorMessagePassed={'Value Should be Request Url'}
+                // fieldValuePattern={regexForApiUrl}
+                // hasValidation={true}
+                // errorMessagePassed={'Value Should be Request Url'}
               />
             </Col>
           </Row>
