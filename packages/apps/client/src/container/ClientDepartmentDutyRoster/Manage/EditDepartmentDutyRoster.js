@@ -92,6 +92,8 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                                 onChange={(event) => onInputChange(event, '')}
                                 value={updateDoctorDutyRosterData.department}
                             />
+
+                            <div className="room-check">
                             <CCheckbox
                                 id="enable-room"
                                 label="Enable Room"
@@ -118,6 +120,8 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                                     /> :
                                     ''
                             }
+
+                            </div>
 
                             <CHybridInput
                                 id="duration"

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {CScrollbar} from "@frontend-appointment/ui-elements";
 
 import {
   Badge,
@@ -39,12 +40,12 @@ const AppointmentStatusDetails = ({
   } = statusDetailsData
   return (
     <>
-      <div className="manage-details">
-        <Container fluid>
-          {!isStatusListLoading &&
+
+    <div className="manage-title" >
+    {!isStatusListLoading &&
           !searchErrorMessage &&
           appointmentStatusDetails.length ? (
-            <Row>
+            <Row className="fixed-row">
               <Col className="p-0" lg={4}>
                 <h5 className="title">Appointment Status Details</h5>
               </Col>
@@ -102,6 +103,11 @@ const AppointmentStatusDetails = ({
           ) : (
             ''
           )}
+    </div>
+      <div className="manage-details">
+      <CScrollbar id="sidebar-scrollbar">
+        <Container fluid>
+         
           {!isStatusListLoading &&
           !searchErrorMessage &&
           appointmentStatusDetails.length ? (
@@ -497,6 +503,7 @@ const AppointmentStatusDetails = ({
             </>
           )}
         </Container>
+     </CScrollbar>
       </div>
     </>
   )
