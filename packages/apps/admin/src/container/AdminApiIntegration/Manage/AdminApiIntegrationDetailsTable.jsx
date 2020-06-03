@@ -9,7 +9,7 @@ import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
-import PreviewDetails from './ClientApiDetailsModal'
+import PreviewDetails from './AdminApiDetailsModal'
 import {
   RequestMethodStatus
 } from '@frontend-appointment/ui-components'

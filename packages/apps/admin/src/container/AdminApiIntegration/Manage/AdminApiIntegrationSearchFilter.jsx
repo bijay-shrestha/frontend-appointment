@@ -72,7 +72,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                       onChange={event => onSearchChangeHandler(event)}
                       options={apppointmentModeApiIntegrationData}
                       value={searchParams.appointmentModeId}
-                      disabled={!appointmentModeId.length}
+                      disabled={!apppointmentModeApiIntegrationData.length}
                       placeholder={'Select Appointment Id.'}
                     />
                   </Col>

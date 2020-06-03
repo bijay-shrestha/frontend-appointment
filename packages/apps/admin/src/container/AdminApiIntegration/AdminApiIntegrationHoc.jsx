@@ -798,7 +798,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationData: integrationData,
               setCloseModal: this.setCloseModal,
               resetIntegrationData: this.resetIntegrationData,
-              regexForCommaSeperation: regexForCommaSeperation,
+              // regexForCommaSeperation: regexForCommaSeperation,
               featureTypeDropdownData: featureTypeDropdownData.length
                 ? featureTypeDropdownData
                 : [],
@@ -811,7 +811,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
               requestMethodDropdownError: requestMethodDropdownError,
               regexForApiUrl: regexForApiUrl,
               formValid,
-              hospitalsForDropdown,
+              //hospitalsForDropdown,
               requestParamsIsSelected,
               requestHeadersIsSelected,
               changeRequestHandler: this.changeRequestHandler,

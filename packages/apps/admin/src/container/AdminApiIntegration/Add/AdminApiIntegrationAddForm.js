@@ -1,12 +1,12 @@
 import React from 'react'
-import ClientApiIntegrationForm from './AdminApiIntegrationForm'
-import ClientApiConfirmationModal from './ClientApiConfirmationModal'
+import AdminApiIntegrationForm from './AdminApiIntegrationForm'
+import AdminApiConfirmationModal from './AdminApiConfirmationModal'
 import {Container, Row, Col} from 'react-bootstrap'
 import {CButton} from '@frontend-appointment/ui-elements'
-import ClientApiIntegrationHoc from '../AdminApiIntegrationHoc'
+import AdminApiIntegrationHoc from '../AdminApiIntegrationHoc'
 
-function ClientApiIntegarationAdd (props) {
-  const ClientApiIntegration = ClientApiIntegrationHoc(
+function AdminApiIntegarationAdd (props) {
+  const AdminApiIntegration = AdminApiIntegrationHoc(
     ({commonHandler, addHandler}) => (
       <div className="">
         <Container className="bg-white add-container " fluid>
@@ -22,7 +22,7 @@ function ClientApiIntegarationAdd (props) {
               <i className="fa fa-refresh" /> &nbsp;Reset
             </>
           </CButton>
-          <ClientApiIntegrationForm {...addHandler} {...commonHandler} />
+          <AdminApiIntegrationForm {...addHandler} {...commonHandler} />
 
           <Row className="mt-4">
             <Col sm={12} md={{span: 3, offset: 9}}>
@@ -34,7 +34,7 @@ function ClientApiIntegarationAdd (props) {
                 disabled={!commonHandler.formValid}
                 onClickHandler={addHandler.onConfirmHandler}
               />
-              <ClientApiConfirmationModal {...commonHandler} {...addHandler} />
+              <AdminApiConfirmationModal {...commonHandler} {...addHandler} />
             </Col>
           </Row>
         </Container>
@@ -43,6 +43,6 @@ function ClientApiIntegarationAdd (props) {
     props,
     'A'
   )
-  return <ClientApiIntegration />
+  return <AdminApiIntegration />
 }
-export default ClientApiIntegarationAdd
+export default AdminApiIntegarationAdd
