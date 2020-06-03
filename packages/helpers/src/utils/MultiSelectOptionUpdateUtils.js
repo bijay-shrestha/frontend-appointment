@@ -21,7 +21,7 @@ export const getUpdatedDataListForMultiSelect = (originalList, currentList, fiel
         if (!originalItemInCurrentList) {
             let dataToAdd = {
                 [fieldName.concat("Id")]: originalItem.value,
-                status: 'Y'
+                status: 'D'
             };
             if (rowIdField)
                 dataToAdd[rowIdField] = originalItem[rowIdField];
