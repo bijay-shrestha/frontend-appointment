@@ -46,7 +46,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
   class AdminApiIntegration extends PureComponent {
     state = {
       integrationData: {
-        appointmentModeId:'',
+        appointmentModeId: '',
         featureType: '',
         requestMethod: '',
         apiUrl: '',
@@ -60,7 +60,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
       searchParameters: {
         requestMethodId: '',
         featureTypeId: '',
-        appointmentModeId:'',
+        appointmentModeId: '',
         apiUrl: '',
         apiIntegrationTypeId: ''
       },
@@ -96,16 +96,16 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
     resetIntegrationData = () => {
       this.setState({
         integrationData: {
-        appointmentModeId:'',
-        featureType: '',
-        requestMethod: '',
-        apiUrl: '',
-        headers: [],
-        queryParams: [],
-        requestBody: null,
-        id: '',
-        integrationChannelId: '',
-        integrationTypeId: ''
+          appointmentModeId: '',
+          featureType: '',
+          requestMethod: '',
+          apiUrl: '',
+          headers: [],
+          queryParams: [],
+          requestBody: null,
+          id: '',
+          integrationChannelId: '',
+          integrationTypeId: ''
         },
         formValid: false,
         restApiValid: false,
@@ -649,15 +649,13 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         this.resetIntegrationData()
         this.setShowAlertModal(
           'success',
-          this.props.AdminApiIntegrationSaveReducers
-            .adminApiSaveSucessMessage
+          this.props.AdminApiIntegrationSaveReducers.adminApiSaveSucessMessage
         )
         this.setCloseModal()
       } catch (e) {
         this.setShowAlertModal(
           'danger',
-          this.props.AdminApiIntegrationSaveReducers
-            .adminApiErrorMessage
+          this.props.AdminApiIntegrationSaveReducers.adminApiErrorMessage
         )
         this.setCloseModal()
       }
@@ -736,10 +734,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestParamsIsSelected,
         editShowModal
       } = this.state
-      const {
-        adminApiSaveLoading
-      } = this.props.AdminApiIntegrationSaveReducers
-      
+      const {adminApiSaveLoading} = this.props.AdminApiIntegrationSaveReducers
+
       const {
         isApppointmentModeApiIntegrationDropdownLoading,
         apppointmentModeApiIntegrationData,
@@ -767,8 +763,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         deleteApiIntegrationErrorMessage,
         isDeleteApiIntegrationLoading
       } = this.props.AdminDeleteApiIntegrationReducers
-      
-      const{
+
+      const {
         isEditApiIntegrationLoading,
         editApiIntegrationErrorMessage
       } = this.props.AdminEditApiIntegrationReducers
