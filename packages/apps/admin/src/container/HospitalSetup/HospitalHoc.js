@@ -197,7 +197,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, refundPercentage, followUpIntervalDays,
+                name, status, esewaMerchantCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
                 numberOfAdmins, numberOfFollowUps,
                 appointmentServiceType,
@@ -207,7 +207,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 nameValid &&
                 name &&
                 status &&
-                hospitalCode &&
+                esewaMerchantCode &&
                 address &&
                 panNumber &&
                 refundPercentage >= 0 &&
@@ -662,7 +662,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalLogo,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode,
                 //isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
@@ -681,7 +681,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber,
                 address,
                 panNumber,
-                esewaMerchantCode: hospitalCode,
+                esewaMerchantCode: esewaMerchantCode,
                 alias,
                 // isCompany,
                 numberOfFollowUps,
@@ -689,9 +689,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 followUpIntervalDays,
                 refundPercentage,
                 billingModeId: billingMode ? billingMode.map(billMode => billMode.value) : [],
-                appointmentServiceType:
+                appointmentServiceTypeIds:
                     appointmentServiceType ? appointmentServiceType.map(appService => appService.value) : [],
-                primaryAppointmentServiceType: primaryAppointmentServiceType && primaryAppointmentServiceType.value,
+                primaryAppointmentServiceTypeId: primaryAppointmentServiceType && primaryAppointmentServiceType.value,
             };
 
             let formData = new FormData();
@@ -742,7 +742,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             let hospital = {...this.state.hospitalData}
             let {name, value, label, type, values} = event.target
 
-            value = name === 'hospitalCode' || name === 'alias' ? value.toUpperCase()
+            value = name === 'esewaMerchantCode' || name === 'alias' ? value.toUpperCase()
                 : type === 'checkbox' ? event.target.checked ? 'Y' : 'N'
                     : values ? values : value
 
