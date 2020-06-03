@@ -17,7 +17,8 @@ const CLIENT_LOGGING = '/client-log'
 const APPOINTMENT_TRANSFER="/appointmentTransfer"
 const HOSPITAL_API_INTEGRATION="/client-integration"
 const INTEGRATION='/integration'
-const REQUEST_BODY_INTEGRATION='/integration-request-body-attribute' 
+const REQUEST_BODY_INTEGRATION='/integration-request-body-attribute'
+const ADMIN_API_INTEGRATION="/admin-mode-integration" 
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -336,6 +337,15 @@ export const hospitalIntegrationConstants = {
     HOSPITAL_API_INTEGRATION_CHANNEL_DROPDOWN:BASE.concat(INTEGRATION+"/integration-channel/active/min"),
     HOSPITAL_API_INTEGRATION_TYPE_DROPDOWN:BASE.concat(INTEGRATION+"/api-integration-type/active/min"),
     HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE:BASE.concat(INTEGRATION+"/features")
+}
+
+export const adminApiIntegrationConstants = {
+    ADMIN_API_INTEGRATION_SAVE:BASE.concat(ADMIN_API_INTEGRATION), 
+    ADMIN_API_INTEGRATION_SEARCH:BASE.concat(ADMIN_API_INTEGRATION+"/client-api-integration"),
+    ADMIN_API_INTEGRATION_EDIT:BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_PREVIEW:BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_DELETE:BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_UPDATE_PREVIEW:BASE.concat(ADMIN_API_INTEGRATION+"/update-details")
 }
 
 // export const hospital

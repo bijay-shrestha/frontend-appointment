@@ -44,6 +44,7 @@ import * as HospitalDepartmentSetupMiddleware from './hospital-department-setup-
 import * as DepartmentDutyRosterMiddleware from './department-duty-roster-middleware/departmentDutyRosterMiddleware';
 import * as HospitalApiIntegrationMiddleware from './hospital-api-integration-middleware/hospitalApiIntegrationMiddleware'
 import * as RequestBodyApiIntegrationMiddleware from './request-body-integration-api/requestBodyIntegrationMiddleware'
+import * as AdminApiIntegrationMiddleware from './admin-api-integration-middleware/adminApiIntegrationMiddleware';
 export {
     createProfile,
     fetchProfileList,
@@ -83,5 +84,6 @@ export {
     HospitalDepartmentSetupMiddleware,
     DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
-    RequestBodyApiIntegrationMiddleware
+    RequestBodyApiIntegrationMiddleware,
+    AdminApiIntegrationMiddleware
 }

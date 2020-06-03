@@ -37,7 +37,7 @@ export const saveHospitalIntegration = (
     let response = await Axios.post(path, integrationData)
     dispatch(
       HospitalApiIntegrationActions.hospitalApiSaveSuccess(
-        'Hospital Api Integrated Successfully.'
+        'Client Api Integrated Successfully.'
       )
     )
     return response
@@ -88,7 +88,7 @@ export const editApiIntegrationData = (path, data) => async dispatch => {
   try {
     await Axios.put(path, data)
     dispatch(
-      HospitalApiIntegrationActions.hospitalApiEditSuccess('Api Integration Updated Successfully')
+      HospitalApiIntegrationActions.hospitalApiEditSuccess('Client Api Integration Updated Successfully')
     )
   } catch (e) {
     dispatch(HospitalApiIntegrationActions.hospitalApiEditError(e.errorMessage))

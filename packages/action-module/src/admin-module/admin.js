@@ -29,72 +29,75 @@ import {companyProfileSetupActionConstants} from './company-profile-setup/compan
 import * as CompanyAdminSetupActions from './company-admin-setup/companyAdminSetupActions'
 import {companyAdminSetupActionConstants} from './company-admin-setup/companyAdminSetupActionConstant'
 import * as AdminLoggingSetupActions from './admin-logging/adminLoggingActions'
-import {adminLoggingConstant} from './admin-logging/adminLoggingConstant';
-import * as  UniversitySetupActions from './university-setup/universitySetupActions';
-import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
-import * as  AppointmentModeActions from './appointment-mode/appointmentModeActions';
-import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
-import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
-import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
-import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction';
-import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant';
-import * as RequestBodyIntegration from './request-body-integration/RequestBodyIntegration';
-import {requestBOdyApiIntegrationActionConstants} from './request-body-integration/RequestBodyIntegrationActionConstants';
-import * as  RoomSetupActions from './room-setup/roomSetupActions';
-import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants';
-
-import * as  HospitalDepartmentSetupActions from './hospital-department-setup/hospitalDepartmentSetupActions';
-import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants';
-import * as  DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions';
-import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants';
+import {adminLoggingConstant} from './admin-logging/adminLoggingConstant'
+import * as UniversitySetupActions from './university-setup/universitySetupActions'
+import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants'
+import * as AppointmentModeActions from './appointment-mode/appointmentModeActions'
+import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants'
+import * as AppointmentTransferActions from './appointment-transfer/appointmentTransfer'
+import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant'
+import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction'
+import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant'
+import * as RequestBodyIntegration from './request-body-integration/RequestBodyIntegration'
+import {requestBOdyApiIntegrationActionConstants} from './request-body-integration/RequestBodyIntegrationActionConstants'
+import * as RoomSetupActions from './room-setup/roomSetupActions'
+import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants'
+import * as AdminModeApiIntegrationActions from './admin-mode-api-integration/adminModeApiIntegrationAction'
+import {adminModeApiIntegrationActionConstants} from './admin-mode-api-integration/adminModeApiIntegrationConstant'
+import * as HospitalDepartmentSetupActions from './hospital-department-setup/hospitalDepartmentSetupActions'
+import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants'
+import * as DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions'
+import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants'
 
 export {
-    AppointmentDetailActions,
-    appointmentDetailsConstants,
-    AdminLoggingSetupActions,
-    adminLoggingConstant,
-    DashboardDetailsActions,
-    dashboardDetailsActionsConstant,
-    profileSetupConstants,
-    ProfileSetupActions,
-    specializationSetupConstants,
-    SpecializationSetupActions,
-    hospitalSetupConstants,
-    HospitalSetupActions,
-    doctorSetupConstants,
-    DoctorSetupActions,
-    adminSetupActionConstants,
-    AdminSetupActions,
-    unitSetupConstants,
-    UnitSetupActions,
-    doctorDutyRosterActionConstants,
-    DoctorDutyRosterActions,
-    QualificationSetupActions,
-    qualificationSetupConstants,
-    PatientDetailsActions,
-    patientDetailsConstants,
-    CompanySetupActions,
-    companySetupConstants,
-    CompanyAdminSetupActions,
-    companyAdminSetupActionConstants,
-    QualificationAliasSetupActions,
-    qualificationAliasSetupConstants,
-    companyProfileSetupActionConstants,
-    CompanyProfileSetupActions,
-    UniversitySetupActions,
-    universitySetupActionConstants,
-    appointmentModeActionConstants,
-    AppointmentModeActions,
-    AppointmentTransferActions,
-    appointmentTransferConstant,
-    HospitalApiIntegrationActions,
-    hospitalApiIntegrationActionConstants,
-    RequestBodyIntegration,
-    requestBOdyApiIntegrationActionConstants,
-    roomSetupActionConstants,
-    RoomSetupActions,
-    hospitalDepartmentSetupActionConstants,
-    HospitalDepartmentSetupActions,
-    departmentDutyRosterActionConstants,
-    DepartmentDutyRosterActions
+  AppointmentDetailActions,
+  appointmentDetailsConstants,
+  AdminModeApiIntegrationActions,
+  adminModeApiIntegrationActionConstants,
+  AdminLoggingSetupActions,
+  adminLoggingConstant,
+  DashboardDetailsActions,
+  dashboardDetailsActionsConstant,
+  profileSetupConstants,
+  ProfileSetupActions,
+  specializationSetupConstants,
+  SpecializationSetupActions,
+  hospitalSetupConstants,
+  HospitalSetupActions,
+  doctorSetupConstants,
+  DoctorSetupActions,
+  adminSetupActionConstants,
+  AdminSetupActions,
+  unitSetupConstants,
+  UnitSetupActions,
+  doctorDutyRosterActionConstants,
+  DoctorDutyRosterActions,
+  QualificationSetupActions,
+  qualificationSetupConstants,
+  PatientDetailsActions,
+  patientDetailsConstants,
+  CompanySetupActions,
+  companySetupConstants,
+  CompanyAdminSetupActions,
+  companyAdminSetupActionConstants,
+  QualificationAliasSetupActions,
+  qualificationAliasSetupConstants,
+  companyProfileSetupActionConstants,
+  CompanyProfileSetupActions,
+  UniversitySetupActions,
+  universitySetupActionConstants,
+  appointmentModeActionConstants,
+  AppointmentModeActions,
+  AppointmentTransferActions,
+  appointmentTransferConstant,
+  HospitalApiIntegrationActions,
+  hospitalApiIntegrationActionConstants,
+  RequestBodyIntegration,
+  requestBOdyApiIntegrationActionConstants,
+  roomSetupActionConstants,
+  RoomSetupActions,
+  hospitalDepartmentSetupActionConstants,
+  HospitalDepartmentSetupActions,
+  departmentDutyRosterActionConstants,
+  DepartmentDutyRosterActions
 }
