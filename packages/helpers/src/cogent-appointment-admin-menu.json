@@ -169,7 +169,7 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Doctor Duty Roster",
+      "description": "Roster Settings",
       "childMenus": [
         {
           "id": "9",
@@ -461,7 +461,9 @@
           "menuFor": "6",
           "description": "Request Body Integration",
           "childMenus": []
-        }]},
+        }
+      ]
+    },
     {
       "id": "20",
       "parentId": null,
