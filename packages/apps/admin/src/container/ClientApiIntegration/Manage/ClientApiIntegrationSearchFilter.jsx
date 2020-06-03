@@ -102,7 +102,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                       }
                       placeholder={
                         !searchParams.apiIntegrationTypeId
-                          ? 'Select Api Integration First.'
+                          ? 'Select Api Integration Type First.'
                           : featureTypeDropdownData.length
                           ? 'Select Feature Type'
                           : 'No Feature Types(s) Found'
