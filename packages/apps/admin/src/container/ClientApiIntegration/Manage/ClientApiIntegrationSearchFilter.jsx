@@ -60,7 +60,6 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
               id="client-api-integraiton-info"
               className="profile-info mt-4"
             >
-              
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
@@ -97,8 +96,17 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                       onChange={event => onSearchChangeHandler(event)}
                       options={featureTypeDropdownData}
                       value={searchParams.featureTypeId}
-                      disabled={!featureTypeDropdownData.length}
-                      placeholder={'Select Feature Type.'}
+                      isDisabled={
+                        !searchParams.apiIntegrationTypeId ||
+                        !featureTypeDropdownData.length
+                      }
+                      placeholder={
+                        !searchParams.apiIntegrationTypeId
+                          ? 'Select Api Integration First.'
+                          : featureTypeDropdownData.length
+                          ? 'Select Feature Type'
+                          : 'No Feature Types(s) Found'
+                      }
                     />
                   </Col>
 
@@ -183,13 +191,15 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-               
-               {searchParams.apiIntegrationTypeId.value && (
+
+              {searchParams.apiIntegrationTypeId.value && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Api Integration Type</Tooltip>}
+                    overlay={props => (
+                      <Tooltip {...props}>Api Integration Type</Tooltip>
+                    )}
                   >
                     <Button id="light-search-filters" variant="secondary">
                       {searchParams.apiIntegrationTypeId.label}

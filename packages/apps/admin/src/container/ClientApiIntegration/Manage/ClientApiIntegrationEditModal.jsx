@@ -110,8 +110,8 @@ const ClientApiIntegrationEditModal = ({
                   !featureTypeDropdownData.length
                 }
                 placeholder={
-                  integrationData.clientId
-                    ? 'Select Client First.'
+                  integrationData.integrationTypeId
+                    ? 'Select Integration Type First.'
                     : featureTypeDropdownData.length
                     ? 'Select Feature Type'
                     : 'No Feature Types(s) Found'

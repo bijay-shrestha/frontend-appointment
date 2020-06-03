@@ -98,8 +98,17 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                       onChange={event => onSearchChangeHandler(event)}
                       options={featureTypeDropdownData}
                       value={searchParams.featureTypeId}
-                      disabled={!featureTypeDropdownData.length}
-                      placeholder={'Select Feature Type.'}
+                      isDisabled={
+                        !searchParams.apiIntegrationTypeId ||
+                        !featureTypeDropdownData.length
+                      }
+                      placeholder={
+                        !searchParams.apiIntegrationTypeId
+                          ? 'Select Api Integration First.'
+                          : featureTypeDropdownData.length
+                          ? 'Select Feature Type'
+                          : 'No Feature Types(s) Found'
+                      }
                     />
                   </Col>
 

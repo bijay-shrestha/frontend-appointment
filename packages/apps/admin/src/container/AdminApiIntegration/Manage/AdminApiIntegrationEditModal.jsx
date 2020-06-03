@@ -82,7 +82,7 @@ const AdminApiIntegrationEditModal = ({
                 }
                 label={'Ingtegration Channel'}
                 placeholder={
-                  !integrationData.clientId
+                  !integrationData.appointmentModeId
                     ? 'Select Client First.'
                     : integrationChannelData.length
                     ? 'Select Integration Channel'
@@ -90,7 +90,7 @@ const AdminApiIntegrationEditModal = ({
                 }
                 options={integrationChannelData}
                 isDisabled={
-                  !integrationData.clientId || !integrationChannelData.length
+                  !integrationData.appointmentModeId || !integrationChannelData.length
                 }
               />
             </Col>
@@ -110,7 +110,7 @@ const AdminApiIntegrationEditModal = ({
                   !featureTypeDropdownData.length
                 }
                 placeholder={
-                  integrationData.clientId
+                  integrationData.integrationTypeId
                     ? 'Select Client First.'
                     : featureTypeDropdownData.length
                     ? 'Select Feature Type'

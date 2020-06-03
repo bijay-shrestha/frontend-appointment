@@ -243,6 +243,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         let value = event.target.value
         let label = event.target.label
         let searchParams = {...this.state.searchParameters}
+        if(fieldName==="apiIntegrationTypeId"){
+          this.onIntegrationTypeChangeFeatureType(value)
+        }
         searchParams[fieldName] = label ? (value ? {value, label} : '') : value
         await this.setStateValuesForSearch(searchParams)
       }
