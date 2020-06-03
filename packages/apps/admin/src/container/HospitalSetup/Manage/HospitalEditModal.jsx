@@ -347,7 +347,7 @@ const HospitalEditModal = ({
                                     name="refundPercentage"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Refund Percentage"
                                     value={hospitalData.refundPercentage}
                                     required={true}
@@ -361,7 +361,7 @@ const HospitalEditModal = ({
                                     name="numberOfFollowUps"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Number Of Follow Ups"
                                     value={hospitalData.numberOfFollowUps}
                                     required={true}
@@ -374,7 +374,7 @@ const HospitalEditModal = ({
                                     name="followUpIntervalDays"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Follow Up Interval Days"
                                     value={hospitalData.followUpIntervalDays}
                                     required={true}
@@ -386,7 +386,7 @@ const HospitalEditModal = ({
                                     id="billing-mode"
                                     name="billingMode"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     label="Billing Mode (optional)"
                                     options={activeBillingModeForDropdown}
                                     value={hospitalData.billingMode}
@@ -404,7 +404,7 @@ const HospitalEditModal = ({
                                     id="appt-service-type"
                                     name="appointmentServiceType"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     label="Appointment Service Type"
                                     options={activeAppointmentServiceTypeForDropdown}
                                     value={hospitalData.appointmentServiceType}
@@ -424,7 +424,7 @@ const HospitalEditModal = ({
                                             id="primary-appt-service-type"
                                             name="primaryAppointmentServiceType"
                                             onKeyDown={event => onEnterKeyPress(event)}
-                                            onChange={(event, validity) => onInputChange(event, validity)}
+                                            onChange={(event, validity) => onInputChange(event, validity,'E')}
                                             label="Primary Appointment Service Type"
                                             options={appointmentServiceTypeListForPrimary}
                                             value={hospitalData.primaryAppointmentServiceType}
