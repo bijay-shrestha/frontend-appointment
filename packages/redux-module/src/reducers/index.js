@@ -148,6 +148,8 @@ import {
 import {CountryDropdownReducer} from './common/countryReducer'
 
 import {AppointmentTransferReducers} from './admin-module/appointmentTransferReducer';
+import {HospitalApiIntegrationReducers} from './admin-module/hospitalApiIntegrationReducer';
+import {RequestBodyIntegrationReducers} from './admin-module/requestBodyIntegration';
 import {
     AppointmentModeDeleteReducer,
     AppointmentModeDropdownReducer,
@@ -195,9 +197,7 @@ import {
     BillingModeSearchReducer
 } from './admin-module/billingModeReducer';
 
-import {
-    AppointmentServiceTypeDropdownReducer
-} from './admin-module/appointmentServiceTypeReducer';
+import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
 
 export {
     AdminDeleteReducer,
@@ -338,6 +338,8 @@ export {
     DepartmentDutyRosterOverrideUpdateReducer,
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
+    HospitalApiIntegrationReducers,
+    RequestBodyIntegrationReducers,
     BillingModeDeleteReducer,
     BillingModeDropdownReducer,
     BillingModeEditReducer,

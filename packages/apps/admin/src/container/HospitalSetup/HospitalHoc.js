@@ -357,7 +357,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         Number(contactEdit.hospitalContactNumberId) ===
                         Number(contactNumber[i].hospitalContactNumberId)
                     ) {
-                        filteredContactNumber.push(contactEdit)
+                        filteredContactNumber.push(contactNumber[i])
                         flag = true
                         break;
                     }

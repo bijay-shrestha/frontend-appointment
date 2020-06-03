@@ -15,6 +15,9 @@ const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
 const APPOINTMENT_TRANSFER = "/appointmentTransfer"
+const HOSPITAL_API_INTEGRATION = "/client-integration"
+const INTEGRATION = '/integration'
+const REQUEST_BODY_INTEGRATION = '/integration-request-body-attribute'
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -178,6 +181,7 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval")),
     APPOINTMENT_REFUND_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/refund/detail")),
     TRANSACTION_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/transaction-log"),
+    APPOINTMENT_APPROVE_INTEGRATION: BASE.concat(APPOINTMENT_BASE + INTEGRATION + "/approve")
 };
 
 export const DashboardApiConstant = {
@@ -318,6 +322,34 @@ export const departmentDutyRosterApiConstants = {
     DELETE_DEPARTMENT_DUTY_ROSTER_OVERRIDE: BASE.concat(DEPARTMENT_DUTY_ROSTER_BASE.concat("/override")),
     REVERT_DEPARTMENT_DUTY_ROSTER_OVERRIDE_UPDATE: BASE.concat(DEPARTMENT_DUTY_ROSTER_BASE.concat("/override/revert"))
 };
+
+export const hospitalIntegrationConstants = {
+    HOSPITAL_API_INTEGRATION_SAVE: BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_FEATURE_TYPE_DROPDOWN: BASE.concat(INTEGRATION + "/features/active/min"),
+    HOSPITAL_REQUEST_METHOD_DROPDOWN: BASE.concat(INTEGRATION + "/request-methods/active/min"),
+    HOSPITAL_API_INTEGRATION_SEARCH: BASE.concat(HOSPITAL_API_INTEGRATION + "/client-api-integration"),
+    HOSPITAL_API_INTEGRATION_EDIT: BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_PREVIEW: BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_DELETE: BASE.concat(HOSPITAL_API_INTEGRATION),
+    HOSPITAL_API_INTEGRATION_UPDATE_PREVIEW: BASE.concat(HOSPITAL_API_INTEGRATION + "/update-details"),
+    HOSPITAL_API_INTEGRATION_CHANNEL_DROPDOWN: BASE.concat(INTEGRATION + "/integration-channel/active/min"),
+    HOSPITAL_API_INTEGRATION_TYPE_DROPDOWN: BASE.concat(INTEGRATION + "/api-integration-type/active/min"),
+    HOSPITAL_FEATURE_TYPE_DROPDOWN_BY_INTEGRATION_TYPE: BASE.concat(INTEGRATION + "/features")
+}
+
+// export const hospital
+
+export const requestbodyIntegrationConstants = {
+    REQUEST_BODY_API_INTEGRATION_SAVE: BASE.concat(REQUEST_BODY_INTEGRATION),
+    REQUEST_BODY_INTEGRATION_DROPDOWN: BASE.concat(INTEGRATION + "/request-body-parameters/active/min"),
+    REQUEST_BODY_API_INTEGRATION_SEARCH: BASE.concat(REQUEST_BODY_INTEGRATION + "/request-body-attributes"),
+    REQUEST_BODY_API_INTEGRATION_EDIT: BASE.concat(REQUEST_BODY_INTEGRATION),
+    REQUEST_BODY_API_INTEGRATION_EDIT_PREVIEW: BASE.concat(REQUEST_BODY_INTEGRATION),
+    REQUEST_BODY_API_INTEGRATION_DELETE: BASE.concat(REQUEST_BODY_INTEGRATION),
+    REQUEST_BODY_API_INTEGRATION_BY_FEATURE_TYPE: BASE.concat(REQUEST_BODY_INTEGRATION),
+    REQUEST_BODY_API_INTEGRATION_PREVIEW: BASE.concat(REQUEST_BODY_INTEGRATION + "/detail")
+    //HOSPITAL_API_INTEGRATION_UPDATE_PREVIEW:BASE.concat(HOSPITAL_API_INTEGRATION+"/update-details")
+}
 
 const BILLING_MODE_BASE = "/billingMode";
 export const billingModeApiConstants = {

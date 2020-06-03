@@ -39,6 +39,7 @@ class LoginPage extends React.PureComponent {
           email: user.email
         }
       )
+      if(userMenus){
       LocalStorageSecurity.localStorageEncoder(
         'isOpen',
         userMenus.isSideBarCollapse === 'Y' ||
@@ -46,7 +47,7 @@ class LoginPage extends React.PureComponent {
           ? false
           : true
       )
-
+      }
       const featuresAdmin = await this.props.fetchDashboardFeaturesByAdmin(
         DASHBOARD_FEATURE,
         userMenus.adminId
@@ -81,9 +82,9 @@ class LoginPage extends React.PureComponent {
   }
 
   async componentDidMount () {
-    const clientIp = await this.props.fetchLoggedInAdminIP()
-    await LocalStorageSecurity.localStorageEncoder('clientIp', clientIp)
-    document.title = 'Cogent-Appointment-Client'
+    // const clientIp = await this.props.fetchLoggedInAdminIP()
+    // await LocalStorageSecurity.localStorageEncoder('clientIp', clientIp)
+     document.title = 'Cogent-Appointment-Client'
     document.getElementById('favIcon').href=process.env.PUBLIC_URL+"logo-small-blue.png"
   }
 

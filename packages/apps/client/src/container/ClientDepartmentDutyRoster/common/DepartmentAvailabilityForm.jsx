@@ -13,7 +13,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
     } = departmentAvailabilityFormData;
     return <>
         <Col md={12} lg={7} className="">
-            <div className="department-availability bg-white p-4">
+            <div className="doctor-availability bg-white p-4">
                 <h5 className="title">Department Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
