@@ -51,7 +51,7 @@ const ClientApiIntegrationForm = ({
     <>
       <Container-fluid>
         <Row sm="12 p-0">
-          <h5 className="title"> API Integration </h5>
+          <h5 className="title"> Admin API Integration </h5>
         </Row>
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
@@ -59,8 +59,8 @@ const ClientApiIntegrationForm = ({
               <Col sm={12} md={3}>
                 <CHybridSelect
                   id="client"
-                  label="Client"
-                  name="clientId"
+                  label="Appointment Mode"
+                  name="appointmentModeId"
                   onChange={(event, validity) =>
                     onChangeHandler(event, validity)
                   }

@@ -171,15 +171,15 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                   </>
                 </CButton>
               </li>
-              {searchParams.clientId.value && (
+              {searchParams.appointmentModeId.value && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Client</Tooltip>}
+                    overlay={props => <Tooltip {...props}>Appointment Mode</Tooltip>}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParams.clientId.label}
+                      {searchParams.appointmentModeId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>

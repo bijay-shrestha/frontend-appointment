@@ -408,9 +408,9 @@ export const routes = [
     isSingleTab: false
   },
   {
-    path: '/admin/apiIntegration/adminApiIntegration/manage',
-    name: 'Add',
-    component: ClientApiIntegrationManage,
+    path: '/admin/apiIntegration/clientApiIntegration/manage',
+    name: 'Manage',
+    component:ClientApiIntegrationManage,
     icon: '',
     hasTab: true,
     isLink: true,
@@ -419,7 +419,7 @@ export const routes = [
   },
   {
     path: '/admin/apiIntegration/adminApiIntegration',
-    name: 'Client Api Integration',
+    name: 'Admin Api Integration',
     component: <></>,
     icon: '',
     hasTab: true,
@@ -438,8 +438,8 @@ export const routes = [
     isSingleTab: false
   },
   {
-    path: '/admin/apiIntegration/clientApiIntegration/manage',
-    name: 'Add',
+    path: '/admin/apiIntegration/adminApiIntegration/manage',
+    name: 'Manage',
     component: AdminApiIntegrationManage,
     icon: '',
     hasTab: true,

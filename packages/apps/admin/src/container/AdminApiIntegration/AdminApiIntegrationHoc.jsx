@@ -201,9 +201,9 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
       )
 
       await this.setState({
-        totalRecords: this.props.hospitalSearchApiIntegrationReducers
+        totalRecords: this.props.AdminSearchApiIntegrationReducers
           .searchApiIntegrationData.length
-          ? this.props.hospitalSearchApiIntegrationReducers.totalItems
+          ? this.props.AdminSearchApiIntegrationReducers.totalItems
           : 0,
         searchQueryParams: {
           ...this.state.searchQueryParams,
