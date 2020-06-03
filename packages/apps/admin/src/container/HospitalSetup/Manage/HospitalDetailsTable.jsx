@@ -12,6 +12,8 @@ import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import DetailsModal from "../commons/DetailsModal";
+
 const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
@@ -97,8 +99,8 @@ const HospitalDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler),
-                        imageRenderer:PreviewHandlerHoc(HospitalPicture,checkIfRoleExists, props.filteredActions,4,props.onPreviewHandler)
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
@@ -135,6 +137,9 @@ const HospitalDetailsDataTable = props => (
                 hospitalPreviewErrorMessage={
                     props.hospitalPreviewErrorMessage
                 }
+                activeBillingModeForDropdown={props.activeBillingModeForDropdown}
+                activeAppointmentServiceTypeForDropdown={props.activeAppointmentServiceTypeForDropdown}
+                appointmentServiceTypeListForPrimary={props.appointmentServiceTypeListForPrimary}
             />
         ) : (
             ''

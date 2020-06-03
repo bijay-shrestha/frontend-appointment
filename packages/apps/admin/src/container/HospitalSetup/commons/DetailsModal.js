@@ -2,7 +2,7 @@ import React from 'react'
 import {
     CFLabel,
     CForm,
-    CHybridInput,
+    CHybridInput, CHybridSelect,
     CHybridTextArea,
     CImageDisplayAndView,
     CRadioButton
@@ -11,7 +11,13 @@ import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/default-logo.png'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
-const DetailsModal = ({type, hospitalData}) => {
+const DetailsModal = ({
+                          type,
+                          hospitalData,
+                          activeBillingModeForDropdown,
+                          activeAppointmentServiceTypeForDropdown,
+                          appointmentServiceTypeListForPrimary
+                      }) => {
     const getOnlyContactNumber = (contactsResponse) => {
         let contacts = [];
         contactsResponse.map(contactNumber => {
@@ -186,6 +192,54 @@ const DetailsModal = ({type, hospitalData}) => {
                                         />
                                     </Col>
 
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            label="Billing Mode (optional)"
+                                            options={activeBillingModeForDropdown}
+                                            value={hospitalData.billingMode}
+                                            required={true}
+                                            placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
+                                                : "No Billing Mode(s) available."}
+                                            isDisabled={true}
+                                            isMulti={true}
+                                            className="multiple-select"
+                                        />
+                                    </Col>
+
+
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="appt-service-type"
+                                            name="appointmentServiceType"
+                                            label="Appointment Service Type"
+                                            options={activeAppointmentServiceTypeForDropdown}
+                                            value={hospitalData.appointmentServiceType}
+                                            required={true}
+                                            placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                                "Select Appointment Service Type."
+                                                : "No Appointment Service Type(s) available."}
+                                            isDisabled={true}
+                                            isMulti={true}
+                                            className="multiple-select"
+                                        />
+                                    </Col>
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="primary-appt-service-type"
+                                            name="primaryAppointmentServiceType"
+                                            label="Primary Appointment Service Type"
+                                            options={appointmentServiceTypeListForPrimary}
+                                            value={hospitalData.primaryAppointmentServiceType}
+                                            required={true}
+                                            placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                                "Select Primary Appointment Service Type."
+                                                : "No Appointment Service Type(s) available."}
+                                            isDisabled={!activeAppointmentServiceTypeForDropdown.length}
+                                        />
+                                    </Col>
+
                                     {type !== 'A' && (
                                         hospitalData.remarks &&
                                         <Col sm={12} md={6} lg={6}>
@@ -240,8 +294,8 @@ const DetailsModal = ({type, hospitalData}) => {
                         </Row>
                         <Row className="mt-4">
 
-                                {AuditableEntityHoc(hospitalData)}
-                                </Row>
+                            {AuditableEntityHoc(hospitalData)}
+                        </Row>
                     </Container-fluid>
                 </CForm>
             </Container-fluid>

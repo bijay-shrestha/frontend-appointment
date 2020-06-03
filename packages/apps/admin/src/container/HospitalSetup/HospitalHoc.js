@@ -304,10 +304,21 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     numberOfAdmins,
                     numberOfFollowUps,
                     followUpIntervalDays,
-                    isCompany
+                    isCompany,
+                    billingMode,
+                    hospitalAppointmentServiceTypeDetail
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData
                 let formValid = this.state.formValid
-                if (remarks) formValid = true
+                if (remarks) formValid = true;
+                let appointmentServiceTypeList = hospitalAppointmentServiceTypeDetail
+                    && hospitalAppointmentServiceTypeDetail.map(serviceType => (
+                        {
+                            label: serviceType.appointmentServiceTypeName,
+                            value: serviceType.appointmentServiceTypeId
+                        }));
+
+                let primaryServiceType = hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
+
                 this.setState({
                     showEditModal: true,
                     hospitalData: {
@@ -335,8 +346,15 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBanner: new File([5120], hospitalBanner),
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
-                        isCompany
+                        isCompany,
+                        billingMode,
+                        appointmentServiceType: appointmentServiceTypeList ? appointmentServiceTypeList : [],
+                        primaryAppointmentServiceType: primaryServiceType ? {
+                            label: primaryServiceType.appointmentServiceTypeName,
+                            value: primaryServiceType.appointmentServiceTypeId
+                        } : null
                     },
+                    appointmentServiceTypeListForPrimary: appointmentServiceTypeList ? appointmentServiceTypeList : [],
                     formValid: formValid,
                     nameValid: true
                 })

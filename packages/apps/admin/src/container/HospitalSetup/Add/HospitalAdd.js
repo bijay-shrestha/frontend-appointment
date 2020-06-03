@@ -108,6 +108,9 @@ function HospitalAdd(props) {
                                 setShowModal={setShowConfirmModal}
                                 onConfirmClick={submitAddChanges}
                                 hospitalData={hospitalData}
+                                activeBillingModeForDropdown={activeBillingModeForDropdown}
+                                activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                                appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                                 type="A"
                                 hospitalImageCroppedUrl={hospitalImageCroppedUrl}
                                 hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
