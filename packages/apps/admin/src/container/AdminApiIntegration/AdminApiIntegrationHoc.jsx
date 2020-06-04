@@ -70,7 +70,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         status: 'D'
       },
       totalRecords: 0,
-      apiUrlValid: false,
+      //apiUrlValid: false,
       editQueryParams: [],
       editHeaders: [],
       searchQueryParams: {
@@ -120,13 +120,13 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
       })
     }
 
-    setTheStateForInputValidity = async (objectToModify, validity, name) => {
-      const newName = name + 'Valid'
-      await this.setState({
-        integrationData: {...objectToModify},
-        [newName]: validity
-      })
-    }
+    // setTheStateForInputValidity = async (objectToModify, validity, name) => {
+    //   const newName = name + 'Valid'
+    //   await this.setState({
+    //     integrationData: {...objectToModify},
+    //     [newName]: validity
+    //   })
+    // }
     onChangeHandler = async (e, validity, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
@@ -148,11 +148,9 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationDatas['requestBody'] = ''
         this.onFeatureTypeChangeRequestBody(value)
       }
-      if (name !== 'requestBody' && name !== 'apiUrl') {
+     
         await this.setTheStateForIntegrationData(integrationDatas)
-      } else {
-        await this.setTheStateForInputValidity(integrationDatas, validity, name)
-      }
+      
 
       this.checkFormValidity(type)
     }
@@ -507,8 +505,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         featureType.value &&
         integrationChannelId.value &&
         integrationTypeId.value &&
-        requestMethod.value &&
-        apiUrlValid
+        requestMethod.value //&&
+        //apiUrlValid
       if (type === 'E') {
         formValid = formValid && appointmentModeId
       } else {
@@ -725,7 +723,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         alertMessageInfo,
         integrationData,
         formValid,
-        regexForApiUrl,
+        //regexForApiUrl,
         showConfirmationModal,
         searchParameters,
         searchQueryParams,
@@ -808,7 +806,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
                 ? [...requestMethodData]
                 : [],
               requestMethodDropdownError: requestMethodDropdownError,
-              regexForApiUrl: regexForApiUrl,
+             // regexForApiUrl: regexForApiUrl,
               formValid,
               //hospitalsForDropdown,
               requestParamsIsSelected,
