@@ -11,6 +11,7 @@ import {
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 import {CommonUtils, EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from "@frontend-appointment/helpers";
+import './hospital-department-setup.scss'
 
 const {
     clearSuccessErrorMessageFormStore,

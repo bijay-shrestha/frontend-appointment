@@ -160,19 +160,7 @@ const HospitalDepartmentForm = ({
                                 />
                             </Col>
 
-                            <Col sm={12} md={6} lg={4}>
-                                <CFLabel labelName="Status" id="status"/>
-                                <div>
-                                    <CRadioButton
-                                        checked={departmentData.status === "Y"}
-                                        disabled={true}
-                                        id="radio1"
-                                        label="Active"
-                                        type="radio"
-                                        readOnly
-                                    />
-                                </div>
-                            </Col>
+                           </Row>
 
                             <Row>
                                 <Col>
@@ -195,8 +183,8 @@ const HospitalDepartmentForm = ({
 
                             {
                                 departmentData.departmentChargeSchemes.map((deptCharge, index) => (
-                                    <Row>
-                                        <Col>
+                                    <Row >
+                                        <Col md={4}>
                                             <CHybridSelect
                                                 id="billing-mode"
                                                 name="billingMode"
@@ -211,7 +199,7 @@ const HospitalDepartmentForm = ({
                                                 // isDisabled={!activeBillingModeForDropdown.length}
                                             />
                                         </Col>
-                                        <Col>
+                                        <Col md={4}>
                                             <CHybridInput
                                                 id="appointment-charge"
                                                 name="appointmentCharge"
@@ -226,7 +214,8 @@ const HospitalDepartmentForm = ({
                                             />
                                         </Col>
 
-                                        <Col>
+                                        <Col md={4}>
+                                            <div className="charge-box">
                                             <CHybridInput
                                                 id="appointment-follow-up-charge"
                                                 name="followUpCharge"
@@ -239,10 +228,10 @@ const HospitalDepartmentForm = ({
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
                                                 errorMessagePassed={errorMessageForAppointmentCharge}
                                             />
-                                        </Col>
-                                        {
+                                          
+                                            {
                                             departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
-                                                <Col>
+                                            <div>
                                                     <CButton
                                                         id="macBinding"
                                                         key={'macRemove' + index}
@@ -253,13 +242,34 @@ const HospitalDepartmentForm = ({
                                                     >
                                                         <i className="fa fa-close"/>
                                                     </CButton>
-                                                </Col>
+                                                    </div>
+                                                
                                                 : ''
                                         }
+                                        
+                                        </div>
+                                        </Col>
+                                     
 
                                     </Row>
                                 ))
                             }
+                       
+
+                        <Row>
+                        <Col sm={12} md={6} lg={4}>
+                                <CFLabel labelName="Status" id="status"/>
+                                <div>
+                                    <CRadioButton
+                                        checked={departmentData.status === "Y"}
+                                        disabled={true}
+                                        id="radio1"
+                                        label="Active"
+                                        type="radio"
+                                        readOnly
+                                    />
+                                </div>
+                            </Col>
                         </Row>
 
                     </Container-fluid>
