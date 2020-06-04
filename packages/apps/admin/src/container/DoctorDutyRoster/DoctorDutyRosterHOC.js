@@ -1982,7 +1982,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                             formValid={formValid}
                             getExistingRoster={this.getExistingRoster}
                             handleDoctorAvailabilityFormChange={
-                                this.handleDepartmentAvailabilityFormChange
+                                this.handleDoctorAvailabilityFormChange
                             }
                             handleEnter={this.handleEnter}
                             handleInputChange={this.handleDoctorInfoFormInputChange}

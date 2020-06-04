@@ -1560,7 +1560,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         existingRosterTableData={existingRosterTableData}
                         formValid={formValid}
                         getExistingRoster={this.getExistingRoster}
-                        handleDoctorAvailabilityFormChange={this.handleDepartmentAvailabilityFormChange}
+                        handleDoctorAvailabilityFormChange={this.handleDoctorAvailabilityFormChange}
                         handleEnter={this.handleEnter}
                         handleInputChange={this.handleDoctorInfoFormInputChange}
                         handleOverrideDutyRoster={this.handleOverrideDutyRoster}
