@@ -306,7 +306,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.hospitalPreviewApiIntegrationReducers
+            message: this.props.AdminPreviewApiIntegrationReducers
               .previewApiIntegrationErorrMessage
           }
         })
