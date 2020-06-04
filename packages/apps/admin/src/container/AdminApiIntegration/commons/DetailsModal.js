@@ -180,7 +180,7 @@ const DetailsModal = ({integrationData, type}) => {
             </Row>
             <Row>
               {integrationData.requestBody &&
-              (integrationData.requestMethod.label !== 'GET' ||
+              (integrationData.requestMethod.label !== 'GET' &&
                 integrationData.requestMethod !== 'GET') ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />

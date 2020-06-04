@@ -15,8 +15,7 @@ const DetailsModal = ({integrationData, type}) => {
         <CForm id="department-info" className="mt-2 api-info">
           <Container-fluid>
             <Row>
-
-            <Col sm={12} md={3}>
+              <Col sm={12} md={3}>
                 {type !== 'P' ? (
                   <CHybridSelect
                     id="hospital"
@@ -70,8 +69,6 @@ const DetailsModal = ({integrationData, type}) => {
                   />
                 )}
               </Col>
-
-             
 
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
@@ -182,7 +179,9 @@ const DetailsModal = ({integrationData, type}) => {
                 : null}
             </Row>
             <Row>
-              {integrationData.requestBody ? (
+              {integrationData.requestBody &&
+              integrationData.requestMethod.label !== 'GET' &&
+                integrationData.requestMethod !== 'GET' ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">
