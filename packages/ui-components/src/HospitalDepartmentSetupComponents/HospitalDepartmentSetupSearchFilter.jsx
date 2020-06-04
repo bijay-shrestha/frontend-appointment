@@ -36,7 +36,8 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
             // allDepartmentDropdownErrorMessage,
             allRoomNumberForDropdown,
             allDoctorsForDropdown,
-            hospitalListForDropdown
+            hospitalListForDropdown,
+            allBillingModeList
         } = this.props.searchData;
 
         let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
@@ -47,6 +48,8 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
             : 'No Doctor(s) available.';
         let roomPlaceholder = allRoomNumberForDropdown.length ? 'Select Room.'
             : 'No Room(s) available.';
+        let billingModePlaceholder = allBillingModeList.length ? "Select Billing Mode."
+            : "No Billing Mode(s) available.";
 
         return (
             <>
@@ -140,6 +143,22 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                             isDisabled={isAdminModule ? (
                                                 !searchParameters.hospital || !allRoomNumberForDropdown.length)
                                                 : !allRoomNumberForDropdown.length}
+                                        />
+                                    </Col>
+                                    <Col sm={6} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            onKeyDown={event => this.handleEnter(event)}
+                                            onChange={(event) => onInputChange(event)}
+                                            label="Billing Mode"
+                                            options={allBillingModeList}
+                                            value={searchParameters.billingMode}
+                                            required={true}
+                                            placeholder={isAdminModule ? searchParameters.hospital ?
+                                                billingModePlaceholder : "Select Client first." : billingModePlaceholder}
+                                            isDisabled={isAdminModule ? !allBillingModeList.length
+                                                || !searchParameters.hospital : !allBillingModeList.length}
                                         />
                                     </Col>
 
@@ -267,6 +286,21 @@ class HospitalDepartmentSetupSearchFilter extends PureComponent {
                                 >
                                     <Button id="button-searchs-filters" variant="secondary">
                                         {searchParameters.room && searchParameters.room.label}
+                                    </Button>
+                                </OverlayTrigger>
+
+                            </li>
+                            }
+
+                            {searchParameters.billingMode &&
+                            <li>
+                                <OverlayTrigger
+                                    placement="top"
+                                    delay={{show: 250, hide: 400}}
+                                    overlay={(props) => <Tooltip {...props}>Billing Mode</Tooltip>}
+                                >
+                                    <Button id="button-searchs-filters" variant="secondary">
+                                        {searchParameters.billingMode && searchParameters.billingMode.label}
                                     </Button>
                                 </OverlayTrigger>
 

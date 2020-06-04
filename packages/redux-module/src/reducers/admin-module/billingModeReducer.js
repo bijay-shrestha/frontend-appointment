@@ -63,7 +63,7 @@ const initialState = {
     activeRoomsByHospitalDropdownErrorMessage: '',
     isFetchAllBillingModeByHospitalLoading: false,
     allBillingModeForDropdownByHospital: [],
-    allRoomDropdownByHospitalErrorMessage: '',
+    allBillingModeDropdownByHospitalErrorMessage: '',
 };
 
 export const BillingModeSaveReducer = (state = {...initialState}, action) => {
@@ -307,21 +307,21 @@ export const BillingModeDropdownReducer = (state = {...initialState}, action) =>
                 ...state,
                 isFetchAllBillingModeByHospitalLoading: true,
                 allBillingModeForDropdownByHospital: [],
-                allRoomDropdownByHospitalErrorMessage: '',
+                allBillingModeDropdownByHospitalErrorMessage: '',
             };
         case FETCH_ALL_BILLING_MODE_BY_HOSPITAL_SUCCESS:
             return {
                 ...state,
                 isFetchAllBillingModeByHospitalLoading: false,
                 allBillingModeForDropdownByHospital: [...action.payload.data],
-                allRoomDropdownByHospitalErrorMessage: '',
+                allBillingModeDropdownByHospitalErrorMessage: '',
             };
         case FETCH_ALL_BILLING_MODE_BY_HOSPITAL_ERROR:
             return {
                 ...state,
                 isFetchAllBillingModeByHospitalLoading: false,
                 allBillingModeForDropdownByHospital: [],
-                allRoomDropdownByHospitalErrorMessage: action.payload.errorMessage,
+                allBillingModeDropdownByHospitalErrorMessage: action.payload.errorMessage,
             };
         default:
             return state

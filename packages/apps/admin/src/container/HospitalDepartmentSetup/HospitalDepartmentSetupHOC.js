@@ -36,7 +36,7 @@ const {
 
 const {fetchAllHospitalsForDropdown, fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 
-const {fetchActiveBillingModeForDropdownByHospitalId} = BillingModeMiddleware;
+const {fetchActiveBillingModeForDropdownByHospitalId, fetchAllBillingModeForDropdownByHospitalId} = BillingModeMiddleware;
 
 const {
     DELETE_HOSPITAL_DEPARTMENT,
@@ -57,7 +57,7 @@ const {FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN} = AdminModuleAPIConstants.roomSetupAp
 
 const {FETCH_ALL_HOSPITALS_FOR_DROPDOWN, FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 
-const {FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN} = AdminModuleAPIConstants.billingModeApiConstants;
+const {FETCH_ACTIVE_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN, FETCH_ALL_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN} = AdminModuleAPIConstants.billingModeApiConstants;
 
 const NO_BILLING_MODE_MESSAGE = "Billing Mode not assigned! Contact the system administrator for assigning Billing Mode.";
 
@@ -112,6 +112,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 doctor: null,
                 department: null,
                 room: null,
+                billingMode: null,
                 status: {value: 'A', label: 'All'},
             },
             queryParams: {
@@ -315,6 +316,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         };
 
+        fetchAllBillingModeByHospital = async hospitalId =>
+            await this.props.fetchAllBillingModeForDropdownByHospitalId(FETCH_ALL_BILLING_MODE_BY_HOSPITAL_FOR_DROPDOWN, hospitalId);
+
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         };
@@ -386,6 +390,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     this.fetchAllRoomNumbersForDropdownByHospitalId(value);
                     this.fetchAllHospitalDepartmentsForDropdownByHospital(value);
                     this.fetchAllDoctorsForDropdownByHospital(value);
+                    this.fetchAllBillingModeByHospital(value);
                 }
                 this.setState({
                     searchParameters: {
@@ -625,14 +630,15 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         };
 
         searchDepartmentList = async page => {
-            const {doctor, code, department, room, status, hospital} = this.state.searchParameters;
+            const {doctor, code, department, room, status, hospital, billingMode} = this.state.searchParameters;
             let searchData = {
                 code,
                 doctorId: doctor && doctor.value,
                 id: department && department.value,
                 roomId: room && room.value,
                 status: status && status.value === 'A' ? '' : status.value,
-                hospitalId: hospital && hospital.value
+                hospitalId: hospital && hospital.value,
+                billingModeId: billingMode && billingMode.value
             };
 
             let updatedPage =
@@ -662,7 +668,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         updateBillingModeListInState = async billingModeList =>
             await this.setState({
-                billingModeList: billingModeList ? [...CommonUtils.sortListOfObjectsAlphabetically(billingModeList,"label")] : []
+                billingModeList: billingModeList ? [...CommonUtils.sortListOfObjectsAlphabetically(billingModeList, "label")] : []
             });
 
         render() {
@@ -698,6 +704,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 hospitalDepartmentList,
                 searchErrorMessage
             } = this.props.HospitalDepartmentSearchReducer;
+
+            const {allBillingModeForDropdownByHospital} = this.props.BillingModeDropdownReducer;
 
             return <>
                 <Component
@@ -737,6 +745,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         allDepartmentDropdownErrorMessage,
                         allRoomNumberForDropdown,
                         allDoctorsForDropdown: allDoctorsForDropdown,
+                        allBillingModeList: allBillingModeForDropdownByHospital,
                         onSearchClick: this.searchDepartmentList,
                         onInputChange: this.handleSearchFormChange,
                         resetSearchForm: this.handleSearchFormReset,
@@ -832,7 +841,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchActiveHospitalsForDropdown,
             saveHospitalDepartment,
             searchHospitalDepartment,
-            fetchActiveBillingModeForDropdownByHospitalId
+            fetchActiveBillingModeForDropdownByHospitalId,
+            fetchAllBillingModeForDropdownByHospitalId
         });
 
 };

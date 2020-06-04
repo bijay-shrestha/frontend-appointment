@@ -109,13 +109,13 @@ export const fetchActiveBillingModeForDropdownByHospitalId = (path, hospitalId) 
 };
 
 export const fetchAllBillingModeForDropdownByHospitalId = (path, hospitalId) => async dispatch => {
-    dispatch(BillingModeActions.fetchActiveBillingModeByHospitalPending());
+    dispatch(BillingModeActions.fetchAllBillingModeByHospitalPending());
     try {
         const response = await Axios.getWithPathVariables(path, hospitalId);
-        dispatch(BillingModeActions.fetchActiveBillingModeByHospitalSuccess(response.data));
+        dispatch(BillingModeActions.fetchAllBillingModeByHospitalSuccess(response.data));
         return response.data;
     } catch (e) {
-        dispatch(BillingModeActions.fetchActiveBillingModeByHospitalError(
+        dispatch(BillingModeActions.fetchAllBillingModeByHospitalError(
             e.errorMessage ? e.errorMessage : "Sorry, internal server error!"));
         throw e;
     }

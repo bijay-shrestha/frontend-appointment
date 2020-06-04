@@ -68,20 +68,6 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
                                 sizeColumnsToFit: true
                             },
                             {
-                                headerName: 'Appointment Charge',
-                                field: 'appointmentCharge',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
-                                headerName: 'Follow up Charge',
-                                field: 'followUpCharge',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
                                 headerName: 'Status',
                                 field: 'status',
                                 resizable: true,
