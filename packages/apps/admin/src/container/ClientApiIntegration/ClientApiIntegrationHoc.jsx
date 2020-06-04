@@ -725,7 +725,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationData,
         regexForCommaSeperation,
         formValid,
-        regexForApiUrl,
+       // regexForApiUrl,
         showConfirmationModal,
         searchParameters,
         searchQueryParams,

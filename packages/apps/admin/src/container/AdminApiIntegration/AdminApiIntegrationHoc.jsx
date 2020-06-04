@@ -499,7 +499,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeId,
         requestMethod
       } = this.state.integrationData
-      const {apiUrlValid} = this.state
+      //const {apiUrlValid} = this.state
       let formValid =
         apiUrl &&
         featureType.value &&
