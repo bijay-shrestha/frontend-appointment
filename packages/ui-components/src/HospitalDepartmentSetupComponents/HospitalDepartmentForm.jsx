@@ -13,7 +13,8 @@ import {
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
 const HospitalDepartmentForm = ({
-                                    hospitalDepartmentAddData
+                                    hospitalDepartmentAddData,
+                                    departmentChargeProps
                                 }) => {
 
     const {
@@ -25,9 +26,16 @@ const HospitalDepartmentForm = ({
         handleInputChange,
         // errorMessageForDepartmentName,
         errorMessageForDescription,
-        // errorMessageForAppointmentCharge,
-        activeBillingModeForDropdown
+        errorMessageForAppointmentCharge,
+
     } = hospitalDepartmentAddData;
+
+    const {
+        activeBillingModeForDropdown,
+        handleAddDepartmentChargeScheme,
+        handleRemoveDepartmentChargeScheme,
+        handleChargeDataChange
+    } = departmentChargeProps;
 
     let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
 
@@ -174,7 +182,7 @@ const HospitalDepartmentForm = ({
                                         size="sm"
                                         variant="outline-secondary"
                                         className="float-right mb-2"
-                                        // onClickHandler={onAddMoreMacId}
+                                        onClickHandler={handleAddDepartmentChargeScheme}
                                     >
                                         <i className="fa fa-plus"/>
                                         &nbsp;Add
@@ -183,22 +191,21 @@ const HospitalDepartmentForm = ({
                             </Row>
 
                             {
-                                departmentData.departmentChargeSchemes.map((depCharge, index) => (
+                                departmentData.departmentChargeSchemes.map((deptCharge, index) => (
                                     <Row>
                                         <Col>
                                             <CHybridSelect
                                                 id="billing-mode"
                                                 name="billingMode"
                                                 onKeyDown={event => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleInputChange(event, validity)}
-                                                label="Billing Mode (optional)"
+                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                                label="Billing Mode"
                                                 options={activeBillingModeForDropdown}
-                                                value={depCharge.billingMode}
+                                                value={deptCharge.billingMode}
                                                 required={true}
                                                 placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
                                                     : "No Billing Mode(s) available."}
-                                                isDisabled={!activeBillingModeForDropdown.length}
-                                                isMulti={true}
+                                                // isDisabled={!activeBillingModeForDropdown.length}
                                                 className="multiple-select"
                                             />
                                         </Col>
@@ -207,13 +214,13 @@ const HospitalDepartmentForm = ({
                                                 id="appointment-charge"
                                                 name="appointmentCharge"
                                                 onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleInputChange(event, validity)}
+                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                                 placeholder="Appointment Charge"
-                                                value={depCharge.appointmentCharge}
+                                                value={deptCharge.appointmentCharge}
                                                 required={true}
                                                 hasValidation={true}
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={depCharge.errorMessageForAppointmentCharge}
+                                                errorMessagePassed={errorMessageForAppointmentCharge}
                                             />
                                         </Col>
 
@@ -222,27 +229,32 @@ const HospitalDepartmentForm = ({
                                                 id="appointment-follow-up-charge"
                                                 name="followUpCharge"
                                                 onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleInputChange(event, validity)}
+                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                                 placeholder="Follow Up Charge"
-                                                value={depCharge.followUpCharge}
+                                                value={deptCharge.followUpCharge}
                                                 required={true}
                                                 hasValidation={true}
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={depCharge.errorMessageForAppointmentCharge}
+                                                errorMessagePassed={errorMessageForAppointmentCharge}
                                             />
                                         </Col>
-                                        <Col>
-                                            <CButton
-                                                id="macBinding"
-                                                key={'macRemove' + index}
-                                                name=""
-                                                variant="outline-danger"
-                                                className="float-right remove-mac "
-                                                // onClickHandler={() =>()}
-                                            >
-                                                <i className="fa fa-close"/>
-                                            </CButton>
-                                        </Col>
+                                        {
+                                            departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
+                                                <Col>
+                                                    <CButton
+                                                        id="macBinding"
+                                                        key={'macRemove' + index}
+                                                        name=""
+                                                        variant="outline-danger"
+                                                        className="float-right remove-mac "
+                                                        onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
+                                                    >
+                                                        <i className="fa fa-close"/>
+                                                    </CButton>
+                                                </Col>
+                                                : ''
+                                        }
+
                                     </Row>
                                 ))
                             }

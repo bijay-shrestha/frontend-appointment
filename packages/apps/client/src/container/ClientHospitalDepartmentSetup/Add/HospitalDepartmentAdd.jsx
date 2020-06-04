@@ -8,7 +8,8 @@ const HospitalDepartmentAdd = props => {
     const HospitalDepartmentAdd = HospitalDepartmentSetupHOC(
         ({
              hospitalDepartmentAddData,
-             departmentPreviewData
+             departmentPreviewData,
+             departmentChargeProps
          }) =>
             <>
                 <div className="">
@@ -25,7 +26,9 @@ const HospitalDepartmentAdd = props => {
                                 <i className="fa fa-refresh"/> &nbsp;Reset
                             </>
                         </CButton>
-                        <HospitalDepartmentSetupComponents.HospitalDepartmentForm hospitalDepartmentAddData={hospitalDepartmentAddData}/>
+                        <HospitalDepartmentSetupComponents.HospitalDepartmentForm
+                            hospitalDepartmentAddData={hospitalDepartmentAddData}
+                            departmentChargeProps={departmentChargeProps}/>
                         <Row className="mt-4">
                             <Col sm={12} md={{span: 3, offset: 9}}>
                                 <CButton

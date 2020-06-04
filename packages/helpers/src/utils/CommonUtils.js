@@ -63,3 +63,7 @@ export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValue
   //console.log("filtered",filteredValue);
   return filteredValue
 }
+
+export const sortDropdownListAlphabetically = dropdownList =>
+  dropdownList.sort((firstElement, secondElement) =>
+      (firstElement.label).toLowerCase().localeCompare((secondElement.label).toLowerCase()));
