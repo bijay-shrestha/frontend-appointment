@@ -3,6 +3,7 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {
+    BillingModeMiddleware,
     DoctorMiddleware,
     HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
@@ -35,6 +36,8 @@ const {
 
 const {fetchAllHospitalsForDropdown, fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 
+const {fetchActiveBillingModeForDropdownByHospitalId} = BillingModeMiddleware;
+
 const {
     DELETE_HOSPITAL_DEPARTMENT,
     EDIT_HOSPITAL_DEPARTMENT,
@@ -50,12 +53,13 @@ const {
     FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN
 } = AdminModuleAPIConstants.doctorSetupApiConstants;
 
-const {
-    FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN,
-    FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN
-} = AdminModuleAPIConstants.roomSetupApiConstants;
+const {FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN} = AdminModuleAPIConstants.roomSetupApiConstants;
 
 const {FETCH_ALL_HOSPITALS_FOR_DROPDOWN, FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
+
+const {FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN} = AdminModuleAPIConstants.billingModeApiConstants;
+
+const NO_BILLING_MODE_MESSAGE = "Billing Mode not assigned! Contact the system administrator for assigning Billing Mode.";
 
 const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
@@ -127,6 +131,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             if (value) {
                 this.fetchActiveDoctorsForDropdownByHospitalId(value);
                 this.fetchAvailableRoomNumbersForDropdownByHospital(value);
+                this.fetchActiveBillingModesByHospitalId(value);
             }
             this.setState({
                 departmentData: {
@@ -221,7 +226,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             }
         };
 
-
         editDepartment = async () => {
             const {
                 id, name, code, description, appointmentCharge, followUpCharge, remarks, status,
@@ -275,16 +279,28 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             await this.props.fetchAllDoctorsHospitalWiseForDropdown(FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN, hospitalId);
         };
 
-        fetchActiveRoomNumberForDropdownByHospital = async hospitalId => {
-            await this.props.fetchActiveRoomNumberForDropdownByHospitalId(FETCH_ACTIVE_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
-        };
-
         fetchAllRoomNumbersForDropdownByHospitalId = async hospitalId => {
             await this.props.fetchAllRoomNumberForDropdownByHospitalId(FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN, hospitalId);
         };
 
         fetchAllHospitalDepartmentsForDropdownByHospital = async hospitalId => {
             await this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN, hospitalId);
+        };
+
+        fetchActiveBillingModesByHospitalId = async hospitalId => {
+            try {
+                await this.props.fetchActiveBillingModeForDropdownByHospitalId(
+                    FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN, hospitalId);
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'warning',
+                        message: NO_BILLING_MODE_MESSAGE
+                    }
+                });
+            }
+
         };
 
         handleEnterPress = event => {
@@ -612,7 +628,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         showConfirmModal: showPreviewModal,
                         setShowConfirmModal: this.closeModal,
                         handleAddDepartment: this.handleAddDepartment,
-                        hospitalsForDropdown: hospitalsForDropdown
+                        hospitalsForDropdown: hospitalsForDropdown,
+                        activeBillingModeForDropdown: []
                     }}
                     departmentPreviewData={{
                         departmentData: departmentData,
@@ -703,7 +720,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             'HospitalDepartmentSearchReducer',
             'DoctorDropdownReducer',
             'RoomNumberDropdownReducer',
-            'HospitalDropdownReducer'
+            'HospitalDropdownReducer',
+            'BillingModeDropdownReducer'
         ],
         {
             clearSuccessErrorMessageFormStore,
@@ -721,6 +739,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchActiveHospitalsForDropdown,
             saveHospitalDepartment,
             searchHospitalDepartment,
+            fetchActiveBillingModeForDropdownByHospitalId
         });
 
 };

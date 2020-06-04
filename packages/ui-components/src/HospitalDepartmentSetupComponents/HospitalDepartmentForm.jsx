@@ -1,6 +1,7 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {
+    CButton,
     CFLabel,
     CForm,
     CHybridInput,
@@ -24,7 +25,8 @@ const HospitalDepartmentForm = ({
         handleInputChange,
         // errorMessageForDepartmentName,
         errorMessageForDescription,
-        errorMessageForAppointmentCharge
+        // errorMessageForAppointmentCharge,
+        activeBillingModeForDropdown
     } = hospitalDepartmentAddData;
 
     let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
@@ -149,42 +151,6 @@ const HospitalDepartmentForm = ({
                                     className="multiple-select"
                                 />
                             </Col>
-                            {
-                                departmentData.departmentChargeSchemes.map(depCharge => (
-                                    <Row>
-                                        <Col sm={12} md={6} lg={4} className="">
-                                            <CHybridInput
-                                                id="appointment-charge"
-                                                name="appointmentCharge"
-                                                onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleInputChange(event, validity)}
-                                                placeholder="Appointment Charge"
-                                                value={departmentData.appointmentCharge}
-                                                required={true}
-                                                hasValidation={true}
-                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={errorMessageForAppointmentCharge}
-                                            />
-                                        </Col>
-
-                                        <Col sm={12} md={6} lg={4} className="">
-                                            <CHybridInput
-                                                id="appointment-follow-up-charge"
-                                                name="followUpCharge"
-                                                onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleInputChange(event, validity)}
-                                                placeholder="Follow Up Charge"
-                                                value={departmentData.followUpCharge}
-                                                required={true}
-                                                hasValidation={true}
-                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={errorMessageForAppointmentCharge}
-                                            />
-                                        </Col>
-                                    </Row>
-                                ))
-                            }
-
 
                             <Col sm={12} md={6} lg={4}>
                                 <CFLabel labelName="Status" id="status"/>
@@ -199,6 +165,87 @@ const HospitalDepartmentForm = ({
                                     />
                                 </div>
                             </Col>
+
+                            <Row>
+                                <Col>
+                                    <CButton
+                                        id="macBinding"
+                                        name=""
+                                        size="sm"
+                                        variant="outline-secondary"
+                                        className="float-right mb-2"
+                                        // onClickHandler={onAddMoreMacId}
+                                    >
+                                        <i className="fa fa-plus"/>
+                                        &nbsp;Add
+                                    </CButton>
+                                </Col>
+                            </Row>
+
+                            {
+                                departmentData.departmentChargeSchemes.map((depCharge, index) => (
+                                    <Row>
+                                        <Col>
+                                            <CHybridSelect
+                                                id="billing-mode"
+                                                name="billingMode"
+                                                onKeyDown={event => handleEnterPress(event)}
+                                                onChange={(event, validity) => handleInputChange(event, validity)}
+                                                label="Billing Mode (optional)"
+                                                options={activeBillingModeForDropdown}
+                                                value={depCharge.billingMode}
+                                                required={true}
+                                                placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
+                                                    : "No Billing Mode(s) available."}
+                                                isDisabled={!activeBillingModeForDropdown.length}
+                                                isMulti={true}
+                                                className="multiple-select"
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <CHybridInput
+                                                id="appointment-charge"
+                                                name="appointmentCharge"
+                                                onKeyDown={(event) => handleEnterPress(event)}
+                                                onChange={(event, validity) => handleInputChange(event, validity)}
+                                                placeholder="Appointment Charge"
+                                                value={depCharge.appointmentCharge}
+                                                required={true}
+                                                hasValidation={true}
+                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                                errorMessagePassed={depCharge.errorMessageForAppointmentCharge}
+                                            />
+                                        </Col>
+
+                                        <Col>
+                                            <CHybridInput
+                                                id="appointment-follow-up-charge"
+                                                name="followUpCharge"
+                                                onKeyDown={(event) => handleEnterPress(event)}
+                                                onChange={(event, validity) => handleInputChange(event, validity)}
+                                                placeholder="Follow Up Charge"
+                                                value={depCharge.followUpCharge}
+                                                required={true}
+                                                hasValidation={true}
+                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                                errorMessagePassed={depCharge.errorMessageForAppointmentCharge}
+                                            />
+                                        </Col>
+                                        <Col>
+                                            <CButton
+                                                id="macBinding"
+                                                key={'macRemove' + index}
+                                                name=""
+                                                variant="outline-danger"
+                                                className="float-right remove-mac "
+                                                // onClickHandler={() =>()}
+                                            >
+                                                <i className="fa fa-close"/>
+                                            </CButton>
+                                        </Col>
+                                    </Row>
+                                ))
+                            }
                         </Row>
 
                     </Container-fluid>

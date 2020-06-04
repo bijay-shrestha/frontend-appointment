@@ -3,6 +3,7 @@ import {ConnectHoc} from "@frontend-appointment/commons";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import * as Material from 'react-icons/md';
 import {
+    BillingModeMiddleware,
     DoctorMiddleware,
     HospitalDepartmentSetupMiddleware,
     RoomSetupMiddleware
@@ -32,6 +33,8 @@ const {
     fetchAllRoomNumberForDropdown
 } = RoomSetupMiddleware;
 
+const {fetchActiveBillingModeForDropdown} = BillingModeMiddleware;
+
 const {
     DELETE_HOSPITAL_DEPARTMENT,
     EDIT_HOSPITAL_DEPARTMENT,
@@ -52,6 +55,10 @@ const {
     FETCH_ALL_ROOM_NUMBER_FOR_DROPDOWN
 } = AdminModuleAPIConstants.roomSetupApiConstants;
 
+const {FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN} = AdminModuleAPIConstants.billingModeApiConstants;
+
+const NO_BILLING_MODE_MESSAGE = "Billing Mode not assigned! Contact the system administrator for assigning Billing Mode.";
+
 const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
     class HospitalDepartmentSetupHOC extends PureComponent {
@@ -64,16 +71,23 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 description: '',
                 doctorList: null,
                 roomList: null,
-                appointmentCharge: '',
-                followUpCharge: '',
                 status: 'Y',
                 nameValid: true,
                 descriptionValid: true,
-                appointmentChargeValid: true,
-                followUpChargeValid: true,
+                // appointmentCharge: '',
+                // followUpCharge: '',
+                // appointmentChargeValid: true,
+                // followUpChargeValid: true,
                 originalDoctorList: [],
                 originalRoomList: [],
-                remarks: ''
+                remarks: '',
+                departmentChargeSchemes: [{
+                    billingMode: null,
+                    appointmentCharge: '',
+                    followUpCharge: '',
+                    appointmentChargeValid: true,
+                    followUpChargeValid: true,
+                }]
             },
             showDeleteModal: false,
             showPreviewModal: false,
@@ -194,7 +208,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             }
         };
 
-
         editDepartment = async () => {
             const {
                 id, name, code, description, appointmentCharge, followUpCharge, remarks, status,
@@ -282,6 +295,20 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             await this.props.fetchAllHospitalDepartmentForDropdown(FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN);
         };
 
+        fetchActiveBillingModes = async () => {
+            try {
+                await this.props.fetchActiveBillingModeForDropdown(FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN);
+            } catch (e) {
+                this.setState({
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'warning',
+                        message: NO_BILLING_MODE_MESSAGE
+                    }
+                });
+            }
+        };
+
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
         };
@@ -367,6 +394,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             this.fetchActiveDoctorsForDropdown();
             this.fetchActiveRoomNumberForDropdown();
             this.fetchAvailableRoomNumbersForDropdown();
+            this.fetchActiveBillingModes();
             if (type === "MANAGE") {
                 this.fetchAllHospitalDepartmentsForDropdown();
                 this.fetchAllDoctorsForDropdown();
@@ -581,7 +609,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                         formValid,
                         showConfirmModal: showPreviewModal,
                         setShowConfirmModal: this.closeModal,
-                        handleAddDepartment: this.handleAddDepartment
+                        handleAddDepartment: this.handleAddDepartment,
+                        activeBillingModeForDropdown: []
                     }}
                     departmentPreviewData={{
                         departmentData: departmentData,
@@ -669,7 +698,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             'HospitalDepartmentSaveReducer',
             'HospitalDepartmentSearchReducer',
             'DoctorDropdownReducer',
-            'RoomNumberDropdownReducer'
+            'RoomNumberDropdownReducer',
+            'BillingModeDropdownReducer'
         ],
         {
             clearSuccessErrorMessageFormStore,
@@ -684,7 +714,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             fetchAllRoomNumberForDropdown,
             fetchActiveRoomNumberForDropdown,
             saveHospitalDepartment,
-            searchHospitalDepartment
+            searchHospitalDepartment,
+            fetchActiveBillingModeForDropdown
         });
 
 };

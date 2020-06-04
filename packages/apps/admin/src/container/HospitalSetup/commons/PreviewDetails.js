@@ -1,7 +1,6 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
 import DetailsModal from "./DetailsModal";
-import HospitalDetailsTable from "../Manage/HospitalDetailsTable";
 
 const PreviewDetails = props => {
     const {showModal, setShowModal, hospitalData} = props;
