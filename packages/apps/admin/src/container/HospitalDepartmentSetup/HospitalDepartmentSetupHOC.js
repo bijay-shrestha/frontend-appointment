@@ -415,7 +415,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         handlePreviewDepartmentDetails = async departmentId => {
             await this.previewDepartmentDetails(departmentId);
-
         };
 
         handleDeleteDepartment = async departmentId => {
@@ -663,7 +662,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         updateBillingModeListInState = async billingModeList =>
             await this.setState({
-                billingModeList: billingModeList ? [...CommonUtils.sortDropdownListAlphabetically(billingModeList)] : []
+                billingModeList: billingModeList ? [...CommonUtils.sortListOfObjectsAlphabetically(billingModeList,"label")] : []
             });
 
         render() {

@@ -176,6 +176,9 @@ const HospitalDepartmentForm = ({
 
                             <Row>
                                 <Col>
+                                    Billing Mode And Charge
+                                </Col>
+                                <Col>
                                     <CButton
                                         id="macBinding"
                                         name=""
@@ -206,7 +209,6 @@ const HospitalDepartmentForm = ({
                                                 placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
                                                     : "No Billing Mode(s) available."}
                                                 // isDisabled={!activeBillingModeForDropdown.length}
-                                                className="multiple-select"
                                             />
                                         </Col>
                                         <Col>
