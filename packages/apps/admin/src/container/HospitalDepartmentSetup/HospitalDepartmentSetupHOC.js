@@ -613,7 +613,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 doctorId: [...doctorIds],
                 roomId: [...roomIds],
                 hospitalId: hospital && hospital.value,
-                billingModeChargeDTOList: billingModes
+                billingModeChargeDTOList: billingModes ? billingModes : []
             };
             try {
                 await this.props.saveHospitalDepartment(SAVE_HOSPITAL_DEPARTMENT, requestDTO);

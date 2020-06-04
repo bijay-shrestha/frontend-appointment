@@ -305,8 +305,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         fetchActiveBillingModes = async () => {
             try {
                 await this.props.fetchActiveBillingModeForDropdown(FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN);
-                const {activeBillingModeForDropdownByHospital} = this.props.BillingModeDropdownReducer;
-                this.updateBillingModeListInState(activeBillingModeForDropdownByHospital);
+                const {activeBillingModeForDropdown} = this.props.BillingModeDropdownReducer;
+                this.updateBillingModeListInState(activeBillingModeForDropdown);
             } catch (e) {
                 this.setState({
                     showAlert: true,
@@ -580,10 +580,14 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 status, roomList,
                 name, followUpCharge, doctorList,
                 description, code,
-                appointmentCharge
+                appointmentCharge, departmentChargeSchemes
             } = this.state.departmentData;
-            let doctorIds = doctorList ? doctorList.map(doctor => doctor.value) : [];
-            let roomIds = roomList ? roomList.map(room => room.value) : [];
+            let doctorIds = doctorList ? doctorList.map(doctor => doctor.value) : [],
+                roomIds = roomList ? roomList.map(room => room.value) : [],
+                billingModes = departmentChargeSchemes.map(deptCharge => ({
+                    ...deptCharge,
+                    billingModeId: deptCharge.billingMode && deptCharge.billingMode.value
+                }));
 
             let requestDTO = {
                 name,
@@ -593,7 +597,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 appointmentCharge,
                 followUpCharge,
                 doctorId: [...doctorIds],
-                roomId: [...roomIds]
+                roomId: [...roomIds],
+                billingModeChargeDTOList: billingModes ? billingModes : []
             };
             try {
                 await this.props.saveHospitalDepartment(SAVE_HOSPITAL_DEPARTMENT, requestDTO);
