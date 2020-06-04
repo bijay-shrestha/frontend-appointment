@@ -361,7 +361,7 @@ const ClientApiIntegrationForm = ({
                 })}
               </Row>
             </div>
-            {integrationData.requestBody ? (
+            {integrationData.requestBody && integrationData.requestMethod.label!== 'GET' ? (
               <Row className="mt-4">
                 <Col sm={12}>
                   {/* <CHybridTextArea

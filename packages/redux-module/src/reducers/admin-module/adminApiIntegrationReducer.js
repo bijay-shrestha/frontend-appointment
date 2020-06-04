@@ -198,7 +198,8 @@ const adminApiIntegrationDeleteHandler = {
   [CLEAR_ADMIN_MODE_API_DELETE_MESSAGE]: state => ({
     ...state,
     deleteApiIntegrationSuccessMessage: '',
-    deleteApiIntegrationErrorMessage: ''
+    deleteApiIntegrationErrorMessage: '',
+    isDeleteApiIntegrationLoading: false
   })
 }
 

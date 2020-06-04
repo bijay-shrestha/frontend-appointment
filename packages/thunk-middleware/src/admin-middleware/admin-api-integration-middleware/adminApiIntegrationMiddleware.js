@@ -112,7 +112,7 @@ export const deleteAdminApiIntegrationData = (path, data) => async dispatch => {
     )
   } catch (e) {
     dispatch(
-      AdminModeApiIntegrationActions.adminModeApiDeletePending(e.errorMessage)
+      AdminModeApiIntegrationActions.adminModeApiDeleteError(e.errorMessage||'Sorry Internal Server Error')
     )
     throw e
   }

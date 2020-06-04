@@ -263,7 +263,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         )
         const {
           previewApiIntegrationData
-        } = this.props.hospitalPreviewApiIntegrationReducers
+        } = this.props.AdminPreviewApiIntegrationReducers
+
         const {
           featureCode,
           // requestMethodId,
@@ -403,7 +404,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
 
     onSubmitDeleteHandler = async () => {
       try {
-        await this.props.deleteApiIntegrationData(
+        await this.props.deleteAdminApiIntegrationData(
           adminApiIntegrationConstants.ADMIN_API_INTEGRATION_DELETE,
           this.state.deleteRequestDTO
         )
@@ -416,6 +417,12 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.searchAdminApiIntegration()
       } catch (e) {
         this.setShowModal('deleteModalShow')
+        this.setCloseModal('D')
+        this.setShowAlertModal(
+          'danger',
+          this.props.AdminDeleteApiIntegrationReducers
+            .deleteApiIntegrationErrorMessage
+        )
       }
     }
 
