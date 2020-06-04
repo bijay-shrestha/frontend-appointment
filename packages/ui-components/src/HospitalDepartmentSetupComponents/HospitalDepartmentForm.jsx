@@ -53,6 +53,8 @@ const HospitalDepartmentForm = ({
         isAdminModule ?
             (!availableRoomsForDropdown.length || !departmentData.hospital) : !availableRoomsForDropdown.length;
 
+    let billingModePlaceholder = activeBillingModeForDropdown.length ? "Select Billing Mode."
+        : "No Billing Mode(s) available.";
     return (
         <>
             <Container-fluid>
@@ -160,62 +162,62 @@ const HospitalDepartmentForm = ({
                                 />
                             </Col>
 
-                           </Row>
+                        </Row>
 
-                            <Row>
-                                <Col>
-                                    Billing Mode And Charge
-                                </Col>
-                                <Col>
-                                    <CButton
-                                        id="macBinding"
-                                        name=""
-                                        size="sm"
-                                        variant="outline-secondary"
-                                        className="float-right mb-2"
-                                        onClickHandler={handleAddDepartmentChargeScheme}
-                                    >
-                                        <i className="fa fa-plus"/>
-                                        &nbsp;Add
-                                    </CButton>
-                                </Col>
-                            </Row>
+                        <Row>
+                            <Col>
+                                Billing Mode And Charge
+                            </Col>
+                            <Col>
+                                <CButton
+                                    id="macBinding"
+                                    name=""
+                                    size="sm"
+                                    variant="outline-secondary"
+                                    className="float-right mb-2"
+                                    onClickHandler={handleAddDepartmentChargeScheme}
+                                >
+                                    <i className="fa fa-plus"/>
+                                    &nbsp;Add
+                                </CButton>
+                            </Col>
+                        </Row>
 
-                            {
-                                departmentData.departmentChargeSchemes.map((deptCharge, index) => (
-                                    <Row >
-                                        <Col md={4}>
-                                            <CHybridSelect
-                                                id="billing-mode"
-                                                name="billingMode"
-                                                onKeyDown={event => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                                label="Billing Mode"
-                                                options={activeBillingModeForDropdown}
-                                                value={deptCharge.billingMode}
-                                                required={true}
-                                                placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
-                                                    : "No Billing Mode(s) available."}
-                                                // isDisabled={!activeBillingModeForDropdown.length}
-                                            />
-                                        </Col>
-                                        <Col md={4}>
-                                            <CHybridInput
-                                                id="appointment-charge"
-                                                name="appointmentCharge"
-                                                onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                                placeholder="Appointment Charge"
-                                                value={deptCharge.appointmentCharge}
-                                                required={true}
-                                                hasValidation={true}
-                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={errorMessageForAppointmentCharge}
-                                            />
-                                        </Col>
+                        {
+                            departmentData.departmentChargeSchemes.map((deptCharge, index) => (
+                                <Row>
+                                    <Col md={4}>
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            onKeyDown={event => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            label="Billing Mode"
+                                            options={activeBillingModeForDropdown}
+                                            value={deptCharge.billingMode}
+                                            required={true}
+                                            placeholder={isAdminModule ? departmentData.hospital ? billingModePlaceholder : "Select Client first." :
+                                                billingModePlaceholder}
+                                            isDisabled={isAdminModule ? !departmentData.hospital : false}
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <CHybridInput
+                                            id="appointment-charge"
+                                            name="appointmentCharge"
+                                            onKeyDown={(event) => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            placeholder="Appointment Charge"
+                                            value={deptCharge.appointmentCharge}
+                                            required={true}
+                                            hasValidation={true}
+                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                            errorMessagePassed={errorMessageForAppointmentCharge}
+                                        />
+                                    </Col>
 
-                                        <Col md={4}>
-                                            <div className="charge-box">
+                                    <Col md={4}>
+                                        <div className="charge-box">
                                             <CHybridInput
                                                 id="appointment-follow-up-charge"
                                                 name="followUpCharge"
@@ -228,36 +230,36 @@ const HospitalDepartmentForm = ({
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
                                                 errorMessagePassed={errorMessageForAppointmentCharge}
                                             />
-                                          
-                                            {
-                                            departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
-                                            <div>
-                                                    <CButton
-                                                        id="macBinding"
-                                                        key={'macRemove' + index}
-                                                        name=""
-                                                        variant="outline-danger"
-                                                        className="float-right remove-mac "
-                                                        onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
-                                                    >
-                                                        <i className="fa fa-close"/>
-                                                    </CButton>
-                                                    </div>
-                                                
-                                                : ''
-                                        }
-                                        
-                                        </div>
-                                        </Col>
-                                     
 
-                                    </Row>
-                                ))
-                            }
-                       
+                                            {
+                                                departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
+                                                    <div>
+                                                        <CButton
+                                                            id="macBinding"
+                                                            key={'macRemove' + index}
+                                                            name=""
+                                                            variant="outline-danger"
+                                                            className="float-right remove-mac "
+                                                            onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
+                                                        >
+                                                            <i className="fa fa-close"/>
+                                                        </CButton>
+                                                    </div>
+
+                                                    : ''
+                                            }
+
+                                        </div>
+                                    </Col>
+
+
+                                </Row>
+                            ))
+                        }
+
 
                         <Row>
-                        <Col sm={12} md={6} lg={4}>
+                            <Col sm={12} md={6} lg={4}>
                                 <CFLabel labelName="Status" id="status"/>
                                 <div>
                                     <CRadioButton
