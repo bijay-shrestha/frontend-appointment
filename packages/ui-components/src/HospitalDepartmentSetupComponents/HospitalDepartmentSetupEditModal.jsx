@@ -13,7 +13,8 @@ import {
 import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
 const HospitalDepartmentSetupEditModal = ({
-                                              updateData
+                                              updateData,
+                                              departmentChargeProps
                                           }) => {
 
     const {
@@ -33,6 +34,13 @@ const HospitalDepartmentSetupEditModal = ({
         errorMessage,
         isEditHospitalDepartmentLoading
     } = updateData;
+
+    const {
+        activeBillingModeForDropdown,
+        handleAddDepartmentChargeScheme,
+        handleRemoveDepartmentChargeScheme,
+        handleChargeDataChange
+    } = departmentChargeProps;
 
     let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
 
@@ -154,36 +162,92 @@ const HospitalDepartmentSetupEditModal = ({
                             />
                         </Col>
 
+                        <Row>
+                            <Col>
+                                Billing Mode And Charge
+                            </Col>
+                            <Col>
+                                <CButton
+                                    id="macBinding"
+                                    name=""
+                                    size="sm"
+                                    variant="outline-secondary"
+                                    className="float-right mb-2"
+                                    onClickHandler={handleAddDepartmentChargeScheme}
+                                >
+                                    <i className="fa fa-plus"/>
+                                    &nbsp;Add
+                                </CButton>
+                            </Col>
+                        </Row>
 
-                        <Col sm={12} md={6} lg={6} className="">
-                            <CHybridInput
-                                id="appointment-charge"
-                                name="appointmentCharge"
-                                onKeyDown={(event) => handleEnterPress(event)}
-                                onChange={(event, validity) => handleInputChange(event, validity)}
-                                placeholder="Appointment Charge"
-                                value={departmentData.appointmentCharge}
-                                required={true}
-                                hasValidation={true}
-                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                errorMessagePassed={errorMessageForAppointmentCharge}
-                            />
-                        </Col>
+                        {
+                            departmentData.departmentChargeSchemes.map((deptCharge, index) => (
+                                <Row>
+                                    <Col>
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            onKeyDown={event => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            label="Billing Mode"
+                                            options={activeBillingModeForDropdown}
+                                            value={deptCharge.billingMode}
+                                            required={true}
+                                            placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
+                                                : "No Billing Mode(s) available."}
+                                            // isDisabled={!activeBillingModeForDropdown.length}
+                                        />
+                                    </Col>
+                                    <Col>
+                                        <CHybridInput
+                                            id="appointment-charge"
+                                            name="appointmentCharge"
+                                            onKeyDown={(event) => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            placeholder="Appointment Charge"
+                                            value={deptCharge.appointmentCharge}
+                                            required={true}
+                                            hasValidation={true}
+                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                            errorMessagePassed={errorMessageForAppointmentCharge}
+                                        />
+                                    </Col>
 
-                        <Col sm={12} md={6} lg={6} className="">
-                            <CHybridInput
-                                id="appointment-follow-up-charge"
-                                name="followUpCharge"
-                                onKeyDown={(event) => handleEnterPress(event)}
-                                onChange={(event, validity) => handleInputChange(event, validity)}
-                                placeholder="Appointment Follow Up Charge"
-                                value={departmentData.followUpCharge}
-                                required={true}
-                                hasValidation={true}
-                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                errorMessagePassed={errorMessageForAppointmentCharge}
-                            />
-                        </Col>
+                                    <Col>
+                                        <CHybridInput
+                                            id="appointment-follow-up-charge"
+                                            name="followUpCharge"
+                                            onKeyDown={(event) => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            placeholder="Follow Up Charge"
+                                            value={deptCharge.followUpCharge}
+                                            required={true}
+                                            hasValidation={true}
+                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                            errorMessagePassed={errorMessageForAppointmentCharge}
+                                        />
+                                    </Col>
+                                    {
+                                        departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
+                                            <Col>
+                                                <CButton
+                                                    id="macBinding"
+                                                    key={'macRemove' + index}
+                                                    name=""
+                                                    variant="outline-danger"
+                                                    className="float-right remove-mac "
+                                                    onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
+                                                >
+                                                    <i className="fa fa-close"/>
+                                                </CButton>
+                                            </Col>
+                                            : ''
+                                    }
+
+                                </Row>
+                            ))
+                        }
 
                         <Col sm={12} md={4} lg={4}>
                             <CFLabel labelName="Status" id="status"/>
