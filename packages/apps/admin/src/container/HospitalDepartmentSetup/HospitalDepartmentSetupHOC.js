@@ -82,13 +82,16 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 originalRoomList: [],
                 remarks: '',
                 departmentChargeSchemes: [{
+                    id: '',
                     billingMode: null,
                     appointmentCharge: '',
                     followUpCharge: '',
                     appointmentChargeValid: true,
                     followUpChargeValid: true,
+                    isNew: true
                 }],
-                originalDepartmentChargeSchemes: []
+                originalDepartmentChargeSchemes: [],
+                updatedDepartmentChargeSchemes: [],
             },
             billingModeList: [],
             showDeleteModal: false,
@@ -235,8 +238,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         editDepartment = async () => {
             const {
-                id, name, code, description, appointmentCharge, followUpCharge, remarks, status,
-                originalDoctorList, originalRoomList, doctorList, roomList, hospital
+                id, name, code, description, remarks, status,
+                originalDoctorList, originalRoomList, doctorList, roomList, hospital,
+                departmentChargeSchemes
             } = this.state.departmentData;
 
             let updatedDoctors = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")];
@@ -248,13 +252,12 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 name: name,
                 code: code,
                 description: description,
-                appointmentCharge: appointmentCharge,
-                followUpCharge: followUpCharge,
                 remarks: remarks,
                 status: status,
                 hospitalId: hospital && hospital.value,
                 doctorUpdateList: [...updatedDoctors],
                 roomUpdateList: [...updatedRooms],
+                billingModeChargeUpdateDTOS:[]
             };
             try {
                 await this.props.editHospitalDepartment(
@@ -301,9 +304,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
                 const {activeBillingModeForDropdownByHospital} = this.props.BillingModeDropdownReducer;
 
-                this.updateBillingModeListInState(activeBillingModeForDropdownByHospital);
+                await this.updateBillingModeListInState(activeBillingModeForDropdownByHospital);
             } catch (e) {
                 this.setState({
+                    billingModeList: [],
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'warning',
@@ -443,12 +447,13 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
         handleAddDepartmentChargeScheme = async () => {
             let chargeRowData = {
+                id: '',
                 billingMode: null,
                 appointmentCharge: '',
                 followUpCharge: '',
                 appointmentChargeValid: true,
                 followUpChargeValid: true,
-                isNew:true
+                isNew: true
             };
             let currentDepartmentSchemes = [...this.state.departmentData.departmentChargeSchemes];
             currentDepartmentSchemes.push(chargeRowData);
@@ -562,18 +567,18 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 hospitalName, hospitalId, billingModeChargeResponseList
             } = hospitalDepartmentDetails;
 
-            const {billingModeList} = this.state;
             await this.fetchActiveBillingModesByHospitalId(hospitalId);
+            const {billingModeList} = this.state;
             let updatedBillingModeList = [...billingModeList];
 
             let deptChargeData = billingModeChargeResponseList.map(billMode => {
                 updatedBillingModeList = updatedBillingModeList.filter(updatedBillMode => updatedBillMode !== billMode.id);
                 return {
                     ...billMode,
-                    billingMode: {label: billMode.billingMode, value: billMode.id},
+                    billingMode: {label: billMode.billingMode, value: billMode.billingMode},
                     appointmentChargeValid: true,
                     followUpChargeValid: true,
-                    isNew:false
+                    isNew: false
                 }
             });
             await this.setState({

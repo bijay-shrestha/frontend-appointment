@@ -175,6 +175,9 @@ const HospitalDepartmentForm = ({
                                     size="sm"
                                     variant="outline-secondary"
                                     className="float-right mb-2"
+                                    disabled={isAdminModule ?
+                                        !departmentData.hospital || !activeBillingModeForDropdown.length
+                                        : !activeBillingModeForDropdown.length}
                                     onClickHandler={handleAddDepartmentChargeScheme}
                                 >
                                     <i className="fa fa-plus"/>
@@ -209,6 +212,8 @@ const HospitalDepartmentForm = ({
                                             onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                             placeholder="Appointment Charge"
                                             value={deptCharge.appointmentCharge}
+                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                : !activeBillingModeForDropdown.length}
                                             required={true}
                                             hasValidation={true}
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
@@ -225,6 +230,8 @@ const HospitalDepartmentForm = ({
                                                 onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                                 placeholder="Follow Up Charge"
                                                 value={deptCharge.followUpCharge}
+                                                disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                    : !activeBillingModeForDropdown.length}
                                                 required={true}
                                                 hasValidation={true}
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}

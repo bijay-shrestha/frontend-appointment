@@ -57,6 +57,8 @@ const HospitalDepartmentSetupEditModal = ({
     let roomDropdownDisabled =
         isAdminModule ?
             (!departmentData.hospital) : false;
+    let billingModePlaceholder = activeBillingModeForDropdown.length ? "Select Billing Mode."
+        : "No Billing Mode(s) available.";
 
     let bodyContent =
         <Container-fluid>
@@ -173,6 +175,8 @@ const HospitalDepartmentSetupEditModal = ({
                                     size="sm"
                                     variant="outline-secondary"
                                     className="float-right mb-2"
+                                    disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                        : !activeBillingModeForDropdown.length}
                                     onClickHandler={handleAddDepartmentChargeScheme}
                                 >
                                     <i className="fa fa-plus"/>
@@ -194,9 +198,9 @@ const HospitalDepartmentSetupEditModal = ({
                                             options={activeBillingModeForDropdown}
                                             value={deptCharge.billingMode}
                                             required={true}
-                                            placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
-                                                : "No Billing Mode(s) available."}
-                                            // isDisabled={!activeBillingModeForDropdown.length}
+                                            placeholder={isAdminModule ? departmentData.hospital ? billingModePlaceholder : "Select Client first." :
+                                                billingModePlaceholder}
+                                            isDisabled={isAdminModule ? !departmentData.hospital : false}
                                         />
                                     </Col>
                                     <Col>
@@ -207,6 +211,8 @@ const HospitalDepartmentSetupEditModal = ({
                                             onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                             placeholder="Appointment Charge"
                                             value={deptCharge.appointmentCharge}
+                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                : !activeBillingModeForDropdown.length}
                                             required={true}
                                             hasValidation={true}
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
@@ -222,6 +228,8 @@ const HospitalDepartmentSetupEditModal = ({
                                             onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                             placeholder="Follow Up Charge"
                                             value={deptCharge.followUpCharge}
+                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                : !activeBillingModeForDropdown.length}
                                             required={true}
                                             hasValidation={true}
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}

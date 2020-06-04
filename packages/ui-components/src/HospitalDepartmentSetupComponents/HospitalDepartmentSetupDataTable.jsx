@@ -56,6 +56,13 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
             sizeColumnsToFit: true
         },
         {
+            headerName: 'Billing Mode(s)',
+            field: 'billingModes',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true
+        },
+        {
             headerName: 'Status',
             field: 'status',
             resizable: true,
