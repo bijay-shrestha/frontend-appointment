@@ -9,7 +9,7 @@ import {
     RoomSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
-import {CommonUtils, EnterKeyPressUtils} from "@frontend-appointment/helpers";
+import {CommonUtils, EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from "@frontend-appointment/helpers";
 
 const {
     clearSuccessErrorMessageFormStore,
@@ -223,12 +223,19 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
         editDepartment = async () => {
             const {
                 id, name, code, description, remarks, status,
-                originalDoctorList, originalRoomList, doctorList, roomList
+                originalDoctorList, originalRoomList, doctorList, roomList,
+                departmentChargeSchemes
             } = this.state.departmentData;
 
-            let updatedDoctors = [...this.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")];
-
-            let updatedRooms = [...this.getUpdatedDataListForMultiSelect(originalRoomList, roomList, "room")];
+            let updatedDoctors = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(originalDoctorList, doctorList, "doctor")],
+                updatedRooms = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(originalRoomList, roomList, "room")],
+                updatedBillingModeCharges = departmentChargeSchemes.map(deptCharge => ({
+                    appointmentCharge: deptCharge.appointmentCharge,
+                    billingModeId: deptCharge.billingMode && deptCharge.billingMode.value,
+                    followUpCharge: deptCharge.followUpCharge,
+                    id: deptCharge.id,
+                    status: deptCharge.status
+                }));
 
             let editRequestDTO = {
                 id: id,
@@ -239,6 +246,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 status: status,
                 doctorUpdateList: [...updatedDoctors],
                 roomUpdateList: [...updatedRooms],
+                billingModeChargeUpdateDTOS: [...updatedBillingModeCharges]
             };
             try {
                 await this.props.editHospitalDepartment(
@@ -250,35 +258,6 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 await this.searchDepartmentList();
             } catch (e) {
             }
-        };
-
-        getUpdatedDataListForMultiSelect = (originalList, currentList, fieldName) => {
-            let updatedDataList = [];
-            // FIND NEW ADDED DATA
-            currentList && currentList.map(currentItem => {
-                let currentItemInOriginalList = originalList && originalList.find(original => original.value === currentItem.value);
-                if (!currentItemInOriginalList) {
-                    updatedDataList.push({
-                        [fieldName.concat("Id")]: currentItem.value,
-                        status: 'Y'
-                    })
-                }
-                return '';
-            });
-
-            // REMOVE EXISTING DATA
-            originalList && originalList.map(originalItem => {
-                let originalItemInCurrentList = currentList && currentList.find(current => current.value === originalItem.value);
-                if (!originalItemInCurrentList) {
-                    updatedDataList.push({
-                        [fieldName.concat("Id")]: originalItem.value,
-                        status: 'D'
-                    })
-                }
-                return '';
-            });
-
-            return updatedDataList;
         };
 
         fetchAvailableRoomNumbersForDropdown = async () => {
@@ -359,6 +338,7 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             }
             deptChargeSchemes[index][key] = label ? value ? {label, value} : null : value;
             deptChargeSchemes[index][key + "Valid"] = fieldValid;
+            if (type === "MANAGE") deptChargeSchemes[index].isUpdated = true;
 
             await this.setValuesInState("departmentChargeSchemes", [...deptChargeSchemes], '', '', fieldValid,
                 "departmentData");
@@ -439,7 +419,8 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                 followUpCharge: '',
                 appointmentChargeValid: true,
                 followUpChargeValid: true,
-                isNew: true
+                isNew: true,
+                status: 'Y'
             };
             let currentDepartmentSchemes = [...this.state.departmentData.departmentChargeSchemes];
             currentDepartmentSchemes.push(chargeRowData);
@@ -456,7 +437,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
             selectedBillingModeOfRow && updatedBillingModes.push(selectedBillingModeOfRow);
 
-            deptChargeSchemes.splice(index, 1);
+            if (type === "MANAGE" && !deptChargeSchemes[index].isNew) {
+                deptChargeSchemes[index].status = 'D';
+            } else
+                deptChargeSchemes.splice(index, 1);
             this.setDepartmentChargeSchemeData(deptChargeSchemes);
             this.updateBillingModeListInState(updatedBillingModes);
             this.checkFormValidity();
@@ -564,13 +548,14 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
             let updatedBillingModeList = [...billingModeList];
 
             let deptChargeData = billingModeChargeResponseList.map(billMode => {
-                updatedBillingModeList = updatedBillingModeList.filter(updatedBillMode => updatedBillMode !== billMode.id);
+                updatedBillingModeList = updatedBillingModeList.filter(updatedBillMode => updatedBillMode.value !== billMode.billingModeId);
                 return {
                     ...billMode,
-                    billingMode: {label: billMode.billingMode, value: billMode.billingMode},
+                    billingMode: {value: billMode.billingModeId, label: billMode.billingMode},
                     appointmentChargeValid: true,
                     followUpChargeValid: true,
-                    isNew: false
+                    isNew: false,
+                    status: 'Y'
                 }
             });
             await this.setState({

@@ -51,7 +51,7 @@ class CHybridSelect extends PureComponent {
             defaultValue,
             delimiter,
             escapeClearsValue,
-            hideSelectedOptions,
+            // hideSelectedOptions,
             id,
             inputId,
             inputValue,
@@ -109,7 +109,7 @@ class CHybridSelect extends PureComponent {
                         defaultValue={defaultValue}
                         delimiter={delimiter}
                         escapeClearsValue={escapeClearsValue}
-                        hideSelectedOptions={hideSelectedOptions}
+                        hideSelectedOptions={true}
                         id={'select'.concat(id)}
                         inputId={inputId}
                         inputValue={inputValue}
