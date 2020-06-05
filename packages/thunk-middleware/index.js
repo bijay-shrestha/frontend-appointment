@@ -1,6 +1,7 @@
 import {signinUser} from './src/login-middleware'
 import {
     AdminLoggingMiddleware,
+    AdminApiIntegrationMiddleware,
     AppointmentModeMiddleware,
     AppointmentServiceTypeMiddleware,
     AppointmentTransferMiddleware,
@@ -111,5 +112,6 @@ export {
     HospitalApiIntegrationMiddleware,
     RequestBodyApiIntegrationMiddleware,
     BillingModeMiddleware,
-    AppointmentServiceTypeMiddleware
+    AppointmentServiceTypeMiddleware,
+    AdminApiIntegrationMiddleware,
 }

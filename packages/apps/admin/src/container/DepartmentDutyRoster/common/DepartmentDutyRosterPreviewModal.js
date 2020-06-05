@@ -77,6 +77,8 @@ const DepartmentDutyRosterPreviewModal = ({
                                 disabled={true}
                             />
 
+                            <div className="room-check">
+
                             <i className={departmentInfoData.isRoomEnabled === 'Y' ?
                                 "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
                                                                           labelName={"Enable Room"}/>
@@ -92,6 +94,8 @@ const DepartmentDutyRosterPreviewModal = ({
                                     /> : ''
 
                             }
+
+                            </div>
 
                             <CHybridInput
                                 id="duration"

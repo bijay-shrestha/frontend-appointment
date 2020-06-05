@@ -6,11 +6,12 @@ import {
   CModal,
   CHybridSelect,
   CCheckbox,
-  CFLabel
+  CFLabel,
+  CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
-const ClientApiIntegrationEditModal = ({
+const AdminApiIntegrationEditModal = ({
   showEditModal,
   integrationData,
   setCloseModal,
@@ -20,7 +21,7 @@ const ClientApiIntegrationEditModal = ({
   onChangeHandler,
   //regexForCommaSeperation,
   //isFeatureTypeDropdownLoading,
-  isRequestMethodDropdownLoading,
+  //isRequestMethodDropdownLoading,
   requestMethodData,
   //regexForApiUrl,
   requestParamsIsSelected,
@@ -34,20 +35,20 @@ const ClientApiIntegrationEditModal = ({
   integrationChannelData,
   integrationTypeData
 }) => {
-  console.log('showEditModal', showEditModal)
+  // console.log('showEditModal', showEditModal)
   const bodyContent = (
     <>
       <CForm id="profile-info spec" className="mt-2 profile-info">
         <Container-fluid>
           <Row>
             <Col sm={12} md={3}>
-              <CHybridInput
-                id="client"
-                label="Client"
-                name="clientId"
-                value={integrationData.clientId}
-                disabled={true}
-                placeholder={'Client'}
+              <CHybridSelect
+                id="appointmentModeId"
+                label="Appointment Mode"
+                name="appointmentModeId"
+                value={integrationData.appointmentModeId}
+                isDisabled={true}
+                placeholder={'Appointment Mode'}
               />
             </Col>
 
@@ -82,7 +83,7 @@ const ClientApiIntegrationEditModal = ({
                 }
                 label={'Ingtegration Channel'}
                 placeholder={
-                  !integrationData.clientId
+                  !integrationData.appointmentModeId
                     ? 'Select Client First.'
                     : integrationChannelData.length
                     ? 'Select Integration Channel'
@@ -90,7 +91,8 @@ const ClientApiIntegrationEditModal = ({
                 }
                 options={integrationChannelData}
                 isDisabled={
-                  !integrationData.clientId || !integrationChannelData.length
+                  !integrationData.appointmentModeId ||
+                  !integrationChannelData.length
                 }
               />
             </Col>
@@ -111,7 +113,7 @@ const ClientApiIntegrationEditModal = ({
                 }
                 placeholder={
                   integrationData.integrationTypeId
-                    ? 'Select Integration Type First.'
+                    ? 'Select Client First.'
                     : featureTypeDropdownData.length
                     ? 'Select Feature Type'
                     : 'No Feature Types(s) Found'
@@ -130,12 +132,12 @@ const ClientApiIntegrationEditModal = ({
                 }
                 options={requestMethodData}
                 value={integrationData.requestMethod}
-                isLoading={isRequestMethodDropdownLoading}
                 isDisabled={
-                  !integrationData.clientId || !requestMethodData.length
+                  !integrationData.appointmentModeId ||
+                  !requestMethodData.length
                 }
                 placeholder={
-                  integrationData.clientId
+                  integrationData.appointmentModeId
                     ? 'Select Client First.'
                     : requestMethodData.length
                     ? 'Select Request method'
@@ -351,7 +353,8 @@ const ClientApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestBody && integrationData.requestMethod.label === 'GET' ? (
+          {integrationData.requestBody &&
+          integrationData.requestMethod.label !== 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />
@@ -361,6 +364,20 @@ const ClientApiIntegrationEditModal = ({
               </Col>
             </Row>
           ) : null}
+
+          <Row className="mt-4">
+            <Col sm={12}>
+              <CHybridTextArea
+                name="remarks"
+                id="remarks"
+                placeholder="Enter Remarks"
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
+                value={integrationData.remarks}
+              />
+            </Col>
+          </Row>
         </Container-fluid>
       </CForm>
     </>
@@ -403,7 +420,7 @@ const ClientApiIntegrationEditModal = ({
     <>
       <CModal
         show={showEditModal}
-        modalHeading="API Integration"
+        modalHeading="Admin API Integration"
         size="xl"
         bodyChildren={bodyContent}
         onHide={setCloseModal}
@@ -416,4 +433,4 @@ const ClientApiIntegrationEditModal = ({
   )
 }
 
-export default memo(ClientApiIntegrationEditModal)
+export default memo(AdminApiIntegrationEditModal)

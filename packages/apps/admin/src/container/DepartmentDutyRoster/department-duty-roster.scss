@@ -18,6 +18,9 @@
    @include border-radius($cogent-radius);
    }
   
+   .alert{
+    z-index: 999999999;
+}
    .info-container{
      
       padding-right:0

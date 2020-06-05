@@ -1,0 +1,148 @@
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+
+
+.line-gap{
+    width:100%;
+    height:1px;
+    background-color:#ccc;
+    display:block;
+    padding:0 15px;
+}
+
+.underline{
+    text-decoration: underline;
+    font-size: 0.8rem;
+    position: relative;
+}
+
+.note{
+    margin-top:-4px;
+    font-style: italic;
+    font-size: 0.7rem;
+    font-weight: 300;
+}
+
+.add-button{
+    margin-top:2px;
+}
+
+.module{
+    margin-left: 11px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    padding:0 15px;
+
+   
+
+    .header-fields{
+            &:nth-child(1){
+                width:130px;
+                padding-right:15px;
+                
+            }
+            &:nth-child(2){
+                width:calc(50% - 180px );
+                padding-right:15px;
+            }
+
+            &:nth-child(3){
+                width: 50%;
+                padding-right:15px;
+            }
+
+            .field-wrapper{
+                min-height: 54px;
+            }
+    }
+
+    .remove-button{
+        width:auto;
+        height: 37px;
+        border:none;
+        @include border-radius(4px);
+      
+    }
+
+    &:hover{
+        .remove-button{
+            display: inline-block;
+        }
+        
+    }
+
+   
+}
+
+.api-info{
+    .header{
+        .header-fields{
+           
+            &:nth-child(2){
+                width:calc(70% - 130px) ;
+                padding-right:15px;
+            }
+
+            &:nth-child(3){
+                padding-right:0;
+            }
+    }
+}
+}
+
+.request-body-code{
+    min-height: 100px;
+    background-color:$gray-800;
+    color:$white;
+    padding:14px;
+    overflow: auto;
+    white-space: normal;
+    @include border-radius(4px);
+
+    code{
+        color:$white;
+        height: 100px;
+        word-wrap: none;
+        padding:0 4px;
+        margin-right:14px;
+
+        display: block;
+        white-space: pre-wrap  
+    }
+}
+
+.request-method{
+
+    .badge-primary{
+        background-color: #61affe;
+    }
+   .badge-success{
+    background-color: #49cc90;
+   }
+
+   .badge-warning{
+    background-color:  #fca130;
+   }
+
+   .badge-danger{
+    background-color:  #f93e3e;
+   }
+
+   .badge-info{
+       background-color: #57e3c3;
+    }
+}
+

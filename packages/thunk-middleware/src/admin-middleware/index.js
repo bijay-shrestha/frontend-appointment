@@ -46,6 +46,7 @@ import * as DepartmentDutyRosterMiddleware from './department-duty-roster-middle
 import * as HospitalApiIntegrationMiddleware
     from './hospital-api-integration-middleware/hospitalApiIntegrationMiddleware'
 import * as RequestBodyApiIntegrationMiddleware from './request-body-integration-api/requestBodyIntegrationMiddleware'
+import * as AdminApiIntegrationMiddleware from './admin-api-integration-middleware/adminApiIntegrationMiddleware';
 import * as BillingModeMiddleware from './billing-mode-middleware/billingModeMiddleware';
 import * as AppointmentServiceTypeMiddleware
     from './appointment-service-type-middleware/appointmentServiceTypeMiddleware';
@@ -90,6 +91,7 @@ export {
     DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
     RequestBodyApiIntegrationMiddleware,
+    AdminApiIntegrationMiddleware,
     BillingModeMiddleware,
     AppointmentServiceTypeMiddleware
 }

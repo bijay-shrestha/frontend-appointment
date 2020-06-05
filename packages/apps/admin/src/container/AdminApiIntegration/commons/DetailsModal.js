@@ -18,9 +18,9 @@ const DetailsModal = ({integrationData, type}) => {
               <Col sm={12} md={3}>
                 {type !== 'P' ? (
                   <CHybridSelect
-                    id="hospital"
-                    label="Client"
-                    value={integrationData.clientId}
+                    id="appointmentMode"
+                    label="Appointment Mode"
+                    value={integrationData.appointmentModeId}
                     isDisabled={true}
                   />
                 ) : (
@@ -180,8 +180,8 @@ const DetailsModal = ({integrationData, type}) => {
             </Row>
             <Row>
               {integrationData.requestBody &&
-              integrationData.requestMethod.label !== 'GET' &&
-                integrationData.requestMethod !== 'GET' ? (
+              (integrationData.requestMethod.label !== 'GET' &&
+                integrationData.requestMethod !== 'GET') ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">

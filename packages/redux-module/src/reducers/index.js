@@ -188,6 +188,8 @@ import {
     DepartmentDutyRosterSaveReducer,
 } from './admin-module/departmentDutyRosterReducer';
 
+import {AdminApiIntegrationReducers} from '../reducers/admin-module/adminApiIntegrationReducer';
+
 import {
     BillingModeDeleteReducer,
     BillingModeDropdownReducer,
@@ -200,6 +202,7 @@ import {
 import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
 
 export {
+    AdminApiIntegrationReducers,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,

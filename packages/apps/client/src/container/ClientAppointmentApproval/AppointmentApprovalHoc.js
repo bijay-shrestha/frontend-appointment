@@ -89,7 +89,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         transferCharge: 0
       },
       transferConfirmationModal: false,
-      transferValid: false
+      transferValid: false,
+      thirdPartyApiErrorMessage: ''
     }
 
     handleEnterPress = event => {
@@ -121,12 +122,17 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    setShowModal = () => {
-      this.setState({
+    setShowModal = async () => {
+      await this.setState({
         showModal: false,
         approveConfirmationModal: false,
         transferConfirmationModal: false
       })
+      if (!this.state.approveConfirmationModal) {
+        this.setState({
+          thirdPartyApiErrorMessage: ''
+        })
+      }
     }
 
     checkValidityOfTransfer = () => {
@@ -576,13 +582,21 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
 
       try {
         const response = await thirdPartyApiCall(this.state.appointmentDetails)
-        const {responseData,responseMessage} = response
-        if (!responseData && !responseMessage)
+        if (!response) {
           await this.props.appointmentApprove(
             appointmentSetupApiConstant.APPOINTMENT_APPROVE,
-            this.state.appointmentDetails.AppointmentTransferMiddleware
+            this.state.appointmentDetails.appointmentId
           )
-        else if(responseData && !responseMessage) {
+          this.setState({
+            isConfirming: false,
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                .approveSuccessMessage
+            }
+          })
+        } else if (response.responseData && !response.responseMessage) {
           const status = this.state.appointmentDetails.hospitalNumber
             ? false
             : true
@@ -590,23 +604,25 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             appointmentSetupApiConstant.APPOINTMENT_APPROVE_INTEGRATION,
             {
               appointmentId: this.state.appointmentDetails.appointmentId,
-              hospitalNumber: responseData,
+              hospitalNumber: response.responseData,
               status: status
             }
           )
-        }else{
-         throw new Error(responseMessage)
+          this.setState({
+            isConfirming: false,
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                .approveSuccessMessage
+            }
+          })
+        } else {
+          this.setState({
+            thirdPartyApiErrorMessage: response.responseMessage
+          })
         }
-        this.setState({
-          isConfirming: false,
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'success',
-            message: this.props.AppointmentApproveReducer.approveSuccessMessage
-          }
-        })
       } catch (e) {
-        
         this.setState({
           isConfirming: false,
           showAlert: true,

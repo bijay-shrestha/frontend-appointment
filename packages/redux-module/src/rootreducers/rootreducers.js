@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 // import { LOCATION_CHANGE } from 'react-router-redux';
 import {
+    AdminApiIntegrationReducers,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,
@@ -164,6 +165,7 @@ const {
     CompanyAdminMetaInfoByCompanyIdReducer
 } = CompanyAdminReducer
 const appReducers = combineReducers({
+    ...AdminApiIntegrationReducers,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,

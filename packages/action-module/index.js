@@ -17,6 +17,8 @@ import {
 import {
     adminSetupActionConstants,
     AdminSetupActions,
+    AdminModeApiIntegrationActions,
+    adminModeApiIntegrationActionConstants,
     AppointmentDetailActions,
     appointmentDetailsConstants,
     dashboardDetailsActionsConstant,
@@ -72,6 +74,8 @@ import {
 export {
     adminSetupActionConstants,
     AdminSetupActions,
+    AdminModeApiIntegrationActions,
+    adminModeApiIntegrationActionConstants,
     AppointmentDetailActions,
     appointmentDetailsConstants,
     dashboardDetailsActionsConstant,
