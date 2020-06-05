@@ -163,6 +163,7 @@ const HospitalDepartmentSetupEditModal = ({
                                 className="multiple-select"
                             />
                         </Col>
+                        </Row>
 
                         <Row>
                             <Col>
@@ -188,7 +189,7 @@ const HospitalDepartmentSetupEditModal = ({
                         {
                             departmentData.departmentChargeSchemes.map((deptCharge, index) => (
                                 <Row>
-                                    <Col>
+                                    <Col md={4}>
                                         <CHybridSelect
                                             id="billing-mode"
                                             name="billingMode"
@@ -203,7 +204,7 @@ const HospitalDepartmentSetupEditModal = ({
                                             isDisabled={isAdminModule ? !departmentData.hospital : false}
                                         />
                                     </Col>
-                                    <Col>
+                                    <Col md={4}>
                                         <CHybridInput
                                             id="appointment-charge"
                                             name="appointmentCharge"
@@ -220,7 +221,8 @@ const HospitalDepartmentSetupEditModal = ({
                                         />
                                     </Col>
 
-                                    <Col>
+                                    <Col md={4}>
+                                    <div className="charge-box">
                                         <CHybridInput
                                             id="appointment-follow-up-charge"
                                             name="followUpCharge"
@@ -235,8 +237,7 @@ const HospitalDepartmentSetupEditModal = ({
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
                                             errorMessagePassed={errorMessageForAppointmentCharge}
                                         />
-                                    </Col>
-                                    {
+                                        {
                                         departmentData.departmentChargeSchemes && departmentData.departmentChargeSchemes.length > 1 ?
                                             <Col>
                                                 <CButton
@@ -252,12 +253,17 @@ const HospitalDepartmentSetupEditModal = ({
                                             </Col>
                                             : ''
                                     }
+                                        </div>
+                                    </Col>
+                                    
 
                                 </Row>
                             ))
                         }
 
-                        <Col sm={12} md={4} lg={4}>
+                        <Row>
+
+                        <Col sm={12} md={6} lg={6}>
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton
@@ -328,7 +334,7 @@ const HospitalDepartmentSetupEditModal = ({
             <CModal
                 show={showEditModal}
                 modalHeading="Update Department Details"
-                size="xl"
+                size="lg"
                 bodyChildren={bodyContent}
                 footerChildren={footerChildren}
                 onHide={closeModal}

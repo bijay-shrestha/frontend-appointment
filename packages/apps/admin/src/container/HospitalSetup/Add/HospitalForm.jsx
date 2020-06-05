@@ -128,8 +128,8 @@ const HospitalForm = ({
 
                                     <Col
                                         sm={12}
-                                        md={12}
-                                        lg={6}
+                                        md={4}
+                                        lg={4}
                                         className=" order-md-first"
                                     >
                                     </Col>
@@ -139,7 +139,7 @@ const HospitalForm = ({
 
                             <Col lg={12}>
                                 <Row>
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} lg={4}>
                                         <CHybridInput
                                             id="hospital-name"
                                             name="name"
@@ -158,7 +158,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="esewaMerchantCode"
                                             name="esewaMerchantCode"
@@ -173,7 +173,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="alias"
                                             name="alias"
@@ -187,7 +187,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="hospital-panNumber"
                                             name="panNumber"
@@ -203,7 +203,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridTextArea
                                             id="hospital-address"
                                             name="address"
@@ -217,7 +217,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="number-of-admins"
                                             name="numberOfAdmins"
@@ -230,7 +230,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6} className="mb-4">
+                                    <Col sm={12} md={4}  className="mb-4">
                                         <CFLabel
                                             labelName="Contact Number"
                                             id="contactNumber"
@@ -288,7 +288,7 @@ const HospitalForm = ({
                                         </Row>
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CFLabel labelName="Status" id="status"/>
                                         <div>
                                             <CRadioButton
@@ -302,7 +302,7 @@ const HospitalForm = ({
                                         </div>
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="admin-refund-percentage"
                                             name="refundPercentage"
@@ -316,7 +316,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="number-of-followUps"
                                             name="numberOfFollowUps"
@@ -329,7 +329,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="follow-up-interval-days"
                                             name="followUpIntervalDays"
@@ -342,7 +342,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridSelect
                                             id="billing-mode"
                                             name="billingMode"
@@ -360,7 +360,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridSelect
                                             id="appt-service-type"
                                             name="appointmentServiceType"
@@ -380,7 +380,7 @@ const HospitalForm = ({
                                     </Col>
                                     {
                                         appointmentServiceTypeListForPrimary.length && hospitalInfoObj.appointmentServiceType ?
-                                            <Col sm={12} md={6} lg={6}>
+                                            <Col sm={12} md={4} >
                                                 <CHybridSelect
                                                     id="primary-appt-service-type"
                                                     name="primaryAppointmentServiceType"
