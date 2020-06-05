@@ -350,13 +350,13 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
                         isCompany,
-                        billingMode: [...billingMode],
+                        billingMode: billingMode ? [...billingMode] : [],
                         appointmentServiceType: [...appointmentServiceTypeList],
                         primaryAppointmentServiceType: primaryServiceType ? {
                             label: primaryServiceType.appointmentServiceTypeName,
                             value: primaryServiceType.appointmentServiceTypeId
                         } : null,
-                        originalBillingMode: [...billingMode],
+                        originalBillingMode: billingMode ? [...billingMode] : [],
                         originalAppointmentServiceType: [...appointmentServiceTypeList]
                     },
                     appointmentServiceTypeListForPrimary: appointmentServiceTypeList ? appointmentServiceTypeList : [],

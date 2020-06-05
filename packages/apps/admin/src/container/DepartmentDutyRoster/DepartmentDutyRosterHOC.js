@@ -714,7 +714,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         let updatedOverrides = [
                             ...this.state.updatedOverrides
                         ];
-                        const {isRoomEnabled, room, rosterRoomId} = this.state;
+                        const {isRoomEnabled, rosterRoomId} = this.state;
                         try {
                             let dataToSave = {
                                 hddRosterId: this.state.hddRosterId,
