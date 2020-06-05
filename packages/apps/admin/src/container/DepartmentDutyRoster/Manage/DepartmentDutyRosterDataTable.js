@@ -64,7 +64,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        width: 300
+                                        width: 190
 
                                     },
                                     {
@@ -72,30 +72,33 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         field: 'fromDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 140
                                     },
                                     {
                                         headerName: 'To Date',
                                         field: 'toDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 140
                                     },
                                     {
-                                        headerName: 'Time Duration (In min)',
+                                        headerName: 'Time Period(min)',
                                         field: 'rosterGapDuration',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 140
                                     },
                                     {
-                                        headerName: 'Is Room Enabled',
+                                        headerName: 'Room Enabled',
                                         field: 'isRoomEnabled',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'roomEnabledRenderer',
-                                        width:90
+                                        width:120
                                     },
                                     {
                                         headerName: 'Status',
@@ -114,6 +117,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'childActionRenderer',
                                         cellClass: 'actions-button-cell',
+                                        width:60,
                                         cellRendererParams: {
                                             onClick: function (e, id, type, data) {
                                                 type === 'D'

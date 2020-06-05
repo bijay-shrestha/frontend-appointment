@@ -54,7 +54,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        width: 300
+                                        width: 200
 
                                     },
                                     {
@@ -62,30 +62,32 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         field: 'fromDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 120
                                     },
                                     {
                                         headerName: 'To Date',
                                         field: 'toDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 120
                                     },
                                     {
-                                        headerName: 'Time Duration (In min)',
+                                        headerName: 'Time Period(min)',
                                         field: 'rosterGapDuration',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
                                     },
                                     {
-                                        headerName: 'Is Room Enabled',
+                                        headerName: 'Room Enabled',
                                         field: 'isRoomEnabled',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
                                         cellRenderer: 'roomEnabledRenderer',
-                                        width: 90
+                                        width: 120
                                     },
                                     {
                                         headerName: 'Status',
