@@ -320,7 +320,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                             hospitalAppointmentServiceTypeId: serviceType.hospitalAppointmentServiceTypeId
                         })) : [];
 
-                let primaryServiceType = hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
+                let primaryServiceType = hospitalAppointmentServiceTypeDetail && hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
 
                 this.setState({
                     showEditModal: true,
@@ -937,7 +937,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     deleteRequestDTO={deleteRequestDTO}
                     totalRecords={totalRecords}
                     isSearchLoading={isSearchLoading}
-                    hospitalList={this.appendSNToTable(hospitalList)}
+                    hospitalList={hospitalList}
                     searchErrorMessage={searchErrorMessage}
                     hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
                     deleteErrorMessage={deleteErrorMessage}

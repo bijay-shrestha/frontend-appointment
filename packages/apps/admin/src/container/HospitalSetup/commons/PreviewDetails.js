@@ -13,7 +13,7 @@ const PreviewDetails = props => {
                 value: serviceType.appointmentServiceTypeId
             }));
 
-    let primaryServiceType = hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
+    let primaryServiceType = hospitalAppointmentServiceTypeDetail && hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
     return <>
         <CModal show={showModal}
                 modalHeading="Client Details"

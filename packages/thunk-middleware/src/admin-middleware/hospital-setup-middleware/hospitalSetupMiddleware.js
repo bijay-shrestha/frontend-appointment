@@ -1,5 +1,6 @@
 import {HospitalSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
+import {CommonUtils} from "@frontend-appointment/helpers";
 
 export const createHospital = (
     path,
@@ -58,7 +59,8 @@ export const searchHospital = (path, queryParams, data) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        dispatch(HospitalSetupActions.createHospitalSearchSuccess(response.data));
+        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size);
+        dispatch(HospitalSetupActions.createHospitalSearchSuccess(dataWithSN));
         return response;
     } catch (e) {
         dispatch(HospitalSetupActions.createHospitalListError(e.errorMessage));

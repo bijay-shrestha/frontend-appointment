@@ -49,14 +49,14 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
             sizeColumnsToFit: true
         },
         {
-            headerName: 'Room Number(s)',
+            headerName: 'Room Numbers',
             field: 'roomList',
             resizable: true,
             sortable: true,
             sizeColumnsToFit: true
         },
         {
-            headerName: 'Billing Mode(s)',
+            headerName: 'Billing Modes',
             field: 'billingModes',
             resizable: true,
             sortable: true,
