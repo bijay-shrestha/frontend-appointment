@@ -1193,7 +1193,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     updatedOverrides,
                     originalOverrides,
                     hddRosterId,
-                    room
+                    rosterRoomId
                 } = this.state;
                 let overridesToBeReverted = [];
                 let originalUpdatedOverrides = updatedOverrides.filter(
@@ -1221,7 +1221,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarks: originalOverride.remarks,
                             startTime: originalOverride.startTime,
                             status: 'Y',
-                            hospitalDepartmentRoomInfoId: room ? room.value : '',
+                            hospitalDepartmentRoomInfoId: rosterRoomId ? rosterRoomId : '',
                             rosterOverrideId: originalOverride.rosterOverrideId,
                         };
                         overridesToBeReverted.push(override)
@@ -1243,7 +1243,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         remarks: 'Update Cancelled.',
                         startTime: newAdded.startTime,
                         status: 'D',
-                        hospitalDepartmentRoomInfoId: room ? room.value : '',
+                        hospitalDepartmentRoomInfoId: rosterRoomId ? rosterRoomId : '',
                         rosterOverrideId: newAdded.rosterOverrideId,
                     };
                     overridesToBeReverted.push(override);
