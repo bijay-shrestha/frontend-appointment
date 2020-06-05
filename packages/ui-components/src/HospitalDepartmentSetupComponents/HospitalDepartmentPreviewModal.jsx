@@ -24,7 +24,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
     let departmentChargeSchemes;
     if (type === "MANAGE") {
         const {billingModeChargeResponseList} = departmentData;
-        departmentChargeSchemes = billingModeChargeResponseList.map(billMode => ({
+        departmentChargeSchemes = billingModeChargeResponseList && billingModeChargeResponseList.map(billMode => ({
             ...billMode,
             billingMode: {label: billMode.billingMode, value: billMode.id},
         }))
@@ -204,7 +204,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                         }
                         </Row>
 
-                 
+
                     {
                         type === "MANAGE" ?
                             <Row className="mt-4">

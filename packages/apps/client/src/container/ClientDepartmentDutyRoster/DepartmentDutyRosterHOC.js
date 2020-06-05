@@ -683,7 +683,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         let updatedOverrides = [
                             ...this.state.updatedOverrides
                         ];
-                        const {isRoomEnabled, rosterRoomId} = this.state;
+                        const {isRoomEnabled, room} = this.state;
                         try {
                             let dataToSave = {
                                 hddRosterId: this.state.hddRosterId,
@@ -691,7 +691,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                     ? currentOverride.rosterOverrideId
                                     : '',
                                 dayOffStatus: currentOverride.dayOffStatus,
-                                hospitalDepartmentRoomInfoId: isRoomEnabled === 'Y' ? rosterRoomId ? rosterRoomId : '' : '',
+                                hospitalDepartmentRoomInfoId: isRoomEnabled === 'Y' ? room ? room.value : '' : '',
                                 endTime: currentOverride.endTime,
                                 fromDate: currentOverride.fromDate,
                                 toDate: currentOverride.toDate,
@@ -983,7 +983,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospital: {label: hospitalName, value: hospitalId},
                     department: {label: hospitalDeptName, value: hospitalDeptId},
                     isRoomEnabled,
-                    room: isRoomEnabled === 'Y' ? {label: roomInfo.roomNumber, value: roomInfo.roomId} : null,
+                    room: isRoomEnabled === 'Y' ? {
+                        label: roomInfo.roomNumber,
+                        value: roomInfo.hospitalDepartmentRoomInfoId
+                    } : null,
                     rosterRoomId: isRoomEnabled === 'Y' ? roomInfo.rosterRoomId : '',
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
@@ -1154,7 +1157,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     updatedOverrides,
                     originalOverrides,
                     hddRosterId,
-                    rosterRoomId
+                    room
                 } = this.state;
                 let overridesToBeReverted = [];
                 let originalUpdatedOverrides = updatedOverrides.filter(
@@ -1182,7 +1185,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarks: originalOverride.remarks,
                             startTime: originalOverride.startTime,
                             status: 'Y',
-                            hospitalDepartmentRoomInfoId: rosterRoomId ? rosterRoomId : '',
+                            hospitalDepartmentRoomInfoId: room ? room.value : '',
                             rosterOverrideId: originalOverride.rosterOverrideId,
                         };
                         overridesToBeReverted.push(override)
@@ -1204,7 +1207,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         remarks: 'Update Cancelled.',
                         startTime: newAdded.startTime,
                         status: 'D',
-                        hospitalDepartmentRoomInfoId: rosterRoomId ? rosterRoomId : '',
+                        hospitalDepartmentRoomInfoId: room ? room.value : '',
                         rosterOverrideId: newAdded.rosterOverrideId,
                     };
                     overridesToBeReverted.push(override);

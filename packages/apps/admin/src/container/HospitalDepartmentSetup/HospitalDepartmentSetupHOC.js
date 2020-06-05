@@ -581,9 +581,9 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
 
             await this.fetchActiveBillingModesByHospitalId(hospitalId);
             const {billingModeList} = this.state;
-            let updatedBillingModeList = [...billingModeList];
+            let updatedBillingModeList = billingModeList ? [...billingModeList] : [];
 
-            let deptChargeData = billingModeChargeResponseList.map(billMode => {
+            let deptChargeData = billingModeChargeResponseList && billingModeChargeResponseList.map(billMode => {
                 updatedBillingModeList = updatedBillingModeList.filter(updatedBillMode => updatedBillMode.value !== billMode.billingModeId);
                 return {
                     ...billMode,
@@ -605,10 +605,10 @@ const HospitalDepartmentSetupHOC = (Component, props, type) => {
                     doctorList: doctorList && [...doctorList],
                     roomList: roomList && [...roomList],
                     status: status,
-                    originalDoctorList: [...doctorList],
-                    originalRoomList: [...roomList],
-                    departmentChargeSchemes: [...deptChargeData],
-                    originalDepartmentChargeSchemes: [...deptChargeData]
+                    originalDoctorList: doctorList && [...doctorList],
+                    originalRoomList: roomList && [...roomList],
+                    departmentChargeSchemes: deptChargeData ? [...deptChargeData] : [],
+                    originalDepartmentChargeSchemes: deptChargeData ? [...deptChargeData] : []
                 },
                 billingModeList: [...updatedBillingModeList],
                 showEditModal: true
