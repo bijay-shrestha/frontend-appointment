@@ -1354,6 +1354,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 });
                 this.checkOverrideFormValidity();
+                this.checkFormValidity();
             };
 
             setShowModal = () => {

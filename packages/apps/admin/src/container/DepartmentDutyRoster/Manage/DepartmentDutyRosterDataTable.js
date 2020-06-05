@@ -5,6 +5,7 @@ import TableAction from "@frontend-appointment/admin/src/container/CommonCompone
 import StatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StatusLabel";
 import PreviewHandlerHoc
     from "@frontend-appointment/admin/src/container/CommonComponents/table-components/hoc/PreviewHandlerHoc";
+import {RoomEnableBadge} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -88,6 +89,15 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         sizeColumnsToFit: true
                                     },
                                     {
+                                        headerName: 'Is Room Enabled',
+                                        field: 'isRoomEnabled',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true,
+                                        cellRenderer: 'roomEnabledRenderer',
+                                        width:90
+                                    },
+                                    {
                                         headerName: 'Status',
                                         field: 'status',
                                         resizable: true,
@@ -120,6 +130,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                 ]}
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
+                                    roomEnabledRenderer :PreviewHandlerHoc(RoomEnableBadge, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                     childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                 }}
                                 defaultColDef={{resizable: true}}

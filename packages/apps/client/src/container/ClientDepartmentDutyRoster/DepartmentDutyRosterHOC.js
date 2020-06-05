@@ -72,7 +72,7 @@ const {
 
 const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!';
 const TIME_ERROR_MESSAGE = 'Start time must not be greater than end time!';
-const OVERRIDE_DATE_RANGE_ERROR_MESSAGE ="Override 'From date' and 'To Date' must lie within roster From and To date!";
+const OVERRIDE_DATE_RANGE_ERROR_MESSAGE = "Override 'From date' and 'To Date' must lie within roster From and To date!";
 
 const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         class DepartmentDutyRoster extends PureComponent {
@@ -630,7 +630,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 DATE_ERROR_MESSAGE :
                                 !isFromDateToDateWithinTheGivenDateRange(
                                     overrideRequestDTO.fromDate, overrideRequestDTO.toDate, fromDate, toDate) ?
-                                    OVERRIDE_DATE_RANGE_ERROR_MESSAGE:'' ;
+                                    OVERRIDE_DATE_RANGE_ERROR_MESSAGE : '';
                         overrideErrorMsg = "";
                     } else if (key === 'endTime' || key === 'startTime') {
                         if (overrideRequestDTO.startTime && overrideRequestDTO.endTime) {
@@ -1316,6 +1316,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 });
                 this.checkOverrideFormValidity();
+                this.checkFormValidity();
             };
 
             setShowModal = () => {
