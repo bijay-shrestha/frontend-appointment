@@ -1,12 +1,5 @@
 import React, {memo} from 'react'
-import {
-  CButton,
-  CForm,
-  CModal,
-  CHybridSelect,
-  CHybridInput,
-  CHybridTextArea
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridSelect, CHybridTextArea, CModal} from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
 const DepartmentEditModal = ({
