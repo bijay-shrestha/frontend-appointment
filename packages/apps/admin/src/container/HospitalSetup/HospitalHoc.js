@@ -1,8 +1,12 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {HospitalSetupMiddleware} from '@frontend-appointment/thunk-middleware'
+import {
+    AppointmentServiceTypeMiddleware,
+    BillingModeMiddleware,
+    HospitalSetupMiddleware
+} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './hospitalHoc.scss'
 
 const {
@@ -14,9 +18,20 @@ const {
     searchHospital,
     fetchActiveHospitalsForDropdown
     //downloadExcelForHospitals
-} = HospitalSetupMiddleware
+} = HospitalSetupMiddleware;
 
-const {hospitalSetupApiConstants} = AdminModuleAPIConstants
+const {fetchActiveBillingModeForDropdown} = BillingModeMiddleware;
+
+const {fetchActiveAppointmentServiceType} = AppointmentServiceTypeMiddleware;
+
+const {
+    hospitalSetupApiConstants,
+    billingModeApiConstants,
+    appointmentServiceTypeApiConstants
+} = AdminModuleAPIConstants;
+
+const {FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN} = billingModeApiConstants;
+const {FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE} = appointmentServiceTypeApiConstants;
 
 const HospitalHOC = (ComposedComponent, props, type) => {
     class HospitalSetup extends React.PureComponent {
@@ -28,7 +43,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 alias: '',
                 panNumber: '',
                 status: 'Y',
-                hospitalCode: '',
+                esewaMerchantCode: '',
                 hospitalLogo: null,
                 hospitalLogoUrl: '',
                 hospitalLogoUrlNew: '',
@@ -43,8 +58,14 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 numberOfAdmins: '',
                 numberOfFollowUps: '',
                 followUpIntervalDays: '',
-                nameLengthErrorMsg: ''
+                nameLengthErrorMsg: '',
+                billingMode: null,
+                appointmentServiceType: null,
+                primaryAppointmentServiceType: null,
+                originalBillingMode: [],
+                originalAppointmentServiceType: []
             },
+            appointmentServiceTypeListForPrimary: [],
             formValid: false,
             nameValid: false,
             codeValid: false,
@@ -67,7 +88,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 // code: '',
                 // id: null,
                 name: '',
-                hospitalCode: '',
+                esewaMerchantCode: '',
                 status: {value: '', label: 'All'}
             },
             queryParams: {
@@ -99,7 +120,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     panNumber: '',
                     status: 'Y',
                     alias: '',
-                    hospitalCode: '',
+                    esewaMerchantCode: '',
                     contactNumber: [''],
                     contactNumberUpdateRequestDTOS: [],
                     editContactNumberRequestDTOS: [],
@@ -178,20 +199,25 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {hospitalData, nameValid} = this.state;
             const {
-                name, status, hospitalCode, address, panNumber, refundPercentage, followUpIntervalDays,
+                name, status, esewaMerchantCode, address, panNumber, refundPercentage, followUpIntervalDays,
                 alias,
-                numberOfAdmins, numberOfFollowUps
+                numberOfAdmins, numberOfFollowUps,
+                appointmentServiceType,
+                primaryAppointmentServiceType
             } = hospitalData;
             let formValidity =
                 nameValid &&
                 name &&
                 status &&
-                hospitalCode &&
+                esewaMerchantCode &&
                 address &&
                 panNumber &&
                 refundPercentage >= 0 &&
                 followUpIntervalDays >= 0 &&
-                numberOfAdmins >= 0 && numberOfFollowUps >= 0 && alias;
+                numberOfAdmins >= 0 && numberOfFollowUps >= 0 &&
+                alias &&
+                appointmentServiceType && appointmentServiceType.length &&
+                primaryAppointmentServiceType;
 
             if (eventType === 'E')
                 formValidity =
@@ -273,17 +299,29 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     alias,
                     address,
                     contactNumberResponseDTOS,
-                    hospitalCode,
+                    esewaMerchantCode,
                     hospitalLogo,
                     hospitalBanner,
                     refundPercentage,
                     numberOfAdmins,
                     numberOfFollowUps,
                     followUpIntervalDays,
-                    isCompany
+                    isCompany,
+                    billingMode,
+                    hospitalAppointmentServiceTypeDetail
                 } = this.props.HospitalPreviewReducer.hospitalPreviewData
                 let formValid = this.state.formValid
-                if (remarks) formValid = true
+                if (remarks) formValid = true;
+                let appointmentServiceTypeList = hospitalAppointmentServiceTypeDetail
+                    ? hospitalAppointmentServiceTypeDetail.map(serviceType => (
+                        {
+                            label: serviceType.appointmentServiceTypeName,
+                            value: serviceType.appointmentServiceTypeId,
+                            hospitalAppointmentServiceTypeId: serviceType.hospitalAppointmentServiceTypeId
+                        })) : [];
+
+                let primaryServiceType = hospitalAppointmentServiceTypeDetail.find(serviceType => serviceType.isPrimary === "Y");
+
                 this.setState({
                     showEditModal: true,
                     hospitalData: {
@@ -293,7 +331,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         panNumber: panNumber,
                         alias,
                         address: address,
-                        hospitalCode: hospitalCode,
+                        esewaMerchantCode: esewaMerchantCode,
                         // remarks: remarks,
                         refundPercentage,
                         numberOfAdmins,
@@ -311,8 +349,17 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                         hospitalBanner: new File([5120], hospitalBanner),
                         hospitalBannerImage: new File([5120], hospitalBanner),
                         hospitalBannerImageCroppedUrl: hospitalBanner,
-                        isCompany
+                        isCompany,
+                        billingMode: [...billingMode],
+                        appointmentServiceType: [...appointmentServiceTypeList],
+                        primaryAppointmentServiceType: primaryServiceType ? {
+                            label: primaryServiceType.appointmentServiceTypeName,
+                            value: primaryServiceType.appointmentServiceTypeId
+                        } : null,
+                        originalBillingMode: [...billingMode],
+                        originalAppointmentServiceType: [...appointmentServiceTypeList]
                     },
+                    appointmentServiceTypeListForPrimary: appointmentServiceTypeList ? appointmentServiceTypeList : [],
                     formValid: formValid,
                     nameValid: true
                 })
@@ -343,7 +390,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     filteredContactNumber.push({...contactEdit, status: 'N'})
                 }
 
-            return contactEdit;
+                return contactEdit;
             });
             // console.log(filteredContactNumber)
             contactNumber.map(cont => {
@@ -353,6 +400,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             return filteredContactNumber
         }
 
+        fetchActiveBillingModes = async () =>
+            await this.props.fetchActiveBillingModeForDropdown(FETCH_ACTIVE_BILLING_MODE_FOR_DROPDOWN);
+
+        fetchActiveAppointmentServiceTypes = async () =>
+            await this.props.fetchActiveAppointmentServiceType(FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE);
+
         editHospital = async () => {
             const {
                 name,
@@ -360,8 +413,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalLogo,
                 address,
                 panNumber,
-                hospitalCode,
-                //editContactNumberRequestDTOS,
                 contactNumberUpdateRequestDTOS,
                 remarks,
                 id,
@@ -370,11 +421,20 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBanner,
                 numberOfAdmins,
                 numberOfFollowUps,
-                // isCompany,
-                // alias,//cannot be updated
                 hospitalLogoUrlNew,
-                hospitalBannerUrlNew
-            } = this.state.hospitalData
+                hospitalBannerUrlNew,
+                appointmentServiceType,
+                primaryAppointmentServiceType,
+                billingMode,
+                originalBillingMode,
+                originalAppointmentServiceType
+            } = this.state.hospitalData;
+
+            let updatedBillingMode = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalBillingMode, billingMode, "billingMode")];
+            let updatedAppointmentServiceType = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalAppointmentServiceType, appointmentServiceType, "appointmentServiceType",
+                "hospitalAppointmentServiceTypeId")];
             let hospitalData = {
                 id,
                 name,
@@ -385,14 +445,15 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 remarks,
                 address,
                 panNumber,
-                hospitalCode,
-                // alias,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage,
                 isLogoUpdate: hospitalLogoUrlNew ? 'Y' : 'N',
-                isBannerUpdate: hospitalBannerUrlNew ? 'Y' : 'N'
+                isBannerUpdate: hospitalBannerUrlNew ? 'Y' : 'N',
+                billingModeIds: updatedBillingMode,
+                appointmentServiceTypeUpdateRequestDTO: updatedAppointmentServiceType,
+                primaryAppointmentServiceTypeId: primaryAppointmentServiceType ? primaryAppointmentServiceType.value : ''
             };
 
             let formData = new FormData();
@@ -442,10 +503,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         }
 
         searchHospital = async page => {
-            const {hospitalCode, name, status, id} = this.state.searchParameters;
+            const {esewaMerchantCode, name, status, id} = this.state.searchParameters;
             let searchData = {
                 name: name.value ? name.label : name,
-                hospitalCode: hospitalCode,
+                esewaMerchantCode: esewaMerchantCode,
                 status: status.value === 'A' ? '' : status.value,
                 id: id
             };
@@ -546,7 +607,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
         handleSearchFormReset = async () => {
             await this.setState({
                 searchParameters: {
-                    hospitalCode: '',
+                    esewaMerchantCode: '',
                     status: {value: '', label: 'All'},
                     name: ''
                     //id: null
@@ -632,15 +693,18 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalLogo,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode,
                 //isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
                 refundPercentage,
                 hospitalBanner,
-                alias
-            } = this.state.hospitalData
+                alias,
+                primaryAppointmentServiceType,
+                billingMode,
+                appointmentServiceType
+            } = this.state.hospitalData;
 
             let hospitalData = {
                 name,
@@ -648,13 +712,17 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 contactNumber,
                 address,
                 panNumber,
-                hospitalCode,
+                esewaMerchantCode: esewaMerchantCode,
                 alias,
                 // isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
-                refundPercentage
+                refundPercentage,
+                billingModeId: billingMode ? billingMode.map(billMode => billMode.value) : [],
+                appointmentServiceTypeIds:
+                    appointmentServiceType ? appointmentServiceType.map(appService => appService.value) : [],
+                primaryAppointmentServiceTypeId: primaryAppointmentServiceType && primaryAppointmentServiceType.value,
             };
 
             let formData = new FormData();
@@ -703,16 +771,11 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
         handleOnChange = async (event, fieldValid, eventType) => {
             let hospital = {...this.state.hospitalData}
-            let {name, value, label, type} = event.target
+            let {name, value, label, type, values} = event.target
 
-            value =
-                name === 'hospitalCode' || name === 'alias'
-                    ? value.toUpperCase()
-                    : type === 'checkbox'
-                    ? event.target.checked
-                        ? 'Y'
-                        : 'N'
-                    : value
+            value = name === 'esewaMerchantCode' || name === 'alias' ? value.toUpperCase()
+                : type === 'checkbox' ? event.target.checked ? 'Y' : 'N'
+                    : values ? values : value
 
             hospital[name] = !label
                 ? value
@@ -740,10 +803,33 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     })
                 }
             }
+            if (name === "appointmentServiceType") {
+                const {primaryAppointmentServiceType} = this.state.hospitalData;
+                if (value) {
+                    let selectedPrimaryExists = value.find(serviceType => serviceType.value === primaryAppointmentServiceType && primaryAppointmentServiceType.value);
+                    this.setState({
+                        appointmentServiceTypeListForPrimary: value ? [...value] : [],
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            primaryAppointmentServiceType: selectedPrimaryExists ? primaryAppointmentServiceType : null
+                        }
+                    })
+                } else {
+                    this.setState({
+                        appointmentServiceTypeListForPrimary: [],
+                        hospitalData: {
+                            ...this.state.hospitalData,
+                            primaryAppointmentServiceType: null
+                        }
+                    })
+                }
+            }
             this.checkFormValidity(eventType)
         };
 
         async componentDidMount() {
+            this.fetchActiveBillingModes();
+            this.fetchActiveAppointmentServiceTypes();
             if (type === 'M') {
                 await this.searchHospital()
                 await this.searchHospitalForDropDown()
@@ -776,7 +862,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBannerFileCropped,
                 hospitalBannerImage,
                 hospitalBannerImageCroppedUrl,
-                showBannerUploadModal
+                showBannerUploadModal,
+                appointmentServiceTypeListForPrimary
             } = this.state
 
             const {
@@ -805,10 +892,16 @@ const HospitalHOC = (ComposedComponent, props, type) => {
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
+            const {activeBillingModeForDropdown} = this.props.BillingModeDropdownReducer;
+            const {activeAppointmentServiceTypeForDropdown} = this.props.AppointmentServiceTypeDropdownReducer;
+
             return (
                 <ComposedComponent
                     {...this.props}
                     {...props}
+                    activeBillingModeForDropdown={activeBillingModeForDropdown}
+                    activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                    appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                     handleEnter={this.handleEnterPress}
                     hospitalData={hospitalData}
                     resetStateAddValues={this.resetHospitalStateValues}
@@ -888,7 +981,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             'HospitalEditReducer',
             'HospitalPreviewReducer',
             'HospitalSearchReducer',
-            'HospitalDropdownReducer'
+            'HospitalDropdownReducer',
+            'AppointmentServiceTypeDropdownReducer',
+            'BillingModeDropdownReducer'
         ],
         {
             clearHospitalCreateMessage,
@@ -897,8 +992,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             editHospital,
             previewHospital,
             searchHospital,
-            fetchActiveHospitalsForDropdown
+            fetchActiveHospitalsForDropdown,
+            fetchActiveBillingModeForDropdown,
+            fetchActiveAppointmentServiceType
         }
     )
-}
+};
 export default HospitalHOC

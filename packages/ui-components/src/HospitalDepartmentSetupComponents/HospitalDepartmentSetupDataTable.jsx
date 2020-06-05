@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import {ActionFilterUtils, EnvironmentVariableGetter} from '@frontend-appointment/helpers'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from "@frontend-appointment/ui-components";
 import HospitalDepartmentPreviewModal from "./HospitalDepartmentPreviewModal";
@@ -30,6 +30,77 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
         deleteErrorMsg,
         isDeleteHospitalDepartmentLoading
     } = tableData;
+    let isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
+    let tableColumns = [
+        {
+            headerName: 'SN',
+            field: 'sN',
+            headerClass: 'resizable-header header-first-class',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true,
+            cellClass: 'first-class'
+        },
+        {
+            headerName: 'Department Name',
+            field: 'name',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true
+        },
+        {
+            headerName: 'Room Number(s)',
+            field: 'roomList',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true
+        },
+        {
+            headerName: 'Billing Mode(s)',
+            field: 'billingModes',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true
+        },
+        {
+            headerName: 'Status',
+            field: 'status',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true,
+            cellRenderer: 'childLabelRenderer'
+        },
+        {
+            headerName: '',
+            action: 'action',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true,
+            cellRenderer: 'childActionRenderer',
+            cellClass: 'actions-button-cell',
+            cellRendererParams: {
+                onClick: function (e, id, type) {
+                    type === 'D'
+                        ? onDeleteHandler(id)
+                        : type === 'E'
+                        ? onEditHandler(id)
+                        : onPreviewHandler(id)
+                },
+                filteredAction: filteredActions
+            },
+            cellStyle: {overflow: 'visible', 'z-index': '99'}
+        }
+    ];
+
+    if (isAdminModule) {
+        tableColumns.splice(1, 0, {
+            headerName: 'Client',
+            field: 'hospitalName',
+            resizable: true,
+            sortable: true,
+            sizeColumnsToFit: true
+        })
+    }
 
     return (
         <div className="manage-details">
@@ -43,73 +114,7 @@ const HospitalDepartmentSetupDataTable = ({tableData}) => {
                         height="460px"
                         enableSorting
                         editType
-                        columnDefs={[
-                            {
-                                headerName: 'SN',
-                                field: 'sN',
-                                headerClass: 'resizable-header header-first-class',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true,
-                                cellClass: 'first-class'
-                            },
-                            {
-                                headerName: 'Department Name',
-                                field: 'name',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
-                                headerName: 'Room Number(s)',
-                                field: 'roomList',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
-                                headerName: 'Appointment Charge',
-                                field: 'appointmentCharge',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
-                                headerName: 'Follow up Charge',
-                                field: 'followUpCharge',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true
-                            },
-                            {
-                                headerName: 'Status',
-                                field: 'status',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true,
-                                cellRenderer: 'childLabelRenderer'
-                            },
-                            {
-                                headerName: '',
-                                action: 'action',
-                                resizable: true,
-                                sortable: true,
-                                sizeColumnsToFit: true,
-                                cellRenderer: 'childActionRenderer',
-                                cellClass: 'actions-button-cell',
-                                cellRendererParams: {
-                                    onClick: function (e, id, type) {
-                                        type === 'D'
-                                            ? onDeleteHandler(id)
-                                            : type === 'E'
-                                            ? onEditHandler(id)
-                                            : onPreviewHandler(id)
-                                    },
-                                    filteredAction: filteredActions
-                                },
-                                cellStyle: {overflow: 'visible', 'z-index': '99'}
-                            }
-                        ]}
+                        columnDefs={tableColumns}
                         frameworkComponents={{
                             childActionRenderer: TableAction,
                             childLabelRenderer: StatusLabel

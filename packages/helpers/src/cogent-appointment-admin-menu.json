@@ -638,6 +638,26 @@
           "menuFor": "1",
           "description": "Appointment Mode Setup",
           "childMenus": []
+        },
+        {
+          "id": "39",
+          "parentId": "20",
+          "name": "Billing Mode Setup",
+          "path": "/companySettings/billingMode",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Billing Mode Setup",
+          "childMenus": []
         }
       ]
     },

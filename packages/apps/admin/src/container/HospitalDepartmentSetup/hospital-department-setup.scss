@@ -1,0 +1,16 @@
+.charge-box{
+    display:flex;
+    flex-direction: row;
+
+    div:nth-child(1){
+        flex:1 0 calc(100% - 50px);
+    }
+
+    div:nth-child(2){
+        flex: 0 0 50px;
+        .remove-mac{
+            height: 36px;
+            border:none;
+        }
+    }
+}

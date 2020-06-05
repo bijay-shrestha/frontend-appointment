@@ -1,5 +1,5 @@
-import React, { memo } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import React, {memo} from 'react'
+import {Col, Row} from 'react-bootstrap'
 import {
     CFLabel,
     CForm,
@@ -7,37 +7,40 @@ import {
     CRadioButton,
     CHybridTextArea,
     CButton,
-    CFControl
+    CFControl, CHybridSelect
 } from '@frontend-appointment/ui-elements'
 import * as DefaultLogo from '../img/default-logo.png'
-import { CImageUploadAndCropModal } from '@frontend-appointment/ui-components'
+import {CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 
 
 const HospitalForm = ({
-    hospitalInfoObj,
-    errorMessageForHospitalName,
-    errorMessageForHospitalCode,
-    onEnterKeyPress,
-    onInputChange,
-    addContactNumber,
-    removeContactNumber,
-    editContactNumber,
-    contactLength,
-    hospitalImage,
-    hospitalImageCroppedUrl,
-    showImageUploadModal,
-    onImageSelect,
-    handleCropImage,
-    handleImageUpload,
-    setImageShow,
-    hospitalBannerImage,
-    onBannerImageSelect,
-    hospitalBannerImageCroppedUrl,
-    showBannerUploadModal,
-    handleCropBannerImage,
-    handleBannerImageUpload,
-    setShowBannerUploadModal
-}) => {
+                          hospitalInfoObj,
+                          errorMessageForHospitalName,
+                          errorMessageForHospitalCode,
+                          onEnterKeyPress,
+                          onInputChange,
+                          addContactNumber,
+                          removeContactNumber,
+                          editContactNumber,
+                          contactLength,
+                          hospitalImage,
+                          hospitalImageCroppedUrl,
+                          showImageUploadModal,
+                          onImageSelect,
+                          handleCropImage,
+                          handleImageUpload,
+                          setImageShow,
+                          hospitalBannerImage,
+                          onBannerImageSelect,
+                          hospitalBannerImageCroppedUrl,
+                          showBannerUploadModal,
+                          handleCropBannerImage,
+                          handleBannerImageUpload,
+                          setShowBannerUploadModal,
+                          activeBillingModeForDropdown,
+                          activeAppointmentServiceTypeForDropdown,
+                          appointmentServiceTypeListForPrimary
+                      }) => {
     return (
         <>
             <Container-fluid>
@@ -48,7 +51,7 @@ const HospitalForm = ({
                     <Container-fluid>
                         <Row>
                             <Col lg={12}
-                            // className=" order-md-first order-lg-last"
+                                // className=" order-md-first order-lg-last"
                             >
                                 <Row>
                                     <Col sm={12} md={12} lg={12}>
@@ -125,8 +128,8 @@ const HospitalForm = ({
 
                                     <Col
                                         sm={12}
-                                        md={12}
-                                        lg={6}
+                                        md={4}
+                                        lg={4}
                                         className=" order-md-first"
                                     >
                                     </Col>
@@ -136,7 +139,7 @@ const HospitalForm = ({
 
                             <Col lg={12}>
                                 <Row>
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} lg={4}>
                                         <CHybridInput
                                             id="hospital-name"
                                             name="name"
@@ -155,14 +158,14 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
-                                            id="hospital-code"
-                                            name="hospitalCode"
+                                            id="esewaMerchantCode"
+                                            name="esewaMerchantCode"
                                             onKeyDown={event => onEnterKeyPress(event)}
                                             onChange={(event, validity) => onInputChange(event, validity)}
-                                            placeholder="Merchant Code"
-                                            value={hospitalInfoObj.hospitalCode}
+                                            placeholder="Esewa Merchant Code"
+                                            value={hospitalInfoObj.esewaMerchantCode}
                                             required={true}
                                             errorMessagePassed={errorMessageForHospitalCode}
                                             max={10}
@@ -170,7 +173,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="alias"
                                             name="alias"
@@ -184,7 +187,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="hospital-panNumber"
                                             name="panNumber"
@@ -200,7 +203,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridTextArea
                                             id="hospital-address"
                                             name="address"
@@ -214,7 +217,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="number-of-admins"
                                             name="numberOfAdmins"
@@ -227,7 +230,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6} className="mb-4">
+                                    <Col sm={12} md={4}  className="mb-4">
                                         <CFLabel
                                             labelName="Contact Number"
                                             id="contactNumber"
@@ -240,14 +243,14 @@ const HospitalForm = ({
                                                 name=""
                                                 size="sm"
                                                 className="pull-right"
-                                            ><i className="fa fa-plus" /> Add
+                                            ><i className="fa fa-plus"/> Add
                                             </CButton>
                                         )}
                                         <Row key={'contactForm'}>
                                             {hospitalInfoObj.contactNumber.map((contNumber, idx) => {
                                                 return (
                                                     <Col md={12} lg={12} key={"contInputs" + idx}
-                                                        className="contact-box my-1">
+                                                         className="contact-box my-1">
                                                         <CFControl
                                                             key={'contactInput' + idx}
                                                             id={'contactInput' + idx}
@@ -266,7 +269,7 @@ const HospitalForm = ({
                                                             max={10}
 
 
-                                                        // errorMessagePassed={errorMessageForHospitalCode}
+                                                            // errorMessagePassed={errorMessageForHospitalCode}
                                                         />
                                                         {hospitalInfoObj.contactNumber.length !== 1 ? <CButton
                                                             key={'removecontact' + idx}
@@ -278,15 +281,15 @@ const HospitalForm = ({
                                                             name=""
                                                             size="sm"
                                                             className="remove-contact "
-                                                        > <i className="fa fa-close" /></CButton> : ''}
+                                                        > <i className="fa fa-close"/></CButton> : ''}
                                                     </Col>
                                                 )
                                             })}
                                         </Row>
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
-                                        <CFLabel labelName="Status" id="status" />
+                                    <Col sm={12} md={4} >
+                                        <CFLabel labelName="Status" id="status"/>
                                         <div>
                                             <CRadioButton
                                                 checked={Boolean(hospitalInfoObj.status)}
@@ -299,7 +302,7 @@ const HospitalForm = ({
                                         </div>
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="admin-refund-percentage"
                                             name="refundPercentage"
@@ -313,18 +316,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    {/*<Col sm={12} md={6} lg={6}>*/}
-                                    {/*    <CCheckbox id="cogent-admin"*/}
-                                    {/*        name="isCompany"*/}
-                                    {/*        label="F1soft Group of Companies"*/}
-                                    {/*        className="module"*/}
-                                    {/*        checked={hospitalInfoObj.isCompany === 'Y'}*/}
-                                    {/*        onChange={(event) => onInputChange(event)}*/}
-                                    {/*        onKeyDown={(event) => onEnterKeyPress(event)}*/}
-                                    {/*    />*/}
-                                    {/*</Col>*/}
-
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="number-of-followUps"
                                             name="numberOfFollowUps"
@@ -337,7 +329,7 @@ const HospitalForm = ({
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} lg={6}>
+                                    <Col sm={12} md={4} >
                                         <CHybridInput
                                             id="follow-up-interval-days"
                                             name="followUpIntervalDays"
@@ -349,6 +341,64 @@ const HospitalForm = ({
                                             required={true}
                                         />
                                     </Col>
+
+                                    <Col sm={12} md={4} >
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            onKeyDown={event => onEnterKeyPress(event)}
+                                            onChange={(event, validity) => onInputChange(event, validity)}
+                                            label="Billing Mode (optional)"
+                                            options={activeBillingModeForDropdown}
+                                            value={hospitalInfoObj.billingMode}
+                                            required={true}
+                                            placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
+                                                : "No Billing Mode(s) available."}
+                                            isDisabled={!activeBillingModeForDropdown.length}
+                                            isMulti={true}
+                                            className="multiple-select"
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={4} >
+                                        <CHybridSelect
+                                            id="appt-service-type"
+                                            name="appointmentServiceType"
+                                            onKeyDown={event => onEnterKeyPress(event)}
+                                            onChange={(event, validity) => onInputChange(event, validity)}
+                                            label="Appointment Service Type"
+                                            options={activeAppointmentServiceTypeForDropdown}
+                                            value={hospitalInfoObj.appointmentServiceType}
+                                            required={true}
+                                            placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                                "Select Appointment Service Type."
+                                                : "No Appointment Service Type(s) available."}
+                                            isDisabled={!activeAppointmentServiceTypeForDropdown.length}
+                                            isMulti={true}
+                                            className="multiple-select"
+                                        />
+                                    </Col>
+                                    {
+                                        appointmentServiceTypeListForPrimary.length && hospitalInfoObj.appointmentServiceType ?
+                                            <Col sm={12} md={4} >
+                                                <CHybridSelect
+                                                    id="primary-appt-service-type"
+                                                    name="primaryAppointmentServiceType"
+                                                    onKeyDown={event => onEnterKeyPress(event)}
+                                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                                    label="Primary Appointment Service Type"
+                                                    options={appointmentServiceTypeListForPrimary}
+                                                    value={hospitalInfoObj.primaryAppointmentServiceType}
+                                                    required={true}
+                                                    placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                                        "Select Primary Appointment Service Type."
+                                                        : "No Appointment Service Type(s) available."}
+                                                    isDisabled={!activeAppointmentServiceTypeForDropdown.length}
+                                                />
+                                            </Col>
+                                            : ''
+                                    }
+
                                 </Row>
                             </Col>
                         </Row>

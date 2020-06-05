@@ -66,7 +66,7 @@ class CHybridSelectWithImage extends PureComponent {
             defaultValue,
             delimiter,
             escapeClearsValue,
-            hideSelectedOptions,
+            // hideSelectedOptions,
             id,
             inputId,
             inputValue,
@@ -97,7 +97,7 @@ class CHybridSelectWithImage extends PureComponent {
             theme,
             value
         } = this.props;
-        
+
         return (
             <>
                 <div
@@ -128,7 +128,7 @@ class CHybridSelectWithImage extends PureComponent {
                         }}
                         getOptionLabel={this.getFormattedOptionLabel}
                         getOptionValue={option => option}
-                        hideSelectedOptions={hideSelectedOptions}
+                        hideSelectedOptions={true}
                         id={'select'.concat(id)}
                         inputId={inputId}
                         inputValue={inputValue}

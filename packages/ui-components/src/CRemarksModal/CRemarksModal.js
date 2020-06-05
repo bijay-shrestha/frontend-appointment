@@ -34,7 +34,7 @@ const CRemarksModal = ({
                     className="float-right  btn-action ml-2"
                     disabled={actionDisabled}
                     name={primaryActionName}
-                    isLoding={primaryActionLoading}
+                    isLoading={primaryActionLoading}
                     onClickHandler={onPrimaryAction}
                 />
 

@@ -1,8 +1,12 @@
 import React, {PureComponent} from 'react'
-import {CButton, CForm, CHybridSelect, CHybridInput} from '@frontend-appointment/ui-elements'
+import {
+    CButton,
+    CForm, CHybridInput,
+    CHybridSelect
+} from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
-class HospitalSetupSearchFilter extends PureComponent {
+class RoomSetupSearchFilter extends PureComponent {
     state = {
         isSearchFormExpanded: false
     };
@@ -16,8 +20,8 @@ class HospitalSetupSearchFilter extends PureComponent {
     };
 
     handleSearchButtonClick = () => {
-        this.props.onSearchClick();
-        this.toggleSearchForm();
+        this.props.searchData.onSearchClick();
+        this.toggleSearchForm()
     };
 
     render() {
@@ -26,16 +30,15 @@ class HospitalSetupSearchFilter extends PureComponent {
             searchParameters,
             resetSearchForm,
             handleEnter,
-            hospitalDropdown,
-            isSearchLoading
-        } = this.props;
+            billingModeForDropdown,
+            dropdownErrorMessage
+        } = this.props.searchData;
         return (
             <>
                 {this.state.isSearchFormExpanded ? (
-                    // TODO: TO BE MADE DYNAMIC
                     <div id="advanced-search" className="advanced-search">
                         <div className="search-header d-flex justify-content-between">
-                            <h5 className="title">Search Client</h5>
+                            <h5 className="title">Search Room</h5>
                             <div>
                                 <CButton
                                     id="reset-form"
@@ -44,42 +47,47 @@ class HospitalSetupSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearchForm}
                                 >
-                                    Reset <i className="fa fa-refresh"/>
+                                    {' '}
+                                    <i className="fa fa-refresh"/>&nbsp;Reset
                                 </CButton>
                             </div>
                         </div>
-                        <CForm id="hospital-info" className="profile-info mt-4">
+                        <CForm id="qualification-alias-search" className="profile-info mt-4">
                             <Container-fluid>
                                 <Row>
-                                    <Col sm={12} md={6} xl={6}>
+                                    <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
-                                            id="name"
-                                            name="name"
+                                            id="billing-mode"
+                                            name="billingMode"
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event)}
-                                            value={searchParameters.name}
-                                            options={hospitalDropdown}
-                                            label="Client Name"
+                                            onChange={event => onInputChange(event, 'SEARCH')}
+                                            label="Billing Mode"
+                                            placeholder={billingModeForDropdown.length ? "Select Billing Mode."
+                                                : "No Billing Mode(s) available."}
+                                            value={searchParameters.roomNumber}
+                                            options={billingModeForDropdown}
+                                            isDisabled={!billingModeForDropdown.length}
+                                            noOptionsMessage={() => dropdownErrorMessage}
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={6}>
+                                    <Col sm={12} md={4} xl={4}>
                                         <CHybridInput
                                             id="code"
-                                            name="esewaMerchantCode"
-                                            placeholder="Esewa Merchant Code"
+                                            name="code"
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event)}
-                                            value={searchParameters.hospitalCode}
+                                            onChange={event => onInputChange(event, 'SEARCH')}
+                                            placeholder="Code"
+                                            value={searchParameters.code}
                                         />
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={6}>
+                                    <Col sm={12} md={4} xl={4}>
                                         <CHybridSelect
                                             id="status"
                                             name="status"
                                             onKeyDown={event => handleEnter(event)}
-                                            onChange={event => onInputChange(event)}
+                                            onChange={event => onInputChange(event, 'SEARCH')}
                                             value={searchParameters.status}
                                             options={[
                                                 {value: 'A', label: 'All'},
@@ -96,26 +104,25 @@ class HospitalSetupSearchFilter extends PureComponent {
                                     >
                                         <div className="pull-right">
                                             <CButton
-                                                id="search-profiles"
+                                                id="close-search-alias"
                                                 variant="light"
                                                 size="sm"
                                                 className=" btn-action mr-2"
-                                                // children={<i className='fa fa-chevron-up fa-lg'/>}
                                                 name="Close"
                                                 onClickHandler={this.toggleSearchForm}
                                             />
                                             <CButton
-                                                id="search-profiles"
+                                                id="search-alias"
                                                 variant="primary"
                                                 className="btn-action"
-                                                name={isSearchLoading ? "Searching":"Search"}
+                                                name="Search"
                                                 onClickHandler={this.handleSearchButtonClick}
                                             />
                                         </div>
                                     </Col>
                                 </Row>
                             </Container-fluid>
-                            <div className="search-toggle-btn"></div>
+                            <div className="search-toggle-btn"/>
                         </CForm>
                     </div>
                 ) : (
@@ -129,44 +136,43 @@ class HospitalSetupSearchFilter extends PureComponent {
                             <li>
                                 <CButton id="spec-filter" variant="primary" name="">
                                     <>
-                                        <i className="fa fa-sliders"></i>
+                                        <i className="fa fa-sliders"/>
                                         &nbsp; Filter
                                     </>
                                 </CButton>
                             </li>
-                            {searchParameters.name && (
+
+                            {searchParameters.billingMode && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
                                         delay={{show: 250, hide: 400}}
                                         overlay={props => (
-                                            <Tooltip {...props}>Client Name</Tooltip>
+                                            <Tooltip {...props}>Billing Mode</Tooltip>
                                         )}
                                     >
                                         <Button id="light-search-filters" variant="secondary">
-                                            {searchParameters.name.label}
+                                            {searchParameters.billingMode.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
                             )}
 
-                            {
-                                searchParameters.hospitalCode && (
-                                    <li>
-                                        <OverlayTrigger
-                                            placement="top"
-                                            delay={{show: 250, hide: 400}}
-                                            overlay={props => (
-                                                <Tooltip {...props}>Esewa Merchant Code</Tooltip>
-                                            )}
-                                        >
-                                            <Button id="light-search-filters" variant="secondary">
-                                                {searchParameters.esewaMerchantCode}
-                                            </Button>
-                                        </OverlayTrigger>
-                                    </li>
-                                )
-                            }
+                            {searchParameters.code && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        delay={{show: 250, hide: 400}}
+                                        overlay={props => (
+                                            <Tooltip {...props}>Code</Tooltip>
+                                        )}
+                                    >
+                                        <Button id="light-search-filters" variant="secondary">
+                                            {searchParameters.code}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
                             {searchParameters.status && (
                                 <li>
@@ -195,4 +201,4 @@ class HospitalSetupSearchFilter extends PureComponent {
     }
 }
 
-export default HospitalSetupSearchFilter
+export default RoomSetupSearchFilter;
