@@ -55,7 +55,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: null,
         id: '',
         integrationChannelId: '',
-        integrationTypeId: ''
+        integrationTypeId: '',
+        remarks:''
       },
       searchParameters: {
         requestMethodId: '',
@@ -105,7 +106,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: null,
           id: '',
           integrationChannelId: '',
-          integrationTypeId: ''
+          integrationTypeId: '',
+          remarks:''
         },
         formValid: false,
         restApiValid: false,
@@ -325,7 +327,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           previewApiIntegrationData
         } = this.props.AdminPreviewApiIntegrationReducers
         const {
-          appointmentModeName,
+          appointmentModeId,
+          appointmentMode,
           featureId,
           featureCode,
           requestMethodId,
@@ -343,7 +346,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.onFeatureTypeChangeRequestBody(featureId)
         const {requestBody} = this.state.integrationData
         let integrationData = {
-          appointmentModeId: appointmentModeName,
+          appointmentModeId:{value:appointmentModeId,label:appointmentMode},
           featureType: {value: featureId, label: featureCode},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
@@ -357,15 +360,16 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           integrationChannelId: {
             value: integrationChannelId,
             label: integrationChannel
-          }
+          },
+          remarks:''
         }
         this.setTheStateForIntegrationData(integrationData)
         this.setShowModal('editShowModal')
         await this.setState({
-          requestParamsIsSelected: true,
-          requestHeadersIsSelected: true,
-          editHeaders: headers,
-          editQueryParams: queryParameters,
+          requestParamsIsSelected: Boolean(queryParameters)||false,
+          requestHeadersIsSelected: Boolean(headers)||false,
+          editHeaders:integrationData.headers,
+          editQueryParams:integrationData.queryParams,
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -504,7 +508,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         // queryParams,
         integrationChannelId,
         integrationTypeId,
-        requestMethod
+        requestMethod,
+        remarks
       } = this.state.integrationData
       //const {apiUrlValid} = this.state
       let formValid =
@@ -516,6 +521,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         //apiUrlValid
       if (type === 'E') {
         formValid = formValid && appointmentModeId
+        formValid = formValid && remarks
       } else {
         formValid = formValid && appointmentModeId.value
       }
@@ -584,12 +590,16 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod,
         id,
         integrationChannelId,
-        integrationTypeId
+        integrationTypeId,
+        // appointmentMode,
+        appointmentModeId
       } = this.state.integrationData
       try {
         await this.props.editAdminApiIntegrationData(
           adminApiIntegrationConstants.ADMIN_API_INTEGRATION_EDIT,
           {
+            adminModeIntegrationId:id,
+            appointmentModeId:appointmentModeId.value,
             apiUrl,
             clientApiRequestHeaders: this.filterOutRequestAndHeaderParams(
               headers,

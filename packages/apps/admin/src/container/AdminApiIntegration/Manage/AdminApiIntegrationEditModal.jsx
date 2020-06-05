@@ -6,7 +6,8 @@ import {
   CModal,
   CHybridSelect,
   CCheckbox,
-  CFLabel
+  CFLabel,
+  CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -20,7 +21,7 @@ const AdminApiIntegrationEditModal = ({
   onChangeHandler,
   //regexForCommaSeperation,
   //isFeatureTypeDropdownLoading,
-  isRequestMethodDropdownLoading,
+  //isRequestMethodDropdownLoading,
   requestMethodData,
   //regexForApiUrl,
   requestParamsIsSelected,
@@ -41,12 +42,12 @@ const AdminApiIntegrationEditModal = ({
         <Container-fluid>
           <Row>
             <Col sm={12} md={3}>
-              <CHybridInput
+              <CHybridSelect
                 id="appointmentModeId"
                 label="Appointment Mode"
                 name="appointmentModeId"
                 value={integrationData.appointmentModeId}
-                disabled={true}
+                isDisabled={true}
                 placeholder={'Appointment Mode'}
               />
             </Col>
@@ -90,7 +91,8 @@ const AdminApiIntegrationEditModal = ({
                 }
                 options={integrationChannelData}
                 isDisabled={
-                  !integrationData.appointmentModeId || !integrationChannelData.length
+                  !integrationData.appointmentModeId ||
+                  !integrationChannelData.length
                 }
               />
             </Col>
@@ -130,12 +132,12 @@ const AdminApiIntegrationEditModal = ({
                 }
                 options={requestMethodData}
                 value={integrationData.requestMethod}
-                isLoading={isRequestMethodDropdownLoading}
                 isDisabled={
-                  !integrationData.clientId || !requestMethodData.length
+                  !integrationData.appointmentModeId ||
+                  !requestMethodData.length
                 }
                 placeholder={
-                  integrationData.clientId
+                  integrationData.appointmentModeId
                     ? 'Select Client First.'
                     : requestMethodData.length
                     ? 'Select Request method'
@@ -351,7 +353,8 @@ const AdminApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestBody && integrationData.requestMethod.label !=="GET" ? (
+          {integrationData.requestBody &&
+          integrationData.requestMethod.label !== 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />
@@ -361,6 +364,20 @@ const AdminApiIntegrationEditModal = ({
               </Col>
             </Row>
           ) : null}
+
+          <Row className="mt-4">
+            <Col sm={12}>
+              <CHybridTextArea
+                name="remarks"
+                id="remarks"
+                placeholder="Enter Remarks"
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
+                value={integrationData.remarks}
+              />
+            </Col>
+          </Row>
         </Container-fluid>
       </CForm>
     </>
