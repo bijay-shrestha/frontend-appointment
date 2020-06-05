@@ -10,7 +10,7 @@ const DetailsModal = ({requestBodyData, type}) => {
         <CForm id="department-info" className="mt-2 department-info">
           <Container-fluid>
             <Row>
-              <Col sm={6} md={6} lg={6}>
+              <Col sm={4} md={4} lg={4}>
                 <CHybridSelect
                   id="featureTypeId"
                   name="featureTypeId"
@@ -20,7 +20,7 @@ const DetailsModal = ({requestBodyData, type}) => {
                 />
               </Col>
 
-              <Col sm={6} md={6} lg={6}>
+              <Col sm={8} md={8} lg={8}>
                 {type === 'A' ? (
                   <CHybridSelect
                     id="requestBodys"

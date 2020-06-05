@@ -21,7 +21,7 @@ const RequestBodyForm = ({
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
             <Row>
-              <Col sm={12} md={6} lg={4}>
+              <Col sm={12} md={4} lg={4}>
                 <CHybridSelect
                   id="featureTypeId"
                   label="Feature Type"
@@ -39,7 +39,7 @@ const RequestBodyForm = ({
                 />
               </Col>
 
-              <Col sm={12} md={6} lg={4}>
+              <Col sm={12} md={8} lg={8}>
                 <CHybridSelect
                   id="requestBodysId"
                   label="Request Body"
