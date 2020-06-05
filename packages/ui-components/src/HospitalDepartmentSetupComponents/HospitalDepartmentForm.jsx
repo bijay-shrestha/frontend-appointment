@@ -130,6 +130,7 @@ const HospitalDepartmentForm = ({
 
                             <Col sm={12} md={12} lg={4}>
                                 <CHybridSelectWithImage
+                                // menuIsOpen={true}
                                     id="doctor"
                                     name="doctorList"
                                     onKeyDown={event => handleEnterPress(event)}

@@ -123,13 +123,15 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                             }
                         </Col>
 
-                        <Row>
-                            Billing Mode And Charge
+                        </Row>
+
+                        <Row className="mb-3">
+                            <Col>Billing Mode And Charge</Col>
                         </Row>
                         {
                             departmentChargeSchemes && departmentChargeSchemes.map(deptCharge => (
                                 <Row>
-                                    <Col>
+                                    <Col md={4}>
                                         <CHybridSelect
                                             id="billing-mode"
                                             name="billingMode"
@@ -140,7 +142,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                             isDisabled={true}
                                         />
                                     </Col>
-                                    <Col>
+                                    <Col md={4}>
                                         <CHybridInput
                                             id="appointment-charge"
                                             name="appointmentCharge"
@@ -150,7 +152,7 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                         />
                                     </Col>
 
-                                    <Col>
+                                    <Col md={4}>
                                         <CHybridInput
                                             id="appointment-follow-up-charge"
                                             name="followUpCharge"
@@ -163,7 +165,8 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                             ))
                         }
 
-                        <Col sm={12} md={12} lg={4}>
+                        <Row>
+                        <Col sm={12} md={12} lg={6}>
                             <CFLabel labelName="Status" id="status"/>
                             <CRadioButton
                                 checked={departmentData.status === 'Y'}
@@ -199,7 +202,9 @@ const HospitalDepartmentPreviewModal = ({departmentPreviewData}) => {
                                 </Col>
                                 : ''
                         }
-                    </Row>
+                        </Row>
+
+                 
                     {
                         type === "MANAGE" ?
                             <Row className="mt-4">

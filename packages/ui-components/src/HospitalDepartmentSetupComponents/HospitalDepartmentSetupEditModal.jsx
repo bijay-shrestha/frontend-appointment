@@ -162,6 +162,7 @@ const HospitalDepartmentSetupEditModal = ({
                                 className="multiple-select"
                             />
                         </Col>
+                        </Row>
 
                         <Row>
                             <Col>
@@ -187,78 +188,83 @@ const HospitalDepartmentSetupEditModal = ({
                         {
                             departmentData.departmentChargeSchemes.map((deptCharge, index) => (
                                 deptCharge.status === 'Y' ?
-                                    <Row>
-                                        <Col>
-                                            <CHybridSelect
-                                                id="billing-mode"
-                                                name="billingMode"
-                                                onKeyDown={event => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                                label="Billing Mode"
-                                                options={activeBillingModeForDropdown}
-                                                value={deptCharge.billingMode}
-                                                required={true}
-                                                placeholder={isAdminModule ? departmentData.hospital ? billingModePlaceholder : "Select Client first." :
-                                                    billingModePlaceholder}
-                                                isDisabled={isAdminModule ? !departmentData.hospital : false}
-                                            />
-                                        </Col>
-                                        <Col>
-                                            <CHybridInput
-                                                id="appointment-charge"
-                                                name="appointmentCharge"
-                                                onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                                placeholder="Appointment Charge"
-                                                value={deptCharge.appointmentCharge}
-                                                disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                    : !activeBillingModeForDropdown.length}
-                                                required={true}
-                                                hasValidation={true}
-                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={errorMessageForAppointmentCharge}
-                                            />
-                                        </Col>
+                                <Row>
+                                    <Col md={4}>
+                                        <CHybridSelect
+                                            id="billing-mode"
+                                            name="billingMode"
+                                            onKeyDown={event => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            label="Billing Mode"
+                                            options={activeBillingModeForDropdown}
+                                            value={deptCharge.billingMode}
+                                            required={true}
+                                            placeholder={isAdminModule ? departmentData.hospital ? billingModePlaceholder : "Select Client first." :
+                                                billingModePlaceholder}
+                                            isDisabled={isAdminModule ? !departmentData.hospital : false}
+                                        />
+                                    </Col>
+                                    <Col md={4}>
+                                        <CHybridInput
+                                            id="appointment-charge"
+                                            name="appointmentCharge"
+                                            onKeyDown={(event) => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            placeholder="Appointment Charge"
+                                            value={deptCharge.appointmentCharge}
+                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                : !activeBillingModeForDropdown.length}
+                                            required={true}
+                                            hasValidation={true}
+                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                            errorMessagePassed={errorMessageForAppointmentCharge}
+                                        />
+                                    </Col>
 
-                                        <Col>
-                                            <CHybridInput
-                                                id="appointment-follow-up-charge"
-                                                name="followUpCharge"
-                                                onKeyDown={(event) => handleEnterPress(event)}
-                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                                placeholder="Follow Up Charge"
-                                                value={deptCharge.followUpCharge}
-                                                disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                    : !activeBillingModeForDropdown.length}
-                                                required={true}
-                                                hasValidation={true}
-                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                                errorMessagePassed={errorMessageForAppointmentCharge}
-                                            />
-                                        </Col>
+                                    <Col md={4}>
+                                    <div className="charge-box">
+                                        <CHybridInput
+                                            id="appointment-follow-up-charge"
+                                            name="followUpCharge"
+                                            onKeyDown={(event) => handleEnterPress(event)}
+                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                            placeholder="Follow Up Charge"
+                                            value={deptCharge.followUpCharge}
+                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                                : !activeBillingModeForDropdown.length}
+                                            required={true}
+                                            hasValidation={true}
+                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                            errorMessagePassed={errorMessageForAppointmentCharge}
+                                        />
                                         {
                                             showRemoveBillingModeChargeButton ?
-                                                <Col>
-                                                    <CButton
-                                                        id="macBinding"
-                                                        key={'macRemove' + index}
-                                                        name=""
-                                                        variant="outline-danger"
-                                                        className="float-right remove-mac "
-                                                        onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
-                                                    >
-                                                        <i className="fa fa-close"/>
-                                                    </CButton>
-                                                </Col>
-                                                : ''
-                                        }
+                                            <Col>
+                                                <CButton
+                                                    id="macBinding"
+                                                    key={'macRemove' + index}
+                                                    name=""
+                                                    variant="outline-danger"
+                                                    className="float-right remove-mac "
+                                                    onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
+                                                >
+                                                    <i className="fa fa-close"/>
+                                                </CButton>
+                                            </Col>
+                                            : ''
+                                    }
+                                        </div>
+                                    </Col>
+
 
                                     </Row>
                                     : ''
                             ))
                         }
 
-                        <Col sm={12} md={4} lg={4}>
+                        <Row>
+
+                        <Col sm={12} md={6} lg={6}>
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton
@@ -339,7 +345,7 @@ const HospitalDepartmentSetupEditModal = ({
             <CModal
                 show={showEditModal}
                 modalHeading="Update Department Details"
-                size="xl"
+                size="lg"
                 bodyChildren={bodyContent}
                 footerChildren={footerChildren}
                 onHide={closeModal}
