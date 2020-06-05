@@ -10,6 +10,14 @@ const AdminActivityLog = loadable(
   {fallback: getLoader()}
 )
 
+const AdminApiIntegrationAdd = loadable(
+  () => import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
+  {fallback: getLoader()}
+)
+const AdminApiIntegrationManage = loadable(
+  () => import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
+  {fallback: getLoader()}
+)
 const ClientActivityLog = loadable(
   () => import('./container/ClientActivitiesLog/ClientActivityLog'),
   {fallback: getLoader()}
@@ -129,6 +137,7 @@ const DashboardComponent = loadable(
   () => import('./container/AdminDashboard/AdminDashboard'),
   {fallback: () => getLoader()}
 )
+
 
 // const AddCompanyAdminComponent = loadable(
 //   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
@@ -400,8 +409,38 @@ export const routes = [
   },
   {
     path: '/admin/apiIntegration/clientApiIntegration/manage',
+    name: 'Manage',
+    component:ClientApiIntegrationManage,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration',
+    name: 'Admin Api Integration',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration/add',
     name: 'Add',
-    component: ClientApiIntegrationManage,
+    component: AdminApiIntegrationAdd,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration/manage',
+    name: 'Manage',
+    component: AdminApiIntegrationManage,
     icon: '',
     hasTab: true,
     isLink: true,

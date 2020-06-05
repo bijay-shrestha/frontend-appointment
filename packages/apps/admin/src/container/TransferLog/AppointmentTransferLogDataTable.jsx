@@ -4,6 +4,7 @@ import {
   CLoading,
   CPagination
 } from '@frontend-appointment/ui-elements'
+import {Row, Col} from 'react-bootstrap'
 import PreviewDetails from './AppointmentTransferLogPreview'
 import {
   DoctorWithSpecImage,
@@ -12,13 +13,18 @@ import {
   TransferredToDateWithTime,
   AppointmentNumberWithFollowUpFlag,
   TransferredToDoctorWithSpecImage
-  
+  //AppointmentStatusBadges
 } from '@frontend-appointment/ui-components'
 //import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 //import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithAgeAndGender'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
-const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
+const AppointmentTransferDataTable = ({
+  tableHandler,
+  // activeStatus,
+  // handleStatusChange,
+  paginationProps
+}) => {
   const {
     isSearchLoading,
     appointmentTransferList,
@@ -28,11 +34,34 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
     showModal,
     setShowModal
   } = tableHandler
+
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Transfer Details</h5>
+        <Row>
+          <Col>
+            <h5 className="title">Transfer Log Details</h5>
+          </Col>
+
+          {/* <Col>
+              <CButton
+                id="downloadExcel"
+                name="DownloadExcel"
+                // onClickHandler={props.exportExcel}
+                className="float-right"
+                variant="outline-secondary"
+              >
+                {' '}
+                <i className="fa fa-download" />
+              </CButton>
+            </Col>  */}
+        </Row>
+
+        {/* <AppointmentStatusBadges
+          activeStatus={activeStatus}
+          handleStatusChange={handleStatusChange}
+        /> */}
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentTransferList.length ? (
@@ -65,7 +94,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   sortable: true,
                   sizeColumnsToFit: true,
                   width: 80,
-                  cellRenderer:'TransferLogStatus'
+                  cellRenderer: 'TransferLogStatus'
                 },
                 {
                   headerName: 'Patient Detail ',
@@ -129,7 +158,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   sizeColumnsToFit: true,
                   width: 300,
                   cellRenderer: 'TransferredToDoctorWithSpecImage'
-                },
+                }
                 // {
                 //     headerName: 'Doctor Detail',
                 //     resizable: true,
@@ -167,7 +196,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   previewCall
                 ),
-                TransferredToDoctorWithSpecImage:PreviewHandlerHoc(
+                TransferredToDoctorWithSpecImage: PreviewHandlerHoc(
                   TransferredToDoctorWithSpecImage,
                   null,
                   null,
@@ -202,7 +231,7 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
                   null,
                   previewCall
                 ),
-                TransferLogStatus:PreviewHandlerHoc(
+                TransferLogStatus: PreviewHandlerHoc(
                   AppointmentLogStatus,
                   null,
                   null,
@@ -225,15 +254,15 @@ const AppointmentTransferDataTable = ({tableHandler, paginationProps}) => {
               onPageChanged={handlePageChange}
             />
           </>
-        ) : !isSearchLoading && searchErrorMessage ? (
+        ) : isSearchLoading && !searchErrorMessage ? (
+          <CLoading />
+        ) : (
           <div className="filter-message">
             <div className="no-data">
               <i className="fa fa-file-text-o"></i>
             </div>
             <div className="message"> {searchErrorMessage}</div>
           </div>
-        ) : (
-          <CLoading />
         )}
       </div>
       {showModal && (

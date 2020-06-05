@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import './transfer-log.scss'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils,CommonUtils} from '@frontend-appointment/helpers'
 
 const {
    fetchAppointmentPreviewInfo,
@@ -42,6 +42,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         page: 0,
         size: 10
       },
+      activeStatus:'All',
+      filteredData:[],
       totalRecords: 0,
       showModal: false
     }
@@ -123,7 +125,8 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         queryParams: {
           ...this.state.queryParams,
           page: updatedPage
-        }
+        },
+        filteredData:this.props.appointmentTransferSearchReducer.appointmentTransferList
       })
     }
 
@@ -166,7 +169,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
           hospitalId:''
           //patientCategory: '',
           //appointmentDetails: ''
-        }
+        },
+        activeStatus:'All',
+        filteredData:[],
       })
       this.searchTransfer()
     }
@@ -175,6 +180,22 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       this.setState({
         searchParameters: searchParams
       })
+    }
+   
+    handleStatusChange= (event,status) =>{
+      let filteredData=[]
+      if(this.props.appointmentTransferSearchReducer.appointmentTransferList.length){
+        if(status==='All'){
+           filteredData= [...this.props.appointmentTransferSearchReducer.appointmentTransferList]
+        }
+        else
+       filteredData=CommonUtils.filterTableDataWithGivenStatus(status,this.props.appointmentTransferSearchReducer.appointmentTransferList)
+      }
+      this.setState({
+          activeStatus:status,
+          filteredData:[...filteredData]
+      })
+      return false;
     }
 
     callApiForHospitalChange = async () => {
@@ -228,7 +249,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         searchParameters,
         queryParams,
         totalRecords,
-        showModal
+        showModal,
+        filteredData,
+        activeStatus
       } = this.state
 
       const {
@@ -237,7 +260,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       } = this.props.DoctorDropdownReducer
 
       const {
-        appointmentTransferList,
+       // appointmentTransferList,
         isAppointmentTransferSearchLoading,
        appointmentTransferSearchErrorMessage
       } = this.props.appointmentTransferSearchReducer
@@ -283,13 +306,15 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
             }}
             tableHandler={{
               isSearchLoading: isAppointmentTransferSearchLoading,
-              appointmentTransferList: this.appendSNToTable(appointmentTransferList),
+              appointmentTransferList: this.appendSNToTable(filteredData),
               searchErrorMessage: appointmentTransferSearchErrorMessage,
               setShowModal: this.setShowModal,
               showModal: showModal,
               previewCall: this.previewCall,
               previewData: appointmentTransferInfo
             }}
+            activeStatus={activeStatus}
+            handleStatusChange={this.handleStatusChange}
           />
         </div>
       )

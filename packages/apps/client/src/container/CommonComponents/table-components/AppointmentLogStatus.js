@@ -22,7 +22,7 @@ const AppointmentLogAction = props => {
       //     <Badge variant="warning">RE</Badge>
       //   </span>
       // )
-      status === 'R' ? (
+      status === 'RE' ? (
         <span>
           <Badge variant="brown">R</Badge>
         </span>

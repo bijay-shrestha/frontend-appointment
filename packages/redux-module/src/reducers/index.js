@@ -187,8 +187,9 @@ import {
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
 } from './admin-module/departmentDutyRosterReducer';
-
+import {AdminApiIntegrationReducers} from '../reducers/admin-module/adminApiIntegrationReducer';
 export {
+    AdminApiIntegrationReducers,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,

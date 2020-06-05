@@ -7,7 +7,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
 
-class ClientApiIntegrationSearchFilter extends PureComponent {
+class AdminApiIntegrationSearchFilter extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -29,12 +29,14 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
     const {
       featureTypeDropdownData,
       requestMethodData,
-      hospitalsForDropdown,
       onSearchChangeHandler,
       onSearchResetHandler,
       searchParams,
       //integrationChannelData,
-      integrationTypeData
+      integrationTypeData,
+      //isApppointmentModeApiIntegrationDropdownLoading,
+      apppointmentModeApiIntegrationData
+      //apppointmentModeApiIntegrationDropdownError
     } = this.props
     return (
       <>
@@ -64,14 +66,14 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                 <Row>
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
-                      id="client"
-                      label="Client"
-                      name="clientId"
+                      id="appoimentModeId"
+                      label="Appointment Mode"
+                      name="appointmentModeId"
                       onChange={event => onSearchChangeHandler(event)}
-                      options={hospitalsForDropdown}
-                      value={searchParams.clientId}
-                      disabled={!hospitalsForDropdown.length}
-                      placeholder={'Select Client.'}
+                      options={apppointmentModeApiIntegrationData}
+                      value={searchParams.appointmentModeId}
+                      disabled={!apppointmentModeApiIntegrationData.length}
+                      placeholder={'Select Appointment Mode Id.'}
                     />
                   </Col>
 
@@ -102,7 +104,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                       }
                       placeholder={
                         !searchParams.apiIntegrationTypeId
-                          ? 'Select Api Integration Type First.'
+                          ? 'Select Api Integration First.'
                           : featureTypeDropdownData.length
                           ? 'Select Feature Type'
                           : 'No Feature Types(s) Found'
@@ -178,15 +180,15 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                   </>
                 </CButton>
               </li>
-              {searchParams.clientId.value && (
+              {searchParams.appointmentModeId.value && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Client</Tooltip>}
+                    overlay={props => <Tooltip {...props}>Appointment Mode</Tooltip>}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParams.clientId.label}
+                      {searchParams.appointmentModeId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -280,4 +282,4 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
   }
 }
 
-export default ClientApiIntegrationSearchFilter
+export default AdminApiIntegrationSearchFilter

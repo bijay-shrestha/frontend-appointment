@@ -38,7 +38,8 @@ import {
     HospitalDepartmentSetupMiddleware,
     DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
-    RequestBodyApiIntegrationMiddleware
+    RequestBodyApiIntegrationMiddleware,
+    AdminApiIntegrationMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
 import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
@@ -111,5 +112,6 @@ export {
     HospitalDepartmentSetupMiddleware,
     DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
-    RequestBodyApiIntegrationMiddleware
+    RequestBodyApiIntegrationMiddleware,
+    AdminApiIntegrationMiddleware
 }

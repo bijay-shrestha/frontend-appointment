@@ -25,7 +25,7 @@ const ClientApiIntegrationForm = ({
   //isFeatureTypeDropdownLoading,
   //isRequestMethodDropdownLoading,
   requestMethodData,
-  regexForApiUrl,
+  //regexForApiUrl,
   //requestMethodDropdownError,
   // formValid,
   // isHospitalApiSaveLoading,
@@ -34,10 +34,11 @@ const ClientApiIntegrationForm = ({
   requestParamsIsSelected,
   requestHeadersIsSelected,
   changeRequestHandler,
-  hospitalsForDropdown,
+
   //isIntegrationChannelDropdownLoading,
   integrationChannelData,
-  integrationTypeData
+  integrationTypeData,
+  apppointmentModeApiIntegrationData
   // integrationChannelDropdownError,
   //isIntegrationTypeDropdownLoading,
 
@@ -50,7 +51,7 @@ const ClientApiIntegrationForm = ({
     <>
       <Container-fluid>
         <Row sm="12 p-0">
-          <h5 className="title"> API Integration </h5>
+          <h5 className="title"> Admin API Integration </h5>
         </Row>
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
@@ -58,15 +59,19 @@ const ClientApiIntegrationForm = ({
               <Col sm={12} md={3}>
                 <CHybridSelect
                   id="client"
-                  label="Client"
-                  name="clientId"
+                  label="Appointment Mode"
+                  name="appointmentModeId"
                   onChange={(event, validity) =>
                     onChangeHandler(event, validity)
                   }
-                  options={hospitalsForDropdown}
-                  value={integrationData.clientId}
-                  isDisabled={!hospitalsForDropdown.length}
-                  placeholder={hospitalsForDropdown.length?'Select Client.':'No Hospital(s) Found'}
+                  options={apppointmentModeApiIntegrationData}
+                  value={integrationData.appointmentModeId}
+                  isDisabled={!apppointmentModeApiIntegrationData.length}
+                  placeholder={
+                    apppointmentModeApiIntegrationData.length
+                      ? 'Select Appointment Mode.'
+                      : 'No Appointment Mode(s) Found'
+                  }
                 />
               </Col>
               <Col sm={12} md={3}>
@@ -81,10 +86,10 @@ const ClientApiIntegrationForm = ({
                   value={integrationData.integrationTypeId}
                   isDisabled={
                     !integrationTypeData.length ||
-                    !integrationData.clientId.value
+                    !integrationData.appointmentModeId
                   }
                   placeholder={
-                    !integrationData.clientId
+                    !integrationData.appointmentModeId
                       ? 'Select Client First.'
                       : integrationTypeData.length
                       ? 'Select Integration Type'
@@ -102,7 +107,7 @@ const ClientApiIntegrationForm = ({
                   }
                   label={'Ingtegration Channel'}
                   placeholder={
-                    !integrationData.clientId
+                    !integrationData.appointmentModeId
                       ? 'Select Client First.'
                       : integrationChannelData.length
                       ? 'Select Integration Channel'
@@ -110,7 +115,7 @@ const ClientApiIntegrationForm = ({
                   }
                   options={integrationChannelData}
                   isDisabled={
-                    !integrationData.clientId.value ||
+                    !integrationData.appointmentModeId ||
                     !integrationChannelData.length
                   }
                 />
@@ -151,10 +156,11 @@ const ClientApiIntegrationForm = ({
                   options={requestMethodData}
                   value={integrationData.requestMethod}
                   isDisabled={
-                    !integrationData.clientId.value || !requestMethodData.length
+                    !integrationData.appointmentModeId.value ||
+                    !requestMethodData.length
                   }
                   placeholder={
-                    !integrationData.clientId
+                    !integrationData.appointmentModeId
                       ? 'Select Client First.'
                       : requestMethodData.length
                       ? 'Select Req. method'

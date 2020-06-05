@@ -4,29 +4,34 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {CommonUtils, ObjectUtils} from '@frontend-appointment/helpers'
 import {
   HospitalApiIntegrationMiddleware,
-  HospitalSetupMiddleware,
-  RequestBodyApiIntegrationMiddleware
+  RequestBodyApiIntegrationMiddleware,
+  AdminApiIntegrationMiddleware
 } from '@frontend-appointment/thunk-middleware'
 
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import './client-api-integration.scss'
+import './admin-api-integration.scss'
 const {
   hospitalIntegrationConstants,
-  hospitalSetupApiConstants,
+  adminApiIntegrationConstants,
+  appointmentModeApiConstants,
   requestbodyIntegrationConstants
 } = AdminModuleAPIConstants
 const {
   fetchFeatureTypeForDrodown,
   fetchRequestMethodDropdown,
-  saveHospitalIntegration,
-  deleteApiIntegrationData,
-  editApiIntegrationData,
-  previewApiIntegrationData,
-  searchApiIntegrationData,
-  clearMessages,
   fetchIntegrationChannelDropdown,
   fetchIntegrationTypeDropdown
 } = HospitalApiIntegrationMiddleware
+
+const {
+  clearMessages,
+  deleteAdminApiIntegrationData,
+  editAdminApiIntegrationData,
+  fetchAppointmentModeAdminForDrodown,
+  previewAdminApiIntegrationData,
+  saveAdminApiIntegration,
+  searchAdminApiIntegrationData
+} = AdminApiIntegrationMiddleware
 const {
   changeCommaSeperatedStringToObjectAndStringifyIt,
   checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent
@@ -36,12 +41,12 @@ const {
   changeObjectStructureToKeyValueArray,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
-const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
-  class ClientApiIntegration extends PureComponent {
+
+const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
+  class AdminApiIntegration extends PureComponent {
     state = {
       integrationData: {
-        clientId: '',
+        appointmentModeId: '',
         featureType: '',
         requestMethod: '',
         apiUrl: '',
@@ -50,12 +55,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: null,
         id: '',
         integrationChannelId: '',
-        integrationTypeId: ''
+        integrationTypeId: '',
+        remarks:''
       },
       searchParameters: {
-        clientId: '',
         requestMethodId: '',
         featureTypeId: '',
+        appointmentModeId: '',
         apiUrl: '',
         apiIntegrationTypeId: ''
       },
@@ -65,7 +71,6 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         status: 'D'
       },
       totalRecords: 0,
-      requestBodyValid: false,
       //apiUrlValid: false,
       editQueryParams: [],
       editHeaders: [],
@@ -73,13 +78,11 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         page: 0,
         size: 10
       },
-      addObjectId: 0,
       previewModal: false,
       editShowModal: false,
       showConfirmationModal: false,
       deleteModalShow: false,
-      //regexForCommaSeperation: /^(?!,)(,?[a-zA-Z]+)+$/,
-      //regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\s]+)((\/\w+)*\/)([\w]+[^#?\s]+)(.*)?(#[\w]+)?$/,
+      regexForApiUrl: /^((http[s]?|ftp):\/)?\/?([^:\s]+)((\/\w+)*\/)([\w]+[^#?\s]+)(.*)?(#[\w]+)?$/,
       alertMessageInfo: {
         variant: '',
         message: ''
@@ -94,19 +97,19 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     resetIntegrationData = () => {
       this.setState({
         integrationData: {
-          clientId: '',
+          appointmentModeId: '',
           featureType: '',
           requestMethod: '',
           apiUrl: '',
           headers: [],
           queryParams: [],
-          requestBody: '',
+          requestBody: null,
           id: '',
           integrationChannelId: '',
-          integrationTypeId: ''
+          integrationTypeId: '',
+          remarks:''
         },
         formValid: false,
-        requestBodyValid: false,
         restApiValid: false,
         requestHeadersIsSelected: false,
         requestParamsIsSelected: false
@@ -125,13 +128,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     //     integrationData: {...objectToModify},
     //     [newName]: validity
     //   })
-    //   console.log('====', this.state)
     // }
     onChangeHandler = async (e, validity, type) => {
       const {name, value, label} = e.target
       let integrationDatas = {...this.state.integrationData}
       integrationDatas[name] = label ? (value ? {value, label} : '') : value
-      if (name === 'clientId') {
+      if (name === 'appointmentId') {
         integrationDatas['requestBody'] = ''
         integrationDatas['featureType'] = ''
         integrationDatas['integrationTypeId'] = ''
@@ -148,11 +150,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationDatas['requestBody'] = ''
         this.onFeatureTypeChangeRequestBody(value)
       }
-      // if (name !== 'requestBody' && name !== 'apiUrl') {
+     
         await this.setTheStateForIntegrationData(integrationDatas)
-      // } else {
-      //   await this.setTheStateForInputValidity(integrationDatas, validity, name)
-      // }
+      
 
       this.checkFormValidity(type)
     }
@@ -160,20 +160,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
-          clientId: '',
+          appointmentModeId: '',
           requestMethodId: '',
           featureTypeId: '',
           apiUrl: '',
           apiIntegrationTypeId: ''
         }
       })
-      this.searchHospitalApiIntegration()
+      this.searchAdminApiIntegration()
     }
 
-    searchHospitalApiIntegration = async page => {
+    searchAdminApiIntegration = async page => {
       const {
         apiUrl,
-        clientId,
+        appointmentModeId,
         featureTypeId,
         requestMethodId,
         apiIntegrationTypeId
@@ -185,15 +185,15 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           : page
           ? page
           : this.state.searchQueryParams.page
-      await this.props.searchApiIntegrationData(
-        hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SEARCH,
+      await this.props.searchAdminApiIntegrationData(
+        adminApiIntegrationConstants.ADMIN_API_INTEGRATION_SEARCH,
         {
           page: updatedPage,
           size: this.state.searchQueryParams.size
         },
         {
           apiUrl,
-          clientId: clientId.value || '',
+          appointmentModeId: appointmentModeId.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',
           apiIntegrationTypeId: apiIntegrationTypeId.value || ''
@@ -201,9 +201,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       )
 
       await this.setState({
-        totalRecords: this.props.hospitalSearchApiIntegrationReducers
+        totalRecords: this.props.AdminSearchApiIntegrationReducers
           .searchApiIntegrationData.length
-          ? this.props.hospitalSearchApiIntegrationReducers.totalItems
+          ? this.props.AdminSearchApiIntegrationReducers.totalItems
           : 0,
         searchQueryParams: {
           ...this.state.searchQueryParams,
@@ -219,7 +219,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           page: newPage
         }
       })
-      this.searchHospitalApiIntegration()
+      this.searchAdminApiIntegration()
     }
 
     appendSNToTable = apiIntegrationList => {
@@ -231,6 +231,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       )
       return newApiIntegrationList
     }
+
     setStateValuesForSearch = searchParams => {
       this.setState({
         searchParameters: searchParams
@@ -252,7 +253,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
 
     previewApiCall = async (id, path) => {
-      await this.props.previewApiIntegrationData(path, id)
+      await this.props.previewAdminApiIntegrationData(path, id)
     }
 
     onPreviewHandler = async id => {
@@ -260,11 +261,12 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(
           id,
-          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_PREVIEW
+          adminApiIntegrationConstants.ADMIN_API_INTEGRATION_PREVIEW
         )
         const {
           previewApiIntegrationData
-        } = this.props.hospitalPreviewApiIntegrationReducers
+        } = this.props.AdminPreviewApiIntegrationReducers
+
         const {
           featureCode,
           // requestMethodId,
@@ -307,7 +309,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.hospitalPreviewApiIntegrationReducers
+            message: this.props.AdminPreviewApiIntegrationReducers
               .previewApiIntegrationErorrMessage
           }
         })
@@ -319,13 +321,14 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       try {
         await this.previewApiCall(
           id,
-          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_UPDATE_PREVIEW
+          adminApiIntegrationConstants.ADMIN_API_INTEGRATION_UPDATE_PREVIEW
         )
         const {
           previewApiIntegrationData
-        } = this.props.hospitalPreviewApiIntegrationReducers
+        } = this.props.AdminPreviewApiIntegrationReducers
         const {
-          hospitalName,
+          appointmentModeId,
+          appointmentMode,
           featureId,
           featureCode,
           requestMethodId,
@@ -343,7 +346,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.onFeatureTypeChangeRequestBody(featureId)
         const {requestBody} = this.state.integrationData
         let integrationData = {
-          clientId: hospitalName,
+          appointmentModeId:{value:appointmentModeId,label:appointmentMode},
           featureType: {value: featureId, label: featureCode},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
@@ -357,15 +360,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           integrationChannelId: {
             value: integrationChannelId,
             label: integrationChannel
-          }
+          },
+          remarks:''
         }
         this.setTheStateForIntegrationData(integrationData)
         this.setShowModal('editShowModal')
         await this.setState({
-          requestParamsIsSelected: true,
-          requestHeadersIsSelected: true,
-          editHeaders: headers,
-          editQueryParams: queryParameters,
+          requestParamsIsSelected: Boolean(queryParameters)||false,
+          requestHeadersIsSelected: Boolean(headers)||false,
+          editHeaders:integrationData.headers,
+          editQueryParams:integrationData.queryParams,
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -375,7 +379,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.hospitalPreviewApiIntegrationReducers
+            message: this.props.AdminPreviewApiIntegrationReducers
               .previewApiIntegrationErorrMessage
           }
         })
@@ -404,19 +408,25 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
 
     onSubmitDeleteHandler = async () => {
       try {
-        await this.props.deleteApiIntegrationData(
-          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_DELETE,
+        await this.props.deleteAdminApiIntegrationData(
+          adminApiIntegrationConstants.ADMIN_API_INTEGRATION_DELETE,
           this.state.deleteRequestDTO
         )
         this.setCloseModal('D')
         this.setShowAlertModal(
           'success',
-          this.props.hospitalDeleteApiIntegrationReducers
+          this.props.AdminDeleteApiIntegrationReducers
             .deleteApiIntegrationSuccessMessage
         )
-        await this.searchHospitalApiIntegration()
+        await this.searchAdminApiIntegration()
       } catch (e) {
         this.setShowModal('deleteModalShow')
+        this.setCloseModal('D')
+        this.setShowAlertModal(
+          'danger',
+          this.props.AdminDeleteApiIntegrationReducers
+            .deleteApiIntegrationErrorMessage
+        )
       }
     }
 
@@ -492,24 +502,28 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     checkFormValidity = type => {
       const {
         apiUrl,
-        clientId,
+        appointmentModeId,
         featureType,
         // headers,
         // queryParams,
         integrationChannelId,
         integrationTypeId,
-        requestMethod
+        requestMethod,
+        remarks
       } = this.state.integrationData
+      //const {apiUrlValid} = this.state
       let formValid =
         apiUrl &&
         featureType.value &&
         integrationChannelId.value &&
         integrationTypeId.value &&
-        requestMethod.value
+        requestMethod.value //&&
+        //apiUrlValid
       if (type === 'E') {
-        formValid = formValid && clientId
+        formValid = formValid && appointmentModeId
+        formValid = formValid && remarks
       } else {
-        formValid = formValid && clientId.value
+        formValid = formValid && appointmentModeId.value
       }
       this.setState({
         formValid: Boolean(formValid)
@@ -576,12 +590,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod,
         id,
         integrationChannelId,
-        integrationTypeId
+        integrationTypeId,
+        // appointmentMode,
+        appointmentModeId
       } = this.state.integrationData
       try {
-        await this.props.editApiIntegrationData(
-          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_EDIT,
+        await this.props.editAdminApiIntegrationData(
+          adminApiIntegrationConstants.ADMIN_API_INTEGRATION_EDIT,
           {
+            adminModeIntegrationId:id,
+            appointmentModeId:appointmentModeId.value,
             apiUrl,
             clientApiRequestHeaders: this.filterOutRequestAndHeaderParams(
               headers,
@@ -605,17 +623,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
-            message: this.props.hospitalEditApiIntegrationReducers
+            message: this.props.AdminEditApiIntegrationReducers
               .editApiIntegrationSuccessMessage
           }
         })
-        await this.searchHospitalApiIntegration()
+        await this.searchAdminApiIntegration()
       } catch (e) {}
     }
 
     onSaveHandler = async () => {
       const {
-        clientId,
+        appointmentModeId,
         featureType,
         apiUrl,
         headers,
@@ -626,8 +644,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeId
       } = this.state.integrationData
       try {
-        await this.props.saveHospitalIntegration(
-          hospitalIntegrationConstants.HOSPITAL_API_INTEGRATION_SAVE,
+        await this.props.saveAdminApiIntegration(
+          adminApiIntegrationConstants.ADMIN_API_INTEGRATION_SAVE,
           {
             apiUrl,
             clientApiRequestHeaders: checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent(
@@ -637,7 +655,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               queryParams
             ),
             requestMethodId: requestMethod.value || '',
-            hospitalId: clientId.value || '',
+            appointmentModeId: appointmentModeId.value || '',
             apiIntegrationTypeId: integrationTypeId.value || '',
             integrationChannelId: integrationChannelId.value || '',
             featureTypeId: featureType.value || '',
@@ -649,15 +667,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         this.resetIntegrationData()
         this.setShowAlertModal(
           'success',
-          this.props.hospitalApiIntegrationSaveReducers
-            .hospitalApiSaveSucessMessage
+          this.props.AdminApiIntegrationSaveReducers.adminApiSaveSucessMessage
         )
         this.setCloseModal()
       } catch (e) {
         this.setShowAlertModal(
           'danger',
-          this.props.hospitalApiIntegrationSaveReducers
-            .hospitalApiSaveErrorMessage
+          this.props.AdminApiIntegrationSaveReducers.adminApiErrorMessage
         )
         this.setCloseModal()
       }
@@ -692,8 +708,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         hospitalIntegrationConstants.HOSPITAL_REQUEST_METHOD_DROPDOWN
       )
 
-      await this.props.fetchActiveHospitalsForDropdown(
-        hospitalSetupApiConstants.FETCH_HOSPITALS_FOR_DROPDOWN
+      await this.props.fetchAppointmentModeAdminForDrodown(
+        appointmentModeApiConstants.FETCH_APPOINTMENT_MODE_FOR_DROPDOWN
       )
     }
 
@@ -705,16 +721,16 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         return dataObj
       })
       let integrationDatas = {...this.state.integrationData}
-      if(requestBodyObj !==null){
-      integrationDatas['requestBody'] = JSON.stringify(requestBodyObj)
-      await this.setState({
-        integrationData: {...integrationDatas}
-      })
-    }
+      if (requestBodyObj !== null) {
+        integrationDatas['requestBody'] = JSON.stringify(requestBodyObj)
+        await this.setState({
+          integrationData: {...integrationDatas}
+        })
+      }
     }
 
     componentDidMount () {
-      if (type === 'M') this.searchHospitalApiIntegration()
+      if (type === 'M') this.searchAdminApiIntegration()
       this.callInitialApi()
     }
 
@@ -723,9 +739,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         showAlert,
         alertMessageInfo,
         integrationData,
-        regexForCommaSeperation,
         formValid,
-       // regexForApiUrl,
+        //regexForApiUrl,
         showConfirmationModal,
         searchParameters,
         searchQueryParams,
@@ -737,16 +752,20 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestParamsIsSelected,
         editShowModal
       } = this.state
+      const {adminApiSaveLoading} = this.props.AdminApiIntegrationSaveReducers
+
       const {
-        isHospitalApiSaveLoading
-      } = this.props.hospitalApiIntegrationSaveReducers
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-      console.log('hospitalDropdw', this.props.HospitalDropdownReducer)
+        isApppointmentModeApiIntegrationDropdownLoading,
+        apppointmentModeApiIntegrationData,
+        apppointmentModeApiIntegrationDropdownError
+      } = this.props.AppointmentModeAdminApiDropdownReducers
+
       const {
         featureTypeDropdownData,
         featureTypeDropdownError,
         isFeatureTypeDropdownLoading
       } = this.props.hospitalFeatureTypeDropdownReducers
+
       const {
         isRequestMethodDropdownLoading,
         requestMethodData,
@@ -756,16 +775,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         isSearchApiIntegrationLoading,
         searchApiIntegrationData,
         searchApiIntegrationMessageError
-      } = this.props.hospitalSearchApiIntegrationReducers
+      } = this.props.AdminSearchApiIntegrationReducers
+
       const {
         deleteApiIntegrationErrorMessage,
         isDeleteApiIntegrationLoading
-      } = this.props.hospitalDeleteApiIntegrationReducers
-      // console.log('done', this.props.hospitalRequestMethodDropdownReducers)
+      } = this.props.AdminDeleteApiIntegrationReducers
+
       const {
         isEditApiIntegrationLoading,
         editApiIntegrationErrorMessage
-      } = this.props.hospitalEditApiIntegrationReducers
+      } = this.props.AdminEditApiIntegrationReducers
 
       const {
         isIntegrationChannelDropdownLoading,
@@ -778,7 +798,6 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
 
-      console.log('=======', this.props.integrationChannelReducers)
       return (
         <>
           <ComposedComponent
@@ -793,7 +812,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationData: integrationData,
               setCloseModal: this.setCloseModal,
               resetIntegrationData: this.resetIntegrationData,
-              regexForCommaSeperation: regexForCommaSeperation,
+              // regexForCommaSeperation: regexForCommaSeperation,
               featureTypeDropdownData: featureTypeDropdownData.length
                 ? featureTypeDropdownData
                 : [],
@@ -804,9 +823,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 ? [...requestMethodData]
                 : [],
               requestMethodDropdownError: requestMethodDropdownError,
-              //regexForApiUrl: regexForApiUrl,
+             // regexForApiUrl: regexForApiUrl,
               formValid,
-              hospitalsForDropdown,
+              //hospitalsForDropdown,
               requestParamsIsSelected,
               requestHeadersIsSelected,
               changeRequestHandler: this.changeRequestHandler,
@@ -815,10 +834,13 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationChannelDropdownError,
               isIntegrationTypeDropdownLoading,
               integrationTypeData,
-              integrationTypeDropdownError
+              integrationTypeDropdownError,
+              isApppointmentModeApiIntegrationDropdownLoading,
+              apppointmentModeApiIntegrationData,
+              apppointmentModeApiIntegrationDropdownError
             }}
             addHandler={{
-              isHospitalApiSaveLoading: isHospitalApiSaveLoading,
+              adminApiSaveLoading: adminApiSaveLoading,
               onConfirmHandler: this.onConfirmHandler,
               onSaveHandler: this.onSaveHandler,
               showConfirmationModal: showConfirmationModal
@@ -827,7 +849,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               onSearchChangeHandler: this.handleSearchFormChange,
               onSearchResetHandler: this.handleSearchFormReset,
               searchParams: searchParameters,
-              searchApiIntegration: this.searchHospitalApiIntegration
+              searchApiIntegration: this.searchAdminApiIntegration
             }}
             editHandler={{
               isEditApiIntegrationLoading,
@@ -882,34 +904,34 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     }
   }
   return ConnectHoc(
-    ClientApiIntegration,
+    AdminApiIntegration,
     [
-      'hospitalApiIntegrationSaveReducers',
       'hospitalRequestMethodDropdownReducers',
       'hospitalFeatureTypeDropdownReducers',
-      'HospitalDropdownReducer',
-      'hospitalPreviewApiIntegrationReducers',
-      'hospitalSearchApiIntegrationReducers',
-      'hospitalDeleteApiIntegrationReducers',
-      'hospitalEditApiIntegrationReducers',
       'integrationChannelReducers',
       'integrationTypeReducers',
-      'RequestBodyByFeatureReducers'
+      'RequestBodyByFeatureReducers',
+      'AdminApiIntegrationSaveReducers',
+      'AppointmentModeAdminApiDropdownReducers',
+      'AdminEditApiIntegrationReducers',
+      'AdminPreviewApiIntegrationReducers',
+      'AdminSearchApiIntegrationReducers',
+      'AdminDeleteApiIntegrationReducers'
     ],
     {
       fetchFeatureTypeForDrodown,
       fetchRequestMethodDropdown,
-      saveHospitalIntegration,
-      fetchActiveHospitalsForDropdown,
-      deleteApiIntegrationData,
-      editApiIntegrationData,
-      previewApiIntegrationData,
-      searchApiIntegrationData,
+      editAdminApiIntegrationData,
+      fetchAppointmentModeAdminForDrodown,
+      previewAdminApiIntegrationData,
+      saveAdminApiIntegration,
+      searchAdminApiIntegrationData,
       clearMessages,
       fetchIntegrationChannelDropdown,
       fetchIntegrationTypeDropdown,
-      getRequestBodyByFeatureId
+      getRequestBodyByFeatureId,
+      deleteAdminApiIntegrationData
     }
   )
 }
-export default ClientApiIntegrationHoc
+export default AdminApiIntegrationHoc
