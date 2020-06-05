@@ -57,10 +57,12 @@ export const thirdPartyApiCall = async(data) =>{
   const option = APIUtils.constructApiFromEcIntegration('APKCHK',apiIntegrateData,constructedData)
   let response=null;
   try{
-  if(APIUtils.checkIntegrationChannelIsFrontend(option.integrationChannelCode)){
-   response = await Axios.dynamicMethod(option.requestOption)
+  if(option)
+   if(APIUtils.checkIntegrationChannelIsFrontend(option.integrationChannelCode)){
+     response = await Axios.dynamicMethod(option.requestOption)
+     return response.data;
   }
-  return response.data
+  
   }catch(e){
    throw e;
   }
