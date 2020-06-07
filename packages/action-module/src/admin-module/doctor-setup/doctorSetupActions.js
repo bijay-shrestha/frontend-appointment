@@ -309,7 +309,7 @@ export const fetchActiveDoctorsByDepartmentForDropdownSuccess = data => {
 
 export const fetchActiveDoctorsByDepartmentForDropdownError = errorMessage => {
     return {
-        type: FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS,
+        type: FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR,
         payload: {
             errorMessage
         }
