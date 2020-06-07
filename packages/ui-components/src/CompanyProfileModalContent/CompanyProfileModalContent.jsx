@@ -124,7 +124,7 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     disabled={true}
                                 />
                             </Col>
-                           
+
                             <Col sm={4} md={4} lg={4}>
                                 <CFLabel labelName="Status" id="status"></CFLabel>
                                 <CRadioButton
@@ -211,8 +211,8 @@ class CompanyProfileModalContent extends React.PureComponent {
                                     <CScrollbar
                                         id="menus"
                                         autoHide={true}
-                                       
-                                        style={{height: 313 }}>
+
+                                        style={{height: 313}}>
                                         <Accordion
                                             activeKey={this.state.activeKeyChild}>
                                             {this.state.childMenusOfSelectedParent.length !== 0 &&
@@ -226,7 +226,7 @@ class CompanyProfileModalContent extends React.PureComponent {
                                                         className={this.state.activeKeyChild === childMenu.id ?
                                                             'activeChild' : ''}
                                                         onClick={() => this.handleChildMenuClick(childMenu)}>
-                                                        {childMenu.icon}{childMenu.name}
+                                                        {childMenu.name}
                                                     </Accordion.Toggle>
                                                 </Card>
                                             )}
@@ -291,9 +291,9 @@ class CompanyProfileModalContent extends React.PureComponent {
                 </Row>
             </Container-fluid>
             <Container-fluid>
-            <Row className="mt-4">
-                
-                {AuditableEntityHoc(profileData,false,4)}
+                <Row className="mt-4">
+
+                    {AuditableEntityHoc(profileData, false, 4)}
                 </Row>
             </Container-fluid>
         </>;
