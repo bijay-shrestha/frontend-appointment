@@ -72,7 +72,7 @@ const {
 
 const DATE_ERROR_MESSAGE = 'From date must not be greater than to date!';
 const TIME_ERROR_MESSAGE = 'Start time must not be greater than end time!';
-const OVERRIDE_DATE_RANGE_ERROR_MESSAGE ="Override 'From date' and 'To Date' must lie within roster From and To date!";
+const OVERRIDE_DATE_RANGE_ERROR_MESSAGE = "Override 'From date' and 'To Date' must lie within roster From and To date!";
 
 const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
         class DepartmentDutyRoster extends PureComponent {
@@ -376,7 +376,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 } = this.state;
                 let updateData = {
                     roomDetail: {
-                        roomId: room && room.value,
+                        hospitalDepartmentRoomInfoId: room && room.value,
                         rosterRoomId: rosterRoomId,
                         status: isRoomEnabled
                     },
@@ -630,7 +630,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                 DATE_ERROR_MESSAGE :
                                 !isFromDateToDateWithinTheGivenDateRange(
                                     overrideRequestDTO.fromDate, overrideRequestDTO.toDate, fromDate, toDate) ?
-                                    OVERRIDE_DATE_RANGE_ERROR_MESSAGE:'' ;
+                                    OVERRIDE_DATE_RANGE_ERROR_MESSAGE : '';
                         overrideErrorMsg = "";
                     } else if (key === 'endTime' || key === 'startTime') {
                         if (overrideRequestDTO.startTime && overrideRequestDTO.endTime) {
@@ -691,7 +691,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                                     ? currentOverride.rosterOverrideId
                                     : '',
                                 dayOffStatus: currentOverride.dayOffStatus,
-                                roomId: isRoomEnabled === 'Y' ? room ? room.value : '' : '',
+                                hospitalDepartmentRoomInfoId: isRoomEnabled === 'Y' ? room ? room.value : '' : '',
                                 endTime: currentOverride.endTime,
                                 fromDate: currentOverride.fromDate,
                                 toDate: currentOverride.toDate,
@@ -983,7 +983,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospital: {label: hospitalName, value: hospitalId},
                     department: {label: hospitalDeptName, value: hospitalDeptId},
                     isRoomEnabled,
-                    room: isRoomEnabled === 'Y' ? {label: roomInfo.roomNumber, value: roomInfo.roomId} : null,
+                    room: isRoomEnabled === 'Y' ? {
+                        label: roomInfo.roomNumber,
+                        value: roomInfo.hospitalDepartmentRoomInfoId
+                    } : null,
                     rosterRoomId: isRoomEnabled === 'Y' ? roomInfo.rosterRoomId : '',
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
@@ -1182,7 +1185,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             remarks: originalOverride.remarks,
                             startTime: originalOverride.startTime,
                             status: 'Y',
-                            roomId: room ? room.value : '',
+                            hospitalDepartmentRoomInfoId: room ? room.value : '',
                             rosterOverrideId: originalOverride.rosterOverrideId,
                         };
                         overridesToBeReverted.push(override)
@@ -1204,7 +1207,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         remarks: 'Update Cancelled.',
                         startTime: newAdded.startTime,
                         status: 'D',
-                        roomId: room ? room.value : '',
+                        hospitalDepartmentRoomInfoId: room ? room.value : '',
                         rosterOverrideId: newAdded.rosterOverrideId,
                     };
                     overridesToBeReverted.push(override);
@@ -1316,6 +1319,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     }
                 });
                 this.checkOverrideFormValidity();
+                this.checkFormValidity();
             };
 
             setShowModal = () => {
@@ -1364,7 +1368,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         toDate,
                         hospitalDepartmentId: department ? department.value : '',
                         isRoomEnabled,
-                        roomId: room ? room.value : '',
+                        hospitalDepartmentRoomInfoId: room ? room.value : '',
                         rosterGapDuration,
                         weekDaysDetail: departmentWeekDaysDutyRosterRequestDTOS,
                         hasOverrideDutyRoster,
@@ -1404,7 +1408,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         toDate,
                         hospitalDepartmentId: department ? department.value : '',
                         isRoomEnabled,
-                        roomId: room ? room.value : '',
+                        hospitalDepartmentRoomInfoId: room ? room.value : '',
                         rosterGapDuration,
                         weekDaysDetail: weekDaysList,
                         hasOverrideDutyRoster,

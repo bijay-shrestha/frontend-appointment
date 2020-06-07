@@ -223,7 +223,7 @@
             5,
             8
           ],
-          "icon": "fa fa-user-md",
+          "icon": "",
           "leftNavigation": "Y",
           "checked": false,
           "order": 1,
@@ -244,7 +244,7 @@
             5,
             8
           ],
-          "icon": "fa fa-user-md",
+          "icon": "",
           "leftNavigation": "Y",
           "checked": false,
           "order": 1,

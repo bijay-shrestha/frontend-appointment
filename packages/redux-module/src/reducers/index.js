@@ -187,7 +187,20 @@ import {
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
 } from './admin-module/departmentDutyRosterReducer';
+
 import {AdminApiIntegrationReducers} from '../reducers/admin-module/adminApiIntegrationReducer';
+
+import {
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
+} from './admin-module/billingModeReducer';
+
+import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
+
 export {
     AdminApiIntegrationReducers,
     AdminDeleteReducer,
@@ -213,6 +226,7 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
+    AppointmentServiceTypeDropdownReducer,
     AppointmentStatusListReducer,
     CompanyAdminReducer,
     companyDeleteReducer,
@@ -328,5 +342,11 @@ export {
     DepartmentDutyRosterPreviewReducer,
     DepartmentDutyRosterSaveReducer,
     HospitalApiIntegrationReducers,
-    RequestBodyIntegrationReducers
+    RequestBodyIntegrationReducers,
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
 }

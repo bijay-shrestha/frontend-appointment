@@ -1,11 +1,5 @@
 import React, {memo} from 'react'
-import {
-  CButton,
-  CForm,
-  CModal,
-  CHybridSelect,
-  CHybridInput
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridSelect, CHybridTextArea, CModal} from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
 const DepartmentEditModal = ({
@@ -26,7 +20,7 @@ const DepartmentEditModal = ({
       <CForm id="profile-info spec" className="mt-2 profile-info">
         <Container-fluid>
           <Row>
-            <Col sm={12} md={6} lg={4}>
+            <Col sm={12} md={5} lg={5}>
               <CHybridSelect
                 id="featureTypeId"
                 label="Feature Type"
@@ -44,7 +38,7 @@ const DepartmentEditModal = ({
               />
             </Col>
 
-            <Col sm={12} md={6} lg={4}>
+            <Col sm={12} md={7} lg={7} className="mb-3">
               <CHybridSelect
                 id="requestBodysId"
                 label="Request Body"
@@ -62,8 +56,8 @@ const DepartmentEditModal = ({
                 }
               />
             </Col>
-            <Col sm={12} md={6} lg={4}>
-              <CHybridInput
+            <Col sm={12} md={12} lg={12}>
+              <CHybridTextArea
                 id="remarks"
                 placeholder="Remarks"
                 name="remarks"

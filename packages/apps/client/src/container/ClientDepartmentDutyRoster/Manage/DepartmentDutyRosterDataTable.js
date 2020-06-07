@@ -4,6 +4,7 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers';
 import PreviewHandlerHoc from "../../CommonComponents/table-components/hoc/PreviewHandlerHoc";
 import TableAction from "../../CommonComponents/table-components/TableAction";
 import {StatusLabel} from "@frontend-appointment/ui-components/src/CTableComponents";
+import {RoomEnableBadge} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -53,7 +54,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true,
-                                        width: 300
+                                        width: 200
 
                                     },
                                     {
@@ -61,21 +62,32 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         field: 'fromDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 120
                                     },
                                     {
                                         headerName: 'To Date',
                                         field: 'toDate',
                                         resizable: true,
                                         sortable: true,
-                                        sizeColumnsToFit: true
+                                        sizeColumnsToFit: true,
+                                        width: 120
                                     },
                                     {
-                                        headerName: 'Time Duration (In min)',
+                                        headerName: 'Time Period(min)',
                                         field: 'rosterGapDuration',
                                         resizable: true,
                                         sortable: true,
                                         sizeColumnsToFit: true
+                                    },
+                                    {
+                                        headerName: 'Room Enabled',
+                                        field: 'isRoomEnabled',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true,
+                                        cellRenderer: 'roomEnabledRenderer',
+                                        width: 120
                                     },
                                     {
                                         headerName: 'Status',
@@ -110,6 +122,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                 ]}
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
+                                    roomEnabledRenderer: PreviewHandlerHoc(RoomEnableBadge, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                     childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                 }}
                                 defaultColDef={{resizable: true}}

@@ -1,10 +1,5 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CPagination,
-    //CButton,
-    CLoading
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import {ConfirmDelete} from '@frontend-appointment/ui-components'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction';
@@ -12,6 +7,7 @@ import StatusLabel from '../../CommonComponents/table-components/StatusLabel';
 import PreviewDetails from '../commons/PreviewDetails'
 import HospitalPicture from '../commons/HospitalPicture'
 import PreviewHandlerHoc from '../../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+
 const {checkIfRoleExists} = ActionFilterUtils
 
 const HospitalDetailsDataTable = props => (
@@ -97,8 +93,8 @@ const HospitalDetailsDataTable = props => (
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        childLabelRenderer: PreviewHandlerHoc(StatusLabel,checkIfRoleExists,props.filteredActions,4,props.onPreviewHandler),
-                        imageRenderer:PreviewHandlerHoc(HospitalPicture,checkIfRoleExists, props.filteredActions,4,props.onPreviewHandler)
+                        childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={
@@ -135,6 +131,9 @@ const HospitalDetailsDataTable = props => (
                 hospitalPreviewErrorMessage={
                     props.hospitalPreviewErrorMessage
                 }
+                activeBillingModeForDropdown={props.activeBillingModeForDropdown}
+                activeAppointmentServiceTypeForDropdown={props.activeAppointmentServiceTypeForDropdown}
+                appointmentServiceTypeListForPrimary={props.appointmentServiceTypeListForPrimary}
             />
         ) : (
             ''

@@ -7,7 +7,8 @@ const HospitalDepartmentManage = props => {
         ({
              searchData,
              tableData,
-             updateData
+             updateData,
+             departmentChargeProps
          }) =>
             <>
                 <div className="">
@@ -18,8 +19,10 @@ const HospitalDepartmentManage = props => {
                 </div>
                 {
                     updateData.showEditModal ?
-                        <HospitalDepartmentSetupComponents.HospitalDepartmentSetupEditModal updateData={updateData}/>
-                        :''
+                        <HospitalDepartmentSetupComponents.HospitalDepartmentSetupEditModal
+                            updateData={updateData}
+                            departmentChargeProps={departmentChargeProps}/>
+                        : ''
                 }
 
             </>,

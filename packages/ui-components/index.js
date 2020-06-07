@@ -43,3 +43,4 @@ export {default as TransferredFromDateWithTime} from './src/TransferredFromDateW
 export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
 export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
 export {default as RequestMethodStatus} from './src/RequestMethodStatus';
+export {default as RoomEnableBadge} from './src/RoomEnableBadge';

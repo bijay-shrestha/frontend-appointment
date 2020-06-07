@@ -64,7 +64,11 @@ import {
     hospitalDepartmentSetupActionConstants,
     HospitalDepartmentSetupActions,
     departmentDutyRosterActionConstants,
-    DepartmentDutyRosterActions
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 } from './src/admin-module'
 
 export {
@@ -131,5 +135,9 @@ export {
     HospitalDepartmentSetupActions,
     hospitalDepartmentSetupActionConstants,
     departmentDutyRosterActionConstants,
-    DepartmentDutyRosterActions
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 }

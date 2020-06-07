@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-room-enable-renderer",
+  "version": "1.0.0",
+  "main": "RoomEnableBadge.jsx",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

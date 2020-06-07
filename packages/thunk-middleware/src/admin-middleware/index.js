@@ -19,8 +19,8 @@ import {
     editAdmin,
     fetchAdminList,
     fetchAdminMetaInfo,
-    previewAdmin,
-    fetchAdminMetaInfoByHospitalId
+    fetchAdminMetaInfoByHospitalId,
+    previewAdmin
 } from './admin-setup-middleware/adminSetupMiddleware';
 
 import * as SpecializationSetupMiddleware from './specialization-setup-middleware/specializationSetupMiddleware';
@@ -40,11 +40,17 @@ import * as UniversitySetupMiddleware from './university-setup-middleware/univer
 import * as AppointmentModeMiddleware from './appointment-mode-middleware/appointmentModeMiddleware';
 import * as AppointmentTransferMiddleware from './appointment-transfer-middleware/appointmentTransferMiddleware';
 import * as RoomSetupMiddleware from './room-setup-middleware/roomSetupMiddleware';
-import * as HospitalDepartmentSetupMiddleware from './hospital-department-setup-middleware/hospitalDepartmentSetupMiddleware';
+import * as HospitalDepartmentSetupMiddleware
+    from './hospital-department-setup-middleware/hospitalDepartmentSetupMiddleware';
 import * as DepartmentDutyRosterMiddleware from './department-duty-roster-middleware/departmentDutyRosterMiddleware';
-import * as HospitalApiIntegrationMiddleware from './hospital-api-integration-middleware/hospitalApiIntegrationMiddleware'
+import * as HospitalApiIntegrationMiddleware
+    from './hospital-api-integration-middleware/hospitalApiIntegrationMiddleware'
 import * as RequestBodyApiIntegrationMiddleware from './request-body-integration-api/requestBodyIntegrationMiddleware'
 import * as AdminApiIntegrationMiddleware from './admin-api-integration-middleware/adminApiIntegrationMiddleware';
+import * as BillingModeMiddleware from './billing-mode-middleware/billingModeMiddleware';
+import * as AppointmentServiceTypeMiddleware
+    from './appointment-service-type-middleware/appointmentServiceTypeMiddleware';
+
 export {
     createProfile,
     fetchProfileList,
@@ -85,5 +91,7 @@ export {
     DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
     RequestBodyApiIntegrationMiddleware,
-    AdminApiIntegrationMiddleware
+    AdminApiIntegrationMiddleware,
+    BillingModeMiddleware,
+    AppointmentServiceTypeMiddleware
 }
