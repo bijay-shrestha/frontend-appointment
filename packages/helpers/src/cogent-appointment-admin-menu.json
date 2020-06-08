@@ -391,7 +391,7 @@
     {
       "id": "33",
       "parentId": null,
-      "name": " Developer Options",
+      "name": "Developer Options",
       "path": "/apiIntegration",
       "roles": [],
       "icon": "fa fa-gg",
