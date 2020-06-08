@@ -178,7 +178,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                   </>
                 </CButton>
               </li>
-              {searchParams.clientId.value && (
+              {searchParams.hospitalId.value && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -186,7 +186,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                     overlay={props => <Tooltip {...props}>Client</Tooltip>}
                   >
                     <Button id="light-search-filters" variant="secondary">
-                      {searchParams.clientId.label}
+                      {searchParams.hospitalId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
