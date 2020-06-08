@@ -194,7 +194,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           size: this.state.searchQueryParams.size
         },
         {
-          apiUrl,
+          url:apiUrl,
           hospitalId: hospitalId.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',
