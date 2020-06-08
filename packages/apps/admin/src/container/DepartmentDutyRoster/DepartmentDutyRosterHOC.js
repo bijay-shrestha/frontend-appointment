@@ -1,6 +1,12 @@
 import React, {PureComponent} from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
-import {DateTimeFormatterUtils, EnterKeyPressUtils, StringUtils, TryCatchHandler} from '@frontend-appointment/helpers'
+import {
+    DateTimeFormatterUtils,
+    EnterKeyPressUtils,
+    MultiSelectOptionUpdateUtils,
+    StringUtils,
+    TryCatchHandler
+} from '@frontend-appointment/helpers'
 import {
     DepartmentDutyRosterMiddleware,
     DoctorMiddleware,
@@ -409,6 +415,23 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     rosterRoomId,
                     departmentWeekDaysDutyRosterRequestDTOS
                 } = this.state;
+
+                let updatedWeekDays = departmentWeekDaysDutyRosterRequestDTOS.filter(weekDay => weekDay.isUpdated),
+                    updatedWeekDayWithUpdatedDoctorList = updatedWeekDays.map(updatedWeekDay => ({
+                        dayOffStatus: updatedWeekDay.dayOffStatus,
+                        endTime: updatedWeekDay.endTime,
+                        rosterWeekDaysId: updatedWeekDay.rosterWeekDaysId,
+                        startTime: updatedWeekDay.startTime,
+                        weekDaysId: updatedWeekDay.weekDaysId,
+                        weekDaysName: updatedWeekDay.weekDaysName,
+                        weekDaysDoctorInfo: [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                            updatedWeekDay.originalWeekDaysDoctorInfo,
+                            updatedWeekDay.weekDaysDoctorInfo,
+                            "hospitalDepartmentDoctorInfo",
+                            "hospitalDepartmentWeekDaysDutyRosterDoctorInfoId")]
+                    }));
+
+
                 let updateData = {
                     roomDetail: {
                         hospitalDepartmentRoomInfoId: room && room.value,
@@ -424,7 +447,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         rosterGapDuration,
                         status
                     },
-                    weekDaysDetail: [...departmentWeekDaysDutyRosterRequestDTOS]
+                    weekDaysDetail: [...updatedWeekDayWithUpdatedDoctorList]
                 };
                 try {
                     await this.props.updateDepartmentDutyRoster(
@@ -1065,6 +1088,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         weekDay.dayOffStatus = weekDay.dayOffStatus
                             ? weekDay.dayOffStatus
                             : 'N';
+                        weekDay.isUpdated = false;
+                        weekDay.originalWeekDaysDoctorInfo = [...weekDay.weekDaysDoctorInfo];
                         return weekDay
                     }
                 );
@@ -1085,6 +1110,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     updatedOverrides: [],
                     isCloneAndAdd: isCloneAndAdd
                 });
+                if (!isCloneAndAdd)
+                    this.fetchActiveDoctorsByDepartmentId(department.value);
                 this.checkManageFormValidity()
             };
 
@@ -1315,6 +1342,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         departmentWeekDaysAvailability[index][key] = value;
 
                 }
+                if (type === "MANAGE")
+                    departmentWeekDaysAvailability[index].isUpdated = true;
             }
 
             setDefaultStartAndEndTimeAndDayOffStatus = (
