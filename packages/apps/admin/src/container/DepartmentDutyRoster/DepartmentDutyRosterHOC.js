@@ -178,16 +178,16 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     await this.fetchActiveDepartmentByHospitalId(value);
                 }
                 this.resetDepartmentAndRoomOnHospitalChange();
+                await this.fetchActiveDoctorsByDepartmentId(0);
             };
 
             actionsOnDepartmentChange = async departmentId => {
-                if (departmentId) {
-                    await this.fetchActiveDoctorsByDepartmentId(departmentId);
+                this.resetDepartmentAndRoomOnHospitalChange(departmentId);
+                try {
+                    await this.fetchActiveDoctorsByDepartmentId(departmentId ? departmentId : 0);
+                } catch (e) {
+
                 }
-                this.setState({
-                    isRoomEnabled: 'N',
-                    room: null
-                });
             };
 
             addOrModifyOverride = (isModifyOverride, overrideList, currentOverride) => {
@@ -268,7 +268,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime;
+                    formValid = formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length;
                     return weekDay
                 });
 
@@ -298,7 +302,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime
+                    formValid = formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length;
                     return weekDay
                 });
 
@@ -1113,16 +1121,21 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 });
                 if (!isCloneAndAdd)
                     this.fetchActiveDoctorsByDepartmentId(department.value);
+                else
+                    this.fetchActiveDoctorsByDepartmentId(0);
                 this.checkManageFormValidity()
             };
 
             partialResetAddForm = async onSuccessData => {
+                let weekDaysDataWithoutDoctor = this.state.departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 await this.setState({
                     department: null,
                     isRoomEnabled: 'N',
                     room: null,
                     rosterGapDuration: '',
                     status: 'Y',
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithoutDoctor && [...weekDaysDataWithoutDoctor],
                     overrideRequestDTO: {
                         fromDate: new Date(),
                         toDate: new Date(),
@@ -1228,11 +1241,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 })
             };
 
-            resetDepartmentAndRoomOnHospitalChange = () => {
+            resetDepartmentAndRoomOnHospitalChange = (departmentValue) => {
+                const {departmentWeekDaysDutyRosterRequestDTOS, department} = this.state;
+                let weekDaysDataWithDoctorReset = departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 this.setState({
                     isRoomEnabled: 'N',
                     room: null,
-                    department: null
+                    department: departmentValue ? department : null,
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithDoctorReset && [...weekDaysDataWithDoctorReset]
                 })
             };
 

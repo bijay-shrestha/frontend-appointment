@@ -201,13 +201,19 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             actionsOnDepartmentChange = async departmentId => {
-                if (departmentId) {
-                    await this.fetchActiveDoctorsByDepartmentId(departmentId);
-                }
+                let weekDaysDataWithDoctorReset = this.state.departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 this.setState({
                     isRoomEnabled: 'N',
-                    room: null
+                    room: null,
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithDoctorReset && [...weekDaysDataWithDoctorReset]
                 });
+                try {
+                    await this.fetchActiveDoctorsByDepartmentId(departmentId ? departmentId : 0);
+                } catch (e) {
+
+                }
+
             };
 
 
@@ -250,7 +256,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime;
+                    formValid = formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length;
                     return weekDay
                 });
 
@@ -279,7 +289,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime
+                    formValid = formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length;
                     return weekDay
                 });
 
@@ -1086,12 +1100,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             partialResetAddForm = async onSuccessData => {
+                let weekDaysDataWithoutDoctor = this.state.departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 await this.setState({
                     department: null,
                     isRoomEnabled: 'N',
                     room: null,
                     rosterGapDuration: '',
                     status: 'Y',
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithoutDoctor && [...weekDaysDataWithoutDoctor],
                     overrideRequestDTO: {
                         fromDate: new Date(),
                         toDate: new Date(),
