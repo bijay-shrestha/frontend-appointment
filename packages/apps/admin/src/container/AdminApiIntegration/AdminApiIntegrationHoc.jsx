@@ -38,7 +38,7 @@ const {
 } = CommonUtils
 const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
-  changeObjectStructureToKeyValueArray,
+  //changeObjectStructureToKeyValueArray,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
 
@@ -277,7 +277,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           url,
           headers,
           queryParameters,
-          hospitalName,
+          appointmentMode,
           lastModifiedBy,
           lastModifiedDate,
           createdDate,
@@ -290,11 +290,11 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestMethod: requestMethodName,
           requestBody: requestBody,
           featureType: featureName,
-          headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
+          headers: headers ? headers: [],
           queryParams: queryParameters
-            ? changeObjectStructureToKeyValueArray(queryParameters)
+            ? queryParameters
             : [],
-          clientId: hospitalName,
+            appointmentModeId: appointmentMode,
           integrationChannelId: integrationChannel,
           integrationTypeId: integrationType,
           lastModifiedBy,

@@ -142,7 +142,7 @@ const DetailsModal = ({
                                 <CHybridInput
                                   key={'header-' + headerKey + index}
                                   id={'header-' + headerKey + index}
-                                  name={headerKey}
+                                  name={headerKey.replace("Param","")}
                                   placeholder={headerKey}
                                   value={header[headerKey]}
                                   required={true}
@@ -176,7 +176,7 @@ const DetailsModal = ({
                                 <CHybridInput
                                   key={'header-' + queryParamKey + index}
                                   id={'header-' + queryParamKey + index}
-                                  name={queryParamKey}
+                                  name={queryParamKey.replace("Param","")}
                                   disabled={true}
                                   placeholder={queryParamKey}
                                   value={queryParam[queryParamKey]}

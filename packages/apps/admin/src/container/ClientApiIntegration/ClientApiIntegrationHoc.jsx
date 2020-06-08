@@ -33,7 +33,7 @@ const {
 } = CommonUtils
 const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
-  changeObjectStructureToKeyValueArray,
+ // changeObjectStructureToKeyValueArray,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -290,9 +290,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestMethod: requestMethodName,
           requestBody: requestBody,
           featureType: featureName,
-          headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
+          headers: headers ? headers : [],
           queryParams: queryParameters
-            ? changeObjectStructureToKeyValueArray(queryParameters)
+            ? queryParameters
             : [],
           clientId: hospitalName,
           integrationChannelId: integrationChannel,

@@ -15,7 +15,7 @@ const ClientApiConfirmationModal = props => {
             <CModal
                 show={showConfirmationModal}
               
-                modalHeading="API Integration Details"
+                modalHeading="Client API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal

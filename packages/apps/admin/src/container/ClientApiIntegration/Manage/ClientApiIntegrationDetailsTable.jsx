@@ -38,7 +38,7 @@ const ClientApiIntegrationDetailsDataTable = ({
   requestBodyByFeatureErrorMessage
 }) => (
   <div className="manage-details">
-    <h5 className="title">API Integration Details</h5>
+    <h5 className="title">Client API Integration Details</h5>
     {!isSearchLoading && !searchErrorMessage && integrationList.length ? (
       <>
         <CDataTable
