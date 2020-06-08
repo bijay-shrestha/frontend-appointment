@@ -776,11 +776,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationChannelData,
         integrationChannelDropdownError
       } = this.props.integrationChannelReducers
+      
       const {
         isIntegrationTypeDropdownLoading,
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
+
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
+      }= this.props.RequestBodyByFeatureReducers
 
       console.log('=======', this.props.integrationChannelReducers)
       return (
@@ -819,7 +825,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationChannelDropdownError,
               isIntegrationTypeDropdownLoading,
               integrationTypeData,
-              integrationTypeDropdownError
+              integrationTypeDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,

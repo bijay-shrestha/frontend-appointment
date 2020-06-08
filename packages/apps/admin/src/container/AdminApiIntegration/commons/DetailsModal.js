@@ -14,6 +14,7 @@ const DetailsModal = ({
   isRequestBodyByFeatureLoading,
   requestBodyByFeatureErrorMessage
 }) => {
+  const requestMethod =type==='A'?integrationData.requestMethod.label:integrationData.requestMethod
   return (
     <>
       <Container-fluid>
@@ -30,10 +31,10 @@ const DetailsModal = ({
                   />
                 ) : (
                   <CHybridInput
-                    id="hospital"
-                    value={integrationData.clientId || 'N/A'}
+                    id="appointmentMode"
+                    value={integrationData.appointmentModeId || 'N/A'}
                     disabled={true}
-                    placeholder={'Client'}
+                    placeholder={'Appointment Mode'}
                   />
                 )}
               </Col>
@@ -188,8 +189,7 @@ const DetailsModal = ({
                 : null}
             </Row>
             <Row>
-              {integrationData.requestMethod.label !== 'GET' &&
-              integrationData.requestMethod !== 'GET' ? (
+              {requestMethod !=='GET' ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">

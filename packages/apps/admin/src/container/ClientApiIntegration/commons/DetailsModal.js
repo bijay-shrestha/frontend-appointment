@@ -14,6 +14,10 @@ const DetailsModal = ({
   isRequestBodyByFeatureLoading,
   requestBodyByFeatureErrorMessage
 }) => {
+  const requestMethod =
+    type === 'A'
+      ? integrationData.requestMethod.label
+      : integrationData.requestMethod
   return (
     <>
       <Container-fluid>
@@ -124,7 +128,9 @@ const DetailsModal = ({
             </Row>
 
             <Row>
-              {integrationData.headers.length?<div className="underline  px-3 mb-3 mt-1">Headers</div>:null}
+              {integrationData.headers.length ? (
+                <div className="underline  px-3 mb-3 mt-1">Headers</div>
+              ) : null}
               {integrationData.headers.length
                 ? integrationData.headers.map((header, ind) => {
                     return (
@@ -152,7 +158,9 @@ const DetailsModal = ({
                 : null}
             </Row>
             <Row>
-              {integrationData.queryParams.length?<div className="underline px-3 my-3">Query Params</div>:null}
+              {integrationData.queryParams.length ? (
+                <div className="underline px-3 my-3">Query Params</div>
+              ) : null}
               {integrationData.queryParams.length
                 ? integrationData.queryParams.map((queryParam, ind) => {
                     return (
@@ -183,8 +191,7 @@ const DetailsModal = ({
                 : null}
             </Row>
             <Row>
-              {integrationData.requestMethod.label !== 'GET' &&
-              integrationData.requestMethod !== 'GET' ? (
+              {requestMethod !== 'GET' ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">
