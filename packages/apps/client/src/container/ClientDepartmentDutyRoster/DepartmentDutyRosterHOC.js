@@ -1297,13 +1297,13 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                         59,
                         59
                     );
-                    departmentWeekDaysAvailability.errorMessage = ''
                 } else {
                     departmentWeekDaysAvailability.dayOffStatus = 'N';
                     departmentWeekDaysAvailability.startTime = '';
                     departmentWeekDaysAvailability.endTime = '';
-                    departmentWeekDaysAvailability.errorMessage = ''
                 }
+                departmentWeekDaysAvailability.weekDaysDoctorInfo = null;
+                departmentWeekDaysAvailability.errorMessage = ''
             };
 
 

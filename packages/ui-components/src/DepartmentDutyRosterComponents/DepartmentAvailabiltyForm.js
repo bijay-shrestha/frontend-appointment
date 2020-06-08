@@ -96,7 +96,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                                         value={day.weekDaysDoctorInfo}
                                         required={true}
                                         placeholder={activeDoctorsByDepartment.length ? "Select Doctor(s)." : "No Doctor(s) available."}
-                                        isDisabled={!activeDoctorsByDepartment.length}
+                                        isDisabled={!activeDoctorsByDepartment.length || day.dayOffStatus === 'Y'}
                                         isMulti={true}
                                         className="multiple-select"
                                     />
