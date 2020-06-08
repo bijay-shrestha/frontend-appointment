@@ -403,7 +403,7 @@ const ClientApiIntegrationEditModal = ({
     <>
       <CModal
         show={showEditModal}
-        modalHeading="API Integration"
+        modalHeading="Client API Integration"
         size="xl"
         bodyChildren={bodyContent}
         onHide={setCloseModal}

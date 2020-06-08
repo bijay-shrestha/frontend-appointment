@@ -12,8 +12,8 @@ const ClientApiPreviewModal = props => {
         <>
             <CModal
                 show={showModal}
-              
-                modalHeading="API Integration Details"
+
+                modalHeading="Client API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal
