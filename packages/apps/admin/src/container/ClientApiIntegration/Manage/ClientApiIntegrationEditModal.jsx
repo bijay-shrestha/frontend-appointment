@@ -6,7 +6,8 @@ import {
   CModal,
   CHybridSelect,
   CCheckbox,
-  CFLabel
+  CFLabel,
+  CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -32,7 +33,10 @@ const ClientApiIntegrationEditModal = ({
   formValid,
   errorMessage,
   integrationChannelData,
-  integrationTypeData
+  integrationTypeData,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
+
 }) => {
   console.log('showEditModal', showEditModal)
   const bodyContent = (
@@ -209,7 +213,7 @@ const ClientApiIntegrationEditModal = ({
                             <CHybridInput
                               key={'header-' + headerKey + index}
                               id={'header-' + headerKey + index}
-                              name={headerKey}
+                              name={headerKey.replace("Param","")}
                               onChange={event =>
                                 onChangeHandlerHeaderOrQueryParams(
                                   event,
@@ -218,7 +222,7 @@ const ClientApiIntegrationEditModal = ({
                                   'E'
                                 )
                               }
-                              placeholder={headerKey}
+                              placeholder={headerKey.replace("Param","")}
                               value={header[headerKey]}
                               required={true}
                             />
@@ -304,7 +308,7 @@ const ClientApiIntegrationEditModal = ({
                               <CHybridInput
                                 key={'header-' + queryParamKey + index}
                                 id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
+                                name={queryParamKey.replace('Param',"")}
                                 onChange={event =>
                                   onChangeHandlerHeaderOrQueryParams(
                                     event,
@@ -313,7 +317,7 @@ const ClientApiIntegrationEditModal = ({
                                     'E'
                                   )
                                 }
-                                placeholder={queryParamKey}
+                                placeholder={queryParamKey.replace("Param","")}
                                 value={queryParam[queryParamKey]}
                                 required={true}
                               />
@@ -351,16 +355,39 @@ const ClientApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestBody && integrationData.requestMethod.label === 'GET' ? (
+          {integrationData.requestMethod.label !== 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />
                 <div className="request-body-code">
-                  <code>{integrationData.requestBody}</code>
+                  {integrationData.requestBody &&
+                  !isRequestBodyByFeatureLoading &&
+                  !requestBodyByFeatureErrorMessage ? (
+                    <code>{integrationData.requestBody}</code>
+                  ) : !isRequestBodyByFeatureLoading &&
+                    requestBodyByFeatureErrorMessage ? (
+                    <code color="red">{requestBodyByFeatureErrorMessage}</code>
+                  ) : (
+                    <code>Loading....</code>
+                  )}
                 </div>
               </Col>
             </Row>
           ) : null}
+
+          <Row className="mt-4">
+            <Col sm={12}>
+              <CHybridTextArea
+                name="remarks"
+                id="remarks"
+                placeholder="Enter Remarks"
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
+                value={integrationData.remarks}
+              />
+            </Col>
+          </Row>
         </Container-fluid>
       </CForm>
     </>
@@ -403,7 +430,7 @@ const ClientApiIntegrationEditModal = ({
     <>
       <CModal
         show={showEditModal}
-        modalHeading="API Integration"
+        modalHeading="Client API Integration"
         size="xl"
         bodyChildren={bodyContent}
         onHide={setCloseModal}

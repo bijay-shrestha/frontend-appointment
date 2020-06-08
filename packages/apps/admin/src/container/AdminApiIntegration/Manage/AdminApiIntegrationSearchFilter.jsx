@@ -43,7 +43,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Api Integration</h5>
+              <h5 className="title">Search Admin Api Integration</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -80,13 +80,13 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="apiIntegrationTypeId"
-                      label="Api Integration Type"
+                      label="Admin Api Integration Type"
                       name="apiIntegrationTypeId"
                       onChange={event => onSearchChangeHandler(event)}
                       options={integrationTypeData}
                       value={searchParams.apiIntegrationTypeId}
                       disabled={!integrationTypeData.length}
-                      placeholder={'Select Api Integration Type.'}
+                      placeholder={'Select Admin Api Integration Type.'}
                     />
                   </Col>
 
@@ -104,7 +104,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                       }
                       placeholder={
                         !searchParams.apiIntegrationTypeId
-                          ? 'Select Api Integration First.'
+                          ? 'Select Admin Api Integration First.'
                           : featureTypeDropdownData.length
                           ? 'Select Feature Type'
                           : 'No Feature Types(s) Found'
@@ -200,7 +200,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Api Integration Type</Tooltip>
+                      <Tooltip {...props}>Admin Api Integration Type</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">

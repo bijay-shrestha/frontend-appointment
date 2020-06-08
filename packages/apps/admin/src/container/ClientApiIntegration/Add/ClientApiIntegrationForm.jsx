@@ -50,7 +50,7 @@ const ClientApiIntegrationForm = ({
     <>
       <Container-fluid>
         <Row sm="12 p-0">
-          <h5 className="title"> API Integration </h5>
+          <h5 className="title">Client API Integration </h5>
         </Row>
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
@@ -222,7 +222,7 @@ const ClientApiIntegrationForm = ({
                             <CHybridInput
                               key={'header-' + headerKey + index}
                               id={'header-' + headerKey + index}
-                              name={headerKey}
+                              name={headerKey.replace("Param")}
                               onChange={event =>
                                 onChangeHandlerHeaderOrQueryParams(
                                   event,
@@ -312,7 +312,7 @@ const ClientApiIntegrationForm = ({
                               <CHybridInput
                                 key={'header-' + queryParamKey + index}
                                 id={'header-' + queryParamKey + index}
-                                name={queryParamKey}
+                                name={queryParamKey.replace("Param")}
                                 onChange={event =>
                                   onChangeHandlerHeaderOrQueryParams(
                                     event,

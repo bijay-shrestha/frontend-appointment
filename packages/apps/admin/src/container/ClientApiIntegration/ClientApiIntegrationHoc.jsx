@@ -33,7 +33,7 @@ const {
 } = CommonUtils
 const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
-  changeObjectStructureToKeyValueArray,
+ // changeObjectStructureToKeyValueArray,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
@@ -50,7 +50,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: null,
         id: '',
         integrationChannelId: '',
-        integrationTypeId: ''
+        integrationTypeId: '',
+        remarks:''
       },
       searchParameters: {
         clientId: '',
@@ -103,7 +104,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: '',
           id: '',
           integrationChannelId: '',
-          integrationTypeId: ''
+          integrationTypeId: '',
+          remarks:''
         },
         formValid: false,
         requestBodyValid: false,
@@ -266,7 +268,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           previewApiIntegrationData
         } = this.props.hospitalPreviewApiIntegrationReducers
         const {
-          featureCode,
+          featureName,
           // requestMethodId,
           featureId,
           integrationChannel,
@@ -287,10 +289,10 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: url,
           requestMethod: requestMethodName,
           requestBody: requestBody,
-          featureType: featureCode,
-          headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
+          featureType: featureName,
+          headers: headers ? headers : [],
           queryParams: queryParameters
-            ? changeObjectStructureToKeyValueArray(queryParameters)
+            ? queryParameters
             : [],
           clientId: hospitalName,
           integrationChannelId: integrationChannel,
@@ -327,7 +329,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         const {
           hospitalName,
           featureId,
-          featureCode,
+          featureName,
           requestMethodId,
           requestMethodName,
           url,
@@ -338,13 +340,14 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           integrationType,
           integrationChannelId,
           integrationChannel
+
         } = previewApiIntegrationData
         await this.onIntegrationTypeChangeFeatureType(integrationTypeId)
         await this.onFeatureTypeChangeRequestBody(featureId)
         const {requestBody} = this.state.integrationData
         let integrationData = {
           clientId: hospitalName,
-          featureType: {value: featureId, label: featureCode},
+          featureType: {value: featureId, label: featureName},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
           headers: headers ? addDescriptionInHeaderAndParams(headers) : [],
@@ -364,8 +367,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.setState({
           requestParamsIsSelected: true,
           requestHeadersIsSelected: true,
-          editHeaders: headers,
-          editQueryParams: queryParameters,
+          editHeaders: headers?headers.length?headers:[]:[],
+          editQueryParams:queryParameters?queryParameters.length?queryParameters:[]:[],
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -498,7 +501,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         // queryParams,
         integrationChannelId,
         integrationTypeId,
-        requestMethod
+        requestMethod,
+        remarks
       } = this.state.integrationData
       let formValid =
         apiUrl &&
@@ -508,6 +512,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod.value
       if (type === 'E') {
         formValid = formValid && clientId
+        formValid= formValid && remarks
       } else {
         formValid = formValid && clientId.value
       }
@@ -542,17 +547,18 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       let filteredObj = []
 
       const newFilterObj = this.state[keyName]
-      newFilterObj.map(newFilterObj => {
+      if(newFilterObj!==null)
+      newFilterObj.map(newFiltObj => {
         let flag = false
         for (let i = 0; i < dataToFilter.length; i++) {
-          if (Number(newFilterObj.id) === Number(dataToFilter[i].id)) {
+          if (Number(newFiltObj.id) === Number(dataToFilter[i].id)) {
             filteredObj.push(dataToFilter[i])
             flag = true
             break
           }
         }
         if (!flag) {
-          filteredObj.push({...newFilterObj, status: 'N'})
+          filteredObj.push({...newFiltObj, status: 'N'})
         }
 
         return newFilterObj
@@ -772,11 +778,17 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationChannelData,
         integrationChannelDropdownError
       } = this.props.integrationChannelReducers
+      
       const {
         isIntegrationTypeDropdownLoading,
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
+
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
+      }= this.props.RequestBodyByFeatureReducers
 
       console.log('=======', this.props.integrationChannelReducers)
       return (
@@ -815,7 +827,9 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationChannelDropdownError,
               isIntegrationTypeDropdownLoading,
               integrationTypeData,
-              integrationTypeDropdownError
+              integrationTypeDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               isHospitalApiSaveLoading: isHospitalApiSaveLoading,
