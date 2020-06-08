@@ -391,7 +391,7 @@
     {
       "id": "33",
       "parentId": null,
-      "name": "Api Integration",
+      "name": " Developer Options",
       "path": "/apiIntegration",
       "roles": [],
       "icon": "fa fa-gg",
@@ -400,7 +400,7 @@
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Api Integration",
+      "description": " Developer Options",
       "childMenus": [
         {
           "id": "34",

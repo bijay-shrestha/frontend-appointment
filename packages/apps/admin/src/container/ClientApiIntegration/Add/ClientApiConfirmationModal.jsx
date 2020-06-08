@@ -14,7 +14,7 @@ const ClientApiConfirmationModal = props => {
         <>
             <CModal
                 show={showConfirmationModal}
-              
+
                 modalHeading="Client API Integration Details"
                 size="xl"
                 bodyChildren={
@@ -46,7 +46,7 @@ const ClientApiConfirmationModal = props => {
                             onClickHandler={onSaveHandler}
                             isLoading={isHospitalApiSaveLoading}
                             disabled={isHospitalApiSaveLoading}
-                            
+
                         />
                     </>
                 }
