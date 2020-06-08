@@ -54,7 +54,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         remarks:''
       },
       searchParameters: {
-        clientId: '',
+        hospitalId: '',
         requestMethodId: '',
         featureTypeId: '',
         apiUrl: '',
@@ -175,7 +175,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     searchHospitalApiIntegration = async page => {
       const {
         apiUrl,
-        clientId,
+        hospitalId,
         featureTypeId,
         requestMethodId,
         apiIntegrationTypeId
@@ -195,7 +195,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         },
         {
           apiUrl,
-          clientId: clientId.value || '',
+          hospitalId: hospital.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',
           apiIntegrationTypeId: apiIntegrationTypeId.value || ''
