@@ -308,7 +308,7 @@ const AdminApiIntegrationEditModal = ({
                               <CHybridInput
                                 key={'header-' + queryParamKey + index}
                                 id={'header-' + queryParamKey + index}
-                                name={queryParamKey.replace("Param","")}
+                                name={queryParamKey}
                                 onChange={event =>
                                   onChangeHandlerHeaderOrQueryParams(
                                     event,

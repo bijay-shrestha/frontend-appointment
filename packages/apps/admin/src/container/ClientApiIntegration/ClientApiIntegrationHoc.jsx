@@ -663,7 +663,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         this.setShowAlertModal(
           'danger',
           this.props.hospitalApiIntegrationSaveReducers
-            .hospitalApiSaveErrorMessage
+            .hospitalApiErrorMessage
         )
         this.setCloseModal()
       }
