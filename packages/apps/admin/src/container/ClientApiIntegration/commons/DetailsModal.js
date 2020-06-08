@@ -143,7 +143,7 @@ const DetailsModal = ({
                                   key={'header-' + headerKey + index}
                                   id={'header-' + headerKey + index}
                                   name={headerKey.replace("Param","")}
-                                  placeholder={headerKey}
+                                  placeholder={headerKey.replace("Param","")}
                                   value={header[headerKey]}
                                   required={true}
                                   disabled={true}
@@ -178,7 +178,7 @@ const DetailsModal = ({
                                   id={'header-' + queryParamKey + index}
                                   name={queryParamKey.replace("Param","")}
                                   disabled={true}
-                                  placeholder={queryParamKey}
+                                  placeholder={queryParamKey.replace("Param","")}
                                   value={queryParam[queryParamKey]}
                                 />
                               </div>
