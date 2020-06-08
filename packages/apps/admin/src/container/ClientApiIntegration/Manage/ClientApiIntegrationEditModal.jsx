@@ -6,7 +6,8 @@ import {
   CModal,
   CHybridSelect,
   CCheckbox,
-  CFLabel
+  CFLabel,
+  CHybridTextArea
 } from '@frontend-appointment/ui-elements'
 import {Col, Container, Row} from 'react-bootstrap'
 
@@ -351,7 +352,8 @@ const ClientApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestBody && integrationData.requestMethod.label === 'GET' ? (
+          {integrationData.requestBody &&
+          integrationData.requestMethod.label === 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />
@@ -361,6 +363,20 @@ const ClientApiIntegrationEditModal = ({
               </Col>
             </Row>
           ) : null}
+
+          <Row className="mt-4">
+            <Col sm={12}>
+              <CHybridTextArea
+                name="remarks"
+                id="remarks"
+                placeholder="Enter Remarks"
+                onChange={(event, validity) =>
+                  onChangeHandler(event, validity, 'E')
+                }
+                value={integrationData.remarks}
+              />
+            </Col>
+          </Row>
         </Container-fluid>
       </CForm>
     </>

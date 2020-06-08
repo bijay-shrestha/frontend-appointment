@@ -268,7 +268,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         } = this.props.AdminPreviewApiIntegrationReducers
 
         const {
-          featureCode,
+          featureName,
           // requestMethodId,
           featureId,
           integrationChannel,
@@ -289,7 +289,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: url,
           requestMethod: requestMethodName,
           requestBody: requestBody,
-          featureType: featureCode,
+          featureType: featureName,
           headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
           queryParams: queryParameters
             ? changeObjectStructureToKeyValueArray(queryParameters)
@@ -330,7 +330,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           appointmentModeId,
           appointmentMode,
           featureId,
-          featureCode,
+          featureName,
           requestMethodId,
           requestMethodName,
           url,
@@ -347,7 +347,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         const {requestBody} = this.state.integrationData
         let integrationData = {
           appointmentModeId:{value:appointmentModeId,label:appointmentMode},
-          featureType: {value: featureId, label: featureCode},
+          featureType: {value: featureId, label: featureName},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
           headers: headers ? addDescriptionInHeaderAndParams(headers) : [],

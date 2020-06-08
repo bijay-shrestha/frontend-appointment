@@ -50,7 +50,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestBody: null,
         id: '',
         integrationChannelId: '',
-        integrationTypeId: ''
+        integrationTypeId: '',
+        remarks:''
       },
       searchParameters: {
         clientId: '',
@@ -103,7 +104,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           requestBody: '',
           id: '',
           integrationChannelId: '',
-          integrationTypeId: ''
+          integrationTypeId: '',
+          remarks:''
         },
         formValid: false,
         requestBodyValid: false,
@@ -266,7 +268,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           previewApiIntegrationData
         } = this.props.hospitalPreviewApiIntegrationReducers
         const {
-          featureCode,
+          featureName,
           // requestMethodId,
           featureId,
           integrationChannel,
@@ -287,7 +289,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: url,
           requestMethod: requestMethodName,
           requestBody: requestBody,
-          featureType: featureCode,
+          featureType: featureName,
           headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
           queryParams: queryParameters
             ? changeObjectStructureToKeyValueArray(queryParameters)
@@ -327,7 +329,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         const {
           hospitalName,
           featureId,
-          featureCode,
+          featureName,
           requestMethodId,
           requestMethodName,
           url,
@@ -344,7 +346,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         const {requestBody} = this.state.integrationData
         let integrationData = {
           clientId: hospitalName,
-          featureType: {value: featureId, label: featureCode},
+          featureType: {value: featureId, label: featureName},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
           headers: headers ? addDescriptionInHeaderAndParams(headers) : [],
@@ -498,7 +500,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         // queryParams,
         integrationChannelId,
         integrationTypeId,
-        requestMethod
+        requestMethod,
+        remarks
       } = this.state.integrationData
       let formValid =
         apiUrl &&
@@ -508,6 +511,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         requestMethod.value
       if (type === 'E') {
         formValid = formValid && clientId
+        formValid= formValid && remarks
       } else {
         formValid = formValid && clientId.value
       }
