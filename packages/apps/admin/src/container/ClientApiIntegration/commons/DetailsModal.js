@@ -124,7 +124,7 @@ const DetailsModal = ({
             </Row>
 
             <Row>
-              <div className="underline  px-3 mb-3 mt-1">Headers</div>
+              {integrationData.headers.length?<div className="underline  px-3 mb-3 mt-1">Headers</div>:null}
               {integrationData.headers.length
                 ? integrationData.headers.map((header, ind) => {
                     return (
@@ -152,8 +152,7 @@ const DetailsModal = ({
                 : null}
             </Row>
             <Row>
-              <div className="underline px-3 my-3">Query Param</div>
-
+              {integrationData.queryParams.length?<div className="underline px-3 my-3">Query Params</div>:null}
               {integrationData.queryParams.length
                 ? integrationData.queryParams.map((queryParam, ind) => {
                     return (

@@ -107,14 +107,13 @@ const ClientApiIntegrationDetailsDataTable = ({
               sizeColumnsToFit: true
             },
 
-            // {
-            //   headerName: 'Status',
-            //   field: 'status',
-            //   resizable: true,
-            //   sortable: true,
-            //   sizeColumnsToFit: true,
-            //   cellRenderer: 'childLabelRenderer'
-            // },
+            {
+              headerName: 'Integration Channel',
+              field: 'integrationChannel',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+            },
             {
               headerName: '',
               action: 'action',
