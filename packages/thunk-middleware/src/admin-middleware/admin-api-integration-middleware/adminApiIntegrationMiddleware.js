@@ -39,7 +39,7 @@ export const saveAdminApiIntegration = (
     let response = await Axios.post(path, integrationData)
     dispatch(
       AdminModeApiIntegrationActions.adminModeApiSaveSuccess(
-        'Admin Api Integrated Successfully.'
+        'Admin API Integrated Successfully.'
       )
     )
     return response
@@ -75,7 +75,7 @@ export const editAdminApiIntegrationData = (path, data) => async dispatch => {
     await Axios.put(path, data)
     dispatch(
       AdminModeApiIntegrationActions.adminModeApiEditSuccess(
-        'Admin Api Integration Updated Successfully'
+        'Admin API Integration Updated Successfully'
       )
     )
   } catch (e) {
@@ -107,7 +107,7 @@ export const deleteAdminApiIntegrationData = (path, data) => async dispatch => {
     await Axios.del(path, data)
     dispatch(
       AdminModeApiIntegrationActions.adminModeApiDeleteSuccess(
-        'Client Api Successfully Removed'
+        'Client API Successfully Removed'
       )
     )
   } catch (e) {

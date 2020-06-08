@@ -176,8 +176,8 @@ const ClientApiIntegrationDetailsDataTable = ({
     )}
     {deleteModalShow ? (
       <ConfirmDelete
-        confirmationMessage="Are you sure you want to delete the Admin Api Integration?If yes please provide remarks."
-        modalHeader="Delete Api Interation"
+        confirmationMessage="Are you sure you want to delete the Admin API Integration?If yes please provide remarks."
+        modalHeader="Delete Admin API Interation"
         showModal={deleteModalShow}
         setShowModal={() => setCloseModal('D')}
         onDeleteRemarksChangeHandler={deleteRemarksHandler}
