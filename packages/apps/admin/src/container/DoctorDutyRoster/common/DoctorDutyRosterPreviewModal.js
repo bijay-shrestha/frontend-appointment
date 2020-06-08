@@ -1,14 +1,17 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import {
+    CEnglishDatePicker,
+    DayOffStatusLabel,
+    EndTimeDisplayForTable,
+    FromDateDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable
+} from "@frontend-appointment/ui-components";
 import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
+
 const DoctorDutyRosterPreviewModal = ({
                                           doctorInfoData,
                                           doctorAvailabilityData,
@@ -94,7 +97,7 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.rosterGapDuration}
                                 disabled={true}
                             />
-                            
+
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton
@@ -118,7 +121,7 @@ const DoctorDutyRosterPreviewModal = ({
                                     disabled={true}
                                 />
                             </div>
-                        
+
                         </Form>
                     </div>
                 </Col>
@@ -248,16 +251,15 @@ const DoctorDutyRosterPreviewModal = ({
                     </Col>
                     : ''
                 }
-              
+
             </Row>
 
             <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
-              
-              
-             
-              {AuditableEntityHoc(doctorInfoData.auditableDoctor,false, 4)}
-             
-          </Row>
+
+
+                {AuditableEntityHoc(doctorInfoData.auditableDoctor, false, 4)}
+
+            </Row>
         </Container>
     </>
 };

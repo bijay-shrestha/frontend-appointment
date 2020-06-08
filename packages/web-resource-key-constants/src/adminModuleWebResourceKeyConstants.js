@@ -19,6 +19,7 @@ const HOSPITAL_API_INTEGRATION = "/client-integration"
 const INTEGRATION = '/integration'
 const REQUEST_BODY_INTEGRATION = '/integration-request-body-attribute'
 const ADMIN_API_INTEGRATION = "/admin-mode-integration"
+const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -118,7 +119,7 @@ export const doctorSetupApiConstants = {
     FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/hospital-wise'),
     FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
     FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat('/updateDetails')),
-    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT: BASE.concat(DOCTOR_BASE.concat("/department-wise"))
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE.concat("/doctor"))
 };
 
 export const qualificationSetupApiConstants = {
@@ -299,7 +300,6 @@ export const roomSetupApiConstants = {
     FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/hospitalDepartmentWise/min")),
 };
 
-const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 export const hospitalDepartmentSetupApiConstants = {
     SAVE_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
     EDIT_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),

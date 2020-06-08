@@ -1,13 +1,15 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import {
+    CEnglishDatePicker,
+    DayOffStatusLabel,
+    EndTimeDisplayForTable,
+    FromDateDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable
+} from "@frontend-appointment/ui-components";
 import {CDataTable, CFLabel, CHybridInput, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DepartmentDutyRosterPreviewModal = ({
@@ -79,21 +81,21 @@ const DepartmentDutyRosterPreviewModal = ({
 
                             <div className="room-check">
 
-                            <i className={departmentInfoData.isRoomEnabled === 'Y' ?
-                                "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
-                                                                          labelName={"Enable Room"}/>
+                                <i className={departmentInfoData.isRoomEnabled === 'Y' ?
+                                    "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
+                                                                              labelName={"Enable Room"}/>
 
-                            {
-                                departmentInfoData.isRoomEnabled === 'Y' ?
-                                    <CHybridInput
-                                        id="room"
-                                        name="room"
-                                        placeholder="room"
-                                        value={departmentInfoData.room && departmentInfoData.room.label}
-                                        disabled={true}
-                                    /> : ''
+                                {
+                                    departmentInfoData.isRoomEnabled === 'Y' ?
+                                        <CHybridInput
+                                            id="room"
+                                            name="room"
+                                            placeholder="room"
+                                            value={departmentInfoData.room && departmentInfoData.room.label}
+                                            disabled={true}
+                                        /> : ''
 
-                            }
+                                }
 
                             </div>
 
@@ -167,6 +169,10 @@ const DepartmentDutyRosterPreviewModal = ({
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
                                     <Col>
+                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
+                                            ''}
+                                    </Col>
+                                    <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
 
@@ -174,11 +180,18 @@ const DepartmentDutyRosterPreviewModal = ({
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
-
                                     </Col>
                                     <Col>
-                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
-                                            ''}
+                                        {day.doctorList && day.doctorList.map(doctor => (
+                                            <li>
+                                                {doctor.fileUri ?
+                                                    <img src={doctor.fileUri} alt={doctor.label[0].toUpperCase()}/> :
+                                                    <div className="anchor-icon">
+                                                        {doctor.label.charAt(0).toUpperCase()}
+                                                    </div>}
+                                                {doctor.label}
+                                            </li>
+                                        ))}
                                     </Col>
                                 </Row>
                             ))

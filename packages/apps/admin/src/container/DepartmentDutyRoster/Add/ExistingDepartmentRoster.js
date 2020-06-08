@@ -3,10 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 
 import {CDataTable} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
-
+import {DayOffStatusLabel, EndTimeDisplayForTable, StartTimeDisplayForTable} from "@frontend-appointment/ui-components";
 
 const ExistingDepartmentRoster = ({
                                       existingRosterModalData,
@@ -73,7 +70,8 @@ const ExistingDepartmentRoster = ({
                     </div>
                     <div>
                         {existingRostersDetailErrorMessage ? <p className="error-message">
-                            <i className="fa fa-exclamation-triangle"/>&nbsp;{existingRostersDetailErrorMessage}</p> : ''}
+                            <i className="fa fa-exclamation-triangle"/>&nbsp;{existingRostersDetailErrorMessage}
+                        </p> : ''}
                     </div>
                 </Col>
 

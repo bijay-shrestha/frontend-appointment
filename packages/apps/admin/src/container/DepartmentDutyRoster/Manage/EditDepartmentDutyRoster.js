@@ -10,8 +10,7 @@ import {
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
-import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
-import DoctorAvailabilityForm from "../common/DepartmentAvailabilityForm";
+import {CEnglishDatePicker, ConfirmDelete, DepartmentDutyRosterComponents} from "@frontend-appointment/ui-components";
 import DoctorAvailabilityOverrides from "../common/DepartmentAvailabiltyOverrides";
 
 
@@ -108,32 +107,32 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                             />
 
                             <div className="room-check">
-                            <CCheckbox
-                                id="enable-room"
-                                label="Enable Room"
-                                name="isRoomEnabled"
-                                className="select-all check-all"
-                                checked={updateDoctorDutyRosterData.isRoomEnabled === 'Y'}
-                                onChange={(event) => onInputChange(event, '')}
-                            >
-                            </CCheckbox>
+                                <CCheckbox
+                                    id="enable-room"
+                                    label="Enable Room"
+                                    name="isRoomEnabled"
+                                    className="select-all check-all"
+                                    checked={updateDoctorDutyRosterData.isRoomEnabled === 'Y'}
+                                    onChange={(event) => onInputChange(event, '')}
+                                >
+                                </CCheckbox>
 
-                            {
-                                updateDoctorDutyRosterData.isRoomEnabled === 'Y' ?
-                                    <CHybridSelect
-                                        id="room"
-                                        label="Room Number"
-                                        name="room"
-                                        isDisabled={!updateDoctorDutyRosterData.department || !roomList.length}
-                                        placeholder={!updateDoctorDutyRosterData.department ? "Select Department first."
-                                            : roomList.length ? "Select Room Number." : "No Room Number(s) available."}
-                                        options={roomList}
-                                        onKeyDown={(event) => onEnterKeyPress(event)}
-                                        onChange={(event) => onInputChange(event, '')}
-                                        value={updateDoctorDutyRosterData.room}
-                                    /> :
-                                    ''
-                            }
+                                {
+                                    updateDoctorDutyRosterData.isRoomEnabled === 'Y' ?
+                                        <CHybridSelect
+                                            id="room"
+                                            label="Room Number"
+                                            name="room"
+                                            isDisabled={!updateDoctorDutyRosterData.department || !roomList.length}
+                                            placeholder={!updateDoctorDutyRosterData.department ? "Select Department first."
+                                                : roomList.length ? "Select Room Number." : "No Room Number(s) available."}
+                                            options={roomList}
+                                            onKeyDown={(event) => onEnterKeyPress(event)}
+                                            onChange={(event) => onInputChange(event, '')}
+                                            value={updateDoctorDutyRosterData.room}
+                                        /> :
+                                        ''
+                                }
 
                             </div>
 
@@ -191,7 +190,8 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                         </Form>
                     </div>
                 </Col>
-                <DoctorAvailabilityForm departmentAvailabilityFormData={departmentAvailabilityFormData}/>
+                <DepartmentDutyRosterComponents.DepartmentAvailabiltyForm
+                    departmentAvailabilityFormData={departmentAvailabilityFormData}/>
             </Row>
 
             <Row>

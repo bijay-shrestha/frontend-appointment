@@ -1,6 +1,6 @@
 import React from 'react';
 import {Col, Row} from "react-bootstrap";
-import {CCheckbox, CHybridTimePicker} from "@frontend-appointment/ui-elements";
+import {CCheckbox, CHybridSelectWithImage, CHybridTimePicker} from "@frontend-appointment/ui-elements";
 
 const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
     const {
@@ -9,7 +9,8 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
         wholeWeekOff,
         handleWholeWeekOff,
         type,
-        rosterGapDuration
+        rosterGapDuration,
+        activeDoctorsByDepartment
     } = departmentAvailabilityFormData;
     return <>
         <Col md={12} lg={7} className="">
@@ -17,10 +18,6 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                 <h5 className="title">Department Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
-                    <Col>
-                        Start Time
-                    </Col>
-                    <Col> End Time</Col>
                     <Col>
                         {type === 'ADD' ?
                             <CCheckbox
@@ -32,6 +29,12 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                             /> : "Days Off"
                         }
                     </Col>
+                    <Col>
+                        Start Time
+                    </Col>
+                    <Col> End Time</Col>
+                    <Col> Doctor(s)</Col>
+
                 </Row>
                 {
                     departmentAvailabilityData.map((day, index) => (
@@ -39,10 +42,19 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                             <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                 <Col>{day.weekDaysName}</Col>
                                 <Col>
+                                    <CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}
+                                               name="dayOffStatus"
+                                               label="&nbsp;"
+                                               className=" "
+                                               checked={day.dayOffStatus === 'Y'}
+                                               onChange={(e) => handleDepartmentAvailabilityFormChange(e, '', index)}>
+                                    </CCheckbox>
+                                </Col>
+                                <Col>
                                     <div className="time-picker">
                                         <CHybridTimePicker
                                             id={"startTime".concat(day.weekDaysId)}
-                                            name={"startTime".concat(day.weekDaysId)}
+                                            name={"startTime"}
                                             label=""
                                             onChange={(val) => handleDepartmentAvailabilityFormChange(val, 'startTime', index)}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
@@ -60,7 +72,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                                     <div className="time-picker">
                                         <CHybridTimePicker
                                             id={"endTime".concat(day.weekDaysId)}
-                                            name={"endTime".concat(day.weekDaysId)}
+                                            name={"endTime"}
                                             label=""
                                             onChange={(val) => handleDepartmentAvailabilityFormChange(val, 'endTime', index)}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
@@ -75,13 +87,21 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                                     </div>
                                 </Col>
                                 <Col>
-                                    <CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}
-                                               label="&nbsp;"
-                                               className=" "
-                                               checked={day.dayOffStatus === 'Y'}
-                                               onChange={(e) => handleDepartmentAvailabilityFormChange(e, '', index)}>
-                                    </CCheckbox>
+                                    <CHybridSelectWithImage
+                                        id={"doctor".concat(day.weekDaysId)}
+                                        name="doctorList"
+                                        onChange={(event) => handleDepartmentAvailabilityFormChange(event, '', index)}
+                                        label=""
+                                        options={activeDoctorsByDepartment}
+                                        value={day.doctorList}
+                                        required={true}
+                                        placeholder={activeDoctorsByDepartment.length ? "Select Doctor(s)." : "No Doctor(s) available."}
+                                        isDisabled={!activeDoctorsByDepartment.length}
+                                        isMulti={true}
+                                        className="multiple-select"
+                                    />
                                 </Col>
+
                             </Row>
                             <div>
                                 {day.errorMessage ?
