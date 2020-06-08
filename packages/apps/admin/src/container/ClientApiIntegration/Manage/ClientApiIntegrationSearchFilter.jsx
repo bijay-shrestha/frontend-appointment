@@ -69,7 +69,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                       name="hospitalId"
                       onChange={event => onSearchChangeHandler(event)}
                       options={hospitalsForDropdown}
-                      value={searchParams.clientId}
+                      value={searchParams.hospitalId}
                       disabled={!hospitalsForDropdown.length}
                       placeholder={'Select Client.'}
                     />
