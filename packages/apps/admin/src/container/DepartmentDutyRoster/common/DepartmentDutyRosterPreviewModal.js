@@ -182,7 +182,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
                                     </Col>
                                     <Col>
-                                        {day.doctorList && day.doctorList.map(doctor => (
+                                        {day.weekDaysDoctorInfo && day.weekDaysDoctorInfo.map(doctor => (
                                             <li>
                                                 {doctor.fileUri ?
                                                     <img src={doctor.fileUri} alt={doctor.label[0].toUpperCase()}/> :

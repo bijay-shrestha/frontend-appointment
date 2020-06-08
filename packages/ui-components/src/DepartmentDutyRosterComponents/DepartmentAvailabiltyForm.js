@@ -89,11 +89,11 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                                 <Col>
                                     <CHybridSelectWithImage
                                         id={"doctor".concat(day.weekDaysId)}
-                                        name="doctorList"
+                                        name="weekDaysDoctorInfo"
                                         onChange={(event) => handleDepartmentAvailabilityFormChange(event, '', index)}
                                         label=""
                                         options={activeDoctorsByDepartment}
-                                        value={day.doctorList}
+                                        value={day.weekDaysDoctorInfo}
                                         required={true}
                                         placeholder={activeDoctorsByDepartment.length ? "Select Doctor(s)." : "No Doctor(s) available."}
                                         isDisabled={!activeDoctorsByDepartment.length}

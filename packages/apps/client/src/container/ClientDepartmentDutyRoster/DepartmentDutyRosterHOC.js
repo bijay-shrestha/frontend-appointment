@@ -1399,7 +1399,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 if (!isSaveFromManageClone) {
                     let weekDayData = departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => ({
                         ...weekDay,
-                        hospitalDepartmentDoctorInfoIds: weekDay.doctorList.map(doctor => doctor.value)
+                        hospitalDepartmentDoctorInfoIds: weekDay.weekDaysDoctorInfo.map(doctor => doctor.value)
                     }));
                     dataToSave.weekDaysDetail = [...weekDayData];
                     dataToSave.overrideDetail = departmentDutyRosterOverrideRequestDTOS;
@@ -1415,7 +1415,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
 
                     let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
                         weekdays.rosterWeekDaysId = '';
-                        weekdays.hospitalDepartmentDoctorInfoIds = weekdays.doctorList.map(doctor => doctor.value);
+                        weekdays.hospitalDepartmentDoctorInfoIds = weekdays.weekDaysDoctorInfo.map(doctor => doctor.value);
                         return weekdays;
                     });
                     dataToSave.weekDaysDetail = [...weekDaysList];
