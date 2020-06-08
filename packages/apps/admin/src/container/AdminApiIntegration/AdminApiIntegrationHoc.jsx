@@ -368,8 +368,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.setState({
           requestParamsIsSelected: Boolean(queryParameters)||false,
           requestHeadersIsSelected: Boolean(headers)||false,
-          editHeaders:integrationData.headers,
-          editQueryParams:integrationData.queryParams,
+          editHeaders: headers?headers.length?headers:[]:[],
+          editQueryParams:queryParameters?queryParameters.length?queryParameters:[]:[],
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -556,17 +556,17 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
       let filteredObj = []
 
       const newFilterObj = this.state[keyName]
-      newFilterObj.map(newFilterObj => {
+      newFilterObj.map(newFiltObj => {
         let flag = false
         for (let i = 0; i < dataToFilter.length; i++) {
-          if (Number(newFilterObj.id) === Number(dataToFilter[i].id)) {
+          if (Number(newFiltObj.id) === Number(dataToFilter[i].id)) {
             filteredObj.push(dataToFilter[i])
             flag = true
             break
           }
         }
         if (!flag) {
-          filteredObj.push({...newFilterObj, status: 'N'})
+          filteredObj.push({...newFiltObj, status: 'N'})
         }
 
         return newFilterObj

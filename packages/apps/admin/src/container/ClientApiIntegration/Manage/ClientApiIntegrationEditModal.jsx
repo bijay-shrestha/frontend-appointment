@@ -355,7 +355,7 @@ const ClientApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestMethod.label === 'GET' ? (
+          {integrationData.requestMethod.label !== 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />

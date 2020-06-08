@@ -340,6 +340,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           integrationType,
           integrationChannelId,
           integrationChannel
+
         } = previewApiIntegrationData
         await this.onIntegrationTypeChangeFeatureType(integrationTypeId)
         await this.onFeatureTypeChangeRequestBody(featureId)
@@ -366,8 +367,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.setState({
           requestParamsIsSelected: true,
           requestHeadersIsSelected: true,
-          editHeaders: headers,
-          editQueryParams: queryParameters,
+          editHeaders: headers?headers.length?headers:[]:[],
+          editQueryParams:queryParameters?queryParameters.length?queryParameters:[]:[],
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -546,6 +547,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
       let filteredObj = []
 
       const newFilterObj = this.state[keyName]
+      if(newFilterObj!==null)
       newFilterObj.map(newFiltObj => {
         let flag = false
         for (let i = 0; i < dataToFilter.length; i++) {
@@ -556,7 +558,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           }
         }
         if (!flag) {
-          filteredObj.push({...newFilterObj, status: 'N'})
+          filteredObj.push({...newFiltObj, status: 'N'})
         }
 
         return newFilterObj
