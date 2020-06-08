@@ -7,6 +7,8 @@ const AdminApiPreviewModal = props => {
         showModal,
         integrationData,
         setCloseModal,
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
     } = props
     return (
         <>
@@ -18,6 +20,8 @@ const AdminApiPreviewModal = props => {
                 bodyChildren={
                     <DetailsModal
                          integrationData={integrationData}
+                         isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+                         requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
                          type="P"
                          className="api-details-modal"
                     />

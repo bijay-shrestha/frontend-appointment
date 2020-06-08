@@ -38,7 +38,7 @@ const {
 } = CommonUtils
 const {getRequestBodyByFeatureId} = RequestBodyApiIntegrationMiddleware
 const {
-  changeObjectStructureToKeyValueArray,
+  //changeObjectStructureToKeyValueArray,
   addDescriptionInHeaderAndParams
 } = ObjectUtils
 
@@ -268,7 +268,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         } = this.props.AdminPreviewApiIntegrationReducers
 
         const {
-          featureCode,
+          featureName,
           // requestMethodId,
           featureId,
           integrationChannel,
@@ -277,7 +277,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           url,
           headers,
           queryParameters,
-          hospitalName,
+          appointmentMode,
           lastModifiedBy,
           lastModifiedDate,
           createdDate,
@@ -289,12 +289,12 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           apiUrl: url,
           requestMethod: requestMethodName,
           requestBody: requestBody,
-          featureType: featureCode,
-          headers: headers ? changeObjectStructureToKeyValueArray(headers) : [],
+          featureType: featureName,
+          headers: headers ? headers: [],
           queryParams: queryParameters
-            ? changeObjectStructureToKeyValueArray(queryParameters)
+            ? queryParameters
             : [],
-          clientId: hospitalName,
+            appointmentModeId: appointmentMode,
           integrationChannelId: integrationChannel,
           integrationTypeId: integrationType,
           lastModifiedBy,
@@ -330,7 +330,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           appointmentModeId,
           appointmentMode,
           featureId,
-          featureCode,
+          featureName,
           requestMethodId,
           requestMethodName,
           url,
@@ -347,7 +347,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         const {requestBody} = this.state.integrationData
         let integrationData = {
           appointmentModeId:{value:appointmentModeId,label:appointmentMode},
-          featureType: {value: featureId, label: featureCode},
+          featureType: {value: featureId, label: featureName},
           requestMethod: {value: requestMethodId, label: requestMethodName},
           apiUrl: url,
           headers: headers ? addDescriptionInHeaderAndParams(headers) : [],
@@ -368,8 +368,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         await this.setState({
           requestParamsIsSelected: Boolean(queryParameters)||false,
           requestHeadersIsSelected: Boolean(headers)||false,
-          editHeaders:integrationData.headers,
-          editQueryParams:integrationData.queryParams,
+          editHeaders: headers?headers.length?headers:[]:[],
+          editQueryParams:queryParameters?queryParameters.length?queryParameters:[]:[],
           apiUrlValid: url.match(this.state.regexForApiUrl) ? true : false
         })
 
@@ -556,17 +556,17 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
       let filteredObj = []
 
       const newFilterObj = this.state[keyName]
-      newFilterObj.map(newFilterObj => {
+      newFilterObj.map(newFiltObj => {
         let flag = false
         for (let i = 0; i < dataToFilter.length; i++) {
-          if (Number(newFilterObj.id) === Number(dataToFilter[i].id)) {
+          if (Number(newFiltObj.id) === Number(dataToFilter[i].id)) {
             filteredObj.push(dataToFilter[i])
             flag = true
             break
           }
         }
         if (!flag) {
-          filteredObj.push({...newFilterObj, status: 'N'})
+          filteredObj.push({...newFiltObj, status: 'N'})
         }
 
         return newFilterObj
@@ -797,7 +797,10 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
-
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
+      }= this.props.RequestBodyByFeatureReducers
       return (
         <>
           <ComposedComponent
@@ -837,7 +840,9 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationTypeDropdownError,
               isApppointmentModeApiIntegrationDropdownLoading,
               apppointmentModeApiIntegrationData,
-              apppointmentModeApiIntegrationDropdownError
+              apppointmentModeApiIntegrationDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               adminApiSaveLoading: adminApiSaveLoading,

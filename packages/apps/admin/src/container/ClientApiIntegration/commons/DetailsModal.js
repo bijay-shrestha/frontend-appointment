@@ -8,7 +8,16 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
-const DetailsModal = ({integrationData, type}) => {
+const DetailsModal = ({
+  integrationData,
+  type,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
+}) => {
+  const requestMethod =
+    type === 'A'
+      ? integrationData.requestMethod.label
+      : integrationData.requestMethod
   return (
     <>
       <Container-fluid>
@@ -119,7 +128,9 @@ const DetailsModal = ({integrationData, type}) => {
             </Row>
 
             <Row>
-              <div className="underline  px-3 mb-3 mt-1">Headers</div>
+              {integrationData.headers.length ? (
+                <div className="underline  px-3 mb-3 mt-1">Headers</div>
+              ) : null}
               {integrationData.headers.length
                 ? integrationData.headers.map((header, ind) => {
                     return (
@@ -131,8 +142,8 @@ const DetailsModal = ({integrationData, type}) => {
                                 <CHybridInput
                                   key={'header-' + headerKey + index}
                                   id={'header-' + headerKey + index}
-                                  name={headerKey}
-                                  placeholder={headerKey}
+                                  name={headerKey.replace("Param","")}
+                                  placeholder={headerKey.replace("Param","")}
                                   value={header[headerKey]}
                                   required={true}
                                   disabled={true}
@@ -147,8 +158,9 @@ const DetailsModal = ({integrationData, type}) => {
                 : null}
             </Row>
             <Row>
-              <div className="underline px-3 my-3">Query Param</div>
-
+              {integrationData.queryParams.length ? (
+                <div className="underline px-3 my-3">Query Params</div>
+              ) : null}
               {integrationData.queryParams.length
                 ? integrationData.queryParams.map((queryParam, ind) => {
                     return (
@@ -164,9 +176,9 @@ const DetailsModal = ({integrationData, type}) => {
                                 <CHybridInput
                                   key={'header-' + queryParamKey + index}
                                   id={'header-' + queryParamKey + index}
-                                  name={queryParamKey}
+                                  name={queryParamKey.replace("Param","")}
                                   disabled={true}
-                                  placeholder={queryParamKey}
+                                  placeholder={queryParamKey.replace("Param","")}
                                   value={queryParam[queryParamKey]}
                                 />
                               </div>
@@ -179,14 +191,24 @@ const DetailsModal = ({integrationData, type}) => {
                 : null}
             </Row>
             <Row>
-              {integrationData.requestBody &&
-              integrationData.requestMethod.label !== 'GET' &&
-                integrationData.requestMethod !== 'GET' ? (
+              {requestMethod !== 'GET' ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">
-                    <code>{integrationData.requestBody}</code>
+                    {integrationData.requestBody &&
+                    !isRequestBodyByFeatureLoading &&
+                    !requestBodyByFeatureErrorMessage ? (
+                      <code>{integrationData.requestBody}</code>
+                    ) : !isRequestBodyByFeatureLoading &&
+                      requestBodyByFeatureErrorMessage ? (
+                      <code color="red">
+                        {requestBodyByFeatureErrorMessage}
+                      </code>
+                    ) : (
+                      <code>Loading....</code>
+                    )}
                   </div>
+
                   {/* <CHybridTextArea
                   id="header"
                   placeholder="Request Body"

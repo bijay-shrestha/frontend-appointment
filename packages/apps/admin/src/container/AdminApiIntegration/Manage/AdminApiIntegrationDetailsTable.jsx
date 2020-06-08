@@ -35,7 +35,9 @@ const ClientApiIntegrationDetailsDataTable = ({
   previewApiIntegrationData,
   previewModal,
   previewHandler,
-  editHandler
+  editHandler,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
 }) => (
   <div className="manage-details">
     <h5 className="title">Admin API Integration Details</h5>
@@ -105,14 +107,13 @@ const ClientApiIntegrationDetailsDataTable = ({
               sizeColumnsToFit: true
             },
 
-            // {
-            //   headerName: 'Status',
-            //   field: 'status',
-            //   resizable: true,
-            //   sortable: true,
-            //   sizeColumnsToFit: true,
-            //   cellRenderer: 'childLabelRenderer'
-            // },
+            {
+              headerName: 'Integration Channel',
+              field: 'integrationChannel',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+            },
             {
               headerName: '',
               action: 'action',
@@ -166,6 +167,8 @@ const ClientApiIntegrationDetailsDataTable = ({
       <PreviewDetails
         showModal={previewModal}
         setCloseModal={setCloseModal}
+        isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+        requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
         integrationData={previewApiIntegrationData}
       />
     ) : (
