@@ -66,7 +66,7 @@ class ClientApiIntegrationSearchFilter extends PureComponent {
                     <CHybridSelect
                       id="client"
                       label="Client"
-                      name="clientId"
+                      name="hospitalId"
                       onChange={event => onSearchChangeHandler(event)}
                       options={hospitalsForDropdown}
                       value={searchParams.clientId}
