@@ -195,7 +195,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         },
         {
           apiUrl,
-          hospitalId: hospital.value || '',
+          hospitalId: hospitalId.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',
           apiIntegrationTypeId: apiIntegrationTypeId.value || ''
