@@ -797,7 +797,10 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
         integrationTypeData,
         integrationTypeDropdownError
       } = this.props.integrationTypeReducers
-
+      const {
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
+      }= this.props.RequestBodyByFeatureReducers
       return (
         <>
           <ComposedComponent
@@ -837,7 +840,9 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
               integrationTypeDropdownError,
               isApppointmentModeApiIntegrationDropdownLoading,
               apppointmentModeApiIntegrationData,
-              apppointmentModeApiIntegrationDropdownError
+              apppointmentModeApiIntegrationDropdownError,
+              isRequestBodyByFeatureLoading,
+              requestBodyByFeatureErrorMessage
             }}
             addHandler={{
               adminApiSaveLoading: adminApiSaveLoading,

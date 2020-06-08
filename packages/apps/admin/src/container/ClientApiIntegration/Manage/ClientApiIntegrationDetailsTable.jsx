@@ -35,7 +35,9 @@ const ClientApiIntegrationDetailsDataTable = ({
   previewApiIntegrationData,
   previewModal,
   previewHandler,
-  editHandler
+  editHandler,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
 }) => (
   <div className="manage-details">
     <h5 className="title">API Integration Details</h5>
@@ -167,6 +169,8 @@ const ClientApiIntegrationDetailsDataTable = ({
         showModal={previewModal}
         setCloseModal={setCloseModal}
         integrationData={previewApiIntegrationData}
+        isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+        requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
       />
     ) : (
       ''

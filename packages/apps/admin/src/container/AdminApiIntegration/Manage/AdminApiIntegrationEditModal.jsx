@@ -33,7 +33,9 @@ const AdminApiIntegrationEditModal = ({
   formValid,
   errorMessage,
   integrationChannelData,
-  integrationTypeData
+  integrationTypeData,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
 }) => {
   // console.log('showEditModal', showEditModal)
   const bodyContent = (
@@ -353,13 +355,21 @@ const AdminApiIntegrationEditModal = ({
             </Row>
           </div>
 
-          {integrationData.requestBody &&
-          integrationData.requestMethod.label !== 'GET' ? (
+          {integrationData.requestMethod.label !== 'GET' ? (
             <Row className="mt-4">
               <Col sm={12}>
                 <CFLabel id="preId" labelName="Request Body" />
                 <div className="request-body-code">
-                  <code>{integrationData.requestBody}</code>
+                  {integrationData.requestBody &&
+                  !isRequestBodyByFeatureLoading &&
+                  !requestBodyByFeatureErrorMessage ? (
+                    <code>{integrationData.requestBody}</code>
+                  ) : !isRequestBodyByFeatureLoading &&
+                    requestBodyByFeatureErrorMessage ? (
+                    <code color="red">{requestBodyByFeatureErrorMessage}</code>
+                  ) : (
+                    <code>Loading....</code>
+                  )}
                 </div>
               </Col>
             </Row>

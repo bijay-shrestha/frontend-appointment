@@ -8,7 +8,12 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
-const DetailsModal = ({integrationData, type}) => {
+const DetailsModal = ({
+  integrationData,
+  type,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
+}) => {
   return (
     <>
       <Container-fluid>
@@ -179,14 +184,25 @@ const DetailsModal = ({integrationData, type}) => {
                 : null}
             </Row>
             <Row>
-              {integrationData.requestBody &&
-              integrationData.requestMethod.label !== 'GET' &&
-                integrationData.requestMethod !== 'GET' ? (
+              {integrationData.requestMethod.label !== 'GET' &&
+              integrationData.requestMethod !== 'GET' ? (
                 <Col sm={12} className="mt-4">
                   <CFLabel id="preId" labelName="Request Body" />
                   <div className="request-body-code">
-                    <code>{integrationData.requestBody}</code>
+                    {integrationData.requestBody &&
+                    !isRequestBodyByFeatureLoading &&
+                    !requestBodyByFeatureErrorMessage ? (
+                      <code>{integrationData.requestBody}</code>
+                    ) : !isRequestBodyByFeatureLoading &&
+                      requestBodyByFeatureErrorMessage ? (
+                      <code color="red">
+                        {requestBodyByFeatureErrorMessage}
+                      </code>
+                    ) : (
+                      <code>Loading....</code>
+                    )}
                   </div>
+
                   {/* <CHybridTextArea
                   id="header"
                   placeholder="Request Body"
