@@ -162,7 +162,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
-          clientId: '',
+          hospitalId: '',
           requestMethodId: '',
           featureTypeId: '',
           apiUrl: '',
