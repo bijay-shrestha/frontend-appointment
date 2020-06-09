@@ -29,7 +29,7 @@ const AdminEditModal = ({
                         }) => {
 
     let footerChildren = <>
-        <Container fluid="true">
+        <Container fluid={true}>
             <Row>
                 <div className="col-sm-12  col-md-6">
                     {errorMessage ?

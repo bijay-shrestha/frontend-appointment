@@ -92,7 +92,7 @@ class CPagination extends PureComponent {
 
     render() {
         return <>
-            <Container className="table-footer" fluid="true">
+            <Container className="table-footer" fluid>
                 <Row>
 
                     <Col sm="4"><h6>Total Records:&nbsp;{this.props.totalItems}</h6></Col>
