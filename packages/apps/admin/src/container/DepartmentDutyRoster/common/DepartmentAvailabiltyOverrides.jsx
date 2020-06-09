@@ -34,7 +34,7 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
     } = departmentAvailabilityOverrideData;
     return <>
         <Col>
-            <div className="doctor-override bg-white mt-2">
+            <div className="department-override bg-white mt-2">
                 <Row>
                     <Col>
                         <CCheckbox

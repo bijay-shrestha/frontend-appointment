@@ -23,7 +23,7 @@ const DepartmentDutyRosterPreviewModal = ({
     return <>
         <Container className="" fluid>
             <Row className="mb-3">
-                <Col md={12} lg={5} className="p-0">
+                <Col md={12} lg={4} className="p-0">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title mb-4">General Information</h5>
                         <Form>
@@ -150,8 +150,8 @@ const DepartmentDutyRosterPreviewModal = ({
                     </div>
                 </Col>
 
-                <Col md={12} lg={7} className="pr-0">
-                    <div className="doctor-availability bg-white p-4">
+                <Col md={12} lg={8} className="pr-0">
+                    <div className="department-availability bg-white p-4">
                         <h5 className="title">Department Availability</h5>
                         <Row className="header">
                             <Col> Days</Col>
@@ -168,10 +168,7 @@ const DepartmentDutyRosterPreviewModal = ({
                             departmentAvailabilityData.map((day, index) => (
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
-                                    <Col>
-                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
-                                            ''}
-                                    </Col>
+                                  
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
@@ -180,6 +177,10 @@ const DepartmentDutyRosterPreviewModal = ({
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
+                                    </Col>
+                                    <Col>
+                                        {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
+                                            ''}
                                     </Col>
                                     <Col>
                                         {day.weekDaysDoctorInfo && day.weekDaysDoctorInfo.map(doctor => (
@@ -201,7 +202,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
             <Row>
                 {hasOverrideDutyRoster === 'Y' ?
-                    <Col className="doctor-override">
+                    <Col className="department-override">
                         <h5 className="title">Overrides</h5>
                         {hasOverrideDutyRoster === 'Y' && departmentDutyRosterOverrideRequestDTOS.length ?
                             <>
@@ -290,7 +291,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
 
             {type !== "ADD" ?
-                <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
+                <Row className="mt-4 department-availability bg-white px-2 pt-4">
                     {AuditableEntityHoc(departmentInfoData.auditableDepartment, false, 4)}
                 </Row> :
                 ''
