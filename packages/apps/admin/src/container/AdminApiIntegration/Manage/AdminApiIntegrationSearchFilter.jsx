@@ -43,7 +43,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
         {this.state.isSearchFormExpanded ? (
           <div id="advanced-search" className="advanced-search">
             <div className="search-header d-flex justify-content-between">
-              <h5 className="title">Search Admin Api Integration</h5>
+              <h5 className="title">Search Admin API Integration</h5>
               <div>
                 <CButton
                   id="reset-form"
@@ -80,13 +80,13 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="apiIntegrationTypeId"
-                      label="Admin Api Integration Type"
+                      label="Admin API Integration Type"
                       name="apiIntegrationTypeId"
                       onChange={event => onSearchChangeHandler(event)}
                       options={integrationTypeData}
                       value={searchParams.apiIntegrationTypeId}
                       disabled={!integrationTypeData.length}
-                      placeholder={'Select Admin Api Integration Type.'}
+                      placeholder={'Select Admin API Integration Type.'}
                     />
                   </Col>
 
@@ -104,7 +104,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                       }
                       placeholder={
                         !searchParams.apiIntegrationTypeId
-                          ? 'Select Admin Api Integration First.'
+                          ? 'Select Admin API Integration First.'
                           : featureTypeDropdownData.length
                           ? 'Select Feature Type'
                           : 'No Feature Types(s) Found'
@@ -130,7 +130,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                       id="searchApiUrl"
                       name="apiUrl"
                       onChange={event => onSearchChangeHandler(event)}
-                      placeholder="Enter Api Url"
+                      placeholder="Enter API Url"
                       value={searchParams.apiUrl}
                     />
                   </Col>
@@ -200,7 +200,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Admin Api Integration Type</Tooltip>
+                      <Tooltip {...props}>Admin API Integration Type</Tooltip>
                     )}
                   >
                     <Button id="light-search-filters" variant="secondary">
@@ -246,7 +246,7 @@ class AdminApiIntegrationSearchFilter extends PureComponent {
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Api Url</Tooltip>}
+                    overlay={props => <Tooltip {...props}>API Url</Tooltip>}
                   >
                     <Button id="button-search-filters" variant="secondary">
                       {searchParams.apiUrl}

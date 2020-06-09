@@ -54,7 +54,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         remarks:''
       },
       searchParameters: {
-        clientId: '',
+        hospitalId: '',
         requestMethodId: '',
         featureTypeId: '',
         apiUrl: '',
@@ -162,7 +162,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     handleSearchFormReset = async () => {
       await this.setState({
         searchParameters: {
-          clientId: '',
+          hospitalId: '',
           requestMethodId: '',
           featureTypeId: '',
           apiUrl: '',
@@ -175,7 +175,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
     searchHospitalApiIntegration = async page => {
       const {
         apiUrl,
-        clientId,
+        hospitalId,
         featureTypeId,
         requestMethodId,
         apiIntegrationTypeId
@@ -194,8 +194,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
           size: this.state.searchQueryParams.size
         },
         {
-          apiUrl,
-          clientId: clientId.value || '',
+          url:apiUrl,
+          hospitalId: hospitalId.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',
           apiIntegrationTypeId: apiIntegrationTypeId.value || ''
@@ -663,7 +663,7 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
         this.setShowAlertModal(
           'danger',
           this.props.hospitalApiIntegrationSaveReducers
-            .hospitalApiSaveErrorMessage
+            .hospitalApiErrorMessage
         )
         this.setCloseModal()
       }

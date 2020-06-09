@@ -192,7 +192,7 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
           size: this.state.searchQueryParams.size
         },
         {
-          apiUrl,
+          url:apiUrl,
           appointmentModeId: appointmentModeId.value || '',
           featureTypeId: featureTypeId.value || '',
           requestMethodId: requestMethodId.value || '',

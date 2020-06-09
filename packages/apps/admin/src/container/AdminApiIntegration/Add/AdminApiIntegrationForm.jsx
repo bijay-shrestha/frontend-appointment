@@ -228,7 +228,7 @@ const ClientApiIntegrationForm = ({
                             <CHybridInput
                               key={'header-' + headerKey + index}
                               id={'header-' + headerKey + index}
-                              name={headerKey.replace("Param")}
+                              name={headerKey}
                               onChange={event =>
                                 onChangeHandlerHeaderOrQueryParams(
                                   event,
@@ -318,7 +318,7 @@ const ClientApiIntegrationForm = ({
                               <CHybridInput
                                 key={'header-' + queryParamKey + index}
                                 id={'header-' + queryParamKey + index}
-                                name={queryParamKey.replace("Param","")}
+                                name={queryParamKey}
                                 onChange={event =>
                                   onChangeHandlerHeaderOrQueryParams(
                                     event,

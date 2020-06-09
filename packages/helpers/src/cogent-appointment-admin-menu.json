@@ -391,7 +391,7 @@
     {
       "id": "33",
       "parentId": null,
-      "name": " Developer Options",
+      "name": "Developer Options",
       "path": "/apiIntegration",
       "roles": [],
       "icon": "fa fa-gg",
@@ -405,7 +405,7 @@
         {
           "id": "34",
           "parentId": "33",
-          "name": "Client Api Integration",
+          "name": "Client API Integration",
           "path": "/apiIntegration/clientApiIntegration",
           "roles": [
             2,
@@ -419,13 +419,13 @@
           "order": 1,
           "enabled": "Y",
           "menuFor": "6",
-          "description": "Client Api Integration",
+          "description": "Client API Integration",
           "childMenus": []
         },
         {
           "id": "35",
           "parentId": "33",
-          "name": "Admin Api Integration",
+          "name": "Admin API Integration",
           "path": "/apiIntegration/adminApiIntegration",
           "roles": [
             2,
@@ -439,7 +439,7 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Admin Api Integration",
+          "description": "Admin API Integration",
           "childMenus": []
         },
         {
