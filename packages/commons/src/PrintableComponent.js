@@ -1,6 +1,6 @@
 import React, {createRef} from 'react'
 import ReactToPrint,{PrintContextConsumer} from 'react-to-print'
-import {Button} from 'react-bootstrap'
+import {CButton} from '@frontend-appointment/ui-elements'
 const PrintableComponentHoc = (ComponentToPrint, data, pastProps) => {
   class PrintableComponent extends React.PureComponent {
     componentRef = createRef()
@@ -13,7 +13,13 @@ const PrintableComponentHoc = (ComponentToPrint, data, pastProps) => {
           >
            <PrintContextConsumer>
             {({ handlePrint }) => (
-              <Button onClick={handlePrint}>Print this out!</Button>
+             <CButton
+             variant="success"
+             size="lg"
+             className="float-right btn-action ml-1"
+             name="Print"
+             onClickHandler={handlePrint}
+             />
             )}
           </PrintContextConsumer>
           </ReactToPrint>

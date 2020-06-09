@@ -18,7 +18,7 @@ const ConfirmationModal = ({
                 <CButton
                     variant="primary"
                     size="lg"
-                    className="float-right  btn-action ml-2"
+                    className="float-right  btn-action ml-1"
                     disabled={isConfirming||isDisabled}
                     isLoading={isConfirming}
                     name={"Confirm"}
@@ -27,7 +27,7 @@ const ConfirmationModal = ({
                 <CButton
                     variant="light"
                     size="lg"
-                    className="float-right btn-action"
+                    className="float-right btn-action ml-1"
                     name="Cancel"
                     onClickHandler={onCancel}
                     disabled={isConfirming}
