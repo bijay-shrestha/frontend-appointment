@@ -85,10 +85,10 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                         showMonthDropdown={true}
                         showYearDropdown={true}
                         dropdownMode="select"
-                        selected={searchParameters.fromDate}
+                        selected={searchParameters.appointmentFromDate}
                         onKeyDown={event => handleEnter(event)}
                         onChange={date =>
-                          handleSearchFormChange(date, 'fromDate')
+                          handleSearchFormChange(date, 'appointmentFromDate')
                         }
                       />
                       &nbsp;&nbsp;
@@ -97,20 +97,20 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                         name="appointmentToDate"
                         label="To Date"
                         minDate={DateTimeFormatterUtils.getNoOfDaysBetweenGivenDatesExclusive(
-                          searchParameters.fromDate,
+                          searchParameters.appointmentFromDate,
                           new Date()
                         )}
                         showDisabledMonthNavigation={true}
                         selected={
                           DateTimeFormatterUtils.isFirstDateGreaterThanSecondOrEqual(
-                            searchParameters.fromDate,
-                            searchParameters.toDate
+                            searchParameters.appointmentFromDate,
+                            searchParameters.appointmentToDate
                           )
                             ? DateTimeFormatterUtils.addDate(
-                                searchParameters.toDate,
+                                searchParameters.appointmentToDate,
                                 7
                               )
-                            : searchParameters.toDate
+                            : searchParameters.appointmentToDate
                         }
                         peekNextMonth={false}
                         showMonthDropdown={true}
@@ -118,7 +118,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                         dropdownMode="select"
                         onKeyDown={event => this.handleEnter(event)}
                         onChange={date =>
-                          handleSearchFormChange(date, 'toDate')
+                          handleSearchFormChange(date, 'appointmentToDate')
                         }
                       />
                     </div>
@@ -247,7 +247,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.fromDate && (
+              {searchParameters.appointmentFromDate && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -258,13 +258,13 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                       variant="secondary"
                     >
                       {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.fromDate
+                        searchParameters.appointmentFromDate
                       )}
                     </Button>
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters.toDate && (
+              {searchParameters.appointmentToDate && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -275,7 +275,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                       variant="secondary"
                     >
                       {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.toDate
+                        searchParameters.appointmentToDate
                       )}
                     </Button>
                   </OverlayTrigger>
@@ -326,7 +326,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              )}
+             
             </ul>
           </div>
         )}

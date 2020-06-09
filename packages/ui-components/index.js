@@ -1,6 +1,8 @@
+import * as HospitalDepartmentSetupComponents from './src/HospitalDepartmentSetupComponents';
 import * as DoctorDutyRosterComponents from './src/DoctorDutyRosterCommonComponents';
 
 export {
+    HospitalDepartmentSetupComponents,
     DoctorDutyRosterComponents
 }
 
@@ -39,3 +41,8 @@ export {default as DoctorWithImage} from './src/DoctorWithImageTableComponent';
 export {
     default as DoctorWithSpecImage
 }from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
+export {default as TransferredFromDateWithTime} from './src/TransferredFromDateWithTime/TransferredFromDateWithTime';
+export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
+export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
+export {default as RequestMethodStatus} from './src/RequestMethodStatus';
+export {default as RoomEnableBadge} from './src/RoomEnableBadge';

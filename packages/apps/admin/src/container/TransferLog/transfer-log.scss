@@ -1,0 +1,157 @@
+@import '~bootstrap/scss/functions';
+
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import '~bootstrap/scss/mixins';
+
+#appointment-approval {
+
+    .appointment-badge {
+        float : right;
+        margin: 10px 0;
+
+        &>span {
+            margin-right: 20px;
+            height      : auto;
+            line-height : 40px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+    }
+
+    .badge {
+        width         : auto;
+        height        : auto;
+        // top        :50%;
+        // left       :50%;
+        // transform  :translate(-50%,-50%);
+        text-align    : center;
+        vertical-align: middle;
+        font-size     : 0.65rem;
+        line-height   : 0.8rem;
+        padding       : 6px 8px;
+        
+        text-transform: uppercase;
+        @include border-radius(4px);
+    }
+    
+    #status-link-button {
+        color: $gray-600;
+        font-weight: 500;
+        margin-left: 4px;
+        padding:8px 6px;
+        &.active {
+          color: $gray-900;
+          background-color: lighten($cogent, 45%);
+          @include border-radius(4px);
+        //   padding: 2px 6px;
+        }
+      }
+
+
+    .react-datepicker-wrapper {
+        width          : 50%;
+        // padding-left: 4px;
+    }
+    
+
+    @media (max-width: 1199px) {
+        .hide-on-md {
+            display: none;
+        }
+    }
+
+}
+
+.patient-box{
+    border:1px solid $gray-300;
+    
+    @include border-radius(0.5rem);
+    padding:15px 0;
+    margin:0 -15px 15px;
+}
+
+.box{
+    border:1px solid $gray-300;
+    @include border-radius(0.5rem);
+    // margin:10px;
+    padding:15px 0;
+    min-height: 510px;
+}
+
+.doctor-box{
+    border:1px solid $gray-300;
+    @include border-radius(4px);
+    background-color: #f8f9fa;
+    padding:27px 8px;
+    margin-bottom:35px;
+    position: relative;
+
+    .doctor-label{
+        color: #6c757d !important;
+        position: absolute;
+        top: -8px;
+        left: 12px;
+        z-index: 2;
+        background-color: white;
+        font-size: 0.65rem;
+        padding: 0 5px;
+        border-radius: 4px;
+    }
+
+    .di-column{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .data-image{
+            margin-top:2px;
+           width:55px;
+           height: 55px;
+           margin-right:10px;
+           flex-shrink: 0;
+           line-height: 30px;
+        //    @include border-radius(4px !important) ;
+           
+
+           img{
+                 width:100%;
+               height: auto;
+            //    @include border-radius(4px !important) ;
+           }
+        }
+
+       .di-details{
+           margin:0;
+                li{
+                   line-height: 20px; 
+
+                   &:nth-child(2){
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    line-height: 20px;
+                    font-weight: $gray-300;
+                    color:$gray-600;
+                   }
+                }
+       }
+    }
+
+}
+
+
+.transfer-log-details{
+    .doctor-box{
+        padding:7px 8px !important;
+    }
+}
+
+
+
+   
+

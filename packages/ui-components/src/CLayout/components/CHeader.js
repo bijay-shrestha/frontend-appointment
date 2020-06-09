@@ -95,7 +95,7 @@ class CHeader extends Component {
     await this.logoutApi(LOGOUT_API)
     localStorage.clear()
     sessionStorage.clear()
-   
+
     this.props.history.push('/')
   }
 
@@ -276,7 +276,7 @@ class CHeader extends Component {
                     src={
                       this.state.userInfo.fileUri
                         ? this.state.userInfo.fileUri
-                        : require('../../img/sabu.jpg')
+                        : require('../../img/picture.png')
                     }
                     className="avatar"
                   />

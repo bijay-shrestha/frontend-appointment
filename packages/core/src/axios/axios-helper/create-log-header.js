@@ -77,7 +77,6 @@ const checkIfItIsNotAnAction = url => {
         flag = true
       }
   }
-  console.log("==============usrl",url)
   if(url ==="/api/v1/appointmentTransfer")
      flag=false;
   return !flag

@@ -25,21 +25,30 @@ Axios.interceptors.request.use(
       LocalStorageSecurity.localStorageDecoder(
         EnvironmentVariableGetter.AUTH_TOKEN
       ) || ''
-    if (!requestConfig.url.includes('/login'))
-      requestConfig.headers.Authorization = token ? token : ''
-    let logHeader = createLogHeader(requestConfig)
-    if (logHeader ||requestConfig.url.includes("/forgot")||requestConfig.url.includes("/login")||requestConfig.url.includes("/logout")) {
-      if(logHeader)
-      requestConfig.headers['log-header'] = JSON.stringify(logHeader)
-      let ipKey = 'clientIp'
-      if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === 'ADMIN') {
-        ipKey = 'adminIp'
+    if (requestConfig.url) {
+      console.log("requestconfigurl",requestConfig.url)
+      if (!requestConfig.url.includes('/login') && !requestConfig.url.includes('/postticket'))
+        requestConfig.headers.Authorization = token ? token : ''
+      let logHeader = createLogHeader(requestConfig)
+      if (
+        logHeader ||
+        requestConfig.url.includes('/forgot') ||
+        requestConfig.url.includes('/login') ||
+        requestConfig.url.includes('/logout')
+      ) {
+        if (logHeader)
+          requestConfig.headers['log-header'] = JSON.stringify(logHeader)
+        let ipKey = 'clientIp'
+        if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === 'ADMIN') {
+          ipKey = 'adminIp'
+        }
+        requestConfig.headers[
+          'X-Forwarded-For'
+        ] = LocalStorageSecurity.localStorageDecoder(ipKey)
       }
-      requestConfig.headers[
-        'X-Forwarded-For'
-      ] = LocalStorageSecurity.localStorageDecoder(ipKey)
     }
-    return requestConfig
+      return requestConfig
+    
   },
   error => {
     return ApiError.errorHandler(error)

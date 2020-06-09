@@ -1,7 +1,7 @@
 import React from 'react';
 import AppointmentTransferSearchFilter from './AppointmentTransferLogSearchFilter';
 import AppointmentTransferDataTable from './AppointmentTransferLogDataTable';
-import AppointmentTransferHoc from './AppointmentTransferHoc';
+import AppointmentTransferHoc from './AppointmentTransferLogHoc';
 
 const TransferApprovalLog = props => {
   const TransferApproval = AppointmentTransferHoc(

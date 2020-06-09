@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
+import Loadable from 'react-loadable'
 
 const getLoader = () => <CLoading/>
 /* ****** A ***** */
@@ -9,6 +10,14 @@ const AdminActivityLog = loadable(
     {fallback: getLoader()}
 )
 
+const AdminApiIntegrationAdd = loadable(
+    () => import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
+    {fallback: getLoader()}
+)
+const AdminApiIntegrationManage = loadable(
+    () => import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
+    {fallback: getLoader()}
+)
 const ClientActivityLog = loadable(
     () => import('./container/ClientActivitiesLog/ClientActivityLog'),
     {fallback: getLoader()}
@@ -19,8 +28,8 @@ const AddProfileComponent = loadable(
     {fallback: getLoader()}
 )
 
-const AddDepartmentComponent = loadable(
-    () => import('./container/DepartmentSetup/Add/DepartmentAdd'),
+const AddUnitComponent = loadable(
+    () => import('./container/UnitSetup/Add/UnitAdd'),
     {fallback: getLoader()}
 )
 
@@ -84,11 +93,31 @@ const AppointmentModeComponent = loadable(
     {fallback: getLoader()}
 )
 
+const AddCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+    {fallback: () => getLoader()}
+)
+
+const AddDepartmentSetup = loadable(
+    () => import('./container/HospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
+    {fallback: () => getLoader()}
+)
+const AddDepartmentDutyRosterComponent = loadable(
+    () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    {fallback: () => getLoader()}
+)
+
+
 const AddDoctorDutyRosterShiftWise = loadable(
     () => import('./container/DoctorDutyRosterShiftWise/Add/DoctorDutyRosterShiftWiseAdd'),
     {fallback: getLoader()}
 )
 /* ****** B ***** */
+
+const BillingModeComponent = loadable(
+    () => import('./container/BillingMode/BillingMode'),
+    {fallback: () => getLoader()}
+)
 
 /* ****** C ***** */
 const CompanyManageComponent = loadable(
@@ -99,6 +128,19 @@ const CompanyAddComponent = loadable(
     () => import('./container/CompanySetup/Add/CompanyAdd'),
     {fallback: () => getLoader()}
 )
+const ClientApiIntegration = loadable(
+    () =>
+        import('./container/ClientApiIntegration/Add/ClientApiIntegrationAddForm'),
+    {fallback: () => getLoader()}
+)
+const ClientApiIntegrationManage = loadable(
+    () =>
+        import(
+            './container/ClientApiIntegration/Manage/ClientApiIntegrationManage'
+            ),
+    {fallback: () => getLoader()}
+)
+
 /* ****** D ***** */
 
 const DashboardComponent = loadable(
@@ -106,15 +148,15 @@ const DashboardComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const AddCompanyAdminComponent = loadable(
-    () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
-    {fallback: () => getLoader()}
-)
+// const AddCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+//   {fallback: () => getLoader()}
+// )
 
-const ManageCompanyAdminComponent = loadable(
-    () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
-    {fallback: () => getLoader()}
-)
+// const ManageCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+//   {fallback: () => getLoader()}
+// )
 
 /* ****** E ***** */
 
@@ -139,8 +181,8 @@ const ManageProfileComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const ManageDepartmentComponent = loadable(
-    () => import('./container/DepartmentSetup/Manage/DepartmentManage'),
+const ManageUnitComponent = loadable(
+    () => import('./container/UnitSetup/Manage/UnitManage'),
     {fallback: () => getLoader()}
 )
 
@@ -179,6 +221,27 @@ const ManageCompanyProfileComponent = loadable(
         import('./container/CompanyProfileSetup/Manage/CompanyProfileSetupManage'),
     {fallback: getLoader()}
 )
+
+const ManageCompanyAdminComponent = loadable(
+    () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+    {fallback: () => getLoader()}
+)
+
+const ManageDepartmentComponent = Loadable({
+    loader: () =>
+        import(
+            './container/HospitalDepartmentSetup/Manage/HospitalDepartmentManage'
+            ),
+    loading: () => getLoader()
+})
+
+const ManageDepartmentDutyRosterComponent = loadable(
+    () =>
+        import(
+            './container/DepartmentDutyRoster/Manage/DepartmentDutyRosterManage'
+            ),
+    {fallback: () => getLoader()}
+)
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -208,6 +271,21 @@ const RescheduleLog = loadable(
     {fallback: () => getLoader()}
 )
 
+const RequestBodyIntegrationAdd = loadable(
+    () => import('./container/RequestBodyApiIntegration/Add/RequestBodyAdd'),
+    {fallback: () => getLoader()}
+)
+
+const RequestBodyIntegrationManage = loadable(
+    () =>
+        import('./container/RequestBodyApiIntegration/Manage/RequestBodyManage'),
+    {fallback: () => getLoader()}
+)
+
+const RoomSetup = loadable(() => import('./container/RoomSetup/RoomSetup'), {
+    fallback: () => getLoader()
+})
+
 /* ****** S ***** */
 
 /* ****** T ***** */
@@ -215,7 +293,12 @@ const RescheduleLog = loadable(
 const TransactionLogComponent = loadable(
     () => import('./container/TransactionLog/TransactionLog'),
     {fallback: () => getLoader()}
-);
+)
+
+const TransferLogComponent = loadable(
+    () => import('./container/TransferLog/AppointmentTransferLog'),
+    {fallback: getLoader()}
+)
 
 /* ****** U ***** */
 
@@ -243,7 +326,7 @@ export const routes = [
         isTab: 'false',
         hasTab: false,
         name: 'Dashboard',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup',
@@ -253,7 +336,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/profileSetup',
@@ -263,26 +346,26 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Client Profile Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
-//   {
-//     path: '/forgotPassword',
-//     name: '',
-//     component: ForgotPassword,
-//     icon: '',
-//     hasTab: false,
-//     isLink: false,
-//     isTab: false
-//   },
-//   {
-//     path: '/verifyToken',
-//     name: '',
-//     component: VerifyToken,
-//     icon: '',
-//     hasTab: false,
-//     isLink: false,
-//     isTab: false
-//   },
+    //   {
+    //     path: '/forgotPassword',
+    //     name: '',
+    //     component: ForgotPassword,
+    //     icon: '',
+    //     hasTab: false,
+    //     isLink: false,
+    //     isTab: false
+    //   },
+    //   {
+    //     path: '/verifyToken',
+    //     name: '',
+    //     component: VerifyToken,
+    //     icon: '',
+    //     hasTab: false,
+    //     isLink: false,
+    //     isTab: false
+    //   },
     {
         path: '/admin/generalSetup/profileSetup/add',
         name: 'Add',
@@ -291,7 +374,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/profileSetup/manage',
@@ -301,7 +384,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/specialization/add',
@@ -311,7 +394,97 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/clientApiIntegration',
+        name: 'Client Api Integration',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/clientApiIntegration/add',
+        name: 'Add',
+        component: ClientApiIntegration,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/clientApiIntegration/manage',
+        name: 'Manage',
+        component: ClientApiIntegrationManage,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/adminApiIntegration',
+        name: 'Admin Api Integration',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/adminApiIntegration/add',
+        name: 'Add',
+        component: AdminApiIntegrationAdd,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/adminApiIntegration/manage',
+        name: 'Manage',
+        component: AdminApiIntegrationManage,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/requestBodyIntegration/add',
+        name: 'Add',
+        component: RequestBodyIntegrationAdd,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/requestBodyIntegration',
+        name: 'Request Body Integration',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/apiIntegration/requestBodyIntegration/manage',
+        name: 'Add',
+        component: RequestBodyIntegrationManage,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/specialization/manage',
@@ -321,7 +494,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/specialization',
@@ -331,32 +504,32 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Specialization Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/admin/generalSetup/departmentSetup',
+        path: '/admin/generalSetup/unitSetup',
         component: <></>,
         isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Department Setup',
-        isSingleTab: false,
+        name: 'Unit Setup',
+        isSingleTab: false
     },
     {
-        path: '/admin/generalSetup/departmentSetup/add',
+        path: '/admin/generalSetup/unitSetup/add',
         name: 'Add',
-        component: AddDepartmentComponent,
+        component: AddUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/admin/generalSetup/departmentSetup/manage',
+        path: '/admin/generalSetup/unitSetup/manage',
         name: 'Manage',
-        component: ManageDepartmentComponent,
+        component: ManageUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
@@ -369,7 +542,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/adminSetup/add',
@@ -378,7 +551,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/adminSetup/manage',
@@ -387,37 +560,37 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/admin/doctorDutyRoster',
+        path: '/admin/rosterSettings/doctorDutyRoster',
         name: 'Doctor Duty Roster',
         component: <></>,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/admin/doctorDutyRoster/add',
+        path: '/admin/rosterSettings/doctorDutyRoster/add',
         name: 'Add',
         component: AddDoctorDutyRosterComponent,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/admin/doctorDutyRoster/manage',
+        path: '/admin/rosterSettings/doctorDutyRoster/manage',
         name: 'Manage',
         component: ManageDoctorDutyRosterComponent,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/clientSetup/add',
@@ -427,7 +600,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/clientSetup/manage',
@@ -437,7 +610,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/clientSetup',
@@ -447,7 +620,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Client Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/qualification/add',
@@ -457,7 +630,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/qualification/manage',
@@ -467,7 +640,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/qualification',
@@ -477,7 +650,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/doctorSetup',
@@ -487,7 +660,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Doctor',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/doctorSetup/add',
@@ -497,7 +670,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/generalSetup/doctorSetup/manage',
@@ -507,7 +680,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/appointment/pendingRefundApproval',
@@ -517,7 +690,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Pending Refund Approval',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/appointment/checkIn',
@@ -527,7 +700,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/reports/appointmentLog',
@@ -537,7 +710,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Log',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/appointment/appointmentStatus',
@@ -547,7 +720,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Status',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/appointment',
@@ -557,7 +730,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Appointment',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/patientInformation',
@@ -567,7 +740,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Patient Information',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/reports',
@@ -577,7 +750,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Reports',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/unauthorized',
@@ -587,7 +760,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/reports/rescheduleLog',
@@ -597,7 +770,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Reschedule Log',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/companySettings/qualificationAlias',
@@ -607,7 +780,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Alias',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/companySettings/companyProfile',
@@ -617,7 +790,7 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Company Profile Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companyProfile/add',
@@ -627,7 +800,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companyProfile/manage',
@@ -637,7 +810,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companySetup',
@@ -647,7 +820,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Company Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companySetup/add',
@@ -657,7 +830,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companySetup/manage',
@@ -667,7 +840,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
 
     {
@@ -678,7 +851,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companyAdmin/manage',
@@ -688,7 +861,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/companyAdmin',
@@ -698,7 +871,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/activityLog',
@@ -738,7 +911,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/admin/companySettings/universitySetup',
@@ -748,7 +921,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'University Setup',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/companySettings/appointmentMode',
@@ -758,7 +931,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Mode Setup',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/admin/reports/transactionLog',
@@ -768,6 +941,96 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Transaction Log',
+        isSingleTab: true
+    },
+    {
+        path: '/admin/reports/transferLog',
+        component: TransferLogComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Transfer Log',
+        isSingleTab: true
+    },
+    {
+        path: '/admin/generalSetup/roomSetup',
+        component: RoomSetup,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Room Setup',
+        isSingleTab: true
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Department Setup',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup/add',
+        component: AddDepartmentSetup,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/generalSetup/departmentSetup/manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster',
+        name: 'Department Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster/add',
+        name: 'Add',
+        component: AddDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/rosterSettings/departmentDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/admin/companySettings/billingMode',
+        component: BillingModeComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Billing Mode Setup',
         isSingleTab: true,
     },
     {

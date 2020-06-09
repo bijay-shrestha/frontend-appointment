@@ -17,8 +17,8 @@
         {
           "id": "2",
           "parentId": "1",
-          "name": "Department Setup",
-          "path": "/generalSetup/departmentSetup",
+          "name": "Unit Setup",
+          "path": "/generalSetup/unitSetup",
           "roles": [
             2,
             3,
@@ -114,29 +114,106 @@
           "menuFor": "1",
           "description": "Doctor Setup",
           "childMenus": []
+        },
+        {
+          "id": "31",
+          "parentId": "1",
+          "name": "Room Setup",
+          "path": "/generalSetup/roomSetup",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Room Setup",
+          "childMenus": []
+        },
+        {
+          "id": "32",
+          "parentId": "1",
+          "name": "Department Setup",
+          "path": "/generalSetup/departmentSetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Department Setup",
+          "childMenus": []
         }
       ]
     },
     {
-      "id": "9",
+      "id": "36",
       "parentId": null,
-      "name": "Doctor Duty Roster",
-      "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5,
-        8
-      ],
+      "name": "Roster Settings",
+      "path": "/rosterSettings",
+      "roles": [],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Doctor Duty Roster",
-      "childMenus": []
+      "description": "Roster Settings",
+      "childMenus": [
+        {
+          "id": "9",
+          "parentId": "36",
+          "name": "Doctor Duty Roster",
+          "path": "/rosterSettings/doctorDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Duty Roster",
+          "childMenus": []
+        },
+        {
+          "id": "37",
+          "parentId": "36",
+          "name": "Department Duty Roster",
+          "path": "/rosterSettings/departmentDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Duty Roster",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "10",
@@ -273,6 +350,23 @@
           "menuFor": "6",
           "description": "Transaction Log",
           "childMenus": []
+        },
+        {
+          "id": "29",
+          "parentId": "14",
+          "name": "Transfer Log",
+          "path": "/reports/transferLog",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Transfer Log",
+          "childMenus": []
         }
       ]
     },
@@ -293,6 +387,82 @@
       "menuFor": "6",
       "description": "patientInformation",
       "childMenus": []
+    },
+    {
+      "id": "33",
+      "parentId": null,
+      "name": "Developer Options",
+      "path": "/apiIntegration",
+      "roles": [],
+      "icon": "fa fa-gg",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": " Developer Options",
+      "childMenus": [
+        {
+          "id": "34",
+          "parentId": "33",
+          "name": "Client API Integration",
+          "path": "/apiIntegration/clientApiIntegration",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Client API Integration",
+          "childMenus": []
+        },
+        {
+          "id": "35",
+          "parentId": "33",
+          "name": "Admin API Integration",
+          "path": "/apiIntegration/adminApiIntegration",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Admin API Integration",
+          "childMenus": []
+        },
+        {
+          "id": "38",
+          "parentId": "33",
+          "name": "Request Body Integration",
+          "path": "/apiIntegration/requestBodyIntegration",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Request Body Integration",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "20",
@@ -468,6 +638,26 @@
           "menuFor": "1",
           "description": "Appointment Mode Setup",
           "childMenus": []
+        },
+        {
+          "id": "39",
+          "parentId": "20",
+          "name": "Billing Mode Setup",
+          "path": "/companySettings/billingMode",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Billing Mode Setup",
+          "childMenus": []
         }
       ]
     },
@@ -522,7 +712,7 @@
       ]
     },
     {
-      "id": "29",
+      "id": "40",
       "parentId": null,
       "name": "Doctor Duty Roster Shift Wise",
       "path": "/doctorDutyRosterShiftWise",

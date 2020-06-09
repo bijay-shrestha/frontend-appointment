@@ -83,13 +83,13 @@ class AdminSetupSearchFilter extends PureComponent {
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="department"
-                                            label="Department"
+                                            label="Unit"
                                             name="department"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}
                                             options={departmentList}
                                             value={searchParameters.department}
-                                            placeholder="Select department."
+                                            placeholder="Select unit."
                                         />
                                     </Col>
 
@@ -216,7 +216,7 @@ class AdminSetupSearchFilter extends PureComponent {
                                 <OverlayTrigger
                                     placement="top"
                                     delay={{show: 250, hide: 400}}
-                                    overlay={(props) => <Tooltip {...props}>Department</Tooltip>}
+                                    overlay={(props) => <Tooltip {...props}>Unit</Tooltip>}
                                 >
                                     <Button id="light-search-filters" variant="secondary">
                                         {searchParameters.department.label}

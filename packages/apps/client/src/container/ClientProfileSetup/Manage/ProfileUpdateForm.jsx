@@ -25,13 +25,13 @@ const ProfileUpdateForm = ({
 
                 <CHybridSelect
                     id="department"
-                    label="Department"
+                    label="Unit"
                     name="selectedDepartment"
                     onKeyDown={(event) => onEnterKeyPress(event)}
                     onChange={(event) => onInputChange(event)}
                     options={profileInfoObj.departmentList}
                     value={profileInfoObj.departmentValue}
-                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Department'}
+                    placeholder={!profileInfoObj.hospitalValue ? 'Select client first.' : 'Select Unit.'}
                 />
 
                 <CHybridInput

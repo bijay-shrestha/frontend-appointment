@@ -8,10 +8,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-refund.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 
@@ -147,6 +144,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             newRefundList =
                 refundList.length &&
                 refundList.map((spec, index) => ({
+                    ...spec,
                     appointmentId: spec.appointmentId || 'N/A',
                     appointmentDate: spec.appointmentDate || 'N/A',
                     appointmentTime: spec.appointmentTime || 'N/A',

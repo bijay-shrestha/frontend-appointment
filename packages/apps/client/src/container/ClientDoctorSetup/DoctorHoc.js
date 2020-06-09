@@ -18,7 +18,7 @@ const {
     previewConsultant,
     searchConsultant,
     fetchActiveDoctorsHospitalWiseForDropdown,
-    fetchActiveDoctorsHospitalWiseForDropdownForClient,
+    fetchActiveDoctorsForDropdown,
     downloadExcelForConsultants
 } = DoctorMiddleware;
 
@@ -705,7 +705,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         };
 
         fetchDoctorByHospitalId = async () => {
-            await this.props.fetchActiveDoctorsHospitalWiseForDropdownForClient(
+            await this.props.fetchActiveDoctorsForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN);
         };
 
@@ -873,7 +873,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             searchConsultant,
             //fetchActiveDoctorsForDropdown,
             fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdownForClient,
+            fetchActiveDoctorsForDropdown,
             downloadExcelForConsultants,
             fetchActiveQualificationsForDropdown,
             fetchActiveHospitalsForDropdown,

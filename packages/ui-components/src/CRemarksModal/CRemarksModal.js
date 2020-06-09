@@ -10,6 +10,7 @@ const CRemarksModal = ({
                            onPrimaryAction,
                            onRemarksChangeHandler,
                            primaryActionName,
+                           primaryActionLoading,
                            remarks,
                            showModal,
                        }) => {
@@ -33,6 +34,7 @@ const CRemarksModal = ({
                     className="float-right  btn-action ml-2"
                     disabled={actionDisabled}
                     name={primaryActionName}
+                    isLoading={primaryActionLoading}
                     onClickHandler={onPrimaryAction}
                 />
 

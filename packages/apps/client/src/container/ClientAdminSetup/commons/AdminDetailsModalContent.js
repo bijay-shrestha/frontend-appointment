@@ -42,7 +42,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                     <Col sm={12} md={12} lg={6}>
                                         <CHybridInput
                                             id="department"
-                                            placeholder="Department"
+                                            placeholder="Unit"
                                             name="department"
                                             value={
                                                 adminInfoObj.department && adminInfoObj.department.label
@@ -92,7 +92,7 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
                                             disabled={true}
                                         />
                                     </Col>
-                                   
+
 
                                     <Col sm={12} md={12} lg={6}>
                                         <CFLabel labelName="Gender" id="gender"/>
@@ -243,9 +243,9 @@ const AdminDetailsModalContent = ({adminInfoObj, adminImage}) => {
 
 
                                 </Row>
-                               
+
                                 <Row className="mt-4">
-                                
+
                                      {AuditableEntityHoc(adminInfoObj)}
                                 </Row>
                             </Col>

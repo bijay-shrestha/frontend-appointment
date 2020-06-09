@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-    CFLabel,
-    CForm,
-    CHybridInput,
-    CHybridTextArea,
-    CModal,
-    CRadioButton,
-    CToggle
-} from "@frontend-appointment/ui-elements";
+import {CFLabel, CForm, CHybridInput, CHybridTextArea, CModal, CRadioButton} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 import {AuditableEntityHoc} from "@frontend-appointment/commons"
+
 const AppointmentModeDetails = ({closeModal, appointmentModeData, showPreviewModal}) => {
     const detailContents = <>
         <Container-fluid>
@@ -41,14 +34,14 @@ const AppointmentModeDetails = ({closeModal, appointmentModeData, showPreviewMod
                             />
                         </Col>
 
-                        <Col sm={12} md={6} lg={6}>
-                            <CToggle
-                                onLabel={"Yes"}
-                                offLabel={"No"}
-                                checked={appointmentModeData.isEditable}
-                                disabled={true}
-                            />
-                        </Col>
+                        {/*<Col sm={12} md={6} lg={6}>*/}
+                        {/*    <CToggle*/}
+                        {/*        onLabel={"Yes"}*/}
+                        {/*        offLabel={"No"}*/}
+                        {/*        checked={appointmentModeData.isEditable}*/}
+                        {/*        disabled={true}*/}
+                        {/*    />*/}
+                        {/*</Col>*/}
                         {AuditableEntityHoc(appointmentModeData)}
 
                         <Col sm="12" md="6">

@@ -26,10 +26,10 @@ export const fetchAdminLog = (
             LocalStorageSecurity.localStorageDecoder(
               EnvironmentVariableGetter.AUTH_TOKEN
             ) || '',
-         
+
         },
         crossDomain: true,
-        crossOrigin: true  
+        crossOrigin: true
       }
     )
     dispatch(AdminLoggingSetupActions.logFetchSuccess(response.data))
@@ -41,7 +41,7 @@ export const fetchAdminLog = (
       ? errorData.data
         ? errorData.data.errorMessage
           ? errorData.data.errorMessage
-          : 'Sorry Something Error Occured In Server'
+          : 'Sorry, Internal Server Problem occurred.'
         : 'Network Error'
       : 'Network Error'
     dispatch(
@@ -72,7 +72,7 @@ export const fetchAdminLogStatistics = (
             ) || ''
         },
         crossDomain: true,
-        crossOrigin: true  
+        crossOrigin: true
       }
     )
     dispatch(AdminLoggingSetupActions.logStatsFetchSuccess(response.data))
@@ -84,7 +84,7 @@ export const fetchAdminLogStatistics = (
       ? errorData.data
         ? errorData.data.errorMessage
           ? errorData.data.errorMessage
-          : 'Sorry Something Error Occured In Server'
+          : 'Sorry, Internal Server Problem occurred.'
         : 'Network Error'
       : 'Network Error'
     dispatch(
@@ -111,7 +111,7 @@ export const fetchAdminDiagramStatistics = (
           ) || ''
       },
       crossDomain: true,
-      crossOrigin: true  
+      crossOrigin: true
     })
     dispatch(AdminLoggingSetupActions.logDiagramFetchSuccess(response.data))
     return response
@@ -122,7 +122,7 @@ export const fetchAdminDiagramStatistics = (
       ? errorData.data
         ? errorData.data.errorMessage
           ? errorData.data.errorMessage
-          : 'Sorry Something Error Occured In Server'
+          : 'Sorry, Internal Server Problem occurred.'
         : 'Network Error'
       : 'Network Error'
     dispatch(

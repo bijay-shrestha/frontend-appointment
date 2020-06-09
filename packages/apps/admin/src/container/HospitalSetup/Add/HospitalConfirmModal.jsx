@@ -8,7 +8,10 @@ const HospitalConfirmationModal = ({
                                        hospitalData,
                                        onConfirmClick,
                                        type,
-                                       createHospitalLoading
+                                       createHospitalLoading,
+                                       activeBillingModeForDropdown,
+                                       activeAppointmentServiceTypeForDropdown,
+                                       appointmentServiceTypeListForPrimary
                                    }) => {
     return (
         <>
@@ -20,6 +23,9 @@ const HospitalConfirmationModal = ({
                     <DetailsModal
                         hospitalData={hospitalData}
                         type={type}
+                        activeBillingModeForDropdown={activeBillingModeForDropdown}
+                        activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                        appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                     />
                 }
                 onHide={setShowModal}

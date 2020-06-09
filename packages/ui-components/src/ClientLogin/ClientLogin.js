@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Button, Col, Container, Form, Image, Row} from 'react-bootstrap'
-import logo from './images/400x400.png'
+import logo from './images/logo4.png'
 import logoCogent from './images/logo-small-0063FF.png'
 import {CHybridInput, CHybridPassword} from '@frontend-appointment/ui-elements'
 
@@ -128,8 +128,8 @@ class ClientLogin extends PureComponent {
                                             />
 
                                             <p className="error">{submitErrorMsg}</p>
-                                            <a href="#/forgotPassword">Forgot Password</a>
-                                            <br></br>
+                                            <a href="#/forgotPassword" className="mb-4">Forgot Password</a>
+                                            
 
                                             <Button
                                                 variant="primary"

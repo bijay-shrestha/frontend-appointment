@@ -8,8 +8,8 @@ import {doctorSetupConstants} from './doctor-setup/doctorSetupConstant'
 import * as DoctorSetupActions from './doctor-setup/doctorSetupActions'
 import {adminSetupActionConstants} from './admin-setup/adminSetupActionConstant'
 import * as AdminSetupActions from './admin-setup/adminSetupActions'
-import * as DepartmentSetupActions from './department-setup/departmentSetupActions'
-import {departmentSetupConstants} from './department-setup/departmentSetupActionConstants'
+import * as UnitSetupActions from './unit-setup/unitSetupActions'
+import {unitSetupConstants} from './unit-setup/unitSetupActionConstants'
 import * as QualificationSetupActions from './qualification-setup/qualificationSetupActions'
 import {qualificationSetupConstants} from './qualification-setup/qualificationSetupConstant'
 import {doctorDutyRosterActionConstants} from './doctor-duty-roster/doctorDutyRosterActionConstants'
@@ -29,13 +29,29 @@ import {companyProfileSetupActionConstants} from './company-profile-setup/compan
 import * as CompanyAdminSetupActions from './company-admin-setup/companyAdminSetupActions'
 import {companyAdminSetupActionConstants} from './company-admin-setup/companyAdminSetupActionConstant'
 import * as AdminLoggingSetupActions from './admin-logging/adminLoggingActions'
-import {adminLoggingConstant} from './admin-logging/adminLoggingConstant';
-import * as  UniversitySetupActions from './university-setup/universitySetupActions';
-import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants';
-import * as  AppointmentModeActions from './appointment-mode/appointmentModeActions';
-import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants';
-import * as  AppointmentTransferActions from './appointment-transfer/appointmentTransfer';
-import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant';
+import {adminLoggingConstant} from './admin-logging/adminLoggingConstant'
+import * as UniversitySetupActions from './university-setup/universitySetupActions'
+import {universitySetupActionConstants} from './university-setup/universitySetupActionConstants'
+import * as AppointmentModeActions from './appointment-mode/appointmentModeActions'
+import {appointmentModeActionConstants} from './appointment-mode/appointmentModeActionConstants'
+import * as AppointmentTransferActions from './appointment-transfer/appointmentTransfer'
+import {appointmentTransferConstant} from './appointment-transfer/appointmentTransferActionConstant'
+import * as HospitalApiIntegrationActions from './hospital-api-integration/hospitalApiIntegrationAction'
+import {hospitalApiIntegrationActionConstants} from './hospital-api-integration/hospitalApiIntegrationConstant'
+import * as RequestBodyIntegration from './request-body-integration/RequestBodyIntegration'
+import {requestBOdyApiIntegrationActionConstants} from './request-body-integration/RequestBodyIntegrationActionConstants'
+import * as RoomSetupActions from './room-setup/roomSetupActions'
+import {roomSetupActionConstants} from './room-setup/roomSetupActionConstants'
+import * as AdminModeApiIntegrationActions from './admin-mode-api-integration/adminModeApiIntegrationAction'
+import {adminModeApiIntegrationActionConstants} from './admin-mode-api-integration/adminModeApiIntegrationConstant'
+import * as HospitalDepartmentSetupActions from './hospital-department-setup/hospitalDepartmentSetupActions'
+import {hospitalDepartmentSetupActionConstants} from './hospital-department-setup/hospitalDepartmentSetupActionConstants'
+import * as DepartmentDutyRosterActions from './department-duty-roster/departmentDutyRosterActions'
+import {departmentDutyRosterActionConstants} from './department-duty-roster/departmentDutyRosterActionConstants'
+import * as  BillingModeActions from './billing-mode/billingModeActions';
+import {billingModeActionConstants} from './billing-mode/billingModeActionConstants';
+import * as AppointmentServiceTypeAction from './appointment-service-type/appointmentServiceTypeAction';
+import {appointmentServiceTypeActionConstants} from './appointment-service-type/appointmentServiceTypeActionConstants'
 import * as  BreakTypeSetupActions from './break-type-setup/breakTypeSetupActions';
 import {breakTypeSetupActionConstants} from './break-type-setup/breakTypeSetupActionConstants';
 import * as  ShiftSetupActions from './shift-setup/shiftSetupActions';
@@ -43,9 +59,12 @@ import {shiftSetupActionConstants} from './shift-setup/shiftSetupActionConstants
 import * as  DDRShiftWiseAction from './ddr-shift-wise/ddrShiftWiseAction';
 import {ddrShiftWiseActionConstants} from './ddr-shift-wise/ddrShiftWiseActionConstants';
 
+
 export {
     AppointmentDetailActions,
     appointmentDetailsConstants,
+    AdminModeApiIntegrationActions,
+    adminModeApiIntegrationActionConstants,
     AdminLoggingSetupActions,
     adminLoggingConstant,
     DashboardDetailsActions,
@@ -60,8 +79,8 @@ export {
     DoctorSetupActions,
     adminSetupActionConstants,
     AdminSetupActions,
-    departmentSetupConstants,
-    DepartmentSetupActions,
+    unitSetupConstants,
+    UnitSetupActions,
     doctorDutyRosterActionConstants,
     DoctorDutyRosterActions,
     QualificationSetupActions,
@@ -82,6 +101,20 @@ export {
     AppointmentModeActions,
     AppointmentTransferActions,
     appointmentTransferConstant,
+    HospitalApiIntegrationActions,
+    hospitalApiIntegrationActionConstants,
+    RequestBodyIntegration,
+    requestBOdyApiIntegrationActionConstants,
+    roomSetupActionConstants,
+    RoomSetupActions,
+    hospitalDepartmentSetupActionConstants,
+    HospitalDepartmentSetupActions,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction,
     breakTypeSetupActionConstants,
     BreakTypeSetupActions,
     shiftSetupActionConstants,

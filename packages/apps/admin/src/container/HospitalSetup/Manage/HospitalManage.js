@@ -4,6 +4,7 @@ import HospitalDetailsTable from './HospitalDetailsTable'
 import HospitalEditForm from './HospitalEditModal'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import HospitalHoc from '../HospitalHoc';
+
 const HospitalManage = props => {
     const SPManage = HospitalHoc(
         ({
@@ -29,7 +30,7 @@ const HospitalManage = props => {
              alertMessageInfo,
              handleInputChange,
              editHospital,
-             downloadEXCEL,
+             // downloadEXCEL,
              deleteRemarksHandler,
              hospitalPreviewErrorMessage,
              deleteErrorMessage,
@@ -64,7 +65,10 @@ const HospitalManage = props => {
              handleBannerImageUpload,
              setShowBannerUploadModal,
              isHospitalEditLoading,
-             isDeleteLoading
+             isDeleteLoading,
+             activeBillingModeForDropdown,
+             activeAppointmentServiceTypeForDropdown,
+             appointmentServiceTypeListForPrimary
          }) => (
             <>
                 <div className="">
@@ -102,6 +106,9 @@ const HospitalManage = props => {
                         remarks={deleteRequestDTO.remarks}
                         deleteErrorMsg={deleteErrorMessage}
                         isDeleteLoading={isDeleteLoading}
+                        activeBillingModeForDropdown={activeBillingModeForDropdown}
+                        activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                        appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                         // exportExcel={downloadEXCEL}
 
                     />
@@ -142,6 +149,9 @@ const HospitalManage = props => {
                         handleBannerImageUpload={handleBannerImageUpload}
                         setShowBannerUploadModal={setShowBannerUploadModal}
                         isHospitalEditLoading={isHospitalEditLoading}
+                        activeBillingModeForDropdown={activeBillingModeForDropdown}
+                        activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
+                        appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
                     />
                 )}
                 <CAlert

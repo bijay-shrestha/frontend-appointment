@@ -1,0 +1,8 @@
+{
+    "name": "@cogent/transferred-to-doctor-with-specialization-image",
+    "version": "1.0.0",
+    "main": "TransferredToDoctorWithSpecializationAndImage.js",
+    "license": "MIT",
+    "private": true
+  }
+  

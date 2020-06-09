@@ -1,65 +1,86 @@
 import Loadable from 'react-loadable'
 import React from 'react'
 import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
-import loadable from "@loadable/component";
+import loadable from '@loadable/component'
 
-const getLoader = () => <CLoading/>;
+const getLoader = () => <CLoading/>
 /* ****** A ***** */
 
 const AddProfileComponent = Loadable({
     loader: () => import('./container/ClientProfileSetup/Add/ProfileAdd'),
     loading: () => getLoader()
-});
+})
 
-const AddDepartmentComponent = Loadable({
-    loader: () => import('./container/ClientDepartmentSetup/Add/DepartmentAdd'),
+const AddUnitComponent = Loadable({
+    loader: () => import('./container/ClientUnitSetup/Add/UnitAdd'),
     loading: () => getLoader()
-});
+})
 
 const AddAdminComponent = Loadable({
     loader: () => import('./container/ClientAdminSetup/Add/AdminAdd'),
     loading: () => getLoader()
-});
+})
 
 const AddDoctorDutyRosterComponent = Loadable({
-    loader: () => import('./container/ClientDoctorDutyRoster/Add/DoctorDutyRosterAdd'),
+    loader: () =>
+        import('./container/ClientDoctorDutyRoster/Add/DoctorDutyRosterAdd'),
     loading: () => getLoader()
-});
+})
 
 const AddQualificationComponent = Loadable({
-    loader: () => import('./container/ClientQualificationSetup/Add/QualificationAdd'),
+    loader: () =>
+        import('./container/ClientQualificationSetup/Add/QualificationAdd'),
     loading: () => getLoader()
-});
+})
 
 const AddSpecializationComponent = Loadable({
-    loader: () => import('./container/ClientSpecializationSetup/Add/SpecializationAdd'),
+    loader: () =>
+        import('./container/ClientSpecializationSetup/Add/SpecializationAdd'),
     loading: () => getLoader()
-});
+})
 
 const AddDoctorComponent = Loadable({
     loader: () => import('./container/ClientDoctorSetup/Add/DoctorAdd'),
     loading: () => getLoader()
-});
+})
 
 const AppointmentRefundListComponent = Loadable({
     loader: () => import('./container/ClientAppointmentRefund/AppointmentRefund'),
     loading: () => getLoader()
-});
+})
 
 const AppointmentApprovalListComponent = Loadable({
-    loader: () => import('./container/ClientAppointmentApproval/AppointmentApproval'),
+    loader: () =>
+        import('./container/ClientAppointmentApproval/AppointmentApproval'),
     loading: () => getLoader()
-});
+})
 
 const AppointmentStatusComponent = Loadable({
     loader: () => import('./container/ClientAppointmentStatus/AppointmentStatus'),
     loading: () => getLoader()
-});
+})
 
 const AppointmentLogListComponent = Loadable({
     loader: () => import('./container/ClientAppointmentLog/AppointmentLog'),
     loading: () => getLoader()
-});
+})
+
+const ActivityLog = loadable(
+    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+    {fallback: () => getLoader()}
+)
+
+const AddDepartmentSetup = loadable(
+    () => import('./container/ClientHospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
+    {fallback: () => getLoader()}
+)
+
+const AddDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    loading: () => getLoader()
+})
+
 /* ****** B ***** */
 
 /* ****** C ***** */
@@ -69,7 +90,7 @@ const AppointmentLogListComponent = Loadable({
 const DashboardComponent = Loadable({
     loader: () => import('./container/ClientDashboard/ClientDashboard'),
     loading: () => getLoader()
-});
+})
 
 // const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
@@ -97,40 +118,52 @@ const DashboardComponent = Loadable({
 const ManageProfileComponent = Loadable({
     loader: () => import('./container/ClientProfileSetup/Manage/ProfileManage'),
     loading: () => getLoader()
-});
+})
 
-const ManageDepartmentComponent = Loadable({
-    loader: () => import('./container/ClientDepartmentSetup/Manage/DepartmentManage'),
+const ManageUnitComponent = Loadable({
+    loader: () =>
+        import('./container/ClientUnitSetup/Manage/UnitManage'),
     loading: () => getLoader()
-});
+})
 
 const ManageSpecializationComponent = Loadable({
-    loader: () => import('./container/ClientSpecializationSetup/Manage/SpecializationManage'),
+    loader: () =>
+        import('./container/ClientSpecializationSetup/Manage/SpecializationManage'),
     loading: () => getLoader()
-});
+})
 
 const ManageAdminComponent = Loadable({
     loader: () => import('./container/ClientAdminSetup/Manage/AdminManage'),
     loading: () => getLoader()
-});
+})
 
 const ManageDoctorDutyRosterComponent = Loadable({
     loader: () =>
         import('./container/ClientDoctorDutyRoster/Manage/DoctorDutyRosterManage'),
     loading: () => getLoader()
-});
+})
 
 const ManageQualificationComponent = Loadable({
     loader: () =>
         import('./container/ClientQualificationSetup/Manage/QualificationManage'),
     loading: () => getLoader()
-});
+})
 
 const ManageDoctorComponent = Loadable({
-    loader: () =>
-        import('./container/ClientDoctorSetup/Manage/DoctorManage'),
+    loader: () => import('./container/ClientDoctorSetup/Manage/DoctorManage'),
     loading: () => getLoader()
-});
+})
+
+const ManageDepartmentComponent = Loadable({
+    loader: () => import('./container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
+    loading: () => getLoader()
+})
+
+const ManageDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Manage/DepartmentDutyRosterManage'),
+    loading: () => getLoader()
+})
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -140,30 +173,31 @@ const ManageDoctorComponent = Loadable({
 const ProfileComponent = Loadable({
     loader: () => import('./container/ClientProfileSetup/ProfileSetup'),
     loading: () => getLoader()
-});
+})
 
 const PatientComponent = Loadable({
     loader: () => import('./container/ClientPatientDetails/ClientPatientDetails'),
     loading: () => getLoader()
-});
+})
 /* ****** Q ***** */
 
 const QualificationAlias = loadable(
     () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
     {fallback: () => getLoader()}
-);
+)
 
 /* ****** R ***** */
 
 const RescheduleLog = Loadable({
     loader: () => import('./container/ClientRescheduleLog/RescheduleLog'),
     loading: () => getLoader()
-});
+})
 
-const ActivityLog = loadable(
-    () => import('./container/ClientActivitiesLog/ClientActivityLog'),
+const RoomSetup = loadable(
+    () => import('./container/ClientRoomSetup/RoomSetup'),
     {fallback: () => getLoader()}
-);
+)
+
 
 /* ****** S ***** */
 
@@ -172,8 +206,12 @@ const ActivityLog = loadable(
 const TransactionLogComponent = loadable(
     () => import('./container/ClientTransactionLog/TransactionLog'),
     {fallback: () => getLoader()}
-);
+)
 
+const TransferLogComponent = loadable(
+    () => import('./container/ClientTransferLog/AppointmentTransferLog'),
+    {fallback: () => getLoader()}
+)
 
 /* ****** U ***** */
 
@@ -196,7 +234,7 @@ export const routes = [
         isTab: 'false',
         hasTab: false,
         name: 'Dashboard',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup',
@@ -206,7 +244,7 @@ export const routes = [
         hasTab: true,
         isLink: false,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/profileSetup',
@@ -216,7 +254,7 @@ export const routes = [
         hasTab: true,
         isTab: false,
         name: 'Profile Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/profileSetup/add',
@@ -226,7 +264,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/profileSetup/manage',
@@ -236,7 +274,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/specialization/add',
@@ -246,7 +284,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/specialization/manage',
@@ -256,7 +294,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/specialization',
@@ -266,37 +304,37 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Specialization Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/generalSetup/departmentSetup',
+        path: '/generalSetup/unitSetup',
         component: <></>,
         isLink: true,
         icon: '',
         hasTab: true,
         isTab: false,
-        name: 'Department Setup',
-        isSingleTab: false,
+        name: 'Unit Setup',
+        isSingleTab: false
     },
     {
-        path: '/generalSetup/departmentSetup/add',
+        path: '/generalSetup/unitSetup/add',
         name: 'Add',
-        component: AddDepartmentComponent,
+        component: AddUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/generalSetup/departmentSetup/manage',
+        path: '/generalSetup/unitSetup/manage',
         name: 'Manage',
-        component: ManageDepartmentComponent,
+        component: ManageUnitComponent,
         icon: '',
         hasTab: true,
         isTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/adminSetup',
@@ -305,7 +343,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/adminSetup/add',
@@ -314,7 +352,7 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/adminSetup/manage',
@@ -323,37 +361,37 @@ export const routes = [
         icon: '',
         hasTab: true,
         isLink: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster',
+        path: '/rosterSettings/doctorDutyRoster',
         name: 'Doctor Duty Roster',
         component: <></>,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/add',
+        path: '/rosterSettings/doctorDutyRoster/add',
         name: 'Add',
         component: AddDoctorDutyRosterComponent,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/manage',
+        path: '/rosterSettings/doctorDutyRoster/manage',
         name: 'Manage',
         component: ManageDoctorDutyRosterComponent,
         icon: '',
         hasTab: true,
         isLink: true,
         isTab: true,
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/qualification/add',
@@ -363,7 +401,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/qualification/manage',
@@ -373,7 +411,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/qualification',
@@ -383,7 +421,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Setup',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/doctorSetup',
@@ -393,7 +431,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Doctor',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/doctorSetup/add',
@@ -403,7 +441,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Add',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/generalSetup/doctorSetup/manage',
@@ -413,7 +451,7 @@ export const routes = [
         isLink: true,
         isTab: true,
         name: 'Manage',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/appointment/pendingRefundApproval',
@@ -423,7 +461,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Pending Refund Approval',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/appointment/checkIn',
@@ -433,7 +471,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/reports/appointmentLog',
@@ -443,7 +481,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Log',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/appointment/appointmentStatus',
@@ -453,7 +491,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Status',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/appointment',
@@ -463,7 +501,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Appointment',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/patientInformation',
@@ -473,7 +511,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Patient Information',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/reports',
@@ -483,7 +521,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Reports',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/activityLog',
@@ -493,7 +531,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Activity Log',
-        isSingleTab: true,
+        isSingleTab: true
     },
 
     {
@@ -504,7 +542,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Reschedule Log',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
         path: '/generalSetup/qualificationAlias',
@@ -514,7 +552,7 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Qualification Alias',
-        isSingleTab: true,
+        isSingleTab: true
     },
 
     {
@@ -525,7 +563,7 @@ export const routes = [
         isLink: false,
         isTab: false,
         name: 'Unauthorized',
-        isSingleTab: false,
+        isSingleTab: false
     },
     {
         path: '/reports/transactionLog',
@@ -535,6 +573,86 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Transaction Log',
+        isSingleTab: true
+    },
+    {
+        path: '/reports/transferLog',
+        component: TransferLogComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Transfer Log',
+        isSingleTab: true
+    },
+    {
+        path: '/generalSetup/roomSetup',
+        component: RoomSetup,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Room Setup',
         isSingleTab: true,
     },
-];
+    {
+        path: '/generalSetup/departmentSetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Department Setup',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/departmentSetup/add',
+        component: AddDepartmentSetup,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/departmentSetup/manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage',
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster',
+        name: 'Department Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/add',
+        name: 'Add',
+        component: AddDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+]

@@ -21,7 +21,9 @@ const {
   appointmentReject,
   clearAppointmentApproveMessage,
   clearAppointmentRejectMessage,
-  fetchAppointmentApprovalDetailByAppointmentId
+  fetchAppointmentApprovalDetailByAppointmentId,
+  thirdPartyApiCall,
+  appointmentApproveIntegration
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 
@@ -87,7 +89,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         transferCharge: 0
       },
       transferConfirmationModal: false,
-      transferValid: false
+      transferValid: false,
+      thirdPartyApiErrorMessage: ''
     }
 
     handleEnterPress = event => {
@@ -119,12 +122,17 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    setShowModal = () => {
-      this.setState({
+    setShowModal = async () => {
+      await this.setState({
         showModal: false,
         approveConfirmationModal: false,
         transferConfirmationModal: false
       })
+      if (!this.state.approveConfirmationModal) {
+        this.setState({
+          thirdPartyApiErrorMessage: ''
+        })
+      }
     }
 
     checkValidityOfTransfer = () => {
@@ -486,7 +494,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
     handleTransferChange = async e => {
       const {value, label, name, fileUri} = e.target
 
-      const transferAppointment = {
+      let transferAppointment = {
         ...this.state.appointmentTransferData
       }
       transferAppointment['transferData'][name] = label
@@ -499,9 +507,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         ? value
         : ''
 
-      await this.setState({
-        appointmentTransferData: {...transferAppointment}
-      })
+      console.log('=========', transferAppointment)
 
       // if (name === 'transferredSpecialization')
       //   await this.callApiAfterSpecializationChange(transf)
@@ -511,8 +517,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         name === 'transferredDate'
       ) {
         await this.onDoctorOrDateChangeHandler(
-          this.state.appointmentTransferData.transferData,
-          this.state.appointmentTransferData.transferData.transferredDate
+          transferAppointment.transferData,
+          transferAppointment.transferData.transferredDate
         )
         const {
           appointmentTransferTime,
@@ -525,9 +531,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           isAppointmentTransferTimeLoading
         }
         transferAppointment['transferData']['transferredTime'] = ''
-        this.setState({
-          appointmentTransferData: {...transferAppointment}
-        })
+        // this.setState({
+        //   appointmentTransferData: {...transferAppointment}
+        // })
       }
       if (
         name === 'transferredSpecialization' ||
@@ -538,7 +544,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           transferAppointment['transferData']['transferredTime'] = ''
 
           await this.callApiAfterSpecializationAndDoctorChange(
-            this.state.appointmentTransferData.transferData
+            transferAppointment.transferData
           )
           const {
             appointmentTransferCharge
@@ -560,12 +566,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
           transferAppointment['transferData'][
             'transferredCharge'
           ] = appointmentTransferCharge
-          console.log('============', transferAppointment)
-          this.setState({
-            appointmentTransferData: {...transferAppointment}
-          })
         }
       }
+      await this.setState({
+        appointmentTransferData: {...transferAppointment}
+      })
 
       this.checkValidityOfTransfer()
     }
@@ -576,25 +581,56 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       })
 
       try {
-        await this.props.appointmentApprove(
-          appointmentSetupApiConstant.APPOINTMENT_APPROVE,
-          this.state.approveAppointmentId
-        )
-        this.setState({
-          isConfirming: false,
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'success',
-            message: this.props.AppointmentApproveReducer.approveSuccessMessage
-          }
-        })
+        const response = await thirdPartyApiCall(this.state.appointmentDetails)
+        if (!response) {
+          await this.props.appointmentApprove(
+            appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+            this.state.appointmentDetails.appointmentId
+          )
+          this.setState({
+            isConfirming: false,
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                .approveSuccessMessage
+            }
+          })
+        } else if (response.responseData && !response.responseMessage) {
+          const status = this.state.appointmentDetails.hospitalNumber
+            ? false
+            : true
+          await this.props.appointmentApproveIntegration(
+            appointmentSetupApiConstant.APPOINTMENT_APPROVE_INTEGRATION,
+            {
+              appointmentId: this.state.appointmentDetails.appointmentId,
+              hospitalNumber: response.responseData,
+              status: status
+            }
+          )
+          this.setState({
+            isConfirming: false,
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                .approveSuccessMessage
+            }
+          })
+        } else {
+          this.setState({
+            thirdPartyApiErrorMessage: response.responseMessage
+          })
+        }
       } catch (e) {
         this.setState({
           isConfirming: false,
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
-            message: this.props.AppointmentApproveReducer.approveErrorMessage
+            message:
+              this.props.AppointmentApproveReducer.approveErrorMessage ||
+              e.message
           }
         })
       } finally {
@@ -706,7 +742,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
         isAppointmentTransferLoading
         //   appointmentTransferErrorMessage
       } = this.props.appointmentTransferReducer
-      console.log('============', doctorsBySpecializationForDropdown)
+      // console.log('============', doctorsBySpecializationForDropdown)
       //   const {
       //     appointmentTransferCharge
       //     // isAppointmentTransferChargeLoading,
@@ -849,7 +885,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
       fetchAppointmentTransferCharge,
       fetchAppointmentTransferDate,
       fetchAppointmentTransferTime,
-      fetchActiveDoctorsForDropdown
+      fetchActiveDoctorsForDropdown,
+      appointmentApproveIntegration
     }
   )
 }

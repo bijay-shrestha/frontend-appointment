@@ -7,7 +7,7 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     createProfile,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     HospitalSetupMiddleware
 } from "@frontend-appointment/thunk-middleware";
 import ConfirmationModal from "./ConfirmationModal";
@@ -22,12 +22,12 @@ import {
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
-const {FETCH_DEPARTMENTS_FOR_DROPDOWN, FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
+const {FETCH_UNIT_FOR_DROPDOWN, FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL} = AdminModuleAPIConstants.departmentSetupAPIConstants;
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
 const {CREATE_PROFILE} = AdminModuleAPIConstants.profileSetupAPIConstants;
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
-const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware;
+const {fetchActiveDepartmentsForDropdown, fetchActiveDepartmentsByHospitalId} = UnitSetupMiddleware;
 
 class ProfileAdd extends PureComponent {
 
@@ -116,7 +116,7 @@ class ProfileAdd extends PureComponent {
             : this.setState({[key]: value, [key + "Valid"]: fieldValid});
 
     fetchDepartments = async () => {
-        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_DEPARTMENTS_FOR_DROPDOWN));
+        await TryCatchHandler.genericTryCatch(this.props.fetchActiveDepartmentsForDropdown(FETCH_UNIT_FOR_DROPDOWN));
     };
 
     fetchHospitals = async () => {
@@ -125,8 +125,8 @@ class ProfileAdd extends PureComponent {
 
     fetchDepartmentsByHospitalId = async value => {
         value &&
-        await this.props.fetchActiveDepartmentsByHospitalId(FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL, value);
-        const {departmentsByHospital} = {...this.props.DepartmentSetupReducer};
+        await this.props.fetchActiveDepartmentsByHospitalId(FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL, value);
+        const {departmentsByHospital} = {...this.props.UnitSetupReducer};
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
         let selectedHospital = hospitalsForDropdown.find(hospital => hospital.value === value);
         await this.setState({
@@ -162,7 +162,7 @@ class ProfileAdd extends PureComponent {
         let formValidity = this.state.profileNameValid && this.state.profileDescriptionValid && this.state.profileName
             && this.state.profileDescription && this.state.selectedDepartment !== null && this.state.selectedHospital !== null
             && this.state.selectedMenus.length !== 0;
-        console.log("Form Validity:::",formValidity);
+        // console.log("Form Validity:::",formValidity);
         this.setState({
             formValid: formValidity
         })
@@ -281,7 +281,7 @@ class ProfileAdd extends PureComponent {
         });
         this.checkFormValidity();
     };
-    
+
     isCloneAndAdd = async ()=>{
     await this.setState({
         isCloneAndAdd:true
@@ -335,7 +335,7 @@ class ProfileAdd extends PureComponent {
 
     render() {
 
-      //  const {departments, departmentsByHospital} = this.props.DepartmentSetupReducer;
+      //  const {departments, departmentsByHospital} = this.props.UnitSetupReducer;
         const {hospitalsForDropdown,} = this.props.HospitalDropdownReducer;
         const {isCreateProfileLoading} = this.props.ProfileSetupReducer;
         const {
@@ -439,7 +439,7 @@ class ProfileAdd extends PureComponent {
 export default ConnectHoc(ProfileAdd,
     [
         'ProfileSetupReducer',
-        'DepartmentSetupReducer',
+        'UnitSetupReducer',
         'HospitalDropdownReducer'
     ], {
         fetchActiveDepartmentsForDropdown,

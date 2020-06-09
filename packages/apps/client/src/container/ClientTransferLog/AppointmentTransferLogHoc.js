@@ -7,7 +7,7 @@ import {
   AppointmentTransferMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import './appointment-approval.scss'
+import './transfer-log.scss'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 const {
@@ -47,7 +47,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
     previewApiCall = async data => {
       await this.props.fetchAppointmentPreviewInfo(
         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_PREVIEW,
-        data.appointmentId
+        data.appointmentTransferId
       )
     }
 
@@ -114,7 +114,7 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
       await this.setState({
         totalRecords: this.props.appointmentTransferSearchReducer.appointmentTransferList
           .length
-          ? this.props.appointmentTransferList.totalItems
+          ? this.props.appointmentTransferSearchReducer.totalItems
           : 0,
         queryParams: {
           ...this.state.queryParams,
@@ -132,7 +132,9 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
           ...spec,
           patientMobileNumber: spec.mobileNumber,
           sN: index + 1,
-          registrationNumber: spec.registrationNumber || 'N/A'
+          registrationNumber: spec.registrationNumber || 'N/A',
+          gender:spec.gender.split("")[0],
+          age:spec.age.slice(0, 4)
         }))
       return newRefundList
     }
@@ -247,7 +249,6 @@ const TransferApprovalHOC = (ComposedComponent, props, type) => {
         patientList,
         patientDropdownErrorMessage
       } = this.props.PatientDropdownListReducer
-
       return (
         <div id="appointment-approval">
           <ComposedComponent

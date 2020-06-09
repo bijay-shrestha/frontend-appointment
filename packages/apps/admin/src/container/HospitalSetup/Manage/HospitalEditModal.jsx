@@ -4,7 +4,7 @@ import {
     CFControl,
     CFLabel,
     CForm,
-    CHybridInput,
+    CHybridInput, CHybridSelect,
     CHybridTextArea,
     CModal,
     CRadioButton
@@ -20,7 +20,7 @@ const HospitalEditModal = ({
                                onInputChange,
                                hospitalData,
                                errorMessageForHospitalName,
-                              // errorMessageForHospitalCode,
+                               // errorMessageForHospitalCode,
                                errorMessage,
                                editApiCall,
                                formValid,
@@ -42,7 +42,10 @@ const HospitalEditModal = ({
                                handleBannerImageUpload,
                                setShowBannerUploadModal,
                                isHospitalEditLoading,
-                               contactLength
+                               contactLength,
+                               activeBillingModeForDropdown,
+                               activeAppointmentServiceTypeForDropdown,
+                               appointmentServiceTypeListForPrimary
                            }) => {
     const bodyContent = (
         <>
@@ -145,15 +148,15 @@ const HospitalEditModal = ({
 
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridInput
-                                    id="hospital-code"
-                                    name="hospitalCode"
+                                    id="esewaMerchantCode"
+                                    name="esewaMerchantCode"
                                     type="email"
                                     onKeyDown={event => onEnterKeyPress(event)}
                                     onChange={(event, validity) =>
                                         onInputChange(event, validity, 'E')
                                     }
-                                    placeholder="Merchant Code"
-                                    value={hospitalData.hospitalCode}
+                                    placeholder="Esewa Merchant Code"
+                                    value={hospitalData.esewaMerchantCode}
                                     required={true}
                                     disabled={true}
                                 />
@@ -169,6 +172,7 @@ const HospitalEditModal = ({
                                     }
                                     placeholder="Alias"
                                     value={hospitalData.alias}
+                                    disabled={true}
                                     required={true}
                                     max={10}
                                     min={2}
@@ -343,23 +347,13 @@ const HospitalEditModal = ({
                                     name="refundPercentage"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Refund Percentage"
                                     value={hospitalData.refundPercentage}
                                     required={true}
                                 />
                             </Col>
 
-                            {/*<Col sm={12} md={6} lg={6}>*/}
-                            {/*    <CCheckbox id="cogent-admin"*/}
-                            {/*               name="isCompany"*/}
-                            {/*               label="F1soft Group of Companies"*/}
-                            {/*               className="module"*/}
-                            {/*               checked={hospitalData.isCompany === 'Y'}*/}
-                            {/*               onChange={(event) => onInputChange(event)}*/}
-                            {/*               onKeyDown={(event) => onEnterKeyPress(event)}*/}
-                            {/*    />*/}
-                            {/*</Col>*/}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
@@ -367,7 +361,7 @@ const HospitalEditModal = ({
                                     name="numberOfFollowUps"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Number Of Follow Ups"
                                     value={hospitalData.numberOfFollowUps}
                                     required={true}
@@ -380,12 +374,69 @@ const HospitalEditModal = ({
                                     name="followUpIntervalDays"
                                     type="number"
                                     onKeyDown={event => onEnterKeyPress(event)}
-                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
                                     placeholder="Follow Up Interval Days"
                                     value={hospitalData.followUpIntervalDays}
                                     required={true}
                                 />
                             </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="billing-mode"
+                                    name="billingMode"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    label="Billing Mode (optional)"
+                                    options={activeBillingModeForDropdown}
+                                    value={hospitalData.billingMode}
+                                    required={true}
+                                    placeholder={activeBillingModeForDropdown.length ? "Select Billing Mode."
+                                        : "No Billing Mode(s) available."}
+                                    isDisabled={!activeBillingModeForDropdown.length}
+                                    isMulti={true}
+                                    className="multiple-select"
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="appt-service-type"
+                                    name="appointmentServiceType"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                    label="Appointment Service Type"
+                                    options={activeAppointmentServiceTypeForDropdown}
+                                    value={hospitalData.appointmentServiceType}
+                                    required={true}
+                                    placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                        "Select Appointment Service Type."
+                                        : "No Appointment Service Type(s) available."}
+                                    isDisabled={!activeAppointmentServiceTypeForDropdown.length}
+                                    isMulti={true}
+                                    className="multiple-select"
+                                />
+                            </Col>
+                            {
+                                appointmentServiceTypeListForPrimary.length && hospitalData.appointmentServiceType ?
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="primary-appt-service-type"
+                                            name="primaryAppointmentServiceType"
+                                            onKeyDown={event => onEnterKeyPress(event)}
+                                            onChange={(event, validity) => onInputChange(event, validity,'E')}
+                                            label="Primary Appointment Service Type"
+                                            options={appointmentServiceTypeListForPrimary}
+                                            value={hospitalData.primaryAppointmentServiceType}
+                                            required={true}
+                                            placeholder={activeAppointmentServiceTypeForDropdown.length ?
+                                                "Select Primary Appointment Service Type."
+                                                : "No Appointment Service Type(s) available."}
+                                            isDisabled={!activeAppointmentServiceTypeForDropdown.length}
+                                        />
+                                    </Col>
+                                    : ''
+                            }
 
                             <Col sm={12} md={12} lg={6}>
                                 <CHybridTextArea

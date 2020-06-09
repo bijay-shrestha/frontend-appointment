@@ -13,7 +13,7 @@ import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
     DashboardDetailsMiddleware,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     //HospitalSetupMiddleware,
     previewProfile
@@ -27,15 +27,15 @@ import './../admin-setup.scss'
 import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDepartmentsForDropdown} = DepartmentSetupMiddleware
+const {fetchActiveDepartmentsForDropdown} = UnitSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
 
 const {
     FETCH_PROFILE_DETAILS,
-    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID
+    FETCH_ACTIVE_PROFILES_BY_UNIT_ID
 } = AdminModuleAPIConstants.profileSetupAPIConstants
 const {
-    FETCH_DEPARTMENTS_FOR_DROPDOWN
+    FETCH_UNIT_FOR_DROPDOWN
 } = AdminModuleAPIConstants.departmentSetupAPIConstants
 const {CREATE_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
@@ -183,7 +183,7 @@ class AdminAdd extends PureComponent {
     actionsOnHospitalChange = async value => {
         if (value) {
             await this.fetchDepartmentsByHospitalId(value)
-            const {departmentsByHospital} = this.props.DepartmentSetupReducer
+            const {departmentsByHospital} = this.props.UnitSetupReducer
             this.setState({
                 department: null,
                 profile: null,
@@ -388,14 +388,14 @@ class AdminAdd extends PureComponent {
 
     fetchDepartmentsByHospitalId = async () => {
         await this.props.fetchActiveDepartmentsForDropdown(
-            FETCH_DEPARTMENTS_FOR_DROPDOWN
+            FETCH_UNIT_FOR_DROPDOWN
         )
     }
 
     fetchProfilesByDepartmentId = async value => {
         value &&
         (await this.props.fetchActiveProfilesByDepartmentId(
-            FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID,
+            FETCH_ACTIVE_PROFILES_BY_UNIT_ID,
             value
         ))
     }
@@ -496,7 +496,7 @@ class AdminAdd extends PureComponent {
 
         const {dropdownErrorMessage} = this.props.ProfileSetupReducer
         const {isCreateAdminLoading} = this.props.AdminSetupReducer
-        const {departments} = this.props.DepartmentSetupReducer
+        const {departments} = this.props.UnitSetupReducer
         const {
             isDashboardFeatureLoading,
             dashboardFeatureErrorMessage
@@ -643,7 +643,7 @@ export default ConnectHoc(
         'ProfileSetupReducer',
         'AdminSetupReducer',
         'ProfilePreviewReducer',
-        'DepartmentSetupReducer',
+        'UnitSetupReducer',
         'DashboardFeaturesReducer'
     ],
     {

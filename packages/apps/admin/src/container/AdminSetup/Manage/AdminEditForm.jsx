@@ -110,7 +110,7 @@ const AdminEditForm = ({
                         <Col sm={12} md={12} lg={6}>
                             <CHybridSelect
                                 id="admin-department"
-                                label="Department"
+                                label="Unit"
                                 name="department"
                                 onKeyDown={event => onEnterKeyPress(event)}
                                 onChange={event => onInputChange(event)}
@@ -119,8 +119,8 @@ const AdminEditForm = ({
                                 isDisabled={!adminInfoObj.hospital}
                                 placeholder={
                                     adminInfoObj.hospital
-                                        ? 'Select department.'
-                                        : 'Select client first.'
+                                        ? 'Select Unit.'
+                                        : 'Select Client first.'
                                 }
                             />
                         </Col>

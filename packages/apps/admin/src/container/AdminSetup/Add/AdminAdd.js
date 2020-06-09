@@ -6,7 +6,7 @@ import {
     clearAdminSuccessErrorMessagesFromStore,
     createAdmin,
     DashboardDetailsMiddleware,
-    DepartmentSetupMiddleware,
+    UnitSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
     previewProfile
@@ -21,17 +21,17 @@ import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
 
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
-const {fetchActiveDepartmentsByHospitalId} = DepartmentSetupMiddleware
+const {fetchActiveDepartmentsByHospitalId} = UnitSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
 const {
     FETCH_HOSPITALS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.hospitalSetupApiConstants
 const {
     FETCH_PROFILE_DETAILS,
-    FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID
+    FETCH_ACTIVE_PROFILES_BY_UNIT_ID
 } = AdminModuleAPIConstants.profileSetupAPIConstants
 const {
-    FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL
+    FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL
 } = AdminModuleAPIConstants.departmentSetupAPIConstants
 const {CREATE_ADMIN} = AdminModuleAPIConstants.adminSetupAPIConstants
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
@@ -183,7 +183,7 @@ class AdminAdd extends PureComponent {
     actionsOnHospitalChange = async value => {
         if (value) {
             await this.fetchDepartmentsByHospitalId(value)
-            const {departmentsByHospital} = this.props.DepartmentSetupReducer
+            const {departmentsByHospital} = this.props.UnitSetupReducer
             this.setState({
                 department: null,
                 profile: null,
@@ -434,7 +434,7 @@ class AdminAdd extends PureComponent {
     fetchDepartmentsByHospitalId = async value => {
         value &&
         (await this.props.fetchActiveDepartmentsByHospitalId(
-            FETCH_DEPARTMENTS_FOR_DROPDOWN_BY_HOSPITAL,
+            FETCH_UNITS_FOR_DROPDOWN_BY_HOSPITAL,
             value
         ))
     }
@@ -442,7 +442,7 @@ class AdminAdd extends PureComponent {
     fetchProfilesByDepartmentId = async value => {
         value &&
         (await this.props.fetchActiveProfilesByDepartmentId(
-            FETCH_ACTIVE_PROFILES_BY_DEPARTMENT_ID,
+            FETCH_ACTIVE_PROFILES_BY_UNIT_ID,
             value
         ))
     }
@@ -663,7 +663,7 @@ export default ConnectHoc(
         'ProfileSetupReducer',
         'AdminSetupReducer',
         'ProfilePreviewReducer',
-        'DepartmentSetupReducer',
+        'UnitSetupReducer',
         'DashboardFeaturesReducer'
     ],
     {

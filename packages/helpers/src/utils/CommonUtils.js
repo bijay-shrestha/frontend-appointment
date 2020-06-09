@@ -25,3 +25,45 @@ export const getUserNameHospitalIdAndAdminId = token => {
 
 export const filterTableDataWithGivenStatus = (status, filterData) =>
     filterData.filter(datum => datum.status === status)
+
+export const appendSerialNumberToDataList = (dataList, page, size) => {
+    let startingNumber = 1
+    if (page && page > 1) {
+        startingNumber += (page - 1) * size
+    }
+    let dataWithSerialNumberAdded =
+        dataList &&
+        dataList.map(data => {
+            let dataWithSN = {
+                ...data,
+                sN: startingNumber
+            }
+            startingNumber++
+            return dataWithSN
+        })
+
+    return dataWithSerialNumberAdded ? dataWithSerialNumberAdded : []
+}
+
+export const changeCommaSeperatedStringToObjectAndStringifyIt = commaSeperatedString => {
+    let splittedCommaSperatedString = commaSeperatedString.split(',')
+    let objFromSplittedCommaString = {}
+    splittedCommaSperatedString.map(scsp => {
+        objFromSplittedCommaString[scsp] = ''
+        return scsp
+    })
+    return objFromSplittedCommaString
+}
+
+export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValuePair => {
+    //console.log(arrayOfKeyValuePair);
+    const filteredValue = arrayOfKeyValuePair.filter(
+        keyValPair => keyValPair.keyParam && keyValPair.valueParam
+    )
+    //console.log("filtered",filteredValue);
+    return filteredValue
+}
+
+export const sortListOfObjectsAlphabetically = (dataList, sortingParam) =>
+    dataList.sort((firstElement, secondElement) =>
+        (firstElement[sortingParam]).toLowerCase().localeCompare((secondElement[sortingParam]).toLowerCase()));

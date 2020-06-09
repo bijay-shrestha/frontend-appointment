@@ -17,8 +17,8 @@
         {
           "id": "2",
           "parentId": "1",
-          "name": "Department Setup",
-          "path": "/generalSetup/departmentSetup",
+          "name": "Unit Setup",
+          "path": "/generalSetup/unitSetup",
           "roles": [
             2,
             3,
@@ -31,7 +31,7 @@
           "order": 2,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Department Setup",
+          "description": "Unit Setup",
           "childMenus": []
         },
         {
@@ -154,21 +154,55 @@
           "menuFor": "1",
           "description": "Qualification Alias Setup",
           "childMenus": []
+        },
+        {
+          "id": "22",
+          "parentId": "1",
+          "name": "Room Setup",
+          "path": "/generalSetup/roomSetup",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Room Setup",
+          "childMenus": []
+        },
+        {
+          "id": "23",
+          "parentId": "1",
+          "name": "Department Setup",
+          "path": "/generalSetup/departmentSetup",
+          "roles": [
+            2,
+            3,
+            4,
+            5
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Department Setup",
+          "childMenus": []
         }
       ]
     },
     {
-      "id": "9",
+      "id": "24",
       "parentId": null,
-      "name": "Doctor Duty Roster",
-      "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5,
-        8
-      ],
+      "name": "Roster Settings",
+      "path": "/rosterSettings",
+      "roles": [],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
@@ -176,7 +210,50 @@
       "enabled": "Y",
       "menuFor": "6",
       "description": "Doctor Duty Roster",
-      "childMenus": []
+      "childMenus": [
+        {
+          "id": "9",
+          "parentId": "24",
+          "name": "Doctor Duty Roster",
+          "path": "/rosterSettings/doctorDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Duty Roster",
+          "childMenus": []
+        },
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Department Duty Roster",
+          "path": "/rosterSettings/departmentDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Duty Roster",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "10",
@@ -312,6 +389,23 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "Transaction Log",
+          "childMenus": []
+        },
+        {
+          "id": "21",
+          "parentId": "14",
+          "name": "Transfer Log",
+          "path": "/reports/transferLog",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Transfer Log",
           "childMenus": []
         }
       ]

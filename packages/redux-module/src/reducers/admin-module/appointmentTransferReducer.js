@@ -48,6 +48,7 @@ const initialState = {
     appointmentTransferInfoErrorMessage: ''
   },
   transferSearch: {
+    totalItems:0,
     appointmentTransferList: [],
     isAppointmentTransferSearchLoading: true,
     appointmentTransferSearchErrorMessage: ''
@@ -141,19 +142,22 @@ const appointmentSearchHandlers = {
     ...state,
     appointmentTransferList: [],
     isAppointmentTransferSearchLoading: true,
-    appointmentTransferSearchErrorMessage: ''
+    appointmentTransferSearchErrorMessage: '',
+    totalItems:0,
   }),
   [APPOINTMENT_TRANSFER_SEARCH_SUCCESS]: (state, action) => ({
     ...state,
-    appointmentTransferList: action.payload.data,
+    appointmentTransferList: action.payload.data.response,
     isAppointmentTransferSearchLoading: false,
-    appointmentTransferSearchErrorMessage: ''
+    appointmentTransferSearchErrorMessage: '',
+    totalItems:action.payload.data.totalItems
   }),
   [APPOINTMENT_TRANSFER_SEARCH_ERROR]: (state, action) => ({
     ...state,
     appointmentTransferList: [],
     isAppointmentTransferSearchLoading: false,
-    appointmentTransferSearchErrorMessage: action.payload.message
+    appointmentTransferSearchErrorMessage: action.payload.message,
+    totalItems:0
   })
 }
 

@@ -75,7 +75,7 @@ class ProfileSetupSearchFilter extends PureComponent {
                                     <Col sm={6} md={6} xl={3}>
                                         <CHybridSelect
                                             id="department"
-                                            label="Department"
+                                            label="Unit"
                                             name="department"
                                             onKeyDown={(event) => this.handleEnter(event)}
                                             onChange={(event) => onInputChange(event)}

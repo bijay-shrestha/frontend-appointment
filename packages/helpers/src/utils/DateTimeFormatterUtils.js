@@ -117,3 +117,31 @@ export const convertStringTimeInHourMinuteFormatToDate = stringTime => {
 export const convertDateToStringMonthDateYearFormat = date => {
     return moment(date).format('MMMM D, YYYY')
 }
+
+
+export const checkIfFromDateAndToDateExistsInObjectList = (fromDate, toDate, objectList) => {
+    // OBJECT LIST SHOULD CONTAIN fromDate and toDate parameters.
+    let fromDateWithTimeSetToZero = getDateWithTimeSetToGivenTime(fromDate, 0, 0, 0),
+        toDateWithTimeSetToZero = getDateWithTimeSetToGivenTime(toDate, 0, 0, 0);
+
+    return objectList.some(objectData => {
+        let objectFromDate = getDateWithTimeSetToGivenTime(objectData.fromDate, 0, 0, 0),
+            objectToDate = getDateWithTimeSetToGivenTime(objectData.toDate, 0, 0, 0);
+
+        if (fromDateWithTimeSetToZero >= objectFromDate && fromDateWithTimeSetToZero <= objectToDate) {
+            return true
+        } else return toDateWithTimeSetToZero >= objectFromDate && toDateWithTimeSetToZero <= objectToDate;
+    });
+};
+
+export const isFromDateToDateWithinTheGivenDateRange = (fromDateToCheck, toDateToCheck, fromDate, toDate) => {
+    let fromDateToCheckWithTimeSetToZero = getDateWithTimeSetToGivenTime(fromDateToCheck, 0, 0, 0),
+        toDateToCheckWithTimeSetToZero = getDateWithTimeSetToGivenTime(toDateToCheck, 0, 0, 0),
+        fromDateWithTimeSetToZero = getDateWithTimeSetToGivenTime(fromDate, 0, 0, 0),
+        toDateWithTimeSetToZero = getDateWithTimeSetToGivenTime(toDate, 0, 0, 0);
+    if (fromDateToCheckWithTimeSetToZero >= fromDateWithTimeSetToZero && fromDateToCheckWithTimeSetToZero <= toDateWithTimeSetToZero) {
+        return toDateToCheckWithTimeSetToZero >= fromDateWithTimeSetToZero && toDateToCheckWithTimeSetToZero <= toDateWithTimeSetToZero;
+    } else return toDateToCheckWithTimeSetToZero >= fromDateWithTimeSetToZero && toDateToCheckWithTimeSetToZero <= toDateWithTimeSetToZero;
+    // return (fromDateToCheckWithTimeSetToZero >= fromDateWithTimeSetToZero && fromDateToCheckWithTimeSetToZero <= toDateWithTimeSetToZero)
+    //     || (toDateToCheckWithTimeSetToZero >= fromDateWithTimeSetToZero && toDateToCheckWithTimeSetToZero <= toDateWithTimeSetToZero);
+};

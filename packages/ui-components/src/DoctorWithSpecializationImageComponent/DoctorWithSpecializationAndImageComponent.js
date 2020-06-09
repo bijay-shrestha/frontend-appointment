@@ -3,11 +3,17 @@ import DefaultPic from './picture.png'
 const DoctorWithSpecializationAndImage = props => {
   return (
     <div className="di-column">
-      {props.node.data.doctorAvatar || props.node.data.fileUri ? (
+      {props.node.data.doctorAvatar ||
+      props.node.data.fileUri ||
+      props.node.data.transferredFromFileUri ? (
         <div className="data-image">
           <img
             alt="PIC"
-            src={props.node.data.doctorAvatar || props.node.data.fileUri}
+            src={
+              props.node.data.doctorAvatar ||
+              props.node.data.fileUri ||
+              props.node.data.transferredFromFileUri
+            }
           />{' '}
         </div>
       ) : (
@@ -17,10 +23,16 @@ const DoctorWithSpecializationAndImage = props => {
       )}
 
       <ul className="di-details">
-        <li>Dr. {props.node.data.doctorName || ''}</li>
+        <li>
+          Dr.{' '}
+          {props.node.data.doctorName ||
+            props.node.data.transferredFromDoctor ||
+            ''}
+        </li>
         <li>
           {props.node.data.specializationName ||
             props.node.data.specialization ||
+            props.node.data.transferredFromSpecialization ||
             ''}
         </li>
       </ul>
