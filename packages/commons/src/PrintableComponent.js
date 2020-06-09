@@ -15,7 +15,7 @@ const PrintableComponentHoc = (ComponentToPrint, data, pastProps) => {
             {({ handlePrint }) => (
              <CButton
              variant="success"
-             size="lg"
+             size="sm"
              className="float-right btn-action ml-1"
              name="Print"
              onClickHandler={handlePrint}
