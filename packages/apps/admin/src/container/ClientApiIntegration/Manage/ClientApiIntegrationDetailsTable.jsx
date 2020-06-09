@@ -10,9 +10,7 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './ClientApiDetailsModal'
-import {
-  RequestMethodStatus
-} from '@frontend-appointment/ui-components'
+import {RequestMethodStatus} from '@frontend-appointment/ui-components'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -35,10 +33,12 @@ const ClientApiIntegrationDetailsDataTable = ({
   previewApiIntegrationData,
   previewModal,
   previewHandler,
-  editHandler
+  editHandler,
+  isRequestBodyByFeatureLoading,
+  requestBodyByFeatureErrorMessage
 }) => (
   <div className="manage-details">
-    <h5 className="title">API Integration Details</h5>
+    <h5 className="title">Client API Integration Details</h5>
     {!isSearchLoading && !searchErrorMessage && integrationList.length ? (
       <>
         <CDataTable
@@ -105,14 +105,14 @@ const ClientApiIntegrationDetailsDataTable = ({
               sizeColumnsToFit: true
             },
 
-            // {
-            //   headerName: 'Status',
-            //   field: 'status',
-            //   resizable: true,
-            //   sortable: true,
-            //   sizeColumnsToFit: true,
-            //   cellRenderer: 'childLabelRenderer'
-            // },
+            {
+              headerName: 'Integration Channel',
+              field: 'integrationChannel',
+              resizable: true,
+              sortable: true,
+              sizeColumnsToFit: true,
+              cellRenderer: 'childLabelRenderer'
+            },
             {
               headerName: '',
               action: 'action',
@@ -124,9 +124,7 @@ const ClientApiIntegrationDetailsDataTable = ({
               width: 80,
               cellRendererParams: {
                 onClick: function (e, id, type) {
-                  return type === 'D'
-                    ? deleteHandler(id)
-                    : editHandler(id)
+                  return type === 'D' ? deleteHandler(id) : editHandler(id)
                 },
                 filteredAction: filteredActions
               },
@@ -167,14 +165,16 @@ const ClientApiIntegrationDetailsDataTable = ({
         showModal={previewModal}
         setCloseModal={setCloseModal}
         integrationData={previewApiIntegrationData}
+        isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+        requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
       />
     ) : (
       ''
     )}
     {deleteModalShow ? (
       <ConfirmDelete
-        confirmationMessage="Are you sure you want to delete the Api Integration?If yes please provide remarks."
-        modalHeader="Delete Api Interation"
+        confirmationMessage="Are you sure you want to delete the Client API Integration?If yes please provide remarks."
+        modalHeader="Delete Client API Interation"
         showModal={deleteModalShow}
         setShowModal={() => setCloseModal('D')}
         onDeleteRemarksChangeHandler={deleteRemarksHandler}

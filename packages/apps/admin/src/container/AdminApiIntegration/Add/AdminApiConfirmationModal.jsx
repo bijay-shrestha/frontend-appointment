@@ -2,23 +2,27 @@ import React,{memo} from 'react'
 import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
-const ClientApiConfirmationModal = props => {
+const AdminApiConfirmationModal = props => {
     const {
         integrationData,
         setCloseModal,
         adminApiSaveLoading,
         onSaveHandler,
-        showConfirmationModal
+        showConfirmationModal,
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
     } = props
     return (
         <>
             <CModal
                 show={showConfirmationModal}
-                modalHeading="API Integration Details"
+                modalHeading="Admin API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal
                          integrationData={integrationData}
+                         isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+                         requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
                          type={'A'}
                          className="api-details-modal"
                     />
@@ -45,7 +49,7 @@ const ClientApiConfirmationModal = props => {
                             onClickHandler={onSaveHandler}
                             isLoading={adminApiSaveLoading}
                             disabled={adminApiSaveLoading}
-                            
+
                         />
                     </>
                 }
@@ -55,4 +59,4 @@ const ClientApiConfirmationModal = props => {
     )
 }
 
-export default memo(ClientApiConfirmationModal)
+export default memo(AdminApiConfirmationModal)

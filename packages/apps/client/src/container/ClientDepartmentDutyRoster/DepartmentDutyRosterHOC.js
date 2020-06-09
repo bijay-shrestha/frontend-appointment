@@ -201,13 +201,19 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             actionsOnDepartmentChange = async departmentId => {
-                if (departmentId) {
-                    await this.fetchActiveDoctorsByDepartmentId(departmentId);
-                }
+                let weekDaysDataWithDoctorReset = this.state.departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 this.setState({
                     isRoomEnabled: 'N',
-                    room: null
+                    room: null,
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithDoctorReset && [...weekDaysDataWithDoctorReset]
                 });
+                try {
+                    await this.fetchActiveDoctorsByDepartmentId(departmentId ? departmentId : 0);
+                } catch (e) {
+
+                }
+
             };
 
 
@@ -250,7 +256,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime;
+                    formValid = weekDay.dayOffStatus === 'N' ?
+                        formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length :
+                        formValid
+                        && weekDay.startTime
+                        && weekDay.endTime;
                     return weekDay
                 });
 
@@ -279,7 +293,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid && weekDay.startTime && weekDay.endTime
+                    formValid = weekDay.dayOffStatus === 'N' ?
+                        formValid
+                        && weekDay.startTime
+                        && weekDay.endTime
+                        && weekDay.weekDaysDoctorInfo
+                        && weekDay.weekDaysDoctorInfo.length :
+                        formValid
+                        && weekDay.startTime
+                        && weekDay.endTime;
                     return weekDay
                 });
 
@@ -1058,7 +1080,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             ? weekDay.dayOffStatus
                             : 'N';
                         weekDay.isUpdated = false;
-                        weekDay.originalWeekDaysDoctorInfo = [...weekDay.weekDaysDoctorInfo];
+                        weekDay.weekDaysDoctorInfo = isCloneAndAdd ? [] : weekDay.weekDaysDoctorInfo;
+                        weekDay.originalWeekDaysDoctorInfo = isCloneAndAdd ? [] : [...weekDay.weekDaysDoctorInfo];
                         return weekDay
                     }
                 );
@@ -1085,12 +1108,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             partialResetAddForm = async onSuccessData => {
+                let weekDaysDataWithoutDoctor = this.state.departmentWeekDaysDutyRosterRequestDTOS.map(
+                    weekDays => ({...weekDays, weekDaysDoctorInfo: null}));
                 await this.setState({
                     department: null,
                     isRoomEnabled: 'N',
                     room: null,
                     rosterGapDuration: '',
                     status: 'Y',
+                    departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithoutDoctor && [...weekDaysDataWithoutDoctor],
                     overrideRequestDTO: {
                         fromDate: new Date(),
                         toDate: new Date(),
@@ -1425,7 +1451,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 if (!isSaveFromManageClone) {
                     let weekDayData = departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => ({
                         ...weekDay,
-                        hospitalDepartmentDoctorInfoIds: weekDay.weekDaysDoctorInfo.map(doctor => doctor.value)
+                        hospitalDepartmentDoctorInfoIds: weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo.map(doctor => doctor.value) : []
                     }));
                     dataToSave.weekDaysDetail = [...weekDayData];
                     dataToSave.overrideDetail = departmentDutyRosterOverrideRequestDTOS;

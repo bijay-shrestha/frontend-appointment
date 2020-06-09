@@ -75,7 +75,7 @@ const adminApiIntegrationSaveHandler = {
   [ADMIN_MODE_API_INTEGRATION_SAVE_ERROR]: (state, action) => ({
     ...state,
     adminApiSaveSucessMessage: '',
-    adminApiSaveLoading: true,
+    adminApiSaveLoading: false,
     adminApiErrorMessage: action.payload.message
   })
 }
