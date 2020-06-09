@@ -29,7 +29,7 @@ function DepartmentDutyRosterManage(props) {
                 saveDepartmentDutyRoster,
             } = editRosterProps;
             const footerContent =
-                <Container fluid="true">
+                <Container fluid>
                     <Row>
                         <div className="col-sm-12  col-md-6">
                             {editErrorMessage ?
