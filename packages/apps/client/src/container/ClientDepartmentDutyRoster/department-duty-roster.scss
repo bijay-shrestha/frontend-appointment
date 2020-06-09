@@ -1,112 +1,178 @@
+@import "~bootstrap/scss/functions";
 
- @import '~bootstrap/scss/functions';
-
- //custom colors
- @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
 
 // // Customized Bootstrap variables
- @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
- @import '~bootstrap/scss/mixins';
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import "~bootstrap/scss/mixins";
 
-
-
-
- .doctor-info{
-  height: 100%;
- @include border-radius($cogent-radius);
- }
-
- .alert{
-     z-index: 999999999;
- }
-
- .info-container{
-   
-    padding-right:0
+.doctor-info {
+    height: 100%;
+    @include border-radius($cogent-radius);
 }
-.room-check{
+
+.alert {
+    z-index: 999999999;
+}
+
+.info-container {
+    padding-right: 0;
+}
+.room-check {
     margin-bottom: 20px;
-    .select-all{
+    .select-all {
         margin-left: 11px;
-       
     }
 
-    .field-wrapper{
+    .field-wrapper {
         min-height: 54px;
-        margin-top:6px;
+        margin-top: 6px;
     }
 }
 
- .doctor-availability{
+.department-availability {
     height: 100%;
     @include border-radius($cogent-radius);
 
-   
-
-    .header{
+    .header {
         font-weight: 600;
         text-transform: capitalize;
-        margin-top:10px;
-        margin-bottom:10px;
-      
-        
-    }
+        margin-top: 10px;
+        margin-bottom: 10px;
 
-    .main-content{
-       margin-top:14px;
-       margin-bottom: 14px;
-       align-items:center;
-    //    justify-content: flex-start;
+        // .col{
+        //     padding:0 4px;
+        // }
 
-       &:first-child{
-           text-transform: capitalize;
-           font-weight:400;
-       }
-       .field-wrapper{
-           min-height: 20px;
-          .css-1hwfws3 {
-            padding: 0 0.8rem ;
+        .col {
+            &:nth-child(1) {
+                flex-basis: 100px;
+                flex-grow: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 90px;
+            }
+
+            &:nth-child(2),
+            &:nth-child(3) {
+                padding:0 4px;
+                flex-basis: 140px;
+                flex-grow: 0;
+            }
+
+            &:nth-child(4) {
+                
+                flex-basis: 60px;
+                flex-grow: 0;
+                padding: 0;
+                .form-check {
+                    // padding-left: 8px !important;
+                    // font-size: 11px;
+                    // margin-right: 0;
+                }
+                .form-check.check-all .form-check-label{
+                    margin-bottom:0;
+                     font-size: 11px;
+                }
+            }
+
+            &:nth-child(5) {
+                width: calc(100% - 480px);
+                flex-basis: calc(100% - 480px);
+                flex-grow: 1;
+            }
         }
-       }
     }
 
-    
+    .main-content {
+        margin-top: 14px;
+        margin-bottom: 14px;
+        align-items: center;
+        //    justify-content: flex-start;
+        // .col{
+        //     padding:0 4px;
+        // }
 
+        .col {
+            &:nth-child(1) {
+                
+                flex-basis: 100px;
+                flex-grow: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 90px;
+            }
 
- }
+            &:nth-child(2),
+            &:nth-child(3) {
+               
+                flex-basis: 140px;
+                flex-grow: 0;
+                padding:0 4px;
+            }
 
- .doctor-override {
-     padding:30px 40px;
-    @include border-radius($cogent-radius);
-    .filter-message{
-        width:100%;
-    }
+            &:nth-child(4) {
+                padding:0 15px;
+                flex-basis: 60px;
+                flex-grow: 0;
+                
+            }
 
-    .select-all{
-        display: inline-block;
-    }
+            &:nth-child(5) {
+                width: calc(100% - 480px);
+                flex-basis: calc(100% - 480px);
+                flex-grow: 1;
 
-    .optional{
-        font-style: italic;
-        color:$gray-800;
-    }
-    
- }
- .preview-modal{
-
-    &.edit-doctordutyroster{
-        .time-picker{
-            .react-datepicker-popper[data-placement^="bottom"]{
-                margin-top:8px !important;
+                .multiple-select {
+                    margin-bottom: 0;
+                }
             }
         }
 
-        .doctor-availability{
-            .main-content{
-                .col{
-                    &:last-child{
-                        .form-check{
-                            margin-left:10px;
+        &:first-child {
+            text-transform: capitalize;
+            font-weight: 400;
+        }
+        .field-wrapper {
+            min-height: 20px;
+            .css-1hwfws3 {
+                padding: 0 0.8rem;
+            }
+        }
+    }
+}
+
+.department-override {
+    padding: 30px 40px;
+    @include border-radius($cogent-radius);
+    .filter-message {
+        width: 100%;
+    }
+
+    .select-all {
+        display: inline-block;
+    }
+
+    .optional {
+        font-style: italic;
+        color: $gray-800;
+    }
+}
+.preview-modal {
+    &.edit-doctordutyroster {
+        .time-picker {
+            .react-datepicker-popper[data-placement^="bottom"] {
+                margin-top: 8px !important;
+            }
+        }
+
+        .department-availability {
+            .main-content {
+                .col {
+                    &:last-child {
+                        .form-check {
+                            margin-left: 10px;
                         }
                     }
                 }
@@ -114,96 +180,121 @@
         }
     }
 
-    .date-error{
-        color:$danger;
-        margin-top:-32px;
+    .date-error {
+        color: $danger;
+        margin-top: -32px;
         font-weight: 400;
-        font-size:12px;
-     }
-    
-     .time-error{
-        color:$danger;
-        margin-top:-30px;
+        font-size: 12px;
+    }
+
+    .time-error {
+        color: $danger;
+        margin-top: -30px;
         // margin-left:25%;
         font-weight: 400;
-        font-size:12px;
-     }
+        font-size: 12px;
+    }
 
-    .time-picker{
-        .react-datepicker-popper[data-placement^="bottom"]{
-            margin-top:-28px !important;
+    .time-picker {
+        .react-datepicker-popper[data-placement^="bottom"] {
+            margin-top: -28px !important;
         }
     }
-     
-     .doctor-info,.doctor-availability,.doctor-override{
-         border:1px solid $cogent-border;
-         @include border-radius($cogent-radius);
-     }
 
-     .doctor-override{
-        //  margin:24px 15px 0;
-         padding:24px;
-     }
-     .doctor-availability .main-content{
-         margin-top:18px ;
-     }
- }
+    .doctor-info,
+    .department-availability,
+    .department-override {
+        border: 1px solid $cogent-border;
+        @include border-radius($cogent-radius);
+    }
 
- .override-form{
-     width:100%;
-     .react-datepicker-wrapper{
-         width:50%;
-         padding-left: 4px;
-     }
-     .time-picker{
-         display: inline-block;
-         width:50%;
-         padding-left:4px;
-         .react-datepicker-wrapper{
-            width:100%
+    .doctor-list{
+        border:1px solid $gray-100;
+        background-color: $gray-100;
+        padding:2px;
+        margin-bottom:2px;
+       
+        li{
+            display:flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom:2px;
+
+            img{
+                width: 26px;
+                height: auto;
+                margin-right: 10px;
+                @include border-radius(50%);
+            }
+            
+            .anchor-icon{
+                margin-right: 10px;
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                flex-shrink: 0;
+                border-radius: 50%;
+                border: 1px solid $gray-100;
+                background-color: $gray-100;
+            }
+
         }
-     }
+    }
 
-     .form-check{
-         margin-left:14px;
-         height: 50px;
-     }
- }
+    .department-override {
+        //  margin:24px 15px 0;
+        padding: 24px;
+    }
+    .department-availability .main-content {
+        margin-top: 18px;
+    }
+}
 
- .date-error{
-    color:$danger;
-    margin-top:-32px;
+.override-form {
+    width: 100%;
+    .react-datepicker-wrapper {
+        width: 50%;
+        padding-left: 4px;
+    }
+    .time-picker {
+        display: inline-block;
+        width: 50%;
+        padding-left: 4px;
+        .react-datepicker-wrapper {
+            width: 100%;
+        }
+    }
+
+    .form-check {
+        margin-left: 14px;
+        height: 50px;
+    }
+}
+
+.date-error {
+    color: $danger;
+    margin-top: -32px;
     font-weight: 400;
-    font-size:12px;
- }
+    font-size: 12px;
+}
 
- .time-error{
-    color:$danger;
-    margin-top:-8px;
+.time-error {
+    color: $danger;
+    margin-top: -8px;
     // margin-left:25%;
     font-weight: 400;
-    font-size:12px;
- }
+    font-size: 12px;
+}
 
- .fa-check-circle{
-     font-size:16px;
-     color:$success;
- }
+.fa-check-circle {
+    font-size: 16px;
+    color: $success;
+}
 
-
-
-
- @media (max-width:992px) { 
-
-    .info-container{
-        margin-bottom:20px;
-        padding-right:15px;
+@media (max-width: 992px) {
+    .info-container {
+        margin-bottom: 20px;
+        padding-right: 15px;
     }
-
-
-  }
-
-
-
-
- 
+}

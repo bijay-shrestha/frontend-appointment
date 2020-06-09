@@ -3,9 +3,7 @@ import {Col, Container, Row} from "react-bootstrap";
 
 import {CDataTable} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
+import {DayOffStatusLabel, EndTimeDisplayForTable, StartTimeDisplayForTable} from "@frontend-appointment/ui-components";
 
 
 const ExistingDepartmentRoster = ({
@@ -23,7 +21,7 @@ const ExistingDepartmentRoster = ({
             <Row className="">
 
                 <Col md={12} lg={12} className="mb-2">
-                    <div className="doctor-availability bg-white p-4">
+                    <div className="department-availability bg-white">
                         {
                             existingRosterTableData.length ?
                                 <CDataTable
@@ -73,20 +71,22 @@ const ExistingDepartmentRoster = ({
                     </div>
                     <div>
                         {existingRostersDetailErrorMessage ? <p className="error-message">
-                            <i className="fa fa-exclamation-triangle"/>&nbsp;{existingRostersDetailErrorMessage}</p> : ''}
+                            <i className="fa fa-exclamation-triangle"/>&nbsp;{existingRostersDetailErrorMessage}
+                        </p> : ''}
                     </div>
                 </Col>
 
                 {
                     existingDepartmentWeekDaysAvailability.length ?
                         <Col md={12} lg={12} className="">
-                            <div className="doctor-availability bg-white p-4">
+                            <div className="department-availability bg-white p-4">
                                 <h5 className="title">Department Availability</h5>
                                 <Row className="header">
-                                    <Col> Days</Col>
+                                    <Col> Days</Col>                                    
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
                                     <Col> Days Off</Col>
+                                    <Col> Doctors</Col>
                                 </Row>
                                 {
                                     existingDepartmentWeekDaysAvailability.map(weekDay => (
@@ -94,8 +94,26 @@ const ExistingDepartmentRoster = ({
                                             <Col> {weekDay.weekDaysName}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
-                                            <Col> {weekDay.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
-                                                ''}</Col>
+                                            <Col> {weekDay.dayOffStatus === 'Y' ?
+                                                <i className="fa fa-check-circle"/> : ''}</Col>
+                                           
+                                            <Col>
+                                            
+                                            <ul className="doctor-list">
+                                                {weekDay.weekDaysDoctorInfo && weekDay.weekDaysDoctorInfo.map(doctor => (
+                                                    <li>
+                                                        {doctor.fileUri ?
+                                                            <img src={doctor.fileUri}
+                                                                 alt={doctor.label[0].toUpperCase()}/> :
+                                                            <div className="anchor-icon">
+                                                                {doctor.label.charAt(0).toUpperCase()}
+                                                            </div>}
+                                                        {doctor.label}
+                                                    </li>
+                                                ))}
+                                                </ul>
+                                           
+                                            </Col>
                                         </Row>
                                     ))
                                 }

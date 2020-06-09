@@ -14,11 +14,12 @@ const COMPANY_BASE = '/company'
 const COMPANY_ADMIN_BASE = '/companyAdmin'
 const ADMIN_LOGGING = '/admin-log'
 const CLIENT_LOGGING = '/client-log'
-const APPOINTMENT_TRANSFER="/appointmentTransfer"
-const HOSPITAL_API_INTEGRATION="/client-integration"
-const INTEGRATION='/integration'
-const REQUEST_BODY_INTEGRATION='/integration-request-body-attribute'
-const ADMIN_API_INTEGRATION="/admin-mode-integration"
+const APPOINTMENT_TRANSFER = "/appointmentTransfer"
+const HOSPITAL_API_INTEGRATION = "/client-integration"
+const INTEGRATION = '/integration'
+const REQUEST_BODY_INTEGRATION = '/integration-request-body-attribute'
+const ADMIN_API_INTEGRATION = "/admin-mode-integration"
+const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
@@ -117,7 +118,8 @@ export const doctorSetupApiConstants = {
     FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/hospital-wise'),
     FETCH_ALL_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN: BASE.concat(DOCTOR_BASE + '/hospital-wise'),
     FETCH_DOCTOR_BY_SPECIALIZATION_ID: BASE.concat(DOCTOR_BASE.concat('/specialization-wise')),
-    FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat('/updateDetails'))
+    FETCH_DOCTOR_DETAILS_FOR_UPDATE: BASE.concat(DOCTOR_BASE.concat('/updateDetails')),
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE.concat("/doctor"))
 };
 
 export const qualificationSetupApiConstants = {
@@ -298,7 +300,6 @@ export const roomSetupApiConstants = {
     FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_FOR_DROPDOWN: BASE.concat(ROOM_SETUP_BASE.concat("/hospitalDepartmentWise/min")),
 };
 
-const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 export const hospitalDepartmentSetupApiConstants = {
     SAVE_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
     EDIT_HOSPITAL_DEPARTMENT: BASE.concat(HOSPITAL_DEPARTMENT_SETUP_BASE),
@@ -339,12 +340,12 @@ export const hospitalIntegrationConstants = {
 }
 
 export const adminApiIntegrationConstants = {
-    ADMIN_API_INTEGRATION_SAVE:BASE.concat(ADMIN_API_INTEGRATION),
-    ADMIN_API_INTEGRATION_SEARCH:BASE.concat(ADMIN_API_INTEGRATION+"/admin-mode-api-integration"),
-    ADMIN_API_INTEGRATION_EDIT:BASE.concat(ADMIN_API_INTEGRATION),
-    ADMIN_API_INTEGRATION_PREVIEW:BASE.concat(ADMIN_API_INTEGRATION),
-    ADMIN_API_INTEGRATION_DELETE:BASE.concat(ADMIN_API_INTEGRATION),
-    ADMIN_API_INTEGRATION_UPDATE_PREVIEW:BASE.concat(ADMIN_API_INTEGRATION+"/update-details")
+    ADMIN_API_INTEGRATION_SAVE: BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_SEARCH: BASE.concat(ADMIN_API_INTEGRATION + "/admin-mode-api-integration"),
+    ADMIN_API_INTEGRATION_EDIT: BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_PREVIEW: BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_DELETE: BASE.concat(ADMIN_API_INTEGRATION),
+    ADMIN_API_INTEGRATION_UPDATE_PREVIEW: BASE.concat(ADMIN_API_INTEGRATION + "/update-details")
 }
 
 // export const hospital

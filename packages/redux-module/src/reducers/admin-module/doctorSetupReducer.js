@@ -29,7 +29,10 @@ const {
     FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
     FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS,
     FETCH_ALL_DOCTORS_FOR_DROPDOWN_PENDING,
-    FETCH_ALL_DOCTORS_FOR_DROPDOWN_ERROR
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR
 } = doctorSetupConstants;
 
 const initialState = {
@@ -54,7 +57,10 @@ const initialState = {
     doctorDropdownErrorMessage: '',
     isAllDoctorDropdownPending: false,
     allDoctorsForDropdown: [],
-    allDoctorDropdownErrorMessage: ''
+    allDoctorDropdownErrorMessage: '',
+    isActiveDoctorFetchByDepartmentPending: false,
+    activeDoctorsByDepartment: [],
+    activeDoctorsByDepartmentErrorMessage: ''
 };
 
 export const DoctorSaveReducer = (state = {...initialState}, action) => {
@@ -310,6 +316,27 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
                 isAllDoctorDropdownPending: false,
                 allDoctorsForDropdown: [],
                 allDoctorDropdownErrorMessage: action.payload.errorMessage
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: true,
+                activeDoctorsByDepartment: [],
+                activeDoctorsByDepartmentErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: false,
+                activeDoctorsByDepartment: [...action.payload.data],
+                activeDoctorsByDepartmentErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: false,
+                activeDoctorsByDepartment: [],
+                activeDoctorsByDepartmentErrorMessage: action.payload.errorMessage
             };
         default:
             return {

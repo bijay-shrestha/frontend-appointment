@@ -1,11 +1,26 @@
 import * as HospitalDepartmentSetupComponents from './src/HospitalDepartmentSetupComponents';
+import * as DepartmentDutyRosterComponents from './src/DepartmentDutyRosterComponents';
+import {
+    EndTimeDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable,
+    FromDateDisplayForTable,
+    DayOffStatusLabel,
+    OverrideActions
+} from './src/TableComponents';
 import * as DoctorDutyRosterComponents from './src/DoctorDutyRosterCommonComponents';
 
 export {
     HospitalDepartmentSetupComponents,
-    DoctorDutyRosterComponents
+    DepartmentDutyRosterComponents,
+    DoctorDutyRosterComponents,
+    EndTimeDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable,
+    FromDateDisplayForTable,
+    DayOffStatusLabel,
+    OverrideActions
 }
-
 export {default as Login} from './src/Login';
 export {default as ClientLogin} from './src/ClientLogin';
 export {default as CLayout} from './src/CLayout';
@@ -43,6 +58,8 @@ export {
 }from './src/DoctorWithSpecializationImageComponent/DoctorWithSpecializationAndImageComponent';
 export {default as TransferredFromDateWithTime} from './src/TransferredFromDateWithTime/TransferredFromDateWithTime';
 export {default as TransferredToDateWithTime} from './src/TransferredToDateWithTime/TransferredToDateWithTime'
-export {default as TransferredToDoctorWithSpecImage} from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
+export {
+    default as TransferredToDoctorWithSpecImage
+}from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
 export {default as RequestMethodStatus} from './src/RequestMethodStatus';
 export {default as RoomEnableBadge} from './src/RoomEnableBadge';

@@ -21,7 +21,7 @@ const UpdateProfileModal = ({
                             }) => {
 
     let footerChildren = <>
-        <Container fluid="true">
+        <Container fluid>
             <Row>
                 <div className="col-md-6">
                     {errorMessage ?
@@ -52,7 +52,7 @@ const UpdateProfileModal = ({
 
     </>;
     let body = <>
-        <Container fluid="true" className="profile-edit-modal">
+        <Container fluid className="profile-edit-modal">
             <Row>
                 <ProfileUpdateForm
                     onEnterKeyPress={onEnterKeyPress}

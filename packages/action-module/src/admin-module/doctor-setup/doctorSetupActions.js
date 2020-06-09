@@ -29,7 +29,10 @@ const {
     FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
     FETCH_ALL_DOCTORS_FOR_DROPDOWN_ERROR,
     FETCH_ALL_DOCTORS_FOR_DROPDOWN_PENDING,
-    FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS
 } = doctorSetupConstants;
 
 export const clearConsultantCreateMessage = () => {
@@ -288,3 +291,28 @@ export const fetchAllDoctorsByHospitalForDropdownError = errorMessage => {
         }
     }
 };
+
+export const fetchActiveDoctorsByDepartmentForDropdownPending = () => {
+    return {
+        type: FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING
+    }
+};
+
+export const fetchActiveDoctorsByDepartmentForDropdownSuccess = data => {
+    return {
+        type: FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS,
+        payload: {
+            data
+        }
+    }
+};
+
+export const fetchActiveDoctorsByDepartmentForDropdownError = errorMessage => {
+    return {
+        type: FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR,
+        payload: {
+            errorMessage
+        }
+    }
+};
+

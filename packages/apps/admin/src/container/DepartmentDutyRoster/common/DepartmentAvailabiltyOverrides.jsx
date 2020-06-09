@@ -2,17 +2,14 @@ import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
 import AddOverrideModal from "./AddOverrideModal";
-import DayOffStatusLabel
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/DayOffStatusLabel";
-import OverrideActions from "./table-components/OverrideActions";
-import FromDateDisplayForTable
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/ToDateDisplayForTable";
-import StartTimeDisplayForTable
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable
-    from "@frontend-appointment/admin/src/container/CommonComponents/table-components/EndTimeDisplayForTable";
+import {
+    DayOffStatusLabel,
+    EndTimeDisplayForTable,
+    FromDateDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable,
+    OverrideActions
+} from '@frontend-appointment/ui-components';
 
 const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
     const {
@@ -37,7 +34,7 @@ const DoctorAvailabilityOverrides = ({departmentAvailabilityOverrideData,}) => {
     } = departmentAvailabilityOverrideData;
     return <>
         <Col>
-            <div className="doctor-override bg-white mt-2">
+            <div className="department-override bg-white mt-2">
                 <Row>
                     <Col>
                         <CCheckbox

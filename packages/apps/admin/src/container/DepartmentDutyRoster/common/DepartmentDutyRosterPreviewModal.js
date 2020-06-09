@@ -1,13 +1,15 @@
 import React from 'react';
 import {Col, Container, Form, Row} from "react-bootstrap";
-import {CEnglishDatePicker} from "@frontend-appointment/ui-components";
+import {
+    CEnglishDatePicker,
+    DayOffStatusLabel,
+    EndTimeDisplayForTable,
+    FromDateDisplayForTable,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable
+} from "@frontend-appointment/ui-components";
 import {CDataTable, CFLabel, CHybridInput, CHybridTextArea, CRadioButton} from "@frontend-appointment/ui-elements";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
 const DepartmentDutyRosterPreviewModal = ({
@@ -21,7 +23,7 @@ const DepartmentDutyRosterPreviewModal = ({
     return <>
         <Container className="" fluid>
             <Row className="mb-3">
-                <Col md={12} lg={5} className="p-0">
+                <Col md={12} lg={4} className="p-0">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title mb-4">General Information</h5>
                         <Form>
@@ -79,21 +81,21 @@ const DepartmentDutyRosterPreviewModal = ({
 
                             <div className="room-check">
 
-                            <i className={departmentInfoData.isRoomEnabled === 'Y' ?
-                                "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
-                                                                          labelName={"Enable Room"}/>
+                                <i className={departmentInfoData.isRoomEnabled === 'Y' ?
+                                    "fa fa-check" : "fa fa-close"}/> <CFLabel id={"isRoomEnabled"}
+                                                                              labelName={"Enable Room"}/>
 
-                            {
-                                departmentInfoData.isRoomEnabled === 'Y' ?
-                                    <CHybridInput
-                                        id="room"
-                                        name="room"
-                                        placeholder="room"
-                                        value={departmentInfoData.room && departmentInfoData.room.label}
-                                        disabled={true}
-                                    /> : ''
+                                {
+                                    departmentInfoData.isRoomEnabled === 'Y' ?
+                                        <CHybridInput
+                                            id="room"
+                                            name="room"
+                                            placeholder="room"
+                                            value={departmentInfoData.room && departmentInfoData.room.label}
+                                            disabled={true}
+                                        /> : ''
 
-                            }
+                                }
 
                             </div>
 
@@ -148,8 +150,8 @@ const DepartmentDutyRosterPreviewModal = ({
                     </div>
                 </Col>
 
-                <Col md={12} lg={7} className="pr-0">
-                    <div className="doctor-availability bg-white p-4">
+                <Col md={12} lg={8} className="pr-0">
+                    <div className="department-availability bg-white p-4">
                         <h5 className="title">Department Availability</h5>
                         <Row className="header">
                             <Col> Days</Col>
@@ -161,11 +163,16 @@ const DepartmentDutyRosterPreviewModal = ({
                                 Days Off
 
                             </Col>
+                            <Col>
+                               Available Doctors
+
+                            </Col>
                         </Row>
                         {
                             departmentAvailabilityData.map((day, index) => (
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
+                                  
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
@@ -174,11 +181,26 @@ const DepartmentDutyRosterPreviewModal = ({
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.endTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.endTime))}
-
                                     </Col>
                                     <Col>
                                         {day.dayOffStatus === 'Y' ? <i className="fa fa-check-circle"/> :
                                             ''}
+                                    </Col>
+                                    <Col>
+                                    {day.dayOffStatus !== 'Y' ?
+                                    <ul className="doctor-list">
+                                        {day.weekDaysDoctorInfo && day.weekDaysDoctorInfo.map(doctor => (
+                                            <li>
+                                                {doctor.fileUri ?
+                                                    <img src={doctor.fileUri} alt={doctor.label[0].toUpperCase()}/> :
+                                                    <div className="anchor-icon">
+                                                        {doctor.label.charAt(0).toUpperCase()}
+                                                    </div>}
+                                                {doctor.label}
+                                            </li>
+                                        ))}
+                                        </ul>
+                                            : ''}
                                     </Col>
                                 </Row>
                             ))
@@ -188,7 +210,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
             <Row>
                 {hasOverrideDutyRoster === 'Y' ?
-                    <Col className="doctor-override">
+                    <Col className="department-override">
                         <h5 className="title">Overrides</h5>
                         {hasOverrideDutyRoster === 'Y' && departmentDutyRosterOverrideRequestDTOS.length ?
                             <>
@@ -277,7 +299,7 @@ const DepartmentDutyRosterPreviewModal = ({
             </Row>
 
             {type !== "ADD" ?
-                <Row className="mt-4 doctor-availability bg-white px-2 pt-4">
+                <Row className="mt-4 department-availability bg-white px-2 pt-4">
                     {AuditableEntityHoc(departmentInfoData.auditableDepartment, false, 4)}
                 </Row> :
                 ''

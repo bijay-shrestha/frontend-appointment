@@ -17,7 +17,7 @@ const CompanyProfileSetupEditModal = ({
     const {userMenus, selectedMenus, defaultSelectedMenu, onCheckAllUserMenus, onTabAndRolesChange, profileData} = profileMenuAssignmentData;
 
     let footerChildren = <>
-        <Container fluid="true">
+        <Container fluid>
             <Row>
                 <div className="col-md-6">
                     {errorMessage ?
@@ -48,7 +48,7 @@ const CompanyProfileSetupEditModal = ({
     </>;
 
     let body = <>
-        <Container fluid="true">
+        <Container fluid>
             <Row>
                 <CompanyProfileInfoForm
                     profileInfoFormData={profileInfoFormData} type="MANAGE"/>
