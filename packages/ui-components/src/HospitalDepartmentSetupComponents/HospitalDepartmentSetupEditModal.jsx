@@ -310,11 +310,11 @@ const HospitalDepartmentSetupEditModal = ({
         </Container-fluid>;
 
     let footerChildren = <>
-        <Container fluid="true">
+        <Container fluid={true}>
             <Row>
                 <div className="col-md-6">
                     {errorMessage ?
-                        <p className="modal-error"><i class="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
+                        <p className="modal-error"><i className="fa fa-exclamation-triangle"/> &nbsp;  {errorMessage}
                         </p> : ''}
                 </div>
                 <div className="col-md-6">

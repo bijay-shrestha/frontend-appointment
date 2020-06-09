@@ -114,7 +114,7 @@ const UnitEditModal = ({
 
     </>;
     let footerChildren = <>
-        <Container fluid="true">
+        <Container fluid>
             <Row>
                 <div className="col-md-6">
                     {errorMessage ?
