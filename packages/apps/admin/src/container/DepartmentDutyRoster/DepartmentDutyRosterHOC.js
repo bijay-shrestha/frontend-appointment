@@ -306,11 +306,15 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
 
                 departmentWeekDaysDutyRosterRequestDTOS.map(weekDay => {
-                    formValid = formValid
+                    formValid = weekDay.dayOffStatus === 'N' ?
+                        formValid
                         && weekDay.startTime
                         && weekDay.endTime
                         && weekDay.weekDaysDoctorInfo
-                        && weekDay.weekDaysDoctorInfo.length;
+                        && weekDay.weekDaysDoctorInfo.length :
+                        formValid
+                        && weekDay.startTime
+                        && weekDay.endTime;
                     return weekDay
                 });
 
