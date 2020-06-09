@@ -265,7 +265,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 const response = await thirdPartyApiCall(this.state.appointmentDetails)
                 if (!response) {
                   await this.props.appointmentApprove(
-                    appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+                    APPOINTMENT_APPROVE,
                     appointmentId
                   )
                   this.setState({

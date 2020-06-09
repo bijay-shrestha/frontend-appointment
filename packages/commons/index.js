@@ -11,6 +11,8 @@ export {default as NoRoleTabComponentHOC} from './src/NoRoleTabComponentHOC'
 export {default as LoggingStatus} from './src/LoggingStatus'
 export {default as AuditableEntityHoc} from './src/AuditableEntityHoc/AuditableEntityHoc';
 export {default as ErrorBoundaryHoc} from './src/ErrorBoundaryHoc';
+export {default as AppointmentCheckInPrint} from './src/AppointmentCheckInPrint';
+export {default as PrintableComponent} from './src/PrintableComponent';
 export {
     ApiError,
     LoginHoc,

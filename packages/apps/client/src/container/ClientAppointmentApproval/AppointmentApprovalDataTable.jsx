@@ -14,7 +14,7 @@ import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-
+import {AppointmentCheckInPrint,PrintableComponent} from '@frontend-appointment/commons'
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
     const {
         isSearchLoading,
@@ -256,6 +256,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                     onConfirm={approveHandleApi}
                     onCancel={setShowModal}
                     isConfirming={isConfirming}
+                    Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
                 />
             ) : (
                 ''

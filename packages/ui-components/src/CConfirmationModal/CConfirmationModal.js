@@ -9,7 +9,8 @@ const ConfirmationModal = ({
                                modalBody,
                                setShowModal,
                                isConfirming,
-                               isDisabled
+                               isDisabled,
+                               Print
                            }) => {
     let footer = (
         <>
@@ -31,6 +32,7 @@ const ConfirmationModal = ({
                     onClickHandler={onCancel}
                     disabled={isConfirming}
                 />
+                {Print?<Print/>:null}
             </div>
         </>
     );
