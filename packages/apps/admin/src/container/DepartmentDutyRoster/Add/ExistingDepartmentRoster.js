@@ -20,7 +20,7 @@ const ExistingDepartmentRoster = ({
             <Row className="">
 
                 <Col md={12} lg={12} className="mb-2">
-                    <div className="doctor-availability bg-white p-4">
+                    <div className="department-availability bg-white p-4">
                         {
                             existingRosterTableData.length ?
                                 <CDataTable
@@ -78,7 +78,7 @@ const ExistingDepartmentRoster = ({
                 {
                     existingDepartmentWeekDaysAvailability.length ?
                         <Col md={12} lg={12} className="">
-                            <div className="doctor-availability bg-white p-4">
+                            <div className="department-availability bg-white p-4">
                                 <h5 className="title">Department Availability</h5>
                                 <Row className="header">
                                     <Col> Days</Col>
@@ -96,6 +96,7 @@ const ExistingDepartmentRoster = ({
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
                                             <Col>
+                                            <div className="doctor-list">
                                                 {weekDay.weekDaysDoctorInfo && weekDay.weekDaysDoctorInfo.map(doctor => (
                                                     <li>
                                                         {doctor.fileUri ?
@@ -107,6 +108,7 @@ const ExistingDepartmentRoster = ({
                                                         {doctor.label}
                                                     </li>
                                                 ))}
+                                                </div>
                                             </Col>
                                         </Row>
                                     ))

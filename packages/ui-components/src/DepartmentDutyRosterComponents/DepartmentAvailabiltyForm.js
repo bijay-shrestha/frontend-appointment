@@ -13,11 +13,16 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
         activeDoctorsByDepartment
     } = departmentAvailabilityFormData;
     return <>
-        <Col md={12} lg={7} className="">
-            <div className="doctor-availability bg-white p-4">
+        <Col md={12} lg={8} className="">
+            <div className="department-availability bg-white p-4">
                 <h5 className="title">Department Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
+                   
+                    <Col>
+                        Start Time
+                    </Col>
+                    <Col> End Time</Col>
                     <Col>
                         {type === 'ADD' ?
                             <CCheckbox
@@ -29,11 +34,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                             /> : "Days Off"
                         }
                     </Col>
-                    <Col>
-                        Start Time
-                    </Col>
-                    <Col> End Time</Col>
-                    <Col> Doctor(s)</Col>
+                    <Col>Available Doctors</Col>
 
                 </Row>
                 {
@@ -41,15 +42,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                         <div key={day.weekDaysName.concat("-" + index)}>
                             <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                 <Col>{day.weekDaysName}</Col>
-                                <Col>
-                                    <CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}
-                                               name="dayOffStatus"
-                                               label="&nbsp;"
-                                               className=" "
-                                               checked={day.dayOffStatus === 'Y'}
-                                               onChange={(e) => handleDepartmentAvailabilityFormChange(e, '', index)}>
-                                    </CCheckbox>
-                                </Col>
+                              
                                 <Col>
                                     <div className="time-picker">
                                         <CHybridTimePicker
@@ -85,6 +78,15 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                                             isClearable={true}
                                         />
                                     </div>
+                                </Col>
+                                <Col>
+                                    <CCheckbox id={"dayOffStatus".concat(day.weekDaysId)}
+                                               name="dayOffStatus"
+                                               label="&nbsp;"
+                                               className=" "
+                                               checked={day.dayOffStatus === 'Y'}
+                                               onChange={(e) => handleDepartmentAvailabilityFormChange(e, '', index)}>
+                                    </CCheckbox>
                                 </Col>
                                 <Col>
                                     <CHybridSelectWithImage
