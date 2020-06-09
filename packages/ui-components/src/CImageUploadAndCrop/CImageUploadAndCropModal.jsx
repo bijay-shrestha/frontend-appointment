@@ -176,7 +176,7 @@ class CImageUploadAndCropModal extends PureComponent {
         } = this.props;
 
         const bodyContent = (<>
-            <Container fluid="true">
+            <Container fluid={true}>
                 <Row>
                     <Col md={12} lg={8}>
                         <div className="image-container">
@@ -242,7 +242,7 @@ class CImageUploadAndCropModal extends PureComponent {
         </>);
 
         let footerContent = <>
-            <Container fluid="true">
+            <Container fluid={true}>
                 <Row>
                     <div className="col-md-12">
                         <CButton
