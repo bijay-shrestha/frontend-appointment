@@ -8,8 +8,6 @@
  @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
  @import '~bootstrap/scss/mixins';
 
-
-
  .doctor-info {
     height: 100%;
     @include border-radius($cogent-radius);
@@ -44,20 +42,22 @@
         margin-top: 10px;
         margin-bottom: 10px;
 
-        .col{
-            padding:0 4px;
-        }
+        // .col{
+        //     padding:0 4px;
+        // }
 
         .col {
             &:nth-child(1) {
-             
                 flex-basis: 100px;
                 flex-grow: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 90px;
             }
 
             &:nth-child(2),
             &:nth-child(3) {
-              
+                padding:0 4px;
                 flex-basis: 140px;
                 flex-grow: 0;
             }
@@ -68,9 +68,13 @@
                 flex-grow: 0;
                 padding: 0;
                 .form-check {
-                    padding-left: 8px !important;
-                    font-size: 11px;
-                    margin-right: 0;
+                    // padding-left: 8px !important;
+                    // font-size: 11px;
+                    // margin-right: 0;
+                }
+                .form-check.check-all .form-check-label{
+                    margin-bottom:0;
+                     font-size: 11px;
                 }
             }
 
@@ -87,15 +91,18 @@
         margin-bottom: 14px;
         align-items: center;
         //    justify-content: flex-start;
-        .col{
-            padding:0 4px;
-        }
+        // .col{
+        //     padding:0 4px;
+        // }
 
         .col {
             &:nth-child(1) {
                 
                 flex-basis: 100px;
                 flex-grow: 0;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                max-width: 90px;
             }
 
             &:nth-child(2),
@@ -103,11 +110,11 @@
                
                 flex-basis: 140px;
                 flex-grow: 0;
-                padding:0 4px
+                padding:0 4px;
             }
 
             &:nth-child(4) {
-                padding-left:15px;
+                padding:0 15px;
                 flex-basis: 60px;
                 flex-grow: 0;
                 

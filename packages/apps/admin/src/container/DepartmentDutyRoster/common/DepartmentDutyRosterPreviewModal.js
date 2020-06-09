@@ -163,6 +163,10 @@ const DepartmentDutyRosterPreviewModal = ({
                                 Days Off
 
                             </Col>
+                            <Col>
+                               Available Doctors
+
+                            </Col>
                         </Row>
                         {
                             departmentAvailabilityData.map((day, index) => (
@@ -183,6 +187,8 @@ const DepartmentDutyRosterPreviewModal = ({
                                             ''}
                                     </Col>
                                     <Col>
+                                    {day.dayOffStatus !== 'Y' ?
+                                    <ul className="doctor-list">
                                         {day.weekDaysDoctorInfo && day.weekDaysDoctorInfo.map(doctor => (
                                             <li>
                                                 {doctor.fileUri ?
@@ -193,6 +199,8 @@ const DepartmentDutyRosterPreviewModal = ({
                                                 {doctor.label}
                                             </li>
                                         ))}
+                                        </ul>
+                                            : ''}
                                     </Col>
                                 </Row>
                             ))
