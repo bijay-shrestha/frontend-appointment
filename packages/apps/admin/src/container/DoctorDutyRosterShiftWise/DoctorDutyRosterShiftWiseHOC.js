@@ -31,6 +31,7 @@ const {fetchActiveBreakTypeByHospitalIdForDropdown} = BreakTypeSetupMiddleware;
 const {fetchWeekdaysData} = WeekdaysMiddleware;
 const {
     checkExistingAvailability,
+    saveDDRWeekdays
 } = DDRShiftWiseMiddleware;
 
 const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
@@ -58,7 +59,8 @@ const {
 } = CommonAPIConstants.WeekdaysApiConstants;
 
 const {
-    FETCH_EXISTING_DDR_AVAILABILITY
+    FETCH_EXISTING_DDR_AVAILABILITY,
+    SAVE_DDR_WEEKDAYS,
 } = AdminModuleAPIConstants.ddrShiftWiseApiConstants;
 
 const {
@@ -97,7 +99,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 variant: "",
                 message: ""
             },
-            settingsClonedFromWeekday: ''
+            settingsClonedFromWeekday: '',
         };
 
         alertTimer = '';
@@ -172,7 +174,6 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 hospital,
                 specialization,
                 doctor,
-                rosterGapDuration,
                 status,
                 doctorShifts
             } = doctorInformation;
@@ -183,9 +184,14 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 hospital &&
                 specialization &&
                 doctor &&
-                rosterGapDuration &&
-                status &&
-                doctorShifts;
+                status;
+            if (doctorShifts && doctorShifts.length) {
+                let selectedShifts = doctorShifts.filter(docShift => docShift.checked);
+                selectedShifts && selectedShifts.map(selectedShift => (
+                    formValid = formValid &&
+                        selectedShift.rosterGapDuration
+                ))
+            }
 
             this.setState({
                 formValid: Boolean(formValid)
@@ -524,18 +530,18 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             let updatedWeekdaysData,
                 selectedWeekdayOfShift = selectedShift.weekdaysDetail[weekdayIndex];
             // if (checked) {
-                updatedWeekdaysData
-                    = selectedShift.weekdaysDetail.map(weekday => {
-                    return {
-                        ...weekday,
-                        startTime: selectedWeekdayOfShift.startTime,
-                        endTime: selectedWeekdayOfShift.endTime,
-                        dayOffStatus: selectedWeekdayOfShift.dayOffStatus,
-                        breakDetail: [...selectedWeekdayOfShift.breakDetail],
-                        isSettingCloned: true,
-                        isSettingCloneDisabled: weekday.weekDaysId !== selectedWeekdayOfShift.weekDaysId,
-                    }
-                });
+            updatedWeekdaysData
+                = selectedShift.weekdaysDetail.map(weekday => {
+                return {
+                    ...weekday,
+                    startTime: selectedWeekdayOfShift.startTime,
+                    endTime: selectedWeekdayOfShift.endTime,
+                    dayOffStatus: selectedWeekdayOfShift.dayOffStatus,
+                    breakDetail: [...selectedWeekdayOfShift.breakDetail],
+                    isSettingCloned: true,
+                    isSettingCloneDisabled: weekday.weekDaysId !== selectedWeekdayOfShift.weekDaysId,
+                }
+            });
             // } else {
             //     updatedWeekdaysData
             //         = selectedShift.weekdaysDetail.map(weekday => {
@@ -560,6 +566,69 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 settingsClonedFromWeekday: {...updatedWeekdaysData}
             })
         };
+
+        handleSaveWeekDaysDoctorDutyRoster = async isSkipOverride => {
+            try {
+                await this.saveWeekDaysDoctorDutyRoster();
+                if (isSkipOverride) {
+                    // SAVE DATA AND RESET DOCTOR INFORMATION AND WEEKDAY DETAILS
+                    this.resetDoctorShiftAndWeekDays();
+                } else {
+                    // SAVE DATA AND SHOW OVERRIDE ADD FORM DO NOT RESET OTHER FORMS BUT DISABLE.
+
+                }
+            } catch (e) {
+
+            }
+        };
+
+        saveWeekDaysDoctorDutyRoster = async () => {
+            const {doctorInformation, shiftDetails} = this.state;
+            const {toDate, fromDate, specialization, doctor, hospital, status} = doctorInformation;
+
+            let shiftData = shiftDetails && shiftDetails.map(shiftDetail => ({
+                rosterGapDuration: shiftDetail.rosterGapDuration,
+                shiftId: shiftDetail.shiftId,
+                status: 'Y',
+                weekDaysDetail: shiftDetail.weekdaysDetail ? shiftDetail.weekdaysDetail.map(weekDayDetail => ({
+                        endTime: weekDayDetail.endTime,
+                        hasBreak: weekDayDetail.breakDetail && weekDayDetail.breakDetail.length ? 'Y' : 'N',
+                        offStatus: weekDayDetail.dayOffStatus,
+                        startTime: weekDayDetail.startTime,
+                        weekDaysId: weekDayDetail.weekDaysId,
+                        breakDetail: weekDayDetail.breakDetail && weekDayDetail.breakDetail.length ?
+                            weekDayDetail.breakDetail.map(breakDetail => ({
+                                breakTypeId: breakDetail.breakType ? breakDetail.breakType.value : '',
+                                endTime: breakDetail.endTime,
+                                remarks: '',
+                                startTime: breakDetail.startTime,
+                                status: 'Y'
+                            }))
+                            : []
+                    }))
+                    : [],
+
+            }))
+
+            let requestDTO = {
+                ddrDetail: {
+                    doctorId: doctor && doctor.value,
+                    fromDate: fromDate,
+                    hospitalId: hospital && hospital.value,
+                    specializationId: specialization && specialization.value,
+                    status: status,
+                    toDate: toDate
+                },
+                shiftDetail: shiftData ? [...shiftData] : []
+            };
+            try {
+                await this.props.saveDDRWeekdays(SAVE_DDR_WEEKDAYS, requestDTO);
+                this.showAlertMessage('success', this.props.DDRSaveReducer.saveWeekdaysSuccessMessage)
+            } catch (e) {
+                this.showAlertMessage('danger', this.props.DDRSaveReducer.saveWeekdaysErrorMessage)
+                throw e;
+            }
+        }
 
         resetSpecializationAndDoctorOnHospitalChange = () => {
             this.setState({
@@ -591,6 +660,25 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 isCreatingRosterAvailable: false,
             });
         };
+
+        resetDoctorShiftAndWeekDays = async () => {
+            this.setState({
+                doctorInformation: {
+                    fromDate: new Date(),
+                    toDate: addDate(new Date(), 6),
+                    hospital: null,
+                    specialization: null,
+                    doctor: null,
+                    rosterGapDuration: '',
+                    status: 'Y',
+                    doctorShifts: [],
+                    newDoctorShifts: [],
+                    dateErrorMessage: ''
+                },
+                shiftDetails: [],
+                isCreatingRosterAvailable: false,
+            })
+        }
 
         setIsCloneSettingToFalse = (weekday) => {
             return {
@@ -667,6 +755,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                     shiftId: shift.value,
                     shiftName: shift.label,
                     wholeWeekOff: 'N',
+                    status: 'Y',
                     rosterGapDuration: shift.rosterGapDuration,
                     weekdaysDetail: [...weekdaysData]
                 };
@@ -799,7 +888,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         render() {
             const {
                 doctorInformation, showAssignShiftToDoctorModal, showAlert, alertMessageInfo,
-                shiftDetails, isCreatingRosterAvailable
+                shiftDetails, isCreatingRosterAvailable, formValid
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -826,6 +915,9 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 // activeDoctorsByHospitalForDropdown
             } = this.props.DoctorDropdownReducer;
 
+            const {isCheckExistingAvailabilityLoading} = this.props.DDRExistingAvailabilityReducer;
+            const {isSaveDDRWeekdaysLoading} = this.props.DDRSaveReducer;
+
             return <>
                 <ComposedComponent
                     doctorInformationFormData={{
@@ -838,8 +930,9 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         handleAssignNewShiftToDoctor: this.handleAssignNewShiftToDoctor,
                         handleShiftSelection: this.handleShiftSelection,
                         isCreatingRosterAvailable: isCreatingRosterAvailable,
+                        isCheckExistingAvailabilityLoading: isCheckExistingAvailabilityLoading,
                         handleCheckAvailability: this.handleCheckAvailability,
-                        shiftErrorMessage: dropdownErrorMessage
+                        shiftErrorMessage: dropdownErrorMessage,
                     }}
                     assignNewShiftModalData={{
                         showAssignShiftToDoctorModal: showAssignShiftToDoctorModal,
@@ -861,6 +954,11 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         handleRemoveBreak: this.handleRemoveBreak,
                         handleBreakFormChange: this.handleBreakFormChange,
                         handleCloneSetting: this.handleCloneSetting
+                    }}
+                    saveProps={{
+                        formValid: formValid,
+                        onButtonClick: this.handleSaveWeekDaysDoctorDutyRoster,
+                        isSaveDDRWeekdaysLoading: isSaveDDRWeekdaysLoading
                     }}
                 />
                 <CAlert
@@ -897,7 +995,8 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             'HospitalDropdownReducer',
             'ShiftDropdownReducer',
             'SpecializationDropdownReducer',
-            'WeekdaysReducer'
+            'WeekdaysReducer',
+            'DDRSaveReducer'
         ],
         {
             assignShiftsToDoctor,
@@ -909,6 +1008,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             fetchDoctorsBySpecializationIdForDropdown,
             fetchSpecializationHospitalWiseForDropdown,
             fetchWeekdaysData,
+            saveDDRWeekdays,
         });
 
 };

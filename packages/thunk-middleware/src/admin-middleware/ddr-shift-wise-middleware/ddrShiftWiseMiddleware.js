@@ -9,6 +9,7 @@ export const checkExistingAvailability = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(DDRShiftWiseAction.ddrCheckAvailabilityError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -20,6 +21,7 @@ export const fetchExistingRosterShiftAndOverrideInformation = (path, ddrId) => a
     } catch (e) {
         dispatch(DDRShiftWiseAction.fetchExistingRosterShiftAndOverrideInformationError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -31,6 +33,7 @@ export const fetchWeekdaysInformationByDDRShiftId = (path, data) => async dispat
     } catch (e) {
         dispatch(DDRShiftWiseAction.fetchWeekdaysInformationByDDRShiftIdError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -42,6 +45,7 @@ export const fetchWeekdaysBreakDetails = (path, ddrWeekDaysId) => async dispatch
     } catch (e) {
         dispatch(DDRShiftWiseAction.fetchWeekdaysBreakDetailsError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -53,6 +57,7 @@ export const fetchOverrideBreakDetails = (path, ddrOverrideId) => async dispatch
     } catch (e) {
         dispatch(DDRShiftWiseAction.fetchOverrideBreakDetailsError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -64,6 +69,7 @@ export const saveDDRWeekdays = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(DDRShiftWiseAction.saveDDRWeekdaysError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
@@ -75,6 +81,7 @@ export const saveDDROverrideRoster = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(DDRShiftWiseAction.saveDDROverrideRosterError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))
+        throw e;
     }
 };
 
