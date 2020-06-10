@@ -14,7 +14,7 @@ const ConfirmationModal = ({
                            }) => {
     let footer = (
         <>
-            <div>
+            <div className="modal-buttons">
                 <CButton
                     variant="primary"
                     size="lg"
@@ -24,6 +24,7 @@ const ConfirmationModal = ({
                     name={"Confirm"}
                     onClickHandler={onConfirm}
                 />
+                {Print?<Print/>:null}
                 <CButton
                     variant="light"
                     size="lg"
@@ -32,7 +33,7 @@ const ConfirmationModal = ({
                     onClickHandler={onCancel}
                     disabled={isConfirming}
                 />
-                {Print?<Print/>:null}
+                
             </div>
         </>
     );
