@@ -61,7 +61,7 @@ export const getDaysInGivenDateRange = (fromDate, toDate, weekDaysData) => {
             weekDay => weekDay.weekDaysName.toLowerCase() === day.toLowerCase()
         )
         if (weekDayData) {
-            weekDayData.weekDaysName = day;
+            weekDayData.weekDaysName = day.slice(0,3).toUpperCase();
             weekDayData.doctorList = null;
             daysIncluded.add(weekDayData)
             dateValue = addDate(dateValue, 1)

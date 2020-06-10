@@ -84,14 +84,14 @@ const ExistingDepartmentRoster = ({
                                     <Col> Days</Col>
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
-                                    <Col> Days Off</Col>
+                                    <Col> Off</Col>
                                     <Col> Doctors</Col>
                                 </Row>
                                 {
                                     existingDepartmentWeekDaysAvailability.map(weekDay => (
                                         <Row className="main-content mt-3">
                                             <Col> {weekDay.weekDaysName}</Col>
-                                        
+
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
                                             <Col> {weekDay.dayOffStatus === 'Y' ?

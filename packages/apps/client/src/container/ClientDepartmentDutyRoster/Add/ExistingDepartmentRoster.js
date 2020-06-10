@@ -82,10 +82,10 @@ const ExistingDepartmentRoster = ({
                             <div className="department-availability bg-white p-4">
                                 <h5 className="title">Department Availability</h5>
                                 <Row className="header">
-                                    <Col> Days</Col>                                    
+                                    <Col> Days</Col>
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
-                                    <Col> Days Off</Col>
+                                    <Col> Off</Col>
                                     <Col> Doctors</Col>
                                 </Row>
                                 {
@@ -96,9 +96,9 @@ const ExistingDepartmentRoster = ({
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>
                                             <Col> {weekDay.dayOffStatus === 'Y' ?
                                                 <i className="fa fa-check-circle"/> : ''}</Col>
-                                           
+
                                             <Col>
-                                            
+
                                             <ul className="doctor-list">
                                                 {weekDay.weekDaysDoctorInfo && weekDay.weekDaysDoctorInfo.map(doctor => (
                                                     <li>
@@ -112,7 +112,7 @@ const ExistingDepartmentRoster = ({
                                                     </li>
                                                 ))}
                                                 </ul>
-                                           
+
                                             </Col>
                                         </Row>
                                     ))

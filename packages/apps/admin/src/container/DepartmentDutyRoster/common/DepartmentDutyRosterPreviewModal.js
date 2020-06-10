@@ -160,7 +160,7 @@ const DepartmentDutyRosterPreviewModal = ({
                             </Col>
                             <Col> End Time</Col>
                             <Col>
-                                Days Off
+                                Off
 
                             </Col>
                             <Col>
@@ -172,7 +172,7 @@ const DepartmentDutyRosterPreviewModal = ({
                             departmentAvailabilityData.map((day, index) => (
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                     <Col>{day.weekDaysName}</Col>
-                                  
+
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
                                             DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(day.startTime))}
@@ -255,7 +255,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                             sizeColumnsToFit: true,
                                         },
                                         {
-                                            headerName: 'Days Off',
+                                            headerName: 'Off',
                                             field: 'dayOffStatus',
                                             cellRenderer: 'childLabelRenderer',
                                             resizable: true,

@@ -18,7 +18,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                 <h5 className="title">Department Availability</h5>
                 <Row className="header">
                     <Col> Days</Col>
-                   
+
                     <Col>
                         Start Time
                     </Col>
@@ -27,11 +27,11 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                         {type === 'ADD' ?
                             <CCheckbox
                                 id="check-all-menu"
-                                label="Days Off"
+                                label="Off"
                                 className="select-all check-all"
                                 checked={wholeWeekOff === 'Y'}
                                 onChange={handleWholeWeekOff}
-                            /> : "Days Off"
+                            /> : "Off"
                         }
                     </Col>
                     <Col>Available Doctors</Col>
@@ -42,7 +42,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                         <div key={day.weekDaysName.concat("-" + index)}>
                             <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
                                 <Col>{day.weekDaysName}</Col>
-                              
+
                                 <Col>
                                     <div className="time-picker">
                                         <CHybridTimePicker

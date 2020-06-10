@@ -151,7 +151,7 @@ const DepartmentDutyRosterPreviewModal = ({
                             </Col>
                             <Col> End Time</Col>
                             <Col>
-                                Days Off
+                                Off
                             </Col>
                             <Col>
                                 Available Doctors
@@ -245,7 +245,7 @@ const DepartmentDutyRosterPreviewModal = ({
                                             sizeColumnsToFit: true,
                                         },
                                         {
-                                            headerName: 'Days Off',
+                                            headerName: 'Off',
                                             field: 'dayOffStatus',
                                             cellRenderer: 'childLabelRenderer',
                                             resizable: true,
