@@ -90,7 +90,7 @@ const ExistingDepartmentRoster = ({
                                 {
                                     existingDepartmentWeekDaysAvailability.map(weekDay => (
                                         <Row className="main-content mt-3">
-                                            <Col> {weekDay.weekDaysName}</Col>
+                                            <Col> {weekDay.weekDaysName.slice(0,3).toUpperCase()}</Col>
 
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.startTime))}</Col>
                                             <Col>{DateTimeFormatterUtils.convertDateToHourMinuteFormat(new Date(weekDay.endTime))}</Col>

@@ -41,7 +41,7 @@ const DepartmentAvailabilityForm = ({departmentAvailabilityFormData}) => {
                     departmentAvailabilityData.map((day, index) => (
                         <div key={day.weekDaysName.concat("-" + index)}>
                             <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
-                                <Col>{day.weekDaysName}</Col>
+                                <Col>{(day.weekDaysName.slice(0,3).toUpperCase())}</Col>
 
                                 <Col>
                                     <div className="time-picker">

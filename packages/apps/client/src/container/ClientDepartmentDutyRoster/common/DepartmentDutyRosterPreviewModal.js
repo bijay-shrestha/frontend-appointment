@@ -160,7 +160,7 @@ const DepartmentDutyRosterPreviewModal = ({
                         {
                             departmentAvailabilityData.map((day, index) => (
                                 <Row className="main-content" key={day.weekDaysName.concat("-" + day.weekDaysId)}>
-                                    <Col>{day.weekDaysName}</Col>
+                                    <Col>{day.weekDaysName.slice(0,3).toUpperCase()}</Col>
 
                                     <Col>
                                         {type === 'ADD' ? DateTimeFormatterUtils.convertDateToHourMinuteFormat(day.startTime) :
