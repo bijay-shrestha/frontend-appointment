@@ -296,7 +296,7 @@
           "roles": [
             12,
             14,
-            15
+            17
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -443,6 +443,23 @@
       "enabled": "Y",
       "menuFor": "6",
       "description": "activityLog",
+      "childMenus": []
+    },
+    {
+      "id": "26",
+      "parentId": null,
+      "name": "Appointment Quick CheckIn",
+      "path": "/appointmentQuickCheckIn",
+      "roles": [
+        12,14
+      ],
+      "icon": "fa fa-history",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Appointment Quick CheckIn",
       "childMenus": []
     }
   ]
