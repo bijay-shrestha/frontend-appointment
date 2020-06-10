@@ -508,12 +508,6 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                 )
             };
 
-            getWeekDaysDataForForm = () => {
-                return JSON.parse(
-                    JSON.stringify([...this.props.WeekdaysReducer.weekdaysDataList])
-                )
-            }
-
             getExistingRoster = async () => {
                 const {department, fromDate, toDate} = this.state;
                 try {
@@ -1156,7 +1150,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             resetAddForm = async onSuccessData => {
-                const weekDays = await this.getWeekDaysDataForForm();
+
                 await this.setState({
                     hospital: null,
                     room: null,
@@ -1168,7 +1162,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     toDate: addDate(new Date(), 6),
                     hasOverrideDutyRoster: 'N',
                     isWholeWeekOff: 'N',
-                    departmentWeekDaysDutyRosterRequestDTOS: [...weekDays],
+                    // departmentWeekDaysDutyRosterRequestDTOS: [...weekDays],
                     departmentDutyRosterOverrideRequestDTOS: [],
                     overrideRequestDTO: {
                         fromDate: new Date(),
@@ -1184,6 +1178,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     },
                     ...onSuccessData
                 })
+                await this.fetchWeekdaysData();
             };
 
             resetSearchForm = async () => {

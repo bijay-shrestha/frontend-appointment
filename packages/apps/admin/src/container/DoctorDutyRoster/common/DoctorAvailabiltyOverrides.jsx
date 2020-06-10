@@ -128,7 +128,7 @@ const DoctorAvailabilityOverrides = ({
                                         sizeColumnsToFit: true,
                                     },
                                     {
-                                        headerName: 'Days Off',
+                                        headerName: 'Off',
                                         field: 'dayOffStatus',
                                         cellRenderer: 'childLabelRenderer',
                                         resizable: true,

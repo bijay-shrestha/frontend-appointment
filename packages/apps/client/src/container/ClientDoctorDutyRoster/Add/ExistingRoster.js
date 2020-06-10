@@ -90,7 +90,7 @@ const ExistingRooster = ({
                                     <Col> Days</Col>
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
-                                    <Col> Days Off </Col>
+                                    <Col> Off </Col>
                                 </Row>
                                 {
                                     existingDoctorWeekDaysAvailability.map(weekDay => (

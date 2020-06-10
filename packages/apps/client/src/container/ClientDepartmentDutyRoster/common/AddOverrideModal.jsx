@@ -132,7 +132,7 @@ const AddOverrideModal = ({
                     <Col xs={12}>
                         <CCheckbox
                             id="day-off-status-override"
-                            label="Days Off"
+                            label="Off"
                             name="dayOffStatus"
                             className=" check-all"
                             checked={overrideData.dayOffStatus === 'Y'}
