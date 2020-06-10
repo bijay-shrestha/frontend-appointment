@@ -10,8 +10,7 @@ import {
     CHybridTextArea,
     CRadioButton
 } from "@frontend-appointment/ui-elements";
-import {CEnglishDatePicker, ConfirmDelete} from "@frontend-appointment/ui-components";
-import DoctorAvailabilityForm from "../common/DepartmentAvailabilityForm";
+import {CEnglishDatePicker, ConfirmDelete, DepartmentDutyRosterComponents} from "@frontend-appointment/ui-components";
 import DoctorAvailabilityOverrides from "../common/DepartmentAvailabiltyOverrides";
 
 
@@ -35,7 +34,7 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
     return <>
         <Container className="p-0" fluid>
             <Row className="">
-                <Col md={12} lg={5} className="">
+                <Col md={12} lg={4} className="">
                     <div className="doctor-info bg-white p-4">
                         <h5 className="title mb-4">General Information</h5>
                         <Form>
@@ -177,7 +176,7 @@ const EditDepartmentDutyRoster = ({editRosterProps, departmentAvailabilityFormDa
                         </Form>
                     </div>
                 </Col>
-                <DoctorAvailabilityForm departmentAvailabilityFormData={departmentAvailabilityFormData}/>
+                <DepartmentDutyRosterComponents.DepartmentAvailabiltyForm departmentAvailabilityFormData={departmentAvailabilityFormData}/>
             </Row>
 
             <Row>

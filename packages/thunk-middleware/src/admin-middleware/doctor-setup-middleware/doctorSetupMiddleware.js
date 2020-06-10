@@ -156,3 +156,18 @@ export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId
         throw e;
     }
 };
+
+export const fetchActiveDoctorsByDepartmentForDropdown = (path, id) => async dispatch => {
+    dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownPending());
+    try {
+        const response = await Axios.getWithPathVariables(path, id);
+        dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(
+            DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownError(e.errorMessage ?
+                e.errorMessage : 'Error fetching doctors.')
+        );
+        throw e;
+    }
+};

@@ -5,8 +5,8 @@ import {CButton, CModal} from "@frontend-appointment/ui-elements";
 
 import ExistingDepartmentRoster from './ExistingDepartmentRoster';
 import AddDepartmentInfoForm from "./AddDepartmentInfoForm";
-import DepartmentAvailabilityForm from "../common/DepartmentAvailabilityForm";
 import DepartmentAvailabilityOverrides from "../common/DepartmentAvailabiltyOverrides";
+import {DepartmentDutyRosterComponents} from '@frontend-appointment/ui-components';
 
 import "../department-duty-roster.scss";
 
@@ -22,7 +22,7 @@ function DepartmentDutyRosterAdd(props) {
             <Container className="p-0" fluid>
                 <Row className="mb-2">
                     <AddDepartmentInfoForm departmentInfoFormData={departmentInfoFormData}/>
-                    <DepartmentAvailabilityForm
+                    <DepartmentDutyRosterComponents.DepartmentAvailabiltyForm
                         departmentAvailabilityFormData={{...departmentAvailabilityFormData, type: "ADD"}}
                     />
                 </Row>
