@@ -1097,8 +1097,11 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     updatedOverrides: [],
                     isCloneAndAdd: isCloneAndAdd
                 });
-                if (!isCloneAndAdd)
+                if (!isCloneAndAdd) {
                     this.fetchActiveDoctorsByDepartmentId(department.value);
+                    if (isRoomEnabled === 'Y')
+                        this.fetchActiveRoomByDepartmentId(department.value);
+                }
                 this.checkManageFormValidity()
             };
 
