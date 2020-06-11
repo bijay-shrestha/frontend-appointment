@@ -1075,8 +1075,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             ? weekDay.dayOffStatus
                             : 'N';
                         weekDay.isUpdated = false;
-                        weekDay.weekDaysDoctorInfo = isCloneAndAdd ? [] : weekDay.weekDaysDoctorInfo;
-                        weekDay.originalWeekDaysDoctorInfo = isCloneAndAdd ? [] : [...weekDay.weekDaysDoctorInfo];
+                        weekDay.weekDaysDoctorInfo = !isCloneAndAdd && weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo : [];
+                        weekDay.originalWeekDaysDoctorInfo = !isCloneAndAdd && weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo : [];
                         return weekDay
                     }
                 );
