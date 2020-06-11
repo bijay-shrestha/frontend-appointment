@@ -2,29 +2,34 @@ import React from 'react'
 import AppointmentCheckInFastDataTable from './AppointmentCheckInFastDataTable'
 import AppointmentCheckInFastHoc from './AppointmentCheckinFastHoc'
 import {CButton,CHybridInput} from '@frontend-appointment/ui-elements'
-import {Col} from 'react-bootstrap'
+import {Col,Row} from 'react-bootstrap'
 const AppointmentCheckInFastLog = props => {
   const AppoinmentCheckInFast = AppointmentCheckInFastHoc(
     ({searchHandler, paginationProps, tableHandler}) => (
       <>
-        <div>
-          <Col sm={12} md={6} xl={4}>
+        <Row >
+          <Col lg ={{span:8,offset:2}}className="search-bar">
+            <div  className="appt-search">
             <CHybridInput
               id="appointmentNumber"
               name="appointmentNumber"
               placeholder="Appointment Number"
               value={searchHandler.searchParameters.appointmentNumber}
               onChange={searchHandler.handleSearchFormChange}
+             
             />
+            </div>
             <CButton
               id="search-profiles"
               variant="primary"
               className="btn-action"
-              name="Search"
-              onClickHandler={()=>searchHandler.searchAppointment(1)}
-            />
-          </Col>
-        </div>
+              name=""
+              onClickHandler={()=>searchHandler.searchAppointment(1)}              
+            >
+            <i className="fa fa-search"></i>&nbsp;Search
+            </CButton>
+            </Col>
+        </Row>
 
         <div className="">
           <AppointmentCheckInFastDataTable
