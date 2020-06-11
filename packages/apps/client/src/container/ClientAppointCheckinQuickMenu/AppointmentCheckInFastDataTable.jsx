@@ -75,7 +75,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'AppointmentDateWithTime',
-                                    width:"260"
+                                    width:"160"
                                 },
                                 {
                                     headerName: 'Patient Detail ',
@@ -83,7 +83,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "200",
+                                    width: "260",
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },  
                                 {
@@ -152,7 +152,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: '120',
+                                    width: '140',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             approveHandler(id)

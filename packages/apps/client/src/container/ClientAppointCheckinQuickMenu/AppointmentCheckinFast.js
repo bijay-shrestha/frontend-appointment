@@ -21,7 +21,7 @@ const AppointmentCheckInFastLog = props => {
             </div>
             <CButton
               id="search-profiles"
-              variant="primary"
+              variant="info"
               className="btn-action"
               name=""
               onClickHandler={()=>searchHandler.searchAppointment(1)}              

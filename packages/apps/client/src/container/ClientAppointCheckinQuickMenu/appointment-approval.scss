@@ -164,6 +164,8 @@
             }
         }
 
+        
+
 
 
     }
@@ -174,6 +176,17 @@
         height: 42px;
         font-size: 0.9rem;
         font-weight: 500;
+        
+    
+    }
+
+
+        
+}
+
+.quick-checkin{
+    .fa-sign-in{
+        color:$white !important;
     }
 }
 
