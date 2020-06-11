@@ -35,6 +35,7 @@ const AppointmentCheckInFastLog = props => {
           <AppointmentCheckInFastDataTable
             tableHandler={tableHandler}
             paginationProps={paginationProps}
+            filteredActions={props.filteredAction}
           />
         </div>
       </>

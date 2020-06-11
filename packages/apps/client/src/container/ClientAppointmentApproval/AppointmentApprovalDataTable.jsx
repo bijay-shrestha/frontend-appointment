@@ -14,8 +14,9 @@ import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-
-const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
+import {ActionFilterUtils} from '@frontend-appointment/helpers'
+const {checkIfRoleExists}=ActionFilterUtils
+const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredActions}) => {
     const {
         isSearchLoading,
         appointmentApprovalList,
@@ -165,8 +166,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                                 transferHandler(id)
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
-                                        }
-                                        // filteredAction: props.filteredActions
+                                        },
+                                         filteredAction: filteredActions
                                     },
                                     cellStyle: {overflow: 'visible', 'z-index': '99'}
                                 }
@@ -197,7 +198,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                                // checkIfRoleExists(props.filteredActions, 4) &&
+                             checkIfRoleExists(filteredActions, 4) &&
                                 previewCall
                             }
                             rowSelection={'single'}
