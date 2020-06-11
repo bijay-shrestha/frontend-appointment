@@ -97,6 +97,7 @@ class WeekdaysRosterForm extends PureComponent {
                                 selectedShift: selectedShift,
                                 ...this.props.weekdaysRosterFormData
                             }}
+                            overrideRosterProps={this.props.overrideRosterProps}
                         />
                         {/*********************************************WEEKDAYS END ******************************************************/}
                     </Row>

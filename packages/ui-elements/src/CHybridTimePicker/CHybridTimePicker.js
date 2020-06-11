@@ -52,7 +52,7 @@ class CHybridTimePicker extends PureComponent {
         isValid: '',
         options: [],
         pickedTime: this.props.value
-            ? this.checkAndValidateValue(this.props.value)
+            ? this.checkAndValidateValue(new Date(this.props.value))
             : 0,
         inputValue: ''
     }

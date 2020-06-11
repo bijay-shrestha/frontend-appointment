@@ -91,6 +91,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
             },
             weekdaysInclusiveOfDates: [],
             shiftDetails: [],
+            hasOverride: "N",
             formValid: false,
             isCreatingRosterAvailable: false,
             showAssignShiftToDoctorModal: false,
@@ -187,11 +188,43 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                 status;
             if (doctorShifts && doctorShifts.length) {
                 let selectedShifts = doctorShifts.filter(docShift => docShift.checked);
-                selectedShifts && selectedShifts.map(selectedShift => (
+                selectedShifts && selectedShifts.map(selectedShift => {
                     formValid = formValid &&
-                        selectedShift.rosterGapDuration
-                ))
+                        selectedShift.rosterGapDuration;
+                    selectedShift.weekdaysDetail && selectedShift.weekdaysDetail.map(weekDayDetail => {
+                        formValid = weekDayDetail.dayOffStatus === 'Y' ?
+                            weekDayDetail.endTime &&
+                            weekDayDetail.startTime
+                            : formValid;
+                        weekDayDetail.breakDetail && weekDayDetail.breakDetail.length && weekDayDetail.breakDetail.map(breakDetail => {
+                            formValid = formValid &&
+                                breakDetail.startTime &&
+                                breakDetail.endTime &&
+                                breakDetail.breakType
+                            return ''
+                        })
+                        return ''
+                    })
+                    return ''
+                })
             }
+
+            // shiftDetail.weekdaysDetail ? shiftDetail.weekdaysDetail.map(weekDayDetail => ({
+            //         endTime: weekDayDetail.endTime,
+            //         hasBreak: weekDayDetail.breakDetail && weekDayDetail.breakDetail.length ? 'Y' : 'N',
+            //         offStatus: weekDayDetail.dayOffStatus,
+            //         startTime: weekDayDetail.startTime,
+            //         weekDaysId: weekDayDetail.weekDaysId,
+            //         breakDetail: weekDayDetail.breakDetail && weekDayDetail.breakDetail.length ?
+            //             weekDayDetail.breakDetail.map(breakDetail => ({
+            //                 breakTypeId: breakDetail.breakType ? breakDetail.breakType.value : '',
+            //                 endTime: breakDetail.endTime,
+            //                 remarks: '',
+            //                 startTime: breakDetail.startTime,
+            //                 status: 'Y'
+            //             }))
+            //             : []
+            //     }))
 
             this.setState({
                 formValid: Boolean(formValid)
@@ -569,13 +602,15 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
 
         handleSaveWeekDaysDoctorDutyRoster = async isSkipOverride => {
             try {
-                await this.saveWeekDaysDoctorDutyRoster();
+                await this.saveWeekDaysDoctorDutyRoster()
                 if (isSkipOverride) {
                     // SAVE DATA AND RESET DOCTOR INFORMATION AND WEEKDAY DETAILS
-                    this.resetDoctorShiftAndWeekDays();
+                    this.resetDoctorShiftAndWeekDays()
                 } else {
                     // SAVE DATA AND SHOW OVERRIDE ADD FORM DO NOT RESET OTHER FORMS BUT DISABLE.
-
+                    this.setState({
+                        hasOverride: 'Y'
+                    })
                 }
             } catch (e) {
 
@@ -888,7 +923,7 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
         render() {
             const {
                 doctorInformation, showAssignShiftToDoctorModal, showAlert, alertMessageInfo,
-                shiftDetails, isCreatingRosterAvailable, formValid
+                shiftDetails, isCreatingRosterAvailable, formValid, hasOverride
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -959,6 +994,9 @@ const DoctorDutyRosterShiftWiseHOC = (ComposedComponent, props, type) => {
                         formValid: formValid,
                         onButtonClick: this.handleSaveWeekDaysDoctorDutyRoster,
                         isSaveDDRWeekdaysLoading: isSaveDDRWeekdaysLoading
+                    }}
+                    overrideRosterProps={{
+                        hasOverride: hasOverride
                     }}
                 />
                 <CAlert

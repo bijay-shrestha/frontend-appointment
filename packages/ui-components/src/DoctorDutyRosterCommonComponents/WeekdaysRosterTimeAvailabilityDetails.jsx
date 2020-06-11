@@ -8,6 +8,7 @@ const WeekdaysRosterTimeAvailabilityDetails = ({
                                                    selectedShift,
                                                    handleWholeWeekOff,
                                                    weekDayRowFormProps,
+                                                   overrideRosterProps
                                                }) => {
     return <>
         <Col md={12} lg={7} className="">
@@ -38,6 +39,7 @@ const WeekdaysRosterTimeAvailabilityDetails = ({
                                                         className="select-all check-all"
                                                         checked={selectedShift.wholeWeekOff === 'Y'}
                                                         onChange={(event)=>handleWholeWeekOff(event,selectedShift)}
+                                                        disabled={overrideRosterProps.hasOverride === 'Y'}
                                                     />
                                                     : "Off"}
                                             </Col>
@@ -47,6 +49,7 @@ const WeekdaysRosterTimeAvailabilityDetails = ({
                                 </Card>
                                 <WeekdayRowForm
                                     weekDayRowFormProps={weekDayRowFormProps}
+                                    overrideRosterProps={overrideRosterProps}
                                 />
                             </Accordion>
                         </CScrollbar>

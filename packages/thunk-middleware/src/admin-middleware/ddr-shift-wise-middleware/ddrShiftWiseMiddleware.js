@@ -64,8 +64,8 @@ export const fetchOverrideBreakDetails = (path, ddrOverrideId) => async dispatch
 export const saveDDRWeekdays = (path, data) => async dispatch => {
     dispatch(DDRShiftWiseAction.saveDDRWeekdaysPending());
     try {
-        const response = await Axios.post(path, data);
-        dispatch(DDRShiftWiseAction.saveDDRWeekdaysSuccess(response.data));
+        await Axios.post(path, data);
+        dispatch(DDRShiftWiseAction.saveDDRWeekdaysSuccess("Doctor Duty Roster saved successfully."));
     } catch (e) {
         dispatch(DDRShiftWiseAction.saveDDRWeekdaysError(e.errorMessage ?
             e.errorMessage : "Sorry,Internal Server Problem occurred!"))

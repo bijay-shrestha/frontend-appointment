@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CHybridInput} from "@frontend-appointment/ui-elements";
 
-const ShiftInformation = ({doctorInformationFormData}) => {
+const ShiftInformation = ({doctorInformationFormData, overrideRosterProps}) => {
     const {
         handleAssignNewShiftToDoctor,
         handleShiftSelection,
@@ -11,6 +11,8 @@ const ShiftInformation = ({doctorInformationFormData}) => {
         doctorInformationData,
         onEnterKeyPress,
     } = doctorInformationFormData;
+
+    const {hasOverride} = overrideRosterProps;
 
     return <>
         {
@@ -28,7 +30,7 @@ const ShiftInformation = ({doctorInformationFormData}) => {
                                     size='lg'
                                     name=''
                                     className="mb-2  float-right"
-                                    // disabled={}
+                                    disabled={hasOverride === "Y"}
                                     onClickHandler={handleAssignNewShiftToDoctor}
                                 >
                                     <><i className='fa fa-plus'/> New Shift</>
@@ -51,6 +53,8 @@ const ShiftInformation = ({doctorInformationFormData}) => {
                                                     className="select-all check-all"
                                                     checked={shift.checked}
                                                     onChange={() => handleShiftSelection(shift, index, false, '')}
+                                                    disabled={hasOverride === 'Y'}
+                                                    readOnly={hasOverride === 'Y'}
                                                 />
                                             </Col>
                                             <Col sm={12} md={4} lg={4}
@@ -61,7 +65,7 @@ const ShiftInformation = ({doctorInformationFormData}) => {
                                                     label="Duration"
                                                     type="number"
                                                     name="rosterGapDuration"
-                                                    disabled={!shift.checked}
+                                                    disabled={!shift.checked || hasOverride === 'Y'}
                                                     placeholder="Enter Duration In Minutes."
                                                     onKeyDown={(event) => onEnterKeyPress(event)}
                                                     onChange={(event) => handleShiftSelection(shift, index, true, event)}

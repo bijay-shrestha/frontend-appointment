@@ -6,7 +6,7 @@ import {EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 
 const isAdminModule = EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.ADMIN_MODULE_CODE;
 
-const DoctorInformationForm = ({doctorInformationFormData}) => {
+const DoctorInformationForm = ({doctorInformationFormData, overrideRosterProps}) => {
     const {
         doctorInformationData,
         doctorList,
@@ -18,6 +18,8 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
         handleCheckAvailability,
         isCheckExistingAvailabilityLoading,
     } = doctorInformationFormData;
+
+    const {hasOverride} = overrideRosterProps;
 
     let allowCheckAvailability = doctorInformationData.hospital && doctorInformationData.specialization &&
         doctorInformationData.doctor && doctorInformationData.fromDate && doctorInformationData.toDate
@@ -44,7 +46,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                             name="hospital"
                                             options={hospitalList}
                                             placeholder={hospitalList.length ? "Select Client." : "No Client(s) available."}
-                                            isDisabled={!hospitalList.length}
+                                            isDisabled={!hospitalList.length || hasOverride==='Y'}
                                             onKeyDown={(event) => onEnterKeyPress(event)}
                                             onChange={(event) => onInputChange(event, '')}
                                             value={doctorInformationData.hospital}
@@ -69,6 +71,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                         invalid={doctorInformationData.dateErrorMessage ? true : false}
                                         onKeyDown={(event) => onEnterKeyPress(event)}
                                         onChange={(date) => onInputChange(date, "fromDate")}
+                                        disabled={hasOverride==='Y'}
                                     />
                                     &nbsp;&nbsp;
                                     <CEnglishDatePicker
@@ -86,6 +89,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                         invalid={doctorInformationData.dateErrorMessage ? true : false}
                                         onKeyDown={(event) => onEnterKeyPress(event)}
                                         onChange={(date) => onInputChange(date, "toDate")}
+                                        disabled={hasOverride==='Y'}
                                     />
                                 </div>
                                 <div>
@@ -102,7 +106,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                     name="specialization"
                                     options={specializationList}
                                     isDisabled={isAdminModule ? (!doctorInformationData.hospital || !specializationList.length)
-                                        : !specializationList.length}
+                                        : !specializationList.length || hasOverride==='Y'}
                                     placeholder={(isAdminModule && !doctorInformationData.hospital)
                                         ? "Select Client first."
                                         : specializationList.length ? "Select Specialization." : "No Specialization(s) available."}
@@ -117,7 +121,7 @@ const DoctorInformationForm = ({doctorInformationFormData}) => {
                                     id="doctor"
                                     label="Doctor"
                                     name="doctor"
-                                    isDisabled={!doctorInformationData.specialization || !doctorList}
+                                    isDisabled={!doctorInformationData.specialization || !doctorList || hasOverride==='Y'}
                                     placeholder={!doctorInformationData.specialization ? "Select Specialization first."
                                         : doctorList.length ? "Select Doctor." : "No Doctor(s) available."}
                                     options={doctorList}

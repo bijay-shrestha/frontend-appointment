@@ -3,7 +3,8 @@ import {Accordion, Button, Card, Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CHybridSelect, CHybridTimePicker} from "@frontend-appointment/ui-elements";
 
 const WeekdayRowForm = ({
-                            weekDayRowFormProps
+                            weekDayRowFormProps,
+                            overrideRosterProps
                         }) => {
     const {
         selectedShift,
@@ -19,7 +20,8 @@ const WeekdayRowForm = ({
         weekdaysDetail,
         rosterGapDuration
     } = selectedShift;
-    console.log("Roster Duration", rosterGapDuration);
+
+    const {hasOverride} = overrideRosterProps;
     return <>
         {
             weekdaysDetail &&
@@ -41,7 +43,7 @@ const WeekdayRowForm = ({
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             onChange={(event) => handleWeekdaysFormChange(event, selectedShift, weekdayIndex)}
-                                            isDisabled={selectedShift.wholeWeekOff === 'Y' || weekdayData.dayOffStatus === 'Y'}
+                                            isDisabled={selectedShift.wholeWeekOff === 'Y' || weekdayData.dayOffStatus === 'Y' || hasOverride === 'Y'}
                                             value={weekdayData.startTime}
                                             isClearable={true}
 
@@ -58,7 +60,7 @@ const WeekdayRowForm = ({
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             onChange={(event) => handleWeekdaysFormChange(event, selectedShift, weekdayIndex)}
-                                            isDisabled={selectedShift.wholeWeekOff === 'Y' || weekdayData.dayOffStatus === 'Y'}
+                                            isDisabled={selectedShift.wholeWeekOff === 'Y' || weekdayData.dayOffStatus === 'Y' || hasOverride === 'Y'}
                                             value={weekdayData.endTime}
                                             isClearable={true}
                                         />
@@ -72,6 +74,8 @@ const WeekdayRowForm = ({
                                         className=" "
                                         checked={weekdayData.dayOffStatus === 'Y'}
                                         onChange={(event) => handleWeekdaysFormChange(event, selectedShift, weekdayIndex)}
+                                        disabled={hasOverride === 'Y'}
+                                        readOnly={hasOverride === 'Y'}
                                     />
 
                                 </Col>
@@ -109,7 +113,7 @@ const WeekdayRowForm = ({
                                                         placeholder={breakTypeList.length ?
                                                             'Select Break type.' : "No Break type(s) available."}
                                                         value={breakDetail.breakType}
-                                                        isDisabled={!breakTypeList.length}
+                                                        isDisabled={!breakTypeList.length || hasOverride === 'Y'}
                                                         onChange={(event) => handleBreakFormChange(event, selectedShift,
                                                             weekdayIndex,
                                                             breakIndex)}
@@ -129,6 +133,7 @@ const WeekdayRowForm = ({
                                                             placeholder="00:00"
                                                             value={breakDetail.startTime}
                                                             isClearable={true}
+                                                            isDisabled={hasOverride === 'Y'}
                                                         />
                                                     </div>
                                                 </Col>
@@ -146,35 +151,38 @@ const WeekdayRowForm = ({
                                                             placeholder="00:00"
                                                             value={breakDetail.endTime}
                                                             isClearable={true}
+                                                            isDisabled={hasOverride === 'Y'}
                                                         />
                                                     </div>
                                                 </Col>
                                                 <Col>
                                                 </Col>
                                                 <Col>
-                                                    <Row>
-                                                        <CButton
-                                                            id={"remove break"}
-                                                            name=""
-                                                            variant="outline-danger"
-                                                            className="float-right remove-mac "
-                                                            onClickHandler={() => handleRemoveBreak(selectedShift, weekdayIndex, breakIndex)}
-                                                        >
-                                                            <i className="fa fa-close"/>
-                                                        </CButton>
-                                                        {breakIndex === 0 ?
+                                                    {hasOverride === 'Y' ? '' :
+                                                        <Row>
                                                             <CButton
-                                                                id="addBreak"
+                                                                id={"remove break"}
                                                                 name=""
-                                                                variant="outline-secondary"
-                                                                className="float-right remove-mac"
-                                                                onClickHandler={() => handleAddBreak(selectedShift, weekdayIndex)}
+                                                                variant="outline-danger"
+                                                                className="float-right remove-mac "
+                                                                onClickHandler={() => handleRemoveBreak(selectedShift, weekdayIndex, breakIndex)}
                                                             >
-                                                                <i className="fa fa-plus"/>
+                                                                <i className="fa fa-close"/>
                                                             </CButton>
-                                                            : ''
-                                                        }
-                                                    </Row>
+                                                            {breakIndex === 0 ?
+                                                                <CButton
+                                                                    id="addBreak"
+                                                                    name=""
+                                                                    variant="outline-secondary"
+                                                                    className="float-right remove-mac"
+                                                                    onClickHandler={() => handleAddBreak(selectedShift, weekdayIndex)}
+                                                                >
+                                                                    <i className="fa fa-plus"/>
+                                                                </CButton>
+                                                                : ''
+                                                            }
+                                                        </Row>
+                                                    }
                                                 </Col>
                                             </Row>
                                             <div>
@@ -187,25 +195,33 @@ const WeekdayRowForm = ({
                                     }
                                 </>
                                 :
-                                <div key={weekdayData.weekDaysName.concat("-" + weekdayData.weekDaysId)}>
-                                    <Row className="main-content"
-                                         key={weekdayData.weekDaysName.concat("-" + weekdayData.weekDaysId)}>
-                                        <Col>
-                                            <CButton
-                                                variant="outline-secondary"
-                                                className="float-right "
-                                                id="add-break"
-                                                name="Add Break"
-                                                onClickHandler={() => handleAddBreak(selectedShift, weekdayIndex)}
-                                            />
-                                        </Col>
-                                    </Row>
-                                </div>
+                                (
+                                    <>
+                                        {hasOverride === 'Y' ? ''
+                                            : <div
+                                                key={weekdayData.weekDaysName.concat("-" + weekdayData.weekDaysId)}>
+                                                <Row className="main-content"
+                                                     key={weekdayData.weekDaysName.concat("-" + weekdayData.weekDaysId)}>
+                                                    <Col>
+                                                        <CButton
+                                                            variant="outline-secondary"
+                                                            className="float-right "
+                                                            id="add-break"
+                                                            name="Add Break"
+                                                            onClickHandler={() => handleAddBreak(selectedShift, weekdayIndex)}
+                                                        />
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        }
+                                    </>
+                                )
                             }
                             <CButton
                                 id={"clone-setting".concat(weekdayData.weekDaysId)}
                                 name={" Clone the Setting across all Weekdays."}
                                 className={"outline-primary"}
+                                disabled={hasOverride === 'Y'}
                                 onClickHandler={() => handleCloneSetting(selectedShift, weekdayIndex)}
                             >
                                 <i className={"fa fa-copy"}/>
