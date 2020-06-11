@@ -67,6 +67,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class',
                                     width: 100
                                 },
+                                {
+                                    headerName: 'Appointment Date',
+                                    field: 'appointmentDate',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
                                 // {
                                 //     headerName: 'Date & Time',
                                 //     field: 'name',
@@ -82,8 +90,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "260",
-                                    height:"260",
+                                    width: "200",
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },  
                                 {
@@ -102,14 +109,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer'
                                 },
-                                {
-                                    headerName: 'Appointment Date',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
+                                
                                 // {
                                 //     headerName: 'Time',
                                 //     field: 'appointmentTime',
@@ -153,14 +153,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 // },
 
                                 {
-                                    headerName: '',
+                                    headerName: 'Action',
                                     action: 'action',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: '100',
+                                    width: '120',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             type === 'P'
