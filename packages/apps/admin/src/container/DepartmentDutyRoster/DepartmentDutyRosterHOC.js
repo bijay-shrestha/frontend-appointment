@@ -182,9 +182,10 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
             };
 
             actionsOnDepartmentChange = async departmentId => {
-                this.resetDepartmentAndRoomOnHospitalChange(departmentId);
+                let deptId = departmentId ? departmentId : 0;
+                this.resetDepartmentAndRoomOnHospitalChange(deptId);
                 try {
-                    await this.fetchActiveDoctorsByDepartmentId(departmentId ? departmentId : 0);
+                    await this.fetchActiveDoctorsByDepartmentId(deptId);
                 } catch (e) {
 
                 }
@@ -1101,8 +1102,8 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                             ? weekDay.dayOffStatus
                             : 'N';
                         weekDay.isUpdated = false;
-                        weekDay.weekDaysDoctorInfo = isCloneAndAdd ? [] : weekDay.weekDaysDoctorInfo;
-                        weekDay.originalWeekDaysDoctorInfo = isCloneAndAdd ? [] : [...weekDay.weekDaysDoctorInfo];
+                        weekDay.weekDaysDoctorInfo = !isCloneAndAdd && weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo : [];
+                        weekDay.originalWeekDaysDoctorInfo = !isCloneAndAdd && weekDay.weekDaysDoctorInfo ? weekDay.weekDaysDoctorInfo : [];
                         return weekDay
                     }
                 );

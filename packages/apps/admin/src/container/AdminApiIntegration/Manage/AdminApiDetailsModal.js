@@ -14,7 +14,6 @@ const AdminApiPreviewModal = props => {
         <>
             <CModal
                 show={showModal}
-              
                 modalHeading="Admin API Integration Details"
                 size="xl"
                 bodyChildren={
