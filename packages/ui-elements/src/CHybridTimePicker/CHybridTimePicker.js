@@ -3,6 +3,7 @@ import Select from 'react-select'
 import {Form} from 'react-bootstrap'
 import './hybrid-time.scss'
 import ReactDOM from 'react-dom'
+import moment from 'moment'
 
 class CHybridTimePicker extends PureComponent {
     checkAndValidateValue = objValue => {
@@ -160,7 +161,7 @@ class CHybridTimePicker extends PureComponent {
             this.props.onChange && this.props.onChange({
                 target: {
                     name: this.props.name,
-                    value: date,
+                    value: this.props.dateTimeFormat ? moment(date).format(this.props.dateTimeFormat) : date,
                     label: label
                 }
             })
@@ -172,10 +173,9 @@ class CHybridTimePicker extends PureComponent {
     }
     checkPickedTime = pickedTime => {
         if (pickedTime) {
-            if (Object.keys(pickedTime).includes("value")) return pickedTime.value
-            else return pickedTime;
-        }
-        else return pickedTime
+            if (Object.keys(pickedTime).includes("value")) return new Date(pickedTime.value)
+            else return new Date(pickedTime);
+        } else return new Date(pickedTime)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -188,7 +188,7 @@ class CHybridTimePicker extends PureComponent {
         if (Number(prevProps.duration) !== Number(duration))
             this.makeOptionsThroughDuration()
         if (String(pickedTime1) !== String(pickedTime2)) {
-            let timeValue = this.checkAndValidateValue(this.props.value)
+            let timeValue = this.checkAndValidateValue(new Date(this.props.value))
             this.setState({
                 pickedTime: timeValue ? {...timeValue} : null
             })

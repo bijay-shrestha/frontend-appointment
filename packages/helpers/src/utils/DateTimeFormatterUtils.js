@@ -119,6 +119,10 @@ export const convertDateToStringMonthDateYearFormat = date => {
     return moment(date).format('MMMM D, YYYY')
 }
 
+export const convertDateToYearMonthDayHourMinuteSecondFormat = date => {
+    // HH/H-> 24 hour format hh/h-> 12 hour format
+    return moment(date).format('YYYY-MM-DD HH:mm:ss')
+}
 
 export const checkIfFromDateAndToDateExistsInObjectList = (fromDate, toDate, objectList) => {
     // OBJECT LIST SHOULD CONTAIN fromDate and toDate parameters.

@@ -37,6 +37,7 @@ const WeekdayRowForm = ({
                                             id={"startTime".concat(weekdayData.weekDaysId)}
                                             name={"startTime"}
                                             label=""
+                                            dateTimeFormat={"YYYY-MM-DD HH:mm:ss"}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             onChange={(event) => handleWeekdaysFormChange(event, selectedShift, weekdayIndex)}
@@ -53,6 +54,7 @@ const WeekdayRowForm = ({
                                             id={"endTime".concat(weekdayData.weekDaysId)}
                                             name={"endTime"}
                                             label=""
+                                            dateTimeFormat={"YYYY-MM-DD HH:mm:ss"}
                                             duration={rosterGapDuration ? rosterGapDuration : 15}
                                             placeholder="00:00"
                                             onChange={(event) => handleWeekdaysFormChange(event, selectedShift, weekdayIndex)}
@@ -119,6 +121,7 @@ const WeekdayRowForm = ({
                                                             id={"startTime".concat(weekdayData.weekDaysId).concat(breakDetail.id)}
                                                             name={"startTime"}
                                                             label=""
+                                                            dateTimeFormat={"YYYY-MM-DD HH:mm:ss"}
                                                             onChange={(event) => handleBreakFormChange(event, selectedShift,
                                                                 weekdayIndex,
                                                                 breakIndex)}
@@ -135,6 +138,7 @@ const WeekdayRowForm = ({
                                                             id={"endTime".concat(weekdayData.weekDaysId).concat(breakDetail.id)}
                                                             name={"endTime"}
                                                             label=""
+                                                            dateTimeFormat={"YYYY-MM-DD HH:mm:ss"}
                                                             onChange={(event) => handleBreakFormChange(event, selectedShift,
                                                                 weekdayIndex,
                                                                 breakIndex)}
