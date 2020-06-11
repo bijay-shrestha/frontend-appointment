@@ -1,9 +1,9 @@
 import React from 'react';
 import AppointmentStatusHOC from "./AppointmentStatusHOC";
-import AppointmentStatusSearchFilter from "./AppointmentStatusSearchFilter";
+import AppointmentStatusSearchFilter from "./AppointmentStatusByDepartmenSearchFilter";
 
 import "./appointment-status.scss";
-import AppointmentStatusDetails from "./AppointmentStatusDetails";
+import AppointmentStatusDetails from "./AppointmentStatusByDepartmentDetails";
 import {CConfirmationModal} from "@frontend-appointment/ui-components";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import {CModal} from "@frontend-appointment/ui-elements";

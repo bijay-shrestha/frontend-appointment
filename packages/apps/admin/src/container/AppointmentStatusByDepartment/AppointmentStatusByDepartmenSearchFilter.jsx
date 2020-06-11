@@ -43,11 +43,17 @@ class AppointmentLog extends PureComponent {
       resetSearchForm,
       // searchAppointmentStatus,
       hospitalList,
-      doctorList,
-      doctorDropdownErrorMessage,
-      specializationList,
-      specializationDropdownErrorMessage,
-      searchParameters
+      // doctorList,
+      // doctorDropdownErrorMessage,
+      // specializationList,
+      // specializationDropdownErrorMessage,
+      searchParameters,
+      //isFetchActiveHospitalDepartmentLoading,
+      activeHospitalDepartmentForDropdown,
+      activeDepartmentDropdownErrorMessage,
+     // isFetchActiveRoomNumberByDepartmentLoading,
+      activeRoomNumberForDropdownByDepartment,
+      //activeRoomsByDepartmentDropdownErrorMessage
     } = this.props.searchHandler
     return (
       <>
@@ -144,59 +150,54 @@ class AppointmentLog extends PureComponent {
                     />
                   </Col>
 
-                  <Col sm={12} md={4} xl={4} className="hide-on-md">
-                    {/*    /!* //should be empty *!/*/}
-                  </Col>
-
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridSelectWithImage
-                      id="doctor"
-                      label="Doctor"
-                      name="doctorId"
+                    <CHybridSelect
+                      id="departmentIdHospital"
+                      label="Department"
+                      name="hospitalDepartmentId"
+                      options={activeHospitalDepartmentForDropdown}
                       placeholder={
                         !searchParameters.hospitalId
                           ? 'Select client first.'
-                          : doctorList.length
-                          ? 'Select doctor.'
-                          : 'No Doctor(s) available.'
+                          : activeHospitalDepartmentForDropdown.length
+                          ? 'Select Department.'
+                          : 'No Department(s) available.'
                       }
-                      options={doctorList}
                       noOptionsMessage={() =>
-                        doctorDropdownErrorMessage
-                          ? doctorDropdownErrorMessage
-                          : 'No Doctor(s) found.'
+                        activeDepartmentDropdownErrorMessage
                       }
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
-                      value={searchParameters.doctorId}
+                      value={searchParameters.hospitalDepartmentId}
                       isDisabled={
-                        !searchParameters.hospitalId || !doctorList.length
+                        !searchParameters.hospitalId ||
+                        !activeHospitalDepartmentForDropdown.length
                       }
                     />
                   </Col>
 
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
-                      id="specialization"
-                      label="Specialization"
-                      name="specializationId"
-                      options={specializationList}
+                      id="departmentIdHospital"
+                      label="Department"
+                      name="hospitalDepartmentId"
+                      options={activeRoomNumberForDropdownByDepartment}
                       placeholder={
-                        !searchParameters.hospitalId
+                        !searchParameters.hospitalDepartmentId
                           ? 'Select client first.'
-                          : specializationList.length
-                          ? 'Select specialization.'
-                          : 'No Specialization(s) available.'
+                          : activeRoomNumberForDropdownByDepartment.length
+                          ? 'Select Department.'
+                          : 'No Department(s) available.'
                       }
                       noOptionsMessage={() =>
-                        specializationDropdownErrorMessage
+                        activeDepartmentDropdownErrorMessage
                       }
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
-                      value={searchParameters.specializationId}
+                      value={searchParameters.hospitalDepartmentRoomInfoId}
                       isDisabled={
-                        !searchParameters.hospitalId ||
-                        !specializationList.length
+                        !searchParameters.hospitalDepartmentId ||
+                        !activeRoomNumberForDropdownByDepartment.length
                       }
                     />
                   </Col>
