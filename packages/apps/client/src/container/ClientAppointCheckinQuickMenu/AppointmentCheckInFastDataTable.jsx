@@ -32,7 +32,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
         approveHandleApi,
         //rejectError,
         //isAppointmentRejectLoading,
-        transferHandler,
+        //transferHandler,
         approveConfirmationModal,
         //rejectModalShow,
         remarks,
