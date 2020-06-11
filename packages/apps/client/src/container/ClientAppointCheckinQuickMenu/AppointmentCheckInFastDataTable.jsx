@@ -4,11 +4,11 @@ import {
     CLoading,
     CPagination
 } from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
+//import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentFastCheckInPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 //import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -68,15 +68,15 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     cellClass: 'first-class',
                                     width: 100
                                 },
-                                // {
-                                //     headerName: 'Date & Time',
-                                //     field: 'name',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     cellRenderer: 'AppointmentDateWithTime',
-                                //     width:"260"
-                                //   },
+                                {
+                                    headerName: 'Appt. Date & Time',
+                                    field: 'name',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentDateWithTime',
+                                    width:"260"
+                                },
                                 {
                                     headerName: 'Patient Detail ',
                                     field: 'patientDetails',
@@ -103,14 +103,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer'
                                 },
-                                {
-                                    headerName: 'Appointment Date',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
+
                                 // {
                                 //     headerName: 'Time',
                                 //     field: 'appointmentTime',
@@ -164,10 +157,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     width: '100',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
-                                            type === 'P'
-                                                ? // ? props.filteredActions.find(action => action.id === 5) &&
-                                                transferHandler(id)
-                                                : approveHandler(id)
+                                            approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         },
                                          filteredAction: filteredActions
@@ -176,7 +166,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableApproveAction,
+                                childActionRenderer: AppointmentQuickCheckInOption,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
