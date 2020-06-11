@@ -208,8 +208,9 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     room: null,
                     departmentWeekDaysDutyRosterRequestDTOS: weekDaysDataWithDoctorReset && [...weekDaysDataWithDoctorReset]
                 });
+                let deptId = departmentId ? departmentId : 0;
                 try {
-                    await this.fetchActiveDoctorsByDepartmentId(departmentId ? departmentId : 0);
+                    await this.fetchActiveDoctorsByDepartmentId(deptId);
                 } catch (e) {
 
                 }
