@@ -1511,7 +1511,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     let weekDaysList = departmentWeekDaysDutyRosterRequestDTOS && departmentWeekDaysDutyRosterRequestDTOS.map(weekdays => {
                         weekdays.rosterWeekDaysId = '';
                         weekdays.hospitalDepartmentDoctorInfoIds = weekdays.weekDaysDoctorInfo
-                            && weekdays.weekDaysDoctorInfo.map(doctor => doctor.value);
+                            ? weekdays.weekDaysDoctorInfo.map(doctor => doctor.value) : [];
                         return weekdays;
                     });
                     dataToSave.weekDaysDetail = [...weekDaysList];
