@@ -55,7 +55,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={100}
+                            rowHeight={70}
                             columnDefs={[
                                 {
                                     headerName: 'SN',

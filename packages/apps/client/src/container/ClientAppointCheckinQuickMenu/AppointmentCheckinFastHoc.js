@@ -761,7 +761,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
       //   } = this.props.appointmentTransferTimeReducer
 
       return (
-        <div id="appointment-approval">
+        <div id="quick-appointment-approval">
           <ComposedComponent
             {...this.props}
             {...props}
