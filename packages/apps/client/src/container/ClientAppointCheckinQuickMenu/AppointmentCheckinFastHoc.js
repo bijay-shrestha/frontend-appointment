@@ -210,8 +210,8 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
           ...spec,
           patientMobileNumber: spec.mobileNumber,
           sN: index + 1,
-          registrationNumber: spec.registrationNumber || 'N/A'
-          //age:spec.patientAge
+          registrationNumber: spec.registrationNumber || 'N/A',
+          gender:spec.gender.split('')[0]
         }))
       return newRefundList
     }

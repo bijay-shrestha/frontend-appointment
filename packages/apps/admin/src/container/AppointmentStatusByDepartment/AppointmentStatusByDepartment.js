@@ -1,5 +1,5 @@
 import React from 'react';
-import AppointmentStatusHOC from "./AppointmentStatusHOC";
+import AppointmentStatusHOC from "./AppointmentStatusByDepartmentHOC";
 import AppointmentStatusSearchFilter from "./AppointmentStatusByDepartmenSearchFilter";
 
 import "./appointment-status.scss";

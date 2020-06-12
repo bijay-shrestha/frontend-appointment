@@ -105,6 +105,11 @@ const AddDepartmentSetup = loadable(
 const AddDepartmentDutyRosterComponent = loadable(
     () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
     {fallback: () => getLoader()}
+);
+
+const DepartmentStatusComponent = loadable(
+    () => import('./container/AppointmentStatusByDepartment/AppointmentStatusByDepartment'),
+    {fallback: () => getLoader()}
 )
 
 /* ****** B ***** */
@@ -301,7 +306,7 @@ const UniversitySetupComponent = loadable(
     () => import('./container/UniversitySetup/UniversitySetup'),
     {fallback: () => getLoader()}
 )
-
+ 
 /* ****** V ***** */
 
 /* ****** W ***** */
@@ -1028,4 +1033,14 @@ export const routes = [
         name: 'Billing Mode Setup',
         isSingleTab: true,
     },
+    {
+        path: '/admin/appointment/appointentStatusByDepartment',
+        name: 'Appointment Status Department',
+        component:DepartmentStatusComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
+    }
 ]

@@ -53,7 +53,9 @@ const {
   SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL
 } = specializationSetupAPIConstants
 const {
-  APPOINTMENT_STATUS_LIST,
+  //APPOINTMENT_STATUS_LIST,
+   APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
+  // APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST,
   APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
@@ -416,8 +418,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         fromDate,
         toDate,
         hospitalId,
-        doctorId,
-        specializationId,
+        hospitalDepartmentId,
+        hospitalDepartmentRoomInfoId,
         status
       } = this.state.searchParameters
 
@@ -426,14 +428,14 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
           fromDate,
           toDate,
           hospitalId: hospitalId.value || '',
-          specializationId: specializationId.value || '',
-          doctorId: doctorId.value || '',
+          hospitalDepartmentId: hospitalDepartmentId.value || '',
+          hospitalDepartmentRoomInfoId: hospitalDepartmentRoomInfoId.value || '',
           status: (status.value === 'ALL' ? '' : status.value) || ''
         }
 
         try {
           await this.props.fetchAppointmentStatusList(
-            APPOINTMENT_STATUS_LIST,
+           APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
             searchData
           )
           let statusList = []
@@ -678,13 +680,13 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         isFetchActiveHospitalDepartmentLoading,
         activeHospitalDepartmentForDropdown,
         activeDepartmentDropdownErrorMessage
-      } = HospitalDepartmentDropdownReducer
+      } = this.props.HospitalDepartmentDropdownReducer
 
       const {
         isFetchActiveRoomNumberByDepartmentLoading,
         activeRoomNumberForDropdownByDepartment,
         activeRoomsByDepartmentDropdownErrorMessage
-      } = RoomNumberDropdownReducer
+      } =this.props.RoomNumberDropdownReducer
       return (
         <>
           <div id="appointment-status">

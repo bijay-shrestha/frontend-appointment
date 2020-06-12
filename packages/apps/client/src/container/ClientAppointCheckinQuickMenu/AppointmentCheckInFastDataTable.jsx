@@ -8,11 +8,11 @@ import {
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentFastCheckInPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption} from '@frontend-appointment/ui-components'
+import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption,PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 //import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
+//import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 const {checkIfRoleExists} = ActionFilterUtils
@@ -180,7 +180,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     previewCall
                                 ),
                                 PatientNameWithMobileNumber: PreviewHandlerHoc(
-                                    PatientNameWithMobileNumber,
+                                    PatientNameWithAgeGenderPhone,
                                     null,
                                     null,
                                     null,

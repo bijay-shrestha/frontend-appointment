@@ -4,7 +4,7 @@ import {
   CButton,
   CForm,
   CHybridSelect,
-  CHybridSelectWithImage
+  //CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
@@ -52,7 +52,7 @@ class AppointmentLog extends PureComponent {
       activeHospitalDepartmentForDropdown,
       activeDepartmentDropdownErrorMessage,
      // isFetchActiveRoomNumberByDepartmentLoading,
-      activeRoomNumberForDropdownByDepartment,
+      //activeRoomNumberForDropdownByDepartment,
       //activeRoomsByDepartmentDropdownErrorMessage
     } = this.props.searchHandler
     return (
@@ -176,7 +176,7 @@ class AppointmentLog extends PureComponent {
                     />
                   </Col>
 
-                  <Col sm={12} md={4} xl={4}>
+                  {/* <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="departmentIdHospital"
                       label="Department"
@@ -200,7 +200,7 @@ class AppointmentLog extends PureComponent {
                         !activeRoomNumberForDropdownByDepartment.length
                       }
                     />
-                  </Col>
+                  </Col> */}
 
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
@@ -305,7 +305,7 @@ class AppointmentLog extends PureComponent {
                 </li>
               )}
 
-              {searchParameters && searchParameters.doctorId && (
+              {/* {searchParameters && searchParameters.doctorId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -317,19 +317,19 @@ class AppointmentLog extends PureComponent {
                     </Button>
                   </OverlayTrigger>
                 </li>
-              )}
+              )} */}
 
-              {searchParameters && searchParameters.specializationId && (
+              {searchParameters && searchParameters.hospitalDepartmentId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
                     overlay={props => (
-                      <Tooltip {...props}>Specialization</Tooltip>
+                      <Tooltip {...props}>Department</Tooltip>
                     )}
                   >
                     <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.specializationId.label}
+                      {searchParameters.hospitalDepartmentId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
