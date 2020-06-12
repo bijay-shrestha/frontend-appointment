@@ -10,6 +10,7 @@ import {
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/picture.png'
 import {AuditableEntityHoc} from '@frontend-appointment/commons';
+
 const DetailsModal = ({type, doctorData}) => {
     let images;//,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
 
@@ -62,6 +63,21 @@ const DetailsModal = ({type, doctorData}) => {
                                                 type === 'A' ? "Dr. " + doctorData.name : "Dr. " + doctorData.doctorName
                                             }
                                             disabled={true}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="salutation"
+                                            name="salutationList"
+                                            label="Salutation (optional)"
+                                            options={doctorData.salutationList}
+                                            value={doctorData.salutations}
+                                            required={true}
+                                            placeholder={"Select Salutation."}
+                                            isDisabled={true}
+                                            isMulti={true}
+                                            className="multiple-select"
                                         />
                                     </Col>
 
@@ -214,7 +230,7 @@ const DetailsModal = ({type, doctorData}) => {
                                             readOnly={true}
                                         />
                                     </Col>
-                                   
+
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Doctor Status" id="status"/>
@@ -240,8 +256,8 @@ const DetailsModal = ({type, doctorData}) => {
                                 </Row>
 
                                 <Row className="mt-4">
-                                
-                                {AuditableEntityHoc(doctorData)}
+
+                                    {AuditableEntityHoc(doctorData)}
                                 </Row>
                             </Col>
                         </Row>

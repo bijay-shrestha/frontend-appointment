@@ -90,6 +90,20 @@ const DetailsModal = ({type, doctorData}) => {
                                             disabled={true}
                                         />
                                     </Col>
+                                    <Col sm={12} md={6} lg={6}>
+                                        <CHybridSelect
+                                            id="salutation"
+                                            name="salutationList"
+                                            label="Salutation (optional)"
+                                            options={doctorData.salutationList}
+                                            value={doctorData.salutations}
+                                            required={true}
+                                            placeholder={ "Select Salutation." }
+                                            isDisabled={true}
+                                            isMulti={true}
+                                            className="multiple-select"
+                                        />
+                                    </Col>
 
                                     <Col sm={12} md={6} lg={6}>
                                         <CFLabel labelName="Gender" id="Gender"></CFLabel><br></br>
@@ -262,10 +276,10 @@ const DetailsModal = ({type, doctorData}) => {
                                             />
                                         </Col>
                                     )}
-                                 
+
                                 </Row>
                                 <Row className="mt-4">
-                                
+
                                 {AuditableEntityHoc(doctorData)}
                                 </Row>
                             </Col>
