@@ -177,6 +177,8 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
     APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
     APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
+    APPOINTMENT_HOSPITAL_DEPARTMENT_LIST:BASE.concat(APPOINTMENT_BASE+"/hospitalDepartment/status"),
+    APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST:BASE.concat(APPOINTMENT_BASE+"/hospitalDepartment/room/status"),
     APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval"),
     APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
     APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),

@@ -28,6 +28,10 @@ const PatientNameWithAgeGenderPhone = props => {
           ,&nbsp;<i className="fa fa-phone"></i>&nbsp;
           {props.node.data.mobileNumber}&nbsp;
         </li>
+        <li>
+          <i className="fa fa-address-card"></i>&nbsp;
+          {props.node.data.address||'N/A'}
+        </li>
       </ul>
     </>
   )
