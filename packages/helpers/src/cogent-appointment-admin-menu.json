@@ -251,7 +251,7 @@
         {
           "id": 41,
           "parentId": 10,
-          "name": "Appointment Status Department",
+          "name": " Department Appointment Status",
           "path": "/appointment/appointentStatusByDepartment",
           "roles": [
             12
