@@ -466,12 +466,12 @@
     {
       "id": "26",
       "parentId": null,
-      "name": "Appointment Quick CheckIn",
+      "name": "Quick Appt. Check-In",
       "path": "/appointmentQuickCheckIn",
       "roles": [
         12,14
       ],
-      "icon": "fa fa-history",
+      "icon": "fa fa-bookmark",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,

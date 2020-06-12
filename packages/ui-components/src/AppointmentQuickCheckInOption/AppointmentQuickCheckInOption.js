@@ -9,11 +9,13 @@ const AppointmentQuickCheckInOption = props => {
       variant="primary"
       size="lg"
       className="btn-action ml-2"
-      name={'CheckIn'}
+      name=""
+      className="quick-checkin"
       onClickHandler={e =>
         onClick(e, props.node.data.id || props.node.data, 'C')
       }
-    />
+    >
+    <i className="fa fa-sign-in"></i> &nbsp;Check-In</CButton>
   ) : null
 }
 export default AppointmentQuickCheckInOption;
