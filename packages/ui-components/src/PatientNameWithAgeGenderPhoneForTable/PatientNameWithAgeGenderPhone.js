@@ -14,13 +14,13 @@ const PatientNameWithAgeGenderPhone = props => {
           <Badge
             variant={
               props.node.data.isRegistered === 'Y' ||
-              props.node.data.patientType !== 'N'
+              props.node.data.patientType === 'R'
                 ? 'success'
                 : 'primary'
             }
           >
             {props.node.data.isRegistered === 'Y' ||
-            props.node.data.patientType !== 'N'
+            props.node.data.patientType === 'R'
               ? 'REG'
               : 'NEW'}
             &nbsp;
