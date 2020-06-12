@@ -12,7 +12,9 @@ import {
     WeekdaysActions,
     ForgotPasswordActions,
     countryActionConstants,
-    CountryActions
+    CountryActions,
+    DoctorSalutationAction,
+    doctorSalutationActionConstants
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -139,5 +141,7 @@ export {
     billingModeActionConstants,
     BillingModeActions,
     appointmentServiceTypeActionConstants,
-    AppointmentServiceTypeAction
+    AppointmentServiceTypeAction,
+    DoctorSalutationAction,
+    doctorSalutationActionConstants
 }
