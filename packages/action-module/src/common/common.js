@@ -14,8 +14,8 @@ import * as WeekdaysActions from '../common/weekdays/weekdaysActions';
 import * as ForgotPasswordActions from '../common/forgotPasswordAndVerificationAction';
 import * as CountryActions from '../common/country/countryActions';
 import {countryActionConstants} from '../common/country/countryActionConstants';
-import * as DoctorSalutationAction from '../common/doctorSalutation/doctorSalutationAction';
-import {doctorSalutationActionConstants} from '../common/doctorSalutation/doctorSalutationActionConstants';
+import * as SalutationAction from '../common/salutation/salutationAction';
+import {salutationActionConstants} from './salutation/salutationActionConstants';
 
 export {
     loginActionConstant,
@@ -32,6 +32,6 @@ export {
     forgotPasswordAndVerificationConstants,
     countryActionConstants,
     CountryActions,
-    DoctorSalutationAction,
-    doctorSalutationActionConstants
+    SalutationAction,
+    salutationActionConstants
 }

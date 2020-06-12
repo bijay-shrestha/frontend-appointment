@@ -13,8 +13,8 @@ import {
     ForgotPasswordActions,
     countryActionConstants,
     CountryActions,
-    DoctorSalutationAction,
-    doctorSalutationActionConstants
+    SalutationAction,
+    salutationActionConstants
 } from './src/common'
 import {
     adminSetupActionConstants,
@@ -142,6 +142,6 @@ export {
     BillingModeActions,
     appointmentServiceTypeActionConstants,
     AppointmentServiceTypeAction,
-    DoctorSalutationAction,
-    doctorSalutationActionConstants
+    SalutationAction,
+    salutationActionConstants
 }
