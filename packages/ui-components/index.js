@@ -61,3 +61,4 @@ export {
 }from './src/TransferredToDoctorWithSpecializationImage/TransferredToDoctorWithSpecializationAndImageComponent'
 export {default as RequestMethodStatus} from './src/RequestMethodStatus';
 export {default as RoomEnableBadge} from './src/RoomEnableBadge';
+export {default as PatientNameWithAgeGenderPhoneAddress} from './src/PatientNameWithAgeGenderPhoneAddressForTable '
