@@ -44,7 +44,8 @@ const {
   CLEAR_TRANSACTION_LOGS_MESSAGE,
   FETCH_TRANSACTION_LOGS_ERROR,
   FETCH_TRANSACTION_LOGS_PENDING,
-  FETCH_TRANSACTION_LOGS_SUCCESS
+  FETCH_TRANSACTION_LOGS_SUCCESS,
+  
 } = appointmentDetailsConstants
 
 export const appointmentRefundFetchingStart = () => {
