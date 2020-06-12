@@ -8,7 +8,7 @@ import {
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentFastCheckInPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption,PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption,PatientNameWithAgeGenderPhoneAddress} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 //import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -55,7 +55,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={50}
+                            rowHeight={100}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -66,7 +66,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     editable: true,
                                     sizeColumnsToFit: true,
                                     cellClass: 'first-class',
-                                    width: 100
+                                    width: 80
                                 },
                                 {
                                     headerName: 'App. No',
@@ -93,6 +93,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: "260",
+                                    height:"600",
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },  
                                
@@ -181,7 +182,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     previewCall
                                 ),
                                 PatientNameWithMobileNumber: PreviewHandlerHoc(
-                                    PatientNameWithAgeGenderPhone,
+                                    PatientNameWithAgeGenderPhoneAddress,
                                     null,
                                     null,
                                     null,
