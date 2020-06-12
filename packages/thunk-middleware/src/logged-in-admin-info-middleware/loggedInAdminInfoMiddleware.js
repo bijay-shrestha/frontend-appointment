@@ -20,7 +20,7 @@ export const fetchLoggedInAdminIP = () => async () => {
        //const url1='https://www.cloudflare.com/cdn-cgi/trace'
        const apiKey = EnvironmentVariableGetter.IP_API_KEY;
        console.log("api key",apiKey)
-       const url = " https://api.ipdata.co?api-key="+apiKey
+       const url = " https://api.ipdata.co/?api-key="+apiKey
        const adminIp = await axios.get(url);
        return adminIp.data.ip;
     }catch(e){

@@ -1035,7 +1035,7 @@ export const routes = [
     },
     {
         path: '/admin/appointment/appointentStatusByDepartment',
-        name: 'Appointment Status Department',
+        name: 'Department Appointment Status',
         component:DepartmentStatusComponent,
         icon: '',
         hasTab: false,

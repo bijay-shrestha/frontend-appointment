@@ -8,9 +8,8 @@ const AppointmentQuickCheckInOption = props => {
     <CButton
       variant="primary"
       size="lg"
-      className="btn-action ml-2"
+      className="btn-action ml-2 quick-checkin"
       name=""
-      className="quick-checkin"
       onClickHandler={e =>
         onClick(e, props.node.data.id || props.node.data, 'C')
       }
