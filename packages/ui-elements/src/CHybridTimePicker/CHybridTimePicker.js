@@ -210,6 +210,7 @@ class CHybridTimePicker extends PureComponent {
             closeMenuOnScroll,
             closeMenuOnSelect,
             components,
+            // dateTimeFormat, to get value in given format
             defaultInputValue,
             defaultMenuIsOpen,
             defaultValue,
