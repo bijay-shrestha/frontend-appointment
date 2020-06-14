@@ -319,7 +319,7 @@ const AppointmentStatusDetails = ({
                     </ul>
                   </Col>
                   {appointmentStatusDetail.patientDetails ? (
-                    <Col sm={12} md={2} lg={2}>
+                    <Col sm={12} md={2} lg={2} className="pb-4 pr-4">
                       <h5 className="title">Patients Details </h5>
                       <br></br>
                       <div className="patient-details">
