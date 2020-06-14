@@ -497,7 +497,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     this.state.toDate,
                     [...weekDays]
                 );
-                this.setState({
+                await this.setState({
                     departmentWeekDaysDutyRosterRequestDTOS: [...weekDaysData]
                 })
             };
@@ -1166,7 +1166,7 @@ const DepartmentDutyRosterHOC = (ComposedComponent, props, type) => {
                     toDate: addDate(new Date(), 6),
                     hasOverrideDutyRoster: 'N',
                     isWholeWeekOff: 'N',
-                    // departmentWeekDaysDutyRosterRequestDTOS: [...weekDays],
+                    departmentWeekDaysDutyRosterRequestDTOS: [],
                     departmentDutyRosterOverrideRequestDTOS: [],
                     overrideRequestDTO: {
                         fromDate: new Date(),
