@@ -8,7 +8,7 @@ import {
     SalutationMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 
@@ -381,10 +381,16 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     appointmentFollowUpCharge,
                     fileUri,
                     doctorSpecializationResponseDTOS,
-                    doctorQualificationResponseDTOS
+                    doctorQualificationResponseDTOS,
+                    doctorSalutationResponseDTOS
                 } = this.props.DoctorPreviewReducer.consultantPreviewData;
                 let formValid = this.state.formValid;
                 if (remarks) formValid = true;
+                let salutationList = doctorSalutationResponseDTOS ? doctorSalutationResponseDTOS.map(doctorSalutation => ({
+                    value: doctorSalutation.salutationId,
+                    label: doctorSalutation.salutationName,
+                    doctorSalutationId: doctorSalutation.doctorSalutationId
+                })) : []
                 await this.setState({
                     showEditModal: true,
                     consultantData: {
@@ -416,6 +422,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                                 doctorQualificationResponseDTOS
                             )
                         ],
+                        salutations: salutationList ? [...salutationList] : [],
+                        originalSalutations: salutationList ? [...salutationList] : [],
                         doctorAvatarUrl: fileUri,
                         doctorAvatarUrlNew: '',
                         doctorAvatar: new File([5120], fileUri),
@@ -566,8 +574,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 doctorAvatar,
                 appointmentCharge,
                 appointmentFollowUpCharge,
-                doctorAvatarUrlNew
+                doctorAvatarUrlNew,
+                salutations,
+                originalSalutations
             } = this.state.consultantData;
+
+            let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalSalutations, salutations, 'salutation', 'doctorSalutationId','N')]
+
             let formData = new FormData();
             if (doctorAvatarUrlNew !== '')
                 formData.append(
@@ -593,7 +607,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
-
+                        doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : null
                     },
                     formData
                 );
