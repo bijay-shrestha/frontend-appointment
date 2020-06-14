@@ -35,7 +35,8 @@ const DoctorEditModal = ({
                              setImageShow,
                              activeSpecializationList,
                              qualificationDropdown,
-                             isConsultantEditLoading
+                             isConsultantEditLoading,
+                             salutationList
                          }) => {
 
     const checkIfSpecializationIdAndHospitalIdMatch = (
@@ -111,6 +112,23 @@ const DoctorEditModal = ({
                                     hasValidation={true}
                                     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
                                     errorMessagePassed={errorMessageForDoctorName}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="salutation"
+                                    name="salutations"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    label="Salutation (optional)"
+                                    options={salutationList}
+                                    value={doctorData.salutations}
+                                    required={true}
+                                    placeholder={salutationList.length ? "Select Salutation." : "No Salutation(s) available."}
+                                    isDisabled={!salutationList.length}
+                                    isMulti={true}
+                                    className="multiple-select"
                                 />
                             </Col>
 

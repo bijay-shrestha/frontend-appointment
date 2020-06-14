@@ -5,7 +5,7 @@ const CDoctorNameDisplayForTable = (props) => {
     const {doctorSalutation,doctorName}=props.node.data;
     return (
         <>
-        {doctorSalutation ? doctorSalutation.concat(" ") :'Dr. '}{doctorName}
+        {doctorSalutation ? doctorSalutation.concat(" ") :''}{doctorName}
 
         </>
     )

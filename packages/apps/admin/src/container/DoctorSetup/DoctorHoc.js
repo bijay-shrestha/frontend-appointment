@@ -4,13 +4,12 @@ import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware,
-    SalutationMiddleware
+    SalutationMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {CommonUtils, EnterKeyPressUtils,} from '@frontend-appointment/helpers'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {EnterKeyPressUtils,} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
-import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 
 const {
     clearConsultantCreateMessage,
@@ -187,13 +186,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         checkFormValidity = eventType => {
             const {
                 consultantData,
-                nameValid,
+                // nameValid,
                 contactValid,
                 //  emailValid,
                 appointmentChargeValid
             } = this.state
             let formValidity =
-                nameValid &&
+                // nameValid &&
                 contactValid &&
                 appointmentChargeValid &&
                 consultantData.appointmentCharge &&

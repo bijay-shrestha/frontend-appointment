@@ -10,7 +10,8 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 import * as DefaultProfileImage from '../img/picture.png'
-import {AuditableEntityHoc} from  '@frontend-appointment/commons'
+import {AuditableEntityHoc} from '@frontend-appointment/commons'
+
 const DetailsModal = ({type, doctorData}) => {
     let images;//,doctorName,code,mobileNumber,specilizationName,qualificationName,hospitalName,status,remarks,email,nmcNumber;
 
@@ -84,25 +85,32 @@ const DetailsModal = ({type, doctorData}) => {
                                             id="doctor-name"
                                             name="name"
                                             placeholder="Doctor Name"
-                                            value={
-                                                type === 'A' ? "Dr. " + doctorData.name : "Dr. " + doctorData.doctorName
-                                            }
+                                            value={type === 'A' ? doctorData.name : doctorData.doctorName}
                                             disabled={true}
                                         />
                                     </Col>
                                     <Col sm={12} md={6} lg={6}>
-                                        <CHybridSelect
-                                            id="salutation"
-                                            name="salutationList"
-                                            label="Salutation (optional)"
-                                            options={doctorData.salutationList}
-                                            value={doctorData.salutations}
-                                            required={true}
-                                            placeholder={ "Select Salutation." }
-                                            isDisabled={true}
-                                            isMulti={true}
-                                            className="multiple-select"
-                                        />
+                                        {type === 'A' ?
+                                            <CHybridSelect
+                                                id="salutation"
+                                                name="salutationList"
+                                                label="Salutation"
+                                                options={doctorData.salutationList}
+                                                value={doctorData.salutations}
+                                                required={true}
+                                                placeholder={"Select Salutation."}
+                                                isDisabled={true}
+                                                isMulti={true}
+                                                className="multiple-select"
+                                            />
+                                            :
+                                            <CHybridInput
+                                                id="salutation"
+                                                placeholder={"Salutation"}
+                                                value={doctorData.doctorSalutation || 'N/A'}
+                                                disabled={true}
+                                            />
+                                        }
                                     </Col>
 
                                     <Col sm={12} md={6} lg={6}>
@@ -280,7 +288,7 @@ const DetailsModal = ({type, doctorData}) => {
                                 </Row>
                                 <Row className="mt-4">
 
-                                {AuditableEntityHoc(doctorData)}
+                                    {AuditableEntityHoc(doctorData)}
                                 </Row>
                             </Col>
                         </Row>

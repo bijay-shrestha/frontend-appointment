@@ -112,8 +112,8 @@ const DoctorForm = ({
                                             placeholder="Doctor Name"
                                             value={doctorInfoObj.name}
                                             required={true}
-                                            hasValidation={true}
-                                            fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                                            // hasValidation={true}
+                                            // fieldValuePattern={/^[A-Za-z0-9. ]+$/}
                                             errorMessagePassed={errorMessageForDoctorName}
                                         />
                                     </Col>
