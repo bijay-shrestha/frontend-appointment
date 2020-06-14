@@ -4,11 +4,14 @@ import CTabsMenu from "./CTabsMenu";
 class CNavTabs extends PureComponent {
   state = {
     currentActiveTab: this.props.currentActiveTab
+    
   }
-  onToggle=(tab) => {
-    this.setState({
-      currentActiveTab:tab.id
+  onToggle= async(tab) => {
+    console.log("===",tab);
+    await this.setState({
+      currentActiveTab:tab.id||tab.value
     })
+    if(this.props.onClick) this.props.onClick(tab.id||tab.value,this.props.roster,this.props.departmentInfoId)
   }
   render () {
     const {
@@ -33,7 +36,7 @@ class CNavTabs extends PureComponent {
         tag={tag}
         className={customClass}
       >
-        <CTabsMenu tabs={roles} toggle={this.onToggle} currentTab = {currentActiveTab } />
+        <CTabsMenu tabs={roles} toggle={this.onToggle} currentTab = {currentActiveTab }/>
       </Nav>
     )
   }

@@ -176,7 +176,7 @@ export const fetchAppointmentStatusListByRoom = (path, data) => async dispatch =
   try {
     const response = await Axios.put(path, data)
     dispatch(
-      AppointmentDetailActions.appointmentStatusByRoomSearchPending(response.data)
+      AppointmentDetailActions.appointmentStatusByRoomSearchSuccess(response.data)
     )
     return response.data
   } catch (e) {

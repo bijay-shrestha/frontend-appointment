@@ -111,7 +111,6 @@ const appointmentStatusByDepartment = {
 
 const appointmentStatusByRoom = {
   apptRoomStatusInfo: [],
-  doctorRoomStatusInfo: [],
   isAppointmentStatusByRoomListLoading: false,
   isAppointmentStatusByRoomErrorMessage: ''
 }
@@ -158,7 +157,7 @@ export const AppointmenStatusByDepartmentListReducer = (
         ...state,
         apptStatusInfo: [],
         doctorStatusInfo: [],
-        isAppointmentStatusListLoading: false,
+        isAppointmentStatusListLoading: true,
         isAppointmentStatusErrorMessage: ''
       }
     case FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_SUCCESS:
@@ -190,15 +189,13 @@ export const AppointmenStatusByRoomListReducer = (
     case FETCH_APPOINTMENT_STATUS_BY_ROOM_PENDING:
       return {
         apptRoomStatusInfo: [],
-        doctorRoomStatusInfo:[],
-        isAppointmentStatusByRoomListLoading: false,
+        isAppointmentStatusByRoomListLoading: true,
         isAppointmentStatusByRoomErrorMessage: ''
       }
     case FETCH_APPOINTMENT_STATUS_BY_ROOM_SUCCESS:
       return {
         ...state,
-        apptRoomStatusInfo: action.payload.data.hospitalDeptAndDoctorInfo,
-        doctorRoomStatusInfo: action.payload.data.hospitalDeptAndDoctorInfo,
+        apptRoomStatusInfo: action.payload.data,
         isAppointmentStatusByRoomListLoading: false,
         isAppointmentStatusByRoomErrorMessage: ''
       }
@@ -206,7 +203,6 @@ export const AppointmenStatusByRoomListReducer = (
       return {
         ...state,
         apptRoomStatusInfo: [],
-        doctorRoomStatusInfo:[],
         isAppointmentStatusByRoomListLoading: false,
         isAppointmentStatusByRoomErrorMessage:action.payload.message
       }

@@ -1,23 +1,35 @@
-import React,{memo} from 'react'
+import React, {memo} from 'react'
 //import classnames from 'classnames'
-import {NavLink, NavItem } from 'reactstrap'
-import { Link } from 'react-router-dom'
+import {NavLink, NavItem,Button} from 'reactstrap'
+import {Link} from 'react-router-dom'
 //import PropTypes from 'prop-types'
 
 const CTabsMenu = props => {
-  const { currentTab, tabs, toggle } = props
-  const isActive =(tabId)=> Number(currentTab) === Number(tabId)
+  const {currentTab, tabs, toggle} = props
+  const isActive = tabId => Number(currentTab) === Number(tabId)
+
   const tabResult = tabs.map((tab, index) => (
     <NavItem key={tab.id}>
-      <NavLink
-        key={tab.name + index}
-        active={isActive(tab.id)}
+      {tab.url ? (
+        <NavLink
+          key={tab.name + index}
+          active={isActive(tab.id || tab.value)}
+          onClick={() => toggle(tab)}
+          tag={Link}
+          to={tab.url}
+        >
+          {tab.name || tab.label}
+        </NavLink>
+      ) : (
+        <Button
+        id="status-link-button"
+        variant="link"
+        className={isActive(tab.value) ? 'active' : ''}
         onClick={() => toggle(tab)}
-        tag={Link}
-        to={tab.url}
-      >
-        {tab.name}
-      </NavLink>
+        >
+        {tab.label}
+        </Button>
+      )}
     </NavItem>
   ))
 
