@@ -4,18 +4,18 @@ import {
     CLoading,
     CPagination
 } from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
+//import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
-import PreviewDetails from './AppointmentApprovalPreview'
+import PreviewDetails from './AppointmentFastCheckInPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption,PatientNameWithAgeGenderPhoneAddress} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
-import RejectModal from './RejectModal'
+//import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
+//import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-const {checkIfRoleExists}=ActionFilterUtils
+const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredActions}) => {
     const {
         isSearchLoading,
@@ -25,16 +25,16 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
         previewData,
         showModal,
         setShowModal,
-        rejectSubmitHandler,
-        rejectRemarksHandler,
+        // rejectSubmitHandler,
+        // rejectRemarksHandler,
         //onRejectHandler,
         approveHandler,
         approveHandleApi,
-        rejectError,
+        //rejectError,
         //isAppointmentRejectLoading,
-        transferHandler,
+        //transferHandler,
         approveConfirmationModal,
-        rejectModalShow,
+        //rejectModalShow,
         remarks,
         appointmentDetails,
         isConfirming
@@ -55,7 +55,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             height="460px"
                             enableSorting
                             editType
-                            rowHeight={50}
+                            rowHeight={70}
                             columnDefs={[
                                 {
                                     headerName: 'SN',
@@ -66,33 +66,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     editable: true,
                                     sizeColumnsToFit: true,
                                     cellClass: 'first-class',
-                                    width: 100
-                                },
-                                // {
-                                //     headerName: 'Date & Time',
-                                //     field: 'name',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     cellRenderer: 'AppointmentDateWithTime',
-                                //     width:"260"
-                                //   },
-
-                                {
-                                    headerName: 'Date',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
-                                {
-                                    headerName: 'Time',
-                                    field: 'appointmentTime',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 100
+                                    width: 80
                                 },
                                 {
                                     headerName: 'App. No',
@@ -102,7 +76,43 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120
+                                }, 
+                                {
+                                    headerName: 'Appt. Date & Time',
+                                    field: 'name',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentDateWithTime',
+                                    width:"160"
                                 },
+                                {
+                                    headerName: 'Patient Detail ',
+                                    field: 'patientDetails',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: "260",
+                                    height:"600",
+                                    cellRenderer: 'PatientNameWithMobileNumber'
+                                },  
+                               
+                                {
+                                    headerName: 'Doctor Detail',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'doctorwithSpecializationRenderer'
+                                },
+                                // {
+                                //     headerName: 'Time',
+                                //     field: 'appointmentTime',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: 100
+                                // },
+                                
                                 // {
                                 //   headerName: 'Esewa Id',
                                 //   field: 'esewaId',
@@ -110,14 +120,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 //   sortable: true,
                                 //   sizeColumnsToFit: true
                                 // },
-                                {
-                                    headerName: 'Reg  No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
+                                // {
+                                //     headerName: 'Reg  No',
+                                //     field: 'registrationNumber',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: 140
+                                // },
                                 // {
                                 //     headerName: 'Patient Name',
                                 //     field: 'patientName',
@@ -126,45 +136,28 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 //     sizeColumnsToFit: true
                                 // },
 
-                                {
-                                    headerName: 'Patient Detail ',
-                                    field: 'patientDetails',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140,
-                                    cellRenderer: 'PatientNameWithMobileNumber'
-                                },
-                                {
-                                    headerName: 'Doctor Detail',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer'
-                                },
-                                {
-                                    headerName: 'App. Amount',
-                                    field: 'appointmentAmount',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
+                              
+                               
+                                // {
+                                //     headerName: 'App. Amount',
+                                //     field: 'appointmentAmount',
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true
+                                // },
 
                                 {
-                                    headerName: '',
+                                    headerName: 'Action',
                                     action: 'action',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: '100',
+                                    width: '140',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
-                                            type === 'P'
-                                                ? // ? props.filteredActions.find(action => action.id === 5) &&
-                                                transferHandler(id)
-                                                : approveHandler(id)
+                                            approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         },
                                          filteredAction: filteredActions
@@ -173,7 +166,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableApproveAction,
+                                childActionRenderer: AppointmentQuickCheckInOption,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
@@ -189,7 +182,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     previewCall
                                 ),
                                 PatientNameWithMobileNumber: PreviewHandlerHoc(
-                                    PatientNameWithMobileNumber,
+                                    PatientNameWithAgeGenderPhoneAddress,
                                     null,
                                     null,
                                     null,
@@ -198,7 +191,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                             checkIfRoleExists(filteredActions, 4) &&
+                                checkIfRoleExists(filteredActions, 4) &&
                                 previewCall
                             }
                             rowSelection={'single'}
@@ -231,7 +224,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
             ) : (
                 ''
             )}
-            {rejectModalShow ? (
+            {/* {rejectModalShow ? (
                 <RejectModal
                     confirmationMessage="Are you sure you want to reject the Appointment?If yes please provide remarks."
                     modalHeader="Reject Appointment"
@@ -244,7 +237,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                 />
             ) : (
                 ''
-            )}
+            )} */}
             {approveConfirmationModal ? (
                 <CConfirmationModal
                     modalHeader="Confirm Check-In?"
