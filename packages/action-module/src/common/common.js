@@ -14,6 +14,8 @@ import * as WeekdaysActions from '../common/weekdays/weekdaysActions';
 import * as ForgotPasswordActions from '../common/forgotPasswordAndVerificationAction';
 import * as CountryActions from '../common/country/countryActions';
 import {countryActionConstants} from '../common/country/countryActionConstants';
+import * as SalutationAction from '../common/salutation/salutationAction';
+import {salutationActionConstants} from './salutation/salutationActionConstants';
 
 export {
     loginActionConstant,
@@ -29,5 +31,7 @@ export {
     ForgotPasswordActions,
     forgotPasswordAndVerificationConstants,
     countryActionConstants,
-    CountryActions
+    CountryActions,
+    SalutationAction,
+    salutationActionConstants
 }

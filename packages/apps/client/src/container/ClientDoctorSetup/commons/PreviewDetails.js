@@ -4,7 +4,7 @@ import DetailsModal from "./DetailsModal";
 
 const PreviewDetails = props => {
     const {showModal, setShowModal, doctorData} = props;
-    console.log('Doctor Data::',doctorData);
+
     return <>
         <CModal show={showModal}
                 modalHeading="Doctor Details"
@@ -17,7 +17,7 @@ const PreviewDetails = props => {
                 centered={false}
                 dialogClassName="preview-modal"
                 closeButton={true}
-               
+
                 />
     </>
 };

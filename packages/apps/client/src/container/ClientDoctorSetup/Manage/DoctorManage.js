@@ -57,7 +57,8 @@ const DoctorManage = props => {
              hospitalsForDropdown,
              activeSpecializationList,
              qualificationDropdown,
-             isConsultantEditLoading
+             isConsultantEditLoading,
+             salutationList
          }) => (
             <>
                 <div className="">
@@ -99,6 +100,7 @@ const DoctorManage = props => {
                 </div>
                 {showEditModal && (
                     <DoctorEditForm
+                        salutationList={salutationList}
                         showModal={showEditModal}
                         setShowModal={setShowModal}
                         onEnterKeyPress={handleEnter}

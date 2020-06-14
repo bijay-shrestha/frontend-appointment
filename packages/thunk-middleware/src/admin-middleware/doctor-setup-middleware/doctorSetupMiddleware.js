@@ -1,5 +1,6 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
+import {CommonUtils} from '@frontend-appointment/helpers'
 //import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
@@ -59,7 +60,8 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        dispatch(DoctorSetupActions.createConsultantSearchSuccess(response.data));
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data,queryParams.page,queryParams.size)
+        dispatch(DoctorSetupActions.createConsultantSearchSuccess(dataWithSn));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage || 'Sorry Internal Server Error'));

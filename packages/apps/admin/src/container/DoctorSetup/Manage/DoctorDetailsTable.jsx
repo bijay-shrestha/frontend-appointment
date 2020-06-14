@@ -16,7 +16,6 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
-        {console.log(props.searchData)}
         <h5 className="title">Doctor Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&

@@ -54,6 +54,7 @@ import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboar
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
 import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
+import * as SalutationMiddleware from './src/salutation-middleware/salutationMiddleware';
 
 export {
     AppointmentDetailsMiddleware,
@@ -114,4 +115,5 @@ export {
     BillingModeMiddleware,
     AppointmentServiceTypeMiddleware,
     AdminApiIntegrationMiddleware,
+    SalutationMiddleware
 }

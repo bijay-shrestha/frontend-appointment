@@ -3,7 +3,7 @@ import DetailsModal from '../commons/DetailsModal'
 import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
 const HospitalConfirmationModal = props => {
-    const {showModal, setShowModal, doctorData, onConfirmClick, type, createConsultantLoading} = props
+    const {showModal, setShowModal, doctorData, onConfirmClick, type, createConsultantLoading, salutationList} = props
     return (
         <>
             <CModal
@@ -12,7 +12,7 @@ const HospitalConfirmationModal = props => {
                 size="xl"
                 bodyChildren={
                     <DetailsModal
-                        doctorData={doctorData}
+                        doctorData={{...doctorData, salutationList: salutationList}}
                         type={type}
                     />
                 }

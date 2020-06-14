@@ -17,7 +17,7 @@ const DoctorWithSpecializationAndImage = props => {
       )}
 
       <ul className="di-details">
-        <li>Dr. {props.node.data.doctorName ||props.node.data.transferredToDoctor||''}</li>
+        <li> {props.node.data.doctorSalutation ? props.node.data.doctorSalutation.concat(" ") : ''} {props.node.data.doctorName ||props.node.data.transferredToDoctor||''}</li>
         <li>
           {props.node.data.specializationName ||
             props.node.data.specialization ||props.node.data.transferredToSpecialization||

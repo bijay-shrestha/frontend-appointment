@@ -1,4 +1,4 @@
-export const getUpdatedDataListForMultiSelect = (originalList, currentList, fieldName, rowIdField) => {
+export const getUpdatedDataListForMultiSelect = (originalList, currentList, fieldName, rowIdFieldName, removedItemStatus) => {
     let updatedDataList = [];
     // FIND NEW ADDED DATA
     currentList && currentList.map(currentItem => {
@@ -8,8 +8,8 @@ export const getUpdatedDataListForMultiSelect = (originalList, currentList, fiel
                 [fieldName.concat("Id")]: currentItem.value,
                 status: 'Y'
             };
-            if (rowIdField)
-                dataToAdd[rowIdField] = '';
+            if (rowIdFieldName)
+                dataToAdd[rowIdFieldName] = '';
             updatedDataList.push(dataToAdd)
         }
         return '';
@@ -21,10 +21,10 @@ export const getUpdatedDataListForMultiSelect = (originalList, currentList, fiel
         if (!originalItemInCurrentList) {
             let dataToAdd = {
                 [fieldName.concat("Id")]: originalItem.value,
-                status: 'D'
+                status: removedItemStatus ? removedItemStatus : 'D'
             };
-            if (rowIdField)
-                dataToAdd[rowIdField] = originalItem[rowIdField];
+            if (rowIdFieldName)
+                dataToAdd[rowIdFieldName] = originalItem[rowIdFieldName];
             updatedDataList.push(dataToAdd)
         }
         return '';

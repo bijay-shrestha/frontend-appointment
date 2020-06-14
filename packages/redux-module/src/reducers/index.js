@@ -96,6 +96,7 @@ import {
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
+import {SalutationDropdownReducer} from './common/salutationReducer'
 import {
     PatientDetailReducer,
     PatientDropdownListReducer,
@@ -304,6 +305,7 @@ export {
     QualificationSaveReducer,
     QualificationSearchReducer,
     RescheduleLogReducer,
+    SalutationDropdownReducer,
     SpecializationDeleteReducer,
     SpecializationDropdownReducer,
     SpecializationEditReducer,
