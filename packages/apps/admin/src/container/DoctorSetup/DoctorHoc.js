@@ -308,7 +308,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         qualificationIds: this.getOnlyValueFromMultipleSelectList(
                             qualificationIds
                         ),
-                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : null
+                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : []
                     },
                     formData
                 );
@@ -656,7 +656,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
-                        doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : null
+                        doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : []
                     },
                     formData
                 );
