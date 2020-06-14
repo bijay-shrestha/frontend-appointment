@@ -76,7 +76,9 @@ const DoctorDutyRosterPreviewModal = ({
                                 label="Doctor"
                                 name="doctor"
                                 placeholder="Doctor"
-                                value={doctorInfoData.doctor && doctorInfoData.doctor.label}
+                                value={doctorInfoData.doctor && (doctorInfoData.doctorSalutation ?
+                                    doctorInfoData.doctorSalutation.concat(" ") + doctorInfoData.doctor.label
+                                    : doctorInfoData.doctor.label)}
                                 disabled={true}
                             />
                             <CHybridInput

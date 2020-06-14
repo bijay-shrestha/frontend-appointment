@@ -107,7 +107,7 @@ const AppointmentStatusDetails = ({
       <div className="manage-details">
       <CScrollbar id="sidebar-scrollbar">
         <Container fluid>
-         
+
           {!isStatusListLoading &&
           !searchErrorMessage &&
           appointmentStatusDetails.length ? (
@@ -140,7 +140,7 @@ const AppointmentStatusDetails = ({
                       )}
                     </div>
                     <p className="doctor-details">
-                      <span>Dr. {appointmentStatusDetail.doctorName}</span>
+                      <span>{appointmentStatusDetail.doctorSalutation || ''}  {appointmentStatusDetail.doctorName}</span>
                       <br />
                       {appointmentStatusDetail.specializationName}
                     </p>
