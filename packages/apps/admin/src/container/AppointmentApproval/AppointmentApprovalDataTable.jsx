@@ -1,5 +1,6 @@
 import React, {memo} from 'react';
 import {
+    AppointmentNumberWithCopyToClipboardForTable,
     CDataTable,
     CLoading,
     CPagination
@@ -104,7 +105,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 120
+                                    width: 120,
+                                    cellRenderer:'appointmentNumberRenderer'
                                 },
                                 // {
                                 //   headerName: 'Esewa Id',
@@ -184,9 +186,11 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
+                                appointmentNumberRenderer:AppointmentNumberWithCopyToClipboardForTable,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage,null,null,null,previewCall),
                                 AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
-                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall)
+                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall),
+                                // appointmentNumberRenderer:PreviewHandlerHoc(AppointmentNumberWithCopyToClipboardForTable,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
@@ -241,6 +245,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
             {approveConfirmationModal ? (
                 <CConfirmationModal
                     modalHeader="Confirm Check-In?"
+                    appointmentDetails={appointmentDetails}
                     modalBody={<CheckInModalContent appointmentDetails={appointmentDetails}/>}
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
