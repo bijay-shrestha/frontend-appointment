@@ -601,6 +601,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 } else {
                     this.setState({
                         thirdPartyApiErrorMessage: successResponse.responseMessage
+                        approveConfirmationModal: true,
                     })
                 }
             } catch (e) {
