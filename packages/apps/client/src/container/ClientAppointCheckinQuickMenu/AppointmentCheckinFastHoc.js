@@ -484,7 +484,6 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
-                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
@@ -601,7 +600,6 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 } else {
                     this.setState({
                         thirdPartyApiErrorMessage: successResponse.responseMessage,
-                        approveConfirmationModal: true,
                     })
                 }
             } catch (e) {
