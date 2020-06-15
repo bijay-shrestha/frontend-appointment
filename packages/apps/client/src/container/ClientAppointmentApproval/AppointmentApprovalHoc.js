@@ -583,7 +583,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             })
             // sabu
             let requestDTO;
-
             try {
                 const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
                     apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE);
