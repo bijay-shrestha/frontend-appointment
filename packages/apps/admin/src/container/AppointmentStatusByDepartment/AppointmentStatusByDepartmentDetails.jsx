@@ -192,13 +192,13 @@ const AppointmentStatusDetails = ({
                             appointmentStatusDetail.hospitalDepartmentRoomInfoId
                           }
                           onClick={onChangeRoom}
-                          roster={appointmentStatusDetail.hospitalDepartmentDutyRosterId}
                           departmentInfoId={{
                             value: appointmentStatusDetail.hospitalDepartmentId,
                             label:
                               appointmentStatusDetail.hospitalDepartmentName
                           }}
                           uniqueIdentifier={appointmentStatusDetail.uniqueIdentifier}
+                          date={appointmentStatusDetail.date}
                         />
                       </div>
                       <h5 className="title">Appointment Slots</h5>

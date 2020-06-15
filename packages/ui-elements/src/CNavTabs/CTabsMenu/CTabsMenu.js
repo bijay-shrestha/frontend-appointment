@@ -1,6 +1,6 @@
 import React, {memo} from 'react'
 //import classnames from 'classnames'
-import {NavLink, NavItem,Button} from 'reactstrap'
+import {NavLink, NavItem} from 'reactstrap'
 import {Link} from 'react-router-dom'
 //import PropTypes from 'prop-types'
 
@@ -14,21 +14,21 @@ const CTabsMenu = props => {
         <NavLink
           key={tab.name + index}
           active={isActive(tab.id || tab.value)}
-          onClick={() => toggle(tab)}
+          onClick={(e) => toggle(e,tab)}
           tag={Link}
           to={tab.url}
         >
           {tab.name || tab.label}
         </NavLink>
       ) : (
-        <Button
-        id="status-link-button"
-        variant="link"
-        className={isActive(tab.value) ? 'active' : ''}
+        <NavLink
+        id={tab.name + index}
+        active={isActive(tab.id || tab.value)}
         onClick={(e) => toggle(e,tab)}
+        href="#"
         >
         {tab.label}
-        </Button>
+        </NavLink>
       )}
     </NavItem>
   ))

@@ -86,7 +86,10 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         hospitalDepartmentRoomInfoId: '',
         status: '',
         hospitalDepartmentRosterId: '',
-        uniqueIdentifier: ''
+        uniqueIdentifier: '',
+        roomFromDate:'',
+        roomToDate:''
+
       },
       showModal: false,
       appointmentStatusDetails: [],
@@ -110,21 +113,18 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
       searchStatusLoading: ''
     }
 
-    onChangeRoom = async (roomId, rosterId, departmentId, uniqueIdentifier) => {
+    onChangeRoom = async (roomId, departmentId, uniqueIdentifier,date) => {
       await this.handleSearchFormChange(
         {target: {name: 'hospitalDepartmentRoomInfoId', value: roomId}},
         ''
       )
-      await this.handleSearchFormChange({
-        target: {name: 'hospitalDepartmentRosterId', value: rosterId}
-      })
       await this.handleSearchFormChange({target: {...departmentId}})
 
       await this.handleSearchFormChange({
         target: {name: 'uniqueIdentifier', value: uniqueIdentifier}
       })
 
-      this.searchAppointmentStatus('C', roomId, rosterId, departmentId)
+      this.searchAppointmentStatus('C', roomId, departmentId,date)
     }
 
     fetchHospitalForDropDown = async () => {
@@ -188,7 +188,10 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
           //doctorId: '',
           hospitalDepartmentId: '',
           hospitalDepartmentRoomInfoId: '',
-          status: ''
+          status: '',
+          uniqueIdentifier: '',
+          roomFromDate:'',
+          roomToDate:''
         },
         statusDetails: [],
         errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
@@ -500,7 +503,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
       return changedApptStatusList
     }
 
-    searchAppointmentStatus = async (type, roomId, rosterId, departmentId) => {
+    searchAppointmentStatus = async (type, roomId,departmentId,date) => {
       const {
         fromDate,
         toDate,
@@ -509,7 +512,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         //hospitalDepartmentRosterId,
         status
       } = this.state.searchParameters
-      await this.setState({
+      if(type!=='C')
+       this.setState({
         appointmentStatusDetails: [],
         searchErrorMessage: '',
         searchStatusLoading: true
@@ -518,8 +522,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
       if (this.isSearchParametersValid()) {
         let searchData = {
-          fromDate,
-          toDate,
+          fromDate:type!=='C'?fromDate:date,
+          toDate:type!=='C'?toDate:date,
           hospitalId: hospitalId.value || '',
           hospitalDepartmentId:
             type !== 'C'
