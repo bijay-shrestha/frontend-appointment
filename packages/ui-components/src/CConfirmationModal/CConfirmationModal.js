@@ -1,6 +1,5 @@
 import React from 'react'
-import {CButton, CCopyToClipboard, CModal} from '@frontend-appointment/ui-elements'
-import {Button} from 'react-bootstrap'
+import {CButton, CModal} from '@frontend-appointment/ui-elements'
 
 const ConfirmationModal = ({
                                onConfirm,
@@ -11,25 +10,20 @@ const ConfirmationModal = ({
                                setShowModal,
                                isConfirming,
                                isDisabled,
-                               appointmentDetails
+                               // appointmentDetails
                            }) => {
     let footer = (
         <>
             <div>
-                <CCopyToClipboard
-                    id="appointmentNumber"
-                    textToCopy={appointmentDetails.appointmentNumber}
-                    children={
-                        <Button
-                            variant="primary"
-                            size="lg"
-                            className="float-right  btn-action ml-2"
-                            disabled={isConfirming || isDisabled}
-                            isLoading={isConfirming}
-                            name={"Confirm"}
-                            onClickHandler={onConfirm}
-                        />
-                    }/>
+                <CButton
+                    variant="primary"
+                    size="lg"
+                    className="float-right  btn-action ml-2"
+                    disabled={isConfirming || isDisabled}
+                    isLoading={isConfirming}
+                    name={"Confirm"}
+                    onClickHandler={onConfirm}
+                />
                 <CButton
                     variant="light"
                     size="lg"

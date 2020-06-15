@@ -1,20 +1,18 @@
 import React from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {Alert} from 'react-bootstrap'
+import {Toast} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 
 class CCopyToClipboard extends React.PureComponent {
     state = {
-        copied: false,
         showAlert: false,
     }
 
-    handleOnCopy = event => {
+    handleOnCopy = (text, result) => {
         this.setState({
-            copied: true,
             showAlert: true
         });
-        this.props.onCopy && this.props.onCopy(event);
+        this.props.onCopy && this.props.onCopy(text,result);
     }
 
     closeAlert = () => {
@@ -24,23 +22,19 @@ class CCopyToClipboard extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.setState({
-            copied: false
-        })
     }
 
     render() {
         const {
             id,
-            onCopy,
             textToCopy,
             children,
-            options
+            options,
+            toastDelayTime
         } = this.props
 
         const {
-            showAlert,
-            copied
+            showAlert
         } = this.state;
         return <>
             <CopyToClipboard
@@ -51,17 +45,27 @@ class CCopyToClipboard extends React.PureComponent {
                 {children}
             </CopyToClipboard>
 
-            <Alert
-                id={"alert".concat(id)}
-                variant={'primary'}
-                onClose={this.closeAlert}
-                show={showAlert}
-                dismissible>
-                {/*<Alert.Heading>{alertType}</Alert.Heading>*/}
-                <p>
-                    {`Copied ${textToCopy} to clipboard!`}
-                </p>
-            </Alert>
+            {/*<Alert*/}
+            {/*    id={"alert".concat(id)}*/}
+            {/*    variant={'primary'}*/}
+            {/*    onClose={this.closeAlert}*/}
+            {/*    show={showAlert}*/}
+            {/*    dismissible>*/}
+            {/*    /!*<Alert.Heading>{alertType}</Alert.Heading>*!/*/}
+            {/*    <p>*/}
+            {/*        {`Copied ${textToCopy} to clipboard!`}*/}
+            {/*    </p>*/}
+            {/*</Alert>*/}
+
+            <Toast onClose={() => this.closeAlert()}
+                   show={showAlert}
+                   delay={toastDelayTime ? toastDelayTime : 5000}
+                   autohide>
+                <Toast.Header>
+                    <strong className="mr-auto">Copied!</strong>
+                </Toast.Header>
+                <Toast.Body>  {`Copied ${textToCopy} to clipboard!`}</Toast.Body>
+            </Toast>
         </>
     }
 

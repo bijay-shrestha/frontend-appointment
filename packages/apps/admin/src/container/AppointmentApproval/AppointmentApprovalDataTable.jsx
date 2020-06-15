@@ -6,7 +6,7 @@ import {
     CPagination
 } from '@frontend-appointment/ui-elements';
 import {
-  //  ConfirmDelete,
+    //  ConfirmDelete,
     CConfirmationModal,
     DoctorWithSpecImage
 } from '@frontend-appointment/ui-components';
@@ -16,7 +16,7 @@ import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber';
-import PreviewHandlerHoc  from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 
 
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
@@ -41,7 +41,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
         appointmentDetails,
         isConfirming,
         transferHandler
-       // filteredActions
+        // filteredActions
     } = tableHandler;
     const {queryParams, totalRecords, handlePageChange} = paginationProps;
     return (
@@ -106,7 +106,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120,
-                                    cellRenderer:'appointmentNumberRenderer'
+                                    cellRenderer: 'appointmentNumberRenderer'
                                 },
                                 // {
                                 //   headerName: 'Esewa Id',
@@ -146,7 +146,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer',
-                                    width:300
+                                    width: 300
                                 },
                                 // {
                                 //   headerName: 'Transaction Number',
@@ -156,11 +156,11 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 //   sizeColumnsToFit: true
                                 // },
                                 {
-                                  headerName: 'App. Amount',
-                                  field: 'appointmentAmount',
-                                  resizable: true,
-                                  sortable: true,
-                                  sizeColumnsToFit: true
+                                    headerName: 'App. Amount',
+                                    field: 'appointmentAmount',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
                                 },
                                 {
                                     headerName: '',
@@ -175,7 +175,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                         onClick: function (e, id, type) {
                                             type === 'P'
                                                 // ? props.filteredActions.find (action => action.id === 5) &&
-                                                ?transferHandler(id)
+                                                ? transferHandler(id)
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         },
@@ -186,15 +186,15 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                appointmentNumberRenderer:AppointmentNumberWithCopyToClipboardForTable,
-                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage,null,null,null,previewCall),
-                                AppointmentDateWithTime:PreviewHandlerHoc(AppointmentDateWithTime,null,null,null,previewCall),
-                                PatientNameWithMobileNumber:PreviewHandlerHoc(PatientNameWithMobileNumber,null,null,null,previewCall),
+                                appointmentNumberRenderer: AppointmentNumberWithCopyToClipboardForTable,
+                                doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
+                                AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
+                                PatientNameWithMobileNumber: PreviewHandlerHoc(PatientNameWithMobileNumber, null, null, null, previewCall),
                                 // appointmentNumberRenderer:PreviewHandlerHoc(AppointmentNumberWithCopyToClipboardForTable,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                                // checkIfRoleExists(props.filteredActions, 4) &&
+                                //     // checkIfRoleExists(props.filteredActions, 4) &&
                                 previewCall
                             }
                             rowSelection={'single'}
