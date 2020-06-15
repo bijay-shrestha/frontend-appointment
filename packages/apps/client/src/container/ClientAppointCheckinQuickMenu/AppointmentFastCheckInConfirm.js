@@ -11,7 +11,7 @@ const AppointmentFastCheckInConfirm = ({
 
     const bodyContent = <>
         <Container-fluid>
-            <CForm className="mt-2">
+            <CForm id ="quick-checkin" className="mt-2">
                 <Container-fluid>
                     <Row className="d-flex justify-content-center">
 
