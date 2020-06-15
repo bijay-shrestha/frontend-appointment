@@ -628,7 +628,14 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: successResponse.responseMessage
+                        thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.responseMessage
+                                || "Could not access third party api."
+                        }
                     })
                 }
             } catch (e) {
