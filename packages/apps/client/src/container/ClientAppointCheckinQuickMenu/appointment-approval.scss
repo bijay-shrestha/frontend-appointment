@@ -177,6 +177,10 @@
         font-size: 0.9rem;
         font-weight: 500;
         background-color: darken($primary,10%);
+
+        .fa-sign-in{
+            color:$white !important;
+        }
     }
 
 
@@ -184,7 +188,10 @@
 }
 
 .quick-checkin{
-    margin-top:14px;
+    margin-top:10px;  
+    width:40px;
+    height: 40px;
+    padding:0;
     .fa-sign-in{
         color:$white !important;
     }
@@ -199,6 +206,7 @@
 
 .quick-checkin-table{
     font-size: 14px;
+   
 
     
 .ag-header {

@@ -14,7 +14,7 @@ const AppointmentQuickCheckInOption = props => {
         onClick(e, props.node.data.id || props.node.data, 'C')
       }
     >
-    <i className="fa fa-sign-in"></i> &nbsp;</CButton>
+    <i className="fa fa-sign-in"></i></CButton>
   ) : null
 }
 export default AppointmentQuickCheckInOption;
