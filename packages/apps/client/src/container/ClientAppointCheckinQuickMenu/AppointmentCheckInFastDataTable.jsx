@@ -38,7 +38,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                 appointmentApprovalList.length ? (
                     <>
                         <CDataTable
-                            classes="ag-theme-balham"
+                            classes="ag-theme-balham quick-checkin-table"
                             id="roles-table"
                             width="100%"
                             height="460px"
