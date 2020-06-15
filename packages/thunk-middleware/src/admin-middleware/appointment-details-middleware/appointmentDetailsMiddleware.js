@@ -69,6 +69,7 @@ export const thirdPartyApiCall = async (data, featureTypeCode) => {
             if (option)
                 if (APIUtils.checkIntegrationChannelIsFrontend(option.integrationChannelCode)) {
                     response = await Axios.dynamicMethod(option.requestOption)
+                    apiRequestBody.integrationChannelCode = currentFeatureApiIntegrationDetails.integrationChannelCode
                     return {successResponse: response.data, apiRequestBody};
                 }
         } catch (e) {
