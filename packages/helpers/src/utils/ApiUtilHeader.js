@@ -36,13 +36,13 @@ export const constructApiFromEcIntegration = (
   integratedData,
   dataPassed
 ) => {
-  let option = null
+  let option = {}
   integratedData.features.map(feature => {
     const {apiInfo,featureCode,integrationChannelCode}=feature;
     if(checkIntegrationChannelIsFrontend(integrationChannelCode)){
       option = constructOptionForApi(apiInfo,featureTypeCode,featureCode,dataPassed)
       option.integrationChannelCode=integrationChannelCode
-    }  
+    }
     else{
       option.integrationChannelCode=integrationChannelCode
     }
@@ -67,7 +67,7 @@ export const constructOptionForApi = (apiInfo, featureTypeCode,featureCode, data
   const urlWithParams = convertObjectToRequestParam(url, queryParameters)
   if (featureTypeCode === featureCode)
     if (method.includes('post')) {
-      data=putObjectValueByKey(requestBody,dataPassed) 
+      data=putObjectValueByKey(requestBody,dataPassed)
     }
     option=constructOption(method,headers,urlWithParams,data);
 

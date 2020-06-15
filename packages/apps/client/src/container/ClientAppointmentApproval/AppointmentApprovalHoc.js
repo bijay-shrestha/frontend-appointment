@@ -486,7 +486,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
-                    ...this.props.AppointmentDetailReducer.appointmentDetail
+                    ...this.props.AppointmentDetailReducer.appointmentDetail,
+                    age: this.props.AppointmentDetailReducer.appointmentDetail.age ?
+                        this.props.AppointmentDetailReducer.appointmentDetail.age :"0 years"
                 }
             })
         }
@@ -610,7 +612,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                         variant: 'danger',
                         message:
                             this.props.AppointmentApproveReducer.approveErrorMessage ||
-                            e.message
+                            e.message || e.errorMessage || "Could not access third party api."
                     }
                 })
             } finally {
