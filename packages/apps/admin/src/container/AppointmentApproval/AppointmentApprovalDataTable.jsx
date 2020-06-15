@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {CCopyToClipboard, CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
 import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import PreviewDetails from './AppointmentApprovalPreview';
