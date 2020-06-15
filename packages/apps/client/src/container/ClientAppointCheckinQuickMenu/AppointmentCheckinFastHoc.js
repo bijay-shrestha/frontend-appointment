@@ -617,7 +617,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 })
             } finally {
                 await this.searchAppointment()
-                this.setShowModal()
+                // this.setShowModal()
             }
         }
 
