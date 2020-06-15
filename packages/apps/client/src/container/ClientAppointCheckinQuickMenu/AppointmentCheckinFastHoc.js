@@ -600,7 +600,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: successResponse.responseMessage
+                        thirdPartyApiErrorMessage: successResponse.responseMessage,
                         approveConfirmationModal: true,
                     })
                 }
