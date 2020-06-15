@@ -7,7 +7,7 @@ import {
     PatientDetailsMiddleware,
     AppointmentTransferMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, apiIntegrationFeatureTypeCodes} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 //import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
@@ -484,7 +484,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
-                // approveConfirmationModal: true,
+                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
@@ -581,52 +581,61 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             this.setState({
                 isConfirming: true
             })
+            let requestDTO;
 
             try {
-                const response = await thirdPartyApiCall(this.state.appointmentDetails)
-                if (!response) {
-                    await this.props.appointmentApprove(
-                        appointmentSetupApiConstant.APPOINTMENT_APPROVE,
-                        this.state.appointmentDetails.appointmentId
-                    )
-                    this.setState({
-                        isConfirming: false,
-                        approveConfirmationModal: true,
-                        // showAlert: true,
-                        // alertMessageInfo: {
-                        //     variant: 'success',
-                        //     message: this.props.AppointmentApproveReducer
-                        //         .approveSuccessMessage
-                        // }
-                    })
-                    this.approveHandler()
-                } else if (response.responseData && !response.responseMessage) {
-                    const status = this.state.appointmentDetails.hospitalNumber
-                        ? false
-                        : true
-                    await this.props.appointmentApproveIntegration(
-                        appointmentSetupApiConstant.APPOINTMENT_APPROVE_INTEGRATION,
-                        {
-                            appointmentId: this.state.appointmentDetails.appointmentId,
-                            hospitalNumber: response.responseData,
-                            status: status
-                        }
-                    )
-                    this.setState({
-                        isConfirming: false,
-                        approveConfirmationModal: true,
-                        // showAlert: true,
-                        // alertMessageInfo: {
-                        //     variant: 'success',
-                        //     message: this.props.AppointmentApproveReducer
-                        //         .approveSuccessMessage
-                        // }
-                    })
+                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
+                    apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE);
+                requestDTO = {
+                    appointmentId: this.state.appointmentDetails.appointmentId,
+                    hospitalNumber: '',
+                    patientStatus: this.state.appointmentDetails.hospitalNumber ? false : true,
+                    ...apiRequestBody
+                }
+                if (!successResponse) {
+                    requestDTO.hospitalNumber = null
+                    this.approveApiCall(requestDTO)
+                } else if (successResponse.responseData && !successResponse.responseMessage) {
+                    requestDTO.hospitalNumber = successResponse.responseData
+                    this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: response.responseMessage
+                        thirdPartyApiErrorMessage: successResponse.responseMessage
                     })
                 }
+            } catch (e) {
+                this.setState({
+                    isConfirming: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message:
+                            this.props.AppointmentApproveReducer.approveErrorMessage ||
+                            e.message || e.errorMessage || "Could not access third party api."
+                    }
+                })
+            } finally {
+                await this.searchAppointment()
+                this.setShowModal()
+            }
+        }
+
+        approveApiCall = async (requestDTO) => {
+            try {
+                await this.props.appointmentApprove(
+                    appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+                    requestDTO
+                )
+                this.setState({
+                    isConfirming: false,
+                    approveConfirmationModal: true,
+                    // showAlert: true,
+                    // alertMessageInfo: {
+                    //     variant: 'success',
+                    //     message: this.props.AppointmentApproveReducer
+                    //         .approveSuccessMessage
+                    // }
+                })
             } catch (e) {
                 this.setState({
                     isConfirming: false,
@@ -638,9 +647,6 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
-            } finally {
-                await this.searchAppointment()
-                this.setShowModal()
             }
         }
 
