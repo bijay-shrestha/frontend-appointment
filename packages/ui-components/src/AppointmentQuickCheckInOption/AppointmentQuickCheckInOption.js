@@ -7,14 +7,14 @@ const AppointmentQuickCheckInOption = props => {
   return checkIfRoleExists(filteredAction, 14) ? (
     <CButton
       variant="primary"
-      size="lg"
+      size="sm"
       className="btn-action ml-2 quick-checkin"
       name=""
       onClickHandler={e =>
         onClick(e, props.node.data.id || props.node.data, 'C')
       }
     >
-    <i className="fa fa-sign-in"></i> &nbsp;Check-In</CButton>
+    <i className="fa fa-sign-in"></i> &nbsp;</CButton>
   ) : null
 }
 export default AppointmentQuickCheckInOption;
