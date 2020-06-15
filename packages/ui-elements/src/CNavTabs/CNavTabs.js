@@ -6,12 +6,13 @@ class CNavTabs extends PureComponent {
     currentActiveTab: this.props.currentActiveTab
     
   }
-  onToggle= async(tab) => {
+  onToggle= async(e,tab) => {
+    e.preventDefault()
     console.log("===",tab);
     await this.setState({
       currentActiveTab:tab.id||tab.value
     })
-    if(this.props.onClick) this.props.onClick(tab.id||tab.value,this.props.roster,this.props.departmentInfoId)
+    if(this.props.onClick) this.props.onClick(tab.id||tab.value,this.props.roster,this.props.departmentInfoId,this.props.uniqueIdentifier)
   }
   render () {
     const {

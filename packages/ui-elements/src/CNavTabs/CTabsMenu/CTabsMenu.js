@@ -25,7 +25,7 @@ const CTabsMenu = props => {
         id="status-link-button"
         variant="link"
         className={isActive(tab.value) ? 'active' : ''}
-        onClick={() => toggle(tab)}
+        onClick={(e) => toggle(e,tab)}
         >
         {tab.label}
         </Button>

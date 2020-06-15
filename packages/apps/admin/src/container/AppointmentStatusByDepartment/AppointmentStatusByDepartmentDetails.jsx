@@ -198,6 +198,7 @@ const AppointmentStatusDetails = ({
                             label:
                               appointmentStatusDetail.hospitalDepartmentName
                           }}
+                          uniqueIdentifier={appointmentStatusDetail.uniqueIdentifier}
                         />
                       </div>
                       <h5 className="title">Appointment Slots</h5>
