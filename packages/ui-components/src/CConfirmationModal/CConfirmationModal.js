@@ -10,7 +10,6 @@ const ConfirmationModal = ({
                                setShowModal,
                                isConfirming,
                                isDisabled,
-                               // appointmentDetails
                            }) => {
     let footer = (
         <>
