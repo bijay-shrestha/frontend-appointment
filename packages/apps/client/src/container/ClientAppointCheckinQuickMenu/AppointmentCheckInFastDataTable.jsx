@@ -1,5 +1,6 @@
 import React, {memo} from 'react'
 import {
+    AppointmentNumberWithCopyToClipboardForTable,
     CDataTable,
     CLoading,
     CPagination
@@ -75,8 +76,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 120
-                                }, 
+                                    width: 120,
+                                    cellRenderer:'appointmentNumberRenderer'
+                                },
                                 {
                                     headerName: 'Appt. Date & Time',
                                     field: 'name',
@@ -95,8 +97,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     width: "260",
                                     height:"600",
                                     cellRenderer: 'PatientNameWithMobileNumber'
-                                },  
-                               
+                                },
+
                                 {
                                     headerName: 'Doctor Detail',
                                     resizable: true,
@@ -112,7 +114,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 //     sizeColumnsToFit: true,
                                 //     width: 100
                                 // },
-                                
+
                                 // {
                                 //   headerName: 'Esewa Id',
                                 //   field: 'esewaId',
@@ -136,8 +138,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                 //     sizeColumnsToFit: true
                                 // },
 
-                              
-                               
+
+
                                 // {
                                 //     headerName: 'App. Amount',
                                 //     field: 'appointmentAmount',
@@ -167,6 +169,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: AppointmentQuickCheckInOption,
+                                appointmentNumberRenderer: AppointmentNumberWithCopyToClipboardForTable,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
