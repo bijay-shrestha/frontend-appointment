@@ -441,23 +441,23 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
     filterAndChangeValueForRoomAndTimeSlot = filterValuesList => {
       const changedApptStatusList = []
-    if(filterValuesList.length)  
-    this.state.appointmentStatusDetailsCopy.map(apptDetail => {
-        const roomChosedValue = filterValuesList[0]
-        if (
-          (Number(roomChosedValue.hospitalDepartmentRoomInfoId) ===
-          Number(this.state.searchParameters.hospitalDepartmentRoomInfoId))//&&(roomChosedValue.weekDayName===apptDetail.weekDayName)
-        )
-          changedApptStatusList.push({
-            ...apptDetail,
-            hospitalDepartmentRoomInfoId:
-              roomChosedValue.hospitalDepartmentRoomInfoId,
-            roomNumber: roomChosedValue.roomNumber,
-            appointmentTimeSlots: roomChosedValue.appointmentTimeSlots
-          })
-        else changedApptStatusList.push(apptDetail)
-        return apptDetail
-      })
+      if (filterValuesList.length)
+        this.state.appointmentStatusDetailsCopy.map(apptDetail => {
+          const roomChosedValue = filterValuesList[0]
+          if (
+            Number(roomChosedValue.hospitalDepartmentRoomInfoId) ===
+            Number(this.state.searchParameters.hospitalDepartmentRoomInfoId) //&&(roomChosedValue.weekDayName===apptDetail.weekDayName)
+          )
+            changedApptStatusList.push({
+              ...apptDetail,
+              hospitalDepartmentRoomInfoId:
+                roomChosedValue.hospitalDepartmentRoomInfoId,
+              roomNumber: roomChosedValue.roomNumber,
+              appointmentTimeSlots: roomChosedValue.appointmentTimeSlots
+            })
+          else changedApptStatusList.push(apptDetail)
+          return apptDetail
+        })
       return changedApptStatusList
     }
 
@@ -471,9 +471,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         status
       } = this.state.searchParameters
       await this.setState({
-        appointmentStatusDetails:[],
-        searchErrorMessage:'',
-        searchStatusLoading:true
+        appointmentStatusDetails: [],
+        searchErrorMessage: '',
+        searchStatusLoading: true
       })
       let searchErrorMessage, searchStatusLoading
 
@@ -526,8 +526,10 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             //   ]
             // }   isAppointmentStatusByRoomListLoading,
             searchErrorMessage = this.props
-              .AppointmenStatusByDepartmentListReducer.isAppointmentStatusErrorMessage
-            searchStatusLoading = this.props.AppointmenStatusByDepartmentListReducer
+              .AppointmenStatusByDepartmentListReducer
+              .isAppointmentStatusErrorMessage
+            searchStatusLoading = this.props
+              .AppointmenStatusByDepartmentListReducer
               .isAppointmentStatusListLoading
           } else {
             await this.props.fetchAppointmentStatusListByRoom(
@@ -542,14 +544,12 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             appointmentStatusList = this.filterAndChangeValueForRoomAndTimeSlot(
               apptStatusInfo
             )
-            searchErrorMessage = this.props
-              .AppointmenStatusByRoomListReducer
+            searchErrorMessage = this.props.AppointmenStatusByRoomListReducer
               .isAppointmentStatusByRoomErrorMessage
-            searchStatusLoading = this.props
-              .AppointmenStatusByRoomListReducer
+            searchStatusLoading = this.props.AppointmenStatusByRoomListReducer
               .isAppointmentStatusByRoomListLoading
           }
-          console.log('=======', searchErrorMessage+""+searchStatusLoading)
+          console.log('=======', searchErrorMessage + '' + searchStatusLoading)
           await this.setState({
             appointmentStatusDetails: appointmentStatusList,
             appointmentStatusDetailsCopy: appointmentStatusList,
