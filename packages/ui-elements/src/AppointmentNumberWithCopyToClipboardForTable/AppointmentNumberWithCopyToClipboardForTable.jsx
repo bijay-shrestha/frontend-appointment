@@ -6,7 +6,7 @@ const AppointmentNumberWithCopyToClipboardForTable = (props) => {
 
     return <>
         <div className="di-column">
-            {appointmentNumber ?
+            { appointmentNumber ?
                 <CCopyToClipboard
                     id={"appointmentNumber"}
                     textToCopy={appointmentNumber}

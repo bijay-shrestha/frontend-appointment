@@ -7,7 +7,7 @@ const AppointmentCheckInFastLog = props => {
   const AppoinmentCheckInFast = AppointmentCheckInFastHoc(
     ({searchHandler, paginationProps, tableHandler}) => (
       <>
-        <Row >
+        <Row className="quick-search">
           <Col lg ={{span:8,offset:2}}className="search-bar">
             <div  className="appt-search">
             <CHybridInput

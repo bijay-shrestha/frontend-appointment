@@ -8,6 +8,7 @@ import {
 //import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentFastCheckInPreview'
+import AppointmentFastCheckInConfirm from './AppointmentFastCheckInConfirm'
 
 import {CConfirmationModal,DoctorWithSpecImage,AppointmentQuickCheckInOption,PatientNameWithAgeGenderPhoneAddress} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
@@ -105,40 +106,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorwithSpecializationRenderer'
-                                },
-                                // {
-                                //     headerName: 'Time',
-                                //     field: 'appointmentTime',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: 100
-                                // },
-
-                                // {
-                                //   headerName: 'Esewa Id',
-                                //   field: 'esewaId',
-                                //   resizable: true,
-                                //   sortable: true,
-                                //   sizeColumnsToFit: true
-                                // },
-                                // {
-                                //     headerName: 'Reg  No',
-                                //     field: 'registrationNumber',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: 140
-                                // },
-                                // {
-                                //     headerName: 'Patient Name',
-                                //     field: 'patientName',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
-
-
+                                },   
 
                                 // {
                                 //     headerName: 'App. Amount',
@@ -243,9 +211,10 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
             )} */}
             {approveConfirmationModal ? (
                 <CConfirmationModal
-                    modalHeader="Confirm Check-In?"
+                    modalHeader="The appointment Checked-In Successfully?"
                     modalBody={
-                        <CheckInModalContent appointmentDetails={appointmentDetails}/>
+                        <AppointmentFastCheckInConfirm/>
+                        // <CheckInModalContent appointmentDetails={appointmentDetails}/>
                     }
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
@@ -253,6 +222,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                     onConfirm={approveHandleApi}
                     onCancel={setShowModal}
                     isConfirming={isConfirming}
+                    
                 />
             ) : (
                 ''
