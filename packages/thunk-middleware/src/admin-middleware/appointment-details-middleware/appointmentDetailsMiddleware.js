@@ -1,6 +1,6 @@
 import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
-import {APIUtils} from '@frontend-appointment/helpers'
+import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 // import axios from 'axios'
 // import headers from '@frontend-appointment/core/src/axios/axios-helper/headers'
@@ -36,8 +36,13 @@ export const fetchAppointmentApprovalList = (
     dispatch(AppointmentDetailActions.appointmentApprovalFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.pendingAppointmentApprovals,
+            pagination.page, pagination.size);
         dispatch(
-            AppointmentDetailActions.appointmentApprovalFetchingSuccess(response.data)
+            AppointmentDetailActions.appointmentApprovalFetchingSuccess({
+                pendingAppointmentApprovals: dataWithSn,
+                totalItems: response.data.totalItems
+            })
         )
     } catch (e) {
         dispatch(
@@ -256,7 +261,7 @@ export const appointmentApprove = (path, data) => async dispatch => {
     } catch (e) {
         console.log(e)
         dispatch(AppointmentDetailActions.appointmentApproveError(
-                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'))
+            e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'))
         throw e
     }
 }
@@ -269,7 +274,7 @@ export const appointmentReject = (path, data) => async dispatch => {
         return response
     } catch (e) {
         dispatch(AppointmentDetailActions.appointmentRejectError(
-                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'))
+            e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'))
         throw e
     }
 }
