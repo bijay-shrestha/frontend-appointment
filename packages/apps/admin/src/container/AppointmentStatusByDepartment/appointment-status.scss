@@ -101,13 +101,25 @@
  }
  
  .doctor-image {
-   width: 100px;
-   height: 100px;
-   margin-top: 10px;
-   background-color: $gray-500;
-   @include border-radius(50%);
+  //  width: 100px;
+  //  height: 100px;
+  //  margin-top: 10px;
+  //  background-color: $gray-500;
+  //  @include border-radius(50%);
    // display: inline-block;
  
+   .anchor-icon{
+    margin:0 auto;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 1px solid $gray-100;
+    background-color: $gray-100;
+}
+
    img {
      width: 100px;
      height: 100px;
@@ -119,13 +131,18 @@
  .doctor-details {
    position: relative;
    display: inline-block;
-   margin-top: 10px;
+   margin-top: 4px;
    margin-bottom: 20px;
    color: $gray-700;
    font-size: 0.8rem;
    text-transform: capitalize;
    letter-spacing: 0.01rem;
    width: 100%;
+
+   .department-name{
+     font-size: 0.85rem;
+     margin-top:0;
+   }
  
    //  &::before{
    //     content:"";
@@ -136,13 +153,51 @@
    //     bottom:-5px;
    //     background-color:$gray-600;
    // }
- 
- 
-   span {
-     font-size: 0.8rem;
-     font-weight: 600;
-     letter-spacing: 0.01rem;
+
+   p {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.01rem;
+    margin-top:50px;
+    margin-bottom:0;
+  
+  }
+
+   li{
+     border:1px solid $gray-200;
+     @include border-radius(4px);
+     margin:4px 0;
+     padding:4px;
+
+     img{
+      margin-right: 10px;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid $gray-100;
+      background-color: $gray-100;
+     }
+
+     .anchor-icon{
+      margin-right: 10px;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1px solid $gray-100;
+      background-color: $gray-100;
+    }
    }
+
+   
+ 
+ 
+ 
  
  }
  
@@ -233,6 +288,12 @@
      // float:left;
      margin-left: 30px;
    }
+
+   .room-tabs{
+     .nav-link{      
+       padding: 4px 6px 0 0;
+     }
+   }
  
    ul {
      // display:flex;
@@ -274,9 +335,9 @@
      position: relative;
      display: inline-block;
      margin-top: 10px;
-     margin-bottom: 20px;
+     margin-bottom: 10px;
      color: $gray-700;
-     font-size: 0.8rem;
+     font-size: 0.85rem;
      text-transform: capitalize;
  
      &::before {

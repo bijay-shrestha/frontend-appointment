@@ -153,18 +153,19 @@ const AppointmentStatusDetails = ({
                       className="d-flex  flex-column justify-content-start"
                     >
                       <h5 className="title">Department Details</h5>
-                      <div className="doctor-image">
+                      {/* <div className="doctor-image">
                         <div className="anchor-icon">
                           {appointmentStatusDetail.hospitalDepartmentName[0].toUpperCase()}
                         </div>
-                      </div>
-                      <p className="doctor-details">
-                        <span>
-                          Department -{' '}
+                      </div> */}
+                      <div className="doctor-details">
+                        <p className="department-name">
+                          {' '}
                           {appointmentStatusDetail.hospitalDepartmentName}
-                        </span>
-                        <br />
+                          <br></br>
+                        </p>                      
                         <div>
+                          <p>Available Doctors</p>
                           <ul>
                             {appointmentStatusDetail.doctorInfoList[0].doctorInfo.map(
                               doctorInfo => {
@@ -181,11 +182,13 @@ const AppointmentStatusDetails = ({
                             )}
                           </ul>
                         </div>
-                      </p>
+                      </div>
                     </Col>
 
                     <Col sm={12} md={8} lg={8} className="time-container">
-                      <div>
+                     
+                      <h5 className="title">Appointment Slots</h5>
+                      <div className="room-tabs">
                         <CNavTabs
                           roles={appointmentStatusDetail.roomList}
                           currentActiveTab={
@@ -201,9 +204,7 @@ const AppointmentStatusDetails = ({
                           date={appointmentStatusDetail.date}
                         />
                       </div>
-                      <h5 className="title">Appointment Slots</h5>
-
-                      <br></br>
+                   
                       <p className="time-details">
                         <i className="fa fa-calendar"></i> &nbsp;
                         {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
