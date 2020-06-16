@@ -2,10 +2,10 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
+    AppointmentTransferMiddleware,
     DoctorMiddleware,
-    SpecializationSetupMiddleware,
     PatientDetailsMiddleware,
-    AppointmentTransferMiddleware
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, apiIntegrationFeatureTypeCodes} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
@@ -217,7 +217,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 refundList.map((spec, index) => ({
                     ...spec,
                     patientMobileNumber: spec.mobileNumber,
-                    sN: index + 1,
+                    // sN: index + 1,
                     registrationNumber: spec.registrationNumber || 'N/A',
                     gender: spec.gender.split('')[0],
                     age: spec.age.split(" ")[0] + " " + spec.age.split(" ")[1].split('')[0]
