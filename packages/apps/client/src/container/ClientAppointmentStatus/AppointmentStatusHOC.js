@@ -16,7 +16,9 @@ import * as Material from 'react-icons/md'
 const {
     fetchAppointmentStatusList,
     clearAppointmentStatusMessage,
-    appointmentApprove
+    appointmentApprove,
+    thirdPartyApiCall,
+    appointmentApproveIntegration
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware;
@@ -260,30 +262,64 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: true
                 });
-                await this.props.appointmentApprove(APPOINTMENT_APPROVE, appointmentId);
-                this.setState({
-                    showCheckInModal: false,
-                    showAlert: true,
+                const response = await thirdPartyApiCall(this.state.appointmentDetails)
+                if (!response) {
+                  await this.props.appointmentApprove(
+                    APPOINTMENT_APPROVE,
+                    appointmentId
+                  )
+                  this.setState({
                     isConfirming: false,
-                    alertMessageInfo: {
-                        variant: 'success',
-                        message: this.props.AppointmentApproveReducer.approveSuccessMessage
-                    }
-                });
-                await this.searchAppointmentStatus();
-
-            } catch (e) {
-                this.setState({
                     showAlert: true,
-                    isConfirming: false,
                     alertMessageInfo: {
-                        showCheckInModal: false,
-                        variant: 'danger',
-                        message: this.props.AppointmentApproveReducer.approveErrorMessage
+                      variant: 'success',
+                      message: this.props.AppointmentApproveReducer
+                        .approveSuccessMessage
                     }
+                  })
+                } else if (response.responseData && !response.responseMessage) {
+                  const status = this.state.appointmentDetails.hospitalNumber
+                    ? false
+                    : true
+                  await this.props.appointmentApproveIntegration(
+                    appointmentSetupApiConstant.APPOINTMENT_APPROVE_INTEGRATION,
+                    {
+                      appointmentId: appointmentId,
+                      hospitalNumber: response.responseData,
+                      status: status
+                    }
+                  )
+                  this.setState({
+                    isConfirming: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                      variant: 'success',
+                      message: this.props.AppointmentApproveReducer
+                        .approveSuccessMessage
+                    }
+                  })
+                } else {
+                  this.setState({
+                    thirdPartyApiErrorMessage: response.responseMessage
+                  })
+                }
+              } catch (e) {
+                this.setState({
+                  isConfirming: false,
+                  showAlert: true,
+                  alertMessageInfo: {
+                    variant: 'danger',
+                    message:
+                      this.props.AppointmentApproveReducer.approveErrorMessage ||
+                      e.message
+                  }
                 })
+              } finally {
+                await this.searchAppointmentStatus()
+                this.setShowModal()
+              }
             }
-        };
+        
 
         clearAlertTimeout = () => {
             setTimeout(() => this.closeAlert(), 5000)
@@ -627,7 +663,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             fetchAppointmentStatusList,
             clearAppointmentStatusMessage,
             fetchPatientDetailByAppointmentId,
-            appointmentApprove
+            appointmentApprove,
+            appointmentApproveIntegration
         }
     )
 };

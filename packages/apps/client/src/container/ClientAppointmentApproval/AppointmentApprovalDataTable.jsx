@@ -14,6 +14,7 @@ import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import {AppointmentCheckInPrint,PrintableComponent} from '@frontend-appointment/commons'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 const {checkIfRoleExists}=ActionFilterUtils
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredActions}) => {
@@ -257,6 +258,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                     onConfirm={approveHandleApi}
                     onCancel={setShowModal}
                     isConfirming={isConfirming}
+                    Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
                 />
             ) : (
                 ''
