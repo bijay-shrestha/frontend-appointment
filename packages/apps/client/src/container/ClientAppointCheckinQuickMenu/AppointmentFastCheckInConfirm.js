@@ -2,17 +2,17 @@ import React from 'react'
 import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
 import {Button, Row} from 'react-bootstrap'
 
+let messageForCopy = ""
+
 const AppointmentFastCheckInConfirm = ({
                                            showModal,
                                            modalHeader,
                                            setShowModal,
-                                           appointmentDetails
+                                           appointmentDetails,
+                                           onCopyAppointmentNumber,
+                                           copySuccessMessage
                                        }) => {
 
-    let messageForCopy = "";
-    const onCopyAppointmentNumber = text => {
-        messageForCopy = `Appointment Number ${text} copied to clipboard.`
-    }
 
     const bodyContent = <>
         <Container-fluid>
@@ -40,7 +40,7 @@ const AppointmentFastCheckInConfirm = ({
                                 </button>
                             }
                             onCopy={onCopyAppointmentNumber}
-                            copiedMessage={messageForCopy}
+                            copiedMessage={copySuccessMessage}
                         />
                     </Row>
                 </Container-fluid>

@@ -89,11 +89,18 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             },
             transferConfirmationModal: false,
             transferValid: false,
-            thirdPartyApiErrorMessage: ''
+            thirdPartyApiErrorMessage: '',
+            copySuccessMessage: ''
         }
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
+        }
+
+        handleCopyAppointmentNumber = async text => {
+            await this.setState({
+                copySuccessMessage: `Appointment Number ${text} copied to clipboard.`
+            })
         }
 
         previewApiCall = async data => {
@@ -598,14 +605,15 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     requestDTO.hospitalNumber = successResponse.responseData
                     this.approveApiCall(requestDTO)
                 } else {
+                    const thirdPartyErrorMessage = "Third Party Integration error: ".concat(successResponse.responseMessage)
                     this.setState({
-                        thirdPartyApiErrorMessage: "Third party Integration error. ".concat(successResponse.responseMessage),
-                        isConfirming:false,
+                        thirdPartyApiErrorMessage: thirdPartyErrorMessage,
+                        isConfirming: false,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
                         alertMessageInfo: {
                             variant: 'danger',
-                            message: successResponse.responseMessage
+                            message: thirdPartyErrorMessage
                                 || "Could not access third party api."
                         }
                     })
@@ -721,6 +729,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 showAlert,
                 appointmentDetails,
                 isConfirming,
+                copySuccessMessage
                 // appointmentTransferData,
                 // transferConfirmationModal,
                 // transferValid
@@ -825,7 +834,9 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             appointmentDetails: appointmentDetails,
                             isConfirming: isConfirming,
                             transferHandler: this.transferHandler,
-                            approveSuccessMessage: approveSuccessMessage
+                            approveSuccessMessage: approveSuccessMessage,
+                            copySuccessMessage: copySuccessMessage,
+                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber
                         }}
                     />
                     {/* {transferConfirmationModal ? (
