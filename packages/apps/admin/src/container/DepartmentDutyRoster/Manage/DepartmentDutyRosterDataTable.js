@@ -92,6 +92,14 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         width: 140
                                     },
                                     {
+                                        headerName: 'Room Number',
+                                        field: 'roomNumber',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true,
+                                        width: 140
+                                    },
+                                    {
                                         headerName: 'Room Enabled',
                                         field: 'isRoomEnabled',
                                         resizable: true,
