@@ -212,8 +212,8 @@ const AppointmentStatusDetails = ({
                         )}
                         &nbsp;,&nbsp;
                         {appointmentStatusDetail.weekDayName}
-                        {appointmentStatusDetail.doctorTimeSlots ? (
-                          appointmentStatusDetail.doctorTimeSlots.length ? (
+                        {appointmentStatusDetail.appointmentTimeSlots ? (
+                          appointmentStatusDetail.appointmentTimeSlots.length ? (
                             <span className="time">
                               <i className="fa fa-clock-o"></i> &nbsp;
                               {DateTimeFormatterUtils.convertDateToHourMinuteFormat(

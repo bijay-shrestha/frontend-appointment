@@ -86,7 +86,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         uniqueIdentifier: '',
         roomFromDate:'',
         roomToDate:''
-
       },
       showModal: false,
       appointmentStatusDetails: [],
