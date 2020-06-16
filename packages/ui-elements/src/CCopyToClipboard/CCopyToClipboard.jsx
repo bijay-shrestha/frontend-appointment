@@ -45,7 +45,6 @@ class CCopyToClipboard extends React.PureComponent {
             showAlert
         } = this.state;
 
-        console.log(copiedMessage)
         return <>
             <CopyToClipboard
                 id={id}

@@ -89,11 +89,18 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             },
             transferConfirmationModal: false,
             transferValid: false,
-            thirdPartyApiErrorMessage: ''
+            thirdPartyApiErrorMessage: '',
+            copySuccessMessage: ''
         }
 
         handleEnterPress = event => {
             EnterKeyPressUtils.handleEnter(event)
+        }
+
+        handleCopyAppointmentNumber = async text => {
+            await this.setState({
+                copySuccessMessage: `Appointment Number ${text} copied to clipboard.`
+            })
         }
 
         previewApiCall = async data => {
@@ -484,7 +491,6 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
-                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
@@ -599,9 +605,17 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     requestDTO.hospitalNumber = successResponse.responseData
                     this.approveApiCall(requestDTO)
                 } else {
+                    const thirdPartyErrorMessage = "Third Party Integration error: ".concat(successResponse.responseMessage)
                     this.setState({
-                        approveConfirmationModal: true,
-                        thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        thirdPartyApiErrorMessage: thirdPartyErrorMessage,
+                        isConfirming: false,
+                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: thirdPartyErrorMessage
+                                || "Could not access third party api."
+                        }
                     })
                 }
             } catch (e) {
@@ -715,6 +729,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 showAlert,
                 appointmentDetails,
                 isConfirming,
+                copySuccessMessage
                 // appointmentTransferData,
                 // transferConfirmationModal,
                 // transferValid
@@ -819,7 +834,9 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             appointmentDetails: appointmentDetails,
                             isConfirming: isConfirming,
                             transferHandler: this.transferHandler,
-                            approveSuccessMessage: approveSuccessMessage
+                            approveSuccessMessage: approveSuccessMessage,
+                            copySuccessMessage: copySuccessMessage,
+                            onCopyAppointmentNumber: this.handleCopyAppointmentNumber
                         }}
                     />
                     {/* {transferConfirmationModal ? (

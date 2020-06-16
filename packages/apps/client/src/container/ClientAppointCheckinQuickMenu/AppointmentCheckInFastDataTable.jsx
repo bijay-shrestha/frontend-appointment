@@ -27,7 +27,9 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
         approveConfirmationModal,
         appointmentDetails,
         approveSuccessMessage,
-        isConfirming
+        isConfirming,
+        onCopyAppointmentNumber,
+        copySuccessMessage
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -201,6 +203,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                     modalHeader={approveSuccessMessage}
                     showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
+                    onCopyAppointmentNumber={onCopyAppointmentNumber}
+                    copySuccessMessage={copySuccessMessage}
                     appointmentDetails={appointmentDetails}
                 />
             ) : (
