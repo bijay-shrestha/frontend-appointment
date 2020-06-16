@@ -142,7 +142,7 @@
     margin-bottom:20px;
 
     .appt-search{
-        width:70%;
+        width:55%;
         height: 42px;
 
         .form-control{
@@ -171,12 +171,25 @@
     }
 
     .btn-action{
-        width:calc(30% - 10px);
+        width:calc(25% - 10px);
         margin-left:10px;
         height: 42px;
         font-size: 0.9rem;
         font-weight: 500;
         background-color: darken($primary,10%);
+
+        .fa-sign-in{
+            color:$white !important;
+        }
+    }
+
+    .btn-reset{
+        width:calc(20% - 10px);
+        margin-left:10px;
+        height: 42px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        // background-color: darken($primary,10%);
 
         .fa-sign-in{
             color:$white !important;
@@ -240,11 +253,31 @@
     background-color:$primary;
 }
 .clip{
-    // display: block;
+ display: flex;
+ flex-direction: column;
+ text-align: center;
+margin-top:-20px;
+ padding:0px 0 20px;
 
-    p{
+    p.load-title{
         margin-top:10px;
+        margin-bottom:30px;
         color:$success;
+        display: block;
+        font-size: 16px;
+    }
+}
+
+.clip-alert{
+    // background-color: $white;
+    padding:5px 0px 20px 20px;
+    p{
+        color:$white;
+       
+    }
+
+    .close{
+        padding-top:1rem;
     }
 }
 

@@ -56,9 +56,10 @@ class CCopyToClipboard extends React.PureComponent {
 
             <Alert
                 id={"alert".concat(id)}
-                variant={'primary'}
+                variant={'success'}
                 onClose={this.closeAlert}
                 show={showAlert}
+                className="clip-alert"
                 dismissible>
                 {/*<Alert.Heading>{alertType}</Alert.Heading>*/}
                 <p>

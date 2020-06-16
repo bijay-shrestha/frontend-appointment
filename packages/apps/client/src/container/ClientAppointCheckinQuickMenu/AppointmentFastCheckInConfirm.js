@@ -17,9 +17,11 @@ const AppointmentFastCheckInConfirm = ({
     const bodyContent = <>
         <Container-fluid>
             <CForm id="quick-checkin" className="mt-2">
-                <Container-fluid>
-                    <Row className="clip">
-
+               
+                    <Row >
+                        <div className="clip">
+                        <p className="load-title">Appointment Checked-In Successfully</p>
+                        <div>
                         <Button variant="secondary"
                                 size="lg"
                                 name=""
@@ -29,6 +31,7 @@ const AppointmentFastCheckInConfirm = ({
                         >
                             <i className="fa fa-print"/>&nbsp;Print
                         </Button>
+                      
                         &nbsp;&nbsp;
 
                         <CCopyToClipboard
@@ -42,8 +45,10 @@ const AppointmentFastCheckInConfirm = ({
                             onCopy={onCopyAppointmentNumber}
                             copiedMessage={copySuccessMessage}
                         />
+                          </div>
+                          </div>
                     </Row>
-                </Container-fluid>
+               
             </CForm>
         </Container-fluid>
     </>
@@ -54,8 +59,8 @@ const AppointmentFastCheckInConfirm = ({
                 backdrop="static"
                 show={showModal}
                 // modalHeading={modalHeader}
-                size="lg"
-                modalHeading="Appointment Checked-In Successfully"
+                size="sm"
+                // modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
                 backdrop="static"
