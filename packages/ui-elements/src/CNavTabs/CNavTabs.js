@@ -7,6 +7,7 @@ class CNavTabs extends PureComponent {
     
   }
   onToggle= async(e,tab) => {
+  if(tab.value)
    e.preventDefault()
     console.log("===",tab);
     await this.setState({

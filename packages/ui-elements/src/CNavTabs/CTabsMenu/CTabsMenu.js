@@ -13,12 +13,12 @@ const CTabsMenu = props => {
       {tab.url ? (
         <NavLink
           key={tab.name + index}
-          active={isActive(tab.id || tab.value)}
+          active={isActive(tab.id)}
           onClick={(e) => toggle(e,tab)}
           tag={Link}
           to={tab.url}
         >
-          {tab.name || tab.label}
+          {tab.name}
         </NavLink>
       ) : (
         <NavLink
