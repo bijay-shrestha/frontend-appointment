@@ -1,42 +1,47 @@
 import React, {createRef} from 'react'
-import ReactToPrint,{PrintContextConsumer} from 'react-to-print'
-import {CButton} from '@frontend-appointment/ui-elements'
+import ReactToPrint, {PrintContextConsumer} from 'react-to-print'
+import {Button} from 'react-bootstrap'
+
 const PrintableComponentHoc = (ComponentToPrint, data, pastProps) => {
-  class PrintableComponent extends React.PureComponent {
-    componentRef = createRef()
-    state = {show: false}
-    render () {
-      return (
-        <div>
-          <ReactToPrint
-            content={() => this.componentRef.current}
-          >
-           <PrintContextConsumer>
-            {({ handlePrint }) => (
-             <CButton
-             variant="info"
-             size="lg"
-             className="float-right btn-action ml-1"
-             name="Print"
-             onClickHandler={handlePrint}
-             />
-            )}
-          </PrintContextConsumer>
-          </ReactToPrint>
-          <div style={{display: this.state.show ? '' : 'none'}}>
-            {' '}
-            <ComponentToPrint
-              {...this.props}
-              show={this.state.show}
-              data={data}
-              ref={this.componentRef}
-              {...pastProps}
-            />
-          </div>
-        </div>
-      )
+    class PrintableComponent extends React.PureComponent {
+        componentRef = createRef()
+        state = {show: false}
+
+        render() {
+            return (
+                <div>
+                    <ReactToPrint
+                        content={() => this.componentRef.current}
+                    >
+                        <PrintContextConsumer>
+                            {({handlePrint}) => (
+                                <Button
+                                    variant="secondary"
+                                    size="lg"
+                                    className="float-right btn-action ml-1"
+                                    name="Print"
+                                    onClick={handlePrint}
+                                >
+                                    <i className="fa fa-print"/>&nbsp;Print
+                                </Button>
+                            )}
+                        </PrintContextConsumer>
+                    </ReactToPrint>
+                    <div style={{display: this.state.show ? '' : 'none'}}>
+                        {' '}
+                        <ComponentToPrint
+                            {...this.props}
+                            show={this.state.show}
+                            data={data}
+                            ref={this.componentRef}
+                            {...pastProps}
+                        />
+                    </div>
+                </div>
+            )
+        }
     }
-  }
-  return PrintableComponent
+
+    return PrintableComponent
 }
 export default PrintableComponentHoc
