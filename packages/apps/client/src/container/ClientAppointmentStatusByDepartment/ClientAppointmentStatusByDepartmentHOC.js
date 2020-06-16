@@ -7,7 +7,7 @@ import {
   PatientDetailsMiddleware,
   //SpecializationSetupMiddleware,
   HospitalDepartmentSetupMiddleware,
-  RoomSetupMiddleware
+ // RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -34,9 +34,10 @@ const {
 const {fetchPatientDetailByAppointmentId} = PatientDetailsMiddleware
 
 const {
-  fetchActiveHospitalDepartmentForDropdownByHospitalId
+ // fetchActiveHospitalDepartmentForDropdownByHospitalId,
+  fetchAllHospitalDepartmentForDropdown
 } = HospitalDepartmentSetupMiddleware
-const {fetchActiveRoomNumberForDropdownByDepartmentId} = RoomSetupMiddleware
+
 const {
   appointmentSetupApiConstant,
   // hospitalSetupApiConstants,
@@ -123,34 +124,10 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       this.searchAppointmentStatus('C', roomId, departmentId,date)
     }
 
-    fetchHospitalForDropDown = async () => {
-      try {
-        await this.props.fetchActiveHospitalsForDropdown(
-          FETCH_HOSPITALS_FOR_DROPDOWN
-        )
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    fetchDoctorsByHospital = async hospitalId => {
-      await this.props.fetchActiveDoctorsHospitalWiseForDropdown(
-        FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN,
-        hospitalId
-      )
-    }
-
-    fetchSpecializationByHospital = async hospitalId => {
-      await this.props.fetchSpecializationHospitalWiseForDropdown(
-        SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
-        hospitalId
-      )
-    }
-
-    fetchDepartmentByHospitalId = async hospitalId => {
-      await this.props.fetchActiveHospitalDepartmentForDropdownByHospitalId(
+   
+    fetchDepartment= async() => {
+      await this.props.fetchAllHospitalDepartmentForDropdown(
         hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
-        hospitalId
       )
     }
 
@@ -180,7 +157,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         searchParameters: {
           fromDate: new Date(),
           toDate: new Date(),
-          hospitalId: '',
           //doctorId: '',
           hospitalDepartmentId: '',
           hospitalDepartmentRoomInfoId: '',
@@ -190,7 +166,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           roomToDate:''
         },
         statusDetails: [],
-        errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
+        errorMessageForStatusDetails: SELECT_DEPARTMENT_MESSAGE,
         appointmentStatusDetails: [],
         appointmentStatusDetailsCopy: [],
         previousSelectedTimeSlotRowIndex: '',
@@ -222,17 +198,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           : value
         await this.setStateValuesForSearch(searchParams)
 
-        if (fieldName === 'hospitalId') {
-          value
-            ? this.callApiForHospitalChange(value)
-            : this.setState({
-                searchParameters: {
-                  ...this.state.searchParameters,
-                  hospitalDepartmentId: '',
-                  hospitalDepartmentRoomInfoId: ''
-                }
-              })
-        }
 
         let errorMsg = ''
         if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
@@ -426,7 +391,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
     }
 
     initialApiCalls = async () => {
-      await this.fetchHospitalForDropDown()
+      await this.fetchDepartment()
     }
 
     setDoctorInfoInDepartMentList = (departmentList, doctorList) => {
@@ -505,7 +470,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       const {
         fromDate,
         toDate,
-        hospitalId,
         hospitalDepartmentId,
         //hospitalDepartmentRosterId,
         status
@@ -523,7 +487,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         let searchData = {
           fromDate:type!=='C'?fromDate:date,
           toDate:type!=='C'?toDate:date,
-          hospitalId: hospitalId.value || '',
           hospitalDepartmentId:
             type !== 'C'
               ? hospitalDepartmentId.value || ''
@@ -742,29 +705,31 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       const {
         fromDate,
         toDate,
-        hospitalId,
+        //hospitalId,
         hospitalDepartmentId
       } = this.state.searchParameters
 
       let errorMessageForStatus = '',
         appointmentStatusDetails = [...this.state.appointmentStatusDetails]
 
-      if (
-        fromDate &&
-        toDate &&
-        getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) === 1
-      ) {
-        errorMessageForStatus = hospitalId ? '' : SELECT_HOSPITAL_MESSAGE
-      } else if (
+      // if (
+      //   fromDate &&
+      //   toDate &&
+      //   getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) === 1
+      // ) {
+      //   errorMessageForStatus =  ? '' : SELECT_HOSPITAL_MESSAGE
+      // } else
+       if (
         fromDate &&
         toDate &&
         getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
       ) {
-        errorMessageForStatus = hospitalId
-          ? hospitalDepartmentId
+        errorMessageForStatus = //hospitalId
+         // ? 
+            hospitalDepartmentId
             ? ''
-            : SELECT_DOCTOR_MESSAGE
-          : SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
+            : SELECT_DEPARTMENT_MESSAGE
+          //: SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
       } else if (
         fromDate &&
         toDate &&
@@ -808,37 +773,30 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         searchStatusLoading
       } = this.state
 
-      const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
-
-      const {
-        activeDoctorsByHospitalForDropdown,
-        doctorDropdownErrorMessage
-      } = this.props.DoctorDropdownReducer
-
-      const {
-        activeSpecializationListByHospital,
-        dropdownErrorMessage
-      } = this.props.SpecializationDropdownReducer
+      // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       // const {
-      //   isAppointmentStatusListLoading,
-      //   isAppointmentStatusErrorMessage
-      // } = this.props.AppointmenStatusByDepartmentListReducer
+      //   activeDoctorsByHospitalForDropdown,
+      //   doctorDropdownErrorMessage
+      // } = this.props.DoctorDropdownReducer
+
       // const {
-      //   isAppointmentStatusByRoomListLoading,
-      //   isAppointmentStatusByRoomErrorMessage
-      // } = this.props.AppointmenStatusByRoomListReducer
+      //   activeSpecializationListByHospital,
+      //   dropdownErrorMessage
+      // } = this.props.SpecializationDropdownReducer
+
+    
       const {
-        isFetchActiveHospitalDepartmentLoading,
-        activeHospitalDepartmentForDropdown,
-        activeDepartmentDropdownErrorMessage
+        isFetchAllHospitalDepartmentLoading,
+        allHospitalDepartmentForDropdown,
+        allDepartmentDropdownErrorMessage
       } = this.props.HospitalDepartmentDropdownReducer
 
-      const {
-        isFetchActiveRoomNumberByDepartmentLoading,
-        activeRoomNumberForDropdownByDepartment,
-        activeRoomsByDepartmentDropdownErrorMessage
-      } = this.props.RoomNumberDropdownReducer
+      // const {
+      //   isFetchActiveRoomNumberByDepartmentLoading,
+      //   activeRoomNumberForDropdownByDepartment,
+      //   activeRoomsByDepartmentDropdownErrorMessage
+      // } = this.props.RoomNumberDropdownReducer
       return (
         <>
           <div id="appointment-status">
@@ -849,18 +807,10 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
                 handleSearchFormChange: this.handleSearchFormChange,
                 resetSearchForm: this.handleSearchFormReset,
                 searchAppointmentStatus: this.searchAppointmentStatus,
-                hospitalList: hospitalsForDropdown,
-                doctorList: activeDoctorsByHospitalForDropdown,
-                doctorDropdownErrorMessage: doctorDropdownErrorMessage,
-                specializationList: activeSpecializationListByHospital,
-                specializationDropdownErrorMessage: dropdownErrorMessage,
                 searchParameters: searchParameters,
-                isFetchActiveHospitalDepartmentLoading,
-                activeHospitalDepartmentForDropdown,
-                activeDepartmentDropdownErrorMessage,
-                isFetchActiveRoomNumberByDepartmentLoading,
-                activeRoomNumberForDropdownByDepartment,
-                activeRoomsByDepartmentDropdownErrorMessage
+                isFetchAllHospitalDepartmentLoading,
+                activeHospitalDepartmentForDropdown:allHospitalDepartmentForDropdown,
+                activeDepartmentDropdownErrorMessage:allDepartmentDropdownErrorMessage
               }}
               statusDetailsData={{
                 appointmentStatusDetails,
@@ -916,33 +866,25 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
   }
 
   return ConnectHoc(
-    AppointmentStatusHOC,
+    ClientAppointmentStatusByDepartment,
     [
       'AppointmentStatusListReducer',
       'AppointmentApproveReducer',
-      'SpecializationDropdownReducer',
-      'DoctorDropdownReducer',
-      'HospitalDropdownReducer',
       'PatientDetailReducer',
       'HospitalDepartmentDropdownReducer',
-      'RoomNumberDropdownReducer',
       'AppointmenStatusByDepartmentListReducer',
       'AppointmenStatusByRoomListReducer'
     ],
     {
-      fetchActiveHospitalsForDropdown,
-      fetchActiveDoctorsHospitalWiseForDropdown,
-      fetchSpecializationHospitalWiseForDropdown,
       fetchAppointmentStatusList,
       clearAppointmentStatusMessage,
       fetchPatientDetailByAppointmentId,
       appointmentApprove,
-      fetchActiveHospitalDepartmentForDropdownByHospitalId,
-      fetchActiveRoomNumberForDropdownByDepartmentId,
+      fetchAllHospitalDepartmentForDropdown,
       fetchAppointmentStatusListByDepartment,
       fetchAppointmentStatusListByRoom
     }
   )
 }
 
-export default AppointmentStatusHOC
+export default ClientAppointmentStatusHOCByDepartment
