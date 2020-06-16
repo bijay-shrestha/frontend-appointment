@@ -202,7 +202,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
             {approveConfirmationModal ? (
                 <AppointmentFastCheckInConfirm
                     modalHeader={approveSuccessMessage}
-                    showModal={true}
+                    showModal={approveConfirmationModal}
                     setShowModal={setShowModal}
                     onCopyAppointmentNumber={onCopyAppointmentNumber}
                     copySuccessMessage={copySuccessMessage}
