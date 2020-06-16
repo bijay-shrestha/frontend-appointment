@@ -1,8 +1,6 @@
 import React from 'react'
 import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
-import {Button, Row} from 'react-bootstrap'
-
-let messageForCopy = ""
+import {Row} from 'react-bootstrap'
 
 const AppointmentFastCheckInConfirm = ({
                                            showModal,

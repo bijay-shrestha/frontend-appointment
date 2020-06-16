@@ -4,7 +4,8 @@ import PreviewDetails from './AppointmentFastCheckInPreview'
 import AppointmentFastCheckInConfirm from './AppointmentFastCheckInConfirm'
 
 import {
-    AppointmentQuickCheckInOption, CConfirmationModal, CPageOverlayLoader,
+    AppointmentQuickCheckInOption,
+    CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
