@@ -1,8 +1,6 @@
 import React from 'react'
 import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
-import {Button, Row} from 'react-bootstrap'
-
-let messageForCopy = ""
+import {Row} from 'react-bootstrap'
 
 const AppointmentFastCheckInConfirm = ({
                                            showModal,
@@ -10,28 +8,29 @@ const AppointmentFastCheckInConfirm = ({
                                            setShowModal,
                                            appointmentDetails,
                                            onCopyAppointmentNumber,
-                                           copySuccessMessage
+                                           copySuccessMessage,
+                                           Print
                                        }) => {
 
 
     const bodyContent = <>
         <Container-fluid>
             <CForm id="quick-checkin" className="mt-2">
-               
-                    <Row >
-                        <div className="clip">
-                        <p className="load-title">Appointment Checked-In Successfully</p>
-                        <div>
-                        <Button variant="secondary"
-                                size="lg"
-                                name=""
-                            // onClickHandler={e =>
-                            //     onClick(e, props.node.data.id || props.node.data, 'C')
-                            // }
-                        >
-                            <i className="fa fa-print"/>&nbsp;Print
-                        </Button>
-                      
+                <Container-fluid>
+                    <Row className="clip">
+
+                        {Print ? <Print/> : ''}
+
+                        {/*<Button variant="secondary"*/}
+                        {/*        size="lg"*/}
+                        {/*        name=""*/}
+                        {/*    // onClickHandler={e =>*/}
+                        {/*    //     onClick(e, props.node.data.id || props.node.data, 'C')*/}
+                        {/*    // }*/}
+                        {/*>*/}
+                        {/*    <i className="fa fa-print"/>&nbsp;Print*/}
+                        {/*</Button>*/}
+
                         &nbsp;&nbsp;
 
                         <CCopyToClipboard
@@ -63,10 +62,8 @@ const AppointmentFastCheckInConfirm = ({
                 // modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
-                backdrop="static"
                 onHide={setShowModal}
                 dialogClassName="cogent-modal"
-              
             />
         </>
     )

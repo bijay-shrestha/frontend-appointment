@@ -4,13 +4,15 @@ import PreviewDetails from './AppointmentFastCheckInPreview'
 import AppointmentFastCheckInConfirm from './AppointmentFastCheckInConfirm'
 
 import {
-    AppointmentQuickCheckInOption, CPageOverlayLoader,
+    AppointmentQuickCheckInOption,
+    CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
@@ -206,6 +208,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                     onCopyAppointmentNumber={onCopyAppointmentNumber}
                     copySuccessMessage={copySuccessMessage}
                     appointmentDetails={appointmentDetails}
+                    Print={PrintableComponent(AppointmentCheckInPrint, appointmentDetails)}
                 />
             ) : (
                 ''

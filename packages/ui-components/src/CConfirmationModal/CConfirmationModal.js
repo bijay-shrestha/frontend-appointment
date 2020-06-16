@@ -10,27 +10,30 @@ const ConfirmationModal = ({
                                setShowModal,
                                isConfirming,
                                isDisabled,
+                               Print
                            }) => {
     let footer = (
         <>
-            <div>
+            <div className="modal-buttons">
                 <CButton
                     variant="primary"
                     size="lg"
-                    className="float-right  btn-action ml-2"
-                    disabled={isConfirming || isDisabled}
+                    className="float-right  btn-action ml-1"
+                    disabled={isConfirming||isDisabled}
                     isLoading={isConfirming}
                     name={"Confirm"}
                     onClickHandler={onConfirm}
                 />
+                {Print?<Print/>:null}
                 <CButton
                     variant="light"
                     size="lg"
-                    className="float-right btn-action"
+                    className="float-right btn-action ml-1"
                     name="Cancel"
                     onClickHandler={onCancel}
                     disabled={isConfirming}
                 />
+
             </div>
         </>
     );
