@@ -56,10 +56,12 @@ class CCopyToClipboard extends React.PureComponent {
             {/*        {`Copied ${textToCopy} to clipboard!`}*/}
             {/*    </p>*/}
             {/*</Alert>*/}
-
-                 <p>
-                   {`Copied ${textToCopy} to clipboard!`}
-               </p>
+        
+        <p className="copy-message">
+                <i className="fa fa-check" ></i>{`Copied Appointmet No:${textToCopy} to clipboard!`}
+        </p>
+      
+                 
             {/* <Toast onClose={() => this.closeAlert()}
                    show={showAlert}
                    delay={toastDelayTime ? toastDelayTime : 5000}

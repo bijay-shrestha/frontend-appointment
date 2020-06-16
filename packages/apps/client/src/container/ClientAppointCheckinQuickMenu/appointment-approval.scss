@@ -192,15 +192,26 @@
     width:40px;
     height: 40px;
     padding:0;
+    color:$gray-700;
+    @include border-radius(50%);
+    background-color: transparent;
+    border:none;
     .fa-sign-in{
-        color:$white !important;
+        color:$gray-700;
+        // color:$white !important;
+        font-size: 20px;
+    }
+
+    &:hover{
+        background-color:$white ;
+        color:$primary;
     }
 }
 
 .quick-search{
-    // background-color: $white;
+    background-color: $white;
     margin:0;
-    // padding:10px 0;
+    padding:10px 0;
     @include border-radius(0.5rem);
 }
 
@@ -227,6 +238,14 @@
     height:auto;
     padding:10px;
     background-color:$primary;
+}
+.clip{
+    // display: block;
+
+    p{
+        margin-top:10px;
+        color:$success;
+    }
 }
 
 

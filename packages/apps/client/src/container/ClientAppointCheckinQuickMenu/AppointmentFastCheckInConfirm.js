@@ -13,7 +13,7 @@ const AppointmentFastCheckInConfirm = ({
         <Container-fluid>
             <CForm className="mt-2">
                 <Container-fluid>
-                    <Row className="d-flex justify-content-center">
+                    <Row className="clip">
 
                         <Button variant="secondary"
                                 size="lg"
@@ -24,13 +24,14 @@ const AppointmentFastCheckInConfirm = ({
                         >
                             <i className="fa fa-print"/>&nbsp;Print
                         </Button>
+                        &nbsp;&nbsp;
 
                         <CCopyToClipboard
                        
                             id={"appointmentNumber"}
                             textToCopy={appointmentDetails.appointmentNumber}
                             children={
-                                <button className="btn btn-primary btn-clip"><i className="fa fa-copy"/>Copy Appt. Number
+                                <button className="btn btn-primary btn-lg"><i className="fa fa-copy"/>&nbsp;Copy Appt. Number
                                 </button>
                             }
                         />
