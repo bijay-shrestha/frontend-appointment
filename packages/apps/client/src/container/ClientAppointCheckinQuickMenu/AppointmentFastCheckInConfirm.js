@@ -9,9 +9,14 @@ const AppointmentFastCheckInConfirm = ({
                                            appointmentDetails
                                        }) => {
 
+    let messageForCopy = "";
+    const onCopyAppointmentNumber = text => {
+        messageForCopy = `Appointment Number ${text} copied to clipboard.`
+    }
+
     const bodyContent = <>
         <Container-fluid>
-            <CForm id ="quick-checkin" className="mt-2">
+            <CForm id="quick-checkin" className="mt-2">
                 <Container-fluid>
                     <Row className="clip">
 
@@ -27,13 +32,15 @@ const AppointmentFastCheckInConfirm = ({
                         &nbsp;&nbsp;
 
                         <CCopyToClipboard
-
                             id={"appointmentNumber"}
                             textToCopy={appointmentDetails.appointmentNumber}
                             children={
-                                <button className="btn btn-primary btn-lg"><i className="fa fa-copy"/>&nbsp;Copy Appt. Number
+                                <button className="btn btn-primary btn-lg"><i className="fa fa-copy"/>&nbsp;Copy Appt.
+                                    Number
                                 </button>
                             }
+                            onCopy={onCopyAppointmentNumber}
+                            copiedMessage={messageForCopy}
                         />
                     </Row>
                 </Container-fluid>
@@ -50,6 +57,7 @@ const AppointmentFastCheckInConfirm = ({
                 modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
+                backdrop="static"
                 onHide={setShowModal}
                 dialogClassName="cogent-modal"
             />

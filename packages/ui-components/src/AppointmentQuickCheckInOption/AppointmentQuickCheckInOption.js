@@ -4,7 +4,7 @@ import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
 const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentQuickCheckInOption = props => {
-    const {filteredAction, onClick} = props
+    const {filteredAction, onClick, isConfirming} = props
     return checkIfRoleExists(filteredAction, 14) ? (
         <CButton
             id="check-in"
@@ -12,6 +12,7 @@ const AppointmentQuickCheckInOption = props => {
             size="sm"
             className="btn-action ml-2 quick-checkin"
             name=""
+            disabled={isConfirming}
             onClickHandler={e =>
                 onClick(e, props.node.data.id || props.node.data, 'C')
             }

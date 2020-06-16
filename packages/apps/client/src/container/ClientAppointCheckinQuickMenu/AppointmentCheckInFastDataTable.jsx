@@ -4,7 +4,7 @@ import PreviewDetails from './AppointmentFastCheckInPreview'
 import AppointmentFastCheckInConfirm from './AppointmentFastCheckInConfirm'
 
 import {
-    AppointmentQuickCheckInOption,
+    AppointmentQuickCheckInOption, CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress
 } from '@frontend-appointment/ui-components'
@@ -26,7 +26,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
         // approveHandleApi,
         approveConfirmationModal,
         appointmentDetails,
-        approveSuccessMessage
+        approveSuccessMessage,
+        isConfirming
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -116,7 +117,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                             approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         },
-                                        filteredAction: filteredActions
+                                        filteredAction: filteredActions,
+                                        isConfirming
                                     },
                                     cellStyle: {overflow: 'visible', 'z-index': '99'}
                                 }
@@ -204,6 +206,13 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
             ) : (
                 ''
             )}
+            {
+                isConfirming ?
+                    <CPageOverlayLoader
+                        showModal={isConfirming}
+                        modalHeader={"Appointment Check-In in process."}
+                    /> : ''
+            }
         </>
     )
 }

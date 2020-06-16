@@ -599,7 +599,8 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        thirdPartyApiErrorMessage: "Third party Integration error. ".concat(successResponse.responseMessage),
+                        isConfirming:false,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
                         alertMessageInfo: {

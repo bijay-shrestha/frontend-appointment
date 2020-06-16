@@ -1,16 +1,19 @@
 import React from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard'
 import PropTypes from 'prop-types';
+import {Alert} from 'react-bootstrap'
 
 class CCopyToClipboard extends React.PureComponent {
     state = {
         showAlert: false,
     }
+    alertTimer = null;
 
     handleOnCopy = (text) => {
         this.setState({
             showAlert: true
         });
+        this.clearAlertOnTimeOut();
         this.props.onCopy && this.props.onCopy(text);
     }
 
@@ -20,7 +23,12 @@ class CCopyToClipboard extends React.PureComponent {
         })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    clearAlertOnTimeOut = () => {
+        this.alertTimer = setTimeout(() => this.closeAlert(), 7000)
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.alertTimer)
     }
 
     render() {
@@ -29,12 +37,15 @@ class CCopyToClipboard extends React.PureComponent {
             textToCopy,
             children,
             options,
+            copiedMessage
             // toastDelayTime
         } = this.props
 
-        // const {
-        //     showAlert
-        // } = this.state;
+        const {
+            showAlert
+        } = this.state;
+
+        console.log(copiedMessage)
         return <>
             <CopyToClipboard
                 id={id}
@@ -44,23 +55,24 @@ class CCopyToClipboard extends React.PureComponent {
                 {children}
             </CopyToClipboard>
 
-            {/*<Alert*/}
-            {/*    id={"alert".concat(id)}*/}
-            {/*    variant={'primary'}*/}
-            {/*    onClose={this.closeAlert}*/}
-            {/*    show={showAlert}*/}
-            {/*    dismissible>*/}
-            {/*    /!*<Alert.Heading>{alertType}</Alert.Heading>*!/*/}
-            {/*    <p>*/}
-            {/*        {`Copied ${textToCopy} to clipboard!`}*/}
-            {/*    </p>*/}
-            {/*</Alert>*/}
-        
-        <p className="copy-message">
-                <i className="fa fa-check" ></i>{`Copied Appointmet No:${textToCopy} to clipboard!`}
-        </p>
-      
-                 
+            <Alert
+                id={"alert".concat(id)}
+                variant={'primary'}
+                onClose={this.closeAlert}
+                show={showAlert}
+                dismissible>
+                {/*<Alert.Heading>{alertType}</Alert.Heading>*/}
+                <p>
+                    {copiedMessage}
+                    {/*{`Copied ${textToCopy} to clipboard!`}*/}
+                </p>
+            </Alert>
+
+            {/*<p className="copy-message">*/}
+            {/*    <i className="fa fa-check"></i>{`Copied Appointmet No:${textToCopy} to clipboard!`}*/}
+            {/*</p>*/}
+
+
             {/* <Toast onClose={() => this.closeAlert()}
                    show={showAlert}
                    delay={toastDelayTime ? toastDelayTime : 5000}
