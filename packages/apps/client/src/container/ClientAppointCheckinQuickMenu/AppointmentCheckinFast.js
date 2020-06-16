@@ -31,6 +31,17 @@ const AppointmentCheckInFastLog = props => {
                                 <i className="fa fa-search"/>&nbsp;Search
                             </>
                         </CButton>
+                        <CButton
+                            id="reset-form"
+                            variant="outline-secondary"
+                            size="sm"
+                            name=""
+                            onClickHandler={searchHandler.resetAppointmentNumber}
+                        >
+                            {' '}
+                            <i className="fa fa-refresh"/>
+                            &nbsp;Reset
+                        </CButton>
                     </Col>
                 </Row>
 

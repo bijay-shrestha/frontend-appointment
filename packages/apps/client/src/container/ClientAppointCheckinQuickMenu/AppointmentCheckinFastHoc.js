@@ -176,11 +176,11 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
                 toDate: appointmentNumber ? '' : toDate,
-                patientMetaInfoId: patientMetaInfoId.value || '',
-                patientType: patientType.value || '',
-                specializationId: specializationId.value || '',
-                doctorId: doctorId.value || '',
-                patientCategory: patientCategory.value || ''
+                patientMetaInfoId: patientMetaInfoId ? patientMetaInfoId.value : '',
+                patientType: patientType ? patientType.value : '',
+                specializationId: specializationId ? specializationId.value : '',
+                doctorId: doctorId ? doctorId.value : '',
+                patientCategory: patientCategory ? patientCategory.value : ''
             }
 
             let updatedPage =
@@ -233,6 +233,15 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 }
             })
             this.searchAppointment()
+        }
+
+        resetAppointmentNumber = async () => {
+            await this.setState({
+                searchParameters: {
+                    appointmentNumber: '',
+                }
+            })
+            this.searchAppointment();
         }
 
         handleSearchFormReset = async () => {
@@ -806,7 +815,8 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             specializationDropdownErrorMessage: dropdownErrorMessage,
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
-                            patientDropdownErrorMessage: patientDropdownErrorMessage
+                            patientDropdownErrorMessage: patientDropdownErrorMessage,
+                            resetAppointmentNumber: this.resetAppointmentNumber
                         }}
                         paginationProps={{
                             queryParams: queryParams,
