@@ -8,16 +8,15 @@ const CPageOverlayLoader = ({
                             }) => {
     const bodyContent = <>
         <Container-fluid>
-            <CForm id="quick-checkin" className="mt-2">
-                <Container-fluid>
-                    <div className="filter-message c-loading">
+            <CForm id="quick-checkin" className="mt-2">             
+                    <div className="filter-message overlay-loading">
                         <div className="message-content">
-                            {modalHeader}
+                            <p className="process-message">{modalHeader}</p>
                             <Image src={require('./images/dot-loader-gray.svg')} className="loader"/>
-                            <span>Loading</span>
+                            {/* <span>Loading</span> */}
                         </div>
                     </div>
-                </Container-fluid>
+          
             </CForm>
         </Container-fluid>
     </>

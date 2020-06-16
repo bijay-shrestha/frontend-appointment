@@ -51,6 +51,7 @@ const AppointmentFastCheckInConfirm = ({
         <>
             <CModal
                 id={"confirm-quick-checkin"}
+                backdrop="static"
                 show={showModal}
                 // modalHeading={modalHeader}
                 size="lg"
@@ -60,6 +61,7 @@ const AppointmentFastCheckInConfirm = ({
                 backdrop="static"
                 onHide={setShowModal}
                 dialogClassName="cogent-modal"
+              
             />
         </>
     )

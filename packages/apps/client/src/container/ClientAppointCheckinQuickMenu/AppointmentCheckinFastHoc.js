@@ -484,6 +484,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
+                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
@@ -599,15 +600,8 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: "Third party Integration error. ".concat(successResponse.responseMessage),
-                        isConfirming:false,
-                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
-                        showAlert: true,
-                        alertMessageInfo: {
-                            variant: 'danger',
-                            message: successResponse.responseMessage
-                                || "Could not access third party api."
-                        }
+                        approveConfirmationModal: true,
+                        thirdPartyApiErrorMessage: successResponse.responseMessage,
                     })
                 }
             } catch (e) {
