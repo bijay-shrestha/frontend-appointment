@@ -85,6 +85,7 @@ const AddDepartmentDutyRosterComponent = Loadable({
 
 /* ****** C ***** */
 
+
 /* ****** D ***** */
 
 const DashboardComponent = Loadable({
@@ -181,8 +182,14 @@ const PatientComponent = Loadable({
 })
 /* ****** Q ***** */
 
+
 const QualificationAlias = loadable(
     () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
+    {fallback: () => getLoader()}
+)
+
+const QuickCheckInComponent = loadable(
+    () => import('./container/ClientAppointCheckinQuickMenu/AppointmentCheckinFast'),
     {fallback: () => getLoader()}
 )
 
@@ -583,6 +590,16 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Transfer Log',
+        isSingleTab: true
+    },
+    {
+        path: '/appointmentQuickCheckIn',
+        component: QuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Quick Check In',
         isSingleTab: true
     },
     {

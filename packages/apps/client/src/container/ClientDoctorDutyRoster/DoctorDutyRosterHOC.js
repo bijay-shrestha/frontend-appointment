@@ -133,6 +133,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hospital: null,
                 specialization: null,
                 doctor: null,
+                doctorSalutation: '',
                 doctorDutyRosterId: 0,
                 hasOverrideDutyRoster: '',
                 remarks: '',
@@ -696,15 +697,16 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospital, specialization, doctor, rosterGapDuration,
                     fromDate, toDate, hasOverrideDutyRoster, doctorWeekDaysDutyRosterRequestDTOS,
                     createdBy, createdDate, lastModifiedBy, lastModifiedDate,
-                    doctorDutyRosterOverrideRequestDTOS
+                    doctorDutyRosterOverrideRequestDTOS, doctorSalutation,
                 } = doctorDutyRosterInfo;
-                console.log("doctorDutyRosterInfo ====", doctorDutyRosterInfo)
+
                 await this.setState({
                     hospital: hospital,
                     showConfirmModal: true,
                     showAlert: false,
                     specialization: {...specialization},
                     doctor: {...doctor},
+                    doctorSalutation,
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
                     toDate: new Date(toDate),
@@ -1186,14 +1188,17 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData;
             const {
                 id, specializationName, specializationId, doctorId, doctorName, rosterGapDuration,
-                fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status,
+                fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status, doctorSalutation,
                 createdDate, lastModifiedDate, lastModifiedBy, createdBy
             } = doctorDutyRosterInfo && doctorDutyRosterInfo;
             return {
                 id: id,
                 hospital: {label: hospitalName, value: hospitalId},
                 specialization: {label: specializationName, value: specializationId},
-                doctor: {label: doctorName, value: doctorId},
+                doctor: {
+                    label: doctorSalutation ? doctorSalutation.concat(' '.concat(doctorName)) : doctorName,
+                    value: doctorId
+                },
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),
                 toDate: new Date(toDate),
@@ -1201,6 +1206,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
                 doctorDutyRosterOverrideRequestDTOS: [...overrideRosters],
                 status: status,
+                doctorSalutation,
                 createdDate,
                 lastModifiedDate,
                 lastModifiedBy,

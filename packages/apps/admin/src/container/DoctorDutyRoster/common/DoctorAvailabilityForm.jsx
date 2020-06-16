@@ -25,11 +25,11 @@ const DoctorAvailabilityForm = ({
                         {type === 'ADD' ?
                             <CCheckbox
                                 id="check-all-menu"
-                                label="Days Off"
+                                label="Off"
                                 className="select-all check-all"
                                 checked={wholeWeekOff === 'Y'}
                                 onChange={handleWholeWeekOff}
-                            /> : "Days Off"
+                            /> : "Off"
                         }
                     </Col>
                 </Row>

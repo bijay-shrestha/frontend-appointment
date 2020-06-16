@@ -2,12 +2,14 @@ import React from 'react';
 import {Col, Row} from "react-bootstrap";
 import {CButton, CCheckbox, CDataTable} from "@frontend-appointment/ui-elements";
 import AddOverrideModal from "./AddOverride";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
-import OverrideActions from "./table-components/OverrideActions";
-import FromDateDisplayForTable from "../../CommonComponents/table-components/FromDateDisplayForTable";
-import ToDateDisplayForTable from "../../CommonComponents/table-components/ToDateDisplayForTable";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
+import {
+    DayOffStatusLabel,
+    EndTimeDisplayForTable,
+    FromDateDisplayForTable,
+    OverrideActions,
+    StartTimeDisplayForTable,
+    ToDateDisplayForTable
+} from "@frontend-appointment/ui-components";
 
 const DoctorAvailabilityOverrides = ({
                                          hasOverrideDutyRoster,
@@ -126,7 +128,7 @@ const DoctorAvailabilityOverrides = ({
                                         sizeColumnsToFit: true,
                                     },
                                     {
-                                        headerName: 'Days Off',
+                                        headerName: 'Off',
                                         field: 'dayOffStatus',
                                         cellRenderer: 'childLabelRenderer',
                                         resizable: true,

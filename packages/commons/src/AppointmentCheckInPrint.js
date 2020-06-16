@@ -1,6 +1,5 @@
 import React from 'react'
 import './print.scss';
-import kaushal from './kaushal.jpeg'
 class AppointmentCheckInPrint extends React.PureComponent {
   render () {
     const {data} = this.props

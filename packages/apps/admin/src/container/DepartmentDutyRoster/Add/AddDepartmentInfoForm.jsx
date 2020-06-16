@@ -25,7 +25,7 @@ const AddDepartmentInfoForm = ({departmentInfoFormData}) => {
     } = departmentInfoFormData;
 
     return <>
-        <Col md={12} lg={5} className="info-container">
+        <Col md={12} lg={4} className="info-container">
             <div className="doctor-info bg-white p-4">
                 <h5 className="title mb-4">General Information</h5>
                 <Form>

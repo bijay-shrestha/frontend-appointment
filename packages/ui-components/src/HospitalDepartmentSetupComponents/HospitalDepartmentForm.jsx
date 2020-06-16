@@ -213,8 +213,8 @@ const HospitalDepartmentForm = ({
                                             onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                             placeholder="Appointment Charge"
                                             value={deptCharge.appointmentCharge}
-                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                : !activeBillingModeForDropdown.length}
+                                            disabled={isAdminModule ? !departmentData.hospital || !deptCharge.billingMode
+                                                : !deptCharge.billingMode}
                                             required={true}
                                             hasValidation={true}
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
@@ -231,8 +231,8 @@ const HospitalDepartmentForm = ({
                                                 onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                                 placeholder="Follow Up Charge"
                                                 value={deptCharge.followUpCharge}
-                                                disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                    : !activeBillingModeForDropdown.length}
+                                                disabled={isAdminModule ? !departmentData.hospital || !deptCharge.billingMode
+                                                    : !deptCharge.billingMode}
                                                 required={true}
                                                 hasValidation={true}
                                                 fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
