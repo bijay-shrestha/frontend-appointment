@@ -162,7 +162,7 @@ const AppointmentStatusDetails = ({
                         <p className="department-name">
                           {' '}
                           {appointmentStatusDetail.hospitalDepartmentName}
-                          <br></br>
+                          
                         </p>                      
                         <div>
                           <p>Available Doctors</p>
