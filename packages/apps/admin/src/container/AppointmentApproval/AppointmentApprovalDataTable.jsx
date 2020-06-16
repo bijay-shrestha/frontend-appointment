@@ -1,15 +1,6 @@
 import React, {memo} from 'react';
-import {
-    AppointmentNumberWithCopyToClipboardForTable,
-    CDataTable,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements';
-import {
-    //  ConfirmDelete,
-    CConfirmationModal,
-    DoctorWithSpecImage
-} from '@frontend-appointment/ui-components';
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
+import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
@@ -106,7 +97,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 120,
-                                    cellRenderer: 'appointmentNumberRenderer'
+                                    // cellRenderer: 'appointmentNumberRenderer'
                                 },
                                 // {
                                 //   headerName: 'Esewa Id',
@@ -186,7 +177,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 childActionRenderer: TableApproveAction,
-                                appointmentNumberRenderer: AppointmentNumberWithCopyToClipboardForTable,
+                                // appointmentNumberRenderer: AppointmentNumberWithCopyToClipboardForTable,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 PatientNameWithMobileNumber: PreviewHandlerHoc(PatientNameWithMobileNumber, null, null, null, previewCall),

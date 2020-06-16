@@ -1,6 +1,5 @@
 import React from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard'
-import {Toast} from 'react-bootstrap'
 import PropTypes from 'prop-types';
 
 class CCopyToClipboard extends React.PureComponent {
@@ -8,11 +7,11 @@ class CCopyToClipboard extends React.PureComponent {
         showAlert: false,
     }
 
-    handleOnCopy = (text, result) => {
+    handleOnCopy = (text) => {
         this.setState({
             showAlert: true
         });
-        this.props.onCopy && this.props.onCopy(text,result);
+        this.props.onCopy && this.props.onCopy(text);
     }
 
     closeAlert = () => {
@@ -30,12 +29,12 @@ class CCopyToClipboard extends React.PureComponent {
             textToCopy,
             children,
             options,
-            toastDelayTime
+            // toastDelayTime
         } = this.props
 
-        const {
-            showAlert
-        } = this.state;
+        // const {
+        //     showAlert
+        // } = this.state;
         return <>
             <CopyToClipboard
                 id={id}

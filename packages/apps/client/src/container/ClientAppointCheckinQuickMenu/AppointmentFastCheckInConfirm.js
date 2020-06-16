@@ -1,5 +1,5 @@
 import React from 'react'
-import {CCopyToClipboard, CForm, CModal,CButton} from '@frontend-appointment/ui-elements'
+import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
 import {Button, Row} from 'react-bootstrap'
 
 const AppointmentFastCheckInConfirm = ({
@@ -11,7 +11,7 @@ const AppointmentFastCheckInConfirm = ({
 
     const bodyContent = <>
         <Container-fluid>
-            <CForm className="mt-2">
+            <CForm id ="quick-checkin" className="mt-2">
                 <Container-fluid>
                     <Row className="clip">
 
@@ -27,7 +27,7 @@ const AppointmentFastCheckInConfirm = ({
                         &nbsp;&nbsp;
 
                         <CCopyToClipboard
-                       
+
                             id={"appointmentNumber"}
                             textToCopy={appointmentDetails.appointmentNumber}
                             children={
@@ -43,15 +43,15 @@ const AppointmentFastCheckInConfirm = ({
     return (
         <>
             <CModal
+                id={"confirm-quick-checkin"}
                 show={showModal}
-                modalHeading={modalHeader}
+                // modalHeading={modalHeader}
                 size="lg"
                 modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
                 onHide={setShowModal}
                 dialogClassName="cogent-modal"
-                size="lg"
             />
         </>
     )

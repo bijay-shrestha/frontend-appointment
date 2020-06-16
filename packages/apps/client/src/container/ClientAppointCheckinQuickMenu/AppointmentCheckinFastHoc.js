@@ -600,6 +600,13 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 } else {
                     this.setState({
                         thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.responseMessage
+                                || "Could not access third party api."
+                        }
                     })
                 }
             } catch (e) {

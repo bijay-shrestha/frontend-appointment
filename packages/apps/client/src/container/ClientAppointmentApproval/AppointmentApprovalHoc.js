@@ -488,7 +488,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail,
                     age: this.props.AppointmentDetailReducer.appointmentDetail.age ?
-                        this.props.AppointmentDetailReducer.appointmentDetail.age :"0 years"
+                        this.props.AppointmentDetailReducer.appointmentDetail.age : "0 years"
                 }
             })
         }
@@ -583,7 +583,6 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             })
             // sabu
             let requestDTO;
-
             try {
                 const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
                     apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE);
@@ -601,7 +600,14 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     this.approveApiCall(requestDTO)
                 } else {
                     this.setState({
-                        thirdPartyApiErrorMessage: successResponse.responseMessage
+                        thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.responseMessage
+                                || "Could not access third party api."
+                        }
                     })
                 }
             } catch (e) {
