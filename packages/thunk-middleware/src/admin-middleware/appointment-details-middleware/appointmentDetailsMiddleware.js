@@ -2,8 +2,8 @@ import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
-// import axios from 'axios'
-// import headers from '@frontend-appointment/core/src/axios/axios-helper/headers'
+import {GenericThirdPartyApiMiddleware} from '../../../index'
+
 export const fetchAppointmentRefundList = (
     path,
     pagination,
@@ -53,41 +53,19 @@ export const fetchAppointmentApprovalList = (
     }
 }
 
-
-export const thirdPartyApiCall = async (data, featureTypeCode) => {
-    let apiRequestBody = {
-        featureCode: null,
-        integrationChannelCode: null
+export const thirdPartyApiCall = async (data, featureTypeCode, integrationType, clientId) => {
+    const requestBodies = APIUtils.getIntegrationValue('requestBody');
+    const constructedData = constructAppointmentCheckInData(data, requestBodies)
+    try {
+        return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
+            data,
+            featureTypeCode,
+            integrationType,
+            clientId,
+            constructedData);
+    } catch (e) {
+        throw e
     }
-    const apiIntegrateData = APIUtils.getIntegrationValue('ecintegrate')
-    // sabu
-    const currentFeatureApiIntegrationDetails = apiIntegrateData.features && apiIntegrateData.features.find(feature =>
-        feature.featureCode === featureTypeCode);
-    if (currentFeatureApiIntegrationDetails &&
-        APIUtils.checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
-        const requestBodies = APIUtils.getIntegrationValue('requestBody');
-        const constructedData = constructAppointmentCheckInData(data, requestBodies)
-        // const option = APIUtils.constructApiFromEcIntegration('APKCHK', apiIntegrateData, constructedData)
-        const option = APIUtils.constructApiFromEcIntegration(featureTypeCode, apiIntegrateData, constructedData)
-        let response = null;
-        try {
-            if (option)
-                if (APIUtils.checkIntegrationChannelIsFrontend(option.integrationChannelCode)) {
-                    response = await Axios.dynamicMethod(option.requestOption)
-                    apiRequestBody.integrationChannelCode = currentFeatureApiIntegrationDetails.integrationChannelCode
-                    return {successResponse: response.data, apiRequestBody};
-                }
-        } catch (e) {
-            throw e;
-        }
-
-    } else {
-        apiRequestBody.featureCode = currentFeatureApiIntegrationDetails ?
-            currentFeatureApiIntegrationDetails.featureCode : null;
-        apiRequestBody.integrationChannelCode = currentFeatureApiIntegrationDetails ?
-            currentFeatureApiIntegrationDetails.integrationChannelCode : null
-    }
-    return {successResponse: null, apiRequestBody}
 }
 
 export const appointmentApproveIntegration = (path, data) => async dispatch => {

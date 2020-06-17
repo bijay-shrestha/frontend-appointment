@@ -8,7 +8,7 @@ import {
     SpecializationSetupMiddleware,
     AppointmentTransferMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants, apiIntegrationFeatureTypeCodes} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
     DateTimeFormatterUtils,
     EnterKeyPressUtils
@@ -608,16 +608,21 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             this.setState({
                 isConfirming: true
             })
-
+            const {hospitalId, hospitalNumber, appointmentId} = this.state.appointmentDetails;
             // sabu
             let requestDTO;
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
-                    apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE);
+                const {successResponse, apiRequestBody} = await thirdPartyApiCall(
+                    this.state.appointmentDetails,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                    IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
+                    this.state.appointmentDetails.hospitalId
+                );
                 requestDTO = {
-                    appointmentId: this.state.appointmentDetails.appointmentId,
+                    hospitalId: hospitalId,
+                    appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: this.state.appointmentDetails.hospitalNumber ? false : true,
+                    patientStatus: !hospitalNumber,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
