@@ -306,7 +306,7 @@ const UniversitySetupComponent = loadable(
     () => import('./container/UniversitySetup/UniversitySetup'),
     {fallback: () => getLoader()}
 )
- 
+
 /* ****** V ***** */
 
 /* ****** W ***** */
@@ -428,7 +428,7 @@ export const routes = [
     },
     {
         path: '/admin/apiIntegration/adminApiIntegration',
-        name: 'Admin Api Integration',
+        name: 'Appointment Mode Api Integration',
         component: <></>,
         icon: '',
         hasTab: true,

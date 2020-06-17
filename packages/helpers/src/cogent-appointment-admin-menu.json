@@ -265,7 +265,7 @@
           "description": "appointmentStatusbydepartment",
           "childMenus": []
         },
-    
+
         {
           "id": "12",
           "parentId": "10",
@@ -443,7 +443,7 @@
         {
           "id": "35",
           "parentId": "33",
-          "name": "Admin API Integration",
+          "name": "Appointment Mode API Integration",
           "path": "/apiIntegration/adminApiIntegration",
           "roles": [
             2,
@@ -457,7 +457,7 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Admin API Integration",
+          "description": "Appointment Mode API Integration",
           "childMenus": []
         },
         {
