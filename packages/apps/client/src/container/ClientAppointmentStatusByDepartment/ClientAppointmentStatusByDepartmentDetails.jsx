@@ -164,7 +164,7 @@ const AppointmentStatusDetails = ({
                         </p>
                        
                         <div>
-                        <p>Available Doctors</p>
+                        {/* <p>Available Doctors</p> */}
                           <ul>
                             {appointmentStatusDetail.doctorInfoList[0].doctorInfo.map(
                               doctorInfo => {

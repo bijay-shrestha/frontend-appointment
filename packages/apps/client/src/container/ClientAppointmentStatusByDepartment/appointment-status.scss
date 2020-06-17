@@ -143,6 +143,8 @@
     font-size: 0.85rem;
     margin-top:0;
     color:$primary;
+    margin-bottom:20px;
+    // min-height: 56px;
   }
 
   //  &::before{
@@ -163,12 +165,18 @@
    margin-bottom:0;
  
  }
+ ul{
+  margin-top:56px;
+}
 
-  li{
-    border:1px solid $gray-200;
-    @include border-radius(4px);
+  li{ 
+    
     margin:4px 0;
     padding:4px;
+    border:1px solid $gray-100;
+    background-color: $gray-100;
+ 
+    @include border-radius(4px);
 
     img{
      margin-right: 10px;
