@@ -7,11 +7,18 @@ class AppointmentCheckInPrint extends React.PureComponent {
       <div
        className="outPopUp"
       >
-        {/* <img src={kaushal} alt="patientImage" className="patient-image"></img> */}
-        <p> Name: {data.patientName} </p>
-        <p> Age: {data.patientAge} </p>
-        <p> Sex: {data.patientGender} </p>
-        <p>Appt. Number: {data.appointmentNumber} </p>
+        <div className="appt-detail">
+        <p>Appt. Number:<span> {data.appointmentNumber}</span> </p>
+        <p>Appt. Date:<span> May 13,2020 , 11.50 PM</span> </p>
+        </div>
+       <div className="patient-detail">
+        <p> Name: <span>{data.patientName}</span> </p>
+        <p> Address: <span>Kohalpur,Nepalgunj</span></p>
+        <p> Age: <span>{data.patientAge}</span> </p>        
+        <p> Sex: <span>{data.patientGender} </span></p>
+       </div>
+        
+       
       </div>
     )
   }

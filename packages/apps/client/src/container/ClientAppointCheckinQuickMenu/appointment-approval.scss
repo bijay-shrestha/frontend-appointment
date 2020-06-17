@@ -173,6 +173,7 @@
     .btn-action{
         width:calc(25% - 10px);
         margin-left:10px;
+        padding:0;
         height: 42px;
         font-size: 0.9rem;
         font-weight: 500;
@@ -258,10 +259,17 @@
  text-align: center;
 margin-top:-20px;
  padding:0px 0 20px;
+ align-items: center;
+
+ .fa-check{
+     color: $success;
+     font-size: 40px;
+     margin-bottom: 20px;
+ }
 
     p.load-title{
         margin-top:10px;
-        margin-bottom:30px;
+        margin-bottom:28px;
         color:$success;
         display: block;
         font-size: 16px;
@@ -269,10 +277,13 @@ margin-top:-20px;
 }
 
 .clip-alert{
-    // background-color: $white;
-    padding:5px 0px 20px 20px;
+     background-color: $white;
+    padding:15px 0px 20px 20px;
+    .close{
+        color:$success;
+    }
     p{
-        color:$white;
+        color:$success;
        
     }
 
