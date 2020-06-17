@@ -88,7 +88,7 @@ const ClientApiIntegrationForm = ({
                                 />
                             </Col>
 
-                            {integrationData.integrationTypeId && integrationData.integrationTypeId.value == 1 ?
+                            {integrationData.integrationTypeId && integrationData.integrationTypeId.value === 1 ?
                                 <Col sm={12} md={3}>
                                     <CHybridSelect
                                         id="hospital"
@@ -110,7 +110,7 @@ const ClientApiIntegrationForm = ({
                                                 : 'No Client(s) Found.'
                                         }
                                     />
-                                </Col> :''}
+                                </Col> : ''}
 
                             <Col sm={3} md={3}>
                                 <CHybridSelect

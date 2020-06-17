@@ -1,15 +1,16 @@
 import React, {memo} from 'react'
 import {
     CButton,
-    CForm,
-    CHybridInput,
-    CModal,
-    CHybridSelect,
     CCheckbox,
     CFLabel,
-    CHybridTextArea, CRadioButton
+    CForm,
+    CHybridInput,
+    CHybridSelect,
+    CHybridTextArea,
+    CModal,
+    CRadioButton
 } from '@frontend-appointment/ui-elements'
-import {Col, Container, Form, Row} from 'react-bootstrap'
+import {Col, Container, Row} from 'react-bootstrap'
 
 const AdminApiIntegrationEditModal = ({
                                           showEditModal,
