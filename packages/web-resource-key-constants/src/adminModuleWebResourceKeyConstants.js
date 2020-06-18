@@ -170,7 +170,7 @@ export const patientSetupApiConstant = {
     FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN: BASE.concat(PATIENT_BASE.concat("/eSewaId"))
 };
 
-
+const HOSPITAL_DEPARTMENT="/hospitalDepartment"
 export const appointmentSetupApiConstant = {
     APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
     APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
@@ -186,7 +186,10 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVAL_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/pending-approval")),
     APPOINTMENT_REFUND_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/refund/detail")),
     TRANSACTION_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/transaction-log"),
-    APPOINTMENT_APPROVE_INTEGRATION: BASE.concat(APPOINTMENT_BASE + INTEGRATION + "/approve")
+    APPOINTMENT_APPROVE_INTEGRATION: BASE.concat(APPOINTMENT_BASE + INTEGRATION + "/approve"),
+    APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT: BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+'/pending-approval'),
+    APPOINTMENT_APPROVAL_DEPARTMENT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/approve"),
+    APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/pending-approval/detail") 
 };
 
 export const DashboardApiConstant = {

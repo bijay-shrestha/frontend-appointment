@@ -98,6 +98,10 @@ const DashboardComponent = Loadable({
     loading: () => getLoader()
 })
 
+const DepartmentWiseQuickCheckInComponent = loadable(
+    () => import('./container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'),
+    {fallback: () => getLoader()}
+)
 // const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
@@ -194,7 +198,7 @@ const QualificationAlias = loadable(
 )
 
 const QuickCheckInComponent = loadable(
-    () => import('./container/ClientAppointCheckinQuickMenu/AppointmentCheckinFast'),
+    () => import('./container/ClientAppointmentCheckinQuickMenu/AppointmentCheckinFast'),
     {fallback: () => getLoader()}
 )
 
@@ -605,6 +609,16 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Quick Check In',
+        isSingleTab: true
+    },
+    {
+        path: '/departmentWiseAppointmentQuickCheckIn',
+        component: DepartmentWiseQuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Department Wise Quick Check In',
         isSingleTab: true
     },
     {

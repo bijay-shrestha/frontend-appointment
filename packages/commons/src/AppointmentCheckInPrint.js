@@ -2,7 +2,7 @@ import React from 'react'
 import './print.scss';
 class AppointmentCheckInPrint extends React.PureComponent {
   render () {
-    const {data} = this.props
+    //const {data} = this.props
     return (
       // <div
       //  className="outPopUp"
