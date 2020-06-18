@@ -476,7 +476,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         hospitalDepartmentId,
         //hospitalDepartmentRosterId,
         appointmentNumber,
-        hasAppointmentNumber,
+        //hasAppointmentNumber,
         status
       } = this.state.searchParameters
     
@@ -498,7 +498,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
               : departmentId.value,
           hospitalDepartmentRoomInfoId: roomId || '',
           appointmentNumber:appointmentNumber,
-          hasAppointmentNumber:hasAppointmentNumber?'Y':'N',
+          hasAppointmentNumber:appointmentNumber?'Y':'N',
           status: (status.value === 'ALL' ? '' : status.value) || ''
         }
 
