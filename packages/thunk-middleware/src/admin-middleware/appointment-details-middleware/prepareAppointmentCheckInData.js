@@ -2,11 +2,11 @@ import {StringUtils} from '@frontend-appointment/helpers'
 export const constructAppointmentCheckInData =(data,requestBody)=>{
   // console.log("data",data);
   requestBody.name=data.patientName;
-  requestBody.age=Number(data.patientAge.replace("years",""));
+  requestBody.age=data.patientAge?Number(data.patientAge.replace("years","")):data.age;
   requestBody.wardNo="5"
   requestBody.roomNo= "10"
   requestBody.patientId= data.hospitalNumber
-  requestBody.sex= StringUtils.toTitleCase(data.patientGender)
+  requestBody.sex= StringUtils.toTitleCase(data.patientGender||data.gender)
   requestBody.section= "ENT"
   requestBody.mobileNo= data.mobileNumber
   requestBody.appointmentNo= data.appointmentNumber

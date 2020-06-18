@@ -41,7 +41,7 @@ export const fetchAppointmentApprovalList = (
         dispatch(
             AppointmentDetailActions.appointmentApprovalFetchingSuccess({
                 pendingAppointmentApprovals: dataWithSn,
-                totalItems: response.data.totalItems
+                totalItems: response.data.totalItems||response.data[0].totalItems
             })
         )
     } catch (e) {
