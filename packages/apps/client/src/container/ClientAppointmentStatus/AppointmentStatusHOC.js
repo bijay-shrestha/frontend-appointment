@@ -17,7 +17,7 @@ const {
     fetchAppointmentStatusList,
     clearAppointmentStatusMessage,
     appointmentApprove,
-    thirdPartyApiCall,
+    thirdPartyApiCallCheckIn,
     appointmentApproveIntegration
 } = AppointmentDetailsMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -262,7 +262,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: true
                 });
-                const response = await thirdPartyApiCall(this.state.appointmentDetails)
+                const response = await thirdPartyApiCallCheckIn(this.state.appointmentDetails)
                 if (!response) {
                   await this.props.appointmentApprove(
                     APPOINTMENT_APPROVE,
@@ -319,7 +319,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 this.setShowModal()
               }
             }
-        
+
 
         clearAlertTimeout = () => {
             setTimeout(() => this.closeAlert(), 5000)

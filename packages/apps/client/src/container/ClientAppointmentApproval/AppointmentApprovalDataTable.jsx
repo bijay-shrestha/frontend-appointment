@@ -1,21 +1,17 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-import {AppointmentCheckInPrint,PrintableComponent} from '@frontend-appointment/commons'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
+
 const {checkIfRoleExists}=ActionFilterUtils
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredActions}) => {
     const {

@@ -110,7 +110,7 @@ const getCurrentFeatureIntegrationDetails = (apiIntegrateData, featureTypeCode) 
     return apiIntegrateData.features.find(feature => feature.featureCode === featureTypeCode)
 }
 
-export const getCurrentFeatureApiIntegrationDetails = (integrationType, featureTypeCode, clientId) => {
+export const getCurrentClientFeatureApiIntegrationDetails = (integrationType, featureTypeCode, clientId) => {
     let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
     let currentFeatureApiIntegrationDetails
     const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
@@ -124,3 +124,19 @@ export const getCurrentFeatureApiIntegrationDetails = (integrationType, featureT
     }
     return currentFeatureApiIntegrationDetails
 }
+
+export const getCurrentAppointmentModeFeatureApiIntegrationDetails = (integrationType, featureTypeCode, appointmentModeId) => {
+    // let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
+    let currentFeatureApiIntegrationDetails
+    const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
+    // if (isClientModule) {
+    //     currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetails(apiIntegrateData[0], featureTypeCode)
+    // } else {
+        const selectedAppointmentModeApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
+            apiIntegration.appointmentModeId === appointmentModeId);
+        currentFeatureApiIntegrationDetails = selectedAppointmentModeApiIntegrationDetails && getCurrentFeatureIntegrationDetails(
+            selectedAppointmentModeApiIntegrationDetails, featureTypeCode)
+    // }
+    return currentFeatureApiIntegrationDetails
+}
+

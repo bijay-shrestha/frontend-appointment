@@ -53,7 +53,7 @@ export const fetchAppointmentApprovalList = (
     }
 }
 
-export const thirdPartyApiCall = async (data, featureTypeCode, integrationType, clientId) => {
+export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integrationType, clientId) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
     const constructedData = constructAppointmentCheckInData(data, requestBodies)
     try {
@@ -63,6 +63,21 @@ export const thirdPartyApiCall = async (data, featureTypeCode, integrationType, 
             integrationType,
             clientId,
             constructedData);
+    } catch (e) {
+        throw e
+    }
+}
+
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType) => {
+    // const requestBodies = APIUtils.getIntegrationValue('requestBody');
+    // const constructedData = constructAppointmentCheckInData(data, requestBodies)
+    try {
+        return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
+            data,
+            featureTypeCode,
+            integrationType,
+            data.hospitalId,
+            {});
     } catch (e) {
         throw e
     }
