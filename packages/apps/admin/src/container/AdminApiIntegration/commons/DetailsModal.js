@@ -126,6 +126,38 @@ const DetailsModal = ({
                                 )}
                             </Col>
 
+                          
+                            <Col sm={3}>
+                                {type !== 'P' ? (
+                                    <CHybridSelect
+                                        id="requestMethod"
+                                        name="requestmethod"
+                                        label="Request Method"
+                                        value={integrationData.requestMethod}
+                                        isDisabled={true}
+                                    />
+                                ) : (
+                                    <CHybridInput
+                                        id="requestMethod"
+                                        value={integrationData.requestMethod}
+                                        disabled={true}
+                                        placeholder="Request Method"
+                                    />
+                                )}
+                            </Col>
+
+                            <Col sm={6}>
+                                <CHybridInput
+                                    placeholder="Request Url"
+                                    name="Request Url"
+                                    value={integrationData.apiUrl || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                        </Row>
+
+                        <Row>
+                            <Col sm={12} className="integration-status">
                             <CFLabel labelName="Status" id="status"/>
                             <div>
                                 <CRadioButton
@@ -150,33 +182,7 @@ const DetailsModal = ({
                                 />
                             </div>
 
-                            <Col sm={3}>
-                                {type !== 'P' ? (
-                                    <CHybridSelect
-                                        id="requestMethod"
-                                        name="requestmethod"
-                                        label="Request Method"
-                                        value={integrationData.requestMethod}
-                                        isDisabled={true}
-                                    />
-                                ) : (
-                                    <CHybridInput
-                                        id="requestMethod"
-                                        value={integrationData.requestMethod}
-                                        disabled={true}
-                                        placeholder="Request Method"
-                                    />
-                                )}
-                            </Col>
-
-                            <Col sm={9}>
-                                <CHybridInput
-                                    placeholder="Request Url"
-                                    name="Request Url"
-                                    value={integrationData.apiUrl || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                        </Col>
                         </Row>
 
                         <Row>

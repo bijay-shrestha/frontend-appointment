@@ -98,30 +98,7 @@ const DetailsModal = ({
                                 )}
                             </Col>
 
-                            <CFLabel labelName="Status" id="status"/>
-                            <div>
-                                <CRadioButton
-                                    id="radio1"
-                                    label="Active"
-                                    type="radio"
-                                    name="status"
-                                    value="Y"
-                                    checked={integrationData.status === 'Y'}
-                                    readOnly={true}
-                                    disabled={true}
-                                />
-                                <CRadioButton
-                                    checked={integrationData.status === 'N'}
-                                    id="radio2"
-                                    label="Inactive"
-                                    type="radio"
-                                    name="status"
-                                    value="N"
-                                    readOnly={true}
-                                    disabled={true}
-                                />
-                            </div>
-
+                           
                             <Col sm={3}>
                                 {type !== 'P' ? (
                                     <CHybridSelect
@@ -149,6 +126,34 @@ const DetailsModal = ({
                                     disabled={true}
                                 />
                             </Col>
+                        </Row>
+
+                        <Row>
+                        <Col className="integration-status">
+                        <CFLabel labelName="Status" id="status"/>                      
+                            <div>
+                                <CRadioButton
+                                    id="radio1"
+                                    label="Active"
+                                    type="radio"
+                                    name="status"
+                                    value="Y"
+                                    checked={integrationData.status === 'Y'}
+                                    readOnly={true}
+                                    disabled={true}
+                                />
+                                <CRadioButton
+                                    checked={integrationData.status === 'N'}
+                                    id="radio2"
+                                    label="Inactive"
+                                    type="radio"
+                                    name="status"
+                                    value="N"
+                                    readOnly={true}
+                                    disabled={true}
+                                />
+                            </div>
+                        </Col>            
                         </Row>
 
                         <Row>

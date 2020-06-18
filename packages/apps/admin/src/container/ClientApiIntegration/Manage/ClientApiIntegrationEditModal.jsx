@@ -123,28 +123,7 @@ const ClientApiIntegrationEditModal = ({
                             />
                         </Col>
 
-                        <CFLabel labelName="Status" id="status"/>
-                        <div>
-                            <CRadioButton
-                                id="radio1"
-                                label="Active"
-                                type="radio"
-                                name="status"
-                                value="Y"
-                                checked={integrationData.status === 'Y'}
-                                onChange={(event) => onChangeHandler(event, '', 'E')}
-                            />
-                            <CRadioButton
-                                checked={integrationData.status === 'N'}
-                                id="radio2"
-                                label="Inactive"
-                                type="radio"
-                                name="status"
-                                value="N"
-                                readOnly={true}
-                                onChange={(event) => onChangeHandler(event, '', 'E')}
-                            />
-                        </div>
+              
                     </Row>
                     <Row>
                         <Col sm={3} md={3} lg={3}>
@@ -185,6 +164,33 @@ const ClientApiIntegrationEditModal = ({
                             />
                         </Col>
                     </Row>
+
+                    <Row>
+                    <Col sm={3} className="integration-status">
+                    <div>
+                    <CFLabel labelName="Status" id="status"/>
+                         </div>
+                            <CRadioButton
+                                id="radio1"
+                                label="Active"
+                                type="radio"
+                                name="status"
+                                value="Y"
+                                checked={integrationData.status === 'Y'}
+                                onChange={(event) => onChangeHandler(event, '', 'E')}
+                            />
+                            <CRadioButton
+                                checked={integrationData.status === 'N'}
+                                id="radio2"
+                                label="Inactive"
+                                type="radio"
+                                name="status"
+                                value="N"
+                                readOnly={true}
+                                onChange={(event) => onChangeHandler(event, '', 'E')}
+                            />
+                       </Col>
+                        </Row>
 
                     <Row>
                         <Col>

@@ -1,56 +1,44 @@
 import React from 'react'
-import {CCopyToClipboard, CForm, CModal} from '@frontend-appointment/ui-elements'
-import {Row} from 'react-bootstrap'
+import { CCopyToClipboard, CForm, CModal } from '@frontend-appointment/ui-elements'
+import { Row } from 'react-bootstrap'
 
 const AppointmentFastCheckInConfirm = ({
-                                           showModal,
-                                           modalHeader,
-                                           setShowModal,
-                                           appointmentDetails,
-                                           onCopyAppointmentNumber,
-                                           copySuccessMessage,
-                                           Print
-                                       }) => {
+    showModal,
+    modalHeader,
+    setShowModal,
+    appointmentDetails,
+    onCopyAppointmentNumber,
+    copySuccessMessage,
+    Print
+}) => {
 
 
     const bodyContent = <>
         <Container-fluid>
             <CForm id="quick-checkin" className="mt-2">
-              
-                    <Row className="clip">
 
-                                        <i className="fa fa-check">
+                <Row className="clip">
+                <i className="fa fa-check-circle"></i>
+                    <h2>Appointment Checked-In Successfully</h2>  
+                    <div className="btn-container">
+                    {Print ? <Print /> : ''}
+                    &nbsp;&nbsp;
 
-                                        </i>
-                        {Print ? <Print/> : ''}
+                    <CCopyToClipboard
+                    id={"appointmentNumber"}
+                    textToCopy={appointmentDetails.appointmentNumber}
+                    children={
+                        <button className="btn btn-primary btn-lg btn-action"><i className="fa fa-copy" />&nbsp;Copy Appt.
+                                Number
+                            </button>
+                    }
+                    onCopy={onCopyAppointmentNumber}
+                    copiedMessage={copySuccessMessage}
+                    />
+                    </div>
+             
+                </Row>
 
-                        {/*<Button variant="secondary"*/}
-                        {/*        size="lg"*/}
-                        {/*        name=""*/}
-                        {/*    // onClickHandler={e =>*/}
-                        {/*    //     onClick(e, props.node.data.id || props.node.data, 'C')*/}
-                        {/*    // }*/}
-                        {/*>*/}
-                        {/*    <i className="fa fa-print"/>&nbsp;Print*/}
-                        {/*</Button>*/}
-
-                        &nbsp;&nbsp;
-
-                        <CCopyToClipboard
-                            id={"appointmentNumber"}
-                            textToCopy={appointmentDetails.appointmentNumber}
-                            children={
-                                <button className="btn btn-primary btn-lg btn-action"><i className="fa fa-copy"/>&nbsp;Copy Appt.
-                                    Number
-                                </button>
-                            }
-                            onCopy={onCopyAppointmentNumber}
-                            copiedMessage={copySuccessMessage}
-                        />
-                          {/* </div>
-                          </div> */}
-                    </Row>
-               
             </CForm>
         </Container-fluid>
     </>
@@ -61,12 +49,12 @@ const AppointmentFastCheckInConfirm = ({
                 backdrop="static"
                 show={showModal}
                 // modalHeading={modalHeader}
-                size="sm"
-                modalHeading="Appointment Checked-In Successfully"
+                size="lg"
+                // modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
                 onHide={setShowModal}
-                dialogClassName="cogent-modal"
+                dialogClassName="cogent-modal quick-confirm"
             />
         </>
     )
