@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointment/c-appointment-number-with-copy",
+  "main": "AppointmentNumberWithCopyToClipboardForTable.jsx",
+  "version": "0.0.0",
+  "author": "Sabu Shakya",
+  "license": "MIT",
+  "private": true
+}

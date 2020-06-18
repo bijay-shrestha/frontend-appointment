@@ -39,7 +39,7 @@ export const saveAdminApiIntegration = (
     let response = await Axios.post(path, integrationData)
     dispatch(
       AdminModeApiIntegrationActions.adminModeApiSaveSuccess(
-        'Admin API Integrated Successfully.'
+        'Appointment Mode API Integrated Successfully.'
       )
     )
     return response
@@ -75,7 +75,7 @@ export const editAdminApiIntegrationData = (path, data) => async dispatch => {
     await Axios.put(path, data)
     dispatch(
       AdminModeApiIntegrationActions.adminModeApiEditSuccess(
-        'Admin API Integration Updated Successfully'
+        'Appointment Mode API Integration Updated Successfully'
       )
     )
   } catch (e) {

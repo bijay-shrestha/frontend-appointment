@@ -5,7 +5,7 @@ import TableAction from "@frontend-appointment/admin/src/container/CommonCompone
 import StatusLabel from "@frontend-appointment/admin/src/container/CommonComponents/table-components/StatusLabel";
 import PreviewHandlerHoc
     from "@frontend-appointment/admin/src/container/CommonComponents/table-components/hoc/PreviewHandlerHoc";
-import {RoomEnableBadge} from "@frontend-appointment/ui-components";
+import {RoomEnableBadge, RoomNumberForTable} from "@frontend-appointment/ui-components";
 
 const {checkIfRoleExists} = ActionFilterUtils;
 
@@ -92,6 +92,15 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                         width: 140
                                     },
                                     {
+                                        headerName: 'Room Number',
+                                        field: 'roomNumber',
+                                        resizable: true,
+                                        sortable: true,
+                                        sizeColumnsToFit: true,
+                                        width: 140,
+                                        cellRenderer: "roomNumber"
+                                    },
+                                    {
                                         headerName: 'Room Enabled',
                                         field: 'isRoomEnabled',
                                         resizable: true,
@@ -134,6 +143,7 @@ const DepartmentDutyRosterDataTable = ({dataTableProps,}) => {
                                 ]}
                                 frameworkComponents={{
                                     childActionRenderer: TableAction,
+                                    roomNumber: PreviewHandlerHoc(RoomNumberForTable, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                     roomEnabledRenderer :PreviewHandlerHoc(RoomEnableBadge, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                     childLabelRenderer: PreviewHandlerHoc(StatusLabel, checkIfRoleExists, filteredAction, 4, onPreviewHandler),
                                 }}

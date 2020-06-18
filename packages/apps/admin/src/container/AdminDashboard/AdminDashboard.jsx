@@ -61,16 +61,33 @@ const AdminDashboard = props => {
                     <Container fluid className="">
                         <Row className="">
                             <Col className="px-0">{RevenuStats}</Col>
+                           
+                            <Col className="px-0">
                             {checkDashboardRole(generateRevenue.code) ||
                             checkDashboardRole(appointmentQueue.code) ||
                             checkDashboardRole(appointmentList.code) ? (
+                             
                                 <HospitalDropdown
                                     hospitalDropdown={hospitalDropdown}
                                     hospitalId={hospitalId}
                                     handleHospitalChange={handleHospitalChange}
-                                    className="top-hospital-list"
+                                    className="top-hospital-list "
                                 />
+                                
                             ) : null}
+                            {checkDashboardRole(generateRevenue.code) ||
+                            checkDashboardRole(appointmentQueue.code) ||
+                            checkDashboardRole(appointmentList.code) ? (
+                             
+                                <HospitalDropdown
+                                    hospitalDropdown={hospitalDropdown}
+                                    hospitalId={hospitalId}
+                                    handleHospitalChange={handleHospitalChange}
+                                    className="top-hospital-list mr-4"
+                                />
+                                
+                            ) : null}
+                            </Col>
                         </Row>
 
                         <Row>

@@ -36,7 +36,8 @@ const DoctorEditModal = ({
                              hospitalsForDropdown,
                              activeSpecializationList,
                              qualificationDropdown,
-                             isConsultantEditLoading
+                             isConsultantEditLoading,
+                             salutationList
                          }) => {
     const checkIfSpecializationIdAndHospitalIdMatch = (
         currSpec,
@@ -130,9 +131,25 @@ const DoctorEditModal = ({
                                     errorMessagePassed={errorMessageForDoctorName}
                                 />
                             </Col>
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridSelect
+                                    id="salutation"
+                                    name="salutations"
+                                    onKeyDown={event => onEnterKeyPress(event)}
+                                    onChange={(event, validity) => onInputChange(event, validity)}
+                                    label="Salutation (optional)"
+                                    options={salutationList}
+                                    value={doctorData.salutations}
+                                    required={true}
+                                    placeholder={salutationList.length ? "Select Salutation." : "No Salutation(s) available."}
+                                    isDisabled={!salutationList.length}
+                                    isMulti={true}
+                                    className="multiple-select"
+                                />
+                            </Col>
 
                             <Col sm={12} md={6} lg={6}>
-                                <CFLabel labelName="Gender" id="gender"></CFLabel>
+                                <CFLabel labelName="Gender" id="gender"/>
                                 <div>
                                     <CRadioButton
                                         checked={doctorData.genderCode === 'M'}

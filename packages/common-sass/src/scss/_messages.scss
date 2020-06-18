@@ -99,3 +99,25 @@
         // text-transform: uppercase;
     }
 }
+
+.overlay-loading{
+   
+    .message-content{
+        width:100%;
+        text-align: center;
+    }
+    .loader{
+        width:auto;
+    }
+
+    .process-message{
+
+    }
+
+    span{
+        display: block;
+        margin-top:14px;
+        font-size:16px;
+        // text-transform: uppercase;
+    }
+}

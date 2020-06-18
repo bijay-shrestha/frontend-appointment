@@ -75,6 +75,14 @@
               
 
             }
+
+            &:nth-child(3){
+                font-size: 0.75rem;
+                font-weight: 500;
+                // padding:0 3px;
+                font-weight: $gray-300;
+                color:$gray-600;
+            }
             
         }
     }

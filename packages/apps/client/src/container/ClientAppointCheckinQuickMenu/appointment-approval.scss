@@ -7,37 +7,37 @@
 @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
 
-#appointment-approval {
+#quick-appointment-approval {
 
-    .appointment-badge {
-        float : right;
-        margin: 10px 0;
+    // .appointment-badge {
+    //     float : right;
+    //     margin: 10px 0;
 
-        &>span {
-            margin-right: 20px;
-            height      : auto;
-            line-height : 40px;
+    //     &>span {
+    //         margin-right: 20px;
+    //         height      : auto;
+    //         line-height : 40px;
 
-            &:last-child {
-                margin-right: 0;
-            }
-        }
+    //         &:last-child {
+    //             margin-right: 0;
+    //         }
+    //     }
 
-    }
+    // }
 
-    .badge {
-        width         : 35px;
-        height        : 35px;
-        // top        :50%;
-        // left       :50%;
-        // transform  :translate(-50%,-50%);
-        text-align    : center;
-        vertical-align: middle;
-        font-size     : 16px;
-        line-height   : 22px;
-        padding       : 6px;
-        @include border-radius(50%);
-    }
+    // .badge {
+    //     width         : 35px;
+    //     height        : 35px;
+    //     // top        :50%;
+    //     // left       :50%;
+    //     // transform  :translate(-50%,-50%);
+    //     text-align    : center;
+    //     vertical-align: middle;
+    //     font-size     : 16px;
+    //     line-height   : 22px;
+    //     padding       : 6px;
+    //     @include border-radius(50%);
+    // }
 
     .react-datepicker-wrapper {
         width          : 50%;
@@ -142,7 +142,7 @@
     margin-bottom:20px;
 
     .appt-search{
-        width:70%;
+        width:55%;
         height: 42px;
 
         .form-control{
@@ -171,12 +171,30 @@
     }
 
     .btn-action{
-        width:calc(30% - 10px);
+        width:calc(25% - 10px);
         margin-left:10px;
+        padding:0;
         height: 42px;
         font-size: 0.9rem;
         font-weight: 500;
         background-color: darken($primary,10%);
+
+        .fa-sign-in{
+            color:$white !important;
+        }
+    }
+
+    .btn-reset{
+        width:calc(20% - 10px);
+        margin-left:10px;
+        height: 42px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        // background-color: darken($primary,10%);
+
+        .fa-sign-in{
+            color:$white !important;
+        }
     }
 
 
@@ -184,8 +202,93 @@
 }
 
 .quick-checkin{
+    margin-top:10px;  
+    width:40px;
+    height: 40px;
+    padding:0;
+    color:$gray-700;
+    @include border-radius(50%);
+    background-color: transparent;
+    border:none;
     .fa-sign-in{
-        color:$white !important;
+        color:$gray-700;
+        // color:$white !important;
+        font-size: 20px;
+    }
+
+    &:hover{
+        background-color:$white ;
+        color:$primary;
+    }
+}
+
+.quick-search{
+    background-color: $white;
+    margin:0;
+    padding:10px 0;
+    @include border-radius(0.5rem);
+}
+
+.quick-checkin-table{
+    font-size: 14px;
+   
+
+    
+.ag-header {
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 14px;
+    letter-spacing: 0.02rem;
+  
+    border: none;
+    border-bottom: 1px solid $gray-200;
+    // color      :$gray-800;
+  
+  }
+}
+
+.btn-clip{
+    width:auto;
+    height:auto;
+    padding:10px;
+    background-color:$primary;
+}
+.clip{
+ display: flex;
+ flex-direction: column;
+ text-align: center;
+margin-top:-20px;
+ padding:0px 0 20px;
+ align-items: center;
+
+ .fa-check{
+     color: $success;
+     font-size: 40px;
+     margin-bottom: 20px;
+ }
+
+    p.load-title{
+        margin-top:10px;
+        margin-bottom:28px;
+        color:$success;
+        display: block;
+        font-size: 16px;
+    }
+}
+
+.clip-alert{
+     background-color: $white;
+    padding:15px 0px 20px 20px;
+    .close{
+        color:$success;
+    }
+    p{
+        color:$success;
+       
+    }
+
+    .close{
+        padding-top:1rem;
     }
 }
 
