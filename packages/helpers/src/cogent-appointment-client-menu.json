@@ -328,7 +328,7 @@
           "id": "27",
           "parentId": 10,
           "name": "Department Appointment Status",
-          "path": "/appointment/appointentStatusByDepartment",
+          "path": "/appointment/appointmentStatusByDepartment",
           "roles": [
             12
           ],
