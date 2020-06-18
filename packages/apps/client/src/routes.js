@@ -602,23 +602,33 @@ export const routes = [
         isSingleTab: true
     },
     {
-        path: '/appointmentQuickCheckIn',
+        path: '/quickMenu',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Quick Menu',
+        isSingleTab: false
+    },
+    {
+        path: '/quickMenu/doctorCheckIn',
         component: QuickCheckInComponent,
         icon: '',
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Quick Check In',
+        name: 'Doctor Check-In',
         isSingleTab: true
     },
     {
-        path: '/departmentWiseAppointmentQuickCheckIn',
+        path: '/quickMenu/departmentCheckIn',
         component: DepartmentWiseQuickCheckInComponent,
         icon: '',
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Department Wise Quick Check In',
+        name: 'Department Check-In',
         isSingleTab: true
     },
     {
