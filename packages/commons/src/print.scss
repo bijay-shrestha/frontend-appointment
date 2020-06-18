@@ -11,6 +11,18 @@
   background:#fcfcfc;
 }
 
+.app-detail,.patient-detail{
+  .title{
+    text-decoration:underline;
+    }
+    
+.separtor{
+  width:100%;
+  margin:20px 0;
+  border:1px dashed #000000;
+  }
+}
+
 .appt-detail p{
 font-size:15px;
 font-weight:500;
@@ -27,15 +39,8 @@ font-size:18px;
 font-weight:600;
 }
 
-.title{
-text-decoration:underline;
-}
 
-.separtor{
-width:100%;
-margin:20px 0;
-border:1px dashed #000000;
-}
+
 
 
 
