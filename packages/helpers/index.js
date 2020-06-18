@@ -24,7 +24,7 @@ import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
 import * as StringUtils from './src/utils/StringUtils';
 import {appointmentStatusListForAppontmentAndTransaction} from './src/appointment-transaction-status'
-import * as APIUtils from './src/utils/ApiUtilHeader';
+import * as APIUtils from './src/utils/APIUtils';
 import * as MultiSelectOptionUpdateUtils from './src/utils/MultiSelectOptionUpdateUtils';
 
 export {

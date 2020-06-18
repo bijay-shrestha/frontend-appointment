@@ -55,6 +55,8 @@ import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
 import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
 import * as SalutationMiddleware from './src/salutation-middleware/salutationMiddleware';
+import * as GenericThirdPartyApiMiddleware
+    from './src/generic-third-party-api-middleware/genericThirdPartyApiMiddleware';
 
 export {
     AppointmentDetailsMiddleware,
@@ -115,5 +117,6 @@ export {
     BillingModeMiddleware,
     AppointmentServiceTypeMiddleware,
     AdminApiIntegrationMiddleware,
-    SalutationMiddleware
+    SalutationMiddleware,
+    GenericThirdPartyApiMiddleware
 }

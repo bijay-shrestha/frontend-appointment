@@ -162,32 +162,32 @@ const HospitalDepartmentSetupEditModal = ({
                                 className="multiple-select"
                             />
                         </Col>
-                        </Row>
+                    </Row>
 
-                        <Row>
-                            <Col>
-                                Billing Mode And Charge
-                            </Col>
-                            <Col>
-                                <CButton
-                                    id="macBinding"
-                                    name=""
-                                    size="sm"
-                                    variant="outline-secondary"
-                                    className="float-right mb-2"
-                                    disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                        : !activeBillingModeForDropdown.length}
-                                    onClickHandler={handleAddDepartmentChargeScheme}
-                                >
-                                    <i className="fa fa-plus"/>
-                                    &nbsp;Add
-                                </CButton>
-                            </Col>
-                        </Row>
+                    <Row>
+                        <Col>
+                            Billing Mode And Charge
+                        </Col>
+                        <Col>
+                            <CButton
+                                id="macBinding"
+                                name=""
+                                size="sm"
+                                variant="outline-secondary"
+                                className="float-right mb-2"
+                                disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
+                                    : !activeBillingModeForDropdown.length}
+                                onClickHandler={handleAddDepartmentChargeScheme}
+                            >
+                                <i className="fa fa-plus"/>
+                                &nbsp;Add
+                            </CButton>
+                        </Col>
+                    </Row>
 
-                        {
-                            departmentData.departmentChargeSchemes.map((deptCharge, index) => (
-                                deptCharge.status === 'Y' ?
+                    {
+                        departmentData.departmentChargeSchemes.map((deptCharge, index) => (
+                            deptCharge.status === 'Y' ?
                                 <Row>
                                     <Col md={4}>
                                         <CHybridSelect
@@ -212,8 +212,8 @@ const HospitalDepartmentSetupEditModal = ({
                                             onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
                                             placeholder="Appointment Charge"
                                             value={deptCharge.appointmentCharge}
-                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                : !activeBillingModeForDropdown.length}
+                                            disabled={isAdminModule ? !departmentData.hospital || !deptCharge.billingMode
+                                                : !deptCharge.billingMode}
                                             required={true}
                                             hasValidation={true}
                                             fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
@@ -222,47 +222,47 @@ const HospitalDepartmentSetupEditModal = ({
                                     </Col>
 
                                     <Col md={4}>
-                                    <div className="charge-box">
-                                        <CHybridInput
-                                            id="appointment-follow-up-charge"
-                                            name="followUpCharge"
-                                            onKeyDown={(event) => handleEnterPress(event)}
-                                            onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
-                                            placeholder="Follow Up Charge"
-                                            value={deptCharge.followUpCharge}
-                                            disabled={isAdminModule ? !departmentData.hospital || !activeBillingModeForDropdown.length
-                                                : !activeBillingModeForDropdown.length}
-                                            required={true}
-                                            hasValidation={true}
-                                            fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
-                                            errorMessagePassed={errorMessageForAppointmentCharge}
-                                        />
-                                        {
-                                            showRemoveBillingModeChargeButton ?
-                                            <Col>
-                                                <CButton
-                                                    id="macBinding"
-                                                    key={'macRemove' + index}
-                                                    name=""
-                                                    variant="outline-danger"
-                                                    className="float-right remove-mac "
-                                                    onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
-                                                >
-                                                    <i className="fa fa-close"/>
-                                                </CButton>
-                                            </Col>
-                                            : ''
-                                    }
+                                        <div className="charge-box">
+                                            <CHybridInput
+                                                id="appointment-follow-up-charge"
+                                                name="followUpCharge"
+                                                onKeyDown={(event) => handleEnterPress(event)}
+                                                onChange={(event, validity) => handleChargeDataChange(event, validity, index)}
+                                                placeholder="Follow Up Charge"
+                                                value={deptCharge.followUpCharge}
+                                                disabled={isAdminModule ? !departmentData.hospital || !deptCharge.billingMode
+                                                    : !deptCharge.billingMode}
+                                                required={true}
+                                                hasValidation={true}
+                                                fieldValuePattern={new RegExp("^\\d*(?:\\.\\d{1," + 2 + "})?$")}
+                                                errorMessagePassed={errorMessageForAppointmentCharge}
+                                            />
+                                            {
+                                                showRemoveBillingModeChargeButton ?
+                                                    <Col>
+                                                        <CButton
+                                                            id="macBinding"
+                                                            key={'macRemove' + index}
+                                                            name=""
+                                                            variant="outline-danger"
+                                                            className="float-right remove-mac "
+                                                            onClickHandler={() => handleRemoveDepartmentChargeScheme(deptCharge, index)}
+                                                        >
+                                                            <i className="fa fa-close"/>
+                                                        </CButton>
+                                                    </Col>
+                                                    : ''
+                                            }
                                         </div>
                                     </Col>
 
 
-                                    </Row>
-                                    : ''
-                            ))
-                        }
+                                </Row>
+                                : ''
+                        ))
+                    }
 
-                        <Row>
+                    <Row>
 
                         <Col sm={12} md={6} lg={6}>
                             <CFLabel labelName="Status" id="status"/>
