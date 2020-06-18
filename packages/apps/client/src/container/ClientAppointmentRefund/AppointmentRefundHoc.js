@@ -310,22 +310,20 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 }
                 if (!successResponse) {
                     this.refundAppointment(requestDTO)
+                } else if (successResponse.status && !successResponse.message && !successResponse.code) {
+                    requestDTO.status = successResponse.status
+                    this.refundAppointment(requestDTO)
+                } else {
+                    this.setState({
+                        thirdPartyApiErrorMessage: successResponse.message,
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.message
+                                || "Could not access third party api."
+                        }
+                    })
                 }
-                // else if (successResponse.responseData && !successResponse.message) {
-                //     requestDTO.hospitalNumber = successResponse.responseData
-                //     this.refundAppointment(requestDTO)
-                // }else {
-                //     this.setState({
-                //         thirdPartyApiErrorMessage: successResponse.message,
-                //         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
-                //         showAlert: true,
-                //         alertMessageInfo: {
-                //             variant: 'danger',
-                //             message: successResponse.responseMessage
-                //                 || "Could not access third party api."
-                //         }
-                //     })
-                // }
             } catch (e) {
                 this.setState({
                     isConfirming: false,
@@ -340,11 +338,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        refundAppointment = async () => {
+        refundAppointment = async data => {
             try {
                 await this.props.appointmentRefund(
                     appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
-                    this.state.refundAppointmentId
+                    data
                 )
                 this.setState({
                     showAlert: true,

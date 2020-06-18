@@ -192,10 +192,10 @@ export const appointmentRejectRefund = (path, data) => async dispatch => {
     }
 }
 
-export const appointmentRefund = (path, id) => async dispatch => {
+export const appointmentRefund = (path, data) => async dispatch => {
     dispatch(AppointmentDetailActions.appointmentRefundStart())
     try {
-        const response = await Axios.getWithPathVariables(path, id)
+        const response = await Axios.put(path, data)
         dispatch(
             AppointmentDetailActions.appointmentRefundSuccess('Refunded Successfully')
         )
