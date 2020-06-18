@@ -262,7 +262,7 @@
           "order": 1,
           "enabled": "Y",
           "menuFor": "6",
-          "description": "appointmentStatusbydepartment",
+          "description": "appointmentStatusBydepartment",
           "childMenus": []
         },
     
