@@ -106,10 +106,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sortable: true,
                                     field:'hospitalDepartmentName',
                                     width:120,
-                                    sizeColumnsToFit: true,
-                                    customValueFormatter:(params) =>{
-                                        return params.value.hospitalDepartmentName+','+params.value.roomNumber
-                                    }
+                                    sizeColumnsToFit: true
                                 },
 
                                 // {
