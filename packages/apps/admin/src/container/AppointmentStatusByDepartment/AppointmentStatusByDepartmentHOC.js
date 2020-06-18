@@ -88,8 +88,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         hospitalDepartmentRosterId: '',
         uniqueIdentifier: '',
         roomFromDate:'',
-        roomToDate:''
-
+        roomToDate:'',
+        appointmentNumber:'',
+        hasAppointmentNumber:''
       },
       showModal: false,
       appointmentStatusDetails: [],
@@ -111,6 +112,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
       showAppointmentDetailModal: false,
       searchErrorMessage: '',
       searchStatusLoading: ''
+    
     }
 
     onChangeRoom = async (roomId, departmentId, uniqueIdentifier,date) => {
@@ -191,7 +193,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
           status: '',
           uniqueIdentifier: '',
           roomFromDate:'',
-          roomToDate:''
+          roomToDate:'',
+          appointmentNumber:'',
+          hasAppointmentNumber:''
         },
         statusDetails: [],
         errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
@@ -511,6 +515,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         toDate,
         hospitalId,
         hospitalDepartmentId,
+        appointmentNumber,
+        //hasAppointmentNumber,
         //hospitalDepartmentRosterId,
         status
       } = this.state.searchParameters
@@ -533,6 +539,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
               ? hospitalDepartmentId.value || ''
               : departmentId.value,
           hospitalDepartmentRoomInfoId: roomId || '',
+          appointmentNumber:appointmentNumber||'',
+          hasAppointmentNumber:appointmentNumber?'Y':'N',
           status: (status.value === 'ALL' ? '' : status.value) || ''
         }
 
@@ -747,7 +755,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
         fromDate,
         toDate,
         hospitalId,
-        hospitalDepartmentId
+        hospitalDepartmentId,
+
       } = this.state.searchParameters
 
       let errorMessageForStatus = '',

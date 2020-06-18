@@ -85,7 +85,9 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         status: '',
         uniqueIdentifier: '',
         roomFromDate:'',
-        roomToDate:''
+        roomToDate:'',
+        appointmentNumber:'',
+        hasAppointmentNumber:''
       },
       showModal: false,
       appointmentStatusDetails: [],
@@ -162,7 +164,9 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           status: '',
           uniqueIdentifier: '',
           roomFromDate:'',
-          roomToDate:''
+          roomToDate:'',
+          appointmentNumber:'',
+          hasAppointmentNumber:''
         },
         statusDetails: [],
         errorMessageForStatusDetails: SELECT_DEPARTMENT_MESSAGE,
@@ -471,6 +475,8 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         toDate,
         hospitalDepartmentId,
         //hospitalDepartmentRosterId,
+        appointmentNumber,
+        hasAppointmentNumber,
         status
       } = this.state.searchParameters
     
@@ -491,6 +497,8 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
               ? hospitalDepartmentId.value || ''
               : departmentId.value,
           hospitalDepartmentRoomInfoId: roomId || '',
+          appointmentNumber:appointmentNumber,
+          hasAppointmentNumber:hasAppointmentNumber?'Y':'N',
           status: (status.value === 'ALL' ? '' : status.value) || ''
         }
 
