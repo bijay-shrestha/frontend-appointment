@@ -39,7 +39,6 @@ const AppointmentStatusDetails = ({
     handleViewAppointmentDetails,
     onChangeRoom
   } = statusDetailsData
-  console.log('appointmentStatusDetails', appointmentStatusDetails)
   return (
     <>
       <div className="manage-title">
@@ -159,13 +158,13 @@ const AppointmentStatusDetails = ({
                         </div>
                       </div> */}
                       <div className="doctor-details">
-                        <p className="department-name">
-                          {' '}
+                      <p className="department-name">
+                         {' '}
                           {appointmentStatusDetail.hospitalDepartmentName}
-                          
-                        </p>                      
+                        </p>
+                       
                         <div>
-                          {/* <p>Available Doctors</p> */}
+                        {/* <p>Available Doctors</p> */}
                           <ul>
                             {appointmentStatusDetail.doctorInfoList[0].doctorInfo.map(
                               doctorInfo => {
@@ -186,7 +185,7 @@ const AppointmentStatusDetails = ({
                     </Col>
 
                     <Col sm={12} md={8} lg={8} className="time-container">
-                     
+                    
                       <h5 className="title">Appointment Slots</h5>
                       <div className="room-tabs">
                         <CNavTabs
@@ -204,7 +203,8 @@ const AppointmentStatusDetails = ({
                           date={appointmentStatusDetail.date}
                         />
                       </div>
-                   
+
+                    
                       <p className="time-details">
                         <i className="fa fa-calendar"></i> &nbsp;
                         {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(

@@ -1034,7 +1034,7 @@ export const routes = [
         isSingleTab: true,
     },
     {
-        path: '/admin/appointment/appointentStatusByDepartment',
+        path: '/admin/appointment/appointmentStatusByDepartment',
         name: 'Department Appointment Status',
         component:DepartmentStatusComponent,
         icon: '',
