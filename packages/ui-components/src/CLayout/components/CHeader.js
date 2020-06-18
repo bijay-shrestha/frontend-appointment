@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {Button, Dropdown, Image, Tooltip, OverlayTrigger} from 'react-bootstrap'
-import {Axios} from '@frontend-appointment/core'
+import React, { Component } from 'react'
+import { Button, Dropdown, Image, Tooltip, OverlayTrigger } from 'react-bootstrap'
+import { Axios } from '@frontend-appointment/core'
 import {
   CAlert,
   CBreadcrumb,
@@ -24,12 +24,12 @@ import PreviewClientProfileRoles from '../../PreviewClientProfileRoles'
 const {
   CHANGE_COMPANY_ADMIN_PASSWORD
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
-const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants
-const {FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants
+const { CHANGE_PASSWORD } = AdminModuleAPIConstants.adminSetupAPIConstants
+const { FETCH_PROFILE_DETAILS } = AdminModuleAPIConstants.profileSetupAPIConstants
 const {
   PREVIEW_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
-const {ADMIN_FEATURE, LOGOUT_API} = CommonAPIConstants
+const { ADMIN_FEATURE, LOGOUT_API } = CommonAPIConstants
 
 class CHeader extends Component {
   state = {
@@ -64,7 +64,7 @@ class CHeader extends Component {
     })
 
   onChangeHandler = event => {
-    let {name, value} = event.target
+    let { name, value } = event.target
     this.setState({
       [name]: value
     })
@@ -73,7 +73,7 @@ class CHeader extends Component {
   savePinOrUnpinUserMenu = async (path, status) => {
     console.log('Status', status)
     try {
-      await Axios.put(path, {isSideBarCollapse: !status ? 'Y' : 'N'})
+      await Axios.put(path, { isSideBarCollapse: !status ? 'Y' : 'N' })
     } catch (e) {
       return true
     }
@@ -107,7 +107,7 @@ class CHeader extends Component {
     // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
 
     await this.setState({
-      userInfo: {...adminInfo},
+      userInfo: { ...adminInfo },
       // assignedModules: modules && [...modules],
       urlBase: base
     })
@@ -164,8 +164,8 @@ class CHeader extends Component {
             message: e.errorMessage
               ? e.errorMessage
               : e.message
-              ? e.message
-              : 'Something went wrong!!!'
+                ? e.message
+                : 'Something went wrong!!!'
           },
           showChangePasswordModal: false
         })
@@ -237,26 +237,38 @@ class CHeader extends Component {
     })
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setLoggedInUserInfo()
   }
 
-  render () {
+  render() {
     return (
       <React.Fragment>
+        <div className="d-flex flex-column container-fluid">
         <header className="main-header container-fluid d-flex justify-content-between align-items-center">
           <div className="header-content-left">
-            <CBreadcrumb
-              id="cogent"
-              breadcrumbData={this.props.dataForBreadCrumb}
-            />
-          </div>
+          <CBreadcrumb
+          id="cogent"         
+          breadcrumbData={this.props.dataForBreadCrumb}
+        />
+           </div>
+
+          
 
           {/*search start*/}
           <div className="header-content-right d-flex align-items-center">
             <CDoubleShiftSearch />
 
             {/* end search */}
+            <div className="fav-links">
+            <OverlayTrigger  placement="bottom" overlay={<Tooltip id="tooltip-disabled">Quick Checkin</Tooltip>}>
+              <span className="d-inline-block">
+                <Button  style={{ pointerEvents: 'none' }} variant="outline-primary">
+                <i className="fa fa-bookmark"></i>
+                </Button>
+              </span>
+            </OverlayTrigger>
+            </div>
 
             {/* start user profile */}
             <Dropdown alignRight className="user-profile">
@@ -349,26 +361,32 @@ class CHeader extends Component {
             {/* end user profile */}
           </div>
         </header>
+      
+        <div className="container-fluid d-flex  ">
+       
+        </div>
+        </div>
+        {/* <!--end header-wrapper--> */}
         {this.state.showProfileDetailModal ? (
           EnvironmentVariableGetter.REACT_APP_MODULE_CODE ===
-          EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
-            <CompanyProfilePreviewRoles
-              showModal={this.state.showProfileDetailModal}
-              setShowModal={this.closeProfileDetailsViewModal}
-              profileData={this.state.profileData}
-              rolesJson={menuRoles}
-            />
-          ) : (
-            <PreviewClientProfileRoles
-              showModal={this.state.showProfileDetailModal}
-              setShowModal={this.closeProfileDetailsViewModal}
-              profileData={this.state.profileData}
-              rolesJson={menuRoles}
-            />
-          )
+            EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
+              <CompanyProfilePreviewRoles
+                showModal={this.state.showProfileDetailModal}
+                setShowModal={this.closeProfileDetailsViewModal}
+                profileData={this.state.profileData}
+                rolesJson={menuRoles}
+              />
+            ) : (
+              <PreviewClientProfileRoles
+                showModal={this.state.showProfileDetailModal}
+                setShowModal={this.closeProfileDetailsViewModal}
+                profileData={this.state.profileData}
+                rolesJson={menuRoles}
+              />
+            )
         ) : (
-          ''
-        )}
+            ''
+          )}
         <CAlert
           id="profile-manage"
           variant={this.state.alertMessageInfo.variant}
@@ -380,10 +398,10 @@ class CHeader extends Component {
                 <Material.MdDone />
               </>
             ) : (
-              <>
-                <i className="fa fa-exclamation-triangle" aria-hidden="true" />
-              </>
-            )
+                <>
+                  <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+                </>
+              )
           }
           message={this.state.alertMessageInfo.message}
         />
