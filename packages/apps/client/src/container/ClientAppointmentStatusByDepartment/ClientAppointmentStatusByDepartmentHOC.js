@@ -713,6 +713,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         fromDate,
         toDate,
         //hospitalId,
+        appointmentNumber,
         hospitalDepartmentId
       } = this.state.searchParameters
 
@@ -726,6 +727,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       // ) {
       //   errorMessageForStatus =  ? '' : SELECT_HOSPITAL_MESSAGE
       // } else
+      if(!appointmentNumber){
        if (
         fromDate &&
         toDate &&
@@ -751,6 +753,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           ? []
           : appointmentStatusDetails
       })
+    }
 
       return errorMessageForStatus ? false : true
     }
