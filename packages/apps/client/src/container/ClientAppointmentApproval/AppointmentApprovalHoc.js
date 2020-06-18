@@ -582,7 +582,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 isConfirming: true
             })
 
-            const { hospitalNumber, appointmentId} = this.state.appointmentDetails;
+            const {hospitalNumber, appointmentId} = this.state.appointmentDetails;
             // sabu
             let requestDTO;
             try {
@@ -624,10 +624,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             e.message || e.errorMessage || "Could not access third party api."
                     }
                 })
-            } finally {
-                await this.searchAppointment()
-                this.setShowModal()
             }
+            // finally {
+            //     await this.searchAppointment()
+            //     this.setShowModal()
+            // }
 
             // try {
             //     const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails)
@@ -713,6 +714,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
+            } finally {
+                await this.searchAppointment()
+                this.setShowModal()
             }
         }
 

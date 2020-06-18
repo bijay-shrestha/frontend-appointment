@@ -640,9 +640,6 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message || e.errorMessage || "Could not access third party api."
                     }
                 })
-            } finally {
-                await this.searchAppointment()
-                // this.setShowModal()
             }
         }
 
@@ -673,6 +670,9 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
+            }finally {
+                await this.searchAppointment()
+                // this.setShowModal()
             }
         }
 

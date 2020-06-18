@@ -11,6 +11,7 @@ import TableAction from '../../CommonComponents/table-components/TableAction'
 // import StatusLabel from '../../CommonComponents/table-components/StatusLabel'
 import PreviewDetails from './ClientApiDetailsModal'
 import {RequestMethodStatus} from '@frontend-appointment/ui-components'
+import {StatusLabel} from '@frontend-appointment/ui-components/src/CTableComponents'
 
 const {checkIfRoleExists} = ActionFilterUtils
 
@@ -114,6 +115,14 @@ const ClientApiIntegrationDetailsDataTable = ({
                             cellRenderer: 'childLabelRenderer'
                         },
                         {
+                            headerName: 'Status',
+                            field: 'status',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true,
+                            cellRenderer: 'statusRenderer'
+                        },
+                        {
                             headerName: '',
                             action: 'action',
                             resizable: true,
@@ -133,7 +142,8 @@ const ClientApiIntegrationDetailsDataTable = ({
                     ]}
                     frameworkComponents={{
                         childActionRenderer: TableAction,
-                        requestMethodRenderer: RequestMethodStatus
+                        requestMethodRenderer: RequestMethodStatus,
+                        statusRenderer: StatusLabel
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

@@ -10,7 +10,6 @@ const ConfirmationModal = ({
                                setShowModal,
                                isConfirming,
                                isDisabled,
-                               Print
                            }) => {
     let footer = (
         <>
@@ -24,7 +23,6 @@ const ConfirmationModal = ({
                     name={"Confirm"}
                     onClickHandler={onConfirm}
                 />
-                {Print?<Print/>:null}
                 <CButton
                     variant="light"
                     size="lg"

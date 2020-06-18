@@ -258,7 +258,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                     onConfirm={approveHandleApi}
                     onCancel={setShowModal}
                     isConfirming={isConfirming}
-                    Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+                    // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
                 />
             ) : (
                 ''

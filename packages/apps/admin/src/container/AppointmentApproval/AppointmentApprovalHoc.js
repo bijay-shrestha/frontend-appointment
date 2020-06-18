@@ -654,10 +654,11 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             e.message || e.errorMessage || "Could not access third party api."
                     }
                 })
-            } finally {
-                await this.searchAppointment()
-                this.setShowModal()
             }
+            // finally {
+            //     await this.searchAppointment()
+            //     this.setShowModal()
+            // }
         }
 
         approveApiCall = async (requestDTO) => {
@@ -686,6 +687,9 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
+            } finally {
+                await this.searchAppointment()
+                this.setShowModal()
             }
         }
 
