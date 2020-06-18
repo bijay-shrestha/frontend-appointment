@@ -622,7 +622,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     hospitalId: hospitalId,
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: !hospitalNumber,
+                    isPatientNew: !hospitalNumber,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
