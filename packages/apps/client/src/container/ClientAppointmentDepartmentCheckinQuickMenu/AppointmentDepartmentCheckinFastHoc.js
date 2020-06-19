@@ -176,9 +176,9 @@ const DepartmentAppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 fromDate: '', // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
                 toDate: '',
-                patientMetaInfoId:  '',
-                patientType:  '',
-                specializationId:  '',
+                patientMetaInfoId: '',
+                patientType: '',
+                specializationId: '',
                 doctorId: '',
                 patientCategory: ''
             }
@@ -219,8 +219,8 @@ const DepartmentAppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     patientMobileNumber: spec.mobileNumber,
                     // sN: index + 1,
                     // registrationNumber: spec.registrationNumber || 'N/A',
-                    gender: spec.gender?spec.gender.split('')[0]:'',
-                     age: spec.age?spec.age.split(" ")[0] + " " + spec.age.split(" ")[1].split('')[0]:''
+                    gender: spec.gender ? spec.gender.split('')[0] : '',
+                    age: spec.age ? spec.age.split(" ")[0] + " " + spec.age.split(" ")[1].split('')[0] : ''
                 }))
             return newRefundList
         }
@@ -601,12 +601,12 @@ const DepartmentAppointCheckInFastHOC = (ComposedComponent, props, type) => {
 
             try {
                 const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
-                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
                 requestDTO = {
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: hospitalNumber ? false : true,
+                    isNewPatient: hospitalNumber ? false : true,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
@@ -670,7 +670,7 @@ const DepartmentAppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
-            }finally {
+            } finally {
                 await this.searchAppointment()
                 // this.setShowModal()
             }
