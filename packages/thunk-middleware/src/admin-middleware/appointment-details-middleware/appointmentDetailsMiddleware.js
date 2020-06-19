@@ -3,6 +3,7 @@ import {Axios} from '@frontend-appointment/core'
 import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 import {GenericThirdPartyApiMiddleware} from '../../../index'
+import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
 
 export const fetchAppointmentRefundList = (
     path,
@@ -68,16 +69,18 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType) => {
-    // const requestBodies = APIUtils.getIntegrationValue('requestBody');
-    // const constructedData = constructAppointmentCheckInData(data, requestBodies)
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund) => {
+    const requestBodies = APIUtils.getIntegrationValue('requestBody');
+    const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund)
     try {
         return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
             data,
             featureTypeCode,
             integrationType,
             data.hospitalId,
-            {});
+            constructedData,
+            "%s",
+            data.transactionNumber);
     } catch (e) {
         throw e
     }
@@ -169,37 +172,37 @@ export const fetchAppointmentStatusList = (path, data) => async dispatch => {
 }
 
 export const fetchAppointmentStatusListByDepartment = (path, data) => async dispatch => {
-  dispatch(AppointmentDetailActions.appointmentStatusByDepartmentSearchPending())
-  try {
-    const response = await Axios.put(path, data)
-    dispatch(
-      AppointmentDetailActions.appointmentStatusByDepartmentSearchSuccess(response.data)
-    )
-    return response.data
-  } catch (e) {
-    dispatch(
-      AppointmentDetailActions.appointmentStatusByDepartmentSearchError(
-        e.errorMessage || 'Sorry Internal Server Problem'
-      )
-    )
-  }
+    dispatch(AppointmentDetailActions.appointmentStatusByDepartmentSearchPending())
+    try {
+        const response = await Axios.put(path, data)
+        dispatch(
+            AppointmentDetailActions.appointmentStatusByDepartmentSearchSuccess(response.data)
+        )
+        return response.data
+    } catch (e) {
+        dispatch(
+            AppointmentDetailActions.appointmentStatusByDepartmentSearchError(
+                e.errorMessage || 'Sorry Internal Server Problem'
+            )
+        )
+    }
 }
 
 export const fetchAppointmentStatusListByRoom = (path, data) => async dispatch => {
-  dispatch(AppointmentDetailActions.appointmentStatusByRoomSearchPending())
-  try {
-    const response = await Axios.put(path, data)
-    dispatch(
-      AppointmentDetailActions.appointmentStatusByRoomSearchSuccess(response.data)
-    )
-    return response.data
-  } catch (e) {
-    dispatch(
-      AppointmentDetailActions.appointmentStatusByRoomSearchError(
-        e.errorMessage || 'Sorry Internal Server Problem'
-      )
-    )
-  }
+    dispatch(AppointmentDetailActions.appointmentStatusByRoomSearchPending())
+    try {
+        const response = await Axios.put(path, data)
+        dispatch(
+            AppointmentDetailActions.appointmentStatusByRoomSearchSuccess(response.data)
+        )
+        return response.data
+    } catch (e) {
+        dispatch(
+            AppointmentDetailActions.appointmentStatusByRoomSearchError(
+                e.errorMessage || 'Sorry Internal Server Problem'
+            )
+        )
+    }
 }
 
 export const clearAppointmentStatusMessage = () => async dispatch => {

@@ -313,6 +313,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     refundDetail,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
                     IntegrationConstants.apiIntegrationKey.ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
+                    true
                 );
                 requestDTO = {
                     hospitalId: hospitalId,

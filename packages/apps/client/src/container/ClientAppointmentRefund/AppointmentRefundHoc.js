@@ -301,6 +301,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     refundDetail,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
                     IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
+                    true
                 );
                 requestDTO = {
                     appointmentId: appointmentId,
