@@ -27,9 +27,9 @@ class AppointmentCheckInPrint extends React.PureComponent {
                 <div class="appt-detail">
                     <p class="title">Appt. Details</p>
                     <p>Appt. No :<span> 1213213213</span></p>
-                    <p>Appt. Date:<span> May 13,2020 , 11.50 PM</span></p>
+                    <p>Appt. Date:<span> June 19,2020 , 02.50 PM</span></p>
                     <p>Room No:<span> 5</span></p>
-                    <p>Dr. Sanjeev Upreti , Ortho </p>
+                    <p>Department:<span>ENT</span> </p>
 
                 </div>
                 <div class="separtor"></div>
