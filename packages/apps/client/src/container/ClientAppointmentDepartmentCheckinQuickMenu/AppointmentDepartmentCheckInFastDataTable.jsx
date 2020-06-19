@@ -7,7 +7,8 @@ import {
     AppointmentQuickCheckInOption,
     CPageOverlayLoader,
     DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhoneAddress
+    PatientNameWithAgeGenderPhoneAddress,
+    DepartmentNameWithRoomNumber
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
@@ -104,7 +105,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     headerName: 'Department Detail',
                                     resizable: true,
                                     sortable: true,
-                                    field:'hospitalDepartmentName',
+                                    cellRenderer:'DepartmentNameWithRoomNumber',
                                     width:150,
                                     sizeColumnsToFit: true
                                 },
@@ -141,6 +142,13 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                 childActionRenderer: AppointmentQuickCheckInOption,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                DepartmentNameWithRoomNumber:PreviewHandlerHoc(
+                                    DepartmentNameWithRoomNumber,
                                     null,
                                     null,
                                     null,

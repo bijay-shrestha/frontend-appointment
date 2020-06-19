@@ -478,7 +478,7 @@
       "childMenus": [
         {
           "id": "26",
-          "parentId": 29,
+          "parentId": "29",
           "name": "Doctor Check-In",
           "path": "/quickMenu/doctorCheckIn",
           "roles": [
@@ -496,7 +496,7 @@
         },
         {
           "id": "28",
-          "parentId": 29,
+          "parentId": "29",
           "name": "Department Check-In",
           "path": "/quickMenu/departmentCheckIn",
           "roles": [
