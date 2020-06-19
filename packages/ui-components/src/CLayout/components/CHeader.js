@@ -106,7 +106,7 @@ class CHeader extends Component {
         })
         document.title =
             this.state.userInfo.hospitalName || 'e-appointment'
-        const a = document.getElementById('favIcon')
+        // const a = document.getElementById('favIcon')
         // console.log(a)
         document.getElementById('favIcon').href = this.state.userInfo.hospitalLogo
     }

@@ -1,23 +1,19 @@
 import React, {memo} from 'react'
-import {
-    CDataTable,
-    CLoading,
-    CPagination
-} from '@frontend-appointment/ui-elements'
+import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal,DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
-import {AppointmentCheckInPrint,PrintableComponent} from '@frontend-appointment/commons'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-const {checkIfRoleExists}=ActionFilterUtils
-const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredActions}) => {
+
+const {checkIfRoleExists} = ActionFilterUtils
+const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
     const {
         isSearchLoading,
         appointmentApprovalList,
@@ -168,7 +164,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                                                 : approveHandler(id)
                                             //: props.onPreviewHandler(id)
                                         },
-                                         filteredAction: filteredActions
+                                        filteredAction: filteredActions
                                     },
                                     cellStyle: {overflow: 'visible', 'z-index': '99'}
                                 }
@@ -199,7 +195,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps,filteredAct
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                             checkIfRoleExists(filteredActions, 4) &&
+                                checkIfRoleExists(filteredActions, 4) &&
                                 previewCall
                             }
                             rowSelection={'single'}
