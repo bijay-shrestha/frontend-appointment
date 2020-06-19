@@ -78,7 +78,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'AppointmentDateWithTime',
-                                    width: "160"
+                                    width: "120"
                                 },
                                 {
                                     headerName: 'Patient Detail ',
@@ -90,22 +90,22 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     height: "600",
                                     cellRenderer: 'PatientNameWithMobileNumber'
                                 },
-                                {
-                                    headerName: 'Address',
-                                    field: 'address',
-                                    // headerClass: "fi",
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 260,
-                                },
+                                // {
+                                //     headerName: 'Address',
+                                //     field: 'address',
+                                //     // headerClass: "fi",
+                                //     resizable: true,
+                                //     sortable: true,
+                                //     sizeColumnsToFit: true,
+                                //     width: 260,
+                                // },
 
                                 {
-                                    headerName: 'Hospital Detail',
+                                    headerName: 'Department Detail',
                                     resizable: true,
                                     sortable: true,
                                     field:'hospitalDepartmentName',
-                                    width:120,
+                                    width:150,
                                     sizeColumnsToFit: true
                                 },
 
@@ -125,7 +125,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'childActionRenderer',
                                     cellClass: 'actions-button-cell',
-                                    width: '140',
+                                    width: '120',
                                     cellRendererParams: {
                                         onClick: function (e, id, type) {
                                             approveHandler(id)
