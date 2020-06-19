@@ -4,7 +4,8 @@ import {
   CButton,
   CForm,
   CHybridSelect,
-  CHybridSelectWithImage
+  CHybridSelectWithImage,
+  CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
@@ -75,6 +76,23 @@ class AppointmentLog extends PureComponent {
               <Container-fluid>
                 <Row>
                   <Col sm={12} md={4} xl={4}>
+                    <CHybridSelect
+                      id="hospital"
+                      label="Client"
+                      name="hospitalId"
+                      options={hospitalList}
+                      placeholder={
+                        hospitalList.length
+                          ? 'Select client.'
+                          : 'No Client(s) available.'
+                      }
+                      isDisabled={!hospitalList.length}
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.hospitalId}
+                    />
+                  </Col>
+                  <Col sm={12} md={4} xl={4}>
                     <div className="d-flex">
                       <CEnglishDatePicker
                         id="from-date"
@@ -127,20 +145,13 @@ class AppointmentLog extends PureComponent {
                   </Col>
 
                   <Col sm={12} md={4} xl={4}>
-                    <CHybridSelect
-                      id="hospital"
-                      label="Client"
-                      name="hospitalId"
-                      options={hospitalList}
-                      placeholder={
-                        hospitalList.length
-                          ? 'Select client.'
-                          : 'No Client(s) available.'
-                      }
-                      isDisabled={!hospitalList.length}
+                    <CHybridInput
+                      id="appointmentNumber"
+                      name="appointmentNumber"
+                      placeholder="Enter the appointment number"
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
-                      value={searchParameters.hospitalId}
+                      value={searchParameters.appointmentNumber}
                     />
                   </Col>
 
@@ -299,6 +310,23 @@ class AppointmentLog extends PureComponent {
                   >
                     <Button id="button-search-filters" variant="secondary">
                       {searchParameters.hospitalId.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+
+              {searchParameters.appointmentNumber && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Appointment Number</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                    {searchParameters.appointmentNumber}
+                      
                     </Button>
                   </OverlayTrigger>
                 </li>
