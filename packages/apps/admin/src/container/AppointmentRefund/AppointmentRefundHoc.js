@@ -304,7 +304,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 isConfirming: true
             })
             const {
-                // hospitalId,
+                hospitalId,
                 appointmentId, appointmentModeId
             } = refundDetail;
             let requestDTO;
@@ -315,7 +315,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     IntegrationConstants.apiIntegrationKey.ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
                 );
                 requestDTO = {
-                    // hospitalId: hospitalId,
+                    hospitalId: hospitalId,
                     appointmentId: appointmentId,
                     appointmentModeId: appointmentModeId,
                     status: null,
