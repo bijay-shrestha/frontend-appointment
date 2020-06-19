@@ -1,7 +1,7 @@
 import {StringUtils} from '@frontend-appointment/helpers'
 export const constructAppointmentCheckInData =(data,requestBody)=>{
   // console.log("data",data);
-  requestBody.name=data.patientName;
+  requestBody.name=data.patientName+""+Math.random();
   requestBody.age=data.patientAge?Number(data.patientAge.replace("years","")):data.age;
   requestBody.wardNo="5"
   requestBody.roomNo= "10"
