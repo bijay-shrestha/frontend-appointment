@@ -155,9 +155,9 @@ class AppointmentLog extends PureComponent {
                     />
                   </Col>
 
-                  <Col sm={12} md={4} xl={4} className="hide-on-md">
+                  {/* <Col sm={12} md={4} xl={4} className="hide-on-md">
                     {/*    /!* //should be empty *!/*/}
-                  </Col>
+                  {/* </Col> */} 
 
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelectWithImage
