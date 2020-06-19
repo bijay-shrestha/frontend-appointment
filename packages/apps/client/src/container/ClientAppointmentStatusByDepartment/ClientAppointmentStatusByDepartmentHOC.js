@@ -9,7 +9,10 @@ import {
   HospitalDepartmentSetupMiddleware
   // RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants,IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
+import {
+  AdminModuleAPIConstants,
+  IntegrationConstants
+} from '@frontend-appointment/web-resource-key-constants'
 import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils
@@ -59,7 +62,7 @@ const {
 const {
   //APPOINTMENT_STATUS_LIST,
   APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
-  APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST,
+  APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST
   //APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
@@ -182,6 +185,7 @@ const ClientAppointmentStatusHOCByDepartment = (
         searchStatusLoading: ''
       })
       this.props.clearAppointmentStatusMessage()
+      this.searchAppointmentStatus()
     }
 
     handleSearchFormChange = async (event, field) => {
@@ -336,89 +340,113 @@ const ClientAppointmentStatusHOCByDepartment = (
         }
       })
     }
-    
-    approveApiCall = async (requestDTO) => {
+
+    approveApiCall = async requestDTO => {
       try {
-          await this.props.appointmentApprove(
-              appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DEPARTMENT,
-              requestDTO
-          )
-          this.setState({
-              isConfirming: false,
-              approveConfirmationModal: true,
-              // showAlert: true,
-              // alertMessageInfo: {
-              //     variant: 'success',
-              //     message: this.props.AppointmentApproveReducer
-              //         .approveSuccessMessage
-              // }
-          })
+        await this.props.appointmentApprove(
+          appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DEPARTMENT,
+          requestDTO
+        )
+        this.setState({
+          isConfirming: false,
+          showCheckInModal: false,
+          showAlert: true,
+          alertMessageInfo: {
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                  .approveSuccessMessage
+          }
+        })
       } catch (e) {
-          this.setState({
-              isConfirming: false,
-              showAlert: true,
-              alertMessageInfo: {
-                  variant: 'danger',
-                  message:
-                      this.props.AppointmentApproveReducer.approveErrorMessage ||
-                      e.message
-              }
-          })
+        this.setState({
+          isConfirming: false,
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message:
+              this.props.AppointmentApproveReducer.approveErrorMessage ||
+              e.message
+          }
+        })
       } finally {
-          await this.searchAppointmentStatus()
-          // this.setShowModal()
+        await this.searchAppointmentStatus()
+        // this.setShowModal()
       }
-  }
+    }
 
     checkInAppointment = async () => {
       this.setState({
         isConfirming: true
-    })
-    const {hospitalNumber, appointmentId} = this.state.appointmentDetails;
-    let requestDTO;
+      })
+      const {hospitalNumber, appointmentId} = this.state.appointmentDetails
+      let requestDTO
 
-    try {
-        const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
-            IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
-            IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
+      try {
+        const splittedPatientInfo = this.state.appointmentDetails.patientName.split(
+          '('
+        )
+        const patientName = splittedPatientInfo[0]
+        const splittedPatienAgeAndGender = splittedPatientInfo[1].split('/')
+        const patientAge = splittedPatienAgeAndGender[0]
+        let patientGender = splittedPatienAgeAndGender[1].replace(')', '')
+        patientGender= patientGender.replace(" ",'')
+        const {successResponse, apiRequestBody} = await thirdPartyApiCall(
+          {
+            ...this.state.appointmentStatusDetails,
+            patientName: patientName,
+            patientAge: patientAge,
+            patientGender: patientGender
+          },
+          IntegrationConstants.apiIntegrationFeatureTypeCodes
+            .DEPARTMENT_CHECK_IN_CODE,
+          IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION
+        )
         requestDTO = {
-            appointmentId: appointmentId,
-            hospitalNumber: '',
-            isPatientNew: hospitalNumber ? false : true,
-            ...apiRequestBody
+          appointmentId: appointmentId,
+          hospitalNumber: '',
+          isPatientNew: hospitalNumber ? false : true,
+          ...apiRequestBody
         }
         if (!successResponse) {
-            requestDTO.hospitalNumber = null
-            this.approveApiCall(requestDTO)
-        } else if (successResponse.responseData && !successResponse.responseMessage) {
-            requestDTO.hospitalNumber = successResponse.responseData
-            this.approveApiCall(requestDTO)
+          requestDTO.hospitalNumber = null
+          this.approveApiCall(requestDTO)
+        } else if (
+          successResponse.responseData &&
+          !successResponse.responseMessage
+        ) {
+          requestDTO.hospitalNumber = successResponse.responseData
+          this.approveApiCall(requestDTO)
         } else {
-            const thirdPartyErrorMessage = "Third Party Integration error: ".concat(successResponse.responseMessage)
-            this.setState({
-                thirdPartyApiErrorMessage: thirdPartyErrorMessage,
-                isConfirming: false,
-                // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
-                showAlert: true,
-                alertMessageInfo: {
-                    variant: 'danger',
-                    message: thirdPartyErrorMessage
-                        || "Could not access third party api."
-                }
-            })
-        }
-    } catch (e) {
-        this.setState({
+          const thirdPartyErrorMessage = 'Third Party Integration error: '.concat(
+            successResponse.responseMessage
+          )
+          this.setState({
+            thirdPartyApiErrorMessage: thirdPartyErrorMessage,
             isConfirming: false,
+            // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
             showAlert: true,
+            showCheckInModal:false,
             alertMessageInfo: {
-                variant: 'danger',
-                message:
-                    this.props.AppointmentApproveReducer.approveErrorMessage ||
-                    e.message || e.errorMessage || "Could not access third party api."
+              variant: 'danger',
+              message:
+                thirdPartyErrorMessage || 'Could not access third party api.'
             }
+          })
+        }
+      } catch (e) {
+        this.setState({
+          isConfirming: false,
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message:
+              this.props.AppointmentApproveReducer.approveErrorMessage ||
+              e.message ||
+              e.errorMessage ||
+              'Could not access third party api.'
+          }
         })
-    }
+      }
     }
 
     clearAlertTimeout = () => {
@@ -452,7 +480,7 @@ const ClientAppointmentStatusHOCByDepartment = (
     }
 
     initialApiCalls = async () => {
-      await this.fetchDepartment();
+      await this.fetchDepartment()
       await this.searchAppointmentStatus()
     }
 
@@ -712,6 +740,7 @@ const ClientAppointmentStatusHOCByDepartment = (
           previousSelectedTimeSlotIds: selectedElementsArray
         })
       }
+      //console.log(this.state.appointmentDetails)
     }
 
     addRemoveActiveClassFromTimeSlots = (elementId, rowIndex) => {
@@ -784,8 +813,7 @@ const ClientAppointmentStatusHOCByDepartment = (
           toDate &&
           getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) === 1
         ) {
-        }
-        else if (
+        } else if (
           fromDate &&
           toDate &&
           getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
@@ -794,8 +822,7 @@ const ClientAppointmentStatusHOCByDepartment = (
             // ?
             hospitalDepartmentId ? '' : SELECT_DEPARTMENT_MESSAGE
           //: SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
-        }
-        else if (
+        } else if (
           fromDate &&
           toDate &&
           getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) > 7
@@ -838,7 +865,7 @@ const ClientAppointmentStatusHOCByDepartment = (
         searchErrorMessage,
         searchStatusLoading
       } = this.state
-
+      console.log('=============', this.state.appointmentDetails)
       // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       // const {
