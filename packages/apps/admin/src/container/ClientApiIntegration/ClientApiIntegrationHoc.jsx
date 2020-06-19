@@ -60,7 +60,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 requestMethodId: '',
                 featureTypeId: '',
                 apiUrl: '',
-                apiIntegrationTypeId: ''
+                apiIntegrationTypeId: '',
+                status: {label: "ALL", value: "A"}
             },
             deleteRequestDTO: {
                 id: 0,
@@ -168,7 +169,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                     requestMethodId: '',
                     featureTypeId: '',
                     apiUrl: '',
-                    apiIntegrationTypeId: ''
+                    apiIntegrationTypeId: '',
+                    status: {label: "ALL", value: "A"}
                 }
             })
             this.searchHospitalApiIntegration()
@@ -180,7 +182,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                 hospitalId,
                 featureTypeId,
                 requestMethodId,
-                apiIntegrationTypeId
+                apiIntegrationTypeId,
+                status
             } = this.state.searchParameters
 
             let updatedPage =
@@ -200,7 +203,8 @@ const ClientApiIntegrationHoc = (ComposedComponent, props, type) => {
                     hospitalId: hospitalId.value || '',
                     featureTypeId: featureTypeId.value || '',
                     requestMethodId: requestMethodId.value || '',
-                    apiIntegrationTypeId: apiIntegrationTypeId.value || ''
+                    apiIntegrationTypeId: apiIntegrationTypeId.value || '',
+                    status: status && status.value === 'A' ? '' : status.value
                 }
             )
 
