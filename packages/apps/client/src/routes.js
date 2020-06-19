@@ -75,6 +75,11 @@ const AddDepartmentSetup = loadable(
     {fallback: () => getLoader()}
 )
 
+const DepartmentStatusComponent = loadable(
+    () => import('./container/ClientAppointmentStatusByDepartment/ClientStatusByDepartment'),
+    {fallback: () => getLoader()}
+)
+
 const AddDepartmentDutyRosterComponent = Loadable({
     loader: () =>
         import('./container/ClientDepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
@@ -672,4 +677,14 @@ export const routes = [
         isTab: true,
         isSingleTab: false
     },
+    {
+        path: '/appointment/appointmentStatusByDepartment',
+        name: 'Department Appointment Status',
+        component:DepartmentStatusComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
+    }
 ]

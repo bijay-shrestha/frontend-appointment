@@ -125,7 +125,9 @@ const AdminApiIntegrationEditModal = ({
                             />
                         </Col>
 
-                        <Col sm={12} md={3}>
+                         </Row>
+                    <Row>
+                    <Col sm={12} md={3}>
                             <CHybridSelect
                                 id="featureType"
                                 label="Feature Type"
@@ -148,30 +150,7 @@ const AdminApiIntegrationEditModal = ({
                                 }
                             />
                         </Col>
-
-                        <CFLabel labelName="Status" id="status"/>
-                        <div>
-                            <CRadioButton
-                                id="radio1"
-                                label="Active"
-                                type="radio"
-                                name="status"
-                                value="Y"
-                                checked={integrationData.status === 'Y'}
-                                onChange={event => onChangeHandler(event, '', 'E')}
-                            />
-                            <CRadioButton
-                                checked={integrationData.status === 'N'}
-                                id="radio2"
-                                label="Inactive"
-                                type="radio"
-                                name="status"
-                                value="N"
-                                onChange={event => onChangeHandler(event, '', 'E')}
-                            />
-                        </div>
-                    </Row>
-                    <Row>
+                     
                         <Col sm={3} md={3} lg={3}>
                             <CHybridSelect
                                 id="featureType"
@@ -195,7 +174,7 @@ const AdminApiIntegrationEditModal = ({
                                 }
                             />
                         </Col>
-                        <Col sm={9} md={9}>
+                        <Col sm={6} md={6}>
                             <CHybridInput
                                 id="apiUrl"
                                 name="apiUrl"
@@ -210,6 +189,33 @@ const AdminApiIntegrationEditModal = ({
                             />
                         </Col>
                     </Row>
+
+                    <Row>
+                            <Col sm={12} className="integration-status">
+                        <CFLabel labelName="Status" id="status"/>
+                        <div>
+                            <CRadioButton
+                                id="radio1"
+                                label="Active"
+                                type="radio"
+                                name="status"
+                                value="Y"
+                                checked={integrationData.status === 'Y'}
+                                onChange={event => onChangeHandler(event, '', 'E')}
+                            />
+                            <CRadioButton
+                                checked={integrationData.status === 'N'}
+                                id="radio2"
+                                label="Inactive"
+                                type="radio"
+                                name="status"
+                                value="N"
+                                onChange={event => onChangeHandler(event, '', 'E')}
+                            />
+                        </div>
+                        </Col>
+                        </Row>
+                    
 
                     <Row>
                         <Col>

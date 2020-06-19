@@ -1,14 +1,17 @@
-@import '~bootstrap/scss/functions';
-//custom colors
-@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+ @import '~bootstrap/scss/functions';
+
+ //custom colors
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-variables";
+
 // // Customized Bootstrap variables
-@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
-@import '~bootstrap/scss/mixins';
-@import "~@frontend-appointment/common-sass-client/src/scss/_custom-mixins.scss";
-
-
-
-#appointment-status {
+ @import "~@frontend-appointment/common-sass/src/scss/variables/custom-bootstrap-variable";
+ @import '~bootstrap/scss/mixins';
+ @import "~@frontend-appointment/common-sass/src/scss/_custom-mixins.scss";
+ 
+ 
+ 
+ #appointment-status {
   .filter-message {
     .message {
       width: 200px;
@@ -98,12 +101,24 @@
 }
 
 .doctor-image {
-  width: 100px;
-  height: 100px;
-  margin-top: 10px;
-  background-color: $gray-500;
-  @include border-radius(50%);
+ //  width: 100px;
+ //  height: 100px;
+ //  margin-top: 10px;
+ //  background-color: $gray-500;
+ //  @include border-radius(50%);
   // display: inline-block;
+
+  .anchor-icon{
+   margin:0 auto;
+   width: 100px;
+   height: 100px;
+   line-height: 100px;
+   text-align: center;
+   flex-shrink: 0;
+   border-radius: 50%;
+   border: 1px solid $gray-100;
+   background-color: $gray-100;
+}
 
   img {
     width: 100px;
@@ -116,13 +131,21 @@
 .doctor-details {
   position: relative;
   display: inline-block;
-  margin-top: 10px;
+  margin-top: 4px;
   margin-bottom: 20px;
   color: $gray-700;
   font-size: 0.8rem;
   text-transform: capitalize;
   letter-spacing: 0.01rem;
   width: 100%;
+
+  .department-name{
+    font-size: 0.85rem;
+    margin-top:0;
+    color:$primary;
+    margin-bottom:20px;
+    // min-height: 56px;
+  }
 
   //  &::before{
   //     content:"";
@@ -134,12 +157,56 @@
   //     background-color:$gray-600;
   // }
 
+  p {
+   font-size: 0.8rem;
+   font-weight: 400;
+   letter-spacing: 0.01rem;
+   margin-top:32px;
+   margin-bottom:0;
+ 
+ }
+ ul{
+  margin-top:56px;
+}
 
-  span {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.01rem;
+  li{ 
+    
+    margin:4px 0;
+    padding:4px;
+    border:1px solid $gray-100;
+    background-color: $gray-100;
+ 
+    @include border-radius(4px);
+
+    img{
+     margin-right: 10px;
+     width: 32px;
+     height: 32px;
+     line-height: 32px;
+     text-align: center;
+     flex-shrink: 0;
+     border-radius: 50%;
+     border: 1px solid $gray-100;
+     background-color: $gray-100;
+    }
+
+    .anchor-icon{
+     margin-right: 10px;
+     width: 32px;
+     height: 32px;
+     line-height: 32px;
+     text-align: center;
+     flex-shrink: 0;
+     border-radius: 50%;
+     border: 1px solid $gray-100;
+     background-color: $gray-100;
+   }
   }
+
+  
+
+
+
 
 }
 
@@ -231,6 +298,12 @@
     margin-left: 30px;
   }
 
+  .room-tabs{
+    .nav-link{      
+      padding: 4px 6px 0 0;
+    }
+  }
+
   ul {
     // display:flex;
     // flex-direction:row;
@@ -271,11 +344,10 @@
     position: relative;
     display: inline-block;
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: $gray-700;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     text-transform: capitalize;
-    text-decoration: none;
 
     &::before {
       content: "";

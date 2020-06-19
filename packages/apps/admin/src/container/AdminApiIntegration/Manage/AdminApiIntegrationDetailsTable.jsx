@@ -61,7 +61,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             editable: true,
                             sizeColumnsToFit: true,
                             cellClass: 'first-class',
-                            width: 30
+                            width: 50
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
@@ -71,10 +71,10 @@ const ClientApiIntegrationDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width: 60
+                            width: 80
                         },
                         {
-                            headerName: 'Appointment Mode',
+                            headerName: 'Appt. Mode',
                             field: 'appointmentMode',
                             // headerClass: "fi",
                             resizable: true,
@@ -98,7 +98,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            width: 60
+                            width: 70
                         },
                         {
                             headerName: 'Request Method',
@@ -114,7 +114,8 @@ const ClientApiIntegrationDetailsDataTable = ({
                             field: 'url',
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            width: 140,
                         },
 
                         {
@@ -123,6 +124,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
+                            width:100
                         },
                         {
                             headerName: 'Status',
@@ -130,7 +132,8 @@ const ClientApiIntegrationDetailsDataTable = ({
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            cellRenderer: 'statusRenderer'
+                            cellRenderer: 'statusRenderer',
+                            width:70
                         },
                         {
                             headerName: '',
@@ -140,7 +143,7 @@ const ClientApiIntegrationDetailsDataTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
-                            width: 80,
+                            width: 50,
                             cellRendererParams: {
                                 onClick: function (e, id, type) {
                                     return type === 'D'

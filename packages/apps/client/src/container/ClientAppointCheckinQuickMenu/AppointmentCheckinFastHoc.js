@@ -606,7 +606,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                 requestDTO = {
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: hospitalNumber ? false : true,
+                    isPatientNew: hospitalNumber ? false : true,
                     ...apiRequestBody
                 }
                 if (!successResponse) {

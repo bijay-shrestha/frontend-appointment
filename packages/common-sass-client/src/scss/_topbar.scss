@@ -204,6 +204,33 @@
 
     }
 
+    .fav-links{
+        margin-top:-8px;
+        margin-right:10px;
+        .btn{
+            width:40px;
+            height: 40px;
+            color:$gray-600;
+            border:1px solid $gray-200;
+            background-color: transparent;
+            @include border-radius(50%);
+
+            &:hover{
+                color:$gray-700;
+                background-color: #fff;
+                @include border-radius(50%);
+            }
+        }
+
+        &:hover{
+            .btn{
+                color:$primary;
+                background-color: #fff;
+                @include border-radius(50%);
+            }
+        }
+    }
+
 
 
     // for profile details

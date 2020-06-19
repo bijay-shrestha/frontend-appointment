@@ -91,7 +91,9 @@ import {
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
     RescheduleLogReducer,
-    TransactionLogReducer
+    TransactionLogReducer,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
@@ -204,6 +206,8 @@ import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentS
 
 export {
     AdminApiIntegrationReducers,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,

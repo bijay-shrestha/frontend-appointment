@@ -1,11 +1,57 @@
+
 .outPopUp {
-    position: absolute;
-    width: 320px;
-    height: 200px;
-    z-index: 15;
-    padding:30px;
-    top: 50%;
-    left: 50%;
-     transform: translate(-50%,-50%);
-    background:#cccccc;
+  position: absolute;
+  width: 300px;
+  height: 550px;
+  z-index: 15;
+  padding:30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background:#fcfcfc;
+}
+
+.app-detail,.patient-detail{
+  .title{
+    text-decoration:underline;
+    }
+    
+.separtor{
+  width:100%;
+  margin:20px 0;
+  border:1px dashed #000000;
   }
+}
+
+.appt-detail p{
+font-size:15px;
+font-weight:500;
+line-height:22px;
+}
+
+.appt-detail p:last-child{
+font-size:16px;
+font-weight:600;
+}
+
+.appt-detail p span{
+font-size:18px;
+font-weight:600;
+}
+
+
+
+
+
+
+.patient-detail p{
+font-size:15px;
+font-weight:500;
+line-height:22px;
+}
+
+.patient-detail p span{
+font-size:16px;
+font-weight:600;
+text-align:right;
+}

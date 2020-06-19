@@ -4,8 +4,8 @@ import {
   CButton,
   CForm,
   CHybridSelect,
-  //CHybridSelectWithImage
   CHybridInput
+  //CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
@@ -16,7 +16,7 @@ import {
   EnterKeyPressUtils
 } from '@frontend-appointment/helpers'
 
-class AppointmentLog extends PureComponent {
+class ClientSearchAppointmentStatus extends PureComponent {
   state = {
     isSearchFormExpanded: false
   }
@@ -43,7 +43,7 @@ class AppointmentLog extends PureComponent {
       handleSearchFormChange,
       resetSearchForm,
       // searchAppointmentStatus,
-      hospitalList,
+      //hospitalList,
       // doctorList,
       // doctorDropdownErrorMessage,
       // specializationList,
@@ -51,8 +51,8 @@ class AppointmentLog extends PureComponent {
       searchParameters,
       //isFetchActiveHospitalDepartmentLoading,
       activeHospitalDepartmentForDropdown,
-      activeDepartmentDropdownErrorMessage,
-     // isFetchActiveRoomNumberByDepartmentLoading,
+      activeDepartmentDropdownErrorMessage
+      // isFetchActiveRoomNumberByDepartmentLoading,
       //activeRoomNumberForDropdownByDepartment,
       //activeRoomsByDepartmentDropdownErrorMessage
     } = this.props.searchHandler
@@ -81,7 +81,7 @@ class AppointmentLog extends PureComponent {
             <CForm id="" className=" mt-4">
               <Container-fluid>
                 <Row>
-                <Col sm={12} md={4} xl={4}>
+                  <Col sm={12} md={4} xl={4}>
                     <CHybridInput
                       id="appointmentNumber"
                       name="appointmentNumber"
@@ -143,7 +143,7 @@ class AppointmentLog extends PureComponent {
                     </div>
                   </Col>
 
-                  <Col sm={12} md={4} xl={4}>
+                  {/* <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="hospital"
                       label="Client"
@@ -159,7 +159,7 @@ class AppointmentLog extends PureComponent {
                       onChange={event => handleSearchFormChange(event)}
                       value={searchParameters.hospitalId}
                     />
-                  </Col>
+                  </Col> */}
 
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
@@ -168,9 +168,7 @@ class AppointmentLog extends PureComponent {
                       name="hospitalDepartmentId"
                       options={activeHospitalDepartmentForDropdown}
                       placeholder={
-                        !searchParameters.hospitalId
-                          ? 'Select client first.'
-                          : activeHospitalDepartmentForDropdown.length
+                        activeHospitalDepartmentForDropdown.length
                           ? 'Select Department.'
                           : 'No Department(s) available.'
                       }
@@ -180,10 +178,7 @@ class AppointmentLog extends PureComponent {
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
                       value={searchParameters.hospitalDepartmentId}
-                      isDisabled={
-                        !searchParameters.hospitalId ||
-                        !activeHospitalDepartmentForDropdown.length
-                      }
+                      isDisabled={!activeHospitalDepartmentForDropdown.length}
                     />
                   </Col>
 
@@ -267,6 +262,7 @@ class AppointmentLog extends PureComponent {
                   </>
                 </CButton>
               </li>
+              
               {searchParameters.appointmentNumber && (
                 <li>
                   <OverlayTrigger
@@ -317,7 +313,7 @@ class AppointmentLog extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {searchParameters && searchParameters.hospitalId && (
+              {/* {searchParameters && searchParameters.hospitalId && (
                 <li>
                   <OverlayTrigger
                     placement="top"
@@ -329,7 +325,7 @@ class AppointmentLog extends PureComponent {
                     </Button>
                   </OverlayTrigger>
                 </li>
-              )}
+              )} */}
 
               {/* {searchParameters && searchParameters.doctorId && (
                 <li>
@@ -350,9 +346,7 @@ class AppointmentLog extends PureComponent {
                   <OverlayTrigger
                     placement="top"
                     delay={{show: 250, hide: 400}}
-                    overlay={props => (
-                      <Tooltip {...props}>Department</Tooltip>
-                    )}
+                    overlay={props => <Tooltip {...props}>Department</Tooltip>}
                   >
                     <Button id="button-search-filters" variant="secondary">
                       {searchParameters.hospitalDepartmentId.label}
@@ -382,4 +376,4 @@ class AppointmentLog extends PureComponent {
   }
 }
 
-export default AppointmentLog
+export default ClientSearchAppointmentStatus

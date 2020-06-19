@@ -44,7 +44,13 @@ const {
   CLEAR_TRANSACTION_LOGS_MESSAGE,
   FETCH_TRANSACTION_LOGS_ERROR,
   FETCH_TRANSACTION_LOGS_PENDING,
-  FETCH_TRANSACTION_LOGS_SUCCESS
+  FETCH_TRANSACTION_LOGS_SUCCESS,
+  FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_ERROR,
+  FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_PENDING,
+  FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_SUCCESS,
+  FETCH_APPOINTMENT_STATUS_BY_ROOM_ERROR,
+  FETCH_APPOINTMENT_STATUS_BY_ROOM_PENDING,
+  FETCH_APPOINTMENT_STATUS_BY_ROOM_SUCCESS   
 } = appointmentDetailsConstants
 
 export const appointmentRefundFetchingStart = () => {
@@ -364,5 +370,49 @@ export const transactionLogFetchingError = message => {
 export const clearTransactionLogMessage = () => {
   return {
     type: CLEAR_TRANSACTION_LOGS_MESSAGE
+  }
+}
+
+export const appointmentStatusByDepartmentSearchSuccess = data => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_SUCCESS,
+    payload: {data}
+  }
+}
+
+export const appointmentStatusByDepartmentSearchError = message => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_ERROR,
+    payload: {
+      message: message
+    }
+  }
+}
+
+export const appointmentStatusByDepartmentSearchPending = () => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_PENDING
+  }
+}
+
+export const appointmentStatusByRoomSearchSuccess = data => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_ROOM_SUCCESS,
+    payload: {data}
+  }
+}
+
+export const appointmentStatusByRoomSearchError = message => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_ROOM_ERROR,
+    payload: {
+      message: message
+    }
+  }
+}
+
+export const appointmentStatusByRoomSearchPending = () => {
+  return {
+    type: FETCH_APPOINTMENT_STATUS_BY_ROOM_PENDING
   }
 }

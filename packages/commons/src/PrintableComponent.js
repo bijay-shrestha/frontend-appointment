@@ -16,13 +16,13 @@ const PrintableComponentHoc = (ComponentToPrint, data, pastProps) => {
                         <PrintContextConsumer>
                             {({handlePrint}) => (
                                 <Button
-                                    variant="secondary"
+                                    variant="outline-secondary"
                                     size="lg"
                                     className="float-right btn-action ml-1"
                                     name="Print"
                                     onClick={handlePrint}
                                 >
-                                    <i className="fa fa-print"/>&nbsp;Print
+                                    <i className="fa fa-print"/>&nbsp;Print Appt. Details
                                 </Button>
                             )}
                         </PrintContextConsumer>
