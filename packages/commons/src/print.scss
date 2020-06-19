@@ -11,7 +11,7 @@
   background:#fcfcfc;
 }
 
-.app-detail,.patient-detail{
+.appt-detail,.patient-detail{
   .title{
     text-decoration:underline;
     }
@@ -29,10 +29,10 @@ font-weight:500;
 line-height:22px;
 }
 
-.appt-detail p:last-child{
-font-size:16px;
-font-weight:600;
-}
+// .appt-detail p:last-child{
+// font-size:16px;
+// font-weight:600;
+// }
 
 .appt-detail p span{
 font-size:18px;

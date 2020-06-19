@@ -248,7 +248,7 @@
     align-items: center;
 
     .fa-check-circle {
-        color:lighten($success,20%) ;
+        color: lighten($success, 20%);
         font-size: 80px;
         margin-bottom: 20px;
     }
@@ -277,21 +277,40 @@
     }
 }
 
-.btn-container{
+.btn-container {
     display: flex;
     flex-direction: row;
 }
 
-.quick-confirm{
+.quick-confirm {
     max-width: 600px;
 
-    h2{
-        margin-bottom:24px;
+    h2 {
+        margin-bottom: 24px;
     }
 
-    .modal-body{
-        padding:40px;
-        padding-top:30px;
-        margin-top:-22px;
+    .modal-body {
+        padding: 40px;
+        padding-top: 30px;
+        margin-top: -22px;
+    }
+    .modal-content {
+        .modal-header {
+            padding-top: 15px;
+        }
+
+        .modal-header .close {
+            margin-right: 0rem;
+         
+            font-size: 2rem;
+            padding: 0.5rem 0.5rem 0.5rem;
+            width:auto;
+            height: auto;
+
+            &:hover {
+                color: #000000;
+                background-color: #cccccc;
+            }
+        }
     }
 }
