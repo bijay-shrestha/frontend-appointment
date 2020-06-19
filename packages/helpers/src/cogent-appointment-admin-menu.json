@@ -734,10 +734,7 @@
       "parentId": null,
       "name": "Quick Menu",
       "path": "/quickMenu",
-      "roles": [
-        12,
-        14
-      ],
+      "roles": [],
       "icon": "fa fa-bookmark",
       "leftNavigation": "Y",
       "checked": false,
@@ -748,7 +745,7 @@
       "childMenus": [
         {
           "id": "43",
-          "parentId": null,
+          "parentId": 42,
           "name": "Doctor Check-In",
           "path": "/quickMenu/doctorCheckIn",
           "roles": [
@@ -766,7 +763,7 @@
         },
         {
           "id": "44",
-          "parentId": null,
+          "parentId": 42,
           "name": "Department Check-In",
           "path": "/quickMenu/departmentCheckIn",
           "roles": [

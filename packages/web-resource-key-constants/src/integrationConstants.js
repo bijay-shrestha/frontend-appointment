@@ -1,5 +1,6 @@
 export const apiIntegrationFeatureTypeCodes = {
-    APPOINTMENT_CHECK_IN_CODE: "DOC_APPCH"
+    APPOINTMENT_CHECK_IN_CODE: "DOC_APPCH",
+    DEPARTMENT_CHECK_IN_CODE:"DEP_APPCH"
 }
 
 
