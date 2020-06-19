@@ -6,10 +6,13 @@ import {
   // HospitalSetupMiddleware,
   PatientDetailsMiddleware,
   //SpecializationSetupMiddleware,
-  HospitalDepartmentSetupMiddleware,
- // RoomSetupMiddleware
+  HospitalDepartmentSetupMiddleware
+  // RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {
+  AdminModuleAPIConstants,
+  IntegrationConstants
+} from '@frontend-appointment/web-resource-key-constants'
 import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils
@@ -23,7 +26,8 @@ const {
   fetchAppointmentStatusListByDepartment,
   fetchAppointmentStatusListByRoom,
   clearAppointmentStatusMessage,
-  appointmentApprove
+  appointmentApprove,
+  thirdPartyApiCall
 } = AppointmentDetailsMiddleware
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 // const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -34,7 +38,7 @@ const {
 const {fetchPatientDetailByAppointmentId} = PatientDetailsMiddleware
 
 const {
- // fetchActiveHospitalDepartmentForDropdownByHospitalId,
+  // fetchActiveHospitalDepartmentForDropdownByHospitalId,
   fetchAllHospitalDepartmentForDropdown
 } = HospitalDepartmentSetupMiddleware
 
@@ -58,8 +62,8 @@ const {
 const {
   //APPOINTMENT_STATUS_LIST,
   APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
-  APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST,
-  APPOINTMENT_APPROVE
+  APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST
+  //APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
 const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant
@@ -74,7 +78,11 @@ const SELECT_DEPARTMENT_MESSAGE = 'Select Department.'
 const DATE_RANGE_ERROR_MESSAGE =
   'From date and to date must be within 7 days or less.'
 
-const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) => {
+const ClientAppointmentStatusHOCByDepartment = (
+  ComposedComponent,
+  props,
+  type
+) => {
   class ClientAppointmentStatusByDepartment extends React.PureComponent {
     state = {
       searchParameters: {
@@ -84,10 +92,10 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         hospitalDepartmentRoomInfoId: '',
         status: '',
         uniqueIdentifier: '',
-        roomFromDate:'',
-        roomToDate:'',
-        appointmentNumber:'',
-        hasAppointmentNumber:''
+        roomFromDate: '',
+        roomToDate: '',
+        appointmentNumber: '',
+        hasAppointmentNumber: ''
       },
       showModal: false,
       appointmentStatusDetails: [],
@@ -111,7 +119,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       searchStatusLoading: ''
     }
 
-    onChangeRoom = async (roomId, departmentId, uniqueIdentifier,date) => {
+    onChangeRoom = async (roomId, departmentId, uniqueIdentifier, date) => {
       await this.handleSearchFormChange(
         {target: {name: 'hospitalDepartmentRoomInfoId', value: roomId}},
         ''
@@ -122,13 +130,12 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         target: {name: 'uniqueIdentifier', value: uniqueIdentifier}
       })
 
-      this.searchAppointmentStatus('C', roomId, departmentId,date)
+      this.searchAppointmentStatus('C', roomId, departmentId, date)
     }
 
-   
-    fetchDepartment= async() => {
+    fetchDepartment = async () => {
       await this.props.fetchAllHospitalDepartmentForDropdown(
-        hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
+        hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
       )
     }
 
@@ -163,10 +170,10 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           hospitalDepartmentRoomInfoId: '',
           status: '',
           uniqueIdentifier: '',
-          roomFromDate:'',
-          roomToDate:'',
-          appointmentNumber:'',
-          hasAppointmentNumber:''
+          roomFromDate: '',
+          roomToDate: '',
+          appointmentNumber: '',
+          hasAppointmentNumber: ''
         },
         statusDetails: [],
         errorMessageForStatusDetails: SELECT_DEPARTMENT_MESSAGE,
@@ -178,6 +185,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         searchStatusLoading: ''
       })
       this.props.clearAppointmentStatusMessage()
+      this.searchAppointmentStatus()
     }
 
     handleSearchFormChange = async (event, field) => {
@@ -200,7 +208,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
             : ''
           : value
         await this.setStateValuesForSearch(searchParams)
-
 
         let errorMsg = ''
         if (['fromDate', 'toDate'].indexOf(fieldName) >= 0) {
@@ -334,30 +341,109 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       })
     }
 
-    checkInAppointment = async appointmentId => {
+    approveApiCall = async requestDTO => {
       try {
+        await this.props.appointmentApprove(
+          appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DEPARTMENT,
+          requestDTO
+        )
         this.setState({
-          isConfirming: true
-        })
-        await this.props.appointmentApprove(APPOINTMENT_APPROVE, appointmentId)
-        this.setState({
+          isConfirming: false,
           showCheckInModal: false,
           showAlert: true,
-          isConfirming: false,
           alertMessageInfo: {
-            variant: 'success',
-            message: this.props.AppointmentApproveReducer.approveSuccessMessage
+              variant: 'success',
+              message: this.props.AppointmentApproveReducer
+                  .approveSuccessMessage
           }
         })
-        await this.searchAppointmentStatus()
       } catch (e) {
         this.setState({
-          showAlert: true,
           isConfirming: false,
+          showAlert: true,
           alertMessageInfo: {
-            showCheckInModal: false,
             variant: 'danger',
-            message: this.props.AppointmentApproveReducer.approveErrorMessage
+            message:
+              this.props.AppointmentApproveReducer.approveErrorMessage ||
+              e.message
+          }
+        })
+      } finally {
+        await this.searchAppointmentStatus()
+        // this.setShowModal()
+      }
+    }
+
+    checkInAppointment = async () => {
+      this.setState({
+        isConfirming: true
+      })
+      const {hospitalNumber, appointmentId} = this.state.appointmentDetails
+      let requestDTO
+
+      try {
+        const splittedPatientInfo = this.state.appointmentDetails.patientName.split(
+          '('
+        )
+        const patientName = splittedPatientInfo[0]
+        const splittedPatienAgeAndGender = splittedPatientInfo[1].split('/')
+        const patientAge = splittedPatienAgeAndGender[0]
+        let patientGender = splittedPatienAgeAndGender[1].replace(')', '')
+        patientGender= patientGender.replace(" ",'')
+        const {successResponse, apiRequestBody} = await thirdPartyApiCall(
+          {
+            ...this.state.appointmentStatusDetails,
+            patientName: patientName,
+            patientAge: patientAge,
+            patientGender: patientGender
+          },
+          IntegrationConstants.apiIntegrationFeatureTypeCodes
+            .DEPARTMENT_CHECK_IN_CODE,
+          IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION
+        )
+        requestDTO = {
+          appointmentId: appointmentId,
+          hospitalNumber: '',
+          isPatientNew: hospitalNumber ? false : true,
+          ...apiRequestBody
+        }
+        if (!successResponse) {
+          requestDTO.hospitalNumber = null
+          this.approveApiCall(requestDTO)
+        } else if (
+          successResponse.responseData &&
+          !successResponse.responseMessage
+        ) {
+          requestDTO.hospitalNumber = successResponse.responseData
+          this.approveApiCall(requestDTO)
+        } else {
+          const thirdPartyErrorMessage = 'Third Party Integration error: '.concat(
+            successResponse.responseMessage
+          )
+          this.setState({
+            thirdPartyApiErrorMessage: thirdPartyErrorMessage,
+            isConfirming: false,
+            // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+            showAlert: true,
+            showCheckInModal:false,
+            alertMessageInfo: {
+              variant: 'danger',
+              message:
+                thirdPartyErrorMessage || 'Could not access third party api.'
+            }
+          })
+        }
+      } catch (e) {
+        this.setState({
+          isConfirming: false,
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message:
+              this.props.AppointmentApproveReducer.approveErrorMessage ||
+              e.message ||
+              e.errorMessage ||
+              'Could not access third party api.'
           }
         })
       }
@@ -395,6 +481,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
 
     initialApiCalls = async () => {
       await this.fetchDepartment()
+      await this.searchAppointmentStatus()
     }
 
     setDoctorInfoInDepartMentList = (departmentList, doctorList) => {
@@ -436,15 +523,15 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         this.state.appointmentStatusDetailsCopy.map(apptDetail => {
           let roomChosedValue = filterValuesList[0]
           if (
-            roomChosedValue.uniqueIdentifier===
-            apptDetail.uniqueIdentifier
+            roomChosedValue.uniqueIdentifier === apptDetail.uniqueIdentifier
           ) {
             changedApptStatusList.push({
               ...apptDetail,
-              hospitalDepartmentRoomInfoId:roomChosedValue.hospitalDepartmentRoomInfoId,
+              hospitalDepartmentRoomInfoId:
+                roomChosedValue.hospitalDepartmentRoomInfoId,
               roomNumber: roomChosedValue.roomNumber,
               appointmentTimeSlots: roomChosedValue.appointmentTimeSlots,
-              patientDetails:null
+              patientDetails: null
             })
           } else changedApptStatusList.push(apptDetail)
           return apptDetail
@@ -460,7 +547,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
               ...apptDetail,
               ...room,
               appointmentTimeSlots: [],
-              patientDetails:null
+              patientDetails: null
             })
           } else changedApptStatusList.push(apptDetail)
           return apptDetail
@@ -469,7 +556,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       return changedApptStatusList
     }
 
-    searchAppointmentStatus = async (type, roomId,departmentId,date) => {
+    searchAppointmentStatus = async (type, roomId, departmentId, date) => {
       const {
         fromDate,
         toDate,
@@ -478,26 +565,26 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         appointmentNumber,
         status
       } = this.state.searchParameters
-    
-      let searchErrorMessage, searchStatusLoading;
+
+      let searchErrorMessage, searchStatusLoading
 
       if (this.isSearchParametersValid()) {
-        if(type!=='C')
-        this.setState({
-         appointmentStatusDetails: [],
-         searchErrorMessage: '',
-         searchStatusLoading: true
-       })
+        if (type !== 'C')
+          this.setState({
+            appointmentStatusDetails: [],
+            searchErrorMessage: '',
+            searchStatusLoading: true
+          })
         let searchData = {
-          fromDate:type!=='C'?fromDate:date,
-          toDate:type!=='C'?toDate:date,
+          fromDate: type !== 'C' ? fromDate : date,
+          toDate: type !== 'C' ? toDate : date,
           hospitalDepartmentId:
             type !== 'C'
               ? hospitalDepartmentId.value || ''
               : departmentId.value,
           hospitalDepartmentRoomInfoId: roomId || '',
-          appointmentNumber:appointmentNumber,
-          hasAppointmentNumber:appointmentNumber?'Y':'N',
+          appointmentNumber: appointmentNumber,
+          hasAppointmentNumber: appointmentNumber ? 'Y' : 'N',
           status: (status.value === 'ALL' ? '' : status.value) || ''
         }
 
@@ -555,8 +642,8 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
             appointmentStatusList = this.filterAndChangeValueForRoomAndTimeSlot(
               apptStatusInfo
             )
-            searchErrorMessage=""
-            searchStatusLoading=false;
+            searchErrorMessage = ''
+            searchStatusLoading = false
             // searchErrorMessage = this.props.AppointmenStatusByRoomListReducer
             //   .isAppointmentStatusByRoomErrorMessage
             // searchStatusLoading = this.props.AppointmenStatusByRoomListReducer
@@ -571,7 +658,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
             searchStatusLoading: searchStatusLoading
           })
         } catch (e) {
-          console.log(e);
+          console.log(e)
         }
       }
     }
@@ -653,6 +740,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
           previousSelectedTimeSlotIds: selectedElementsArray
         })
       }
+      //console.log(this.state.appointmentDetails)
     }
 
     addRemoveActiveClassFromTimeSlots = (elementId, rowIndex) => {
@@ -719,40 +807,36 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       let errorMessageForStatus = '',
         appointmentStatusDetails = [...this.state.appointmentStatusDetails]
 
-      // if (
-      //   fromDate &&
-      //   toDate &&
-      //   getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) === 1
-      // ) {
-      //   errorMessageForStatus =  ? '' : SELECT_HOSPITAL_MESSAGE
-      // } else
-      if(!appointmentNumber){
-       if (
-        fromDate &&
-        toDate &&
-        getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
-      ) {
-        errorMessageForStatus = //hospitalId
-         // ? 
-            hospitalDepartmentId
-            ? ''
-            : SELECT_DEPARTMENT_MESSAGE
+      if (!appointmentNumber) {
+        if (
+          fromDate &&
+          toDate &&
+          getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) === 1
+        ) {
+        } else if (
+          fromDate &&
+          toDate &&
+          getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
+        ) {
+          errorMessageForStatus = //hospitalId
+            // ?
+            hospitalDepartmentId ? '' : SELECT_DEPARTMENT_MESSAGE
           //: SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
-      } else if (
-        fromDate &&
-        toDate &&
-        getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) > 7
-      ) {
-        errorMessageForStatus = DATE_RANGE_ERROR_MESSAGE
-      }
+        } else if (
+          fromDate &&
+          toDate &&
+          getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) > 7
+        ) {
+          errorMessageForStatus = DATE_RANGE_ERROR_MESSAGE
+        }
 
-      this.setState({
-        errorMessageForStatusDetails: errorMessageForStatus,
-        appointmentStatusDetails: errorMessageForStatus
-          ? []
-          : appointmentStatusDetails
-      })
-    }
+        this.setState({
+          errorMessageForStatusDetails: errorMessageForStatus,
+          appointmentStatusDetails: errorMessageForStatus
+            ? []
+            : appointmentStatusDetails
+        })
+      }
 
       return errorMessageForStatus ? false : true
     }
@@ -781,7 +865,7 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
         searchErrorMessage,
         searchStatusLoading
       } = this.state
-
+      console.log('=============', this.state.appointmentDetails)
       // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       // const {
@@ -794,7 +878,6 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
       //   dropdownErrorMessage
       // } = this.props.SpecializationDropdownReducer
 
-    
       const {
         isFetchAllHospitalDepartmentLoading,
         allHospitalDepartmentForDropdown,
@@ -818,8 +901,8 @@ const ClientAppointmentStatusHOCByDepartment = (ComposedComponent, props, type) 
                 searchAppointmentStatus: this.searchAppointmentStatus,
                 searchParameters: searchParameters,
                 isFetchAllHospitalDepartmentLoading,
-                activeHospitalDepartmentForDropdown:allHospitalDepartmentForDropdown,
-                activeDepartmentDropdownErrorMessage:allDepartmentDropdownErrorMessage
+                activeHospitalDepartmentForDropdown: allHospitalDepartmentForDropdown,
+                activeDepartmentDropdownErrorMessage: allDepartmentDropdownErrorMessage
               }}
               statusDetailsData={{
                 appointmentStatusDetails,

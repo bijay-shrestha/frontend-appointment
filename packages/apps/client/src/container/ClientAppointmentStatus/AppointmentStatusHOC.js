@@ -7,7 +7,7 @@ import {
   PatientDetailsMiddleware,
   SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants,IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils
@@ -40,7 +40,7 @@ const {FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = doctorSetupApiConstants
 const {ACTIVE_DROPDOWN_SPECIALIZATION} = specializationSetupAPIConstants
 const {
   APPOINTMENT_STATUS_LIST,
-  APPOINTMENT_APPROVE
+  //APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
 const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant
@@ -289,67 +289,88 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
       })
     }
 
-    checkInAppointment = async appointmentId => {
-      try {
-        this.setState({
-          isConfirming: true
-        })
-        const response = await thirdPartyApiCall(this.state.appointmentDetails)
-        if (!response) {
-          await this.props.appointmentApprove(
-            APPOINTMENT_APPROVE,
-            appointmentId
-          )
-          this.setState({
-            isConfirming: false,
-            showAlert: true,
-            alertMessageInfo: {
-              variant: 'success',
-              message: this.props.AppointmentApproveReducer
-                .approveSuccessMessage
-            }
-          })
-        } else if (response.responseData && !response.responseMessage) {
-          const status = this.state.appointmentDetails.hospitalNumber
-            ? false
-            : true
-          await this.props.appointmentApproveIntegration(
-            appointmentSetupApiConstant.APPOINTMENT_APPROVE_INTEGRATION,
-            {
-              appointmentId: appointmentId,
-              hospitalNumber: response.responseData,
-              status: status
-            }
-          )
-          this.setState({
-            isConfirming: false,
-            showAlert: true,
-            alertMessageInfo: {
-              variant: 'success',
-              message: this.props.AppointmentApproveReducer
-                .approveSuccessMessage
-            }
-          })
-        } else {
-          this.setState({
-            thirdPartyApiErrorMessage: response.responseMessage
-          })
+    approveApiCall = async (requestDTO) => {
+        try {
+            await this.props.appointmentApprove(
+                appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+                requestDTO
+            )
+            this.setState({
+                isConfirming: false,
+                approveConfirmationModal: true,
+                // showAlert: true,
+                // alertMessageInfo: {
+                //     variant: 'success',
+                //     message: this.props.AppointmentApproveReducer
+                //         .approveSuccessMessage
+                // }
+            })
+        } catch (e) {
+            this.setState({
+                isConfirming: false,
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'danger',
+                    message:
+                        this.props.AppointmentApproveReducer.approveErrorMessage ||
+                        e.message
+                }
+            })
+        }finally {
+            await this.searchAppointmentStatus()
+            // this.setShowModal()
         }
-      } catch (e) {
+    }
+
+    checkInAppointment = async () => {
         this.setState({
-          isConfirming: false,
-          showAlert: true,
-          alertMessageInfo: {
-            variant: 'danger',
-            message:
-              this.props.AppointmentApproveReducer.approveErrorMessage ||
-              e.message
-          }
+            isConfirming: true
         })
-      } finally {
-        await this.searchAppointmentStatus()
-        this.setShowModal()
-      }
+        const {hospitalNumber, appointmentId} = this.state.appointmentDetails;
+        let requestDTO;
+
+        try {
+            const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
+                IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
+            requestDTO = {
+                appointmentId: appointmentId,
+                hospitalNumber: '',
+                isPatientNew: hospitalNumber ? false : true,
+                ...apiRequestBody
+            }
+            if (!successResponse) {
+                requestDTO.hospitalNumber = null
+                this.approveApiCall(requestDTO)
+            } else if (successResponse.responseData && !successResponse.responseMessage) {
+                requestDTO.hospitalNumber = successResponse.responseData
+                this.approveApiCall(requestDTO)
+            } else {
+                const thirdPartyErrorMessage = "Third Party Integration error: ".concat(successResponse.responseMessage)
+                this.setState({
+                    thirdPartyApiErrorMessage: thirdPartyErrorMessage,
+                    isConfirming: false,
+                    // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: thirdPartyErrorMessage
+                            || "Could not access third party api."
+                    }
+                })
+            }
+        } catch (e) {
+            this.setState({
+                isConfirming: false,
+                showAlert: true,
+                alertMessageInfo: {
+                    variant: 'danger',
+                    message:
+                        this.props.AppointmentApproveReducer.approveErrorMessage ||
+                        e.message || e.errorMessage || "Could not access third party api."
+                }
+            })
+        }
     }
 
     clearAlertTimeout = () => {
