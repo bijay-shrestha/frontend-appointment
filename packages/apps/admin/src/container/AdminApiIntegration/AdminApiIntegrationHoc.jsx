@@ -75,7 +75,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
                 featureTypeId: '',
                 appointmentModeId: '',
                 apiUrl: '',
-                apiIntegrationTypeId: ''
+                apiIntegrationTypeId: '',
+                status: {label: "ALL", value: "A"}
             },
             deleteRequestDTO: {
                 id: 0,
@@ -176,7 +177,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
                     requestMethodId: '',
                     featureTypeId: '',
                     apiUrl: '',
-                    apiIntegrationTypeId: ''
+                    apiIntegrationTypeId: '',
+                    status: {label: "ALL", value: "A"}
                 }
             })
             this.searchAdminApiIntegration()
@@ -188,7 +190,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
                 appointmentModeId,
                 featureTypeId,
                 requestMethodId,
-                apiIntegrationTypeId
+                apiIntegrationTypeId,
+                status
             } = this.state.searchParameters
 
             let updatedPage =
@@ -208,7 +211,8 @@ const AdminApiIntegrationHoc = (ComposedComponent, props, type) => {
                     appointmentModeId: appointmentModeId.value || '',
                     featureTypeId: featureTypeId.value || '',
                     requestMethodId: requestMethodId.value || '',
-                    apiIntegrationTypeId: apiIntegrationTypeId.value || ''
+                    apiIntegrationTypeId: apiIntegrationTypeId.value || '',
+                    status: status && status.value === 'A' ? '' : status.value
                 }
             )
 

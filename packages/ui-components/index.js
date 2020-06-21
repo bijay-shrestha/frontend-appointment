@@ -65,3 +65,4 @@ export {default as AppointmentQuickCheckInOption} from './src/AppointmentQuickCh
 export {default as PatientNameWithAgeGenderPhoneAddress} from './src/PatientNameWithAgeGenderPhoneAddressForTable'
 export {default as RoomNumberForTable} from './src/RoomNumberForTable'
 export {default as CPageOverlayLoader} from './src/CPageOverlayLoader'
+export {default as DepartmentNameWithRoomNumber} from './src/DepartmentNameWithRoomNumber'

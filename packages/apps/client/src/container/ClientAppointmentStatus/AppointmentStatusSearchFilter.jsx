@@ -4,7 +4,8 @@ import {
   CButton,
   CForm,
   CHybridSelect,
-  CHybridSelectWithImage
+  CHybridSelectWithImage,
+  CHybridInput
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
@@ -124,6 +125,17 @@ class AppointmentLog extends PureComponent {
                         }
                       />
                     </div>
+                  </Col>
+
+                  <Col sm={12} md={4} xl={4}>
+                    <CHybridInput
+                      id="appointmentNumber"
+                      name="appointmentNumber"
+                      placeholder="Enter the appointment number"
+                      onKeyDown={this.handleEnter}
+                      onChange={event => handleSearchFormChange(event)}
+                      value={searchParameters.appointmentNumber}
+                    />
                   </Col>
 
                   <Col sm={12} md={4} xl={4}>
@@ -259,6 +271,20 @@ class AppointmentLog extends PureComponent {
                       {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
                         searchParameters.toDate
                       )}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+              
+              {searchParameters && searchParameters.appointmentNumber && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{show: 250, hide: 400}}
+                    overlay={props => <Tooltip {...props}>Appointment Number</Tooltip>}
+                  >
+                    <Button id="button-search-filters" variant="secondary">
+                      {searchParameters.appointmentNumber}
                     </Button>
                   </OverlayTrigger>
                 </li>

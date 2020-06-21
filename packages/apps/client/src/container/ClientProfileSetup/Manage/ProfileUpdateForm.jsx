@@ -89,7 +89,7 @@ const ProfileUpdateForm = ({
                     id="remarks"
                     name="remarks"
                     onChange={onInputChange}
-                    onKeyDown={(event) => onEnterKeyPress(event)}
+                    // onKeyDown={(event) => onEnterKeyPress(event)}
                     placeholder="Remarks"
                     value={profileInfoObj.remarks}
                     max={200}

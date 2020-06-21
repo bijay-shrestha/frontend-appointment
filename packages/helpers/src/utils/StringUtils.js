@@ -106,9 +106,9 @@ export const boldCharactersOfString = (stringToBold, mainString, index) => {
 }
 
 export const toTitleCase = phrase => {
-  return phrase
+  return phrase?phrase
     .toLowerCase()
     .split(' ')
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
+    .join(' '):phrase
 }
