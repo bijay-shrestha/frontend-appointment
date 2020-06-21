@@ -21,7 +21,7 @@ const {
     clearAppointmentApproveMessage,
     clearAppointmentRejectMessage,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCall,
+    thirdPartyApiCallCheckIn,
     appointmentApproveIntegration
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
@@ -600,7 +600,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             let requestDTO;
 
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
                 requestDTO = {
@@ -670,7 +670,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
-            }finally {
+            } finally {
                 await this.searchAppointment()
                 // this.setShowModal()
             }
@@ -931,7 +931,8 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             fetchAppointmentTransferDate,
             fetchAppointmentTransferTime,
             fetchActiveDoctorsForDropdown,
-            appointmentApproveIntegration
+            appointmentApproveIntegration,
+            thirdPartyApiCallCheckIn
         }
     )
 }
