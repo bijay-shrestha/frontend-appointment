@@ -27,7 +27,7 @@ const {
   fetchAppointmentStatusListByRoom,
   clearAppointmentStatusMessage,
   appointmentApprove,
-  thirdPartyApiCall
+  thirdPartyApiCallCheckIn
 } = AppointmentDetailsMiddleware
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 // const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -390,7 +390,7 @@ const ClientAppointmentStatusHOCByDepartment = (
         const patientAge = splittedPatienAgeAndGender[0]
         let patientGender = splittedPatienAgeAndGender[1].replace(')', '')
         patientGender= patientGender.replace(" ",'')
-        const {successResponse, apiRequestBody} = await thirdPartyApiCall(
+        const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(
           {
             ...this.state.appointmentStatusDetails,
             patientName: patientName,
@@ -974,7 +974,8 @@ const ClientAppointmentStatusHOCByDepartment = (
       appointmentApprove,
       fetchAllHospitalDepartmentForDropdown,
       fetchAppointmentStatusListByDepartment,
-      fetchAppointmentStatusListByRoom
+      fetchAppointmentStatusListByRoom,
+      thirdPartyApiCallCheckIn
     }
   )
 }
