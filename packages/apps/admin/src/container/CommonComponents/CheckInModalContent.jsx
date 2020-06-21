@@ -12,13 +12,22 @@ const CheckInModalContent = ({appointmentDetails}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="clientName"
-                                    placeholder="Client Name"
-                                    value={appointmentDetails.hospitalName || 'N/A'}
+                                    placeholder={appointmentDetails.hospitalName?"Client Name":"Department Name"}
+                                    value={appointmentDetails.hospitalName ||appointmentDetails.departmentName||'N/A'}
                                     disabled={true}
                                 />
                             </Col>
 
-                            <Col sm={12} md={6} lg={6}>
+                            {appointmentDetails.roomNumber?<Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="roomNumber"
+                                    placeholder="Room Number"
+                                    value={appointmentDetails.roomNumber||'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>:null}
+
+                            {appointmentDetails.doctorName?<Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
@@ -31,7 +40,7 @@ const CheckInModalContent = ({appointmentDetails}) => {
                                     }
                                     disabled={true}
                                 />
-                            </Col>
+                            </Col>:null}
 
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput

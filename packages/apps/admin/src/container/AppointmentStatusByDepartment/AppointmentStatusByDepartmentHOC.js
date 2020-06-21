@@ -307,9 +307,9 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
 
     handleViewAppointmentDetails = async appointmentStatusDetail => {
       let appointmentData = {
-        hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
-        doctorName: appointmentStatusDetail.doctorName,
-        specializationName: appointmentStatusDetail.specializationName,
+        departmentName: appointmentStatusDetail.hospitalDepartmentName || '',
+        roomNumber: appointmentStatusDetail.roomNumber||'',
+        // specializationName: appointmentStatusDetail.specializationName,
         appointmentId: appointmentStatusDetail.patientDetails.appointmentId,
         appointmentDate: appointmentStatusDetail.date,
         appointmentTime:

@@ -274,9 +274,8 @@ const ClientAppointmentStatusHOCByDepartment = (
 
     handleViewAppointmentDetails = async appointmentStatusDetail => {
       let appointmentData = {
-        hospitalName: appointmentStatusDetail.patientDetails.hospitalName || '',
-        doctorName: appointmentStatusDetail.doctorName,
-        specializationName: appointmentStatusDetail.specializationName,
+        departmentName: appointmentStatusDetail.hospitalDepartmentName || '',
+        roomNumber: appointmentStatusDetail.roomNumber||'',
         appointmentId: appointmentStatusDetail.patientDetails.appointmentId,
         appointmentDate: appointmentStatusDetail.date,
         appointmentTime:
