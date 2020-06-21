@@ -865,7 +865,7 @@ const ClientAppointmentStatusHOCByDepartment = (
         searchErrorMessage,
         searchStatusLoading
       } = this.state
-      console.log('=============', this.state.appointmentDetails)
+     // console.log('=============', this.state.appointmentDetails)
       // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
 
       // const {
