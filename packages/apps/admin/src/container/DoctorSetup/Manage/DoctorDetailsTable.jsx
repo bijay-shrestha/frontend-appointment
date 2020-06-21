@@ -41,6 +41,13 @@ const DoctorDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
+                            headerName: 'Client Name',
+                            field: 'hospitalName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
+                        },
+                        {
                             headerName: 'Name',
                             field: 'doctorName',
                             resizable: true,
@@ -78,14 +85,6 @@ const DoctorDetailsDataTable = props => (
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                        {
-                            headerName: 'Client Name',
-                            field: 'hospitalName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-
                         {
                             headerName: 'Status',
                             field: 'status',

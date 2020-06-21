@@ -2,7 +2,7 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {QualificationSetupMiddleware} from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils,} from '@frontend-appointment/helpers'
+import {CommonUtils, EnterKeyPressUtils,} from '@frontend-appointment/helpers'
 import './qualification.scss'
 import {QualificationAliasSetupMiddleware} from "@frontend-appointment/thunk-middleware/src/admin-middleware";
 
@@ -22,7 +22,7 @@ const {fetchActiveQualificationAliasForDropdown} = QualificationAliasSetupMiddle
 const QualificationSetupHoc = (ComposedComponent, props, type) => {
     const {
         qualificationSetupApiConstants,
-       // countrySetupAliasCode,
+        // countrySetupAliasCode,
         universitySetupApiConstants,
         qualificationSetupAliasCode
     } = AdminModuleAPIConstants;
@@ -284,14 +284,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         };
 
         appendSNToTable = qualificationList => {
-            const newQualificationList =
-                qualificationList.length &&
-                qualificationList.map((spec, index) => ({
-                    ...spec,
-                    sN: index + 1,
-                    name: spec.name.toUpperCase()
-                }));
-            return newQualificationList;
+            return CommonUtils.appendSNToTable(qualificationList, this.state.queryParams.page, this.state.queryParams.size);
         };
 
         handlePageChange = async newPage => {
