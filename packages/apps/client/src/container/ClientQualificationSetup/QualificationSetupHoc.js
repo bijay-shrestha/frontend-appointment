@@ -284,7 +284,7 @@ const QualificationSetupHoc = (ComposedComponent, props, type) => {
         }
 
         appendSNToTable = qualificationList => {
-            return CommonUtils.appendSNToTable(qualificationList, this.state.queryParams.page, this.state.queryParams.size);
+            return CommonUtils.appendSerialNumberToDataList(qualificationList, this.state.queryParams.page, this.state.queryParams.size);
         }
 
         handlePageChange = async newPage => {
