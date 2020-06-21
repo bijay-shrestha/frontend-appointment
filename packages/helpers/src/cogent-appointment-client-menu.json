@@ -272,7 +272,7 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Pending Refund Approval",
+          "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
