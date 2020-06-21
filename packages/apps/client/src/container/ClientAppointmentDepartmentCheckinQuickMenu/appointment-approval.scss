@@ -300,17 +300,14 @@
         }
 
         .modal-header .close {
-            margin-right: 0rem;
-         
-            font-size: 2rem;
-            padding: 0.5rem 0.5rem 0.5rem;
-            width:auto;
-            height: auto;
-
-            &:hover {
-                color: #000000;
-                background-color: #cccccc;
-            }
+            margin:0;
+            margin-left:auto;
+        }
+    
+        .modal-body{
+            padding:40px;
+            padding-top:30px;
+            margin-top:-22px;
         }
     }
 }
