@@ -34,6 +34,13 @@ export const putObjectValueByKey = (keyArray, objValue) => {
     return newObj
 }
 
+export const findIfUrlContainsPathVariableAndReplaceWithValue = (url, pathVariablePattern, value) => {
+    if (url.includes(pathVariablePattern)) {
+        return url.replace(pathVariablePattern, value);
+    }
+    return url;
+}
+
 // export const constructApiFromEcIntegration = (
 //     featureTypeCode,
 //     integratedData,
@@ -110,7 +117,7 @@ const getCurrentFeatureIntegrationDetails = (apiIntegrateData, featureTypeCode) 
     return apiIntegrateData.features.find(feature => feature.featureCode === featureTypeCode)
 }
 
-export const getCurrentFeatureApiIntegrationDetails = (integrationType, featureTypeCode, clientId) => {
+export const getCurrentClientFeatureApiIntegrationDetails = (integrationType, featureTypeCode, clientId) => {
     let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
     let currentFeatureApiIntegrationDetails
     const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
@@ -124,3 +131,28 @@ export const getCurrentFeatureApiIntegrationDetails = (integrationType, featureT
     }
     return currentFeatureApiIntegrationDetails
 }
+
+export const getCurrentAppointmentModeFeatureApiIntegrationDetails = (integrationType,
+                                                                      featureTypeCode,
+                                                                      appointmentModeId,
+                                                                      pathVariablePattern,
+                                                                      pathVariableValue) => {
+    // let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
+    let currentFeatureApiIntegrationDetails
+    const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
+    // if (isClientModule) {
+    //     currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetails(apiIntegrateData[0], featureTypeCode)
+    // } else {
+    const selectedAppointmentModeApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
+        apiIntegration.appointmentModeId === appointmentModeId);
+    currentFeatureApiIntegrationDetails = selectedAppointmentModeApiIntegrationDetails && getCurrentFeatureIntegrationDetails(
+        selectedAppointmentModeApiIntegrationDetails, featureTypeCode)
+    // }
+    if (currentFeatureApiIntegrationDetails && checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
+        let apiUrl = currentFeatureApiIntegrationDetails.apiInfo.url;
+        currentFeatureApiIntegrationDetails.apiInfo.url = apiUrl ?
+            findIfUrlContainsPathVariableAndReplaceWithValue(apiUrl, pathVariablePattern, pathVariableValue) : apiUrl
+    }
+    return currentFeatureApiIntegrationDetails
+}
+

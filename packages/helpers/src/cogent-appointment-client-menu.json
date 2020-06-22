@@ -272,7 +272,7 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Pending Refund Approval",
+          "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
@@ -341,7 +341,6 @@
           "description": "appointmentStatusbydepartment",
           "childMenus": []
         }
-    
       ]
     },
     {
@@ -464,21 +463,56 @@
       "childMenus": []
     },
     {
-      "id": "26",
+      "id": "29",
       "parentId": null,
-      "name": "Quick Appt. Check-In",
-      "path": "/appointmentQuickCheckIn",
-      "roles": [
-        12,14
-      ],
+      "name": "Quick Menu",
+      "path": "/quickMenu",
+      "roles": [],
       "icon": "fa fa-bookmark",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Appointment Quick CheckIn",
-      "childMenus": []
+      "description": "Quick Menu",
+      "childMenus": [
+        {
+          "id": "26",
+          "parentId": "29",
+          "name": "Doctor Check-In",
+          "path": "/quickMenu/doctorCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Quick CheckIn",
+          "childMenus": []
+        },
+        {
+          "id": "28",
+          "parentId": "29",
+          "name": "Department Check-In",
+          "path": "/quickMenu/departmentCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Quick CheckIn",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }

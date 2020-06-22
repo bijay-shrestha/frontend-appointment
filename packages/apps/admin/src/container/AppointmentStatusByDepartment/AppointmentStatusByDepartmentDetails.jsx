@@ -190,7 +190,7 @@ const AppointmentStatusDetails = ({
                       <h5 className="title">Appointment Slots</h5>
                       <div className="room-tabs">
                         <CNavTabs
-                          roles={appointmentStatusDetail.roomList}
+                          roles={ appointmentStatusDetail.hospitalDepartmentRoomInfoId?appointmentStatusDetail.roomList:[]}
                           currentActiveTab={
                             appointmentStatusDetail.hospitalDepartmentRoomInfoId
                           }

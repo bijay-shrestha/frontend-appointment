@@ -232,7 +232,7 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Pending Refund Approval",
+          "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
@@ -725,6 +725,58 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "Client Log",
+          "childMenus": []
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "parentId": null,
+      "name": "Quick Menu",
+      "path": "/quickMenu",
+      "roles": [],
+      "icon": "fa fa-bookmark",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Quick Menu",
+      "childMenus": [
+        {
+          "id": "43",
+          "parentId": 42,
+          "name": "Doctor Check-In",
+          "path": "/quickMenu/doctorCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Quick CheckIn",
+          "childMenus": []
+        },
+        {
+          "id": "44",
+          "parentId": 42,
+          "name": "Department Check-In",
+          "path": "/quickMenu/departmentCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Quick CheckIn",
           "childMenus": []
         }
       ]

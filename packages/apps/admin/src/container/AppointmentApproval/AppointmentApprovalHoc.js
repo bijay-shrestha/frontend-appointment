@@ -26,7 +26,7 @@ const {
     clearAppointmentApproveMessage,
     clearAppointmentRejectMessage,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCall
+    thirdPartyApiCallCheckIn
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
 
@@ -612,7 +612,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             // sabu
             let requestDTO;
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(
                     this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.ALL_CLIENT_FEATURE_INTEGRATION,
@@ -622,7 +622,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                     hospitalId: hospitalId,
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: !hospitalNumber,
+                    isPatientNew: !hospitalNumber,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
@@ -928,7 +928,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
             fetchAppointmentTransferDate,
             fetchAppointmentTransferTime,
             fetchDoctorsBySpecializationIdForDropdown,
-            thirdPartyApiCall,
+            thirdPartyApiCallCheckIn,
         }
     )
 }

@@ -98,6 +98,10 @@ const DashboardComponent = Loadable({
     loading: () => getLoader()
 })
 
+const DepartmentWiseQuickCheckInComponent = loadable(
+    () => import('./container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'),
+    {fallback: () => getLoader()}
+)
 // const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
@@ -194,7 +198,7 @@ const QualificationAlias = loadable(
 )
 
 const QuickCheckInComponent = loadable(
-    () => import('./container/ClientAppointCheckinQuickMenu/AppointmentCheckinFast'),
+    () => import('./container/ClientAppointmentCheckinQuickMenu/AppointmentCheckinFast'),
     {fallback: () => getLoader()}
 )
 
@@ -472,7 +476,7 @@ export const routes = [
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Pending Refund Approval',
+        name: 'Appointment Cancellation',
         isSingleTab: true
     },
     {
@@ -598,13 +602,33 @@ export const routes = [
         isSingleTab: true
     },
     {
-        path: '/appointmentQuickCheckIn',
+        path: '/quickMenu',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Quick Menu',
+        isSingleTab: false
+    },
+    {
+        path: '/quickMenu/doctorCheckIn',
         component: QuickCheckInComponent,
         icon: '',
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Quick Check In',
+        name: 'Doctor Check-In',
+        isSingleTab: true
+    },
+    {
+        path: '/quickMenu/departmentCheckIn',
+        component: DepartmentWiseQuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Department Check-In',
         isSingleTab: true
     },
     {

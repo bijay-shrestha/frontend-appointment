@@ -19,22 +19,11 @@ const AppointmentFastCheckInConfirm = ({
               
                     <Row className="clip">
 
-                                        <i className="fa fa-check">
-
-                                        </i>
-                        {Print ? <Print/> : ''}
-
-                        {/*<Button variant="secondary"*/}
-                        {/*        size="lg"*/}
-                        {/*        name=""*/}
-                        {/*    // onClickHandler={e =>*/}
-                        {/*    //     onClick(e, props.node.data.id || props.node.data, 'C')*/}
-                        {/*    // }*/}
-                        {/*>*/}
-                        {/*    <i className="fa fa-print"/>&nbsp;Print*/}
-                        {/*</Button>*/}
-
-                        &nbsp;&nbsp;
+                    <i className="fa fa-check-circle"></i>
+                    <h2>Appointment Checked-In Successfully</h2>  
+                    <div className="btn-container">
+                    {Print ? <Print /> : ''}
+                    &nbsp;&nbsp;                     
 
                         <CCopyToClipboard
                             id={"appointmentNumber"}
@@ -47,8 +36,8 @@ const AppointmentFastCheckInConfirm = ({
                             onCopy={onCopyAppointmentNumber}
                             copiedMessage={copySuccessMessage}
                         />
-                          {/* </div>
-                          </div> */}
+                        
+                          </div> 
                     </Row>
                
             </CForm>
@@ -61,12 +50,12 @@ const AppointmentFastCheckInConfirm = ({
                 backdrop="static"
                 show={showModal}
                 // modalHeading={modalHeader}
-                size="sm"
-                modalHeading="Appointment Checked-In Successfully"
+                size="lg"
+                // modalHeading="Appointment Checked-In Successfully"
                 bodyChildren={bodyContent}
                 // footerChildren={footer}
                 onHide={setShowModal}
-                dialogClassName="cogent-modal"
+                dialogClassName="cogent-modal quick-confirm"
             />
         </>
     )

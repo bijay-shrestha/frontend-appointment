@@ -21,7 +21,7 @@ const {
     clearAppointmentApproveMessage,
     clearAppointmentRejectMessage,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCall,
+    thirdPartyApiCallCheckIn,
     appointmentApproveIntegration
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
@@ -39,7 +39,7 @@ const {
 } = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
+const DepartmentAppointCheckInFastHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         doctorSetupApiConstants,
@@ -48,7 +48,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
         appointmentTransferApiConstants
     } = AdminModuleAPIConstants
 
-    class AppointmentCheckInFastDetail extends React.PureComponent {
+    class DepartmentAppointmentCheckInFastDetail extends React.PureComponent {
         state = {
             searchParameters: {
                 appointmentNumber: '',
@@ -105,7 +105,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
 
         previewApiCall = async data => {
             await this.props.fetchAppointmentApprovalDetailByAppointmentId(
-                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DETAIL,
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT,
                 data.appointmentId
             )
         }
@@ -164,23 +164,23 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
         searchAppointment = async page => {
             const {
                 appointmentNumber,
-                fromDate,
-                toDate,
-                patientMetaInfoId,
-                patientType,
-                specializationId,
-                doctorId,
-                patientCategory
+                // fromDate,
+                // toDate,
+                // patientMetaInfoId,
+                // patientType,
+                // specializationId,
+                // doctorId,
+                // patientCategory
             } = this.state.searchParameters
             let searchData = {
                 appointmentNumber,
-                fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
-                toDate: appointmentNumber ? '' : toDate,
-                patientMetaInfoId: patientMetaInfoId ? patientMetaInfoId.value : '',
-                patientType: patientType ? patientType.value : '',
-                specializationId: specializationId ? specializationId.value : '',
-                doctorId: doctorId ? doctorId.value : '',
-                patientCategory: patientCategory ? patientCategory.value : ''
+                fromDate: '', // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                toDate: '',
+                patientMetaInfoId: '',
+                patientType: '',
+                specializationId: '',
+                doctorId: '',
+                patientCategory: ''
             }
 
             let updatedPage =
@@ -190,7 +190,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     ? page
                     : this.state.queryParams.page
             await this.props.fetchAppointmentApprovalList(
-                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_LIST,
+                appointmentSetupApiConstant.APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT,
                 {
                     page: updatedPage,
                     size: this.state.queryParams.size
@@ -218,9 +218,9 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                     ...spec,
                     patientMobileNumber: spec.mobileNumber,
                     // sN: index + 1,
-                    registrationNumber: spec.registrationNumber || 'N/A',
-                    gender: spec.gender.split('')[0],
-                    age: spec.age.split(" ")[0] + " " + spec.age.split(" ")[1].split('')[0]
+                    // registrationNumber: spec.registrationNumber || 'N/A',
+                    gender: spec.gender ? spec.gender.split('')[0] : '',
+                    age: spec.age ? spec.age.split(" ")[0] + " " + spec.age.split(" ")[1].split('')[0] : ''
                 }))
             return newRefundList
         }
@@ -600,13 +600,13 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             let requestDTO;
 
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
-                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_CHECK_IN_CODE,
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(this.state.appointmentDetails,
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
                 requestDTO = {
                     appointmentId: appointmentId,
                     hospitalNumber: '',
-                    patientStatus: hospitalNumber ? false : true,
+                    isPatientNew: hospitalNumber ? false : true,
                     ...apiRequestBody
                 }
                 if (!successResponse) {
@@ -646,7 +646,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
         approveApiCall = async (requestDTO) => {
             try {
                 await this.props.appointmentApprove(
-                    appointmentSetupApiConstant.APPOINTMENT_APPROVE,
+                    appointmentSetupApiConstant.APPOINTMENT_APPROVAL_DEPARTMENT,
                     requestDTO
                 )
                 this.setState({
@@ -670,7 +670,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
                             e.message
                     }
                 })
-            }finally {
+            } finally {
                 await this.searchAppointment()
                 // this.setShowModal()
             }
@@ -901,7 +901,7 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
     }
 
     return ConnectHoc(
-        AppointmentCheckInFastDetail,
+        DepartmentAppointmentCheckInFastDetail,
         [
             'AppointmentApprovalListReducer',
             'SpecializationDropdownReducer',
@@ -931,8 +931,9 @@ const AppointCheckInFastHOC = (ComposedComponent, props, type) => {
             fetchAppointmentTransferDate,
             fetchAppointmentTransferTime,
             fetchActiveDoctorsForDropdown,
-            appointmentApproveIntegration
+            appointmentApproveIntegration,
+            thirdPartyApiCallCheckIn
         }
     )
 }
-export default AppointCheckInFastHOC
+export default DepartmentAppointCheckInFastHOC

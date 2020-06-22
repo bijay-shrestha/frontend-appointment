@@ -24,7 +24,7 @@ class LoginPage extends React.PureComponent {
     onSubmitHandler = async user => {
         await this.handleIsLoginPending(true);
         try {
-          
+
             await this.props.signinUser(LOGIN_API, {...user});
 
             await this.props.fetchUserMenus(GET_SIDEBAR_DATA, {
@@ -51,7 +51,7 @@ class LoginPage extends React.PureComponent {
             const pathToRedirect = selectedPath
                 ? '/admin' + selectedPath.replace('true', '')
                 : '/admin/dashboard';
-          
+
             await this.props.history.push(pathToRedirect);
             this.handleIsLoginPending(false);
             return null
@@ -78,7 +78,7 @@ class LoginPage extends React.PureComponent {
             adminIp
         )
 
-        document.title = 'Cogent-Appointment-Admin'
+        document.title = 'e-appointments-admin'
         document.getElementById('favIcon').href=process.env.PUBLIC_URL+"logo-small-blue.png"
     }
 
