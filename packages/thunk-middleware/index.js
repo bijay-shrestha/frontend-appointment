@@ -57,6 +57,8 @@ import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
 import * as SalutationMiddleware from './src/salutation-middleware/salutationMiddleware';
 import * as GenericThirdPartyApiMiddleware
     from './src/generic-third-party-api-middleware/genericThirdPartyApiMiddleware';
+import * as HmacMiddleware
+    from './src/hmac-middleware/hmacMiddleware';
 
 export {
     AppointmentDetailsMiddleware,
@@ -118,5 +120,6 @@ export {
     AppointmentServiceTypeMiddleware,
     AdminApiIntegrationMiddleware,
     SalutationMiddleware,
-    GenericThirdPartyApiMiddleware
+    GenericThirdPartyApiMiddleware,
+    HmacMiddleware
 }
