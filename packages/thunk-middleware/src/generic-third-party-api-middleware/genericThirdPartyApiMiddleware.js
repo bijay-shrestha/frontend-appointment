@@ -1,14 +1,15 @@
 import {APIUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
 
-
 export const genericThirdPartyApiCall = async (data,
                                                featureTypeCode,
                                                integrationType,
                                                clientId,
                                                constructedData,
                                                pathVariablePattern,
-                                               pathVariableValue) => {
+                                               pathVariableValue,
+                                               hmacCode) => {
+
     let currentFeatureApiIntegrationDetails = integrationType.substring(0, 3) === "e-c" ?
         APIUtils.getCurrentClientFeatureApiIntegrationDetails(integrationType, featureTypeCode, clientId) :
         APIUtils.getCurrentAppointmentModeFeatureApiIntegrationDetails(
@@ -16,7 +17,9 @@ export const genericThirdPartyApiCall = async (data,
             featureTypeCode,
             data.appointmentModeId,
             pathVariablePattern,
-            pathVariableValue)
+            pathVariableValue,
+            hmacCode,
+            clientId)
 
     let apiRequestBody = {
         featureCode: currentFeatureApiIntegrationDetails ?

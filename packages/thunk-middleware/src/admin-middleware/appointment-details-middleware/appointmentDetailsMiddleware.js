@@ -4,6 +4,7 @@ import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 import {GenericThirdPartyApiMiddleware} from '../../../index'
 import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
+import * as HmacMiddleware from '../../hmac-middleware/hmacMiddleware'
 
 export const fetchAppointmentRefundList = (
     path,
@@ -69,9 +70,9 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund) => {
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacCode) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
-    const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund)
+    const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund);
     try {
         return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
             data,
@@ -80,7 +81,8 @@ export const thirdPartyApiCallRefund = async (data, featureTypeCode, integration
             data.hospitalId,
             constructedData,
             "%s",
-            data.transactionNumber);
+            data.transactionNumber,
+            hmacCode);
     } catch (e) {
         throw e
     }
