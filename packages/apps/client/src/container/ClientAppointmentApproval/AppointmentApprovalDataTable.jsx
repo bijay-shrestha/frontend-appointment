@@ -1,21 +1,10 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-<<<<<<< HEAD
 //import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal, DoctorWithSpecImage,DoctorAppointmentCheckInOptions} from '@frontend-appointment/ui-components'
-=======
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
-import PreviewDetails from './AppointmentApprovalPreview'
-
-import {
-    CConfirmationModal,
-    DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
-} from '@frontend-appointment/ui-components'
->>>>>>> develop
+import {CConfirmationModal, DoctorWithSpecImage,DoctorAppointmentCheckInOptions,PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
