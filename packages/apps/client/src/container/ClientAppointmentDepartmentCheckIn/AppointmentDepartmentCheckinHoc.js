@@ -20,7 +20,7 @@ const {
     clearAppointmentApproveMessage,
     //clearAppointmentRejectMessage,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCall,
+    thirdPartyApiCallCheckIn,
     appointmentApproveIntegration
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
@@ -586,7 +586,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             let requestDTO;
 
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
                 requestDTO = {
