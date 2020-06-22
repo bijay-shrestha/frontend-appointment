@@ -1,19 +1,20 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import PreviewDetails from './AppointmentDepartmentCheckInPreview'
-import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
-
+//import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
+import CheckInModalContent from './DepartmentApprovalContent';
 import {
     DepartmentCheckInOptions,
-    CPageOverlayLoader,
+   // CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress,
-    DepartmentNameWithRoomNumber
+    DepartmentNameWithRoomNumber,
+    CConfirmationModal
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
-import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
+//import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
@@ -29,10 +30,11 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
         // approveHandleApi,
         approveConfirmationModal,
         appointmentDetails,
-        approveSuccessMessage,
+        //approveSuccessMessage,
         isConfirming,
-        onCopyAppointmentNumber,
-        copySuccessMessage
+        // onCopyAppointmentNumber,
+        // copySuccessMessage,
+        approveHandleApi
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
     return (
@@ -219,25 +221,28 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 ''
             )} */}
             {approveConfirmationModal ? (
-                <DepartmentAppointmentFastCheckInConfirm
-                    modalHeader={approveSuccessMessage}
-                    showModal={approveConfirmationModal}
-                    setShowModal={setShowModal}
-                    onCopyAppointmentNumber={onCopyAppointmentNumber}
-                    copySuccessMessage={copySuccessMessage}
-                    appointmentDetails={appointmentDetails}
-                    Print={PrintableComponent(AppointmentCheckInPrint, appointmentDetails)}
-                />
+               <CConfirmationModal
+               modalHeader="Confirm Check-In?"
+               modalBody={
+                   <CheckInModalContent appointmentDetails={appointmentDetails}/>
+               }
+               showModal={approveConfirmationModal}
+               setShowModal={setShowModal}
+               onConfirm={approveHandleApi}
+               onCancel={setShowModal}
+               isConfirming={isConfirming}
+               // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+           />
             ) : (
                 ''
             )}
-            {
+            {/* {
                 isConfirming ?
                     <CPageOverlayLoader
                         showModal={isConfirming}
                         modalHeader={"Appointment Check-In in process."}
                     /> : ''
-            }
+            } */}
         </>
     )
 }
