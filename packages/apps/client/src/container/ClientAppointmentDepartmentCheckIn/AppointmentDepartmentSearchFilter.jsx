@@ -9,7 +9,7 @@ import {
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 
-import './appointment-status.scss'
+import './appointment-approval.scss'
 import {
   appointmentStatusList,
   DateTimeFormatterUtils,
@@ -34,7 +34,7 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
   }
 
   handleSearchButtonClick = () => {
-    this.props.searchHandler.searchAppointmentStatus()
+    this.props.searchHandler.searchAppointment()
     this.toggleSearchForm()
   }
 
@@ -50,8 +50,9 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
       // specializationDropdownErrorMessage,
       searchParameters,
       //isFetchActiveHospitalDepartmentLoading,
-      activeHospitalDepartmentForDropdown,
-      activeDepartmentDropdownErrorMessage
+      //isFetchAllHospitalDepartmentLoading,
+      allHospitalDepartmentForDropdown,
+      allDepartmentDropdownErrorMessage
       // isFetchActiveRoomNumberByDepartmentLoading,
       //activeRoomNumberForDropdownByDepartment,
       //activeRoomsByDepartmentDropdownErrorMessage
@@ -142,71 +143,26 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
                       />
                     </div>
                   </Col>
-
-                  {/* <Col sm={12} md={4} xl={4}>
-                    <CHybridSelect
-                      id="hospital"
-                      label="Client"
-                      name="hospitalId"
-                      options={hospitalList}
-                      placeholder={
-                        hospitalList.length
-                          ? 'Select client.'
-                          : 'No Client(s) available.'
-                      }
-                      isDisabled={!hospitalList.length}
-                      onKeyDown={this.handleEnter}
-                      onChange={event => handleSearchFormChange(event)}
-                      value={searchParameters.hospitalId}
-                    />
-                  </Col> */}
-
                   <Col sm={12} md={4} xl={4}>
                     <CHybridSelect
                       id="departmentIdHospital"
                       label="Department"
                       name="hospitalDepartmentId"
-                      options={activeHospitalDepartmentForDropdown}
+                      options={allHospitalDepartmentForDropdown}
                       placeholder={
-                        activeHospitalDepartmentForDropdown.length
+                        allHospitalDepartmentForDropdown.length
                           ? 'Select Department.'
                           : 'No Department(s) available.'
                       }
                       noOptionsMessage={() =>
-                        activeDepartmentDropdownErrorMessage
+                        allDepartmentDropdownErrorMessage
                       }
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
                       value={searchParameters.hospitalDepartmentId}
-                      isDisabled={!activeHospitalDepartmentForDropdown.length}
+                      isDisabled={!allHospitalDepartmentForDropdown.length}
                     />
                   </Col>
-
-                  {/* <Col sm={12} md={4} xl={4}>
-                    <CHybridSelect
-                      id="departmentIdHospital"
-                      label="Department"
-                      name="hospitalDepartmentId"
-                      options={activeRoomNumberForDropdownByDepartment}
-                      placeholder={
-                        !searchParameters.hospitalDepartmentId
-                          ? 'Select client first.'
-                          : activeRoomNumberForDropdownByDepartment.length
-                          ? 'Select Department.'
-                          : 'No Department(s) available.'
-                      }
-                      noOptionsMessage={() =>
-                        activeDepartmentDropdownErrorMessage
-                      }
-                      onKeyDown={this.handleEnter}
-                      onChange={event => handleSearchFormChange(event)}
-                      value={searchParameters.hospitalDepartmentRoomInfoId}
-                      isDisabled={
-                        !searchParameters.hospitalDepartmentId ||
-                        !activeRoomNumberForDropdownByDepartment.length
-                      }
-                    />
-                  </Col> */}
                   <Col sm={12} md={6} xl={4}>
                     <CHybridSelect
                       id="patientType"
@@ -219,7 +175,7 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
                       ]}
                       placeholder="Select Patient Type."
                       onChange={handleSearchFormChange}
-                      onEnter={handleEnter}
+                      onEnter={this.handleEnter}
                     />
                   </Col>
 
@@ -328,33 +284,6 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              {/* {searchParameters && searchParameters.hospitalId && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Client</Tooltip>}
-                  >
-                    <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.hospitalId.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )} */}
-
-              {/* {searchParameters && searchParameters.doctorId && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    delay={{show: 250, hide: 400}}
-                    overlay={props => <Tooltip {...props}>Doctor</Tooltip>}
-                  >
-                    <Button id="button-search-filters" variant="secondary">
-                      {searchParameters.doctorId.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )} */}
 
               {searchParameters && searchParameters.hospitalDepartmentId && (
                 <li>
@@ -407,4 +336,4 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
   }
 }
 
-export default DepartmentAppointmentSearchFilter;
+export default DepartmentAppointmentSearchFilter

@@ -7,7 +7,7 @@ import {
     HospitalDepartmentSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 //import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
@@ -81,9 +81,9 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             copySuccessMessage: ''
         }
 
-        handleEnterPress = event => {
-            EnterKeyPressUtils.handleEnter(event)
-        }
+        // handleEnterPress = event => {
+        //     EnterKeyPressUtils.handleEnter(event)
+        // }
 
         handleCopyAppointmentNumber = async text => {
             await this.setState({
@@ -806,7 +806,6 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                         {...this.props}
                         {...props}
                         searchHandler={{
-                            handleEnter: this.handleEnterPress,
                             handleSearchFormChange: this.handleSearchFormChange,
                             resetSearch: this.handleSearchFormReset,
                             searchAppointment: this.searchAppointment,

@@ -4,7 +4,7 @@ import PreviewDetails from './AppointmentDepartmentCheckInPreview'
 import DepartmentAppointmentFastCheckInConfirm from './AppointmentDepartmentCheckInConfirm'
 
 import {
-    AppointmentQuickCheckInOption,
+    DepartmentCheckInOptions,
     CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress,
@@ -139,7 +139,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: AppointmentQuickCheckInOption,
+                                childActionRenderer: DepartmentCheckInOptions,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
@@ -171,7 +171,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                                checkIfRoleExists(filteredActions, 4) &&
+                                checkIfRoleExists(filteredActions, 22) &&
                                 previewCall
                             }
                             rowSelection={'single'}

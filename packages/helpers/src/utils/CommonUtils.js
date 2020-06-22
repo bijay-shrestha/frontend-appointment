@@ -1,5 +1,5 @@
 export const checkIfOneArrayElementContainOther = (fArray, sArray) => {
-    return fArray.some(elem => sArray.includes(elem.name.toLowerCase()))
+    return fArray.some(elem => sArray.includes((elem.path).replace("/","").toLowerCase()))
 }
 
 export const checkIfTwoArrayEquals = (fArray, sArray, keyToMatch) => {
