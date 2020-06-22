@@ -81,7 +81,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'AppointmentDateWithTime',
-                                    width: "260"
+                                    width: "160"
                                 },
                                 {
                                     headerName: 'Patient Detail ',
@@ -89,7 +89,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: 140,
+                                    width: 240,
                                     cellRenderer: 'patientDetailRenderer'
                                 },
                                 {
@@ -120,7 +120,8 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     field: 'appointmentAmount',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    width:120
                                 },
                                 {
                                     headerName: '',
