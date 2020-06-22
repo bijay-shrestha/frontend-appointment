@@ -4,7 +4,6 @@ import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
 import {GenericThirdPartyApiMiddleware} from '../../../index'
 import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
-import * as HmacMiddleware from '../../hmac-middleware/hmacMiddleware'
 
 export const fetchAppointmentRefundList = (
     path,
