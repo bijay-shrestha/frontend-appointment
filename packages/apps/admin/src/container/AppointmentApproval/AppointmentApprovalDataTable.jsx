@@ -1,12 +1,15 @@
 import React, {memo} from 'react';
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements';
-import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components';
+import {
+    CConfirmationModal,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
+} from '@frontend-appointment/ui-components';
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction';
 import PreviewDetails from './AppointmentApprovalPreview';
 import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 
 
@@ -64,15 +67,6 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     width: 100
                                 },
                                 {
-                                    headerName: 'App. Date & Time',
-                                    field: 'name',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'AppointmentDateWithTime',
-                                    width:"260"
-                                  },
-                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     resizable: true,
@@ -81,13 +75,22 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                     width: 120,
                                 },
                                 {
+                                    headerName: 'App. Date & Time',
+                                    field: 'name',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentDateWithTime',
+                                    width: "260"
+                                },
+                                {
                                     headerName: 'Patient Detail ',
                                     field: 'patientDetails',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 140,
-                                    cellRenderer: 'PatientNameWithMobileNumber'
+                                    cellRenderer: 'patientDetailRenderer'
                                 },
                                 {
                                     headerName: 'Reg  No',
@@ -146,7 +149,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 // appointmentNumberRenderer: AppointmentNumberWithCopyToClipboardForTable,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
-                                PatientNameWithMobileNumber: PreviewHandlerHoc(PatientNameWithMobileNumber, null, null, null, previewCall),
+                                patientDetailRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                                 // appointmentNumberRenderer:PreviewHandlerHoc(AppointmentNumberWithCopyToClipboardForTable,null,null,null,previewCall)
                             }}
                             defaultColDef={{resizable: true}}

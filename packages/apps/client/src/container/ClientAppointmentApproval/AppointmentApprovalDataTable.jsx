@@ -1,14 +1,16 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
 import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
-//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal, DoctorWithSpecImage} from '@frontend-appointment/ui-components'
+import {
+    CConfirmationModal,
+    DoctorWithSpecImage,
+    PatientNameWithAgeGenderPhone
+} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import PatientNameWithMobileNumber from '../CommonComponents/table-components/PatientNameWithMobileNumber'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
 
@@ -66,15 +68,6 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     width: 100
                                 },
                                 {
-                                    headerName: 'App. Date & Time',
-                                    field: 'name',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'AppointmentDateWithTime',
-                                    width: "260"
-                                },
-                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
@@ -84,13 +77,22 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     width: 120
                                 },
                                 {
+                                    headerName: 'App. Date & Time',
+                                    field: 'name',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentDateWithTime',
+                                    width: "260"
+                                },
+                                {
                                     headerName: 'Patient Detail ',
                                     field: 'patientDetails',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     width: 140,
-                                    cellRenderer: 'PatientNameWithMobileNumber'
+                                    cellRenderer: 'patientDetailRenderer'
                                 },
                                 {
                                     headerName: 'Reg  No',
@@ -152,13 +154,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     null,
                                     previewCall
                                 ),
-                                PatientNameWithMobileNumber: PreviewHandlerHoc(
-                                    PatientNameWithMobileNumber,
-                                    null,
-                                    null,
-                                    null,
-                                    previewCall
-                                )
+                                patientDetailRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
