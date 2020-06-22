@@ -55,6 +55,15 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                             rowHeight={70}
                             columnDefs={[
                                 {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 120,
+                                },
+                                {
                                     headerName: 'SN',
                                     field: 'sN',
                                     headerClass: 'resizable-header header-first-class',
@@ -65,15 +74,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     cellClass: 'first-class',
                                     width: 80
                                 },
-                                {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
-                                    // headerClass: "fi",
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 120,
-                                },
+                              
                                 {
                                     headerName: 'Appt. Date & Time',
                                     field: 'name',
