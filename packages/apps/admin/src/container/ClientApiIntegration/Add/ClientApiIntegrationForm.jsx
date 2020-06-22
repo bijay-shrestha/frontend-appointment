@@ -23,7 +23,7 @@ const ClientApiIntegrationForm = ({
   //regexForCommaSeperation,
   //featureTypeDropdownError,
   //isFeatureTypeDropdownLoading,
-  isRequestMethodDropdownLoading,
+  //isRequestMethodDropdownLoading,
   requestMethodData,
   regexForApiUrl,
   //requestMethodDropdownError,
@@ -50,7 +50,7 @@ const ClientApiIntegrationForm = ({
     <>
       <Container-fluid>
         <Row sm="12 p-0">
-          <h5 className="title"> API Integration </h5>
+          <h5 className="title">Client API Integration </h5>
         </Row>
         <CForm id="profile-info spec" className="mt-2 profile-info">
           <Container-fluid>
@@ -172,9 +172,9 @@ const ClientApiIntegrationForm = ({
                     onChangeHandler(event, validity)
                   }
                   placeholder={'Enter Request URL'}
-                  fieldValuePattern={regexForApiUrl}
-                  hasValidation={true}
-                  errorMessagePassed={'Value Should be Request Url'}
+                  // fieldValuePattern={regexForApiUrl}
+                  // hasValidation={true}
+                  // errorMessagePassed={'Value Should be Request Url'}
                 />
               </Col>
             </Row>
@@ -355,7 +355,7 @@ const ClientApiIntegrationForm = ({
                 })}
               </Row>
             </div>
-            {integrationData.requestBody ? (
+            {integrationData.requestBody && integrationData.requestMethod.label!=='GET' ? (
               <Row className="mt-4">
                 <Col sm={12}>
                   {/* <CHybridTextArea

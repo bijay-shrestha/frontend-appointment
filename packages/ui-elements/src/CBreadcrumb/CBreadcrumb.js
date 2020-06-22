@@ -116,8 +116,8 @@ class CBreadcrumb extends PureComponent {
         const {itemAs, title, target, itemBsPrefix, itemChildren} = this.props;
         return (
             {
-                'key': "breadcrumb".concat(breadcrumb.id).concat("-" + index),
-                'id': "breadcrumbItem" + breadcrumb.id,
+                'key': "breadcrumb".concat(breadcrumb.id ? breadcrumb.id : breadcrumb.name).concat("-" + index),
+                'id': "breadcrumbItem" + breadcrumb.id ? breadcrumb.id : breadcrumb.name,
                 'as': itemAs,
                 'title': title,
                 'target': target,

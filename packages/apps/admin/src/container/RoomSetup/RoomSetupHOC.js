@@ -249,7 +249,7 @@ const RoomSetupHOC = (ComposedComponent, props, type) => {
             currentRoomData.remarks = '';
             currentRoomData.status = {value: 'Y', label: 'Active'};
 
-            this.setDefaultRoomValues('', '', null, '', '');
+            this.setDefaultRoomValues('', '', null, currentRoomData.status, '');
 
             this.setState({
                 roomData: {...currentRoomData},

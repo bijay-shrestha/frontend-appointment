@@ -1,11 +1,17 @@
-import React from 'react';
-import AppointmentTransferSearchFilter from './AppointmentTransferLogSearchFilter';
-import AppointmentTransferDataTable from './AppointmentTransferLogDataTable';
-import AppointmentTransferHoc from './AppointmentTransferLogHoc';
+import React from 'react'
+import AppointmentTransferSearchFilter from './AppointmentTransferLogSearchFilter'
+import AppointmentTransferDataTable from './AppointmentTransferLogDataTable'
+import AppointmentTransferHoc from './AppointmentTransferLogHoc'
 
 const TransferApprovalLog = props => {
   const TransferApproval = AppointmentTransferHoc(
-    ({searchHandler, paginationProps, tableHandler}) => (
+    ({
+      searchHandler,
+      paginationProps,
+      tableHandler,
+      activeStatus,
+      handleStatusChange
+    }) => (
       <>
         <div>
           <AppointmentTransferSearchFilter searchHandler={searchHandler} />
@@ -15,7 +21,8 @@ const TransferApprovalLog = props => {
           <AppointmentTransferDataTable
             tableHandler={tableHandler}
             paginationProps={paginationProps}
-
+            activeStatus={activeStatus}
+            handleStatusChange={handleStatusChange}
           />
         </div>
       </>
@@ -24,7 +31,7 @@ const TransferApprovalLog = props => {
     ''
   )
 
-  return <TransferApproval/>
+  return <TransferApproval />
 }
 
 export default TransferApprovalLog

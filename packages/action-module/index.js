@@ -12,11 +12,15 @@ import {
     WeekdaysActions,
     ForgotPasswordActions,
     countryActionConstants,
-    CountryActions
+    CountryActions,
+    SalutationAction,
+    salutationActionConstants
 } from './src/common'
 import {
     adminSetupActionConstants,
     AdminSetupActions,
+    AdminModeApiIntegrationActions,
+    adminModeApiIntegrationActionConstants,
     AppointmentDetailActions,
     appointmentDetailsConstants,
     dashboardDetailsActionsConstant,
@@ -58,13 +62,22 @@ import {
     RequestBodyIntegration,
     requestBOdyApiIntegrationActionConstants,
     roomSetupActionConstants,
-    RoomSetupActions
-
+    RoomSetupActions,
+    hospitalDepartmentSetupActionConstants,
+    HospitalDepartmentSetupActions,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction
 } from './src/admin-module'
 
 export {
     adminSetupActionConstants,
     AdminSetupActions,
+    AdminModeApiIntegrationActions,
+    adminModeApiIntegrationActionConstants,
     AppointmentDetailActions,
     appointmentDetailsConstants,
     dashboardDetailsActionsConstant,
@@ -120,5 +133,15 @@ export {
     RequestBodyIntegration,
     requestBOdyApiIntegrationActionConstants,
     roomSetupActionConstants,
-    RoomSetupActions
+    RoomSetupActions,
+    HospitalDepartmentSetupActions,
+    hospitalDepartmentSetupActionConstants,
+    departmentDutyRosterActionConstants,
+    DepartmentDutyRosterActions,
+    billingModeActionConstants,
+    BillingModeActions,
+    appointmentServiceTypeActionConstants,
+    AppointmentServiceTypeAction,
+    SalutationAction,
+    salutationActionConstants
 }

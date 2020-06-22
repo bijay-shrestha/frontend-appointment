@@ -39,4 +39,6 @@ export {default as CHybridTimePicker} from './src/CHybridTimePicker'
 export {default as CDoubleShiftSearch} from './src/CDoubleShiftSearch';
 export {default as CTable} from './src/CTable';
 export {default as CHybridSelectWithImage} from './src/CHybridSelectWithImage';
+export {default as CCopyToClipboard} from './src/CCopyToClipboard';
+export {default as AppointmentNumberWithCopyToClipboardForTable} from './src/AppointmentNumberWithCopyToClipboardForTable';
 // export {default as CNormalSelect} from './src/CNormalSelect';

@@ -2,8 +2,9 @@ import React, {PureComponent} from 'react';
 import {ConnectHoc} from "@frontend-appointment/commons";
 import {
     DateTimeFormatterUtils,
-   // DoctorDutyRosterUtils,
-    EnterKeyPressUtils, LocalStorageSecurity, StringUtils,
+    EnterKeyPressUtils,
+    LocalStorageSecurity,
+    StringUtils,
     TryCatchHandler
 } from "@frontend-appointment/helpers";
 import {
@@ -21,8 +22,8 @@ import DoctorDutyRosterPreviewModal from "./common/DoctorDutyRosterPreviewModal"
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchSpecializationForDropdown, fetchSpecializationHospitalWiseForDropdownForClient} = SpecializationSetupMiddleware;
 const {
-    fetchDoctorsBySpecializationIdForDropdown, fetchActiveDoctorsForDropdown,
-    fetchActiveDoctorsHospitalWiseForDropdownForClient
+    fetchDoctorsBySpecializationIdForDropdown,
+    fetchActiveDoctorsForDropdown
 } = DoctorMiddleware;
 const {fetchWeekdays, fetchWeekdaysData} = WeekdaysMiddleware;
 const {
@@ -39,10 +40,9 @@ const {
     revertDoctorDutyRosterOverrideUpdate
 } = DoctorDutyRosterMiddleware;
 
-const {FETCH_HOSPITALS_FOR_DROPDOWN} = AdminModuleAPIConstants.hospitalSetupApiConstants;
-const {ACTIVE_DROPDOWN_SPECIALIZATION, SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = AdminModuleAPIConstants.specializationSetupAPIConstants;
-const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN, FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
-const { FETCH_WEEKDAYS_DATA} = CommonAPIConstants.WeekdaysApiConstants;
+const {SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL} = AdminModuleAPIConstants.specializationSetupAPIConstants;
+const {FETCH_DOCTOR_BY_SPECIALIZATION_ID, FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN} = AdminModuleAPIConstants.doctorSetupApiConstants;
+const {FETCH_WEEKDAYS_DATA} = CommonAPIConstants.WeekdaysApiConstants;
 const {
     CREATE_DOCTOR_DUTY_ROSTER,
     DELETE_DOCTOR_DUTY_ROSTER,
@@ -133,6 +133,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 hospital: null,
                 specialization: null,
                 doctor: null,
+                doctorSalutation: '',
                 doctorDutyRosterId: 0,
                 hasOverrideDutyRoster: '',
                 remarks: '',
@@ -251,14 +252,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             clearTimeout(this.alertTimer);
         }
 
-        fetchHospitalsForDropdown = async () => {
-            await TryCatchHandler.genericTryCatch(this.props.fetchActiveHospitalsForDropdown(FETCH_HOSPITALS_FOR_DROPDOWN))
-        };
-
-        fetchActiveSpecializationForDropdown = async () => {
-            await TryCatchHandler.genericTryCatch(this.props.fetchSpecializationForDropdown(ACTIVE_DROPDOWN_SPECIALIZATION))
-        };
-
         fetchActiveSpecializationByHospitalForDropdown = async () => {
             return await this.props.fetchSpecializationHospitalWiseForDropdownForClient(
                 SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL)
@@ -266,10 +259,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         fetchActiveDoctors = async () => {
             await this.props.fetchActiveDoctorsForDropdown(FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN);
-        };
-
-        fetchActiveDoctorsByHospitalId = async () => {
-            await this.props.fetchActiveDoctorsHospitalWiseForDropdownForClient(FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN);
         };
 
         // fetchWeekdays = async () => {
@@ -602,7 +591,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     this.checkOverrideFormValidity();
                     break;
-                default:return '';
+                default:
+                    return '';
             }
         };
 
@@ -628,7 +618,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                         deleteOverrideErrorMessage: ''
                     });
                     break;
-                default:return ''
+                default:
+                    return ''
             }
 
         };
@@ -672,10 +663,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 }
             });
 
-            if (key === 'hospital') {
-                await this.fetchActiveDoctorsByHospitalId(value);
-                await this.fetchActiveSpecializationByHospitalForDropdown(value);
-            }
             if (key === 'fromDate' || key === 'toDate') {
                 const {fromDate, toDate} = this.state.searchParameters;
                 if (isFirstDateGreaterThanSecondDate(fromDate, toDate) &&
@@ -710,15 +697,16 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     hospital, specialization, doctor, rosterGapDuration,
                     fromDate, toDate, hasOverrideDutyRoster, doctorWeekDaysDutyRosterRequestDTOS,
                     createdBy, createdDate, lastModifiedBy, lastModifiedDate,
-                    doctorDutyRosterOverrideRequestDTOS
+                    doctorDutyRosterOverrideRequestDTOS, doctorSalutation,
                 } = doctorDutyRosterInfo;
-                console.log("doctorDutyRosterInfo ====", doctorDutyRosterInfo)
+
                 await this.setState({
                     hospital: hospital,
                     showConfirmModal: true,
                     showAlert: false,
                     specialization: {...specialization},
                     doctor: {...doctor},
+                    doctorSalutation,
                     rosterGapDuration: rosterGapDuration,
                     fromDate: new Date(fromDate),
                     toDate: new Date(toDate),
@@ -906,9 +894,10 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                     });
                     this.checkOverrideFormValidity()
                     break;
-                    default:return ''; 
-                }
-            
+                default:
+                    return '';
+            }
+
 
         };
 
@@ -1089,7 +1078,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
             weekDaysDutyRosterUpdateRequestDTOS.map(weekDay => {
                 formValid = formValid && weekDay.startTime && weekDay.endTime
-                return weekDay 
+                return weekDay
             });
 
             this.setState({
@@ -1199,14 +1188,17 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 this.props.DoctorDutyRosterPreviewReducer.doctorDutyRosterPreviewData;
             const {
                 id, specializationName, specializationId, doctorId, doctorName, rosterGapDuration,
-                fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status,
+                fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status, doctorSalutation,
                 createdDate, lastModifiedDate, lastModifiedBy, createdBy
             } = doctorDutyRosterInfo && doctorDutyRosterInfo;
             return {
                 id: id,
                 hospital: {label: hospitalName, value: hospitalId},
                 specialization: {label: specializationName, value: specializationId},
-                doctor: {label: doctorName, value: doctorId},
+                doctor: {
+                    label: doctorSalutation ? doctorSalutation.concat(' '.concat(doctorName)) : doctorName,
+                    value: doctorId
+                },
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),
                 toDate: new Date(toDate),
@@ -1214,6 +1206,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 doctorWeekDaysDutyRosterRequestDTOS: [...weekDaysRosters],
                 doctorDutyRosterOverrideRequestDTOS: [...overrideRosters],
                 status: status,
+                doctorSalutation,
                 createdDate,
                 lastModifiedDate,
                 lastModifiedBy,
@@ -1710,7 +1703,6 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             fetchDoctorDutyRosterDetailById,
             fetchDoctorDutyRosterList,
             fetchDoctorsBySpecializationIdForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdownForClient,
             fetchExistingDoctorDutyRoster,
             fetchExistingDoctorDutyRosterDetails,
             fetchSpecializationForDropdown,

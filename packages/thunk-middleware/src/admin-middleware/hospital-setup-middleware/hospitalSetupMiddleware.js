@@ -1,5 +1,6 @@
 import {HospitalSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
+import {CommonUtils} from "@frontend-appointment/helpers";
 
 export const createHospital = (
     path,
@@ -37,7 +38,7 @@ export const editHospital = (path, data, formDataLogo) => async dispatch => {
         dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
         return response
     } catch (e) {
-        dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage? e.errorMessage : "Sorry! Internal Server Problem occurred."));
+        dispatch(HospitalSetupActions.createHospitalEditError(e.errorMessage ? e.errorMessage : "Sorry! Internal Server Problem occurred."));
         throw e
     }
 };
@@ -58,7 +59,8 @@ export const searchHospital = (path, queryParams, data) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        dispatch(HospitalSetupActions.createHospitalSearchSuccess(response.data));
+        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size);
+        dispatch(HospitalSetupActions.createHospitalSearchSuccess(dataWithSN));
         return response;
     } catch (e) {
         dispatch(HospitalSetupActions.createHospitalListError(e.errorMessage));
@@ -93,5 +95,16 @@ export const fetchActiveHospitalsForDropdown = (path) => async dispatch => {
         return response.data;
     } catch (e) {
         dispatch(HospitalSetupActions.hospitalsFetchForDropdownError("Error fetching department"));
+    }
+};
+
+export const fetchAllHospitalsForDropdown = (path) => async dispatch => {
+    dispatch(HospitalSetupActions.allHospitalsFetchForDropdownPending());
+    try {
+        const response = await Axios.get(path);
+        dispatch(HospitalSetupActions.allHospitalsFetchForDropdownSuccess(response.data));
+        return response.data;
+    } catch (e) {
+        dispatch(HospitalSetupActions.allHospitalsFetchForDropdownError("Error fetching department"));
     }
 };

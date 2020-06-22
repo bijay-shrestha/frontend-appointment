@@ -7,17 +7,20 @@ const ClientApiPreviewModal = props => {
         showModal,
         integrationData,
         setCloseModal,
+        isRequestBodyByFeatureLoading,
+        requestBodyByFeatureErrorMessage
     } = props
     return (
         <>
             <CModal
                 show={showModal}
-              
-                modalHeading="API Integration Details"
+                modalHeading="Client API Integration Details"
                 size="xl"
                 bodyChildren={
                     <DetailsModal
                          integrationData={integrationData}
+                         isRequestBodyByFeatureLoading={isRequestBodyByFeatureLoading}
+                         requestBodyByFeatureErrorMessage={requestBodyByFeatureErrorMessage}
                          type="P"
                          className="api-details-modal"
                     />

@@ -23,11 +23,11 @@ const AddOverrideModal = ({
                     {/*<Form.Label>Date</Form.Label>*/}
                     <Col xs={12} >
 
-                        <CHybridInput 
+                        <CHybridInput
                         id="duty-date"
                         placeholder="Doctor Duty Date"
                         disabled={true}
-                        value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.fromDate) 
+                        value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.fromDate)
                             + " - " + DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(doctorInfoData.toDate) }
                         />
                         {/* <CEnglishDatePicker
@@ -167,7 +167,7 @@ const AddOverrideModal = ({
                     <Col xs={12}>
                         <CCheckbox
                             id="day-off-status-override"
-                            label="Days Off"
+                            label="Off"
                             name="dayOffStatus"
                             className=" check-all"
                             checked={overrideData.dayOffStatus === 'Y'}

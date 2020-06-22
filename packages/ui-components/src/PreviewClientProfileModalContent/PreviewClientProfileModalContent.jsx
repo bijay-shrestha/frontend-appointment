@@ -281,7 +281,6 @@ class PreviewClientProfileModalContent extends React.PureComponent {
                                                                     this.handleChildMenuClick(childMenu)
                                                                 }
                                                             >
-                                                                {childMenu.icon}
                                                                 {childMenu.name}
                                                             </Accordion.Toggle>
                                                         </Card>

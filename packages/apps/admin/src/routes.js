@@ -1,6 +1,7 @@
 import React from 'react'
 import loadable from '@loadable/component'
-import {CUnauthorized, CLoading} from '@frontend-appointment/ui-elements'
+import {CLoading, CUnauthorized} from '@frontend-appointment/ui-elements'
+import Loadable from 'react-loadable'
 
 const getLoader = () => <CLoading />
 /* ****** A ***** */
@@ -9,6 +10,16 @@ const AdminActivityLog = loadable(
   {fallback: getLoader()}
 )
 
+const AdminApiIntegrationAdd = loadable(
+  () =>
+    import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
+  {fallback: getLoader()}
+)
+const AdminApiIntegrationManage = loadable(
+  () =>
+    import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
+  {fallback: getLoader()}
+)
 const ClientActivityLog = loadable(
   () => import('./container/ClientActivitiesLog/ClientActivityLog'),
   {fallback: getLoader()}
@@ -88,7 +99,30 @@ const AddCompanyAdminComponent = loadable(
   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
   {fallback: () => getLoader()}
 )
+
+const AddDepartmentSetup = loadable(
+  () => import('./container/HospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
+  {fallback: () => getLoader()}
+)
+const AddDepartmentDutyRosterComponent = loadable(
+  () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+  {fallback: () => getLoader()}
+)
+
+const DepartmentStatusComponent = loadable(
+  () =>
+    import(
+      './container/AppointmentStatusByDepartment/AppointmentStatusByDepartment'
+    ),
+  {fallback: () => getLoader()}
+)
+
 /* ****** B ***** */
+
+const BillingModeComponent = loadable(
+  () => import('./container/BillingMode/BillingMode'),
+  {fallback: () => getLoader()}
+)
 
 /* ****** C ***** */
 const CompanyManageComponent = loadable(
@@ -118,6 +152,16 @@ const DashboardComponent = loadable(
   () => import('./container/AdminDashboard/AdminDashboard'),
   {fallback: () => getLoader()}
 )
+
+// const AddCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Add/CompanyAdminAdd'),
+//   {fallback: () => getLoader()}
+// )
+
+// const ManageCompanyAdminComponent = loadable(
+//   () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+//   {fallback: () => getLoader()}
+// )
 
 /* ****** E ***** */
 
@@ -185,6 +229,22 @@ const ManageCompanyProfileComponent = loadable(
 
 const ManageCompanyAdminComponent = loadable(
   () => import('./container/CompanySetupAdmin/Manage/CompanyAdminManage'),
+  {fallback: () => getLoader()}
+)
+
+const ManageDepartmentComponent = Loadable({
+  loader: () =>
+    import(
+      './container/HospitalDepartmentSetup/Manage/HospitalDepartmentManage'
+    ),
+  loading: () => getLoader()
+})
+
+const ManageDepartmentDutyRosterComponent = loadable(
+  () =>
+    import(
+      './container/DepartmentDutyRoster/Manage/DepartmentDutyRosterManage'
+    ),
   {fallback: () => getLoader()}
 )
 /* ****** N ***** */
@@ -342,6 +402,96 @@ export const routes = [
     isSingleTab: false
   },
   {
+    path: '/admin/apiIntegration/clientApiIntegration',
+    name: 'Client Api Integration',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/clientApiIntegration/add',
+    name: 'Add',
+    component: ClientApiIntegration,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/clientApiIntegration/manage',
+    name: 'Manage',
+    component: ClientApiIntegrationManage,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration',
+    name: 'Appointment Mode Api Integration',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration/add',
+    name: 'Add',
+    component: AdminApiIntegrationAdd,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/adminApiIntegration/manage',
+    name: 'Manage',
+    component: AdminApiIntegrationManage,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/requestBodyIntegration/add',
+    name: 'Add',
+    component: RequestBodyIntegrationAdd,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/requestBodyIntegration',
+    name: 'Request Body Integration',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/apiIntegration/requestBodyIntegration/manage',
+    name: 'Add',
+    component: RequestBodyIntegrationManage,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
     path: '/admin/companySettings/specialization/manage',
     component: ManageSpecializationComponent,
     icon: '',
@@ -418,7 +568,7 @@ export const routes = [
     isSingleTab: false
   },
   {
-    path: '/admin/doctorDutyRoster',
+    path: '/admin/rosterSettings/doctorDutyRoster',
     name: 'Doctor Duty Roster',
     component: <></>,
     icon: '',
@@ -428,7 +578,7 @@ export const routes = [
     isSingleTab: false
   },
   {
-    path: '/admin/doctorDutyRoster/add',
+    path: '/admin/rosterSettings/doctorDutyRoster/add',
     name: 'Add',
     component: AddDoctorDutyRosterComponent,
     icon: '',
@@ -438,7 +588,7 @@ export const routes = [
     isSingleTab: false
   },
   {
-    path: '/admin/doctorDutyRoster/manage',
+    path: '/admin/rosterSettings/doctorDutyRoster/manage',
     name: 'Manage',
     component: ManageDoctorDutyRosterComponent,
     icon: '',
@@ -544,7 +694,7 @@ export const routes = [
     hasTab: false,
     isLink: true,
     isTab: false,
-    name: 'Pending Refund Approval',
+    name: 'Appointment Cancellation',
     isSingleTab: true
   },
   {
@@ -809,66 +959,6 @@ export const routes = [
     isSingleTab: true
   },
   {
-    path: '/admin/apiIntegration/clientApiIntegration',
-    name: 'Client Api Integration',
-    component: <></>,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: false,
-    isSingleTab: false
-  },
-  {
-    path: '/admin/apiIntegration/clientApiIntegration/add',
-    name: 'Add',
-    component: ClientApiIntegration,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: true,
-    isSingleTab: false
-  },
-  {
-    path: '/admin/apiIntegration/clientApiIntegration/manage',
-    name: 'Add',
-    component: ClientApiIntegrationManage,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: true,
-    isSingleTab: false
-  },
-  {
-    path: '/admin/apiIntegration/requestBodyIntegration/add',
-    name: 'Add',
-    component: RequestBodyIntegrationAdd,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: true,
-    isSingleTab: false
-  },
-  {
-    path: '/admin/apiIntegration/requestBodyIntegration',
-    name: 'Request Body Integration',
-    component: <></>,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: false,
-    isSingleTab: false
-  },
-  {
-    path: '/admin/apiIntegration/requestBodyIntegration/manage',
-    name: 'Add',
-    component: RequestBodyIntegrationManage,
-    icon: '',
-    hasTab: true,
-    isLink: true,
-    isTab: true,
-    isSingleTab: false
-  },
-  {
     path: '/admin/generalSetup/roomSetup',
     component: RoomSetup,
     icon: '',
@@ -876,6 +966,86 @@ export const routes = [
     isLink: true,
     isTab: false,
     name: 'Room Setup',
+    isSingleTab: true
+  },
+  {
+    path: '/admin/generalSetup/departmentSetup',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    name: 'Department Setup',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/generalSetup/departmentSetup/add',
+    component: AddDepartmentSetup,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Add',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/generalSetup/departmentSetup/manage',
+    component: ManageDepartmentComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Manage',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/rosterSettings/departmentDutyRoster',
+    name: 'Department Duty Roster',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/rosterSettings/departmentDutyRoster/add',
+    name: 'Add',
+    component: AddDepartmentDutyRosterComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/rosterSettings/departmentDutyRoster/manage',
+    name: 'Manage',
+    component: ManageDepartmentDutyRosterComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    isSingleTab: false
+  },
+  {
+    path: '/admin/companySettings/billingMode',
+    component: BillingModeComponent,
+    icon: '',
+    hasTab: false,
+    isLink: true,
+    isTab: false,
+    name: 'Billing Mode Setup',
+    isSingleTab: true
+  },
+  {
+    path: '/admin/appointment/appointmentStatusByDepartment',
+    name: 'Department Appointment Status',
+    component: DepartmentStatusComponent,
+    icon: '',
+    hasTab: false,
+    isLink: true,
+    isTab: false,
     isSingleTab: true
   }
 ]

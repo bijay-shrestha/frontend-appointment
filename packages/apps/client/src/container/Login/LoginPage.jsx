@@ -84,7 +84,7 @@ class LoginPage extends React.PureComponent {
   async componentDidMount () {
     // const clientIp = await this.props.fetchLoggedInAdminIP()
     // await LocalStorageSecurity.localStorageEncoder('clientIp', clientIp)
-     document.title = 'Cogent-Appointment-Client'
+     document.title = 'e-appointments'
     document.getElementById('favIcon').href=process.env.PUBLIC_URL+"logo-small-blue.png"
   }
 

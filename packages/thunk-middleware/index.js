@@ -1,13 +1,22 @@
 import {signinUser} from './src/login-middleware'
 import {
+    AdminLoggingMiddleware,
+    AdminApiIntegrationMiddleware,
+    AppointmentModeMiddleware,
+    AppointmentServiceTypeMiddleware,
+    AppointmentTransferMiddleware,
+    BillingModeMiddleware,
     clearAdminSuccessErrorMessagesFromStore,
     clearErrorMessageForDropdown,
     clearSuccessErrorMessagesFromStore,
+    CompanyAdminSetupMiddleware,
+    CompanyProfileSetupMiddleware,
+    CompanySetupMiddleware,
     createAdmin,
     createProfile,
     deleteAdmin,
     deleteProfile,
-    UnitSetupMiddleware,
+    DepartmentDutyRosterMiddleware,
     DoctorDutyRosterMiddleware,
     DoctorMiddleware,
     editAdmin,
@@ -16,37 +25,28 @@ import {
     fetchActiveProfilesByDepartmentId,
     fetchAdminList,
     fetchAdminMetaInfo,
+    fetchAdminMetaInfoByHospitalId,
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     fetchProfileListBySubDepartmentId,
+    HospitalApiIntegrationMiddleware,
+    HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
+    PatientDetailsMiddleware,
     previewAdmin,
     previewProfile,
-    QualificationSetupMiddleware,
-    SpecializationSetupMiddleware,
-    PatientDetailsMiddleware,
-    CompanyProfileSetupMiddleware,
-    CompanySetupMiddleware,
-    CompanyAdminSetupMiddleware,
-    AdminLoggingMiddleware,
     QualificationAliasSetupMiddleware,
-    UniversitySetupMiddleware,
-    AppointmentModeMiddleware,
-    fetchAdminMetaInfoByHospitalId,
-    AppointmentTransferMiddleware,
-    HospitalApiIntegrationMiddleware,
+    QualificationSetupMiddleware,
     RequestBodyApiIntegrationMiddleware,
-    RoomSetupMiddleware
+    RoomSetupMiddleware,
+    SpecializationSetupMiddleware,
+    UnitSetupMiddleware,
+    UniversitySetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
-import {fetchLoggedInAdminUserInfo, fetchLoggedInAdminIP} from './src/logged-in-admin-info-middleware'
+import {fetchLoggedInAdminIP, fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
-import {
-    changePassword,
-    resetPassword,
-    savePassword,
-    verifyToken
-} from './src/password-save-middleware'
+import {changePassword, resetPassword, savePassword, verifyToken} from './src/password-save-middleware'
 import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware'
 import * as AppointmentDetailsMiddleware
     from './src/admin-middleware/appointment-details-middleware/appointmentDetailsMiddleware'
@@ -54,6 +54,12 @@ import * as DashboardDetailsMiddleware from './src/dashboard-middleware/dashboar
 import * as ForgotPasswordMiddleware
     from './src/forgot-password-and-verification-middleware/forgotPasswordAndVerificationMiddleware';
 import * as CountryMiddleware from './src/country-middleware/countryMiddleware';
+import * as SalutationMiddleware from './src/salutation-middleware/salutationMiddleware';
+import * as GenericThirdPartyApiMiddleware
+    from './src/generic-third-party-api-middleware/genericThirdPartyApiMiddleware';
+import * as HmacMiddleware
+    from './src/hmac-middleware/hmacMiddleware';
+
 export {
     AppointmentDetailsMiddleware,
     changePassword,
@@ -105,7 +111,15 @@ export {
     fetchAdminMetaInfoByHospitalId,
     fetchLoggedInAdminIP,
     AppointmentTransferMiddleware,
+    RoomSetupMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    DepartmentDutyRosterMiddleware,
     HospitalApiIntegrationMiddleware,
     RequestBodyApiIntegrationMiddleware,
-    RoomSetupMiddleware
+    BillingModeMiddleware,
+    AppointmentServiceTypeMiddleware,
+    AdminApiIntegrationMiddleware,
+    SalutationMiddleware,
+    GenericThirdPartyApiMiddleware,
+    HmacMiddleware
 }

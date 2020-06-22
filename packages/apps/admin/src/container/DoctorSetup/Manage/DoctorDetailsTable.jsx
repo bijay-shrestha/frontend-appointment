@@ -16,7 +16,6 @@ const {checkIfRoleExists} = ActionFilterUtils
 
 const DoctorDetailsDataTable = props => (
     <div className="manage-details">
-        {console.log(props.searchData)}
         <h5 className="title">Doctor Details</h5>
         {!props.isSearchLoading &&
         !props.searchErrorMessage &&
@@ -40,6 +39,13 @@ const DoctorDetailsDataTable = props => (
                             sizeColumnsToFit: true,
                             cellClass: 'first-class'
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
+                        },
+                        {
+                            headerName: 'Client Name',
+                            field: 'hospitalName',
+                            resizable: true,
+                            sortable: true,
+                            sizeColumnsToFit: true
                         },
                         {
                             headerName: 'Name',
@@ -79,14 +85,6 @@ const DoctorDetailsDataTable = props => (
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                        {
-                            headerName: 'Client Name',
-                            field: 'hospitalName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
-
                         {
                             headerName: 'Status',
                             field: 'status',

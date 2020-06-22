@@ -26,7 +26,13 @@ const {
     FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS,
     FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR,
     FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_SUCCESS,
-    FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR
+    FETCH_ACTIVE_DOCTORS_BY_HOSPITAL_FOR_DROPDOWN_ERROR,
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS,
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN_PENDING,
+    FETCH_ALL_DOCTORS_FOR_DROPDOWN_ERROR,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING,
+    FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR
 } = doctorSetupConstants;
 
 const initialState = {
@@ -49,6 +55,12 @@ const initialState = {
     doctorsBySpecializationForDropdown: [],
     activeDoctorsByHospitalForDropdown: [],
     doctorDropdownErrorMessage: '',
+    isAllDoctorDropdownPending: false,
+    allDoctorsForDropdown: [],
+    allDoctorDropdownErrorMessage: '',
+    isActiveDoctorFetchByDepartmentPending: false,
+    activeDoctorsByDepartment: [],
+    activeDoctorsByDepartmentErrorMessage: ''
 };
 
 export const DoctorSaveReducer = (state = {...initialState}, action) => {
@@ -259,14 +271,14 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
                 doctorDropdownErrorMessage: action.payload.errorMessage,
             };
         case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_SUCCESS:
-            console.log('Doctor By Specializaiton',action.payload.data)
+            // console.log('Doctor By Specializaiton',action.payload.data)
             return {
                 ...state,
                 doctorsBySpecializationForDropdown: [...action.payload.data],
                 doctorDropdownErrorMessage: '',
             };
         case FETCH_DOCTORS_BY_SPECIALIZATION_FOR_DROPDOWN_ERROR:
-    
+
             return {
                 ...state,
                 doctorsBySpecializationForDropdown: [],
@@ -283,6 +295,48 @@ export const DoctorDropdownReducer = (state = {...initialState}, action) => {
                 ...state,
                 activeDoctorsByHospitalForDropdown: [],
                 doctorDropdownErrorMessage: action.payload.errorMessage,
+            };
+        case FETCH_ALL_DOCTORS_FOR_DROPDOWN_PENDING:
+            return {
+                ...state,
+                isAllDoctorDropdownPending: true,
+                allDoctorsForDropdown: [],
+                allDoctorDropdownErrorMessage: ''
+            };
+        case FETCH_ALL_DOCTORS_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isAllDoctorDropdownPending: false,
+                allDoctorsForDropdown: [...action.payload.data],
+                allDoctorDropdownErrorMessage: ''
+            };
+        case FETCH_ALL_DOCTORS_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isAllDoctorDropdownPending: false,
+                allDoctorsForDropdown: [],
+                allDoctorDropdownErrorMessage: action.payload.errorMessage
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_PENDING:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: true,
+                activeDoctorsByDepartment: [],
+                activeDoctorsByDepartmentErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_SUCCESS:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: false,
+                activeDoctorsByDepartment: [...action.payload.data],
+                activeDoctorsByDepartmentErrorMessage: ''
+            };
+        case FETCH_ACTIVE_DOCTORS_BY_DEPARTMENT_FOR_DROPDOWN_ERROR:
+            return {
+                ...state,
+                isActiveDoctorFetchByDepartmentPending: false,
+                activeDoctorsByDepartment: [],
+                activeDoctorsByDepartmentErrorMessage: action.payload.errorMessage
             };
         default:
             return {

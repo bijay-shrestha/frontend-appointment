@@ -1,10 +1,6 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {
-    CConfirmationModal,
-    DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
-} from '@frontend-appointment/ui-components'
+import {CRemarksModal, DoctorWithSpecImage, PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import TableRefundStatus from '../CommonComponents/table-components/TableRefundStatus'
 import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from "./RejectModal";
@@ -29,15 +25,18 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         refundHandleApi,
         refundRejectError,
         refundConfirmationModal,
+        rejectRemarks,
+        totalRefundAmount,
+        isRefundLoading,
         remarks,
-        totalRefundAmount
+        handleInputChange
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
 
     return (
         <>
             <div className="manage-details">
-                <h5 className="title">Appointment Refund Details</h5>
+                <h5 className="title">Appointment Cancellation Details</h5>
                 {!isSearchLoading &&
                 !searchErrorMessage &&
                 appointmentRefundList.length ? (
@@ -107,7 +106,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sortable: true,
                                     sizeColumnsToFit: true,
                                     cellRenderer: 'doctorWithSpecializationRenderer',
-                                    width:350
+                                    width: 350
                                 },
                                 {
                                     headerName: 'Esewa Id',
@@ -195,7 +194,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     showModal={rejectModalShow}
                     setShowModal={setShowModal}
                     onDeleteRemarksChangeHandler={refundRejectRemarksHandler}
-                    remarks={remarks}
+                    remarks={rejectRemarks}
                     onSubmitDelete={rejectSubmitHandler}
                     deleteErrorMessage={refundRejectError}
                 />
@@ -204,13 +203,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
             )}
 
             {refundConfirmationModal ? (
-                <CConfirmationModal
+                <CRemarksModal
+                    confirmationMessage="Provide remarks for refund."
                     modalHeader="Are you sure you want to refund?"
                     showModal={refundConfirmationModal}
-                    setShowModal={setShowModal}
-                    remarks={remarks}
-                    onConfirm={refundHandleApi}
                     onCancel={setShowModal}
+                    onRemarksChangeHandler={handleInputChange}
+                    remarks={remarks}
+                    onPrimaryAction={refundHandleApi}
+                    primaryActionName={"Confirm"}
+                    actionDisabled={isRefundLoading}
+                    primaryActionLoading={isRefundLoading}
                 />
             ) : (
                 ''

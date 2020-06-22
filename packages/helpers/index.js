@@ -2,6 +2,7 @@ import {
     ActionFilterUtils,
     AdminInfoUtils,
     AdminSetupUtils,
+    checkDashboardRole,
     CommonUtils,
     DateTimeFormatterUtils,
     DoctorDutyRosterUtils,
@@ -9,13 +10,12 @@ import {
     EnvironmentVariableGetter,
     FileExportUtils,
     LocalStorageSecurity,
+    ObjectUtils,
     ProfileSetupUtils,
     RolesUtils,
     TryCatchHandler,
     UserMenusFilter,
     UserMenuUtils,
-    ObjectUtils,
-    checkDashboardRole,
 } from "./src/utils";
 import * as adminUserMenusJson from './src/cogent-appointment-admin-menu';
 import * as clientUserMenusJson from './src/cogent-appointment-client-menu';
@@ -24,7 +24,9 @@ import * as dateHelpers from './src/utils/datehelpers';
 import {appointmentStatusList} from './src/appointment-status';
 import * as StringUtils from './src/utils/StringUtils';
 import {appointmentStatusListForAppontmentAndTransaction} from './src/appointment-transaction-status'
-import * as APIUtils from  './src/utils/ApiUtilHeader';
+import * as APIUtils from './src/utils/APIUtils';
+import * as MultiSelectOptionUpdateUtils from './src/utils/MultiSelectOptionUpdateUtils';
+
 export {
     checkDashboardRole,
     UserMenusFilter,
@@ -50,5 +52,6 @@ export {
     ObjectUtils,
     StringUtils,
     appointmentStatusListForAppontmentAndTransaction,
-    APIUtils
+    APIUtils,
+    MultiSelectOptionUpdateUtils
 }

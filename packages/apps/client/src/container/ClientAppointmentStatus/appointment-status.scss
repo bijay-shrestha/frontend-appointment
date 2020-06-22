@@ -4,6 +4,9 @@
 // // Customized Bootstrap variables
 @import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
 @import '~bootstrap/scss/mixins';
+@import "~@frontend-appointment/common-sass-client/src/scss/_custom-mixins.scss";
+
+
 
 #appointment-status {
   .filter-message {
@@ -12,6 +15,23 @@
     }
   }
 
+  .manage-title{
+    background-color: $white;
+    padding: 30px 30px 15px;
+    margin: 1rem 0 0;
+    @include border-radii(0.5rem,0.5rem, 0, 0);
+    
+  }
+
+  .manage-details{
+    height: calc(100vh - 310px);
+    overflow: auto;
+    margin:0 0 1rem;
+    padding-top:0;
+    @include border-radii(0, 0,0.5rem,0.5rem);
+  }
+
+ 
 
   .appointment-badge {
     float: right;
@@ -255,6 +275,7 @@
     color: $gray-700;
     font-size: 0.8rem;
     text-transform: capitalize;
+    text-decoration: none;
 
     &::before {
       content: "";

@@ -69,9 +69,27 @@ const ActivityLog = loadable(
     () => import('./container/ClientActivitiesLog/ClientActivityLog'),
     {fallback: () => getLoader()}
 )
+
+const AddDepartmentSetup = loadable(
+    () => import('./container/ClientHospitalDepartmentSetup/Add/HospitalDepartmentAdd'),
+    {fallback: () => getLoader()}
+)
+
+const DepartmentStatusComponent = loadable(
+    () => import('./container/ClientAppointmentStatusByDepartment/ClientStatusByDepartment'),
+    {fallback: () => getLoader()}
+)
+
+const AddDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
+    loading: () => getLoader()
+})
+
 /* ****** B ***** */
 
 /* ****** C ***** */
+
 
 /* ****** D ***** */
 
@@ -80,6 +98,10 @@ const DashboardComponent = Loadable({
     loading: () => getLoader()
 })
 
+const DepartmentWiseQuickCheckInComponent = loadable(
+    () => import('./container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'),
+    {fallback: () => getLoader()}
+)
 // const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
@@ -141,6 +163,17 @@ const ManageDoctorComponent = Loadable({
     loader: () => import('./container/ClientDoctorSetup/Manage/DoctorManage'),
     loading: () => getLoader()
 })
+
+const ManageDepartmentComponent = Loadable({
+    loader: () => import('./container/ClientHospitalDepartmentSetup/Manage/HospitalDepartmentManage'),
+    loading: () => getLoader()
+})
+
+const ManageDepartmentDutyRosterComponent = Loadable({
+    loader: () =>
+        import('./container/ClientDepartmentDutyRoster/Manage/DepartmentDutyRosterManage'),
+    loading: () => getLoader()
+})
 /* ****** N ***** */
 
 /* ****** O ***** */
@@ -158,8 +191,14 @@ const PatientComponent = Loadable({
 })
 /* ****** Q ***** */
 
+
 const QualificationAlias = loadable(
     () => import('./container/ClientQualificationAliasSetup/QualificationAlias'),
+    {fallback: () => getLoader()}
+)
+
+const QuickCheckInComponent = loadable(
+    () => import('./container/ClientAppointmentCheckinQuickMenu/AppointmentCheckinFast'),
     {fallback: () => getLoader()}
 )
 
@@ -341,7 +380,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster',
+        path: '/rosterSettings/doctorDutyRoster',
         name: 'Doctor Duty Roster',
         component: <></>,
         icon: '',
@@ -351,7 +390,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/add',
+        path: '/rosterSettings/doctorDutyRoster/add',
         name: 'Add',
         component: AddDoctorDutyRosterComponent,
         icon: '',
@@ -361,7 +400,7 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/doctorDutyRoster/manage',
+        path: '/rosterSettings/doctorDutyRoster/manage',
         name: 'Manage',
         component: ManageDoctorDutyRosterComponent,
         icon: '',
@@ -437,7 +476,7 @@ export const routes = [
         hasTab: false,
         isLink: true,
         isTab: false,
-        name: 'Pending Refund Approval',
+        name: 'Appointment Cancellation',
         isSingleTab: true
     },
     {
@@ -563,6 +602,36 @@ export const routes = [
         isSingleTab: true
     },
     {
+        path: '/quickMenu',
+        component: <></>,
+        icon: '',
+        hasTab: false,
+        isLink: false,
+        isTab: false,
+        name: 'Quick Menu',
+        isSingleTab: false
+    },
+    {
+        path: '/quickMenu/doctorCheckIn',
+        component: QuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Doctor Check-In',
+        isSingleTab: true
+    },
+    {
+        path: '/quickMenu/departmentCheckIn',
+        component: DepartmentWiseQuickCheckInComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        name: 'Department Check-In',
+        isSingleTab: true
+    },
+    {
         path: '/generalSetup/roomSetup',
         component: RoomSetup,
         icon: '',
@@ -572,4 +641,74 @@ export const routes = [
         name: 'Room Setup',
         isSingleTab: true,
     },
+    {
+        path: '/generalSetup/departmentSetup',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        name: 'Department Setup',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/departmentSetup/add',
+        component: AddDepartmentSetup,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Add',
+        isSingleTab: false
+    },
+    {
+        path: '/generalSetup/departmentSetup/manage',
+        component: ManageDepartmentComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Manage',
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster',
+        name: 'Department Duty Roster',
+        component: <></>,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: false,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/add',
+        name: 'Add',
+        component: AddDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/rosterSettings/departmentDutyRoster/manage',
+        name: 'Manage',
+        component: ManageDepartmentDutyRosterComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/appointmentStatusByDepartment',
+        name: 'Department Appointment Status',
+        component:DepartmentStatusComponent,
+        icon: '',
+        hasTab: false,
+        isLink: true,
+        isTab: false,
+        isSingleTab: true
+    }
 ]

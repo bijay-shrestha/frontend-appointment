@@ -72,7 +72,9 @@ const RequestBodyDetailsTable = ({
                             sortable: true,
                             editable: true,
                             sizeColumnsToFit: true,
-                            cellClass: 'first-class'
+                            cellClass: 'first-class',
+                            width:90
+
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
@@ -81,7 +83,8 @@ const RequestBodyDetailsTable = ({
                             // headerClass: "fi",
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                           
                         },
                         {
                             headerName: 'Request Body',
@@ -89,7 +92,8 @@ const RequestBodyDetailsTable = ({
                             // headerClass: "fi",
                             resizable: true,
                             sortable: true,
-                            sizeColumnsToFit: true
+                            sizeColumnsToFit: true,
+                            width:420,
                         },
                         {
                             headerName: 'Status',
@@ -107,6 +111,7 @@ const RequestBodyDetailsTable = ({
                             sizeColumnsToFit: true,
                             cellRenderer: 'childActionRenderer',
                             cellClass: 'actions-button-cell',
+                            width:120,
                             cellRendererParams: {
                                 onClick: function (e, id, type) {
                                     type === 'D'

@@ -33,11 +33,11 @@ import {
 } from './admin-module/doctorSetupReducer'
 import {
     UnitDeleteReducer,
+    UnitDropdownReducer,
     UnitEditReducer,
     UnitListReducer,
     UnitPreviewReducer,
-    UnitSetupReducer,
-    UnitDropdownReducer
+    UnitSetupReducer
 } from './admin-module/unitSetupReducer'
 import {
     AdminDeleteReducer,
@@ -57,15 +57,15 @@ import {
 import {
     DashboardAppointmentQueueReducer,
     DashboardAppointmentStatisticsReducer,
+    DashboardFeaturesByAdminReducer,
+    DashboardFeaturesReducer,
     DashboardRegisteredPatientReducer,
     DashboardRevenueGeneratedByDoctorReducer,
     DashboardRevenueGeneratedDayReducer,
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer,
-    DashboardFeaturesByAdminReducer,
-    DashboardFeaturesReducer
+    DashboardRevenueStatisticsReducer
 } from './admin-module/dashboardDetailsReducer'
 import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer'
 import {
@@ -82,28 +82,31 @@ import {
 import {
     AppointmentApprovalListReducer,
     AppointmentApproveReducer,
+    AppointmentDetailReducer,
     AppointmentLogListReducer,
+    AppointmentRefundDetailReducer,
     AppointmentRefundListReducer,
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
     AppointmentStatusListReducer,
     RescheduleLogReducer,
-    AppointmentDetailReducer,
-    AppointmentRefundDetailReducer,
-    TransactionLogReducer
+    TransactionLogReducer,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer
 } from './admin-module/appointmentDetailsReducer'
 import {loggedInAdminInfoReducer} from './common/loggedInAdminInfoReducer'
 import {logoutReducer} from './common/logoutReducer'
 import {WeekdaysReducer} from './common/weekdaysReducer'
+import {SalutationDropdownReducer} from './common/salutationReducer'
 import {
     PatientDetailReducer,
     PatientDropdownListReducer,
     PatientDropdownWithoutHospitalListReducer,
     PatientEditReducer,
+    PatientEsewaIdReducer,
     PatientPreviewReducer,
-    PatientSearchReducer,
-    PatientEsewaIdReducer
+    PatientSearchReducer
 } from './admin-module/patientSetupReducer'
 
 import {
@@ -132,17 +135,17 @@ import {
     companyUpdateReducer
 } from './admin-module/companySetupReducers'
 import {
+    AdminLoggingDiagramSearchReducer,
     AdminLoggingSearchReducer,
-    AdminLoggingStatsSearchReducer,
-    AdminLoggingDiagramSearchReducer
+    AdminLoggingStatsSearchReducer
 } from './admin-module/adminLoggingReducer'
 import {
     UniversityDeleteReducer,
     UniversityDropdownReducer,
     UniversityEditReducer,
+    UniversityPreviewReducer,
     UniversitySaveReducer,
-    UniversitySearchReducer,
-    UniversityPreviewReducer
+    UniversitySearchReducer
 } from './admin-module/universitySetupReducer'
 
 import {CountryDropdownReducer} from './common/countryReducer'
@@ -167,7 +170,44 @@ import {
     RoomNumberSearchReducer
 } from './admin-module/roomSetupReducer';
 
+import {
+    HospitalDepartmentDeleteReducer,
+    HospitalDepartmentDropdownReducer,
+    HospitalDepartmentEditReducer,
+    HospitalDepartmentPreviewReducer,
+    HospitalDepartmentSaveReducer,
+    HospitalDepartmentSearchReducer
+} from './admin-module/hospitalDepartmentSetupReducer';
+
+import {
+    DepartmentDutyRosterDeleteReducer,
+    DepartmentDutyRosterEditReducer,
+    DepartmentDutyRosterExistingReducer,
+    DepartmentDutyRosterListReducer,
+    DepartmentDutyRosterOverrideDeleteReducer,
+    DepartmentDutyRosterOverrideRevertReducer,
+    DepartmentDutyRosterOverrideUpdateReducer,
+    DepartmentDutyRosterPreviewReducer,
+    DepartmentDutyRosterSaveReducer,
+} from './admin-module/departmentDutyRosterReducer';
+
+import {AdminApiIntegrationReducers} from '../reducers/admin-module/adminApiIntegrationReducer';
+
+import {
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
+} from './admin-module/billingModeReducer';
+
+import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
+
 export {
+    AdminApiIntegrationReducers,
+    AppointmenStatusByDepartmentListReducer,
+    AppointmenStatusByRoomListReducer,
     AdminDeleteReducer,
     AdminEditReducer,
     AdminListReducer,
@@ -191,6 +231,7 @@ export {
     AppointmentRefundReducer,
     AppointmentRefundRejectReducer,
     AppointmentRejectReducer,
+    AppointmentServiceTypeDropdownReducer,
     AppointmentStatusListReducer,
     CompanyAdminReducer,
     companyDeleteReducer,
@@ -268,6 +309,7 @@ export {
     QualificationSaveReducer,
     QualificationSearchReducer,
     RescheduleLogReducer,
+    SalutationDropdownReducer,
     SpecializationDeleteReducer,
     SpecializationDropdownReducer,
     SpecializationEditReducer,
@@ -285,11 +327,32 @@ export {
     WeekdaysReducer,
     AppointmentTransferReducers,
     PatientEsewaIdReducer,
-    HospitalApiIntegrationReducers,
-    RequestBodyIntegrationReducers,
     RoomNumberDeleteReducer,
     RoomNumberDropdownReducer,
     RoomNumberEditReducer,
     RoomNumberSaveReducer,
-    RoomNumberSearchReducer
+    RoomNumberSearchReducer,
+    HospitalDepartmentDeleteReducer,
+    HospitalDepartmentDropdownReducer,
+    HospitalDepartmentEditReducer,
+    HospitalDepartmentPreviewReducer,
+    HospitalDepartmentSaveReducer,
+    HospitalDepartmentSearchReducer,
+    DepartmentDutyRosterDeleteReducer,
+    DepartmentDutyRosterEditReducer,
+    DepartmentDutyRosterExistingReducer,
+    DepartmentDutyRosterListReducer,
+    DepartmentDutyRosterOverrideDeleteReducer,
+    DepartmentDutyRosterOverrideRevertReducer,
+    DepartmentDutyRosterOverrideUpdateReducer,
+    DepartmentDutyRosterPreviewReducer,
+    DepartmentDutyRosterSaveReducer,
+    HospitalApiIntegrationReducers,
+    RequestBodyIntegrationReducers,
+    BillingModeDeleteReducer,
+    BillingModeDropdownReducer,
+    BillingModeEditReducer,
+    BillingModePreviewReducer,
+    BillingModeSaveReducer,
+    BillingModeSearchReducer
 }

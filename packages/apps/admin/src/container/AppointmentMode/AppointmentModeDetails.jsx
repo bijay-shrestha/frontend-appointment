@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-    CFLabel,
-    CForm,
-    CHybridInput,
-    CHybridTextArea,
-    CModal,
-    CRadioButton
-   // CToggle
-} from "@frontend-appointment/ui-elements";
+import {CFLabel, CForm, CHybridInput, CHybridTextArea, CModal, CRadioButton} from "@frontend-appointment/ui-elements";
 import {Col, Row} from "react-bootstrap";
 import {AuditableEntityHoc} from "@frontend-appointment/commons"
+
 const AppointmentModeDetails = ({closeModal, appointmentModeData, showPreviewModal}) => {
     const detailContents = <>
         <Container-fluid>

@@ -22,7 +22,13 @@ const {
     FETCH_ACTIVE_ROOM_NUMBER_ERROR,
     FETCH_ALL_ROOM_NUMBER_ERROR,
     FETCH_ALL_ROOM_NUMBER_PENDING,
-    FETCH_ALL_ROOM_NUMBER_SUCCESS
+    FETCH_ALL_ROOM_NUMBER_SUCCESS,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_PENDING,
+    FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_ERROR,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_PENDING,
+    FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_ERROR
 } = roomSetupActionConstants;
 
 const initialState = {
@@ -44,7 +50,13 @@ const initialState = {
     isFetchAllRoomNumberLoading: false,
     allRoomNumberForDropdown: [],
     allRoomDropdownErrorMessage: '',
-    totalRecords:''
+    totalRecords: '',
+    isFetchActiveRoomNumberByDepartmentLoading: false,
+    activeRoomNumberForDropdownByDepartment: [],
+    activeRoomsByDepartmentDropdownErrorMessage: '',
+    isFetchAllRoomNumberByDepartmentLoading: false,
+    allRoomNumberForDropdownByDepartment: [],
+    allRoomDropdownByDepartmentErrorMessage: '',
 };
 
 export const RoomNumberSaveReducer = (state = {...initialState}, action) => {
@@ -157,14 +169,14 @@ export const RoomNumberSearchReducer = (state = {...initialState}, action) => {
                 isSearchRoomNumberLoading: true,
                 roomNumberList: [],
                 searchErrorMessage: '',
-                totalRecords:''
+                totalRecords: ''
             };
         case SEARCH_ROOM_NUMBER_SUCCESS:
             return {
                 ...state,
                 isSearchRoomNumberLoading: false,
                 roomNumberList: [...action.payload.data.response],
-                totalRecords:action.payload.data.totalItems,
+                totalRecords: action.payload.data.totalItems,
                 searchErrorMessage: ''
             };
         case SEARCH_ROOM_NUMBER_ERROR:
@@ -172,7 +184,7 @@ export const RoomNumberSearchReducer = (state = {...initialState}, action) => {
                 ...state,
                 isSearchRoomNumberLoading: false,
                 roomNumberList: [],
-                totalRecords:'',
+                totalRecords: '',
                 searchErrorMessage: action.payload.message
             };
         case CLEAR_SEARCH_ROOM_NUMBER_MESSAGE:
@@ -228,6 +240,48 @@ export const RoomNumberDropdownReducer = (state = {...initialState}, action) => 
                 isFetchAllRoomNumberLoading: false,
                 allRoomNumberForDropdown: [],
                 allRoomDropdownErrorMessage: action.payload.message
+            };
+        case FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_PENDING :
+            return {
+                ...state,
+                isFetchActiveRoomNumberByDepartmentLoading: true,
+                activeRoomNumberForDropdownByDepartment: [],
+                activeRoomsByDepartmentDropdownErrorMessage: '',
+            };
+        case FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS:
+            return {
+                ...state,
+                isFetchActiveRoomNumberByDepartmentLoading: false,
+                activeRoomNumberForDropdownByDepartment: [...action.payload.data],
+                activeRoomsByDepartmentDropdownErrorMessage: '',
+            };
+        case FETCH_ACTIVE_ROOM_NUMBER_BY_DEPARTMENT_ERROR:
+            return {
+                ...state,
+                isFetchActiveRoomNumberByDepartmentLoading: false,
+                activeRoomNumberForDropdownByDepartment: [],
+                activeRoomsByDepartmentDropdownErrorMessage: action.payload.message,
+            };
+        case FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_PENDING :
+            return {
+                ...state,
+                isFetchAllRoomNumberByDepartmentLoading: true,
+                allRoomNumberForDropdownByDepartment: [],
+                allRoomDropdownByDepartmentErrorMessage: '',
+            };
+        case FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_SUCCESS:
+            return {
+                ...state,
+                isFetchAllRoomNumberByDepartmentLoading: false,
+                allRoomNumberForDropdownByDepartment: [...action.payload.data],
+                allRoomDropdownByDepartmentErrorMessage: '',
+            };
+        case FETCH_ALL_ROOM_NUMBER_BY_DEPARTMENT_ERROR:
+            return {
+                ...state,
+                isFetchAllRoomNumberByDepartmentLoading: false,
+                allRoomNumberForDropdownByDepartment: [],
+                allRoomDropdownByDepartmentErrorMessage: action.payload.errorMessage,
             };
         default:
             return state

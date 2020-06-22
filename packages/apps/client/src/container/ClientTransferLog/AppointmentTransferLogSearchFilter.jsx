@@ -88,7 +88,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                         selected={searchParameters.appointmentFromDate}
                         onKeyDown={event => handleEnter(event)}
                         onChange={date =>
-                          handleSearchFormChange(date, 'fromDate')
+                          handleSearchFormChange(date, 'appointmentFromDate')
                         }
                       />
                       &nbsp;&nbsp;
@@ -118,7 +118,7 @@ class AppointmentTransferListSearchFilter extends PureComponent {
                         dropdownMode="select"
                         onKeyDown={event => this.handleEnter(event)}
                         onChange={date =>
-                          handleSearchFormChange(date, 'toDate')
+                          handleSearchFormChange(date, 'appointmentToDate')
                         }
                       />
                     </div>

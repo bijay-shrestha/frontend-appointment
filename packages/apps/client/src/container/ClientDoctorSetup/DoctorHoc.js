@@ -4,11 +4,13 @@ import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware
+    SpecializationSetupMiddleware,
+    SalutationMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
+import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 
 const {
     clearConsultantCreateMessage,
@@ -18,7 +20,7 @@ const {
     previewConsultant,
     searchConsultant,
     fetchActiveDoctorsHospitalWiseForDropdown,
-    fetchActiveDoctorsHospitalWiseForDropdownForClient,
+    fetchActiveDoctorsForDropdown,
     downloadExcelForConsultants
 } = DoctorMiddleware;
 
@@ -27,6 +29,7 @@ const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {
     fetchSpecializationHospitalWiseForDropdownForClient
 } = SpecializationSetupMiddleware;
+const {fetchSalutationForDropdown} = SalutationMiddleware;
 
 const DoctorHOC = (ComposedComponent, props, type) => {
     const {
@@ -47,6 +50,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 contactNumber: '',
                 specializationIds: [],
                 qualificationIds: [],
+                salutations: [],
                 appointmentCharge: '',
                 appointmentFollowUpCharge: '',
                 nmcNumber: '',
@@ -134,7 +138,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     nmcNumber: '',
                     remarks: '',
                     doctorAvatar: null,
-                    doctorAvatarUrl: ''
+                    doctorAvatarUrl: '',
+                    salutations: [],
                 },
                 doctorImage: '',
                 doctorImageCroppedUrl: '',
@@ -250,7 +255,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 appointmentFollowUpCharge,
                 email,
                 genderCode,
-                qualificationIds
+                qualificationIds,
+                salutations
             } = this.state.consultantData;
             let formData = new FormData();
             doctorAvatar &&
@@ -275,7 +281,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         genderCode,
                         qualificationIds: this.getOnlyValueFromMultipleSelectList(
                             qualificationIds
-                        )
+                        ),
+                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : []
                     },
                     formData
                 );
@@ -374,10 +381,16 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     appointmentFollowUpCharge,
                     fileUri,
                     doctorSpecializationResponseDTOS,
-                    doctorQualificationResponseDTOS
+                    doctorQualificationResponseDTOS,
+                    doctorSalutationResponseDTOS
                 } = this.props.DoctorPreviewReducer.consultantPreviewData;
                 let formValid = this.state.formValid;
                 if (remarks) formValid = true;
+                let salutationList = doctorSalutationResponseDTOS ? doctorSalutationResponseDTOS.map(doctorSalutation => ({
+                    value: doctorSalutation.salutationId,
+                    label: doctorSalutation.salutationName,
+                    doctorSalutationId: doctorSalutation.doctorSalutationId
+                })) : []
                 await this.setState({
                     showEditModal: true,
                     consultantData: {
@@ -409,6 +422,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                                 doctorQualificationResponseDTOS
                             )
                         ],
+                        salutations: salutationList ? [...salutationList] : [],
+                        originalSalutations: salutationList ? [...salutationList] : [],
                         doctorAvatarUrl: fileUri,
                         doctorAvatarUrlNew: '',
                         doctorAvatar: new File([5120], fileUri),
@@ -500,17 +515,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             // this.checkFormValidity(eventType)
         };
 
-        appendSNToTable = consultantList => {
-            const newConsultantList =
-                consultantList.length &&
-                consultantList.map((spec, index) => ({
-                    ...spec,
-                    sN: index + 1
-
-                }));
-            return newConsultantList
-        };
-
         handlePageChange = async newPage => {
             await this.setState({
                 queryParams: {
@@ -545,7 +549,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 let newDatum = {...newDat};
                 newDatum = {[doctorKey]: newDatum[doctorKey] || '', [lowerCaseKey + 'Id']: newDatum.value, status: 'Y'};
                 newEditData.push(newDatum);
-               return newDat;
+                return newDat;
             });
             const mixedData = this.findAndMixDatas(doctorKey, newEditData, oldData, lowerCaseKey);
             // console.log(mixedData);
@@ -570,8 +574,14 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 doctorAvatar,
                 appointmentCharge,
                 appointmentFollowUpCharge,
-                doctorAvatarUrlNew
+                doctorAvatarUrlNew,
+                salutations,
+                originalSalutations
             } = this.state.consultantData;
+
+            let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
+                originalSalutations, salutations, 'salutation', 'doctorSalutationId','N')]
+
             let formData = new FormData();
             if (doctorAvatarUrlNew !== '')
                 formData.append(
@@ -597,7 +607,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
-
+                        doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : []
                     },
                     formData
                 );
@@ -705,9 +715,11 @@ const DoctorHOC = (ComposedComponent, props, type) => {
         };
 
         fetchDoctorByHospitalId = async () => {
-            await this.props.fetchActiveDoctorsHospitalWiseForDropdownForClient(
+            await this.props.fetchActiveDoctorsForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN);
         };
+        fetchSalutation = async () =>
+            await this.props.fetchSalutationForDropdown(CommonAPIConstants.SalutationApiConstants.FETCH_SALUTATION_FOR_DROPDOWN)
 
         async componentDidMount() {
             try {
@@ -715,8 +727,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     await this.fetchDoctorByHospitalId();
                     await this.searchDoctor();
                 }
-                await this.fetchSpecializationByHospitalId();
-                await this.props.fetchActiveQualificationsForDropdown(
+                this.fetchSalutation();
+                this.fetchSpecializationByHospitalId();
+                this.props.fetchActiveQualificationsForDropdown(
                     qualificationSetupApiConstants.FETCH_ACTIVE_QUALIFICATIONS_FOR_DROPDOWN);
             } catch (e) {
                 console.log(e)
@@ -781,10 +794,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationsForDropdown
             } = this.props.QualificationDropdownReducer;
 
+            const {salutationList} = this.props.SalutationDropdownReducer;
+
             return (
                 <ComposedComponent
                     {...this.props}
                     {...props}
+                    salutationList={salutationList}
                     handleEnter={this.handleEnterPress}
                     doctorData={consultantData}
                     resetStateAddValues={this.resetConsultantStateValues}
@@ -820,7 +836,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     deleteRequestDTO={deleteRequestDTO}
                     totalRecords={totalRecords}
                     isSearchLoading={isSearchLoading}
-                    doctorList={this.appendSNToTable(consultantList)}
+                    doctorList={consultantList}
                     searchErrorMessage={searchErrorMessage}
                     doctorPreviewErrorMessage={consultantPreviewErrorMessage}
                     deleteErrorMessage={deleteErrorMessage}
@@ -862,7 +878,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             'DoctorDropdownReducer',
             'QualificationDropdownReducer',
             'SpecializationDropdownReducer',
-            'HospitalDropdownReducer'
+            'HospitalDropdownReducer',
+            'SalutationDropdownReducer'
         ],
         {
             clearConsultantCreateMessage,
@@ -873,11 +890,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             searchConsultant,
             //fetchActiveDoctorsForDropdown,
             fetchActiveDoctorsHospitalWiseForDropdown,
-            fetchActiveDoctorsHospitalWiseForDropdownForClient,
+            fetchActiveDoctorsForDropdown,
             downloadExcelForConsultants,
             fetchActiveQualificationsForDropdown,
             fetchActiveHospitalsForDropdown,
-            fetchSpecializationHospitalWiseForDropdownForClient
+            fetchSpecializationHospitalWiseForDropdownForClient,
+            fetchSalutationForDropdown
         }
     )
 }

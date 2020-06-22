@@ -1,0 +1,11 @@
+{
+  "name": "@frontend-appointement/c-page-overlay-loader",
+  "version": "0.0.0",
+  "main": "CPageOverlayLoader.jsx",
+  "author": {
+    "name": "Sabu Shakya",
+    "email": "sabu.shakya@f1soft.com"
+  },
+  "license": "MIT",
+  "private": true
+}

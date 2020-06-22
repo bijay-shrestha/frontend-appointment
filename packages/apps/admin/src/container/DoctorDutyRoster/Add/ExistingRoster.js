@@ -4,10 +4,7 @@ import "./../doctor-duty-roster.scss";
 
 import {CDataTable} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
-import StartTimeDisplayForTable from "../../CommonComponents/table-components/StartTimeDisplayForTable";
-import EndTimeDisplayForTable from "../../CommonComponents/table-components/EndTimeDisplayForTable";
-import DayOffStatusLabel from "../../CommonComponents/table-components/DayOffStatusLabel";
-
+import {DayOffStatusLabel, EndTimeDisplayForTable, StartTimeDisplayForTable} from "@frontend-appointment/ui-components";
 
 const ExistingRooster = ({
                              existingRosterTableData,
@@ -92,7 +89,7 @@ const ExistingRooster = ({
                                     <Col> Days</Col>
                                     <Col> Start Time</Col>
                                     <Col> End Time</Col>
-                                    <Col> Days Off</Col>
+                                    <Col> Off</Col>
                                 </Row>
                                 {
                                     existingDoctorWeekDaysAvailability.map(weekDay => (

@@ -129,10 +129,10 @@ class CDoubleShiftSearch extends PureComponent {
             keyWord = keyWord.toLowerCase();
             userMenus.map(
                 (userMenu,index) => {
-                  console.log("index",index.toString()+""+count);
+                  // console.log("index",index.toString()+""+count);
                     if (!userMenu.childMenus.length) {
                         if (StringUtils.compareStrings(keyWord, userMenu.name)) {
-                            
+
                             // IF PARENT MATCHES THE KEYWORD,ADD PARENT
                             let displayData = {
                                 id: userMenu.id,

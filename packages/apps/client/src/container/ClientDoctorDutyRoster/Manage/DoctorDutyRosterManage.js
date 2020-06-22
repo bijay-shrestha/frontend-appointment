@@ -68,7 +68,7 @@ function DoctorDutyRosterManage(props) {
              isDeleteRosterLoading
          }) => {
             const footerContent =
-                <Container fluid="true">
+                <Container fluid={true}>
                     <Row>
                         <div className="col-sm-12  col-md-6">
                             {editErrorMessage ?

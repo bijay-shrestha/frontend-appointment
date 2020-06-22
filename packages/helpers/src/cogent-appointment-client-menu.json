@@ -198,17 +198,11 @@
       ]
     },
     {
-      "id": "9",
+      "id": "24",
       "parentId": null,
-      "name": "Doctor Duty Roster",
-      "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5,
-        8
-      ],
+      "name": "Roster Settings",
+      "path": "/rosterSettings",
+      "roles": [],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
@@ -216,7 +210,50 @@
       "enabled": "Y",
       "menuFor": "6",
       "description": "Doctor Duty Roster",
-      "childMenus": []
+      "childMenus": [
+        {
+          "id": "9",
+          "parentId": "24",
+          "name": "Doctor Duty Roster",
+          "path": "/rosterSettings/doctorDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Duty Roster",
+          "childMenus": []
+        },
+        {
+          "id": "25",
+          "parentId": "24",
+          "name": "Department Duty Roster",
+          "path": "/rosterSettings/departmentDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Duty Roster",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "10",
@@ -235,7 +272,7 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Pending Refund Approval",
+          "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
@@ -259,7 +296,7 @@
           "roles": [
             12,
             14,
-            15
+            17
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -285,6 +322,23 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "appointmentStatus",
+          "childMenus": []
+        },
+        {
+          "id": "27",
+          "parentId": 10,
+          "name": "Department Appointment Status",
+          "path": "/appointment/appointmentStatusByDepartment",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentStatusbydepartment",
           "childMenus": []
         }
       ]
@@ -407,6 +461,58 @@
       "menuFor": "6",
       "description": "activityLog",
       "childMenus": []
+    },
+    {
+      "id": "29",
+      "parentId": null,
+      "name": "Quick Menu",
+      "path": "/quickMenu",
+      "roles": [],
+      "icon": "fa fa-bookmark",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Quick Menu",
+      "childMenus": [
+        {
+          "id": "26",
+          "parentId": "29",
+          "name": "Doctor Check-In",
+          "path": "/quickMenu/doctorCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Quick CheckIn",
+          "childMenus": []
+        },
+        {
+          "id": "28",
+          "parentId": "29",
+          "name": "Department Check-In",
+          "path": "/quickMenu/departmentCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Quick CheckIn",
+          "childMenus": []
+        }
+      ]
     }
   ]
 }

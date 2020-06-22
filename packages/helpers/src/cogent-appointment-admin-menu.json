@@ -136,7 +136,7 @@
           "childMenus": []
         },
         {
-          "id": "33",
+          "id": "32",
           "parentId": "1",
           "name": "Department Setup",
           "path": "/generalSetup/departmentSetup",
@@ -158,25 +158,62 @@
       ]
     },
     {
-      "id": "9",
+      "id": "36",
       "parentId": null,
-      "name": "Doctor Duty Roster",
-      "path": "/doctorDutyRoster",
-      "roles": [
-        2,
-        3,
-        4,
-        5,
-        8
-      ],
+      "name": "Roster Settings",
+      "path": "/rosterSettings",
+      "roles": [],
       "icon": "fa fa-user-md",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Doctor Duty Roster",
-      "childMenus": []
+      "description": "Roster Settings",
+      "childMenus": [
+        {
+          "id": "9",
+          "parentId": "36",
+          "name": "Doctor Duty Roster",
+          "path": "/rosterSettings/doctorDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Duty Roster",
+          "childMenus": []
+        },
+        {
+          "id": "37",
+          "parentId": "36",
+          "name": "Department Duty Roster",
+          "path": "/rosterSettings/departmentDutyRoster",
+          "roles": [
+            2,
+            3,
+            4,
+            5,
+            8
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Duty Roster",
+          "childMenus": []
+        }
+      ]
     },
     {
       "id": "10",
@@ -195,7 +232,7 @@
         {
           "id": "11",
           "parentId": "10",
-          "name": "Pending Refund Approval",
+          "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
             12,
@@ -211,6 +248,24 @@
           "description": "refundRequestList",
           "childMenus": []
         },
+        {
+          "id": 41,
+          "parentId": 10,
+          "name": " Department Appointment Status",
+          "path": "/appointment/appointmentStatusByDepartment",
+          "roles": [
+            12
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentStatusBydepartment",
+          "childMenus": []
+        },
+
         {
           "id": "12",
           "parentId": "10",
@@ -331,7 +386,6 @@
           "description": "Transfer Log",
           "childMenus": []
         }
-
       ]
     },
     {
@@ -355,21 +409,21 @@
     {
       "id": "33",
       "parentId": null,
-      "name": "Api Integration",
+      "name": "Developer Options",
       "path": "/apiIntegration",
       "roles": [],
-      "icon": "fa fa-building-o",
+      "icon": "fa fa-gg",
       "leftNavigation": "Y",
       "checked": false,
       "order": 1,
       "enabled": "Y",
       "menuFor": "6",
-      "description": "Api Integration",
+      "description": " Developer Options",
       "childMenus": [
         {
           "id": "34",
           "parentId": "33",
-          "name": "Client Api Integration",
+          "name": "Client API Integration",
           "path": "/apiIntegration/clientApiIntegration",
           "roles": [
             2,
@@ -383,13 +437,13 @@
           "order": 1,
           "enabled": "Y",
           "menuFor": "6",
-          "description": "Client Api Integration",
+          "description": "Client API Integration",
           "childMenus": []
         },
         {
           "id": "35",
           "parentId": "33",
-          "name": "Admin Api Integration",
+          "name": "Appointment Mode API Integration",
           "path": "/apiIntegration/adminApiIntegration",
           "roles": [
             2,
@@ -403,11 +457,11 @@
           "order": 3,
           "enabled": "Y",
           "menuFor": "1",
-          "description": "Admin Api Integration",
+          "description": "Appointment Mode API Integration",
           "childMenus": []
         },
         {
-          "id": "36",
+          "id": "38",
           "parentId": "33",
           "name": "Request Body Integration",
           "path": "/apiIntegration/requestBodyIntegration",
@@ -425,7 +479,9 @@
           "menuFor": "6",
           "description": "Request Body Integration",
           "childMenus": []
-        }]},
+        }
+      ]
+    },
     {
       "id": "20",
       "parentId": null,
@@ -600,6 +656,26 @@
           "menuFor": "1",
           "description": "Appointment Mode Setup",
           "childMenus": []
+        },
+        {
+          "id": "39",
+          "parentId": "20",
+          "name": "Billing Mode Setup",
+          "path": "/companySettings/billingMode",
+          "roles": [
+            10,
+            11,
+            12,
+            13
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 3,
+          "enabled": "Y",
+          "menuFor": "1",
+          "description": "Billing Mode Setup",
+          "childMenus": []
         }
       ]
     },
@@ -649,6 +725,58 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "Client Log",
+          "childMenus": []
+        }
+      ]
+    },
+    {
+      "id": "42",
+      "parentId": null,
+      "name": "Quick Menu",
+      "path": "/quickMenu",
+      "roles": [],
+      "icon": "fa fa-bookmark",
+      "leftNavigation": "Y",
+      "checked": false,
+      "order": 1,
+      "enabled": "Y",
+      "menuFor": "6",
+      "description": "Quick Menu",
+      "childMenus": [
+        {
+          "id": "43",
+          "parentId": 42,
+          "name": "Doctor Check-In",
+          "path": "/quickMenu/doctorCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Doctor Quick CheckIn",
+          "childMenus": []
+        },
+        {
+          "id": "44",
+          "parentId": 42,
+          "name": "Department Check-In",
+          "path": "/quickMenu/departmentCheckIn",
+          "roles": [
+            12,
+            14
+          ],
+          "icon": "fa fa-bookmark",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "Department Quick CheckIn",
           "childMenus": []
         }
       ]

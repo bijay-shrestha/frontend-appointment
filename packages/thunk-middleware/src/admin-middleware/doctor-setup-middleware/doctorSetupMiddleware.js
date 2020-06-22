@@ -1,5 +1,6 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
+import {CommonUtils} from '@frontend-appointment/helpers'
 //import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
@@ -59,7 +60,8 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        dispatch(DoctorSetupActions.createConsultantSearchSuccess(response.data));
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data,queryParams.page,queryParams.size)
+        dispatch(DoctorSetupActions.createConsultantSearchSuccess(dataWithSn));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantListError(e.errorMessage || 'Sorry Internal Server Error'));
@@ -103,6 +105,18 @@ export const fetchActiveDoctorsForDropdown = path => async dispatch => {
     }
 };
 
+export const fetchAllDoctorsForDropdown = path => async dispatch => {
+    dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownPending());
+    try {
+        const response = await Axios.get(path);
+        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownError(
+            e.errorMessage ? e.errorMessage : 'Error fetching doctors.'));
+    }
+};
+
 export const fetchActiveDoctorsHospitalWiseForDropdown = (path, id) => async dispatch => {
     try {
         const response = await Axios.getWithPathVariables(path, id);
@@ -117,19 +131,21 @@ export const fetchActiveDoctorsHospitalWiseForDropdown = (path, id) => async dis
     }
 };
 
-export const fetchActiveDoctorsHospitalWiseForDropdownForClient = (path) => async dispatch => {
+export const fetchAllDoctorsHospitalWiseForDropdown = (path, id) => async dispatch => {
+    dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownPending());
     try {
-        const response = await Axios.get(path);
-        dispatch(DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownSuccess(response.data));
+        const response = await Axios.getWithPathVariables(path, id);
+        dispatch(DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownSuccess(response.data));
         return response;
     } catch (e) {
         dispatch(
-            DoctorSetupActions.fetchActiveDoctorsByHospitalForDropdownError(e.errorMessage ?
+            DoctorSetupActions.fetchAllDoctorsByHospitalForDropdownError(e.errorMessage ?
                 e.errorMessage : 'Error fetching doctors.')
         );
         throw e;
     }
 };
+
 
 export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId) => async dispatch => {
     try {
@@ -139,6 +155,21 @@ export const fetchDoctorsBySpecializationIdForDropdown = (path, specializationId
     } catch (e) {
         dispatch(DoctorSetupActions.fetchDoctorsBySpecializationForDropdownError(
             e.errorMessage ? e.errorMessage : 'Error fetching doctors.'));
+        throw e;
+    }
+};
+
+export const fetchActiveDoctorsByDepartmentForDropdown = (path, id) => async dispatch => {
+    dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownPending());
+    try {
+        const response = await Axios.getWithPathVariables(path, id);
+        dispatch(DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownSuccess(response.data));
+        return response;
+    } catch (e) {
+        dispatch(
+            DoctorSetupActions.fetchActiveDoctorsByDepartmentForDropdownError(e.errorMessage ?
+                e.errorMessage : 'Error fetching doctors.')
+        );
         throw e;
     }
 };

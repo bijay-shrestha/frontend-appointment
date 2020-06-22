@@ -50,6 +50,8 @@ class CHybridSelectWithImage extends PureComponent {
         </span>
     );
 
+    getOptionValue = option => option.value;
+
     render() {
         const {
             autoFocus,
@@ -66,7 +68,7 @@ class CHybridSelectWithImage extends PureComponent {
             defaultValue,
             delimiter,
             escapeClearsValue,
-            hideSelectedOptions,
+            // hideSelectedOptions,
             id,
             inputId,
             inputValue,
@@ -97,7 +99,7 @@ class CHybridSelectWithImage extends PureComponent {
             theme,
             value
         } = this.props;
-        
+
         return (
             <>
                 <div
@@ -127,8 +129,8 @@ class CHybridSelectWithImage extends PureComponent {
                             return !!option.data.label.toLowerCase().includes(searchTxt.toLowerCase());
                         }}
                         getOptionLabel={this.getFormattedOptionLabel}
-                        getOptionValue={option => option}
-                        hideSelectedOptions={hideSelectedOptions}
+                        getOptionValue={this.getOptionValue}
+                        hideSelectedOptions={true}
                         id={'select'.concat(id)}
                         inputId={inputId}
                         inputValue={inputValue}
