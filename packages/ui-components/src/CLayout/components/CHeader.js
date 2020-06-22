@@ -261,7 +261,7 @@ class CHeader extends Component {
                             <div className="fav-links" onClick={this.handleQuickLinkClick}>
                                 <OverlayTrigger
                                     trigger={'hover'}
-                                    placement="bottom"
+                                    placement="left"
                                     overlay={
                                         <Tooltip id="tooltip-disabled">Quick Check-In</Tooltip>}>
                                     <span className="d-inline-block">
