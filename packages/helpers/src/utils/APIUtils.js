@@ -113,8 +113,12 @@ const constructOption = (method, headers, urlWithParams, data) => {
 }
 
 
-const getCurrentFeatureIntegrationDetails = (apiIntegrateData, featureTypeCode) => {
+const getCurrentFeatureIntegrationDetailsByFeatureCode = (apiIntegrateData, featureTypeCode) => {
     return apiIntegrateData.features.find(feature => feature.featureCode === featureTypeCode)
+}
+
+const getCurrentFeatureIntegrationDetailsByFeatureCodeAndClientId = (apiIntegrateData, featureTypeCode, clientId) => {
+    return apiIntegrateData.features.find(feature => feature.featureCode === featureTypeCode && feature.hospitalId === clientId)
 }
 
 export const getCurrentClientFeatureApiIntegrationDetails = (integrationType, featureTypeCode, clientId) => {
@@ -122,11 +126,11 @@ export const getCurrentClientFeatureApiIntegrationDetails = (integrationType, fe
     let currentFeatureApiIntegrationDetails
     const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
     if (isClientModule) {
-        currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetails(apiIntegrateData[0], featureTypeCode)
+        currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetailsByFeatureCode(apiIntegrateData[0], featureTypeCode)
     } else {
         const selectedClientApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
             apiIntegration.clientId === clientId);
-        currentFeatureApiIntegrationDetails = selectedClientApiIntegrationDetails && getCurrentFeatureIntegrationDetails(
+        currentFeatureApiIntegrationDetails = selectedClientApiIntegrationDetails && getCurrentFeatureIntegrationDetailsByFeatureCode(
             selectedClientApiIntegrationDetails, featureTypeCode)
     }
     return currentFeatureApiIntegrationDetails
@@ -136,20 +140,27 @@ export const getCurrentAppointmentModeFeatureApiIntegrationDetails = (integratio
                                                                       featureTypeCode,
                                                                       appointmentModeId,
                                                                       pathVariablePattern,
-                                                                      pathVariableValue) => {
-    // let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
+                                                                      pathVariableValue,
+                                                                      hmacCode,
+                                                                      clientId) => {
+    let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
     let currentFeatureApiIntegrationDetails
     const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
-    // if (isClientModule) {
-    //     currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetails(apiIntegrateData[0], featureTypeCode)
-    // } else {
-    const selectedAppointmentModeApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
-        apiIntegration.appointmentModeId === appointmentModeId);
-    currentFeatureApiIntegrationDetails = selectedAppointmentModeApiIntegrationDetails && getCurrentFeatureIntegrationDetails(
-        selectedAppointmentModeApiIntegrationDetails, featureTypeCode)
-    // }
+    if (isClientModule) {
+        const selectedAppointmentModeApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
+            apiIntegration.appointmentModeId === appointmentModeId);
+        currentFeatureApiIntegrationDetails = selectedAppointmentModeApiIntegrationDetails && getCurrentFeatureIntegrationDetailsByFeatureCode(
+            selectedAppointmentModeApiIntegrationDetails, featureTypeCode)
+        // }
+    } else {
+        const selectedAppointmentModeApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
+            apiIntegration.appointmentModeId === appointmentModeId);
+        currentFeatureApiIntegrationDetails = selectedAppointmentModeApiIntegrationDetails && getCurrentFeatureIntegrationDetailsByFeatureCodeAndClientId(
+            selectedAppointmentModeApiIntegrationDetails, featureTypeCode, clientId)
+    }
     if (currentFeatureApiIntegrationDetails && checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
         let apiUrl = currentFeatureApiIntegrationDetails.apiInfo.url;
+        currentFeatureApiIntegrationDetails.apiInfo.headers.signature = hmacCode;
         currentFeatureApiIntegrationDetails.apiInfo.url = apiUrl ?
             findIfUrlContainsPathVariableAndReplaceWithValue(apiUrl, pathVariablePattern, pathVariableValue) : apiUrl
     }

@@ -21,6 +21,10 @@ const REQUEST_BODY_INTEGRATION = '/integration-request-body-attribute'
 const ADMIN_API_INTEGRATION = "/admin-mode-integration"
 const HOSPITAL_DEPARTMENT_SETUP_BASE = "/hospitalDepartment";
 
+export const hmacApiConstants = {
+    FETCH_HMAC_CODE_BY_APPOINTMENT_ID: BASE.concat('/hmac')
+}
+
 export const initialApiConstantsOfAdmin = {
     LOGIN_API: BASE.concat("/login"),
     GET_SIDEBAR_DATA: BASE.concat("/sidebar"),
@@ -170,15 +174,15 @@ export const patientSetupApiConstant = {
     FETCH_PATIENT_ESEWA_ID_FOR_DROPDOWN: BASE.concat(PATIENT_BASE.concat("/eSewaId"))
 };
 
-const HOSPITAL_DEPARTMENT="/hospitalDepartment"
+const HOSPITAL_DEPARTMENT = "/hospitalDepartment"
 export const appointmentSetupApiConstant = {
     APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
     APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
     APPOINTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/refund/reject"),
     APPOINTMENT_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/log"),
     APPOINTMENT_STATUS_LIST: BASE.concat(APPOINTMENT_BASE + "/status"),
-    APPOINTMENT_HOSPITAL_DEPARTMENT_LIST:BASE.concat(APPOINTMENT_BASE+"/hospitalDepartment/status"),
-    APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST:BASE.concat(APPOINTMENT_BASE+"/hospitalDepartment/room/status"),
+    APPOINTMENT_HOSPITAL_DEPARTMENT_LIST: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/status"),
+    APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/room/status"),
     APPOINTMENT_APPROVAL_LIST: BASE.concat(APPOINTMENT_BASE + "/pending-approval"),
     APPOINTMENT_APPROVE: BASE.concat(APPOINTMENT_BASE + "/approve"),
     APPOINTMENT_REJECT: BASE.concat(APPOINTMENT_BASE + "/reject"),
@@ -187,9 +191,9 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_REFUND_DETAIL: BASE.concat(APPOINTMENT_BASE.concat("/refund/detail")),
     TRANSACTION_LOG_LIST: BASE.concat(APPOINTMENT_BASE + "/transaction-log"),
     APPOINTMENT_APPROVE_INTEGRATION: BASE.concat(APPOINTMENT_BASE + INTEGRATION + "/approve"),
-    APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT: BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+'/pending-approval'),
-    APPOINTMENT_APPROVAL_DEPARTMENT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/approve"),
-    APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/pending-approval/detail") 
+    APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + '/pending-approval'),
+    APPOINTMENT_APPROVAL_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/approve"),
+    APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/pending-approval/detail")
 };
 
 export const DashboardApiConstant = {
