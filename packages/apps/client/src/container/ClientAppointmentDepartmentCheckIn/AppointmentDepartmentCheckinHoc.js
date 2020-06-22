@@ -119,8 +119,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
         setShowModal = async () => {
             await this.setState({
                 showModal: false,
-                approveConfirmationModal: false,
-                transferConfirmationModal: false
+                approveConfirmationModal: false
             })
             if (!this.state.approveConfirmationModal) {
                 this.setState({
@@ -486,12 +485,13 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
+                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
                 }
             })
-            this.approveHandleApi();
+          //  this.approveHandleApi();
         }
 
         // handleTransferChange = async e => {
