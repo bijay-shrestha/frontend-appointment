@@ -41,7 +41,7 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
   render () {
     const {
       handleSearchFormChange,
-      resetSearchForm,
+      resetSearch,
       // searchAppointmentStatus,
       //hospitalList,
       // doctorList,
@@ -69,7 +69,7 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
                   variant="outline-secondary"
                   size="sm"
                   name=""
-                  onClickHandler={resetSearchForm}
+                  onClickHandler={resetSearch}
                 >
                   <>
                     {' '}
@@ -154,9 +154,7 @@ class DepartmentAppointmentSearchFilter extends PureComponent {
                           ? 'Select Department.'
                           : 'No Department(s) available.'
                       }
-                      noOptionsMessage={() =>
-                        allDepartmentDropdownErrorMessage
-                      }
+                      noOptionsMessage={() => allDepartmentDropdownErrorMessage}
                       onKeyDown={this.handleEnter}
                       onChange={event => handleSearchFormChange(event)}
                       value={searchParameters.hospitalDepartmentId}

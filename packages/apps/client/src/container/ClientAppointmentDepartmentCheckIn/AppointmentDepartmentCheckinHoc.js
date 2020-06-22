@@ -44,7 +44,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                 toDate: new Date(),
                 patientMetaInfoId: '',
-                hospitalDepartmentId: 0,
+                hospitalDepartmentId: '',
                 patientType: '',
                 patientCategory: ''
             },
@@ -237,7 +237,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                  fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                  toDate: new Date(),
                  patientMetaInfoId: '',
-                 hospitalDepartmentId: 0,
+                 hospitalDepartmentId: '',
                  patientType: '',
                  patientCategory: '',
                  appointmentDetails:''
