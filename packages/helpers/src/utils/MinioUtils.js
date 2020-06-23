@@ -11,7 +11,7 @@ const minio = new Minio.Client({
 
 export const getPresignedPutUrl = async (subDirectory,name) =>{
     try {
-        const url = await minio.presignedPutObject(`${MINIO_BUCKET}/${subDirectory}`,name, MINIO_EXPIRY_TIME);
+        const url = await minio.presignedPutObject(`${MINIO_BUCKET}/${subDirectory}`,`${subDirectory}/${name}`, MINIO_EXPIRY_TIME);
         console.log("URL", url)
         return url;
   } catch (e) {
@@ -22,7 +22,7 @@ export const getPresignedPutUrl = async (subDirectory,name) =>{
 
 export const getPresignedGetUrl = async (subDirectory,name) =>{
     try{
-        const presignedUrl = await minio.presignedUrl('GET', `${MINIO_BUCKET}/${subDirectory}`, name, MINIO_EXPIRY_TIME)
+        const presignedUrl = await minio.presignedUrl('GET', `${MINIO_BUCKET}`, `${subDirectory}/${name}`, MINIO_EXPIRY_TIME)
         console.log("Presigned",presignedUrl)
         return presignedUrl;
   }catch(e){
