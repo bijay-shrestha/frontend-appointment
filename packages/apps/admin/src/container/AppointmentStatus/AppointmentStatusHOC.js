@@ -8,10 +8,7 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils
-} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-status.scss'
 import {CAlert} from '@frontend-appointment/ui-elements'
 import * as Material from 'react-icons/md'
@@ -47,7 +44,6 @@ const {
 } = specializationSetupAPIConstants
 const {
     APPOINTMENT_STATUS_LIST,
-    APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
 const {FETCH_PATIENT_DETAIL_BY_APPOINTMENT_ID} = patientSetupApiConstant
