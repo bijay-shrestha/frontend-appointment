@@ -1,6 +1,13 @@
 import React, {PureComponent} from 'react'
 import AdminInfoForm from './AdminInfoForm'
-import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {
+    AdminSetupUtils,
+    EnterKeyPressUtils,
+    menuRoles,
+    ProfileSetupUtils,
+    LocalStorageSecurity,
+    MinioUtils
+} from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
@@ -9,7 +16,8 @@ import {
     UnitSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
-    previewProfile
+    previewProfile,
+    MinioImageUploadMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
@@ -19,7 +27,7 @@ import AdminConfirmationModal from './AdminConfirmationModal'
 import './../admin-setup.scss'
 import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 
-
+const {uploadImageInMinio} = MinioImageUploadMiddleware
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDepartmentsByHospitalId} = UnitSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
@@ -373,7 +381,10 @@ class AdminAdd extends PureComponent {
             'file',
             new File([adminAvatar], fullName.concat('-picture.jpeg'))
         );
+        let url = await MinioUtils.getPresignedPutUrl(fullName,fullName.concat('-picture.jpeg'))
+
         try {
+            let minioResponse = await uploadImageInMinio(url,formData)
             await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData)
             await this.resetStateValues()
             this.setState({

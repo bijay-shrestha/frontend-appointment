@@ -1,31 +1,53 @@
-import Minio from 'minio'
-import {MINIO_ACCESS_KEY,MINIO_BUCKET,MINIO_ENDPOINT,MINIO_EXPIRY_TIME,MINIO_SECRET_KEY,MINIO_SSL_FLAG,MINIO_PORT} from './EnvironmentVariableGetter'
-const minio = new Minio.Client({
-  endPoint: MINIO_ENDPOINT,
-  port:process.env.NODE_ENV==='production'?'':MINIO_PORT,
-  useSSL: MINIO_SSL_FLAG,
-  accessKey: MINIO_ACCESS_KEY,
-  secretKey: MINIO_SECRET_KEY
+import {
+    MINIO_ACCESS_KEY,
+    MINIO_BUCKET,
+    MINIO_ENDPOINT,
+    MINIO_EXPIRY_TIME,
+    MINIO_PORT,
+    MINIO_SECRET_KEY,
+    MINIO_SSL_FLAG
+} from './EnvironmentVariableGetter'
+
+var Minio = require('minio');
+
+var minio = new Minio.Client({
+    endPoint: "192.168.175",
+    port: 9000,
+    // port: process.env.NODE_ENV === 'production' ? '' : MINIO_PORT,
+    useSSL: false,
+    accessKey: "minioadmin",
+    secretKey: 'minioadmin'
 });
 
+const minioResponse = (url, subDirectory, fileName) => (
+    {
+        url,
+        fileLocation: subDirectory + "/" + fileName
+    })
 
-export const getPresignedPutUrl = async (subDirectory,name) =>{
+export const getPresignedPutUrl = async (subDirectory, fileName) => {
+    console.log("MINIO BUCKET+++++++++", MINIO_BUCKET)
+    console.log("MINIO_BUCKET==========", `${MINIO_BUCKET}`)
     try {
-        const url = await minio.presignedPutObject(`${MINIO_BUCKET}`,`${subDirectory}/${name}`, MINIO_EXPIRY_TIME);
-        console.log("URL", url)
-        return url;
-  } catch (e) {
-    throw e
-  }
-
+        const url = await minio.presignedPutObject("cogent-appointment", `${subDirectory}/${fileName}`, Number(MINIO_EXPIRY_TIME));
+        return minioResponse(url, subDirectory, fileName);
+    } catch (e) {
+        throw e
+    }
 }
 
-export const getPresignedGetUrl = async (subDirectory,name) =>{
-    try{
-        const presignedUrl = await minio.presignedUrl('GET', `${MINIO_BUCKET}`, `${subDirectory}/${name}`, MINIO_EXPIRY_TIME)
-        console.log("Presigned",presignedUrl)
-        return presignedUrl;
-  }catch(e){
-     throw e;
-  }
+export const getPresignedGetUrl = async (fileUri) => {
+    try {
+        return await minio.presignedUrl('GET', MINIO_BUCKET, fileUri, Number(MINIO_EXPIRY_TIME));
+    } catch (e) {
+        throw e
+    }
+}
+
+export const getObjectFromMinio = async (fileUri) => {
+    try {
+        return await minio.getObject(MINIO_BUCKET, fileUri);
+    } catch (e) {
+        throw e
+    }
 }
