@@ -154,18 +154,18 @@ import {
 } from '../reducers'
 
 const {
-    ForgotPasswordReducer,
-    VerificationCodeReducer,
-    ChangePasswordForgotReducer
+  ForgotPasswordReducer,
+  VerificationCodeReducer,
+  ChangePasswordForgotReducer
 } = ForgotPasswordVerification
 const {
-    CompanyAdminDeleteReducer,
-    CompanyAdminEditReducer,
-    CompanyAdminListReducer,
-    CompanyAdminPreviewReducer,
-    CompanyAdminSetupReducer,
-    CompanyAdminMetaInfoReducer,
-    CompanyAdminMetaInfoByCompanyIdReducer
+  CompanyAdminDeleteReducer,
+  CompanyAdminEditReducer,
+  CompanyAdminListReducer,
+  CompanyAdminPreviewReducer,
+  CompanyAdminSetupReducer,
+  CompanyAdminMetaInfoReducer,
+  CompanyAdminMetaInfoByCompanyIdReducer
 } = CompanyAdminReducer
 const appReducers = combineReducers({
     ...AdminApiIntegrationReducers,
@@ -329,8 +329,8 @@ const appReducers = combineReducers({
 })
 
 export const rootReducers = (state, action) => {
-    if (action.type === 'LOCATION_CHANGE') {
-        state = {}
-    }
-    return appReducers(state, action)
+  if (action.type === 'LOCATION_CHANGE') {
+    state = {}
+  }
+  return appReducers(state, action)
 }

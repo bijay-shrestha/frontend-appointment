@@ -803,8 +803,8 @@ const ClientAppointmentStatusHOCByDepartment = (
         hospitalDepartmentId
       } = this.state.searchParameters
 
-      let errorMessageForStatus = '',
-        appointmentStatusDetails = [...this.state.appointmentStatusDetails]
+      let errorMessageForStatus =""
+      let appointmentStatusDetails = [...this.state.appointmentStatusDetails]
 
       if (!appointmentNumber) {
         if (

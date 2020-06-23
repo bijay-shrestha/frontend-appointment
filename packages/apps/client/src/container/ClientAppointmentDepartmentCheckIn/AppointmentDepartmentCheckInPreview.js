@@ -1,6 +1,6 @@
 import React from 'react';
 import {CModal} from "@frontend-appointment/ui-elements";
-import DepartmentApprovalFastCheckInContent from "./AppointmentDepartmentFastCheckInContent";
+import DepartmentApprovalFastCheckInContent from "./AppointmentDepartmentCheckInContent";
 
 const PreviewDepartmentApproval = props => {
     const {showModal, setShowModal, approvalData} = props;
