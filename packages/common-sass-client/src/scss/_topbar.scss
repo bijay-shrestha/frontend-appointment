@@ -63,32 +63,32 @@
 
         }
 
-        .drop-down-list {
+        // .drop-down-list {
 
-            margin: 0;
+        //     margin: 0;
 
-            li {
-                padding       : 10px;
-                border-bottom : 1px solid $cogent-border;
-                height        : 50px;
-                vertical-align: middle;
-                display       : flex;
+        //     li {
+        //         padding       : 10px;
+        //         border-bottom : 1px solid $cogent-border;
+        //         height        : 50px;
+        //         vertical-align: middle;
+        //         display       : flex;
 
-                &:hover {
-                   background-color: lighten($cogent,45%);
-                    color           : $cogent;
-                }
+        //         &:hover {
+        //            background-color: lighten($cogent,45%);
+        //             color           : $cogent;
+        //         }
 
-                &:last-child {
-                    border-bottom: 1px solid transparent;
-                }
-
-
-
-            }
+        //         &:last-child {
+        //             border-bottom: 1px solid transparent;
+        //         }
 
 
-        }
+
+        //     }
+
+
+        // }
 
     }
 
@@ -148,19 +148,7 @@
             display: flex;
             flex-direction: row;
             padding-top:12px;
-            padding-bottom:12px;
-
-            // &:hover,&:focus{
-            //     text-decoration: none;
-
-            //     .menu-box{
-            //         .menu .selected{
-            //             font-weight: 700;
-            //             color:$gray-900;
-            //             display: inline;
-            //           }
-            //     }
-            // }
+            padding-bottom:12px;        
 
             .anchor-icon{
               width:32px;
@@ -205,7 +193,7 @@
     }
 
     .fav-links{
-        margin-top:-8px;
+        // margin-top:-8px;
         margin-right:10px;
         .btn{
             width:40px;
@@ -229,6 +217,50 @@
                 @include border-radius(50%);
             }
         }
+     
+        .menu-link{
+            display: flex;
+            flex-direction: row;
+            padding-top:12px;
+            padding-bottom:12px;        
+
+            .anchor-icon{
+                width:32px;
+                height: 32px;
+                line-height: 28px;
+                text-align: center;
+                flex-shrink: 0;
+                @include border-radius(50%);
+                border:1px solid $gray-100;
+                background-color:$gray-200;
+              }
+
+            .menu-box{
+              margin-left:14px;
+              .menu{
+                font-size:13px;
+                font-weight: 500;
+                color:$gray-800;
+              }
+
+              .sub-menu{
+                font-size:12px;
+                font-weight: 400;
+                color:$gray-700;
+              }
+
+             
+            .selected{
+            font-weight: 700;
+            color:$gray-900;
+            display: inline;
+            }          
+
+             
+            }
+
+          }
+
     }
 
 
@@ -247,9 +279,7 @@
         &>.btn {
 
             // width: 45px;
-        }
-
-       
+        }       
 
         i {
             margin-top: -5px;
