@@ -270,13 +270,14 @@ class CHeader extends Component {
                                              <i className="fa fa-bookmark"></i>
                                         </Button> */}
 
-                    <Dropdown alignRight className="user-profile">
+                    <Dropdown alignRight className="user-profile quick-links">
                       <Dropdown.Toggle variant="default" id="dropdown-basic">
                         <i className="fa fa-bookmark"></i>
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
                         <div className="">
-                          
+                          hello
+                          <a className="btn btn-primary add-fav">Add New</a>
                         </div>
                       <Dropdown.Item
                           // id={"search-dropdown".concat(value.id)}
@@ -284,6 +285,7 @@ class CHeader extends Component {
                           // as={Link}
                           // to={value.path}
                           className="menu-link">
+                          
 
                           <div className="anchor-icon">
                               a
