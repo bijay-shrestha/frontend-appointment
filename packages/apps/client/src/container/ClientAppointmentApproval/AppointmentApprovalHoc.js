@@ -604,6 +604,8 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 } else {
                     this.setState({
                         thirdPartyApiErrorMessage: successResponse.responseMessage,
+                        isConfirming: false,
+                        approveConfirmationModal: false,
                         // THE ALERT TO BE REMOVED AFTER FIXING HOW TO SHOW THIRD PARTY ERROR
                         showAlert: true,
                         alertMessageInfo: {
@@ -617,6 +619,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 this.setState({
                     isConfirming: false,
                     showAlert: true,
+                    approveConfirmationModal: false,
                     alertMessageInfo: {
                         variant: 'danger',
                         message:
