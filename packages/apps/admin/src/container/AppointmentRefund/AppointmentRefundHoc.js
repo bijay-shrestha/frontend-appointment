@@ -467,6 +467,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           data
         )
         this.setState({
+          isConfirming:false,
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
@@ -476,6 +477,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         this.searchAppointment()
       } catch (e) {
         this.setState({
+          isConfirming:false,
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',

@@ -433,7 +433,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
                     data
                 )
+               // this.setShowModal();
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
@@ -442,7 +444,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 })
                 this.searchAppointment()
             } catch (e) {
+               // this.setShowModal();
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -462,8 +466,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 );
                 let refundRejectRequestDTO = this.state.refundRejectRequestDTO;
                 refundRejectRequestDTO['remarks']=''
-                this.setShowModal();
+              
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
@@ -473,8 +478,21 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     refundRejectRequestDTO:refundRejectRequestDTO
                 });
                 this.searchAppointment()
+             
             } catch (e) {
+                this.setState({
+                    isConfirming:false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentRefundRejectReducer
+                            .refundRejectError,
+                    },
+                    refundRejectRequestDTO:refundRejectRequestDTO
+                });
                 console.log(e)
+            }finally{
+                this.setShowModal();
             }
         };
 
