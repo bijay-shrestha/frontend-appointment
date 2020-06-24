@@ -16,7 +16,7 @@ server.get("/presignedUrl", async (req, res) => {
 
 server.get("/getPresignedUrl", async (req, res) => {
     try {
-        const presignedUrl = await client.presignedUrl('GET', configGetter('minio-bucket'),configGetter('minio-expiry'),60)
+        const presignedUrl = await client.presignedUrl('GET', configGetter('minio-bucket'),configGetter('minio-expiry'))
         console.log("Presigned", presignedUrl)
         return res.status(200).send(presignedUrl);
     } catch (e) {
