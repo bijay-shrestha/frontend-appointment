@@ -394,7 +394,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     
     rejectHandleApi = async () =>{
       const {refundDetail} = this.props.AppointmentRefundDetailReducer
-      //const {remarks} = this.state
+      const {remarks} = this.state
       this.setState({
         isConfirming: true
       })
