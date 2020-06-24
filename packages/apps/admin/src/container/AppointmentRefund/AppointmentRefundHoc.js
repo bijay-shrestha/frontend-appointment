@@ -391,7 +391,75 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         })
       }
     }
-
+    
+    rejectHandleApi = async () =>{
+      const {refundDetail} = this.props.AppointmentRefundDetailReducer
+      //const {remarks} = this.state
+      this.setState({
+        isConfirming: true
+      })
+      const {hospitalId, appointmentId, appointmentModeId} = refundDetail
+      let requestDTO
+      try {
+        let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+          hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+          appointmentId
+        )
+        const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
+          {...refundDetail, remarks},
+          IntegrationConstants.apiIntegrationFeatureTypeCodes
+            .APPOINTMENT_REFUND_APPROVAL_CODE,
+          IntegrationConstants.apiIntegrationKey
+            .ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
+          false,
+          hmacCode
+        )
+        requestDTO = {
+          hospitalId: hospitalId,
+          appointmentId: appointmentId,
+          appointmentModeId: appointmentModeId,
+          status: null,
+          remarks: this.state.refundRejectRequestDTO.remarks,
+          ...apiRequestBody
+        }
+        if (!successResponse) {
+          this.rejectSubmitHandler(requestDTO)
+        } else if (
+          successResponse.status &&
+          !successResponse.message &&
+          !successResponse.code
+        ) {
+          requestDTO.status = successResponse.status
+          this.rejectSubmitHandler(requestDTO)
+        } else {
+          this.setState({
+            thirdPartyApiErrorMessage: successResponse.message,
+            isConfirming: false,
+            refundConfirmationModal: false,
+            showAlert: true,
+            alertMessageInfo: {
+              variant: 'danger',
+              message:
+                successResponse.message || 'Could not access third party api.'
+            }
+          })
+        }
+      } catch (e) {
+        this.setState({
+          isConfirming: false,
+          showAlert: true,
+          refundConfirmationModal: false,
+          alertMessageInfo: {
+            variant: 'danger',
+            message:
+              this.props.AppointmentRefundReducer.refundError ||
+              e.message ||
+              e.errorMessage ||
+              'Could not access third party api.'
+          }
+        })
+      }
+    }
     refundAppointment = async data => {
       try {
         await this.props.appointmentRefund(
@@ -419,11 +487,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       }
     }
 
-    rejectSubmitHandler = async () => {
+    rejectSubmitHandler = async (rejectRequestBody) => {
       try {
         await this.props.appointmentRejectRefund(
           appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
-          this.state.refundRejectRequestDTO
+          rejectRequestBody
         )
         this.setShowModal()
         this.setState({
@@ -434,7 +502,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               .refundRejectSuccess
           }
         })
-        this.searchAppointment()
+        this.searchAppointment();
       } catch (e) {
         console.log(e)
       }
@@ -451,6 +519,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     onRejectHandler = async data => {
       this.props.clearAppointmentRefundRejectMessage()
+      await this.previewApiCall()
       let refundReject = {...this.state.refundRejectRequestDTO}
       refundReject['appointmentId'] = data.appointmentId
       await this.setState({
@@ -540,7 +609,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               showModal: showModal,
               previewCall: this.previewCall,
               previewData: refundDetail,
-              rejectSubmitHandler: this.rejectSubmitHandler,
+              rejectSubmitHandler: this.rejectHandleApi,
               refundRejectRemarksHandler: this.refundRejectRemarksHandler,
               onRejectHandler: this.onRejectHandler,
               refundHandler: this.refundHandler,
