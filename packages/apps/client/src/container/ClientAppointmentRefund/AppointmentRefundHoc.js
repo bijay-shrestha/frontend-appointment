@@ -460,14 +460,17 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
                     requestDTO
                 );
+                let refundRejectRequestDTO = this.state.refundRejectRequestDTO;
+                refundRejectRequestDTO['remarks']=''
                 this.setShowModal();
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.AppointmentRefundRejectReducer
-                            .refundRejectSuccess
-                    }
+                            .refundRejectSuccess,
+                    },
+                    refundRejectRequestDTO:refundRejectRequestDTO
                 });
                 this.searchAppointment()
             } catch (e) {
