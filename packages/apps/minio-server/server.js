@@ -32,8 +32,11 @@ server.get("/getPresignedUrl", async (req, res) => {
 })
 
 server.get("/getObjectFromMinio", async (req, res) => {
+    console.log("request================",req.query)
     try {
-        return await minio.getObject("test-sabu", req.query.fileUri);
+        let res = await client.getObject("test-sabu", req.query.fileUri);
+        console.log("Response=============",res);
+        return res;
     } catch (e) {
         throw e
     }

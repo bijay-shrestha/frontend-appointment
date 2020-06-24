@@ -12,6 +12,7 @@ import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appoin
 import './DoctorHoc.scss'
 import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import axios from 'axios'
+import {MinioResource} from '@frontend-appointment/minio-client'
 
 const {
     clearConsultantCreateMessage,
@@ -509,16 +510,6 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             } else {
                 doctorImage.doctorAvatarUrl = croppedImage;
             }
-            // try {
-            //     let url = axios.get(`http://localhost:8080/presignedUrl?name=${doctorImage.doctorAvatar.name}`);
-            //     axios.put(url, new File(
-            //         [croppedImageFile],
-            //         'doctorAvatar.jpeg'
-            //     ))
-            //
-            // } catch (e) {
-            //
-            // }
             await this.setState({
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
