@@ -508,6 +508,34 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             } else {
                 doctorImage.doctorAvatarUrl = croppedImage;
             }
+
+            fetch(`http://localhost:8080/presignedUrl?name=${"doctorAvatar.jpeg"}`)
+                .then(response => {
+                    console.log("response", response);
+                    response.text().then(url => {
+                        fetch(url, {
+                            method: "PUT",
+                            body: doctorImage.doctorAvatar
+                        })
+                            .then((res) => {
+                                console.log("UPLOADED")
+                                // If multiple files are uploaded, append upload status on the next line.
+                                fetch(`http://localhost:8080/getPresignedUrl?name=${"doctorAvatar.jpeg"}`)
+                                    .then((url) => {
+                                        console.log("GET URL", url);
+                                    })
+                                    .catch(e => {
+                                        console.error(e);
+                                    });
+                            })
+                            .catch(e => {
+                                console.error(e);
+                            });
+                    });
+                })
+                .catch(e => {
+                    console.error(e);
+                });
             await this.setState({
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
@@ -580,7 +608,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             } = this.state.consultantData;
 
             let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
-                originalSalutations, salutations, 'salutation', 'doctorSalutationId','N')]
+                originalSalutations, salutations, 'salutation', 'doctorSalutationId', 'N')]
 
             let formData = new FormData();
             if (doctorAvatarUrlNew !== '')
