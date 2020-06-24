@@ -1,11 +1,11 @@
 import {
-    MINIO_ACCESS_KEY,
     MINIO_BUCKET,
-    MINIO_ENDPOINT,
     MINIO_EXPIRY_TIME,
-    MINIO_PORT,
-    MINIO_SECRET_KEY,
-    MINIO_SSL_FLAG
+    // MINIO_ENDPOINT,
+    // MINIO_PORT,
+    // MINIO_ACCESS_KEY,
+    // MINIO_SECRET_KEY,
+    // MINIO_SSL_FLAG
 } from './EnvironmentVariableGetter'
 
 var Minio = require('minio');
