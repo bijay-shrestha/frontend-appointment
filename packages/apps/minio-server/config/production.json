@@ -1,0 +1,9 @@
+{
+    "minio-access-key":"minioadmin",
+    "minio-secret-key":"minioadmin",
+    "minio-bucket":"cogent-appointment",
+    "minio-endpoint":"localhost",
+    "minio-use-ssl":"true",
+    "minio-port":9000,
+    "minio-expirty":180
+}
