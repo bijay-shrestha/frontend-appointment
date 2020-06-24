@@ -19,7 +19,8 @@
     "@frontend-appointment/commons": "1.0.0",
     "@frontend-appointment/thunk-middleware": "1.0.0",
     "@frontend-appointment/web-resource-key-constants":"1.0.0",
-    "@frontend-appointment/helpers": "1.0.0"
+    "@frontend-appointment/helpers": "1.0.0",
+    "@frontend-appointment/minio-client": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

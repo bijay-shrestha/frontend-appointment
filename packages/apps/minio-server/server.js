@@ -26,7 +26,7 @@ server.get("/getPresignedUrl", async (req, res) => {
 
 server.get("/getObjectFromMinio", async (req, res) => {
     try {
-        return await minio.getObject(configGetter('minio-bucket'), req.query.fileUri);
+        return await client.getObject(configGetter('minio-bucket'), req.query.fileUri);
     } catch (e) {
         throw e
     }

@@ -1,5 +1,5 @@
 {
-  "name": "minio-server",
+  "name": "@frontend-appointment/minio-server",
   "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
