@@ -317,13 +317,13 @@
             }
         }
 
-        &:hover {
-            .btn {
-                color: $primary;
-                background-color: #fff;
-                @include border-radius(50%);
-            }
-        }
+        // &:hover {
+        //     .btn {
+        //         color: $primary;
+        //         background-color: #fff;
+        //         @include border-radius(50%);
+        //     }
+        // }
     }
 
     .quick-links {
@@ -495,7 +495,7 @@
    .modal-content .modal-body{
        padding-top:15px;
    }
-   
+
     #fav-search {
         padding-bottom:14px;
         border-bottom:1px solid $gray-100;
