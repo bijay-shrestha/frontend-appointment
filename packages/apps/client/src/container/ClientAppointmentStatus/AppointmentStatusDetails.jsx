@@ -56,6 +56,7 @@ const AppointmentStatusDetails = ({
                     appointmentStatus.value === 'F' ? (
                       <div>
                         <i className="fa fa-tag" />
+                        <div className="status-legend">
                         <a
                           href="!#"
                           className={
@@ -70,14 +71,17 @@ const AppointmentStatusDetails = ({
                             )
                           }
                         >
-                          Follow Up
+                          Follow Up                          
                         </a>
+                        <span>45</span>
+                        </div>
                       </div>
                     ) : (
                       <div>
                         <Badge variant={appointmentStatus.variant}>
                           &nbsp;
                         </Badge>
+                        <div className="status-legend">
                         <a
                           href="!#"
                           className={
@@ -94,6 +98,8 @@ const AppointmentStatusDetails = ({
                         >
                           {appointmentStatus.label}
                         </a>
+                        <span>366</span>
+                        </div>
                       </div>
                     )
                   )}
