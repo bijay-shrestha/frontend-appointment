@@ -386,5 +386,6 @@ export const billingModeApiConstants = {
 
 const APPOINTMENT_SERVICE_TYPE_BASE = "/appointmentServiceType";
 export const appointmentServiceTypeApiConstants = {
-    FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/active/min"))
+    FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/active/min")),
+    FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/name/code"))
 };

@@ -39,7 +39,11 @@ class AppointmentLogListSearchFilter extends PureComponent {
       activeSpecializationList,
       //specializationDropdownErrorMessage,
       searchParameters,
-      patientListDropdown
+      patientListDropdown,
+      // isFetchAppointmentServiceTypeLoading,
+      isFetchAppointmentServiceTypeWithCodeLoading,
+      activeAppointmentServiceTypeWithCodeForDropdown,
+      dropdownWithCodeErrorMessage
       //patientDropdownErrorMessage
     } = searchHandler
 
@@ -64,6 +68,40 @@ class AppointmentLogListSearchFilter extends PureComponent {
             <CForm id="" className=" mt-4">
               <Container-fluid>
                 <Row>
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="appointmentServiceTypeCode"
+                      label="Appointment Service Type"
+                      name="appointmentServiceTypeCode"
+                      onKeyDown={event => handleEnter(event)}
+                      options={
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? activeAppointmentServiceTypeWithCodeForDropdown.map(
+                              service => ({
+                                value: service.code,
+                                label: service.name
+                              })
+                            )
+                          : []
+                      }
+                      value={searchParameters.appointmentServiceTypeCode}
+                      isDisabled={
+                        activeAppointmentServiceTypeWithCodeForDropdown &&
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? false
+                          : true
+                      }
+                      onChange={handleSearchFormChange}
+                      onEnter={handleEnter}
+                      placeholder={
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? 'Select Appointment Service Type'
+                          : isFetchAppointmentServiceTypeWithCodeLoading
+                          ? 'Loading...'
+                          : dropdownWithCodeErrorMessage
+                      }
+                    />
+                  </Col>
                   <Col sm={12} md={6} xl={4}>
                     <div className="d-flex">
                       <CEnglishDatePicker
@@ -425,6 +463,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
               {/*        </OverlayTrigger>*/}
               {/*    </li>*/}
               {/*)}*/}
+
+              {searchParameters.appointmentServiceTypeCode && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Appointment Service Type</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.appointmentServiceTypeCode.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
               {searchParameters.patienMetaInfoId && (
                 <li>
                   <OverlayTrigger
