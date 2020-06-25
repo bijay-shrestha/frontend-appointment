@@ -372,7 +372,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               variant: 'danger',
               message:
                 successResponse.message || 'Could not access third party api.'
-            }
+            },
+            remarks:''
           })
         }
       } catch (e) {
@@ -386,7 +387,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               this.props.AppointmentRefundReducer.refundError ||
               e.message ||
               e.errorMessage ||
-              'Could not access third party api.'
+              'Could not access third party api.',
+          remarks:''    
           }
         })
       }
@@ -503,18 +505,29 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
           rejectRequestBody
         )
-        this.setShowModal()
+        let refundRejectRequestDTO = {...this.state.refundRejectRequestDTO}
+        refundRejectRequestDTO.remarks=""
         this.setState({
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
             message: this.props.AppointmentRefundRejectReducer
               .refundRejectSuccess
-          }
+          },
+          refundRejectRequestDTO:refundRejectRequestDTO
         })
         this.searchAppointment();
       } catch (e) {
-        console.log(e)
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.AppointmentRefundRejectReducer
+              .refundRejectError
+          }
+        })
+      }finally{
+        this.setShowModal()
       }
     }
 
