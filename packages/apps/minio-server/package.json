@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server",
-    "build": "nexe --build"
+    "build": "nexe -i server.js -o server.bin -r 0.10.3"
   },
   "dependencies": {
     "config": "^3.3.1",
