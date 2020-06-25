@@ -2,11 +2,12 @@ const server = require("express")();
 
 const client = require('./startup/MinioClient')()
 
-const configGetter =require('./utils/MinioConfigGetter')
+const configGetter = require('./utils/MinioConfigGetter')
 
 server.get("/presignedUrl", async (req, res) => {
     try {
-        const url = await client.presignedPutObject(configGetter('minio-bucket'), req.query.name,configGetter('minio-expiry'));
+        const url = await client.presignedPutObject(configGetter('minio-bucket'), req.query.name,
+            configGetter('minio-expiry'));
         console.log("URL", url)
         return res.status(200).send(url);
     } catch (e) {
@@ -16,7 +17,8 @@ server.get("/presignedUrl", async (req, res) => {
 
 server.get("/getPresignedUrl", async (req, res) => {
     try {
-        const presignedUrl = await client.presignedUrl('GET', configGetter('minio-bucket'),configGetter('minio-expiry'),60)
+        const presignedUrl = await client.presignedUrl('GET', configGetter('minio-bucket'), req.query.name,
+            configGetter('minio-expiry'))
         console.log("Presigned", presignedUrl)
         return res.status(200).send(presignedUrl);
     } catch (e) {
