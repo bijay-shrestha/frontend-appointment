@@ -521,7 +521,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     onRejectHandler = async data => {
       this.props.clearAppointmentRefundRejectMessage()
-      await this.previewApiCall()
+      await this.previewApiCall(data.appointmentId)
       let refundReject = {...this.state.refundRejectRequestDTO}
       refundReject['appointmentId'] = data.appointmentId
       await this.setState({
