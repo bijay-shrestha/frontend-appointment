@@ -132,7 +132,7 @@ class CBreadcrumb extends PureComponent {
         <Breadcrumb.Item
             {...this.getBreadcrumbItemProps(breadcrumb, index)}
         >
-            {index === 0 ? <i className="fa fa-home"/> : ''} {breadcrumb.name}
+            {index === 0 ? <i className="fa fa-home"/> :''}{breadcrumb.name}
         </Breadcrumb.Item>;
 
     render() {

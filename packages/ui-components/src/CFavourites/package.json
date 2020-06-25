@@ -1,0 +1,8 @@
+{
+  "name": "@frontend-appointement/c-favourites",
+  "version": "1.0.0",
+  "main": "CFavourites.js",
+  "author": "Sudin Shakya",
+  "license": "MIT",
+  "private": true
+}

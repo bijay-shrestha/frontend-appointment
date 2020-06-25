@@ -66,3 +66,4 @@ export {default as PatientNameWithAgeGenderPhoneAddress} from './src/PatientName
 export {default as RoomNumberForTable} from './src/RoomNumberForTable'
 export {default as CPageOverlayLoader} from './src/CPageOverlayLoader'
 export {default as DepartmentNameWithRoomNumber} from './src/DepartmentNameWithRoomNumber'
+export {default as CFavourites} from './src/CFavourites';

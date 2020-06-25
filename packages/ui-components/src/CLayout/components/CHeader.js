@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Dropdown, Image, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { Button, Dropdown, Image, OverlayTrigger, Tooltip, Form, InputGroup } from 'react-bootstrap'
 import { Axios } from '@frontend-appointment/core'
 import { CAlert, CBreadcrumb, CDoubleShiftSearch } from '@frontend-appointment/ui-elements'
+import {CFavourites} from '@frontend-appointment/ui-components'
+
 import { AdminModuleAPIConstants, CommonAPIConstants } from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
 import {
@@ -258,49 +260,12 @@ class CHeader extends Component {
               <CDoubleShiftSearch />
 
               {/* end search */}
-              {/* <div className="fav-links" onClick={this.handleQuickLinkClick}> */}
+
               <div className="fav-links" >
-                <OverlayTrigger
-                  trigger={'hover'}
-                  placement="top"
-                  overlay={
-                    <Tooltip id="tooltip-disabled">Quick Check-In</Tooltip>}>
-                  <span className="d-inline-block">
-                    {/* <Button style={{pointerEvents: 'none'}} variant="outline-primary">
-                                             <i className="fa fa-bookmark"></i>
-                                        </Button> */}
-
-                    <Dropdown alignRight className="user-profile quick-links">
-                      <Dropdown.Toggle variant="default" id="dropdown-basic">
-                        <i className="fa fa-bookmark"></i>
-                      </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <div className="">
-                          hello
-                          <a className="btn btn-primary add-fav">Add New</a>
-                        </div>
-                      <Dropdown.Item
-                          // id={"search-dropdown".concat(value.id)}
-                          // key={'menu-li' + value.id}
-                          // as={Link}
-                          // to={value.path}
-                          className="menu-link">
-                          
-
-                          <div className="anchor-icon">
-                              a
-                          </div>
-                          <div className="menu-box">
-                              <div className="menu">Doctor Checkcin</div>
-                          </div>
-                      </Dropdown.Item>
-
-                      </Dropdown.Menu>
-                    </Dropdown>
-
-                  </span>
-                </OverlayTrigger>
+                    <CFavourites/>
               </div>
+
+
 
               {/* start user profile */}
               <Dropdown alignRight className="user-profile">
@@ -392,12 +357,11 @@ class CHeader extends Component {
               </Dropdown>
               {/* end user profile */}
             </div>
-          </header>
-
-          <div className="container-fluid d-flex  ">
-
-          </div>
+          </header>     
         </div>
+      
+  
+      
         {/* <!--end header-wrapper--> */}
         {this.state.showProfileDetailModal ? (
           EnvironmentVariableGetter.REACT_APP_MODULE_CODE ===
