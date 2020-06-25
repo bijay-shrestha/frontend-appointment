@@ -2,7 +2,7 @@ import Axios from 'axios';
 
 export const getPresignedUrlForPutOperation = async (fileName) => {
     try {
-        let presignedUrl = await Axios.get(`http://localhost:8080/presignedUrl?name=${file}`)
+        let presignedUrl = await Axios.get(`http://localhost:8080/presignedUrl?name=${fileName}`)
         return presignedUrl;
     }catch (e) {
         console.log("PRESIGNED PUT ERROR:::::::",e)
