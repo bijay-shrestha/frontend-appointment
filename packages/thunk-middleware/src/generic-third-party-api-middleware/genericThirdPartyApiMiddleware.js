@@ -1,6 +1,6 @@
 import {APIUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
-
+import {fetchHmacTokenByAppointmentId} from '../hmac-middleware/hmacMiddleware';
 export const genericThirdPartyApiCall = async (data,
                                                featureTypeCode,
                                                integrationType,
@@ -8,7 +8,7 @@ export const genericThirdPartyApiCall = async (data,
                                                constructedData,
                                                pathVariablePattern,
                                                pathVariableValue,
-                                               hmacCode) => {
+                                               hmacPath) => {
 
     let currentFeatureApiIntegrationDetails = integrationType.substring(0, 3) === "e-c" ?
         APIUtils.getCurrentClientFeatureApiIntegrationDetails(integrationType, featureTypeCode, clientId) :
@@ -18,7 +18,7 @@ export const genericThirdPartyApiCall = async (data,
             data.appointmentModeId,
             pathVariablePattern,
             pathVariableValue,
-            hmacCode,
+            hmacPath,
             clientId)
 
     let apiRequestBody = {
@@ -30,13 +30,15 @@ export const genericThirdPartyApiCall = async (data,
     if (currentFeatureApiIntegrationDetails &&
         APIUtils.checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
         /********************************* CONSTRUCT AND EXECUTE API ***************************************************/
-        const option = APIUtils.constructApiFromEcIntegration(
+        let option = APIUtils.constructApiFromEcIntegration(
             featureTypeCode,
             currentFeatureApiIntegrationDetails,
             constructedData)
         let response = null;
         try {
             if (option) {
+                const hmacCode=await fetchHmacTokenByAppointmentId(hmacPath,constructedData.appointmentId)
+                option.requestOption.headers=hmacCode;
                 response = await Axios.dynamicMethod(option.requestOption)
                 return {successResponse: response.data, apiRequestBody};
             }

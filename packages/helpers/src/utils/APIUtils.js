@@ -141,7 +141,7 @@ export const getCurrentAppointmentModeFeatureApiIntegrationDetails = (integratio
                                                                       appointmentModeId,
                                                                       pathVariablePattern,
                                                                       pathVariableValue,
-                                                                      hmacCode,
+                                                                      hmacPath,
                                                                       clientId) => {
     let isClientModule = REACT_APP_MODULE_CODE === CLIENT_MODULE_CODE;
     let currentFeatureApiIntegrationDetails
@@ -160,7 +160,7 @@ export const getCurrentAppointmentModeFeatureApiIntegrationDetails = (integratio
     }
     if (currentFeatureApiIntegrationDetails && checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
         let apiUrl = currentFeatureApiIntegrationDetails.apiInfo.url;
-        currentFeatureApiIntegrationDetails.apiInfo.headers.signature = hmacCode;
+        //currentFeatureApiIntegrationDetails.apiInfo.headers.signature = hmacCode;
         currentFeatureApiIntegrationDetails.apiInfo.url = apiUrl ?
             findIfUrlContainsPathVariableAndReplaceWithValue(apiUrl, pathVariablePattern, pathVariableValue) : apiUrl
     }

@@ -69,7 +69,7 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacCode) => {
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacApi) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
     const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund);
     try {
@@ -81,7 +81,7 @@ export const thirdPartyApiCallRefund = async (data, featureTypeCode, integration
             constructedData,
             "%s",
             data.transactionNumber,
-            hmacCode);
+            hmacApi);
     } catch (e) {
         throw e
     }

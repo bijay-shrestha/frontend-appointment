@@ -332,10 +332,10 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       const {hospitalId, appointmentId, appointmentModeId} = refundDetail
       let requestDTO
       try {
-        let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-          hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-          appointmentId
-        )
+        // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+        //   hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+        //   appointmentId
+        // )
         const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
           {...refundDetail, remarks},
           IntegrationConstants.apiIntegrationFeatureTypeCodes
@@ -343,7 +343,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           IntegrationConstants.apiIntegrationKey
             .ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
           true,
-          hmacCode
+          hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
           hospitalId: hospitalId,
@@ -401,10 +401,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       const {hospitalId, appointmentId, appointmentModeId} = refundDetail
       let requestDTO
       try {
-        let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-          hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-          appointmentId
-        )
+        // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+        //   hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+        //   appointmentId
+        // )
+
         const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
           {...refundDetail, remarks},
           IntegrationConstants.apiIntegrationFeatureTypeCodes
@@ -412,7 +413,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           IntegrationConstants.apiIntegrationKey
             .ALL_APPOINTMENT_MODE_FEATURE_INTEGRATION,
           false,
-          hmacCode
+          //hmacCode,
+          hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
           hospitalId: hospitalId,
@@ -423,12 +425,18 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           ...apiRequestBody
         }
         if (!successResponse) {
+          // await this.setState({
+          //   rejectModalShow: true
+          // })
           this.rejectSubmitHandler(requestDTO)
         } else if (
           successResponse.status &&
           !successResponse.message &&
           !successResponse.code
         ) {
+          // await this.setState({
+          //   rejectModalShow: true
+          // })
           requestDTO.status = successResponse.status
           this.rejectSubmitHandler(requestDTO)
         } else {
