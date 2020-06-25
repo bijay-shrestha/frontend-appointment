@@ -4,14 +4,12 @@ import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware,
-    SalutationMiddleware
+    SalutationMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
-import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import axios from 'axios'
 import {MinioResource} from '@frontend-appointment/minio-client'
 
 const {
@@ -310,6 +308,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        uploadImageToServer = () => {
+
+        }
+
         previewApiCall = async id => {
             await this.props.previewConsultant(
                 doctorSetupApiConstants.FETCH_DOCTOR,
@@ -510,6 +512,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             } else {
                 doctorImage.doctorAvatarUrl = croppedImage;
             }
+            // await MinioResource.uploadFileToMinioServerAtGivenLocation(new File(
+            //     [croppedImageFile],
+            //     'doctor.jpeg'
+            // ),"client/test/doctor")
             await this.setState({
                 consultantData: {...doctorImage},
                 showImageUploadModal: false
@@ -720,6 +726,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             await this.props.fetchActiveDoctorsForDropdown(
                 doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_HOSPITAL_WISE_FOR_DROPDOWN);
         };
+
         fetchSalutation = async () =>
             await this.props.fetchSalutationForDropdown(CommonAPIConstants.SalutationApiConstants.FETCH_SALUTATION_FOR_DROPDOWN)
 
