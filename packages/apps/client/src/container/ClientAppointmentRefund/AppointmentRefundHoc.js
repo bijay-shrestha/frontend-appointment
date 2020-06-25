@@ -488,7 +488,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                         message: this.props.AppointmentRefundRejectReducer
                             .refundRejectError,
                     },
-                    refundRejectRequestDTO:refundRejectRequestDTO
+                    refundRejectRequestDTO:this.state.refundRejectRequestDTO
                 });
                 console.log(e)
             }finally{
