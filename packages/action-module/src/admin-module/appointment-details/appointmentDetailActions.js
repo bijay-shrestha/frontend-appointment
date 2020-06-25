@@ -182,7 +182,7 @@ export const appointmentRefundRejectError = message => {
   return {
     type: REFUND_REJECT_ERROR,
     payload: {
-      data: message
+      message: message
     }
   }
 }
@@ -204,7 +204,7 @@ export const appointmentRefundError = message => {
   return {
     type: REFUND_ERROR,
     payload: {
-      data: message
+      message: message
     }
   }
 }

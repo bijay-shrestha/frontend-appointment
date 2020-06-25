@@ -276,7 +276,7 @@ export const AppointmentRefundRejectReducer = (
       return {
         ...state,
         refundRejectSuccess: '',
-        refundRejectError: action.payload.data.message,
+        refundRejectError: action.payload.message,
         isRefundRejectLoading: true
       }
     case 'CLEAR_REFUND_REJECT_MESSAGE':
@@ -310,7 +310,7 @@ export const AppointmentRefundReducer = (state = {...refundState}, action) => {
       return {
         ...state,
         refundSuccess: '',
-        refundError: action.payload.data,
+        refundError: action.payload.message,
         isRefundLoading: false
       }
     case 'CLEAR_REFUND_MESSAGE':

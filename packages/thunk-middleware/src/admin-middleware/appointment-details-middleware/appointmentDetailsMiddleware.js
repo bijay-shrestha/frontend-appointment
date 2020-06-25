@@ -223,7 +223,7 @@ export const appointmentRejectRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectError(
-                e.errorMessage || 'Sorry Internal Server Problem'
+                e.errorMessage||e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -241,7 +241,7 @@ export const appointmentRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
+                e.errorMessage ||e.message||'Sorry Internal Server Problem'
             )
         )
         throw e

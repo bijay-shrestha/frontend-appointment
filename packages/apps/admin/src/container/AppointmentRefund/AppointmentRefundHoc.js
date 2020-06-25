@@ -470,6 +470,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         })
       }
     }
+
     refundAppointment = async data => {
       try {
         await this.props.appointmentRefund(
@@ -482,7 +483,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           alertMessageInfo: {
             variant: 'success',
             message: this.props.AppointmentRefundReducer.refundSuccess
-          }
+          },
+          remarks:''
         })
         this.searchAppointment()
       } catch (e) {
@@ -492,7 +494,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           alertMessageInfo: {
             variant: 'danger',
             message: this.props.AppointmentRefundReducer.refundError
-          }
+          },
+          remarks:''
         })
       } finally {
         this.setShowModal()
@@ -500,14 +503,17 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     }
 
     rejectSubmitHandler = async (rejectRequestBody) => {
+      let refundRejectRequestDTO = {...this.state.refundRejectRequestDTO}
+      refundRejectRequestDTO.remarks=""
       try {
         await this.props.appointmentRejectRefund(
           appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
           rejectRequestBody
         )
-        let refundRejectRequestDTO = {...this.state.refundRejectRequestDTO}
-        refundRejectRequestDTO.remarks=""
+      
+       
         this.setState({
+          isConfirming:false,
           showAlert: true,
           alertMessageInfo: {
             variant: 'success',
@@ -519,12 +525,14 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         this.searchAppointment();
       } catch (e) {
         this.setState({
+          isConfirming:false,
           showAlert: true,
           alertMessageInfo: {
             variant: 'danger',
             message: this.props.AppointmentRefundRejectReducer
               .refundRejectError
-          }
+          },
+          refundRejectRequestDTO:refundRejectRequestDTO
         })
       }finally{
         this.setShowModal()
@@ -638,6 +646,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
               refundHandler: this.refundHandler,
               refundHandleApi: this.refundHandleApi,
               refundRejectError: refundRejectError,
+              isRejectLoading:isConfirming,
               isRefundLoading: isConfirming,
               refundConfirmationModal: refundConfirmationModal,
               rejectModalShow: rejectModalShow,
