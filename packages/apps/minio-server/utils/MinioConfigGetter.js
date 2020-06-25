@@ -3,7 +3,7 @@ const config = require('config')
 module.exports = function (name) {
     const getConfig = config.get(name)
    if(getConfig){
-     console.log(name, " : ",`` getConfig)
+     console.log(name, " : ", getConfig)
      return getConfig
    } 
    throw new Error("Environmental Variable " + name +
