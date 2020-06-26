@@ -1,6 +1,7 @@
 import {APIUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
 import {fetchHmacTokenByAppointmentId} from '../hmac-middleware/hmacMiddleware';
+
 export const genericThirdPartyApiCall = async (data,
                                                featureTypeCode,
                                                integrationType,
@@ -37,8 +38,8 @@ export const genericThirdPartyApiCall = async (data,
         let response = null;
         try {
             if (option) {
-                const hmacCode=await fetchHmacTokenByAppointmentId(hmacPath,constructedData.appointmentId)
-                option.requestOption.headers=hmacCode;
+                const hmacCode = await fetchHmacTokenByAppointmentId(hmacPath, constructedData.properties.appointmentId)
+                option.requestOption.headers = hmacCode;
                 response = await Axios.dynamicMethod(option.requestOption)
                 return {successResponse: response.data, apiRequestBody};
             }
