@@ -103,7 +103,7 @@ const DepartmentWiseQuickCheckInComponent = loadable(
     {fallback: () => getLoader()}
 )
 
-const  DepartmentCheckInComponent = loadable(
+const DepartmentCheckInComponent = loadable(
     () => import('./container/ClientAppointmentDepartmentCheckIn/AppointmentDepartmentCheckin'),
     {fallback: () => getLoader()}
 )
@@ -525,16 +525,6 @@ export const routes = [
         isSingleTab: true
     },
     {
-        path: '/appointment/appointmentStatus',
-        component: AppointmentStatusComponent,
-        icon: '',
-        hasTab: false,
-        isLink: true,
-        isTab: false,
-        name: 'Appointment Status',
-        isSingleTab: true
-    },
-    {
         path: '/appointment',
         component: <></>,
         icon: '',
@@ -727,13 +717,33 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/appointment/appointmentStatusByDepartment',
-        name: 'Department Appointment Status',
-        component:DepartmentStatusComponent,
+        path: '/appointment/status',
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab: true
-    }
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/status/doctor',
+        component: AppointmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/status/department',
+        component: DepartmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Appointment Status',
+        isSingleTab: false
+    },
 ]
