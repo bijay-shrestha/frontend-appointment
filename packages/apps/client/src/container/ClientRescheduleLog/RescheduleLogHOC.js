@@ -340,9 +340,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           doctorName: rescheduleData.doctorName || 'N/A',
           esewaId: rescheduleData.esewaId || 'N/A',
           mobileNumber: rescheduleData.mobileNumber || 'N/A',
-          patientAge: rescheduleData.patientAge || 'N/A',
+          patientAge: rescheduleData.age || 'N/A',
           age:
-            rescheduleData.patientAge && rescheduleData.patientAge.slice(0, 4),
+            rescheduleData.age && rescheduleData.age.slice(0, 4),
           patientGender: rescheduleData.patientGender || 'N/A',
           gender:
             rescheduleData.patientGender &&
