@@ -6,9 +6,9 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {checkDashboardRole, DateTimeFormatterUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {checkDashboardRole, DateTimeFormatterUtils, LocalStorageSecurity,CommonUtils} from '@frontend-appointment/helpers'
 import {CNoDashboardRoleContent} from '@frontend-appointment/ui-components'
-
+const {getPrimaryServiceType} =CommonUtils
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {
     fetchDashboardAppointmentStatisticsList,
@@ -41,18 +41,23 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
                 currentToDate: new Date(),
                 currentFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 0),
                 previousToDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
-                previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1)
+                previousFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
+                appointmentServiceTypeCode:getPrimaryServiceType()
             },
             searchParamsForOverallAppoinment: {
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
-                toDate: new Date()
+                toDate: new Date(),
+                appointmentServiceTypeCode:getPrimaryServiceType()
             },
             searchParameterForRevenueTrend: {
                 revFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 6),
-                revToDate: new Date()
+                revToDate: new Date(),
+                appointmentServiceTypeCode:getPrimaryServiceType()
             },
             appointmentQueue: {
+                appointmentServiceTypeCode:getPrimaryServiceType(),
                 doctorId: '',
+                hospitalDepartmentId:'',
                 date: new Date()
             },
             revenueFilter: 'W',
