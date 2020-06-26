@@ -8,7 +8,12 @@ import {
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
+import {
+    EnterKeyPressUtils,
+    FileUploadLocationUtils,
+    LocalStorageSecurity,
+    MultiSelectOptionUpdateUtils
+} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
 import {MinioResource} from '@frontend-appointment/minio-client'
 
@@ -258,13 +263,17 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds,
                 salutations
             } = this.state.consultantData;
-            let formData = new FormData();
-            doctorAvatar &&
-            formData.append(
-                'avatar',
-                new File([doctorAvatar], name.concat('-picture.jpeg'))
-            );
+            // let formData = new FormData();
+            // doctorAvatar &&
+            // formData.append(
+            //     'avatar',
+            //     new File([doctorAvatar], name.concat('-picture.jpeg'))
+            // );
+            let imagePath = '';
             try {
+                if (doctorAvatar) {
+                    imagePath = await this.uploadImageToServer();
+                }
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
                     {
@@ -282,11 +291,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         qualificationIds: this.getOnlyValueFromMultipleSelectList(
                             qualificationIds
                         ),
-                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : []
-                    },
-                    formData
+                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : [],
+                        avatar: imagePath
+                    }
                 );
-
                 await this.setShowConfirmModal();
                 this.resetConsultantStateValues();
                 this.setState({
@@ -308,7 +316,18 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             }
         };
 
-        uploadImageToServer = () => {
+        uploadImageToServer = async () => {
+            const {
+                doctorAvatar,
+                name,
+                nmcNumber
+            } = this.state.consultantData;
+
+            let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+            let fileToUpload = new File([doctorAvatar], (name + new Date().getTime()).concat('.jpeg'))
+
+            return await MinioResource.uploadFileToMinioServerAtGivenLocation(fileToUpload,
+                FileUploadLocationUtils.getLocationPathForDoctorFileUpload(adminInfo.hospitalCode, nmcNumber))
 
         }
 
@@ -579,7 +598,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newSpecializationList,
                 newQualificationList,
                 qualificationIds,
-                doctorAvatar,
+                doctorAvatarUrl,
                 appointmentCharge,
                 appointmentFollowUpCharge,
                 doctorAvatarUrlNew,
@@ -590,12 +609,16 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
                 originalSalutations, salutations, 'salutation', 'doctorSalutationId', 'N')]
 
-            let formData = new FormData();
+            // let formData = new FormData();
+            // if (doctorAvatarUrlNew !== '')
+            //     formData.append(
+            //         'avatar',
+            //         new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
+            //     );
+
+            let updatedFilePath = '';
             if (doctorAvatarUrlNew !== '')
-                formData.append(
-                    'avatar',
-                    new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
-                );
+                updatedFilePath = await this.uploadImageToServer();
             try {
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
@@ -611,13 +634,13 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             remarks,
                             email,
                             id,
+                            avatar: doctorAvatarUrlNew ? updatedFilePath : doctorAvatarUrl,
                             isAvatarUpdate: doctorAvatarUrlNew ? 'Y' : 'N',
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
                         doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : []
-                    },
-                    formData
+                    }
                 );
                 this.resetConsultantStateValues();
                 this.setShowModal();
@@ -793,7 +816,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
             const {deleteErrorMessage} = this.props.DoctorDeleteReducer
 
-            const {activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer
+            const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
 
             const {
                 activeSpecializationListByHospital
@@ -863,7 +886,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     handleCropImage={this.handleCropImage}
                     handleImageUpload={this.handleImageUpload}
                     setImageShow={this.setImageShowModal}
-                    doctorsForDropdown={activeDoctorsByHospitalForDropdown}
+                    doctorsForDropdown={activeDoctorsForDropdown}
                     qualificationDropdown={qualificationsForDropdown}
                     activeSpecializationList={activeSpecializationListByHospital}
                     appointmentChargeValid={appointmentChargeValid}

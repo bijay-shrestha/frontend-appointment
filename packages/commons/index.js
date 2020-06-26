@@ -13,6 +13,8 @@ export {default as AuditableEntityHoc} from './src/AuditableEntityHoc/AuditableE
 export {default as ErrorBoundaryHoc} from './src/ErrorBoundaryHoc';
 export {default as AppointmentCheckInPrint} from './src/AppointmentCheckInPrint';
 export {default as PrintableComponent} from './src/PrintableComponent';
+export {default as ImageGetterHOCForTableComponents} from './src/ImageGetterHOC/ImageGetterHOCForTableComponents';
+export {default as ImageGetterHOC} from './src/ImageGetterHOC/ImageGetterHOC';
 export {
     ApiError,
     LoginHoc,

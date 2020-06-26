@@ -13,7 +13,7 @@
     "admin": "yarn workspace @frontend-appointment/admin start",
     "client": "yarn workspace @frontend-appointment/client start",
     "build": "yarn build:admin && yarn build:client",
-    "minio": "cd packages/apps/minio-server && node server.js",
+    "minio": "cd packages/apps/minio-server && nodemon server.js",
     "minio:build": "cd packages/apps/minio-server && yarn build"
   },
   "workspaces": {
@@ -64,6 +64,7 @@
     "chalk": "^2.4.2",
     "chart.js": "^2.9.3",
     "check-prop-types": "^1.1.2",
+    "compression": "^1.7.4",
     "concurrently": "^5.0.2",
     "datalist-polyfill": "^1.24.1",
     "dotenv": "^8.0.0",
@@ -100,6 +101,7 @@
     "moxios": "^0.4.0",
     "nexe": "^3.3.3",
     "node-sass": "^4.12.0",
+    "nodemon": "^2.0.4",
     "npm": "^6.14.4",
     "prettier": "^1.16.1",
     "pretty-format": "^24.8.0",

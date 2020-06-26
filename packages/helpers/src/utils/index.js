@@ -12,6 +12,7 @@ import * as RolesUtils from '../utils/RolesUtils';
 import * as EnvironmentVariableGetter from '../utils/EnvironmentVariableGetter';
 import * as ObjectUtils from '../utils/ObjectUtils';
 import * as MinioUtils from '../utils/MinioUtils';
+import * as FileUploadLocationUtils from '../utils/FileUploadLocationUtils';
 import {checkDashboardRole} from './DashboardRoleCheckUtils'
 
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
@@ -33,5 +34,6 @@ export {
     CommonUtils,
     RolesUtils,
     ObjectUtils,
-    MinioUtils
+    MinioUtils,
+    FileUploadLocationUtils
 }

@@ -1,6 +1,7 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import {CDoctorNameDisplayForTable, ConfirmDelete} from '@frontend-appointment/ui-components'
+import {ConfirmDelete, DoctorWithSpecImage,} from '@frontend-appointment/ui-components'
+import {ImageGetterHOCForTableComponents} from '@frontend-appointment/commons'
 import TableAction from '../../CommonComponents/table-components/TableAction';
 import StatusLabel from "../../CommonComponents/table-components/StatusLabel";
 import PreviewDetails from '../commons/PreviewDetails'
@@ -36,22 +37,22 @@ const DoctorDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Name',
+                            headerName: 'Doctor (Specialization)',
                             field: 'doctorName',
                             resizable: true,
                             sortable: true,
                             sizeColumnsToFit: true,
-                            cellRenderer: 'doctorNameRenderer'
+                            cellRenderer: 'doctorWithSpecialization'
                         },
-                        {
-                            headerName: 'Picture',
-                            field: 'fileUri',
-                            // headerClass: "fi",
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true,
-                            cellRenderer: 'imageRenderer'
-                        },
+                        // {
+                        //     headerName: 'Picture',
+                        //     field: 'fileUri',
+                        //     // headerClass: "fi",
+                        //     resizable: true,
+                        //     sortable: true,
+                        //     sizeColumnsToFit: true,
+                        //     cellRenderer: 'imageRenderer'
+                        // },
                         {
                             headerName: 'Code',
                             field: 'code',
@@ -66,13 +67,13 @@ const DoctorDetailsDataTable = props => (
                             sortable: true,
                             sizeColumnsToFit: true
                         },
-                        {
-                            headerName: 'Specialization',
-                            field: 'specializationName',
-                            resizable: true,
-                            sortable: true,
-                            sizeColumnsToFit: true
-                        },
+                        // {
+                        //     headerName: 'Specialization',
+                        //     field: 'specializationName',
+                        //     resizable: true,
+                        //     sortable: true,
+                        //     sizeColumnsToFit: true
+                        // },
                         {
                             headerName: 'Status',
                             field: 'status',
@@ -106,8 +107,10 @@ const DoctorDetailsDataTable = props => (
                     frameworkComponents={{
                         childActionRenderer: TableAction,
                         childLabelRenderer: StatusLabel,
-                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler),
-                        doctorNameRenderer: PreviewHandlerHoc(CDoctorNameDisplayForTable, checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
+                        imageRenderer: PreviewHandlerHoc(HospitalPicture, checkIfRoleExists, props.filteredActions,
+                            4, props.onPreviewHandler),
+                        doctorWithSpecialization: PreviewHandlerHoc(ImageGetterHOCForTableComponents(DoctorWithSpecImage,props),
+                            checkIfRoleExists, props.filteredActions, 4, props.onPreviewHandler)
                     }}
                     defaultColDef={{resizable: true}}
                     getSelectedRows={

@@ -59,7 +59,7 @@ import * as GenericThirdPartyApiMiddleware
     from './src/generic-third-party-api-middleware/genericThirdPartyApiMiddleware';
 import * as HmacMiddleware
     from './src/hmac-middleware/hmacMiddleware';
-import * as MinioImageUploadMiddleware from './src/minio-image-upload-middleware/minioImageUploadMiddleware';
+
 export {
     AppointmentDetailsMiddleware,
     changePassword,
@@ -121,6 +121,5 @@ export {
     AdminApiIntegrationMiddleware,
     SalutationMiddleware,
     GenericThirdPartyApiMiddleware,
-    HmacMiddleware,
-    MinioImageUploadMiddleware
+    HmacMiddleware
 }

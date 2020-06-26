@@ -1,9 +1,9 @@
 {
     "minio-access-key":"cogent-appointment",
     "minio-secret-key":"cogentappointment@123",
-    "minio-bucket":"e-appointment",
+    "minio-bucket":"e-appointments",
     "minio-endpoint":"uat-presigned.cogenthealth.com.np",
     "minio-use-ssl":"true",
-    "minio-port":9000,
+    "minio-port":"",
     "minio-expiry":180
 }

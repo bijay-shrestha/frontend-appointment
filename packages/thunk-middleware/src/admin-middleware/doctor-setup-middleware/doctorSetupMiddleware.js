@@ -1,21 +1,16 @@
 import {DoctorSetupActions} from '@frontend-appointment/action-module';
 import {Axios} from '@frontend-appointment/core';
 import {CommonUtils} from '@frontend-appointment/helpers'
+import {MinioResource} from '@frontend-appointment/minio-client'
 //import {DropdownUtils} from "@frontend-appointment/helpers";
 
 export const createConsultant = (
     path,
-    doctorData,
-    formData
+    doctorData
 ) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPending());
     try {
-        let response = await Axios.postForMultipart(
-            path,
-            'request',
-            doctorData,
-            formData
-        );
+        let response = await Axios.post(path, doctorData,);
         dispatch(DoctorSetupActions.createConsultantSuccess());
         return response;
     } catch (e) {
@@ -32,10 +27,10 @@ export const clearConsultantCreateMessage = () => dispatch => {
     dispatch(DoctorSetupActions.clearConsultantPreviewMessage());
 };
 
-export const editConsultant = (path, data, formData) => async dispatch => {
+export const editConsultant = (path, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantEditPending());
     try {
-        const response = await Axios.putWithMultiPart(path, 'request', data, formData);
+        const response = await Axios.put(path, data);
         dispatch(DoctorSetupActions.createConsultantEditSuccess(response.data));
         return response;
     } catch (e) {
@@ -48,7 +43,8 @@ export const previewConsultant = (path, id) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantPreviewPending());
     try {
         const response = await Axios.getWithPathVariables(path, id);
-        dispatch(DoctorSetupActions.createConsultantPreviewSuccess(response.data));
+        let imageUrl = await MinioResource.getPresignedUrlForImage(response.data.fileUri)
+        dispatch(DoctorSetupActions.createConsultantPreviewSuccess({...response.data, fileUri: imageUrl}));
         return response;
     } catch (e) {
         dispatch(DoctorSetupActions.createConsultantPreviewError(e.errorMessage || 'Sorry Internal Server Error'));
@@ -60,7 +56,7 @@ export const searchConsultant = (path, queryParams, data) => async dispatch => {
     dispatch(DoctorSetupActions.createConsultantSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data,queryParams.page,queryParams.size)
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size)
         dispatch(DoctorSetupActions.createConsultantSearchSuccess(dataWithSn));
         return response;
     } catch (e) {
@@ -88,11 +84,20 @@ export const downloadExcelForConsultants = path => async () => {
     }
 };
 
+const getDoctorListWithImage = async doctors => {
+    let doctorWithImageURl = doctors.map(async doctor => {
+        doctor.fileUri = await MinioResource.getPresignedUrlForImage(doctor.fileUri)
+        return doctor
+    })
+    return Promise.all(doctorWithImageURl)
+}
+
 export const fetchActiveDoctorsForDropdown = path => async dispatch => {
     try {
         const response = await Axios.get(path);
+        let data = await getDoctorListWithImage(response.data)
         dispatch(
-            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(response.data)
+            DoctorSetupActions.fetchActiveDoctorsForDropdownSuccess(data)
         );
         return response;
     } catch (e) {

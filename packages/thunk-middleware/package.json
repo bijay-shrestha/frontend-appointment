@@ -7,7 +7,8 @@
     "dependencies":{
         "@frontend-appointment/helpers":"1.0.0",
         "@frontend-appointment/core":"1.0.0",
-        "@frontend-appointment/action-module":"1.0.0"
+        "@frontend-appointment/action-module":"1.0.0",
+        "@frontend-appointment/minio-client": "1.0.0"
     }
 }
 

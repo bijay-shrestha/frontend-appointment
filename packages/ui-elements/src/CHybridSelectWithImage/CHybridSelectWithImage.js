@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import {Form} from 'react-bootstrap';
 import './hybrid-select.scss';
 import ReactDOM from 'react-dom';
+import Axios from 'axios'
+import ImageAndLabelComponent from './ImageAndLabelComponent'
+import {ImageGetterHOC} from '@frontend-appointment/commons'
 
 class CHybridSelectWithImage extends PureComponent {
     handleOnBlur = event => {
@@ -37,18 +40,12 @@ class CHybridSelectWithImage extends PureComponent {
             });
     };
 
-    getFormattedOptionLabel = option => (
-        <span className="doctor-with-image">
-            {
-                option.fileUri ?
-                    <img src={option.fileUri} alt={option.label[0].toUpperCase()}/> :
-                    <div className="anchor-icon">
-                        {option.label.charAt(0).toUpperCase()}
-                    </div>
-            }
-            {option.label}
-        </span>
-    );
+    getFormattedOptionLabel = option => {
+       // const component = ImageGetterHOC(props => <ImageAndLabelComponent
+       //      option={props.option}/>, option.fileUri, option)
+       //  return component;
+        return <ImageAndLabelComponent option={option}/>
+    }
 
     getOptionValue = option => option.value;
 
