@@ -275,10 +275,11 @@
 }
 
 .btn-checkin {
-  width: 100%;
-  padding: 6px 0 !important;
+  width:136px;
+  padding: 8px 0 !important;
   margin-top: 10px;
   margin-bottom: 20px;
+  display:block;
 
   i {
     color: $white;

@@ -7,7 +7,6 @@
 @import "~@frontend-appointment/common-sass-client/src/scss/_custom-mixins.scss";
 
 
-
 #appointment-status {
   .filter-message {
     .message {
@@ -54,10 +53,11 @@
       }
 
       .status-legend{
-        display:inline-flex;
-        flex-direction:column;
-        align-items: center;
-      }
+       display:inline-flex;
+       flex-direction:column;
+       align-items: center;
+     }
+
 
       a {
 
@@ -207,10 +207,11 @@
 }
 
 .btn-checkin {
-  width: 100%;
-  padding: 6px 0 !important;
+  width:136px;
+  padding: 8px 0 !important;
   margin-top: 10px;
   margin-bottom: 20px;
+  display:block;
 
   i {
     color: $white;

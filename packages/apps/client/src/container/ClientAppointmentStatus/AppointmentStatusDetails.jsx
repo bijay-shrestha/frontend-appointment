@@ -153,7 +153,7 @@ const AppointmentStatusDetails = ({
                                             </p>
                                         </Col>
 
-                                        <Col sm={12} md={8} lg={8} className="time-container">
+                                        <Col sm={12} md={7} className="time-container">
                                             <h5 className="title">Appointment Slots</h5>
                                             <br></br>
                                             <p className="time-details">
@@ -328,7 +328,7 @@ const AppointmentStatusDetails = ({
                                             </ul>
                                         </Col>
                                         {appointmentStatusDetail.patientDetails ? (
-                                            <Col sm={12} md={2} lg={2} className="pb-4 pr-4">
+                                            <Col sm={12} md={3}  className="pb-4 pr-4">
                                                 <h5 className="title">Patients Details </h5>
                                                 <br></br>
                                                 <div className="patient-details">
@@ -417,8 +417,7 @@ const AppointmentStatusDetails = ({
                                                 <CButton
                                                     name=""
                                                     variant="outline-primary"
-                                                    size="sm"
-                                                    block
+                                                    size="lg"
                                                     onClickHandler={() =>
                                                         handleViewAppointmentDetails(appointmentStatusDetail)
                                                     }
@@ -444,7 +443,7 @@ const AppointmentStatusDetails = ({
                                                     <CButton
                                                         name=""
                                                         vairant="primary "
-                                                        size="sm"
+                                                        size="lg"
                                                         className="btn-checkin"
                                                         onClickHandler={() =>
                                                             handleCheckIn(appointmentStatusDetail)
