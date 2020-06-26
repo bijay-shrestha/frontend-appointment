@@ -348,8 +348,8 @@
               
                 width: auto;               
                 padding: 6px 8px;
-                border: none;
-                background-color: $gray-200;               
+                // border: none;
+                // background-color: $gray-200;               
                 line-height: 1.2;
                 @include border-radius(4px !important);
 
@@ -500,6 +500,10 @@
        padding-top:15px;
    }
 
+   .modal-header .close{
+       margin-right:-10px;
+   }
+
     #fav-search {
         padding-bottom:14px;
         border-bottom:1px solid $gray-100;
@@ -582,7 +586,7 @@
                 padding-right: 8px;
                 color: lighten($primary,10%);   
                 display: inline;  
-                font-size: 17px;          
+                // font-size: 17px;          
                 &:hover {
                     color: $primary;
                 }
