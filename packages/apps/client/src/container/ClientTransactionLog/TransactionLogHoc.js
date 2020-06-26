@@ -215,7 +215,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         filteredData: [],
         activeStatus: 'All'
       })
-      this.searchAppointment()
+      await this.setPrimaryAppointmentService();
+      await this.searchAppointment()
     }
 
     setStateValuesForSearch = searchParams => {

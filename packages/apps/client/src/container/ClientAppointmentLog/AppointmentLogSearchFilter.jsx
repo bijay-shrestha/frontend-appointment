@@ -384,6 +384,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
               {/*    </li>*/}
               {/*)}*/}
 
+              {searchParameters.appointmentServiceTypeCode && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Appointment Service Type</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.appointmentServiceTypeCode.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+
               {searchParameters.hospitalId && (
                 <li>
                   <OverlayTrigger
@@ -464,21 +480,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
               {/*    </li>*/}
               {/*)}*/}
 
-              {searchParameters.appointmentServiceTypeCode && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">Appointment Service Type</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {searchParameters.appointmentServiceTypeCode.label}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
+            
               {searchParameters.patienMetaInfoId && (
                 <li>
                   <OverlayTrigger

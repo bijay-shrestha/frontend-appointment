@@ -26,7 +26,9 @@ const {
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-const {fetchActiveAppointmentServiceTypeWithCode} = AppointmentServiceTypeMiddleware
+const {
+  fetchActiveAppointmentServiceTypeWithCode
+} = AppointmentServiceTypeMiddleware
 const AppointmentLogHOC = (ComposedComponent, props, type) => {
   const {
     appointmentSetupApiConstant,
@@ -50,8 +52,9 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         transactionNumber: '',
         transactionFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         transactionToDate: new Date(),
-        appointmentServiceTypeCode:'',
+        appointmentServiceTypeCode: ''
       },
+      primaryAppointmentService: '',
       queryParams: {
         page: 0,
         size: 10
@@ -90,7 +93,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         doctorId: doctorId.value || '',
         appointmentCategory: appointmentCategory.value || '',
         status: status.value === 'All' ? '' : status.value,
-        appointmentServiceTypeCode:appointmentServiceTypeCode.value||''
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
       }
 
       let updatedPage =
@@ -115,7 +118,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           ...this.state.queryParams,
           page: updatedPage
         },
-        filteredData: [...this.props.AppointmentLogListReducer.logList]
+        filteredData: [...this.props.AppointmentLogListReducer.logList],
+        primaryAppointmentService: appointmentServiceTypeCode
       })
     }
 
@@ -176,12 +180,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           doctorId: '',
           appointmentCategory: '',
           status: {value: 'All', label: 'All'},
-          appointmentServiceTypeCode:''
+          appointmentServiceTypeCode: ''
         },
         filteredData: [],
         activeStatus: 'All'
       })
-      this.searchAppointment()
+      await this.setPrimaryAppointmentService()
+      await this.searchAppointment()
     }
 
     setStateValuesForSearch = searchParams => {
@@ -276,30 +281,42 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       }))
     }
 
-    searchAppointmentServiceType=async () =>{
-      await this.props.fetchActiveAppointmentServiceTypeWithCode(AdminModuleAPIConstants.appointmentServiceTypeApiConstants.FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE)
+    searchAppointmentServiceType = async () => {
+      await this.props.fetchActiveAppointmentServiceTypeWithCode(
+        AdminModuleAPIConstants.appointmentServiceTypeApiConstants
+          .FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE
+      )
     }
 
-    setPrimaryAppointmentService=async () =>{
-     const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo');
-     if(adminInfo){
-     const allAppointmentServices = adminInfo.hospitalAppointmentServiceType;
-     const primaryAppointmentService =allAppointmentServices?allAppointmentServices.length?allAppointmentServices.filter(service =>service.isPrimary==='Y'):[]:[];
-     if(primaryAppointmentService.length){
-      let searchParams = {...this.state.searchParameters}
-      searchParams['appointmentServiceTypeCode']={value:primaryAppointmentService[0].code,label:primaryAppointmentService[0].name} 
-      await this.setState({
-          searchParameters:searchParams
-       })
-     }
-     }
+    setPrimaryAppointmentService = async () => {
+      const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+      if (adminInfo) {
+        const allAppointmentServices = adminInfo.hospitalAppointmentServiceType
+        const primaryAppointmentService = allAppointmentServices
+          ? allAppointmentServices.length
+            ? allAppointmentServices.filter(
+                service => service.isPrimary === 'Y'
+              )
+            : []
+          : []
+        if (primaryAppointmentService.length) {
+          let searchParams = {...this.state.searchParameters}
+          searchParams['appointmentServiceTypeCode'] = {
+            value: primaryAppointmentService[0].code,
+            label: primaryAppointmentService[0].name
+          }
+          await this.setState({
+            searchParameters: searchParams
+          })
+        }
+      }
     }
 
     async componentDidMount () {
       this.callApiForHospitalChange()
-      
+
       await this.searchAppointmentServiceType()
-      console.log("=====",this.state);
+      console.log('=====', this.state)
       await this.setPrimaryAppointmentService()
       await this.searchAppointment()
     }
@@ -312,7 +329,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         showModal,
         previewData,
         filteredData,
-        activeStatus
+        activeStatus,
+        primaryAppointmentService
       } = this.state
 
       const {
@@ -376,7 +394,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
               showModal: showModal,
               previewCall: this.previewCall,
               previewData: previewData,
-              appointmentServiceTypeCode:this.state.searchParameters.appointmentServiceTypeCode
+              appointmentServiceTypeCode: primaryAppointmentService
             }}
             activeStatus={activeStatus}
             handleStatusChange={this.handleStatusChange}
