@@ -22,7 +22,7 @@
     "@frontend-appointment/helpers": "1.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "NODE_ENV=production react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "predeploy": "yarn run build",
