@@ -10,14 +10,16 @@ import {
   AppointmentStatusBadges,
   PatientNameWithAgeGenderPhone,
   TransactionDateWithTime,
-  DoctorWithSpecImage
+  DoctorWithSpecImage,
+  DepartmentNameWithRoomNumberAndBillingMode
 } from '@frontend-appointment/ui-components'
+import {CommonUtils} from '@frontend-appointment/helpers'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './TransactionLogPreview'
 import {Col, Row} from 'react-bootstrap'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
-
+const {filterAppointmentServiceType} = CommonUtils
 const TransactionLogDataTable = ({
   tableHandler,
   paginationProps,
@@ -31,8 +33,21 @@ const TransactionLogDataTable = ({
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    appointmentServiceTypeCode
   } = tableHandler
+  const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
+    appointmentServiceTypeCode,
+    'DOC'
+  )
+    ? 'Doctor Details'
+    : 'Department Details'
+  const componentRendererDoctorOrDepartment = filterAppointmentServiceType(
+    appointmentServiceTypeCode,
+    'DOC'
+  )
+    ? 'doctorwithSpecializationRenderer'
+    : 'departmentWithRoomNumberAndBillingMode'
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
@@ -141,11 +156,11 @@ const TransactionLogDataTable = ({
                     cellRenderer: "AppointmentDateWithTime"
                 },
                 {
-                  headerName: 'Doctor(Specialization)',
+                  headerName: headerNameForDoctorOrDepartment,
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer: 'doctorwithSpecializationRenderer',
+                  cellRenderer: componentRendererDoctorOrDepartment,
                   autoSize: true,
                   autoWidth: true,
                   width: '300'
@@ -179,6 +194,13 @@ const TransactionLogDataTable = ({
               frameworkComponents={{
                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                   DoctorWithSpecImage,
+                  null,
+                  null,
+                  null,
+                  previewCall
+                ),
+                departmentWithRoomNumberAndBillingMode:PreviewHandlerHoc(
+                  DepartmentNameWithRoomNumberAndBillingMode,
                   null,
                   null,
                   null,
@@ -261,6 +283,7 @@ const TransactionLogDataTable = ({
           showModal={showModal}
           setShowModal={setShowModal}
           logData={previewData}
+          appointmentServiceTypeCode={appointmentServiceTypeCode}
         />
       ) : (
         ''

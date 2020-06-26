@@ -12,8 +12,8 @@ import {
   DateTimeFormatterUtils,
   EnterKeyPressUtils,
   CommonUtils,
-  LocalStorageSecurity,
-  EnvironmentVariableGetter
+  LocalStorageSecurity
+  //EnvironmentVariableGetter
 } from '@frontend-appointment/helpers'
 import './appointment-log.scss'
 
