@@ -36,8 +36,10 @@ const AppointmentStatusDetails = ({
         getPatientDetails,
         handleCheckIn,
         showCheckInModal,
-        handleViewAppointmentDetails
+        handleViewAppointmentDetails,
+        appointmentStatusCount
     } = statusDetailsData
+    console.log("count",appointmentStatusCount)
     return (
         <>
             <div className="manage-title">
@@ -56,40 +58,24 @@ const AppointmentStatusDetails = ({
                                         <div>
                                             <i className="fa fa-tag"/>
                                             <div className="status-legend">
-                                            <a
-                                                href="!#"
-                                                className={
-                                                    activeStatus === appointmentStatus.value
-                                                        ? 'active'
-                                                        : ''
-                                                }
-                                                onClick={event =>
-                                                    filterAppointmentDetailsByStatus(
-                                                        appointmentStatus.value,
-                                                        event
-                                                    )
-                                                }
-                                            >
-                                                Follow Up
-                                            </a>
-                                            <span>4</span>
+                                                <a
+                                                    href="!#"
+                                                    className={
+                                                        activeStatus === appointmentStatus.value
+                                                            ? 'active'
+                                                            : ''
+                                                    }
+                                                    onClick={event =>
+                                                        filterAppointmentDetailsByStatus(
+                                                            appointmentStatus.value,
+                                                            event
+                                                        )
+                                                    }
+                                                >
+                                                    Follow Up
+                                                </a>
+                                                <span>{appointmentStatusCount ?appointmentStatusCount["F"]:""}</span>
                                             </div>
-                                            {/* <Button
-                          variant="link"
-                          className={
-                            activeStatus === appointmentStatus.value
-                              ? 'active'
-                              : ''
-                          }
-                          onClick={event =>
-                            filterAppointmentDetailsByStatus(
-                              appointmentStatus.value,
-                              event
-                            )
-                          }
-                        >
-                          Follow Up
-                        </Button> */}
                                         </div>
                                     ) : (
                                         <div>
@@ -97,40 +83,24 @@ const AppointmentStatusDetails = ({
                                                 &nbsp;
                                             </Badge>
                                             <div className="status-legend">
-                                            <a
-                                                href="!#"
-                                                className={
-                                                    activeStatus === appointmentStatus.value
-                                                        ? 'active'
-                                                        : ''
-                                                }
-                                                onClick={event =>
-                                                    filterAppointmentDetailsByStatus(
-                                                        appointmentStatus.value,
-                                                        event
-                                                    )
-                                                }
-                                            >
-                                                {appointmentStatus.label}
-                                            </a>
-                                            <span>3</span>
+                                                <a
+                                                    href="!#"
+                                                    className={
+                                                        activeStatus === appointmentStatus.value
+                                                            ? 'active'
+                                                            : ''
+                                                    }
+                                                    onClick={event =>
+                                                        filterAppointmentDetailsByStatus(
+                                                            appointmentStatus.value,
+                                                            event
+                                                        )
+                                                    }
+                                                >
+                                                    {appointmentStatus.label}
+                                                </a>
+                                                <span>{appointmentStatusCount?appointmentStatusCount[appointmentStatus.value]:''}</span>
                                             </div>
-                                            {/* <Button
-                          variant="link"
-                          className={
-                            activeStatus === appointmentStatus.value
-                              ? 'active'
-                              : ''
-                          }
-                          onClick={event =>
-                            filterAppointmentDetailsByStatus(
-                              appointmentStatus.value,
-                              event
-                            )
-                          }
-                        >
-                          {appointmentStatus.label}
-                        </Button> */}
                                         </div>
                                     )
                                 )}

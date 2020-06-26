@@ -37,7 +37,8 @@ const AppointmentStatusDetails = ({
         handleCheckIn,
         showCheckInModal,
         handleViewAppointmentDetails,
-        onChangeRoom
+        onChangeRoom,
+        appointmentStatusCount
     } = statusDetailsData
     console.log('appointmentStatusDetails', appointmentStatusDetails)
     return (
@@ -74,24 +75,8 @@ const AppointmentStatusDetails = ({
                                                 >
                                                     Follow Up
                                                 </a>
-                                                <span>45</span>
+                                                <span>{appointmentStatusCount ? appointmentStatusCount["F"] : ''}</span>
                                             </div>
-                                            {/* <Button
-                          variant="link"
-                          className={
-                            activeStatus === appointmentStatus.value
-                              ? 'active'
-                              : ''
-                          }
-                          onClick={event =>
-                            filterAppointmentDetailsByStatus(
-                              appointmentStatus.value,
-                              event
-                            )
-                          }
-                        >
-                          Follow Up
-                        </Button> */}
                                         </div>
                                     ) : (
                                         <div>
@@ -113,7 +98,7 @@ const AppointmentStatusDetails = ({
                                                 >
                                                     {appointmentStatus.label}
                                                 </a>
-                                                <span>45</span>
+                                                <span>{appointmentStatusCount ? appointmentStatusCount[appointmentStatus.value] : ''}</span>
                                             </div>
 
                                             {/* <Button
