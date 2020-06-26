@@ -21,9 +21,7 @@ class CFavourites extends React.Component {
         <span className="d-inline-block">
 
           <Dropdown alignRight className="user-profile quick-links">
-            <Dropdown.Toggle variant="default" id="dropdown-basic">
-              <i className="fa fa-bookmark"></i>
-            </Dropdown.Toggle>
+            <Dropdown.Toggle variant="default" id="dropdown-basic"><i className="fa fa-star"></i></Dropdown.Toggle>
             <Dropdown.Menu>
 
               <Dropdown.Item

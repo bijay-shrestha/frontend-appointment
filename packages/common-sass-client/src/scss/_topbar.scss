@@ -309,12 +309,15 @@
             border: 1px solid $gray-200;
             background-color: transparent;
             @include border-radius(50%);
+            
 
             &:hover {
                 color: $gray-700;
                 background-color: #fff;
                 @include border-radius(50%);
             }
+
+           
         }
 
         // &:hover {
@@ -331,6 +334,12 @@
             margin-top: 0;
         }
 
+        .dropdown-toggle{
+            i{
+                @include centerer;
+            }
+        }
+
         &.show {
             background-color: $white !important;
         }
@@ -345,9 +354,10 @@
             padding: 9px 0;
 
             .add-new-fav {         
+               
               
                 width: auto;               
-                padding: 6px 8px;
+                // padding: 6px 8px;
                 // border: none;
                 // background-color: $gray-200;               
                 line-height: 1.2;
