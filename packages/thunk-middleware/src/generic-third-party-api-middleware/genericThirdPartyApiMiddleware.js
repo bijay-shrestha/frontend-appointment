@@ -39,7 +39,7 @@ export const genericThirdPartyApiCall = async (data,
         try {
             if (option) {
                 const hmacCode = await fetchHmacTokenByAppointmentId(hmacPath, constructedData.properties.appointmentId)
-                option.requestOption.headers = hmacCode;
+                option.requestOption.headers.signature = hmacCode;
                 response = await Axios.dynamicMethod(option.requestOption)
                 return {successResponse: response.data, apiRequestBody};
             }
