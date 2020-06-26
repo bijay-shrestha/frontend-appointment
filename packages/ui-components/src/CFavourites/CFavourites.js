@@ -42,7 +42,7 @@ class CFavourites extends React.Component {
 
               <div className="add-bar ">
                 {/* <p className="add-title">Favourite links</p> */}
-                <a className="btn btn-primary add-new-fav" onClick={this.setShowAddFavouritesModal}> <i className="fa fa-plus"></i>&nbsp;Add Menus </a>
+                <a className="btn btn-outline-primary add-new-fav" onClick={this.setShowAddFavouritesModal}> <i className="fa fa-plus"></i>&nbsp;Add Favourites </a>
               </div>
 
 

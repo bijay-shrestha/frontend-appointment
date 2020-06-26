@@ -130,8 +130,8 @@
         .menu-link {
             display: flex;
             flex-direction: row;
-            padding-top: 12px;
-            padding-bottom: 12px;
+            // padding-top: 12px;
+            // padding-bottom: 12px;
 
             .anchor-icon {
                 width: 32px;
@@ -450,10 +450,10 @@
 
             .menu-box {
                 margin-left: 14px;
-                padding: 12px 0;
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
+                padding: 8px 0;
+                // display: flex;
+                // flex-direction: row;
+                // justify-content: space-between;
                 flex-grow: 2;
                 align-items: center;
                 .menu {
@@ -492,6 +492,10 @@
 
 
 .add-fav-modal{
+//   transform: translateY();
+  align-items: flex-start;
+  padding-top:80px;
+  max-width: 400px;
    .modal-content .modal-body{
        padding-top:15px;
    }

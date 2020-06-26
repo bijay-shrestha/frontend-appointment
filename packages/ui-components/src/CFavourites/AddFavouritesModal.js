@@ -70,7 +70,7 @@ const AddFavourites = ({
                 size="sm"
                 modalHeading="Add Favourites Menu"
                 bodyChildren={bodyContent}
-                onHide={setShowModal}
+                onHide={setShowModal}              
                 dialogClassName="cogent-modal add-fav-modal"
             />
         </>
