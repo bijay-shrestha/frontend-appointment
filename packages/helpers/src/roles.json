@@ -191,17 +191,17 @@
     "tabOrder": null,
     "isChecked": false,
     "isSingleTab": false
-  },  
+  },
   {
-   "id": 20,
-   "name": "Department Appointment CheckIn",
-   "status": "Y",
-   "path": "/department",
-   "parent_role_id": null,
-   "role_type": "tab",
-   "tabOrder": 2,
-   "isChecked": false,
-   "isSingleTab": false
+    "id": 20,
+    "name": "Department Appointment CheckIn",
+    "status": "Y",
+    "path": "/department",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": 2,
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 21,
@@ -242,7 +242,47 @@
     "tabOrder": null,
     "isChecked": false,
     "isSingleTab": false
+  },
+  {
+    "id": 25,
+    "name": "Doctor Appointment Status",
+    "status": "Y",
+    "path": "/doctor",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": 1,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 26,
+    "name": "Department Appointment Status",
+    "status": "Y",
+    "path": "/department",
+    "parent_role_id": null,
+    "role_type": "tab",
+    "tabOrder": 1,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 27,
+    "name": "Approve[Doc Appt. Check In]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 28,
+    "name": "Approve[Dept Appt. Check In]",
+    "status": "Y",
+    "parent_role_id": 26,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
   }
-
- 
 ]
