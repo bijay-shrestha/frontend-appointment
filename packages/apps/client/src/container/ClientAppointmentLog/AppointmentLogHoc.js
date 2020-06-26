@@ -5,7 +5,8 @@ import {
   DoctorMiddleware,
   PatientDetailsMiddleware,
   SpecializationSetupMiddleware,
-  AppointmentServiceTypeMiddleware
+  AppointmentServiceTypeMiddleware,
+  HospitalDepartmentSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -22,6 +23,10 @@ const {
   fetchAppointmentLogList
   //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
+const {
+  // fetchActiveHospitalDepartmentForDropdownByHospitalId,
+  fetchAllHospitalDepartmentForDropdown
+} = HospitalDepartmentSetupMiddleware
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
@@ -52,7 +57,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         transactionNumber: '',
         transactionFromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         transactionToDate: new Date(),
-        appointmentServiceTypeCode: ''
+        appointmentServiceTypeCode: '',
+        hospitalDepartmentId: ''
       },
       primaryAppointmentService: '',
       queryParams: {
@@ -81,7 +87,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         doctorId,
         appointmentCategory,
         status,
-        appointmentServiceTypeCode
+        appointmentServiceTypeCode,
+        hospitalDepartmentId
       } = this.state.searchParameters
       let searchData = {
         appointmentNumber,
@@ -93,7 +100,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         doctorId: doctorId.value || '',
         appointmentCategory: appointmentCategory.value || '',
         status: status.value === 'All' ? '' : status.value,
-        appointmentServiceTypeCode: appointmentServiceTypeCode.value || ''
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+        hospitalDepartmentId: hospitalDepartmentId.value || ''
       }
 
       let updatedPage =
@@ -180,7 +188,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           doctorId: '',
           appointmentCategory: '',
           status: {value: 'All', label: 'All'},
-          appointmentServiceTypeCode: ''
+          appointmentServiceTypeCode: '',
+          hospitalDepartmentId: ''
         },
         filteredData: [],
         activeStatus: 'All'
@@ -244,6 +253,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       this.props.fetchPatientMetaDropdownForClient(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
       )
+      this.props.fetchAllHospitalDepartmentForDropdown(
+        AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+          .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+      )
     }
 
     handleSearchFormChange = async (event, field) => {
@@ -271,6 +284,13 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                 }
             : ''
           : value
+        if (fieldName === 'appointmentServiceTypeCode')
+          if (value === 'DOC') {
+            newSearchParams['hospitalDepartmentId'] = ''
+          } else {
+            newSearchParams['doctorId'] = ''
+            newSearchParams['specializationId'] = ''
+          }
         await this.setStateValuesForSearch(newSearchParams)
       }
     }
@@ -357,6 +377,11 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       } = this.props.AppointmentServiceTypeDropdownReducer
 
       const {
+        isFetchAllHospitalDepartmentLoading,
+        allHospitalDepartmentForDropdown,
+        allDepartmentDropdownErrorMessage
+      } = this.props.HospitalDepartmentDropdownReducer
+      const {
         patientList,
         patientDropdownErrorMessage
       } = this.props.PatientDropdownListReducer
@@ -379,7 +404,10 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
               patientDropdownErrorMessage: patientDropdownErrorMessage,
               isFetchAppointmentServiceTypeWithCodeLoading,
               activeAppointmentServiceTypeWithCodeForDropdown,
-              dropdownWithCodeErrorMessage
+              dropdownWithCodeErrorMessage,
+              isFetchAllHospitalDepartmentLoading,
+              allHospitalDepartmentForDropdown,
+              allDepartmentDropdownErrorMessage
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -412,7 +440,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
       'PatientDropdownListReducer',
-      'AppointmentServiceTypeDropdownReducer'
+      'AppointmentServiceTypeDropdownReducer',
+      'HospitalDepartmentDropdownReducer'
     ],
     {
       clearAppointmentRefundPending,
@@ -420,7 +449,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
       fetchActiveDoctorsForDropdown,
       fetchSpecializationForDropdown,
       fetchPatientMetaDropdownForClient,
-      fetchActiveAppointmentServiceTypeWithCode
+      fetchActiveAppointmentServiceTypeWithCode,
+      fetchAllHospitalDepartmentForDropdown
     }
   )
 }

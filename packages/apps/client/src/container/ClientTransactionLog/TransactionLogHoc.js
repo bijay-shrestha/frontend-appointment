@@ -5,7 +5,8 @@ import {
   DoctorMiddleware,
   PatientDetailsMiddleware,
   SpecializationSetupMiddleware,
-  AppointmentServiceTypeMiddleware
+  AppointmentServiceTypeMiddleware,
+  HospitalDepartmentSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -21,12 +22,17 @@ const {
   fetchTransactionLogList
 } = AppointmentDetailsMiddleware
 
-const {fetchActiveAppointmentServiceTypeWithCode} = AppointmentServiceTypeMiddleware
+const {
+  fetchActiveAppointmentServiceTypeWithCode
+} = AppointmentServiceTypeMiddleware
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
 const {fetchSpecializationForDropdown} = SpecializationSetupMiddleware
 const {fetchPatientMetaDropdownForClient} = PatientDetailsMiddleware
-
+const {
+  // fetchActiveHospitalDepartmentForDropdownByHospitalId,
+  fetchAllHospitalDepartmentForDropdown
+} = HospitalDepartmentSetupMiddleware
 const TransactionLogHoc = (ComposedComponent, props, type) => {
   const {
     appointmentSetupApiConstant,
@@ -39,7 +45,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
     state = {
       searchParameters: {
         transactionNumber: '',
-        appointmentServiceTypeCode:'',
+        appointmentServiceTypeCode: '',
         fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
         toDate: new Date(),
         patientMetaInfoId: '',
@@ -47,9 +53,10 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         patientType: '',
         specializationId: '',
         appointmentCategory: '',
-        status: {value: 'All', label: 'All'}
+        status: {value: 'All', label: 'All'},
+        hospitalDepartmentId:''
       },
-      primaryAppointmentServiceType:'',
+      primaryAppointmentServiceType: '',
       queryParams: {
         page: 0,
         size: 10
@@ -65,23 +72,35 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
       EnterKeyPressUtils.handleEnter(event)
     }
 
-    searchAppointmentServiceType=async () =>{
-      await this.props.fetchActiveAppointmentServiceTypeWithCode(AdminModuleAPIConstants.appointmentServiceTypeApiConstants.FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE)
+    searchAppointmentServiceType = async () => {
+      await this.props.fetchActiveAppointmentServiceTypeWithCode(
+        AdminModuleAPIConstants.appointmentServiceTypeApiConstants
+          .FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE
+      )
     }
 
-    setPrimaryAppointmentService=async () =>{
-     const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo');
-     if(adminInfo){
-     const allAppointmentServices = adminInfo.hospitalAppointmentServiceType;
-     const primaryAppointmentService =allAppointmentServices?allAppointmentServices.length?allAppointmentServices.filter(service =>service.isPrimary==='Y'):[]:[];
-     if(primaryAppointmentService.length){
-      let searchParams = {...this.state.searchParameters}
-      searchParams['appointmentServiceTypeCode']={value:primaryAppointmentService[0].code,label:primaryAppointmentService[0].name} 
-      await this.setState({
-          searchParameters:searchParams
-       })
-     }
-     }
+    setPrimaryAppointmentService = async () => {
+      const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+      if (adminInfo) {
+        const allAppointmentServices = adminInfo.hospitalAppointmentServiceType
+        const primaryAppointmentService = allAppointmentServices
+          ? allAppointmentServices.length
+            ? allAppointmentServices.filter(
+                service => service.isPrimary === 'Y'
+              )
+            : []
+          : []
+        if (primaryAppointmentService.length) {
+          let searchParams = {...this.state.searchParameters}
+          searchParams['appointmentServiceTypeCode'] = {
+            value: primaryAppointmentService[0].code,
+            label: primaryAppointmentService[0].name
+          }
+          await this.setState({
+            searchParameters: searchParams
+          })
+        }
+      }
     }
 
     searchAppointment = async page => {
@@ -95,7 +114,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         doctorId,
         appointmentCategory,
         status,
-        appointmentServiceTypeCode
+        appointmentServiceTypeCode,
+        hospitalDepartmentId
       } = this.state.searchParameters
       let searchData = {
         transactionNumber,
@@ -107,7 +127,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
         doctorId: doctorId.value || '',
         appointmentCategory: appointmentCategory.value || '',
         status: status.value === 'All' ? '' : status.value,
-        appointmentServiceTypeCode:appointmentServiceTypeCode.value||''
+        appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+        hospitalDepartmentId: hospitalDepartmentId.value || ''
       }
 
       let updatedPage =
@@ -133,7 +154,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
           page: updatedPage
         },
         filteredData: this.props.TransactionLogReducer.logList,
-        primaryAppointmentServiceType:appointmentServiceTypeCode
+        primaryAppointmentServiceType: appointmentServiceTypeCode
       })
     }
     handleStatusChange = (event, status) => {
@@ -209,13 +230,14 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
           specializationId: '',
           doctorId: '',
           appointmentCategory: '',
-          appointmentServiceTypeCode:'',
-          status: {value: 'All', label: 'All'}
+          appointmentServiceTypeCode: '',
+          status: {value: 'All', label: 'All'},
+          hospitalDepartmentId: ''
         },
         filteredData: [],
         activeStatus: 'All'
       })
-      await this.setPrimaryAppointmentService();
+      await this.setPrimaryAppointmentService()
       await this.searchAppointment()
     }
 
@@ -255,6 +277,10 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
       this.props.fetchPatientMetaDropdownForClient(
         patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
       )
+      this.props.fetchAllHospitalDepartmentForDropdown(
+        AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+          .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+      )
     }
 
     handleSearchFormChange = async (event, field) => {
@@ -280,6 +306,13 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
               : {value, label}
             : ''
           : value
+        if (fieldName === 'appointmentServiceTypeCode')
+          if (value === 'DOC') {
+            newSearchParams['hospitalDepartmentId'] = ''
+          } else {
+            newSearchParams['doctorId'] = ''
+            newSearchParams['specializationId'] = ''
+          }
         await this.setStateValuesForSearch(newSearchParams)
       }
     }
@@ -292,7 +325,7 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
 
     async componentDidMount () {
       await this.searchAppointmentServiceType()
-     // console.log("=====",this.state);
+      // console.log("=====",this.state);
       await this.setPrimaryAppointmentService()
       await this.searchAppointment()
       this.callApiForHospitalChange()
@@ -333,6 +366,12 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
       } = this.props.PatientDropdownListReducer
 
       const {
+        isFetchAllHospitalDepartmentLoading,
+        allHospitalDepartmentForDropdown,
+        allDepartmentDropdownErrorMessage
+      } = this.props.HospitalDepartmentDropdownReducer
+
+      const {
         isFetchAppointmentServiceTypeWithCodeLoading,
         activeAppointmentServiceTypeWithCodeForDropdown,
         dropdownWithCodeErrorMessage
@@ -357,7 +396,10 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
               patientDropdownErrorMessage: patientDropdownErrorMessage,
               isFetchAppointmentServiceTypeWithCodeLoading,
               activeAppointmentServiceTypeWithCodeForDropdown,
-              dropdownWithCodeErrorMessage
+              dropdownWithCodeErrorMessage,
+              isFetchAllHospitalDepartmentLoading,
+              allHospitalDepartmentForDropdown,
+              allDepartmentDropdownErrorMessage
             }}
             paginationProps={{
               queryParams: queryParams,
@@ -372,13 +414,11 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
               showModal: showModal,
               previewCall: this.previewCall,
               previewData: previewData,
-              appointmentServiceTypeCode:primaryAppointmentServiceType
-
+              appointmentServiceTypeCode: primaryAppointmentServiceType
             }}
             handleStatusChange={this.handleStatusChange}
             activeStatus={activeStatus}
             appointmentStatistics={appointmentStatistics}
-            
           />
         </div>
       )
@@ -392,7 +432,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
       'SpecializationDropdownReducer',
       'DoctorDropdownReducer',
       'PatientDropdownListReducer',
-      'AppointmentServiceTypeDropdownReducer'
+      'AppointmentServiceTypeDropdownReducer',
+      'HospitalDepartmentDropdownReducer'
     ],
     {
       clearTransactionLogMessage,
@@ -400,7 +441,8 @@ const TransactionLogHoc = (ComposedComponent, props, type) => {
       fetchActiveDoctorsForDropdown,
       fetchSpecializationForDropdown,
       fetchPatientMetaDropdownForClient,
-      fetchActiveAppointmentServiceTypeWithCode
+      fetchActiveAppointmentServiceTypeWithCode,
+      fetchAllHospitalDepartmentForDropdown
     }
   )
 }
