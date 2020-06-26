@@ -584,7 +584,7 @@
 
             .add-fav {
                 padding-right: 8px;
-                color: lighten($primary,10%);   
+                color: $gray-600;   
                 display: inline;  
                 // font-size: 17px;          
                 &:hover {
