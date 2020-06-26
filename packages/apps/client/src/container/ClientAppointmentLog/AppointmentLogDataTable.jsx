@@ -17,7 +17,7 @@ import AppointmentDateWithTime from '../CommonComponents/table-components/Appoin
 import PreviewDetails from './AppointmentLogPreview'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
-const {serviceType, filterAppointmentServiceType} = CommonUtils
+const {filterAppointmentServiceType} = CommonUtils
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
