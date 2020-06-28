@@ -388,3 +388,11 @@ const APPOINTMENT_SERVICE_TYPE_BASE = "/appointmentServiceType";
 export const appointmentServiceTypeApiConstants = {
     FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/active/min"))
 };
+
+
+const FAVOURITES_BASE = "/adminFavourite";
+export const favouritesApiConstants = {
+    SAVE_FAVOURITES: BASE.concat(FAVOURITES_BASE),
+    UPDATE_FAVOURITES: BASE.concat(FAVOURITES_BASE),
+    FETCH_FAVOURITES_FOR_DROPDOWN: BASE.concat(FAVOURITES_BASE.concat("/active/min")),
+};

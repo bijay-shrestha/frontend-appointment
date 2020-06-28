@@ -18,11 +18,11 @@ export const saveFavouritesPending = () => {
     }
 }
 
-export const saveFavouritesSuccess = data => {
+export const saveFavouritesSuccess = successMessage => {
     return {
         type: SAVE_FAVOURITES_SUCCESS,
         payload: {
-            data
+            successMessage
         }
     }
 }
@@ -42,11 +42,11 @@ export const updateFavouritesPending = () => {
     }
 }
 
-export const updateFavouritesSuccess = data => {
+export const updateFavouritesSuccess = successMessage => {
     return {
         type: UPDATE_FAVOURITES_SUCCESS,
         payload: {
-            data
+            successMessage
         }
     }
 }
