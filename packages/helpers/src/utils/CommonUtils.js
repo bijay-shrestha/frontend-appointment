@@ -67,3 +67,16 @@ export const checkKeyValuePairAndRemoveIfAnyOfThemIsNotPresent = arrayOfKeyValue
 export const sortListOfObjectsAlphabetically = (dataList, sortingParam) =>
     dataList.sort((firstElement, secondElement) =>
         (firstElement[sortingParam]).toLowerCase().localeCompare((secondElement[sortingParam]).toLowerCase()));
+
+const serviceType={
+  DOC:'DOC',
+  DEP:'DEP'
+}
+
+export const filterAppointmentServiceType = (appointmentSeviceType,type) => {
+    if(appointmentSeviceType.value ===serviceType[type]){
+     return true
+    }
+    return false;
+    
+}

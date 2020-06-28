@@ -84,7 +84,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
             appointmentDetails: '',
             showCheckInModal: false,
             isConfirming: false,
-            showAppointmentDetailModal: false
+            showAppointmentDetailModal: false,
+            appointmentStatusCount: ""
         }
 
         fetchDoctorsByHospital = async () => {
@@ -129,6 +130,7 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 errorMessageForStatusDetails: SELECT_HOSPITAL_MESSAGE,
                 appointmentStatusDetails: [],
                 appointmentStatusDetailsCopy: [],
+                appointmentStatusCount: "",
                 previousSelectedTimeSlotRowIndex: '',
                 previousSelectedTimeSlotIds: ''
             })
@@ -429,7 +431,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                         searchData
                     )
                     let statusList = [],
-                        doctorInfo = []
+                        doctorInfo,
+                        appStatusCount;
                     if (this.props.AppointmentStatusListReducer.statusList)
                         if (
                             this.props.AppointmentStatusListReducer.statusList
@@ -442,11 +445,17 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                     doctorInfo = this.props.AppointmentStatusListReducer.statusList && [
                         ...this.props.AppointmentStatusListReducer.statusList.doctorInfo
                     ]
+                    appStatusCount = (this.props.AppointmentStatusListReducer.statusList &&
+                        this.props.AppointmentStatusListReducer.statusList.appointmentStatusCount) ? {
+                        ...this.props.AppointmentStatusListReducer.statusList.appointmentStatusCount,
+                        "ALL": this.props.AppointmentStatusListReducer.statusList.appointmentStatusCount[""]
+                    } : ''
                     await this.setState({
                         appointmentStatusDetails: [...statusList],
                         doctorInfoList: [...doctorInfo],
                         appointmentStatusDetailsCopy: [...statusList],
-                        previousSelectedTimeSlotIds: ''
+                        previousSelectedTimeSlotIds: '',
+                        appointmentStatusCount: appStatusCount
                     })
                 } catch (e) {
                 }
@@ -643,7 +652,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                 showCheckInModal,
                 appointmentDetails,
                 isConfirming,
-                showAppointmentDetailModal
+                showAppointmentDetailModal,
+                appointmentStatusCount
             } = this.state
 
             // const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -692,7 +702,8 @@ const AppointmentStatusHOC = (ComposedComponent, props, type) => {
                                 filterAppointmentDetailsByStatus: this
                                     .filterAppointmentDetailsByStatus,
                                 showCheckInModal: showCheckInModal,
-                                handleViewAppointmentDetails: this.handleViewAppointmentDetails
+                                handleViewAppointmentDetails: this.handleViewAppointmentDetails,
+                                appointmentStatusCount: appointmentStatusCount
                             }}
                             checkInModalData={{
                                 showCheckInModal: showCheckInModal,
