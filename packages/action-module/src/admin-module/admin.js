@@ -52,6 +52,8 @@ import * as  BillingModeActions from './billing-mode/billingModeActions';
 import {billingModeActionConstants} from './billing-mode/billingModeActionConstants';
 import * as AppointmentServiceTypeAction from './appointment-service-type/appointmentServiceTypeAction';
 import {appointmentServiceTypeActionConstants} from './appointment-service-type/appointmentServiceTypeActionConstants'
+import * as FavouritesActions from './favourites/favouritesActions';
+import {favouritesActionConstants} from './favourites/favouritesActionConstants';
 
 export {
     AppointmentDetailActions,
@@ -107,5 +109,7 @@ export {
     billingModeActionConstants,
     BillingModeActions,
     appointmentServiceTypeActionConstants,
-    AppointmentServiceTypeAction
+    AppointmentServiceTypeAction,
+    favouritesActionConstants,
+    FavouritesActions
 }
