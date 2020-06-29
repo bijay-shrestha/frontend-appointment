@@ -4,7 +4,7 @@ import AppointmentDepartmentRefundDataTable from './AppointmentDepartmentRefundD
 import AppointDepartmentRefundApprovalHoc from './AppointmentDepartmentRefundHoc'
 
 const AppointmentDepartmentRefundLog = props => {
-    const AppointmentRefund = AppointRefundApprovalHoc(
+    const AppointmentDepartmentRefund = AppointDepartmentRefundApprovalHoc(
         ({searchHandler, paginationProps, tableHandler}) => (
             <>
                 <div>
@@ -23,7 +23,7 @@ const AppointmentDepartmentRefundLog = props => {
         ''
     );
 
-    return <AppointDepartmentRefundApprovalHoc/>
+    return <AppointmentDepartmentRefund/>
 };
 
 export default AppointmentDepartmentRefundLog
