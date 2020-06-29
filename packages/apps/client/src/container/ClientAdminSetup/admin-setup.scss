@@ -35,6 +35,7 @@
      .image-box{
         img{
             width:140px;
+            height:140px;
             @include border-radius(50%);
         }
 

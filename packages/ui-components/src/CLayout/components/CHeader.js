@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {Button, Dropdown, Image, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import {Axios} from '@frontend-appointment/core'
 import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
+import {CFavourites} from '@frontend-appointment/ui-components'
+
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
 import {
@@ -251,26 +253,18 @@ class CHeader extends Component {
                                 breadcrumbData={this.props.dataForBreadCrumb}
                             />
                         </div>
-
-
                         {/*search start*/}
                         <div className="header-content-right d-flex align-items-center">
                             <CDoubleShiftSearch/>
 
                             {/* end search */}
-                            <div className="fav-links" onClick={this.handleQuickLinkClick}>
-                                <OverlayTrigger
-                                    trigger={'hover'}
-                                    placement="left"
-                                    overlay={
-                                        <Tooltip id="tooltip-disabled">Quick Check-In</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button style={{pointerEvents: 'none'}} variant="outline-primary">
-                                             <i className="fa fa-bookmark"></i>
-                                        </Button>
-                                    </span>
-                                </OverlayTrigger>
+
+                            <div className="fav-links">
+                                <CFavourites
+                                  //  {...this.props}
+                                />
                             </div>
+
 
                             {/* start user profile */}
                             <Dropdown alignRight className="user-profile">
@@ -304,16 +298,16 @@ class CHeader extends Component {
                                             placement="left"
                                             overlay={<Tooltip id="tooltip-disabled">Profile</Tooltip>}
                                         >
-                    <span className="d-inline-block">
-                      <div
-                          className="profile-name"
-                          onClick={this.handleViewProfileDetails}
-                      >
-                        <i className="fa fa-id-badge"></i>{' '}
-                          {this.state.userInfo && this.state.userInfo.profileName}
-                      </div>
-                        {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
-                    </span>
+                      <span className="d-inline-block">
+                        <div
+                            className="profile-name"
+                            onClick={this.handleViewProfileDetails}
+                        >
+                          <i className="fa fa-id-badge"></i>{' '}
+                            {this.state.userInfo && this.state.userInfo.profileName}
+                        </div>
+                          {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+                      </span>
                                         </OverlayTrigger>
 
                                         {/*{this.state.userInfo.isCompany === 'Y' ? (*/}
@@ -363,11 +357,9 @@ class CHeader extends Component {
                             {/* end user profile */}
                         </div>
                     </header>
-
-                    <div className="container-fluid d-flex  ">
-
-                    </div>
                 </div>
+
+
                 {/* <!--end header-wrapper--> */}
                 {this.state.showProfileDetailModal ? (
                     EnvironmentVariableGetter.REACT_APP_MODULE_CODE ===
