@@ -60,6 +60,7 @@ const addMenuToList = (listToAddTo, menu, isFavourite) => {
         path: REACT_APP_MODULE_CODE === ADMIN_MODULE_CODE ? "/admin" + menu.path : menu.path,
         id: menu.id,
         parentId: menu.parentId,
-        isFavourite: isFavourite
+        isFavourite: isFavourite,
+        menuName: menu.name
     })
 }

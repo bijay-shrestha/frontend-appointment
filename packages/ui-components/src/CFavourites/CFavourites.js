@@ -71,7 +71,7 @@ class CFavourites extends React.PureComponent {
                 userMenuId: menu.id
             })
             await this.fetchLoggedInAdminFavourites();
-            this.showAlertMessage("success", `${menu.name} has been added to favourites.`)
+            this.showAlertMessage("success", `${menu.menuName} has been added to favourites.`)
         } catch (e) {
             this.showAlertMessage('danger', e.errorMessage ? e.errorMessage : 'Sorry,Internal Server Problem occurred.')
         }
@@ -85,10 +85,11 @@ class CFavourites extends React.PureComponent {
             await Axios.put(UPDATE_FAVOURITES,
                 {
                     adminId: adminInfo.adminId,
-                    userMenuId: menu.id, status: 'D'
+                    userMenuId: menu.id,
+                    status: 'N'
                 })
             await this.fetchLoggedInAdminFavourites();
-            this.showAlertMessage("success", `${menu.name} has been removed from favourites.`)
+            this.showAlertMessage("success", `${menu.menuName} has been removed from favourites.`)
         } catch (e) {
             this.showAlertMessage('danger', e.errorMessage ? e.errorMessage : 'Sorry,Internal Server Problem occurred.')
         }
@@ -106,6 +107,7 @@ class CFavourites extends React.PureComponent {
                     let displayData = {
                         ...menu,
                         iCharacter: menu.name.charAt(0).toUpperCase(),
+                        menuName: menu.name,
                         name: StringUtils.boldCharactersOfString(keyWord, menu.name, count < 1 ? count : count++),
                     };
                     menusMatchingKeyWord.push(displayData);
