@@ -8,11 +8,9 @@ const AppointmentServiceDropdownList = props => {
     appointmentServiceTypeCode,
     handleAppointmentChange
   } = props
-  return (
-    <Col className="px-0">
-      <Form className="hospital-list">
-        <Form.Group as={Row} controlId="formPlaintextEmail">
-          <Col sm="12">
+  return (  
+      <Form className="hospital-list service-list">
+        <Form.Group  controlId="formPlaintextEmail">    
             <div className="hospital-list-input">
               <Form.Label className="hospital-label">Appointment Service Type</Form.Label>
               <CHybridSelect
@@ -22,11 +20,9 @@ const AppointmentServiceDropdownList = props => {
                 options={serviceTypeDropdown.map(service =>({value:service.code,label:service.name}))}
                 value={appointmentServiceTypeCode}
               ></CHybridSelect>
-            </div>
-          </Col>
+            </div>      
         </Form.Group>
       </Form>
-    </Col>
   )
 }
 export default memo(AppointmentServiceDropdownList)
