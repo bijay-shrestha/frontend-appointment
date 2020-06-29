@@ -138,14 +138,14 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         searchParameterForRevenueTrend: revenueTrend,
         searchParamsForOverallAppoinment: overAllAppointment,
         doctorRevenue: {
-          doctorId: 0,
+          doctorId: '',
           hospitalId: 0,
           fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
           toDate: new Date(),
           specializationId: 0
         },
         departmentRevenue: {
-          hospitalDepartmentId: 0,
+          hospitalDepartmentId: '',
           fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 1),
           toDate: new Date()
         }
