@@ -238,7 +238,8 @@
                 margin-bottom: 13px;
                 left: 8px;
                 width: 120px;
-                border-radius: 50%;
+                height: 120px;
+                @include border-radius(50%);
             }
 
             .user-name {

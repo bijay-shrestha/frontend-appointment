@@ -1,5 +1,5 @@
 import React from 'react'
-import {CForm, CLoading, CModal} from '@frontend-appointment/ui-elements'
+import {CForm, CLoading, CModal,CScrollbar} from '@frontend-appointment/ui-elements'
 import {Form, InputGroup, Row} from 'react-bootstrap'
 
 const AddFavourites = ({
@@ -31,6 +31,8 @@ const AddFavourites = ({
                                     <InputGroup.Text> <i className="fa fa-search"/></InputGroup.Text>
                                 </InputGroup.Append>
                             </InputGroup>
+                            <CScrollbar id="add-fav-scrollbar" style={{ height : '250px'}}>
+                            <div>
 
                             {
                                 menuListForFavourites && menuListForFavourites.length ? menuListForFavourites.map(menu => (
@@ -61,6 +63,9 @@ const AddFavourites = ({
                                         </div>
                                     </div>
                             }
+                            </div>
+
+                            </CScrollbar>
                         </Row>
                     </CForm>
             }
