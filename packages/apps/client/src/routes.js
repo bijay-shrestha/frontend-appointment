@@ -496,7 +496,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Doctor Appointment Cancellation',
+        name: 'Doctor Pending Refund Approval',
         isSingleTab: false
     },
     {
@@ -506,7 +506,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Department Appointment Cancellation',
+        name: 'Department Pending Refund Approval',
         isSingleTab: false
     },
     {
