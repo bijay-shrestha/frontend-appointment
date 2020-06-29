@@ -173,7 +173,7 @@
   },
   {
     "id": 18,
-    "name": "Doctor Appointment CheckIn",
+    "name": "Doctor Consultation",
     "status": "Y",
     "path": "/doctor",
     "parent_role_id": null,
@@ -194,7 +194,7 @@
   },
   {
     "id": 20,
-    "name": "Department Appointment CheckIn",
+    "name": "Department Consultation",
     "status": "Y",
     "path": "/department",
     "parent_role_id": null,
@@ -245,7 +245,7 @@
   },
   {
     "id": 25,
-    "name": "Doctor Appointment Status",
+    "name": "Doctor Consultation",
     "status": "Y",
     "path": "/doctor",
     "parent_role_id": null,
@@ -256,7 +256,7 @@
   },
   {
     "id": 26,
-    "name": "Department Appointment Status",
+    "name": "Department Consultation",
     "status": "Y",
     "path": "/department",
     "parent_role_id": null,
