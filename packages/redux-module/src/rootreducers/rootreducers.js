@@ -150,7 +150,8 @@ import {
     HospitalApiIntegrationReducers,
     RequestBodyIntegrationReducers,
     AppointmenStatusByDepartmentListReducer,
-    AppointmenStatusByRoomListReducer
+    AppointmenStatusByRoomListReducer,
+    DepartmentRevenuGeneratedReducer
 } from '../reducers'
 
 const {
@@ -325,7 +326,8 @@ const appReducers = combineReducers({
     ...HospitalApiIntegrationReducers,
     ...RequestBodyIntegrationReducers,
     AppointmenStatusByDepartmentListReducer,
-    AppointmenStatusByRoomListReducer
+    AppointmenStatusByRoomListReducer,
+    DepartmentRevenuGeneratedReducer
 })
 
 export const rootReducers = (state, action) => {

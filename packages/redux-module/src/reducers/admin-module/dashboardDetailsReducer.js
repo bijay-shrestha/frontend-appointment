@@ -33,7 +33,11 @@ const {
   FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS,
   FETCH_DASHBOARD_FEATURES_ERROR,
   FETCH_DASHBOARD_FEATURES_START,
-  FETCH_DASHBOARD_FEATURES_SUCCESS
+  FETCH_DASHBOARD_FEATURES_SUCCESS,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_ERROR,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_PENDING,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_SUCCESS,
+  CLEAR_DASHBOARD_DEPARTMENT_REVENUE_MESSAGE
 } = dashboardDetailsActionsConstant
 
 const appointmentStatsState = {
@@ -60,6 +64,16 @@ const revenueGeneratedDay = {
   revenueGeneratedDayErrorMessage: ''
 }
 
+const revenueGeneratedByDepartment = {
+  isDepartmentRevenueGeneratedLoading: true,
+  departmentRevenueGenerated: [],
+  departmentRevenueGeneratedErrorMessage: '',
+  totalItemsDepartment: 0,
+  totalAmountDepartment: 0,
+  overallAppointmentDepartment: 0,
+  totalFollowUpDepartment: 0
+}
+
 const revenueGeneratedByDoctor = {
   isDoctorRevenueGeneratedLoading: true,
   doctorRevenueGenerated: [],
@@ -67,7 +81,7 @@ const revenueGeneratedByDoctor = {
   totalItems: 0,
   totalAmount: 0,
   overallAppointment: 0,
-  totalFollowUp:0
+  totalFollowUp: 0
 }
 
 const revenueGeneratedMonth = {
@@ -370,13 +384,12 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
       return {
         ...state,
         isDoctorRevenueGeneratedLoading: false,
-        doctorRevenueGenerated:
-         action.payload.data.doctorRevenueInfo,
+        doctorRevenueGenerated: action.payload.data.doctorRevenueInfo,
         doctorRevenueGeneratedErrorMessage: '',
         totalItemsDoctorsRevenue: action.payload.data.totalItems,
         totalRevenueAmount: action.payload.data.totalRevenueAmount,
         overallAppointment: action.payload.data.totalAppointmentCount,
-        totalFollowUp:action.payload.data.totalFollowUpCount
+        totalFollowUp: action.payload.data.totalFollowUpCount
       }
     case DASHBOARD_DOCTOR_REVENUE_FETCH_ERROR:
       return {
@@ -387,7 +400,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         totalItemsDoctorsRevenue: 0,
         totalRevenueAmount: 0,
         overallAppointment: 0,
-        totalFollowUp:0
+        totalFollowUp: 0
       }
     case CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE:
       return {
@@ -398,7 +411,7 @@ export const DashboardRevenueGeneratedByDoctorReducer = (
         totalItemsDoctorsRevenue: 0,
         totalRevenueAmount: 0,
         overallAppointment: 0,
-        totalFollowUp:0
+        totalFollowUp: 0
       }
     default:
       return {...state}
@@ -456,5 +469,47 @@ export const DashboardFeaturesByAdminReducer = (
       }
     default:
       return {...state}
+  }
+}
+
+export const DepartmentRevenuGeneratedReducer = (
+  state = {...revenueGeneratedByDepartment},
+  action
+) => {
+  switch (action.type) {
+    case FETCH_DASHBOARD_DEPARMENT_REVENUE_PENDING:
+      return {
+        ...state
+      }
+    case FETCH_DASHBOARD_DEPARMENT_REVENUE_SUCCESS:
+      return {
+        isDepartmentRevenueGeneratedLoading: false,
+        departmentRevenueGenerated: action.payload.data.revenueDTOS,
+        departmentRevenueGeneratedErrorMessage: '',
+        totalItemsDepartment: action.payload.data.totalItems,
+        totalAmountDepartment: action.payload.totalRevenueAmount,
+        overallAppointmentDepartment: action.payload.data.totalAppointmentCount,
+        totalFollowUpDepartment: action.payload.data.totalFollowUpCount
+      }
+    case FETCH_DASHBOARD_DEPARMENT_REVENUE_ERROR:
+      return {
+        isDepartmentRevenueGeneratedLoading: false,
+        departmentRevenueGenerated: [],
+        departmentRevenueGeneratedErrorMessage: action.payload.message,
+        totalItemsDepartment: 0,
+        totalAmountDepartment: 0,
+        overallAppointmentDepartment: 0,
+        totalFollowUpDepartment: 0
+      }
+    case CLEAR_DASHBOARD_DEPARTMENT_REVENUE_MESSAGE :return{
+      isDepartmentRevenueGeneratedLoading: true,
+      departmentRevenueGenerated: [],
+      departmentRevenueGeneratedErrorMessage: '',
+      totalItemsDepartment: 0,
+      totalAmountDepartment: 0,
+      overallAppointmentDepartment: 0,
+      totalFollowUpDepartment: 0
+    }
+    default:return state
   }
 }

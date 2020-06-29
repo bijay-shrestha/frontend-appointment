@@ -204,6 +204,7 @@ export const DashboardApiConstant = {
     APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + "/today-appointment"),
     DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + "/doctorRevenue"),
     DASHBOARD_FEATURE: BASE.concat(DASHBOARD_BASE + "/features"),
+    DEPARTMENT_REVENUE: BASE.concat(DASHBOARD_BASE + "/hospitalDepartmentRevenue")
 };
 
 const COMPANY_PROFILE_SETUP_BASE = '/company-profile';
