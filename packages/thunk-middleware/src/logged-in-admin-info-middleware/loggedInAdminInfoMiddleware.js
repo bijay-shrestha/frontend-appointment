@@ -1,6 +1,6 @@
 import {Axios} from "@frontend-appointment/core";
 import {LoggedInAdminInfoActions} from "@frontend-appointment/action-module";
-import {AdminInfoUtils,EnvironmentVariableGetter} from "@frontend-appointment/helpers";
+import {AdminInfoUtils, EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 import axios from 'axios'
 
 export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
@@ -16,14 +16,14 @@ export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
 };
 
 export const fetchLoggedInAdminIP = () => async () => {
-    try{
-       //const url1='https://www.cloudflare.com/cdn-cgi/trace'
-       const apiKey = EnvironmentVariableGetter.IP_API_KEY;
-       console.log("api key",apiKey)
-       const url = " https://api.ipdata.co/?api-key="+apiKey
-       const adminIp = await axios.get(url);
-       return adminIp.data.ip;
-    }catch(e){
-     console.log(e);
+    try {
+        //const url1='https://www.cloudflare.com/cdn-cgi/trace'
+        const apiKey = EnvironmentVariableGetter.IP_API_KEY;
+        // console.log("api key",apiKey)
+        const url = " https://api.ipdata.co/?api-key=" + apiKey
+        const adminIp = await axios.get(url);
+        return adminIp.data.ip;
+    } catch (e) {
+        console.log(e);
     }
 }

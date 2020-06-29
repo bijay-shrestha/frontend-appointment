@@ -1,4 +1,4 @@
-import {LocalStorageSecurity} from './index'
+import {EnvironmentVariableGetter, LocalStorageSecurity} from './index'
 
 export const getFavouritesDetails = favourites => {
     let userMenus = LocalStorageSecurity.localStorageDecoder('userMenus');
@@ -53,9 +53,11 @@ export const filterFavouritesAndPrepareUserMenus = (favouritesList, userMenus) =
 }
 
 const addMenuToList = (listToAddTo, menu, isFavourite) => {
+    const {REACT_APP_MODULE_CODE, ADMIN_MODULE_CODE} = EnvironmentVariableGetter;
     listToAddTo.push({
         name: menu.name,
-        path: menu.path,
+        iCharacter: menu.name.charAt(0).toUpperCase(),
+        path: REACT_APP_MODULE_CODE === ADMIN_MODULE_CODE ? "/admin" + menu.path : menu.path,
         id: menu.id,
         parentId: menu.parentId,
         isFavourite: isFavourite

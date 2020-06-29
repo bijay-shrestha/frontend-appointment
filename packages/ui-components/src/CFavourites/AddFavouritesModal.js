@@ -33,21 +33,21 @@ const AddFavourites = ({
                             </InputGroup>
 
                             {
-                                menuListForFavourites ? menuListForFavourites.map(menu => (
+                                menuListForFavourites && menuListForFavourites.length ? menuListForFavourites.map(menu => (
                                         <div key={menu.id}
                                              className="menu-link ">
                                             <div className="anchor-icon">
-                                                {menu.name.charAt(0).toUpperCase()}
+                                                {menu.iCharacter}
                                             </div>
                                             <div className="menu-box">
                                                 <div className="menu">{menu.name}</div>
                                                 {menu.isFavourite ?
-                                                    <a className="remove-fav" href="">
+                                                    <a className="remove-fav">
                                                         <i className="fa fa-times"
                                                            onClick={() => onRemoveFavourite(menu)}/>
                                                     </a>
                                                     :
-                                                    <a className="add-fav" href="">
+                                                    <a className="add-fav">
                                                         <i className="fa fa-plus"
                                                            onClick={() => onAddToFavourite(menu)}/>
                                                     </a>}

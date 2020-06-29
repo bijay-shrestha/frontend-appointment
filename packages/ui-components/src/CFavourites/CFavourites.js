@@ -2,11 +2,15 @@ import React from 'react'
 import {Dropdown, OverlayTrigger, Tooltip} from 'react-bootstrap'
 import AddFavouritesModal from "./AddFavouritesModal";
 import {Link} from 'react-router-dom'
-import {FavouritesUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {FavouritesUtils, LocalStorageSecurity, StringUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {CAlert} from '@frontend-appointment/ui-elements'
+import * as Material from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
+
+const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
 
 class CFavourites extends React.PureComponent {
     state = {
@@ -16,7 +20,25 @@ class CFavourites extends React.PureComponent {
         menuListForFavourites: [],
         loggedInAdminFavourites: [],
         isAddPending: false,
+        showAlert: false,
+        alertMessageInfo: {
+            variant: '',
+            message: ''
+        },
     }
+
+    alertTimer = '';
+
+
+    clearAlertTimeout = () => {
+        this.alertTimer = setTimeout(() => this.closeAlert(), 10000)
+    };
+
+    closeAlert = () => {
+        this.setState({
+            showAlert: false
+        })
+    };
 
     getUserMenusFromLocalStorage = () => {
         const userMenus = LocalStorageSecurity.localStorageDecoder('userMenus')
@@ -27,18 +49,31 @@ class CFavourites extends React.PureComponent {
         this.setState({showAddFavouritesModal: !this.state.showAddFavouritesModal})
     }
 
+    showAlertMessage = (type, message) => {
+        this.setState({
+            isAddPending: false,
+            showAlert: true,
+            alertMessageInfo: {
+                variant: type,
+                message: message
+            }
+        });
+        this.clearAlertTimeout();
+    };
+
     handleAddFavourite = async menu => {
         this.setState({
             isAddPending: true
         })
         try {
-            await Axios.post(SAVE_FAVOURITES, {userMenuId: menu.id})
-            await this.fetchLoggedInAdminFavourites();
-            this.setState({
-                isAddPending: false
+            await Axios.post(SAVE_FAVOURITES, {
+                adminId: adminInfo.adminId,
+                userMenuId: menu.id
             })
+            await this.fetchLoggedInAdminFavourites();
+            this.showAlertMessage("success", `${menu.name} has been added to favourites.`)
         } catch (e) {
-
+            this.showAlertMessage('danger', e.errorMessage ? e.errorMessage : 'Sorry,Internal Server Problem occurred.')
         }
     }
 
@@ -47,19 +82,44 @@ class CFavourites extends React.PureComponent {
             isAddPending: true
         })
         try {
-            await Axios.post(UPDATE_FAVOURITES, {userMenuId: menu.id, status: 'D'})
+            await Axios.put(UPDATE_FAVOURITES,
+                {
+                    adminId: adminInfo.adminId,
+                    userMenuId: menu.id, status: 'D'
+                })
             await this.fetchLoggedInAdminFavourites();
-            this.setState({
-                isAddPending: false
-            })
+            this.showAlertMessage("success", `${menu.name} has been removed from favourites.`)
         } catch (e) {
-
+            this.showAlertMessage('danger', e.errorMessage ? e.errorMessage : 'Sorry,Internal Server Problem occurred.')
         }
     }
 
     handleSearchInputChange = event => {
+        const {menuListForFavourites} = this.state
+        let keyWord = event.target.value;
+        let menusMatchingKeyWord = []
+        let count = 0
+        if (keyWord !== '') {
+            keyWord = keyWord.toLowerCase();
+            menuListForFavourites && menuListForFavourites.map(menu => {
+                if (StringUtils.compareStrings(keyWord, menu.name)) {
+                    let displayData = {
+                        ...menu,
+                        iCharacter: menu.name.charAt(0).toUpperCase(),
+                        name: StringUtils.boldCharactersOfString(keyWord, menu.name, count < 1 ? count : count++),
+                    };
+                    menusMatchingKeyWord.push(displayData);
+                    count++;
+                }
+                return ''
+            })
+        } else {
+            menusMatchingKeyWord = [...menuListForFavourites]
+        }
+
         this.setState({
-            searchKeyword: event.target.value
+            searchKeyword: event.target.value,
+            filteredMenus: menusMatchingKeyWord ? [...menusMatchingKeyWord] : []
         })
     }
 
@@ -87,6 +147,11 @@ class CFavourites extends React.PureComponent {
         await this.fetchLoggedInAdminFavourites()
     }
 
+
+    componentWillUnmount() {
+        clearTimeout(this.alertTimer)
+    }
+
     // componentDidUpdate(prevProps, prevState, snapshot) {
     //     const {favouritesList} = this.props.favouritesProp
     //     if (favouritesList && !ObjectUtils.checkObjectEquality(favouritesList, prevProps.favouritesProp.favouritesList)) {
@@ -102,7 +167,9 @@ class CFavourites extends React.PureComponent {
             filteredMenus,
             loggedInAdminFavourites,
             showAddFavouritesModal,
-            isAddPending
+            isAddPending,
+            showAlert,
+            alertMessageInfo
         } = this.state
 
         return <>
@@ -125,7 +192,7 @@ class CFavourites extends React.PureComponent {
                                                             as={Link}
                                                             to={favourite.path}>
                                                  <div className="anchor-icon">
-                                                     {favourite.name.charAt(0).toUpperCase()}
+                                                     {favourite.iCharacter}
                                                  </div>
                                                  <div className="menu-box">
                                                      <div className="menu">{favourite.name}</div>
@@ -164,7 +231,24 @@ class CFavourites extends React.PureComponent {
                     onSearchMenus={this.handleSearchInputChange}
                     searchKeyword={searchKeyword}
                 /> : ""}
-
+            <CAlert
+                id="favourites"
+                variant={alertMessageInfo.variant}
+                show={showAlert}
+                onClose={this.closeAlert}
+                alertType={
+                    alertMessageInfo.variant === 'success' ? (
+                        <>
+                            <Material.MdDone/>
+                        </>
+                    ) : (
+                        <>
+                            <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
+                        </>
+                    )
+                }
+                message={alertMessageInfo.message}
+            />
         </>;
     }
 
