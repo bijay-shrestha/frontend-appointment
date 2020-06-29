@@ -267,7 +267,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
 
         handleSearchFormChange = async (event, field) => {
             if (event) {
-                let fieldName, value, label, fileUri;
+                let fieldName, value, label;
                 if (field) {
                     fieldName = field;
                     value = event
@@ -275,7 +275,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                     fieldName = event.target.name;
                     value = event.target.value;
                     label = event.target.label;
-                    fileUri = event.target.fileUri;
+                   // fileUri = event.target.fileUri;
                 }
 
                 let newSearchParams = {...this.state.searchParameters};
@@ -451,7 +451,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
         async componentDidMount() {
             this.callApiForHospitalChange();
             await this.searchAppointment();
-            await this.searchHospitalForDropDown()
+            //await this.searchHospitalForDropDown()
         }
 
         render() {
@@ -496,8 +496,10 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
             } = this.props.PatientDropdownListReducer;
 
             const {
-                activeHospitalDepartmentForDropdown
+                allHospitalDepartmentForDropdown
             }=this.props.HospitalDepartmentDropdownReducer
+
+            console.log("=========",this.props.HospitalDepartmentDropdownReducer)
 
             const {
                 activeRoomNumberForDropdownByDepartment
@@ -518,7 +520,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                             searchParameters: searchParameters,
                             patientListDropdown: patientList,
                             patientDropdownErrorMessage: patientDropdownErrorMessage,
-                            activeHospitalDepartmentForDropdown,
+                            activeHospitalDepartmentForDropdown:allHospitalDepartmentForDropdown,
                             activeRoomNumberForDropdownByDepartment
 
                         }}

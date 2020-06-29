@@ -152,7 +152,7 @@ class AppointmentDepartmentRefundSearchFilter extends PureComponent {
                   </Col>
 
                   <Col sm={12} md={6} xl={4}>
-                    <CHybridSelectWithImage
+                    <CHybridSelect
                       id="roomId"
                       label="Room"
                       name="roomId"
