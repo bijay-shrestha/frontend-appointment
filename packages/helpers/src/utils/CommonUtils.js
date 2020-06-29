@@ -87,7 +87,7 @@ export const filterAppointmentServiceType = (appointmentSeviceType, type) => {
 }
 
 export const getPrimaryServiceType = () => {
-  const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+  const adminInfo = localStorageSecurity.localStorageDecoder('adminInfo')
   if (adminInfo) {
     const allAppointmentServices = adminInfo.hospitalAppointmentServiceType
     const primaryAppointmentService = allAppointmentServices
