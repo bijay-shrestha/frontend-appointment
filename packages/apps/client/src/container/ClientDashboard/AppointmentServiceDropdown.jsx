@@ -15,7 +15,7 @@ const AppointmentServiceDropdownList = props => {
               <Form.Label className="hospital-label">Appointment Service Type</Form.Label>
               <CHybridSelect
                 name="appointmentServiceTypeCode"
-                placeholder="Select Appointment Service Type"
+                placeholder="Select Appointment Type"
                 onChange={handleAppointmentChange}
                 options={serviceTypeDropdown.map(service =>({value:service.code,label:service.name}))}
                 value={appointmentServiceTypeCode}
