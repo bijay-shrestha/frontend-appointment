@@ -34,6 +34,16 @@ class CFavourites extends React.Component {
                                     </div>
                                  </Dropdown.Item>
 
+                                 <Dropdown.Item className="menu-link ">
+                                    <div className="anchor-icon">
+                                      a
+                                    </div>
+                                    <div className="menu-box">
+                                        <div className="menu">Doctor Checkcin</div>
+                                        <a className="remove-fav"><i className="fa fa-times"/></a>
+                                    </div>
+                                 </Dropdown.Item>
+
                                   <div className="add-bar ">
                                     {/* <p className="add-title">Favourite links</p> */}
                                       <a className="btn btn-outline-secondary add-new-fav"
