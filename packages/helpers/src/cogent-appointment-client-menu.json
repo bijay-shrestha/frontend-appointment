@@ -318,8 +318,8 @@
           "name": "Appointment Status",
           "path": "/appointment/status",
           "roles": [
-            27,
-            28
+            35,
+            36
           ],
           "icon": "",
           "leftNavigation": "Y",

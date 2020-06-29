@@ -266,6 +266,26 @@
     "isSingleTab": false
   },
   {
+    "id": 35,
+    "name": "Approve[Doc Appt. Check In]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 36,
+    "name": "Approve[Dept Appt. Check In]",
+    "status": "Y",
+    "parent_role_id": 26,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
     "id": 27,
     "name": "Doctor Pending Refund Approval",
     "status": "Y",
