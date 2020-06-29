@@ -60,8 +60,8 @@ const DetailsModal = ({refundData}) => {
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id=""
-                                    placeholder="Doctor Name"
-                                    value={refundData.doctorName}
+                                    placeholder="Department Name"
+                                    value={refundData.hospitalDepartmentName}
                                     disabled={true}
                                 />
                             </Col>
@@ -69,7 +69,7 @@ const DetailsModal = ({refundData}) => {
                                 <CHybridInput
                                     id=""
                                     placeholder="Specialization Name"
-                                    value={refundData.specializationName}
+                                    value={refundData.roomNumber}
                                     disabled={true}
                                 />
                             </Col>
