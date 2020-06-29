@@ -100,7 +100,7 @@ const DepartmentRevenue = props => {
             </Row>
             <Row>
               <div className="app-queue-datatable">
-                {!departmentRevenueData &&
+                {!isDepartmentRevenueLoading &&
                 !departmentRevenueErrorMessage &&
                 departmentRevenueData && departmentRevenueData.length ? (
                   <>
