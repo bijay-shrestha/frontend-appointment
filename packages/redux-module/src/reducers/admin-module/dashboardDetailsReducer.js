@@ -487,7 +487,7 @@ export const DepartmentRevenuGeneratedReducer = (
         departmentRevenueGenerated: action.payload.data.revenueDTOS,
         departmentRevenueGeneratedErrorMessage: '',
         totalItemsDepartment: action.payload.data.totalItems,
-        totalAmountDepartment: action.payload.totalRevenueAmount,
+        totalAmountDepartment: action.payload.data.totalRevenueAmount,
         overallAppointmentDepartment: action.payload.data.totalAppointmentCount,
         totalFollowUpDepartment: action.payload.data.totalFollowUpCount
       }
