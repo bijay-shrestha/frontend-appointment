@@ -102,6 +102,11 @@ const DepartmentWiseQuickCheckInComponent = loadable(
     () => import('./container/ClientAppointmentDepartmentCheckinQuickMenu/AppointmentDepartmentCheckinFast'),
     {fallback: () => getLoader()}
 )
+
+const DepartmentCheckInComponent = loadable(
+    () => import('./container/ClientAppointmentDepartmentCheckIn/AppointmentDepartmentCheckin'),
+    {fallback: () => getLoader()}
+)
 // const AppointmentLogComponent = Loadable({
 //   loader: () => import('./container/AppointmentVisitApproval/ClientAppointmentLog'),
 //   loading: () => getLoader()
@@ -481,13 +486,33 @@ export const routes = [
     },
     {
         path: '/appointment/checkIn',
-        component: AppointmentApprovalListComponent,
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
         name: 'Appointment Check-In',
-        isSingleTab: true
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/checkIn/doctor',
+        component: AppointmentApprovalListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Appointment Check In',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/checkIn/department',
+        component: DepartmentCheckInComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Appointment Check In',
+        isSingleTab: false
     },
     {
         path: '/reports/appointmentLog',
@@ -497,16 +522,6 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Appointment Log',
-        isSingleTab: true
-    },
-    {
-        path: '/appointment/appointmentStatus',
-        component: AppointmentStatusComponent,
-        icon: '',
-        hasTab: false,
-        isLink: true,
-        isTab: false,
-        name: 'Appointment Status',
         isSingleTab: true
     },
     {
@@ -702,13 +717,33 @@ export const routes = [
         isSingleTab: false
     },
     {
-        path: '/appointment/appointmentStatusByDepartment',
-        name: 'Department Appointment Status',
-        component:DepartmentStatusComponent,
+        path: '/appointment/status',
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab: true
-    }
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/status/doctor',
+        component: AppointmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/status/department',
+        component: DepartmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Appointment Status',
+        isSingleTab: false
+    },
 ]

@@ -294,9 +294,11 @@
           "name": "Appointment Check-In",
           "path": "/appointment/checkIn",
           "roles": [
-            12,
-            14,
-            17
+            23,
+            24,
+            21,
+            19,
+            22
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -311,9 +313,10 @@
           "id": "13",
           "parentId": "10",
           "name": "Appointment Status",
-          "path": "/appointment/appointmentStatus",
+          "path": "/appointment/status",
           "roles": [
-            12
+            27,
+            28
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -322,23 +325,6 @@
           "enabled": "Y",
           "menuFor": "6",
           "description": "appointmentStatus",
-          "childMenus": []
-        },
-        {
-          "id": "27",
-          "parentId": 10,
-          "name": "Department Appointment Status",
-          "path": "/appointment/appointmentStatusByDepartment",
-          "roles": [
-            12
-          ],
-          "icon": "",
-          "leftNavigation": "Y",
-          "checked": false,
-          "order": 1,
-          "enabled": "Y",
-          "menuFor": "6",
-          "description": "appointmentStatusbydepartment",
           "childMenus": []
         }
       ]

@@ -69,7 +69,7 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacCode) => {
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacApi) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
     const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund);
     try {
@@ -81,7 +81,7 @@ export const thirdPartyApiCallRefund = async (data, featureTypeCode, integration
             constructedData,
             "%s",
             data.transactionNumber,
-            hmacCode);
+            hmacApi);
     } catch (e) {
         throw e
     }
@@ -223,7 +223,7 @@ export const appointmentRejectRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectError(
-                e.errorMessage || 'Sorry Internal Server Problem'
+                e.errorMessage||e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -241,7 +241,7 @@ export const appointmentRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
+                e.errorMessage ||e.message||'Sorry Internal Server Problem'
             )
         )
         throw e

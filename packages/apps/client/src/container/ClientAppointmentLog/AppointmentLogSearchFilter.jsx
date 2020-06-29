@@ -8,7 +8,10 @@ import {
   CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {
+  DateTimeFormatterUtils,
+  CommonUtils
+} from '@frontend-appointment/helpers'
 
 class AppointmentLogListSearchFilter extends PureComponent {
   state = {
@@ -39,7 +42,14 @@ class AppointmentLogListSearchFilter extends PureComponent {
       activeSpecializationList,
       //specializationDropdownErrorMessage,
       searchParameters,
-      patientListDropdown
+      patientListDropdown,
+      // isFetchAppointmentServiceTypeLoading,
+      isFetchAppointmentServiceTypeWithCodeLoading,
+      activeAppointmentServiceTypeWithCodeForDropdown,
+      dropdownWithCodeErrorMessage,
+      //isFetchAllHospitalDepartmentLoading,
+      allHospitalDepartmentForDropdown,
+      allDepartmentDropdownErrorMessage
       //patientDropdownErrorMessage
     } = searchHandler
 
@@ -64,6 +74,40 @@ class AppointmentLogListSearchFilter extends PureComponent {
             <CForm id="" className=" mt-4">
               <Container-fluid>
                 <Row>
+                  <Col sm={12} md={6} xl={4}>
+                    <CHybridSelect
+                      id="appointmentServiceTypeCode"
+                      label="Appointment Service Type"
+                      name="appointmentServiceTypeCode"
+                      onKeyDown={event => handleEnter(event)}
+                      options={
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? activeAppointmentServiceTypeWithCodeForDropdown.map(
+                              service => ({
+                                value: service.code,
+                                label: service.name
+                              })
+                            )
+                          : []
+                      }
+                      value={searchParameters.appointmentServiceTypeCode}
+                      isDisabled={
+                        activeAppointmentServiceTypeWithCodeForDropdown &&
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? false
+                          : true
+                      }
+                      onChange={handleSearchFormChange}
+                      onEnter={handleEnter}
+                      placeholder={
+                        activeAppointmentServiceTypeWithCodeForDropdown.length
+                          ? 'Select Appointment Service Type'
+                          : isFetchAppointmentServiceTypeWithCodeLoading
+                          ? 'Loading...'
+                          : dropdownWithCodeErrorMessage
+                      }
+                    />
+                  </Col>
                   <Col sm={12} md={6} xl={4}>
                     <div className="d-flex">
                       <CEnglishDatePicker
@@ -156,36 +200,69 @@ class AppointmentLogListSearchFilter extends PureComponent {
                   {/*    </div>*/}
                   {/*</Col>*/}
 
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelect
-                      id="specializationId"
-                      label="Specialization"
-                      name="specializationId"
-                      onKeyDown={event => handleEnter(event)}
-                      options={activeSpecializationList}
-                      value={searchParameters.specializationId}
-                      // isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
-                      onChange={handleSearchFormChange}
-                      onEnter={handleEnter}
-                      placeholder="Select specialization."
-                    />
-                  </Col>
+                  {CommonUtils.filterAppointmentServiceType(
+                    searchParameters.appointmentServiceTypeCode,
+                    'DEP'
+                  ) ? (
+                    <Col sm={12} md={6} xl={4}>
+                      <CHybridSelect
+                        id="hospitalDepartmentId"
+                        label="Hospital Department"
+                        name="hospitalDepartmentId"
+                        onKeyDown={event => handleEnter(event)}
+                        options={allHospitalDepartmentForDropdown}
+                        value={searchParameters.hospitalDepartmentId}
+                        isDisabled={
+                          allHospitalDepartmentForDropdown &&
+                          (allHospitalDepartmentForDropdown.length
+                            ? false
+                            : true)
+                        }
+                        onChange={handleSearchFormChange}
+                        onEnter={handleEnter}
+                        placeholder={
+                          allHospitalDepartmentForDropdown.length
+                            ? 'Select Department.'
+                            : allDepartmentDropdownErrorMessage
+                            ? 'No Department Found'
+                            : 'Loading'
+                        }
+                      />
+                    </Col>
+                  ) : (
+                    <>
+                      <Col sm={12} md={6} xl={4}>
+                        <CHybridSelect
+                          id="specializationId"
+                          label="Specialization"
+                          name="specializationId"
+                          onKeyDown={event => handleEnter(event)}
+                          options={activeSpecializationList}
+                          value={searchParameters.specializationId}
+                          // isDisabled={activeSpecializationList && (activeSpecializationList.length ? false : true)}
+                          onChange={handleSearchFormChange}
+                          onEnter={handleEnter}
+                          placeholder={'Select Specialization'}
+                        />
+                      </Col>
 
-                  <Col sm={12} md={6} xl={4}>
-                    <CHybridSelectWithImage
-                      id="doctorId"
-                      label="Doctor"
-                      name="doctorId"
-                      onKeyDown={event => handleEnter(event)}
-                      onChange={event => handleSearchFormChange(event)}
-                      options={doctorsDropdown}
-                      value={searchParameters.doctorId}
-                      // isDisabled={doctorsDropdown.length ? false : true}
-                      onEnter={handleEnter}
-                      placeholder="Select doctor."
-                      noOptionsMessage={() => 'No Doctor(s) found.'}
-                    />
-                  </Col>
+                      <Col sm={12} md={6} xl={4}>
+                        <CHybridSelectWithImage
+                          id="doctorId"
+                          label="Doctor"
+                          name="doctorId"
+                          onKeyDown={event => handleEnter(event)}
+                          onChange={event => handleSearchFormChange(event)}
+                          options={doctorsDropdown}
+                          value={searchParameters.doctorId}
+                          // isDisabled={doctorsDropdown.length ? false : true}
+                          onEnter={handleEnter}
+                          placeholder="Select doctor."
+                          noOptionsMessage={() => 'No Doctor(s) found.'}
+                        />
+                      </Col>
+                    </>
+                  )}
 
                   <Col sm={12} md={6} xl={4}>
                     <CHybridInput
@@ -346,17 +423,35 @@ class AppointmentLogListSearchFilter extends PureComponent {
               {/*    </li>*/}
               {/*)}*/}
 
-              {searchParameters.hospitalId && (
+              {searchParameters.appointmentServiceTypeCode && (
                 <li>
                   <OverlayTrigger
                     placement="top"
-                    overlay={<Tooltip id="name">Client</Tooltip>}
+                    overlay={
+                      <Tooltip id="name">Appointment Service Type</Tooltip>
+                    }
                   >
                     <Button
                       id="search-param-button-filters"
                       variant="secondary"
                     >
-                      {searchParameters.hospitalId.label}
+                      {searchParameters.appointmentServiceTypeCode.label}
+                    </Button>
+                  </OverlayTrigger>
+                </li>
+              )}
+
+              {searchParameters.hospitalDepartmentId && (
+                <li>
+                  <OverlayTrigger
+                    placement="top"
+                    overlay={<Tooltip id="name">Department</Tooltip>}
+                  >
+                    <Button
+                      id="search-param-button-filters"
+                      variant="secondary"
+                    >
+                      {searchParameters.hospitalDepartmentId.label}
                     </Button>
                   </OverlayTrigger>
                 </li>
@@ -425,6 +520,7 @@ class AppointmentLogListSearchFilter extends PureComponent {
               {/*        </OverlayTrigger>*/}
               {/*    </li>*/}
               {/*)}*/}
+
               {searchParameters.patienMetaInfoId && (
                 <li>
                   <OverlayTrigger

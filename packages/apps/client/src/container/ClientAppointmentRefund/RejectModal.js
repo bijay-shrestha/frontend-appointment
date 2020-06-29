@@ -22,6 +22,8 @@ const RejectModal = props => {
                     className="float-right  btn-action ml-2"
                     name='Reject'
                     onClickHandler={props.onSubmitDelete}
+                    isLoading={props.actionDisabled}
+                    disabled={props.actionDisabled}
                 />
 
                 <CButton

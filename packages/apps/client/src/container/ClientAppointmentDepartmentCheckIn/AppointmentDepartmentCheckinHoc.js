@@ -7,7 +7,7 @@ import {
     HospitalDepartmentSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils} from '@frontend-appointment/helpers'
+import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import './appointment-approval.scss'
 //import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 import {CAlert} from '@frontend-appointment/ui-elements'
@@ -20,7 +20,7 @@ const {
     clearAppointmentApproveMessage,
     //clearAppointmentRejectMessage,
     fetchAppointmentApprovalDetailByAppointmentId,
-    thirdPartyApiCall,
+    thirdPartyApiCallCheckIn,
     appointmentApproveIntegration
     //downloadExcelForHospitals
 } = AppointmentDetailsMiddleware
@@ -44,7 +44,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                 toDate: new Date(),
                 patientMetaInfoId: '',
-                hospitalDepartmentId: 0,
+                hospitalDepartmentId: '',
                 patientType: '',
                 patientCategory: ''
             },
@@ -81,9 +81,9 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             copySuccessMessage: ''
         }
 
-        handleEnterPress = event => {
-            EnterKeyPressUtils.handleEnter(event)
-        }
+        // handleEnterPress = event => {
+        //     EnterKeyPressUtils.handleEnter(event)
+        // }
 
         handleCopyAppointmentNumber = async text => {
             await this.setState({
@@ -119,8 +119,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
         setShowModal = async () => {
             await this.setState({
                 showModal: false,
-                approveConfirmationModal: false,
-                transferConfirmationModal: false
+                approveConfirmationModal: false
             })
             if (!this.state.approveConfirmationModal) {
                 this.setState({
@@ -237,7 +236,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                  fromDate: DateTimeFormatterUtils.subtractDate(new Date(), 7),
                  toDate: new Date(),
                  patientMetaInfoId: '',
-                 hospitalDepartmentId: 0,
+                 hospitalDepartmentId: '',
                  patientType: '',
                  patientCategory: '',
                  appointmentDetails:''
@@ -486,12 +485,13 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             await this.previewApiCall(data)
             this.props.clearAppointmentApproveMessage()
             await this.setState({
+                approveConfirmationModal: true,
                 approveAppointmentId: data.appointmentId,
                 appointmentDetails: {
                     ...this.props.AppointmentDetailReducer.appointmentDetail
                 }
             })
-            this.approveHandleApi();
+          //  this.approveHandleApi();
         }
 
         // handleTransferChange = async e => {
@@ -586,7 +586,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             let requestDTO;
 
             try {
-                const {successResponse, apiRequestBody} = await thirdPartyApiCall(this.state.appointmentDetails,
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallCheckIn(this.state.appointmentDetails,
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.DEPARTMENT_CHECK_IN_CODE,
                     IntegrationConstants.apiIntegrationKey.CLIENT_FEATURE_INTEGRATION);
                 requestDTO = {
@@ -806,7 +806,6 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                         {...this.props}
                         {...props}
                         searchHandler={{
-                            handleEnter: this.handleEnterPress,
                             handleSearchFormChange: this.handleSearchFormChange,
                             resetSearch: this.handleSearchFormReset,
                             searchAppointment: this.searchAppointment,

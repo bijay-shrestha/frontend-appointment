@@ -9,13 +9,15 @@ import {
   AppointmentNumberWithFollowUpFlag,
   AppointmentStatusBadges,
   PatientNameWithAgeGenderPhone,
-  DoctorWithSpecImage
+  DoctorWithSpecImage,
+  DepartmentNameWithRoomNumberAndBillingMode
 } from '@frontend-appointment/ui-components'
+import {CommonUtils} from '@frontend-appointment/helpers'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import AppointmentAmountWithTransactionNumber from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
-
+const {filterAppointmentServiceType} = CommonUtils
 const AppointmentRefundDataTable = ({
   tableHandler,
   paginationProps,
@@ -29,8 +31,21 @@ const AppointmentRefundDataTable = ({
     previewCall,
     previewData,
     showModal,
-    setShowModal
+    setShowModal,
+    appointmentServiceTypeCode
   } = tableHandler
+  const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
+    appointmentServiceTypeCode,
+    'DOC'
+  )
+    ? 'Doctor Details'
+    : 'Department Details'
+  const componentRendererDoctorOrDepartment = filterAppointmentServiceType(
+    appointmentServiceTypeCode,
+    'DOC'
+  )
+    ? 'doctorwithSpecializationRenderer'
+    : 'departmentWithRoomNumberAndBillingMode'
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
     <>
@@ -127,11 +142,11 @@ const AppointmentRefundDataTable = ({
                   cellRenderer: 'appointmentNumberWithFollowUpFlag'
                 },
                 {
-                  headerName: 'Doctor Details',
+                  headerName: headerNameForDoctorOrDepartment,
                   resizable: true,
                   sortable: true,
                   sizeColumnsToFit: true,
-                  cellRenderer: 'doctorwithSpecializationRenderer',
+                  cellRenderer: componentRendererDoctorOrDepartment,
                   autoSize: true,
                   autoWidth: true,
                   width: '300'
@@ -205,6 +220,13 @@ const AppointmentRefundDataTable = ({
                   null,
                   previewCall
                 ),
+                departmentWithRoomNumberAndBillingMode: PreviewHandlerHoc(
+                  DepartmentNameWithRoomNumberAndBillingMode,
+                  null,
+                  null,
+                  null,
+                  previewCall
+                ),
                 statusRenderer: PreviewHandlerHoc(
                   AppointmentLogAction,
                   null,
@@ -270,12 +292,16 @@ const AppointmentRefundDataTable = ({
             <div className="no-data">
               <i className="fa fa-file-text-o"></i>
             </div>
-            <div className="message"> {searchErrorMessage||'No Appointment(s) Found'}</div>
+            <div className="message">
+              {' '}
+              {searchErrorMessage || 'No Appointment(s) Found'}
+            </div>
           </div>
         )}
       </div>
       {showModal ? (
         <PreviewDetails
+          appointmentServiceTypeCode={appointmentServiceTypeCode}
           showModal={showModal}
           setShowModal={setShowModal}
           logData={previewData}

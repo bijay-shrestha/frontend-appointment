@@ -66,4 +66,7 @@ export {default as PatientNameWithAgeGenderPhoneAddress} from './src/PatientName
 export {default as RoomNumberForTable} from './src/RoomNumberForTable'
 export {default as CPageOverlayLoader} from './src/CPageOverlayLoader'
 export {default as DepartmentNameWithRoomNumber} from './src/DepartmentNameWithRoomNumber'
+export {default as DoctorAppointmentCheckInOptions} from './src/DoctorAppointmentCheckInOption';
+export {default as DepartmentCheckInOptions} from './src/DepartmentAppointmentCheckInOption';
+export {default as DepartmentNameWithRoomNumberAndBillingMode} from './src/DepartmentNameWithRoomNumberAndBilling'
 export {default as CFavourites} from './src/CFavourites';

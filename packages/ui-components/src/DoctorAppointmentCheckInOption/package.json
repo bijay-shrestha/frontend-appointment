@@ -1,0 +1,9 @@
+{
+    "name": "@frontend-appointement/c-doc-appointment-checkin-options",
+    "version": "1.0.0",
+    "main": "DoctorAppointmentApproveAction.js",
+    "author": "Kaushal Regmi",
+    "license": "MIT",
+    "private": true
+  }
+  

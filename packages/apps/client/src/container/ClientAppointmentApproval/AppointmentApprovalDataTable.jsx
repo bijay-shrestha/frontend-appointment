@@ -1,13 +1,10 @@
 import React, {memo} from 'react'
 import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elements'
-import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
+//import TableApproveAction from '../CommonComponents/table-components/TableApproveAction'
+//import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {
-    CConfirmationModal,
-    DoctorWithSpecImage,
-    PatientNameWithAgeGenderPhone
-} from '@frontend-appointment/ui-components'
+import {CConfirmationModal, DoctorWithSpecImage,DoctorAppointmentCheckInOptions,PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
@@ -140,7 +137,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                 }
                             ]}
                             frameworkComponents={{
-                                childActionRenderer: TableApproveAction,
+                                childActionRenderer: DoctorAppointmentCheckInOptions,
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
                                     null,
@@ -159,7 +156,7 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
-                                checkIfRoleExists(filteredActions, 4) &&
+                                checkIfRoleExists(filteredActions, 21) &&
                                 previewCall
                             }
                             rowSelection={'single'}

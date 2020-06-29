@@ -11,11 +11,13 @@ const AdminActivityLog = loadable(
 )
 
 const AdminApiIntegrationAdd = loadable(
-    () => import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
+    () =>
+        import('./container/AdminApiIntegration/Add/AdminApiIntegrationAddForm'),
     {fallback: getLoader()}
 )
 const AdminApiIntegrationManage = loadable(
-    () => import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
+    () =>
+        import('./container/AdminApiIntegration/Manage/AdminApiIntegrationManage'),
     {fallback: getLoader()}
 )
 const ClientActivityLog = loadable(
@@ -105,10 +107,13 @@ const AddDepartmentSetup = loadable(
 const AddDepartmentDutyRosterComponent = loadable(
     () => import('./container/DepartmentDutyRoster/Add/DepartmentDutyRosterAdd'),
     {fallback: () => getLoader()}
-);
+)
 
 const DepartmentStatusComponent = loadable(
-    () => import('./container/AppointmentStatusByDepartment/AppointmentStatusByDepartment'),
+    () =>
+        import(
+            './container/AppointmentStatusByDepartment/AppointmentStatusByDepartment'
+            ),
     {fallback: () => getLoader()}
 )
 
@@ -713,16 +718,6 @@ export const routes = [
         isSingleTab: true
     },
     {
-        path: '/admin/appointment/appointmentStatus',
-        component: AppointmentStatusComponent,
-        icon: '',
-        hasTab: false,
-        isLink: true,
-        isTab: false,
-        name: 'Appointment Status',
-        isSingleTab: true
-    },
-    {
         path: '/admin/appointment',
         component: <></>,
         icon: '',
@@ -1031,16 +1026,36 @@ export const routes = [
         isLink: true,
         isTab: false,
         name: 'Billing Mode Setup',
-        isSingleTab: true,
+        isSingleTab: true
     },
     {
-        path: '/admin/appointment/appointmentStatusByDepartment',
-        name: 'Department Appointment Status',
-        component:DepartmentStatusComponent,
+        path: '/admin/appointment/status',
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
-        isSingleTab: true
-    }
+        name: 'Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/status/doctor',
+        component: AppointmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Appointment Status',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/status/department',
+        component: DepartmentStatusComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Appointment Status',
+        isSingleTab: false
+    },
 ]
