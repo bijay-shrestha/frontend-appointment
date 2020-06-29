@@ -5,7 +5,9 @@ import {
     DoctorMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware,
-    HmacMiddleware
+    HmacMiddleware,
+    HospitalDepartmentSetupMiddleware,
+    RoomSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, IntegrationConstants} from '@frontend-appointment/web-resource-key-constants'
 import {
@@ -27,6 +29,10 @@ const {
     thirdPartyApiCallRefund
 } = AppointmentDetailsMiddleware;
 
+const {fetchAllHospitalDepartmentForDropdown} = HospitalDepartmentSetupMiddleware
+
+const {fetchActiveRoomNumberForDropdownByDepartmentId}=RoomSetupMiddleware
+
 const {fetchHmacTokenByAppointmentId} = HmacMiddleware;
 
 const {fetchActiveDoctorsForDropdown} = DoctorMiddleware
@@ -38,13 +44,13 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
     const {
         appointmentSetupApiConstant,
         hospitalSetupApiConstants,
-        doctorSetupApiConstants,
-        specializationSetupAPIConstants,
+        // doctorSetupApiConstants,
+        // specializationSetupAPIConstants,
         patientSetupApiConstant,
         hmacApiConstants
     } = AdminModuleAPIConstants
 
-    class AppointmentRefundDetails extends React.PureComponent {
+    class AppointmentDepartmentRefundDetails extends React.PureComponent {
         state = {
             searchParameters: {
                 appointmentNumber: '',
@@ -52,9 +58,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 toDate: new Date(),
                 hospitalId: '',
                 patientMetaInfoId: '',
-                doctorId: '',
+                hospitalDepartmentId: '',
                 patientType: '',
-                specializationId: '',
+                roomId: '',
                 isConfirming: false,
                 thirdPartyApiErrorMessage: ''
             },
@@ -107,8 +113,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 toDate,
                 patientMetaInfoId,
                 patientType,
-                specializationId,
-                doctorId
+                roomId,
+                hospitalDepartmentId
             } = this.state.searchParameters;
             let searchData = {
                 appointmentNumber,
@@ -116,8 +122,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 toDate: appointmentNumber ? '' : toDate,
                 patientMetaInfoId: patientMetaInfoId.value || '',
                 patientType: patientType.value || '',
-                specializationId: specializationId.value || '',
-                doctorId: doctorId.value || ''
+                roomId: roomId.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
             };
 
             let updatedPage =
@@ -127,7 +133,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     ? page
                     : this.state.queryParams.page
             await this.props.fetchAppointmentRefundList(
-                appointmentSetupApiConstant.APPOINTMENT_REFUND_LIST,
+                appointmentSetupApiConstant.APPOINTMENT_DEPARTMENT_REFUND_LIST,
                 {
                     page: updatedPage,
                     size: this.state.queryParams.size
@@ -244,12 +250,16 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
         callApiForHospitalChange = async () => {
             // await this.handleHospitalChangeReset()
-            this.props.fetchActiveDoctorsForDropdown(
-                doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
-            );
-            this.props.fetchSpecializationForDropdown(
-                specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
-            );
+            // this.props.fetchActiveDoctorsForDropdown(
+            //     doctorSetupApiConstants.FETCH_ACTIVE_DOCTORS_FOR_DROPDOWN
+            // );
+            // this.props.fetchSpecializationForDropdown(
+            //     specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
+            // );
+
+            this.props.fetchAllHospitalDepartmentForDropdown(
+                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
+            )
             this.props.fetchPatientMetaDropdownForClient(
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS)
         };
@@ -576,7 +586,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             fetchAppointmentRefundDetailByAppointmentId,
             clearAppointmentRefundDetailMessage,
             thirdPartyApiCallRefund,
-            fetchHmacTokenByAppointmentId
+            fetchHmacTokenByAppointmentId,
+            fetchAllHospitalDepartmentForDropdown,
+            fetchActiveRoomNumberForDropdownByDepartmentId
         }
     )
 };

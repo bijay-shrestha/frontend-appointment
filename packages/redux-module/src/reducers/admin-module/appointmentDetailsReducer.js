@@ -228,7 +228,7 @@ export const AppointmentRefundListReducer = (
     case REFUND_FETCH_SUCCESS:
       return {
         ...state,
-        refundList: [...action.payload.data.refundAppointments],
+        refundList: [...action.payload.data.refundAppointments||action.payload.data.cancelledAppointments],
         isRefundListLoading: false,
         refundErrorMessage: '',
         totalRefundAmount: action.payload.data.totalRefundAmount,
