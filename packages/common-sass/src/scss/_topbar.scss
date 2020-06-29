@@ -309,12 +309,15 @@
             border: 1px solid $gray-200;
             background-color: transparent;
             @include border-radius(50%);
+            
 
             &:hover {
                 color: $gray-700;
                 background-color: #fff;
                 @include border-radius(50%);
             }
+
+           
         }
 
         // &:hover {
@@ -331,30 +334,55 @@
             margin-top: 0;
         }
 
+        .dropdown-toggle{
+            i{
+                @include centerer;
+                
+            }
+
+            &:hover{
+                .fa-star{
+                    color:#f4cd0c;
+                }
+            }
+        }
+
         &.show {
             background-color: $white !important;
+
+            .fa-star{
+                color:#f4cd0c;
+            }
         }
 
         .add-bar {     
             width: 100%;
             height: auto;
             background-color: $gray-100;
-            border-top: 1px solid $gray-100;
-            text-align: center;
+            // border-top: 1px solid $gray-100;
+            // text-align: center;
             background-color: $white;
-            padding: 9px 0;
+            padding: 0 10px;
 
-            .add-new-fav {         
-              
-                width: auto;               
-                padding: 6px 8px;
-                // border: none;
-                // background-color: $gray-200;               
+            .add-new-fav {
+                width: 100%;               
+                padding: 16px 0px;
+                border: none;
+                border-top:1px solid $gray-300;
+                background-color:transparent;               
                 line-height: 1.2;
-                @include border-radius(4px !important);
+                @include border-radius(0px !important);
+                text-align: left;
 
                 &:hover {
-                    background-color: $gray-200;
+                    // background-color: $gray-200;
+                    text-decoration: underline;
+                }
+
+                i{
+                    width:40px;
+                    padding-left:7px;
+                    color:$gray-600;
                 }
             }
         }
@@ -409,11 +437,11 @@
 
                 .remove-fav {
                     padding-right: 8px;
-                    color: $gray-800;
+                    color: $gray-600;
                     display: none;
 
                     &:hover {
-                        color: $danger;
+                        color: $danger !important;
                     }
                 }
                 
