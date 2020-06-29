@@ -59,6 +59,7 @@ import * as GenericThirdPartyApiMiddleware
     from './src/generic-third-party-api-middleware/genericThirdPartyApiMiddleware';
 import * as HmacMiddleware
     from './src/hmac-middleware/hmacMiddleware';
+import * as FavouritesMiddleware from './src/favourites-middleware/favouritesMiddleware'
 
 export {
     AppointmentDetailsMiddleware,
@@ -121,5 +122,6 @@ export {
     AdminApiIntegrationMiddleware,
     SalutationMiddleware,
     GenericThirdPartyApiMiddleware,
-    HmacMiddleware
+    HmacMiddleware,
+    FavouritesMiddleware
 }

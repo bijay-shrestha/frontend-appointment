@@ -253,8 +253,6 @@ class CHeader extends Component {
                                 breadcrumbData={this.props.dataForBreadCrumb}
                             />
                         </div>
-
-
                         {/*search start*/}
                         <div className="header-content-right d-flex align-items-center">
                             <CDoubleShiftSearch/>
@@ -262,7 +260,9 @@ class CHeader extends Component {
                             {/* end search */}
 
                             <div className="fav-links">
-                                <CFavourites/>
+                                <CFavourites
+                                  //  {...this.props}
+                                />
                             </div>
 
 

@@ -1,5 +1,6 @@
 import {Axios} from '@frontend-appointment/core'
 import {FavouritesActions} from '@frontend-appointment/action-module'
+import {FavouritesUtils} from '@frontend-appointment/helpers'
 
 export const saveFavourites = (path, data) => async dispatch => {
     dispatch(FavouritesActions.saveFavouritesPending())
@@ -31,7 +32,8 @@ export const fetchFavouritesByAdminId = (path) => async dispatch => {
     dispatch(FavouritesActions.fetchFavouritesForDropdownPending())
     try {
         const response = await Axios.get(path);
-        dispatch(FavouritesActions.fetchFavouritesForDropdownSuccess(response.data))
+        const favouriteMenus = await FavouritesUtils.getFavouritesDetails(response.data);
+        dispatch(FavouritesActions.fetchFavouritesForDropdownSuccess(favouriteMenus))
         return response
     } catch (e) {
         dispatch(FavouritesActions.fetchFavouritesForDropdownError(e.errorMessage ? e.errorMessage
