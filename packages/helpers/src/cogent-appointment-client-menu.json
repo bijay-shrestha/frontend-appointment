@@ -275,9 +275,7 @@
           "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
-            12,
-            15,
-            16
+          27,28,31,29,30,32
           ],
           "icon": "",
           "leftNavigation": "Y",

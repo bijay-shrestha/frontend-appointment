@@ -3,6 +3,9 @@ import LoginHoc from './src/LoginHOC'
 import menus from './src/menu'
 import {DoctorRevenueAppointmentAmount} from './src/DoctorRevenueAppointmentAmount'
 import {DoctorRevenueNoOfAppointments} from './src/DoctorRevenueNoOfAppointments'
+import {DepartmentRevenueAppointmentAmount} from './src/DeparmtentRevenueAppointmentAmount'
+import {DepartmentRevenueNoOfAppointments} from './src/DepartmentRevenueNoOfAppointments'
+
 import {checkPositveAndNegativeIcons} from './src/LessOrDecrementShower'
 export {default as ComponentHoc} from './src/ComponentHoc'
 export {default as ConnectHoc} from './src/connectHoc'
@@ -19,5 +22,7 @@ export {
     menus,
     checkPositveAndNegativeIcons,
     DoctorRevenueAppointmentAmount,
-    DoctorRevenueNoOfAppointments
+    DoctorRevenueNoOfAppointments,
+    DepartmentRevenueAppointmentAmount,
+    DepartmentRevenueNoOfAppointments
 }

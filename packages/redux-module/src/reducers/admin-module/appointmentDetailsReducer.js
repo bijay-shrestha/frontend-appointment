@@ -245,42 +245,42 @@ export const AppointmentRefundListReducer = (
     state = {...initialState},
     action
 ) => {
-    switch (action.type) {
-        case REFUND_FETCH_START:
-            return {
-                ...state,
-                refundList: [],
-                isRefundListLoading: true,
-                refundErrorMessage: '',
-                totalRefundAmount: '',
-                totalItems: ''
-            }
-        case REFUND_FETCH_SUCCESS:
-            return {
-                ...state,
-                refundList: [...action.payload.data.refundAppointments],
-                isRefundListLoading: false,
-                refundErrorMessage: '',
-                totalRefundAmount: action.payload.data.totalRefundAmount,
-                totalItems: action.payload.data.totalItems
-            }
-        case REFUND_FETCH_ERROR:
-            return {
-                ...state,
-                refundList: [],
-                isRefundListLoading: false,
-                refundErrorMessage: action.payload.data,
-                totalRefundAmount: '',
-                totalItems: ''
-            }
-        case CLEAR_REFUND_LIST_MESSAGE:
-            return {
-                ...state,
-                refundErrorMessage: ''
-            }
-        default:
-            return {...state}
-    }
+  switch (action.type) {
+    case REFUND_FETCH_START:
+      return {
+        ...state,
+        refundList: [],
+        isRefundListLoading: true,
+        refundErrorMessage: '',
+        totalRefundAmount: '',
+        totalItems: ''
+      }
+    case REFUND_FETCH_SUCCESS:
+      return {
+        ...state,
+        refundList: [...action.payload.data.refundAppointments||action.payload.data.cancelledAppointments],
+        isRefundListLoading: false,
+        refundErrorMessage: '',
+        totalRefundAmount: action.payload.data.totalRefundAmount,
+        totalItems: action.payload.data.totalItems
+      }
+    case REFUND_FETCH_ERROR:
+      return {
+        ...state,
+        refundList: [],
+        isRefundListLoading: false,
+        refundErrorMessage: action.payload.data,
+        totalRefundAmount: '',
+        totalItems: ''
+      }
+    case CLEAR_REFUND_LIST_MESSAGE:
+      return {
+        ...state,
+        refundErrorMessage: ''
+      }
+    default:
+      return {...state}
+  }
 }
 
 export const AppointmentRefundRejectReducer = (
