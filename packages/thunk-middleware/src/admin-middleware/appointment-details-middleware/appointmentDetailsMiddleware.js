@@ -37,12 +37,12 @@ export const fetchAppointmentApprovalList = (
     dispatch(AppointmentDetailActions.appointmentApprovalFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
-        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.pendingAppointmentApprovals||response.data,
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.pendingAppointmentApprovals || response.data,
             pagination.page, pagination.size);
         dispatch(
             AppointmentDetailActions.appointmentApprovalFetchingSuccess({
                 pendingAppointmentApprovals: dataWithSn,
-                totalItems: response.data.totalItems||response.data[0].totalItems
+                totalItems: response.data.totalItems || response.data[0].totalItems
             })
         )
     } catch (e) {
@@ -69,9 +69,9 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacApi) => {
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType, isRefund, hmacApi) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
-    const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund);
+    const constructedData = constructAppointmentRefundData(data, requestBodies, isRefund);
     try {
         return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
             data,
@@ -223,7 +223,7 @@ export const appointmentRejectRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectError(
-                e.errorMessage||e.message || 'Sorry Internal Server Problem'
+                e.errorMessage || e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -241,7 +241,7 @@ export const appointmentRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage ||e.message||'Sorry Internal Server Problem'
+                e.errorMessage || e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -359,4 +359,18 @@ export const fetchTransactionLogList = (
 
 export const clearTransactionLogMessage = () => async dispatch => {
     dispatch(AppointmentDetailActions.clearTransactionLogMessage())
+}
+
+
+export const fetchDepartmentAppointmentStatusCount = (path, data) => async dispatch => {
+    dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentPending())
+    try {
+        const response = await Axios.put(path, data);
+        dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentSuccess(response.data))
+        return response.data;
+    } catch (e) {
+        dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentError(
+            e.errorMessage || 'Sorry Internal Server Problem'))
+        throw e
+    }
 }

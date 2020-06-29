@@ -27,7 +27,8 @@ const {
     fetchAppointmentStatusListByRoom,
     clearAppointmentStatusMessage,
     appointmentApprove,
-    thirdPartyApiCallCheckIn
+    thirdPartyApiCallCheckIn,
+    fetchDepartmentAppointmentStatusCount
 } = AppointmentDetailsMiddleware
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 // const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware
@@ -62,7 +63,8 @@ const {
 const {
     //APPOINTMENT_STATUS_LIST,
     APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
-    APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST
+    APPOINTMENT_HOSPITAL_DEPARTMENT_ROOM_LIST,
+    FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT
     //APPOINTMENT_APPROVE
 } = appointmentSetupApiConstant
 
@@ -593,12 +595,18 @@ const ClientAppointmentStatusHOCByDepartment = (
                     let appointmentStatusList = []
                     let apptStatusInfo = []
                     let doctorList = []
-                    let appointmentStatusCount = {}
+                    let appointmentStatusCount = this.state.appointmentStatusCount ? {...this.state.appointmentStatusCount} : ''
                     if (type !== 'C') {
                         await this.props.fetchAppointmentStatusListByDepartment(
                             APPOINTMENT_HOSPITAL_DEPARTMENT_LIST,
                             searchData
                         )
+                        await this.props.fetchDepartmentAppointmentStatusCount(FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT,
+                            {
+                                fromDate,
+                                hospitalDepartmentId: hospitalDepartmentId.value || '',
+                                toDate
+                            })
                         apptStatusInfo = [
                             ...this.props.AppointmenStatusByDepartmentListReducer
                                 .apptStatusInfo
@@ -665,6 +673,17 @@ const ClientAppointmentStatusHOCByDepartment = (
                         appointmentStatusCount: appointmentStatusCount
                     })
                 } catch (e) {
+                    await this.setState({
+                        searchErrorMessage: this.props
+                            .AppointmenStatusByDepartmentListReducer
+                            .isAppointmentStatusErrorMessage
+                            || this.props
+                            .AppointmenStatusByDepartmentListReducer
+                            .isAppointmentStatusErrorMessage.appStatusCountError,
+                        searchStatusLoading: this.props
+                            .AppointmenStatusByDepartmentListReducer
+                            .isAppointmentStatusListLoading
+                    })
                     console.log(e)
                 }
             }
@@ -826,7 +845,7 @@ const ClientAppointmentStatusHOCByDepartment = (
                     getNoOfDaysBetweenGivenDatesInclusive(fromDate, toDate) <= 7
                 ) {
                     errorMessageForStatus = //hospitalId
-                                            // ?
+                        // ?
                         hospitalDepartmentId ? '' : SELECT_DEPARTMENT_MESSAGE
                     //: SELECT_HOSPITAL_AND_DOCTOR_MESSAGE
                 } else if (
@@ -984,7 +1003,8 @@ const ClientAppointmentStatusHOCByDepartment = (
             fetchAllHospitalDepartmentForDropdown,
             fetchAppointmentStatusListByDepartment,
             fetchAppointmentStatusListByRoom,
-            thirdPartyApiCallCheckIn
+            thirdPartyApiCallCheckIn,
+            fetchDepartmentAppointmentStatusCount
         }
     )
 }

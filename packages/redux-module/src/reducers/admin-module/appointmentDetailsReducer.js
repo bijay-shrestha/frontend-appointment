@@ -50,7 +50,10 @@ const {
     FETCH_APPOINTMENT_STATUS_BY_DEPARTMENT_SUCCESS,
     FETCH_APPOINTMENT_STATUS_BY_ROOM_ERROR,
     FETCH_APPOINTMENT_STATUS_BY_ROOM_PENDING,
-    FETCH_APPOINTMENT_STATUS_BY_ROOM_SUCCESS
+    FETCH_APPOINTMENT_STATUS_BY_ROOM_SUCCESS,
+    FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_SUCCESS,
+    FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_ERROR,
+    FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_PENDING
 } = appointmentDetailsConstants
 
 const initialState = {
@@ -105,9 +108,11 @@ const appointmentStatusState = {
 const appointmentStatusByDepartment = {
     apptStatusInfo: [],
     doctorStatusInfo: [],
-    appointmentStatusCount: {},
     isAppointmentStatusListLoading: false,
-    isAppointmentStatusErrorMessage: ''
+    isAppointmentStatusErrorMessage: '',
+    appointmentStatusCount: {},
+    isAppointmentStatusCountPending: false,
+    appStatusCountError: ''
 }
 
 const appointmentStatusByRoom = {
@@ -167,7 +172,7 @@ export const AppointmenStatusByDepartmentListReducer = (
                 ...state,
                 apptStatusInfo: action.payload.data.hospitalDeptDutyRosterInfo,
                 doctorStatusInfo: action.payload.data.hospitalDeptAndDoctorInfo,
-                appointmentStatusCount: action.payload.data.appointmentStatusCount,
+                appointmentStatusCount: {},
                 isAppointmentStatusListLoading: false,
                 isAppointmentStatusErrorMessage: ''
             }
@@ -176,8 +181,30 @@ export const AppointmenStatusByDepartmentListReducer = (
                 ...state,
                 apptStatusInfo: [],
                 doctorStatusInfo: [],
+                appointmentStatusCount: {},
                 isAppointmentStatusListLoading: false,
                 isAppointmentStatusErrorMessage: action.payload.message
+            }
+        case FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_PENDING:
+            return {
+                ...state,
+                isAppointmentStatusCountPending: true,
+                appointmentStatusCount: {},
+                appStatusCountError: ''
+            }
+        case FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_SUCCESS:
+            return {
+                ...state,
+                isAppointmentStatusCountPending: false,
+                appointmentStatusCount: {...action.payload.data.appointmentStatusCount},
+                appStatusCountError: ''
+            }
+        case FETCH_APPOINTMENT_STATUS_COUNT_FOR_DEPARTMENT_ERROR:
+            return {
+                ...state,
+                isAppointmentStatusCountPending: false,
+                appointmentStatusCount: {},
+                appStatusCountError: action.payload.errorMessage
             }
         default:
             return {...state}
