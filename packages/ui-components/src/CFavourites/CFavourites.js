@@ -116,8 +116,6 @@ class CFavourites extends React.PureComponent {
                              <Dropdown.Toggle variant="default" id="dropdown-basic"><i
                                  className="fa fa-star"/></Dropdown.Toggle>
                              <Dropdown.Menu>
-<<<<<<< HEAD
-
                                  {
                                      loggedInAdminFavourites && loggedInAdminFavourites.length ?
                                          loggedInAdminFavourites.map(favourite => (
@@ -143,29 +141,6 @@ class CFavourites extends React.PureComponent {
                                          </Dropdown.Item>
                                  }
                                  <div className="add-bar ">
-=======
-                                 <Dropdown.Item className="menu-link ">
-                                    <div className="anchor-icon">
-                                      a
-                                    </div>
-                                    <div className="menu-box">
-                                        <div className="menu">Doctor Checkcin</div>
-                                        <a className="remove-fav"><i className="fa fa-times"/></a>
-                                    </div>
-                                 </Dropdown.Item>
-
-                                 <Dropdown.Item className="menu-link ">
-                                    <div className="anchor-icon">
-                                      a
-                                    </div>
-                                    <div className="menu-box">
-                                        <div className="menu">Doctor Checkcin</div>
-                                        <a className="remove-fav"><i className="fa fa-times"/></a>
-                                    </div>
-                                 </Dropdown.Item>
-
-                                  <div className="add-bar ">
->>>>>>> a3b635499c21f1be8eae04d82153570d5fefd4b7
                                     {/* <p className="add-title">Favourite links</p> */}
                                      <a className="btn btn-outline-secondary add-new-fav"
                                         onClick={this.setShowAddFavouritesModal}>
