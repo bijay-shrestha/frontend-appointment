@@ -1,6 +1,6 @@
-import {DashboardDetailsActions} from '@frontend-appointment/action-module'
+import {DashboardDetailsActions,dashboardDetailsActionsConstant} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
-
+const {CLEAR_DASHBOARD_DEPARTMENT_REVENUE_MESSAGE,CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE}=dashboardDetailsActionsConstant
 export const fetchDashboardAppointmentStatisticsList = (
     path,
     data
@@ -232,8 +232,32 @@ export const fetchDashboardDoctorRevenue = (path, data) => async dispatch => {
   }
 
 export const clearDashboardDoctorRevenue = () => dispatch => {
-dispatch({type:'CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE'})
+dispatch({type:CLEAR_DASHBOARD_DOCTOR_REVENUE_MESSAGE})
 }
+
+export const fetchDashboardDepartmentRevenue = (path, data) => async dispatch => {
+  dispatch(DashboardDetailsActions.dashboardDepartmentRevenueFetchingStart())
+  try {
+    const response = await Axios.getWithRequestParams(path, data)
+    dispatch(
+      DashboardDetailsActions.dashboardDepartmentRevenueFetchingSuccess(response.data)
+    )
+    return response
+  } catch (e) {
+    const errorMessage = e.errorMessage
+      ? e.errorMessage
+      : 'Sorry  Error Occured!!'
+    dispatch(
+      DashboardDetailsActions.dashboardDepartmentRevenueFetchingError(errorMessage)
+    )
+    throw e;
+  }
+}
+
+
+export const clearDashboardDepartmentRevenue = () => dispatch => {
+  dispatch({type:CLEAR_DASHBOARD_DEPARTMENT_REVENUE_MESSAGE})
+  }
 
 export const fetchDashboardFeatures= (path) => async dispatch => {
     dispatch(DashboardDetailsActions.fetchDashboardFeatureStart())
