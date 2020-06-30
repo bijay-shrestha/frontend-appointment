@@ -2,18 +2,19 @@ import React, {memo} from 'react'
 import {Badge} from 'react-bootstrap'
 
 const AppointmentLogAction = props => {
-  const {status} = props.node.data
+  const {status,refundStatus} = props.node.data
+  const newStatus = status||refundStatus
   return (
     <>
-      {status === 'PA' ? (
+      {newStatus === 'PA' ? (
         <span>
           <Badge variant="warning">B</Badge>
         </span>
-      ) : status === 'A' ? (
+      ) : newStatus === 'A' ? (
         <span>
           <Badge variant="primary">CH</Badge>
         </span>
-      ) : status === 'C' ? (
+      ) : newStatus === 'C' ? (
         <span>
           <Badge variant="danger">C</Badge>
         </span>
@@ -22,7 +23,7 @@ const AppointmentLogAction = props => {
       //     <Badge variant="warning">RE</Badge>
       //   </span>
       // )
-      status === 'RE' ? (
+      newStatus === 'RE' ? (
         <span>
           <Badge variant="brown">R</Badge>
         </span>
