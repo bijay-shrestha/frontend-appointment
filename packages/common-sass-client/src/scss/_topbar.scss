@@ -370,6 +370,7 @@
                 padding: 16px 0px;
                 border: none;
                 border-top:1px solid $gray-300;
+                color:$gray-900;
                 background-color:transparent;               
                 line-height: 1.2;
                 @include border-radius(0px !important);
@@ -525,13 +526,21 @@
   align-items: flex-start;
   padding-top:80px;
   max-width: 400px;
+
+
    .modal-content .modal-body{
        padding-top:15px;
    }
 
-   .modal-header .close{
-       margin-right:-5px;
-   }
+   .modal-header{
+       .modal-title{
+           padding-left: 5px;
+       }
+
+    .close{
+        margin-right:-4px;
+    }
+    }
 
    .modal-content .modal-body{
        padding:25px 15px 25px 15px;
@@ -560,6 +569,10 @@
             &:focus{
                color:$gray-900;
             }
+        }
+
+        .input-group-append{
+            margin-right:3px;
         }
 
         button,span{
@@ -642,4 +655,9 @@
 
        
     }
-}        
+}  
+
+#favourites{
+    z-index: 99999999;
+}
+

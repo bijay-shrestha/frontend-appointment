@@ -31,7 +31,7 @@ class CFavourites extends React.PureComponent {
 
 
     clearAlertTimeout = () => {
-        this.alertTimer = setTimeout(() => this.closeAlert(), 10000)
+        this.alertTimer = setTimeout(() => this.closeAlert(), 90000)
     };
 
     closeAlert = () => {
@@ -214,7 +214,7 @@ class CFavourites extends React.PureComponent {
                                     {/* <p className="add-title">Favourite links</p> */}
                                      <a className="btn btn-outline-secondary add-new-fav"
                                         onClick={this.setShowAddFavouritesModal}>
-                                          <i className="fa fa-plus"/>&nbsp;Add Favourites </a>
+                                          <i className="fa fa-edit"/>&nbsp;Manage Favourites </a>
                                   </div>
                              </Dropdown.Menu>
                          </Dropdown>
@@ -239,6 +239,7 @@ class CFavourites extends React.PureComponent {
                 variant={alertMessageInfo.variant}
                 show={showAlert}
                 onClose={this.closeAlert}
+                className="fav-alert"
                 alertType={
                     alertMessageInfo.variant === 'success' ? (
                         <>
