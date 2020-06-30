@@ -245,8 +245,8 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
 
       {refundConfirmationModal ? (
         <CRemarksModal
-          confirmationMessage="Provide remarks for refund."
-          modalHeader="Are you sure you want to refund?"
+          confirmationMessage="Provide remarks for Refund Check."
+          modalHeader="Are you sure you want to Check Refund?"
           showModal={refundConfirmationModal}
           onCancel={setShowModal}
           onRemarksChangeHandler={handleInputChange}
