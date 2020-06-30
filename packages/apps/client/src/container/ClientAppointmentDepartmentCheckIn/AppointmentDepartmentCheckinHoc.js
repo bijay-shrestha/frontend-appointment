@@ -290,7 +290,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
             )
         }
-        
+
         // callApiAfterSpecializationAndDoctorChange = async appointmentDetail => {
         //     await this.props.fetchAppointmentTransferCharge(
         //         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_CHARGE,
@@ -637,7 +637,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
                 )
                 this.setState({
                     isConfirming: false,
-                    approveConfirmationModal: true,
+                    approveConfirmationModal: false,
                     // showAlert: true,
                     // alertMessageInfo: {
                     //     variant: 'success',
@@ -648,6 +648,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             } catch (e) {
                 this.setState({
                     isConfirming: false,
+                    approveConfirmationModal: false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
@@ -713,7 +714,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
               hospitalDepartmentSetupApiConstants.FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN
             )
           }
-      
+
 
         async componentDidMount() {
             await this.searchAppointment()
@@ -771,7 +772,7 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             const {appointmentDetail} = this.props.AppointmentDetailReducer
 
             const {approveSuccessMessage} = this.props.AppointmentApproveReducer
-            
+
             const {
                 isFetchAllHospitalDepartmentLoading,
                 allHospitalDepartmentForDropdown,
