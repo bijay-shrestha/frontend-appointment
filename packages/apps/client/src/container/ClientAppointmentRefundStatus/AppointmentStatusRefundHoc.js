@@ -433,7 +433,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           appointmentId: appointmentId,
           appointmentModeId: appointmentModeId,
           status: '',
-          remarks: this.state.refundRejectRequestDTO.remarks,
+          remarks: remarks,
           ...apiRequestBody
         }
         if (!successResponse) {
