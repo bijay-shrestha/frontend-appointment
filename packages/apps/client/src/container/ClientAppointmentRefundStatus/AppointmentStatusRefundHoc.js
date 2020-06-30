@@ -147,7 +147,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           ? page
           : this.state.queryParams.page
       await this.props.fetchAppointmentRefundList(
-        appointmentSetupApiConstant.APPOINTMENT_REFUND_LIST,
+        appointmentSetupApiConstant.SEARCH_APPOINTMENT_REFUND_STATUS,
         {
           page: updatedPage,
           size: this.state.queryParams.size
