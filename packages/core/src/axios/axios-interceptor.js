@@ -7,11 +7,12 @@ import ApiError from './axios-helper/api-error'
 import {createLogHeader} from './axios-helper/create-log-header'
 
 const SERVER_DOMAIN = EnvironmentVariableGetter.SERVER_DOMAIN || ''
-const BASE_DOMAIN = process.env.NODE_ENV==="development"? '/' +
-    EnvironmentVariableGetter.REACT_APP_MODULE_CODE.toString().toLowerCase()
-  : ''
+const BASE_DOMAIN =
+    // process.env.NODE_ENV==="development"?
+    '/' + EnvironmentVariableGetter.REACT_APP_MODULE_CODE.toString().toLowerCase()
+// : ''
 
-  // console.log("Enviroment",process.env.NODE_ENV);
+// console.log("Enviroment", process.env.NODE_ENV);
 //const APP_PORT = process.env.PORT || ''
 let Axios = axios.create({
     baseURL: SERVER_DOMAIN + BASE_DOMAIN,
@@ -27,7 +28,7 @@ Axios.interceptors.request.use(
                 EnvironmentVariableGetter.AUTH_TOKEN
             ) || ''
         if (requestConfig.url) {
-            // console.log("requestconfigurl",requestConfig.url)
+            // console.log("requestconfigurl", requestConfig.url)
             if (!requestConfig.url.includes('/login') && !requestConfig.url.includes('/postticket'))
                 requestConfig.headers.Authorization = token ? token : ''
             let logHeader = createLogHeader(requestConfig)

@@ -1045,7 +1045,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Doctor Appointment Status',
+        name: 'Doctor Consultation',
         isSingleTab: false
     },
     {
@@ -1055,7 +1055,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Department Appointment Status',
+        name: 'Department Consultation',
         isSingleTab: false
     },
 ]

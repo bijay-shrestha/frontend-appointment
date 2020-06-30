@@ -49,6 +49,11 @@ const AppointmentRefundListComponent = Loadable({
     loading: () => getLoader()
 })
 
+const AppointmentDepartmentRefundListComponent =Loadable({
+    loader: () => import('./container/ClientAppointmentDepartmentRefund/AppointmentDepartmentRefund'),
+    loading: () => getLoader()
+})
+
 const AppointmentApprovalListComponent = Loadable({
     loader: () =>
         import('./container/ClientAppointmentApproval/AppointmentApproval'),
@@ -476,13 +481,33 @@ export const routes = [
     },
     {
         path: '/appointment/pendingRefundApproval',
-        component: AppointmentRefundListComponent,
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
         name: 'Appointment Cancellation',
-        isSingleTab: true
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/pendingRefundApproval/doctor',
+        component: AppointmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Pending Refund Approval',
+        isSingleTab: false
+    },
+    {
+        path: '/appointment/pendingRefundApproval/department',
+        component: AppointmentDepartmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Pending Refund Approval',
+        isSingleTab: false
     },
     {
         path: '/appointment/checkIn',
@@ -501,7 +526,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Doctor Appointment Check In',
+        name: 'Doctor Consultation',
         isSingleTab: false
     },
     {
@@ -511,7 +536,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Department Appointment Check In',
+        name: 'Department Consultation',
         isSingleTab: false
     },
     {
@@ -733,7 +758,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Doctor Appointment Status',
+        name: 'Doctor Consultation',
         isSingleTab: false
     },
     {
@@ -743,7 +768,7 @@ export const routes = [
         hasTab: true,
         isLink: true,
         isTab: true,
-        name: 'Department Appointment Status',
+        name: 'Department Consultation',
         isSingleTab: false
     },
 ]

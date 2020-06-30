@@ -33,7 +33,10 @@ const {
   FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_SUCCESS,
   FETCH_DASHBOARD_FEATURES_ERROR,
   FETCH_DASHBOARD_FEATURES_START,
-  FETCH_DASHBOARD_FEATURES_SUCCESS
+  FETCH_DASHBOARD_FEATURES_SUCCESS,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_ERROR,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_PENDING,
+  FETCH_DASHBOARD_DEPARMENT_REVENUE_SUCCESS
 } = dashboardDetailsActionsConstant
 
 export const dashboardDayRevenueFetchingStart = () => {
@@ -235,12 +238,40 @@ export const dashboardDoctorRevenueFetchingSuccess = data => {
 
 export const fetchDashboardFeatureError = message => {
   return {
-    type:FETCH_DASHBOARD_FEATURES_ERROR,
+    type: FETCH_DASHBOARD_FEATURES_ERROR,
     payload: {
       data: message
     }
   }
 }
+
+export const dashboardDepartmentRevenueFetchingStart = () => {
+  return {
+    type: FETCH_DASHBOARD_DEPARMENT_REVENUE_PENDING
+  }
+}
+
+export const dashboardDepartmentRevenueFetchingSuccess = data => {
+  return {
+    type: FETCH_DASHBOARD_DEPARMENT_REVENUE_SUCCESS,
+    payload: {data}
+  }
+}
+export const dashboardDepartmentRevenueFetchingError = message => {
+  return {
+    type: FETCH_DASHBOARD_DEPARMENT_REVENUE_ERROR,
+    payload: {message}
+  }
+}
+
+// export const fetchDashboardFeatureError = message => {
+//   return {
+//     type: FETCH_DASHBOARD_FEATURES_ERROR,
+//     payload: {
+//       data: message
+//     }
+//   }
+// }
 
 export const fetchDashboardFeatureStart = () => {
   return {
@@ -257,7 +288,7 @@ export const fetchDashboardFeatureSuccess = data => {
 
 export const fetchDashboardFeatureByAdminError = message => {
   return {
-    type:FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR,
+    type: FETCH_DASHBOARD_FEATURES_BY_ADMIN_ID_ERROR,
     payload: {
       data: message
     }
@@ -276,4 +307,3 @@ export const fetchDashboardFeatureByAdminSuccess = data => {
     payload: {data}
   }
 }
-

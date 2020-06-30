@@ -65,7 +65,8 @@ import {
     DashboardRevenueGeneratedMonthReducer,
     DashboardRevenueGeneratedWeekReducer,
     DashboardRevenueGeneratedYearReducer,
-    DashboardRevenueStatisticsReducer
+    DashboardRevenueStatisticsReducer,
+    DepartmentRevenuGeneratedReducer
 } from './admin-module/dashboardDetailsReducer'
 import * as CompanyAdminReducer from './admin-module/companyAdminSetupReducer'
 import {
@@ -357,5 +358,6 @@ export {
     BillingModeEditReducer,
     BillingModePreviewReducer,
     BillingModeSaveReducer,
-    BillingModeSearchReducer
+    BillingModeSearchReducer,
+    DepartmentRevenuGeneratedReducer
 }

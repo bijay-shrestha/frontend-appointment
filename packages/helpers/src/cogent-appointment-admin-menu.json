@@ -254,9 +254,11 @@
           "name": "Appointment Check-In",
           "path": "/appointment/checkIn",
           "roles": [
-            12,
-            14,
-            15
+            23,
+            24,
+            21,
+            19,
+            22
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -273,8 +275,8 @@
           "name": "Appointment Status",
           "path": "/appointment/status",
           "roles": [
-            27,
-            28
+            35,
+            36
           ],
           "icon": "",
           "leftNavigation": "Y",

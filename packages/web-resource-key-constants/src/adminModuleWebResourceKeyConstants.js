@@ -194,7 +194,11 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + '/pending-approval'),
     APPOINTMENT_APPROVAL_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/approve"),
     APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/pending-approval/detail"),
-    FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/status/count")
+    FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/status/count"),
+    APPOINTMENT_DEPARTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund"),
+    APPOINTMENT_DEPARTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/approve"),
+    APPOINTMENT_DEPARTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/reject"),
+    APPOINTMENT_DEPARTMENT_REFUND_DETAIL:BASE.concat(APPOINTMENT_BASE.concat("/hospitalDepartment/refund/detail"))
 };
 
 export const DashboardApiConstant = {
@@ -205,6 +209,7 @@ export const DashboardApiConstant = {
     APPOINTMENT_QUERY: BASE.concat(DASHBOARD_BASE + "/today-appointment"),
     DOCTOR_REVENUE: BASE.concat(DASHBOARD_BASE + "/doctorRevenue"),
     DASHBOARD_FEATURE: BASE.concat(DASHBOARD_BASE + "/features"),
+    DEPARTMENT_REVENUE: BASE.concat(DASHBOARD_BASE + "/hospitalDepartmentRevenue")
 };
 
 const COMPANY_PROFILE_SETUP_BASE = '/company-profile';
