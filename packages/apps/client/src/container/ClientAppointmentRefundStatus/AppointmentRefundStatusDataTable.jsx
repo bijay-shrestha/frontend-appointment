@@ -13,7 +13,7 @@ import {
 import PreviewDetails from './AppointmentRefundStatusPreview'
 //import RejectModal from "./RejectStatusModal";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
-import AppointmentLogStatus from '../CommonComponents/table-components/AppointmentLogStatus'
+import AppointmentRefundStatus from '../CommonComponents/table-components/AppointmentRefundStatus'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
@@ -184,7 +184,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                   previewCall
                 ),
                 appointmentStatusBadges: PreviewHandlerHoc(
-                  AppointmentLogStatus,
+                  AppointmentRefundStatus,
                   null,
                   null,
                   null,

@@ -242,9 +242,9 @@ class AppointmentApprovalStatusListSearchFilter extends PureComponent {
                       name="status"
                       value={searchParameters.status}
                       options={[
-                        {value: 'PA', label: 'Booked'},
-                        {value: 'A', label: 'CheckIn'},
-                        {value: 'C', label: 'Cancelled'},
+                        {value: 'PA', label: 'Refund Pending'},
+                        {value: 'A', label: 'Approved'},
+                        {value: 'C', label: 'Refund Pending'},
                         {value: '', label: 'All'}
                       ]}
                       placeholder="Select Status"
