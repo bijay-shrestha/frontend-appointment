@@ -137,10 +137,11 @@ class CFavourites extends React.PureComponent {
 
     fetchLoggedInAdminFavourites = async () => {
         try {
-            const response = await Axios.get(FETCH_FAVOURITES_FOR_DROPDOWN)
+            const response = await Axios.getWithPathVariables(FETCH_FAVOURITES_FOR_DROPDOWN, adminInfo.adminId)
             const favouriteMenus = FavouritesUtils.getFavouritesDetails(response.data);
             this.prepareUserMenusData(favouriteMenus)
         } catch (e) {
+            this.prepareUserMenusData([])
             console.log("FETCH ERROR", e)
         }
     }
