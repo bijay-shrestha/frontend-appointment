@@ -4,25 +4,25 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
-    UnitSetupMiddleware,
     editProfile,
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     HospitalSetupMiddleware,
-    previewProfile,
     logoutUser,
-    savePinOrUnpinUserMenu
+    previewProfile,
+    savePinOrUnpinUserMenu,
+    UnitSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import {
-    ProfileSetupUtils,
-  //  adminUserMenusJson,
     clientUserMenusJson,
-    UserMenuUtils,
+    EnvironmentVariableGetter,
+    LocalStorageSecurity,
+    ProfileSetupUtils,
     TryCatchHandler,
-    EnvironmentVariableGetter, LocalStorageSecurity
+    UserMenuUtils
 } from "@frontend-appointment/helpers";
 import {AdminModuleAPIConstants, CommonAPIConstants} from "@frontend-appointment/web-resource-key-constants";
 
@@ -290,7 +290,7 @@ class ProfileManage extends PureComponent {
     logoutUser = async () => {
         await this.savePinOrUnpinUserMenu()
         try {
-            let logoutResponse = await this.props.logoutUser('/cogent/logout');
+            let logoutResponse = await this.props.logoutUser();
             if (logoutResponse) {
                 this.props.history.push('/');
             }
@@ -610,7 +610,6 @@ class ProfileManage extends PureComponent {
                         let alreadyExists = Boolean(currentSelectedMenusWithStatusUpdated.find(currentMenu => (
                                 (Number(currentMenu.roleId) === Number(role)) && (Number(currentMenu.userMenuId) === Number(menu.id))
                             ))
-
                         );
                         !alreadyExists && currentSelectedMenusWithStatusUpdated.push({
                             parentId: menu.id,

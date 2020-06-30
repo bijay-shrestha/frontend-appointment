@@ -4,20 +4,21 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearSuccessErrorMessagesFromStore,
     deleteProfile,
-    UnitSetupMiddleware,
     editProfile,
     fetchAllProfileListForSearchDropdown,
     fetchProfileList,
     HospitalSetupMiddleware,
     logoutUser,
     previewProfile,
-    savePinOrUnpinUserMenu
+    savePinOrUnpinUserMenu,
+    UnitSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import ProfileSetupSearchFilter from './ProfileSetupSearchFilter'
 import UpdateProfileModal from "./comp/UpdateProfileModal";
 import {CAlert} from "@frontend-appointment/ui-elements";
 import {
-    clientUserMenusJson, EnvironmentVariableGetter,
+    clientUserMenusJson,
+    EnvironmentVariableGetter,
     LocalStorageSecurity,
     ProfileSetupUtils,
     TryCatchHandler
@@ -311,7 +312,7 @@ class ProfileManage extends PureComponent {
     logoutUser = async () => {
         await this.savePinOrUnpinUserMenu()
         try {
-            let logoutResponse = this.props.logoutUser('/cogent/logout');
+            let logoutResponse = this.props.logoutUser();
             if (logoutResponse) {
                 this.props.history.push('/');
             }

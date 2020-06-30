@@ -1,12 +1,6 @@
 import React, {PureComponent} from 'react'
 import {Button, Col, OverlayTrigger, Row, Tooltip} from 'react-bootstrap'
-import {
-  CButton,
-  CForm,
-  CHybridInput,
-  CHybridSelect
- // CHybridSelectWithImage
-} from '@frontend-appointment/ui-elements'
+import {CButton, CForm, CHybridInput, CHybridSelect} from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
