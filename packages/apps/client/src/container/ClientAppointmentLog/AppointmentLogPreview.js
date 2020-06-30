@@ -13,7 +13,7 @@ const PreviewRefund = props => {
                     onHide={setShowModal}
                     centered={false}
                     dialogClassName="preview-modal"
-                    closeButton={true}
+                closeButton={true}
             />
         </>
     );
