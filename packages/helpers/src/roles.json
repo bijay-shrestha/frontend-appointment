@@ -267,7 +267,7 @@
   },
   {
     "id": 35,
-    "name": "Approve[Doc Appt. Check In]",
+    "name": "Approve[Doc Appt. Status]",
     "status": "Y",
     "parent_role_id": 25,
     "role_type": "action",
@@ -277,7 +277,7 @@
   },
   {
     "id": 36,
-    "name": "Approve[Dept Appt. Check In]",
+    "name": "Approve[Dept Appt. Status]",
     "status": "Y",
     "parent_role_id": 26,
     "role_type": "action",
