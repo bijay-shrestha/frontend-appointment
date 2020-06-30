@@ -4,8 +4,8 @@ import {
   CButton,
   CForm,
   CHybridInput,
-  CHybridSelect,
-  CHybridSelectWithImage
+  CHybridSelect
+ // CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
 import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
