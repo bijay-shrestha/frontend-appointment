@@ -596,6 +596,13 @@
         @include transition(all,0.9s,ease);
         // @include border-radius(6px);
 
+        &.selected{
+            .anchor-icon{
+                background-color: #f4cd0c;
+                
+            }
+        }
+
         .anchor-icon {
             width: 32px;
             height: 32px;
@@ -605,6 +612,8 @@
             @include border-radius(50%);
             border: 1px solid $gray-100;
             background-color: $gray-200;
+
+           
         }
 
         .menu-box {
