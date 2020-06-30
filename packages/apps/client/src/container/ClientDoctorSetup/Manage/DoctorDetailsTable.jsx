@@ -36,7 +36,7 @@ const DoctorDetailsDataTable = props => (
                             //   cellClass: function(params) { return ['my-class-1','my-class-2']; }
                         },
                         {
-                            headerName: 'Name',
+                            headerName: 'Name (Specialization)',
                             field: 'doctorName',
                             resizable: true,
                             sortable: true,
