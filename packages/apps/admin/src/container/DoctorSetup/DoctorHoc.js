@@ -283,13 +283,17 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds,
                 salutations
             } = this.state.consultantData;
-            let formData = new FormData();
-            doctorAvatar &&
-            formData.append(
-                'avatar',
-                new File([doctorAvatar], name.concat('-picture.jpeg'))
-            );
+            // let formData = new FormData();
+            // doctorAvatar &&
+            // formData.append(
+            //     'avatar',
+            //     new File([doctorAvatar], name.concat('-picture.jpeg'))
+            // );
+            let imagePath = '';
             try {
+                if (doctorAvatar) {
+                    imagePath = await this.uploadImageToServer();
+                }
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
                     {
@@ -308,9 +312,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         qualificationIds: this.getOnlyValueFromMultipleSelectList(
                             qualificationIds
                         ),
-                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : []
+                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : [],
+                        avatar: imagePath
                     },
-                    formData
                 );
 
                 await this.setShowConfirmModal();
@@ -620,23 +624,27 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newSpecializationList,
                 newQualificationList,
                 qualificationIds,
-                doctorAvatar,
+                // doctorAvatar,
                 appointmentCharge,
                 appointmentFollowUpCharge,
                 doctorAvatarUrlNew,
                 salutations,
                 originalSalutations
             } = this.state.consultantData;
-            let formData = new FormData();
             let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
-                originalSalutations, salutations, 'salutation', 'doctorSalutationId','N')]
-            if (doctorAvatarUrlNew !== '')
-                formData.append(
-                    'avatar',
-                    new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
-                );
+                originalSalutations, salutations, 'salutation', 'doctorSalutationId', 'N')]
+            // let formData = new FormData();
+            // if (doctorAvatarUrlNew !== '')
+            //     formData.append(
+            //         'avatar',
+            //         new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
+            //     );
 
+            let imagePath = ''
             try {
+                if (doctorAvatarUrlNew) {
+                    imagePath = await this.uploadImageToServer();
+                }
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
                     {
@@ -653,12 +661,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             email,
                             id,
                             isAvatarUpdate: doctorAvatarUrlNew ? 'Y' : 'N',
+                            avatar: imagePath
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
                         doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : []
-                    },
-                    formData
+                    }
                 );
                 this.resetConsultantStateValues();
                 this.setShowModal();

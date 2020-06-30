@@ -3,14 +3,19 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
+    MinioMiddleware,
     QualificationSetupMiddleware,
-    SpecializationSetupMiddleware,
-    SalutationMiddleware
+    SalutationMiddleware,
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
-import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import {
+    EnterKeyPressUtils,
+    FileUploadLocationUtils,
+    LocalStorageSecurity,
+    MultiSelectOptionUpdateUtils
+} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
-import {CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 
 const {
     clearConsultantCreateMessage,
@@ -23,6 +28,8 @@ const {
     fetchActiveDoctorsForDropdown,
     downloadExcelForConsultants
 } = DoctorMiddleware;
+
+const {uploadImageInMinioServer} = MinioMiddleware
 
 const {fetchActiveQualificationsForDropdown} = QualificationSetupMiddleware;
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
@@ -258,13 +265,17 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 qualificationIds,
                 salutations
             } = this.state.consultantData;
-            let formData = new FormData();
-            doctorAvatar &&
-            formData.append(
-                'avatar',
-                new File([doctorAvatar], name.concat('-picture.jpeg'))
-            );
+            // let formData = new FormData();
+            // doctorAvatar &&
+            // formData.append(
+            //     'avatar',
+            //     new File([doctorAvatar], name.concat('-picture.jpeg'))
+            // );
+            let imagePath = '';
             try {
+                if (doctorAvatar) {
+                    imagePath = await this.uploadImageToServer();
+                }
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
                     {
@@ -282,9 +293,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         qualificationIds: this.getOnlyValueFromMultipleSelectList(
                             qualificationIds
                         ),
-                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : []
-                    },
-                    formData
+                        salutationIds: salutations ? salutations.map(salutation => salutation.value) : [],
+                        avatar: imagePath
+                    }
                 );
 
                 await this.setShowConfirmModal();
@@ -307,6 +318,20 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 })
             }
         };
+
+        uploadImageToServer = async () => {
+            const {
+                doctorAvatar,
+                name,
+                nmcNumber
+            } = this.state.consultantData;
+
+            let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+            let fileToUpload = new File([doctorAvatar], (name + new Date().getTime()).concat('.jpeg'))
+            let fileLocation = FileUploadLocationUtils.getLocationPathForDoctorFileUpload(adminInfo.hospitalCode, nmcNumber)
+
+            return await uploadImageInMinioServer(fileToUpload, fileLocation)
+        }
 
         previewApiCall = async id => {
             await this.props.previewConsultant(
@@ -571,7 +596,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 newSpecializationList,
                 newQualificationList,
                 qualificationIds,
-                doctorAvatar,
+                // doctorAvatar,
                 appointmentCharge,
                 appointmentFollowUpCharge,
                 doctorAvatarUrlNew,
@@ -580,15 +605,19 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             } = this.state.consultantData;
 
             let salutationsUpdated = [...MultiSelectOptionUpdateUtils.getUpdatedDataListForMultiSelect(
-                originalSalutations, salutations, 'salutation', 'doctorSalutationId','N')]
+                originalSalutations, salutations, 'salutation', 'doctorSalutationId', 'N')]
 
-            let formData = new FormData();
-            if (doctorAvatarUrlNew !== '')
-                formData.append(
-                    'avatar',
-                    new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
-                );
+            // let formData = new FormData();
+            // if (doctorAvatarUrlNew !== '')
+            //     formData.append(
+            //         'avatar',
+            //         new File([doctorAvatar], name.concat('-dr-picture.jpeg'))
+            //     );
+            let imagePath = ''
             try {
+                if (doctorAvatarUrlNew) {
+                    imagePath = await this.uploadImageToServer();
+                }
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
                     {
@@ -604,12 +633,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                             email,
                             id,
                             isAvatarUpdate: doctorAvatarUrlNew ? 'Y' : 'N',
+                            avatar: imagePath
                         },
                         doctorQualificationInfo: this.makeMultipleSelectForEditResponse('Qualification', qualificationIds, newQualificationList),
                         doctorSpecializationInfo: this.makeMultipleSelectForEditResponse('Specialization', specializationIds, newSpecializationList),
                         doctorSalutationInfo: salutationsUpdated ? [...salutationsUpdated] : []
-                    },
-                    formData
+                    }
                 );
                 this.resetConsultantStateValues();
                 this.setShowModal();
@@ -797,72 +826,74 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             const {salutationList} = this.props.SalutationDropdownReducer;
 
             return (
-                <ComposedComponent
-                    {...this.props}
-                    {...props}
-                    salutationList={salutationList}
-                    handleEnter={this.handleEnterPress}
-                    doctorData={consultantData}
-                    resetStateAddValues={this.resetConsultantStateValues}
-                    closeAlert={this.closeAlert}
-                    showConfirmModal={showConfirmModal}
-                    formValid={formValid}
-                    showAlert={showAlert}
-                    contactValid={contactValid}
-                    nameValid={nameValid}
-                    errorMessageForDoctorContact={errorMessageForDoctorPhoneNumber}
-                    errorMessageForDoctorName={errorMessageForDoctorName}
-                    alertMessageInfo={alertMessageInfo}
-                    handleInputChange={this.handleOnChange}
-                    submitAddChanges={this.handleConfirmClick}
-                    setShowConfirmModal={this.setShowConfirmModal}
-                    handleSearchFormChange={this.handleSearchFormChange}
-                    deleteRemarksHandler={this.deleteRemarksHandler}
-                    resetSearch={this.handleSearchFormReset}
-                    searchDoctor={this.searchDoctor}
-                    handlePageChange={this.handlePageChange}
-                    onSubmitDeleteHandler={this.onSubmitDeleteHandler}
-                    editDoctor={this.editDoctor}
-                    onEditHandler={this.onEditHandler}
-                    onDeleteHandler={this.onDeleteHandler}
-                    onPreviewHandler={this.onPreviewHandler}
-                    // appendSNToTable={this.appendSNToTable}
-                    setShowModal={this.setShowModal}
-                    showDoctorModal={showDoctorModal}
-                    showEditModal={showEditModal}
-                    deleteModalShow={deleteModalShow}
-                    searchParameters={searchParameters}
-                    queryParams={queryParams}
-                    deleteRequestDTO={deleteRequestDTO}
-                    totalRecords={totalRecords}
-                    isSearchLoading={isSearchLoading}
-                    doctorList={consultantList}
-                    searchErrorMessage={searchErrorMessage}
-                    doctorPreviewErrorMessage={consultantPreviewErrorMessage}
-                    deleteErrorMessage={deleteErrorMessage}
-                    doctorEditErrorMessage={consultantEditErrorMessage}
-                    isPreviewLoading={isPreviewLoading}
-                    doctorPreviewData={consultantPreviewData}
-                    addContactNumber={this.addContactNumber}
-                    removeContactNumber={this.removeContactNumber}
-                    editContactNumber={this.editContactNumber}
-                    doctorImage={doctorImage}
-                    onImageSelect={this.handleImageSelect}
-                    doctorImageCroppedUrl={doctorImageCroppedUrl}
-                    doctorFileCropped={doctorFileCropped}
-                    showImageUploadModal={showImageUploadModal}
-                    handleCropImage={this.handleCropImage}
-                    handleImageUpload={this.handleImageUpload}
-                    setImageShow={this.setImageShowModal}
-                    doctorsForDropdown={activeDoctorsByHospitalForDropdown}
-                    qualificationDropdown={qualificationsForDropdown}
-                    activeSpecializationList={activeSpecializationListByHospital}
-                    appointmentChargeValid={appointmentChargeValid}
-                    errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
-                    emailValid={emailValid}
-                    isConsultantEditLoading={isConsultantEditLoading}
-                    createConsultantLoading={createConsultantLoading}
-                />
+                <>
+                    <ComposedComponent
+                        {...this.props}
+                        {...props}
+                        salutationList={salutationList}
+                        handleEnter={this.handleEnterPress}
+                        doctorData={consultantData}
+                        resetStateAddValues={this.resetConsultantStateValues}
+                        closeAlert={this.closeAlert}
+                        showConfirmModal={showConfirmModal}
+                        formValid={formValid}
+                        showAlert={showAlert}
+                        contactValid={contactValid}
+                        nameValid={nameValid}
+                        errorMessageForDoctorContact={errorMessageForDoctorPhoneNumber}
+                        errorMessageForDoctorName={errorMessageForDoctorName}
+                        alertMessageInfo={alertMessageInfo}
+                        handleInputChange={this.handleOnChange}
+                        submitAddChanges={this.handleConfirmClick}
+                        setShowConfirmModal={this.setShowConfirmModal}
+                        handleSearchFormChange={this.handleSearchFormChange}
+                        deleteRemarksHandler={this.deleteRemarksHandler}
+                        resetSearch={this.handleSearchFormReset}
+                        searchDoctor={this.searchDoctor}
+                        handlePageChange={this.handlePageChange}
+                        onSubmitDeleteHandler={this.onSubmitDeleteHandler}
+                        editDoctor={this.editDoctor}
+                        onEditHandler={this.onEditHandler}
+                        onDeleteHandler={this.onDeleteHandler}
+                        onPreviewHandler={this.onPreviewHandler}
+                        // appendSNToTable={this.appendSNToTable}
+                        setShowModal={this.setShowModal}
+                        showDoctorModal={showDoctorModal}
+                        showEditModal={showEditModal}
+                        deleteModalShow={deleteModalShow}
+                        searchParameters={searchParameters}
+                        queryParams={queryParams}
+                        deleteRequestDTO={deleteRequestDTO}
+                        totalRecords={totalRecords}
+                        isSearchLoading={isSearchLoading}
+                        doctorList={consultantList}
+                        searchErrorMessage={searchErrorMessage}
+                        doctorPreviewErrorMessage={consultantPreviewErrorMessage}
+                        deleteErrorMessage={deleteErrorMessage}
+                        doctorEditErrorMessage={consultantEditErrorMessage}
+                        isPreviewLoading={isPreviewLoading}
+                        doctorPreviewData={consultantPreviewData}
+                        addContactNumber={this.addContactNumber}
+                        removeContactNumber={this.removeContactNumber}
+                        editContactNumber={this.editContactNumber}
+                        doctorImage={doctorImage}
+                        onImageSelect={this.handleImageSelect}
+                        doctorImageCroppedUrl={doctorImageCroppedUrl}
+                        doctorFileCropped={doctorFileCropped}
+                        showImageUploadModal={showImageUploadModal}
+                        handleCropImage={this.handleCropImage}
+                        handleImageUpload={this.handleImageUpload}
+                        setImageShow={this.setImageShowModal}
+                        doctorsForDropdown={activeDoctorsByHospitalForDropdown}
+                        qualificationDropdown={qualificationsForDropdown}
+                        activeSpecializationList={activeSpecializationListByHospital}
+                        appointmentChargeValid={appointmentChargeValid}
+                        errorMessageForAppointmentCharge={errorMessageForAppointmentCharge}
+                        emailValid={emailValid}
+                        isConsultantEditLoading={isConsultantEditLoading}
+                        createConsultantLoading={createConsultantLoading}
+                    />
+                </>
             )
         }
     }
