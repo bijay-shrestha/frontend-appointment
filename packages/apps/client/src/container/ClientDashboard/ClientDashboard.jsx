@@ -60,8 +60,8 @@ const ClientDashboard = props => {
                   code={generateRevenue.code}
                 />
               </Col>
-               <Col className="px-0">
-               {checkDashboardRole(generateRevenue.code) ||
+              <Col className="px-0">
+                {checkDashboardRole(generateRevenue.code) ||
                 checkDashboardRole(appointmentQueue.code) ||
                 checkDashboardRole(appointmentList.code) ? (
                   <AppointmentServiceDropdown
@@ -75,14 +75,13 @@ const ClientDashboard = props => {
             </Row>
             <Row>
               {/* <Col className="px-0"> */}
-                <CheckDashboardRole
-                  component={
-                    <RevenueStatistics generateRevenue={generateRevenue} />
-                  }
-                  code={generateRevenue.code}
-                />
+              <CheckDashboardRole
+                component={
+                  <RevenueStatistics generateRevenue={generateRevenue} />
+                }
+                code={generateRevenue.code}
+              />
               {/* </Col> */}
-             
             </Row>
 
             <Row className="mt-1">

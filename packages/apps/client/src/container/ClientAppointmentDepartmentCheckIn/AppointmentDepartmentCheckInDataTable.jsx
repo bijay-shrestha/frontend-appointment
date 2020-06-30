@@ -5,7 +5,7 @@ import PreviewDetails from './AppointmentDepartmentCheckInPreview'
 import CheckInModalContent from './DepartmentApprovalContent';
 import {
     DepartmentCheckInOptions,
-   // CPageOverlayLoader,
+    // CPageOverlayLoader,
     DoctorWithSpecImage,
     PatientNameWithAgeGenderPhoneAddress,
     DepartmentNameWithRoomNumber,
@@ -55,15 +55,6 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                             rowHeight={70}
                             columnDefs={[
                                 {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
-                                    // headerClass: "fi",
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 120,
-                                },
-                                {
                                     headerName: 'SN',
                                     field: 'sN',
                                     headerClass: 'resizable-header header-first-class',
@@ -74,7 +65,15 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     cellClass: 'first-class',
                                     width: 80
                                 },
-                              
+                                {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 120,
+                                },
                                 {
                                     headerName: 'Appt. Date & Time',
                                     field: 'name',
@@ -108,8 +107,8 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     headerName: 'Department Detail',
                                     resizable: true,
                                     sortable: true,
-                                    cellRenderer:'DepartmentNameWithRoomNumber',
-                                    width:150,
+                                    cellRenderer: 'DepartmentNameWithRoomNumber',
+                                    width: 150,
                                     sizeColumnsToFit: true
                                 },
 
@@ -150,7 +149,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     null,
                                     previewCall
                                 ),
-                                DepartmentNameWithRoomNumber:PreviewHandlerHoc(
+                                DepartmentNameWithRoomNumber: PreviewHandlerHoc(
                                     DepartmentNameWithRoomNumber,
                                     null,
                                     null,
@@ -222,18 +221,18 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 ''
             )} */}
             {approveConfirmationModal ? (
-               <CConfirmationModal
-               modalHeader="Confirm Check-In?"
-               modalBody={
-                   <CheckInModalContent appointmentDetails={appointmentDetails}/>
-               }
-               showModal={approveConfirmationModal}
-               setShowModal={setShowModal}
-               onConfirm={approveHandleApi}
-               onCancel={setShowModal}
-               isConfirming={isConfirming}
-               // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
-           />
+                <CConfirmationModal
+                    modalHeader="Confirm Check-In?"
+                    modalBody={
+                        <CheckInModalContent approvalData={appointmentDetails}/>
+                    }
+                    showModal={approveConfirmationModal}
+                    setShowModal={setShowModal}
+                    onConfirm={approveHandleApi}
+                    onCancel={setShowModal}
+                    isConfirming={isConfirming}
+                    // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+                />
             ) : (
                 ''
             )}

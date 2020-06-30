@@ -1,6 +1,7 @@
 import React from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
+
 const ApprovalContent = ({approvalData}) => {
     return (
         <>
@@ -20,7 +21,7 @@ const ApprovalContent = ({approvalData}) => {
                                 <CHybridInput
                                     id="appointmentDate"
                                     placeholder="Appointment Date"
-                                    value={approvalData.appointmentDate || 'N/A'}
+                                    value={approvalData.appointmentDate ? approvalData.appointmentDate : 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
