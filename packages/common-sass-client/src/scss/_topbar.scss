@@ -370,6 +370,7 @@
                 padding: 16px 0px;
                 border: none;
                 border-top:1px solid $gray-300;
+                color:$gray-900;
                 background-color:transparent;               
                 line-height: 1.2;
                 @include border-radius(0px !important);
@@ -408,8 +409,9 @@
             .anchor-icon {
                 width: 32px;
                 height: 32px;
-                line-height: 28px;
+                line-height: 31px;
                 text-align: center;
+                font-size: 0.75rem;
                 flex-shrink: 0;
                 @include border-radius(50%);
                 border: 1px solid $gray-100;
@@ -468,13 +470,15 @@
 
             .anchor-icon {
                 width: 32px;
-                height: 32px;
-                line-height: 28px;
-                text-align: center;
-                flex-shrink: 0;
-                @include border-radius(50%);
-                border: 1px solid $gray-100;
-                background-color: $gray-200;
+            height: 32px;
+            line-height: 31px;
+            text-align: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            @include border-radius(50%);
+            border: 1px solid $gray-100;
+            background-color: $gray-200;
+
             }
 
             .menu-box {
@@ -525,13 +529,21 @@
   align-items: flex-start;
   padding-top:80px;
   max-width: 400px;
+
+
    .modal-content .modal-body{
        padding-top:15px;
    }
 
-   .modal-header .close{
-       margin-right:-5px;
-   }
+   .modal-header{
+       .modal-title{
+           padding-left: 5px;
+       }
+
+    .close{
+        margin-right:-4px;
+    }
+    }
 
    .modal-content .modal-body{
        padding:25px 15px 25px 15px;
@@ -562,6 +574,10 @@
             }
         }
 
+        .input-group-append{
+            margin-right:3px;
+        }
+
         button,span{
             border:transparent;
             border-bottom:1px solid $gray-300;
@@ -583,15 +599,25 @@
         @include transition(all,0.9s,ease);
         // @include border-radius(6px);
 
+        &.selected{
+            .anchor-icon{
+                background-color: #f4cd0c;
+                
+            }
+        }
+
         .anchor-icon {
             width: 32px;
             height: 32px;
-            line-height: 28px;
+            line-height: 31px;
             text-align: center;
+            font-size: 0.75rem;
             flex-shrink: 0;
             @include border-radius(50%);
             border: 1px solid $gray-100;
             background-color: $gray-200;
+
+           
         }
 
         .menu-box {
@@ -642,4 +668,9 @@
 
        
     }
-}        
+}  
+
+#favourites{
+    z-index: 99999999;
+}
+

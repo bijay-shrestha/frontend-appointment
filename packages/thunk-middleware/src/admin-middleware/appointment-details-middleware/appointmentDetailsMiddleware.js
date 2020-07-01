@@ -359,6 +359,7 @@ export const fetchAppointmentRefundDetailByAppointmentId = (
     } catch (e) {
         dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingError(
             e.errorMessage ? e.errorMessage : 'Sorry,Internal Server problem!'))
+            throw e;
     }
 }
 

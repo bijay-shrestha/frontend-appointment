@@ -366,5 +366,26 @@
     "tabOrder": null,
     "isChecked": false,
     "isSingleTab": false
+  },
+  {
+    "id": 37,
+    "name": "Check",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
+    "id": 38,
+    "name": "View",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
   }
+  
 ]

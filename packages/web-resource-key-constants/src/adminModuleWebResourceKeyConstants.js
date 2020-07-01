@@ -176,6 +176,7 @@ export const patientSetupApiConstant = {
 };
 
 const HOSPITAL_DEPARTMENT = "/hospitalDepartment"
+const REFUND_STATUS="/refundStatus"
 export const appointmentSetupApiConstant = {
     APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
     APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
@@ -199,7 +200,10 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_DEPARTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund"),
     APPOINTMENT_DEPARTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/approve"),
     APPOINTMENT_DEPARTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/reject"),
-    APPOINTMENT_DEPARTMENT_REFUND_DETAIL:BASE.concat(APPOINTMENT_BASE.concat("/hospitalDepartment/refund/detail"))
+    APPOINTMENT_DEPARTMENT_REFUND_DETAIL:BASE.concat(APPOINTMENT_BASE.concat("/hospitalDepartment/refund/detail")),
+    SEARCH_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/search")),
+    DETAIL_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/detail")),
+    CHECK_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/check"))
 };
 
 export const DashboardApiConstant = {
@@ -404,3 +408,4 @@ export const favouritesApiConstants = {
     UPDATE_FAVOURITES: BASE.concat(FAVOURITES_BASE),
     FETCH_FAVOURITES_FOR_DROPDOWN: BASE.concat(FAVOURITES_BASE),
 };
+

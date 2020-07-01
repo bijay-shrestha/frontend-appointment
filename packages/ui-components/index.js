@@ -70,3 +70,4 @@ export {default as DoctorAppointmentCheckInOptions} from './src/DoctorAppointmen
 export {default as DepartmentCheckInOptions} from './src/DepartmentAppointmentCheckInOption';
 export {default as DepartmentNameWithRoomNumberAndBillingMode} from './src/DepartmentNameWithRoomNumberAndBilling'
 export {default as CFavourites} from './src/CFavourites';
+export {default as TableRefundStatusAmbigous} from './src/TableRefundStatusAmbigous'

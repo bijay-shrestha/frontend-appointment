@@ -220,19 +220,19 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
             ) : (
                 ''
             )} */}
-            {approveConfirmationModal ? (
-                <CConfirmationModal
-                    modalHeader="Confirm Check-In?"
-                    modalBody={
-                        <CheckInModalContent approvalData={appointmentDetails}/>
-                    }
-                    showModal={approveConfirmationModal}
-                    setShowModal={setShowModal}
-                    onConfirm={approveHandleApi}
-                    onCancel={setShowModal}
-                    isConfirming={isConfirming}
-                    // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
-                />
+            {approveConfirmationModal && appointmentDetails ? (
+               <CConfirmationModal
+               modalHeader="Confirm Check-In?"
+               modalBody={
+                   <CheckInModalContent appointmentDetails={appointmentDetails}/>
+               }
+               showModal={approveConfirmationModal}
+               setShowModal={setShowModal}
+               onConfirm={approveHandleApi}
+               onCancel={setShowModal}
+               isConfirming={isConfirming}
+               // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+           />
             ) : (
                 ''
             )}

@@ -37,7 +37,7 @@ const AddFavourites = ({
                                     {
                                         menuListForFavourites && menuListForFavourites.length ? menuListForFavourites.map(menu => (
                                                 <div key={menu.id}
-                                                     className="menu-link ">
+                                                     className={menu.isFavourite ? "menu-link selected":"menu-link"}>
                                                     <div className="anchor-icon">
                                                         {menu.iCharacter}
                                                     </div>
@@ -80,7 +80,7 @@ const AddFavourites = ({
                 // backdrop="static"
                 show={showModal}
                 size="sm"
-                modalHeading="Add Favourites Menu"
+                modalHeading="Manage Favourites Menu"
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 dialogClassName="cogent-modal add-fav-modal"
