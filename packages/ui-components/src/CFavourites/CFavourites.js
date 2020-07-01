@@ -45,7 +45,13 @@ class CFavourites extends React.PureComponent {
         return userMenus ? userMenus : []
     }
 
-    setShowAddFavouritesModal = () => {
+    openManageFavouritesModal = (event) => {
+        event.preventDefault()
+        this.setState({showAddFavouritesModal: !this.state.showAddFavouritesModal})
+    }
+
+    setShowAddFavouritesModal = (event) => {
+        // event.preventDefault()
         this.setState({showAddFavouritesModal: !this.state.showAddFavouritesModal})
     }
 
@@ -61,7 +67,8 @@ class CFavourites extends React.PureComponent {
         this.clearAlertTimeout();
     };
 
-    handleAddFavourite = async menu => {
+    handleAddFavourite = async (event,menu) => {
+        event.preventDefault();
         this.setState({
             isAddPending: true
         })
@@ -77,7 +84,8 @@ class CFavourites extends React.PureComponent {
         }
     }
 
-    handleRemoveFavourite = async menu => {
+    handleRemoveFavourite = async (event,menu) => {
+        event.preventDefault();
         this.setState({
             isAddPending: true
         })
@@ -212,8 +220,8 @@ class CFavourites extends React.PureComponent {
                                  }
                                  <div className="add-bar ">
                                     {/* <p className="add-title">Favourite links</p> */}
-                                     <a className="btn btn-outline-secondary add-new-fav"
-                                        onClick={this.setShowAddFavouritesModal}>
+                                     <a className="btn btn-outline-secondary add-new-fav" href={'/'}
+                                        onClick={this.openManageFavouritesModal}>
                                           <i className="fa fa-plus"/>&nbsp;Add Favourites </a>
                                   </div>
                              </Dropdown.Menu>
