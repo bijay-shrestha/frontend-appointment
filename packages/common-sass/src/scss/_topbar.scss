@@ -370,6 +370,7 @@
                 padding: 16px 0px;
                 border: none;
                 border-top:1px solid $gray-300;
+                color:$gray-900;
                 background-color:transparent;               
                 line-height: 1.2;
                 @include border-radius(0px !important);
@@ -382,7 +383,7 @@
 
                 i{
                     width:40px;
-                    padding-left:7px;
+                    padding-left:12px;
                     color:$gray-600;
                 }
             }
@@ -391,7 +392,7 @@
         .dropdown-menu {
             width: auto;
             margin-top: 10px;
-            min-width: 220px;
+            min-width: 260px;
             border: none;
             box-shadow: 0px 4px 2px 0px $gray-400;
             padding: 0px;
@@ -402,7 +403,7 @@
         .menu-link {
             display: flex;
             flex-direction: row;
-            padding: 4px 6px;
+            padding: 4px 10px;
             align-items: center;
 
             .anchor-icon {
@@ -463,18 +464,20 @@
  .menu-link {
             display: flex;
             flex-direction: row;
-            padding: 4px 6px;
+            padding: 4px 10px;
             align-items: center;
 
             .anchor-icon {
                 width: 32px;
-                height: 32px;
-                line-height: 28px;
-                text-align: center;
-                flex-shrink: 0;
-                @include border-radius(50%);
-                border: 1px solid $gray-100;
-                background-color: $gray-200;
+            height: 32px;
+            line-height: 31px;
+            text-align: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            @include border-radius(50%);
+            border: 1px solid $gray-100;
+            background-color: $gray-200;
+
             }
 
             .menu-box {
@@ -525,23 +528,42 @@
   align-items: flex-start;
   padding-top:80px;
   max-width: 400px;
+
+
    .modal-content .modal-body{
        padding-top:15px;
    }
 
-   .modal-header .close{
-       margin-right:-10px;
+   .modal-header{
+       .modal-title{
+           padding-left: 5px;
+       }
+
+    .close{
+        margin-right:-4px;
+    }
+    }
+
+   .modal-content .modal-body{
+       padding:25px 15px 25px 15px;
+   }
+
+   #scrollbar_add-fav-scrollbar{
+       height: 250px;
    }
 
     #fav-search {
-        padding-bottom:14px;
+        // padding-bottom:14px;
         border-bottom:1px solid $gray-100;
+        padding:0 15px 14px;
 
         input{
             border:none;
+            padding-left:7px;
+            // margin:0 15px;
             border-bottom:1px solid $gray-300;
             @include border-radius(0);
-       @include transition(all,0.8s,ease);
+            @include transition(all,0.8s,ease);
     //    -webkit-transition: all 0.8s ease;
     //    -moz-transition: all 0.8s ease;
     //    transition: all 0.8s ease;
@@ -549,6 +571,10 @@
             &:focus{
                color:$gray-900;
             }
+        }
+
+        .input-group-append{
+            margin-right:3px;
         }
 
         button,span{
@@ -566,20 +592,31 @@
     .menu-link {
         display: flex;
         flex-direction: row;
-        padding: 4px 6px;
+        padding: 4px 21px;
         align-items: center;
         width:100%;
         @include transition(all,0.9s,ease);
+        // @include border-radius(6px);
+
+        &.selected{
+            .anchor-icon{
+                background-color: #f4cd0c;
+                
+            }
+        }
 
         .anchor-icon {
             width: 32px;
             height: 32px;
-            line-height: 28px;
+            line-height: 31px;
             text-align: center;
+            font-size: 0.75rem;
             flex-shrink: 0;
             @include border-radius(50%);
             border: 1px solid $gray-100;
             background-color: $gray-200;
+
+           
         }
 
         .menu-box {
@@ -630,4 +667,9 @@
 
        
     }
-}        
+}  
+
+#favourites{
+    z-index: 99999999;
+}
+

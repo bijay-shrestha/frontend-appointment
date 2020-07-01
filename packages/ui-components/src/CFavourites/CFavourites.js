@@ -10,8 +10,6 @@ import * as Material from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
 
-const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
-
 class CFavourites extends React.PureComponent {
     state = {
         showAddFavouritesModal: false,
@@ -25,13 +23,14 @@ class CFavourites extends React.PureComponent {
             variant: '',
             message: ''
         },
+        adminInfo: ''
     }
 
     alertTimer = '';
 
 
     clearAlertTimeout = () => {
-        this.alertTimer = setTimeout(() => this.closeAlert(), 10000)
+        this.alertTimer = setTimeout(() => this.closeAlert(), 90000)
     };
 
     closeAlert = () => {
@@ -62,6 +61,7 @@ class CFavourites extends React.PureComponent {
     };
 
     handleAddFavourite = async menu => {
+        const {adminInfo} = this.state
         this.setState({
             isAddPending: true
         })
@@ -78,6 +78,7 @@ class CFavourites extends React.PureComponent {
     }
 
     handleRemoveFavourite = async menu => {
+        const {adminInfo} = this.state
         this.setState({
             isAddPending: true
         })
@@ -106,7 +107,7 @@ class CFavourites extends React.PureComponent {
                 if (StringUtils.compareStrings(keyWord, menu.name)) {
                     let displayData = {
                         ...menu,
-                        iCharacter: menu.name.charAt(0).toUpperCase(),
+                        iCharacter: FavouritesUtils.getInitialCharactersOfName(menu.name,2),
                         menuName: menu.name,
                         name: StringUtils.boldCharactersOfString(keyWord, menu.name, count < 1 ? count : count++),
                     };
@@ -136,6 +137,7 @@ class CFavourites extends React.PureComponent {
     }
 
     fetchLoggedInAdminFavourites = async () => {
+        const {adminInfo} = this.state
         try {
             const response = await Axios.getWithPathVariables(FETCH_FAVOURITES_FOR_DROPDOWN, adminInfo.adminId)
             const favouriteMenus = FavouritesUtils.getFavouritesDetails(response.data);
@@ -146,8 +148,15 @@ class CFavourites extends React.PureComponent {
         }
     }
 
+    setLoggedInAdminInfo = async () => {
+        await this.setState({
+            adminInfo: LocalStorageSecurity.localStorageDecoder('adminInfo')
+        })
+    }
+
     async componentDidMount() {
-        await this.fetchLoggedInAdminFavourites()
+        await this.setLoggedInAdminInfo()
+        this.fetchLoggedInAdminFavourites()
     }
 
 
@@ -214,7 +223,7 @@ class CFavourites extends React.PureComponent {
                                     {/* <p className="add-title">Favourite links</p> */}
                                      <a className="btn btn-outline-secondary add-new-fav"
                                         onClick={this.setShowAddFavouritesModal}>
-                                          <i className="fa fa-plus"/>&nbsp;Add Favourites </a>
+                                          <i className="fa fa-edit"/>&nbsp;Manage Favourites </a>
                                   </div>
                              </Dropdown.Menu>
                          </Dropdown>
@@ -239,6 +248,7 @@ class CFavourites extends React.PureComponent {
                 variant={alertMessageInfo.variant}
                 show={showAlert}
                 onClose={this.closeAlert}
+                className="fav-alert"
                 alertType={
                     alertMessageInfo.variant === 'success' ? (
                         <>

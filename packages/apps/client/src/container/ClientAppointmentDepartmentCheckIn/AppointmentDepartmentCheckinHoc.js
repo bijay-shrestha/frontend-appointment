@@ -292,10 +292,200 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
       //     specializationSetupAPIConstants.ACTIVE_DROPDOWN_SPECIALIZATION
       // )
 
-      this.props.fetchPatientMetaDropdownForClient(
-        patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
-      )
-    }
+            this.props.fetchPatientMetaDropdownForClient(
+                patientSetupApiConstant.ACTIVE_PATIENT_META_INFO_DETAILS
+            )
+        }
+
+        // callApiAfterSpecializationAndDoctorChange = async appointmentDetail => {
+        //     await this.props.fetchAppointmentTransferCharge(
+        //         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_CHARGE,
+        //         {
+        //             doctorId: appointmentDetail.transferredDoctor.value,
+        //             specializationId: appointmentDetail.transferredSpecialization.value,
+        //             followUp: appointmentDetail.followUp
+        //         }
+        //     )
+
+        //     await this.props.fetchAppointmentTransferDate(
+        //         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_DATE,
+        //         {
+        //             doctorId: appointmentDetail.transferredDoctor.value,
+        //             specializationId: appointmentDetail.transferredSpecialization.value,
+        //             followUp: appointmentDetail.followUp
+        //         }
+        //     )
+        // }
+
+        // onDoctorOrDateChangeHandler = async (appointmentDetail, transferedDate) => {
+        //     await this.props.fetchAppointmentTransferTime(
+        //         appointmentTransferApiConstants.APPOINTMENT_TRANSFER_TIME,
+        //         {
+        //             doctorId: appointmentDetail.transferredDoctor.value,
+        //             specializationId: appointmentDetail.transferredSpecialization.value,
+        //             date: transferedDate.value
+        //                 ? new Date(transferedDate.value)
+        //                 : new Date()
+        //         }
+        //     )
+        // }
+
+        // callApiAfterSpecializationChange = async specializationId => {
+        //     await this.props.fetchDoctorsBySpecializationIdForDropdown(
+        //         doctorSetupApiConstants.FETCH_DOCTOR_BY_SPECIALIZATION_ID,
+        //         specializationId
+        //     )
+        // }
+
+        // transferHandler = async data => {
+        //     await this.previewApiCall(data)
+        //     const {appointmentDetail} = this.props.AppointmentDetailReducer
+        //     await this.props.clearAppointmentApproveMessage()
+
+        //     await this.callApiAfterSpecializationChange(
+        //         appointmentDetail.specializationId
+        //     )
+        //     let appointmentDetailData = {
+        //         ...appointmentDetail,
+        //         transferredDoctor: {
+        //             value: appointmentDetail.doctorId,
+        //             label: appointmentDetail.doctorName
+        //         },
+        //         transferredSpecialization: {
+        //             value: appointmentDetail.specializationId,
+        //             label: appointmentDetail.specializationName
+        //         }
+        //     }
+        //     await this.callApiAfterSpecializationAndDoctorChange(
+        //         appointmentDetailData
+        //     )
+        //     await this.onDoctorOrDateChangeHandler(appointmentDetailData, {
+        //         value: appointmentDetail.date,
+        //         label: appointmentDetail.date
+        //     })
+        //     const {
+        //         appointmentTransferCharge
+        //     } = this.props.appointmentTransferChargeReducer
+        //     const {
+        //         appointmentTransferTime,
+        //         appointmentTransferTimeError,
+        //         isAppointmentTransferTimeLoading
+        //     } = this.props.appointmentTransferTimeReducer
+        //     // console.log("========",this.props.appointmentTransferTimeReducer)
+        //     const {
+        //         appointmentTransferDate,
+        //         appointmentTransferDateError,
+        //         isAppointmentTransferDateLoading
+        //     } = this.props.appointmentTransferDateReducer
+        //     this.setState({
+        //         appointmentTransferData: {
+        //             transferData: {
+        //                 ...this.props.AppointmentDetailReducer.appointmentDetail,
+        //                 transferredDoctor: {
+        //                     value: appointmentDetail.doctorId,
+        //                     label: appointmentDetail.doctorName,
+        //                     fileUri: appointmentDetail.fileUri
+        //                 },
+        //                 transferredSpecialization: {
+        //                     value: appointmentDetail.specializationId,
+        //                     label: appointmentDetail.specializationName
+        //                 },
+        //                 transferredDate: '',
+        //                 transferredTime: '',
+        //                 transferredCharge: appointmentTransferCharge,
+        //                 remarks: ''
+        //             },
+        //             transferDate: {
+        //                 appointmentTransferDate,
+        //                 appointmentTransferDateError,
+        //                 isAppointmentTransferDateLoading
+        //             },
+        //             transferTime: {
+        //                 appointmentTransferTime,
+        //                 appointmentTransferTimeError,
+        //                 isAppointmentTransferTimeLoading
+        //             },
+        //             transferCharge: appointmentTransferCharge
+        //         },
+        //         transferConfirmationModal: true
+        //     })
+        // }
+
+        // transferApiCall = async () => {
+        //     const {transferData} = this.state.appointmentTransferData
+        //     const {
+        //         transferredDoctor,
+        //         transferredSpecialization,
+        //         followUp,
+        //         transferredTime,
+        //         transferredDate,
+        //         appointmentId,
+        //         transferredCharge,
+        //         remarks
+        //     } = transferData
+        //     try {
+        //         await this.props.appointmentTransfer(
+        //             appointmentTransferApiConstants.APPOINTMENT_TRANSFER,
+        //             {
+        //                 appointmentCharge: transferredCharge,
+        //                 appointmentDate: new Date(transferredDate.value),
+        //                 appointmentId: appointmentId,
+        //                 appointmentTime: transferredTime.value,
+        //                 doctorId: transferredDoctor.value,
+        //                 isFollowUp: followUp,
+        //                 remarks: remarks,
+        //                 specializationId: transferredSpecialization.value
+        //             }
+        //         )
+        //         this.setState({
+        //             showAlert: true,
+        //             alertMessageInfo: {
+        //                 variant: 'success',
+        //                 message: this.props.appointmentTransferReducer
+        //                     .appointmentTransferSucessMessage
+        //             }
+        //         })
+        //     } catch (e) {
+        //         this.setState({
+        //             showAlert: true,
+        //             alertMessageInfo: {
+        //                 variant: 'danger',
+        //                 message: this.props.appointmentTransferReducer
+        //                     .appointmentTransferErrorMessage
+        //             }
+        //         })
+        //     } finally {
+        //         this.resetTransferData()
+        //         await this.searchAppointment()
+        //         this.setShowModal()
+        //     }
+        // }
+
+        handleSearchFormChange = async (event, field) => {
+            if (event) {
+                let fieldName, value, label, fileUri
+                if (field) {
+                    fieldName = field
+                    value = event
+                } else {
+                    fieldName = event.target.name
+                    value = event.target.value
+                    label = event.target.label
+                    fileUri = event.target.fileUri
+                }
+
+                let newSearchParams = {...this.state.searchParameters}
+
+                newSearchParams[fieldName] = label
+                    ? value
+                        ? fileUri
+                            ? {value, label, fileUri}
+                            : {value, label}
+                        : ''
+                    : value
+                await this.setStateValuesForSearch(newSearchParams)
+            }
+        }
 
     // callApiAfterSpecializationAndDoctorChange = async appointmentDetail => {
     //     await this.props.fetchAppointmentTransferCharge(

@@ -78,7 +78,7 @@ export const boldCharactersOfString = (stringToBold, mainString, index) => {
   let childCharacterArray = stringToBold.toLowerCase().split('')
 
   let startingIndex = 0
-  console.log('=========', index)
+  // console.log('=========', index)
 
   for (let i = 0; i < childCharacterArray.length; i++) {
     let characterToFind = childCharacterArray[i]
@@ -101,7 +101,7 @@ export const boldCharactersOfString = (stringToBold, mainString, index) => {
         )
     }
   }
-  console.log(normalCaseString)
+  // console.log(normalCaseString)
   return normalCaseString
 }
 

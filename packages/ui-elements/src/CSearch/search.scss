@@ -1,48 +1,4 @@
 
-// .search-comp.input-group{
-//   display:flex;
-//   min-width:200px;
-//   justify-content: flex-end;
-//   transition: width 0.4s linear;
-
-//   .search-btn{
-//     border-radius:0 4px 4px 0 !important;
-// }
-  
-
-//   .form-control{
-//     transition: width 0.4s linear;
-//   }
-
-//   &.open{
-//     .form-control{
-//         display:none
-//     }
-
-//     .search-btn{
-//       border-radius:4px !important;
-//   }
-
-  
-//   }
-
-
-//   .search-form{
-//     position: relative;
-//     &::before{
-//       position: absolute;
-//       left: 5px;
-//       top: 50%;
-//       -webkit-transform: translateY(-50%);
-//       transform: translateY(-50%);
-//       color: #cccccc;
-//       z-index: 4;
- 
-//     }
-//   }
-
-
-// }
 
 input {
 	outline: none;
@@ -83,7 +39,6 @@ input::-webkit-input-placeholder {
 	width:32px;
 	color: transparent;
 	cursor: pointer;
-	
 
 	background: #fff url(./search.svg) no-repeat left    center;
 	background-size:26px 16px;
@@ -98,9 +53,21 @@ input::-webkit-input-placeholder {
 	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 	transition: all .5s;
+
+	&::-moz-placeholder {
+		color: transparent;
+		
+	}
+
+	
 }
 #expandible-search input[type=search]:hover {
 	background-color: #fff;
+
+	&::-moz-placeholder {
+		color: transparent;
+		
+	}
 }
 #expandible-search input[type=search]:focus {
 	width: 100%;
@@ -111,12 +78,18 @@ input::-webkit-input-placeholder {
 	color: #000;
 	cursor: auto;
 
+	&::-moz-placeholder {
+		color: #212529;
+		
+	}
+
 
 }
-#expandible-search input:-moz-placeholder {
+#expandible-search input[type=search]::-moz-placeholder {
 	color: transparent;
+	
 }
-#expandible-search input::-webkit-input-placeholder {
+#expandible-search input[type=search]::-webkit-input-placeholder {
 	color: transparent;
 }
 

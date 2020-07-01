@@ -20,6 +20,25 @@ const DetailsModal = ({previewData}) => {
                             </Col>
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
+                                    id="DOB"
+                                    placeholder="Date of Birth"
+                                    value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(previewData.dateOfBirth) || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="age"
+                                    placeholder="Age"
+                                    value={previewData.age || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+                           
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
                                     id="address"
                                     placeholder="Address"
                                     value={previewData.address || 'N/A'}
@@ -31,6 +50,26 @@ const DetailsModal = ({previewData}) => {
                                     id="email"
                                     placeholder="Email"
                                     value={previewData.email || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="mobileNumber"
+                                    placeholder="Mobile Number"
+                                    value={previewData.mobileNumber || 'N/A'}
+                                    disabled={true}
+                                />
+                            </Col>
+
+                            <Col sm={12} md={6} lg={6}>
+                                <CHybridInput
+                                    id="patientType"
+                                    placeholder="Patient Type"
+                                    value={previewData.isRegistered === 'N' ? 'New' : 'Registered' || 'N/A'}
                                     disabled={true}
                                 />
                             </Col>
@@ -52,30 +91,9 @@ const DetailsModal = ({previewData}) => {
                                     disabled={true}
                                 />
                             </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="mobileNumber"
-                                    placeholder="Mobile Number"
-                                    value={previewData.mobileNumber || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="age"
-                                    placeholder="Age"
-                                    value={previewData.age || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="patientType"
-                                    placeholder="Patient Type"
-                                    value={previewData.isRegistered === 'N' ? 'New' : 'Registered' || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                           
+                         
+                           
                             <Col sm={12} md={6} lg={6}>
                                 <CHybridInput
                                     id="status"
@@ -101,14 +119,7 @@ const DetailsModal = ({previewData}) => {
                   disabled={true}
                 />
               </Col> */}
-                            <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
-                                    id="DOB"
-                                    placeholder="Date of Birth"
-                                    value={DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(previewData.dateOfBirth) || 'N/A'}
-                                    disabled={true}
-                                />
-                            </Col>
+                           
 
                             {/* <Col sm={12} md={6} lg={6}>
                 <CHybridInput

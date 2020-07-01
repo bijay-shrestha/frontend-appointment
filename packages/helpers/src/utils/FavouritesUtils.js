@@ -56,11 +56,20 @@ const addMenuToList = (listToAddTo, menu, isFavourite) => {
     const {REACT_APP_MODULE_CODE, ADMIN_MODULE_CODE} = EnvironmentVariableGetter;
     listToAddTo.push({
         name: menu.name,
-        iCharacter: menu.name.charAt(0).toUpperCase(),
+        iCharacter: getInitialCharactersOfName(menu.name, 2),
         path: REACT_APP_MODULE_CODE === ADMIN_MODULE_CODE ? "/admin" + menu.path : menu.path,
         id: menu.id,
         parentId: menu.parentId,
         isFavourite: isFavourite,
         menuName: menu.name
     })
+}
+
+export const getInitialCharactersOfName = (name, length) => {
+    let nameArray = name.split(" ");
+    let iCharacter = nameArray.length === 1 ? nameArray[0].charAt(0) :
+        nameArray.reduce((a, b) => {
+            return a + b.charAt(0)
+        },"")
+    return iCharacter.substring(0, length).toUpperCase()
 }

@@ -32,7 +32,7 @@ const TransactionLogDetailContent = ({logData,appointmentServiceTypeCode}) => {
                 ) : (
                   <CHybridTextArea
                     id="departmentName"
-                    placeholder="Doctor Name(Room Number And Billing Mode)"
+                    placeholder="Department Name (Room Number And Billing Mode)"
                     value={
                       logData.hospitalDepartmentName +
                       '(' +
