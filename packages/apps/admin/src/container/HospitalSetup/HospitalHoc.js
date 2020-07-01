@@ -3,10 +3,10 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentServiceTypeMiddleware,
     BillingModeMiddleware,
-    HospitalSetupMiddleware
+    HospitalSetupMiddleware, MinioMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, FileUploadLocationUtils, MultiSelectOptionUpdateUtils} from '@frontend-appointment/helpers'
 import './hospitalHoc.scss'
 
 const {
@@ -23,6 +23,8 @@ const {
 const {fetchActiveBillingModeForDropdown} = BillingModeMiddleware;
 
 const {fetchActiveAppointmentServiceType} = AppointmentServiceTypeMiddleware;
+
+const {uploadImageInMinioServer} = MinioMiddleware
 
 const {
     hospitalSetupApiConstants,
@@ -108,7 +110,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             hospitalBannerImageCroppedUrl: '',
             hospitalBannerFileCropped: '',
             showImageUploadModal: false,
-            showBannerUploadModal: false
+            showBannerUploadModal: false,
+            isImageUploading: false,
+            errorMessage: ''
         };
 
         resetHospitalStateValues = () => {
@@ -130,7 +134,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     followUpIntervalDays: '',
                     refundPercentage: '',
                     hospitalBanner: '',
-                    hospitalLogo: ''
+                    hospitalLogo: '',
+                    billingMode: null,
+                    appointmentServiceType: null,
+                    primaryAppointmentServiceType: null,
                 },
                 hospitalLogo: '',
                 hospitalImage: '',
@@ -456,28 +463,23 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 primaryAppointmentServiceTypeId: primaryAppointmentServiceType ? primaryAppointmentServiceType.value : ''
             };
 
-            let formData = new FormData();
-
-            hospitalLogoUrlNew &&
-            formData.append(
-                'logo',
-                hospitalLogo
-                    ? new File([hospitalLogo], name.concat('-picture.jpeg'))
-                    : null
-            );
-
-            hospitalBannerUrlNew &&
-            formData.append(
-                'banner',
-                hospitalBanner
-                    ? new File([hospitalBanner], name.concat('-picture.jpeg'))
-                    : null
-            )
+            let imagePathLogo = '',
+                imagePathBanner = ''
             try {
+                if (hospitalLogoUrlNew) {
+                    this.setImageLoading(true)
+                    imagePathLogo = await this.uploadImageToServer(hospitalLogo, "logo");
+                    if (hospitalBannerUrlNew) {
+                        imagePathBanner = await this.uploadImageToServer(hospitalBanner, "banner");
+                    }
+                    this.setImageLoading(false)
+                }
+
                 await this.props.editHospital(
                     hospitalSetupApiConstants.EDIT_HOSPITAL,
-                    hospitalData,
-                    formData
+                    {...hospitalData,
+                    hospitalBanner:imagePathBanner,
+                    hospitalLogo:imagePathLogo}
                 )
                 this.resetHospitalStateValues()
                 this.setState({
@@ -489,6 +491,10 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
                 await this.searchHospital()
             } catch (e) {
+                this.setState({
+                    errorMessage: e.errorMessage ? e.errorMessage : "Error updating admin.",
+                    isImageUploading: false
+                })
             }
         }
 
@@ -685,6 +691,12 @@ const HospitalHOC = (ComposedComponent, props, type) => {
             })
         };
 
+        setImageLoading = (value) => {
+            this.setState({
+                isImageUploading: value
+            })
+        }
+
         handleConfirmClick = async () => {
             const {
                 name,
@@ -694,7 +706,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 address,
                 panNumber,
                 esewaMerchantCode,
-                //isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
@@ -714,7 +725,6 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 panNumber,
                 esewaMerchantCode: esewaMerchantCode,
                 alias,
-                // isCompany,
                 numberOfFollowUps,
                 numberOfAdmins,
                 followUpIntervalDays,
@@ -725,27 +735,25 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 primaryAppointmentServiceTypeId: primaryAppointmentServiceType && primaryAppointmentServiceType.value,
             };
 
-            let formData = new FormData();
-            hospitalLogo &&
-            formData.append(
-                'logo',
-                hospitalLogo
-                    ? new File([hospitalLogo], name.concat('-picture.jpeg'))
-                    : null
-            );
-            hospitalBanner &&
-            formData.append(
-                'banner',
-                hospitalBanner
-                    ? new File([hospitalBanner], name.concat('-picture.jpeg'))
-                    : null
-            );
-
+            let imagePathLogo = '',
+                imagePathBanner = ''
             try {
+                if (hospitalLogo) {
+                    this.setImageLoading(true)
+                    imagePathLogo = await this.uploadImageToServer(hospitalLogo, "logo");
+                    if (hospitalBanner) {
+                        imagePathBanner = await this.uploadImageToServer(hospitalBanner, "banner");
+                    }
+                    this.setImageLoading(false)
+                }
+
                 await this.props.createHospital(
                     hospitalSetupApiConstants.CREATE_HOSPITAL,
-                    hospitalData,
-                    formData
+                    {
+                        ...hospitalData,
+                        hospitalBanner: imagePathBanner,
+                        hospitalLogo: imagePathLogo
+                    }
                 );
 
                 await this.setShowConfirmModal();
@@ -759,6 +767,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 this.setState({
+                    isImageUploading: false,
                     showConfirmModal: false,
                     showAlert: true,
                     alertMessageInfo: {
@@ -768,6 +777,18 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 })
             }
         };
+
+        uploadImageToServer = async (imageToUpload, imageType) => {
+            const {
+                alias,
+                name
+            } = this.state.hospitalData;
+
+            let fileToUpload = new File([imageToUpload], (name + new Date().getTime()).concat('.jpeg'))
+            let fileLocation = FileUploadLocationUtils.getLocationPathForClientImageUpload(alias, imageType)
+
+            return await uploadImageInMinioServer(fileToUpload, fileLocation)
+        }
 
         handleOnChange = async (event, fieldValid, eventType) => {
             let hospital = {...this.state.hospitalData}
@@ -863,7 +884,9 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 hospitalBannerImage,
                 hospitalBannerImageCroppedUrl,
                 showBannerUploadModal,
-                appointmentServiceTypeListForPrimary
+                appointmentServiceTypeListForPrimary,
+                isImageUploading,
+                errorMessage
             } = this.state
 
             const {
@@ -941,7 +964,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     searchErrorMessage={searchErrorMessage}
                     hospitalPreviewErrorMessage={hospitalPreviewErrorMessage}
                     deleteErrorMessage={deleteErrorMessage}
-                    hospitalEditErrorMessage={hospitalEditErrorMessage}
+                    hospitalEditErrorMessage={hospitalEditErrorMessage || errorMessage}
                     isPreviewLoading={isPreviewLoading}
                     hospitalPreviewData={hospitalPreviewData}
                     addContactNumber={this.addContactNumber}
@@ -968,6 +991,7 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                     createHospitalLoading={createHospitalLoading}
                     isHospitalEditLoading={isHospitalEditLoading}
                     isDeleteLoading={isDeleteLoading}
+                    isImageUploading={isImageUploading}
                 />
             )
         }

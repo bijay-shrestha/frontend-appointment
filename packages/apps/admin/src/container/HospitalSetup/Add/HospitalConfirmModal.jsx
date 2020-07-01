@@ -11,7 +11,8 @@ const HospitalConfirmationModal = ({
                                        createHospitalLoading,
                                        activeBillingModeForDropdown,
                                        activeAppointmentServiceTypeForDropdown,
-                                       appointmentServiceTypeListForPrimary
+                                       appointmentServiceTypeListForPrimary,
+                                       isImageUploading
                                    }) => {
     return (
         <>
@@ -19,6 +20,7 @@ const HospitalConfirmationModal = ({
                 show={showModal}
                 modalHeading="Client Details"
                 size="lg"
+                backdrop={"static"}
                 bodyChildren={
                     <DetailsModal
                         hospitalData={hospitalData}
@@ -35,8 +37,8 @@ const HospitalConfirmationModal = ({
                     <CButton
                         id="hospitalConfirm"
                         variant="primary"
-                        disabled={createHospitalLoading}
-                        isLoading={createHospitalLoading}
+                        disabled={createHospitalLoading || isImageUploading}
+                        isLoading={createHospitalLoading || isImageUploading}
                         name={'Confirm'}
                         size="lg"
                         className="float-right btn-action"

@@ -626,7 +626,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             let imagePath = ''
             try {
                 if (doctorAvatarUrlNew) {
+                    this.setImageLoading(true)
                     imagePath = await this.uploadImageToServer();
+                    this.setImageLoading(false)
                 }
                 await this.props.editConsultant(
                     doctorSetupApiConstants.EDIT_DOCTOR,
@@ -661,6 +663,10 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 });
                 await this.searchDoctor()
             } catch (e) {
+                this.setState({
+                    errorMessage: e.errorMessage ? e.errorMessage : "Error updating admin.",
+                    isImageUploading: false
+                })
             }
         };
 

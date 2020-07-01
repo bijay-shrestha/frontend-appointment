@@ -8,3 +8,7 @@ export const getLocationPathForDoctorFileUpload = (hospitalCode, doctorNMCNumber
 export const getLocationPathForAdminFileUpload = (hospitalCode, fullName) => {
     return CLIENT_FILE_LOCATION + "/" + hospitalCode + "/admin/" + fullName + new Date().getTime()
 }
+
+export const getLocationPathForClientImageUpload = (hospitalCode,directoryName) => {
+    return CLIENT_FILE_LOCATION + "/" + hospitalCode + "/" + directoryName
+}

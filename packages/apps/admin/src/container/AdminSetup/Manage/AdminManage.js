@@ -1291,7 +1291,7 @@ class AdminManage extends PureComponent {
                         filteredActions={this.props.filteredAction}
                         showAdminModal={showAdminModal}
                         isSearchLoading={isSearchLoading}
-                        searchData={this.appendSNToTable(adminList)}
+                        searchData={adminList}
                         searchErrorMessage={searchErrorMessage}
                         setShowModal={this.setShowModal}
                         onDeleteHandler={this.onDeleteHandler}

@@ -392,6 +392,7 @@ const DoctorEditModal = ({
                 show={showModal}
                 modalHeading="Doctor Details"
                 size="xl"
+                backdrop={'static'}
                 bodyChildren={bodyContent}
                 onHide={setShowModal}
                 centered={false}

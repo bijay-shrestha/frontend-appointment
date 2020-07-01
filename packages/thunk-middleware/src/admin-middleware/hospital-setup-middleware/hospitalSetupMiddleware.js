@@ -1,19 +1,17 @@
 import {HospitalSetupActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 import {CommonUtils} from "@frontend-appointment/helpers";
+import {MinioMiddleware} from '../../../index'
 
 export const createHospital = (
     path,
-    hospitalData,
-    formData,
+    hospitalData
 ) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalPending());
     try {
-        const response = await Axios.postForMultipart(
+        const response = await Axios.post(
             path,
-            'request',
-            hospitalData,
-            formData
+            hospitalData
         );
         dispatch(HospitalSetupActions.createHospitalSuccess());
         return response
@@ -31,10 +29,10 @@ export const clearHospitalCreateMessage = () => dispatch => {
     dispatch(HospitalSetupActions.clearHospitalPreviewMessage())
 }
 
-export const editHospital = (path, data, formDataLogo) => async dispatch => {
+export const editHospital = (path, data) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalEditPending());
     try {
-        const response = await Axios.putWithMultiPart(path, 'request', data, formDataLogo);
+        const response = await Axios.put(path, data);
         dispatch(HospitalSetupActions.createHospitalEditSuccess(response.data));
         return response
     } catch (e) {
@@ -47,7 +45,10 @@ export const previewHospital = (path, id) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalPreviewPending());
     try {
         const response = await Axios.getWithPathVariables(path, id)
-        dispatch(HospitalSetupActions.createHospitalPreviewSuccess(response.data))
+        let dataWithFileUri = response.data
+        dataWithFileUri.hospitalLogo = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.hospitalLogo)
+        dataWithFileUri.hospitalBanner = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.hospitalBanner)
+        dispatch(HospitalSetupActions.createHospitalPreviewSuccess(dataWithFileUri))
         return response;
     } catch (e) {
         dispatch(HospitalSetupActions.createHospitalPreviewError(e.errorMessage ? e.errorMessage : "Sorry Internal Server problem occurred!"));
@@ -59,8 +60,9 @@ export const searchHospital = (path, queryParams, data) => async dispatch => {
     dispatch(HospitalSetupActions.createHospitalSearchPending());
     try {
         const response = await Axios.putWithRequestParam(path, queryParams, data);
-        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size);
-        dispatch(HospitalSetupActions.createHospitalSearchSuccess(dataWithSN));
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size)
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
+        dispatch(HospitalSetupActions.createHospitalSearchSuccess(dataWithPresignedUrl));
         return response;
     } catch (e) {
         dispatch(HospitalSetupActions.createHospitalListError(e.errorMessage));
