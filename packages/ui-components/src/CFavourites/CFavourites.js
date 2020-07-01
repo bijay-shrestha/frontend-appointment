@@ -107,7 +107,7 @@ class CFavourites extends React.PureComponent {
                 if (StringUtils.compareStrings(keyWord, menu.name)) {
                     let displayData = {
                         ...menu,
-                        iCharacter: menu.name.charAt(0).toUpperCase(),
+                        iCharacter: FavouritesUtils.getInitialCharactersOfName(menu.name,2),
                         menuName: menu.name,
                         name: StringUtils.boldCharactersOfString(keyWord, menu.name, count < 1 ? count : count++),
                     };
