@@ -409,8 +409,9 @@
             .anchor-icon {
                 width: 32px;
                 height: 32px;
-                line-height: 28px;
+                line-height: 31px;
                 text-align: center;
+                font-size: 0.75rem;
                 flex-shrink: 0;
                 @include border-radius(50%);
                 border: 1px solid $gray-100;
@@ -469,13 +470,15 @@
 
             .anchor-icon {
                 width: 32px;
-                height: 32px;
-                line-height: 28px;
-                text-align: center;
-                flex-shrink: 0;
-                @include border-radius(50%);
-                border: 1px solid $gray-100;
-                background-color: $gray-200;
+            height: 32px;
+            line-height: 31px;
+            text-align: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            @include border-radius(50%);
+            border: 1px solid $gray-100;
+            background-color: $gray-200;
+
             }
 
             .menu-box {
@@ -606,8 +609,9 @@
         .anchor-icon {
             width: 32px;
             height: 32px;
-            line-height: 28px;
+            line-height: 31px;
             text-align: center;
+            font-size: 0.75rem;
             flex-shrink: 0;
             @include border-radius(50%);
             border: 1px solid $gray-100;
