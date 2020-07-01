@@ -78,7 +78,8 @@ function CompanyAdd(props) {
                                 variant="primary "
                                 className="float-right btn-action"
                                 name="Save"
-                                disabled={!formValid}
+                                isLoading={showConfirmModal}
+                                disabled={!formValid || showConfirmModal}
                                 onClickHandler={setShowConfirmModal}
                             />
                             <CompanyConfirmationModal

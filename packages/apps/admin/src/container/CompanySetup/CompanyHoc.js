@@ -114,7 +114,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 formValid: false,
                 nameValid: false,
                 codeValid: false,
-                showEditModal: false
+                showEditModal: false,
+                errorMessage:''
             })
         }
 
@@ -273,8 +274,8 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     companyLogo,
                     alias
                 } = this.props.companyPreviewReducer.companyPreviewData
-                let formValid = this.state.formValid
-                if (remarks) formValid = true
+                // let formValid = this.state.formValid
+                // if (remarks) formValid = true
                 this.setState({
                     showEditModal: true,
                     companyData: {
@@ -294,7 +295,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                         companyImage: new File([5120], companyLogo),
                         companyImageCroppedUrl: companyLogo
                     },
-                    formValid: formValid,
+                    formValid: false,
                     nameValid: true
                 })
             } catch (e) {
@@ -386,6 +387,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                 await this.props.updateCompany(UPDATE_COMPANY, {...companyData,companyLogo: imagePathLogo})
                 this.resetCompanyStateValues()
                 this.setState({
+                    errorMessage:'',
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
