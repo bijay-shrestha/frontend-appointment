@@ -2,13 +2,16 @@ import {Axios} from "@frontend-appointment/core";
 import {LoggedInAdminInfoActions} from "@frontend-appointment/action-module";
 import {AdminInfoUtils, EnvironmentVariableGetter} from "@frontend-appointment/helpers";
 import axios from 'axios'
+import {MinioMiddleware} from '../../index'
 
 export const fetchLoggedInAdminUserInfo = (path, data) => async dispatch => {
     dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchPending());
     try {
         let adminInfoResponse = await Axios.put(path, data);
-        await AdminInfoUtils.saveLoggedInAdminInfo(adminInfoResponse.data);
-        dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchSuccess(adminInfoResponse.data));
+        let dataWithFileUri = adminInfoResponse.data
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
+        await AdminInfoUtils.saveLoggedInAdminInfo(dataWithFileUri);
+        dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchSuccess(dataWithFileUri));
         return adminInfoResponse.data;
     } catch (e) {
         dispatch(LoggedInAdminInfoActions.loggedInAdminInfoFetchError(e));

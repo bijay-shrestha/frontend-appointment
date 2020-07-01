@@ -1204,7 +1204,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
             } = this.state.adminUpdateData;
             const {companyDropdownData} = this.props.companyDropdownReducer
             let companySelected = companyDropdownData.find(companyS => Number(companyS.value) === Number(company.value))
-            let companyCode = companySelected && companySelected.alias
+            let companyCode = companySelected && companySelected.companyCode
 
             let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
             let fileLocation = FileUploadLocationUtils.getLocationPathForCompanyAdminFileUpload(companyCode, fullName)
