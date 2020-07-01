@@ -45,7 +45,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
   return (
     <>
       <div className="manage-details">
-        <h5 className="title">Appointment Cancellation Status Details</h5>
+        <h5 className="title">Appointment Refund Status Details</h5>
         {!isSearchLoading &&
         !searchErrorMessage &&
         appointmentRefundList.length ? (
