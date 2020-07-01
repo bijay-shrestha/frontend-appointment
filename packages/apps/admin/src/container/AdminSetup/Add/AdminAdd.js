@@ -433,7 +433,7 @@ class AdminAdd extends PureComponent {
         let hospitalAlias = hospitalSelected && hospital.alias
 
         let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
-        let fileLocation = FileUploadLocationUtils.getLocationPathForAdminFileUpload(hospitalAlias, fullName)
+        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(hospitalAlias, fullName)
 
         return await uploadImageInMinioServer(fileToUpload, fileLocation)
     }

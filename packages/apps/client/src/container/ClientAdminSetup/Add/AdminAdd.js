@@ -379,7 +379,7 @@ class AdminAdd extends PureComponent {
         let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
 
         let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
-        let fileLocation = FileUploadLocationUtils.getLocationPathForAdminFileUpload(adminInfo.hospitalCode, fullName)
+        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(adminInfo.hospitalCode, fullName)
 
         return await uploadImageInMinioServer(fileToUpload, fileLocation)
     }

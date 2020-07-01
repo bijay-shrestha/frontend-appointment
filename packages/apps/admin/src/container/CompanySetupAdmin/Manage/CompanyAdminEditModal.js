@@ -4,29 +4,30 @@ import {Container, Row} from "react-bootstrap";
 import AdminEditForm from "./CompanyAdminEditForm";
 
 const CompanyAdminEditModal = ({
-                            adminUpdateData,
-                            onEnterKeyPress,
-                            onInputChange,
-                            onMacIdChange,
-                            onAddMoreMacId,
-                            onRemoveMacId,
-                            errorMessageForAdminName,
-                            errorMessageForAdminMobileNumber,
-                            onImageUpload,
-                            showModal,
-                            showImageUploadModal,
-                            setImageShowModal,
-                            adminImage,
-                            adminCroppedImage,
-                            onImageSelect,
-                            onImageCrop,
-                            setShowModal,
-                            errorMessage,
-                            editApiCall,
-                            viewProfileDetails,
-                            isAdminEditLoading,
-                            onChangeDashBoardRole
-                        }) => {
+                                   adminUpdateData,
+                                   onEnterKeyPress,
+                                   onInputChange,
+                                   onMacIdChange,
+                                   onAddMoreMacId,
+                                   onRemoveMacId,
+                                   errorMessageForAdminName,
+                                   errorMessageForAdminMobileNumber,
+                                   onImageUpload,
+                                   showModal,
+                                   showImageUploadModal,
+                                   setImageShowModal,
+                                   adminImage,
+                                   adminCroppedImage,
+                                   onImageSelect,
+                                   onImageCrop,
+                                   setShowModal,
+                                   errorMessage,
+                                   editApiCall,
+                                   viewProfileDetails,
+                                   isAdminEditLoading,
+                                   onChangeDashBoardRole,
+                                   isImageUploading
+                               }) => {
 
     let footerChildren = <>
         <Container fluid>
@@ -39,7 +40,8 @@ const CompanyAdminEditModal = ({
                 <div className="col-sm-12 col-md-6">
                     <CButton
                         id="submit-update-button"
-                        disabled={!adminUpdateData.formValid}
+                        disabled={!adminUpdateData.formValid || isImageUploading || isAdminEditLoading}
+                        isLoadig={isImageUploading || isAdminEditLoading}
                         name="Update"
                         size="lg"
                         className="btn-action  float-right"
@@ -49,6 +51,7 @@ const CompanyAdminEditModal = ({
                              size="lg"
                              className="btn-action  float-right mr-2"
                              name="Cancel"
+                             disabled={isImageUploading || isAdminEditLoading}
                              onClickHandler={setShowModal}
                     />
                 </div>

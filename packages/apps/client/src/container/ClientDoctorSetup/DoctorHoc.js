@@ -158,7 +158,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 emailValid: false,
                 appointmentChargeValid: false,
                 logoValid: false,
-                showEditModal: false
+                showEditModal: false,
+                errorMessage: ''
             })
         };
 

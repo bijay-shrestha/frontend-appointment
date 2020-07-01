@@ -20,7 +20,7 @@ function CompanyAdminAdd(props) {
                             onClickHandler={commonInfo.resetModalState}
                         >
                             <>
-                               
+
                                 <i className="fa fa-refresh"/>&nbsp;Reset
                             </>
                         </CButton>
@@ -45,6 +45,7 @@ function CompanyAdminAdd(props) {
                                     onConfirmClick={adminCreateForm.onConfirmClick}
                                     adminInfoObj={{...adminCreateForm.adminCreateData}}
                                     isCreateAdminLoading={{...adminCreateForm.isCreateAdminLoading}}
+                                    isImageUploading={commonInfo.isImageUploading}
                                 />
                             </Col>
                         </Row>

@@ -149,7 +149,8 @@ const HospitalHOC = (ComposedComponent, props, type) => {
                 formValid: false,
                 nameValid: false,
                 codeValid: false,
-                showEditModal: false
+                showEditModal: false,
+                errorMessage:''
             })
         }
 
