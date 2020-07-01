@@ -1189,7 +1189,7 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
             const {
                 id, specializationName, specializationId, doctorId, doctorName, rosterGapDuration,
                 fromDate, toDate, hasOverrideDutyRoster, hospitalId, hospitalName, status, doctorSalutation,
-                createdDate, lastModifiedDate, lastModifiedBy, createdBy
+                createdDate, lastModifiedDate, lastModifiedBy, createdBy, fileUri
             } = doctorDutyRosterInfo && doctorDutyRosterInfo;
             return {
                 id: id,
@@ -1197,7 +1197,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 specialization: {label: specializationName, value: specializationId},
                 doctor: {
                     label: doctorSalutation ? doctorSalutation.concat(' '.concat(doctorName)) : doctorName,
-                    value: doctorId
+                    value: doctorId,
+                    fileUri: fileUri
                 },
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),

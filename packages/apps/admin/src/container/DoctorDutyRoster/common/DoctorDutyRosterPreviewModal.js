@@ -8,7 +8,13 @@ import {
     StartTimeDisplayForTable,
     ToDateDisplayForTable
 } from "@frontend-appointment/ui-components";
-import {CDataTable, CFLabel, CHybridInput, CRadioButton} from "@frontend-appointment/ui-elements";
+import {
+    CDataTable,
+    CFLabel,
+    CHybridInput,
+    CHybridSelectWithImage,
+    CRadioButton
+} from "@frontend-appointment/ui-elements";
 import {DateTimeFormatterUtils} from "@frontend-appointment/helpers";
 import {AuditableEntityHoc} from '@frontend-appointment/commons'
 
@@ -80,16 +86,13 @@ const DoctorDutyRosterPreviewModal = ({
                                 value={doctorInfoData.specialization && doctorInfoData.specialization.label}
                                 disabled={true}
                             />
-                            <CHybridInput
+                            <CHybridSelectWithImage
                                 id="doctor"
                                 label="Doctor"
                                 name="doctor"
                                 placeholder="Doctor"
-                                value={doctorInfoData.doctor &&
-                                (doctorInfoData.doctorSalutation ?
-                                    doctorInfoData.doctorSalutation.concat(" ") + doctorInfoData.doctor.label
-                                    : doctorInfoData.doctor.label)}
-                                disabled={true}
+                                value={doctorInfoData.doctor}
+                                isDisabled={true}
                             />
                             <CHybridInput
                                 id="duration"
