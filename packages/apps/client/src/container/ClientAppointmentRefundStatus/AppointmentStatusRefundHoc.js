@@ -333,21 +333,35 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
       }))
     }
 
-    refundHandler = data => {
-      this.previewApiCall(data.appointmentId)
+    refundHandler = async data => {
+      try{
+      await this.previewApiCall(data.appointmentId)
       this.setState({
-        refundConfirmationModal: true,
+        //refundConfirmationModal: true,
         refundAppointmentId: data.appointmentId
       })
+      this.refundHandleApi();
+    }
+      catch(e){
+        this.setState({
+          showAlert: true,
+          alertMessageInfo: {
+            variant: 'danger',
+            message: this.props.AppointmentRefundDetailReducer
+              .refundDetailErrorMessage
+          }
+        })
+      }
+
     }
 
     refundHandleApi = async () => {
       const {refundDetail} = this.props.AppointmentRefundDetailReducer
+      console.log("===========",this.props.AppointmentRefundDetailReducer)
       const {remarks} = this.state
       this.setState({
         isConfirming: true
       })
-      const {appointmentId, appointmentModeId} = refundDetail
       let requestDTO
       try {
         // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
@@ -363,10 +377,9 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
-          appointmentId: appointmentId,
-          appointmentModeId: appointmentModeId,
+          ...refundDetail,
           status: null,
-          remarks: remarks,
+          //remarks: remarks,
           ...apiRequestBody
         }
         if (!successResponse) {
@@ -488,7 +501,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         transactionNumber,
         status
       } = data
-
+      console.log("=========data",data);
       const requestData = {
         appointmentId,
         appointmentMode,
@@ -504,11 +517,13 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           featureCode
         }
       }
+      console.log("==========requestData",requestData)
       try {
         await this.props.appointmentRefund(
           appointmentSetupApiConstant.CHECK_APPOINTMENT_REFUND_STATUS,
           requestData
         )
+      
         // this.setShowModal();
         this.setState({
           isConfirming: false,
