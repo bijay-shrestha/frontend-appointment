@@ -221,7 +221,7 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
             ) : (
                 ''
             )} */}
-            {approveConfirmationModal ? (
+            {approveConfirmationModal && appointmentDetails ? (
                <CConfirmationModal
                modalHeader="Confirm Check-In?"
                modalBody={
