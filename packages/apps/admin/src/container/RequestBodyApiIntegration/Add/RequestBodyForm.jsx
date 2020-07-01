@@ -1,9 +1,6 @@
 import React, {memo} from 'react'
 import {Col, Row} from 'react-bootstrap'
-import {
-  CForm,
-  CHybridSelect
-} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridSelect} from '@frontend-appointment/ui-elements'
 
 const RequestBodyForm = ({
   requestBodyData,
@@ -44,7 +41,6 @@ const RequestBodyForm = ({
                   id="requestBodysId"
                   label="Request Body"
                   name="requestBodys"
-                  onKeyDown={onEnterKeyPress}
                   onChange={(event, validity) => handleOnChange(event)}
                   options={requestBodyDropdownData}
                   isDisabled={!requestBodyDropdownData.length}
