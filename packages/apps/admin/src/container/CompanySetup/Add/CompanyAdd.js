@@ -33,7 +33,9 @@ function CompanyAdd(props) {
              onImageSelect,
              handleCropImage,
              handleImageUpload,
-             setImageShow
+             setImageShow,
+             isImageUploading,
+             isCompanySaveLoading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -86,6 +88,8 @@ function CompanyAdd(props) {
                                 companyData={companyData}
                                 type="A"
                                 companyImageCroppedUrl={companyImageCroppedUrl}
+                                isImageUploading={isImageUploading}
+                                isCompanySaveLoading={isCompanySaveLoading}
                             />
                         </Col>
                     </Row>

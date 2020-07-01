@@ -10,6 +10,7 @@ const HospitalConfirmationModal = props => {
                 show={showModal}
                 modalHeading="Doctor Details"
                 size="xl"
+                backdrop='static'
                 bodyChildren={
                     <DetailsModal
                         doctorData={{...doctorData, salutationList: salutationList}}

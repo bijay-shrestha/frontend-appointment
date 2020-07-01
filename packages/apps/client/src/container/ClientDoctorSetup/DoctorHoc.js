@@ -664,7 +664,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 await this.searchDoctor()
             } catch (e) {
                 this.setState({
-                    errorMessage: e.errorMessage ? e.errorMessage : "Error updating admin.",
+                    errorMessage: e.errorMessage ? e.errorMessage : "Error updating Doctor.",
                     isImageUploading: false
                 })
             }

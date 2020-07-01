@@ -8,6 +8,7 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
             show={showModal}
             modalHeading="Client Admin Details"
             size="lg"
+            backdrop={'static'}
             bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}
             centered={false}

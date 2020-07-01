@@ -23,7 +23,7 @@ const {
   CLEAR_PREVIEW_MESSAGE
 } = companySetupConstants
 const intialSaveCompany = {
-  isCompanySaveLoading: true,
+  isCompanySaveLoading: false,
   companySaveSuccessMessage: '',
   companySaveErrorMessage: ''
 }
@@ -35,7 +35,7 @@ const initialPreviewCompany = {
 }
 
 const initialUpdateCompany = {
-  isCompanyEditLoading: true,
+  isCompanyEditLoading: false,
   companyEditSuccessMessage: '',
   companyEditErrorMessage: ''
 }
@@ -163,7 +163,7 @@ export const companySearchReducer = (
       }
       default:return {...state}
   }
-  
+
 }
 
 export const companyDropdownReducer = (
@@ -187,7 +187,7 @@ export const companyDropdownReducer = (
         companyDropdownData: [],
         companyDropdownErrorMessage: action.payload.message
       }
-    default:return {...state}  
+    default:return {...state}
   }
 }
 

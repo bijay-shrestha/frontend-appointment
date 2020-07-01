@@ -3,16 +3,18 @@ import {
     companySetupConstants
 } from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
+import {MinioMiddleware} from '../../../index'
+import {CommonUtils} from '@frontend-appointment/helpers'
 
 const {
     CLEAR_DELETE_MESSAGE,
     CLEAR_EDIT_MESSAGE,
     CLEAR_PREVIEW_MESSAGE
 } = companySetupConstants
-export const saveCompany = (path, data, formData) => async dispatch => {
+export const saveCompany = (path, data) => async dispatch => {
     dispatch(CompanySetupActions.saveCompanyPending())
     try {
-        await Axios.postForMultipart(path, 'request', data, formData)
+        await Axios.post(path, data)
         dispatch(
             CompanySetupActions.saveCompanySuccess('Company Added Successfully!')
         )
@@ -24,10 +26,10 @@ export const saveCompany = (path, data, formData) => async dispatch => {
 
 }
 
-export const updateCompany = (path, data, formData) => async dispatch => {
+export const updateCompany = (path, data) => async dispatch => {
     dispatch(CompanySetupActions.updateCompanyPending())
     try {
-        await Axios.putWithMultiPart(path, 'request', data, formData)
+        await Axios.put(path, data)
         dispatch(
             CompanySetupActions.udpateCompanySuccess('Company Edited Successfully!')
         )
@@ -39,11 +41,13 @@ export const updateCompany = (path, data, formData) => async dispatch => {
     }
 }
 
-export const searchCompany = (path, data, searchData) => async dispatch => {
+export const searchCompany = (path, queryParams, searchData) => async dispatch => {
     dispatch(CompanySetupActions.searchCompanyPending())
     try {
-        const response = await Axios.putWithRequestParam(path, data, searchData)
-        dispatch(CompanySetupActions.searchCompanySuccess(response.data))
+        const response = await Axios.putWithRequestParam(path, queryParams, searchData)
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data, queryParams.page, queryParams.size)
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
+        dispatch(CompanySetupActions.searchCompanySuccess(dataWithPresignedUrl))
     } catch (e) {
         const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
         dispatch(CompanySetupActions.searchCompanyError(error))
@@ -54,6 +58,8 @@ export const previewCompany = (path, id) => async dispatch => {
     dispatch(CompanySetupActions.previewCompanyPending())
     try {
         const response = await Axios.getWithPathVariables(path, id)
+        let dataWithFileUri = response.data
+        dataWithFileUri.companyLogo = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.companyLogo)
         dispatch(CompanySetupActions.previewCompanySuccess(response.data))
     } catch (e) {
         const error = e.errorMessage || 'Sorry Some Error Occured In Server!'
