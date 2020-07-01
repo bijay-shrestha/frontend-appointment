@@ -37,8 +37,8 @@ const AddFavourites = ({
                             {
                                 menuListForFavourites && menuListForFavourites.length ? menuListForFavourites.map(menu => (
                                         <div key={menu.id}
-                                             className="menu-link ">
-                                            <div className="anchor-icon">
+                                             className={menu.isFavourite ? "menu-link selected":"menu-link"}>
+                                            <div className={"anchor-icon"}>
                                                 {menu.iCharacter}
                                             </div>
                                             <div className="menu-box">

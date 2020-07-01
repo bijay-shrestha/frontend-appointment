@@ -10,8 +10,6 @@ import * as Material from 'react-icons/md'
 
 const {FETCH_FAVOURITES_FOR_DROPDOWN, SAVE_FAVOURITES, UPDATE_FAVOURITES} = AdminModuleAPIConstants.favouritesApiConstants
 
-const adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
-
 class CFavourites extends React.PureComponent {
     state = {
         showAddFavouritesModal: false,
@@ -25,6 +23,7 @@ class CFavourites extends React.PureComponent {
             variant: '',
             message: ''
         },
+        adminInfo: ''
     }
 
     alertTimer = '';
@@ -62,6 +61,7 @@ class CFavourites extends React.PureComponent {
     };
 
     handleAddFavourite = async menu => {
+        const {adminInfo} = this.state
         this.setState({
             isAddPending: true
         })
@@ -78,6 +78,7 @@ class CFavourites extends React.PureComponent {
     }
 
     handleRemoveFavourite = async menu => {
+        const {adminInfo} = this.state
         this.setState({
             isAddPending: true
         })
@@ -136,6 +137,7 @@ class CFavourites extends React.PureComponent {
     }
 
     fetchLoggedInAdminFavourites = async () => {
+        const {adminInfo} = this.state
         try {
             const response = await Axios.getWithPathVariables(FETCH_FAVOURITES_FOR_DROPDOWN, adminInfo.adminId)
             const favouriteMenus = FavouritesUtils.getFavouritesDetails(response.data);
@@ -146,8 +148,15 @@ class CFavourites extends React.PureComponent {
         }
     }
 
+    setLoggedInAdminInfo = async () => {
+        await this.setState({
+            adminInfo: LocalStorageSecurity.localStorageDecoder('adminInfo')
+        })
+    }
+
     async componentDidMount() {
-        await this.fetchLoggedInAdminFavourites()
+        await this.setLoggedInAdminInfo()
+        this.fetchLoggedInAdminFavourites()
     }
 
 
