@@ -205,7 +205,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           } else {
             searchParams['doctorId'] = ''
             searchParams['specializationId'] = ''
-          }  
+          }
         await this.setStateValuesForSearch(searchParams)
 
         // if (fieldName === 'hospitalId') {
@@ -353,7 +353,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((rescheduleData, index) => ({
           ...rescheduleData,
-          sN: index + 1,
+          // sN: index + 1,
           appointmentAmount: rescheduleData.appointmentAmount || 'N/A',
           appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
           doctorName: rescheduleData.doctorName || 'N/A',

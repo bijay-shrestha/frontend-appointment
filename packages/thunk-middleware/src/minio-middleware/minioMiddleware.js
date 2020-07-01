@@ -42,7 +42,7 @@ export const uploadImageInMinioServer = async (file, fileLocation) => {
 
 export const getDataListWithPresignedFileUri = async (dataList, imageFieldName) => {
     let dataWithPresignedImage = dataList.map(async data => {
-        data[imageFieldName] = await fetchPresignedUrlForGetOperation(data[imageFieldName])
+        data[imageFieldName] = data[imageFieldName] && await fetchPresignedUrlForGetOperation(data[imageFieldName])
         return data
     })
     return Promise.all(dataWithPresignedImage)

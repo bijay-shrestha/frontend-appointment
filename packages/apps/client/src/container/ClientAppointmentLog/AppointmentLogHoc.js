@@ -137,7 +137,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((spec, index) => ({
           ...spec,
-          sN: index + 1,
+          // sN: index + 1,
           status: spec.status || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           appointmentDate: spec.appointmentDate || 'N/A',

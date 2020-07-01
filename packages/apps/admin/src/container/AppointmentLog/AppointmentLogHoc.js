@@ -132,7 +132,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((spec, index) => ({
           ...spec,
-          sN: index + 1,
+          // sN: index + 1,
           status: spec.status || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           appointmentDate: spec.appointmentDate || 'N/A',
@@ -144,8 +144,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
           patientAddress: spec.patientAddress || 'N/A',
           gender: spec.patientGender.split('')[0] || 'N/A',
           patientGender: spec.patientGender,
-          age: spec.patientAge.slice(0, 4) || 'N/A',
-          patientAge: spec.patientAge.slice(0, 4),
+          age: spec.age.slice(0, 4) || 'N/A',
+          patientAge: spec.age.slice(0, 4),
           patientDob: spec.patientDob || 'N/A',
           isSelf: spec.isSelf || 'N/A',
           isRegistered: spec.isRegistered || 'N/A',

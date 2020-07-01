@@ -1404,7 +1404,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
                         tableData={{
                             filteredActions: this.props.filteredAction,
                             isSearchLoading: isAdminSearchLoading,
-                            searchData: this.appendSNToTable(adminList),
+                            searchData: adminList,
                             searchErrorMessage: adminSearchErrorMessage,
                             totalItems: totalRecords,
                             maxSize: queryParams.size,

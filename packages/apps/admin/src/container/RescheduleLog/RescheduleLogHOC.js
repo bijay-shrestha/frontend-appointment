@@ -269,7 +269,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 logList.length &&
                 logList.map((rescheduleData, index) => ({
                     ...rescheduleData,
-                    sN: index + 1,
+                    // sN: index + 1,
                     appointmentAmount: rescheduleData.appointmentAmount || 'N/A',
                     appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
                     doctorName: rescheduleData.doctorName || 'N/A',
