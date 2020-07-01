@@ -3,12 +3,13 @@ import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     DoctorMiddleware,
     HospitalSetupMiddleware,
+    MinioMiddleware,
     QualificationSetupMiddleware,
     SalutationMiddleware,
     SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {EnterKeyPressUtils, MultiSelectOptionUpdateUtils,} from '@frontend-appointment/helpers'
+import {EnterKeyPressUtils, FileUploadLocationUtils, MultiSelectOptionUpdateUtils,} from '@frontend-appointment/helpers'
 import './DoctorHoc.scss'
 
 const {
@@ -28,6 +29,8 @@ const {
     fetchSpecializationHospitalWiseForDropdown
 } = SpecializationSetupMiddleware
 const {fetchSalutationForDropdown} = SalutationMiddleware;
+
+const {uploadImageInMinioServer} = MinioMiddleware
 
 const DoctorHOC = (ComposedComponent, props, type) => {
     const {
@@ -105,7 +108,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             doctorImage: '',
             doctorImageCroppedUrl: '',
             doctorFileCropped: '',
-            showImageUploadModal: false
+            showImageUploadModal: false,
+            isImageUploading: false,
         }
 
         handleEnterPress = event => {
@@ -253,7 +257,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 label = values
                 select = values
             } else {
-                select = {value: value, label: label}
+                select = {value: value, label: label, ...event.target}
             }
             value = name === 'nmcNumber' ? value.toUpperCase() : value
             consultant[name] = !label ? value : value ? select : {value: null}
@@ -263,6 +267,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
         setShowConfirmModal = () => {
             this.setState({showConfirmModal: !this.state.showConfirmModal})
+        }
+
+        setImageLoading = (value) => {
+            this.setState({
+                isImageUploading: value
+            })
         }
 
         getOnlyValueFromMultipleSelectList = data => data.map(datum => datum.value)
@@ -292,7 +302,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             let imagePath = '';
             try {
                 if (doctorAvatar) {
+                    this.setImageLoading(true)
                     imagePath = await this.uploadImageToServer();
+                    this.setImageLoading(false)
                 }
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
@@ -328,6 +340,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 await this.setShowConfirmModal();
+                this.setImageLoading(false)
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -337,6 +350,24 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 })
             }
         };
+
+        uploadImageToServer = async () => {
+            const {
+                doctorAvatar,
+                name,
+                nmcNumber,
+                hospitalId
+            } = this.state.consultantData;
+            const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+            let hospital = hospitalsForDropdown.find(hospital => Number(hospital.value) === Number(hospitalId.value))
+            let hospitalAlias = hospitalId.alias ? hospitalId.alias :
+                hospital && hospital.alias
+
+            let fileToUpload = new File([doctorAvatar], (name + new Date().getTime()).concat('.jpeg'))
+            let fileLocation = FileUploadLocationUtils.getLocationPathForDoctorFileUpload(hospitalAlias, nmcNumber)
+
+            return await uploadImageInMinioServer(fileToUpload, fileLocation)
+        }
 
         previewApiCall = async id => {
             await this.props.previewConsultant(
@@ -814,7 +845,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 showImageUploadModal,
                 appointmentChargeValid,
                 errorMessageForAppointmentCharge,
-                emailValid
+                emailValid,
+                isImageUploading
             } = this.state
 
             const {
@@ -915,6 +947,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     emailValid={emailValid}
                     isConsultantEditLoading={isConsultantEditLoading}
                     createConsultantLoading={createConsultantLoading}
+                    isImageUploading={isImageUploading}
                 />
             )
         }

@@ -4,3 +4,7 @@ const {CLIENT_FILE_LOCATION} = MinioFileLocationConstants.minioFileLocationConst
 export const getLocationPathForDoctorFileUpload = (hospitalCode, doctorNMCNumber) => {
     return CLIENT_FILE_LOCATION + "/" + hospitalCode + "/doctor/" + doctorNMCNumber + new Date().getTime()
 }
+
+export const getLocationPathForAdminFileUpload = (hospitalCode, fullName) => {
+    return CLIENT_FILE_LOCATION + "/" + hospitalCode + "/admin/" + fullName + new Date().getTime()
+}

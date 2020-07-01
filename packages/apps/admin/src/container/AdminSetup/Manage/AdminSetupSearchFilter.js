@@ -39,7 +39,7 @@ class AdminSetupSearchFilter extends PureComponent {
             profileList,
             adminMetaInfos
         } = this.props;
-        console.log(' search filter ::: ', adminMetaInfos);
+        // console.log(' search filter ::: ', adminMetaInfos);
         return (
             <>
                 {this.state.isSearchFormExpanded ?

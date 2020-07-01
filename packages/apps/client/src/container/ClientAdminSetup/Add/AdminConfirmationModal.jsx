@@ -2,7 +2,10 @@ import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
 
-const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading}) => {
+const AdminConfirmationModal = ({
+                                    showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage,
+                                    isCreateAdminLoading, isImageUploading
+                                }) => {
     return <>
         <CModal
             show={showModal}
@@ -17,8 +20,8 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                 variant="primary"
                 size="xl"
                 name="Confirm"
-                disabled={isCreateAdminLoading}
-                isLoading={isCreateAdminLoading}
+                disabled={isCreateAdminLoading || isImageUploading}
+                isLoading={isCreateAdminLoading || isImageUploading}
                 className="float-right btn-action"
                 onClickHandler={onConfirmClick}/>}
             closeButton={true}

@@ -58,7 +58,8 @@ const DoctorManage = props => {
              activeSpecializationList,
              qualificationDropdown,
              isConsultantEditLoading,
-             salutationList
+             salutationList,
+             isImageUploading
          }) => (
             <>
                 <div className="">
@@ -124,6 +125,7 @@ const DoctorManage = props => {
                         hospitalsForDropdown={hospitalsForDropdown}
                         activeSpecializationList={activeSpecializationList}
                         isConsultantEditLoading={isConsultantEditLoading}
+                        isImageUploading={isImageUploading}
                     />
                 )}
                 <CAlert

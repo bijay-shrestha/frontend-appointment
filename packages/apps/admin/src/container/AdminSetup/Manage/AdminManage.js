@@ -16,7 +16,7 @@ import {
     previewAdmin,
     previewProfile,
     resetPassword,
-    savePinOrUnpinUserMenu
+    savePinOrUnpinUserMenu, MinioMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import AdminDetailsDataTable from './AdminDetailsDataTable'
@@ -25,7 +25,7 @@ import AdminEditModal from './AdminEditModal'
 import {
     AdminSetupUtils,
     EnterKeyPressUtils,
-    EnvironmentVariableGetter,
+    EnvironmentVariableGetter, FileUploadLocationUtils,
     LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils,
@@ -70,6 +70,9 @@ const {
     fetchDashboardFeatures,
     fetchDashboardFeaturesByAdmin
 } = DashboardDetailsMiddleware
+
+const {uploadImageInMinioServer} = MinioMiddleware
+
 const {DASHBOARD_FEATURE} = AdminModuleAPIConstants.DashboardApiConstant
 const {ADMIN_FEATURE} = CommonAPIConstants
 
@@ -147,7 +150,8 @@ class AdminManage extends PureComponent {
         adminMetaInfos: [],
         profileData: {},
         showProfileDetailModal: false,
-        errorMessage: ''
+        errorMessage: '',
+        isImageUploading: false
     }
 
     timer = ''
@@ -486,7 +490,8 @@ class AdminManage extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break;
-                default: break;
+                default:
+                    break;
             }
             this.checkFormValidity()
         }
@@ -854,6 +859,12 @@ class AdminManage extends PureComponent {
         })
     }
 
+    setImageLoading = (value) => {
+        this.setState({
+            isImageUploading: value
+        })
+    }
+
     editApiCall = async () => {
         const {
             id,
@@ -862,10 +873,10 @@ class AdminManage extends PureComponent {
             fullName,
             email,
             mobileNumber,
-           // adminCategory,
+            // adminCategory,
             status,
             hasMacBinding,
-            adminAvatar,
+            // adminAvatar,
             remarks,
             adminAvatarUrlNew,
             genderCode,
@@ -903,15 +914,38 @@ class AdminManage extends PureComponent {
             baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL
         }
 
-        let formData = new FormData()
-        adminAvatarUrlNew !== '' && formData.append('file', adminAvatar)
+        // let formData = new FormData()
+        // adminAvatarUrlNew !== '' && formData.append('file', adminAvatar)
+        let imagePath = '';
         try {
-            await this.props.editAdmin(EDIT_ADMIN, adminUpdateRequestDTO, formData)
+            if (adminAvatarUrlNew) {
+                this.setImageLoading(true)
+                imagePath = await this.uploadImageToServer();
+                this.setImageLoading(false)
+            }
+            await this.props.editAdmin(EDIT_ADMIN, {...adminUpdateRequestDTO, avatar: imagePath})
             this.resetAdminUpdateDataFromState()
             this.checkIfSelfEditAndShowMessage(adminUpdateRequestDTO.id)
             await this.searchAdmins()
         } catch (e) {
+            this.setState({
+                errorMessage: e.errorMessage ? e.errorMessage : "Error updating admin.",
+                isImageLoading: false
+            })
         }
+    }
+    uploadImageToServer = async () => {
+        const {
+            adminAvatar,
+            fullName,
+        } = this.state.adminUpdateData;
+
+        let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+
+        let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
+        let fileLocation = FileUploadLocationUtils.getLocationPathForAdminFileUpload(adminInfo.hospitalCode, fullName)
+
+        return await uploadImageInMinioServer(fileToUpload, fileLocation)
     }
 
     appendSNToTable = adminList =>
@@ -1060,7 +1094,7 @@ class AdminManage extends PureComponent {
             })
             if (flag) adminDashRole.push({...adminDash, status: 'Y'})
             else adminDashRole.push({...adminDash, status: 'N'})
-         return adminDash;
+            return adminDash;
         })
         return adminDashRole
     }
@@ -1212,7 +1246,8 @@ class AdminManage extends PureComponent {
             showProfileDetailModal,
             profileData,
             errorMessage,
-            isPasswordResetPending
+            isPasswordResetPending,
+            isImageUploading
         } = this.state
 
         const {activeProfilesForDropdown} = this.props.ProfileSetupReducer
@@ -1233,7 +1268,7 @@ class AdminManage extends PureComponent {
 
         const {
             departments
-           // departmentsByHospital
+            // departmentsByHospital
         } = this.props.UnitSetupReducer
 
         return (
@@ -1301,6 +1336,7 @@ class AdminManage extends PureComponent {
                         viewProfileDetails={this.handleViewProfileDetails}
                         isAdminEditLoading={isAdminEditLoading}
                         onChangeDashBoardRole={this.onChangeDashBoardRole}
+                        isImageUploading={isImageUploading}
                     />
                 )}
                 {showPasswordResetModal && (

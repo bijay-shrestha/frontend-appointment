@@ -33,7 +33,7 @@ export const fetchUrlForGetOperation = async (path, fileUri) => {
 export const uploadImageInMinioServer = async (file, fileLocation) => {
     try {
         let url = await fetchPresignedUrlForPutOperation(FILE_UPLOAD_PATH, {fileName: fileLocation + "/" + file.name})
-        await Axios.put(url, file)
+        await Axios.putMultipart(url, file)
         return fileLocation + "/" + file.name
     } catch (e) {
         throw e
@@ -42,7 +42,7 @@ export const uploadImageInMinioServer = async (file, fileLocation) => {
 
 export const getDataListWithPresignedFileUri = async (dataList, imageFieldName) => {
     let dataWithPresignedImage = dataList.map(async data => {
-        data[imageFieldName] = await fetchPresignedUrlForGetOperation(FILE_PRE_SIGNED_URI_FOR_DISPLAY, data[imageFieldName])
+        data[imageFieldName] = await fetchPresignedUrlForGetOperation(data[imageFieldName])
         return data
     })
     return Promise.all(dataWithPresignedImage)

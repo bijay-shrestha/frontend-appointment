@@ -110,7 +110,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             doctorImage: '',
             doctorImageCroppedUrl: '',
             doctorFileCropped: '',
-            showImageUploadModal: false
+            showImageUploadModal: false,
+            isImageUploading: false,
         };
 
         handleEnterPress = event => {
@@ -248,6 +249,12 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             this.setState({showConfirmModal: !this.state.showConfirmModal})
         };
 
+        setImageLoading = (value) => {
+            this.setState({
+                isImageUploading: value
+            })
+        }
+
         getOnlyValueFromMultipleSelectList = data => data.map(datum => datum.value);
 
         handleConfirmClick = async () => {
@@ -274,7 +281,9 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             let imagePath = '';
             try {
                 if (doctorAvatar) {
+                    this.setImageLoading(true)
                     imagePath = await this.uploadImageToServer();
+                    this.setImageLoading(false)
                 }
                 await this.props.createConsultant(
                     doctorSetupApiConstants.CREATE_DOCTOR,
@@ -309,6 +318,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 })
             } catch (e) {
                 await this.setShowConfirmModal();
+                this.setImageLoading(false)
                 this.setState({
                     showAlert: true,
                     alertMessageInfo: {
@@ -792,7 +802,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 showImageUploadModal,
                 appointmentChargeValid,
                 errorMessageForAppointmentCharge,
-                emailValid
+                emailValid,
+                isImageUploading
             } = this.state
 
             const {
@@ -813,7 +824,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
 
             const {deleteErrorMessage} = this.props.DoctorDeleteReducer
 
-            const {activeDoctorsByHospitalForDropdown} = this.props.DoctorDropdownReducer
+            const {activeDoctorsForDropdown} = this.props.DoctorDropdownReducer
 
             const {
                 activeSpecializationListByHospital
@@ -884,7 +895,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         handleCropImage={this.handleCropImage}
                         handleImageUpload={this.handleImageUpload}
                         setImageShow={this.setImageShowModal}
-                        doctorsForDropdown={activeDoctorsByHospitalForDropdown}
+                        doctorsForDropdown={activeDoctorsForDropdown}
                         qualificationDropdown={qualificationsForDropdown}
                         activeSpecializationList={activeSpecializationListByHospital}
                         appointmentChargeValid={appointmentChargeValid}
@@ -892,6 +903,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                         emailValid={emailValid}
                         isConsultantEditLoading={isConsultantEditLoading}
                         createConsultantLoading={createConsultantLoading}
+                        isImageUploading={isImageUploading}
                     />
                 </>
             )
