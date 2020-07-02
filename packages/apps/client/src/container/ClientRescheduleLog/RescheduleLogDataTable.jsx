@@ -32,7 +32,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
     appointmentServiceTypeCode,
     'DOC'
   )
-    ? 'doctorwithSpecializationRenderer'
+    ? 'doctorWithSpecializationRenderer'
     : 'departmentWithRoomNumberAndBillingMode'
   const {queryParams, totalRecords, handlePageChange} = paginationProps
   return (
