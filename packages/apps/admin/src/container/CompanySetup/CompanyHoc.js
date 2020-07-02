@@ -266,7 +266,7 @@ const CompanyHOC = (ComposedComponent, props, type) => {
                     id,
                     name,
                     status,
-                    remarks,
+                    // remarks,
                     panNumber,
                     address,
                     contactNumberResponseDTOS,
