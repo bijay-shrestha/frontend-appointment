@@ -1,5 +1,7 @@
 import {AppointmentTransferActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
+import {CommonUtils} from '@frontend-appointment/helpers'
+import {MinioMiddleware} from '../../../index'
 
 export const appointmentTransfer = (
     path,
@@ -31,7 +33,7 @@ export const fetchAppointmentTransferDate = (
 ) => async dispatch => {
     dispatch(AppointmentTransferActions.appointmentTransferDatePending());
     try {
-        const response = await Axios.put(path,data);
+        const response = await Axios.put(path, data);
         dispatch(
             AppointmentTransferActions.appointmentTransferDateSuccess(response.data)
         )
@@ -84,22 +86,32 @@ export const fetchAppointmentTransferCharge = (
 //     dispatch(AppointmentDetailActions.clearAppointmentLogMessage())
 // };
 
-export const fetchAppointmentTransferSearch = (path,pagination, data) => async dispatch => {
+export const fetchAppointmentTransferSearch = (path, pagination, data) => async dispatch => {
     dispatch(AppointmentTransferActions.appointmentTransferSearchPending());
     try {
-        const response = await Axios.putWithPagination(path,pagination,data);
-        dispatch(AppointmentTransferActions.appointmentTransferSearchSuccess(response.data));
+        const response = await Axios.putWithPagination(path, pagination, data);
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.response,
+            pagination.page, pagination.size);
+        let dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "transferredFromFileUri");
+        dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithPresignedUrl, "transferredToFileUri")
+        dispatch(AppointmentTransferActions.appointmentTransferSearchSuccess({
+            ...response.data,
+            response: dataWithPresignedUrl
+        }));
         return response.data;
     } catch (e) {
         dispatch(AppointmentTransferActions.appointmentTransferSearchError(e.errorMessage || 'Sorry Internal Server Problem'))
     }
 };
 
-export const fetchAppointmentPreviewInfo  = (path,id) => async dispatch =>{
+export const fetchAppointmentPreviewInfo = (path, id) => async dispatch => {
     dispatch(AppointmentTransferActions.appointmentTransferPreviewPending());
     try {
-        const response = await Axios.getWithPathVariables(path,id);
-        dispatch(AppointmentTransferActions.appointmentTransferPreviewSuccess(response.data));
+        const response = await Axios.getWithPathVariables(path, id);
+        let dataWithFileUri = response.data
+        dataWithFileUri.transferredFromFileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.transferredFromFileUri)
+        dataWithFileUri.transferredToFileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.transferredToFileUri)
+        dispatch(AppointmentTransferActions.appointmentTransferPreviewSuccess(dataWithFileUri));
         return response.data;
     } catch (e) {
         dispatch(AppointmentTransferActions.appointmentTransferPreviewError(e.errorMessage || 'Sorry Internal Server Problem'))
@@ -107,10 +119,10 @@ export const fetchAppointmentPreviewInfo  = (path,id) => async dispatch =>{
 }
 
 
-export const fetchAppointmentTransferDetail = (path,transferId) => async dispatch => {
+export const fetchAppointmentTransferDetail = (path, transferId) => async dispatch => {
     dispatch(AppointmentTransferActions.appointmentTransferInfoPending());
     try {
-        const response = await Axios.getWithPathVariables(path,transferId);
+        const response = await Axios.getWithPathVariables(path, transferId);
         dispatch(AppointmentTransferActions.appointmentTransferInfoSuccess(response.data));
         return response.data;
     } catch (e) {

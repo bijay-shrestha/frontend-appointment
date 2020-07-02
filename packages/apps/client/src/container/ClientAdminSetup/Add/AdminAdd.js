@@ -6,7 +6,7 @@ import {
     EnvironmentVariableGetter,
     menuRoles,
     ProfileSetupUtils,
-    LocalStorageSecurity
+    LocalStorageSecurity, FileUploadLocationUtils
 } from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
@@ -16,7 +16,7 @@ import {
     UnitSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     //HospitalSetupMiddleware,
-    previewProfile
+    previewProfile, MinioMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
@@ -29,6 +29,8 @@ import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 // const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDepartmentsForDropdown} = UnitSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
+
+const {uploadImageInMinioServer} = MinioMiddleware
 
 const {
     FETCH_PROFILE_DETAILS,
@@ -74,7 +76,8 @@ class AdminAdd extends PureComponent {
         emailValid: false,
         mobileNumberValid: false,
         profileData: {},
-        showProfileDetailModal: false
+        showProfileDetailModal: false,
+        isImageUploading: false
     }
 
     resetStateValues = () => {
@@ -238,7 +241,8 @@ class AdminAdd extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break
-                default:break;
+                default:
+                    break;
             }
             this.checkFormValidity()
         }
@@ -290,6 +294,12 @@ class AdminAdd extends PureComponent {
         })
     }
 
+    setImageLoading = (value) => {
+        this.setState({
+            isImageUploading: value
+        })
+    }
+
     handleConfirmClick = async () => {
         const {
             profile,
@@ -308,34 +318,35 @@ class AdminAdd extends PureComponent {
         const newAdminDashboardRequest = this.filterOnlyActiveStatusDashboardRole(
             adminDashboardRequestDTOS
         )
-
-        let adminRequestDTO = {
-            email,
-            fullName,
-            // username,
-            hasMacBinding: hasMacBinding ? 'Y' : 'N',
-            mobileNumber,
-            status,
-            genderCode: genderCode,
-            profileId: profile.value,
-            macAddressInfo: macIdList.length
-                ? macIdList.map(macId => {
-                    return macId.macId
-                })
-                : [],
-            baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL,
-            adminDashboardRequestDTOS: newAdminDashboardRequest.length?[...newAdminDashboardRequest]:[]
-            // baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL.concat(":".concat(EnvironmentVariableGetter.CLIENT_PORT))
-        }
-
-        let formData = new FormData()
-        adminAvatar &&
-        formData.append(
-            'file',
-            new File([adminAvatar], fullName.concat('-picture.jpeg'))
-        )
+        // let formData = new FormData()
+        // adminAvatar &&
+        // formData.append(
+        //     'file',
+        //     new File([adminAvatar], fullName.concat('-picture.jpeg'))
+        // )
+        let imagePath = '';
         try {
-            await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData)
+            if (adminAvatar) {
+                this.setImageLoading(true)
+                imagePath = await this.uploadImageToServer();
+                this.setImageLoading(false)
+            }
+            await this.props.createAdmin(CREATE_ADMIN, {
+                email,
+                fullName,
+                hasMacBinding: hasMacBinding ? 'Y' : 'N',
+                mobileNumber,
+                status,
+                genderCode: genderCode,
+                profileId: profile.value,
+                macAddressInfo: macIdList.length
+                    ? macIdList.map(macId => {
+                        return macId.macId
+                    }) : [],
+                baseUrl: EnvironmentVariableGetter.CLIENT_EMAIL_REDIRECT_URL,
+                adminDashboardRequestDTOS: newAdminDashboardRequest.length ? [...newAdminDashboardRequest] : [],
+                avatar: imagePath
+            })
             await this.resetStateValues()
             this.setState({
                 showAlert: true,
@@ -346,6 +357,7 @@ class AdminAdd extends PureComponent {
             })
         } catch (e) {
             await this.setShowConfirmModal()
+            this.setImageLoading(false)
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
@@ -358,6 +370,20 @@ class AdminAdd extends PureComponent {
         }
     }
 
+    uploadImageToServer = async () => {
+        const {
+            adminAvatar,
+            fullName,
+        } = this.state;
+
+        let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+
+        let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
+        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(adminInfo.hospitalCode, fullName)
+
+        return await uploadImageInMinioServer(fileToUpload, fileLocation)
+    }
+
     handleViewProfileDetails = async profileId => {
         try {
             await this.fetchProfileDetails(profileId)
@@ -366,7 +392,7 @@ class AdminAdd extends PureComponent {
             let profileData =
                 profilePreviewData &&
                 (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
-                    profilePreviewData.profileMenuResponseDTOS,'CLIENT'))
+                    profilePreviewData.profileMenuResponseDTOS, 'CLIENT'))
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -460,8 +486,8 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchDepartmentsByHospitalId()
-        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
-        this.fetchDashBoardFeatures()
+        if (LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+            this.fetchDashBoardFeatures()
     }
 
     componentDidMount() {
@@ -491,7 +517,8 @@ class AdminAdd extends PureComponent {
             adminImageCroppedUrl,
             showProfileDetailModal,
             profileData,
-            adminDashboardRequestDTOS
+            adminDashboardRequestDTOS,
+            isImageUploading
         } = this.state
 
         const {dropdownErrorMessage} = this.props.ProfileSetupReducer
@@ -516,7 +543,7 @@ class AdminAdd extends PureComponent {
                                 onClickHandler={this.resetStateValues}
                             >
                                 <>
-                                     <i className="fa fa-refresh"/>  &nbsp;Reset
+                                    <i className="fa fa-refresh"/>  &nbsp;Reset
                                 </>
                             </CButton>
                             <AdminInfoForm
@@ -575,6 +602,7 @@ class AdminAdd extends PureComponent {
                                         showModal={this.state.showConfirmModal}
                                         setShowModal={this.setShowConfirmModal}
                                         onConfirmClick={this.handleConfirmClick}
+                                        isImageUploading={isImageUploading}
                                         adminInfoObj={{
                                             department: department,
                                             profile: profile,

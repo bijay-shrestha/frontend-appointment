@@ -44,7 +44,13 @@ class CFavourites extends React.PureComponent {
         return userMenus ? userMenus : []
     }
 
-    setShowAddFavouritesModal = () => {
+    openManageFavouritesModal = (event) => {
+        event.preventDefault()
+        this.setState({showAddFavouritesModal: !this.state.showAddFavouritesModal})
+    }
+
+    setShowAddFavouritesModal = (event) => {
+        // event.preventDefault()
         this.setState({showAddFavouritesModal: !this.state.showAddFavouritesModal})
     }
 
@@ -60,7 +66,8 @@ class CFavourites extends React.PureComponent {
         this.clearAlertTimeout();
     };
 
-    handleAddFavourite = async menu => {
+    handleAddFavourite = async (event,menu) => {
+        event.preventDefault();
         const {adminInfo} = this.state
         this.setState({
             isAddPending: true
@@ -77,8 +84,9 @@ class CFavourites extends React.PureComponent {
         }
     }
 
-    handleRemoveFavourite = async menu => {
+    handleRemoveFavourite = async (event,menu) => {
         const {adminInfo} = this.state
+        event.preventDefault();
         this.setState({
             isAddPending: true
         })
@@ -221,9 +229,9 @@ class CFavourites extends React.PureComponent {
                                  }
                                  <div className="add-bar ">
                                     {/* <p className="add-title">Favourite links</p> */}
-                                     <a className="btn btn-outline-secondary add-new-fav"
-                                        onClick={this.setShowAddFavouritesModal}>
-                                          <i className="fa fa-edit"/>&nbsp;Manage Favourites </a>
+                                     <a className="btn btn-outline-secondary add-new-fav" href={'/'}
+                                        onClick={this.openManageFavouritesModal}>
+                                          <i className="fa fa-plus"/>Manage Favourites </a>
                                   </div>
                              </Dropdown.Menu>
                          </Dropdown>

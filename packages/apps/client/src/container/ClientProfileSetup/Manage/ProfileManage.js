@@ -312,7 +312,7 @@ class ProfileManage extends PureComponent {
     logoutUser = async () => {
         await this.savePinOrUnpinUserMenu()
         try {
-            let logoutResponse = this.props.logoutUser();
+            let logoutResponse = await this.props.logoutUser();
             if (logoutResponse) {
                 this.props.history.push('/');
             }

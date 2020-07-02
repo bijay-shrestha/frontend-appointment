@@ -8,9 +8,9 @@ import {createLogHeader} from './axios-helper/create-log-header'
 
 const SERVER_DOMAIN = EnvironmentVariableGetter.SERVER_DOMAIN || ''
 const BASE_DOMAIN =
-    // process.env.NODE_ENV==="development"?
+    process.env.NODE_ENV==="development"?
     '/' + EnvironmentVariableGetter.REACT_APP_MODULE_CODE.toString().toLowerCase()
-// : ''
+: ''
 
 // console.log("Enviroment", process.env.NODE_ENV);
 //const APP_PORT = process.env.PORT || ''

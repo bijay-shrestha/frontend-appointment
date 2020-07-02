@@ -14,11 +14,11 @@ import {
 
 const GET = (path, headers) => Axios.get(`${path}`, headers)
 
-const POST = (path, data) => {
-    return Axios.post(`${path}`, data, DEFAULT_HEADER)
+const POST = (path, data, headers) => {
+    return Axios.post(`${path}`, data, headers)
 }
 
-const PUT = (path, data) => Axios.put(`${path}`, data, DEFAULT_HEADER)
+const PUT = (path, data, headers) => Axios.put(`${path}`, data, headers)
 
 const API_WRAPPER = TryCatchHandler.genericTryCatch
 
@@ -155,6 +155,8 @@ export default {
         ),
 
     putForFile: (path, data) => API_WRAPPER(PUT(path, data, FILE_HEADER)),
+
+    putMultipart: (path, data) => API_WRAPPER(PUT(path, data, MULTIPART_HEADER)),
 
     putWithMultiPart: (path, paramVariable, data, formData) =>
         API_WRAPPER(

@@ -45,7 +45,8 @@ function HospitalAdd(props) {
              createHospitalLoading,
              activeBillingModeForDropdown,
              activeAppointmentServiceTypeForDropdown,
-             appointmentServiceTypeListForPrimary
+             appointmentServiceTypeListForPrimary,
+             isImageUploading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -115,6 +116,7 @@ function HospitalAdd(props) {
                                 hospitalImageCroppedUrl={hospitalImageCroppedUrl}
                                 hospitalBannerImageCroppedUrl={hospitalBannerImageCroppedUrl}
                                 createHospitalLoading={createHospitalLoading}
+                                isImageUploading={isImageUploading}
                             />
                         </Col>
                     </Row>

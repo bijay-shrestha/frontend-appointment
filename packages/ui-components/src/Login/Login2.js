@@ -103,6 +103,7 @@ class Login2 extends PureComponent {
                                     <div className="login-wrapper">
                                         <div className="login-header">
                                             <Image src={logo} className="logo-image"/>
+                                            <p>Admin Login</p>
                                         </div>
 
                                         <Form className="login-form">

@@ -33,7 +33,9 @@ function CompanyAdd(props) {
              onImageSelect,
              handleCropImage,
              handleImageUpload,
-             setImageShow
+             setImageShow,
+             isImageUploading,
+             isCompanySaveLoading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -76,7 +78,8 @@ function CompanyAdd(props) {
                                 variant="primary "
                                 className="float-right btn-action"
                                 name="Save"
-                                disabled={!formValid}
+                                isLoading={showConfirmModal}
+                                disabled={!formValid || showConfirmModal}
                                 onClickHandler={setShowConfirmModal}
                             />
                             <CompanyConfirmationModal
@@ -86,6 +89,8 @@ function CompanyAdd(props) {
                                 companyData={companyData}
                                 type="A"
                                 companyImageCroppedUrl={companyImageCroppedUrl}
+                                isImageUploading={isImageUploading}
+                                isCompanySaveLoading={isCompanySaveLoading}
                             />
                         </Col>
                     </Row>

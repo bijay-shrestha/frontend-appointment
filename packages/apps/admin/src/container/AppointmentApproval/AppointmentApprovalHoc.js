@@ -491,7 +491,7 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 refundList.map((spec, index) => ({
                     ...spec,
                     patientMobileNumber: spec.mobileNumber,
-                    sN: index + 1,
+                    // sN: index + 1,
                     registrationNumber: spec.registrationNumber || 'N/A'
                 }))
             return newRefundList

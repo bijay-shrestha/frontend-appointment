@@ -235,9 +235,12 @@
           "name": "Appointment Cancellation",
           "path": "/appointment/pendingRefundApproval",
           "roles": [
-            12,
-            15,
-            16
+            19,
+            22,
+            23,
+            26,
+            28,
+            29
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -254,11 +257,11 @@
           "name": "Appointment Check-In",
           "path": "/appointment/checkIn",
           "roles": [
-            23,
-            24,
-            21,
             19,
-            22
+            20,
+            21,
+            26,
+            27
           ],
           "icon": "",
           "leftNavigation": "Y",
@@ -275,8 +278,28 @@
           "name": "Appointment Status",
           "path": "/appointment/status",
           "roles": [
-            35,
-            36
+            19,
+            26
+          ],
+          "icon": "",
+          "leftNavigation": "Y",
+          "checked": false,
+          "order": 1,
+          "enabled": "Y",
+          "menuFor": "6",
+          "description": "appointmentStatus",
+          "childMenus": []
+        },
+        {
+          "id": "45",
+          "parentId": "10",
+          "name": "Appointment Refund Status",
+          "path": "/appointment/refundStatus",
+          "roles": [
+            19,
+            24,
+            26,
+            30
           ],
           "icon": "",
           "leftNavigation": "Y",

@@ -68,7 +68,8 @@ const HospitalManage = props => {
              isDeleteLoading,
              activeBillingModeForDropdown,
              activeAppointmentServiceTypeForDropdown,
-             appointmentServiceTypeListForPrimary
+             appointmentServiceTypeListForPrimary,
+             isImageUploading
          }) => (
             <>
                 <div className="">
@@ -152,6 +153,7 @@ const HospitalManage = props => {
                         activeBillingModeForDropdown={activeBillingModeForDropdown}
                         activeAppointmentServiceTypeForDropdown={activeAppointmentServiceTypeForDropdown}
                         appointmentServiceTypeListForPrimary={appointmentServiceTypeListForPrimary}
+                        isImageUploading={isImageUploading}
                     />
                 )}
                 <CAlert

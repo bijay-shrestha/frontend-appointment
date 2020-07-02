@@ -20,7 +20,7 @@ class CHybridSelect extends PureComponent {
 
     handleMultiOrSingleSelectedValue = event => {
         const {isMulti} = this.props;
-        return isMulti ? {values: [...event]} : {value: event.value, label: event.label};
+        return isMulti ? {values: [...event]} : {value: event.value, label: event.label,...event};
     };
     handleOnChange = event => {
         event

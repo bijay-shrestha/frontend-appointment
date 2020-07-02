@@ -74,7 +74,7 @@ class DoctorSetupSearchFilter extends PureComponent {
                                             options={doctorsForDropdown}
                                             isDisabled={!doctorsForDropdown.length}
                                             label="Doctor"
-                                            placeholder={activeSpecializationList.length ? "Select Doctor." : "No Doctor(s)."}
+                                            placeholder={doctorsForDropdown.length ? "Select Doctor." : "No Doctor(s)."}
                                             noOptionsMessage={()=>"No Doctor(s) found."}
                                         />
                                     </Col>
