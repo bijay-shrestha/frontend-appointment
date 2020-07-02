@@ -1166,8 +1166,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
 
         initialApiCalls = async () => {
             let hospitalId = this.setHospitalIdOfLoggedInAdmin();
-            await this.fetchActiveSpecializationByHospitalForDropdown(hospitalId);
-            await this.fetchWeekdaysData();
+            this.fetchActiveSpecializationByHospitalForDropdown(hospitalId);
+            this.fetchWeekdaysData();
             if (type === 'MANAGE') {
                 await this.fetchActiveDoctors();
                 await this.searchDoctorDutyRoster(1);

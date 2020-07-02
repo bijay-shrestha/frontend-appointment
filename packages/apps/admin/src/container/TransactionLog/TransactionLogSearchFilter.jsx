@@ -240,6 +240,7 @@ class TransactionLogSearchFilter extends PureComponent {
                         {value: 'Y', label: 'Self'},
                         {value: 'N', label: 'Others'}
                       ]}
+                      value={searchParameters.appointmentCategory}
                       placeholder="Select Appointment Category."
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}

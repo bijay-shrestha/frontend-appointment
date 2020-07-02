@@ -1,6 +1,7 @@
 import {DepartmentDutyRosterActions} from "@frontend-appointment/action-module";
 import {Axios} from "@frontend-appointment/core";
 import {CommonUtils} from "@frontend-appointment/helpers";
+import {MinioMiddleware} from '../../../index'
 
 export const createDepartmentDutyRoster = (path, departmentDutyRosterData) => async dispatch => {
     dispatch(DepartmentDutyRosterActions.createDepartmentDutyRosterPending());
@@ -19,7 +20,7 @@ export const searchDepartmentDutyRoster = (path, searchData, pageObj) => async d
     dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterPending());
     try {
         const response = await Axios.putWithPagination(path, searchData, pageObj);
-        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data,pageObj.page,pageObj.size);
+        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data, pageObj.page, pageObj.size);
         dispatch(DepartmentDutyRosterActions.searchDepartmentDutyRosterSuccess(dataWithSN));
         return response.data;
     } catch (e) {
@@ -29,11 +30,23 @@ export const searchDepartmentDutyRoster = (path, searchData, pageObj) => async d
     }
 };
 
+const getWeekDaysDoctorInfoWithPresignedUrl = async weekDaysRosters => {
+    const doctorInfoWithPresignedUrl = weekDaysRosters.map(async weekDaysRoster => {
+        weekDaysRoster.weekDaysDoctorInfo = await MinioMiddleware.getDataListWithPresignedFileUri(weekDaysRoster.weekDaysDoctorInfo, 'fileUri')
+        return weekDaysRoster;
+    })
+    return Promise.all(doctorInfoWithPresignedUrl)
+}
+
 export const fetchDepartmentDutyRosterDetailById = (path, departmentDutyRosterId) => async dispatch => {
     dispatch(DepartmentDutyRosterActions.fetchDepartmentDutyRosterDetailPending());
     try {
         const response = await Axios.getWithPathVariables(path, departmentDutyRosterId);
-        dispatch(DepartmentDutyRosterActions.fetchDepartmentDutyRosterDetailSuccess(response.data));
+        const doctorInfoWithPresignedUrl = await getWeekDaysDoctorInfoWithPresignedUrl(response.data.weekDaysRosters)
+        dispatch(DepartmentDutyRosterActions.fetchDepartmentDutyRosterDetailSuccess({
+            ...response.data,
+            weekDaysRosters: doctorInfoWithPresignedUrl
+        }));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.fetchDepartmentDutyRosterDetailError(e.errorMessage ? e.errorMessage
@@ -98,7 +111,7 @@ export const updateDepartmentDutyRosterOverride = (path, data) => async dispatch
     dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverridePending());
     try {
         const response = await Axios.put(path, data);
-        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideSuccess(response.data,"Override Saved successfully."));
+        dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideSuccess(response.data, "Override Saved successfully."));
         return response.data;
     } catch (e) {
         dispatch(DepartmentDutyRosterActions.updateDepartmentDutyRosterOverrideError(e.errorMessage ? e.errorMessage
