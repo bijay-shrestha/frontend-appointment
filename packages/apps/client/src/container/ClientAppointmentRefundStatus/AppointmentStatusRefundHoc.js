@@ -370,7 +370,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
           {...refundDetail, remarks},
           IntegrationConstants.apiIntegrationFeatureTypeCodes
-            .APPOINTMENT_REFUND_APPROVAL_CODE,
+            .APPOINTMENT_REFUND_STATUS_CODE,
           IntegrationConstants.apiIntegrationKey
             .APPOINTMENT_MODE_FEATURE_INTEGRATION,
           true,
@@ -437,7 +437,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
           {...refundDetail, remarks},
           IntegrationConstants.apiIntegrationFeatureTypeCodes
-            .APPOINTMENT_REFUND_APPROVAL_CODE,
+            .APPOINTMENT_REFUND_STATUS_CODE,
           IntegrationConstants.apiIntegrationKey
             .APPOINTMENT_MODE_FEATURE_INTEGRATION,
           false,
@@ -509,7 +509,6 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         esewaId,
         esewaMerchantCode,
         transactionNumber,
-        appointmentId,
         appointmentModeId,
         status,
         remarks,
