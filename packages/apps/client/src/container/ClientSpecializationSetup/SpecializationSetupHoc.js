@@ -110,9 +110,12 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
         };
 
         checkFormValidity = eventType => {
-            const {specializationData, nameValid} = this.state;
+            const {
+                specializationData,
+                // nameValid
+            } = this.state;
             let formValidity =
-                nameValid &&
+                // nameValid &&
                 specializationData.name &&
                 specializationData.code &&
                 specializationData.status;
@@ -224,7 +227,7 @@ const SpecializationHOC = (ComposedComponent, props, type) => {
                         status: status,
                         remarks: ''
                     },
-                    nameValid: name.length||false
+                    nameValid: name.length || false
                 })
                 this.checkFormValidity('E')
             } catch (e) {
