@@ -1,5 +1,5 @@
 import React from 'react'
-import {CForm, CHybridInput, CHybridTextArea} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CHybridSelectWithImage, CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const DetailsModal = ({logData}) => {
@@ -19,11 +19,17 @@ const DetailsModal = ({logData}) => {
                             </Col>
 
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridTextArea
+                                <CHybridSelectWithImage
                                     id="doctorName"
                                     placeholder="Doctor Name(Specialization)"
-                                    value={logData.doctorName.toUpperCase() + "(" + logData.specializationName.toUpperCase() + ")"}
-                                    disabled={true}
+                                    value={{
+                                        label: logData.doctorName+
+                                            '(' +
+                                            logData.specializationName +
+                                            ')',
+                                        fileUri: logData.fileUri
+                                    }}
+                                    isDisabled={true}
                                 />
                             </Col>
 

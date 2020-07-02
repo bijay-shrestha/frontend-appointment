@@ -1,5 +1,5 @@
 import React from 'react'
-import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
+import {CForm, CHybridInput, CHybridSelectWithImage} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
 const ApprovalContent = ({approvalData}) => {
@@ -90,18 +90,20 @@ const ApprovalContent = ({approvalData}) => {
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridInput
+                                <CHybridSelectWithImage
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
-                                    value={
-                                        approvalData.doctorName && approvalData.specializationName ?
-                                            approvalData.doctorSalutation +
+                                    value={{
+                                        label: approvalData.doctorName && approvalData.specializationName ?
+                                            (approvalData.doctorSalutation ? approvalData.doctorSalutation : '') +
                                             approvalData.doctorName +
                                             '(' +
                                             approvalData.specializationName +
-                                            ')' : 'N/A'
+                                            ')' : 'N/A',
+                                        fileUri: approvalData.fileUri
                                     }
-                                    disabled={true}
+                                    }
+                                    isDisabled={true}
                                 />
                             </Col>
                             <Col sm={12} md={6} lg={6}>

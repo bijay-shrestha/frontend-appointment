@@ -120,9 +120,11 @@ export const fetchAppointmentApprovalDetailByAppointmentId = (
     dispatch(AppointmentDetailActions.appointmentApprovaldDetailFetchingStart())
     try {
         const response = await Axios.getWithPathVariables(path, appointmentId)
+        let dataWithFileUri = response.data
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
         dispatch(
             AppointmentDetailActions.appointmentApprovalDetailFetchingSuccess(
-                response.data
+                dataWithFileUri
             )
         )
     } catch (e) {
