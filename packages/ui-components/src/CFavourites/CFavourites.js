@@ -231,7 +231,7 @@ class CFavourites extends React.PureComponent {
                                     {/* <p className="add-title">Favourite links</p> */}
                                      <a className="btn btn-outline-secondary add-new-fav" href={'/'}
                                         onClick={this.openManageFavouritesModal}>
-                                          <i className="fa fa-plus"/>&nbsp;Manage Favourites </a>
+                                          <i className="fa fa-plus"/>Manage Favourites </a>
                                   </div>
                              </Dropdown.Menu>
                          </Dropdown>
