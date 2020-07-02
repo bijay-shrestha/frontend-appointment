@@ -8,7 +8,8 @@ export const fetchPresignedUrlForPutOperation = async (path, data) => {
         const response = await Axios.put(path, data);
         return response.data
     } catch (e) {
-        throw e
+        console.log("IMAGE NOT FETCHED",e)
+        // throw e
     }
 }
 
@@ -17,16 +18,18 @@ export const fetchPresignedUrlForGetOperation = async (fileUri) => {
         const response = await Axios.put(FILE_PRE_SIGNED_URI_FOR_DISPLAY, {fileName: fileUri});
         return response.data
     } catch (e) {
-        throw e
+        console.log("IMAGE NOT FETCHED",e)
+        // throw e
     }
 }
 
-export const fetchUrlForGetOperation = async (path, fileUri) => {
+export const fetchUrlForGetOperation = async (fileUri) => {
     try {
-        const response = await Axios.getWithRequestParams(path, {fileUri: fileUri});
+        const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
         return response.data
     } catch (e) {
-        throw e
+        console.log("IMAGE NOT FETCHED",e)
+        // throw e
     }
 }
 

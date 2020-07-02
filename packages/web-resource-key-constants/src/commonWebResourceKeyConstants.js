@@ -24,5 +24,5 @@ export const SalutationApiConstants = {
 export const FileResourceConstants = {
     FILE_UPLOAD_PATH : BASE.concat("/file/putPresignedURL"),
     FILE_PRE_SIGNED_URI_FOR_DISPLAY: BASE.concat("/file/getPresignedURL"),
-    FILE_URI_FOR_DISPLAY : BASE.concat("/file/location")
+    FILE_URI_FOR_DISPLAY : BASE.concat("/file")
 }
