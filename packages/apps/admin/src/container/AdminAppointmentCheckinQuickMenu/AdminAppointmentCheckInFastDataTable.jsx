@@ -63,6 +63,15 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     width: 80
                                 },
                                 {
+                                    headerName: 'Hospital Name',
+                                    field: 'hospitalName',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 120,
+                                },
+                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",

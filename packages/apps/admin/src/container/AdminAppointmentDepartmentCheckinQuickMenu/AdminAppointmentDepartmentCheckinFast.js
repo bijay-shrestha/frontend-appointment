@@ -1,11 +1,11 @@
 import React from 'react'
-import AppointmentCheckInFastDataTable from './AdminAppointmentCheckInFastDataTable'
-import AppointmentCheckInFastHoc from './AdminAppointmentCheckinFastHoc'
+import DepartmentAppointmentCheckInFastDataTable from './AdminAppointmentDepartmentCheckInFastDataTable'
+import DepartmentAppointmentCheckInFastHoc from './AdminAppointmentDepartmentCheckinFastHoc'
 import {CButton, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
 
-const AppointmentCheckInFastLog = props => {
-    const AppoinmentCheckInFast = AppointmentCheckInFastHoc(
+const DepartmentAppointmentCheckInFastLog = props => {
+    const DepartmentAppoinmentCheckInFast = DepartmentAppointmentCheckInFastHoc(
         ({searchHandler, paginationProps, tableHandler}) => (
             <>
                 <Row className="quick-search">
@@ -44,7 +44,7 @@ const AppointmentCheckInFastLog = props => {
                 </Row>
 
                 <div className="">
-                    <AppointmentCheckInFastDataTable
+                    <DepartmentAppointmentCheckInFastDataTable
                         tableHandler={tableHandler}
                         paginationProps={paginationProps}
                         filteredActions={props.filteredAction}
@@ -56,7 +56,7 @@ const AppointmentCheckInFastLog = props => {
         ''
     )
 
-    return <AppoinmentCheckInFast/>
+    return <DepartmentAppoinmentCheckInFast/>
 }
 
-export default AppointmentCheckInFastLog
+export default DepartmentAppointmentCheckInFastLog
