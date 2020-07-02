@@ -357,7 +357,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
 
     refundHandleApi = async () => {
       const {refundDetail} = this.props.AppointmentRefundDetailReducer
-      console.log("===========",this.props.AppointmentRefundDetailReducer)
+      console.log("===========",refundDetail)
       const {remarks} = this.state
       this.setState({
         isConfirming: true
@@ -377,10 +377,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
           hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
         )
         requestDTO = {
-          ...refundDetail,
+         
           status: null,
           //remarks: remarks,
-          ...apiRequestBody
+          ...apiRequestBody,
+          ...refundDetail
         }
         if (!successResponse) {
           this.refundAppointment(requestDTO)
