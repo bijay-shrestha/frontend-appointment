@@ -177,7 +177,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                     hospitalDepartmentName:spec.departmentName||'N/A',
                     appointmentMode: spec.appointmentMode,
                     mobileNumber: spec.mobileNumber,
-                    sN: index + 1
+                    // sN: index + 1
                 }));
             return newRefundList
         };
@@ -287,7 +287,7 @@ const AppointmentDepartmentRefundHOC = (ComposedComponent, props, type) => {
                     : value;
                 if(fieldName==='hospitalDepartmentId'){
                     this.callApiForRoomAfterDepartmentChange(value)
-                }    
+                }
                 await this.setStateValuesForSearch(newSearchParams)
             }
         };

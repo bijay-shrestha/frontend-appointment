@@ -12,6 +12,7 @@ import * as RolesUtils from '../utils/RolesUtils';
 import * as EnvironmentVariableGetter from '../utils/EnvironmentVariableGetter';
 import * as ObjectUtils from '../utils/ObjectUtils';
 import * as FavouritesUtils from '../utils/FavouritesUtils';
+import * as FileUploadLocationUtils from '../utils/FileUploadLocationUtils';
 import {checkDashboardRole} from './DashboardRoleCheckUtils'
 export {default as TryCatchHandler} from '../utils/try-catch-wrapper';
 export {default as UserMenusFilter} from './usermenusfilters'
@@ -31,5 +32,6 @@ export {
     CommonUtils,
     RolesUtils,
     ObjectUtils,
-    FavouritesUtils
+    FavouritesUtils,
+    FileUploadLocationUtils
 }

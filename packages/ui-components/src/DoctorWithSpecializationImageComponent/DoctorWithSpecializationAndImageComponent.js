@@ -2,6 +2,10 @@ import React, {memo} from 'react'
 import DefaultPic from './picture.png'
 
 const DoctorWithSpecializationAndImage = props => {
+
+    let fileUri = props.node.data.doctorAvatar ||
+        props.node.data.fileUri ||
+        props.node.data.transferredFromFileUri
     return (
         <div className="di-column">
             {props.node.data.doctorAvatar ||
@@ -11,9 +15,7 @@ const DoctorWithSpecializationAndImage = props => {
                     <img
                         alt="PIC"
                         src={
-                            props.node.data.doctorAvatar ||
-                            props.node.data.fileUri ||
-                            props.node.data.transferredFromFileUri
+                           fileUri
                         }
                     />{' '}
                 </div>

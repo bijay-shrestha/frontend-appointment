@@ -1,6 +1,7 @@
 import React from 'react'
 import {CForm, CHybridInput} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
+
 const ApprovalContent = ({approvalData}) => {
     return (
         <>
@@ -93,10 +94,11 @@ const ApprovalContent = ({approvalData}) => {
                                     id="doctor-specializationName"
                                     placeholder="Doctor(Specialization)"
                                     value={
-                                        approvalData.doctorName && approvalData.specialization ? 'Dr.' +
-                                            approvalData.doctorName.toUpperCase() +
+                                        approvalData.doctorName && approvalData.specializationName ?
+                                            approvalData.doctorSalutation +
+                                            approvalData.doctorName +
                                             '(' +
-                                            approvalData.specializationName.toUpperCase() +
+                                            approvalData.specializationName +
                                             ')' : 'N/A'
                                     }
                                     disabled={true}

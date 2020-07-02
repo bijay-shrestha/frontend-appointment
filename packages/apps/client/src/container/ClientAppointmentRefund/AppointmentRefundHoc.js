@@ -175,7 +175,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     // remarks: spec.remarks || 'N/A',
                     appointmentMode: spec.appointmentMode,
                     mobileNumber: spec.mobileNumber,
-                    sN: index + 1
+                    // sN: index + 1
                 }));
             return newRefundList
         };
@@ -470,8 +470,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
                     requestDTO
                 );
-                
-              
+
+
                 this.setState({
                     isConfirming:false,
                     showAlert: true,
@@ -483,7 +483,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     refundRejectRequestDTO:refundRejectRequestDTO
                 });
                 this.searchAppointment()
-             
+
             } catch (e) {
                 this.setState({
                     isConfirming:false,

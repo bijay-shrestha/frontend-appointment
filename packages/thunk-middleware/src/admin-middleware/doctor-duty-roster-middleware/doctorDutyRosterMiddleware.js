@@ -1,5 +1,7 @@
 import {DoctorDutyRosterActions} from "@frontend-appointment/action-module";
 import {Axios} from "@frontend-appointment/core";
+import {MinioMiddleware} from '../../../index'
+import {CommonUtils} from '@frontend-appointment/helpers'
 
 export const createDoctorDutyRoster = (path, doctorDutyRosterData) => async dispatch => {
     dispatch(DoctorDutyRosterActions.createDoctorDutyRosterPending());
@@ -18,7 +20,9 @@ export const fetchDoctorDutyRosterList = (path, searchData, pageObj) => async di
     dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterPending());
     try {
         const response = await Axios.putWithPagination(path, searchData, pageObj);
-        dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterSuccess(response.data));
+        let dataWithSN = CommonUtils.appendSerialNumberToDataList(response.data, pageObj.page, pageObj.size);
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSN, "fileUri");
+        dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterSuccess(dataWithPresignedUrl));
         return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.searchDoctorDutyRosterError(e.errorMessage ? e.errorMessage
@@ -31,7 +35,10 @@ export const fetchDoctorDutyRosterDetailById = (path, doctorDutyRosterId) => asy
     dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailPending());
     try {
         const response = await Axios.getWithPathVariables(path, doctorDutyRosterId);
-        dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailSuccess(response.data));
+        let dataWithFileUri = response.data.doctorDutyRosterInfo
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
+        dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailSuccess(
+            {...response.data, doctorDutyRosterInfo: dataWithFileUri}));
         return response.data;
     } catch (e) {
         dispatch(DoctorDutyRosterActions.fetchDoctorDutyRosterDetailError(e.errorMessage ? e.errorMessage
