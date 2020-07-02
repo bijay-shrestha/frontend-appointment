@@ -509,14 +509,13 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         esewaId,
         esewaMerchantCode,
         transactionNumber,
-        refundRequestDTO: {
-          appointmentId,
-          appointmentModeId,
-          status,
-          remarks,
-          integrationChannelCode,
-          featureCode
-        }
+        appointmentId,
+        appointmentModeId,
+        status,
+        remarks,
+        integrationChannelCode,
+        featureCode
+        
       }
       console.log("==========requestData",requestData)
       try {
