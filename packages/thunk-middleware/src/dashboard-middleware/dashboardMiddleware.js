@@ -37,11 +37,11 @@ export const fetchAppointmentQueueList = (path, paginationData, queueSearchData)
     )
     try {
         const response = await Axios.putWithPagination(path, paginationData, queueSearchData)
-        // const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(
-        //     response.data.doctorRevenueInfo, "fileUri");
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(
+            response.data, "doctorAvatar");
         dispatch(
             DashboardDetailsActions.dashboardAppointmentQueueFetchingSuccess(
-                response.data
+                dataWithPresignedUrl
             )
         )
         return response
