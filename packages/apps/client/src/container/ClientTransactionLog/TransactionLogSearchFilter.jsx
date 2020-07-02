@@ -157,7 +157,7 @@ class TransactionLogSearchFilter extends PureComponent {
                     </div>
                   </Col>
 
-                 
+
                   {CommonUtils.filterAppointmentServiceType(
                     searchParameters.appointmentServiceTypeCode,
                     'DEP'
@@ -276,6 +276,7 @@ class TransactionLogSearchFilter extends PureComponent {
                         {value: 'Y', label: 'Self'},
                         {value: 'N', label: 'Others'}
                       ]}
+                      value={searchParameters.appointmentCategory}
                       placeholder="Select Appointment Category."
                       onChange={handleSearchFormChange}
                       onEnter={handleEnter}
@@ -358,7 +359,7 @@ class TransactionLogSearchFilter extends PureComponent {
                   </OverlayTrigger>
                 </li>
               )}
-              
+
               {searchParameters.transactionNumber && (
                 <li>
                   <OverlayTrigger
