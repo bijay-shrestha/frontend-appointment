@@ -495,7 +495,7 @@ const CompanyAdminSetupHOC = (ComposedComponent, props, type) => {
         }
 
         handleOnChange = async (event, fieldValid) => {
-            console.log('==comp', event)
+            // console.log('==comp', event)
             if (event) {
                 let fieldName = event.target.name
                 let value =
