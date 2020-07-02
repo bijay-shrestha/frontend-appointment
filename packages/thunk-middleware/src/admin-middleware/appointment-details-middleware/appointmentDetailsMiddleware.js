@@ -72,6 +72,7 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
             clientId,
             constructedData);
     } catch (e) {
+        console.log("==========",e)
         throw e
     }
 }
