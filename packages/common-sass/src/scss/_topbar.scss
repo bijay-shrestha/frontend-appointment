@@ -370,9 +370,11 @@
                 padding: 16px 0px;
                 border: none;
                 border-top:1px solid $gray-300;
-                color:$gray-900;
+                color:$gray-800;
                 background-color:transparent;               
                 line-height: 1.2;
+                font-size:13px;
+                font-weight: 500;
                 @include border-radius(0px !important);
                 text-align: left;
 
@@ -382,7 +384,7 @@
                 }
 
                 i{
-                    width:40px;
+                    width:46px;
                     padding-left:12px;
                     color:$gray-600;
                 }
@@ -409,8 +411,9 @@
             .anchor-icon {
                 width: 32px;
                 height: 32px;
-                line-height: 28px;
+                line-height: 31px;
                 text-align: center;
+                font-size: 0.75rem;
                 flex-shrink: 0;
                 @include border-radius(50%);
                 border: 1px solid $gray-100;
@@ -450,9 +453,13 @@
             }
 
             &:hover {
-                background-color: $gray-100;
-                .menu-box .remove-fav
-              {
+                background-color: transparent;
+
+                .menu{
+                    text-decoration: underline;
+                }
+                .menu-box .remove-fav {
+             
                     display: inline-block;
                 }
             }
