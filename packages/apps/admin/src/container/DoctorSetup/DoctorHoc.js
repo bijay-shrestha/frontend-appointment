@@ -110,6 +110,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
             doctorFileCropped: '',
             showImageUploadModal: false,
             isImageUploading: false,
+            errorMessage: ''
         }
 
         handleEnterPress = event => {
@@ -158,7 +159,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 appointmentChargeValid: false,
                 logoValid: false,
                 showEditModal: false,
-                errorMessage:''
+                errorMessage: ''
             })
         };
 
@@ -853,7 +854,8 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                 appointmentChargeValid,
                 errorMessageForAppointmentCharge,
                 emailValid,
-                isImageUploading
+                isImageUploading,
+                errorMessage
             } = this.state
 
             const {
@@ -931,7 +933,7 @@ const DoctorHOC = (ComposedComponent, props, type) => {
                     searchErrorMessage={searchErrorMessage}
                     doctorPreviewErrorMessage={consultantPreviewErrorMessage}
                     deleteErrorMessage={deleteErrorMessage}
-                    doctorEditErrorMessage={consultantEditErrorMessage}
+                    doctorEditErrorMessage={consultantEditErrorMessage || errorMessage}
                     isPreviewLoading={isPreviewLoading}
                     doctorPreviewData={consultantPreviewData}
                     addContactNumber={this.addContactNumber}
