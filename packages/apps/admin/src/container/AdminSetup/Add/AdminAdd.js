@@ -430,7 +430,7 @@ class AdminAdd extends PureComponent {
         } = this.state;
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
         let hospitalSelected = hospitalsForDropdown.find(hospitalD => Number(hospitalD.value) === Number(hospital.value))
-        let hospitalAlias = hospitalSelected && hospital.alias
+        let hospitalAlias = hospitalSelected && hospitalSelected.alias
 
         let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
         let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(hospitalAlias, fullName)

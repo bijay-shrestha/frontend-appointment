@@ -51,9 +51,9 @@ const DepartmentEditModal = ({
                             placeholder="Specialization Name"
                             value={specializationData.name}
                             required={true}
-                            hasValidation={true}
-                            fieldValuePattern={/^[A-Za-z0-9 ]+$/}
-                            errorMessagePassed={errorMessageForSpecializationName}
+                        //     hasValidation={true}
+                        //     fieldValuePattern={/^[A-Za-z0-9 ]+$/}
+                        //     errorMessagePassed={errorMessageForSpecializationName}
                         />
                     </Col>
                     <Col sm={12} md={12} lg={4}>
