@@ -900,7 +900,7 @@ class AdminManage extends PureComponent {
         } catch (e) {
             this.setState({
                 errorMessage:e.errorMessage? e.errorMessage: "Error updating admin.",
-                isImageLoading:false
+                isImageUploading:false
             })
         }
     }
