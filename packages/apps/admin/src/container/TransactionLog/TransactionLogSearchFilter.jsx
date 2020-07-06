@@ -125,6 +125,17 @@ class TransactionLogSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="transactionNumber"
+                                            name="transactionNumber"
+                                            placeholder="Transaction Number"
+                                            value={searchParameters.transactionNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="from-date"
@@ -267,17 +278,6 @@ class TransactionLogSearchFilter extends PureComponent {
                                             </>
                                             : ''
                                     }
-
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="transactionNumber"
-                                            name="transactionNumber"
-                                            placeholder="Transaction Number"
-                                            value={searchParameters.transactionNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect

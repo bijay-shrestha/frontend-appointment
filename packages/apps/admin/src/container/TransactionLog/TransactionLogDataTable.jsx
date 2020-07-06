@@ -109,23 +109,6 @@ const TransactionLogDataTable = ({
                                     cellRenderer: 'statusRenderer'
                                 },
                                 {
-                                    headerName: 'Tran. Date',
-                                    field: 'transactionDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'transactionDateWithTime'
-                                },
-                                // {
-                                //     headerName: 'App. DateTime',
-                                //     field: 'appointmentDate',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true,
-                                //     width: "200",
-                                //     cellRenderer: "AppointmentDateWithTime"
-                                // },
-                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
@@ -134,6 +117,23 @@ const TransactionLogDataTable = ({
                                     sizeColumnsToFit: true,
                                     width: '140',
                                     cellRenderer: 'appointmentNumberWithFollowUpFlag'
+                                },
+                                {
+                                    headerName: 'App. DateTime',
+                                    field: 'appointmentDate',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: "200",
+                                    cellRenderer: "AppointmentDateWithTime"
+                                },
+                                {
+                                    headerName: 'Tran. Date',
+                                    field: 'transactionDate',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'transactionDateWithTime'
                                 },
                                 {
                                     headerName: 'Txn. Detail (No/Amount)',
@@ -146,13 +146,28 @@ const TransactionLogDataTable = ({
                                     width: '180'
                                 },
                                 {
-                                    headerName: 'App. DateTime',
-                                    field: 'appointmentDate',
+                                    headerName: 'Patient Details',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width: "200",
-                                    cellRenderer: "AppointmentDateWithTime"
+                                    cellRenderer: 'PatientNameWitheAgeGenderPhone',
+                                    autoSize: true,
+                                    width: '300'
+                                },
+                                {
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: '180'
+                                },
+                                {
+                                    headerName: 'Address',
+                                    field: 'patientAddress',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true
                                 },
                                 {
                                     headerName: headerNameForDoctorOrDepartment,
@@ -164,31 +179,6 @@ const TransactionLogDataTable = ({
                                     autoWidth: true,
                                     width: '300'
                                 },
-
-                                {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: '180'
-                                },
-                                {
-                                    headerName: 'Patient Details',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: 'PatientNameWitheAgeGenderPhone',
-                                    autoSize: true,
-                                    width: '300'
-                                },
-                                {
-                                    headerName: 'Address',
-                                    field: 'patientAddress',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                }
                             ]}
                             frameworkComponents={{
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(
