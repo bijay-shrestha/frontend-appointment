@@ -421,6 +421,41 @@ class RescheduleLogSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {searchParameters.appointmentServiceTypeCode && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={
+                                            <Tooltip id="name">Appointment Service Type</Tooltip>
+                                        }
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.appointmentServiceTypeCode.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.hospitalDepartmentId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Department</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.hospitalDepartmentId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.fromDate && (
                                 <li>
                                     <OverlayTrigger

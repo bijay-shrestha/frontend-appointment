@@ -5,7 +5,7 @@ import {
     AppointmentNumberWithFollowUpFlag,
     PatientNameWithAgeGenderPhone,
     RescheduleLogDateWithTimeForTable,
-    DoctorWithSpecImage
+    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode
 } from '@frontend-appointment/ui-components';
 import AppointmentDateWithTime from "../CommonComponents/table-components/AppointmentDateWithTime";
 import {CommonUtils} from '@frontend-appointment/helpers'
@@ -154,6 +154,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                             ]}
                             frameworkComponents={{
                                 doctorWithSpecializationRenderer: DoctorWithSpecImage,
+                                departmentWithRoomNumberAndBillingMode: DepartmentNameWithRoomNumberAndBillingMode,
                                 statusRenderer: AppointmentLogAction,
                                 patientRenderer: PatientNameWithAgeGenderPhone,
                                 appointmentDateAndTime: AppointmentDateWithTime,

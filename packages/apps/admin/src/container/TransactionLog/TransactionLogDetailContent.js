@@ -1,8 +1,9 @@
 import React from 'react'
 import {CForm, CHybridInput, CHybridSelectWithImage, CHybridTextArea} from '@frontend-appointment/ui-elements'
 import {Col, Row} from 'react-bootstrap'
+import {CommonUtils} from '@frontend-appointment/helpers'
 
-const TransactionLogDetailContent = ({logData}) => {
+const TransactionLogDetailContent = ({logData,appointmentServiceTypeCode}) => {
     return (
         <>
             <Container-fluid>
@@ -19,18 +20,37 @@ const TransactionLogDetailContent = ({logData}) => {
                             </Col>
 
                             <Col sm={12} md={6} lg={6}>
-                                <CHybridSelectWithImage
-                                    id="doctorName"
-                                    placeholder="Doctor Name(Specialization)"
-                                    value={{
-                                        label: logData.doctorName+
+                                {CommonUtils.filterAppointmentServiceType(
+                                    appointmentServiceTypeCode,
+                                    'DOC'
+                                ) ? (
+                                    <CHybridSelectWithImage
+                                        id="doctorName"
+                                        placeholder="Doctor Name(Specialization)"
+                                        value={{
+                                            label: logData.doctorName +
+                                                '(' +
+                                                logData.specializationName +
+                                                ')',
+                                            fileUri: logData.fileUri
+                                        }}
+                                        isDisabled={true}
+                                    />
+                                ) : (
+                                    <CHybridTextArea
+                                        id="departmentName"
+                                        placeholder="Department Name (Room Number And Billing Mode)"
+                                        value={
+                                            (logData.hospitalDepartmentName || 'N/A') +
                                             '(' +
-                                            logData.specializationName +
-                                            ')',
-                                        fileUri: logData.fileUri
-                                    }}
-                                    isDisabled={true}
-                                />
+                                            (logData.roomNumber || 'N/A') +
+                                            ',' +
+                                            (logData.billingModeName || 'N/A') +
+                                            ')'
+                                        }
+                                        disabled={true}
+                                    />
+                                )}
                             </Col>
 
                             <Col sm={12} md={6} lg={6}>

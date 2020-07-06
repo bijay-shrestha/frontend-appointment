@@ -47,7 +47,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
             //isFetchAllHospitalDepartmentLoading,
             allHospitalDepartmentForDropdown,
             allDepartmentDropdownErrorMessage
-            //patientDropdownErrorMessage
         } = searchHandler
 
         return (

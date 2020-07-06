@@ -6,7 +6,7 @@ import {
     AppointmentNumberWithFollowUpFlag,
     AppointmentStatusBadges,
     PatientNameWithAgeGenderPhone,
-    DoctorWithSpecImage
+    DoctorWithSpecImage, DepartmentNameWithRoomNumberAndBillingMode
 } from '@frontend-appointment/ui-components'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewDetails from './AppointmentLogPreview';
@@ -164,6 +164,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                             ]}
                             frameworkComponents={{
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
+                                departmentWithRoomNumberAndBillingMode: PreviewHandlerHoc(
+                                    DepartmentNameWithRoomNumberAndBillingMode,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
                                 statusRenderer: PreviewHandlerHoc(AppointmentLogAction, null, null, null, previewCall),
                                 patientRenderer: PreviewHandlerHoc(PatientWithAgeAndGender, null, null, null, previewCall),
                                 PatientNameWitheAgeGenderPhone: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
