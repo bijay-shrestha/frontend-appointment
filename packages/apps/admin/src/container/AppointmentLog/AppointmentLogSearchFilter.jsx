@@ -121,6 +121,18 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             }
                                         />
                                     </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder="Appointment Number"
+                                            value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
                                     <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
@@ -266,17 +278,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     }
 
                                     <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder="Appointment Number"
-                                            value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
-                                        />
-                                    </Col>
-
-                                    <Col sm={12} md={6} xl={4}>
                                         <CHybridSelect
                                             id="admin-meta-info"
                                             name="patientMetaInfoId"
@@ -388,6 +389,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </CButton>
                             </li>
 
+                            {searchParameters.hospitalId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Client</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.hospitalId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.appointmentServiceTypeCode && (
                                 <li>
                                     <OverlayTrigger
@@ -401,22 +418,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             variant="secondary"
                                         >
                                             {searchParameters.appointmentServiceTypeCode.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
-
-                            {searchParameters.hospitalDepartmentId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Department</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.hospitalDepartmentId.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
@@ -438,37 +439,6 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {/*{searchParameters.transactionNumber && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            delay={{show: 250, hide: 400}}*/}
-                            {/*            overlay={props => (*/}
-                            {/*                <Tooltip {...props}>Transaction Number</Tooltip>*/}
-                            {/*            )}*/}
-                            {/*        >*/}
-                            {/*            <Button id="light-search-filters" variant="secondary">*/}
-                            {/*                {searchParameters.transactionNumber}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
-
-                            {searchParameters.hospitalId && (
-                                <li>
-                                    <OverlayTrigger
-                                        placement="top"
-                                        overlay={<Tooltip id="name">Client</Tooltip>}
-                                    >
-                                        <Button
-                                            id="search-param-button-filters"
-                                            variant="secondary"
-                                        >
-                                            {searchParameters.hospitalId.label}
-                                        </Button>
-                                    </OverlayTrigger>
-                                </li>
-                            )}
                             {searchParameters.fromDate && (
                                 <li>
                                     <OverlayTrigger
@@ -504,52 +474,22 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                 </li>
                             )}
 
-                            {/*{searchParameters.transactionFromDate && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            overlay={<Tooltip id="name">Transaction From Date</Tooltip>}*/}
-                            {/*        >*/}
-                            {/*            <Button*/}
-                            {/*                id="search-param-button-filters"*/}
-                            {/*                variant="secondary"*/}
-                            {/*            >*/}
-                            {/*                {searchParameters.transactionFromDate.toLocaleDateString()}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
-                            {/*{searchParameters.transactionToDate && (*/}
-                            {/*    <li>*/}
-                            {/*        <OverlayTrigger*/}
-                            {/*            placement="top"*/}
-                            {/*            overlay={<Tooltip id="name">Transaction To Date</Tooltip>}*/}
-                            {/*        >*/}
-                            {/*            <Button*/}
-                            {/*                id="search-param-button-filters"*/}
-                            {/*                variant="secondary"*/}
-                            {/*            >*/}
-                            {/*                {searchParameters.transactionToDate.toLocaleDateString()}*/}
-                            {/*            </Button>*/}
-                            {/*        </OverlayTrigger>*/}
-                            {/*    </li>*/}
-                            {/*)}*/}
-
-                            {searchParameters.patienMetaInfoId && (
+                            {searchParameters.hospitalDepartmentId && (
                                 <li>
                                     <OverlayTrigger
                                         placement="top"
-                                        overlay={<Tooltip id="name">Patient Meta Info</Tooltip>}
+                                        overlay={<Tooltip id="name">Department</Tooltip>}
                                     >
                                         <Button
                                             id="search-param-button-filters"
                                             variant="secondary"
                                         >
-                                            {searchParameters.patientMetaInfoId.label}
+                                            {searchParameters.hospitalDepartmentId.label}
                                         </Button>
                                     </OverlayTrigger>
                                 </li>
                             )}
+
                             {searchParameters.doctorId && (
                                 <li>
                                     <OverlayTrigger
@@ -580,6 +520,23 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
+
+                            {searchParameters.patienMetaInfoId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Patient Meta Info</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.patientMetaInfoId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.patientType && (
                                 <li>
                                     <OverlayTrigger

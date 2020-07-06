@@ -98,15 +98,6 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                                     cellRenderer: 'statusRenderer'
                                 },
                                 {
-                                    headerName: 'App. DateTime',
-                                    field: 'appointmentDate',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: "200",
-                                    cellRenderer: "AppointmentDateWithTime"
-                                },
-                                {
                                     headerName: 'App. No',
                                     field: 'appointmentNumber',
                                     // headerClass: "fi",
@@ -117,23 +108,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                                     cellRenderer: "appointmentNumberWithFollowUpFlag"
                                 },
                                 {
-                                    headerName: headerNameForDoctorOrDepartment,
+                                    headerName: 'App. DateTime',
+                                    field: 'appointmentDate',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: componentRendererDoctorOrDepartment,
-                                    autoSize: true,
-                                    autoWidth: true,
-                                    width: '300'
-                                },
-
-                                {
-                                    headerName: 'Reg. No',
-                                    field: 'registrationNumber',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: "180"
+                                    width: "200",
+                                    cellRenderer: "AppointmentDateWithTime"
                                 },
                                 {
                                     headerName: 'Patient Details',
@@ -145,11 +126,29 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                                     width: "300"
                                 },
                                 {
+                                    headerName: 'Reg. No',
+                                    field: 'registrationNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: "180"
+                                },
+                                {
                                     headerName: 'Address',
                                     field: 'patientAddress',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true
+                                },
+                                {
+                                    headerName: headerNameForDoctorOrDepartment,
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: componentRendererDoctorOrDepartment,
+                                    autoSize: true,
+                                    autoWidth: true,
+                                    width: '300'
                                 },
                                 {
                                     headerName: 'Txn. Detail (No/Amount)',
