@@ -108,7 +108,8 @@ export const hospitalSetupApiConstants = {
     DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown'),
     FETCH_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/active/min')),
     FETCH_ALL_HOSPITALS_FOR_DROPDOWN: BASE.concat(HP_BASE.concat('/min')),
-    SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown/active')
+    SPECIFIC_DROPDOWN_HOSPITAL: BASE.concat(HP_BASE + '/dropdown/active'),
+    HOSPITAL_API_SERVICE_TYPE:BASE.concat(HP_BASE+'/appointmentServiceType')
 };
 
 export const doctorSetupApiConstants = {
@@ -175,6 +176,7 @@ export const patientSetupApiConstant = {
 };
 
 const HOSPITAL_DEPARTMENT = "/hospitalDepartment"
+const REFUND_STATUS="/refundStatus"
 export const appointmentSetupApiConstant = {
     APPOINTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/refund"),
     APPOINTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/refund/approve"),
@@ -194,10 +196,14 @@ export const appointmentSetupApiConstant = {
     APPOINTMENT_APPROVAL_SEARCH_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + '/pending-approval'),
     APPOINTMENT_APPROVAL_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/approve"),
     APPOINTMENT_APPROVAL_PREVIEW_DEPARTMENT: BASE.concat(APPOINTMENT_BASE + HOSPITAL_DEPARTMENT + "/pending-approval/detail"),
+    FETCH_DEPARTMENT_APPOINTMENT_STATUS_COUNT:BASE.concat(APPOINTMENT_BASE+HOSPITAL_DEPARTMENT+"/status/count"),
     APPOINTMENT_DEPARTMENT_REFUND_LIST: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund"),
     APPOINTMENT_DEPARTMENT_REFUND_BY_ID: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/approve"),
     APPOINTMENT_DEPARTMENT_REJECT_REFUND: BASE.concat(APPOINTMENT_BASE + "/hospitalDepartment/refund/reject"),
-    APPOINTMENT_DEPARTMENT_REFUND_DETAIL:BASE.concat(APPOINTMENT_BASE.concat("/hospitalDepartment/refund/detail"))
+    APPOINTMENT_DEPARTMENT_REFUND_DETAIL:BASE.concat(APPOINTMENT_BASE.concat("/hospitalDepartment/refund/detail")),
+    SEARCH_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/search")),
+    DETAIL_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/detail")),
+    CHECK_APPOINTMENT_REFUND_STATUS:BASE.concat(APPOINTMENT_BASE.concat(REFUND_STATUS+"/check"))
 };
 
 export const DashboardApiConstant = {
@@ -394,3 +400,12 @@ export const appointmentServiceTypeApiConstants = {
     FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/active/min")),
     FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE: BASE.concat(APPOINTMENT_SERVICE_TYPE_BASE.concat("/name/code"))
 };
+
+
+const FAVOURITES_BASE = "/adminFavourite";
+export const favouritesApiConstants = {
+    SAVE_FAVOURITES: BASE.concat(FAVOURITES_BASE),
+    UPDATE_FAVOURITES: BASE.concat(FAVOURITES_BASE),
+    FETCH_FAVOURITES_FOR_DROPDOWN: BASE.concat(FAVOURITES_BASE),
+};
+

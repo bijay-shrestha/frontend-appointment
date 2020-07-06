@@ -22,20 +22,20 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
         this.toggleSearchForm()
     }
 
-  render () {
-    const {searchHandler} = this.props
-    const {
-      handleEnter,
-      handleSearchFormChange,
-      resetSearch,
-      doctorsDropdown,
-     // doctorDropdownErrorMessage,
-      activeSpecializationList,
-      //specializationDropdownErrorMessage,
-      searchParameters,
-      patientListDropdown
-      //patientDropdownErrorMessage
-    } = searchHandler
+    render() {
+        const {searchHandler} = this.props
+        const {
+            handleEnter,
+            handleSearchFormChange,
+            resetSearch,
+            doctorsDropdown,
+            // doctorDropdownErrorMessage,
+            activeSpecializationList,
+            //specializationDropdownErrorMessage,
+            searchParameters,
+            patientListDropdown
+            //patientDropdownErrorMessage
+        } = searchHandler
 
         return (
             <>
@@ -51,8 +51,10 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     name=""
                                     onClickHandler={resetSearch}
                                 >
-                                    <i className="fa fa-refresh"/>
-                                    &nbsp;Reset
+                                    <>
+                                        <i className="fa fa-refresh"/>
+                                        &nbsp;Reset
+                                    </>
                                 </CButton>
                             </div>
                         </div>
@@ -252,40 +254,40 @@ class AppointmentApprovalListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-{searchParameters.fromDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">From Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.fromDate
-                      )}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-              {searchParameters.toDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">To Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.toDate
-                      )}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
+                            {searchParameters.fromDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">From Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                                                searchParameters.fromDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.toDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">To Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                                                searchParameters.toDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
                             {searchParameters.specializationId && (
                                 <li>

@@ -2,7 +2,7 @@ import {AppointmentDetailActions} from '@frontend-appointment/action-module'
 import {Axios} from '@frontend-appointment/core'
 import {APIUtils, CommonUtils} from '@frontend-appointment/helpers'
 import {constructAppointmentCheckInData} from './prepareAppointmentCheckInData';
-import {GenericThirdPartyApiMiddleware} from '../../../index'
+import {GenericThirdPartyApiMiddleware, MinioMiddleware} from '../../../index'
 import {constructAppointmentRefundData} from './prepareAppointmentRefundData'
 
 export const fetchAppointmentRefundList = (
@@ -13,8 +13,14 @@ export const fetchAppointmentRefundList = (
     dispatch(AppointmentDetailActions.appointmentRefundFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
+        let refundAppointments = response.data.refundAppointments ? response.data.refundAppointments : response.data.cancelledAppointments
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(refundAppointments, pagination.page, pagination.size)
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
         dispatch(
-            AppointmentDetailActions.appointmentRefundFetchingSuccess(response.data)
+            AppointmentDetailActions.appointmentRefundFetchingSuccess({
+                ...response.data,
+                refundAppointments: dataWithPresignedUrl,
+            })
         )
     } catch (e) {
         dispatch(
@@ -37,12 +43,13 @@ export const fetchAppointmentApprovalList = (
     dispatch(AppointmentDetailActions.appointmentApprovalFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
-        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.pendingAppointmentApprovals||response.data,
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.pendingAppointmentApprovals || response.data,
             pagination.page, pagination.size);
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
         dispatch(
             AppointmentDetailActions.appointmentApprovalFetchingSuccess({
-                pendingAppointmentApprovals: dataWithSn,
-                totalItems: response.data.totalItems||response.data[0].totalItems
+                pendingAppointmentApprovals: dataWithPresignedUrl,
+                totalItems: response.data.totalItems || response.data[0].totalItems
             })
         )
     } catch (e) {
@@ -65,13 +72,14 @@ export const thirdPartyApiCallCheckIn = async (data, featureTypeCode, integratio
             clientId,
             constructedData);
     } catch (e) {
+        console.log("==========",e)
         throw e
     }
 }
 
-export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType,isRefund,hmacCode) => {
+export const thirdPartyApiCallRefund = async (data, featureTypeCode, integrationType, isRefund, hmacApi) => {
     const requestBodies = APIUtils.getIntegrationValue('requestBody');
-    const constructedData = constructAppointmentRefundData(data, requestBodies,isRefund);
+    const constructedData = constructAppointmentRefundData(data, requestBodies, isRefund);
     try {
         return await GenericThirdPartyApiMiddleware.genericThirdPartyApiCall(
             data,
@@ -81,7 +89,7 @@ export const thirdPartyApiCallRefund = async (data, featureTypeCode, integration
             constructedData,
             "%s",
             data.transactionNumber,
-            hmacCode);
+            hmacApi);
     } catch (e) {
         throw e
     }
@@ -112,9 +120,11 @@ export const fetchAppointmentApprovalDetailByAppointmentId = (
     dispatch(AppointmentDetailActions.appointmentApprovaldDetailFetchingStart())
     try {
         const response = await Axios.getWithPathVariables(path, appointmentId)
+        let dataWithFileUri = response.data
+        dataWithFileUri.fileUri = await MinioMiddleware.fetchPresignedUrlForGetOperation(dataWithFileUri.fileUri)
         dispatch(
             AppointmentDetailActions.appointmentApprovalDetailFetchingSuccess(
-                response.data
+                dataWithFileUri
             )
         )
     } catch (e) {
@@ -138,8 +148,14 @@ export const fetchAppointmentLogList = (
     dispatch(AppointmentDetailActions.appointmentLogFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.appointmentLogs,
+            pagination.page, pagination.size);
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
         dispatch(
-            AppointmentDetailActions.appointmentLogFetchingSuccess(response.data)
+            AppointmentDetailActions.appointmentLogFetchingSuccess({
+                ...response.data,
+                appointmentLogs: dataWithPresignedUrl
+            })
         )
     } catch (e) {
         console.log(e)
@@ -159,8 +175,9 @@ export const fetchAppointmentStatusList = (path, data) => async dispatch => {
     dispatch(AppointmentDetailActions.appointmentStatusFetchingStart())
     try {
         const response = await Axios.put(path, data)
+        let dataWithFileUri = await MinioMiddleware.getDataListWithPresignedFileUri(response.data.doctorInfo, 'fileUri')
         dispatch(
-            AppointmentDetailActions.appointmentStatusFetchingSuccess(response.data)
+            AppointmentDetailActions.appointmentStatusFetchingSuccess({...response.data, doctorInfo: dataWithFileUri})
         )
         return response.data
     } catch (e) {
@@ -172,12 +189,22 @@ export const fetchAppointmentStatusList = (path, data) => async dispatch => {
     }
 }
 
+const getDepartmentAndDoctorInfosWithPresignedUrl = async hospitalDeptAndDoctorInfo => {
+    const doctorInfoWithPresignedUrl = hospitalDeptAndDoctorInfo.map(async hospitalDeptAndDoctor => {
+        hospitalDeptAndDoctor.doctorInfo = await MinioMiddleware.getDataListWithPresignedFileUri(hospitalDeptAndDoctor.doctorInfo, 'fileUri')
+        return hospitalDeptAndDoctor;
+    })
+    return Promise.all(doctorInfoWithPresignedUrl)
+}
+
 export const fetchAppointmentStatusListByDepartment = (path, data) => async dispatch => {
     dispatch(AppointmentDetailActions.appointmentStatusByDepartmentSearchPending())
     try {
         const response = await Axios.put(path, data)
+        const doctorInfoWithPresignedUrl = await getDepartmentAndDoctorInfosWithPresignedUrl(response.data.hospitalDeptAndDoctorInfo)
         dispatch(
-            AppointmentDetailActions.appointmentStatusByDepartmentSearchSuccess(response.data)
+            AppointmentDetailActions.appointmentStatusByDepartmentSearchSuccess(
+                {...response.data, hospitalDeptAndDoctorInfo: doctorInfoWithPresignedUrl})
         )
         return response.data
     } catch (e) {
@@ -223,7 +250,7 @@ export const appointmentRejectRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundRejectError(
-                e.errorMessage || 'Sorry Internal Server Problem'
+                e.errorMessage || e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -241,7 +268,7 @@ export const appointmentRefund = (path, data) => async dispatch => {
     } catch (e) {
         dispatch(
             AppointmentDetailActions.appointmentRefundError(
-                e.errorMessage ? e.errorMessage : 'Sorry Internal Server Problem'
+                e.errorMessage || e.message || 'Sorry Internal Server Problem'
             )
         )
         throw e
@@ -268,7 +295,13 @@ export const searchRescheduleLog = (
             paginationData,
             searchParam
         )
-        dispatch(AppointmentDetailActions.searchRescheduleSuccess(response.data))
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.appointmentRescheduleLogDTOS,
+            paginationData.page, paginationData.size);
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
+        dispatch(AppointmentDetailActions.searchRescheduleSuccess({
+            ...response.data,
+            appointmentRescheduleLogDTOS: dataWithPresignedUrl
+        }))
         return response.data
     } catch (e) {
         dispatch(
@@ -329,6 +362,7 @@ export const fetchAppointmentRefundDetailByAppointmentId = (
     } catch (e) {
         dispatch(AppointmentDetailActions.appointmentRefundDetailFetchingError(
             e.errorMessage ? e.errorMessage : 'Sorry,Internal Server problem!'))
+            throw e;
     }
 }
 
@@ -344,8 +378,14 @@ export const fetchTransactionLogList = (
     dispatch(AppointmentDetailActions.transactionLogFetchingStart())
     try {
         const response = await Axios.putWithPagination(path, pagination, data)
+        let dataWithSn = CommonUtils.appendSerialNumberToDataList(response.data.transactionLogs,
+            pagination.page, pagination.size);
+        const dataWithPresignedUrl = await MinioMiddleware.getDataListWithPresignedFileUri(dataWithSn, "fileUri");
         dispatch(
-            AppointmentDetailActions.transactionLogFetchingSuccess(response.data)
+            AppointmentDetailActions.transactionLogFetchingSuccess({
+                ...response.data,
+                transactionLogs: dataWithPresignedUrl
+            })
         )
     } catch (e) {
         console.log(e)
@@ -359,4 +399,18 @@ export const fetchTransactionLogList = (
 
 export const clearTransactionLogMessage = () => async dispatch => {
     dispatch(AppointmentDetailActions.clearTransactionLogMessage())
+}
+
+
+export const fetchDepartmentAppointmentStatusCount = (path, data) => async dispatch => {
+    dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentPending())
+    try {
+        const response = await Axios.put(path, data);
+        dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentSuccess(response.data))
+        return response.data;
+    } catch (e) {
+        dispatch(AppointmentDetailActions.fetchAppointmentStatusCountByDepartmentError(
+            e.errorMessage || 'Sorry Internal Server Problem'))
+        throw e
+    }
 }

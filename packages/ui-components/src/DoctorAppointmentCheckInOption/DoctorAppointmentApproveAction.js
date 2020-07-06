@@ -26,13 +26,13 @@ const DoctorApproveTableAction = props => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {checkIfRoleExists(props.filteredAction, 23) && (
-            <Dropdown.Item onClick={e => saveActionInSession(e, 23, 'E')}>
+          {checkIfRoleExists(props.filteredAction, 20) && (
+            <Dropdown.Item onClick={e => saveActionInSession(e, 20, 'E')}>
               <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
           )}
-          {checkIfRoleExists(props.filteredAction, 24) && (
-            <Dropdown.Item onClick={e => saveActionInSession(e, 24, 'P')}>
+          {checkIfRoleExists(props.filteredAction, 21) && (
+            <Dropdown.Item onClick={e => saveActionInSession(e, 21, 'P')}>
               <i className="fa fa-exchange"></i>&nbsp; Transfer{' '}
             </Dropdown.Item>
           )}

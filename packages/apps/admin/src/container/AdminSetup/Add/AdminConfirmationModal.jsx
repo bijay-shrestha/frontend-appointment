@@ -2,12 +2,13 @@ import React from 'react';
 import {CButton, CModal} from "@frontend-appointment/ui-elements";
 import AdminDetailsModalContent from "../commons/AdminDetailsModalContent";
 
-const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading}) => {
+const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfirmClick, adminImage, isCreateAdminLoading, isImageLoading}) => {
     return <>
         <CModal
             show={showModal}
             modalHeading="Client Admin Details"
             size="lg"
+            backdrop={'static'}
             bodyChildren={<AdminDetailsModalContent adminInfoObj={adminInfoObj} adminImage={adminImage}/>}
             onHide={setShowModal}
             centered={false}
@@ -18,8 +19,8 @@ const AdminConfirmationModal = ({showModal, setShowModal, adminInfoObj, onConfir
                     variant="primary"
                     size="xl"
                     name="Confirm"
-                    disabled={isCreateAdminLoading}
-                    isLoading={isCreateAdminLoading}
+                    disabled={isCreateAdminLoading || isImageLoading}
+                    isLoading={isCreateAdminLoading || isImageLoading}
                     className="float-right btn-action"
                     onClickHandler={onConfirmClick}/>}
             closeButton={true}

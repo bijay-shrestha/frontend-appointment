@@ -1,0 +1,313 @@
+@import "~bootstrap/scss/functions";
+
+//custom colors
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-variables";
+
+// // Customized Bootstrap variables
+@import "~@frontend-appointment/common-sass-client/src/scss/variables/custom-bootstrap-variable";
+@import "~bootstrap/scss/mixins";
+
+#quick-appointment-approval {
+    // .appointment-badge {
+    //     float : right;
+    //     margin: 10px 0;
+
+    //     &>span {
+    //         margin-right: 20px;
+    //         height      : auto;
+    //         line-height : 40px;
+
+    //         &:last-child {
+    //             margin-right: 0;
+    //         }
+    //     }
+
+    // }
+
+    // .badge {
+    //     width         : 35px;
+    //     height        : 35px;
+    //     // top        :50%;
+    //     // left       :50%;
+    //     // transform  :translate(-50%,-50%);
+    //     text-align    : center;
+    //     vertical-align: middle;
+    //     font-size     : 16px;
+    //     line-height   : 22px;
+    //     padding       : 6px;
+    //     @include border-radius(50%);
+    // }
+
+    .react-datepicker-wrapper {
+        width: 50%;
+        // padding-left: 4px;
+    }
+
+    @media (max-width: 1199px) {
+        .hide-on-md {
+            display: none;
+        }
+    }
+}
+
+.patient-box {
+    //border:1px solid $gray-300;
+    @include border-radius(0.5rem);
+    padding: 15px 0;
+    margin: 0 -15px 15px;
+}
+
+.box {
+    // border:1px solid $gray-300;
+    // @include border-radius(0.5rem);
+    // margin:10px;
+    padding: 15px 0;
+    min-height: 510px;
+}
+
+.box-1 {
+    @include border-radius(0.5rem);
+    //border-right:1px solid $gray-400;
+    background-color: $gray-100;
+}
+
+.doctor-box {
+    border: 1px solid $gray-300;
+    @include border-radius(4px);
+    background-color: #f8f9fa;
+    padding: 27px 8px;
+    margin-bottom: 35px;
+    position: relative;
+
+    .doctor-label {
+        color: #6c757d !important;
+        position: absolute;
+        top: -8px;
+        left: 12px;
+        z-index: 2;
+        background-color: white;
+        font-size: 0.65rem;
+        padding: 0 5px;
+        border-radius: 4px;
+    }
+
+    .di-column {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .data-image {
+            margin-top: 2px;
+            width: 55px;
+            height: 55px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            line-height: 30px;
+            //    @include border-radius(4px !important) ;
+
+            img {
+                width: 100%;
+                height: auto;
+                //    @include border-radius(4px !important) ;
+            }
+        }
+
+        .di-details {
+            margin: 0;
+            li {
+                line-height: 20px;
+
+                &:nth-child(2) {
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    line-height: 20px;
+                    font-weight: $gray-300;
+                    color: $gray-600;
+                }
+            }
+        }
+    }
+}
+
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .appt-search {
+        width: 55%;
+        height: 42px;
+
+        .form-control {
+            height: 42px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .field-wrapper .field-placeholder {
+            font-size: 0.9rem;
+            font-weight: 500;
+
+            span {
+                font-size: 0.8rem;
+                font-weight: 500;
+
+                @include border-radius(3px);
+            }
+        }
+    }
+
+    .btn-action {
+        width: calc(25% - 10px);
+        margin-left: 10px;
+        padding: 0;
+        height: 42px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        background-color: darken($primary, 10%);
+
+        .fa-sign-in {
+            color: $white !important;
+        }
+    }
+
+    .btn-reset {
+        width: calc(20% - 10px);
+        margin-left: 10px;
+        height: 42px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        // background-color: darken($primary,10%);
+
+        .fa-sign-in {
+            color: $white !important;
+        }
+    }
+}
+
+.quick-checkin {
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    color: $gray-700;
+    @include border-radius(50%);
+    background-color: transparent;
+    border: none;
+    .fa-sign-in {
+        color: $gray-700;
+        // color:$white !important;
+        font-size: 20px;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $white;
+        color: $primary;
+    }
+}
+
+.quick-search {
+    background-color: $white;
+    margin: 0;
+    padding: 4px 0;
+    @include border-radius(0.5rem);
+}
+
+.quick-checkin-table {
+    font-size: 14px;
+
+    .ag-header {
+        font-weight: 500;
+        text-transform: capitalize;
+        font-size: 14px;
+        letter-spacing: 0.02rem;
+
+        border: none;
+        border-bottom: 1px solid $gray-200;
+        // color      :$gray-800;
+    }
+}
+
+.btn-clip {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: $primary;
+}
+.clip {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: -20px;
+    padding: 0px 0 20px;
+    align-items: center;
+
+    .fa-check-circle {
+        color: lighten($success, 20%);
+        font-size: 80px;
+        margin-bottom: 20px;
+    }
+
+    p.load-title {
+        margin-top: 10px;
+        margin-bottom: 28px;
+        color: $success;
+        display: block;
+        font-size: 16px;
+    }
+}
+
+.clip-alert {
+    // background-color: $white;
+    padding: 15px 0px 20px 20px;
+    // .close {
+    //     color: $success;
+    // }
+    // p {
+    //     color: $success;
+    // }
+
+    .close {
+        padding-top: 1rem;
+    }
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.quick-confirm {
+    max-width: 600px;
+
+    h2 {
+        margin-bottom: 24px;
+    }
+
+    .modal-body {
+        padding: 40px;
+        padding-top: 30px;
+        margin-top: -22px;
+    }
+    .modal-content {
+        .modal-header {
+            padding-top: 15px;
+        }
+
+        .modal-header .close {
+            margin:0;
+            margin-left:auto;
+        }
+    
+        .modal-body{
+            padding:40px;
+            padding-top:30px;
+            margin-top:-22px;
+        }
+    }
+}

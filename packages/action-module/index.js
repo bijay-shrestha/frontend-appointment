@@ -70,7 +70,9 @@ import {
     billingModeActionConstants,
     BillingModeActions,
     appointmentServiceTypeActionConstants,
-    AppointmentServiceTypeAction
+    AppointmentServiceTypeAction,
+    FavouritesActions,
+    favouritesActionConstants
 } from './src/admin-module'
 
 export {
@@ -143,5 +145,7 @@ export {
     appointmentServiceTypeActionConstants,
     AppointmentServiceTypeAction,
     SalutationAction,
-    salutationActionConstants
+    salutationActionConstants,
+    FavouritesActions,
+    favouritesActionConstants
 }

@@ -205,6 +205,8 @@ import {
 
 import {AppointmentServiceTypeDropdownReducer} from './admin-module/appointmentServiceTypeReducer';
 
+import {FavouritesReducers} from './admin-module/favouritesReducer'
+
 export {
     AdminApiIntegrationReducers,
     AppointmenStatusByDepartmentListReducer,
@@ -278,6 +280,7 @@ export {
     DoctorSaveReducer,
     DoctorSearchReducer,
     ForgotPasswordVerification,
+    FavouritesReducers,
     HospitalDeleteReducer,
     HospitalDropdownReducer,
     HospitalEditReducer,

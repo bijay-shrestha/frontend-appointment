@@ -125,8 +125,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
     searchAppointmentServiceType = async () => {
       await this.props.fetchActiveAppointmentServiceTypeWithCode(
-        AdminModuleAPIConstants.appointmentServiceTypeApiConstants
-          .FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE
+        AdminModuleAPIConstants.hospitalSetupApiConstants
+          .HOSPITAL_API_SERVICE_TYPE
       )
     }
 
@@ -205,7 +205,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
           } else {
             searchParams['doctorId'] = ''
             searchParams['specializationId'] = ''
-          }  
+          }
         await this.setStateValuesForSearch(searchParams)
 
         // if (fieldName === 'hospitalId') {
@@ -353,7 +353,7 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((rescheduleData, index) => ({
           ...rescheduleData,
-          sN: index + 1,
+          // sN: index + 1,
           appointmentAmount: rescheduleData.appointmentAmount || 'N/A',
           appointmentNumber: rescheduleData.appointmentNumber || 'N/A',
           doctorName: rescheduleData.doctorName || 'N/A',

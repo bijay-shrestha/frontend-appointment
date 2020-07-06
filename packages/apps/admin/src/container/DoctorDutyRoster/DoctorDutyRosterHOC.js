@@ -1475,7 +1475,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 createdBy,
                 createdDate,
                 lastModifiedBy,
-                lastModifiedDate
+                lastModifiedDate,
+                fileUri
             } = doctorDutyRosterInfo && doctorDutyRosterInfo
 
             return {
@@ -1484,7 +1485,8 @@ const DoctorDutyRosterHOC = (ComposedComponent, props, type) => {
                 specialization: {label: specializationName, value: specializationId},
                 doctor: {
                     label: doctorSalutation ? doctorSalutation.concat(' '.concat(doctorName)) : doctorName,
-                    value: doctorId
+                    value: doctorId,
+                    fileUri: fileUri
                 },
                 rosterGapDuration: rosterGapDuration,
                 fromDate: new Date(fromDate),

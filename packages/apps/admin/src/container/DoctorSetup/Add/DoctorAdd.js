@@ -38,7 +38,8 @@ function DoctorAdd(props) {
              errorMessageForAppointmentCharge,
              emailValid,
              createConsultantLoading,
-             salutationList
+             salutationList,
+             isImageUploading
          }) => (
             <div className="">
                 <Container className="bg-white add-container " fluid>
@@ -98,6 +99,7 @@ function DoctorAdd(props) {
                                 type="A"
                                 doctorImageCroppedUrl={doctorImageCroppedUrl}
                                 createConsultantLoading={createConsultantLoading}
+                                isImageUploading={isImageUploading}
                             />
                         </Col>
                     </Row>

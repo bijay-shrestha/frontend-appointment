@@ -1,5 +1,6 @@
 import {APIUtils} from '@frontend-appointment/helpers'
 import {Axios} from '@frontend-appointment/core'
+import {fetchHmacTokenByAppointmentId} from '../hmac-middleware/hmacMiddleware';
 
 export const genericThirdPartyApiCall = async (data,
                                                featureTypeCode,
@@ -8,7 +9,7 @@ export const genericThirdPartyApiCall = async (data,
                                                constructedData,
                                                pathVariablePattern,
                                                pathVariableValue,
-                                               hmacCode) => {
+                                               hmacPath) => {
 
     let currentFeatureApiIntegrationDetails = integrationType.substring(0, 3) === "e-c" ?
         APIUtils.getCurrentClientFeatureApiIntegrationDetails(integrationType, featureTypeCode, clientId) :
@@ -18,7 +19,7 @@ export const genericThirdPartyApiCall = async (data,
             data.appointmentModeId,
             pathVariablePattern,
             pathVariableValue,
-            hmacCode,
+            hmacPath,
             clientId)
 
     let apiRequestBody = {
@@ -30,13 +31,18 @@ export const genericThirdPartyApiCall = async (data,
     if (currentFeatureApiIntegrationDetails &&
         APIUtils.checkIntegrationChannelIsFrontend(currentFeatureApiIntegrationDetails.integrationChannelCode)) {
         /********************************* CONSTRUCT AND EXECUTE API ***************************************************/
-        const option = APIUtils.constructApiFromEcIntegration(
+        let option = APIUtils.constructApiFromEcIntegration(
             featureTypeCode,
             currentFeatureApiIntegrationDetails,
             constructedData)
         let response = null;
         try {
             if (option) {
+                if(featureTypeCode==='REFUND'||featureTypeCode==='PAYMENT_STATUS'){
+                const hmacCode = await fetchHmacTokenByAppointmentId(hmacPath, constructedData.properties.appointmentId)
+                option.requestOption.headers.signature = hmacCode;
+                }
+                console.log("====option",option)
                 response = await Axios.dynamicMethod(option.requestOption)
                 return {successResponse: response.data, apiRequestBody};
             }

@@ -1,8 +1,10 @@
-import React, {Component} from 'react'
-import {Button, Dropdown, Image, OverlayTrigger, Tooltip} from 'react-bootstrap'
-import {Axios} from '@frontend-appointment/core'
-import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
-import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
+import React, { Component } from 'react'
+import { Button, Dropdown, Image, OverlayTrigger, Tooltip } from 'react-bootstrap'
+import { Axios } from '@frontend-appointment/core'
+import { CAlert, CBreadcrumb, CDoubleShiftSearch } from '@frontend-appointment/ui-elements'
+import { CFavourites } from '@frontend-appointment/ui-components'
+
+import { AdminModuleAPIConstants, CommonAPIConstants } from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
 import {
     EnvironmentVariableGetter,
@@ -17,12 +19,12 @@ import PreviewClientProfileRoles from '../../PreviewClientProfileRoles'
 const {
     CHANGE_COMPANY_ADMIN_PASSWORD
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
-const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants
-const {FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants
+const { CHANGE_PASSWORD } = AdminModuleAPIConstants.adminSetupAPIConstants
+const { FETCH_PROFILE_DETAILS } = AdminModuleAPIConstants.profileSetupAPIConstants
 const {
     PREVIEW_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
-const {ADMIN_FEATURE, LOGOUT_API} = CommonAPIConstants
+const { ADMIN_FEATURE, LOGOUT_API } = CommonAPIConstants
 
 class CHeader extends Component {
     state = {
@@ -40,7 +42,8 @@ class CHeader extends Component {
         keyPressCount: 0,
         isPasswordChangePending: false,
         profileData: {},
-        showProfileDetailModal: false
+        showProfileDetailModal: false,
+        isLogoutPending : false,
     }
 
     closeAlert = () => {
@@ -57,7 +60,7 @@ class CHeader extends Component {
         })
 
     onChangeHandler = event => {
-        let {name, value} = event.target
+        let { name, value } = event.target
         this.setState({
             [name]: value
         })
@@ -66,17 +69,21 @@ class CHeader extends Component {
     savePinOrUnpinUserMenu = async (path, status) => {
         console.log('Status', status)
         try {
-            await Axios.put(path, {isSideBarCollapse: !status ? 'Y' : 'N'})
+            await Axios.put(path, { isSideBarCollapse: !status ? 'Y' : 'N' })
         } catch (e) {
             return true
         }
     }
     logoutApi = async path => {
+        this.setState({isLogoutPending:true})
         try {
             await Axios.get(path)
+            this.setState({isLogoutPending:false})
         } catch (e) {
+            this.setState({isLogoutPending:false})
             return true
         }
+
     }
 
     logoutUser = async () => {
@@ -100,7 +107,7 @@ class CHeader extends Component {
         // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
 
         await this.setState({
-            userInfo: {...adminInfo},
+            userInfo: { ...adminInfo },
             // assignedModules: modules && [...modules],
             urlBase: base
         })
@@ -251,26 +258,18 @@ class CHeader extends Component {
                                 breadcrumbData={this.props.dataForBreadCrumb}
                             />
                         </div>
-
-
                         {/*search start*/}
                         <div className="header-content-right d-flex align-items-center">
-                            <CDoubleShiftSearch/>
+                            <CDoubleShiftSearch />
 
                             {/* end search */}
-                            <div className="fav-links" onClick={this.handleQuickLinkClick}>
-                                <OverlayTrigger
-                                    trigger={'hover'}
-                                    placement="left"
-                                    overlay={
-                                        <Tooltip id="tooltip-disabled">Quick Check-In</Tooltip>}>
-                                    <span className="d-inline-block">
-                                        <Button style={{pointerEvents: 'none'}} variant="outline-primary">
-                                             <i className="fa fa-bookmark"></i>
-                                        </Button>
-                                    </span>
-                                </OverlayTrigger>
+
+                            <div className="fav-links">
+                                <CFavourites
+                                //  {...this.props}
+                                />
                             </div>
+
 
                             {/* start user profile */}
                             <Dropdown alignRight className="user-profile">
@@ -304,16 +303,16 @@ class CHeader extends Component {
                                             placement="left"
                                             overlay={<Tooltip id="tooltip-disabled">Profile</Tooltip>}
                                         >
-                    <span className="d-inline-block">
-                      <div
-                          className="profile-name"
-                          onClick={this.handleViewProfileDetails}
-                      >
-                        <i className="fa fa-id-badge"></i>{' '}
-                          {this.state.userInfo && this.state.userInfo.profileName}
-                      </div>
-                        {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
-                    </span>
+                                            <span className="d-inline-block">
+                                                <div
+                                                    className="profile-name"
+                                                    onClick={this.handleViewProfileDetails}
+                                                >
+                                                    <i className="fa fa-id-badge"></i>{' '}
+                                                    {this.state.userInfo && this.state.userInfo.profileName}
+                                                </div>
+                                                {/* <Button variant="secondary">Tooltip on {placement}</Button> */}
+                                            </span>
                                         </OverlayTrigger>
 
                                         {/*{this.state.userInfo.isCompany === 'Y' ? (*/}
@@ -337,14 +336,22 @@ class CHeader extends Component {
                                             onClick={this.handleChangePassword}
                                             block
                                         >
-                                            <i className="fa fa-lock"/> Change Password
+                                            <i className="fa fa-lock" /> Change Password
                                         </Button>
                                         <Button
                                             variant="outline-primary"
                                             onClick={this.logoutUser}
+                                            disabled={this.state.isLogoutPending}
                                             block
                                         >
-                                            <i className="fa fa-sign-out"/> Logout
+                                            <i className="fa fa-sign-out" />&nbsp;
+                                        {this.state.isLogoutPending ?
+                                             <span className="saving"> Loging Out <img
+                                                      alt="three-dots"  src={require("../../img/three-dots.svg")}/></span> :
+                                                    "Logout"
+                                                }
+                                          
+                                           
                                         </Button>
                                     </div>
                                     {this.state.showChangePasswordModal && (
@@ -363,32 +370,30 @@ class CHeader extends Component {
                             {/* end user profile */}
                         </div>
                     </header>
-
-                    <div className="container-fluid d-flex  ">
-
-                    </div>
                 </div>
+
+
                 {/* <!--end header-wrapper--> */}
                 {this.state.showProfileDetailModal ? (
                     EnvironmentVariableGetter.REACT_APP_MODULE_CODE ===
-                    EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
-                        <CompanyProfilePreviewRoles
-                            showModal={this.state.showProfileDetailModal}
-                            setShowModal={this.closeProfileDetailsViewModal}
-                            profileData={this.state.profileData}
-                            rolesJson={menuRoles}
-                        />
-                    ) : (
-                        <PreviewClientProfileRoles
-                            showModal={this.state.showProfileDetailModal}
-                            setShowModal={this.closeProfileDetailsViewModal}
-                            profileData={this.state.profileData}
-                            rolesJson={menuRoles}
-                        />
-                    )
+                        EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
+                            <CompanyProfilePreviewRoles
+                                showModal={this.state.showProfileDetailModal}
+                                setShowModal={this.closeProfileDetailsViewModal}
+                                profileData={this.state.profileData}
+                                rolesJson={menuRoles}
+                            />
+                        ) : (
+                            <PreviewClientProfileRoles
+                                showModal={this.state.showProfileDetailModal}
+                                setShowModal={this.closeProfileDetailsViewModal}
+                                profileData={this.state.profileData}
+                                rolesJson={menuRoles}
+                            />
+                        )
                 ) : (
-                    ''
-                )}
+                        ''
+                    )}
                 <CAlert
                     id="profile-manage"
                     variant={this.state.alertMessageInfo.variant}
@@ -397,13 +402,13 @@ class CHeader extends Component {
                     alertType={
                         this.state.alertMessageInfo.variant === 'success' ? (
                             <>
-                                <Material.MdDone/>
+                                <Material.MdDone />
                             </>
                         ) : (
-                            <>
-                                <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
-                            </>
-                        )
+                                <>
+                                    <i className="fa fa-exclamation-triangle" aria-hidden="true" />
+                                </>
+                            )
                     }
                     message={this.state.alertMessageInfo.message}
                 />

@@ -269,6 +269,21 @@ const QualificationAlias = loadable(
   {fallback: () => getLoader()}
 )
 
+const DoctorQuickCheckInComponent = loadable(
+  () =>
+    import(
+      './container/AdminAppointmentCheckinQuickMenu/AdminAppointmentCheckinFast'
+    ),
+  {fallback: () => getLoader()}
+)
+const DepartmentQuickCheckInComponent = loadable(
+  () =>
+    import(
+      './container/AdminAppointmentDepartmentCheckinQuickMenu/AdminAppointmentDepartmentCheckinFast'
+    ),
+  {fallback: () => getLoader()}
+)
+
 /* ****** R ***** */
 
 const RescheduleLog = loadable(
@@ -718,16 +733,6 @@ export const routes = [
     isSingleTab: true
   },
   {
-    path: '/admin/appointment/appointmentStatus',
-    component: AppointmentStatusComponent,
-    icon: '',
-    hasTab: false,
-    isLink: true,
-    isTab: false,
-    name: 'Appointment Status',
-    isSingleTab: true
-  },
-  {
     path: '/admin/appointment',
     component: <></>,
     icon: '',
@@ -1039,13 +1044,63 @@ export const routes = [
     isSingleTab: true
   },
   {
-    path: '/admin/appointment/appointmentStatusByDepartment',
-    name: 'Department Appointment Status',
+    path: '/admin/appointment/status',
+    component: <></>,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: false,
+    name: 'Appointment Status',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/appointment/status/doctor',
+    component: AppointmentStatusComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Doctor Consultation',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/appointment/status/department',
     component: DepartmentStatusComponent,
+    icon: '',
+    hasTab: true,
+    isLink: true,
+    isTab: true,
+    name: 'Department Consultation',
+    isSingleTab: false
+  },
+  {
+    path: '/quickMenu',
+    component: <></>,
+    icon: '',
+    hasTab: false,
+    isLink: false,
+    isTab: false,
+    name: 'Quick Menu',
+    isSingleTab: false
+  },
+  {
+    path: '/admin/quickMenu/doctorCheckIn',
+    component: DoctorQuickCheckInComponent,
     icon: '',
     hasTab: false,
     isLink: true,
     isTab: false,
+    name: 'Admin Doctor Quick Check-In',
+    isSingleTab: true
+  },
+  {
+    path: '/admin/quickMenu/departmentCheckIn',
+    component: DepartmentQuickCheckInComponent,
+    icon: '',
+    hasTab: false,
+    isLink: true,
+    isTab: false,
+    name: 'Admin Department Quick Check-In',
     isSingleTab: true
   }
 ]

@@ -68,6 +68,11 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             previewData: {},
             refundRejectRequestDTO: {
                 appointmentId: '',
+                hospitalId:'',
+                appointmentModeId:'',
+                status:'',
+                featureCode:'',
+                integrationChannelCode:'',
                 remarks: ''
             },
             alertMessageInfo: {
@@ -170,7 +175,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                     // remarks: spec.remarks || 'N/A',
                     appointmentMode: spec.appointmentMode,
                     mobileNumber: spec.mobileNumber,
-                    sN: index + 1
+                    // sN: index + 1
                 }));
             return newRefundList
         };
@@ -292,7 +297,8 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             this.setState(prevState => ({
                 showModal: false,
                 rejectModalShow: false,
-                refundConfirmationModal: false
+                refundConfirmationModal: false,
+                isConfirming:false
             }))
         };
 
@@ -302,6 +308,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                 refundConfirmationModal: true,
                 refundAppointmentId: data.appointmentId
             })
+
         };
 
         refundHandleApi = async () => {
@@ -313,15 +320,15 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             const {appointmentId, appointmentModeId} = refundDetail;
             let requestDTO;
             try {
-                let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
-                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
-                    appointmentId);
+                // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+                //     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+                //     appointmentId);
                 const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
                     {...refundDetail, remarks},
                     IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
                     IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
                     true,
-                    hmacCode
+                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
                 );
                 requestDTO = {
                     appointmentId: appointmentId,
@@ -363,51 +370,134 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
             }
         };
 
+        refundRejectApi = async () =>{
+            const {refundDetail} = this.props.AppointmentRefundDetailReducer;
+            const {remarks} = this.state;
+            this.setState({
+                isConfirming: true
+            })
+            const {appointmentId, appointmentModeId} = refundDetail;
+            let requestDTO;
+            try {
+                // let hmacCode = await this.props.fetchHmacTokenByAppointmentId(
+                //     hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID,
+                //     appointmentId);
+                const {successResponse, apiRequestBody} = await thirdPartyApiCallRefund(
+                    {...refundDetail, remarks},
+                    IntegrationConstants.apiIntegrationFeatureTypeCodes.APPOINTMENT_REFUND_APPROVAL_CODE,
+                    IntegrationConstants.apiIntegrationKey.APPOINTMENT_MODE_FEATURE_INTEGRATION,
+                    false,
+                    hmacApiConstants.FETCH_HMAC_CODE_BY_APPOINTMENT_ID
+                );
+                requestDTO = {
+                    appointmentId: appointmentId,
+                    appointmentModeId: appointmentModeId,
+                    status: "",
+                    remarks: this.state.refundRejectRequestDTO.remarks,
+                    ...apiRequestBody
+                }
+                if (!successResponse) {
+                    this.rejectSubmitHandler(requestDTO)
+                } else if (successResponse.status && !successResponse.message && !successResponse.code) {
+                    requestDTO.status = successResponse.status
+                    this.rejectSubmitHandler(requestDTO)
+                } else {
+                    this.setState({
+                        thirdPartyApiErrorMessage: successResponse.message,
+                        isConfirming: false,
+                        refundConfirmationModal: false,
+                        showAlert: true,
+                        alertMessageInfo: {
+                            variant: 'danger',
+                            message: successResponse.message
+                                || "Could not access third party api."
+                        }
+                    })
+                }
+            } catch (e) {
+                this.setState({
+                    isConfirming: false,
+                    refundConfirmationModal: false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message:
+                            this.props.AppointmentRefundReducer.refundError ||
+                            e.message || e.errorMessage || "Could not access third party api."
+                    }
+                })
+            }
+        }
+
         refundAppointment = async data => {
             try {
                 await this.props.appointmentRefund(
                     appointmentSetupApiConstant.APPOINTMENT_REFUND_BY_ID,
                     data
                 )
+               // this.setShowModal();
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.AppointmentRefundReducer.refundSuccess
-                    }
+                    },
+                    remarks:''
                 })
                 this.searchAppointment()
             } catch (e) {
+               // this.setShowModal();
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'danger',
                         message: this.props.AppointmentRefundReducer.refundError
-                    }
+                    },
+                    remarks:''
                 })
             } finally {
                 this.setShowModal()
             }
         }
 
-        rejectSubmitHandler = async () => {
+        rejectSubmitHandler = async (requestDTO) => {
+            let refundRejectRequestDTO = this.state.refundRejectRequestDTO;
+                refundRejectRequestDTO['remarks']=''
             try {
                 await this.props.appointmentRejectRefund(
                     appointmentSetupApiConstant.APPOINTMENT_REJECT_REFUND,
-                    this.state.refundRejectRequestDTO
+                    requestDTO
                 );
-                this.setShowModal();
+
+
                 this.setState({
+                    isConfirming:false,
                     showAlert: true,
                     alertMessageInfo: {
                         variant: 'success',
                         message: this.props.AppointmentRefundRejectReducer
-                            .refundRejectSuccess
-                    }
+                            .refundRejectSuccess,
+                    },
+                    refundRejectRequestDTO:refundRejectRequestDTO
                 });
                 this.searchAppointment()
+
             } catch (e) {
+                this.setState({
+                    isConfirming:false,
+                    showAlert: true,
+                    alertMessageInfo: {
+                        variant: 'danger',
+                        message: this.props.AppointmentRefundRejectReducer
+                            .refundRejectError,
+                    },
+                    refundRejectRequestDTO:refundRejectRequestDTO
+                });
                 console.log(e)
+            }finally{
+                this.setShowModal();
             }
         };
 
@@ -423,7 +513,7 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
         onRejectHandler = async data => {
             this.props.clearAppointmentRefundRejectMessage();
             let refundReject = {...this.state.refundRejectRequestDTO};
-            refundReject['appointmentId'] = data.appointmentId;
+            await this.previewApiCall(data.appointmentId);
             await this.setState({
                 refundRejectRequestDTO: refundReject,
                 rejectModalShow: true
@@ -510,12 +600,13 @@ const AppointRefundHOC = (ComposedComponent, props, type) => {
                             showModal: showModal,
                             previewCall: this.previewCall,
                             previewData: refundDetail,
-                            rejectSubmitHandler: this.rejectSubmitHandler,
+                            rejectSubmitHandler: this.refundRejectApi,
                             refundRejectRemarksHandler: this.refundRejectRemarksHandler,
                             onRejectHandler: this.onRejectHandler,
                             refundHandler: this.refundHandler,
                             refundHandleApi: this.refundHandleApi,
                             refundRejectError: refundRejectError,
+                            isRejectLoading:isConfirming,
                             isRefundLoading: isConfirming,
                             refundConfirmationModal: refundConfirmationModal,
                             rejectModalShow: rejectModalShow,

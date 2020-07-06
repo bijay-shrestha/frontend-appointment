@@ -26,8 +26,8 @@ const DepartmentApproveTableAction = props => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {checkIfRoleExists(props.filteredAction, 19) && (
-            <Dropdown.Item onClick={e => saveActionInSession(e, 19, 'E')}>
+          {checkIfRoleExists(props.filteredAction, 27) && (
+            <Dropdown.Item onClick={e => saveActionInSession(e, 27, 'E')}>
               <i className="fa fa-sign-in"></i>&nbsp; Check-In{' '}
             </Dropdown.Item>
           )}

@@ -3,7 +3,7 @@ import {Badge, Col, Row, Button} from 'react-bootstrap'
 import {appointmentStatusListForAppontmentAndTransaction} from '@frontend-appointment/helpers'
 const AppointmentStatusBadges = props => {
   const {activeStatus, handleStatusChange} = props
-  console.log('handle', handleStatusChange)
+  // console.log('handle', handleStatusChange)
   return (
     <>
       <Row>

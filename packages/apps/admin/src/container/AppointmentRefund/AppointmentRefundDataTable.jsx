@@ -29,6 +29,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
         totalRefundAmount,
         isRefundLoading,
         remarks,
+        isRejectLoading,
         handleInputChange
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
@@ -213,6 +214,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                     remarks={rejectRemarks}
                     onSubmitDelete={rejectSubmitHandler}
                     deleteErrorMessage={refundRejectError}
+                    actionDisabled={isRejectLoading}
                 />
             ) : (
                 ''

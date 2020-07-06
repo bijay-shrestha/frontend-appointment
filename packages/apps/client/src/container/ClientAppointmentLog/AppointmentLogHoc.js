@@ -137,7 +137,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
         logList.length &&
         logList.map((spec, index) => ({
           ...spec,
-          sN: index + 1,
+          // sN: index + 1,
           status: spec.status || 'N/A',
           hospitalName: spec.hospitalName || 'N/A',
           appointmentDate: spec.appointmentDate || 'N/A',
@@ -303,8 +303,8 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
 
     searchAppointmentServiceType = async () => {
       await this.props.fetchActiveAppointmentServiceTypeWithCode(
-        AdminModuleAPIConstants.appointmentServiceTypeApiConstants
-          .FETCH_ACTIVE_APPOINTMENT_SERVICE_TYPE_WITH_CODE
+        AdminModuleAPIConstants.hospitalSetupApiConstants
+          .HOSPITAL_API_SERVICE_TYPE
       )
     }
 

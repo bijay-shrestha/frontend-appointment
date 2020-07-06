@@ -173,7 +173,7 @@
   },
   {
     "id": 18,
-    "name": "Doctor Appointment CheckIn",
+    "name": "Doctor Consultation",
     "status": "Y",
     "path": "/doctor",
     "parent_role_id": null,
@@ -184,28 +184,27 @@
   },
   {
     "id": 19,
-    "name": "Approve[Dept Appt. Check In]",
+    "name": "View [Doc. Consultation]",
     "status": "Y",
-    "parent_role_id": 20,
+    "parent_role_id": 18,
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false,
     "isSingleTab": false
-  },  
+  },
   {
-   "id": 20,
-   "name": "Department Appointment CheckIn",
-   "status": "Y",
-   "path": "/department",
-   "parent_role_id": null,
-   "role_type": "tab",
-   "tabOrder": 2,
-   "isChecked": false,
-   "isSingleTab": false
+    "id": 20,
+    "name": "Approve[Doc. Consultation]",
+    "status": "Y",
+    "parent_role_id": 18,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
   },
   {
     "id": 21,
-    "name": "View [Doc Appt. Check In]",
+    "name": "Transfer[Doc. Consultation]",
     "status": "Y",
     "parent_role_id": 18,
     "role_type": "action",
@@ -215,9 +214,9 @@
   },
   {
     "id": 22,
-    "name": "View [Dept Appt. Check In]",
+    "name": "Refund [Doc. Consultation]",
     "status": "Y",
-    "parent_role_id": 20,
+    "parent_role_id": 18,
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false,
@@ -225,7 +224,7 @@
   },
   {
     "id": 23,
-    "name": "Approve[Doc Appt. Check In]",
+    "name": "Reject[Doc. Consultation]",
     "status": "Y",
     "parent_role_id": 18,
     "role_type": "action",
@@ -235,7 +234,7 @@
   },
   {
     "id": 24,
-    "name": "Transfer[Doc Appt. Check In]",
+    "name": "Check[Doc. Consultation]",
     "status": "Y",
     "parent_role_id": 18,
     "role_type": "action",
@@ -245,18 +244,7 @@
   },
   {
     "id": 25,
-    "name": "Doctor Pending Refund Approval",
-    "status": "Y",
-    "path": "/doctor",
-    "parent_role_id": null,
-    "role_type": "tab",
-    "tabOrder": 1,
-    "isChecked": false,
-    "isSingleTab": false
-  },
-  {
-    "id": 26,
-    "name": "Department Pending Refund Approval",
+    "name": "Department Consultation",
     "status": "Y",
     "path": "/department",
     "parent_role_id": null,
@@ -266,8 +254,18 @@
     "isSingleTab": false
   },
   {
+    "id": 26,
+    "name": "View [Dept. Consultation]",
+    "status": "Y",
+    "parent_role_id": 25,
+    "role_type": "action",
+    "tabOrder": null,
+    "isChecked": false,
+    "isSingleTab": false
+  },
+  {
     "id": 27,
-    "name": "Refund [Doc. Refund]",
+    "name": "Approve[Dept. Consultation]",
     "status": "Y",
     "parent_role_id": 25,
     "role_type": "action",
@@ -277,7 +275,7 @@
   },
   {
     "id": 28,
-    "name": "Reject[Doc. Refund]",
+    "name": "Refund [Dept. Consultation]",
     "status": "Y",
     "parent_role_id": 25,
     "role_type": "action",
@@ -287,27 +285,7 @@
   },
   {
     "id": 29,
-    "name": "Refund [Dept. Refund]",
-    "status": "Y",
-    "parent_role_id": 26,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false,
-    "isSingleTab": false
-  },
-  {
-    "id": 30,
-    "name": "Reject[Dept. Refund]",
-    "status": "Y",
-    "parent_role_id": 26,
-    "role_type": "action",
-    "tabOrder": null,
-    "isChecked": false,
-    "isSingleTab": false
-  },
-  {
-    "id": 31,
-    "name": "View [Doc. Refund ",
+    "name": "Reject[Dept. Consultation]",
     "status": "Y",
     "parent_role_id": 25,
     "role_type": "action",
@@ -316,10 +294,10 @@
     "isSingleTab": false
   },
   {
-    "id": 32,
-    "name": "View [Dept. Refund]",
+    "id": 30,
+    "name": "Check[Dept. Consultation]",
     "status": "Y",
-    "parent_role_id": 26,
+    "parent_role_id": 25,
     "role_type": "action",
     "tabOrder": null,
     "isChecked": false,

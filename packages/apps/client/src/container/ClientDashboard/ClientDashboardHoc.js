@@ -810,10 +810,10 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
         //allDepartmentDropdownErrorMessage
       } = this.props.HospitalDepartmentDropdownReducer
 
-      console.log(
-        '=======hospitalDepartmentDropdown',
-        this.props.HospitalDepartmentDropdownReducer
-      )
+      // console.log(
+      //   '=======hospitalDepartmentDropdown',
+      //   this.props.HospitalDepartmentDropdownReducer
+      // )
 
       return (
         <>

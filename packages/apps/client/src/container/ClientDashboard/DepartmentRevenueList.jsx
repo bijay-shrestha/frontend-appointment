@@ -114,7 +114,7 @@ const DepartmentRevenue = props => {
                       rowHeight={50}
                       columnDefs={[
                         {
-                          headerName: 'Doctor Details',
+                          headerName: 'Department Details',
                           resizable: true,
                           sortable: true,
                           sizeColumnsToFit: true,

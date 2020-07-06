@@ -1,6 +1,12 @@
 import React, {PureComponent} from 'react'
 import AdminInfoForm from './AdminInfoForm'
-import {AdminSetupUtils, EnterKeyPressUtils, menuRoles, ProfileSetupUtils, LocalStorageSecurity} from '@frontend-appointment/helpers'
+import {
+    AdminSetupUtils,
+    EnterKeyPressUtils,
+    menuRoles,
+    ProfileSetupUtils,
+    LocalStorageSecurity, FileUploadLocationUtils
+} from '@frontend-appointment/helpers'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     clearAdminSuccessErrorMessagesFromStore,
@@ -9,7 +15,7 @@ import {
     UnitSetupMiddleware,
     fetchActiveProfilesByDepartmentId,
     HospitalSetupMiddleware,
-    previewProfile
+    previewProfile, MinioMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import {Col, Container, Row} from 'react-bootstrap'
@@ -23,6 +29,9 @@ import {PreviewClientProfileRoles} from "@frontend-appointment/ui-components";
 const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware
 const {fetchActiveDepartmentsByHospitalId} = UnitSetupMiddleware
 const {fetchDashboardFeatures} = DashboardDetailsMiddleware
+
+const {uploadImageInMinioServer} = MinioMiddleware
+
 const {
     FETCH_HOSPITALS_FOR_DROPDOWN
 } = AdminModuleAPIConstants.hospitalSetupApiConstants
@@ -71,7 +80,8 @@ class AdminAdd extends PureComponent {
         emailValid: false,
         mobileNumberValid: false,
         profileData: {},
-        showProfileDetailModal: false
+        showProfileDetailModal: false,
+        isImageUploading: false
     }
 
     resetStateValues = () => {
@@ -241,7 +251,8 @@ class AdminAdd extends PureComponent {
                 case 'hasMacBinding':
                     this.addMacIdObjectToMacIdList(value)
                     break
-                default:break;
+                default:
+                    break;
             }
             this.checkFormValidity()
         }
@@ -323,6 +334,13 @@ class AdminAdd extends PureComponent {
         )
     }
 
+
+    setImageLoading = (value) => {
+        this.setState({
+            isImageUploading: value
+        })
+    }
+
     handleConfirmClick = async () => {
         const {
             hospital,
@@ -367,14 +385,20 @@ class AdminAdd extends PureComponent {
             baseUrl: baseUrlForEmail
         }
 
-        let formData = new FormData();
-        adminAvatar &&
-        formData.append(
-            'file',
-            new File([adminAvatar], fullName.concat('-picture.jpeg'))
-        );
+        // let formData = new FormData()
+        // adminAvatar &&
+        // formData.append(
+        //     'file',
+        //     new File([adminAvatar], fullName.concat('-picture.jpeg'))
+        // )
+        let imagePath = '';
         try {
-            await this.props.createAdmin(CREATE_ADMIN, adminRequestDTO, formData)
+            if (adminAvatar) {
+                this.setImageLoading(true)
+                imagePath = await this.uploadImageToServer();
+                this.setImageLoading(false)
+            }
+            await this.props.createAdmin(CREATE_ADMIN, {...adminRequestDTO, avatar: imagePath})
             await this.resetStateValues()
             this.setState({
                 showAlert: true,
@@ -385,6 +409,7 @@ class AdminAdd extends PureComponent {
             })
         } catch (e) {
             await this.setShowConfirmModal()
+            this.setImageLoading(false)
             this.setState({
                 showAlert: true,
                 alertMessageInfo: {
@@ -397,6 +422,22 @@ class AdminAdd extends PureComponent {
         }
     }
 
+    uploadImageToServer = async () => {
+        const {
+            adminAvatar,
+            fullName,
+            hospital
+        } = this.state;
+        const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
+        let hospitalSelected = hospitalsForDropdown.find(hospitalD => Number(hospitalD.value) === Number(hospital.value))
+        let hospitalAlias = hospitalSelected && hospitalSelected.alias
+
+        let fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
+        let fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(hospitalAlias, fullName)
+
+        return await uploadImageInMinioServer(fileToUpload, fileLocation)
+    }
+
     handleViewProfileDetails = async profileId => {
         try {
             await this.fetchProfileDetails(profileId)
@@ -405,7 +446,7 @@ class AdminAdd extends PureComponent {
             let profileData =
                 profilePreviewData &&
                 (await ProfileSetupUtils.prepareProfilePreviewData(profilePreviewData.profileResponseDTO,
-                    profilePreviewData.profileMenuResponseDTOS,'CLIENT'))
+                    profilePreviewData.profileMenuResponseDTOS, 'CLIENT'))
             this.setState({
                 profileData,
                 showProfileDetailModal: true
@@ -475,8 +516,8 @@ class AdminAdd extends PureComponent {
 
     initialAPICalls = () => {
         this.fetchHospitals()
-        if(LocalStorageSecurity.localStorageDecoder('adminDashRole'))
-          this.fetchDashBoardFeatures()
+        if (LocalStorageSecurity.localStorageDecoder('adminDashRole'))
+            this.fetchDashBoardFeatures()
     }
 
     componentDidMount() {
@@ -507,7 +548,8 @@ class AdminAdd extends PureComponent {
             adminImageCroppedUrl,
             showProfileDetailModal,
             profileData,
-            adminDashboardRequestDTOS
+            adminDashboardRequestDTOS,
+            isImageUploading
         } = this.state
 
         const {hospitalsForDropdown} = this.props.HospitalDropdownReducer
@@ -615,6 +657,7 @@ class AdminAdd extends PureComponent {
                                         }}
                                         adminImage={adminImageCroppedUrl}
                                         isCreateAdminLoading={isCreateAdminLoading}
+                                        isImageLoading={isImageUploading}
                                     />
                                 </Col>
                             </Row>
