@@ -27,7 +27,10 @@ const AdminDashboard = props => {
       appointmentFilter,
       appointmentQueue,
       doctorRevenue,
-      specializationListHospitalWise
+      //specializationListHospitalWise,
+      appointmentServiceTypeList,
+      appointmentServiceTypeCode,
+      handleAppointmentServiceTypeChange
     }) => {
       const RevenuStats = (
         <CheckDashboardRole
@@ -67,20 +70,20 @@ const AdminDashboard = props => {
                 {checkDashboardRole(generateRevenue.code) ||
                 checkDashboardRole(appointmentQueue.code) ||
                 checkDashboardRole(appointmentList.code) ? (
-                  <HospitalDropdown
-                    hospitalDropdown={hospitalDropdown}
-                    hospitalId={hospitalId}
-                    handleHospitalChange={handleHospitalChange}
-                    className="top-hospital-list "
+                  <AppointmentServiceDropdown
+                    serviceTypeDropdown={appointmentServiceTypeList}
+                    appointmentServiceTypeCode={ appointmentServiceTypeCode}
+                    handleAppointmentChange={handleAppointmentServiceTypeChange}
+                    className="top-hospital-list"
                   />
                 ) : null}
                 {checkDashboardRole(generateRevenue.code) ||
                 checkDashboardRole(appointmentQueue.code) ||
                 checkDashboardRole(appointmentList.code) ? (
-                  <AppointmentServiceDropdown
-                    serviceTypeDropdown={[]}
-                    appointmentServiceTypeCode
-                    handleAppointmentChange
+                  <HospitalDropdown
+                    hospitalDropdown={hospitalDropdown}
+                    hospitalId={hospitalId}
+                    handleHospitalChange={handleHospitalChange}
                     className="top-hospital-list mr-4"
                   />
                 ) : null}
