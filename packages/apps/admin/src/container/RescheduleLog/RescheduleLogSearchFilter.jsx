@@ -125,6 +125,17 @@ class RescheduleLogSearchFilter extends PureComponent {
                                     </Col>
 
                                     <Col sm={12} md={6} xl={4}>
+                                        <CHybridInput
+                                            id="appointmentNumber"
+                                            name="appointmentNumber"
+                                            placeholder="Appointment Number"
+                                            value={searchParameters.appointmentNumber}
+                                            onChange={handleSearchFormChange}
+                                            onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+
+                                    <Col sm={12} md={6} xl={4}>
                                         <div className="d-flex">
                                             <CEnglishDatePicker
                                                 id="from-date-reschedule"
@@ -308,17 +319,6 @@ class RescheduleLogSearchFilter extends PureComponent {
                                             placeholder="Select Patient Type."
                                             onChange={handleSearchFormChange}
                                             onEnter={handleEnter}
-                                        />
-                                    </Col>
-
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridInput
-                                            id="appointmentNumber"
-                                            name="appointmentNumber"
-                                            placeholder="Appointment Number"
-                                            value={searchParameters.appointmentNumber}
-                                            onChange={handleSearchFormChange}
-                                            onKeyDown={handleEnter}
                                         />
                                     </Col>
 

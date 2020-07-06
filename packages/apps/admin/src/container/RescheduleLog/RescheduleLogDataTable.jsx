@@ -60,6 +60,15 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                     cellClass: 'first-class',
                                     width: '140'
                                 },
+                                {
+                                    headerName: 'App. No.',
+                                    field: 'appointmentNumber',
+                                    // headerClass: "fi",
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: "appNoWithFollowUp"
+                                },
                                 // {
                                 //     headerName: 'Hospital Name',
                                 //     field: 'hospitalName',
@@ -90,15 +99,7 @@ const RescheduleLogDataTable = ({rescheduleLogData, paginationProps}) => {
                                 //     sortable: true,
                                 //     sizeColumnsToFit: true
                                 // },
-                                {
-                                    headerName: 'App. No.',
-                                    field: 'appointmentNumber',
-                                    // headerClass: "fi",
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    cellRenderer: "appNoWithFollowUp"
-                                },
+
                                 {
                                     headerName: 'Patient Details',
                                     resizable: true,
