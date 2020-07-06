@@ -2,19 +2,15 @@ import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
     AppointmentDetailsMiddleware,
+    AppointmentServiceTypeMiddleware,
     DoctorMiddleware,
+    HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
-    SpecializationSetupMiddleware,
-    AppointmentServiceTypeMiddleware,
-    HospitalDepartmentSetupMiddleware
+    SpecializationSetupMiddleware
 } from '@frontend-appointment/thunk-middleware'
 import {AdminModuleAPIConstants} from '@frontend-appointment/web-resource-key-constants'
-import {
-    DateTimeFormatterUtils,
-    EnterKeyPressUtils,
-    CommonUtils, LocalStorageSecurity
-} from '@frontend-appointment/helpers'
+import {CommonUtils, DateTimeFormatterUtils, EnterKeyPressUtils} from '@frontend-appointment/helpers'
 import './appointment-log.scss'
 
 const {
@@ -198,6 +194,7 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                     appointmentServiceTypeCode: '',
                     hospitalDepartmentId: ''
                 },
+                primaryAppointmentService: '',
                 activeStatus: 'All',
                 filteredData: []
             })
@@ -333,7 +330,11 @@ const AppointmentLogHOC = (ComposedComponent, props, type) => {
                         label: primaryAppointmentService[0].name
                     }
                     await this.setState({
-                        searchParameters: searchParams
+                        searchParameters: searchParams,
+                        primaryAppointmentService: {
+                            value: primaryAppointmentService[0].code,
+                            label: primaryAppointmentService[0].name
+                        }
                     })
                     this.searchAppointment();
                 }

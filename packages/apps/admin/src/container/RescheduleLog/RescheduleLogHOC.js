@@ -1,8 +1,8 @@
 import React from 'react'
 import {ConnectHoc} from '@frontend-appointment/commons'
 import {
-    AppointmentDetailsMiddleware,
-    DoctorMiddleware,
+    AppointmentDetailsMiddleware, AppointmentServiceTypeMiddleware,
+    DoctorMiddleware, HospitalDepartmentSetupMiddleware,
     HospitalSetupMiddleware,
     PatientDetailsMiddleware,
     SpecializationSetupMiddleware
@@ -17,6 +17,9 @@ const {fetchActiveHospitalsForDropdown} = HospitalSetupMiddleware;
 const {fetchActiveDoctorsHospitalWiseForDropdown} = DoctorMiddleware;
 const {fetchSpecializationHospitalWiseForDropdown} = SpecializationSetupMiddleware;
 const {fetchPatientMetaDropdown} = PatientDetailsMiddleware;
+const {fetchAllHospitalDepartmentForDropdownByHospitalId} = HospitalDepartmentSetupMiddleware
+const {fetchActiveAppointmentServiceTypeByHopitalId} = AppointmentServiceTypeMiddleware
+
 
 const {
     appointmentSetupApiConstant,
@@ -46,8 +49,11 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 patientMetaInfoId: '',
                 appointmentNumber: '',
                 esewaId: '',
-                patientType: ''
+                patientType: '',
+                appointmentServiceTypeCode: '',
+                hospitalDepartmentId: ''
             },
+            primaryAppointmentService: '',
             showModal: false,
             rescheduleLogList: [],
             showAlert: false,
@@ -109,11 +115,14 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                     patientMetaInfoId: '',
                     appointmentNumber: '',
                     esewaId: '',
-                    patientType: ''
+                    patientType: '',
+                    appointmentServiceTypeCode: '',
+                    hospitalDepartmentId: ''
                 },
                 rescheduleLogList: []
             });
             this.props.clearRescheduleLogMessage();
+            this.searchRescheduleLog()
         };
 
         handleSearchFormChange = async (event, field) => {
@@ -185,6 +194,39 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             });
         };
 
+        searchAppointmentServiceType = async hospitalId => {
+            await this.props.fetchActiveAppointmentServiceTypeByHopitalId(
+                AdminModuleAPIConstants.hospitalSetupApiConstants
+                    .HOSPITAL_API_SERVICE_TYPE,
+                hospitalId
+            )
+        }
+
+        setPrimaryAppointmentService = async () => {
+            const {activeAppointmentServiceTypeWithCodeForDropdown} = this.props.AppointmentServiceTypeDropdownReducer
+            if (activeAppointmentServiceTypeWithCodeForDropdown) {
+                const allAppointmentServices = activeAppointmentServiceTypeWithCodeForDropdown
+                const primaryAppointmentService = allAppointmentServices
+                    ? allAppointmentServices.length
+                        ? allAppointmentServices.filter(
+                            service => service.isPrimary === 'Y'
+                        )
+                        : []
+                    : []
+                if (primaryAppointmentService.length) {
+                    let searchParams = {...this.state.searchParameters}
+                    searchParams['appointmentServiceTypeCode'] = {
+                        value: primaryAppointmentService[0].code,
+                        label: primaryAppointmentService[0].name
+                    }
+                    await this.setState({
+                        searchParameters: searchParams
+                    })
+                    this.searchRescheduleLog();
+                }
+            }
+        }
+
         clearAlertTimeout = () => {
             setTimeout(() => this.closeAlert(), 5000)
         };
@@ -195,10 +237,17 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             })
         };
 
-        callApiForHospitalChange = hospitalId => {
+        callApiForHospitalChange = async hospitalId => {
             this.fetchDoctorsByHospital(hospitalId);
             this.fetchSpecializationByHospital(hospitalId);
             this.fetchPatientMetaInfo(hospitalId);
+            this.props.fetchAllHospitalDepartmentForDropdownByHospitalId(
+                AdminModuleAPIConstants.hospitalDepartmentSetupApiConstants
+                    .FETCH_ALL_HOSPITAL_DEPARTMENT_FOR_DROPDOWN,
+                hospitalId
+            )
+            await this.searchAppointmentServiceType(hospitalId)
+            await this.setPrimaryAppointmentService()
         };
 
         initialApiCalls = async () => {
@@ -216,7 +265,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 esewaId,
                 patientMetaInfoId,
-                patientType
+                patientType,
+                appointmentServiceTypeCode,
+                hospitalDepartmentId
             } = this.state.searchParameters;
 
             let updatedPage =
@@ -235,7 +286,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 esewaId,
                 patientMetaInfoId: patientMetaInfoId.value || '',
-                patientType: patientType.value || ''
+                patientType: patientType.value || '',
+                appointmentServiceTypeCode: appointmentServiceTypeCode.value || '',
+                hospitalDepartmentId: hospitalDepartmentId.value || ''
             };
 
             try {
@@ -304,7 +357,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
 
         render() {
             const {
-                searchParameters, rescheduleLogList, showAlert, alertMessageInfo, queryParams, totalRecords
+                searchParameters, rescheduleLogList, showAlert, alertMessageInfo, queryParams, totalRecords,
+                primaryAppointmentService
             } = this.state;
 
             const {hospitalsForDropdown} = this.props.HospitalDropdownReducer;
@@ -316,6 +370,18 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             const {isRescheduleLogLoading, rescheduleLogErrorMessage} = this.props.RescheduleLogReducer;
 
             const {patientList, patientDropdownErrorMessage} = this.props.PatientDropdownListReducer;
+
+            const {
+                isFetchAppointmentServiceTypeWithCodeLoading,
+                activeAppointmentServiceTypeWithCodeForDropdown,
+                dropdownWithCodeErrorMessage
+            } = this.props.AppointmentServiceTypeDropdownReducer
+
+            const {
+                isFetchAllHospitalDepartmentLoading,
+                allHospitalDepartmentForDropdown,
+                allDepartmentDropdownErrorMessage
+            } = this.props.HospitalDepartmentDropdownReducer
 
             return (
                 <>
@@ -335,13 +401,21 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
                                 specializationDropdownErrorMessage: dropdownErrorMessage,
                                 searchParameters: searchParameters,
                                 patientListDropdown: patientList,
-                                patientDropdownErrorMessage: patientDropdownErrorMessage
+                                patientDropdownErrorMessage: patientDropdownErrorMessage,
+                                isFetchAppointmentServiceTypeWithCodeLoading,
+                                activeAppointmentServiceTypeWithCodeForDropdown,
+                                dropdownWithCodeErrorMessage,
+                                isFetchAllHospitalDepartmentLoading,
+                                allHospitalDepartmentForDropdown,
+                                allDepartmentDropdownErrorMessage
                             }}
                             rescheduleLogData={{
                                 rescheduleLogList,
-                                searchErrorMessage: rescheduleLogErrorMessage,
+                                searchErrorMessage: (searchParameters.hospitalId && searchParameters.appointmentServiceTypeCode) ? rescheduleLogErrorMessage
+                                    : "Select Client and Appointment Service type first.",
                                 isRescheduleLogLoading,
-                                searchAppointmentStatus: this.searchRescheduleLog
+                                searchAppointmentStatus: this.searchRescheduleLog,
+                                appointmentServiceTypeCode: primaryAppointmentService
                             }}
                             paginationProps={{
                                 queryParams: queryParams,
@@ -372,7 +446,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             'SpecializationDropdownReducer',
             'DoctorDropdownReducer',
             'HospitalDropdownReducer',
-            'PatientDropdownListReducer'
+            'PatientDropdownListReducer',
+            'AppointmentServiceTypeDropdownReducer',
+            'HospitalDepartmentDropdownReducer'
         ],
         {
             fetchActiveHospitalsForDropdown,
@@ -380,7 +456,9 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
             fetchSpecializationHospitalWiseForDropdown,
             searchRescheduleLog,
             clearRescheduleLogMessage,
-            fetchPatientMetaDropdown
+            fetchPatientMetaDropdown,
+            fetchActiveAppointmentServiceTypeByHopitalId,
+            fetchAllHospitalDepartmentForDropdownByHospitalId
         }
     )
 };

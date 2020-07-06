@@ -460,7 +460,8 @@ const RescheduleLogHOC = (ComposedComponent, props, type) => {
               }}
               rescheduleLogData={{
                 rescheduleLogList,
-                searchErrorMessage: rescheduleLogErrorMessage,
+                searchErrorMessage: (searchParameters.appointmentServiceTypeCode) ? rescheduleLogErrorMessage
+                    : "Select Appointment Service type first.",
                 isRescheduleLogLoading,
                 searchAppointmentStatus: this.searchRescheduleLog,
                 appointmentServiceTypeCode: primaryAppointmentServiceType

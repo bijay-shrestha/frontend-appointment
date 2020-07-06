@@ -4,7 +4,7 @@ const DepartmentNameWithRoomNumberAndBilling = props => {
     <>
       <ul className="patient-column">
         <li>
-          {props.node.data.hospitalDepartmentName||''}
+          {props.node.data.hospitalDepartmentName||'N/A'}
         </li>
         <li>
           {props.node.data.roomNumber||''} ({props.node.data.billingModeName||''})

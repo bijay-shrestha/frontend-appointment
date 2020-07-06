@@ -218,6 +218,7 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatus
                     showModal={showModal}
                     setShowModal={setShowModal}
                     logData={previewData}
+                    appointmentServiceTypeCode={appointmentServiceTypeCode}
                 />
             ) : (
                 ''
