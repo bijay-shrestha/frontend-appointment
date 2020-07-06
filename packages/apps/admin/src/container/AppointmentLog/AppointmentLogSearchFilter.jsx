@@ -7,7 +7,7 @@ import {
     CHybridSelect, CHybridSelectWithImage
 } from '@frontend-appointment/ui-elements'
 import {CEnglishDatePicker} from '@frontend-appointment/ui-components'
-import {DateTimeFormatterUtils} from '@frontend-appointment/helpers'
+import {CommonUtils, DateTimeFormatterUtils} from '@frontend-appointment/helpers'
 
 class AppointmentLogListSearchFilter extends PureComponent {
     state = {
@@ -40,6 +40,13 @@ class AppointmentLogListSearchFilter extends PureComponent {
             //specializationDropdownErrorMessage,
             searchParameters,
             patientListDropdown,
+            //patientDropdownErrorMessage,
+            isFetchAppointmentServiceTypeWithCodeLoading,
+            activeAppointmentServiceTypeWithCodeForDropdown,
+            dropdownWithCodeErrorMessage,
+            //isFetchAllHospitalDepartmentLoading,
+            allHospitalDepartmentForDropdown,
+            allDepartmentDropdownErrorMessage
             //patientDropdownErrorMessage
         } = searchHandler
 
@@ -79,6 +86,40 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                             value={searchParameters.hospitalId}
                                             onChange={handleSearchFormChange}
                                             onKeyDown={handleEnter}
+                                        />
+                                    </Col>
+                                    <Col sm={12} md={6} xl={4}>
+                                        <CHybridSelect
+                                            id="appointmentServiceTypeCode"
+                                            label="Appointment Service Type"
+                                            name="appointmentServiceTypeCode"
+                                            onKeyDown={event => handleEnter(event)}
+                                            options={
+                                                activeAppointmentServiceTypeWithCodeForDropdown.length
+                                                    ? activeAppointmentServiceTypeWithCodeForDropdown.map(
+                                                    service => ({
+                                                        value: service.code,
+                                                        label: service.name
+                                                    })
+                                                    )
+                                                    : []
+                                            }
+                                            value={searchParameters.appointmentServiceTypeCode}
+                                            isDisabled={
+                                                activeAppointmentServiceTypeWithCodeForDropdown &&
+                                                activeAppointmentServiceTypeWithCodeForDropdown.length
+                                                    ? false
+                                                    : true
+                                            }
+                                            onChange={handleSearchFormChange}
+                                            onEnter={handleEnter}
+                                            placeholder={
+                                                activeAppointmentServiceTypeWithCodeForDropdown.length
+                                                    ? 'Select Appointment Service Type.'
+                                                    : isFetchAppointmentServiceTypeWithCodeLoading
+                                                    ? 'Select Client.'
+                                                    : dropdownWithCodeErrorMessage
+                                            }
                                         />
                                     </Col>
                                     <Col sm={12} md={6} xl={4}>
@@ -133,56 +174,97 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                         </div>
                                     </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelect
-                                            id="specializationId"
-                                            label="Specialization"
-                                            name="specializationId"
-                                            onKeyDown={event => handleEnter(event)}
-                                            options={activeSpecializationList}
-                                            value={searchParameters.specializationId}
-                                            isDisabled={
-                                                searchParameters.hospitalId
-                                                    ? !activeSpecializationList.length
-                                                    : true
-                                            }
-                                            onChange={handleSearchFormChange}
-                                            onEnter={handleEnter}
-                                            placeholder={
-                                                searchParameters.hospitalId
-                                                    ? activeSpecializationList.length
-                                                    ? 'Select Specialization.'
-                                                    : 'No specialization(s) available.'
-                                                    : 'Select client first.'
-                                            }
-                                        />
-                                    </Col>
+                                    {
+                                        searchParameters.appointmentServiceTypeCode ?
+                                            <>
+                                                {CommonUtils.filterAppointmentServiceType(
+                                                    searchParameters.appointmentServiceTypeCode,
+                                                    'DEP'
+                                                ) ? (
+                                                        <Col sm={12} md={6} xl={4}>
+                                                            <CHybridSelect
+                                                                id="hospitalDepartmentId"
+                                                                label="Department"
+                                                                name="hospitalDepartmentId"
+                                                                onKeyDown={event => handleEnter(event)}
+                                                                options={allHospitalDepartmentForDropdown}
+                                                                value={searchParameters.hospitalDepartmentId}
+                                                                isDisabled={
+                                                                    allHospitalDepartmentForDropdown &&
+                                                                    (allHospitalDepartmentForDropdown.length
+                                                                        ? false
+                                                                        : true)
+                                                                }
+                                                                onChange={handleSearchFormChange}
+                                                                onEnter={handleEnter}
+                                                                placeholder={
+                                                                    allHospitalDepartmentForDropdown.length
+                                                                        ? 'Select Department.'
+                                                                        : allDepartmentDropdownErrorMessage
+                                                                        ? 'No Department(s) Found.'
+                                                                        : 'Select Client.'
+                                                                }
+                                                            />
+                                                        </Col>
+                                                    ) :
+                                                    (
+                                                        <>
+                                                            <Col sm={12} md={6} xl={4}>
+                                                                <CHybridSelect
+                                                                    id="specializationId"
+                                                                    label="Specialization"
+                                                                    name="specializationId"
+                                                                    onKeyDown={event => handleEnter(event)}
+                                                                    options={activeSpecializationList}
+                                                                    value={searchParameters.specializationId}
+                                                                    isDisabled={
+                                                                        searchParameters.hospitalId
+                                                                            ? !activeSpecializationList.length
+                                                                            : true
+                                                                    }
+                                                                    onChange={handleSearchFormChange}
+                                                                    onEnter={handleEnter}
+                                                                    placeholder={
+                                                                        searchParameters.hospitalId
+                                                                            ? activeSpecializationList.length
+                                                                            ? 'Select Specialization.'
+                                                                            : 'No specialization(s) available.'
+                                                                            : 'Select client first.'
+                                                                    }
+                                                                />
+                                                            </Col>
 
-                                    <Col sm={12} md={6} xl={4}>
-                                        <CHybridSelectWithImage
-                                            id="doctorId"
-                                            label="Doctor"
-                                            name="doctorId"
-                                            onKeyDown={event => handleEnter(event)}
-                                            onChange={event => handleSearchFormChange(event)}
-                                            options={doctorsDropdown}
-                                            value={searchParameters.doctorId}
-                                            isDisabled={
-                                                searchParameters.hospitalId
-                                                    ? !doctorsDropdown.length
-                                                    : true
-                                            }
-                                            onEnter={handleEnter}
-                                            placeholder={
-                                                searchParameters.hospitalId
-                                                    ? doctorsDropdown.length
-                                                    ? 'Select doctor.'
-                                                    : 'No doctor(s) available.'
-                                                    : 'Select client first.'
-                                            }
-                                            noOptionsMessage={()=> "No Doctor(s) found."}
-                                        />
-                                    </Col>
+                                                            <Col sm={12} md={6} xl={4}>
+                                                                <CHybridSelectWithImage
+                                                                    id="doctorId"
+                                                                    label="Doctor"
+                                                                    name="doctorId"
+                                                                    onKeyDown={event => handleEnter(event)}
+                                                                    onChange={event => handleSearchFormChange(event)}
+                                                                    options={doctorsDropdown}
+                                                                    value={searchParameters.doctorId}
+                                                                    isDisabled={
+                                                                        searchParameters.hospitalId
+                                                                            ? !doctorsDropdown.length
+                                                                            : true
+                                                                    }
+                                                                    onEnter={handleEnter}
+                                                                    placeholder={
+                                                                        searchParameters.hospitalId
+                                                                            ? doctorsDropdown.length
+                                                                            ? 'Select doctor.'
+                                                                            : 'No doctor(s) available.'
+                                                                            : 'Select client first.'
+                                                                    }
+                                                                    noOptionsMessage={() => "No Doctor(s) found."}
+                                                                />
+                                                            </Col>
+                                                        </>
+                                                    )
+                                                }
+                                            </>
+                                            : ''
+                                    }
 
                                     <Col sm={12} md={6} xl={4}>
                                         <CHybridInput
@@ -306,6 +388,41 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </>
                                 </CButton>
                             </li>
+
+                            {searchParameters.appointmentServiceTypeCode && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={
+                                            <Tooltip id="name">Appointment Service Type</Tooltip>
+                                        }
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.appointmentServiceTypeCode.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
+                            {searchParameters.hospitalDepartmentId && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">Department</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {searchParameters.hospitalDepartmentId.label}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+
                             {searchParameters.appointmentNumber && (
                                 <li>
                                     <OverlayTrigger
@@ -353,40 +470,40 @@ class AppointmentLogListSearchFilter extends PureComponent {
                                     </OverlayTrigger>
                                 </li>
                             )}
-                           {searchParameters.fromDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">From Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.fromDate
-                      )}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
-              {searchParameters.toDate && (
-                <li>
-                  <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip id="name">To Date</Tooltip>}
-                  >
-                    <Button
-                      id="search-param-button-filters"
-                      variant="secondary"
-                    >
-                      {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
-                        searchParameters.toDate
-                      )}
-                    </Button>
-                  </OverlayTrigger>
-                </li>
-              )}
+                            {searchParameters.fromDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">From Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                                                searchParameters.fromDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
+                            {searchParameters.toDate && (
+                                <li>
+                                    <OverlayTrigger
+                                        placement="top"
+                                        overlay={<Tooltip id="name">To Date</Tooltip>}
+                                    >
+                                        <Button
+                                            id="search-param-button-filters"
+                                            variant="secondary"
+                                        >
+                                            {DateTimeFormatterUtils.convertDateToStringMonthDateYearFormat(
+                                                searchParameters.toDate
+                                            )}
+                                        </Button>
+                                    </OverlayTrigger>
+                                </li>
+                            )}
 
                             {/*{searchParameters.transactionFromDate && (*/}
                             {/*    <li>*/}

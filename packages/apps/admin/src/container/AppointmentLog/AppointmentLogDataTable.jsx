@@ -14,8 +14,11 @@ import {Col, Row} from 'react-bootstrap';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
 import AppointmentAmountWithTransactionNumber
     from "../CommonComponents/table-components/AppointmentAmountWithTransactionNumber";
+import {CommonUtils} from '@frontend-appointment/helpers'
 
-const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusChange, activeStatus}) => {
+const {filterAppointmentServiceType} = CommonUtils
+
+const AppointmentRefundDataTable = ({tableHandler, paginationProps, handleStatusChange, activeStatus}) => {
     const {
         isSearchLoading,
         appointmentLogList,
@@ -24,8 +27,17 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
         previewData,
         showModal,
         setShowModal,
+        appointmentServiceTypeCode
     } = tableHandler
     const {queryParams, totalRecords, handlePageChange} = paginationProps
+    const headerNameForDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    ) ? 'Department Details' : 'Doctor Details'
+    const componentRendererDoctorOrDepartment = filterAppointmentServiceType(
+        appointmentServiceTypeCode,
+        'DEP'
+    ) ? 'departmentWithRoomNumberAndBillingMode' : 'doctorwithSpecializationRenderer'
     return (
         <>
             <div className="manage-details">
@@ -105,14 +117,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                                     cellRenderer: "appointmentNumberWithFollowUpFlag"
                                 },
                                 {
-                                    headerName: 'Doctor(Specialization)',
+                                    headerName: headerNameForDoctorOrDepartment,
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    cellRenderer: 'doctorwithSpecializationRenderer',
+                                    cellRenderer: componentRendererDoctorOrDepartment,
                                     autoSize: true,
                                     autoWidth: true,
-                                    width: "300"
+                                    width: '300'
                                 },
 
                                 {
@@ -195,9 +207,9 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps,handleStatusC
                         <div className="no-data">
                             <i className="fa fa-file-text-o"></i>
                         </div>
-                        <div className="message"> {searchErrorMessage||`No Appointment(s) Found`}</div>
+                        <div className="message"> {searchErrorMessage || `No Appointment(s) Found`}</div>
                     </div>
-                    
+
                 )}
             </div>
 
