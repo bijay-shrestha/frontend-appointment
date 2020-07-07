@@ -6,6 +6,8 @@ import PreviewDetails from './AppointmentRefundPreview'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
+import AppointmentAmountWithTransactionNumber
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
 const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
     const {
@@ -63,6 +65,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     cellClass: 'first-class'
                                 },
                                 {
+                                    headerName: 'App. No',
+                                    field: 'appointmentNumber',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 140
+                                },
+                                {
                                     headerName: 'App. DateTime',
                                     field: 'appointmentDate',
                                     resizable: true,
@@ -79,6 +89,14 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
+                                    headerName: 'Patient Details',
+                                    cellRenderer: 'patientWithAgeRenderer',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    width: 300
+                                },
+                                {
                                     headerName: 'Reg. No',
                                     field: 'registrationNumber',
                                     resizable: true,
@@ -86,20 +104,11 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     sizeColumnsToFit: true
                                 },
                                 {
-                                    headerName: 'App. No',
-                                    field: 'appointmentNumber',
+                                    headerName: 'Esewa Id',
+                                    field: 'esewaId',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 140
-                                },
-                                {
-                                    headerName: 'Patient Details',
-                                    cellRenderer: 'patientWithAgeRenderer',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true,
-                                    width: 300
+                                    sizeColumnsToFit: true
                                 },
                                 {
                                     headerName: 'Doctor Detail',
@@ -110,18 +119,12 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                     width: 300
                                 },
                                 {
-                                    headerName: 'Esewa Id',
-                                    field: 'esewaId',
-                                    resizable: true,
-                                    sortable: true,
-                                    sizeColumnsToFit: true
-                                },
-                                {
-                                    headerName: 'Amount',
+                                    headerName: 'Transaction Details(No/Amount)',
                                     field: 'refundAmount',
                                     resizable: true,
                                     sortable: true,
-                                    sizeColumnsToFit: true
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'refundAmtWithTxnNumberRenderer'
                                 },
                                 {
                                     headerName: '',
@@ -162,6 +165,13 @@ const AppointmentRefundDataTable = ({tableHandler, paginationProps}) => {
                                 ),
                                 doctorWithSpecializationRenderer: PreviewHandlerHoc(
                                     DoctorWithSpecImage,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                refundAmtWithTxnNumberRenderer: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
                                     null,
                                     null,
                                     null,

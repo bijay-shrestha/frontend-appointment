@@ -70,6 +70,14 @@ const AppointmentRefundListComponent = loadable(
     {fallback: () => getLoader()}
 )
 
+const AppointmentDepartmentRefundListComponent = Loadable({
+    loader: () =>
+        import(
+            './container/DepartmentAppointmentRefund/AppointmentDepartmentRefund'
+            ),
+    loading: () => getLoader()
+})
+
 const AppointmentApprovalListComponent = loadable(
     () => import('./container/AppointmentApproval/AppointmentApproval'),
     {fallback: () => getLoader()}
@@ -710,13 +718,33 @@ export const routes = [
     },
     {
         path: '/admin/appointment/pendingRefundApproval',
-        component: AppointmentRefundListComponent,
+        component: <></>,
         icon: '',
-        hasTab: false,
+        hasTab: true,
         isLink: true,
         isTab: false,
         name: 'Appointment Cancellation',
-        isSingleTab: true
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/pendingRefundApproval/doctor',
+        component: AppointmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Doctor Pending Refund Approval',
+        isSingleTab: false
+    },
+    {
+        path: '/admin/appointment/pendingRefundApproval/department',
+        component: AppointmentDepartmentRefundListComponent,
+        icon: '',
+        hasTab: true,
+        isLink: true,
+        isTab: true,
+        name: 'Department Pending Refund Approval',
+        isSingleTab: false
     },
     {
         path: '/admin/appointment/checkIn',
