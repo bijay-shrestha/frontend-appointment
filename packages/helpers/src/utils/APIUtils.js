@@ -126,9 +126,10 @@ export const getCurrentClientFeatureApiIntegrationDetails = (integrationType, fe
     let currentFeatureApiIntegrationDetails
     const apiIntegrateData = getIntegrationValue('apiIntegration')[integrationType]
     if (isClientModule) {
-        currentFeatureApiIntegrationDetails = apiIntegrateData.length && getCurrentFeatureIntegrationDetailsByFeatureCode(apiIntegrateData[0], featureTypeCode)
+        currentFeatureApiIntegrationDetails = apiIntegrateData && apiIntegrateData.length
+            && getCurrentFeatureIntegrationDetailsByFeatureCode(apiIntegrateData[0], featureTypeCode)
     } else {
-        const selectedClientApiIntegrationDetails = apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
+        const selectedClientApiIntegrationDetails = apiIntegrateData && apiIntegrateData.length && apiIntegrateData.find(apiIntegration =>
             apiIntegration.clientId === clientId);
         currentFeatureApiIntegrationDetails = selectedClientApiIntegrationDetails && getCurrentFeatureIntegrationDetailsByFeatureCode(
             selectedClientApiIntegrationDetails, featureTypeCode)
