@@ -449,12 +449,12 @@ const AppointApprovalHOC = (ComposedComponent, props, type) => {
                 appointmentNumber,
                 fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
                 toDate: appointmentNumber ? '' : toDate,
-                hospitalId: hospitalId.value || '',
-                patientMetaInfoId: patientMetaInfoId.value || '',
-                patientType: patientType.value || '',
-                specializationId: specializationId.value || '',
-                doctorId: doctorId.value || '',
-                patientCategory: patientCategory.value || ''
+                hospitalId: appointmentNumber ? '' : hospitalId.value || '',
+                patientMetaInfoId: appointmentNumber ? '' : patientMetaInfoId.value || '',
+                patientType: appointmentNumber ? '' : patientType.value || '',
+                specializationId: appointmentNumber ? '' : specializationId.value || '',
+                doctorId: appointmentNumber ? '' : doctorId.value || '',
+                patientCategory: appointmentNumber ? '' : patientCategory.value || ''
             }
 
             let updatedPage =

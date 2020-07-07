@@ -4,12 +4,19 @@ import {CDataTable, CLoading, CPagination} from '@frontend-appointment/ui-elemen
 //import DoctorWithSpecialization from '../CommonComponents/table-components/DoctorWithSpecialization'
 import PreviewDetails from './AppointmentApprovalPreview'
 
-import {CConfirmationModal, DoctorWithSpecImage,DoctorAppointmentCheckInOptions,PatientNameWithAgeGenderPhone} from '@frontend-appointment/ui-components'
+import {
+    CConfirmationModal,
+    DoctorWithSpecImage,
+    DoctorAppointmentCheckInOptions,
+    PatientNameWithAgeGenderPhone
+} from '@frontend-appointment/ui-components'
 import CheckInModalContent from '../CommonComponents/CheckInModalContent'
 import RejectModal from './RejectModal'
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import AppointmentAmountWithTransactionNumber
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
 const {checkIfRoleExists} = ActionFilterUtils
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredActions}) => {
@@ -107,11 +114,12 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     cellRenderer: 'doctorwithSpecializationRenderer'
                                 },
                                 {
-                                    headerName: 'App. Amount',
+                                    headerName: 'Transaction Details(No/Amount)',
                                     field: 'appointmentAmount',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentAmountWithTxnNumber',
                                     width: 120
                                 },
                                 {
@@ -153,6 +161,13 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps, filteredAc
                                     previewCall
                                 ),
                                 patientDetailRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
+                                AppointmentAmountWithTxnNumber: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                )
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={

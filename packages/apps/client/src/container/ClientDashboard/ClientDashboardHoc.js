@@ -408,7 +408,7 @@ const ClientDashboardHoc = (ComposedComponent, props, type) => {
             doctorId: doctorId.value || '',
             date: date || new Date(),
             hospitalDepartmentId:hospitalDepartmentId.value||'',
-            appointmentServiceTypeCode:appointmentServiceTypeCode.value||''
+            appointmentServiceType:appointmentServiceTypeCode.value||''
           }
         )
         await this.setState({

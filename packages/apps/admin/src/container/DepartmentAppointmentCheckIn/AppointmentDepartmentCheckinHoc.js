@@ -165,13 +165,13 @@ const DepartmentAppointCheckInHOC = (ComposedComponent, props, type) => {
             } = this.state.searchParameters
             let searchData = {
                 appointmentNumber,
-                fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
-                toDate,
-                patientMetaInfoId: patientMetaInfoId.value || '',
-                patientType: patientType.value || '',
-                hospitalDepartmentId: hospitalDepartmentId.value || '',
-                patientCategory: patientCategory.value || '',
-                hospitalId: hospital ? hospital.value : ''
+                fromDate: appointmentNumber ? '' : fromDate, // WHEN SEARCHED WITH APPOINTMENT NUMBER IGNORE DATE
+                toDate: appointmentNumber ? '' : toDate,
+                patientMetaInfoId: appointmentNumber ? '' : patientMetaInfoId.value || '',
+                patientType: appointmentNumber ? '' : patientType.value || '',
+                hospitalDepartmentId: appointmentNumber ? '' : hospitalDepartmentId.value || '',
+                patientCategory: appointmentNumber ? '' : patientCategory.value || '',
+                hospitalId: appointmentNumber ? '' : hospital ? hospital.value : ''
             }
 
             let updatedPage =
