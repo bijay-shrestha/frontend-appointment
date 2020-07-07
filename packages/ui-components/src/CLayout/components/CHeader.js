@@ -393,7 +393,7 @@ class CHeader extends Component {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <div className="user-details">
-                                        <div className="avatar">                                       
+                                        <div className="avatar" onClick={this.showImageUploadModal}>
                                         <Image
                                             src={
                                                 this.state.userInfo.fileUri
@@ -401,7 +401,6 @@ class CHeader extends Component {
                                                     : require('../../img/picture.png')
                                             }
                                             className=""
-                                            onClick={this.showImageUploadModal}
                                         />
                                          </div>
                                         <div className="user-name">
