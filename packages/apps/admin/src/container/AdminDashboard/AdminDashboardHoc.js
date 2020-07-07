@@ -453,7 +453,7 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
         doctorRevenue: searchParams5
       })
       if (fieldName === 'hospitalId') {
-        this.callApiForHospitalChange()
+        
         if (value && value !== 'A') {
           if (checkDashboardRole(ACCESSCODE.APPOINTMENT_LOG))
             this.searchAppointmentQueue()
@@ -465,11 +465,23 @@ const DashBoardHOC = (ComposedComponent, props, type) => {
               .SPECIFIC_DROPDOWN_SPECIALIZATION_BY_HOSPITAL,
             value
           )
-          this.props.fetchActiveAppointmentServiceTypeWithCodeWithHospitalId(
+          await this.props.fetchActiveAppointmentServiceTypeWithCodeWithHospitalId(
             hospitalSetupApiConstants.HOSPITAL_API_SERVICE_TYPE,
             value
           )
           this.setPrimaryAppointmentServiceType();
+        }else{
+          searchParams['appointmentServiceTypeCode'] = ''
+          searchParams1['appointmentServiceTypeCode'] = ''
+          searchParams3['appointmentServiceTypeCode'] =''
+          searchParams4['appointmentServiceType'] = ''
+          this.setState({
+            searchParamsForOverallAppoinment: searchParams,
+            searchParameterForGenerateRevenue: searchParams1,
+            searchParameterForRevenueTrend: searchParams3,
+            appointmentQueue: searchParams4,
+          })
+          this.callApiForHospitalChange()
         }
       }
     }
