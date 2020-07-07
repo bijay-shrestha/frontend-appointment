@@ -393,15 +393,17 @@ class CHeader extends Component {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <div className="user-details">
+                                        <div className="avatar">                                       
                                         <Image
                                             src={
                                                 this.state.userInfo.fileUri
                                                     ? this.state.userInfo.fileUri
                                                     : require('../../img/picture.png')
                                             }
-                                            className="avatar"
+                                            className=""
                                             onClick={this.showImageUploadModal}
                                         />
+                                         </div>
                                         <div className="user-name">
                                             {' '}
                                             {this.state.userInfo && this.state.userInfo.fullName}
