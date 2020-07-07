@@ -7,6 +7,7 @@ import {CFavourites, CImageUploadAndCropModal} from '@frontend-appointment/ui-co
 import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
 import {
+    AdminInfoUtils,
     EnvironmentVariableGetter,
     FileUploadLocationUtils,
     LocalStorageSecurity,
@@ -16,7 +17,6 @@ import {
 import * as Material from 'react-icons/md'
 import CompanyProfilePreviewRoles from '../../CompanyProfilePreviewRoles'
 import PreviewClientProfileRoles from '../../PreviewClientProfileRoles'
-import {MinioMiddleware, uploadLoggedInAdminImage} from '@frontend-appointment/thunk-middleware'
 
 const {
     CHANGE_COMPANY_ADMIN_PASSWORD
@@ -28,7 +28,7 @@ const {
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
 const {ADMIN_FEATURE, LOGOUT_API} = CommonAPIConstants
 
-const {uploadImageInMinioServer} = MinioMiddleware
+const {FILE_UPLOAD_PATH, FILE_URI_FOR_DISPLAY} = CommonAPIConstants.FileResourceConstants
 
 class CHeader extends Component {
     state = {
@@ -283,22 +283,50 @@ class CHeader extends Component {
         })
     }
 
+    fetchPresignedUrlForPutOperation = async (path, data) => {
+        try {
+            const response = await Axios.put(path, data);
+            return response.data
+        } catch (e) {
+            console.log("IMAGE NOT FETCHED", e)
+            // throw e
+        }
+    }
+
+    uploadImageInMinioServer = async (file, fileLocation) => {
+        try {
+            let url = await this.fetchPresignedUrlForPutOperation(FILE_UPLOAD_PATH,
+                {fileName: fileLocation + "/" + file.name})
+            await Axios.putMultipart(url, file)
+            return fileLocation + "/" + file.name
+        } catch (e) {
+            throw e
+        }
+    }
+
+    fetchUrlForGetOperation = async (fileUri) => {
+        try {
+            const response = await Axios.getWithRequestParams(FILE_URI_FOR_DISPLAY, {fileUri: fileUri});
+            return response.data
+        } catch (e) {
+            console.log("IMAGE NOT FETCHED", e)
+            // throw e
+        }
+    }
+
     handleImageUpload = async croppedImageFile => {
         let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
-        // let croppedImage = this.state.adminImageCroppedUrl
-        // await this.setState({
-        //     adminAvatar: new File([croppedImageFile], 'adminAvatar.jpeg'),
-        //     adminAvatarUrl: croppedImage,
-        //     showImageUploadModal: false
-        // })
         let imagePathLogo = ''
         try {
             this.setImageLoading(true)
             imagePathLogo = await this.uploadImageToServer(new File([croppedImageFile], 'adminAvatar.jpeg'), adminInfo);
-            await uploadLoggedInAdminImage(CommonAPIConstants.UPLOAD_ADMIN_IMAGE, {
+            await Axios.put(CommonAPIConstants.UPLOAD_ADMIN_IMAGE, {
                 adminId: adminInfo.adminId || '',
                 avatar: imagePathLogo
-            })
+            });
+            let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
+            adminData.fileUri = await this.fetchUrlForGetOperation(imagePathLogo)
+            await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
             this.setImageLoading(false)
             this.showAlertMessage('success', "Admin Image updated successfully.")
             this.showImageUploadModal()
@@ -335,7 +363,7 @@ class CHeader extends Component {
             fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
             fileLocation = FileUploadLocationUtils.getLocationPathForCompanyAdminFileUpload(companyCode, fullName)
         }
-        return await uploadImageInMinioServer(fileToUpload, fileLocation)
+        return await this.uploadImageInMinioServer(fileToUpload, fileLocation)
     }
     /*********************************************************************************************/
 
@@ -394,15 +422,15 @@ class CHeader extends Component {
                                 <Dropdown.Menu>
                                     <div className="user-details">
                                         <div className="avatar" onClick={this.showImageUploadModal}>
-                                        <Image
-                                            src={
-                                                this.state.userInfo.fileUri
-                                                    ? this.state.userInfo.fileUri
-                                                    : require('../../img/picture.png')
-                                            }
-                                            className=""
-                                        />
-                                         </div>
+                                            <Image
+                                                src={
+                                                    this.state.userInfo.fileUri
+                                                        ? this.state.userInfo.fileUri
+                                                        : require('../../img/picture.png')
+                                                }
+                                                className=""
+                                            />
+                                        </div>
                                         <div className="user-name">
                                             {' '}
                                             {this.state.userInfo && this.state.userInfo.fullName}
