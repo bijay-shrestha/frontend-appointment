@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import { Button, Dropdown, Image, OverlayTrigger, Tooltip } from 'react-bootstrap'
-import { Axios } from '@frontend-appointment/core'
-import { CAlert, CBreadcrumb, CDoubleShiftSearch } from '@frontend-appointment/ui-elements'
-import { CFavourites } from '@frontend-appointment/ui-components'
+import React, {Component} from 'react'
+import {Button, Dropdown, Image, OverlayTrigger, Tooltip} from 'react-bootstrap'
+import {Axios} from '@frontend-appointment/core'
+import {CAlert, CBreadcrumb, CDoubleShiftSearch} from '@frontend-appointment/ui-elements'
+import {CFavourites, CImageUploadAndCropModal} from '@frontend-appointment/ui-components'
 
-import { AdminModuleAPIConstants, CommonAPIConstants } from '@frontend-appointment/web-resource-key-constants'
+import {AdminModuleAPIConstants, CommonAPIConstants} from '@frontend-appointment/web-resource-key-constants'
 import CChangePasswordModal from '../../CChangePassword/CChangePasswordModal'
 import {
     EnvironmentVariableGetter,
+    FileUploadLocationUtils,
     LocalStorageSecurity,
     menuRoles,
     ProfileSetupUtils
@@ -15,16 +16,19 @@ import {
 import * as Material from 'react-icons/md'
 import CompanyProfilePreviewRoles from '../../CompanyProfilePreviewRoles'
 import PreviewClientProfileRoles from '../../PreviewClientProfileRoles'
+import {MinioMiddleware, uploadLoggedInAdminImage} from '@frontend-appointment/thunk-middleware'
 
 const {
     CHANGE_COMPANY_ADMIN_PASSWORD
 } = AdminModuleAPIConstants.companyAdminSetupApiConstants
-const { CHANGE_PASSWORD } = AdminModuleAPIConstants.adminSetupAPIConstants
-const { FETCH_PROFILE_DETAILS } = AdminModuleAPIConstants.profileSetupAPIConstants
+const {CHANGE_PASSWORD} = AdminModuleAPIConstants.adminSetupAPIConstants
+const {FETCH_PROFILE_DETAILS} = AdminModuleAPIConstants.profileSetupAPIConstants
 const {
     PREVIEW_COMPANY_PROFILE
 } = AdminModuleAPIConstants.companyProfileSetupApiConstants
-const { ADMIN_FEATURE, LOGOUT_API } = CommonAPIConstants
+const {ADMIN_FEATURE, LOGOUT_API} = CommonAPIConstants
+
+const {uploadImageInMinioServer} = MinioMiddleware
 
 class CHeader extends Component {
     state = {
@@ -43,13 +47,38 @@ class CHeader extends Component {
         isPasswordChangePending: false,
         profileData: {},
         showProfileDetailModal: false,
-        isLogoutPending : false,
+        isLogoutPending: false,
+        showImageUploadModal: false,
+        adminImage: '',
+        adminImageCroppedUrl: '',
+        adminFileCropped: '',
+        adminAvatar: null,
+        adminAvatarUrl: '',
+        isImageUploading: false,
+        loggedInAdminImageUrl: ''
     }
+
+    alertTimer = ''
 
     closeAlert = () => {
         this.setState({
             showAlert: false
         })
+    }
+
+    clearAlertOnTimeOut = () => {
+        this.alertTimer = setTimeout(
+            () =>
+                this.setState({
+                    showAlert: false,
+                    alertMessageInfo: {
+                        ...this.state.alertMessageInfo,
+                        variant: '',
+                        message: ''
+                    }
+                }),
+            5000
+        )
     }
 
     setShowModal = () =>
@@ -59,8 +88,19 @@ class CHeader extends Component {
             errorOldPassword: ''
         })
 
+    showAlertMessage = (type, message) => {
+        this.setState({
+            showAlert: true,
+            alertMessageInfo: {
+                variant: type,
+                message: message
+            }
+        })
+        this.clearAlertOnTimeOut()
+    }
+
     onChangeHandler = event => {
-        let { name, value } = event.target
+        let {name, value} = event.target
         this.setState({
             [name]: value
         })
@@ -69,18 +109,18 @@ class CHeader extends Component {
     savePinOrUnpinUserMenu = async (path, status) => {
         console.log('Status', status)
         try {
-            await Axios.put(path, { isSideBarCollapse: !status ? 'Y' : 'N' })
+            await Axios.put(path, {isSideBarCollapse: !status ? 'Y' : 'N'})
         } catch (e) {
             return true
         }
     }
     logoutApi = async path => {
-        this.setState({isLogoutPending:true})
+        this.setState({isLogoutPending: true})
         try {
             await Axios.get(path)
-            this.setState({isLogoutPending:false})
+            this.setState({isLogoutPending: false})
         } catch (e) {
-            this.setState({isLogoutPending:false})
+            this.setState({isLogoutPending: false})
             return true
         }
 
@@ -107,7 +147,7 @@ class CHeader extends Component {
         // TODO CURRENT MODULE AND CHECK VARIABLE NAMES
 
         await this.setState({
-            userInfo: { ...adminInfo },
+            userInfo: {...adminInfo},
             // assignedModules: modules && [...modules],
             urlBase: base
         })
@@ -231,6 +271,74 @@ class CHeader extends Component {
         }
     }
 
+    /*****************************IMAGE UPLOAD***************************************************/
+    handleImageSelect = imageUrl => {
+        imageUrl && this.setState({adminImage: imageUrl})
+    }
+
+    handleCropImage = croppedImageUrl => {
+        croppedImageUrl &&
+        this.setState({
+            adminImageCroppedUrl: croppedImageUrl
+        })
+    }
+
+    handleImageUpload = async croppedImageFile => {
+        let adminInfo = LocalStorageSecurity.localStorageDecoder('adminInfo')
+        // let croppedImage = this.state.adminImageCroppedUrl
+        // await this.setState({
+        //     adminAvatar: new File([croppedImageFile], 'adminAvatar.jpeg'),
+        //     adminAvatarUrl: croppedImage,
+        //     showImageUploadModal: false
+        // })
+        let imagePathLogo = ''
+        try {
+            this.setImageLoading(true)
+            imagePathLogo = await this.uploadImageToServer(new File([croppedImageFile], 'adminAvatar.jpeg'), adminInfo);
+            await uploadLoggedInAdminImage(CommonAPIConstants.UPLOAD_ADMIN_IMAGE, {
+                adminId: adminInfo.adminId || '',
+                avatar: imagePathLogo
+            })
+            this.setImageLoading(false)
+            this.showAlertMessage('success', "Admin Image updated successfully.")
+            this.showImageUploadModal()
+            this.setLoggedInUserInfo()
+        } catch (e) {
+            this.setImageLoading(false)
+            this.showAlertMessage('danger', e.errorMessage ? e.errorMessage : e.message || 'Sorry,error occurred while updating image.')
+            this.showImageUploadModal()
+        }
+    }
+
+    setImageLoading = (value) => {
+        this.setState({
+            isImageUploading: value
+        })
+    }
+
+    showImageUploadModal = () => {
+        this.setState({
+            showImageUploadModal: !this.state.showImageUploadModal
+        })
+    }
+    uploadImageToServer = async (adminAvatar, adminInfo) => {
+        let fileToUpload, fileLocation;
+
+
+        if (EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.CLIENT_MODULE_CODE) {
+            const {fullName, hospitalCode} = adminInfo
+            fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
+            fileLocation = FileUploadLocationUtils.getLocationPathForClientAdminFileUpload(hospitalCode, fullName)
+        } else {
+            const {fullName, companyCode} = adminInfo
+
+            fileToUpload = new File([adminAvatar], (fullName + new Date().getTime()).concat('.jpeg'))
+            fileLocation = FileUploadLocationUtils.getLocationPathForCompanyAdminFileUpload(companyCode, fullName)
+        }
+        return await uploadImageInMinioServer(fileToUpload, fileLocation)
+    }
+    /*********************************************************************************************/
+
     handleQuickLinkClick = () => {
         EnvironmentVariableGetter.REACT_APP_MODULE_CODE === EnvironmentVariableGetter.CLIENT_MODULE_CODE ?
             this.props.history.push('/quickMenu/departmentCheckIn') :
@@ -260,13 +368,13 @@ class CHeader extends Component {
                         </div>
                         {/*search start*/}
                         <div className="header-content-right d-flex align-items-center">
-                            <CDoubleShiftSearch />
+                            <CDoubleShiftSearch/>
 
                             {/* end search */}
 
                             <div className="fav-links">
                                 <CFavourites
-                                //  {...this.props}
+                                    //  {...this.props}
                                 />
                             </div>
 
@@ -292,6 +400,7 @@ class CHeader extends Component {
                                                     : require('../../img/picture.png')
                                             }
                                             className="avatar"
+                                            onClick={this.showImageUploadModal}
                                         />
                                         <div className="user-name">
                                             {' '}
@@ -336,7 +445,7 @@ class CHeader extends Component {
                                             onClick={this.handleChangePassword}
                                             block
                                         >
-                                            <i className="fa fa-lock" /> Change Password
+                                            <i className="fa fa-lock"/> Change Password
                                         </Button>
                                         <Button
                                             variant="outline-primary"
@@ -344,14 +453,15 @@ class CHeader extends Component {
                                             disabled={this.state.isLogoutPending}
                                             block
                                         >
-                                            <i className="fa fa-sign-out" />&nbsp;
-                                        {this.state.isLogoutPending ?
-                                             <span className="saving"> Loging Out <img
-                                                      alt="three-dots"  src={require("../../img/three-dots.svg")}/></span> :
-                                                    "Logout"
-                                                }
-                                          
-                                           
+                                            <i className="fa fa-sign-out"/>&nbsp;
+                                            {this.state.isLogoutPending ?
+                                                <span className="saving"> Loging Out <img
+                                                    alt="three-dots"
+                                                    src={require("../../img/three-dots.svg")}/></span> :
+                                                "Logout"
+                                            }
+
+
                                         </Button>
                                     </div>
                                     {this.state.showChangePasswordModal && (
@@ -376,24 +486,39 @@ class CHeader extends Component {
                 {/* <!--end header-wrapper--> */}
                 {this.state.showProfileDetailModal ? (
                     EnvironmentVariableGetter.REACT_APP_MODULE_CODE ===
-                        EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
-                            <CompanyProfilePreviewRoles
-                                showModal={this.state.showProfileDetailModal}
-                                setShowModal={this.closeProfileDetailsViewModal}
-                                profileData={this.state.profileData}
-                                rolesJson={menuRoles}
-                            />
-                        ) : (
-                            <PreviewClientProfileRoles
-                                showModal={this.state.showProfileDetailModal}
-                                setShowModal={this.closeProfileDetailsViewModal}
-                                profileData={this.state.profileData}
-                                rolesJson={menuRoles}
-                            />
-                        )
+                    EnvironmentVariableGetter.ADMIN_MODULE_CODE ? (
+                        <CompanyProfilePreviewRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}
+                        />
+                    ) : (
+                        <PreviewClientProfileRoles
+                            showModal={this.state.showProfileDetailModal}
+                            setShowModal={this.closeProfileDetailsViewModal}
+                            profileData={this.state.profileData}
+                            rolesJson={menuRoles}
+                        />
+                    )
                 ) : (
-                        ''
-                    )}
+                    ''
+                )}
+                {this.state.showImageUploadModal ?
+                    <CImageUploadAndCropModal
+                        showModal={this.state.showImageUploadModal}
+                        setShowModal={this.showImageUploadModal}
+                        ruleOfThirds={true}
+                        handleImageUpload={this.handleImageUpload}
+                        imageSrc={this.state.adminImage}
+                        croppedImageSrc={this.state.adminImageCroppedUrl}
+                        circularCrop={true}
+                        onImageSelect={this.handleImageSelect}
+                        onImageCrop={data => this.handleCropImage(data)}
+                        isLoading={this.state.isImageUploading}
+                    />
+                    : ''
+                }
                 <CAlert
                     id="profile-manage"
                     variant={this.state.alertMessageInfo.variant}
@@ -402,13 +527,13 @@ class CHeader extends Component {
                     alertType={
                         this.state.alertMessageInfo.variant === 'success' ? (
                             <>
-                                <Material.MdDone />
+                                <Material.MdDone/>
                             </>
                         ) : (
-                                <>
-                                    <i className="fa fa-exclamation-triangle" aria-hidden="true" />
-                                </>
-                            )
+                            <>
+                                <i className="fa fa-exclamation-triangle" aria-hidden="true"/>
+                            </>
+                        )
                     }
                     message={this.state.alertMessageInfo.message}
                 />

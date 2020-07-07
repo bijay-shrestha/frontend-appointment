@@ -18,11 +18,13 @@ export const LOGOUT_API = BASE.concat("/logout")
 
 export const SALUTATION_BASE = BASE.concat('/salutation')
 export const SalutationApiConstants = {
-    FETCH_SALUTATION_FOR_DROPDOWN : SALUTATION_BASE.concat('/active/min')
+    FETCH_SALUTATION_FOR_DROPDOWN: SALUTATION_BASE.concat('/active/min')
 }
 
 export const FileResourceConstants = {
-    FILE_UPLOAD_PATH : BASE.concat("/file/putPresignedURL"),
+    FILE_UPLOAD_PATH: BASE.concat("/file/putPresignedURL"),
     FILE_PRE_SIGNED_URI_FOR_DISPLAY: BASE.concat("/file/getPresignedURL"),
-    FILE_URI_FOR_DISPLAY : BASE.concat("/file")
+    FILE_URI_FOR_DISPLAY: BASE.concat("/file")
 }
+
+export const UPLOAD_ADMIN_IMAGE = BASE.concat("/admin/avatar");

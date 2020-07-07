@@ -44,7 +44,7 @@ import {
     UniversitySetupMiddleware
 } from './src/admin-middleware'
 import {fetchUserMenus, fetchUserMenusNew, savePinOrUnpinUserMenu} from './src/menu-middleware'
-import {fetchLoggedInAdminIP, fetchLoggedInAdminUserInfo} from './src/logged-in-admin-info-middleware'
+import {fetchLoggedInAdminIP, fetchLoggedInAdminUserInfo,uploadLoggedInAdminImage} from './src/logged-in-admin-info-middleware'
 import {logoutUser} from './src/logout-middleware'
 import {changePassword, resetPassword, savePassword, verifyToken} from './src/password-save-middleware'
 import * as WeekdaysMiddleware from './src/weekdays-middleware/weekdaysMiddleware'
@@ -125,5 +125,6 @@ export {
     GenericThirdPartyApiMiddleware,
     HmacMiddleware,
     FavouritesMiddleware,
-    MinioMiddleware
+    MinioMiddleware,
+    uploadLoggedInAdminImage
 }

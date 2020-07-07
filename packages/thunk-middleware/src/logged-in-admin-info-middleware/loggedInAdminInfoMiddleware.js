@@ -1,6 +1,6 @@
 import {Axios} from "@frontend-appointment/core";
 import {LoggedInAdminInfoActions} from "@frontend-appointment/action-module";
-import {AdminInfoUtils, EnvironmentVariableGetter} from "@frontend-appointment/helpers";
+import {AdminInfoUtils, EnvironmentVariableGetter, LocalStorageSecurity} from "@frontend-appointment/helpers";
 import axios from 'axios'
 import {MinioMiddleware} from '../../index'
 
@@ -28,5 +28,17 @@ export const fetchLoggedInAdminIP = () => async () => {
         return adminIp.data.ip;
     } catch (e) {
         console.log(e);
+    }
+}
+
+export const uploadLoggedInAdminImage = async (path, data) => {
+    try {
+        await Axios.put(path, data);
+        let adminData = LocalStorageSecurity.localStorageDecoder('adminInfo');
+        adminData.fileUri = await MinioMiddleware.fetchUrlForGetOperation(data.avatar)
+        await AdminInfoUtils.saveLoggedInAdminInfo(adminData);
+        return true
+    } catch (e) {
+        throw e
     }
 }

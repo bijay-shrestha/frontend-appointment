@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "main:src": "index.js",
-  "dependencies":{
+  "dependencies": {
     "@frontend-appointment/ui-elements": "1.0.0",
     "@frontend-appointment/helpers": "1.0.0",
     "@frontend-appointment/core": "1.0.0",
-    "@frontend-appointment/web-resource-key-constants": "1.0.0"
+    "@frontend-appointment/web-resource-key-constants": "1.0.0",
+    "@frontend-appointment/thunk-middleware": "1.0.0"
   }
 }
