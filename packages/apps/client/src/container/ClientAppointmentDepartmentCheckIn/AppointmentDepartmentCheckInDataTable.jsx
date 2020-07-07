@@ -14,6 +14,8 @@ import {
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime'
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc'
 import {ActionFilterUtils} from '@frontend-appointment/helpers'
+import AppointmentAmountWithTransactionNumber
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 //import {AppointmentCheckInPrint, PrintableComponent} from '@frontend-appointment/commons'
 
 const {checkIfRoleExists} = ActionFilterUtils
@@ -112,13 +114,14 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                     sizeColumnsToFit: true
                                 },
 
-                                // {
-                                //     headerName: 'App. Amount',
-                                //     field: 'appointmentAmount',
-                                //     resizable: true,
-                                //     sortable: true,
-                                //     sizeColumnsToFit: true
-                                // },
+                                {
+                                    headerName: 'Transaction Details(No/Amount)',
+                                    field: 'appointmentAmount',
+                                    resizable: true,
+                                    sortable: true,
+                                    sizeColumnsToFit: true,
+                                    cellRenderer: 'AppointmentAmountWithTxnNumber'
+                                },
 
                                 {
                                     headerName: 'Action',
@@ -165,6 +168,13 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                                 ),
                                 PatientNameWithMobileNumber: PreviewHandlerHoc(
                                     PatientNameWithAgeGenderPhoneAddress,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                ),
+                                AppointmentAmountWithTxnNumber: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
                                     null,
                                     null,
                                     null,
@@ -221,18 +231,18 @@ const AppointmentDepartmentApprovalDataTable = ({tableHandler, paginationProps, 
                 ''
             )} */}
             {approveConfirmationModal && appointmentDetails ? (
-               <CConfirmationModal
-               modalHeader="Confirm Check-In?"
-               modalBody={
-                   <CheckInModalContent appointmentDetails={appointmentDetails}/>
-               }
-               showModal={approveConfirmationModal}
-               setShowModal={setShowModal}
-               onConfirm={approveHandleApi}
-               onCancel={setShowModal}
-               isConfirming={isConfirming}
-               // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
-           />
+                <CConfirmationModal
+                    modalHeader="Confirm Check-In?"
+                    modalBody={
+                        <CheckInModalContent appointmentDetails={appointmentDetails}/>
+                    }
+                    showModal={approveConfirmationModal}
+                    setShowModal={setShowModal}
+                    onConfirm={approveHandleApi}
+                    onCancel={setShowModal}
+                    isConfirming={isConfirming}
+                    // Print={PrintableComponent(AppointmentCheckInPrint,appointmentDetails)}
+                />
             ) : (
                 ''
             )}

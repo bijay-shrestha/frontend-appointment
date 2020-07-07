@@ -11,6 +11,8 @@ import RejectModal from "./RejectModal";
 import CheckInModalContent from "../CommonComponents/CheckInModalContent";
 import AppointmentDateWithTime from '../CommonComponents/table-components/AppointmentDateWithTime';
 import PreviewHandlerHoc from '../CommonComponents/table-components/hoc/PreviewHandlerHoc';
+import AppointmentAmountWithTransactionNumber
+    from '../CommonComponents/table-components/AppointmentAmountWithTransactionNumber'
 
 
 const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
@@ -116,12 +118,13 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 //   sizeColumnsToFit: true
                                 // },
                                 {
-                                    headerName: 'App. Amount',
+                                    headerName: 'Transaction Details(No/Amount)',
                                     field: 'appointmentAmount',
                                     resizable: true,
                                     sortable: true,
                                     sizeColumnsToFit: true,
-                                    width:120
+                                    width: 120,
+                                    cellRenderer: 'AppointmentAmountWithTxnNumber'
                                 },
                                 {
                                     headerName: '',
@@ -151,7 +154,14 @@ const AppointmentApprovalDataTable = ({tableHandler, paginationProps}) => {
                                 doctorwithSpecializationRenderer: PreviewHandlerHoc(DoctorWithSpecImage, null, null, null, previewCall),
                                 AppointmentDateWithTime: PreviewHandlerHoc(AppointmentDateWithTime, null, null, null, previewCall),
                                 patientDetailRenderer: PreviewHandlerHoc(PatientNameWithAgeGenderPhone, null, null, null, previewCall),
-                                // appointmentNumberRenderer:PreviewHandlerHoc(AppointmentNumberWithCopyToClipboardForTable,null,null,null,previewCall)
+                                // appointmentNumberRenderer:PreviewHandlerHoc(AppointmentNumberWithCopyToClipboardForTable,null,null,null,previewCall),
+                                AppointmentAmountWithTxnNumber: PreviewHandlerHoc(
+                                    AppointmentAmountWithTransactionNumber,
+                                    null,
+                                    null,
+                                    null,
+                                    previewCall
+                                )
                             }}
                             defaultColDef={{resizable: true}}
                             getSelectedRows={
